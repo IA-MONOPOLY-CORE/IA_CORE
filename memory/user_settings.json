@@ -1,0 +1,11 @@
+{
+  "provider": "nvidia",
+  "api_key": "",
+  "model": "meta/llama-3.1-8b-instruct",
+  "selected_agents": [
+    "estadistico_integral",
+    "gpt_auditor",
+    "nuevo_deepseek_saaop"
+  ],
+  "updated_at": "2026-06-08T20:34:11.036678"
+}

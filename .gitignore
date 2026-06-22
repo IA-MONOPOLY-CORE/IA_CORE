@@ -1,0 +1,10 @@
+.env
+.pytest_cache/
+__pycache__/
+*.pyc
+memoria_vectorial/
+logs/
+*.db
+*.sqlite3
+venv/
+memory/state.json
