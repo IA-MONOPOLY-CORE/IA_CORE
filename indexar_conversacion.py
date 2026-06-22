@@ -1,6 +1,5 @@
 """Indexa conversaciones completas en la memoria vectorial de cada agente."""
 
-import json
 from pathlib import Path
 
 # Ruta donde están las conversaciones (ajustá según donde las tengas)

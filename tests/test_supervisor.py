@@ -1,6 +1,5 @@
 from agents.base import Agent
 from core.supervisor import Supervisor
-from memory.manager import MemoryManager
 
 
 class _EchoAgent(Agent):
@@ -43,7 +42,6 @@ def test_agent_dispatch_uses_memory(tmp_path, monkeypatch):
     supervisor = Supervisor(log_dir=tmp_path)
     supervisor.start()
 
-    memory = MemoryManager(state_path=tmp_path / "state.json")
     agent = _EchoAgent(memory=supervisor.memory, tools=supervisor.tools)
     supervisor.agents.register(agent)
     result = supervisor.agents.dispatch("echo", "hola")

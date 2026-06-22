@@ -8,9 +8,8 @@ from __future__ import annotations
 
 import json
 import logging
-from collections import deque
 from pathlib import Path
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List
 from datetime import datetime
 
 logger = logging.getLogger(__name__)
@@ -342,7 +341,6 @@ class EvolutionManager:
             return
 
         ciclo = self._state["evolucion_lotoplus"]["ciclo_actual"]
-        params = self._state["evolucion_lotoplus"]["parametros_evolutivos"]
         historial = self._state["evolucion_lotoplus"]["historial_agentes"]
 
         aciertos = resultado_real.get("aciertos", 0)

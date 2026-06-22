@@ -25,7 +25,6 @@ if str(ROOT) not in sys.path:
 from fastapi import FastAPI, BackgroundTasks, HTTPException, UploadFile, File, Form, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
-from fastapi.responses import FileResponse
 from pydantic import BaseModel
 
 import config
@@ -34,9 +33,10 @@ from core.orchestration import ExecutionMode
 from core.evolution import EvolutionManager
 from memory.database import (
     init_db, get_db, crear_debate, guardar_intervencion,
-    obtener_intervenciones, actualizar_debate_con_consenso,
-    actualizar_debate_con_resultado, get_sorteo_actual,
-    set_sorteo_actual, get_v19_status, set_v19_status
+    actualizar_debate_con_consenso, actualizar_debate_con_resultado,
+    get_v19_status,
+    get_sorteo_by_numero, desbloquear_siguiente_sorteo,
+    guardar_metrica_acumulada
 )
 from agents.result import calcular_contradiccion_real, calcular_acuerdo_real, calcular_u_score, validar_consenso
 
@@ -306,9 +306,7 @@ async def _run_validation_debate(validation_id: str, sorteo: int, task: str) -> 
         
         if puede_avanzar:
             siguiente = sorteo + 1
-            from memory.database import get_sorteo_by_numero
             if get_sorteo_by_numero(siguiente):
-                from memory.database import desbloquear_siguiente_sorteo
                 desbloquear_siguiente_sorteo(sorteo)
                 logger.info("Sorteo %s completado. Siguiente: %s desbloqueado", sorteo, siguiente)
             else:
@@ -585,8 +583,6 @@ async def reveal_validation_result(
         },
         lecciones=f"Validación ciega completada. Aciertos: {aciertos_declarados}, U-Score: {u_score_real}"
     )
-    
-    from memory.database import actualizar_debate_con_resultado, get_sorteo_by_numero, guardar_metrica_acumulada
     
     with get_db() as conn:
         cur = conn.execute("SELECT id FROM debates WHERE sorteo_numero = ? ORDER BY id DESC LIMIT 1", (sorteo,))

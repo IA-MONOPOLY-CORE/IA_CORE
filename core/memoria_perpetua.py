@@ -1,7 +1,6 @@
 """Sistema de memoria perpetua por agente con búsqueda vectorial local (ChromaDB)."""
 
 import json
-import os
 from pathlib import Path
 from datetime import datetime
 from typing import Optional, List, Dict, Any

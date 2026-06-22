@@ -14,16 +14,13 @@ from typing import Any
 import config as app_config
 
 from agents.manager import AgentManager
-from agents.result import is_agent_success
 from core.debate import (
     DebateTurn,
     build_pipeline,
     build_previous_outputs_async,
     collect_contradictions,
-    collect_refinements,
     compute_consensus_scores,
     detect_contradiction,
-    detect_cross_agent_contradiction,
     extract_text,
     make_step_id,
     synthesize_final_response,
@@ -32,7 +29,6 @@ from core.evolution import EvolutionManager
 from core.orchestration import (
     AgentStepResult,
     DebateResult,
-    DebateRound,
     ExecutionMode,
     OrchestrationResult,
     iso,
@@ -381,7 +377,6 @@ class Supervisor:
             await asyncio.sleep(0.001)
 
         contradictions = collect_contradictions(steps)
-        refinements = collect_refinements(steps)
         agreement, contradiction = compute_consensus_scores(steps, contradictions)
         
         debate.steps = steps
@@ -791,7 +786,6 @@ class Supervisor:
             for step in debate_result.steps:
                 if step.success and step.role:
                     try:
-                        from core.herramientas import buscar_lecciones_utiles
                         lecciones_utiles = buscar_lecciones_utiles(step.role, top_k=2)
                         if lecciones_utiles:
                             logger.info(f"💡 {step.agent_name}: {len(lecciones_utiles)} lecciones útiles disponibles de otros agentes")

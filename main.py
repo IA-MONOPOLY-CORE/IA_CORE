@@ -9,12 +9,11 @@ import asyncio
 import json
 import logging
 import sys
-import uuid
 from typing import Any
 
 import config
 from core.orchestration import ExecutionMode, OrchestrationResult
-from core.supervisor import MEMORY_HISTORY_KEY, MEMORY_RESULT_PREFIX, Supervisor
+from core.supervisor import Supervisor
 
 # 🎛️ ARTILLERÍA EXPERTA: IDs exactos que creamos en agents/config/
 SAAOOP_BUNKER_AGENTS = [

@@ -1,8 +1,6 @@
 """Panel de configuración visual S.A.A.O.P."""
 
-import json
 import re
-from pathlib import Path
 
 import streamlit as st
 from config import ROOT_DIR

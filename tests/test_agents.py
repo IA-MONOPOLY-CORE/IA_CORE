@@ -1,4 +1,3 @@
-from agents.base import Agent
 from agents.manager import AgentManager
 from memory.manager import MemoryManager
 from tools.manager import ToolManager

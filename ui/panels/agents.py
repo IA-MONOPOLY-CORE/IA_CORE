@@ -1,7 +1,6 @@
 """Panel de gestión de agentes S.A.A.O.P."""
 
 import json
-from pathlib import Path
 
 import streamlit as st
 from config import ROOT_DIR

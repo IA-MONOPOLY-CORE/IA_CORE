@@ -1,7 +1,6 @@
 """Panel para crear nuevos agentes desde la UI."""
 
 import json
-from pathlib import Path
 
 import streamlit as st
 from config import ROOT_DIR

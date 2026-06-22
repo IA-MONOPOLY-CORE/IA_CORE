@@ -275,7 +275,7 @@ class RuntimeJsonAgent(Agent):
 
         # Actualizar memoria con aprendizaje
         try:
-            from core.memoria_perpetua import actualizar_memoria, cargar_memoria, guardar_memoria
+            from core.memoria_perpetua import cargar_memoria, guardar_memoria
             import datetime
             
             memoria = cargar_memoria(self.id)

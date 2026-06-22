@@ -11,8 +11,6 @@ import config
 
 from core.orchestration import (
     AgentStepResult,
-    DebateResult,
-    DebateRound,
 )
 
 logger = logging.getLogger(__name__)
@@ -198,7 +196,6 @@ def synthesize_final_response(
     orchestrator_steps = [s for s in steps if s.role == "orchestrator" and s.success]
     optimizer_steps = [s for s in steps if s.role == "optimizer" and s.success]
     analyst_steps = [s for s in steps if s.role == "analyst" and s.success]
-    critic_steps = [s for s in steps if s.role == "critic" and s.success]
     successful_steps = [s for s in steps if s.success]
     
     # Construir síntesis combinada

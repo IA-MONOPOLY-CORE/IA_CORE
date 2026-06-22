@@ -1,7 +1,7 @@
-from unittest.mock import MagicMock, patch
+from unittest.mock import patch
 
 import config
-from core.hybrid.connectivity import ConnectivityManager, ConnectivityState
+from core.hybrid.connectivity import ConnectivityManager
 from core.hybrid.policies import ExecutionMode, ResourcePolicy
 from core.hybrid.router import HybridRouter, RouteRequest
 from providers.ollama_provider import OllamaProvider

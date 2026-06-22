@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import streamlit as st
 
-from ui.components.badges import provider_kind_badge, status_badge
+from ui.components.badges import provider_kind_badge
 from ui.i18n import t
 from ui.state import cache
 from ui.state.manager import UIStateManager
