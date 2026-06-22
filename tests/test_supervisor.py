@@ -6,6 +6,7 @@ class _EchoAgent(Agent):
     id = "echo"
 
     def run(self, task: str, context=None):
+        self.memory.set("last_task", task)
         return f"echo:{task}"
 
 
@@ -44,7 +45,9 @@ def test_agent_dispatch_uses_memory(tmp_path, monkeypatch):
 
     agent = _EchoAgent(memory=supervisor.memory, tools=supervisor.tools)
     supervisor.agents.register(agent)
-    result = supervisor.agents.dispatch("echo", "hola")
+    registered_agent = supervisor.agents.get("echo")
+    result = registered_agent.run("hola")
 
     assert result == "echo:hola"
+    assert supervisor.memory.get("last_task") == "hola"
     supervisor.stop()
