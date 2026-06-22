@@ -7,11 +7,13 @@ Incluye lógica de fases: entrenamiento, validación ciega, predicción en vivo,
 from __future__ import annotations
 
 import json
+import logging
 from collections import deque
 from pathlib import Path
 from typing import Any, Dict, List, Optional
 from datetime import datetime
 
+logger = logging.getLogger(__name__)
 
 # ============================================================
 # LÍMITES DEL SISTEMA POR FASE

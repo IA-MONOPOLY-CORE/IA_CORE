@@ -9,6 +9,7 @@ from __future__ import annotations
 import asyncio
 import json
 import logging
+import shutil
 import sys
 import uuid
 import time
@@ -45,6 +46,36 @@ logging.basicConfig(
     format=config.LOG_FORMAT,
 )
 logger = logging.getLogger("api")
+
+
+def _release_agent_vector_memory(agent_id: str) -> None:
+    memoria_module = sys.modules.get("core.memoria_perpetua")
+    memoria_vectorial = getattr(memoria_module, "MemoriaVectorial", None)
+    instances = getattr(memoria_vectorial, "_instances", None)
+    if not isinstance(instances, dict):
+        return
+
+    instance = instances.pop(agent_id, None)
+    if instance is None:
+        return
+
+    client = getattr(instance, "client", None)
+    if client is not None and hasattr(client, "close"):
+        try:
+            client.close()
+        except Exception as e:
+            logger.warning(f"No se pudo cerrar ChromaDB para {agent_id}: {e}")
+
+    instance.collection = None
+    instance.client = None
+
+
+def _delete_agent_directory(path: Path, agent_id: str, label: str) -> None:
+    try:
+        shutil.rmtree(path)
+        logger.info(f"🗑️ Eliminada {label} de {agent_id}")
+    except FileNotFoundError:
+        return
 
 # ─── App ────────────────────────────────────────────────────────────────────
 app = FastAPI(title="S.A.A.O.P. API", version="2.3.0")
@@ -1090,10 +1121,15 @@ async def update_agent(agent_id: str, request: Request):
 
 @app.delete("/api/agents/{agent_id}")
 async def delete_agent(agent_id: str):
-    """Elimina un agente (JSON y paper)."""
+    """Elimina un agente (JSON, paper y memorias asociadas)."""
     try:
+        if re.sub(r'[^a-zA-Z0-9_-]', '', agent_id) != agent_id:
+            return {"success": False, "error": "ID de agente inválido"}
+
         json_path = ROOT / "agents" / "config" / f"{agent_id}.json"
         paper_path = ROOT / "agents" / "papers" / f"{agent_id}_paper.json"
+        memory_path = ROOT / "memoria_agentes" / agent_id
+        vector_path = ROOT / "memoria_vectorial" / agent_id
         
         if not json_path.exists():
             return {"success": False, "error": f"Agente {agent_id} no encontrado"}
@@ -1104,6 +1140,11 @@ async def delete_agent(agent_id: str):
         if paper_path.exists():
             paper_path.unlink()
             logger.info(f"🗑️ Eliminado paper de {agent_id}")
+
+        _delete_agent_directory(memory_path, agent_id, "memoria JSON")
+
+        _release_agent_vector_memory(agent_id)
+        _delete_agent_directory(vector_path, agent_id, "memoria vectorial")
         
         return {"success": True, "message": f"Agente {agent_id} eliminado"}
         

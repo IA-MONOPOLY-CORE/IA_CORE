@@ -389,7 +389,7 @@ def cargar_memoria_completa_para_entrenamiento(agente_id: str, sorteo_actual: in
 Creado: {memoria.get('creado', 'desconocido')}
 Última actualización: {memoria.get('ultima_actualizacion', 'desconocida')}
 """
-    return texto_completa
+    return texto_completo
 
 
 def sincronizar_memoria_vectorial(agente_id: str, texto_base: Optional[str] = None, sorteo_limite: int = None):
