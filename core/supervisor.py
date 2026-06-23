@@ -35,7 +35,7 @@ from core.orchestration import (
     new_execution_id,
     utc_now,
 )
-from core.scoring import build_scores_summary, score_response
+from domains.loteria.scoring import build_scores_summary, score_response
 from memory.manager import MemoryManager
 from core.hybrid.router import HybridRouter
 from providers.registry import ProviderRegistry

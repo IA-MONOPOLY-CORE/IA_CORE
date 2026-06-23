@@ -1,5 +1,5 @@
 import config
-from core.scoring import score_response
+from domains.loteria.scoring import score_response
 from core.supervisor import MEMORY_SCORES_KEY, Supervisor
 
 

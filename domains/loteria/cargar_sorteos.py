@@ -16,7 +16,7 @@ posibles_nombres = [
 JSON_PATH = None
 
 # Buscar en C:\IA_CORE\ y subcarpetas
-raiz = Path(__file__).parent.parent
+raiz = Path(__file__).parent.parent.parent
 for archivo in raiz.rglob("*.json"):
     if archivo.name in posibles_nombres or "lotoplus" in archivo.name.lower():
         JSON_PATH = archivo

@@ -16,12 +16,12 @@ Este documento mapea qué partes del sistema son el "motor de debate genérico" 
 | **core/** | | |
 | core/base.py | NO | Contrato ABC genérico para componentes del sistema |
 | core/debate.py | PARCIAL | Pipeline DEBATE_PIPELINE_6_AGENTS específico (líneas 46-66), patrones de contradicción específicos de lotería (líneas 124-139: "cazador", "espejo", "zonas"), pero funciones como detect_contradiction(), synthesize_final_response() son genéricas |
-| core/evolution.py | OBSOLETO | Reemplazado por core/evolution_base.py (genérico) y domains/loteria/evolution_loteria.py (específico) |
+| core/evolution.py | ELIMINADO | Reemplazado por core/evolution_base.py (genérico) y domains/loteria/evolution_loteria.py (específico) |
 | core/evolution_base.py | NO | **NUEVO** - Clase base genérica EvolutionManagerBase para cualquier sistema evolutivo (fases configurables, historial de agentes, ranking de herramientas, persistencia JSON, hooks para subclases) |
 | core/herramientas.py | PARCIAL | Sistema genérico de herramientas compartidas, pero usa términos del dominio en ejemplos y patrones de extracción |
 | core/memoria_perpetua.py | NO | Sistema genérico de memoria con ChromaDB y búsqueda vectorial |
 | core/orchestration.py | NO | Modelos de datos genéricos (AgentStepResult, DebateResult, OrchestrationResult) |
-| core/scoring.py | SÍ | 100% específico - U-Score v2.1, zonas Z1-Z9, pesos zonales, patrones específicos de lotería (secuencias, divisores comunes, dígitos terminales, calendario), cálculo de rareza humana |
+| core/scoring.py | MOVIDO | Movido a domains/loteria/scoring.py (100% específico de Lotería) |
 | core/supervisor.py | PARCIAL | BUNKER_EXPERT_MAPPING específico (líneas 54-61: mapeo de roles a agentes S.A.A.O.P.), lógica de orquestación genérica, pero _execute_single_quantum_agent_async() usa scoring específico de lotería |
 | **agents/** | | |
 | agents/base.py | NO | Contrato ABC genérico para agentes |
@@ -48,21 +48,31 @@ Este documento mapea qué partes del sistema son el "motor de debate genérico" 
 | **tools/** | | |
 | tools/manager.py | NO | Gestión genérica de herramientas |
 | tools/loader.py | NO | Descubrimiento genérico de módulos de herramientas |
-| tools/uscore_calculator.py | SÍ | 100% específico - Calculadora U-Score v2.1, zonas Z1-Z9, histórico de Loto Plus (3511-3885), métricas específicas (IPN, PP, PZ, DSI, CD, SD) |
+| tools/uscore_calculator.py | MOVIDO | Movido a domains/loteria/uscore_calculator.py (100% específico de Lotería) |
 | tools/cargar_memoria_desde_chat.py | NO | Utilidad genérica de carga de memoria |
 | **memoria_agentes/** | | |
 | memoria_agentes/*/memoria.json | NO | Datos específicos por agente, pero formato JSON genérico |
+| **memory/** | | |
+| memory/cargar_sorteos.py | MOVIDO | Movido a domains/loteria/cargar_sorteos.py (100% específico de Lotería) |
+| **raíz/** | | |
+| backtest_ciego.py | MOVIDO | Movido a domains/loteria/backtest_ciego.py (100% específico de Lotería) |
+| lotoplus_completo_3511_3885.json | MOVIDO | Movido a domains/loteria/lotoplus_completo_3511_3885.json (datos específicos de Lotería) |
 | **config.py** | PARCIAL | Variables genéricas de configuración (rutas, timeouts, proveedores) PERO variables específicas: DEFAULT_DEBATE_TASK (líneas 181-190: tarea específica de CAZADOR/V19), DEBATE_AGENTS (líneas 171-178: lista específica de 6 agentes), TRAINING_END/BLIND_TEST_START/LIVE_TEST_START/LIVE_TEST_END (líneas 199-203: límites específicos de sorteos) |
 | **api.py** | PARCIAL | Endpoints genéricos de API REST PERO VALIDATION_AGENTS (líneas 98-105: lista específica de 6 agentes), SAAOP_TASK (líneas 107-116: tarea específica), límites de sistema TRAINING_END/BLIND_TEST_START/etc (líneas 119-123), endpoints específicos de validación ciega con lógica de sorteos |
 | **domains/loteria/** | | |
 | domains/loteria/evolution_loteria.py | SÍ | **NUEVO** - EvolutionManagerLoteria hereda de EvolutionManagerBase e implementa toda la lógica específica de Lotería (fases entrenamiento/validacion_ciega/prediccion_en_vivo/operacional_real, límites de sorteos TRAINING_END/BLIND_TEST_START/etc, métricas aciertos_4/5/6, ranking de herramientas uScore/VER/CAZADOR/ESPEJO/PUENTE/ECLIPSE, pesos zonales Z1-Z9) |
-| **agents/config/*.json** | SÍ | Todos los prompts de sistema son 100% específicos de S.A.A.O.P.: |
-| agents/config/estadistico_integral.json | SÍ | Prompt específico defendiendo V19, framework S.A.A.O.P., CAZADOR/ESPEJO/PUENTE |
-| agents/config/gpt_auditor.json | SÍ | Prompt específico como destructor de hipótesis V19, auditor de S.A.A.O.P. |
-| agents/config/gemini_cuantico.json | SÍ | Prompt específico de explorador de zonas y densidad energética |
-| agents/config/viejo_lobo_rey.json | SÍ | Prompt específico de integrador humano con métrica de incomodidad visual |
-| agents/config/viejo_deepseek.json | SÍ | Prompt específico de árbitro matemático de S.A.A.O.P. |
-| agents/config/nuevo_deepseek_saaop.json | SÍ | Prompt específico de orquestador metodológico de IA_CORE/S.A.A.O.P. |
+| domains/loteria/scoring.py | SÍ | **MOVIDO** desde core/scoring.py - U-Score v2.1, zonas Z1-Z9, pesos zonales, patrones específicos de lotería (secuencias, divisores comunes, dígitos terminales, calendario), cálculo de rareza humana |
+| domains/loteria/uscore_calculator.py | SÍ | **MOVIDO** desde tools/uscore_calculator.py - Calculadora U-Score v2.1, zonas Z1-Z9, histórico de Loto Plus (3511-3885), métricas específicas (IPN, PP, PZ, DSI, CD, SD) |
+| domains/loteria/backtest_ciego.py | SÍ | **MOVIDO** desde raíz - Backtesting ciego específico de Lotería |
+| domains/loteria/cargar_sorteos.py | SÍ | **MOVIDO** desde memory/ - Carga de sorteos específica de Lotería |
+| domains/loteria/lotoplus_completo_3511_3885.json | SÍ | **MOVIDO** desde raíz - Datos históricos específicos de Loto Plus (3511-3885) |
+| domains/loteria/agents/config/*.json | SÍ | **MOVIDOS** desde agents/config/ - Todos los prompts de sistema son 100% específicos de S.A.A.O.P.: |
+| domains/loteria/agents/config/estadistico_integral.json | SÍ | Prompt específico defendiendo V19, framework S.A.A.O.P., CAZADOR/ESPEJO/PUENTE |
+| domains/loteria/agents/config/gpt_auditor.json | SÍ | Prompt específico como destructor de hipótesis V19, auditor de S.A.A.O.P. |
+| domains/loteria/agents/config/gemini_cuantico.json | SÍ | Prompt específico de explorador de zonas y densidad energética |
+| domains/loteria/agents/config/viejo_lobo_rey.json | SÍ | Prompt específico de integrador humano con métrica de incomodidad visual |
+| domains/loteria/agents/config/viejo_deepseek.json | SÍ | Prompt específico de árbitro matemático de S.A.A.O.P. |
+| domains/loteria/agents/config/nuevo_deepseek_saaop.json | SÍ | Prompt específico de orquestador metodológico de IA_CORE/S.A.A.O.P. |
 
 ---
 
@@ -87,12 +97,14 @@ Este documento mapea qué partes del sistema son el "motor de debate genérico" 
 - tools/cargar_memoria_desde_chat.py
 - memoria_agentes/* (formato, no contenido)
 
-### 100% Específico Lotería/S.A.A.O.P. (Debe extraerse)
-- core/evolution.py (**OBSOLETO** - reemplazado por domains/loteria/evolution_loteria.py)
+### 100% Específico Lotería/S.A.A.O.P. (Movidos a domains/loteria/)
 - domains/loteria/evolution_loteria.py (**NUEVO** - implementación específica de Lotería)
-- core/scoring.py
-- tools/uscore_calculator.py
-- agents/config/*.json (todos los prompts)
+- domains/loteria/scoring.py (**MOVIDO** desde core/scoring.py)
+- domains/loteria/uscore_calculator.py (**MOVIDO** desde tools/uscore_calculator.py)
+- domains/loteria/backtest_ciego.py (**MOVIDO** desde raíz)
+- domains/loteria/cargar_sorteos.py (**MOVIDO** desde memory/)
+- domains/loteria/lotoplus_completo_3511_3885.json (**MOVIDO** desde raíz)
+- domains/loteria/agents/config/*.json (**MOVIDOS** desde agents/config/)
 
 ### Parcial (Mezcla - requiere separación)
 - core/debate.py
@@ -124,10 +136,10 @@ Este documento mapea qué partes del sistema son el "motor de debate genérico" 
 
 ### 2. core/evolution.py
 - **COMPLETADO** - Archivo reemplazado por core/evolution_base.py (genérico) y domains/loteria/evolution_loteria.py (específico)
-- core/evolution.py puede eliminarse en futuros pasos
+- core/evolution.py ELIMINADO
 
 ### 3. core/scoring.py
-- Archivo completo - mover a domain/loteria/scoring.py
+- **COMPLETADO** - Movido a domains/loteria/scoring.py
 - U-Score v2.1 completo
 - Zonas Z1-Z9
 - Pesos zonales
@@ -157,7 +169,12 @@ Este documento mapea qué partes del sistema son el "motor de debate genérico" 
 - Líneas 159-187: _optimizer_prompt
 
 ### 8. tools/uscore_calculator.py
-- Archivo completo - mover a domain/loteria/uscore_calculator.py
+- **COMPLETADO** - Movido a domains/loteria/uscore_calculator.py
 
 ### 9. agents/config/*.json
-- Todos los archivos - mover a domain/loteria/agents/config/
+- **COMPLETADO** - Movidos a domains/loteria/agents/config/
+
+### 10. Archivos adicionales movidos
+- backtest_ciego.py → domains/loteria/backtest_ciego.py
+- memory/cargar_sorteos.py → domains/loteria/cargar_sorteos.py
+- lotoplus_completo_3511_3885.json → domains/loteria/lotoplus_completo_3511_3885.json

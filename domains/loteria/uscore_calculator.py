@@ -37,7 +37,7 @@ class UScoreCalculator:
     def __init__(self, historical_data_path: str = None):
         if historical_data_path is None:
             historical_data_path = os.path.join(
-                os.path.dirname(os.path.dirname(__file__)), 
+                os.path.dirname(__file__), 
                 "lotoplus_completo_3511_3885.json"
             )
         self.historical_data_path = historical_data_path

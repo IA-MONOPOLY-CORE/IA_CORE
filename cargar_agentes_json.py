@@ -31,7 +31,7 @@ def cargar_agentes_json():
     providers.load_builtin_providers()
     
     # Directorio de configuraciones
-    config_dir = Path("agents/config")
+    config_dir = Path("domains/loteria/agents/config")
     
     if not config_dir.exists():
         print(f"❌ Directorio no encontrado: {config_dir}")

@@ -15,7 +15,7 @@ from core.orchestration import ExecutionMode
 
 
 def cargar_sorteos_reales():
-    ruta = Path("lotoplus_completo_3511_3885.json")
+    ruta = Path(__file__).parent / "lotoplus_completo_3511_3885.json"
     if not ruta.exists():
         print(f"❌ No se encuentra {ruta}")
         return []

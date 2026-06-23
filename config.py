@@ -22,7 +22,7 @@ TOOLS_MODULES_DIR = ROOT_DIR / "tools" / "modules"
 # CONFIGURACIÓN DE AGENTES - CORREGIDA PARA JSON
 # =========================================================
 # Directorio donde están los archivos JSON de los agentes
-AGENTS_CONFIG_DIR = ROOT_DIR / "agents" / "config"
+AGENTS_CONFIG_DIR = ROOT_DIR / "domains" / "loteria" / "agents" / "config"
 
 # Directorio de módulos Python (para agentes personalizados, puede estar vacío)
 AGENTS_MODULES_DIR = ROOT_DIR / "agents" / "modules"
