@@ -30,7 +30,7 @@ from pydantic import BaseModel
 import config
 from core.supervisor import Supervisor
 from core.orchestration import ExecutionMode
-from core.evolution import EvolutionManager
+from domains.loteria.evolution_loteria import EvolutionManagerLoteria as EvolutionManager
 from memory.database import (
     init_db, get_db, crear_debate, guardar_intervencion,
     actualizar_debate_con_consenso, actualizar_debate_con_resultado,

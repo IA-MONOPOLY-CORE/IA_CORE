@@ -9,7 +9,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent))
 
-from core.evolution import EvolutionManager
+from domains.loteria.evolution_loteria import EvolutionManagerLoteria as EvolutionManager
 from core.supervisor import Supervisor
 from core.orchestration import ExecutionMode
 

@@ -16,7 +16,8 @@ Este documento mapea qué partes del sistema son el "motor de debate genérico" 
 | **core/** | | |
 | core/base.py | NO | Contrato ABC genérico para componentes del sistema |
 | core/debate.py | PARCIAL | Pipeline DEBATE_PIPELINE_6_AGENTS específico (líneas 46-66), patrones de contradicción específicos de lotería (líneas 124-139: "cazador", "espejo", "zonas"), pero funciones como detect_contradiction(), synthesize_final_response() son genéricas |
-| core/evolution.py | SÍ | 100% específico - fases de entrenamiento/validación (líneas 20-25), límites de sorteos (TRAINING_END=3799, BLIND_TEST_START=3800, etc.), métricas específicas (aciertos_4, aciertos_5, aciertos_6), ranking de herramientas específicas (CAZADOR, ESPEJO, PUENTE, ECLIPSE) |
+| core/evolution.py | OBSOLETO | Reemplazado por core/evolution_base.py (genérico) y domains/loteria/evolution_loteria.py (específico) |
+| core/evolution_base.py | NO | **NUEVO** - Clase base genérica EvolutionManagerBase para cualquier sistema evolutivo (fases configurables, historial de agentes, ranking de herramientas, persistencia JSON, hooks para subclases) |
 | core/herramientas.py | PARCIAL | Sistema genérico de herramientas compartidas, pero usa términos del dominio en ejemplos y patrones de extracción |
 | core/memoria_perpetua.py | NO | Sistema genérico de memoria con ChromaDB y búsqueda vectorial |
 | core/orchestration.py | NO | Modelos de datos genéricos (AgentStepResult, DebateResult, OrchestrationResult) |
@@ -53,6 +54,8 @@ Este documento mapea qué partes del sistema son el "motor de debate genérico" 
 | memoria_agentes/*/memoria.json | NO | Datos específicos por agente, pero formato JSON genérico |
 | **config.py** | PARCIAL | Variables genéricas de configuración (rutas, timeouts, proveedores) PERO variables específicas: DEFAULT_DEBATE_TASK (líneas 181-190: tarea específica de CAZADOR/V19), DEBATE_AGENTS (líneas 171-178: lista específica de 6 agentes), TRAINING_END/BLIND_TEST_START/LIVE_TEST_START/LIVE_TEST_END (líneas 199-203: límites específicos de sorteos) |
 | **api.py** | PARCIAL | Endpoints genéricos de API REST PERO VALIDATION_AGENTS (líneas 98-105: lista específica de 6 agentes), SAAOP_TASK (líneas 107-116: tarea específica), límites de sistema TRAINING_END/BLIND_TEST_START/etc (líneas 119-123), endpoints específicos de validación ciega con lógica de sorteos |
+| **domains/loteria/** | | |
+| domains/loteria/evolution_loteria.py | SÍ | **NUEVO** - EvolutionManagerLoteria hereda de EvolutionManagerBase e implementa toda la lógica específica de Lotería (fases entrenamiento/validacion_ciega/prediccion_en_vivo/operacional_real, límites de sorteos TRAINING_END/BLIND_TEST_START/etc, métricas aciertos_4/5/6, ranking de herramientas uScore/VER/CAZADOR/ESPEJO/PUENTE/ECLIPSE, pesos zonales Z1-Z9) |
 | **agents/config/*.json** | SÍ | Todos los prompts de sistema son 100% específicos de S.A.A.O.P.: |
 | agents/config/estadistico_integral.json | SÍ | Prompt específico defendiendo V19, framework S.A.A.O.P., CAZADOR/ESPEJO/PUENTE |
 | agents/config/gpt_auditor.json | SÍ | Prompt específico como destructor de hipótesis V19, auditor de S.A.A.O.P. |
@@ -67,6 +70,7 @@ Este documento mapea qué partes del sistema son el "motor de debate genérico" 
 
 ### 100% Genérico (Reusable en cualquier dominio)
 - core/base.py
+- core/evolution_base.py (**NUEVO** - clase base genérica para sistemas evolutivos)
 - core/memoria_perpetua.py
 - core/orchestration.py
 - agents/base.py
@@ -84,7 +88,8 @@ Este documento mapea qué partes del sistema son el "motor de debate genérico" 
 - memoria_agentes/* (formato, no contenido)
 
 ### 100% Específico Lotería/S.A.A.O.P. (Debe extraerse)
-- core/evolution.py
+- core/evolution.py (**OBSOLETO** - reemplazado por domains/loteria/evolution_loteria.py)
+- domains/loteria/evolution_loteria.py (**NUEVO** - implementación específica de Lotería)
 - core/scoring.py
 - tools/uscore_calculator.py
 - agents/config/*.json (todos los prompts)
@@ -118,10 +123,8 @@ Este documento mapea qué partes del sistema son el "motor de debate genérico" 
 - Líneas 124-139: Patrones de contradicción específicos ("cazador", "espejo", "zonas")
 
 ### 2. core/evolution.py
-- Archivo completo - mover a domain/loteria/evolution.py
-- Todas las constantes de fases (TRAINING_END, BLIND_TEST_START, etc.)
-- Toda la lógica de gestión de ciclo de 50 sorteos
-- Ranking de herramientas específicas (CAZADOR, ESPEJO, PUENTE, ECLIPSE)
+- **COMPLETADO** - Archivo reemplazado por core/evolution_base.py (genérico) y domains/loteria/evolution_loteria.py (específico)
+- core/evolution.py puede eliminarse en futuros pasos
 
 ### 3. core/scoring.py
 - Archivo completo - mover a domain/loteria/scoring.py

@@ -25,7 +25,7 @@ from core.debate import (
     make_step_id,
     synthesize_final_response,
 )
-from core.evolution import EvolutionManager
+from domains.loteria.evolution_loteria import EvolutionManagerLoteria as EvolutionManager
 from core.orchestration import (
     AgentStepResult,
     DebateResult,
