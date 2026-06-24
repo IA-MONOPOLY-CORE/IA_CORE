@@ -1,4 +1,4 @@
-"""Sistema de herramientas compartidas entre agentes S.A.A.O.P."""
+"""Sistema de herramientas compartidas entre agentes."""
 
 import json
 import re
