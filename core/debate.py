@@ -9,6 +9,8 @@ from typing import Any
 
 import config
 
+from domains.loteria.config_loteria import DEBATE_PIPELINE_6_AGENTS
+
 from core.orchestration import (
     AgentStepResult,
 )
@@ -42,15 +44,7 @@ CONTRADICTION_KEYWORDS = (
 # 5. OPTIMIZER (Viejo DeepSeek) - árbitro final
 # 6. ORCHESTRATOR (Nuevo DeepSeek) - cierre metodológico y auditoría estructural
 # ============================================================
-
-DEBATE_PIPELINE_6_AGENTS: list[tuple[str, str]] = [
-    ("critic", "initial"),           # 1. GPT Auditor
-    ("analyst_zones", "initial"),    # 2. Gemini Cuántico
-    ("analyst_human", "initial"),    # 3. Viejo Lobo
-    ("analyst", "initial"),          # 4. Estadístico Integral
-    ("optimizer", "refine"),         # 5. Viejo DeepSeek
-    ("orchestrator", "close"),       # 6. Nuevo DeepSeek - cierra el debate
-]
+# DEBATE_PIPELINE_6_AGENTS movido a domains/loteria/config_loteria.py
 
 # Pipeline legacy (3 agentes) - se mantiene por compatibilidad
 DEBATE_PIPELINE_3_AGENTS: list[tuple[str, str]] = [
@@ -112,24 +106,29 @@ def detect_contradiction(text: str) -> bool:
 
 def detect_cross_agent_contradiction(
     step_a: AgentStepResult, 
-    step_b: AgentStepResult
+    step_b: AgentStepResult,
+    additional_patterns: list[tuple[tuple[str, ...], tuple[str, ...]]] | None = None
 ) -> bool:
-    """Detección avanzada de contradicción REAL entre dos agentes."""
+    """
+    Detección avanzada de contradicción REAL entre dos agentes.
+    
+    Args:
+        step_a: Primer paso de agente a comparar
+        step_b: Segundo paso de agente a comparar
+        additional_patterns: Patrones de contradicción adicionales específicos del dominio
+    """
     if not step_a.success or not step_b.success:
         return False
     
     text_a = extract_text(step_a.result).lower()
     text_b = extract_text(step_b.result).lower()
     
+    # Patrones genéricos de contradicción
     contradiction_patterns = [
         (("es probable", "recomiendo", "sugiero", "apostaría"), 
          ("no es probable", "no recomiendo", "evitaría", "no apostaría")),
         (("sí", "correcto", "válido", "afirmativo"), 
          ("no", "incorrecto", "inválido", "negativo")),
-        (("cazador", "números bajos", "0-15", "zona baja"), 
-         ("espejo", "números altos", "31-45", "zona alta")),
-        (("puente", "zona media", "16-30"), 
-         ("cazador", "espejo", "extremos")),
         (("patrón", "tendencia", "correlación", "ciclo", "secuencia"), 
          ("azar", "ruido", "aleatorio", "sin patrón", "no correlaciona")),
         (("jugar", "apostar", "recomendado", "favorable", "positivo"), 
@@ -137,6 +136,10 @@ def detect_cross_agent_contradiction(
         (("frecuente", "común", "habitual", "típico"), 
          ("raro", "inusual", "excepcional", "anómalo")),
     ]
+    
+    # Agregar patrones específicos del dominio si se proporcionan
+    if additional_patterns:
+        contradiction_patterns.extend(additional_patterns)
     
     for pos_patterns, neg_patterns in contradiction_patterns:
         a_afirma = any(p in text_a for p in pos_patterns)

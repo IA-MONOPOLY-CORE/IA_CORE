@@ -28,6 +28,7 @@ from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 
 import config
+from domains.loteria.config_loteria import VALIDATION_AGENTS
 from core.supervisor import Supervisor
 from core.orchestration import ExecutionMode
 from domains.loteria.evolution_loteria import EvolutionManagerLoteria as EvolutionManager
@@ -94,15 +95,7 @@ debate_store: dict[str, dict[str, Any]] = {}
 validation_store: dict[str, dict[str, Any]] = {}
 conversation_history: dict[str, list[dict]] = {}
 
-# Lista de agentes para debate (6 agentes)
-VALIDATION_AGENTS = [
-    "gpt_auditor",
-    "gemini_cuantico",
-    "viejo_lobo_rey",
-    "estadistico_integral",
-    "viejo_deepseek",
-    "nuevo_deepseek_saaop"
-]
+# VALIDATION_AGENTS movido a domains/loteria/config_loteria.py
 
 SAAOP_TASK = (
     "OBJETIVO TÁCTICO: Evaluar la matriz combinatoria bajo las directrices del búnker.\n\n"

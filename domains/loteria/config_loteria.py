@@ -41,3 +41,13 @@ BUNKER_EXPERT_MAPPING = {
 
 # Alias para compatibilidad con api.py
 VALIDATION_AGENTS = DEBATE_AGENTS
+
+# Pipeline de debate específico de S.A.A.O.P. (6 agentes)
+DEBATE_PIPELINE_6_AGENTS: list[tuple[str, str]] = [
+    ("critic", "initial"),           # 1. GPT Auditor
+    ("analyst_zones", "initial"),    # 2. Gemini Cuántico
+    ("analyst_human", "initial"),    # 3. Viejo Lobo
+    ("analyst", "initial"),          # 4. Estadístico Integral
+    ("optimizer", "refine"),         # 5. Viejo DeepSeek
+    ("orchestrator", "close"),       # 6. Nuevo DeepSeek - cierra el debate
+]
