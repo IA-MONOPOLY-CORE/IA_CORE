@@ -104,7 +104,7 @@ class AgentManager(BaseManager):
                     agent_id = data.get("id") or data.get("agent_id") or json_file.stem
                     
                     # Cargar el agente JSON (esto lo agrega a self._agents)
-                    agent = self._cargar_agente_json_directo(agent_id, json_file, data)
+                    agent = self._construir_agente_desde_json(agent_id, json_file, data)
                     if agent:
                         self._json_agents.add(agent_id)
                         json_loaded += 1
@@ -120,46 +120,46 @@ class AgentManager(BaseManager):
         )
         logger.info("Directorio de configuraciones JSON: %s", self._config_dir)
 
-    def _cargar_agente_json_directo(self, agent_id: str, json_path: Path, data: dict) -> Agent | None:
-        """Carga un agente directamente desde un archivo JSON."""
+    def _construir_agente_desde_json(self, agent_id: str, json_path: Path, data: dict) -> Agent | None:
+        """Construye un agente RuntimeJsonAgent desde datos JSON y lo registra."""
         try:
             from agents.runtime_json_agent import RuntimeJsonAgent
-            
+
             provider_name = data.get("provider")
             if not provider_name and "llm_config" in data:
                 provider_name = data["llm_config"].get("provider")
             provider_name = provider_name or "nvidia"
-            
+
             model = data.get("model")
             if not model and "llm_config" in data:
                 model = data["llm_config"].get("model")
-            
+
             llm = self._providers.get(provider_name) if provider_name else None
-            
+
             agent = RuntimeJsonAgent(
                 json_path=json_path,
                 memory=self._memory,
                 tools=self._tools,
                 llm_provider=llm,
             )
-            
+
             agent.provider = provider_name
             agent.model = model
-            
+
             role = data.get("role")
             if not role and "llm_config" in data:
                 role = data["llm_config"].get("role")
             agent.role = role
-            
+
             # Registrar en los diccionarios
             self._agents[agent.id] = agent
             self._roles[agent.id] = role
             self._provider_names[agent.id] = provider_name
             self._models[agent.id] = model
-            
+
             return agent
         except Exception as e:
-            logger.error(f"Error cargando agente JSON {agent_id}: {e}")
+            logger.error(f"Error construyendo agente JSON {agent_id}: {e}")
             return None
 
     def stop(self) -> None:
@@ -298,49 +298,18 @@ class AgentManager(BaseManager):
             return None
 
         try:
-            from agents.runtime_json_agent import RuntimeJsonAgent
-
             with open(json_path, "r", encoding="utf-8-sig") as f:
                 data = json.load(f)
 
-            provider_name = data.get("provider")
-            if not provider_name and "llm_config" in data:
-                provider_name = data["llm_config"].get("provider")
-            provider_name = provider_name or "nvidia"
-            
-            model = data.get("model")
-            if not model and "llm_config" in data:
-                model = data["llm_config"].get("model")
-            
-            llm = self._providers.get(provider_name) if provider_name else None
-
-            agent = RuntimeJsonAgent(
-                json_path=json_path,
-                memory=self._memory,
-                tools=self._tools,
-                llm_provider=llm,
-            )
-
-            agent.provider = provider_name
-            agent.model = model
-
-            role = data.get("role")
-            if not role and "llm_config" in data:
-                role = data["llm_config"].get("role")
-            agent.role = role
-
-            self._agents[agent.id] = agent
-            self._roles[agent.id] = role
-            self._provider_names[agent.id] = provider_name
-            self._models[agent.id] = model
-            self._json_agents.add(agent.id)
-
-            logger.info(
-                "Agente JSON cargado dinámicamente: %s (rol=%s, provider=%s)",
-                agent.id,
-                role or "-",
-                provider_name,
-            )
+            agent = self._construir_agente_desde_json(agent_id, json_path, data)
+            if agent:
+                self._json_agents.add(agent_id)
+                logger.info(
+                    "Agente JSON cargado dinámicamente: %s (rol=%s, provider=%s)",
+                    agent.id,
+                    agent.role or "-",
+                    agent.provider,
+                )
             return agent
 
         except Exception as e:
