@@ -5,6 +5,17 @@ from pathlib import Path
 
 from dotenv import load_dotenv
 
+# Importar configuración específica del dominio Lotería
+from domains.loteria.config_loteria import (
+    DEBATE_AGENTS,
+    DEFAULT_DEBATE_TASK,
+    TRAINING_END,
+    BLIND_TEST_START,
+    BLIND_TEST_END,
+    LIVE_TEST_START,
+    LIVE_TEST_END
+)
+
 load_dotenv()
 
 # Rutas base
@@ -164,43 +175,12 @@ LOG_FORMAT = "%(asctime)s | %(levelname)-8s | %(name)s | %(message)s"
 
 
 # =========================================================
-# NUEVAS VARIABLES EXTERNALIZADAS (PUNTO 5.2)
+# UMBRALES DE APRENDIZAJE (usados en supervisor.py)
 # =========================================================
-
-# Agentes que participan en debate (IDs exactos de los JSONs)
-DEBATE_AGENTS: list[str] = [
-    "gpt_auditor",
-    "gemini_cuantico",
-    "viejo_lobo_rey",
-    "estadistico_integral",
-    "viejo_deepseek",
-    "nuevo_deepseek_saaop"
-]
-
-# Tarea por defecto para debates
-DEFAULT_DEBATE_TASK: str = (
-    "OBJETIVO TÁCTICO: Evaluar la matriz combinatoria bajo las directrices del búnker.\n\n"
-    "PARÁMETROS:\n"
-    "- Régimen activo: CAZADOR (zonas bajas Z1-Z4)\n"
-    "- Regla V19: 3 números bajos, 2 medios, 1 alto. Suma 110-140\n"
-    "- Excluir patrones simétricos, secuenciales o de calendario\n"
-    "- Evaluar zonas Z8/Z9 (40-45) para mitigar licuación humana\n"
-    "- Garantía matemática defensiva '4 si 5'\n"
-    "- Bloquear sobreajuste > 22.1% (azar estructural baseline)"
-)
-
-# Umbrales de aprendizaje (usados en supervisor.py)
 APRENDIZAJE_SCORE_MINIMO: float = 60.0    # Score mínimo para considerar acierto
 HERRAMIENTA_SCORE_MINIMO: float = 70.0    # Score mínimo para extraer herramienta
 CONTRADICCION_ACUERDO_MINIMO: float = 40.0  # Acuerdo mínimo para registrar contradicción resuelta
 REGENERACION_PAPER_SCORE_MINIMO: float = 70.0  # Score mínimo para regenerar paper
-
-# Límites del sistema de validación (movidos desde api.py)
-TRAINING_END: int = 3799
-BLIND_TEST_START: int = 3800
-BLIND_TEST_END: int = 3850
-LIVE_TEST_START: int = 3851
-LIVE_TEST_END: int = 3885
 
 # Rutas importantes compartidas
 MEMORY_HERRAMIENTAS_COMPARTIDAS: Path = MEMORY_DIR / "herramientas_compartidas.json"

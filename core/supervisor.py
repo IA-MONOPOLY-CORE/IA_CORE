@@ -13,6 +13,8 @@ from typing import Any
 
 import config as app_config
 
+from domains.loteria.config_loteria import BUNKER_EXPERT_MAPPING
+
 from agents.manager import AgentManager
 from core.debate import (
     DebateTurn,
@@ -49,16 +51,7 @@ MEMORY_SCORES_KEY = "orchestration_scores"
 MEMORY_DEBATE_PREFIX = "debate:"
 
 ## ========================================================================
-# 🛡️ JERARQUÍA DE MANDO S.A.A.O.P. - 6 AGENTES TOTALMENTE ACTIVOS EN SIMULTÁNEO
-## ========================================================================
-BUNKER_EXPERT_MAPPING = {
-    "critic": "gpt_auditor",                 # 1. CRITIC - destruye primero
-    "analyst_zones": "gemini_cuantico",      # 2. ANALYST_ZONAS - densidad energética
-    "analyst_human": "viejo_lobo_rey",       # 3. ANALYST_HUMAN - cirugía de ruptura
-    "analyst": "estadistico_integral",       # 4. ANALYST_V19 - defiende e integra
-    "optimizer": "viejo_deepseek",           # 5. OPTIMIZER - árbitro final
-    "orchestrator": "nuevo_deepseek_saaop"   # 6. ORCHESTRATOR - cierre metodológico
-}
+# BUNKER_EXPERT_MAPPING movido a domains/loteria/config_loteria.py
 # ========================================================================
 
 
