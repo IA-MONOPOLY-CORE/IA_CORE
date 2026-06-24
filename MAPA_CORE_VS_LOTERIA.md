@@ -15,18 +15,18 @@ Este documento mapea qué partes del sistema son el "motor de debate genérico" 
 |------------------|-------------------|----------|
 | **core/** | | |
 | core/base.py | NO | Contrato ABC genérico para componentes del sistema |
-| core/debate.py | PARCIAL | Pipeline DEBATE_PIPELINE_6_AGENTS específico (líneas 46-66), patrones de contradicción específicos de lotería (líneas 124-139: "cazador", "espejo", "zonas"), pero funciones como detect_contradiction(), synthesize_final_response() son genéricas |
+| core/debate.py | PARCIAL | DEBATE_PIPELINE_6_AGENTS movido a domains/loteria/config_loteria.py, patrones de contradicción específicos de lotería ("cazador", "espejo", "zonas") movidos a domains/loteria/debate_loteria.py, detect_cross_agent_contradiction() ahora acepta patrones adicionales como parámetro opcional, funciones como synthesize_final_response() son genéricas |
 | core/evolution.py | ELIMINADO | Reemplazado por core/evolution_base.py (genérico) y domains/loteria/evolution_loteria.py (específico) |
 | core/evolution_base.py | NO | **NUEVO** - Clase base genérica EvolutionManagerBase para cualquier sistema evolutivo (fases configurables, historial de agentes, ranking de herramientas, persistencia JSON, hooks para subclases) |
-| core/herramientas.py | PARCIAL | Sistema genérico de herramientas compartidas, pero usa términos del dominio en ejemplos y patrones de extracción |
+| core/herramientas.py | NO | Sistema genérico de herramientas compartidas (docstring generalizado, patrones de extracción genéricos en español) |
 | core/memoria_perpetua.py | NO | Sistema genérico de memoria con ChromaDB y búsqueda vectorial |
 | core/orchestration.py | NO | Modelos de datos genéricos (AgentStepResult, DebateResult, OrchestrationResult) |
 | core/scoring.py | MOVIDO | Movido a domains/loteria/scoring.py (100% específico de Lotería) |
-| core/supervisor.py | PARCIAL | BUNKER_EXPERT_MAPPING específico (líneas 54-61: mapeo de roles a agentes S.A.A.O.P.), lógica de orquestación genérica, pero _execute_single_quantum_agent_async() usa scoring específico de lotería |
+| core/supervisor.py | PARCIAL | BUNKER_EXPERT_MAPPING movido a domains/loteria/config_loteria.py, lógica de orquestación genérica, pero _execute_single_quantum_agent_async() usa scoring específico de lotería |
 | **agents/** | | |
 | agents/base.py | NO | Contrato ABC genérico para agentes |
 | agents/manager.py | NO | Gestión genérica de agentes (carga JSON, registro, lifecycle) |
-| agents/prompts.py | PARCIAL | Estructura genérica de construcción de prompts, pero prompts _analyst_prompt(), _critic_prompt(), _optimizer_prompt() son específicos de V19/Lotería |
+| agents/prompts.py | NO | Estructura genérica de construcción de prompts (docstring generalizado), prompts específicos movidos a domains/loteria/prompts_loteria.py |
 | agents/loader.py | NO | Descubrimiento genérico de módulos de agentes |
 | agents/llm_runner.py | NO | Runner genérico de LLM |
 | agents/runtime_json_agent.py | NO | Implementación genérica de agente desde JSON |
@@ -57,9 +57,12 @@ Este documento mapea qué partes del sistema son el "motor de debate genérico" 
 | **raíz/** | | |
 | backtest_ciego.py | MOVIDO | Movido a domains/loteria/backtest_ciego.py (100% específico de Lotería) |
 | lotoplus_completo_3511_3885.json | MOVIDO | Movido a domains/loteria/lotoplus_completo_3511_3885.json (datos específicos de Lotería) |
-| **config.py** | PARCIAL | Variables genéricas de configuración (rutas, timeouts, proveedores) PERO variables específicas: DEFAULT_DEBATE_TASK (líneas 181-190: tarea específica de CAZADOR/V19), DEBATE_AGENTS (líneas 171-178: lista específica de 6 agentes), TRAINING_END/BLIND_TEST_START/LIVE_TEST_START/LIVE_TEST_END (líneas 199-203: límites específicos de sorteos) |
-| **api.py** | PARCIAL | Endpoints genéricos de API REST PERO VALIDATION_AGENTS (líneas 98-105: lista específica de 6 agentes), SAAOP_TASK (líneas 107-116: tarea específica), límites de sistema TRAINING_END/BLIND_TEST_START/etc (líneas 119-123), endpoints específicos de validación ciega con lógica de sorteos |
+| **config.py** | PARCIAL | Variables genéricas de configuración (rutas, timeouts, proveedores) PERO variables específicas movidas a domains/loteria/config_loteria.py: DEFAULT_DEBATE_TASK, DEBATE_AGENTS, TRAINING_END/BLIND_TEST_START/LIVE_TEST_START/LIVE_TEST_END |
+| **api.py** | PARCIAL | Endpoints genéricos de API REST PERO VALIDATION_AGENTS movido a domains/loteria/config_loteria.py (alias), SAAOP_TASK específico, límites de sistema TRAINING_END/BLIND_TEST_START/etc importados desde config_loteria.py, endpoints específicos de validación ciega con lógica de sorteos |
 | **domains/loteria/** | | |
+| domains/loteria/config_loteria.py | SÍ | **NUEVO** - Configuración específica de Lotería: DEBATE_AGENTS, DEFAULT_DEBATE_TASK, TRAINING_END/BLIND_TEST_START/LIVE_TEST_START/LIVE_TEST_END, BUNKER_EXPERT_MAPPING, VALIDATION_AGENTS (alias), DEBATE_PIPELINE_6_AGENTS |
+| domains/loteria/debate_loteria.py | SÍ | **NUEVO** - Función get_loteria_contradiction_patterns() con patrones específicos de contradicción de zonas (CAZADOR/ESPEJO/PUENTE) |
+| domains/loteria/prompts_loteria.py | SÍ | **NUEVO** - Prompts específicos: _analyst_prompt(), _analyst_reformulate_prompt(), _critic_prompt(), _optimizer_prompt() |
 | domains/loteria/evolution_loteria.py | SÍ | **NUEVO** - EvolutionManagerLoteria hereda de EvolutionManagerBase e implementa toda la lógica específica de Lotería (fases entrenamiento/validacion_ciega/prediccion_en_vivo/operacional_real, límites de sorteos TRAINING_END/BLIND_TEST_START/etc, métricas aciertos_4/5/6, ranking de herramientas uScore/VER/CAZADOR/ESPEJO/PUENTE/ECLIPSE, pesos zonales Z1-Z9) |
 | domains/loteria/scoring.py | SÍ | **MOVIDO** desde core/scoring.py - U-Score v2.1, zonas Z1-Z9, pesos zonales, patrones específicos de lotería (secuencias, divisores comunes, dígitos terminales, calendario), cálculo de rareza humana |
 | domains/loteria/uscore_calculator.py | SÍ | **MOVIDO** desde tools/uscore_calculator.py - Calculadora U-Score v2.1, zonas Z1-Z9, histórico de Loto Plus (3511-3885), métricas específicas (IPN, PP, PZ, DSI, CD, SD) |
@@ -108,22 +111,27 @@ Este documento mapea qué partes del sistema son el "motor de debate genérico" 
 
 ### Parcial (Mezcla - requiere separación)
 - core/debate.py
-  - Extraer: DEBATE_PIPELINE_6_AGENTS, patrones de contradicción específicos
+  - **COMPLETADO** - DEBATE_PIPELINE_6_AGENTS movido a domains/loteria/config_loteria.py
+  - **COMPLETADO** - Patrones de contradicción específicos movidos a domains/loteria/debate_loteria.py
+  - **COMPLETADO** - detect_cross_agent_contradiction() ahora acepta patrones adicionales como parámetro opcional
   - Mantener: detect_contradiction(), synthesize_final_response(), build_pipeline()
 - core/herramientas.py
-  - Extraer: patrones de extracción específicos del dominio
-  - Mantener: sistema de registro y traducción de herramientas
+  - **COMPLETADO** - Docstring generalizado (eliminado "S.A.A.O.P.")
+  - Mantener: sistema de registro y traducción de herramientas (patrones de extracción genéricos en español)
 - core/supervisor.py
-  - Extraer: BUNKER_EXPERT_MAPPING, lógica de scoring específica
+  - **COMPLETADO** - BUNKER_EXPERT_MAPPING movido a domains/loteria/config_loteria.py
+  - Pendiente: lógica de scoring específica en _execute_single_quantum_agent_async()
   - Mantener: orquestación asíncrona, gestión de timeouts, persistencia
 - agents/prompts.py
-  - Extraer: _analyst_prompt(), _critic_prompt(), _optimizer_prompt()
-  - Mantener: build_role_prompt(), _format_previous_block()
+  - **COMPLETADO** - _analyst_prompt(), _analyst_reformulate_prompt(), _critic_prompt(), _optimizer_prompt() movidos a domains/loteria/prompts_loteria.py
+  - **COMPLETADO** - Docstring generalizado (eliminado "LOTO PLUS WALK-FORWARD")
+  - Mantener: build_role_prompt(), _format_previous_block(), _assistant_prompt()
 - config.py
-  - Extraer: DEFAULT_DEBATE_TASK, DEBATE_AGENTS, límites de sorteos
+  - **COMPLETADO** - DEFAULT_DEBATE_TASK, DEBATE_AGENTS, límites de sorteos movidos a domains/loteria/config_loteria.py
   - Mantener: rutas, timeouts, configuración de proveedores
 - api.py
-  - Extraer: VALIDATION_AGENTS, SAAOP_TASK, endpoints de validación ciega
+  - **COMPLETADO** - VALIDATION_AGENTS movido a domains/loteria/config_loteria.py (alias)
+  - Pendiente: SAAOP_TASK, endpoints de validación ciega
   - Mantener: estructura de API, endpoints genéricos de chat/debate
 
 ---
@@ -131,8 +139,9 @@ Este documento mapea qué partes del sistema son el "motor de debate genérico" 
 ## Bloques Específicos a Extraer (Detalle)
 
 ### 1. core/debate.py
-- Líneas 46-66: DEBATE_PIPELINE_6_AGENTS (pipeline específico)
-- Líneas 124-139: Patrones de contradicción específicos ("cazador", "espejo", "zonas")
+- **COMPLETADO** - DEBATE_PIPELINE_6_AGENTS movido a domains/loteria/config_loteria.py
+- **COMPLETADO** - Patrones de contradicción específicos movidos a domains/loteria/debate_loteria.py
+- **COMPLETADO** - detect_cross_agent_contradiction() modificado para aceptar patrones adicionales
 
 ### 2. core/evolution.py
 - **COMPLETADO** - Archivo reemplazado por core/evolution_base.py (genérico) y domains/loteria/evolution_loteria.py (específico)
@@ -146,27 +155,27 @@ Este documento mapea qué partes del sistema son el "motor de debate genérico" 
 - Patrones específicos de lotería
 
 ### 4. core/supervisor.py
-- Líneas 54-61: BUNKER_EXPERT_MAPPING
-- Líneas 431-435, 510-516: Inyección de contexto evolutivo específico
-- Líneas 456-463, 547-554: Scoring específico en execute_single_quantum_agent_async y execute_debate_turn_async
+- **COMPLETADO** - BUNKER_EXPERT_MAPPING movido a domains/loteria/config_loteria.py
+- Pendiente: Inyección de contexto evolutivo específico
+- Pendiente: Scoring específico en execute_single_quantum_agent_async y execute_debate_turn_async
 
 ### 5. config.py
-- Líneas 171-178: DEBATE_AGENTS
-- Líneas 181-190: DEFAULT_DEBATE_TASK
-- Líneas 199-203: Límites de sorteos
+- **COMPLETADO** - DEBATE_AGENTS movido a domains/loteria/config_loteria.py
+- **COMPLETADO** - DEFAULT_DEBATE_TASK movido a domains/loteria/config_loteria.py
+- **COMPLETADO** - Límites de sorteos movidos a domains/loteria/config_loteria.py
 
 ### 6. api.py
-- Líneas 98-105: VALIDATION_AGENTS
-- Líneas 107-116: SAAOP_TASK
-- Líneas 119-123: Límites de sorteos
-- Líneas 235-335: _run_validation_debate (completo)
-- Líneas 530-624: reveal_validation_result (lógica específica)
+- **COMPLETADO** - VALIDATION_AGENTS movido a domains/loteria/config_loteria.py (alias)
+- Pendiente: SAAOP_TASK
+- Pendiente: Límites de sorteos (ya importados desde config_loteria.py)
+- Pendiente: _run_validation_debate (completo)
+- Pendiente: reveal_validation_result (lógica específica)
 
 ### 7. agents/prompts.py
-- Líneas 64-94: _analyst_prompt
-- Líneas 97-120: _analyst_reformulate_prompt
-- Líneas 123-156: _critic_prompt
-- Líneas 159-187: _optimizer_prompt
+- **COMPLETADO** - _analyst_prompt movido a domains/loteria/prompts_loteria.py
+- **COMPLETADO** - _analyst_reformulate_prompt movido a domains/loteria/prompts_loteria.py
+- **COMPLETADO** - _critic_prompt movido a domains/loteria/prompts_loteria.py
+- **COMPLETADO** - _optimizer_prompt movido a domains/loteria/prompts_loteria.py
 
 ### 8. tools/uscore_calculator.py
 - **COMPLETADO** - Movido a domains/loteria/uscore_calculator.py
