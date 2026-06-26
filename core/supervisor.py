@@ -227,7 +227,7 @@ class Supervisor:
         historial_por_ronda: list[dict[str, str]] = []
         
         TOTAL_RECURSIVE_ROUNDS = 5
-        agent_timeout = getattr(app_config, "AGENT_TIMEOUT_S", 15.0)
+        agent_timeout = getattr(app_config, "AGENT_TIMEOUT_S", 30.0)
         
         for round_idx in range(1, TOTAL_RECURSIVE_ROUNDS + 1):
             if deadline is not None and time.perf_counter() > deadline:
@@ -289,7 +289,7 @@ class Supervisor:
                 role_name, real_agent_id, step_id = info_agentes_ronda[idx]
                 
                 if isinstance(res, asyncio.TimeoutError) or res is None:
-                    logger.warning(f"⏳ Timeout granular alcanzado para el agente {real_agent_id} en ronda {round_idx}")
+                    logger.warning(f"⏳ TIMEOUT AGENTE: {real_agent_id} (rol: {role_name}) en ronda {round_idx}/{TOTAL_RECURSIVE_ROUNDS} - superó {agent_timeout}s")
                     continue
                 if isinstance(res, Exception) or not res.success:
                     logger.error(f"Fallo crítico en agente {real_agent_id} durante ronda {round_idx}: {res}")
