@@ -121,6 +121,18 @@ class Supervisor:
     def shutdown(self) -> None:
         self.stop()
 
+    def orchestrate(
+        self,
+        task: str,
+        agent_names: list[str] | None = None,
+        *,
+        mode: ExecutionMode = ExecutionMode.SEQUENTIAL,
+    ) -> OrchestrationResult:
+        """Wrapper sincrónico para orchestrate_async()."""
+        return asyncio.run(
+            self.orchestrate_async(task, agent_names, mode=mode)
+        )
+
     async def orchestrate_async(
         self,
         task: str,
@@ -325,7 +337,22 @@ class Supervisor:
             
             round_duration_ms = (time.perf_counter() - round_start_time) * 1000
             logger.info(f"✅ Ronda {round_idx} completada en {round_duration_ms:.0f}ms")
-            
+
+            # Verificar criterio de parada temprana por consenso alto (mínimo 2 rondas)
+            if round_idx >= 2:
+                contradictions = collect_contradictions(steps)
+                agreement, contradiction = compute_consensus_scores(steps, contradictions)
+                threshold_fraction = getattr(app_config, "AGREEMENT_EARLY_STOP_THRESHOLD", 0.85)
+                threshold_percent = threshold_fraction * 100  # convertir a 0-100 para comparar con agreement_score
+
+                if agreement >= threshold_percent:
+                    logger.info(
+                        f"🎯 PARADA TEMPRANA ACTIVADA: Ronda {round_idx}/{TOTAL_RECURSIVE_ROUNDS} "
+                        f"con agreement_score={agreement:.2f}% (umbral: {threshold_percent:.2f}%). "
+                        f"Saltando {TOTAL_RECURSIVE_ROUNDS - round_idx} rondas restantes."
+                    )
+                    break
+
             await asyncio.sleep(0.001)
 
         logger.info("🛡️ Fase de Colisión Terminada. Iniciando Pipeline de Cierre y Auditoría...")

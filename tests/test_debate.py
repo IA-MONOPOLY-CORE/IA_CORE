@@ -2,6 +2,7 @@ import config
 from core.debate import detect_contradiction
 from core.orchestration import ExecutionMode
 from core.supervisor import MEMORY_DEBATE_PREFIX, Supervisor
+from domains.loteria.config_loteria import DEBATE_AGENTS
 
 
 def _supervisor(tmp_path, monkeypatch):
@@ -85,3 +86,48 @@ def test_debate_optimizer_is_refinement(tmp_path, monkeypatch):
     assert result.debate.agreement_score >= 0
 
     supervisor.stop()
+
+
+def test_debate_early_stop_on_high_agreement(tmp_path, monkeypatch):
+    """Verifica que el debate se detiene temprano cuando hay alto consenso."""
+    # Configurar umbral bajo para facilitar el test
+    monkeypatch.setattr(config, "AGREEMENT_EARLY_STOP_THRESHOLD", 0.5)
+
+    supervisor = _supervisor(tmp_path, monkeypatch)
+
+    # Mockear compute_consensus_scores para simular alto acuerdo
+    def mock_compute_consensus(steps, contradictions):
+        # Siempre devolver alto acuerdo (95%) para activar parada temprana
+        return 95.0, 5.0
+
+    # Importar y patchear
+    from core import debate
+    original_compute = debate.compute_consensus_scores
+    monkeypatch.setattr(debate, "compute_consensus_scores", mock_compute_consensus)
+
+    try:
+        result = supervisor.orchestrate(
+            "test early stop",
+            mode=ExecutionMode.DEBATE,
+        )
+
+        # Verificar que el debate se ejecutó
+        assert result.mode == "debate"
+        assert result.debate is not None
+
+        # Verificar que el debate se detuvo en la ronda 2 (no llegó a 5 rondas)
+        # El modo DEBATE usa 6 agentes por defecto del sistema
+        # Cada ronda tiene 6 agentes, si se detiene en ronda 2 debería tener ~12 pasos de colisión
+        # Más los pasos del pipeline de cierre (estadístico, auditor, etc.)
+        # Si fuera a 5 rondas tendría ~30 pasos de colisión + cierre
+        total_steps = len(result.debate.steps)
+
+        # Con parada temprana en ronda 2: 2 rondas * 6 agentes = 12 pasos de colisión + ~5-8 de cierre = ~17-20
+        # Sin parada temprana: 5 rondas * 6 agentes = 30 pasos de colisión + ~5-8 de cierre = ~35-38
+        assert total_steps <= 20, f"Debió detenerse en ronda 2 pero tuvo {total_steps} pasos (esperado <= 20)"
+
+    finally:
+        # Restaurar función original
+        if original_compute:
+            monkeypatch.setattr(debate, "compute_consensus_scores", original_compute)
+        supervisor.stop()
