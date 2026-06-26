@@ -1,5 +1,5 @@
 import config
-from domains.loteria.scoring import score_response
+from domains.loteria.scoring import score_response, u_score_v2_1
 from core.supervisor import MEMORY_SCORES_KEY, Supervisor
 
 
@@ -65,3 +65,46 @@ def test_orchestrate_role_agents_with_scores(tmp_path, monkeypatch):
     assert scores_log[-1]["execution_id"] == result.execution_id
 
     supervisor.stop()
+
+
+def test_u_score_v2_1_components_clipped_to_range():
+    """Verifica que los componentes normalizados se clippean al rango [0, 20] y score_total al rango [0, 100]."""
+    # Caso extremo 1: todos los números en zona de peso mínimo (0-4)
+    combinacion_min_zona = [0, 1, 2, 3, 4, 5]
+    score_min = u_score_v2_1(combinacion_min_zona)
+    assert 0 <= score_min.total <= 100, f"score_total fuera de rango: {score_min.total}"
+    assert 0 <= score_min.ipn <= 20, f"ipn fuera de rango: {score_min.ipn}"
+    assert 0 <= score_min.pp <= 20, f"pp fuera de rango: {score_min.pp}"
+    assert 0 <= score_min.pz <= 20, f"pz fuera de rango: {score_min.pz}"
+    assert 0 <= score_min.dsi <= 20, f"dsi fuera de rango: {score_min.dsi}"
+    assert 0 <= score_min.cd <= 20, f"cd fuera de rango: {score_min.cd}"
+    assert 0 <= score_min.sd <= 20, f"sd fuera de rango: {score_min.sd}"
+
+    # Caso extremo 2: todos los números en zona de peso máximo (35-39)
+    combinacion_max_zona = [35, 36, 37, 38, 39, 40]
+    score_max = u_score_v2_1(combinacion_max_zona)
+    assert 0 <= score_max.total <= 100, f"score_total fuera de rango: {score_max.total}"
+    assert 0 <= score_max.ipn <= 20, f"ipn fuera de rango: {score_max.ipn}"
+    assert 0 <= score_max.pp <= 20, f"pp fuera de rango: {score_max.pp}"
+    assert 0 <= score_max.pz <= 20, f"pz fuera de rango: {score_max.pz}"
+    assert 0 <= score_max.dsi <= 20, f"dsi fuera de rango: {score_max.dsi}"
+    assert 0 <= score_max.cd <= 20, f"cd fuera de rango: {score_max.cd}"
+    assert 0 <= score_max.sd <= 20, f"sd fuera de rango: {score_max.sd}"
+
+    # Caso extremo 3: máxima concentración por decena (4 números en misma decena)
+    combinacion_concentrada = [10, 11, 12, 13, 20, 30]
+    score_conc = u_score_v2_1(combinacion_concentrada)
+    assert 0 <= score_conc.total <= 100, f"score_total fuera de rango: {score_conc.total}"
+    assert 0 <= score_conc.ipn <= 20, f"ipn fuera de rango: {score_conc.ipn}"
+    assert 0 <= score_conc.pp <= 20, f"pp fuera de rango: {score_conc.pp}"
+    assert 0 <= score_conc.pz <= 20, f"pz fuera de rango: {score_conc.pz}"
+    assert 0 <= score_conc.dsi <= 20, f"dsi fuera de rango: {score_conc.dsi}"
+    assert 0 <= score_conc.cd <= 20, f"cd fuera de rango: {score_conc.cd}"
+    assert 0 <= score_conc.sd <= 20, f"sd fuera de rango: {score_conc.sd}"
+
+    # Caso extremo 4: combinación con valores que podrían causar pz_raw < 4
+    # Esto prueba específicamente el bug de pz que puede dar negativo
+    combinacion_pz_bajo = [0, 1, 2, 3, 4, 0]
+    score_pz_bajo = u_score_v2_1(combinacion_pz_bajo)
+    assert 0 <= score_pz_bajo.total <= 100, f"score_total fuera de rango: {score_pz_bajo.total}"
+    assert 0 <= score_pz_bajo.pz <= 20, f"pz fuera de rango (debería estar clippeado): {score_pz_bajo.pz}"

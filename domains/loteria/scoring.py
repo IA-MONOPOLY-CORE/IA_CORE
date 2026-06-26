@@ -143,6 +143,14 @@ def u_score_v2_1(combinacion: list[int]) -> ResponseScore:
     dsi = 20 * dsi_raw / 15
     cd = 20 * cd_raw / 10
     sd = sd_raw
+
+    # Clip explícito al rango [0, 20] para evitar contaminación silenciosa
+    ipn = max(0, min(20, ipn))
+    pp = max(0, min(20, pp))
+    pz = max(0, min(20, pz))
+    dsi = max(0, min(20, dsi))
+    cd = max(0, min(20, cd))
+    sd = max(0, min(20, sd))
     
     # Matriz de pesos definitivos calibrados v2.1 (S.A.A.O.P.)
     score_total = (
