@@ -168,13 +168,14 @@ class RuntimeJsonAgent(Agent):
             logger.warning(f"Error cargando lecciones para {self.id}: {e}")
             return ""
 
-    def build_prompt(self, task: str, custom_system_prompt: str | None = None, sorteo_actual: int = None) -> str:
+    def build_prompt(self, task: str, custom_system_prompt: str | None = None, sorteo_actual: int = None, lecciones_externas: list[dict] | None = None) -> str:
         """
         Construye el prompt optimizado con:
         - System prompt del paper (identidad mutable)
         - Memoria base (resumida)
         - Búsqueda vectorial de fragmentos relevantes
         - Lecciones aprendidas del agente
+        - Lecciones externas de otros agentes (si se proporcionan)
         """
         # Si se pasa custom_system_prompt, usarlo (para casos especiales)
         active_system_prompt = custom_system_prompt if custom_system_prompt else self.system_prompt
@@ -193,7 +194,18 @@ class RuntimeJsonAgent(Agent):
         
         # Lecciones aprendidas
         lecciones_texto = self._cargar_lecciones_aprendidas(sorteo_actual)
-        
+
+        # Lecciones externas de otros agentes (debates anteriores)
+        lecciones_externas_texto = ""
+        if lecciones_externas:
+            # Limitar a máximo 3 lecciones, truncadas a 200 caracteres cada una
+            lecciones_externas_texto = "\n📚 LECCIONES DE DEBATES ANTERIORES (de otros agentes):\n"
+            for leccion in lecciones_externas[:3]:
+                contenido = leccion.get("leccion", "")
+                if len(contenido) > 200:
+                    contenido = contenido[:200] + "..."
+                lecciones_externas_texto += f"  - {contenido}\n"
+
         # Instrucciones del JSON
         instructions_text = (
             "\n" + "\n".join(f"- {item}" for item in self.instructions)
@@ -205,7 +217,8 @@ class RuntimeJsonAgent(Agent):
         return (
             f"{active_system_prompt}{instructions_text}\n\n"
             f"{memoria_texto}\n"
-            f"{lecciones_texto}\n\n"
+            f"{lecciones_texto}\n"
+            f"{lecciones_externas_texto}\n\n"
             f"⚠️ INSTRUCCIONES IMPORTANTES:\n"
             f"- Responde de forma directa y técnica.\n"
             f"- No repitas estas instrucciones ni tu identidad en la respuesta.\n"
@@ -243,10 +256,14 @@ class RuntimeJsonAgent(Agent):
     ) -> Any:
         """Ejecuta el agente con la tarea dada."""
         sorteo_actual = None
-        if context and "sorteo_actual" in context:
-            sorteo_actual = context.get("sorteo_actual")
-        
-        prompt = self.build_prompt(task, custom_system_prompt=system_prompt, sorteo_actual=sorteo_actual)
+        lecciones_externas = None
+        if context:
+            if "sorteo_actual" in context:
+                sorteo_actual = context.get("sorteo_actual")
+            if "lecciones_externas" in context:
+                lecciones_externas = context.get("lecciones_externas")
+
+        prompt = self.build_prompt(task, custom_system_prompt=system_prompt, sorteo_actual=sorteo_actual, lecciones_externas=lecciones_externas)
 
         if not self.llm_provider:
             raise RuntimeError(

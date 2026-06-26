@@ -526,8 +526,18 @@ class Supervisor:
                 )
             
             logger.info(f"📡 Usando proveedor: {agent.llm_provider.provider_name()}")
-            
-            response = await asyncio.to_thread(agent.run, prompt_base, system_prompt=system_prompt)
+
+            # Buscar lecciones útiles para este rol antes de ejecutar
+            lecciones_externas = []
+            try:
+                lecciones_externas = buscar_lecciones_utiles(turn.agent_name, top_k=2)
+                if lecciones_externas:
+                    logger.info(f"💡 {agent.id}: {len(lecciones_externas)} lecciones útiles inyectadas al prompt")
+            except Exception as e:
+                logger.warning(f"Error buscando lecciones útiles: {e}")
+
+            context = {"lecciones_externas": lecciones_externas}
+            response = await asyncio.to_thread(agent.run, prompt_base, system_prompt=system_prompt, context=context)
             text_response = extract_text(response)
             
             logger.info(f"✅ Respuesta recibida de {agent.id} | longitud: {len(text_response)} chars")
