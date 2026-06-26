@@ -40,11 +40,11 @@ def test_lecciones_externas_inyectadas_en_prompt():
         prompt_sin_lecciones = agent.build_prompt("Tarea de prueba")
         assert "LECCIONES DE DEBATES ANTERIORES" not in prompt_sin_lecciones
         
-        # Caso 2: Con lecciones externas
+        # Caso 2: Con lecciones externas (incluyendo una lección larga)
         lecciones_externas = [
             {"leccion": "Primera lección importante sobre el tema"},
             {"leccion": "Segunda lección relevante para el análisis"},
-            {"leccion": "Tercera lección que es extremadamente larga y debería ser truncada porque excede el límite de 200 caracteres establecido para mantener el prompt conciso y evitar inflar el contexto innecesariamente con información redundante que podría distraer al agente de su tarea principal"}
+            {"leccion": "Tercera lección que es extremadamente larga y debe inyectarse completa sin truncamiento porque el sistema necesita el contexto completo para tomar decisiones informadas basadas en experiencias previas"}
         ]
 
         prompt_con_lecciones = agent.build_prompt(
@@ -57,10 +57,10 @@ def test_lecciones_externas_inyectadas_en_prompt():
         assert "Primera lección importante sobre el tema" in prompt_con_lecciones
         assert "Segunda lección relevante para el análisis" in prompt_con_lecciones
 
-        # Verificar truncamiento de lecciones largas (máximo 200 caracteres)
-        assert "..." in prompt_con_lecciones  # La tercera lección debe estar truncada
-        assert "Tercera lección que es extremadamente larga" in prompt_con_lecciones
-        assert prompt_con_lecciones.count("...") >= 1  # Al menos una lección truncada
+        # Verificar que la lección larga se inyecta completa sin truncamiento
+        assert "Tercera lección que es extremadamente larga y debe inyectarse completa sin truncamiento" in prompt_con_lecciones
+        assert "basadas en experiencias previas" in prompt_con_lecciones  # Final de la lección larga
+        assert "..." not in prompt_con_lecciones  # No debe haber truncamiento
         
         # Caso 3: Verificar límite de máximo 3 lecciones
         lecciones_muchas = [

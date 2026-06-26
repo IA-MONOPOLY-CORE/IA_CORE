@@ -198,12 +198,10 @@ class RuntimeJsonAgent(Agent):
         # Lecciones externas de otros agentes (debates anteriores)
         lecciones_externas_texto = ""
         if lecciones_externas:
-            # Limitar a máximo 3 lecciones, truncadas a 200 caracteres cada una
+            # Limitar a máximo 3 lecciones, inyectadas completas
             lecciones_externas_texto = "\n📚 LECCIONES DE DEBATES ANTERIORES (de otros agentes):\n"
             for leccion in lecciones_externas[:3]:
                 contenido = leccion.get("leccion", "")
-                if len(contenido) > 200:
-                    contenido = contenido[:200] + "..."
                 lecciones_externas_texto += f"  - {contenido}\n"
 
         # Instrucciones del JSON
