@@ -1,4 +1,4 @@
-"""Proveedor NVIDIA NIM (DeepSeek V4 Pro en GPUs NVIDIA)."""
+"""Proveedor NVIDIA NIM (meta/llama-3.1-8b-instruct por defecto)."""
 
 from __future__ import annotations
 
@@ -7,8 +7,8 @@ import logging
 import os
 import time
 from typing import Any
-from urllib.error import HTTPError, URLError
-from urllib.request import Request, urlopen
+
+import requests
 
 from providers.base import BaseProvider, GenerateResponse, HealthStatus
 
@@ -143,33 +143,37 @@ class NvidiaProvider(BaseProvider):
         body: dict[str, Any] | None = None,
     ) -> dict[str, Any]:
         url = f"{self._base_url}{path}"
-        data = json.dumps(body).encode("utf-8") if body else None
         headers = {
             "Content-Type": "application/json",
             "Authorization": f"Bearer {self._api_key}",
         }
 
         try:
-            request = Request(url, data=data, headers=headers, method=method)
-            with urlopen(request, timeout=NVIDIA_TIMEOUT) as response:
-                raw = response.read().decode("utf-8")
-                return json.loads(raw) if raw.strip() else {}
+            response = requests.request(
+                method=method,
+                url=url,
+                json=body,
+                headers=headers,
+                timeout=NVIDIA_TIMEOUT,
+            )
+            response.raise_for_status()
+            return response.json() if response.text.strip() else {}
 
-        except HTTPError as exc:
+        except requests.exceptions.HTTPError as exc:
             try:
-                detail = exc.read().decode("utf-8", errors="replace")
+                detail = exc.response.text
             except Exception:
-                detail = exc.reason or "unknown"
+                detail = str(exc)
             raise RuntimeError(
-                f"NVIDIA API HTTP {exc.code}: {detail[:200]}"
+                f"NVIDIA API HTTP {exc.response.status_code}: {detail[:200]}"
             ) from exc
 
-        except URLError as exc:
+        except requests.exceptions.ConnectionError as exc:
             raise RuntimeError(
-                f"No se pudo conectar a NVIDIA NIM: {exc.reason}"
+                f"No se pudo conectar a NVIDIA NIM: {str(exc)}"
             ) from exc
 
-        except TimeoutError as exc:
+        except requests.exceptions.Timeout as exc:
             raise RuntimeError(
                 f"Timeout ({NVIDIA_TIMEOUT}s) conectando a NVIDIA NIM"
             ) from exc
