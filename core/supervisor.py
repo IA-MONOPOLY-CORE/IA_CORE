@@ -799,19 +799,36 @@ class Supervisor:
                 start = time.perf_counter()
                 try:
                     res = agent.run(task)
+                    duration = (time.perf_counter() - start) * 1000
+                    role = getattr(agent, "role", name)
+                    score_data = self._score_response_fn(
+                        agent_name=name,
+                        role=role,
+                        result=res,
+                        success=True,
+                        duration_ms=duration,
+                    )
                     steps.append(
                         AgentStepResult(
                             step_id=step_id,
                             agent_name=name,
                             success=True,
                             result=res,
-                            duration_ms=(time.perf_counter() - start) * 1000,
+                            duration_ms=duration,
+                            role=role,
+                            score=score_data,
                         )
                     )
                 except Exception as e:
+                    duration = (time.perf_counter() - start) * 1000
                     steps.append(
                         AgentStepResult(
-                            step_id=step_id, agent_name=name, success=False, error=str(e)
+                            step_id=step_id,
+                            agent_name=name,
+                            success=False,
+                            error=str(e),
+                            duration_ms=duration,
+                            role=getattr(agent, "role", name),
                         )
                     )
         return steps
@@ -822,6 +839,23 @@ class Supervisor:
             key = f"{MEMORY_RESULT_PREFIX}{result.execution_id}"
             self.memory.set(key, result.to_dict() if hasattr(result, "to_dict") else str(result))
             logger.info("Resultado de orquestación %s guardado en memoria", result.execution_id)
+            
+            # Append to orchestration history
+            history = self.memory.get(MEMORY_HISTORY_KEY, [])
+            if not isinstance(history, list):
+                history = []
+            history.append(result.to_dict())
+            self.memory.set(MEMORY_HISTORY_KEY, history)
+            
+            # Append to orchestration scores log
+            scores_log = self.memory.get(MEMORY_SCORES_KEY, [])
+            if not isinstance(scores_log, list):
+                scores_log = []
+            scores_log.append({
+                "execution_id": result.execution_id,
+                "scores_summary": result.scores_summary
+            })
+            self.memory.set(MEMORY_SCORES_KEY, scores_log)
         except Exception as e:
             logger.error("No se pudo persistir la orquestación: %s", e)
 
@@ -874,9 +908,15 @@ class Supervisor:
             best_score = 0
 
             for step in debate_result.steps:
-                if step.success and step.score and step.score.total > best_score:
-                    best_score = step.score.total
-                    best_agent = step.agent_name
+                if step.success and step.score:
+                    current_score = None
+                    if isinstance(step.score, dict) and "total" in step.score:
+                        current_score = step.score["total"]
+                    elif hasattr(step.score, "total"):
+                        current_score = step.score.total
+                    if current_score and current_score > best_score:
+                        best_score = current_score
+                        best_agent = step.agent_name
 
             # ========== MEMORIA COMPARTIDA: REGISTRAR CONTRADICCIONES RESUELTAS ==========
             if debate_result.contradiction_score > 0 and debate_result.final_response:
@@ -947,7 +987,12 @@ class Supervisor:
 
                 agente_id = step.agent_name
                 texto_respuesta = extract_text(step.result)
-                score = step.score.total if step.score else 0
+                score = 0
+                if step.score:
+                    if isinstance(step.score, dict) and "total" in step.score:
+                        score = step.score["total"]
+                    elif hasattr(step.score, "total"):
+                        score = step.score.total
 
                 memoria = cargar_memoria(agente_id)
 

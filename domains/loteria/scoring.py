@@ -5,7 +5,7 @@ FIXED: uScore ahora recibe combinación real, no mock
 """
 
 from __future__ import annotations
-from dataclasses import dataclass
+from dataclasses import dataclass, asdict
 from typing import Optional
 import numpy as np
 
@@ -38,6 +38,18 @@ class ResponseScore:
     dsi: float
     cd: float
     sd: float
+    confidence: float
+    reasoning_quality: float
+    execution_quality: float
+    
+    def __getitem__(self, key):
+        return getattr(self, key)
+    
+    def __contains__(self, key):
+        return hasattr(self, key)
+    
+    def __iter__(self):
+        return iter(self.__dataclass_fields__.keys())
 
 
 def popularidad_numero(n: int) -> float:
@@ -215,15 +227,33 @@ def u_score_v2_1(combinacion: list[int]) -> ResponseScore:
         dsi=round(dsi, 2),
         cd=round(cd, 2),
         sd=round(sd, 2),
+        confidence=round(score_total / 100, 2),
+        reasoning_quality=round(score_total / 100, 2),
+        execution_quality=0.7,  # Default value, can be adjusted later
     )
 
 
 def score_response(combinacion: Optional[list[int]] = None, **kwargs) -> ResponseScore:
     """
     Función puente compatible con la orquestación asíncrona del Supervisor.
-    CORREGIDO: Ahora acepta None y usa placeholder.
+    CORRECCIÓN: Ahora acepta None y usa placeholder.
     """
-    # Extraer combinación del kwargs si viene en formato respuesta
+    # Si success=False, devolver score 0 directamente
+    if not kwargs.get("success", True):
+        return ResponseScore(
+            total=0.0,
+            ipn=0.0,
+            pp=0.0,
+            pz=0.0,
+            dsi=0.0,
+            cd=0.0,
+            sd=0.0,
+            confidence=0.0,
+            reasoning_quality=0.0,
+            execution_quality=0.0,
+        )
+
+    # Extraer combinacion del kwargs si viene en formato respuesta
     if combinacion is None:
         # Intentar extraer del formato de respuesta del agente
         if "respuesta" in kwargs and isinstance(kwargs["respuesta"], dict):
@@ -237,7 +267,22 @@ def score_response(combinacion: Optional[list[int]] = None, **kwargs) -> Respons
     if combinacion is None or not isinstance(combinacion, list) or len(combinacion) != 6:
         combinacion = [0, 0, 0, 0, 0, 0]  # Placeholder
 
-    return u_score_v2_1(combinacion)
+    score_obj = u_score_v2_1(combinacion)
+    # Update execution_quality based on duration_ms
+    execution_quality = 0.7 if kwargs.get("duration_ms", 0) < 1000 else 0.5
+    # Since ResponseScore is frozen, we can create a new one
+    return ResponseScore(
+        total=score_obj.total,
+        ipn=score_obj.ipn,
+        pp=score_obj.pp,
+        pz=score_obj.pz,
+        dsi=score_obj.dsi,
+        cd=score_obj.cd,
+        sd=score_obj.sd,
+        confidence=score_obj.confidence,
+        reasoning_quality=score_obj.reasoning_quality,
+        execution_quality=execution_quality,
+    )
 
 
 def build_scores_summary(steps: list) -> dict:
@@ -245,15 +290,27 @@ def build_scores_summary(steps: list) -> dict:
     if not steps:
         return {"average_total": 0.0, "best_agent": "None"}
 
-    scores = [s.score.total for s in steps if hasattr(s, "score") and s.score]
+    scores = []
+    for s in steps:
+        if hasattr(s, "score") and s.score:
+            if isinstance(s.score, dict) and "total" in s.score:
+                scores.append(s.score["total"])
+            elif hasattr(s.score, "total"):
+                scores.append(s.score.total)
     avg = np.mean(scores) if scores else 0.0
 
     # Busca el agente con mejor desempeño adaptativo
     best_agent = "None"
     best_val = -1.0
     for s in steps:
-        if hasattr(s, "score") and s.score and s.score.total > best_val:
-            best_val = s.score.total
-            best_agent = s.agent_name
+        if hasattr(s, "score") and s.score:
+            current_score = None
+            if isinstance(s.score, dict) and "total" in s.score:
+                current_score = s.score["total"]
+            elif hasattr(s.score, "total"):
+                current_score = s.score.total
+            if current_score and current_score > best_val:
+                best_val = current_score
+                best_agent = s.agent_name
 
     return {"average_total": round(avg, 2), "best_agent": best_agent}
