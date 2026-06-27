@@ -25,7 +25,9 @@ class RoleAgent(Agent):
             return role
         return AgentRole(str(role))
 
-    def run(self, task: str, context: dict[str, Any] | None = None, system_prompt: str | None = None) -> dict[str, Any]:
+    def run(
+        self, task: str, context: dict[str, Any] | None = None, system_prompt: str | None = None
+    ) -> dict[str, Any]:
         ctx = context or {}
         role = self._role_enum()
         phase = str(ctx.get("debate_phase", "initial"))

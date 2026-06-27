@@ -43,16 +43,18 @@ class RuntimeJsonAgent(Agent):
         self.provider_name = self.profile.get("provider", "nvidia")
         self.model_name = self.profile.get("model", "meta/llama-4-maverick-17b-128e-instruct")
         self.instructions = self.profile.get("instructions", [])
-        
+
         # ========== IDENTIDAD PRINCIPAL: PAPER (mutable) ==========
         self.paper = None
         self.system_prompt = self._cargar_identidad_desde_paper()
-        
+
         # Si no hay paper, usar system_prompt del JSON como fallback
         if not self.system_prompt:
             self.system_prompt = self.profile.get("system_prompt", "")
-            logger.warning(f"⚠️ {self.id}: No se encontró paper, usando system_prompt del JSON como fallback")
-        
+            logger.warning(
+                f"⚠️ {self.id}: No se encontró paper, usando system_prompt del JSON como fallback"
+            )
+
         # Inicializar memoria vectorial para este agente (carga diferida)
         self._memoria_vectorial = None
 
@@ -62,51 +64,53 @@ class RuntimeJsonAgent(Agent):
         El paper es la fuente de verdad de la personalidad del agente.
         """
         paper_path = Path("agents/papers") / f"{self.id}_paper.json"
-        
+
         if not paper_path.exists():
             logger.warning(f"⚠️ Paper no encontrado para {self.id} en {paper_path}")
             return ""
-        
+
         try:
             with open(paper_path, "r", encoding="utf-8") as f:
                 self.paper = json.load(f)
-            
+
             # Construir system_prompt desde el paper
             identidad = self.paper.get("identidad", "")
             reglas = self.paper.get("reglas_clave", [])
             lecciones = self.paper.get("lecciones_aprendidas", [])
             errores = self.paper.get("errores_a_evitar", [])
             estilo = self.paper.get("estilo_respuesta", "Técnico, directo")
-            
+
             prompt_parts = []
-            
+
             if identidad:
                 prompt_parts.append(identidad)
-            
+
             if reglas:
                 prompt_parts.append("\n📋 MIS REGLAS CLAVE:")
                 for r in reglas[:5]:
                     prompt_parts.append(f"  - {r}")
-            
+
             if lecciones:
                 prompt_parts.append("\n💡 LECCIONES APRENDIDAS:")
                 for l in lecciones[:3]:
                     prompt_parts.append(f"  - {l}")
-            
+
             if errores:
                 prompt_parts.append("\n❌ ERRORES A EVITAR:")
                 for e in errores[:3]:
                     prompt_parts.append(f"  - {e}")
-            
+
             if estilo:
                 prompt_parts.append(f"\n🎯 ESTILO DE RESPUESTA: {estilo}")
-            
-            prompt_parts.append("\n⚠️ IMPORTANTE: Esta identidad es MUTABLE. Aprendo de mis experiencias. Si el contexto actual contradice alguna de mis reglas, priman los datos actuales.")
-            
+
+            prompt_parts.append(
+                "\n⚠️ IMPORTANTE: Esta identidad es MUTABLE. Aprendo de mis experiencias. Si el contexto actual contradice alguna de mis reglas, priman los datos actuales."
+            )
+
             result = "\n".join(prompt_parts)
             logger.info(f"✅ {self.id}: Identidad cargada desde paper ({len(result)} caracteres)")
             return result
-            
+
         except Exception as e:
             logger.error(f"❌ Error cargando paper para {self.id}: {e}")
             return ""
@@ -116,6 +120,7 @@ class RuntimeJsonAgent(Agent):
         if self._memoria_vectorial is None:
             try:
                 from core.memoria_perpetua import MemoriaVectorial
+
                 self._memoria_vectorial = MemoriaVectorial(self.id)
             except ImportError as e:
                 logger.warning(f"No se pudo cargar memoria vectorial para {self.id}: {e}")
@@ -126,17 +131,17 @@ class RuntimeJsonAgent(Agent):
         """Carga las lecciones aprendidas del agente desde su memoria.json."""
         try:
             from core.memoria_perpetua import cargar_memoria
-            
+
             memoria = cargar_memoria(self.id)
             patrones = memoria.get("patrones_aprendidos", [])
             errores = memoria.get("errores_cometidos", [])
             aciertos = memoria.get("aciertos_historicos", [])
-            
+
             if not patrones and not errores and not aciertos:
                 return ""
-            
+
             texto = "\n[📚 MIS LECCIONES APRENDIDAS HASTA AHORA]\n"
-            
+
             if patrones:
                 texto += "\n✅ PATRONES QUE ME FUNCIONARON:\n"
                 for p in patrones[-5:]:
@@ -144,7 +149,7 @@ class RuntimeJsonAgent(Agent):
                         texto += f"   - {p.get('patron', p)[:200]}\n"
                     else:
                         texto += f"   - {p[:200]}\n"
-            
+
             if errores:
                 texto += "\n❌ ERRORES QUE NO DEBO REPETIR:\n"
                 for e in errores[-5:]:
@@ -152,7 +157,7 @@ class RuntimeJsonAgent(Agent):
                         texto += f"   - {e.get('error', e)[:200]}\n"
                     else:
                         texto += f"   - {e[:200]}\n"
-            
+
             if aciertos:
                 texto += "\n🏆 ACIERTOS HISTÓRICOS:\n"
                 for a in aciertos[-3:]:
@@ -160,15 +165,21 @@ class RuntimeJsonAgent(Agent):
                         texto += f"   - {a.get('acierto', a.get('descripcion', str(a)))[:200]}\n"
                     else:
                         texto += f"   - {a[:200]}\n"
-            
+
             texto += "\n⚠️ IMPORTANTE: Estas lecciones son el resultado de mi experiencia. Deben guiar mis respuestas, pero no son dogmas. Si el contexto actual las contradice, priman los datos actuales.\n"
             return texto
-            
+
         except Exception as e:
             logger.warning(f"Error cargando lecciones para {self.id}: {e}")
             return ""
 
-    def build_prompt(self, task: str, custom_system_prompt: str | None = None, sorteo_actual: int = None, lecciones_externas: list[dict] | None = None) -> str:
+    def build_prompt(
+        self,
+        task: str,
+        custom_system_prompt: str | None = None,
+        sorteo_actual: int = None,
+        lecciones_externas: list[dict] | None = None,
+    ) -> str:
         """
         Construye el prompt optimizado con:
         - System prompt del paper (identidad mutable)
@@ -179,19 +190,18 @@ class RuntimeJsonAgent(Agent):
         """
         # Si se pasa custom_system_prompt, usarlo (para casos especiales)
         active_system_prompt = custom_system_prompt if custom_system_prompt else self.system_prompt
-        
+
         # Memoria optimizada
         try:
             from core.memoria_perpetua import cargar_memoria_al_prompt
+
             memoria_texto = cargar_memoria_al_prompt(
-                self.id, 
-                consulta_actual=task,
-                sorteo_actual=sorteo_actual
+                self.id, consulta_actual=task, sorteo_actual=sorteo_actual
             )
         except Exception as e:
             logger.warning(f"Error cargando memoria para {self.id}: {e}")
             memoria_texto = "\n[Memoria temporalmente no disponible]\n"
-        
+
         # Lecciones aprendidas
         lecciones_texto = self._cargar_lecciones_aprendidas(sorteo_actual)
 
@@ -206,9 +216,7 @@ class RuntimeJsonAgent(Agent):
 
         # Instrucciones del JSON
         instructions_text = (
-            "\n" + "\n".join(f"- {item}" for item in self.instructions)
-            if self.instructions
-            else ""
+            "\n" + "\n".join(f"- {item}" for item in self.instructions) if self.instructions else ""
         )
 
         # Prompt final
@@ -226,10 +234,12 @@ class RuntimeJsonAgent(Agent):
             f"🎯 TAREA ACTUAL:\n{task}"
         )
 
-    def buscar_en_memoria(self, consulta: str, top_k: int = 5, sorteo_actual: int = None) -> list[dict]:
+    def buscar_en_memoria(
+        self, consulta: str, top_k: int = 5, sorteo_actual: int = None
+    ) -> list[dict]:
         """Busca fragmentos relevantes en la memoria vectorial del agente."""
         mv = self._get_memoria_vectorial()
-        if mv and hasattr(mv, 'buscar'):
+        if mv and hasattr(mv, "buscar"):
             try:
                 resultados = mv.buscar(consulta, top_k=top_k)
                 if sorteo_actual and resultados:
@@ -261,7 +271,12 @@ class RuntimeJsonAgent(Agent):
             if "lecciones_externas" in context:
                 lecciones_externas = context.get("lecciones_externas")
 
-        prompt = self.build_prompt(task, custom_system_prompt=system_prompt, sorteo_actual=sorteo_actual, lecciones_externas=lecciones_externas)
+        prompt = self.build_prompt(
+            task,
+            custom_system_prompt=system_prompt,
+            sorteo_actual=sorteo_actual,
+            lecciones_externas=lecciones_externas,
+        )
 
         if not self.llm_provider:
             raise RuntimeError(
@@ -292,29 +307,29 @@ class RuntimeJsonAgent(Agent):
         try:
             from core.memoria_perpetua import cargar_memoria, guardar_memoria
             import datetime
-            
+
             memoria = cargar_memoria(self.id)
-            
+
             if "historial" not in memoria:
                 memoria["historial"] = []
-            
+
             registro = {
                 "timestamp": datetime.datetime.now().isoformat(),
                 "task": task[:200],
                 "respuesta": output_text[:500],
                 "longitud_respuesta": len(output_text),
-                "prompt_len": len(prompt)
+                "prompt_len": len(prompt),
             }
             if sorteo_actual:
                 registro["sorteo"] = sorteo_actual
-            
+
             memoria["historial"].append(registro)
-            
+
             if len(memoria["historial"]) > 50:
                 memoria["historial"] = memoria["historial"][-50:]
-            
+
             guardar_memoria(self.id, memoria)
-            
+
         except Exception as e:
             logger.warning(f"Error guardando historial para {self.id}: {e}")
 

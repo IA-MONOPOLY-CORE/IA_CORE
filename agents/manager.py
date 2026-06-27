@@ -31,11 +31,10 @@ class AgentManager(BaseManager):
         modules_dir: str | Path | None = None,
         providers: ProviderRegistry | None = None,
     ) -> None:
-
         self._memory = memory
         self._tools = tools
         self._providers = providers or ProviderRegistry()
-        
+
         # Directorio donde están los JSON de agentes
         self._config_dir = Path(config.AGENTS_CONFIG_DIR)
         # Directorio de módulos Python (puede estar vacío)
@@ -91,7 +90,7 @@ class AgentManager(BaseManager):
     def start(self) -> None:
         # Primero cargar módulos Python (para que existan los agentes base)
         loaded = self.load_modules()
-        
+
         # Luego cargar agentes JSON (sobrescriben/agregan)
         json_loaded = 0
         if self._config_dir.exists():
@@ -102,7 +101,7 @@ class AgentManager(BaseManager):
                     with open(json_file, "r", encoding="utf-8-sig") as f:
                         data = json.load(f)
                     agent_id = data.get("id") or data.get("agent_id") or json_file.stem
-                    
+
                     # Cargar el agente JSON (esto lo agrega a self._agents)
                     agent = self._construir_agente_desde_json(agent_id, json_file, data)
                     if agent:
@@ -112,8 +111,10 @@ class AgentManager(BaseManager):
                 except (OSError, json.JSONDecodeError) as e:
                     logger.error(f"Error precargando {json_file.name}: {e}", exc_info=True)
                 except Exception as e:
-                    logger.error(f"Unexpected error precargando {json_file.name}: {e}", exc_info=True)
-        
+                    logger.error(
+                        f"Unexpected error precargando {json_file.name}: {e}", exc_info=True
+                    )
+
         self._running = True
         logger.info(
             "AgentManager listo (%d agente(s) base cargados desde módulos Python + %d desde JSON)",
@@ -122,7 +123,9 @@ class AgentManager(BaseManager):
         )
         logger.info("Directorio de configuraciones JSON: %s", self._config_dir)
 
-    def _construir_agente_desde_json(self, agent_id: str, json_path: Path, data: dict) -> Agent | None:
+    def _construir_agente_desde_json(
+        self, agent_id: str, json_path: Path, data: dict
+    ) -> Agent | None:
         """Construye un agente RuntimeJsonAgent desde datos JSON y lo registra."""
         try:
             from agents.runtime_json_agent import RuntimeJsonAgent
@@ -260,11 +263,7 @@ class AgentManager(BaseManager):
         if agent.id in self._agents:
             raise ValueError(f"Agente duplicado: {agent.id}")
 
-        resolved = (
-            provider_name
-            or agent.provider
-            or config.AGENT_PROVIDERS.get(agent.id)
-        )
+        resolved = provider_name or agent.provider or config.AGENT_PROVIDERS.get(agent.id)
 
         if resolved and agent.llm_provider is None:
             agent.llm_provider = self._providers.get(resolved)

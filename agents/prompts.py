@@ -11,7 +11,7 @@ from domains.loteria.prompts_loteria import (
     _analyst_prompt,
     _analyst_reformulate_prompt,
     _critic_prompt,
-    _optimizer_prompt
+    _optimizer_prompt,
 )
 
 
