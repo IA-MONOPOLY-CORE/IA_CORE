@@ -7,8 +7,9 @@ def get_loteria_contradiction_patterns() -> list[tuple[tuple[str, ...], tuple[st
     Estos patrones detectan conflictos entre estrategias de zonas (CAZADOR/ESPEJO/PUENTE).
     """
     return [
-        (("cazador", "números bajos", "0-15", "zona baja"), 
-         ("espejo", "números altos", "31-45", "zona alta")),
-        (("puente", "zona media", "16-30"), 
-         ("cazador", "espejo", "extremos")),
+        (
+            ("cazador", "números bajos", "0-15", "zona baja"),
+            ("espejo", "números altos", "31-45", "zona alta"),
+        ),
+        (("puente", "zona media", "16-30"), ("cazador", "espejo", "extremos")),
     ]

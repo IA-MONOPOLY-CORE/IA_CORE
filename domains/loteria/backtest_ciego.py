@@ -31,7 +31,7 @@ def extraer_numeros_de_texto(texto: str):
     """Extrae 6 números (0-45) del texto de un agente."""
     if not texto:
         return []
-    numeros = list(map(int, re.findall(r'\b([0-4]?[0-9]|45)\b', texto)))
+    numeros = list(map(int, re.findall(r"\b([0-4]?[0-9]|45)\b", texto)))
     return list(dict.fromkeys(numeros))[:6]
 
 
@@ -62,14 +62,16 @@ def extraer_resultados_reales(sorteo_data):
         "Tradicional": {"numeros": resultados.get("Tradicional", {}).get("numeros", [])},
         "Desquite": {"numeros": resultados.get("Desquite", {}).get("numeros", [])},
         "Sale o Sale": {"numeros": resultados.get("Sale o Sale", {}).get("numeros", [])},
-        "Plus": int(resultados.get("Plus", {}).get("numero", sorteo_data.get("numero_plus", 0)))
+        "Plus": int(resultados.get("Plus", {}).get("numero", sorteo_data.get("numero_plus", 0))),
     }
 
 
 def extraer_jugada_mejor_agente(resultado, mejor_agente_nombre):
     for step in resultado.steps:
         if step.agent_name == mejor_agente_nombre and step.success:
-            texto = step.result.get("output", "") if isinstance(step.result, dict) else str(step.result)
+            texto = (
+                step.result.get("output", "") if isinstance(step.result, dict) else str(step.result)
+            )
             return extraer_numeros_de_texto(texto)
     return []
 
@@ -94,9 +96,9 @@ async def ejecutar_backtest_ciego():
 
     for idx, sorteo_data in enumerate(sorteos_reales):
         sorteo_num = sorteo_data.get("sorteo")
-        print(f"\n{'='*70}")
-        print(f"📅 PROCESANDO SORTEO {sorteo_num} ({idx+1}/{len(sorteos_reales)})")
-        print(f"{'='*70}")
+        print(f"\n{'=' * 70}")
+        print(f"📅 PROCESANDO SORTEO {sorteo_num} ({idx + 1}/{len(sorteos_reales)})")
+        print(f"{'=' * 70}")
 
         fase = evolution.get_fase(sorteo_num)
         print(f"   Fase: {fase}")
@@ -116,10 +118,16 @@ Generá tu análisis y tu combinación de 6 números en formato técnico directo
         resultado = await supervisor.orchestrate_async(task=task, mode=ExecutionMode.DEBATE)
         duration = time.time() - start_time
 
-        mejor_agente = resultado.scores_summary.get('best_agent', 'N/A') if hasattr(resultado, 'scores_summary') else 'N/A'
+        mejor_agente = (
+            resultado.scores_summary.get("best_agent", "N/A")
+            if hasattr(resultado, "scores_summary")
+            else "N/A"
+        )
         jugada_agente = extraer_jugada_mejor_agente(resultado, mejor_agente)
 
-        max_aciertos, mejor_modalidad, es_4, es_5, es_6 = calcular_mejores_aciertos(jugada_agente, resultados_reales)
+        max_aciertos, mejor_modalidad, es_4, es_5, es_6 = calcular_mejores_aciertos(
+            jugada_agente, resultados_reales
+        )
 
         if es_4:
             total_4 += 1
@@ -128,21 +136,25 @@ Generá tu análisis y tu combinación de 6 números en formato técnico directo
         if es_6:
             total_6 += 1
 
-        resultados_por_sorteo.append({
-            "sorteo": sorteo_num,
-            "mejor_agente": mejor_agente,
-            "jugada": jugada_agente,
-            "max_aciertos": max_aciertos,
-            "mejor_modalidad": mejor_modalidad,
-            "es_4": es_4,
-            "es_5": es_5,
-            "es_6": es_6
-        })
+        resultados_por_sorteo.append(
+            {
+                "sorteo": sorteo_num,
+                "mejor_agente": mejor_agente,
+                "jugada": jugada_agente,
+                "max_aciertos": max_aciertos,
+                "mejor_modalidad": mejor_modalidad,
+                "es_4": es_4,
+                "es_5": es_5,
+                "es_6": es_6,
+            }
+        )
 
         print(f"\n   🤖 Mejor agente: {mejor_agente}")
         print(f"   🎯 Jugada evaluada: {jugada_agente}")
         print(f"   🏆 Máximos aciertos en una modalidad: {max_aciertos} ({mejor_modalidad})")
-        print(f"   ✅ ¿4+ aciertos? {'SÍ' if es_4 else 'NO'} | ¿5+ aciertos? {'SÍ' if es_5 else 'NO'} | ¿6 aciertos? {'SÍ 🎉' if es_6 else 'NO'}")
+        print(
+            f"   ✅ ¿4+ aciertos? {'SÍ' if es_4 else 'NO'} | ¿5+ aciertos? {'SÍ' if es_5 else 'NO'} | ¿6 aciertos? {'SÍ 🎉' if es_6 else 'NO'}"
+        )
         print(f"   ⏱️  Duración: {duration:.2f}s")
 
         evolution.registrar_juego(
@@ -151,7 +163,7 @@ Generá tu análisis y tu combinación de 6 números en formato técnico directo
             prediccion_optimizer=[],
             consenso_final=[],
             uscore_predicho=0,
-            resultado_real={"aciertos": max_aciertos}
+            resultado_real={"aciertos": max_aciertos},
         )
 
         await asyncio.sleep(1)
@@ -168,10 +180,13 @@ Generá tu análisis y tu combinación de 6 números en formato técnico directo
         print("\n   🎯 Desglose de sorteos con 5+ aciertos:")
         for r in resultados_por_sorteo:
             if r["es_5"] or r["es_6"]:
-                print(f"      - Sorteo {r['sorteo']}: {r['max_aciertos']} aciertos ({r['mejor_modalidad']}) - {r['mejor_agente']}")
+                print(
+                    f"      - Sorteo {r['sorteo']}: {r['max_aciertos']} aciertos ({r['mejor_modalidad']}) - {r['mejor_agente']}"
+                )
 
     supervisor.stop()
     print("\n🏁 Backtesting finalizado.")
+
 
 if __name__ == "__main__":
     asyncio.run(ejecutar_backtest_ciego())

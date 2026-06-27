@@ -16,20 +16,14 @@ def score_response(
     result: Dict[str, Any],
     success: bool,
     duration_ms: float,
-    combinacion: Optional[List[int]] = None
+    combinacion: Optional[List[int]] = None,
 ) -> ResponseScore:
     """Scores a response generically."""
     # Simple scoring for demo
     if success:
-        return ResponseScore(
-            total=75.0,
-            detalles={"exito": 75.0}
-        )
+        return ResponseScore(total=75.0, detalles={"exito": 75.0})
     else:
-        return ResponseScore(
-            total=0.0,
-            detalles={"error": 0.0}
-        )
+        return ResponseScore(total=0.0, detalles={"error": 0.0})
 
 
 def build_scores_summary(steps: List[Any]) -> str:

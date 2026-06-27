@@ -7,7 +7,7 @@ DEBATE_AGENTS: list[str] = [
     "viejo_lobo_rey",
     "estadistico_integral",
     "viejo_deepseek",
-    "nuevo_deepseek_saaop"
+    "nuevo_deepseek_saaop",
 ]
 
 # Tarea por defecto para debates
@@ -31,12 +31,12 @@ LIVE_TEST_END: int = 3885
 
 # Mapeo de roles genéricos a IDs de agentes específicos de S.A.A.O.P.
 BUNKER_EXPERT_MAPPING = {
-    "critic": "gpt_auditor",                 # 1. CRITIC - destruye primero
-    "analyst_zones": "gemini_cuantico",      # 2. ANALYST_ZONAS - densidad energética
-    "analyst_human": "viejo_lobo_rey",       # 3. ANALYST_HUMAN - cirugía de ruptura
-    "analyst": "estadistico_integral",       # 4. ANALYST_V19 - defiende e integra
-    "optimizer": "viejo_deepseek",           # 5. OPTIMIZER - árbitro final
-    "orchestrator": "nuevo_deepseek_saaop"   # 6. ORCHESTRATOR - cierre metodológico
+    "critic": "gpt_auditor",  # 1. CRITIC - destruye primero
+    "analyst_zones": "gemini_cuantico",  # 2. ANALYST_ZONAS - densidad energética
+    "analyst_human": "viejo_lobo_rey",  # 3. ANALYST_HUMAN - cirugía de ruptura
+    "analyst": "estadistico_integral",  # 4. ANALYST_V19 - defiende e integra
+    "optimizer": "viejo_deepseek",  # 5. OPTIMIZER - árbitro final
+    "orchestrator": "nuevo_deepseek_saaop",  # 6. ORCHESTRATOR - cierre metodológico
 }
 
 # Alias para compatibilidad con api.py
@@ -44,12 +44,12 @@ VALIDATION_AGENTS = DEBATE_AGENTS
 
 # Pipeline de debate específico de S.A.A.O.P. (6 agentes)
 DEBATE_PIPELINE_6_AGENTS: list[tuple[str, str]] = [
-    ("critic", "initial"),           # 1. GPT Auditor
-    ("analyst_zones", "initial"),    # 2. Gemini Cuántico
-    ("analyst_human", "initial"),    # 3. Viejo Lobo
-    ("analyst", "initial"),          # 4. Estadístico Integral
-    ("optimizer", "refine"),         # 5. Viejo DeepSeek
-    ("orchestrator", "close"),       # 6. Nuevo DeepSeek - cierra el debate
+    ("critic", "initial"),  # 1. GPT Auditor
+    ("analyst_zones", "initial"),  # 2. Gemini Cuántico
+    ("analyst_human", "initial"),  # 3. Viejo Lobo
+    ("analyst", "initial"),  # 4. Estadístico Integral
+    ("optimizer", "refine"),  # 5. Viejo DeepSeek
+    ("orchestrator", "close"),  # 6. Nuevo DeepSeek - cierra el debate
 ]
 
 # ============================================================
@@ -89,5 +89,5 @@ U_SCORE_WEIGHTS: dict[str, float] = {
     "pz": PZ_WEIGHT,
     "dsi": DSI_WEIGHT,
     "cd": CD_WEIGHT,
-    "sd": SD_WEIGHT
+    "sd": SD_WEIGHT,
 }

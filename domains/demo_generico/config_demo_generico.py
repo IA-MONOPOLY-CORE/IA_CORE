@@ -5,7 +5,7 @@ DEBATE_AGENTS: list[str] = [
     "generic_critic",
     "generic_analyst",
     "generic_optimizer",
-    "generic_orchestrator"
+    "generic_orchestrator",
 ]
 
 # Tarea por defecto para debates
@@ -20,7 +20,7 @@ GENERIC_EXPERT_MAPPING = {
     "critic": "generic_critic",
     "analyst": "generic_analyst",
     "optimizer": "generic_optimizer",
-    "orchestrator": "generic_orchestrator"
+    "orchestrator": "generic_orchestrator",
 }
 
 # Pipeline de debate específico de Demo Genérico (4 agentes)
@@ -28,5 +28,5 @@ DEBATE_PIPELINE_4_AGENTS: list[tuple[str, str]] = [
     ("critic", "initial"),
     ("analyst", "initial"),
     ("optimizer", "refine"),
-    ("orchestrator", "close")
+    ("orchestrator", "close"),
 ]

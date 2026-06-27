@@ -17,12 +17,12 @@ logger = logging.getLogger(__name__)
 # ============================================================
 # LÍMITES DEL SISTEMA POR FASE (ESPECÍFICO DE LOTERÍA)
 # ============================================================
-TRAINING_END = 3799           # Último sorteo de entrenamiento (2022-2024)
-BLIND_TEST_START = 3800       # Comienza validación ciega
-BLIND_TEST_END = 3850         # Termina validación ciega (51 sorteos)
-LIVE_TEST_START = 3851        # Comienza predicción en vivo
-LIVE_TEST_END = 3885          # Último sorteo con resultado conocido pero oculto
-REAL_OPERATION_START = 3886   # Sorteos futuros reales
+TRAINING_END = 3799  # Último sorteo de entrenamiento (2022-2024)
+BLIND_TEST_START = 3800  # Comienza validación ciega
+BLIND_TEST_END = 3850  # Termina validación ciega (51 sorteos)
+LIVE_TEST_START = 3851  # Comienza predicción en vivo
+LIVE_TEST_END = 3885  # Último sorteo con resultado conocido pero oculto
+REAL_OPERATION_START = 3886  # Sorteos futuros reales
 
 
 class EvolutionManagerLoteria(EvolutionManagerBase):
@@ -45,7 +45,7 @@ class EvolutionManagerLoteria(EvolutionManagerBase):
     def get_fase(self, sorteo: int) -> str:
         """
         Determina la fase del sistema según el número de sorteo.
-        
+
         Retorna:
         - "entrenamiento": 2022-2024, los agentes ven todo
         - "validacion_ciega": 3800-3850, predicen sin ver resultado
@@ -64,21 +64,21 @@ class EvolutionManagerLoteria(EvolutionManagerBase):
     def get_resultados_visibles_hasta(self, sorteo_actual: int) -> int:
         """
         Retorna el número de sorteo HASTA el cual el sistema puede ver resultados.
-        
+
         Reglas:
         - En entrenamiento (<=3799): ve todo hasta 3799
         - En test ciego (3800-3850): ve solo sorteos ANTERIORES al actual
         - En predicción en vivo (3851-3885): ve solo hasta 3850
         - En operacional real (3886+): ve todo el histórico hasta 3885
-        
+
         Args:
             sorteo_actual: El sorteo que se está procesando actualmente
-            
+
         Returns:
             Número de sorteo hasta el cual se pueden ver resultados
         """
         fase = self.get_fase(sorteo_actual)
-        
+
         if fase == "entrenamiento":
             return TRAINING_END
         elif fase == "validacion_ciega":
@@ -117,29 +117,38 @@ class EvolutionManagerLoteria(EvolutionManagerBase):
     def _get_default_evolution(self) -> dict:
         """Retorna la estructura por defecto para evolucion_lotoplus"""
         base = super()._get_default_evolution()
-        base["ciclo_actual"].update({
-            "sorteo_inicio": 3800,
-            "sorteo_actual": 3800,
-            "ultimos_50_juegos": [],
-            "metricas_acumuladas": {
-                "total_aciertos_4": 0,
-                "total_aciertos_5": 0,
-                "total_aciertos_6": 0,
-                "delta_promedio_vs_random": 0,
-                "ventaja_actual": 0
+        base["ciclo_actual"].update(
+            {
+                "sorteo_inicio": 3800,
+                "sorteo_actual": 3800,
+                "ultimos_50_juegos": [],
+                "metricas_acumuladas": {
+                    "total_aciertos_4": 0,
+                    "total_aciertos_5": 0,
+                    "total_aciertos_6": 0,
+                    "delta_promedio_vs_random": 0,
+                    "ventaja_actual": 0,
+                },
             }
-        })
+        )
         base["parametros_evolutivos"] = {
             "pesos_zonales": {
-                "Z1": 0.9, "Z2": 0.2, "Z3": 0.2, "Z4": 0.3,
-                "Z5": 0.5, "Z6": 0.6, "Z7": 0.7, "Z8": 0.8, "Z9": 0.9
+                "Z1": 0.9,
+                "Z2": 0.2,
+                "Z3": 0.2,
+                "Z4": 0.3,
+                "Z5": 0.5,
+                "Z6": 0.6,
+                "Z7": 0.7,
+                "Z8": 0.8,
+                "Z9": 0.9,
             },
             "exposicion_actual": 80,
             "umbral_uscore": 66,
             "umbral_ver": 0.3,
             "filtros_activos": [],
             "patrones_validados": [],
-            "patrones_descartados": []
+            "patrones_descartados": [],
         }
         base["historial_agentes"] = {
             "estadistico_integral": {
@@ -148,7 +157,7 @@ class EvolutionManagerLoteria(EvolutionManagerBase):
                 "precision_ultimos_10": 0,
                 "patrones_aprendidos": [],
                 "errores_cometidos": [],
-                "aciertos_historicos": []
+                "aciertos_historicos": [],
             },
             "gpt_auditor": {
                 "detectados_correctos": [],
@@ -156,7 +165,7 @@ class EvolutionManagerLoteria(EvolutionManagerBase):
                 "precision_auditor": 0,
                 "patrones_aprendidos": [],
                 "errores_cometidos": [],
-                "aciertos_historicos": []
+                "aciertos_historicos": [],
             },
             "viejo_deepseek": {
                 "recomendaciones_acertadas": [],
@@ -164,8 +173,8 @@ class EvolutionManagerLoteria(EvolutionManagerBase):
                 "factor_mejora": 0,
                 "patrones_aprendidos": [],
                 "errores_cometidos": [],
-                "aciertos_historicos": []
-            }
+                "aciertos_historicos": [],
+            },
         }
         return base
 
@@ -173,52 +182,17 @@ class EvolutionManagerLoteria(EvolutionManagerBase):
         """Retorna la estructura para el ranking de herramientas específicas de lotería"""
         return {
             "herramientas": {
-                "uScore": {
-                    "aciertos": 0,
-                    "fallos": 0,
-                    "precision": 0,
-                    "historial": []
-                },
-                "VER": {
-                    "aciertos": 0,
-                    "fallos": 0,
-                    "precision": 0,
-                    "historial": []
-                },
-                "CAZADOR": {
-                    "aciertos": 0,
-                    "fallos": 0,
-                    "precision": 0,
-                    "historial": []
-                },
-                "ESPEJO": {
-                    "aciertos": 0,
-                    "fallos": 0,
-                    "precision": 0,
-                    "historial": []
-                },
-                "PUENTE": {
-                    "aciertos": 0,
-                    "fallos": 0,
-                    "precision": 0,
-                    "historial": []
-                },
-                "ECLIPSE": {
-                    "aciertos": 0,
-                    "fallos": 0,
-                    "precision": 0,
-                    "historial": []
-                },
-                "co_ocurrencias": {
-                    "aciertos": 0,
-                    "fallos": 0,
-                    "precision": 0,
-                    "historial": []
-                }
+                "uScore": {"aciertos": 0, "fallos": 0, "precision": 0, "historial": []},
+                "VER": {"aciertos": 0, "fallos": 0, "precision": 0, "historial": []},
+                "CAZADOR": {"aciertos": 0, "fallos": 0, "precision": 0, "historial": []},
+                "ESPEJO": {"aciertos": 0, "fallos": 0, "precision": 0, "historial": []},
+                "PUENTE": {"aciertos": 0, "fallos": 0, "precision": 0, "historial": []},
+                "ECLIPSE": {"aciertos": 0, "fallos": 0, "precision": 0, "historial": []},
+                "co_ocurrencias": {"aciertos": 0, "fallos": 0, "precision": 0, "historial": []},
             },
             "hipotesis_eliminadas": [],
             "hipotesis_supervivientes": [],
-            "ultima_actualizacion": None
+            "ultima_actualizacion": None,
         }
 
     def get_contexto_para_prompt(self, role: str = "analyst", sorteo_actual: int = None) -> dict:
@@ -227,68 +201,86 @@ class EvolutionManagerLoteria(EvolutionManagerBase):
         Extiende el método base con contexto específico de lotería.
         """
         contexto = super().get_contexto_para_prompt(role, sorteo_actual)
-        
+
         ciclo = self._state[self.state_key]["ciclo_actual"]
         params = self._state[self.state_key]["parametros_evolutivos"]
-        
+
         # Sobrescribir con campos específicos de lotería
         contexto["sorteo_actual"] = contexto.pop("evento_actual")
         contexto["sorteos_completados"] = contexto.pop("eventos_completados")
         contexto["ultimos_50_resumen"] = contexto.pop("ultimos_n_resumen")
-        
+
         # Agregar métricas específicas de lotería
-        contexto.update({
-            "pesos_zonales_actuales": params["pesos_zonales"],
-            "exposicion_actual": params["exposicion_actual"],
-            "umbral_uscore": params["umbral_uscore"],
-            "umbral_ver": params["umbral_ver"],
-            "filtros_activos": params["filtros_activos"],
-            "patrones_validados": params["patrones_validados"],
-            "patrones_descartados": params["patrones_descartados"],
-            "total_aciertos_4": ciclo["metricas_acumuladas"]["total_aciertos_4"],
-            "total_aciertos_5": ciclo["metricas_acumuladas"]["total_aciertos_5"],
-            "total_aciertos_6": ciclo["metricas_acumuladas"]["total_aciertos_6"],
-            "delta_promedio_vs_random": ciclo["metricas_acumuladas"]["delta_promedio_vs_random"]
-        })
-        
+        contexto.update(
+            {
+                "pesos_zonales_actuales": params["pesos_zonales"],
+                "exposicion_actual": params["exposicion_actual"],
+                "umbral_uscore": params["umbral_uscore"],
+                "umbral_ver": params["umbral_ver"],
+                "filtros_activos": params["filtros_activos"],
+                "patrones_validados": params["patrones_validados"],
+                "patrones_descartados": params["patrones_descartados"],
+                "total_aciertos_4": ciclo["metricas_acumuladas"]["total_aciertos_4"],
+                "total_aciertos_5": ciclo["metricas_acumuladas"]["total_aciertos_5"],
+                "total_aciertos_6": ciclo["metricas_acumuladas"]["total_aciertos_6"],
+                "delta_promedio_vs_random": ciclo["metricas_acumuladas"][
+                    "delta_promedio_vs_random"
+                ],
+            }
+        )
+
         return contexto
 
     def _get_contexto_por_rol(self, role: str, historial: dict) -> dict:
         """Retorna contexto específico por rol para lotería"""
         if role == "analyst":
             return {
-                "mis_aciertos": historial.get("estadistico_integral", {}).get("aciertos_4+", [])[-10:],
+                "mis_aciertos": historial.get("estadistico_integral", {}).get("aciertos_4+", [])[
+                    -10:
+                ],
                 "mis_fallos": historial.get("estadistico_integral", {}).get("fallos_0-2", [])[-10:],
-                "mi_precision": historial.get("estadistico_integral", {}).get("precision_ultimos_10", 0)
+                "mi_precision": historial.get("estadistico_integral", {}).get(
+                    "precision_ultimos_10", 0
+                ),
             }
         elif role == "critic":
             return {
-                "detectados_correctos": historial.get("gpt_auditor", {}).get("detectados_correctos", [])[-10:],
-                "falsos_positivos": historial.get("gpt_auditor", {}).get("falsos_positivos", [])[-10:],
-                "precision_auditor": historial.get("gpt_auditor", {}).get("precision_auditor", 0)
+                "detectados_correctos": historial.get("gpt_auditor", {}).get(
+                    "detectados_correctos", []
+                )[-10:],
+                "falsos_positivos": historial.get("gpt_auditor", {}).get("falsos_positivos", [])[
+                    -10:
+                ],
+                "precision_auditor": historial.get("gpt_auditor", {}).get("precision_auditor", 0),
             }
         elif role == "optimizer":
             return {
-                "mis_aciertos_opt": historial.get("viejo_deepseek", {}).get("recomendaciones_acertadas", [])[-10:],
-                "mis_fallos_opt": historial.get("viejo_deepseek", {}).get("recomendaciones_fallidas", [])[-10:],
-                "mi_factor_mejora": historial.get("viejo_deepseek", {}).get("factor_mejora", 0)
+                "mis_aciertos_opt": historial.get("viejo_deepseek", {}).get(
+                    "recomendaciones_acertadas", []
+                )[-10:],
+                "mis_fallos_opt": historial.get("viejo_deepseek", {}).get(
+                    "recomendaciones_fallidas", []
+                )[-10:],
+                "mi_factor_mejora": historial.get("viejo_deepseek", {}).get("factor_mejora", 0),
             }
         return {}
 
-    def registrar_juego(self,
-                       sorteo: int,
-                       prediccion_analyst: List[int],
-                       prediccion_optimizer: List[int],
-                       consenso_final: List[int],
-                       uscore_predicho: float,
-                       resultado_real: Dict[str, Any],
-                       lecciones: str = ""):
+    def registrar_juego(
+        self,
+        sorteo: int,
+        prediccion_analyst: List[int],
+        prediccion_optimizer: List[int],
+        consenso_final: List[int],
+        uscore_predicho: float,
+        resultado_real: Dict[str, Any],
+        lecciones: str = "",
+    ):
         """
         Registra un juego completado y actualiza todas las métricas evolutivas.
         Sobrescribe el método base para lógica específica de lotería.
         """
         fase = self.get_fase(sorteo)
-        
+
         if fase == "entrenamiento":
             self._acumular_aprendizaje_entrenamiento(sorteo, resultado_real)
             return
@@ -309,7 +301,7 @@ class EvolutionManagerLoteria(EvolutionManagerBase):
             "resultado_real": resultado_real,
             "aciertos": aciertos,
             "lecciones_aprendidas": lecciones,
-            "timestamp": datetime.now().isoformat()
+            "timestamp": datetime.now().isoformat(),
         }
 
         # Actualizar ventana rodante de últimos 50
@@ -331,33 +323,40 @@ class EvolutionManagerLoteria(EvolutionManagerBase):
         if aciertos >= 4:
             historial["estadistico_integral"]["aciertos_4+"].append(sorteo)
             leccion = f"Sorteo {sorteo}: Predicción {prediccion_analyst} - {aciertos} aciertos"
-            historial["estadistico_integral"]["aciertos_historicos"].append({
-                "sorteo": sorteo,
-                "descripcion": leccion,
-                "fecha": datetime.now().isoformat()
-            })
+            historial["estadistico_integral"]["aciertos_historicos"].append(
+                {"sorteo": sorteo, "descripcion": leccion, "fecha": datetime.now().isoformat()}
+            )
         else:
             historial["estadistico_integral"]["fallos_0-2"].append(sorteo)
             if lecciones:
-                historial["estadistico_integral"]["errores_cometidos"].append({
-                    "sorteo": sorteo,
-                    "error": lecciones[:300],
-                    "fecha": datetime.now().isoformat()
-                })
+                historial["estadistico_integral"]["errores_cometidos"].append(
+                    {
+                        "sorteo": sorteo,
+                        "error": lecciones[:300],
+                        "fecha": datetime.now().isoformat(),
+                    }
+                )
 
         # Limitar históricos a 50 elementos
         for key in ["aciertos_historicos", "errores_cometidos", "patrones_aprendidos"]:
             if key in historial["estadistico_integral"]:
                 if len(historial["estadistico_integral"][key]) > 50:
-                    historial["estadistico_integral"][key] = historial["estadistico_integral"][key][-50:]
+                    historial["estadistico_integral"][key] = historial["estadistico_integral"][key][
+                        -50:
+                    ]
 
         # Calcular precisión últimos 10 del Estadístico
-        ultimos_10_ei = (historial["estadistico_integral"]["aciertos_4+"][-10:] +
-                         historial["estadistico_integral"]["fallos_0-2"][-10:])
+        ultimos_10_ei = (
+            historial["estadistico_integral"]["aciertos_4+"][-10:]
+            + historial["estadistico_integral"]["fallos_0-2"][-10:]
+        )
         if ultimos_10_ei:
-            aciertos_10 = sum(1 for s in ultimos_10_ei 
-                            if s in historial["estadistico_integral"]["aciertos_4+"])
-            historial["estadistico_integral"]["precision_ultimos_10"] = round(aciertos_10 / len(ultimos_10_ei) * 100, 2)
+            aciertos_10 = sum(
+                1 for s in ultimos_10_ei if s in historial["estadistico_integral"]["aciertos_4+"]
+            )
+            historial["estadistico_integral"]["precision_ultimos_10"] = round(
+                aciertos_10 / len(ultimos_10_ei) * 100, 2
+            )
 
         # Incrementar contadores del ciclo
         ciclo["sorteos_completados"] = ciclo.get("sorteos_completados", 0) + 1
@@ -366,7 +365,9 @@ class EvolutionManagerLoteria(EvolutionManagerBase):
 
         # Recalcular ventaja actual
         if ciclo["metricas_acumuladas"]["total_aciertos_4"] > 0:
-            porcentaje_real = (ciclo["metricas_acumuladas"]["total_aciertos_4"] / ciclo["sorteos_completados"]) * 100
+            porcentaje_real = (
+                ciclo["metricas_acumuladas"]["total_aciertos_4"] / ciclo["sorteos_completados"]
+            ) * 100
             ciclo["metricas_acumuladas"]["ventaja_actual"] = round(porcentaje_real / 22.1, 2)
 
         # Regeneración automática de papers
@@ -404,44 +405,42 @@ class EvolutionManagerLoteria(EvolutionManagerBase):
 
         self._save_state()
 
-    def registrar_auditoria(self, 
-                           acierto_auditor: bool,
-                           fue_falso_positivo: bool = False):
+    def registrar_auditoria(self, acierto_auditor: bool, fue_falso_positivo: bool = False):
         """
         Registra el desempeño del GPT Auditor.
         """
         historial = self._state[self.state_key]["historial_agentes"]["gpt_auditor"]
-        
+
         if acierto_auditor:
             historial["detectados_correctos"].append(self._get_current_sorteo())
         if fue_falso_positivo:
             historial["falsos_positivos"].append(self._get_current_sorteo())
-        
+
         total = len(historial["detectados_correctos"]) + len(historial["falsos_positivos"])
         if total > 0:
             historial["precision_auditor"] = round(
                 len(historial["detectados_correctos"]) / total * 100, 2
             )
-        
+
         self._save_state()
 
-    def registrar_optimizacion(self, 
-                              fue_acertada: bool,
-                              mejora_factor: float = 0):
+    def registrar_optimizacion(self, fue_acertada: bool, mejora_factor: float = 0):
         """
         Registra el desempeño del Viejo DeepSeek como optimizador.
         """
         historial = self._state[self.state_key]["historial_agentes"]["viejo_deepseek"]
-        
+
         if fue_acertada:
             historial["recomendaciones_acertadas"].append(self._get_current_sorteo())
         else:
             historial["recomendaciones_fallidas"].append(self._get_current_sorteo())
-        
+
         if mejora_factor > 0:
             old_factor = historial["factor_mejora"]
-            historial["factor_mejora"] = round((old_factor + mejora_factor) / 2, 2) if old_factor > 0 else mejora_factor
-        
+            historial["factor_mejora"] = (
+                round((old_factor + mejora_factor) / 2, 2) if old_factor > 0 else mejora_factor
+            )
+
         self._save_state()
 
     def _get_current_sorteo(self) -> int:
@@ -464,7 +463,7 @@ class EvolutionManagerLoteria(EvolutionManagerBase):
             "aciertos_5": ciclo["metricas_acumuladas"]["total_aciertos_5"],
             "aciertos_6": ciclo["metricas_acumuladas"]["total_aciertos_6"],
             "delta_promedio": ciclo["metricas_acumuladas"]["delta_promedio_vs_random"],
-            "ventaja_actual": ciclo["metricas_acumuladas"]["ventaja_actual"]
+            "ventaja_actual": ciclo["metricas_acumuladas"]["ventaja_actual"],
         }
 
     def reset_ciclo(self, nuevo_inicio: int = None):
@@ -473,7 +472,7 @@ class EvolutionManagerLoteria(EvolutionManagerBase):
         """
         nuevo_inicio = nuevo_inicio or self._get_current_sorteo()
         fase = self.get_fase(nuevo_inicio)
-        
+
         self._state[self.state_key]["ciclo_actual"] = {
             "sorteo_inicio": nuevo_inicio,
             "sorteo_actual": nuevo_inicio,
@@ -486,8 +485,8 @@ class EvolutionManagerLoteria(EvolutionManagerBase):
                 "total_aciertos_5": 0,
                 "total_aciertos_6": 0,
                 "delta_promedio_vs_random": 0,
-                "ventaja_actual": 0
-            }
+                "ventaja_actual": 0,
+            },
         }
         self._save_state()
 
@@ -506,10 +505,12 @@ class EvolutionManagerLoteria(EvolutionManagerBase):
         ultima_reg = self._state[self.state_key].get("ultima_regeneracion_papers", 0)
         frecuencia = self._state[self.state_key].get("frecuencia_regeneracion_papers", 10)
         ciclo = self._state[self.state_key]["ciclo_actual"]
-        
+
         if ciclo.get("sorteos_completados", 0) - ultima_reg >= frecuencia:
             self._regenerar_papers_mejor_agente(sorteo_actual)
-            self._state[self.state_key]["ultima_regeneracion_papers"] = ciclo.get("sorteos_completados", 0)
+            self._state[self.state_key]["ultima_regeneracion_papers"] = ciclo.get(
+                "sorteos_completados", 0
+            )
             self._save_state()
 
     def _regenerar_papers_mejor_agente(self, sorteo_actual: int):
@@ -518,30 +519,43 @@ class EvolutionManagerLoteria(EvolutionManagerBase):
         """
         try:
             from mejorar_papers import mejorar_paper
-            
+
             ultimos = self.get_ultimos_juegos(10)
             if not ultimos:
                 logger.info("No hay sorteos suficientes para regenerar papers")
                 return
-            
+
             historial = self._state[self.state_key].get("historial_agentes", {})
-            
+
             mejor_score = 0
             mejor_agente = None
-            
-            for agente_id in ["estadistico_integral", "gpt_auditor", "viejo_deepseek", "gemini_cuantico", "viejo_lobo_rey", "nuevo_deepseek_saaop"]:
+
+            for agente_id in [
+                "estadistico_integral",
+                "gpt_auditor",
+                "viejo_deepseek",
+                "gemini_cuantico",
+                "viejo_lobo_rey",
+                "nuevo_deepseek_saaop",
+            ]:
                 if agente_id in historial:
-                    aciertos_recientes = len(historial[agente_id].get("aciertos_4+", [])) if "aciertos_4+" in historial[agente_id] else 0
+                    aciertos_recientes = (
+                        len(historial[agente_id].get("aciertos_4+", []))
+                        if "aciertos_4+" in historial[agente_id]
+                        else 0
+                    )
                     if aciertos_recientes > mejor_score:
                         mejor_score = aciertos_recientes
                         mejor_agente = agente_id
-            
+
             if mejor_agente and mejor_score > 0:
-                logger.info(f"🔄 Regenerando paper para {mejor_agente} (aciertos recientes: {mejor_score})")
+                logger.info(
+                    f"🔄 Regenerando paper para {mejor_agente} (aciertos recientes: {mejor_score})"
+                )
                 mejorar_paper(mejor_agente, usar_llm=False)
             else:
                 logger.info("🔄 No hay ganador claro, regenerando paper del Estadístico Integral")
                 mejorar_paper("estadistico_integral", usar_llm=False)
-                    
+
         except Exception as e:
             logger.warning(f"Error en regeneración automática de papers: {e}")
