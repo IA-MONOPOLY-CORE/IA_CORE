@@ -19,7 +19,9 @@ class DeepSeekProvider(BaseProvider):
         return list(_MODELS)
 
     def health_check(self) -> HealthStatus:
-        return HealthStatus(healthy=False, message="DeepSeek API not configured (architecture only)")
+        return HealthStatus(
+            healthy=False, message="DeepSeek API not configured (architecture only)"
+        )
 
     def generate(self, prompt: str, model: str | None = None, **kwargs: Any) -> GenerateResponse:
         raise NotImplementedError("DeepSeek API not implemented yet")

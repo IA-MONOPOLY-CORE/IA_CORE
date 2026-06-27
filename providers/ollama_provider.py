@@ -45,9 +45,7 @@ class OllamaProvider(BaseProvider):
             self._timeout = config.OLLAMA_LIGHTWEIGHT_TIMEOUT
         else:
             self._timeout = config.OLLAMA_TIMEOUT
-        self._max_retries = (
-            max_retries if max_retries is not None else config.OLLAMA_MAX_RETRIES
-        )
+        self._max_retries = max_retries if max_retries is not None else config.OLLAMA_MAX_RETRIES
         self._cached_models: list[str] | None = None
 
     def provider_name(self) -> str:
@@ -59,9 +57,7 @@ class OllamaProvider(BaseProvider):
             payload = self._request("GET", "/api/tags")
             models = payload.get("models", [])
             names = [
-                str(item["name"])
-                for item in models
-                if isinstance(item, dict) and item.get("name")
+                str(item["name"]) for item in models if isinstance(item, dict) and item.get("name")
             ]
             self._cached_models = names
             logger.info("Ollama modelos disponibles: %s", names)
@@ -91,7 +87,9 @@ class OllamaProvider(BaseProvider):
     def _options_for_profile(self, profile: str | None) -> dict[str, Any]:
         if profile == "fast_chat":
             return {
-                "num_predict": getattr(config, "FAST_CHAT_MAX_TOKENS", config.OLLAMA_NUM_PREDICT_CHAT),
+                "num_predict": getattr(
+                    config, "FAST_CHAT_MAX_TOKENS", config.OLLAMA_NUM_PREDICT_CHAT
+                ),
                 "num_ctx": getattr(config, "OLLAMA_CHAT_NUM_CTX", 512),
                 "temperature": getattr(config, "FAST_CHAT_TEMPERATURE", 0.6),
                 "top_p": getattr(config, "FAST_CHAT_TOP_P", 0.9),
@@ -186,7 +184,9 @@ class OllamaProvider(BaseProvider):
         )
         started = time.perf_counter()
         if stream:
-            text = "".join(self.generate_chat_stream(system=system, user=user, model=selected, profile=profile))
+            text = "".join(
+                self.generate_chat_stream(system=system, user=user, model=selected, profile=profile)
+            )
         else:
             payload = self._request("POST", "/api/chat", body=body)
             text = str(payload.get("message", {}).get("content", ""))

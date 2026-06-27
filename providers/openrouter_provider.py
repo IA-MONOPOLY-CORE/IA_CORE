@@ -19,7 +19,9 @@ class OpenRouterProvider(BaseProvider):
         return list(_MODELS)
 
     def health_check(self) -> HealthStatus:
-        return HealthStatus(healthy=False, message="OpenRouter API not configured (architecture only)")
+        return HealthStatus(
+            healthy=False, message="OpenRouter API not configured (architecture only)"
+        )
 
     def generate(self, prompt: str, model: str | None = None, **kwargs: Any) -> GenerateResponse:
         raise NotImplementedError("OpenRouter API not implemented yet")

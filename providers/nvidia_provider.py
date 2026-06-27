@@ -30,25 +30,26 @@ class NvidiaProvider(BaseProvider):
 
     def __init__(self, api_key: str | None = None) -> None:
         self._api_key = api_key
-        
+
         # Intentar cargar desde config.py si no se pasó
         if not self._api_key:
             try:
                 import config
+
                 self._api_key = getattr(config, "NVIDIA_API_KEY", None)
                 if self._api_key:
                     logger.info("NVIDIA_API_KEY cargada desde config.py")
             except ImportError:
                 pass
-        
+
         # Intentar desde variable de entorno
         if not self._api_key:
             self._api_key = os.environ.get("NVIDIA_API_KEY", "")
             if self._api_key:
                 logger.info("NVIDIA_API_KEY cargada desde variable de entorno")
-        
+
         self._base_url = NVIDIA_BASE_URL
-        
+
         if self._api_key:
             logger.info(f"NVIDIA_API_KEY configurada (longitud: {len(self._api_key)} caracteres)")
         else:
@@ -98,9 +99,7 @@ class NvidiaProvider(BaseProvider):
 
         body = {
             "model": selected,
-            "messages": [
-                {"role": "user", "content": prompt}
-            ],
+            "messages": [{"role": "user", "content": prompt}],
             "temperature": temperature,
             "max_tokens": NVIDIA_MAX_TOKENS,
             "stream": False,
@@ -169,11 +168,7 @@ class NvidiaProvider(BaseProvider):
             ) from exc
 
         except requests.exceptions.ConnectionError as exc:
-            raise RuntimeError(
-                f"No se pudo conectar a NVIDIA NIM: {str(exc)}"
-            ) from exc
+            raise RuntimeError(f"No se pudo conectar a NVIDIA NIM: {str(exc)}") from exc
 
         except requests.exceptions.Timeout as exc:
-            raise RuntimeError(
-                f"Timeout ({NVIDIA_TIMEOUT}s) conectando a NVIDIA NIM"
-            ) from exc
+            raise RuntimeError(f"Timeout ({NVIDIA_TIMEOUT}s) conectando a NVIDIA NIM") from exc
