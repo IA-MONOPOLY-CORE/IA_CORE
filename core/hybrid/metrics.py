@@ -31,9 +31,7 @@ class HybridMetrics:
             "provider": getattr(decision, "provider", None),
             "model": getattr(decision, "model", None),
             "source": getattr(decision, "source", None),
-            "execution_mode": getattr(
-                getattr(decision, "execution_mode", None), "value", None
-            ),
+            "execution_mode": getattr(getattr(decision, "execution_mode", None), "value", None),
             "reason": getattr(decision, "reason", ""),
         }
         self.last_route_at = time.time()

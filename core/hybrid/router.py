@@ -71,11 +71,7 @@ class HybridRouter:
         if config.SAFE_MODE:
             return ExecutionMode.SAFE_MODE
         mode = ExecutionMode(config.DEFAULT_EXECUTION_MODE.lower())
-        state = (
-            self._connectivity.refresh_state()
-            if refresh
-            else self._connectivity.state
-        )
+        state = self._connectivity.refresh_state() if refresh else self._connectivity.state
 
         if state is ConnectivityState.OFFLINE:
             return ExecutionMode.OFFLINE
@@ -171,9 +167,7 @@ class HybridRouter:
     ) -> str:
         if provider == "ollama":
             if policy is ResourcePolicy.LIGHTWEIGHT or config.SAFE_MODE:
-                return LOCAL_MODEL_ALIASES.get(
-                    config.LIGHTWEIGHT_MODEL, config.LIGHTWEIGHT_MODEL
-                )
+                return LOCAL_MODEL_ALIASES.get(config.LIGHTWEIGHT_MODEL, config.LIGHTWEIGHT_MODEL)
             if request.task_type == "fast":
                 for key in ("phi3", "tinyllama"):
                     return LOCAL_MODEL_ALIASES.get(key, key)
@@ -269,9 +263,7 @@ class HybridRouter:
         """Estado completo (puede consultar conectividad)."""
         return self.get_ui_snapshot(full=True)
 
-    def _resolve_policy(
-        self, request: RouteRequest, mode: ExecutionMode
-    ) -> ResourcePolicy:
+    def _resolve_policy(self, request: RouteRequest, mode: ExecutionMode) -> ResourcePolicy:
         if config.SAFE_MODE or mode is ExecutionMode.SAFE_MODE:
             return ResourcePolicy.LIGHTWEIGHT
 
@@ -287,9 +279,7 @@ class HybridRouter:
             return ResourcePolicy.PERFORMANCE
         return policy
 
-    def _first_available(
-        self, names: list[str], *, local_only: bool
-    ) -> str | None:
+    def _first_available(self, names: list[str], *, local_only: bool) -> str | None:
         for name in names:
             if local_only and name != "ollama":
                 continue

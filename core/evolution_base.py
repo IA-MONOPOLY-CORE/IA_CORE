@@ -36,7 +36,7 @@ class EvolutionManagerBase(ABC):
         self.state_key = state_key
         self._state = None
         self._ultima_regeneracion = 0
-        
+
         if self.memory_path and self.memory_path.exists():
             self._load_state()
         else:
@@ -46,9 +46,9 @@ class EvolutionManagerBase(ABC):
 
     def _load_state(self):
         """Carga el estado desde el archivo JSON"""
-        with open(self.memory_path, 'r', encoding='utf-8') as f:
+        with open(self.memory_path, "r", encoding="utf-8") as f:
             self._state = json.load(f)
-        
+
         # Asegurar que existe la estructura evolutiva
         if self.state_key not in self._state:
             self._state[self.state_key] = self._get_default_evolution()
@@ -56,7 +56,7 @@ class EvolutionManagerBase(ABC):
         else:
             # Rellenar campos faltantes en la estructura evolutiva usando el valor por defecto
             default_evolution = self._get_default_evolution()
-            
+
             # Rellenar campos faltantes en ciclo_actual
             if "ciclo_actual" not in self._state[self.state_key]:
                 self._state[self.state_key]["ciclo_actual"] = default_evolution["ciclo_actual"]
@@ -65,11 +65,15 @@ class EvolutionManagerBase(ABC):
                     if key not in self._state[self.state_key]["ciclo_actual"]:
                         self._state[self.state_key]["ciclo_actual"][key] = value
                     # Si es un diccionario anidado (como metricas_acumuladas), también rellenar sus campos faltantes
-                    if isinstance(value, dict) and isinstance(self._state[self.state_key]["ciclo_actual"][key], dict):
+                    if isinstance(value, dict) and isinstance(
+                        self._state[self.state_key]["ciclo_actual"][key], dict
+                    ):
                         for sub_key, sub_value in value.items():
                             if sub_key not in self._state[self.state_key]["ciclo_actual"][key]:
-                                self._state[self.state_key]["ciclo_actual"][key][sub_key] = sub_value
-        
+                                self._state[self.state_key]["ciclo_actual"][key][sub_key] = (
+                                    sub_value
+                                )
+
         # Asegurar que existe la estructura de ranking de herramientas
         if "ranking_herramientas" not in self._state[self.state_key]:
             self._state[self.state_key]["ranking_herramientas"] = self._get_default_ranking()
@@ -79,13 +83,13 @@ class EvolutionManagerBase(ABC):
             for key, value in default_ranking.items():
                 if key not in self._state[self.state_key]["ranking_herramientas"]:
                     self._state[self.state_key]["ranking_herramientas"][key] = value
-        
+
         self._save_state()
 
     def _save_state(self):
         """Guarda el estado al archivo JSON"""
         if self.memory_path:
-            with open(self.memory_path, 'w', encoding='utf-8') as f:
+            with open(self.memory_path, "w", encoding="utf-8") as f:
                 json.dump(self._state, f, indent=2, ensure_ascii=False)
 
     def _get_default_evolution(self) -> dict:
@@ -105,13 +109,13 @@ class EvolutionManagerBase(ABC):
                     "total_aciertos": 0,
                     "total_fallos": 0,
                     "delta_promedio_vs_baseline": 0,
-                    "ventaja_actual": 0
-                }
+                    "ventaja_actual": 0,
+                },
             },
             "parametros_evolutivos": {},
             "historial_agentes": {},
             "ultima_regeneracion_papers": 0,
-            "frecuencia_regeneracion_papers": 10
+            "frecuencia_regeneracion_papers": 10,
         }
 
     def _get_default_ranking(self) -> dict:
@@ -123,7 +127,7 @@ class EvolutionManagerBase(ABC):
             "herramientas": {},
             "hipotesis_eliminadas": [],
             "hipotesis_supervivientes": [],
-            "ultima_actualizacion": None
+            "ultima_actualizacion": None,
         }
 
     @abstractmethod
@@ -156,7 +160,7 @@ class EvolutionManagerBase(ABC):
         ciclo = self._state[self.state_key]["ciclo_actual"]
         params = self._state[self.state_key].get("parametros_evolutivos", {})
         historial = self._state[self.state_key].get("historial_agentes", {})
-        
+
         if evento_actual is None:
             # Soporte para sorteo_actual (usado en lotería) si evento_actual no existe
             evento_actual = ciclo.get("evento_actual", ciclo.get("sorteo_actual", 0))
@@ -166,14 +170,18 @@ class EvolutionManagerBase(ABC):
         # Resumen de últimos N resultados (solo visibles) - soporte para ultimos_50_juegos
         ultimos_n = ciclo.get("ultimos_n_juegos", ciclo.get("ultimos_50_juegos", []))
         resultados_visibles_hasta = self.get_resultados_visibles_hasta(evento_actual)
-        
+
         # Filtrar juegos visibles (soporte para "sorteo" clave)
-        juegos_visibles = [j for j in ultimos_n if j.get("evento", j.get("sorteo", 0)) <= resultados_visibles_hasta]
-        
+        juegos_visibles = [
+            j for j in ultimos_n if j.get("evento", j.get("sorteo", 0)) <= resultados_visibles_hasta
+        ]
+
         resumen_n = {
             "total_eventos": len(juegos_visibles),
-            "aciertos": sum(1 for j in juegos_visibles if j.get("aciertos", 0) >= self._get_acierto_threshold()),
-            "delta_promedio": ciclo["metricas_acumuladas"].get("delta_promedio_vs_baseline", 0)
+            "aciertos": sum(
+                1 for j in juegos_visibles if j.get("aciertos", 0) >= self._get_acierto_threshold()
+            ),
+            "delta_promedio": ciclo["metricas_acumuladas"].get("delta_promedio_vs_baseline", 0),
         }
 
         # Instrucción de fase
@@ -182,7 +190,9 @@ class EvolutionManagerBase(ABC):
         # Contexto base común
         contexto_base = {
             "evento_actual": evento_actual,
-            "eventos_completados": ciclo.get("eventos_completados", ciclo.get("sorteos_completados", 0)),
+            "eventos_completados": ciclo.get(
+                "eventos_completados", ciclo.get("sorteos_completados", 0)
+            ),
             "objetivo_ciclo": ciclo.get("objetivo", 50),
             "fase_actual": fase,
             "instruccion_fase": instruccion_fase,
@@ -192,8 +202,10 @@ class EvolutionManagerBase(ABC):
             # Métricas del ciclo
             "total_aciertos": ciclo["metricas_acumuladas"].get("total_aciertos", 0),
             "total_fallos": ciclo["metricas_acumuladas"].get("total_fallos", 0),
-            "delta_promedio_vs_baseline": ciclo["metricas_acumuladas"].get("delta_promedio_vs_baseline", 0),
-            "ventaja_actual": ciclo["metricas_acumuladas"].get("ventaja_actual", 0)
+            "delta_promedio_vs_baseline": ciclo["metricas_acumuladas"].get(
+                "delta_promedio_vs_baseline", 0
+            ),
+            "ventaja_actual": ciclo["metricas_acumuladas"].get("ventaja_actual", 0),
         }
 
         # Agregar información específica por rol (subclases pueden extender)
@@ -227,20 +239,22 @@ class EvolutionManagerBase(ABC):
         """
         return {}
 
-    def registrar_juego(self,
-                       evento: int,
-                       prediccion_analyst: Any,
-                       prediccion_optimizer: Any,
-                       consenso_final: Any,
-                       metrica_predicha: float,
-                       resultado_real: Dict[str, Any],
-                       lecciones: str = ""):
+    def registrar_juego(
+        self,
+        evento: int,
+        prediccion_analyst: Any,
+        prediccion_optimizer: Any,
+        consenso_final: Any,
+        metrica_predicha: float,
+        resultado_real: Dict[str, Any],
+        lecciones: str = "",
+    ):
         """
         Registra un juego completado y actualiza todas las métricas evolutivas.
         Las subclases pueden extender este método para lógica específica.
         """
         fase = self.get_fase(evento)
-        
+
         # Solo registrar en fases de test (subclases pueden ajustar)
         if self._should_skip_registration(fase):
             self._acumular_aprendizaje_entrenamiento(evento, resultado_real)
@@ -262,7 +276,7 @@ class EvolutionManagerBase(ABC):
             "resultado_real": resultado_real,
             "aciertos": aciertos,
             "lecciones_aprendidas": lecciones,
-            "timestamp": datetime.now().isoformat()
+            "timestamp": datetime.now().isoformat(),
         }
 
         # Actualizar ventana rodante de últimos N
@@ -280,7 +294,9 @@ class EvolutionManagerBase(ABC):
             ciclo["metricas_acumuladas"]["total_fallos"] += 1
 
         # Actualizar historial de agentes (subclases pueden extender)
-        self._actualizar_historial_agentes(historial, evento, aciertos, lecciones, prediccion_analyst)
+        self._actualizar_historial_agentes(
+            historial, evento, aciertos, lecciones, prediccion_analyst
+        )
 
         # Incrementar contadores del ciclo
         ciclo["eventos_completados"] += 1
@@ -318,8 +334,9 @@ class EvolutionManagerBase(ABC):
         """
         return 50
 
-    def _actualizar_historial_agentes(self, historial: dict, evento: int, aciertos: int, 
-                                     lecciones: str, prediccion_analyst: Any):
+    def _actualizar_historial_agentes(
+        self, historial: dict, evento: int, aciertos: int, lecciones: str, prediccion_analyst: Any
+    ):
         """
         Actualiza el historial de agentes.
         Subclases deben implementar la lógica específica.
@@ -333,8 +350,12 @@ class EvolutionManagerBase(ABC):
         """
         if ciclo["metricas_acumuladas"]["total_aciertos"] > 0:
             baseline = self._get_baseline_precision()
-            porcentaje_real = (ciclo["metricas_acumuladas"]["total_aciertos"] / ciclo["eventos_completados"]) * 100
-            ciclo["metricas_acumuladas"]["ventaja_actual"] = round(porcentaje_real / baseline, 2) if baseline > 0 else 0
+            porcentaje_real = (
+                ciclo["metricas_acumuladas"]["total_aciertos"] / ciclo["eventos_completados"]
+            ) * 100
+            ciclo["metricas_acumuladas"]["ventaja_actual"] = (
+                round(porcentaje_real / baseline, 2) if baseline > 0 else 0
+            )
 
     def _get_baseline_precision(self) -> float:
         """
@@ -365,24 +386,30 @@ class EvolutionManagerBase(ABC):
         """
         ranking = self._state[self.state_key].get("ranking_herramientas", {})
         herramientas = ranking.get("herramientas", {})
-        
+
         if herramienta not in herramientas:
-            herramientas[herramienta] = {"aciertos": 0, "fallos": 0, "precision": 0, "historial": []}
-        
+            herramientas[herramienta] = {
+                "aciertos": 0,
+                "fallos": 0,
+                "precision": 0,
+                "historial": [],
+            }
+
         if fue_acertada:
             herramientas[herramienta]["aciertos"] += 1
         else:
             herramientas[herramienta]["fallos"] += 1
-        
+
         total = herramientas[herramienta]["aciertos"] + herramientas[herramienta]["fallos"]
         if total > 0:
-            herramientas[herramienta]["precision"] = round(herramientas[herramienta]["aciertos"] / total * 100, 2)
-        
-        herramientas[herramienta]["historial"].append({
-            "evento": self._get_current_evento(),
-            "acerto": fue_acertada
-        })
-        
+            herramientas[herramienta]["precision"] = round(
+                herramientas[herramienta]["aciertos"] / total * 100, 2
+            )
+
+        herramientas[herramienta]["historial"].append(
+            {"evento": self._get_current_evento(), "acerto": fue_acertada}
+        )
+
         ranking["herramientas"] = herramientas
         ranking["ultima_actualizacion"] = str(self._get_current_evento())
         self._state[self.state_key]["ranking_herramientas"] = ranking
@@ -407,7 +434,7 @@ class EvolutionManagerBase(ABC):
             "total_aciertos": ciclo["metricas_acumuladas"]["total_aciertos"],
             "total_fallos": ciclo["metricas_acumuladas"]["total_fallos"],
             "delta_promedio": ciclo["metricas_acumuladas"]["delta_promedio_vs_baseline"],
-            "ventaja_actual": ciclo["metricas_acumuladas"]["ventaja_actual"]
+            "ventaja_actual": ciclo["metricas_acumuladas"]["ventaja_actual"],
         }
 
     def get_ranking_herramientas(self) -> dict:
@@ -421,7 +448,7 @@ class EvolutionManagerBase(ABC):
         """
         nuevo_inicio = nuevo_inicio or self._get_current_evento()
         fase = self.get_fase(nuevo_inicio)
-        
+
         self._state[self.state_key]["ciclo_actual"] = {
             "evento_inicio": nuevo_inicio,
             "evento_actual": nuevo_inicio,
@@ -433,8 +460,8 @@ class EvolutionManagerBase(ABC):
                 "total_aciertos": 0,
                 "total_fallos": 0,
                 "delta_promedio_vs_baseline": 0,
-                "ventaja_actual": 0
-            }
+                "ventaja_actual": 0,
+            },
         }
         self._save_state()
 
