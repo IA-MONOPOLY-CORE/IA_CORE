@@ -29,6 +29,7 @@ def test_debate_flow_four_rounds(tmp_path, monkeypatch):
 
     # Mock compute_consensus_scores to always return low agreement
     from core import supervisor as core_supervisor
+
     original_compute = core_supervisor.compute_consensus_scores
 
     def mock_compute(steps, contradictions):
@@ -93,17 +94,18 @@ def test_debate_optimizer_is_refinement(tmp_path, monkeypatch):
 
 
 def test_debate_early_stop_on_high_agreement(tmp_path, monkeypatch):
-    """Verifica que el debate se detiene temprano cuando hay alto consenso.""" 
+    """Verifica que el debate se detiene temprano cuando hay alto consenso."""
     # Configurar umbral bajo para facilitar el test
     monkeypatch.setattr(config, "AGREEMENT_EARLY_STOP_THRESHOLD", 0.5)
 
     # Mockear compute_consensus_scores para simular alto acuerdo
     def mock_compute_consensus(steps, contradictions):
-        # Siempre devolver alto acuerdo (95%) para activar parada temprana     
+        # Siempre devolver alto acuerdo (95%) para activar parada temprana
         return 95.0, 5.0
 
     # Importar y patchear (patch in supervisor, since supervisor imports compute_consensus_scores)
     from core import supervisor as core_supervisor
+
     original_compute = core_supervisor.compute_consensus_scores
     monkeypatch.setattr(core_supervisor, "compute_consensus_scores", mock_compute_consensus)
 
@@ -129,7 +131,9 @@ def test_debate_early_stop_on_high_agreement(tmp_path, monkeypatch):
 
         # Con parada temprana en ronda 2: 2 rondas * 6 agentes = 12 pasos de colisión + ~6 de cierre = ~18
         # Sin parada temprana: 5 rondas * 6 agentes = 30 pasos de colisión + ~6 de cierre = ~36
-        assert total_steps <= 25, f"Debió detenerse en ronda 2 pero tuvo {total_steps} pasos (esperado <= 25)"
+        assert total_steps <= 25, (
+            f"Debió detenerse en ronda 2 pero tuvo {total_steps} pasos (esperado <= 25)"
+        )
 
     finally:
         # Restaurar función original

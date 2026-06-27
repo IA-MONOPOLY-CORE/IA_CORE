@@ -107,4 +107,6 @@ def test_u_score_v2_1_components_clipped_to_range():
     combinacion_pz_bajo = [0, 1, 2, 3, 4, 0]
     score_pz_bajo = u_score_v2_1(combinacion_pz_bajo)
     assert 0 <= score_pz_bajo.total <= 100, f"score_total fuera de rango: {score_pz_bajo.total}"
-    assert 0 <= score_pz_bajo.pz <= 20, f"pz fuera de rango (debería estar clippeado): {score_pz_bajo.pz}"
+    assert 0 <= score_pz_bajo.pz <= 20, (
+        f"pz fuera de rango (debería estar clippeado): {score_pz_bajo.pz}"
+    )

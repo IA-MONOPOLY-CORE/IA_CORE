@@ -53,7 +53,11 @@ def test_delete_agent_removes_config_paper_and_memory_dirs(tmp_path, monkeypatch
     fake_memoria_vectorial = type(
         "MemoriaVectorial",
         (),
-        {"_instances": {agent_id: types.SimpleNamespace(client=chroma_client, collection=collection)}},
+        {
+            "_instances": {
+                agent_id: types.SimpleNamespace(client=chroma_client, collection=collection)
+            }
+        },
     )
     monkeypatch.setitem(
         sys.modules,

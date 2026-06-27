@@ -62,8 +62,7 @@ def test_agent_receives_memory_and_tools(tmp_path):
     tools_dir = tmp_path / "tools"
     tools_dir.mkdir()
     tools_dir.joinpath("echo_tool.py").write_text(
-        'TOOL_NAME = "echo"\n'
-        "def execute(text=''):\n    return text\n",
+        "TOOL_NAME = \"echo\"\ndef execute(text=''):\n    return text\n",
         encoding="utf-8",
     )
 
