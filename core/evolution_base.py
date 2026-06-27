@@ -53,11 +53,34 @@ class EvolutionManagerBase(ABC):
         if self.state_key not in self._state:
             self._state[self.state_key] = self._get_default_evolution()
             self._save_state()
+        else:
+            # Rellenar campos faltantes en la estructura evolutiva usando el valor por defecto
+            default_evolution = self._get_default_evolution()
+            
+            # Rellenar campos faltantes en ciclo_actual
+            if "ciclo_actual" not in self._state[self.state_key]:
+                self._state[self.state_key]["ciclo_actual"] = default_evolution["ciclo_actual"]
+            else:
+                for key, value in default_evolution["ciclo_actual"].items():
+                    if key not in self._state[self.state_key]["ciclo_actual"]:
+                        self._state[self.state_key]["ciclo_actual"][key] = value
+                    # Si es un diccionario anidado (como metricas_acumuladas), también rellenar sus campos faltantes
+                    if isinstance(value, dict) and isinstance(self._state[self.state_key]["ciclo_actual"][key], dict):
+                        for sub_key, sub_value in value.items():
+                            if sub_key not in self._state[self.state_key]["ciclo_actual"][key]:
+                                self._state[self.state_key]["ciclo_actual"][key][sub_key] = sub_value
         
         # Asegurar que existe la estructura de ranking de herramientas
         if "ranking_herramientas" not in self._state[self.state_key]:
             self._state[self.state_key]["ranking_herramientas"] = self._get_default_ranking()
-            self._save_state()
+        else:
+            # Rellenar campos faltantes en ranking_herramientas
+            default_ranking = self._get_default_ranking()
+            for key, value in default_ranking.items():
+                if key not in self._state[self.state_key]["ranking_herramientas"]:
+                    self._state[self.state_key]["ranking_herramientas"][key] = value
+        
+        self._save_state()
 
     def _save_state(self):
         """Guarda el estado al archivo JSON"""
@@ -135,21 +158,22 @@ class EvolutionManagerBase(ABC):
         historial = self._state[self.state_key].get("historial_agentes", {})
         
         if evento_actual is None:
-            evento_actual = ciclo["evento_actual"]
+            # Soporte para sorteo_actual (usado en lotería) si evento_actual no existe
+            evento_actual = ciclo.get("evento_actual", ciclo.get("sorteo_actual", 0))
 
         fase = self.get_fase(evento_actual)
 
-        # Resumen de últimos N resultados (solo visibles)
-        ultimos_n = ciclo.get("ultimos_n_juegos", [])
+        # Resumen de últimos N resultados (solo visibles) - soporte para ultimos_50_juegos
+        ultimos_n = ciclo.get("ultimos_n_juegos", ciclo.get("ultimos_50_juegos", []))
         resultados_visibles_hasta = self.get_resultados_visibles_hasta(evento_actual)
         
-        # Filtrar juegos visibles
-        juegos_visibles = [j for j in ultimos_n if j.get("evento", 0) <= resultados_visibles_hasta]
+        # Filtrar juegos visibles (soporte para "sorteo" clave)
+        juegos_visibles = [j for j in ultimos_n if j.get("evento", j.get("sorteo", 0)) <= resultados_visibles_hasta]
         
         resumen_n = {
             "total_eventos": len(juegos_visibles),
             "aciertos": sum(1 for j in juegos_visibles if j.get("aciertos", 0) >= self._get_acierto_threshold()),
-            "delta_promedio": ciclo["metricas_acumuladas"]["delta_promedio_vs_baseline"]
+            "delta_promedio": ciclo["metricas_acumuladas"].get("delta_promedio_vs_baseline", 0)
         }
 
         # Instrucción de fase
@@ -158,18 +182,18 @@ class EvolutionManagerBase(ABC):
         # Contexto base común
         contexto_base = {
             "evento_actual": evento_actual,
-            "eventos_completados": ciclo["eventos_completados"],
-            "objetivo_ciclo": ciclo["objetivo"],
+            "eventos_completados": ciclo.get("eventos_completados", ciclo.get("sorteos_completados", 0)),
+            "objetivo_ciclo": ciclo.get("objetivo", 50),
             "fase_actual": fase,
             "instruccion_fase": instruccion_fase,
             "resultados_visibles_hasta": resultados_visibles_hasta,
             "ultimos_n_resumen": resumen_n,
             "parametros_evolutivos": params,
             # Métricas del ciclo
-            "total_aciertos": ciclo["metricas_acumuladas"]["total_aciertos"],
-            "total_fallos": ciclo["metricas_acumuladas"]["total_fallos"],
-            "delta_promedio_vs_baseline": ciclo["metricas_acumuladas"]["delta_promedio_vs_baseline"],
-            "ventaja_actual": ciclo["metricas_acumuladas"]["ventaja_actual"]
+            "total_aciertos": ciclo["metricas_acumuladas"].get("total_aciertos", 0),
+            "total_fallos": ciclo["metricas_acumuladas"].get("total_fallos", 0),
+            "delta_promedio_vs_baseline": ciclo["metricas_acumuladas"].get("delta_promedio_vs_baseline", 0),
+            "ventaja_actual": ciclo["metricas_acumuladas"].get("ventaja_actual", 0)
         }
 
         # Agregar información específica por rol (subclases pueden extender)

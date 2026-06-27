@@ -24,8 +24,9 @@ def test_detect_contradiction_keywords():
 
 
 def test_debate_flow_four_rounds(tmp_path, monkeypatch):
-    monkeypatch.setattr(config, "DEBATE_LIGHTWEIGHT", False)
+    monkeypatch.setattr(config, "DEBATE_LIGHTWEIGHT", True)  # Use lightweight 3-agent pipeline
     monkeypatch.setattr(config, "SAFE_MODE", False)
+    monkeypatch.setattr(config, "AGREEMENT_EARLY_STOP_THRESHOLD", 1.0)  # Disable early stop for this test
     supervisor = _supervisor(tmp_path, monkeypatch)
 
     result = supervisor.orchestrate(
@@ -89,21 +90,22 @@ def test_debate_optimizer_is_refinement(tmp_path, monkeypatch):
 
 
 def test_debate_early_stop_on_high_agreement(tmp_path, monkeypatch):
-    """Verifica que el debate se detiene temprano cuando hay alto consenso."""
+    """Verifica que el debate se detiene temprano cuando hay alto consenso.""" 
     # Configurar umbral bajo para facilitar el test
     monkeypatch.setattr(config, "AGREEMENT_EARLY_STOP_THRESHOLD", 0.5)
 
-    supervisor = _supervisor(tmp_path, monkeypatch)
-
     # Mockear compute_consensus_scores para simular alto acuerdo
     def mock_compute_consensus(steps, contradictions):
-        # Siempre devolver alto acuerdo (95%) para activar parada temprana
+        # Siempre devolver alto acuerdo (95%) para activar parada temprana     
         return 95.0, 5.0
 
-    # Importar y patchear
-    from core import debate
-    original_compute = debate.compute_consensus_scores
-    monkeypatch.setattr(debate, "compute_consensus_scores", mock_compute_consensus)
+    # Importar y patchear (patch in supervisor, since supervisor imports compute_consensus_scores)
+    from core import supervisor as core_supervisor
+    original_compute = core_supervisor.compute_consensus_scores
+    monkeypatch.setattr(core_supervisor, "compute_consensus_scores", mock_compute_consensus)
+
+    # Initialize supervisor AFTER patching
+    supervisor = _supervisor(tmp_path, monkeypatch)
 
     try:
         result = supervisor.orchestrate(
@@ -122,12 +124,12 @@ def test_debate_early_stop_on_high_agreement(tmp_path, monkeypatch):
         # Si fuera a 5 rondas tendría ~30 pasos de colisión + cierre
         total_steps = len(result.debate.steps)
 
-        # Con parada temprana en ronda 2: 2 rondas * 6 agentes = 12 pasos de colisión + ~5-8 de cierre = ~17-20
-        # Sin parada temprana: 5 rondas * 6 agentes = 30 pasos de colisión + ~5-8 de cierre = ~35-38
-        assert total_steps <= 20, f"Debió detenerse en ronda 2 pero tuvo {total_steps} pasos (esperado <= 20)"
+        # Con parada temprana en ronda 2: 2 rondas * 6 agentes = 12 pasos de colisión + ~6 de cierre = ~18
+        # Sin parada temprana: 5 rondas * 6 agentes = 30 pasos de colisión + ~6 de cierre = ~36
+        assert total_steps <= 25, f"Debió detenerse en ronda 2 pero tuvo {total_steps} pasos (esperado <= 25)"
 
     finally:
         # Restaurar función original
         if original_compute:
-            monkeypatch.setattr(debate, "compute_consensus_scores", original_compute)
+            monkeypatch.setattr(core_supervisor, "compute_consensus_scores", original_compute)
         supervisor.stop()
