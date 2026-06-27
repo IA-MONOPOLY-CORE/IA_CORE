@@ -17,11 +17,11 @@ from core.supervisor import Supervisor
 
 # 🎛️ ARTILLERÍA EXPERTA: IDs exactos que creamos en agents/config/
 SAAOOP_BUNKER_AGENTS = [
-    "gpt_auditor",           # 1. CRITIC - destruye primero
-    "gemini_cuantico",       # 2. ANALYST_ZONAS - densidad energética
-    "viejo_lobo_rey",        # 3. ANALYST_HUMAN - cirugía de ruptura
+    "gpt_auditor",  # 1. CRITIC - destruye primero
+    "gemini_cuantico",  # 2. ANALYST_ZONAS - densidad energética
+    "viejo_lobo_rey",  # 3. ANALYST_HUMAN - cirugía de ruptura
     "estadistico_integral",  # 4. ANALYST_V19 - defiende e integra
-    "viejo_deepseek"         # 5. OPTIMIZER - árbitro final
+    "viejo_deepseek",  # 5. OPTIMIZER - árbitro final
 ]
 
 # 🧠 CONTEXTO TÁCTICO REAL EXTRAÍDO DE LAS BITÁCORAS EXPERIMENTALES DE I+D
@@ -151,10 +151,10 @@ async def run_saaop_orchestration_async(supervisor: Supervisor) -> Orchestration
     # Verificar proveedores disponibles
     if supervisor.providers.get("nvidia") is None and supervisor.providers.get("ollama") is None:
         raise RuntimeError("No hay proveedores LLM disponibles (nvidia o ollama).")
-    
+
     # Intentar con NVIDIA primero, si no con Ollama
     provider = supervisor.providers.get("nvidia") or supervisor.providers.get("ollama")
-    
+
     if provider is None:
         raise RuntimeError("No se pudo encontrar un proveedor LLM válido.")
 
@@ -179,7 +179,9 @@ async def main_async() -> int:
         print_orchestration_report(result)
 
         if supervisor.get_orchestration(result.execution_id) is None:
-            logger.error("Error crítico: El resultado del debate no se consolidó en la memoria local.")
+            logger.error(
+                "Error crítico: El resultado del debate no se consolidó en la memoria local."
+            )
             return 1
 
         logger.info("Ciclo táctico ejecutado con éxito.")

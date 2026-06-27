@@ -11,10 +11,10 @@ from core.memoria_perpetua import sincronizar_memoria_vectorial
 # Lista de agentes que tienen memoria JSON
 agentes = [
     "estadistico_integral",
-    "gpt_auditor", 
+    "gpt_auditor",
     "gemini_cuantico",
     "viejo_lobo_rey",
-    "viejo_deepseek"
+    "viejo_deepseek",
 ]
 
 print("=" * 50)

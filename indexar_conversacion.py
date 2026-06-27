@@ -29,17 +29,19 @@ CONVERSACIONES = {
     """,
 }
 
+
 def indexar_conversacion(agente_id: str, texto: str):
     """Indexa el texto completo en la memoria vectorial del agente."""
     from core.memoria_perpetua import sincronizar_memoria_vectorial
-    
+
     if not texto.strip():
         print(f"❌ {agente_id}: texto vacío")
         return
-    
+
     print(f"📄 Indexando {agente_id}...")
     fragmentos = sincronizar_memoria_vectorial(agente_id, texto)
     print(f"   ✅ Indexados {fragmentos} fragmentos")
+
 
 if __name__ == "__main__":
     for agente_id, texto in CONVERSACIONES.items():

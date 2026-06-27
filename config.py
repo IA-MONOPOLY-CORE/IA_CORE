@@ -13,7 +13,7 @@ from domains.loteria.config_loteria import (
     BLIND_TEST_START,
     BLIND_TEST_END,
     LIVE_TEST_START,
-    LIVE_TEST_END
+    LIVE_TEST_END,
 )
 
 load_dotenv()
@@ -181,8 +181,8 @@ LOG_FORMAT = "%(asctime)s | %(levelname)-8s | %(name)s | %(message)s"
 # =========================================================
 # UMBRALES DE APRENDIZAJE (usados en supervisor.py)
 # =========================================================
-APRENDIZAJE_SCORE_MINIMO: float = 60.0    # Score mínimo para considerar acierto
-HERRAMIENTA_SCORE_MINIMO: float = 70.0    # Score mínimo para extraer herramienta
+APRENDIZAJE_SCORE_MINIMO: float = 60.0  # Score mínimo para considerar acierto
+HERRAMIENTA_SCORE_MINIMO: float = 70.0  # Score mínimo para extraer herramienta
 CONTRADICCION_ACUERDO_MINIMO: float = 40.0  # Acuerdo mínimo para registrar contradicción resuelta
 REGENERACION_PAPER_SCORE_MINIMO: float = 70.0  # Score mínimo para regenerar paper
 
