@@ -9,6 +9,25 @@ from dataclasses import dataclass
 from typing import Optional
 import numpy as np
 
+from .config_loteria import (
+    IPN_RAW_MIN,
+    IPN_RAW_MAX,
+    IPN_WEIGHT,
+    PP_RAW_MAX,
+    PP_WEIGHT,
+    PZ_RAW_MIN,
+    PZ_RAW_MAX,
+    PZ_WEIGHT,
+    DSI_SUM_IDEAL,
+    DSI_RAW_MAX,
+    DSI_WEIGHT,
+    CD_RAW_MAX,
+    CD_STD_MAX,
+    CD_WEIGHT,
+    SD_WEIGHT,
+    U_SCORE_WEIGHTS
+)
+
 @dataclass(frozen=True)
 class ResponseScore:
     total: float
@@ -42,7 +61,7 @@ def peso_zonal(n: int) -> float:
 
 def calcular_IPN_raw(combinacion: list[int]) -> float:
     promedio_pop = np.mean([popularidad_numero(n) for n in combinacion])
-    return 30 * (1 - promedio_pop)
+    return IPN_WEIGHT * (1 - promedio_pop)
 
 def detectar_patrones(combinacion: list[int]) -> int:
     penalizacion = 0
@@ -97,7 +116,7 @@ def detectar_patrones(combinacion: list[int]) -> int:
     return penalizacion
 
 def calcular_PP_raw(combinacion: list[int]) -> float:
-    return max(0, 25 - detectar_patrones(combinacion))
+    return max(0, PP_RAW_MAX - detectar_patrones(combinacion))
 
 def calcular_PZ_raw(combinacion: list[int]) -> float:
     promedio_zonal = np.mean([peso_zonal(n) for n in combinacion])
@@ -105,12 +124,12 @@ def calcular_PZ_raw(combinacion: list[int]) -> float:
 
 def calcular_DSI_raw(combinacion: list[int]) -> float:
     suma = sum(combinacion)
-    distancia = abs(suma - 130)
-    return 15 * (1 - min(distancia, 130) / 130)
+    distancia = abs(suma - DSI_SUM_IDEAL)
+    return DSI_RAW_MAX * (1 - min(distancia, DSI_SUM_IDEAL) / DSI_SUM_IDEAL)
 
 def calcular_CD_raw(combinacion: list[int]) -> float:
     desviacion = np.std(combinacion, ddof=0)
-    return 10 * min(desviacion / 15, 1)
+    return CD_RAW_MAX * min(desviacion / CD_STD_MAX, 1)
 
 def calcular_SD_raw(combinacion: list[int]) -> float:
     """
@@ -137,11 +156,11 @@ def u_score_v2_1(combinacion: list[int]) -> ResponseScore:
     sd_raw = calcular_SD_raw(combinacion)
     
     # Reescalado normalizado asíncrono (0-20)
-    ipn = 20 * (ipn_raw - 0.75) / (28.5 - 0.75)
-    pp = 20 * pp_raw / 25
-    pz = 20 * (pz_raw - 4) / (18 - 4)
-    dsi = 20 * dsi_raw / 15
-    cd = 20 * cd_raw / 10
+    ipn = 20 * (ipn_raw - IPN_RAW_MIN) / (IPN_RAW_MAX - IPN_RAW_MIN)
+    pp = 20 * pp_raw / PP_RAW_MAX
+    pz = 20 * (pz_raw - PZ_RAW_MIN) / (PZ_RAW_MAX - PZ_RAW_MIN)
+    dsi = 20 * dsi_raw / DSI_RAW_MAX
+    cd = 20 * cd_raw / CD_RAW_MAX
     sd = sd_raw
 
     # Clip explícito al rango [0, 20] para evitar contaminación silenciosa
@@ -154,12 +173,12 @@ def u_score_v2_1(combinacion: list[int]) -> ResponseScore:
     
     # Matriz de pesos definitivos calibrados v2.1 (S.A.A.O.P.)
     score_total = (
-        30 * (ipn/20) + 
-        20 * (pp/20) + 
-        20 * (pz/20) + 
-        10 * (dsi/20) + 
-        10 * (cd/20) + 
-        10 * (sd/20)
+        IPN_WEIGHT * (ipn/20) + 
+        PP_WEIGHT * (pp/20) + 
+        PZ_WEIGHT * (pz/20) + 
+        DSI_WEIGHT * (dsi/20) + 
+        CD_WEIGHT * (cd/20) + 
+        SD_WEIGHT * (sd/20)
     )
     
     return ResponseScore(

@@ -51,3 +51,43 @@ DEBATE_PIPELINE_6_AGENTS: list[tuple[str, str]] = [
     ("optimizer", "refine"),         # 5. Viejo DeepSeek
     ("orchestrator", "close"),       # 6. Nuevo DeepSeek - cierra el debate
 ]
+
+# ============================================================
+# CONSTANTES DEL U-SCORE v2.1 (SCORING)
+# ============================================================
+# IPN (Índice de Popularidad Negativo)
+IPN_RAW_MIN: float = 0.75
+IPN_RAW_MAX: float = 28.5
+IPN_WEIGHT: float = 30.0
+
+# PP (Patrones Penalisados)
+PP_RAW_MAX: float = 25.0
+PP_WEIGHT: float = 20.0
+
+# PZ (Peso Zonal)
+PZ_RAW_MIN: float = 4.0
+PZ_RAW_MAX: float = 18.0
+PZ_WEIGHT: float = 20.0
+
+# DSI (Distancia Suma Ideal)
+DSI_SUM_IDEAL: int = 130
+DSI_RAW_MAX: float = 15.0
+DSI_WEIGHT: float = 10.0
+
+# CD (Coeficiente de Desviación)
+CD_RAW_MAX: float = 10.0
+CD_STD_MAX: float = 15.0  # Para normalizar la desviación
+CD_WEIGHT: float = 10.0
+
+# SD (Saturación por Decena)
+SD_WEIGHT: float = 10.0
+
+# Pesos totales (normalizados a 100)
+U_SCORE_WEIGHTS: dict[str, float] = {
+    "ipn": IPN_WEIGHT,
+    "pp": PP_WEIGHT,
+    "pz": PZ_WEIGHT,
+    "dsi": DSI_WEIGHT,
+    "cd": CD_WEIGHT,
+    "sd": SD_WEIGHT
+}
