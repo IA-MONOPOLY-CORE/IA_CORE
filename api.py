@@ -42,9 +42,14 @@ from memory.database import (
 from agents.result import calcular_contradiccion_real, calcular_acuerdo_real, calcular_u_score, validar_consenso
 
 # ─── Logging ────────────────────────────────────────────────────────────────
+config.LOG_DIR.mkdir(parents=True, exist_ok=True)
 logging.basicConfig(
     level=getattr(logging, config.LOG_LEVEL.upper(), logging.INFO),
     format=config.LOG_FORMAT,
+    handlers=[
+        logging.StreamHandler(sys.stderr),
+        logging.FileHandler(config.LOG_DIR / "api.log", encoding="utf-8"),
+    ],
 )
 logger = logging.getLogger("api")
 

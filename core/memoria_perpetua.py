@@ -211,8 +211,8 @@ def cargar_memoria(agente_id: str) -> dict:
                         data[key] = default_value
                 return data
         except json.JSONDecodeError:
-            print(f"⚠️ Error leyendo memoria de {agente_id}, usando valores por defecto")
-            return memoria_default
+        logger.warning(f"⚠️ Error leyendo memoria de {agente_id}, usando valores por defecto", exc_info=True)
+        return memoria_default
     
     guardar_memoria(agente_id, memoria_default)
     return memoria_default
@@ -412,7 +412,7 @@ def sincronizar_memoria_vectorial(agente_id: str, texto_base: Optional[str] = No
     mv = MemoriaVectorial(agente_id)
     
     if not mv.esta_disponible():
-        print(f"⚠️ No se pudo inicializar memoria vectorial para {agente_id}")
+        logger.warning(f"⚠️ No se pudo inicializar memoria vectorial para {agente_id}")
         return
     
     # Limpiar colección existente

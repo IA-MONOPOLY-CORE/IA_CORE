@@ -1,10 +1,13 @@
 """Sistema de herramientas compartidas entre agentes."""
 
 import json
+import logging
 import re
 from pathlib import Path
 from datetime import datetime
 from typing import Optional, List, Dict, Any
+
+logger = logging.getLogger(__name__)
 
 # Ruta del archivo global de herramientas
 HERRAMIENTAS_PATH = Path(__file__).parent.parent / "memory" / "herramientas_compartidas.json"
@@ -164,7 +167,7 @@ RESPUESTA (solo la herramienta traducida, sin explicaciones):"""
                 return f"\n[TOOL: {nombre} (apropiada desde rol {rol_origen})]\n{traduccion}\n"
     
     except Exception as e:
-        print(f"⚠️ Error traduciendo con Ollama: {e}")
+        logger.warning(f"⚠️ Error traduciendo con Ollama: {e}", exc_info=True)
     
     # Fallback a traducción simple
     return f"""
@@ -242,7 +245,7 @@ def marcar_herramienta_como_adoptada(agente_id: str, herramienta_nombre: str):
             
             return True
     except Exception as e:
-        print(f"⚠️ Error marcando herramienta como adoptada: {e}")
+        logger.warning(f"⚠️ Error marcando herramienta como adoptada: {e}", exc_info=True)
     
     return False
 
@@ -301,7 +304,7 @@ def buscar_lecciones_utiles(rol: str, top_k: int = 3) -> List[Dict[str, Any]]:
         with open(HERRAMIENTAS_PATH, "r", encoding="utf-8") as f:
             data = json.load(f)
     except Exception as e:
-        print(f"⚠️ Error cargando herramientas_compartidas.json: {e}")
+        logger.warning(f"⚠️ Error cargando herramientas_compartidas.json: {e}", exc_info=True)
         return []
     
     lecciones_utiles = []
@@ -394,11 +397,11 @@ def absorber_leccion(agente_id: str, leccion: Dict[str, Any]) -> bool:
         
         guardar_memoria(agente_id, memoria)
         
-        print(f"📚 {agente_id}: Lección absorbida exitosamente (relevancia: {leccion.get('relevancia', 0)})")
+        logger.info(f"📚 {agente_id}: Lección absorbida exitosamente (relevancia: {leccion.get('relevancia', 0)})")
         return True
         
     except Exception as e:
-        print(f"⚠️ Error absorbiendo lección para {agente_id}: {e}")
+        logger.warning(f"⚠️ Error absorbiendo lección para {agente_id}: {e}", exc_info=True)
         return False
 
 
@@ -437,5 +440,5 @@ def aplicar_lecciones_pendientes(agente_id: str, contexto_actual: str) -> Option
 """
         
     except Exception as e:
-        print(f"⚠️ Error aplicando lecciones pendientes para {agente_id}: {e}")
+        logger.warning(f"⚠️ Error aplicando lecciones pendientes para {agente_id}: {e}", exc_info=True)
         return None
