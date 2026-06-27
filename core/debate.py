@@ -1,15 +1,13 @@
-"""Motor de debate multi-ronda para 6 agentes S.A.A.O.P."""
+"""Motor de debate multi-ronda genérico."""
 
 from __future__ import annotations
 
 import asyncio
 import logging
 from dataclasses import dataclass
-from typing import Any
+from typing import Any, Optional
 
 import config
-
-from domains.loteria.config_loteria import DEBATE_PIPELINE_6_AGENTS
 
 from core.orchestration import (
     AgentStepResult,
@@ -17,9 +15,9 @@ from core.orchestration import (
 
 logger = logging.getLogger(__name__)
 
-# ============================================================
+# =========================================================
 # PALABRAS CLAVE PARA CONTRADICCIÓN (ESPAÑOL)
-# ============================================================
+# =========================================================
 CONTRADICTION_KEYWORDS = (
     # Español - críticas y contradicciones explícitas
     "contradic", "inconsistencia", "no coincide", "error", "fallo",
@@ -32,19 +30,6 @@ CONTRADICTION_KEYWORDS = (
     "risk", "problem", "weakness", "contradiction", "flaw",
     "inconsistent", "opposite", "wrong", "invalid", "disagree"
 )
-
-# ============================================================
-# PIPELINE PARA 6 AGENTES (VERSIÓN DEFINITIVA)
-# ============================================================
-# Orden de intervención:
-# 1. CRITIC (GPT Auditor) - destruye primero
-# 2. ANALYST_ZONES (Gemini Cuántico) - densidad energética
-# 3. ANALYST_HUMAN (Viejo Lobo) - cirugía de ruptura
-# 4. ANALYST (Estadístico Integral) - defiende V19
-# 5. OPTIMIZER (Viejo DeepSeek) - árbitro final
-# 6. ORCHESTRATOR (Nuevo DeepSeek) - cierre metodológico y auditoría estructural
-# ============================================================
-# DEBATE_PIPELINE_6_AGENTS movido a domains/loteria/config_loteria.py
 
 # Pipeline legacy (3 agentes) - se mantiene por compatibilidad
 DEBATE_PIPELINE_3_AGENTS: list[tuple[str, str]] = [
@@ -68,22 +53,33 @@ class DebateTurn:
     parent_step_id: str | None
 
 
-def active_pipeline() -> list[tuple[str, str]]:
-    """Retorna el pipeline activo (6 agentes por defecto)."""
+def active_pipeline(
+    custom_pipeline: Optional[list[tuple[str, str]]] = None
+) -> list[tuple[str, str]]:
+    """Retorna el pipeline activo (usa el custom si se proporciona)."""
+    if custom_pipeline is not None:
+        return custom_pipeline
     if getattr(config, "DEBATE_LIGHTWEIGHT", False):
         return DEBATE_PIPELINE_LIGHT
-    return DEBATE_PIPELINE_6_AGENTS
+    # Default to lotería's pipeline if available (for backwards compatibility)
+    try:
+        from domains.loteria.config_loteria import DEBATE_PIPELINE_6_AGENTS
+        return DEBATE_PIPELINE_6_AGENTS
+    except ImportError:
+        return DEBATE_PIPELINE_3_AGENTS
 
 
 def is_lightweight_debate() -> bool:
     return bool(config.SAFE_MODE or getattr(config, "DEBATE_LIGHTWEIGHT", False))
 
 
-def build_pipeline() -> list[DebateTurn]:
-    """Construye el pipeline de turnos para 6 agentes."""
+def build_pipeline(
+    custom_pipeline: Optional[list[tuple[str, str]]] = None
+) -> list[DebateTurn]:
+    """Construye el pipeline de turnos (usa custom_pipeline si se proporciona)."""
     turns: list[DebateTurn] = []
     parent: str | None = None
-    for index, (agent, phase) in enumerate(active_pipeline(), start=1):
+    for index, (agent, phase) in enumerate(active_pipeline(custom_pipeline), start=1):
         turns.append(
             DebateTurn(
                 agent_name=agent,

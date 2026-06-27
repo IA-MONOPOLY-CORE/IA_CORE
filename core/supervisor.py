@@ -9,11 +9,9 @@ import re
 import time
 from datetime import datetime
 from pathlib import Path
-from typing import Any
+from typing import Any, Callable, Optional, Type
 
 import config as app_config
-
-from domains.loteria.config_loteria import BUNKER_EXPERT_MAPPING
 
 from agents.manager import AgentManager
 from core.debate import (
@@ -27,7 +25,7 @@ from core.debate import (
     make_step_id,
     synthesize_final_response,
 )
-from domains.loteria.evolution_loteria import EvolutionManagerLoteria as EvolutionManager
+from core.evolution_base import EvolutionManagerBase
 from core.orchestration import (
     AgentStepResult,
     DebateResult,
@@ -37,7 +35,6 @@ from core.orchestration import (
     new_execution_id,
     utc_now,
 )
-from domains.loteria.scoring import build_scores_summary, score_response
 from memory.manager import MemoryManager
 from core.hybrid.router import HybridRouter
 from providers.registry import ProviderRegistry
@@ -50,18 +47,32 @@ MEMORY_RESULT_PREFIX = "orchestration:"
 MEMORY_SCORES_KEY = "orchestration_scores"
 MEMORY_DEBATE_PREFIX = "debate:"
 
-## ========================================================================
-# BUNKER_EXPERT_MAPPING movido a domains/loteria/config_loteria.py
-# ========================================================================
-
 
 class Supervisor:
     """Punto central de orquestación asíncrona de alto rendimiento."""
 
-    def __init__(self, log_dir: str | Path = "logs") -> None:
+    def __init__(
+        self,
+        log_dir: str | Path = "logs",
+        *,
+        expert_mapping: Optional[dict[str, str]] = None,
+        debate_pipeline: Optional[list[tuple[str, str]]] = None,
+        default_debate_agents: Optional[list[str]] = None,
+        evolution_manager_class: Optional[Type[EvolutionManagerBase]] = None,
+        score_response_fn: Optional[Callable] = None,
+        build_scores_summary_fn: Optional[Callable] = None
+    ) -> None:
         self.log_dir = Path(log_dir)
         self.log_dir.mkdir(parents=True, exist_ok=True)
         self._running = False
+
+        # Domain-specific configuration (with lotería defaults for backwards compatibility)
+        self._expert_mapping = expert_mapping or self._get_default_expert_mapping()
+        self._debate_pipeline = debate_pipeline
+        self._default_debate_agents = default_debate_agents or self._get_default_debate_agents()
+        self._evolution_manager_class = evolution_manager_class or self._get_default_evolution_manager_class()
+        self._score_response_fn = score_response_fn or self._get_default_score_response_fn()
+        self._build_scores_summary_fn = build_scores_summary_fn or self._get_default_build_scores_summary_fn()
 
         self.providers = ProviderRegistry()
         self.memory = MemoryManager()
@@ -72,7 +83,60 @@ class Supervisor:
             providers=self.providers,
         )
         self.hybrid_router: HybridRouter | None = None
-        self.evolution = EvolutionManager()
+        self.evolution = self._evolution_manager_class()
+
+    # ========================================================================
+    # Helper methods to get default lotería config for backwards compatibility
+    # ========================================================================
+    @staticmethod
+    def _get_default_expert_mapping() -> dict[str, str]:
+        try:
+            from domains.loteria.config_loteria import BUNKER_EXPERT_MAPPING
+            return BUNKER_EXPERT_MAPPING
+        except ImportError:
+            return {}
+
+    @staticmethod
+    def _get_default_debate_agents() -> list[str]:
+        try:
+            from domains.loteria.config_loteria import DEBATE_AGENTS
+            return DEBATE_AGENTS
+        except ImportError:
+            return []
+
+    @staticmethod
+    def _get_default_evolution_manager_class() -> Type[EvolutionManagerBase]:
+        try:
+            from domains.loteria.evolution_loteria import EvolutionManagerLoteria
+            return EvolutionManagerLoteria
+        except ImportError:
+            from core.evolution_base import EvolutionManagerBase
+            return EvolutionManagerBase
+
+    @staticmethod
+    def _get_default_score_response_fn() -> Callable:
+        try:
+            from domains.loteria.scoring import score_response
+            return score_response
+        except ImportError:
+            def dummy_score(*args, **kwargs):
+                from dataclasses import dataclass
+                @dataclass
+                class DummyScore:
+                    total: float = 0.0
+                    detalles: dict = None
+                return DummyScore()
+            return dummy_score
+
+    @staticmethod
+    def _get_default_build_scores_summary_fn() -> Callable:
+        try:
+            from domains.loteria.scoring import build_scores_summary
+            return build_scores_summary
+        except ImportError:
+            def dummy_summary(*args, **kwargs):
+                return "Sin puntuación disponible"
+            return dummy_summary
 
     @property
     def running(self) -> bool:
@@ -179,13 +243,13 @@ class Supervisor:
         if mode is ExecutionMode.SEQUENTIAL:
             if not targets:
                 result.success = False
-                result.scores_summary = build_scores_summary([])
+                result.scores_summary = self._build_scores_summary_fn([])
             else:
                 result.steps = await asyncio.to_thread(
                     self._run_sequential, execution_id, task, targets, deadline=orch_deadline
                 )
                 result.success = all(step.success for step in result.steps)
-                result.scores_summary = build_scores_summary(result.steps)
+                result.scores_summary = self._build_scores_summary_fn(result.steps)
 
         elif mode is ExecutionMode.DEBATE:
             debate = await self._run_debate_async(execution_id, task, targets, deadline=orch_deadline)
@@ -194,7 +258,7 @@ class Supervisor:
             
             continue_on_failure = getattr(app_config, "SEQUENTIAL_CONTINUE_ON_FAILURE", True)
             result.success = any(step.success for step in debate.steps) if continue_on_failure else all(step.success for step in debate.steps)
-            result.scores_summary = build_scores_summary(debate.steps)
+            result.scores_summary = self._build_scores_summary_fn(debate.steps)
             
             # Registrar aprendizaje post-ejecución
             await self._registrar_aprendizaje_post_debate(debate)
@@ -213,7 +277,7 @@ class Supervisor:
         self, execution_id: str, task: str, agent_ids: list[str], *, deadline: float | None = None
     ) -> DebateResult:
         """
-        NUEVO MOTOR RECURSIVO CUÁNTICO CON MEMORIA SEMÁNTICA COMPLETA S.A.A.O.P.
+        NUEVO MOTOR RECURSIVO CUÁNTICO CON MEMORIA SEMÁNTICA COMPLETA
         Implementa timeouts granulares por agente, resúmenes automáticos por ronda
         y persistencia robusta por checkpoints sugerida por DeepSeek.
         
@@ -228,7 +292,7 @@ class Supervisor:
         for agent_id in agent_ids:
             # Buscar el rol correspondiente a cada agente
             found_role = None
-            for role, mapped_id in BUNKER_EXPERT_MAPPING.items():
+            for role, mapped_id in self._expert_mapping.items():
                 if mapped_id == agent_id:
                     found_role = role
                     break
@@ -364,16 +428,16 @@ class Supervisor:
             f"ÚLTIMA COLISIÓN DETALLADA (RAW):\n{historial_por_ronda[-1]['raw'] if historial_por_ronda else ''}"
         )
         
-        pipeline_secuencial = build_pipeline()
+        pipeline_secuencial = build_pipeline(self._debate_pipeline)
         last_step_id = steps[-1].step_id if steps else None
-        
+
         for turn in pipeline_secuencial:
             if deadline is not None and time.perf_counter() > deadline:
                 break
                 
             step_id = make_step_id(debate_id, turn.round_number + 10, turn.agent_name)
             parent_id = turn.parent_step_id or last_step_id
-            real_agent_id = BUNKER_EXPERT_MAPPING.get(turn.agent_name, turn.agent_name)
+            real_agent_id = self._expert_mapping.get(turn.agent_name, turn.agent_name)
             
             prompt_auditoria = (
                 f"Fase de Cierre Analítico: {turn.phase}.\n"
@@ -408,8 +472,10 @@ class Supervisor:
         return debate
 
     async def _resumir_bloque_async(self, texto_ronda: str, round_idx: int) -> str:
-        """Usa el árbitro del búnker de manera asíncrona para sintetizar las colisiones sin bloquear."""
-        arbitro_id = BUNKER_EXPERT_MAPPING.get("orchestrator", BUNKER_EXPERT_MAPPING.get("optimizer", "viejo_deepseek"))
+        """Usa el árbitro del dominio configurado de manera asíncrona para sintetizar las colisiones sin bloquear."""
+        arbitro_id = self._expert_mapping.get("orchestrator", self._expert_mapping.get("optimizer"))
+        if not arbitro_id and self._default_debate_agents:
+            arbitro_id = self._default_debate_agents[-1]
         agent = self.agents.get(arbitro_id)
         if not agent:
             return f"[Resumen automático] Finalizada ronda {round_idx} de debate."
@@ -419,11 +485,15 @@ class Supervisor:
             f"de la siguiente ronda de debate. Sé ultra-breve y ejecutivo. Máximo 2 o 3 líneas totales.\n\n{texto_ronda}"
         )
         try:
-            response = await asyncio.to_thread(
-                agent.run, 
-                prompt_resumen, 
-                system_prompt="Sos un extractor de datos semánticos y clusters de información de alta precisión."
-            )
+            # Pass arguments based on agent type
+            if hasattr(agent, "system_prompt"):
+                response = await asyncio.to_thread(
+                    agent.run, 
+                    prompt_resumen, 
+                    system_prompt="Sos un extractor de datos semánticos y clusters de información de alta precisión."
+                )
+            else:
+                response = await asyncio.to_thread(agent.run, prompt_resumen)
             return extract_text(response)
         except Exception as e:
             logger.error(f"No se pudo generar el resumen de la ronda {round_idx}: {e}")
@@ -442,7 +512,7 @@ class Supervisor:
 
         try:
             fast_mode_rules = (
-                "\n\n[DIRECTRICE CRÍTICA S.A.A.O.P. - FAST THINKING]\n"
+                "\n\n[DIRECTRICE CRÍTICA - FAST THINKING]\n"
                 "Sé directo, ultra-conciso y técnico. NO metas introducciones amables. "
                 "Ve directo al grano escribiendo tus datos, fórmulas y clusters estadísticos. "
                 "Máximo 3 a 5 líneas por argumento técnico."
@@ -460,20 +530,25 @@ class Supervisor:
                 f"{fast_mode_rules}"
             )
             
-            system_prompt = agent.system_prompt
-            for key, value in contexto_evolutivo.items():
-                placeholder = "{" + key + "}"
-                if placeholder in system_prompt:
-                    system_prompt = system_prompt.replace(placeholder, str(value))
+            system_prompt = getattr(agent, "system_prompt", None)
+            if system_prompt:
+                for key, value in contexto_evolutivo.items():
+                    placeholder = "{" + key + "}"
+                    if placeholder in system_prompt:
+                        system_prompt = system_prompt.replace(placeholder, str(value))
             
-            response = await asyncio.to_thread(agent.run, prompt_final, system_prompt=system_prompt)
+            # Pass arguments based on agent type
+            if hasattr(agent, "system_prompt"):
+                response = await asyncio.to_thread(agent.run, prompt_final, system_prompt=system_prompt)
+            else:
+                response = await asyncio.to_thread(agent.run, prompt_final)
             text_response = extract_text(response)
             duration = (time.perf_counter() - start_time) * 1000
             
             numeros_encontrados = re.findall(r'\b([0-4]?[0-9]|50)\b', text_response)
             combinacion = [int(n) for n in numeros_encontrados[:6]] if len(numeros_encontrados) >= 6 else None
             
-            score_data = score_response(
+            score_data = self._score_response_fn(
                 agent_name=agent_id_to_use,
                 role=getattr(agent, "role", role_name),
                 result={"output": text_response},
@@ -537,22 +612,24 @@ class Supervisor:
             
             prompt_base = f"Tarea: {task}\nFase de Debate: {turn.phase}\nHistorial del Circuito:\n{history}\n\nCONTEXTO EVOLUTIVO:\n{contexto_str}\n\n{fast_mode_rules}"
             
-            system_prompt = agent.system_prompt
-            for key, value in contexto.items():
-                placeholder = "{" + key + "}"
-                if placeholder in system_prompt:
-                    system_prompt = system_prompt.replace(placeholder, str(value))
+            system_prompt = getattr(agent, "system_prompt", None)
+            if system_prompt:
+                for key, value in contexto.items():
+                    placeholder = "{" + key + "}"
+                    if placeholder in system_prompt:
+                        system_prompt = system_prompt.replace(placeholder, str(value))
             
             logger.info(f"🚀 Ejecutando agente de cierre: {agent.id}")
             
-            if not agent.llm_provider:
+            if not agent.llm_provider and hasattr(agent, "system_prompt"):
                 logger.error(f"❌ Agente {agent.id} no tiene llm_provider asignado")
                 return AgentStepResult(
                     step_id=step_id, agent_name=agent_id_to_use, success=False,
                     error=f"Agente {agent.id} sin llm_provider."
                 )
             
-            logger.info(f"📡 Usando proveedor: {agent.llm_provider.provider_name()}")
+            if hasattr(agent, "llm_provider") and agent.llm_provider:
+                logger.info(f"📡 Usando proveedor: {agent.llm_provider.provider_name()}")
 
             # Buscar lecciones útiles para este rol antes de ejecutar
             lecciones_externas = []
@@ -564,7 +641,11 @@ class Supervisor:
                 logger.warning(f"Error buscando lecciones útiles: {e}")
 
             context = {"lecciones_externas": lecciones_externas}
-            response = await asyncio.to_thread(agent.run, prompt_base, system_prompt=system_prompt, context=context)
+            # Pass arguments based on agent type
+            if hasattr(agent, "system_prompt"):
+                response = await asyncio.to_thread(agent.run, prompt_base, system_prompt=system_prompt, context=context)
+            else:
+                response = await asyncio.to_thread(agent.run, prompt_base, context=context)
             text_response = extract_text(response)
             
             logger.info(f"✅ Respuesta recibida de {agent.id} | longitud: {len(text_response)} chars")
@@ -574,7 +655,7 @@ class Supervisor:
             numeros_encontrados = re.findall(r'\b([0-4]?[0-9]|50)\b', text_response)
             combinacion = [int(n) for n in numeros_encontrados[:6]] if len(numeros_encontrados) >= 6 else None
             
-            score_data = score_response(
+            score_data = self._score_response_fn(
                 agent_name=agent_id_to_use,
                 role=getattr(agent, "role", turn.agent_name),
                 result={"output": text_response},
@@ -634,17 +715,14 @@ class Supervisor:
     def get_orchestration(self, execution_id: str) -> Any | None:
         key = f"{MEMORY_RESULT_PREFIX}{execution_id}"
         return self.memory.get(key)
+        
+    def get_debate(self, debate_id: str) -> Any | None:
+        key = f"{MEMORY_DEBATE_PREFIX}{debate_id}"
+        return self.memory.get(key)
 
     def _resolve_debate_agents(self) -> list[str]:
-        """Devuelve las 6 mentes operando activas en el búnker (fallback por si no se pasan agentes)."""
-        return [
-            "gpt_auditor",
-            "gemini_cuantico",
-            "viejo_lobo_rey",
-            "estadistico_integral",
-            "viejo_deepseek",
-            "nuevo_deepseek_saaop"
-        ]
+        """Devuelve los agentes por defecto del dominio configurado."""
+        return self._default_debate_agents
 
     def _resolve_agents(self, agent_names: list[str] | None) -> list[str]:
         available = self.agents.list_ids()

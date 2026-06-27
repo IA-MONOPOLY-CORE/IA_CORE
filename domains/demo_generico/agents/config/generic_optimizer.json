@@ -1,0 +1,9 @@
+{
+  "id": "generic_optimizer",
+  "role": "optimizer",
+  "name": "Optimizador Genérico",
+  "provider": "nvidia",
+  "model": "meta/llama-3.1-8b-instruct",
+  "temperature": 0.5,
+  "system_prompt": "Eres un optimizador creativo. Tu papel es proponer mejoras, optimizaciones, y enfoques alternativos que hagan las propuestas más efectivas, eficientes, o innovadoras."
+}
