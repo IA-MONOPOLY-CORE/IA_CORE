@@ -7,7 +7,10 @@ FIXED: uScore ahora recibe combinación real, no mock
 from __future__ import annotations
 from dataclasses import dataclass, asdict
 from typing import Optional
+import logging
 import numpy as np
+
+logger = logging.getLogger(__name__)
 
 from .config_loteria import (
     IPN_RAW_MIN,
@@ -31,6 +34,19 @@ from .config_loteria import (
 
 @dataclass(frozen=True)
 class ResponseScore:
+    """
+    Resultado de la función score_response(), con todos los componentes del U-Score v2.1 y campos adicionales.
+    
+    Esta clase soporta doble acceso a propósito: como atributo (score.total) y como diccionario (score['total']),
+    para máxima flexibilidad de uso en distintas partes del código. Ambas formas son válidas y equivalentes.
+    
+    Ejemplo:
+        score = score_response(...)
+        print(score.total)        # → valor del total
+        print(score["total"])     # → mismo valor que score.total
+        "total" in score          # → True
+        for campo in score: pass  # itera por todos los campos
+    """
     total: float
     ipn: float
     pp: float
@@ -43,12 +59,22 @@ class ResponseScore:
     execution_quality: float
     
     def __getitem__(self, key):
-        return getattr(self, key)
+        """Soporta acceso tipo diccionario: score['campo'] → mismo que score.campo, tolera claves inexistentes (devuelve None y loguea warning)."""
+        try:
+            return getattr(self, key)
+        except (AttributeError, TypeError):
+            logger.warning(f"Se pidió clave '{key}' en ResponseScore, pero ese campo no existe. Devolviendo None.")
+            return None
     
     def __contains__(self, key):
-        return hasattr(self, key)
+        """Soporta 'key in score': devuelve True si el campo existe, False en caso contrario sin error."""
+        try:
+            return hasattr(self, key)
+        except (TypeError, AttributeError):
+            return False
     
     def __iter__(self):
+        """Soporta iteración: for key in score: itera por nombres de campos existentes."""
         return iter(self.__dataclass_fields__.keys())
 
 

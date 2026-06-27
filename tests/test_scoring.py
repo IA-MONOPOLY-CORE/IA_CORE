@@ -110,3 +110,38 @@ def test_u_score_v2_1_components_clipped_to_range():
     assert 0 <= score_pz_bajo.pz <= 20, (
         f"pz fuera de rango (debería estar clippeado): {score_pz_bajo.pz}"
     )
+
+
+def test_responsescore_hybrid_access_and_tolerance():
+    """Verifica que ResponseScore soporte acceso como atributo y como dict, y sea tolerante a claves inexistentes."""
+    result = {
+        "role": "analyst",
+        "output": "analysis " * 20,
+        "key_points": ["a", "b"],
+    }
+    score = score_response(
+        agent_name="analyst",
+        role="analyst",
+        result=result,
+        success=True,
+        duration_ms=50,
+    )
+    
+    # a) Verificar equivalencia de acceso
+    assert score.total == score["total"]
+    assert score.confidence == score["confidence"]
+    assert score.reasoning_quality == score["reasoning_quality"]
+    
+    # b) Verificar acceso a clave inexistente devuelve None sin error
+    assert score["clave_inventada"] is None
+    assert score[123] is None  # Probamos con una clave de tipo incorrecto
+    
+    # c) Verificar __contains__ funciona bien
+    assert "total" in score
+    assert "clave_inventada" not in score
+    
+    # d) Verificar iteración funciona
+    fields = list(score)
+    assert "total" in fields
+    assert "ipn" in fields
+    assert "confidence" in fields
