@@ -109,8 +109,10 @@ class AgentManager(BaseManager):
                         self._json_agents.add(agent_id)
                         json_loaded += 1
                         logger.info(f"✅ Agente JSON precargado: {agent_id}")
+                except (OSError, json.JSONDecodeError) as e:
+                    logger.error(f"Error precargando {json_file.name}: {e}", exc_info=True)
                 except Exception as e:
-                    logger.warning(f"Error precargando {json_file.name}: {e}")
+                    logger.error(f"Unexpected error precargando {json_file.name}: {e}", exc_info=True)
         
         self._running = True
         logger.info(
@@ -159,7 +161,7 @@ class AgentManager(BaseManager):
 
             return agent
         except Exception as e:
-            logger.error(f"Error construyendo agente JSON {agent_id}: {e}")
+            logger.error(f"Error construyendo agente JSON {agent_id}: {e}", exc_info=True)
             return None
 
     def stop(self) -> None:
@@ -185,6 +187,7 @@ class AgentManager(BaseManager):
             logger.warning(
                 "Aviso en descubrimiento automático de módulos: %s",
                 str(e),
+                exc_info=True,
             )
             return 0
 

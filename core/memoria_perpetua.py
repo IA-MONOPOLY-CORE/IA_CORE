@@ -1,19 +1,22 @@
 """Sistema de memoria perpetua por agente con búsqueda vectorial local (ChromaDB)."""
 
 import json
+import logging
 from pathlib import Path
 from datetime import datetime
 from typing import Optional, List, Dict, Any
+
+logger = logging.getLogger(__name__)
 
 # Intentar importar ChromaDB y sentence-transformers
 try:
     import chromadb
     from sentence_transformers import SentenceTransformer
     CHROMADB_AVAILABLE = True
-    print("✅ ChromaDB y SentenceTransformers cargados correctamente")
+    logger.info("✅ ChromaDB y SentenceTransformers cargados correctamente")
 except ImportError as e:
     CHROMADB_AVAILABLE = False
-    print(f"⚠️ ChromaDB no disponible. Instalar con: pip install chromadb sentence-transformers. Error: {e}")
+    logger.warning(f"⚠️ ChromaDB no disponible. Instalar con: pip install chromadb sentence-transformers. Error: {e}")
 
 # Ruta base para las memorias
 MEMORIA_BASE = Path(__file__).parent.parent / "memoria_agentes"
@@ -60,9 +63,9 @@ class MemoriaVectorial:
                     metadata={"hnsw:space": "cosine"}
                 )
                 self.encoder = SentenceTransformer('all-MiniLM-L6-v2')
-                print(f"✅ Memoria vectorial inicializada para {agente_id}")
+                logger.info(f"✅ Memoria vectorial inicializada para {agente_id}")
             except Exception as e:
-                print(f"⚠️ Error inicializando ChromaDB para {agente_id}: {e}")
+                logger.error(f"⚠️ Error inicializando ChromaDB para {agente_id}: {e}", exc_info=True)
                 self.client = None
         
         self._initialized = True
@@ -111,7 +114,7 @@ class MemoriaVectorial:
                 )
                 agregados += 1
             except Exception as e:
-                print(f"⚠️ Error agregando fragmento a ChromaDB: {e}")
+                logger.error(f"⚠️ Error agregando fragmento a ChromaDB: {e}", exc_info=True)
         
         return agregados
     
@@ -161,7 +164,7 @@ class MemoriaVectorial:
             return resultados_filtrados
             
         except Exception as e:
-            print(f"⚠️ Error buscando en ChromaDB: {e}")
+            logger.error(f"⚠️ Error buscando en ChromaDB: {e}", exc_info=True)
             return []
     
     def limpiar(self):
@@ -170,9 +173,9 @@ class MemoriaVectorial:
             try:
                 self.client.delete_collection(self.agente_id)
                 self.collection = self.client.create_collection(self.agente_id)
-                print(f"✅ Memoria vectorial limpiada para {self.agente_id}")
+                logger.info(f"✅ Memoria vectorial limpiada para {self.agente_id}")
             except Exception as e:
-                print(f"⚠️ Error limpiando memoria vectorial: {e}")
+                logger.error(f"⚠️ Error limpiando memoria vectorial: {e}", exc_info=True)
 
 
 def asegurar_carpeta(agente_id: str) -> Path:
@@ -272,7 +275,7 @@ def actualizar_memoria(agente_id: str, nueva_info: str, tipo: str = "general", s
         if mv.esta_disponible():
             mv.agregar_documento(nueva_info, fuente=tipo, sorteo=sorteo)
     except Exception as e:
-        print(f"⚠️ Error indexando en memoria vectorial: {e}")
+        logger.error(f"⚠️ Error indexando en memoria vectorial: {e}", exc_info=True)
 
 
 def cargar_memoria_al_prompt(agente_id: str, consulta_actual: str = "", sorteo_actual: int = None) -> str:
@@ -337,7 +340,7 @@ Notas personales:
 """
                     return texto_base + texto_adicional
         except Exception as e:
-            print(f"⚠️ Error en búsqueda vectorial para {agente_id}: {e}")
+            logger.error(f"⚠️ Error en búsqueda vectorial para {agente_id}: {e}", exc_info=True)
     
     return texto_base
 
@@ -402,7 +405,7 @@ def sincronizar_memoria_vectorial(agente_id: str, texto_base: Optional[str] = No
         sorteo_limite: Si se provee, solo indexa elementos con sorteo < sorteo_limite
     """
     if not CHROMADB_AVAILABLE:
-        print("⚠️ ChromaDB no disponible. Instalar con: pip install chromadb sentence-transformers")
+        logger.warning("⚠️ ChromaDB no disponible. Instalar con: pip install chromadb sentence-transformers")
         return
     
     memoria = cargar_memoria(agente_id)
@@ -441,7 +444,7 @@ def sincronizar_memoria_vectorial(agente_id: str, texto_base: Optional[str] = No
         elif isinstance(error, str):
             agregados += mv.agregar_documento(f"ERROR A EVITAR: {error}", "error")
     
-    print(f"✅ Memoria vectorial sincronizada para {agente_id}. {agregados} fragmentos indexados.")
+    logger.info(f"✅ Memoria vectorial sincronizada para {agente_id}. {agregados} fragmentos indexados.")
     return agregados
 
 
