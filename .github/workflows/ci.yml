@@ -30,5 +30,11 @@ jobs:
       - name: Check syntax with pyflakes
         run: python -m pyflakes .
 
+      - name: Check formatting with ruff format (check only)
+        run: ruff format --check .
+
+      - name: Lint with ruff check
+        run: ruff check .
+
       - name: Run tests
         run: python -m pytest tests/ -v
