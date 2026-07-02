@@ -25,8 +25,8 @@ def test_load_builtin_providers(monkeypatch):
     registry = ProviderRegistry()
     count = registry.load_builtin_providers()
 
-    assert count == 4
-    assert set(registry.list_active()) == {"openai", "claude", "gemini", "ollama"}
+    assert count == 5  # Agregado NvidiaProvider en providers/registry.py
+    assert set(registry.list_active()) == {"openai", "claude", "gemini", "ollama", "nvidia"}
 
 
 def test_agent_provider_assignment(tmp_path, monkeypatch):

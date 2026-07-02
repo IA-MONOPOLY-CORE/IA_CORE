@@ -2,18 +2,73 @@ import config
 from core.debate import detect_contradiction
 from core.orchestration import ExecutionMode
 from core.supervisor import MEMORY_DEBATE_PREFIX, Supervisor
-from domains.loteria.config_loteria import DEBATE_AGENTS
+from agents.base import Agent as BaseAgent
 
 
-def _supervisor(tmp_path, monkeypatch):
-    tools_dir = tmp_path / "tools"
-    tools_dir.mkdir()
-    monkeypatch.setattr(config, "TOOLS_MODULES_DIR", tools_dir)
-    monkeypatch.setattr(config, "AGENTS_MODULES_DIR", config.ROOT_DIR / "agents" / "modules")
+class _MockAnalyst(BaseAgent):
+    id = "analyst"
+    role = "analyst"
+
+    def run(self, task, context=None):
+        return {"output": "Positive analysis: looks solid", "confidence": 0.9}
+
+
+class _MockAnalystZones(BaseAgent):
+    id = "analyst_zones"
+    role = "analyst"
+
+    def run(self, task, context=None):
+        return {"output": "Zone-based analysis: all green", "confidence": 0.85}
+
+
+class _MockCritic(BaseAgent):
+    id = "critic"
+    role = "critic"
+
+    def run(self, task, context=None):
+        return {"output": "Critical feedback: there is a weakness in the design", "confidence": 0.95}
+
+
+class _MockOptimizer(BaseAgent):
+    id = "optimizer"
+    role = "optimizer"
+
+    def run(self, task, context=None):
+        return {"output": "Optimized version: improved by adding error handling", "confidence": 0.92}
+
+
+class _MockSynthesizer(BaseAgent):
+    id = "synthesizer"
+    role = "synthesizer"
+
+    def run(self, task, context=None):
+        return {"output": "Final synthesis: plan approved", "confidence": 0.98}
+
+
+class _MockOrchestrator(BaseAgent):
+    id = "orchestrator"
+    role = "orchestrator"
+
+    def run(self, task, context=None):
+        return {"output": "Orchestration complete", "confidence": 0.9}
+
+
+def _supervisor_with_mock_agents(tmp_path, monkeypatch):
+    empty = tmp_path / "empty"
+    empty.mkdir()
+    monkeypatch.setattr(config, "AGENTS_MODULES_DIR", empty)
+    monkeypatch.setattr(config, "TOOLS_MODULES_DIR", empty / "tools")
     monkeypatch.setattr(config, "MEMORY_STATE_FILE", tmp_path / "state.json")
+    monkeypatch.setattr(config, "DEBATE_LIGHTWEIGHT", True)
 
     supervisor = Supervisor(log_dir=tmp_path / "logs")
     supervisor.start()
+    supervisor.agents.register(_MockAnalyst(supervisor.memory, supervisor.tools))
+    supervisor.agents.register(_MockAnalystZones(supervisor.memory, supervisor.tools))
+    supervisor.agents.register(_MockCritic(supervisor.memory, supervisor.tools))
+    supervisor.agents.register(_MockOptimizer(supervisor.memory, supervisor.tools))
+    supervisor.agents.register(_MockSynthesizer(supervisor.memory, supervisor.tools))
+    supervisor.agents.register(_MockOrchestrator(supervisor.memory, supervisor.tools))
     return supervisor
 
 
@@ -37,7 +92,7 @@ def test_debate_flow_four_rounds(tmp_path, monkeypatch):
 
     monkeypatch.setattr(core_supervisor, "compute_consensus_scores", mock_compute)
 
-    supervisor = _supervisor(tmp_path, monkeypatch)
+    supervisor = _supervisor_with_mock_agents(tmp_path, monkeypatch)
 
     result = supervisor.orchestrate(
         "Build secure authentication API",
@@ -54,7 +109,7 @@ def test_debate_flow_four_rounds(tmp_path, monkeypatch):
 
 
 def test_debate_detects_contradiction_on_critic(tmp_path, monkeypatch):
-    supervisor = _supervisor(tmp_path, monkeypatch)
+    supervisor = _supervisor_with_mock_agents(tmp_path, monkeypatch)
     result = supervisor.orchestrate("short", mode=ExecutionMode.DEBATE)
 
     critic_step = next(s for s in result.debate.steps if s.agent_name == "critic")
@@ -66,7 +121,7 @@ def test_debate_detects_contradiction_on_critic(tmp_path, monkeypatch):
 
 
 def test_debate_persisted_in_memory(tmp_path, monkeypatch):
-    supervisor = _supervisor(tmp_path, monkeypatch)
+    supervisor = _supervisor_with_mock_agents(tmp_path, monkeypatch)
     result = supervisor.orchestrate("persist debate", mode=ExecutionMode.DEBATE)
 
     stored = supervisor.get_debate(result.debate.debate_id)
@@ -82,7 +137,7 @@ def test_debate_persisted_in_memory(tmp_path, monkeypatch):
 
 
 def test_debate_optimizer_is_refinement(tmp_path, monkeypatch):
-    supervisor = _supervisor(tmp_path, monkeypatch)
+    supervisor = _supervisor_with_mock_agents(tmp_path, monkeypatch)
     result = supervisor.orchestrate("refine this plan", mode=ExecutionMode.DEBATE)
 
     optimizer = next(s for s in result.debate.steps if s.agent_name == "optimizer")
@@ -110,7 +165,7 @@ def test_debate_early_stop_on_high_agreement(tmp_path, monkeypatch):
     monkeypatch.setattr(core_supervisor, "compute_consensus_scores", mock_compute_consensus)
 
     # Initialize supervisor AFTER patching
-    supervisor = _supervisor(tmp_path, monkeypatch)
+    supervisor = _supervisor_with_mock_agents(tmp_path, monkeypatch)
 
     try:
         result = supervisor.orchestrate(
@@ -123,14 +178,7 @@ def test_debate_early_stop_on_high_agreement(tmp_path, monkeypatch):
         assert result.debate is not None
 
         # Verificar que el debate se detuvo en la ronda 2 (no llegó a 5 rondas)
-        # El modo DEBATE usa 6 agentes por defecto del sistema
-        # Cada ronda tiene 6 agentes, si se detiene en ronda 2 debería tener ~12 pasos de colisión
-        # Más los pasos del pipeline de cierre (estadístico, auditor, etc.)
-        # Si fuera a 5 rondas tendría ~30 pasos de colisión + cierre
         total_steps = len(result.debate.steps)
-
-        # Con parada temprana en ronda 2: 2 rondas * 6 agentes = 12 pasos de colisión + ~6 de cierre = ~18
-        # Sin parada temprana: 5 rondas * 6 agentes = 30 pasos de colisión + ~6 de cierre = ~36
         assert total_steps <= 25, (
             f"Debió detenerse en ronda 2 pero tuvo {total_steps} pasos (esperado <= 25)"
         )

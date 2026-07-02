@@ -26,7 +26,9 @@ def test_discovers_and_dispatches_agents(tmp_path):
     manager.start()
 
     assert "greeter" in manager.list_ids()
-    assert manager.dispatch("greeter", "alice") == "hi alice"
+    agent = manager.get("greeter")
+    assert agent is not None
+    assert agent.run("alice") == "hi alice"
     manager.stop()
 
 
@@ -45,7 +47,9 @@ def test_skips_broken_module(tmp_path):
     count = manager.load_modules()
 
     assert count == 1
-    assert manager.dispatch("ok", "x") is True
+    agent = manager.get("ok")
+    assert agent is not None
+    assert agent.run("x") is True
 
 
 def test_agent_receives_memory_and_tools(tmp_path):
@@ -73,7 +77,9 @@ def test_agent_receives_memory_and_tools(tmp_path):
     manager = AgentManager(memory=memory, tools=tools, modules_dir=modules_dir)
     manager.start()
 
-    assert manager.dispatch("worker", "hola") == "hola"
+    agent = manager.get("worker")
+    assert agent is not None
+    assert agent.run("hola") == "hola"
     assert memory.get("k") == "hola"
 
     manager.stop()
@@ -126,8 +132,12 @@ def test_builtin_agents_load(tmp_path):
     manager.start()
 
     assert "echo" in manager.list_ids(include_internal=True)
-    assert manager.dispatch("echo", "test") == "echo:test"
-    result = manager.dispatch("assistant", "hola")
+    echo_agent = manager.get("echo")
+    assert echo_agent is not None
+    assert echo_agent.run("test") == "echo:test"
+    assistant_agent = manager.get("assistant")
+    assert assistant_agent is not None
+    result = assistant_agent.run("hola")
     assert isinstance(result, dict)
     assert result.get("ok") is True
     assert result.get("output")
