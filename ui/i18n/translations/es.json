@@ -71,6 +71,8 @@
   "providers.origin": "Origen",
   "providers.routing": "Enrutamiento",
   "providers.badge.kind": "Tipo",
+  "providers.badge.demo": "DEMO",
+  "providers.placeholder": "NO CONECTADO",
   "providers.kind.local_active": "LOCAL ACTIVO",
   "providers.kind.cloud_configured": "CLOUD CONFIGURADO",
   "providers.kind.cloud_placeholder": "CLOUD PLACEHOLDER",

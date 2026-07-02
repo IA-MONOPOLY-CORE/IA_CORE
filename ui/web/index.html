@@ -493,6 +493,20 @@
         .close-modal { position: absolute; top: 12px; right: 18px; font-size: 1.8rem; cursor: pointer; color: var(--text-muted); }
         .close-modal:hover { color: var(--red); }
         .agent-checkbox-item { display: flex; align-items: center; gap: 10px; padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.05); }
+            .provider-item { display: flex; align-items: center; gap: 12px; padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.05); }
+            .provider-name { font-size: 1rem; font-weight: bold; }
+            .provider-status { font-size: 0.8rem; color: var(--text-muted); }
+            .demo-badge {
+                display: inline-flex;
+                align-items: center;
+                padding: 2px 8px;
+                border-radius: 4px;
+                background-color: rgba(255, 193, 7, 0.2);
+                color: #ffc107;
+                border: 1px solid rgba(255, 193, 7, 0.5);
+                font-size: 0.75rem;
+                font-weight: bold;
+            }
         .skin-option { display: inline-block; padding: 6px 14px; background: rgba(0,0,0,0.3); border: 1px solid var(--border-color); cursor: pointer; margin-right: 10px; border-radius: var(--border-radius); transition: all 0.2s; }
         .skin-option.active { border-color: var(--cyan); background: rgba(0,212,255,0.15); color: var(--cyan); }
         .widget-palette-flex { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 10px; justify-content: flex-start; }
@@ -588,6 +602,7 @@
             <span class="close-modal" id="close-config-modal">&times;</span>
             <div class="config-sidebar">
                 <div class="config-sidebar-item active" data-section="agents">🎯 AGENTES</div>
+                <div class="config-sidebar-item" data-section="providers">🔌 PROVEEDORES</div>
                 <div class="config-sidebar-item" data-section="skins">🎨 SKINS</div>
                 <div class="config-sidebar-item" data-section="branding">🏷️ BRANDING</div>
                 <div class="config-sidebar-item" data-section="stickers">🎭 WIDGETS</div>
@@ -597,6 +612,10 @@
                 <div id="config-agents" class="config-section active">
                     <h3>SELECCIONAR AGENTES</h3>
                     <div id="agents-checklist"></div>
+                </div>
+                <div id="config-providers" class="config-section">
+                    <h3>PROVEEDORES DISPONIBLES</h3>
+                    <div id="providers-list"></div>
                 </div>
                 <div id="config-skins" class="config-section">
                     <h3>SELECCIONAR SKIN</h3>
@@ -918,6 +937,33 @@
                 `;
                 container.appendChild(item);
             });
+        }
+
+        async function cargarProveedores() {
+            const container = document.getElementById('providers-list');
+            if (!container) return;
+            container.innerHTML = '';
+            try {
+                const res = await fetch(`${API_BASE}/api/status`);
+                const data = await res.json();
+                if (data.providers) {
+                    data.providers.forEach(provider => {
+                        const item = document.createElement('div');
+                        item.className = 'provider-item';
+                        item.innerHTML = `
+                            <div style="flex: 1;">
+                                <div class="provider-name">${provider.name}</div>
+                                <div class="provider-status">${provider.message}</div>
+                            </div>
+                            ${provider.is_placeholder ? '<span class="demo-badge">DEMO</span>' : ''}
+                        `;
+                        container.appendChild(item);
+                    });
+                }
+            } catch(e) {
+                console.error('Error cargando proveedores:', e);
+                container.innerHTML = '<div style="color: var(--text-muted);">Error al cargar proveedores</div>';
+            }
         }
 
         async function eliminarAgente(id) {
@@ -1281,7 +1327,7 @@
             document.getElementById('current-radar-sticker').innerText = savedSticker;
             
             document.getElementById('start-btn').onclick = startDebate;
-            document.getElementById('settings-fab').onclick = () => { cargarChecklist(); document.getElementById('config-modal').style.display = 'flex'; };
+            document.getElementById('settings-fab').onclick = () => { cargarChecklist(); cargarProveedores(); document.getElementById('config-modal').style.display = 'flex'; };
             document.getElementById('add-fab').onclick = () => { currentEditId = null; document.getElementById('agent-modal-title').innerText = 'CREAR AGENTE'; document.getElementById('agent-id').disabled = false; document.getElementById('agent-id').value = ''; document.getElementById('agent-prompt').value = ''; document.getElementById('agent-memory').value = ''; document.getElementById('agent-modal').style.display = 'flex'; };
             document.getElementById('save-agent-btn').onclick = guardarAgente;
             document.getElementById('cancel-agent-btn').onclick = () => { document.getElementById('agent-modal').style.display = 'none'; document.getElementById('agent-id').disabled = false; currentEditId = null; };
@@ -1317,7 +1363,11 @@
                     document.querySelectorAll('.config-sidebar-item').forEach(i => i.classList.remove('active'));
                     document.querySelectorAll('.config-section').forEach(s => s.classList.remove('active'));
                     item.classList.add('active');
-                    document.getElementById(`config-${item.getAttribute('data-section')}`).classList.add('active');
+                    const section = item.getAttribute('data-section');
+                    document.getElementById(`config-${section}`).classList.add('active');
+                    if (section === 'providers') {
+                        cargarProveedores();
+                    }
                 };
             });
             

@@ -27,6 +27,7 @@ class NvidiaProvider(BaseProvider):
     """
 
     IS_CLOUD = True
+    IS_PLACEHOLDER = False
 
     def __init__(self, api_key: str | None = None) -> None:
         self._api_key = api_key

@@ -31,6 +31,7 @@ class OllamaProvider(BaseProvider):
     """
 
     IS_LOCAL = True
+    IS_PLACEHOLDER = False
 
     def __init__(
         self,

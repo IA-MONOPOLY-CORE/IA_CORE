@@ -127,7 +127,10 @@ class SupervisorService:
     def run_agent(self, agent_id: str, task: str) -> dict[str, Any]:
         """Ejecución explícita — puede llamar Ollama (con spinner en UI)."""
         started = time.perf_counter()
-        result = self._supervisor.agents.dispatch(agent_id, task)
+        agent = self._supervisor.agents.get(agent_id)
+        if not agent:
+            raise ValueError(f"Agent {agent_id} not found")
+        result = agent.run(task)
         self._metrics.agent_dispatch_count += 1
         elapsed = (time.perf_counter() - started) * 1000
         perf_logger.info("Agent run | %s | %.1fms", agent_id, elapsed)
@@ -140,6 +143,7 @@ class SupervisorService:
         rows: list[dict[str, Any]] = []
         for provider in self._supervisor.providers.list_providers():
             meta = classify_provider(provider)
+            is_placeholder = getattr(provider, "IS_PLACEHOLDER", False)
             rows.append(
                 {
                     "name": provider.provider_name(),
@@ -150,6 +154,7 @@ class SupervisorService:
                     "kind": meta["kind"],
                     "origin": meta["origin"],
                     "routing": "-",
+                    "is_placeholder": is_placeholder,
                 }
             )
         return rows
@@ -160,6 +165,7 @@ class SupervisorService:
         t0 = time.perf_counter()
         for provider in self._supervisor.providers.list_providers():
             name = provider.provider_name()
+            is_placeholder = getattr(provider, "IS_PLACEHOLDER", False)
             try:
                 health = provider.health_check()
                 models: list[str] = []
@@ -183,6 +189,7 @@ class SupervisorService:
                     "kind": meta["kind"],
                     "origin": meta["origin"],
                     "routing": "local" if meta["origin"] == "local" else "cloud",
+                    "is_placeholder": is_placeholder,
                 }
             )
         perf_logger.info("Provider health refresh | %.1fms", (time.perf_counter() - t0) * 1000)

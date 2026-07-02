@@ -323,5 +323,8 @@ class AgentManager(BaseManager):
             )
             return None
 
-    def list_ids(self) -> list[str]:
-        return list(self._agents.keys())
+    def list_ids(self, include_internal: bool = False) -> list[str]:
+        all_ids = list(self._agents.keys())
+        if include_internal:
+            return all_ids
+        return [id for id in all_ids if id not in self._internal]

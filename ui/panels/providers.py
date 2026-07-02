@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import streamlit as st
 
-from ui.components.badges import provider_kind_badge
+from ui.components.badges import provider_kind_badge, status_badge
 from ui.i18n import t
 from ui.state import cache
 from ui.state.manager import UIStateManager
@@ -36,6 +36,7 @@ def render(state: UIStateManager) -> None:
     for row in rows:
         kind = row.get("kind", "OFFLINE")
         healthy = row.get("healthy")
+        is_placeholder = row.get("is_placeholder", False)
         if healthy is True:
             status = t("status.active")
             color = "#00f5d4"
@@ -52,6 +53,8 @@ def render(state: UIStateManager) -> None:
             unsafe_allow_html=True,
         )
         provider_kind_badge(kind)
+        if is_placeholder:
+            status_badge(t("providers.badge.demo"), t("providers.placeholder"), "#ffd166")
         st.caption(row.get("message") or "-")
         st.caption(
             f"{t('providers.origin')}: {row.get('origin', '-')} · "

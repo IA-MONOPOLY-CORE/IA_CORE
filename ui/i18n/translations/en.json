@@ -71,6 +71,8 @@
   "providers.origin": "Origin",
   "providers.routing": "Routing",
   "providers.badge.kind": "Kind",
+  "providers.badge.demo": "DEMO",
+  "providers.placeholder": "NOT CONNECTED",
   "providers.kind.local_active": "LOCAL ACTIVE",
   "providers.kind.cloud_configured": "CLOUD CONFIGURED",
   "providers.kind.cloud_placeholder": "CLOUD PLACEHOLDER",
