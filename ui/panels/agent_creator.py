@@ -3,7 +3,7 @@
 import json
 
 import streamlit as st
-from config import ROOT_DIR
+from config import ROOT_DIR, AGENTS_CONFIG_DIR
 
 
 def render():
@@ -91,7 +91,7 @@ def render():
         }
         
         # Guardar JSON
-        config_dir = ROOT_DIR / "agents" / "config"
+        config_dir = AGENTS_CONFIG_DIR
         config_dir.mkdir(parents=True, exist_ok=True)
         
         json_path = config_dir / f"{agent_id}.json"

@@ -3,12 +3,12 @@
 import json
 
 import streamlit as st
-from config import ROOT_DIR
+from config import ROOT_DIR, AGENTS_CONFIG_DIR
 
 
 def _cargar_agentes():
     """Carga todos los agentes JSON del directorio config."""
-    config_dir = ROOT_DIR / "agents" / "config"
+    config_dir = AGENTS_CONFIG_DIR
     agentes = []
     
     if config_dir.exists():

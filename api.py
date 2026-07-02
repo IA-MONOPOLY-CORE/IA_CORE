@@ -425,9 +425,23 @@ async def get_status() -> dict:
         if hasattr(evolution, "_state"):
             sorteo_actual = evolution._state["evolucion_lotoplus"]["ciclo_actual"]["sorteo_actual"]
 
+    providers_info = []
+    if supervisor:
+        for provider in supervisor.providers.list_providers():
+            name = provider.provider_name()
+            is_placeholder = getattr(provider, "IS_PLACEHOLDER", False)
+            health = provider.health_check()
+            providers_info.append({
+                "name": name,
+                "is_placeholder": is_placeholder,
+                "healthy": health.healthy,
+                "message": health.message,
+                "models": provider.available_models()
+            })
+
     return {
         "running": supervisor is not None and supervisor.running,
-        "providers": supervisor.providers.list_active() if supervisor else [],
+        "providers": providers_info,
         "agents": supervisor.agents.list_ids() if supervisor else [],
         "fase_actual": fase_actual,
         "sorteo_actual": sorteo_actual,
@@ -880,7 +894,7 @@ async def create_agent_endpoint(
         logger.warning(f"ID sanitizado: {id} -> {safe_id}")
         id = safe_id
 
-    config_dir = ROOT / "agents" / "config"
+    config_dir = config.AGENTS_CONFIG_DIR
     papers_dir = ROOT / "agents" / "papers"
     config_dir.mkdir(parents=True, exist_ok=True)
     papers_dir.mkdir(parents=True, exist_ok=True)
@@ -1049,7 +1063,7 @@ async def list_agents():
     agentes_ids = set()
 
     # Fuente 1: Agentes desde JSON (leer directorio directamente)
-    config_dir = ROOT / "agents" / "config"
+    config_dir = config.AGENTS_CONFIG_DIR
     if config_dir.exists():
         for json_file in config_dir.glob("*.json"):
             if json_file.name.endswith(".bak"):
@@ -1109,7 +1123,7 @@ async def update_agent(agent_id: str, request: Request):
         model = data.get("model")
         system_prompt = data.get("system_prompt")
 
-        json_path = ROOT / "agents" / "config" / f"{agent_id}.json"
+        json_path = config.AGENTS_CONFIG_DIR / f"{agent_id}.json"
         if not json_path.exists():
             return {"success": False, "error": f"Agente {agent_id} no encontrado"}
 
@@ -1143,7 +1157,7 @@ async def delete_agent(agent_id: str):
         if re.sub(r"[^a-zA-Z0-9_-]", "", agent_id) != agent_id:
             return {"success": False, "error": "ID de agente inválido"}
 
-        json_path = ROOT / "agents" / "config" / f"{agent_id}.json"
+        json_path = config.AGENTS_CONFIG_DIR / f"{agent_id}.json"
         paper_path = ROOT / "agents" / "papers" / f"{agent_id}_paper.json"
         memory_path = ROOT / "memoria_agentes" / agent_id
         vector_path = ROOT / "memoria_vectorial" / agent_id
