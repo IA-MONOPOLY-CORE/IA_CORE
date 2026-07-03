@@ -263,7 +263,12 @@ class Supervisor:
                 result.steps = await asyncio.to_thread(
                     self._run_sequential, execution_id, task, targets, deadline=orch_deadline
                 )
-                result.success = all(step.success for step in result.steps)
+                continue_on_failure = getattr(app_config, "SEQUENTIAL_CONTINUE_ON_FAILURE", True)
+                result.success = (
+                    any(step.success for step in result.steps)
+                    if continue_on_failure
+                    else all(step.success for step in result.steps)
+                )
                 result.scores_summary = self._build_scores_summary_fn(result.steps)
 
         elif mode is ExecutionMode.DEBATE:
