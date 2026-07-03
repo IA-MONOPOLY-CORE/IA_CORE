@@ -6,11 +6,13 @@ import pytest
 from fastapi.testclient import TestClient
 
 import api
+import config
 
 
 def test_delete_agent_removes_config_paper_and_memory_dirs(tmp_path, monkeypatch):
     agent_id = "codex-delete-agent"
     monkeypatch.setattr(api, "ROOT", tmp_path)
+    monkeypatch.setattr(config, "AGENTS_CONFIG_DIR", tmp_path / "agents" / "config")
 
     config_dir = tmp_path / "agents" / "config"
     papers_dir = tmp_path / "agents" / "papers"
