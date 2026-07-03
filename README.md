@@ -55,9 +55,17 @@ Este modo ejecuta una orquestación local y espera que Ollama esté instalado, c
 ollama pull phi3:mini
 .\venv\Scripts\python.exe main.py
 
-## Interfaz visual (Streamlit)
+## Interfaces visuales
 
-Dashboard local para operar el sistema sin tocar el código.
+El **HUD web de `ui/web/` es la interfaz principal**. FastAPI lo sirve en
+http://localhost:8000 y el frontend consume el backend mediante `/api/*`.
+
+Streamlit se conserva como panel interno secundario para administración,
+diagnóstico y debugging. No recibe nuevas funcionalidades de producto; sólo
+correcciones y mantenimiento mientras sus herramientas internas terminan de
+migrarse al HUD.
+
+Para iniciar el panel interno de Streamlit:
 
 cd c:\IA_CORE
 .\venv\Scripts\activate
@@ -68,7 +76,8 @@ streamlit run ui/app.py
 2. En la barra lateral, pulsa Connect supervisor.
 3. Navega por los paneles: Overview, Agents, Providers, Orchestration, Memory, Logs.
 
-La UI consume el Supervisor existente; no duplica la lógica del núcleo.
+Streamlit consume el Supervisor directamente dentro de su proceso. El HUD web,
+en cambio, accede al sistema exclusivamente a través de la API FastAPI.
 
 Idiomas: español por defecto. Selector en la barra lateral (Español / English). Traducciones en ui/i18n/translations/.
 
@@ -126,7 +135,9 @@ domains/loteria/       Caso de uso específico: Lotería/S.A.A.O.P.
 
 memoria_agentes/       Memoria persistente por agente (JSON)
 memoria_vectorial/     Memoria vectorial por agente (ChromaDB)
-ui/                    Interfaz Streamlit
+ui/web/                HUD web principal servido por FastAPI
+ui/app.py              Panel interno secundario de Streamlit
+ui/panels/             Administración y debugging internos de Streamlit
 config.py              Configuración global del proyecto
 api.py                 API REST FastAPI
 
