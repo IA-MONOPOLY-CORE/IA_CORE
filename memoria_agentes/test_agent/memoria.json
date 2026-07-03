@@ -1,0 +1,10 @@
+{
+  "agente_id": "test_agent",
+  "creado": "2026-07-03T16:23:47.696764",
+  "ultima_actualizacion": "2026-07-03T16:23:47.698290",
+  "conocimiento_base": "",
+  "patrones_aprendidos": [],
+  "errores_cometidos": [],
+  "aciertos_historicos": [],
+  "notas_personales": ""
+}

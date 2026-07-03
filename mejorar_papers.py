@@ -9,13 +9,14 @@ from datetime import datetime
 
 sys.path.insert(0, str(Path(__file__).parent))
 
+import config
 from core.memoria_perpetua import MemoriaVectorial, cargar_memoria
 from providers.registry import ProviderRegistry
 
 
 def cargar_paper_manual(agente_id: str) -> dict:
     """Carga el paper manual existente."""
-    paper_path = Path("agents/papers") / f"{agente_id}_paper.json"
+    paper_path = config.AGENTS_PAPERS_DIR / f"{agente_id}_paper.json"
     if paper_path.exists():
         with open(paper_path, "r", encoding="utf-8") as f:
             return json.load(f)
@@ -234,7 +235,7 @@ def mejorar_paper(agente_id: str, usar_llm: bool = True):
     final = merge_todos_los_papers(manual, lecciones_json, lecciones_vectorial or {})
 
     # 4. Guardar
-    paper_path = Path("agents/papers") / f"{agente_id}_paper.json"
+    paper_path = config.AGENTS_PAPERS_DIR / f"{agente_id}_paper.json"
     with open(paper_path, "w", encoding="utf-8") as f:
         json.dump(final, f, indent=2, ensure_ascii=False)
 

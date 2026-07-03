@@ -35,6 +35,9 @@ TOOLS_MODULES_DIR = ROOT_DIR / "tools" / "modules"
 # Directorio donde están los archivos JSON de los agentes
 AGENTS_CONFIG_DIR = ROOT_DIR / "domains" / "loteria" / "agents" / "config"
 
+# Directorio donde están los papers (identidad) de los agentes
+AGENTS_PAPERS_DIR = ROOT_DIR / "domains" / "loteria" / "agents" / "papers"
+
 # Directorio de módulos Python (para agentes personalizados, puede estar vacío)
 AGENTS_MODULES_DIR = ROOT_DIR / "agents" / "modules"
 

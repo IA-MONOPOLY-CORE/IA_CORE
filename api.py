@@ -895,7 +895,7 @@ async def create_agent_endpoint(
         id = safe_id
 
     config_dir = config.AGENTS_CONFIG_DIR
-    papers_dir = ROOT / "agents" / "papers"
+    papers_dir = config.AGENTS_PAPERS_DIR
     config_dir.mkdir(parents=True, exist_ok=True)
     papers_dir.mkdir(parents=True, exist_ok=True)
 
@@ -1158,7 +1158,7 @@ async def delete_agent(agent_id: str):
             return {"success": False, "error": "ID de agente inválido"}
 
         json_path = config.AGENTS_CONFIG_DIR / f"{agent_id}.json"
-        paper_path = ROOT / "agents" / "papers" / f"{agent_id}_paper.json"
+        paper_path = config.AGENTS_PAPERS_DIR / f"{agent_id}_paper.json"
         memory_path = ROOT / "memoria_agentes" / agent_id
         vector_path = ROOT / "memoria_vectorial" / agent_id
 

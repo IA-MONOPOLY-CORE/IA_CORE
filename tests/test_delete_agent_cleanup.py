@@ -14,6 +14,7 @@ def test_delete_agent_removes_config_paper_and_memory_dirs(tmp_path, monkeypatch
     # Patchear ROOT directamente en el módulo api (variable global)
     monkeypatch.setattr(api, "ROOT", tmp_path, raising=False)
     monkeypatch.setattr(config, "AGENTS_CONFIG_DIR", tmp_path / "agents" / "config")
+    monkeypatch.setattr(config, "AGENTS_PAPERS_DIR", tmp_path / "agents" / "papers")
 
     config_dir = tmp_path / "agents" / "config"
     papers_dir = tmp_path / "agents" / "papers"

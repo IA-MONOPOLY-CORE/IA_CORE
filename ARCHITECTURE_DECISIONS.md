@@ -38,13 +38,13 @@ def _get_default_score_response_fn() -> Callable:
 
 ## ADR-003 — Los papers (identidad de agentes) pertenecen al dominio hasta que exista una identidad completamente genérica reutilizable entre dominios
 
-**Estado**: Temporal — revisar si en el futuro hay más de un dominio activo simultáneamente
+**Estado**: Aceptado — papers movidos a `domains/loteria/agents/papers/` en esta pasada
 
-**Contexto**: Actualmente solo existe el dominio Lotería, por lo que los papers (identidad de agentes) residen en el directorio de agentes del sistema. Si se agregan más dominios, podría ser necesario moverlos a `domains/{dominio}/agents/papers/` o crear una capa de identidad genérica compartida.
+**Contexto**: Los papers de agentes contienen términos 100% específicos de Lotería/S.A.A.O.P. (U-Score, CAZADOR, ESPEJO, cobertura combinatoria, framework V19). Originalmente residían en `agents/papers/` (directorio genérico del sistema), lo que causaba contaminación de dominio.
 
-**Decisión**: Los papers permanecen en `agents/papers/*.json` hasta que surja la necesidad de separarlos por dominio o crear identidad genérica.
+**Decisión**: Los papers se mueven a `domains/loteria/agents/papers/` para reflejar su naturaleza específica del dominio Lotería. Si en el futuro se agregan más dominios, cada uno tendrá sus propios papers en `domains/{dominio}/agents/papers/`. Solo si se crea una identidad genérica reutilizable entre dominios, se podría considerar una capa compartida.
 
-**Evidencia**: `agents/papers/*.json` — 7 archivos de paper existentes (ej: `gpt_auditor_paper.json`, `estadistico_integral_paper.json`, `viejo_lobo_rey_paper.json`) en directorio compartido del sistema, no en `domains/loteria/agents/papers/`
+**Evidencia**: `domains/loteria/agents/papers/*.json` — 6 archivos de paper movidos desde `agents/papers/` (ej: `gpt_auditor_paper.json`, `estadistico_integral_paper.json`, `viejo_lobo_rey_paper.json`) ahora residen en el directorio específico del dominio Lotería
 
 ---
 
@@ -61,3 +61,7 @@ def _get_default_score_response_fn() -> Callable:
 - **Patrimonio compartido**: Utilidades reutilizables entre dominios pero no parte del Core (ej: herramientas genéricas, helpers)
 
 **Evidencia**: Pendiente — esta decisión entra en vigencia a partir de la aprobación de este ADR. Futuros commits deben respetar esta clasificación.
+
+---
+
+**Respuesta a la pregunta de clasificación**: Lo que acabamos de mover (agents/papers/ → domains/loteria/agents/papers/) pasa a pertenecer al **Dominio** (específicamente al dominio Lotería), no al Core, ni a un Agente individual, ni es Patrimonio compartido. Esto confirma la actualización del ADR-003.

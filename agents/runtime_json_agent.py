@@ -5,6 +5,8 @@ import logging
 from pathlib import Path
 from typing import Any
 
+import config
+
 from agents.base import Agent
 
 logger = logging.getLogger(__name__)
@@ -63,7 +65,7 @@ class RuntimeJsonAgent(Agent):
         Carga la identidad del agente desde su paper.
         El paper es la fuente de verdad de la personalidad del agente.
         """
-        paper_path = Path("agents/papers") / f"{self.id}_paper.json"
+        paper_path = config.AGENTS_PAPERS_DIR / f"{self.id}_paper.json"
 
         if not paper_path.exists():
             logger.warning(f"⚠️ Paper no encontrado para {self.id} en {paper_path}")

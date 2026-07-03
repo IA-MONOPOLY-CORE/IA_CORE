@@ -76,6 +76,13 @@ Este documento mapea qué partes del sistema son el "motor de debate genérico" 
 | domains/loteria/agents/config/viejo_lobo_rey.json | SÍ | Prompt específico de integrador humano con métrica de incomodidad visual |
 | domains/loteria/agents/config/viejo_deepseek.json | SÍ | Prompt específico de árbitro matemático de S.A.A.O.P. |
 | domains/loteria/agents/config/nuevo_deepseek_saaop.json | SÍ | Prompt específico de orquestador metodológico de IA_CORE/S.A.A.O.P. |
+| domains/loteria/agents/papers/*.json | SÍ | **MOVIDOS** desde agents/papers/ - Todos los papers (identidad de agentes) son 100% específicos de S.A.A.O.P.: contienen términos como U-Score, CAZADOR, ESPEJO, cobertura combinatoria, framework V19 |
+| domains/loteria/agents/papers/estadistico_integral_paper.json | SÍ | Paper específico con identidad, reglas y lecciones aprendidas del estadístico integral |
+| domains/loteria/agents/papers/gpt_auditor_paper.json | SÍ | Paper específico con identidad, reglas y lecciones aprendidas del auditor |
+| domains/loteria/agents/papers/gemini_cuantico_paper.json | SÍ | Paper específico con identidad, reglas y lecciones aprendidas del gemini cuántico |
+| domains/loteria/agents/papers/viejo_lobo_rey_paper.json | SÍ | Paper específico con identidad, reglas y lecciones aprendidas del viejo lobo rey |
+| domains/loteria/agents/papers/viejo_deepseek_paper.json | SÍ | Paper específico con identidad, reglas y lecciones aprendidas del viejo deepseek |
+| domains/loteria/agents/papers/nuevo_deepseek_saaop_paper.json | SÍ | Paper específico con identidad, reglas y lecciones aprendidas del nuevo deepseek S.A.A.O.P. |
 
 ---
 
