@@ -29,7 +29,7 @@ from pydantic import BaseModel
 
 import config
 from domains.loteria.config_loteria import VALIDATION_AGENTS
-from core.supervisor import Supervisor
+from core.supervisor import MEMORY_HISTORY_KEY, Supervisor
 from core.orchestration import ExecutionMode
 from domains.loteria.evolution_loteria import EvolutionManagerLoteria as EvolutionManager
 from domains.loteria.database_loteria import (
@@ -110,6 +110,13 @@ evolution: EvolutionManager | None = None
 debate_store: dict[str, dict[str, Any]] = {}
 validation_store: dict[str, dict[str, Any]] = {}
 conversation_history: dict[str, list[dict]] = {}
+session_events: list[dict[str, Any]] = []
+runtime_metrics: dict[str, float | int] = {
+    "started_at": time.time(),
+    "orchestrations": 0,
+    "agent_dispatches": 0,
+    "last_orchestration_ms": 0.0,
+}
 
 # VALIDATION_AGENTS movido a domains/loteria/config_loteria.py
 
@@ -140,6 +147,16 @@ async def startup() -> None:
     evolution = EvolutionManager()
     await asyncio.to_thread(supervisor.start)
     init_db()
+    runtime_metrics.update(
+        {
+            "started_at": time.time(),
+            "orchestrations": 0,
+            "agent_dispatches": 0,
+            "last_orchestration_ms": 0.0,
+        }
+    )
+    session_events.clear()
+    _record_event("system", "API y Supervisor iniciados")
     logger.info("S.A.A.O.P. API lista")
 
 
@@ -147,6 +164,7 @@ async def startup() -> None:
 async def shutdown() -> None:
     if supervisor:
         await asyncio.to_thread(supervisor.shutdown)
+    _record_event("system", "API y Supervisor detenidos")
     logger.info("S.A.A.O.P. API detenida")
 
 
@@ -231,6 +249,84 @@ def _serialize_result(result: Any) -> dict:
         }
 
 
+def _record_event(kind: str, message: str) -> None:
+    session_events.append(
+        {
+            "kind": kind,
+            "message": message,
+            "timestamp": datetime.now().isoformat(),
+        }
+    )
+    if len(session_events) > 200:
+        del session_events[:-100]
+
+
+def _track_orchestration(result: Any) -> None:
+    steps = getattr(result, "steps", None) or []
+    runtime_metrics["orchestrations"] = int(runtime_metrics["orchestrations"]) + 1
+    runtime_metrics["agent_dispatches"] = int(runtime_metrics["agent_dispatches"]) + len(steps)
+    runtime_metrics["last_orchestration_ms"] = round(
+        float(getattr(result, "duration_ms", 0) or 0), 1
+    )
+
+
+def _memory_summary() -> dict[str, Any]:
+    if not supervisor:
+        return {
+            "running": False,
+            "path": str(config.MEMORY_STATE_FILE),
+            "key_count": 0,
+            "history_count": 0,
+            "keys_preview": [],
+        }
+
+    memory = supervisor.memory
+    keys = memory.list_keys()
+    history = memory.get(MEMORY_HISTORY_KEY, [])
+    if not isinstance(history, list):
+        history = []
+    return {
+        "running": memory.running,
+        "path": str(memory.state_path),
+        "key_count": len(keys),
+        "history_count": len(history),
+        "keys_preview": keys[:12],
+    }
+
+
+def _history_summary(limit: int = 15) -> list[dict[str, Any]]:
+    if not supervisor:
+        return []
+    history = supervisor.memory.get(MEMORY_HISTORY_KEY, [])
+    if not isinstance(history, list):
+        return []
+
+    rows = []
+    for entry in reversed(history[-limit:]):
+        if not isinstance(entry, dict):
+            continue
+        rows.append(
+            {
+                "execution_id": entry.get("execution_id"),
+                "mode": entry.get("mode"),
+                "agents": entry.get("agents", []),
+                "success": entry.get("success", False),
+                "started_at": entry.get("started_at"),
+                "duration_ms": entry.get("duration_ms", 0),
+            }
+        )
+    return rows
+
+
+def _tail_log(path: Path, lines: int) -> list[str]:
+    if not path.exists():
+        return []
+    try:
+        return path.read_text(encoding="utf-8", errors="replace").splitlines()[-lines:]
+    except OSError:
+        return []
+
+
 def _extraer_numeros_de_respuesta(output: str) -> list[int]:
     numeros = re.findall(r"\b([0-4]?[0-9]|45)\b", output)
     numeros_int = [int(n) for n in numeros if 0 <= int(n) <= 45]
@@ -258,6 +354,8 @@ async def _run_validation_debate(validation_id: str, sorteo: int, task: str) -> 
             agent_names=VALIDATION_AGENTS,
             mode=ExecutionMode.DEBATE,
         )
+        _track_orchestration(result)
+        _record_event("orchestration", f"Validación {validation_id} completada")
 
         intervenciones = {}
         if hasattr(result, "steps"):
@@ -359,32 +457,45 @@ async def _run_validation_debate(validation_id: str, sorteo: int, task: str) -> 
             "status": "error",
             "error": str(e),
         }
+        _record_event("error", f"Validación {validation_id}: {e}")
         logger.exception("Error en validación %s: %s", validation_id, e)
 
 
-async def _run_debate(debate_id: str, task: str) -> None:
+async def _run_debate(
+    debate_id: str,
+    task: str,
+    mode: ExecutionMode = ExecutionMode.DEBATE,
+    agent_names: list[str] | None = None,
+) -> None:
     debate_store[debate_id]["status"] = "running"
+    _record_event("orchestration", f"Ejecución {debate_id} iniciada en modo {mode.value}")
     try:
         result = await supervisor.orchestrate_async(
             task,
-            mode=ExecutionMode.DEBATE,
+            agent_names=agent_names,
+            mode=mode,
         )
+        _track_orchestration(result)
         debate_store[debate_id] = {
             "status": "complete",
             "result": _serialize_result(result),
         }
-        logger.info("Debate %s completado", debate_id)
+        _record_event("orchestration", f"Ejecución {debate_id} completada")
+        logger.info("Ejecución %s completada en modo %s", debate_id, mode.value)
     except Exception as e:
         debate_store[debate_id] = {
             "status": "error",
             "error": str(e),
         }
-        logger.exception("Error en debate %s: %s", debate_id, e)
+        _record_event("error", f"Ejecución {debate_id}: {e}")
+        logger.exception("Error en ejecución %s: %s", debate_id, e)
 
 
 # ─── Modelos ────────────────────────────────────────────────────────────────
 class DebateRequest(BaseModel):
     task: str | None = None
+    mode: str = "debate"
+    agents: Optional[List[str]] = None
 
 
 class ValidationResultRequest(BaseModel):
@@ -416,7 +527,7 @@ class CreateAgentRequest(BaseModel):
 
 # ─── Endpoints ──────────────────────────────────────────────────────────────
 @app.get("/api/status")
-async def get_status() -> dict:
+async def get_status(full: bool = False) -> dict:
     fase_actual = "desconocida"
     sorteo_actual = 3800
     if evolution:
@@ -439,6 +550,20 @@ async def get_status() -> dict:
                 "models": provider.available_models()
             })
 
+    hybrid_status: dict[str, Any] | None = None
+    if supervisor and supervisor.hybrid_router:
+        hybrid_status = await asyncio.to_thread(
+            supervisor.hybrid_router.get_ui_snapshot,
+            full=full,
+        )
+    elif config.HYBRID_MODE:
+        hybrid_status = {
+            "hybrid_enabled": True,
+            "execution_mode": "pending",
+            "safe_mode": config.SAFE_MODE,
+        }
+
+    memory = _memory_summary()
     return {
         "running": supervisor is not None and supervisor.running,
         "providers": providers_info,
@@ -452,6 +577,69 @@ async def get_status() -> dict:
             "live_test_start": LIVE_TEST_START,
             "live_test_end": LIVE_TEST_END,
         },
+        "hybrid": hybrid_status,
+        "overview": {
+            "uptime_s": round(time.time() - float(runtime_metrics["started_at"]), 1),
+            "agent_count": len(supervisor.agents.list_ids()) if supervisor else 0,
+            "provider_count": len(providers_info),
+            "tool_count": len(supervisor.tools.list_names()) if supervisor else 0,
+            "tools": supervisor.tools.list_names() if supervisor else [],
+            "orchestrations": int(runtime_metrics["orchestrations"]),
+            "agent_dispatches": int(runtime_metrics["agent_dispatches"]),
+            "last_orchestration_ms": float(runtime_metrics["last_orchestration_ms"]),
+            "memory": memory,
+        },
+    }
+
+
+@app.get("/api/memory")
+async def get_memory_snapshot(
+    key: str | None = None,
+    history_limit: int = 15,
+) -> dict:
+    if not supervisor:
+        raise HTTPException(status_code=503, detail="Supervisor no disponible")
+
+    history_limit = max(1, min(history_limit, 100))
+    keys = supervisor.memory.list_keys()
+    history = _history_summary(history_limit)
+    latest = None
+    if history:
+        execution_id = history[0].get("execution_id")
+        if execution_id:
+            latest = {
+                "summary": history[0],
+                "detail": supervisor.get_orchestration(execution_id),
+            }
+
+    payload: dict[str, Any] = {
+        "status": _memory_summary(),
+        "keys": keys,
+        "history": history,
+        "latest": latest,
+    }
+    if key is not None:
+        if key not in keys:
+            raise HTTPException(status_code=404, detail=f"Clave de memoria no encontrada: {key}")
+        payload["selected_key"] = key
+        payload["value"] = supervisor.memory.get(key)
+    return payload
+
+
+@app.get("/api/logs")
+async def get_logs(lines: int = 80) -> dict:
+    lines = max(20, min(lines, 500))
+    log_path = config.LOG_DIR / "api.log"
+    content = _tail_log(log_path, lines)
+    warnings = [line for line in content if "WARNING" in line]
+    errors = [line for line in content if "ERROR" in line]
+    return {
+        "path": str(log_path),
+        "requested_lines": lines,
+        "lines": content,
+        "warnings": warnings[-50:],
+        "errors": errors[-50:],
+        "events": session_events[-50:],
     }
 
 
@@ -511,14 +699,25 @@ async def start_debate(
     if not supervisor or not supervisor.running:
         raise HTTPException(status_code=503, detail="Supervisor no disponible")
 
+    try:
+        mode = ExecutionMode(request.mode)
+    except ValueError as exc:
+        raise HTTPException(status_code=400, detail=f"Modo no soportado: {request.mode}") from exc
+
     debate_id = str(uuid.uuid4())
     task = request.task or SAAOP_TASK
 
-    debate_store[debate_id] = {"status": "queued", "result": None}
-    background_tasks.add_task(_run_debate, debate_id, task)
+    debate_store[debate_id] = {
+        "status": "queued",
+        "result": None,
+        "mode": mode.value,
+        "agents": request.agents or [],
+    }
+    background_tasks.add_task(_run_debate, debate_id, task, mode, request.agents)
 
-    logger.info("Debate %s encolado", debate_id)
-    return {"debate_id": debate_id, "status": "queued"}
+    _record_event("orchestration", f"Ejecución {debate_id} encolada en modo {mode.value}")
+    logger.info("Ejecución %s encolada en modo %s", debate_id, mode.value)
+    return {"debate_id": debate_id, "status": "queued", "mode": mode.value}
 
 
 @app.post("/api/validation/start")
@@ -796,6 +995,8 @@ Respondé de forma clara, directa y útil."""
         result = await supervisor.orchestrate_async(
             task=task, agent_names=agent_ids, mode=ExecutionMode.DEBATE
         )
+        _track_orchestration(result)
+        _record_event("orchestration", f"Chat {conv_id} completado")
 
         if result.debate and result.debate.synthesis:
             response_text = result.debate.synthesis
@@ -828,6 +1029,7 @@ Respondé de forma clara, directa y útil."""
         }
 
     except Exception as e:
+        _record_event("error", f"Chat {conv_id}: {e}")
         logger.exception(f"Error en chat: {e}")
         return {"success": False, "error": str(e)}
 

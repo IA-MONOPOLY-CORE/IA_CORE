@@ -475,7 +475,7 @@
             background: var(--bg-panel); border: 1px solid var(--border-color); position: relative;
             border-radius: var(--border-radius);
         }
-        .config-sidebar { width: 180px; background: rgba(0,0,0,0.3); border-right: 1px solid var(--border-color); padding-top: 15px; }
+        .config-sidebar { width: 180px; background: rgba(0,0,0,0.3); border-right: 1px solid var(--border-color); padding-top: 15px; overflow-y: auto; }
         .config-sidebar-item { padding: 12px 18px; color: var(--text-muted); cursor: pointer; font-size: 0.8rem; text-transform: uppercase; transition: all 0.2s; }
         .config-sidebar-item:hover { color: var(--cyan); background: rgba(0,212,255,0.05); }
         .config-sidebar-item.active { color: var(--cyan); background: rgba(0,212,255,0.08); border-left: 2px solid var(--cyan); }
@@ -490,6 +490,26 @@
             font-weight: 600; border-radius: var(--border-radius); transition: all 0.2s;
         }
         .btn-primary:hover { background: var(--cyan); color: #000; box-shadow: 0 0 12px var(--cyan); }
+        .admin-toolbar { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; margin-bottom: 14px; }
+        .admin-toolbar input, .admin-toolbar select, .admin-field {
+            background: rgba(0,0,0,0.4); border: 1px solid var(--border-color); color: var(--text-primary);
+            padding: 8px; font-family: 'Share Tech Mono', monospace; border-radius: var(--border-radius);
+        }
+        .admin-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(135px, 1fr)); gap: 10px; margin-bottom: 14px; }
+        .admin-card { background: rgba(0,0,0,0.25); border: 1px solid var(--border-color); padding: 10px; min-height: 70px; }
+        .admin-label { color: var(--text-muted); font-size: 0.68rem; text-transform: uppercase; }
+        .admin-value { color: var(--cyan); font-size: 1rem; margin-top: 5px; overflow-wrap: anywhere; }
+        .admin-block { margin-top: 12px; }
+        .admin-block h4 { color: var(--green); margin-bottom: 7px; font-size: 0.82rem; }
+        .admin-pre { background: rgba(0,0,0,0.45); border-left: 2px solid var(--cyan); padding: 10px; max-height: 220px; overflow: auto; white-space: pre-wrap; overflow-wrap: anywhere; font-size: 0.72rem; color: var(--text-primary); }
+        .admin-table { width: 100%; border-collapse: collapse; font-size: 0.72rem; }
+        .admin-table th, .admin-table td { border-bottom: 1px solid rgba(255,255,255,0.08); padding: 7px; text-align: left; vertical-align: top; }
+        .admin-table th { color: var(--cyan); }
+        .admin-agent-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 6px; margin: 10px 0; }
+        .admin-agent-option { padding: 6px; background: rgba(0,0,0,0.25); }
+        .admin-step { border: 1px solid var(--border-color); padding: 9px; margin-top: 8px; }
+        .admin-step.error { border-color: var(--red); }
+        .admin-status { color: var(--amber); font-size: 0.78rem; margin-bottom: 8px; }
         .close-modal { position: absolute; top: 12px; right: 18px; font-size: 1.8rem; cursor: pointer; color: var(--text-muted); }
         .close-modal:hover { color: var(--red); }
         .agent-checkbox-item { display: flex; align-items: center; gap: 10px; padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.05); }
@@ -603,6 +623,11 @@
             <div class="config-sidebar">
                 <div class="config-sidebar-item active" data-section="agents">🎯 AGENTES</div>
                 <div class="config-sidebar-item" data-section="providers">🔌 PROVEEDORES</div>
+                <div class="config-sidebar-item" data-section="memory">🧠 MEMORY</div>
+                <div class="config-sidebar-item" data-section="logs">📜 LOGS</div>
+                <div class="config-sidebar-item" data-section="hybrid">🛰️ HYBRID</div>
+                <div class="config-sidebar-item" data-section="orchestration">⚡ ORCHESTRATION</div>
+                <div class="config-sidebar-item" data-section="overview">📊 OVERVIEW</div>
                 <div class="config-sidebar-item" data-section="skins">🎨 SKINS</div>
                 <div class="config-sidebar-item" data-section="branding">🏷️ BRANDING</div>
                 <div class="config-sidebar-item" data-section="stickers">🎭 WIDGETS</div>
@@ -616,6 +641,60 @@
                 <div id="config-providers" class="config-section">
                     <h3>PROVEEDORES DISPONIBLES</h3>
                     <div id="providers-list"></div>
+                </div>
+                <div id="config-memory" class="config-section">
+                    <h3>MEMORY INSPECTOR</h3>
+                    <div class="admin-toolbar">
+                        <button class="btn-primary" id="memory-refresh-btn">ACTUALIZAR</button>
+                        <select id="memory-key-select" class="admin-field"><option value="">-- Seleccionar clave --</option></select>
+                    </div>
+                    <div id="memory-status" class="admin-grid"></div>
+                    <div class="admin-block"><h4>VALOR SELECCIONADO</h4><pre id="memory-value" class="admin-pre">Seleccioná una clave.</pre></div>
+                    <div class="admin-block"><h4>HISTORIAL DE ORQUESTACIÓN</h4><div id="memory-history"></div></div>
+                    <div class="admin-block"><h4>ÚLTIMA EJECUCIÓN</h4><pre id="memory-latest" class="admin-pre">Sin datos.</pre></div>
+                </div>
+                <div id="config-logs" class="config-section">
+                    <h3>LOGS DE SESIÓN</h3>
+                    <div class="admin-toolbar">
+                        <label>Líneas <input id="logs-lines" type="number" min="20" max="500" step="10" value="80" style="width:85px;"></label>
+                        <button class="btn-primary" id="logs-refresh-btn">ACTUALIZAR</button>
+                        <span id="logs-path" class="admin-status"></span>
+                    </div>
+                    <div class="admin-grid">
+                        <div class="admin-block"><h4>WARNINGS</h4><pre id="logs-warnings" class="admin-pre">Sin datos.</pre></div>
+                        <div class="admin-block"><h4>ERRORS</h4><pre id="logs-errors" class="admin-pre">Sin datos.</pre></div>
+                    </div>
+                    <div class="admin-block"><h4>RUNTIME</h4><pre id="logs-runtime" class="admin-pre">Sin datos.</pre></div>
+                    <div class="admin-block"><h4>EVENTOS DE SESIÓN</h4><div id="logs-events"></div></div>
+                </div>
+                <div id="config-hybrid" class="config-section">
+                    <h3>HYBRID ROUTING</h3>
+                    <div class="admin-toolbar"><button class="btn-primary" id="hybrid-refresh-btn">DIAGNÓSTICO COMPLETO</button></div>
+                    <div id="hybrid-status" class="admin-grid"></div>
+                    <div class="admin-block"><h4>MOTIVO DE ROUTING</h4><pre id="hybrid-reason" class="admin-pre">Sin datos.</pre></div>
+                    <div class="admin-grid">
+                        <div class="admin-block"><h4>CONECTIVIDAD</h4><pre id="hybrid-connectivity" class="admin-pre">Sin datos.</pre></div>
+                        <div class="admin-block"><h4>MÉTRICAS</h4><pre id="hybrid-metrics" class="admin-pre">Sin datos.</pre></div>
+                    </div>
+                </div>
+                <div id="config-orchestration" class="config-section">
+                    <h3>ORCHESTRATION CONSOLE</h3>
+                    <textarea id="orchestration-task" class="admin-field" rows="4" style="width:100%; resize:vertical;" placeholder="Ingresá una tarea para ejecutar..."></textarea>
+                    <div class="admin-toolbar" style="margin-top:10px;">
+                        <label>Modo <select id="orchestration-mode"><option value="sequential">SEQUENTIAL</option><option value="debate">DEBATE</option></select></label>
+                        <button class="btn-primary" id="orchestration-run-btn">EJECUTAR</button>
+                    </div>
+                    <div id="orchestration-agents" class="admin-agent-list"></div>
+                    <div id="orchestration-status" class="admin-status">IDLE</div>
+                    <div class="admin-block"><h4>SCORES SUMMARY</h4><pre id="orchestration-scores" class="admin-pre">Sin datos.</pre></div>
+                    <div class="admin-block"><h4>PASOS Y ERRORES</h4><div id="orchestration-steps"></div></div>
+                </div>
+                <div id="config-overview" class="config-section">
+                    <h3>SYSTEM OVERVIEW</h3>
+                    <div class="admin-toolbar"><button class="btn-primary" id="overview-refresh-btn">ACTUALIZAR</button></div>
+                    <div id="overview-status" class="admin-grid"></div>
+                    <div class="admin-block"><h4>HERRAMIENTAS</h4><pre id="overview-tools" class="admin-pre">Sin datos.</pre></div>
+                    <div class="admin-block"><h4>RESUMEN DE MEMORIA</h4><pre id="overview-memory" class="admin-pre">Sin datos.</pre></div>
                 </div>
                 <div id="config-skins" class="config-section">
                     <h3>SELECCIONAR SKIN</h3>
@@ -1377,5 +1456,6 @@
             setInterval(checkConnection, 5000);
         };
     </script>
+    <script src="/admin-panels.js"></script>
 </body>
 </html>

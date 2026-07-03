@@ -1,21 +1,18 @@
 # Paneles internos de Streamlit
 
-`ui/app.py` y los módulos de este directorio forman la interfaz secundaria de
-IA_CORE. Su propósito es administración, diagnóstico y debugging local con
-acceso directo al Core dentro del mismo proceso.
+`ui/app.py` y los módulos de este directorio forman una interfaz deprecada,
+pendiente de eliminación. Su propósito histórico fue administración,
+diagnóstico y debugging local con acceso directo al Core dentro del mismo
+proceso.
 
 La interfaz principal y el destino de las nuevas funcionalidades de producto es
 el HUD web de `ui/web/`, servido por FastAPI y conectado mediante `/api/*`.
 
 ## Política de mantenimiento
 
-- Streamlit no se elimina todavía: conserva las herramientas internas que aún
-  no fueron migradas al HUD.
+- Las capacidades internas reales ya fueron migradas al HUD web.
 - No se agregan nuevas funcionalidades de producto a estos paneles.
-- Se permiten correcciones y mantenimiento necesarios para administración y
-  debugging.
-- Una función sólo se considera migrada cuando existe en el HUD y opera a través
-  de la API; el acceso directo al Core queda reservado para uso interno.
+- Sólo se permiten correcciones imprescindibles hasta eliminar Streamlit.
 
-Esta decisión no cambia por ahora el arranque, el mount de FastAPI ni las rutas
-existentes de ninguna de las dos interfaces.
+El HUD de `ui/web/` es la única interfaz activa a futuro y opera mediante
+FastAPI; Streamlit no debe recibir nuevas dependencias ni integraciones.

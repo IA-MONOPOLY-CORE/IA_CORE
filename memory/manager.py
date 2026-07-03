@@ -99,6 +99,10 @@ class MemoryManager(BaseManager):
     def get(self, key: str, default: Any = None) -> Any:
         return self._store.get(key, default)
 
+    def list_keys(self) -> list[str]:
+        """Devuelve las claves disponibles sin exponer el almacenamiento interno."""
+        return sorted(self._store.keys())
+
     def set(self, key: str, value: Any) -> None:
         self._store[key] = value
 

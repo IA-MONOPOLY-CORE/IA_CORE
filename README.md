@@ -60,10 +60,9 @@ ollama pull phi3:mini
 El **HUD web de `ui/web/` es la interfaz principal**. FastAPI lo sirve en
 http://localhost:8000 y el frontend consume el backend mediante `/api/*`.
 
-Streamlit se conserva como panel interno secundario para administración,
-diagnóstico y debugging. No recibe nuevas funcionalidades de producto; sólo
-correcciones y mantenimiento mientras sus herramientas internas terminan de
-migrarse al HUD.
+Streamlit está deprecado y pendiente de eliminación. Sus capacidades internas
+reales ya fueron migradas al HUD; no recibe nuevas funcionalidades ni
+integraciones.
 
 Para iniciar el panel interno de Streamlit:
 
