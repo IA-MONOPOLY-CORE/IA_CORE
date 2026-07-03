@@ -42,7 +42,7 @@ def test_orchestrate_sequential_all_agents(tmp_path, monkeypatch):
     supervisor.agents.register(_OkAgent(supervisor.memory, supervisor.tools))
     supervisor.agents.register(_Ok2Agent(supervisor.memory, supervisor.tools))
 
-    result = supervisor.orchestrate("hello")
+    result = supervisor.orchestrate("hello", agent_names=["ok", "ok2"])
 
     assert result.success
     assert len(result.steps) == 2
