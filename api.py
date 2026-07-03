@@ -32,7 +32,7 @@ from domains.loteria.config_loteria import VALIDATION_AGENTS
 from core.supervisor import Supervisor
 from core.orchestration import ExecutionMode
 from domains.loteria.evolution_loteria import EvolutionManagerLoteria as EvolutionManager
-from memory.database import (
+from domains.loteria.database_loteria import (
     init_db,
     get_db,
     crear_debate,

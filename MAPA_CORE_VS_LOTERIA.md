@@ -19,7 +19,7 @@ Este documento mapea qué partes del sistema son el "motor de debate genérico" 
 | core/evolution.py | ELIMINADO | Reemplazado por core/evolution_base.py (genérico) y domains/loteria/evolution_loteria.py (específico) |
 | core/evolution_base.py | NO | **NUEVO** - Clase base genérica EvolutionManagerBase para cualquier sistema evolutivo (fases configurables, historial de agentes, ranking de herramientas, persistencia JSON, hooks para subclases) |
 | core/herramientas.py | NO | Sistema genérico de herramientas compartidas (docstring generalizado, patrones de extracción genéricos en español) |
-| core/memoria_perpetua.py | NO | Sistema genérico de memoria con ChromaDB y búsqueda vectorial |
+| core/memoria_perpetua.py | NO | Sistema genérico de memoria con ChromaDB, búsqueda vectorial y filtros de metadata arbitrarios; toda referencia a `sorteo` fue extraída al adaptador de Lotería |
 | core/orchestration.py | NO | Modelos de datos genéricos (AgentStepResult, DebateResult, OrchestrationResult) |
 | core/scoring.py | MOVIDO | Movido a domains/loteria/scoring.py (100% específico de Lotería) |
 | core/supervisor.py | PARCIAL | BUNKER_EXPERT_MAPPING movido a domains/loteria/config_loteria.py, lógica de orquestación genérica, pero _execute_single_quantum_agent_async() usa scoring específico de lotería |
@@ -54,6 +54,7 @@ Este documento mapea qué partes del sistema son el "motor de debate genérico" 
 | memoria_agentes/*/memoria.json | NO | Datos específicos por agente, pero formato JSON genérico |
 | **memory/** | | |
 | memory/cargar_sorteos.py | MOVIDO | Movido a domains/loteria/cargar_sorteos.py (100% específico de Lotería) |
+| memory/database.py | MOVIDO | Movido a domains/loteria/database_loteria.py (debates, intervenciones, U-Score, acuerdo y persistencia por sorteo) |
 | **raíz/** | | |
 | backtest_ciego.py | MOVIDO | Movido a domains/loteria/backtest_ciego.py (100% específico de Lotería) |
 | lotoplus_completo_3511_3885.json | MOVIDO | Movido a domains/loteria/lotoplus_completo_3511_3885.json (datos específicos de Lotería) |
@@ -68,6 +69,8 @@ Este documento mapea qué partes del sistema son el "motor de debate genérico" 
 | domains/loteria/uscore_calculator.py | SÍ | **MOVIDO** desde tools/uscore_calculator.py - Calculadora U-Score v2.1, zonas Z1-Z9, histórico de Loto Plus (3511-3885), métricas específicas (IPN, PP, PZ, DSI, CD, SD) |
 | domains/loteria/backtest_ciego.py | SÍ | **MOVIDO** desde raíz - Backtesting ciego específico de Lotería |
 | domains/loteria/cargar_sorteos.py | SÍ | **MOVIDO** desde memory/ - Carga de sorteos específica de Lotería |
+| domains/loteria/database_loteria.py | SÍ | **MOVIDO** desde memory/database.py - Persistencia SQLite de sorteos, debates, intervenciones y métricas de Lotería |
+| domains/loteria/memoria_loteria.py | SÍ | **NUEVO** - Adaptador que conserva la API de Lotería y traduce `sorteo` a metadata genérica `{"sorteo": valor}` |
 | domains/loteria/lotoplus_completo_3511_3885.json | SÍ | **MOVIDO** desde raíz - Datos históricos específicos de Loto Plus (3511-3885) |
 | domains/loteria/agents/config/*.json | SÍ | **MOVIDOS** desde agents/config/ - Todos los prompts de sistema son 100% específicos de S.A.A.O.P.: |
 | domains/loteria/agents/config/estadistico_integral.json | SÍ | Prompt específico defendiendo V19, framework S.A.A.O.P., CAZADOR/ESPEJO/PUENTE |
@@ -113,6 +116,8 @@ Este documento mapea qué partes del sistema son el "motor de debate genérico" 
 - domains/loteria/uscore_calculator.py (**MOVIDO** desde tools/uscore_calculator.py)
 - domains/loteria/backtest_ciego.py (**MOVIDO** desde raíz)
 - domains/loteria/cargar_sorteos.py (**MOVIDO** desde memory/)
+- domains/loteria/database_loteria.py (**MOVIDO** desde memory/)
+- domains/loteria/memoria_loteria.py (**NUEVO** - adaptador de memoria para `sorteo`)
 - domains/loteria/lotoplus_completo_3511_3885.json (**MOVIDO** desde raíz)
 - domains/loteria/agents/config/*.json (**MOVIDOS** desde agents/config/)
 
@@ -193,4 +198,9 @@ Este documento mapea qué partes del sistema son el "motor de debate genérico" 
 ### 10. Archivos adicionales movidos
 - backtest_ciego.py → domains/loteria/backtest_ciego.py
 - memory/cargar_sorteos.py → domains/loteria/cargar_sorteos.py
+- memory/database.py → domains/loteria/database_loteria.py
 - lotoplus_completo_3511_3885.json → domains/loteria/lotoplus_completo_3511_3885.json
+
+### 11. Memoria vectorial
+- **COMPLETADO** - `core/memoria_perpetua.py` acepta metadata arbitraria y ya no conoce el concepto `sorteo`
+- **COMPLETADO** - `domains/loteria/memoria_loteria.py` traduce los parámetros históricos de Lotería a `{"sorteo": valor}`

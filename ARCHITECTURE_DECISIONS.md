@@ -20,6 +20,12 @@ def _get_default_score_response_fn() -> Callable:
             from dataclasses import dataclass
 ```
 
+**Evidencia adicional — separación de memoria (ADR-001)**:
+- ¿Lo que quedó en `core/memoria_perpetua.py` después de este cambio es 100% Core? **Sí.** Sus APIs reciben diccionarios de metadata con claves arbitrarias y no contienen referencias a sorteos ni a Lotería.
+- `domains/loteria/memoria_loteria.py` es el adaptador de **Dominio** que conserva las firmas con `sorteo` y traduce ese concepto a `{"sorteo": valor}` antes de llamar al Core.
+- ¿Lo que se movió a `domains/loteria/database_loteria.py` es Dominio? **Sí.** Su esquema y sus operaciones modelan sorteos, debates por sorteo, intervenciones, U-Score, acuerdo y métricas V19, todos conceptos específicos de Lotería.
+- En cumplimiento del ADR-001, `api.py` consume la base desde `domains.loteria.database_loteria` y `memory/database.py` dejó de existir en la carpeta genérica.
+
 ---
 
 ## ADR-002 — El agente es la principal unidad de ejecución inteligente del sistema

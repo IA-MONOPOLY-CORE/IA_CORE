@@ -121,9 +121,9 @@ class RuntimeJsonAgent(Agent):
         """Carga diferida de la memoria vectorial para evitar dependencias circulares."""
         if self._memoria_vectorial is None:
             try:
-                from core.memoria_perpetua import MemoriaVectorial
+                from domains.loteria.memoria_loteria import MemoriaVectorialLoteria
 
-                self._memoria_vectorial = MemoriaVectorial(self.id)
+                self._memoria_vectorial = MemoriaVectorialLoteria(self.id)
             except ImportError as e:
                 logger.warning(f"No se pudo cargar memoria vectorial para {self.id}: {e}")
                 self._memoria_vectorial = False
@@ -195,10 +195,12 @@ class RuntimeJsonAgent(Agent):
 
         # Memoria optimizada
         try:
-            from core.memoria_perpetua import cargar_memoria_al_prompt
+            from domains.loteria.memoria_loteria import cargar_memoria_al_prompt
 
             memoria_texto = cargar_memoria_al_prompt(
-                self.id, consulta_actual=task, sorteo_actual=sorteo_actual
+                self.id,
+                consulta_actual=task,
+                sorteo_actual=sorteo_actual,
             )
         except Exception as e:
             logger.warning(f"Error cargando memoria para {self.id}: {e}")
@@ -243,16 +245,11 @@ class RuntimeJsonAgent(Agent):
         mv = self._get_memoria_vectorial()
         if mv and hasattr(mv, "buscar"):
             try:
-                resultados = mv.buscar(consulta, top_k=top_k)
-                if sorteo_actual and resultados:
-                    filtrados = []
-                    for r in resultados:
-                        metadata = r.get("metadata", {})
-                        sorteo_resultado = metadata.get("sorteo", 0)
-                        if sorteo_resultado == 0 or sorteo_resultado < sorteo_actual:
-                            filtrados.append(r)
-                    return filtrados
-                return resultados
+                return mv.buscar(
+                    consulta,
+                    top_k=top_k,
+                    sorteo_actual=sorteo_actual,
+                )
             except Exception as e:
                 logger.warning(f"Error en búsqueda vectorial para {self.id}: {e}")
                 return []

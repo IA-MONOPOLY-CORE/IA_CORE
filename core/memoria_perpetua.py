@@ -31,6 +31,34 @@ CHUNK_SIZE = 2000
 TOP_K_RESULTS = 5
 
 
+def _cumple_filtro_metadata(metadata: dict, metadata_filtro: Optional[dict]) -> bool:
+    """Evalúa límites de metadata sin conocer las claves propias de cada dominio.
+
+    Los valores numéricos actúan como un límite superior exclusivo y conservan
+    documentos sin esa metadata. Los demás valores se comparan por igualdad.
+    """
+    if not metadata_filtro:
+        return True
+
+    for clave, valor_filtro in metadata_filtro.items():
+        valor_documento = metadata.get(clave)
+
+        if isinstance(valor_filtro, (int, float)) and not isinstance(valor_filtro, bool):
+            if valor_documento in (None, 0):
+                continue
+            if not isinstance(valor_documento, (int, float)) or valor_documento >= valor_filtro:
+                return False
+        elif valor_documento != valor_filtro:
+            return False
+
+    return True
+
+
+def _metadata_de_item(item: dict, *claves_contenido: str) -> dict:
+    """Extrae metadata persistible de un registro, omitiendo su contenido."""
+    return {clave: valor for clave, valor in item.items() if clave not in claves_contenido}
+
+
 class MemoriaVectorial:
     """
     Gestor de memoria vectorial con ChromaDB.
@@ -89,9 +117,12 @@ class MemoriaVectorial:
         return fragmentos
 
     def agregar_documento(
-        self, texto: str, fuente: str = "conocimiento_base", sorteo: int = None
+        self,
+        texto: str,
+        fuente: str = "conocimiento_base",
+        metadata_filtro: Optional[dict] = None,
     ) -> int:
-        """Agrega un documento a la memoria vectorial con metadata de sorteo."""
+        """Agrega un documento a la memoria vectorial con metadata arbitraria."""
         if not self.esta_disponible() or not texto:
             return 0
 
@@ -104,8 +135,8 @@ class MemoriaVectorial:
                 doc_id = f"{fuente}_{datetime.now().timestamp()}_{i}"
 
                 metadata = {"fuente": fuente, "timestamp": datetime.now().isoformat()}
-                if sorteo is not None:
-                    metadata["sorteo"] = sorteo
+                if metadata_filtro:
+                    metadata.update(metadata_filtro)
 
                 self.collection.add(
                     ids=[doc_id], embeddings=[embedding], documents=[frag], metadatas=[metadata]
@@ -117,7 +148,10 @@ class MemoriaVectorial:
         return agregados
 
     def buscar(
-        self, consulta: str, top_k: int = TOP_K_RESULTS, sorteo_actual: int = None
+        self,
+        consulta: str,
+        top_k: int = TOP_K_RESULTS,
+        metadata_filtro: Optional[dict] = None,
     ) -> List[Dict[str, Any]]:
         """
         Busca fragmentos relevantes por similitud semántica.
@@ -125,7 +159,7 @@ class MemoriaVectorial:
         Args:
             consulta: Texto de búsqueda
             top_k: Cantidad de resultados
-            sorteo_actual: Si se provee, filtra resultados que NO sean de sorteos futuros
+            metadata_filtro: Límites o coincidencias de metadata por clave arbitraria
         """
         if not self.esta_disponible() or not consulta:
             return []
@@ -146,11 +180,8 @@ class MemoriaVectorial:
                 if not doc:
                     continue
 
-                # Filtrar por sorteo si es necesario
-                if sorteo_actual is not None:
-                    sorteo_doc = meta.get("sorteo", 0)
-                    if sorteo_doc >= sorteo_actual and sorteo_doc > 0:
-                        continue  # Saltar documentos de sorteos futuros
+                if not _cumple_filtro_metadata(meta, metadata_filtro):
+                    continue
 
                 resultados_filtrados.append({"id": doc_id, "texto": doc, "metadata": meta})
 
@@ -227,24 +258,29 @@ def guardar_memoria(agente_id: str, memoria: dict):
         json.dump(memoria, f, indent=2, ensure_ascii=False)
 
 
-def actualizar_memoria(agente_id: str, nueva_info: str, tipo: str = "general", sorteo: int = None):
+def actualizar_memoria(
+    agente_id: str,
+    nueva_info: str,
+    tipo: str = "general",
+    metadata_filtro: Optional[dict] = None,
+):
     """Actualiza la memoria con nueva información."""
     memoria = cargar_memoria(agente_id)
 
     if tipo == "patron":
         item = {"patron": nueva_info, "fecha": datetime.now().isoformat()}
-        if sorteo:
-            item["sorteo"] = sorteo
+        if metadata_filtro:
+            item.update(metadata_filtro)
         memoria["patrones_aprendidos"].append(item)
     elif tipo == "error":
         item = {"error": nueva_info, "fecha": datetime.now().isoformat()}
-        if sorteo:
-            item["sorteo"] = sorteo
+        if metadata_filtro:
+            item.update(metadata_filtro)
         memoria["errores_cometidos"].append(item)
     elif tipo == "acierto":
         item = {"acierto": nueva_info, "fecha": datetime.now().isoformat()}
-        if sorteo:
-            item["sorteo"] = sorteo
+        if metadata_filtro:
+            item.update(metadata_filtro)
         memoria["aciertos_historicos"].append(item)
     else:
         # Limitar el conocimiento base a los últimos 5000 caracteres
@@ -262,13 +298,15 @@ def actualizar_memoria(agente_id: str, nueva_info: str, tipo: str = "general", s
     try:
         mv = MemoriaVectorial(agente_id)
         if mv.esta_disponible():
-            mv.agregar_documento(nueva_info, fuente=tipo, sorteo=sorteo)
+            mv.agregar_documento(nueva_info, fuente=tipo, metadata_filtro=metadata_filtro)
     except Exception as e:
         logger.error(f"⚠️ Error indexando en memoria vectorial: {e}", exc_info=True)
 
 
 def cargar_memoria_al_prompt(
-    agente_id: str, consulta_actual: str = "", sorteo_actual: int = None
+    agente_id: str,
+    consulta_actual: str = "",
+    metadata_filtro: Optional[dict] = None,
 ) -> str:
     """
     Convierte la memoria en texto para inyectar al prompt.
@@ -277,24 +315,24 @@ def cargar_memoria_al_prompt(
     Args:
         agente_id: ID del agente
         consulta_actual: La consulta del usuario para buscar fragmentos relevantes
-        sorteo_actual: Número del sorteo actual para filtrar resultados futuros
+        metadata_filtro: Límites o coincidencias de metadata por clave arbitraria
 
     Returns:
         Texto con la memoria relevante para inyectar al prompt
     """
     memoria_json = cargar_memoria(agente_id)
 
-    # Filtrar patrones y errores por sorteo si es necesario
-    if sorteo_actual:
+    # Filtrar patrones y errores por metadata si es necesario
+    if metadata_filtro:
         patrones_recientes = [
             p
             for p in memoria_json.get("patrones_aprendidos", [])
-            if p.get("sorteo", 0) < sorteo_actual or p.get("sorteo", 0) == 0
+            if not isinstance(p, dict) or _cumple_filtro_metadata(p, metadata_filtro)
         ][-3:]
         errores_recientes = [
             e
             for e in memoria_json.get("errores_cometidos", [])
-            if e.get("sorteo", 0) < sorteo_actual or e.get("sorteo", 0) == 0
+            if not isinstance(e, dict) or _cumple_filtro_metadata(e, metadata_filtro)
         ][-3:]
     else:
         patrones_recientes = memoria_json.get("patrones_aprendidos", [])[-3:]
@@ -323,7 +361,7 @@ Notas personales:
             mv = MemoriaVectorial(agente_id)
             if mv.esta_disponible():
                 resultados = mv.buscar(
-                    consulta_actual, top_k=TOP_K_RESULTS, sorteo_actual=sorteo_actual
+                    consulta_actual, top_k=TOP_K_RESULTS, metadata_filtro=metadata_filtro
                 )
 
                 if resultados:
@@ -340,33 +378,35 @@ Notas personales:
     return texto_base
 
 
-def cargar_memoria_completa_para_entrenamiento(agente_id: str, sorteo_actual: int = None) -> str:
+def cargar_memoria_completa_para_entrenamiento(
+    agente_id: str, metadata_filtro: Optional[dict] = None
+) -> str:
     """
     Carga la memoria COMPLETA (solo para exportar/entrenar, NO para prompts diarios).
     Útil para generar papers o respaldos.
 
     Args:
         agente_id: ID del agente
-        sorteo_actual: Si se provee, solo muestra resultados anteriores a este sorteo
+        metadata_filtro: Límites o coincidencias de metadata por clave arbitraria
     """
     memoria = cargar_memoria(agente_id)
 
-    # Filtrar por sorteo si es necesario
-    if sorteo_actual:
+    # Filtrar por metadata si es necesario
+    if metadata_filtro:
         patrones = [
             p
             for p in memoria.get("patrones_aprendidos", [])
-            if p.get("sorteo", 0) < sorteo_actual or p.get("sorteo", 0) == 0
+            if not isinstance(p, dict) or _cumple_filtro_metadata(p, metadata_filtro)
         ]
         errores = [
             e
             for e in memoria.get("errores_cometidos", [])
-            if e.get("sorteo", 0) < sorteo_actual or e.get("sorteo", 0) == 0
+            if not isinstance(e, dict) or _cumple_filtro_metadata(e, metadata_filtro)
         ]
         aciertos = [
             a
             for a in memoria.get("aciertos_historicos", [])
-            if a.get("sorteo", 0) < sorteo_actual or a.get("sorteo", 0) == 0
+            if not isinstance(a, dict) or _cumple_filtro_metadata(a, metadata_filtro)
         ]
     else:
         patrones = memoria.get("patrones_aprendidos", [])
@@ -399,7 +439,9 @@ Creado: {memoria.get("creado", "desconocido")}
 
 
 def sincronizar_memoria_vectorial(
-    agente_id: str, texto_base: Optional[str] = None, sorteo_limite: int = None
+    agente_id: str,
+    texto_base: Optional[str] = None,
+    metadata_filtro: Optional[dict] = None,
 ):
     """
     Sincroniza toda la memoria JSON con la memoria vectorial.
@@ -408,7 +450,7 @@ def sincronizar_memoria_vectorial(
     Args:
         agente_id: ID del agente
         texto_base: Texto opcional para indexar (si no se usa, se indexa la memoria existente)
-        sorteo_limite: Si se provee, solo indexa elementos con sorteo < sorteo_limite
+        metadata_filtro: Límites o coincidencias de metadata por clave arbitraria
     """
     if not CHROMADB_AVAILABLE:
         logger.warning(
@@ -437,19 +479,23 @@ def sincronizar_memoria_vectorial(
     # Agregar patrones aprendidos
     for patron in memoria.get("patrones_aprendidos", []):
         if isinstance(patron, dict) and "patron" in patron:
-            sorteo = patron.get("sorteo")
-            if sorteo_limite is None or (sorteo and sorteo < sorteo_limite):
-                agregados += mv.agregar_documento(patron["patron"], "patron", sorteo=sorteo)
+            if _cumple_filtro_metadata(patron, metadata_filtro):
+                metadata = _metadata_de_item(patron, "patron")
+                agregados += mv.agregar_documento(
+                    patron["patron"], "patron", metadata_filtro=metadata
+                )
         elif isinstance(patron, str):
             agregados += mv.agregar_documento(patron, "patron")
 
     # Agregar lecciones de errores
     for error in memoria.get("errores_cometidos", []):
         if isinstance(error, dict) and "error" in error:
-            sorteo = error.get("sorteo")
-            if sorteo_limite is None or (sorteo and sorteo < sorteo_limite):
+            if _cumple_filtro_metadata(error, metadata_filtro):
+                metadata = _metadata_de_item(error, "error")
                 agregados += mv.agregar_documento(
-                    f"ERROR A EVITAR: {error['error']}", "error", sorteo=sorteo
+                    f"ERROR A EVITAR: {error['error']}",
+                    "error",
+                    metadata_filtro=metadata,
                 )
         elif isinstance(error, str):
             agregados += mv.agregar_documento(f"ERROR A EVITAR: {error}", "error")
@@ -460,15 +506,17 @@ def sincronizar_memoria_vectorial(
     return agregados
 
 
-def obtener_memoria_para_paper(agente_id: str, sorteo_actual: int = None) -> str:
+def obtener_memoria_para_paper(
+    agente_id: str, metadata_filtro: Optional[dict] = None
+) -> str:
     """
     Exporta la memoria completa en formato legible para generar papers.
 
     Args:
         agente_id: ID del agente
-        sorteo_actual: Si se provee, solo exporta información anterior a este sorteo
+        metadata_filtro: Límites o coincidencias de metadata por clave arbitraria
     """
-    return cargar_memoria_completa_para_entrenamiento(agente_id, sorteo_actual)
+    return cargar_memoria_completa_para_entrenamiento(agente_id, metadata_filtro)
 
 
 # Función de compatibilidad con el sistema existente
