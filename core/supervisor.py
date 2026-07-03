@@ -19,6 +19,7 @@ from core.debate import (
     build_pipeline,
     build_previous_outputs_async,
     collect_contradictions,
+    collect_refinements,
     compute_consensus_scores,
     detect_contradiction,
     extract_text,
@@ -503,12 +504,22 @@ class Supervisor:
             await asyncio.sleep(0.001)
 
         contradictions = collect_contradictions(steps)
+        refinements = collect_refinements(steps)
         agreement, contradiction = compute_consensus_scores(steps, contradictions)
 
         debate.steps = steps
+        debate.contradictions = contradictions
+        debate.refinements = refinements
         debate.agreement_score = agreement
         debate.contradiction_score = contradiction
         debate.final_response = synthesize_final_response(task, steps)
+
+        # Save the full debate to memory
+        await asyncio.to_thread(
+            self.memory.set,
+            f"{MEMORY_DEBATE_PREFIX}{debate_id}",
+            debate.to_dict()
+        )
 
         logger.info(
             f"🎯 Consenso Cuántico Finalizado Estructurado -> Acuerdo: {agreement}% | Contradicciones: {contradiction}%"

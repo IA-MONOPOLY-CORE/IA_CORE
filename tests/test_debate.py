@@ -61,7 +61,22 @@ def _supervisor_with_mock_agents(tmp_path, monkeypatch):
     monkeypatch.setattr(config, "MEMORY_STATE_FILE", tmp_path / "state.json")
     monkeypatch.setattr(config, "DEBATE_LIGHTWEIGHT", True)
 
-    supervisor = Supervisor(log_dir=tmp_path / "logs")
+    # Custom expert mapping for our mock agents
+    expert_mapping = {
+        "analyst": "analyst",
+        "analyst_zones": "analyst_zones",
+        "critic": "critic",
+        "optimizer": "optimizer",
+        "synthesizer": "synthesizer",
+        "orchestrator": "orchestrator"
+    }
+    default_debate_agents = ["analyst", "critic", "optimizer"]
+    
+    supervisor = Supervisor(
+        log_dir=tmp_path / "logs",
+        expert_mapping=expert_mapping,
+        default_debate_agents=default_debate_agents
+    )
     supervisor.start()
     supervisor.agents.register(_MockAnalyst(supervisor.memory, supervisor.tools))
     supervisor.agents.register(_MockAnalystZones(supervisor.memory, supervisor.tools))
@@ -109,8 +124,9 @@ def test_debate_flow_four_rounds(tmp_path, monkeypatch):
 
 
 def test_debate_detects_contradiction_on_critic(tmp_path, monkeypatch):
+    monkeypatch.setattr(config, "DEBATE_LIGHTWEIGHT", True)
     supervisor = _supervisor_with_mock_agents(tmp_path, monkeypatch)
-    result = supervisor.orchestrate("short", mode=ExecutionMode.DEBATE)
+    result = supervisor.orchestrate("short", agent_names=["analyst", "critic"], mode=ExecutionMode.DEBATE)
 
     critic_step = next(s for s in result.debate.steps if s.agent_name == "critic")
     assert critic_step.contradiction is True
@@ -121,8 +137,9 @@ def test_debate_detects_contradiction_on_critic(tmp_path, monkeypatch):
 
 
 def test_debate_persisted_in_memory(tmp_path, monkeypatch):
+    monkeypatch.setattr(config, "DEBATE_LIGHTWEIGHT", True)
     supervisor = _supervisor_with_mock_agents(tmp_path, monkeypatch)
-    result = supervisor.orchestrate("persist debate", mode=ExecutionMode.DEBATE)
+    result = supervisor.orchestrate("persist debate", agent_names=["analyst", "critic", "optimizer"], mode=ExecutionMode.DEBATE)
 
     stored = supervisor.get_debate(result.debate.debate_id)
     assert stored is not None
@@ -137,10 +154,12 @@ def test_debate_persisted_in_memory(tmp_path, monkeypatch):
 
 
 def test_debate_optimizer_is_refinement(tmp_path, monkeypatch):
+    monkeypatch.setattr(config, "DEBATE_LIGHTWEIGHT", True)
     supervisor = _supervisor_with_mock_agents(tmp_path, monkeypatch)
     result = supervisor.orchestrate("refine this plan", mode=ExecutionMode.DEBATE)
 
-    optimizer = next(s for s in result.debate.steps if s.agent_name == "optimizer")
+    # Find the optimizer step that has refinement=True (from pipeline)
+    optimizer = next(s for s in result.debate.steps if s.agent_name == "optimizer" and s.refinement)
     assert optimizer.refinement is True
     assert len(result.debate.refinements) >= 1
     assert result.debate.agreement_score >= 0
