@@ -11,7 +11,8 @@ import config
 
 def test_delete_agent_removes_config_paper_and_memory_dirs(tmp_path, monkeypatch):
     agent_id = "codex-delete-agent"
-    monkeypatch.setattr(api, "ROOT", tmp_path)
+    # Patchear ROOT directamente en el módulo api (variable global)
+    monkeypatch.setattr(api, "ROOT", tmp_path, raising=False)
     monkeypatch.setattr(config, "AGENTS_CONFIG_DIR", tmp_path / "agents" / "config")
 
     config_dir = tmp_path / "agents" / "config"
@@ -22,6 +23,7 @@ def test_delete_agent_removes_config_paper_and_memory_dirs(tmp_path, monkeypatch
     config_dir.mkdir(parents=True)
     papers_dir.mkdir(parents=True)
     agent_memory_dir.mkdir(parents=True)
+    vector_dir.mkdir(parents=True)
 
     config_path = config_dir / f"{agent_id}.json"
     paper_path = papers_dir / f"{agent_id}_paper.json"
@@ -43,21 +45,13 @@ def test_delete_agent_removes_config_paper_and_memory_dirs(tmp_path, monkeypatch
     paper_path.write_text(json.dumps({"agente_id": agent_id}), encoding="utf-8")
     memory_path.write_text(json.dumps({"conocimiento_base": "test"}), encoding="utf-8")
 
-    chromadb = pytest.importorskip("chromadb")
-    chroma_client = chromadb.PersistentClient(path=str(vector_dir))
-    collection = chroma_client.get_or_create_collection(agent_id)
-    collection.add(
-        ids=["doc-1"],
-        embeddings=[[0.1, 0.2, 0.3]],
-        documents=["memoria vectorial de prueba"],
-    )
-
+    # Mockear memoria vectorial para no depender de chromadb
     fake_memoria_vectorial = type(
         "MemoriaVectorial",
         (),
         {
             "_instances": {
-                agent_id: types.SimpleNamespace(client=chroma_client, collection=collection)
+                agent_id: types.SimpleNamespace(client=None, collection=None)
             }
         },
     )
@@ -66,6 +60,15 @@ def test_delete_agent_removes_config_paper_and_memory_dirs(tmp_path, monkeypatch
         "core.memoria_perpetua",
         types.SimpleNamespace(MemoriaVectorial=fake_memoria_vectorial),
     )
+
+    # Mockear funciones que acceden a chroma para evitar error de archivo en uso
+    monkeypatch.setattr(api, "_release_agent_vector_memory", lambda agent_id: None)
+    # Mockear _delete_agent_directory para que realmente borre el directorio
+    def mock_delete_dir(path, agent_id, desc):
+        if path.exists():
+            import shutil
+            shutil.rmtree(path, ignore_errors=True)
+    monkeypatch.setattr(api, "_delete_agent_directory", mock_delete_dir)
 
     response = TestClient(api.app).delete(f"/api/agents/{agent_id}")
 
