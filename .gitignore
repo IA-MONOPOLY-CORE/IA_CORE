@@ -8,3 +8,4 @@ logs/
 *.sqlite3
 venv/
 memory/state.json
+.testdeps/

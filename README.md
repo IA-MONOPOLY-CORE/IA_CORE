@@ -40,7 +40,7 @@ cd c:\IA_CORE
 python -m venv venv
 .\venv\Scripts\activate
 .\venv\Scripts\python.exe -m pip install --upgrade pip
-.\venv\Scripts\python.exe -m pip install -r requirements-api.txt -r requirements-ui.txt
+.\venv\Scripts\python.exe -m pip install -r requirements-api.txt
 
 ## API local
 
@@ -55,30 +55,10 @@ Este modo ejecuta una orquestación local y espera que Ollama esté instalado, c
 ollama pull phi3:mini
 .\venv\Scripts\python.exe main.py
 
-## Interfaces visuales
+## Interfaz visual
 
-El **HUD web de `ui/web/` es la interfaz principal**. FastAPI lo sirve en
+El **HUD web de `ui/web/` es la única interfaz del proyecto**. FastAPI lo sirve en
 http://localhost:8000 y el frontend consume el backend mediante `/api/*`.
-
-Streamlit está deprecado y pendiente de eliminación. Sus capacidades internas
-reales ya fueron migradas al HUD; no recibe nuevas funcionalidades ni
-integraciones.
-
-Para iniciar el panel interno de Streamlit:
-
-cd c:\IA_CORE
-.\venv\Scripts\activate
-.\venv\Scripts\python.exe -m pip install -r requirements-api.txt -r requirements-ui.txt
-streamlit run ui/app.py
-
-1. Abre el navegador en la URL que muestra Streamlit (por defecto http://localhost:8501).
-2. En la barra lateral, pulsa Connect supervisor.
-3. Navega por los paneles: Overview, Agents, Providers, Orchestration, Memory, Logs.
-
-Streamlit consume el Supervisor directamente dentro de su proceso. El HUD web,
-en cambio, accede al sistema exclusivamente a través de la API FastAPI.
-
-Idiomas: español por defecto. Selector en la barra lateral (Español / English). Traducciones en ui/i18n/translations/.
 
 ## Enrutamiento híbrido
 
@@ -134,9 +114,7 @@ domains/loteria/       Caso de uso específico: Lotería/S.A.A.O.P.
 
 memoria_agentes/       Memoria persistente por agente (JSON)
 memoria_vectorial/     Memoria vectorial por agente (ChromaDB)
-ui/web/                HUD web principal servido por FastAPI
-ui/app.py              Panel interno secundario de Streamlit
-ui/panels/             Administración y debugging internos de Streamlit
+ui/web/                HUD web servido por FastAPI
 config.py              Configuración global del proyecto
 api.py                 API REST FastAPI
 
