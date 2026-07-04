@@ -1,4 +1,5 @@
 import asyncio
+import json
 from pathlib import Path
 from types import SimpleNamespace
 
@@ -50,6 +51,14 @@ class FakeListManager:
 
     def list_names(self):
         return list(self.values)
+
+
+class FakeAgentManager(FakeListManager):
+    def get_role(self, agent_id):
+        return agent_id if agent_id != "assistant" else None
+
+    def is_generic_baseline(self, agent_id):
+        return agent_id in {"analyst", "assistant", "critic", "optimizer"}
 
 
 class FakeHybridRouter:
@@ -165,6 +174,48 @@ def test_hud_contains_all_migrated_sections_and_script():
         assert f'data-section="{section}"' in html
         assert f'id="config-{section}"' in html
     assert '<script src="/admin-panels.js"></script>' in html
+
+
+def test_agents_endpoint_and_hud_keep_generic_baseline_agents(monkeypatch, tmp_path):
+    real_agents = [
+        "estadistico_integral",
+        "gemini_cuantico",
+        "gpt_auditor",
+        "nuevo_deepseek_saaop",
+        "viejo_deepseek",
+        "viejo_lobo_rey",
+    ]
+    baseline_agents = ["analyst", "assistant", "critic", "optimizer"]
+
+    for agent_id in real_agents:
+        (tmp_path / f"{agent_id}.json").write_text(
+            json.dumps({"id": agent_id, "role": "analyst"}),
+            encoding="utf-8",
+        )
+
+    fake_supervisor = SimpleNamespace(
+        agents=FakeAgentManager(real_agents + baseline_agents)
+    )
+    monkeypatch.setattr(api, "supervisor", fake_supervisor)
+    monkeypatch.setattr(api.config, "AGENTS_CONFIG_DIR", tmp_path)
+
+    payload = asyncio.run(api.list_agents())
+    baseline = [
+        agent for agent in payload["agents"] if agent["is_generic_baseline"] is True
+    ]
+    real = [
+        agent for agent in payload["agents"] if agent["is_generic_baseline"] is False
+    ]
+
+    assert payload["total"] == 10
+    assert {agent["id"] for agent in baseline} == set(baseline_agents)
+    assert {agent["id"] for agent in real} == set(real_agents)
+
+    html = Path("ui/web/index.html").read_text(encoding="utf-8")
+    assert '.filter(a => a.source === "json"' not in html
+    assert "is_generic_baseline: a.is_generic_baseline === true" in html
+    assert "ag.is_generic_baseline === true" in html
+    assert "ag.is_generic_baseline !== true" in html
 
 
 def test_provider_status_keeps_catalog_when_one_health_check_fails(monkeypatch):

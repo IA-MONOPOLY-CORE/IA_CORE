@@ -955,13 +955,14 @@
                 const data = await res.json();
                 if (data.success && data.agents) {
                     agentes = data.agents
-                        .filter(a => a.source === "json" && !SYSTEM_AGENTS.includes(a.id.toLowerCase()))
+                        .filter(a => !SYSTEM_AGENTS.includes(a.id.toLowerCase()))
                         .map(a => ({
                             id: a.id,
                             name: a.id.replace(/_/g, ' ').split(' ').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' '),
                             role: (a.role || 'analyst').toLowerCase(),
                             avatar: a.id.substring(0, 2).toUpperCase(),
-                            color: '#00d4ff'
+                            color: '#00d4ff',
+                            is_generic_baseline: a.is_generic_baseline === true
                         }));
                 }
                 const saved = localStorage.getItem('saaop_selected');
