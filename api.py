@@ -28,36 +28,68 @@ from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 
 import config
-from domains.loteria.config_loteria import (
-    VALIDATION_AGENTS,
-    SAAOP_TASK,
-    TRAINING_END,
-    BLIND_TEST_START,
-    BLIND_TEST_END,
-    LIVE_TEST_START,
-    LIVE_TEST_END,
-)
 from core.supervisor import MEMORY_HISTORY_KEY, Supervisor
 from core.orchestration import ExecutionMode
-from domains.loteria.evolution_loteria import EvolutionManagerLoteria as EvolutionManager
-from domains.loteria.database_loteria import (
-    init_db,
-    get_v19_status,
-)
 
 
 # ========================================================================
-# Lazy imports for loteria-specific validation (to keep API generic)
+# Lazy imports for loteria-specific code (to keep API generic)
 # ========================================================================
-def _get_validation_functions() -> tuple[Any, Any] | None:
+_loteria_cache = None
+
+
+def _get_loteria():
+    global _loteria_cache
+    if _loteria_cache is not None:
+        return _loteria_cache
+
     try:
+        from domains.loteria.config_loteria import (
+            VALIDATION_AGENTS,
+            SAAOP_TASK,
+            TRAINING_END,
+            BLIND_TEST_START,
+            BLIND_TEST_END,
+            LIVE_TEST_START,
+            LIVE_TEST_END,
+        )
+        from domains.loteria.evolution_loteria import EvolutionManagerLoteria
+        from domains.loteria.database_loteria import (
+            init_db as loteria_init_db,
+            get_v19_status as loteria_get_v19_status,
+        )
         from domains.loteria.validation_loteria import (
             run_validation_debate,
-            reveal_validation_result as _reveal_validation_result,
+            reveal_validation_result,
         )
-        return run_validation_debate, _reveal_validation_result
+
+        _loteria_cache = {
+            "VALIDATION_AGENTS": VALIDATION_AGENTS,
+            "SAAOP_TASK": SAAOP_TASK,
+            "TRAINING_END": TRAINING_END,
+            "BLIND_TEST_START": BLIND_TEST_START,
+            "BLIND_TEST_END": BLIND_TEST_END,
+            "LIVE_TEST_START": LIVE_TEST_START,
+            "LIVE_TEST_END": LIVE_TEST_END,
+            "EvolutionManagerLoteria": EvolutionManagerLoteria,
+            "init_db": loteria_init_db,
+            "get_v19_status": loteria_get_v19_status,
+            "run_validation_debate": run_validation_debate,
+            "reveal_validation_result": reveal_validation_result,
+        }
+        return _loteria_cache
     except ImportError:
+        _loteria_cache = None
         return None
+
+
+def _require_loteria():
+    loteria = _get_loteria()
+    if not loteria:
+        raise HTTPException(
+            status_code=501, detail="Funcionalidad no disponible (dominio lotería no instalado)"
+        )
+    return loteria
 
 
 # ========================================================================
@@ -120,11 +152,12 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+
 # ========================================================================
 # Global state
 # ========================================================================
 supervisor: Supervisor | None = None
-evolution: EvolutionManager | None = None
+evolution: Any = None  # Will be EvolutionManagerLoteria if loteria is available
 debate_store: dict[str, dict[str, Any]] = {}
 validation_store: dict[str, dict[str, Any]] = {}
 conversation_history: dict[str, list[dict]] = {}
@@ -144,9 +177,13 @@ runtime_metrics: dict[str, float | int] = {
 async def startup() -> None:
     global supervisor, evolution
     supervisor = Supervisor(log_dir=config.LOG_DIR)
-    evolution = EvolutionManager()
+
+    loteria = _get_loteria()
+    if loteria:
+        evolution = loteria["EvolutionManagerLoteria"]()
+        loteria["init_db"]()
+
     await asyncio.to_thread(supervisor.start)
-    init_db()
     runtime_metrics.update(
         {
             "started_at": time.time(),
@@ -437,11 +474,27 @@ class CreateAgentRequest(BaseModel):
 async def get_status(full: bool = False) -> dict:
     fase_actual = "desconocida"
     sorteo_actual = 3800
-    if evolution:
+    limites_sistema = {
+        "training_end": 3799,
+        "blind_test_start": 3800,
+        "blind_test_end": 3850,
+        "live_test_start": 3851,
+        "live_test_end": 3885,
+    }
+
+    loteria = _get_loteria()
+    if loteria and evolution:
         stats = evolution.get_estadisticas_ciclo()
         fase_actual = stats.get("fase_actual", "desconocida")
         if hasattr(evolution, "_state"):
             sorteo_actual = evolution._state["evolucion_lotoplus"]["ciclo_actual"]["sorteo_actual"]
+        limites_sistema = {
+            "training_end": loteria["TRAINING_END"],
+            "blind_test_start": loteria["BLIND_TEST_START"],
+            "blind_test_end": loteria["BLIND_TEST_END"],
+            "live_test_start": loteria["LIVE_TEST_START"],
+            "live_test_end": loteria["LIVE_TEST_END"],
+        }
 
     providers_info: list[dict[str, Any]] = []
     if supervisor:
@@ -473,13 +526,7 @@ async def get_status(full: bool = False) -> dict:
         "agents": supervisor.agents.list_ids() if supervisor else [],
         "fase_actual": fase_actual,
         "sorteo_actual": sorteo_actual,
-        "limites_sistema": {
-            "training_end": TRAINING_END,
-            "blind_test_start": BLIND_TEST_START,
-            "blind_test_end": BLIND_TEST_END,
-            "live_test_start": LIVE_TEST_START,
-            "live_test_end": LIVE_TEST_END,
-        },
+        "limites_sistema": limites_sistema,
         "hybrid": hybrid_status,
         "overview": {
             "uptime_s": round(time.time() - float(runtime_metrics["started_at"]), 1),
@@ -548,6 +595,7 @@ async def get_logs(lines: int = 80) -> dict:
 
 @app.get("/api/metrics/dynamic")
 async def get_dynamic_metrics() -> dict:
+    loteria = _require_loteria()
     if not evolution:
         raise HTTPException(status_code=503, detail="EvolutionManager no disponible")
 
@@ -565,7 +613,7 @@ async def get_dynamic_metrics() -> dict:
 
     # CORRECCIÓN: get_v19_status() puede devolver bool o dict
     v19_status_raw = (
-        get_v19_status() if hasattr(evolution, "_state") else {"congelado": False, "razon": ""}
+        loteria["get_v19_status"]() if hasattr(evolution, "_state") else {"congelado": False, "razon": ""}
     )
     if isinstance(v19_status_raw, bool):
         v19_status = {"congelado": v19_status_raw, "razon": "V19 congelado por sistema"}
@@ -608,7 +656,9 @@ async def start_debate(
         raise HTTPException(status_code=400, detail=f"Modo no soportado: {request.mode}") from exc
 
     debate_id = str(uuid.uuid4())
-    task = request.task or SAAOP_TASK
+
+    loteria = _get_loteria()
+    task = request.task or (loteria["SAAOP_TASK"] if loteria else "Debate genérico")
 
     debate_store[debate_id] = {
         "status": "queued",
@@ -628,11 +678,7 @@ async def start_validation(
     request: DebateRequest,
     background_tasks: BackgroundTasks,
 ) -> dict:
-    validation_funcs = _get_validation_functions()
-    if not validation_funcs:
-        raise HTTPException(status_code=501, detail="Validación no disponible (dominio lotería no instalado)")
-    
-    run_validation_debate_fn, _ = validation_funcs
+    loteria = _require_loteria()
 
     if not supervisor or not supervisor.running:
         raise HTTPException(status_code=503, detail="Supervisor no disponible")
@@ -650,7 +696,7 @@ async def start_validation(
         )
 
     validation_id = str(uuid.uuid4())
-    task = request.task or SAAOP_TASK
+    task = request.task or loteria["SAAOP_TASK"]
 
     validation_store[validation_id] = {
         "status": "queued",
@@ -660,7 +706,7 @@ async def start_validation(
     }
 
     background_tasks.add_task(
-        run_validation_debate_fn,
+        loteria["run_validation_debate"],
         validation_id,
         sorteo_actual,
         task,
@@ -696,23 +742,21 @@ async def reveal_validation(
     validation_id: str,
     result_data: ValidationResultRequest,
 ) -> dict:
-    validation_funcs = _get_validation_functions()
-    if not validation_funcs:
-        raise HTTPException(status_code=501, detail="Validación no disponible (dominio lotería no instalado)")
-    
-    _, reveal_validation_result_fn = validation_funcs
+    loteria = _require_loteria()
 
     if not evolution:
         raise HTTPException(status_code=503, detail="EvolutionManager no disponible")
 
     try:
-        return reveal_validation_result_fn(validation_id, result_data, evolution, validation_store)
+        return loteria["reveal_validation_result"](validation_id, result_data, evolution, validation_store)
     except ValueError as e:
         raise HTTPException(status_code=400, detail=str(e))
 
 
 @app.get("/api/validation/next")
 async def get_next_validation_info() -> dict:
+    loteria = _require_loteria()
+
     if not evolution:
         raise HTTPException(status_code=503, detail="EvolutionManager no disponible")
 
@@ -720,11 +764,11 @@ async def get_next_validation_info() -> dict:
     fase = evolution.get_fase(sorteo_actual)
 
     if fase == "validacion_ciega":
-        total_test = BLIND_TEST_END - BLIND_TEST_START + 1
+        total_test = loteria["BLIND_TEST_END"] - loteria["BLIND_TEST_START"] + 1
         completados = evolution.get_estadisticas_ciclo().get("sorteos_completados", 0)
         restantes = total_test - completados
     elif fase == "prediccion_en_vivo":
-        total_test = LIVE_TEST_END - LIVE_TEST_START + 1
+        total_test = loteria["LIVE_TEST_END"] - loteria["LIVE_TEST_START"] + 1
         completados = evolution.get_estadisticas_ciclo().get("sorteos_completados", 0)
         restantes = total_test - completados
     else:
@@ -742,6 +786,7 @@ async def get_next_validation_info() -> dict:
 
 @app.get("/api/ranking")
 async def get_ranking() -> dict:
+    _require_loteria()
     if not evolution:
         raise HTTPException(status_code=503, detail="EvolutionManager no disponible")
     return evolution.get_ranking_herramientas()
@@ -749,6 +794,7 @@ async def get_ranking() -> dict:
 
 @app.get("/api/evolucion/stats")
 async def get_evolucion_stats() -> dict:
+    _require_loteria()
     if not evolution:
         raise HTTPException(status_code=503, detail="EvolutionManager no disponible")
 
@@ -761,6 +807,7 @@ async def get_evolucion_stats() -> dict:
 
 @app.post("/api/evolucion/reset")
 async def reset_ciclo(nuevo_inicio: int | None = None) -> dict:
+    _require_loteria()
     if not evolution:
         raise HTTPException(status_code=503, detail="EvolutionManager no disponible")
 
@@ -792,7 +839,8 @@ async def chat_endpoint(request: ChatRequest):
     if not supervisor or not supervisor.running:
         raise HTTPException(status_code=503, detail="Supervisor no disponible")
 
-    agent_ids = request.agent_ids or VALIDATION_AGENTS
+    loteria = _get_loteria()
+    agent_ids = request.agent_ids or (loteria["VALIDATION_AGENTS"] if loteria else [])
 
     conv_id = request.conversation_id or f"conv_{int(time.time())}"
     if conv_id not in conversation_history:
@@ -1019,6 +1067,8 @@ async def save_settings(
     model: str = Form("meta/llama-3.1-8b-instruct"),
     selected_agents: str = Form(""),
 ):
+    loteria = _get_loteria()
+
     try:
         if selected_agents:
             if selected_agents.startswith("["):
@@ -1026,7 +1076,7 @@ async def save_settings(
             else:
                 selected_list = [a.strip() for a in selected_agents.split(",") if a.strip()]
         else:
-            selected_list = VALIDATION_AGENTS
+            selected_list = loteria["VALIDATION_AGENTS"] if loteria else []
 
         settings_path = ROOT / "memory" / "user_settings.json"
         settings = {
@@ -1068,13 +1118,14 @@ async def save_settings(
 
 @app.get("/api/settings")
 async def get_settings():
+    loteria = _get_loteria()
     settings_path = ROOT / "memory" / "user_settings.json"
     if not settings_path.exists():
         return {
             "success": True,
             "provider": "nvidia",
             "model": "meta/llama-3.1-8b-instruct",
-            "selected_agents": VALIDATION_AGENTS,
+            "selected_agents": loteria["VALIDATION_AGENTS"] if loteria else [],
             "api_key_configured": bool(config.NVIDIA_API_KEY),
         }
 
@@ -1215,3 +1266,4 @@ async def delete_agent(agent_id: str):
     except Exception as e:
         logger.exception(f"Error eliminando agente {agent_id}: {e}")
         return {"success": False, "error": str(e)}
+
