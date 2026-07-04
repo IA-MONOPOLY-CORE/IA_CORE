@@ -9,11 +9,11 @@ from __future__ import annotations
 import asyncio
 import json
 import logging
+import re
 import shutil
 import sys
 import uuid
 import time
-import re
 from datetime import datetime
 from pathlib import Path
 from typing import Any, List, Optional
@@ -28,30 +28,41 @@ from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 
 import config
-from domains.loteria.config_loteria import VALIDATION_AGENTS
+from domains.loteria.config_loteria import (
+    VALIDATION_AGENTS,
+    SAAOP_TASK,
+    TRAINING_END,
+    BLIND_TEST_START,
+    BLIND_TEST_END,
+    LIVE_TEST_START,
+    LIVE_TEST_END,
+)
 from core.supervisor import MEMORY_HISTORY_KEY, Supervisor
 from core.orchestration import ExecutionMode
 from domains.loteria.evolution_loteria import EvolutionManagerLoteria as EvolutionManager
 from domains.loteria.database_loteria import (
     init_db,
-    get_db,
-    crear_debate,
-    guardar_intervencion,
-    actualizar_debate_con_consenso,
-    actualizar_debate_con_resultado,
     get_v19_status,
-    get_sorteo_by_numero,
-    desbloquear_siguiente_sorteo,
-    guardar_metrica_acumulada,
-)
-from agents.result import (
-    calcular_contradiccion_real,
-    calcular_acuerdo_real,
-    calcular_u_score,
-    validar_consenso,
 )
 
-# ─── Logging ────────────────────────────────────────────────────────────────
+
+# ========================================================================
+# Lazy imports for loteria-specific validation (to keep API generic)
+# ========================================================================
+def _get_validation_functions() -> tuple[Any, Any] | None:
+    try:
+        from domains.loteria.validation_loteria import (
+            run_validation_debate,
+            reveal_validation_result as _reveal_validation_result,
+        )
+        return run_validation_debate, _reveal_validation_result
+    except ImportError:
+        return None
+
+
+# ========================================================================
+# Logging
+# ========================================================================
 config.LOG_DIR.mkdir(parents=True, exist_ok=True)
 logging.basicConfig(
     level=getattr(logging, config.LOG_LEVEL.upper(), logging.INFO),
@@ -61,9 +72,12 @@ logging.basicConfig(
         logging.FileHandler(config.LOG_DIR / "api.log", encoding="utf-8"),
     ],
 )
-logger = logging.getLogger("api")
+logger = logging.getLogger(__name__)
 
 
+# ========================================================================
+# Helper functions
+# ========================================================================
 def _release_agent_vector_memory(agent_id: str) -> None:
     memoria_module = sys.modules.get("core.memoria_perpetua")
     memoria_vectorial = getattr(memoria_module, "MemoriaVectorial", None)
@@ -94,7 +108,9 @@ def _delete_agent_directory(path: Path, agent_id: str, label: str) -> None:
         return
 
 
-# ─── App ────────────────────────────────────────────────────────────────────
+# ========================================================================
+# App setup
+# ========================================================================
 app = FastAPI(title="S.A.A.O.P. API", version="2.3.0")
 
 app.add_middleware(
@@ -104,7 +120,9 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# ─── Estado global ──────────────────────────────────────────────────────────
+# ========================================================================
+# Global state
+# ========================================================================
 supervisor: Supervisor | None = None
 evolution: EvolutionManager | None = None
 debate_store: dict[str, dict[str, Any]] = {}
@@ -118,28 +136,10 @@ runtime_metrics: dict[str, float | int] = {
     "last_orchestration_ms": 0.0,
 }
 
-# VALIDATION_AGENTS movido a domains/loteria/config_loteria.py
 
-SAAOP_TASK = (
-    "OBJETIVO TÁCTICO: Evaluar la matriz combinatoria bajo las directrices del búnker.\n\n"
-    "PARÁMETROS:\n"
-    "- Régimen activo: CAZADOR (zonas bajas Z1-Z4)\n"
-    "- Regla V19: 3 números bajos, 2 medios, 1 alto. Suma 110-140\n"
-    "- Excluir patrones simétricos, secuenciales o de calendario\n"
-    "- Evaluar zonas Z8/Z9 (40-45) para mitigar licuación humana\n"
-    "- Garantía matemática defensiva '4 si 5'\n"
-    "- Bloquear sobreajuste > 22.1% (azar estructural baseline)"
-)
-
-# ─── Límites del sistema ─────────────────────────────────────────────────────
-TRAINING_END = 3799
-BLIND_TEST_START = 3800
-BLIND_TEST_END = 3850
-LIVE_TEST_START = 3851
-LIVE_TEST_END = 3885
-
-
-# ─── Lifecycle ──────────────────────────────────────────────────────────────
+# ========================================================================
+# Lifecycle
+# ========================================================================
 @app.on_event("startup")
 async def startup() -> None:
     global supervisor, evolution
@@ -168,7 +168,9 @@ async def shutdown() -> None:
     logger.info("S.A.A.O.P. API detenida")
 
 
-# ─── Helpers ────────────────────────────────────────────────────────────────
+# ========================================================================
+# Helper functions (generic, not loteria-specific)
+# ========================================================================
 def _serialize_result(result: Any) -> dict:
     try:
         steps_data = []
@@ -187,8 +189,6 @@ def _serialize_result(result: Any) -> dict:
                 if hasattr(step, "result") and step.result is not None:
                     if isinstance(step.result, dict):
                         output_value = str(step.result.get("output", step.result))
-                    elif isinstance(step.result, str):
-                        output_value = step.result
                     else:
                         output_value = str(step.result)
 
@@ -364,140 +364,6 @@ def _provider_status(provider: Any) -> dict[str, Any]:
     }
 
 
-def _extraer_numeros_de_respuesta(output: str) -> list[int]:
-    numeros = re.findall(r"\b([0-4]?[0-9]|45)\b", output)
-    numeros_int = [int(n) for n in numeros if 0 <= int(n) <= 45]
-    numeros_unicos = []
-    for n in numeros_int:
-        if n not in numeros_unicos:
-            numeros_unicos.append(n)
-        if len(numeros_unicos) == 6:
-            break
-    return numeros_unicos if len(numeros_unicos) == 6 else []
-
-
-async def _run_validation_debate(validation_id: str, sorteo: int, task: str) -> None:
-    validation_store[validation_id]["status"] = "running"
-    validation_store[validation_id]["sorteo"] = sorteo
-    validation_store[validation_id]["fase"] = (
-        evolution.get_fase(sorteo) if evolution else "desconocida"
-    )
-
-    try:
-        debate_id = crear_debate(sorteo, estado="activo")
-
-        result = await supervisor.orchestrate_async(
-            task,
-            agent_names=VALIDATION_AGENTS,
-            mode=ExecutionMode.DEBATE,
-        )
-        _track_orchestration(result)
-        _record_event("orchestration", f"Validación {validation_id} completada")
-
-        intervenciones = {}
-        if hasattr(result, "steps"):
-            for step in result.steps:
-                agent_name = getattr(step, "agent_name", "")
-                output = ""
-                if hasattr(step, "result") and step.result:
-                    if isinstance(step.result, dict):
-                        output = step.result.get("output", str(step.result))
-                    else:
-                        output = str(step.result)
-                if "gpt_auditor" in agent_name.lower():
-                    intervenciones["CRITIC"] = output
-                elif "gemini_cuantico" in agent_name.lower():
-                    intervenciones["ANALYST_ZONAS"] = output
-                elif "viejo_lobo_rey" in agent_name.lower():
-                    intervenciones["ANALYST_HUMAN"] = output
-                elif "estadistico_integral" in agent_name.lower():
-                    intervenciones["ANALYST_V19"] = output
-                elif "viejo_deepseek" in agent_name.lower():
-                    intervenciones["OPTIMIZER"] = output
-                elif "nuevo_deepseek" in agent_name.lower():
-                    intervenciones["ORCHESTRATOR"] = output
-
-            for orden, (agente, contenido) in enumerate(intervenciones.items()):
-                guardar_intervencion(debate_id, sorteo, agente, contenido, orden)
-
-        contradiccion = calcular_contradiccion_real(intervenciones)
-
-        prediccion = {}
-        synthesis = ""
-        if hasattr(result, "debate") and result.debate and hasattr(result.debate, "final_response"):
-            fr = result.debate.final_response
-            if isinstance(fr, dict):
-                synthesis = fr.get("synthesis", "")
-            else:
-                synthesis = str(fr)
-
-        numeros = _extraer_numeros_de_respuesta(synthesis)
-        if len(numeros) >= 6:
-            prediccion = {
-                "n1": numeros[0],
-                "n2": numeros[1],
-                "n3": numeros[2],
-                "n4": numeros[3],
-                "n5": numeros[4],
-                "plus": numeros[5] if len(numeros) > 5 else 0,
-            }
-
-        u_score_tentativo = 50.0
-        if "OPTIMIZER" in intervenciones:
-            confianza_match = re.search(
-                r"confianza[:\s]*(\d+)", intervenciones["OPTIMIZER"], re.IGNORECASE
-            )
-            if confianza_match:
-                u_score_tentativo = float(confianza_match.group(1))
-
-        resultado_validacion = validar_consenso(intervenciones, contradiccion_minima=20.0)
-        puede_avanzar = resultado_validacion["es_valido"]
-        estado = "consenso" if puede_avanzar else "bloqueado"
-
-        actualizar_debate_con_consenso(
-            debate_id, prediccion, contradiccion, u_score_tentativo, estado
-        )
-
-        if puede_avanzar:
-            siguiente = sorteo + 1
-            if get_sorteo_by_numero(siguiente):
-                desbloquear_siguiente_sorteo(sorteo)
-                logger.info("Sorteo %s completado. Siguiente: %s desbloqueado", sorteo, siguiente)
-            else:
-                logger.info("SORTEO %s: Último sorteo de validación. Ciclo completado.", sorteo)
-        else:
-            logger.warning("Sorteo %s BLOQUEADO: %s", sorteo, resultado_validacion["razon"])
-
-        validation_store[validation_id].update(
-            {
-                "status": "complete",
-                "result": _serialize_result(result),
-                "prediccion": numeros,
-                "contradiccion_real": contradiccion,
-                "contradiccion_por_agente": resultado_validacion.get(
-                    "contradiccion_por_agente", {}
-                ),
-                "consenso_valido": puede_avanzar,
-                "resultado_revelado": False,
-            }
-        )
-
-        logger.info(
-            "Validación %s completada para sorteo %s (contradicción: %.1f%%)",
-            validation_id,
-            sorteo,
-            contradiccion,
-        )
-
-    except Exception as e:
-        validation_store[validation_id] = {
-            "status": "error",
-            "error": str(e),
-        }
-        _record_event("error", f"Validación {validation_id}: {e}")
-        logger.exception("Error en validación %s: %s", validation_id, e)
-
-
 async def _run_debate(
     debate_id: str,
     task: str,
@@ -528,7 +394,9 @@ async def _run_debate(
         logger.exception("Error en ejecución %s: %s", debate_id, e)
 
 
-# ─── Modelos ────────────────────────────────────────────────────────────────
+# ========================================================================
+# Pydantic models
+# ========================================================================
 class DebateRequest(BaseModel):
     task: str | None = None
     mode: str = "debate"
@@ -562,7 +430,9 @@ class CreateAgentRequest(BaseModel):
     temperature: float = 0.3
 
 
-# ─── Endpoints ──────────────────────────────────────────────────────────────
+# ========================================================================
+# Endpoints
+# ========================================================================
 @app.get("/api/status")
 async def get_status(full: bool = False) -> dict:
     fase_actual = "desconocida"
@@ -758,6 +628,12 @@ async def start_validation(
     request: DebateRequest,
     background_tasks: BackgroundTasks,
 ) -> dict:
+    validation_funcs = _get_validation_functions()
+    if not validation_funcs:
+        raise HTTPException(status_code=501, detail="Validación no disponible (dominio lotería no instalado)")
+    
+    run_validation_debate_fn, _ = validation_funcs
+
     if not supervisor or not supervisor.running:
         raise HTTPException(status_code=503, detail="Supervisor no disponible")
 
@@ -783,7 +659,18 @@ async def start_validation(
         "resultado_revelado": False,
     }
 
-    background_tasks.add_task(_run_validation_debate, validation_id, sorteo_actual, task)
+    background_tasks.add_task(
+        run_validation_debate_fn,
+        validation_id,
+        sorteo_actual,
+        task,
+        supervisor,
+        evolution,
+        validation_store,
+        _record_event,
+        _track_orchestration,
+        _serialize_result,
+    )
 
     logger.info(
         "Validación ciega %s iniciada para sorteo %s (fase: %s)", validation_id, sorteo_actual, fase
@@ -805,117 +692,23 @@ async def get_validation(validation_id: str) -> dict:
 
 
 @app.post("/api/validation/{validation_id}/reveal")
-async def reveal_validation_result(
+async def reveal_validation(
     validation_id: str,
     result_data: ValidationResultRequest,
 ) -> dict:
+    validation_funcs = _get_validation_functions()
+    if not validation_funcs:
+        raise HTTPException(status_code=501, detail="Validación no disponible (dominio lotería no instalado)")
+    
+    _, reveal_validation_result_fn = validation_funcs
+
     if not evolution:
         raise HTTPException(status_code=503, detail="EvolutionManager no disponible")
 
-    validation = validation_store.get(validation_id)
-    if validation is None:
-        raise HTTPException(status_code=404, detail="Validación no encontrada")
-
-    if validation.get("resultado_revelado"):
-        raise HTTPException(status_code=400, detail="Resultado ya fue revelado anteriormente")
-
-    if validation.get("status") != "complete":
-        raise HTTPException(
-            status_code=400, detail="La validación aún no ha completado la predicción"
-        )
-
-    prediccion_numeros = validation.get("prediccion", [])
-    sorteo = result_data.sorteo
-    resultado_numeros = result_data.numeros_tradicional
-    aciertos_declarados = result_data.aciertos
-
-    prediccion_dict = {}
-    if len(prediccion_numeros) >= 6:
-        prediccion_dict = {
-            "n1": prediccion_numeros[0],
-            "n2": prediccion_numeros[1],
-            "n3": prediccion_numeros[2],
-            "n4": prediccion_numeros[3],
-            "n5": prediccion_numeros[4],
-            "plus": prediccion_numeros[5],
-        }
-
-    resultado_dict = {
-        "n1": resultado_numeros[0],
-        "n2": resultado_numeros[1],
-        "n3": resultado_numeros[2],
-        "n4": resultado_numeros[3],
-        "n5": resultado_numeros[4],
-        "plus": resultado_numeros[5] if len(resultado_numeros) > 5 else 0,
-    }
-
-    acuerdo_real = calcular_acuerdo_real(prediccion_dict, resultado_dict)
-    u_score_real = calcular_u_score(
-        prediccion_dict, resultado_dict, confianza_declarada=validation.get("confianza", None)
-    )
-
-    if acuerdo_real > 100:
-        acuerdo_real = min(acuerdo_real, 100)
-
-    evolution.registrar_juego(
-        sorteo=result_data.sorteo,
-        prediccion_analyst=prediccion_numeros,
-        prediccion_optimizer=prediccion_numeros,
-        consenso_final=prediccion_numeros,
-        uscore_predicho=u_score_real,
-        resultado_real={
-            "numeros": resultado_numeros,
-            "aciertos": aciertos_declarados,
-            "categoria": aciertos_declarados,
-        },
-        lecciones=f"Validación ciega completada. Aciertos: {aciertos_declarados}, U-Score: {u_score_real}",
-    )
-
-    with get_db() as conn:
-        cur = conn.execute(
-            "SELECT id FROM debates WHERE sorteo_numero = ? ORDER BY id DESC LIMIT 1", (sorteo,)
-        )
-        row = cur.fetchone()
-        if row:
-            debate_id = row["id"]
-            actualizar_debate_con_resultado(debate_id, resultado_dict, u_score_real, acuerdo_real)
-
-            guardar_metrica_acumulada(
-                sorteo,
-                {
-                    "u_score_acumulado": u_score_real,
-                    "ver_acumulado": u_score_real * 0.6,
-                    "evf_acumulado": u_score_real * 0.5,
-                    "drawdown_actual": 0,
-                    "regimen_detectado": validation.get("fase", "desconocido"),
-                    "regimen_acertado": aciertos_declarados >= 3,
-                    "error_absoluto": abs(acuerdo_real - (validation.get("confianza", 50))),
-                    "v19_sigue_vivo": True,
-                },
-            )
-
-    validation["resultado_revelado"] = True
-    validation["resultado_real"] = {"numeros": resultado_numeros, "aciertos": aciertos_declarados}
-    validation["aciertos"] = aciertos_declarados
-    validation["acuerdo_real"] = acuerdo_real
-    validation["u_score_real"] = u_score_real
-
-    logger.info(
-        "Resultado revelado para validación %s: %d aciertos, acuerdo real: %.1f%%, U-Score real: %.1f",
-        validation_id,
-        aciertos_declarados,
-        acuerdo_real,
-        u_score_real,
-    )
-
-    return {
-        "validation_id": validation_id,
-        "sorteo": result_data.sorteo,
-        "aciertos": aciertos_declarados,
-        "acuerdo_real": acuerdo_real,
-        "u_score_real": u_score_real,
-        "message": f"Resultado registrado. Aciertos: {aciertos_declarados}/6, U-Score: {u_score_real}",
-    }
+    try:
+        return reveal_validation_result_fn(validation_id, result_data, evolution, validation_store)
+    except ValueError as e:
+        raise HTTPException(status_code=400, detail=str(e))
 
 
 @app.get("/api/validation/next")
@@ -991,7 +784,9 @@ async def list_debates() -> dict:
     }
 
 
-# ─── CHAT LIBRE ────────────────────────────────────────────────────────────
+# ========================================================================
+# Chat libre (genérico)
+# ========================================================================
 @app.post("/api/chat")
 async def chat_endpoint(request: ChatRequest):
     if not supervisor or not supervisor.running:
@@ -1101,7 +896,9 @@ async def get_conversation(conversation_id: str):
     return {"success": False, "error": "Conversación no encontrada"}
 
 
-# ─── CREACIÓN DE AGENTES ────────────────────────────────────────────────────
+# ========================================================================
+# Agentes (genéricos)
+# ========================================================================
 @app.post("/api/agents/create")
 async def create_agent_endpoint(
     id: str = Form(...),
@@ -1345,9 +1142,9 @@ async def list_agents():
     return {"success": True, "agents": agentes, "total": len(agentes)}
 
 
-# ─── MODIFICAR Y ELIMINAR AGENTES ────────────────────────────────────────────
-
-
+# ========================================================================
+# Modificar y eliminar agentes (genéricos)
+# ========================================================================
 @app.put("/api/agents/{agent_id}")
 async def update_agent(agent_id: str, request: Request):
     """Actualiza un agente existente (rol, provider, modelo, system_prompt)."""
@@ -1410,29 +1207,11 @@ async def delete_agent(agent_id: str):
         _delete_agent_directory(memory_path, agent_id, "memoria JSON")
 
         _release_agent_vector_memory(agent_id)
+
         _delete_agent_directory(vector_path, agent_id, "memoria vectorial")
 
-        return {"success": True, "message": f"Agente {agent_id} eliminado"}
+        return {"success": True, "message": f"Agente {agent_id} eliminado exitosamente"}
 
     except Exception as e:
-        logger.error(f"Error eliminando agente {agent_id}: {e}")
+        logger.exception(f"Error eliminando agente {agent_id}: {e}")
         return {"success": False, "error": str(e)}
-
-
-# ─── Servir frontend ────────────────────────────────────────────────────────
-WEB_DIR = ROOT / "ui" / "web"
-
-if WEB_DIR.exists():
-    app.mount("/", StaticFiles(directory=str(WEB_DIR), html=True), name="static")
-else:
-
-    @app.get("/")
-    async def root() -> dict:
-        return {"message": "S.A.A.O.P. API activa. Coloca index.html en ui/web/"}
-
-
-# ─── Entry point ────────────────────────────────────────────────────────────
-if __name__ == "__main__":
-    import uvicorn
-
-    uvicorn.run("api:app", host="0.0.0.0", port=8000, reload=True)

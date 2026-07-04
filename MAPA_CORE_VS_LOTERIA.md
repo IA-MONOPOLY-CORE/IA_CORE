@@ -72,6 +72,7 @@ Este documento mapea qué partes del sistema son el "motor de debate genérico" 
 | domains/loteria/database_loteria.py | SÍ | **MOVIDO** desde memory/database.py - Persistencia SQLite de sorteos, debates, intervenciones y métricas de Lotería |
 | domains/loteria/memoria_loteria.py | SÍ | **NUEVO** - Adaptador que conserva la API de Lotería y traduce `sorteo` a metadata genérica `{"sorteo": valor}` |
 | domains/loteria/lotoplus_completo_3511_3885.json | SÍ | **MOVIDO** desde raíz - Datos históricos específicos de Loto Plus (3511-3885) |
+| domains/loteria/validation_loteria.py | SÍ | **NUEVO** - Lógica específica de validación ciega y revelación de resultados: run_validation_debate(), reveal_validation_result() y _extraer_numeros_de_respuesta() |
 | domains/loteria/agents/config/*.json | SÍ | **MOVIDOS** desde agents/config/ - Todos los prompts de sistema son 100% específicos de S.A.A.O.P.: |
 | domains/loteria/agents/config/estadistico_integral.json | SÍ | Prompt específico defendiendo V19, framework S.A.A.O.P., CAZADOR/ESPEJO/PUENTE |
 | domains/loteria/agents/config/gpt_auditor.json | SÍ | Prompt específico como destructor de hipótesis V19, auditor de S.A.A.O.P. |
@@ -143,7 +144,10 @@ Este documento mapea qué partes del sistema son el "motor de debate genérico" 
   - Mantener: rutas, timeouts, configuración de proveedores
 - api.py
   - **COMPLETADO** - VALIDATION_AGENTS movido a domains/loteria/config_loteria.py (alias)
-  - Pendiente: SAAOP_TASK, endpoints de validación ciega
+  - **COMPLETADO** - SAAOP_TASK movido a domains/loteria/config_loteria.py (alias de DEFAULT_DEBATE_TASK)
+  - **COMPLETADO** - Límites de sorteos (TRAINING_END, BLIND_TEST_START, etc.) importados desde config_loteria.py
+  - **COMPLETADO** - _run_validation_debate y reveal_validation_result movidos a domains/loteria/validation_loteria.py
+  - **COMPLETADO** - Lazy imports para funciones de validación, devolviendo 501 si el dominio lotería no está disponible
   - Mantener: estructura de API, endpoints genéricos de chat/debate
 
 ---
@@ -178,10 +182,11 @@ Este documento mapea qué partes del sistema son el "motor de debate genérico" 
 
 ### 6. api.py
 - **COMPLETADO** - VALIDATION_AGENTS movido a domains/loteria/config_loteria.py (alias)
-- Pendiente: SAAOP_TASK
-- Pendiente: Límites de sorteos (ya importados desde config_loteria.py)
-- Pendiente: _run_validation_debate (completo)
-- Pendiente: reveal_validation_result (lógica específica)
+- **COMPLETADO** - SAAOP_TASK movido a domains/loteria/config_loteria.py (alias de DEFAULT_DEBATE_TASK)
+- **COMPLETADO** - Límites de sorteos importados desde config_loteria.py
+- **COMPLETADO** - _run_validation_debate movido a domains/loteria/validation_loteria.py
+- **COMPLETADO** - reveal_validation_result movido a domains/loteria/validation_loteria.py
+- **COMPLETADO** - Lazy imports para funciones de validación con fallback a 501 Not Implemented
 
 ### 7. agents/prompts.py
 - **COMPLETADO** - _analyst_prompt movido a domains/loteria/prompts_loteria.py

@@ -41,6 +41,7 @@ BUNKER_EXPERT_MAPPING = {
 
 # Alias para compatibilidad con api.py
 VALIDATION_AGENTS = DEBATE_AGENTS
+SAAOP_TASK = DEFAULT_DEBATE_TASK
 
 # Pipeline de debate específico de S.A.A.O.P. (6 agentes)
 DEBATE_PIPELINE_6_AGENTS: list[tuple[str, str]] = [
