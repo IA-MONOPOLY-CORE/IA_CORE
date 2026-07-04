@@ -860,7 +860,7 @@
         let providersLoadPromise = null;
 
         // Agentes del sistema que NO deben aparecer
-        const SYSTEM_AGENTS = ["analyst", "assistant", "critic", "echo", "optimizer"];
+        const SYSTEM_AGENTS = ["echo"]; // solo echo se oculta completamente (AGENT_INTERNAL_ONLY)
 
         // ========== MODELOS DE LENGUAJE (CORREGIDO) ==========
         // Lista realista de modelos para cada proveedor
@@ -1007,16 +1007,48 @@
             const container = document.getElementById('agents-checklist');
             if (!container) return;
             container.innerHTML = '';
-            agentes.forEach(ag => {
-                const item = document.createElement('div');
-                item.className = 'agent-checkbox-item';
-                item.innerHTML = `
-                    <input type="checkbox" value="${ag.id}" id="chk_${ag.id}" ${selectedAgents.includes(ag.id) ? 'checked' : ''}>
-                    <label for="chk_${ag.id}" style="flex:1;">${ag.name} <span style="font-size:0.7rem; color:var(--text-muted);">[${ag.role}]</span></label>
-                    <button class="delete-agent-btn" onclick="eliminarAgente('${ag.id}')">🗑️</button>
-                `;
-                container.appendChild(item);
-            });
+
+            // Separar agentes en dos grupos
+            const baselineAgents = agentes.filter(ag => ag.is_generic_baseline === true);
+            const realAgents = agentes.filter(ag => ag.is_generic_baseline !== true);
+
+            // Sección de agentes base (demo)
+            if (baselineAgents.length > 0) {
+                const baselineHeader = document.createElement('div');
+                baselineHeader.style.cssText = 'color: var(--amber); font-size: 0.75rem; font-weight: bold; margin: 15px 0 8px 0; text-transform: uppercase; letter-spacing: 1px; border-bottom: 1px solid rgba(255, 193, 7, 0.3); padding-bottom: 4px;';
+                baselineHeader.textContent = `⚡ Agentes base (demo) [${baselineAgents.length}]`;
+                container.appendChild(baselineHeader);
+
+                baselineAgents.forEach(ag => {
+                    const item = document.createElement('div');
+                    item.className = 'agent-checkbox-item';
+                    item.innerHTML = `
+                        <input type="checkbox" value="${ag.id}" id="chk_${ag.id}" ${selectedAgents.includes(ag.id) ? 'checked' : ''}>
+                        <label for="chk_${ag.id}" style="flex:1;">${ag.name} <span style="font-size:0.7rem; color:var(--text-muted);">[${ag.role}]</span> <span class="demo-badge">DEMO</span></label>
+                        <button class="delete-agent-btn" onclick="eliminarAgente('${ag.id}')">🗑️</button>
+                    `;
+                    container.appendChild(item);
+                });
+            }
+
+            // Sección de agentes reales S.A.A.O.P.
+            if (realAgents.length > 0) {
+                const realHeader = document.createElement('div');
+                realHeader.style.cssText = 'color: var(--cyan); font-size: 0.75rem; font-weight: bold; margin: 15px 0 8px 0; text-transform: uppercase; letter-spacing: 1px; border-bottom: 1px solid rgba(0, 212, 255, 0.3); padding-bottom: 4px;';
+                realHeader.textContent = `🎯 Agentes S.A.A.O.P. [${realAgents.length}]`;
+                container.appendChild(realHeader);
+
+                realAgents.forEach(ag => {
+                    const item = document.createElement('div');
+                    item.className = 'agent-checkbox-item';
+                    item.innerHTML = `
+                        <input type="checkbox" value="${ag.id}" id="chk_${ag.id}" ${selectedAgents.includes(ag.id) ? 'checked' : ''}>
+                        <label for="chk_${ag.id}" style="flex:1;">${ag.name} <span style="font-size:0.7rem; color:var(--text-muted);">[${ag.role}]</span></label>
+                        <button class="delete-agent-btn" onclick="eliminarAgente('${ag.id}')">🗑️</button>
+                    `;
+                    container.appendChild(item);
+                });
+            }
         }
 
         function mostrarEstadoProveedores(message, isError = false) {
