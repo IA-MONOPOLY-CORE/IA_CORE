@@ -1164,6 +1164,7 @@ async def list_agents():
                             "provider": data.get("provider", "nvidia"),
                             "model": data.get("model", "unknown"),
                             "source": "json",
+                            "is_generic_baseline": False,
                         }
                     )
             except Exception as e:
@@ -1176,6 +1177,7 @@ async def list_agents():
             # Verificar si existe el JSON
             json_path = config_dir / f"{agent_id}.json"
             source = "json" if json_path.exists() else "python"
+            is_generic = supervisor.agents.is_generic_baseline(agent_id)
             provider = "nvidia" if source == "json" else "python_module"
             model = "builtin" if source == "python" else "unknown"
 
@@ -1186,6 +1188,7 @@ async def list_agents():
                     "provider": provider,
                     "model": model,
                     "source": source,
+                    "is_generic_baseline": is_generic,
                 }
             )
             agentes_ids.add(agent_id)

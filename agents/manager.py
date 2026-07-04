@@ -46,6 +46,7 @@ class AgentManager(BaseManager):
         self._models: dict[str, str | None] = {}
         self._internal: set[str] = set()
         self._json_agents: set[str] = set()  # Nuevo: IDs de agentes cargados desde JSON
+        self._generic_baseline: set[str] = set()  # Nuevo: IDs de agentes base genéricos
 
         self._running = False
 
@@ -72,6 +73,10 @@ class AgentManager(BaseManager):
     def is_json_agent(self, agent_id: str) -> bool:
         """Retorna True si el agente fue cargado desde un archivo JSON."""
         return agent_id in self._json_agents
+
+    def is_generic_baseline(self, agent_id: str) -> bool:
+        """Retorna True si el agente es un agente base genérico (demo)."""
+        return agent_id in self._generic_baseline
 
     def get_role(self, agent_name: str) -> str | None:
         if agent_name not in self._roles:
@@ -174,6 +179,7 @@ class AgentManager(BaseManager):
         self._models.clear()
         self._internal.clear()
         self._json_agents.clear()
+        self._generic_baseline.clear()
         self._running = False
         logger.info("AgentManager detenido")
 
@@ -209,6 +215,9 @@ class AgentManager(BaseManager):
     def _register_spec(self, spec: AgentSpec) -> bool:
         if spec.internal_only:
             self._internal.add(spec.name)
+
+        if spec.is_generic_baseline:
+            self._generic_baseline.add(spec.name)
 
         if spec.name in self._agents:
             logger.warning(

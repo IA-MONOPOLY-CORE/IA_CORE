@@ -24,6 +24,7 @@ class AgentSpec:
     provider: str | None = None
     model: str | None = None
     internal_only: bool = False
+    is_generic_baseline: bool = False
 
 
 def discover(modules_dir: Path) -> list[AgentSpec]:
@@ -67,6 +68,7 @@ def _load_agent_module(path: Path) -> AgentSpec | None:
     agent_provider = getattr(module, "AGENT_PROVIDER", None)
     agent_model = getattr(module, "AGENT_MODEL", None)
     internal_only = bool(getattr(module, "AGENT_INTERNAL_ONLY", False))
+    is_generic_baseline = bool(getattr(module, "AGENT_IS_GENERIC_BASELINE", False))
 
     if not isinstance(agent_name, str) or not agent_name.strip():
         logger.warning("Módulo %s sin AGENT_NAME válido, omitido", path.name)
@@ -81,10 +83,11 @@ def _load_agent_module(path: Path) -> AgentSpec | None:
     model = agent_model if isinstance(agent_model, str) else None
 
     logger.info(
-        "Agente cargado: %s (rol=%s, provider=%s, %s)",
+        "Agente cargado: %s (rol=%s, provider=%s, baseline=%s, %s)",
         agent_name,
         role or "-",
         provider or "-",
+        is_generic_baseline,
         path.name,
     )
     return AgentSpec(
@@ -95,4 +98,5 @@ def _load_agent_module(path: Path) -> AgentSpec | None:
         provider=provider,
         model=model,
         internal_only=internal_only,
+        is_generic_baseline=is_generic_baseline,
     )

@@ -1,209 +1,6 @@
 {
   "historial": [
     {
-      "timestamp": "2026-06-08T20:23:26.029983",
-      "task": "🎯 TAREA PRINCIPAL INALTERABLE: Analizar correlación entre volatilidad de mercado (VIX) y rendimiento de activos riesgo. Usar datos hipotéticos de los últimos 12 meses.\n\n📋 SÍNTESIS HISTÓRICA DEL PROGRE",
-      "respuesta": "**Análisis de la Colisión Anterior**\n\nLa colisión anterior mostró una correlación positiva entre VIX y rendimiento de activos riesgo con un coeficiente de correlación (ρ) de 0,75. Este resultado contradice la afirmación de que el coeficiente de correlación (ρ) es de 0,72.\n\n**Refuerzo de la Hipótesis Predictiva**\n\nLa correlación entre VIX y rendimiento de activos riesgo se mantiene en la fase de validación ciega con un coeficiente de correlación (ρ) significativo (p-valor < 0,01).\n\n**Conclusión**",
-      "longitud_respuesta": 1657,
-      "prompt_len": 15778
-    },
-    {
-      "timestamp": "2026-06-08T20:23:36.847689",
-      "task": "🎯 TAREA PRINCIPAL INALTERABLE: Analizar correlación entre volatilidad de mercado (VIX) y rendimiento de activos riesgo. Usar datos hipotéticos de los últimos 12 meses.\n\n📋 SÍNTESIS HISTÓRICA DEL PROGRE",
-      "respuesta": "**Análisis de la Colisión Anterior**\n\nLa colisión anterior mostró una correlación positiva entre VIX y rendimiento de activos riesgo con un coeficiente de correlación (ρ) de 0,75, lo que contradice la afirmación de que el coeficiente de correlación (ρ) es de 0,72.\n\n**Refuerzo de la Hipótesis Predictiva**\n\nLa correlación entre VIX y rendimiento de activos riesgo se mantiene en la fase de validación ciega con un coeficiente de correlación (ρ) significativo (p-valor < 0,01).\n\n**Patrones Estadístico",
-      "longitud_respuesta": 2415,
-      "prompt_len": 16997
-    },
-    {
-      "timestamp": "2026-06-08T20:23:58.864378",
-      "task": "Tarea: Fase de Cierre Analítico: critique.\nTodo el búnker ya debatió fuertemente en las rondas cuánticas previas.\nA continuación tenés el mapa acumulado de la discusión:\n\nTAREA ORIGINAL: Analizar corr",
-      "respuesta": "**Análisis de la Colisión Anterior**\n\nLa colisión anterior mostró una correlación positiva entre VIX y rendimiento de activos riesgo con un coeficiente de correlación (ρ) de 0,75, lo que contradice la afirmación de que el coeficiente de correlación (ρ) es de 0,72.\n\n**Refuerzo de la Hipótesis Predictiva**\n\nLa correlación entre VIX y rendimiento de activos riesgo se mantiene en la fase de validación ciega con un coeficiente de correlación (ρ) significativo (p-valor < 0,01).\n\n**Patrones Estadístico",
-      "longitud_respuesta": 1240,
-      "prompt_len": 110598
-    },
-    {
-      "timestamp": "2026-06-08T20:34:46.740829",
-      "task": "TAREA/PATRÓN INICIAL DE ANÁLISIS: Analizar la relación entre tasa de interés de la FED (2.5% a 4.5% en los últimos 6 meses) y rendimiento del S&P 500. Identificar correlación, causalidad y posibles pu",
-      "respuesta": "**Análisis de la relación entre tasa de interés de la FED y rendimiento del S&P 500**\n\n**Hipótesis iniciales**\n\n* La tasa de interés de la FED tiene una relación positiva con el rendimiento del S&P 500.\n* La causalidad es bidireccional: la tasa de interés de la FED influye en el rendimiento del S&P 500 y viceversa.\n\n**Análisis de datos hipotéticos**\n\n* Tasa de interés de la FED (2.5% a 4.5% en los últimos 6 meses)\n* Rendimiento del S&P 500 (histórico y actual)\n* Correlación: 0,8 (fuerte relación",
-      "longitud_respuesta": 1064,
-      "prompt_len": 4656
-    },
-    {
-      "timestamp": "2026-06-08T20:34:47.692972",
-      "task": "🎯 TAREA PRINCIPAL INALTERABLE: Analizar la relación entre tasa de interés de la FED (2.5% a 4.5% en los últimos 6 meses) y rendimiento del S&P 500. Identificar correlación, causalidad y posibles punto",
-      "respuesta": "**Análisis de la relación entre la tasa de interés de la FED y el rendimiento del S&P 500**\n\n**Hipótesis**\n\n* La tasa de interés de la FED tiene un efecto significativo en el rendimiento del S&P 500.\n* La relación entre la tasa de interés y el rendimiento del S&P 500 es no lineal.\n\n**Métricas**\n\n* Utilizaré el coeficiente de correlación (R) para medir la relación entre la tasa de interés y el rendimiento del S&P 500.\n* Utilizaré el análisis de regresión lineal para modelar la relación entre la t",
-      "longitud_respuesta": 1934,
-      "prompt_len": 5512
-    },
-    {
-      "timestamp": "2026-06-08T20:34:56.193226",
-      "task": "🎯 TAREA PRINCIPAL INALTERABLE: Analizar la relación entre tasa de interés de la FED (2.5% a 4.5% en los últimos 6 meses) y rendimiento del S&P 500. Identificar correlación, causalidad y posibles punto",
-      "respuesta": "**Análisis de la relación entre la tasa de interés de la FED y el rendimiento del S&P 500**\n\n**Hipótesis**: La tasa de interés de la FED tiene una relación positiva con el rendimiento del S&P 500.\n\n**Métricas estadísticas**:\n\n* Correlación: 0,7 (alta)\n* Coeficiente de determinación (R^2): 0,49 (moderada)\n* Punto de quiebre estructural: 3,2% (tasa de interés)\n\n**Patrones y clusters estadísticos**:\n\n* Clúster 1: Tasa de interés entre 2,5% y 3,2% -> Rendimiento del S&P 500 entre 10% y 15%\n* Clúster",
-      "longitud_respuesta": 924,
-      "prompt_len": 15324
-    },
-    {
-      "timestamp": "2026-06-08T20:35:11.715097",
-      "task": "🎯 TAREA PRINCIPAL INALTERABLE: Analizar la relación entre tasa de interés de la FED (2.5% a 4.5% en los últimos 6 meses) y rendimiento del S&P 500. Identificar correlación, causalidad y posibles punto",
-      "respuesta": "**Análisis de la relación entre la tasa de interés de la FED y el rendimiento del S&P 500**\n\n* Correlación: 0,85 (alta)\n* Coeficiente de determinación (R^2): 0,72 (moderada)\n* Punto de quiebre estructural: 3,2% (tasa de interés)\n\n**Patrones y clusters estadísticos**\n\n* Clúster 1: Tasa de interés entre 2,5% y 3,2% -> Rendimiento del S&P 500 entre 10% y 15%\n* Clúster 2: Tasa de interés entre 3,2% y 4,5% -> Rendimiento del S&P 500 entre 15% y 20%\n\n**Fórmulas y ecuaciones**\n\n* Rendimiento del S&P 50",
-      "longitud_respuesta": 2197,
-      "prompt_len": 13293
-    },
-    {
-      "timestamp": "2026-06-08T20:35:31.909631",
-      "task": "🎯 TAREA PRINCIPAL INALTERABLE: Analizar la relación entre tasa de interés de la FED (2.5% a 4.5% en los últimos 6 meses) y rendimiento del S&P 500. Identificar correlación, causalidad y posibles punto",
-      "respuesta": "**Análisis de la relación entre la tasa de interés de la FED y el rendimiento del S&P 500**\n\n* Correlación: 0,85 (alta)\n* Coeficiente de determinación (R^2): 0,72 (moderada)\n* Punto de quiebre estructural: 3,2% (tasa de interés)\n\n**Patrones y clusters estadísticos**\n\n* Clúster 1: Tasa de interés entre 2,5% y 3,2% -> Rendimiento del S&P 500 entre 10% y 15%\n* Clúster 2: Tasa de interés entre 3,2% y 4,5% -> Rendimiento del S&P 500 entre 15% y 20%\n\n**Fórmulas y ecuaciones**\n\n* Rendimiento del S&P 50",
-      "longitud_respuesta": 2109,
-      "prompt_len": 16329
-    },
-    {
-      "timestamp": "2026-06-08T20:35:46.290603",
-      "task": "Tarea: Fase de Cierre Analítico: critique.\nTodo el búnker ya debatió fuertemente en las rondas cuánticas previas.\nA continuación tenés el mapa acumulado de la discusión:\n\nTAREA ORIGINAL: Analizar la r",
-      "respuesta": "**Análisis de la relación entre la tasa de interés de la FED y el rendimiento del S&P 500**\n\n* Correlación: 0,85 (alta)\n* Coeficiente de determinación (R^2): 0,72 (moderada)\n* Punto de quiebre estructural: 3,2% (tasa de interés)\n\n**Patrones y clusters estadísticos**\n\n* Clúster 1: Tasa de interés entre 2,5% y 3,2% -> Rendimiento del S&P 500 entre 10% y 15%\n* Clúster 2: Tasa de interés entre 3,2% y 4,5% -> Rendimiento del S&P 500 entre 15% y 20%\n\n**Fórmulas y ecuaciones**\n\n* Rendimiento del S&P 50",
-      "longitud_respuesta": 791,
-      "prompt_len": 89592
-    },
-    {
-      "timestamp": "2026-06-09T15:04:28.718998",
-      "task": "TAREA/PATRÓN INICIAL DE ANÁLISIS: como poder calcular la velocidad del viento en un bosque lleno de arboles desde el suelo\n\nCONTEXTO EVOLUTIVO DINÁMICO:\n- sorteo_actual: 3800\n- sorteos_completados: 0\n",
-      "respuesta": "**Análisis de la velocidad del viento en un bosque lleno de árboles desde el suelo**\n\n**Patrones de correlación**\n\n* La altura de los árboles (H) y la velocidad del viento (V) están correlacionados (ρ ≈ 0,7)\n* La densidad de los árboles (D) y la velocidad del viento (V) están correlacionados (ρ ≈ 0,5)\n\n**Modelo de regresión lineal**\n\n* V = β0 + β1 \\* H + β2 \\* D + ε\n* β0 ≈ 0,5\n* β1 ≈ 0,2\n* β2 ≈ 0,1\n\n**Predicción de la velocidad del viento**\n\n* V ≈ 0,5 + 0,2 \\* H + 0,1 \\* D\n* Dado que H ≈ 10 m y ",
-      "longitud_respuesta": 1118,
-      "prompt_len": 4513
-    },
-    {
-      "timestamp": "2026-06-09T15:04:29.797643",
-      "task": "🎯 TAREA PRINCIPAL INALTERABLE: como poder calcular la velocidad del viento en un bosque lleno de arboles desde el suelo\n\n📋 SÍNTESIS HISTÓRICA DEL PROGRESO (RONDAS PREVIAS):\n● Resumen Ronda 1: No hay i",
-      "respuesta": "**Calcular velocidad del viento en un bosque lleno de árboles desde el suelo**\n\nPara calcular la velocidad del viento en un bosque lleno de árboles desde el suelo, se pueden utilizar las siguientes fórmulas:\n\n1. **Fórmula de la velocidad del viento**: v = √(2 \\* ΔP / (ρ \\* A))\n * v: velocidad del viento (m/s)\n * ΔP: diferencia de presión (Pa)\n * ρ: densidad del aire (kg/m³)\n * A: área de la superficie (m²)\n\n2. **Fórmula de la diferencia de presión**: ΔP = 0,5 \\* ρ \\* v² \\* C_d\n * C_d: coeficient",
-      "longitud_respuesta": 1492,
-      "prompt_len": 4997
-    },
-    {
-      "timestamp": "2026-06-09T15:04:44.178416",
-      "task": "🎯 TAREA PRINCIPAL INALTERABLE: como poder calcular la velocidad del viento en un bosque lleno de arboles desde el suelo\n\n📋 SÍNTESIS HISTÓRICA DEL PROGRESO (RONDAS PREVIAS):\n● Resumen Ronda 1: No hay i",
-      "respuesta": "**Calcular velocidad del viento en un bosque lleno de árboles desde el suelo**\n\n**Fórmula de la velocidad del viento**: v = √(2 \\* ΔP / (ρ \\* A))\n\n**Fórmula de la diferencia de presión**: ΔP = 0,5 \\* ρ \\* v² \\* C_d\n\n**Variables necesarias**:\n\n* Densidad del aire (ρ): aproximadamente 1,2 kg/m³ a temperatura ambiente\n* Área de la superficie (A): depende de la forma y tamaño de los árboles\n* Coeficiente de arrastre del objeto (C_d): depende de la forma y tamaño de los árboles\n\n**Observaciones**:\n\n*",
-      "longitud_respuesta": 2959,
-      "prompt_len": 11532
-    },
-    {
-      "timestamp": "2026-06-09T15:04:50.468790",
-      "task": "🎯 TAREA PRINCIPAL INALTERABLE: como poder calcular la velocidad del viento en un bosque lleno de arboles desde el suelo\n\n📋 SÍNTESIS HISTÓRICA DEL PROGRESO (RONDAS PREVIAS):\n● Resumen Ronda 1: No hay i",
-      "respuesta": "**Velocidad del viento en un bosque lleno de árboles**\n\n* Fórmula: v = √(2 \\* ΔP / (ρ \\* A))\n* Fórmula de la diferencia de presión: ΔP = 0,5 \\* ρ \\* v² \\* C_d\n* Variables necesarias: ρ, A, C_d\n\n**Cluster estadístico**: La distribución de la frecuencia de cambio de la zona dominante sigue un patrón de persistencia estructural.\n\n**Hipótesis medible**: La zona dominante cambia con una frecuencia de aproximadamente 91 sorteos.\n\n**Análisis de la dinámica del espacio**: La zona dominante es un patrón ",
-      "longitud_respuesta": 1598,
-      "prompt_len": 18996
-    },
-    {
-      "timestamp": "2026-06-09T15:05:01.078107",
-      "task": "🎯 TAREA PRINCIPAL INALTERABLE: como poder calcular la velocidad del viento en un bosque lleno de arboles desde el suelo\n\n📋 SÍNTESIS HISTÓRICA DEL PROGRESO (RONDAS PREVIAS):\n● Resumen Ronda 1: No hay i",
-      "respuesta": "**Velocidad del viento en un bosque lleno de árboles**\n\n* Fórmula: v = √(2 \\* ΔP / (ρ \\* A))\n* Fórmula de la diferencia de presión: ΔP = 0,5 \\* ρ \\* v² \\* C_d\n* Variables necesarias:\n + Densidad del aire (ρ): aproximadamente 1,2 kg/m³ a temperatura ambiente\n + Área de la superficie (A): depende de la forma y tamaño de los árboles\n + Coeficiente de arrastre del objeto (C_d): depende de la forma y tamaño de los árboles\n\n**Cluster estadístico**: La velocidad del viento en un bosque lleno de árboles",
-      "longitud_respuesta": 2331,
-      "prompt_len": 18523
-    },
-    {
-      "timestamp": "2026-06-09T15:06:56.186975",
-      "task": "TAREA/PATRÓN INICIAL DE ANÁLISIS: volatilidad del viento en verano\n\nCONTEXTO EVOLUTIVO DINÁMICO:\n- sorteo_actual: 3800\n- sorteos_completados: 0\n- objetivo_ciclo: 50\n- fase_actual: validacion_ciega\n- i",
-      "respuesta": "**Análisis de la volatilidad del viento en verano**\n\n* **Fórmula de la velocidad del viento**: v = √(2 \\* ΔP / (ρ \\* A))\n* **Fórmula de la diferencia de presión**: ΔP = 0,5 \\* ρ \\* v² \\* C_d\n* **Variables necesarias**: ρ (densidad del aire), A (área de la superficie), C_d (coeficiente de arrastre)\n\n**Cluster estadístico**: La distribución de la frecuencia de cambio de la zona dominante sigue un patrón de **mixta**.\n\n**Tendencia**: La volatilidad del viento en verano es **estable**.\n\n**Mejores co",
-      "longitud_respuesta": 952,
-      "prompt_len": 6918
-    },
-    {
-      "timestamp": "2026-06-09T15:07:06.737515",
-      "task": "🎯 TAREA PRINCIPAL INALTERABLE: volatilidad del viento en verano\n\n📋 SÍNTESIS HISTÓRICA DEL PROGRESO (RONDAS PREVIAS):\n● Resumen Ronda 1: **Tesis principales**\n\n* La volatilidad del viento en verano es ",
-      "respuesta": "**Análisis de la volatilidad del viento en verano**\n\n* La ecuación de Bernoulli utilizada por Gemini_Cuantico (v = √(2 \\* (P - P0) / ρ)) no tiene en cuenta la resistencia aerodinámica de los árboles, lo que la hace inapropiada para calcular la velocidad del viento en un bosque.\n* La resistencia aerodinámica de los árboles puede ser modelada utilizando la fórmula de drag de los árboles, que depende de la forma y tamaño de los árboles, la velocidad del viento y la densidad del aire.\n* La zona domi",
-      "longitud_respuesta": 1676,
-      "prompt_len": 16018
-    },
-    {
-      "timestamp": "2026-06-09T15:07:16.826047",
-      "task": "🎯 TAREA PRINCIPAL INALTERABLE: volatilidad del viento en verano\n\n📋 SÍNTESIS HISTÓRICA DEL PROGRESO (RONDAS PREVIAS):\n● Resumen Ronda 1: **Tesis principales**\n\n* La volatilidad del viento en verano es ",
-      "respuesta": "**Análisis de la volatilidad del viento en verano**\n\n* La ecuación de Bernoulli utilizada por Gemini_Cuantico (v = √(2 \\* (P - P0) / ρ)) no tiene en cuenta la resistencia aerodinámica de los árboles, lo que la hace inapropiada para calcular la velocidad del viento en un bosque.\n* La resistencia aerodinámica de los árboles puede ser modelada utilizando la fórmula de drag de los árboles, que depende de la forma y tamaño de los árboles, la velocidad del viento y la densidad del aire.\n* La zona domi",
-      "longitud_respuesta": 2148,
-      "prompt_len": 18364
-    },
-    {
-      "timestamp": "2026-06-09T15:07:25.273601",
-      "task": "🎯 TAREA PRINCIPAL INALTERABLE: volatilidad del viento en verano\n\n📋 SÍNTESIS HISTÓRICA DEL PROGRESO (RONDAS PREVIAS):\n● Resumen Ronda 1: **Tesis principales**\n\n* La volatilidad del viento en verano es ",
-      "respuesta": "**Cluster estadístico**\n\nLa distribución de la frecuencia de cambio de la zona dominante sigue un patrón de **mixta**.\n\n**Tendencia**\n\nLa volatilidad del viento en verano es **estable**.\n\n**Mejores combinaciones**\n\nUsando el scoring v9.0 y forzando 2-8-13 como base fija, las mejores combinaciones son:\n\n| # | Jugada | Suma | Tipo |\n|---|--------|------|------|\n| 1 | 02-08-13-33-41-44 | 141 | Dominancia alta |\n| 2 | 02-08-13-38-41-43 | 145 | Clúster alto |\n| 3 | 02-08-13-32-40-45 | 140 | Dominanci",
-      "longitud_respuesta": 1673,
-      "prompt_len": 22161
-    },
-    {
-      "timestamp": "2026-06-09T15:07:33.773373",
-      "task": "🎯 TAREA PRINCIPAL INALTERABLE: volatilidad del viento en verano\n\n📋 SÍNTESIS HISTÓRICA DEL PROGRESO (RONDAS PREVIAS):\n● Resumen Ronda 1: **Tesis principales**\n\n* La volatilidad del viento en verano es ",
-      "respuesta": "**Cluster estadístico**\n\nLa distribución de la frecuencia de cambio de la zona dominante sigue un patrón de **mixta**.\n\n**Tendencia**\n\nLa volatilidad del viento en verano es **estable**.\n\n**Mejores combinaciones**\n\nUsando el scoring v9.0 y forzando 2-8-13 como base fija, las mejores combinaciones son:\n\n| # | Jugada | Suma | Tipo |\n|---|--------|------|------|\n| 1 | 02-08-13-33-41-44 | 141 | Dominancia alta |\n| 2 | 02-08-13-38-41-43 | 145 | Clúster alto |\n| 3 | 02-08-13-32-40-45 | 140 | Dominanci",
-      "longitud_respuesta": 1673,
-      "prompt_len": 22552
-    },
-    {
-      "timestamp": "2026-06-09T15:16:54.846073",
-      "task": "TAREA/PATRÓN INICIAL DE ANÁLISIS: test\n\nCONTEXTO EVOLUTIVO DINÁMICO:\n- sorteo_actual: 3800\n- sorteos_completados: 0\n- objetivo_ciclo: 50\n- fase_actual: validacion_ciega\n- instruccion_fase: FASE DE VAL",
-      "respuesta": "**Análisis de la situación actual**\n\n* La base fija 2-8-13 ha sido estable durante el último año con una frecuencia de aparición de 10.6% para el número 2, 8.7% para el número 8 y 11.5% para el número 13.\n* No hay evidencia de que los números 2, 8 y 13 salgan juntos en los últimos 104 sorteos o en los 362 sorteos históricos.\n* Las mejores combinaciones usando solo 2-8-13 + Plus 4 se han identificado como 02-08-13-33-41-44, 02-08-13-38-41-43, 02-08-13-32-40-45, 02-08-13-34-38-42 y 02-08-13-27-38-",
-      "longitud_respuesta": 980,
-      "prompt_len": 7084
-    },
-    {
-      "timestamp": "2026-06-09T15:17:04.872416",
-      "task": "🎯 TAREA PRINCIPAL INALTERABLE: test\n\n📋 SÍNTESIS HISTÓRICA DEL PROGRESO (RONDAS PREVIAS):\n● Resumen Ronda 1: **Tesis principales**\n\n* La base histórica de 364 sorteos permite calcular la frecuencia de ",
-      "respuesta": "**Análisis de la situación actual**\n\n* La base fija 2-8-13 ha sido estable durante el último año con una frecuencia de aparición de 10.6% para el número 2, 8.7% para el número 8 y 11.5% para el número 13.\n* No hay evidencia de que los números 2, 8 y 13 salgan juntos en los últimos 104 sorteos o en los 362 sorteos históricos.\n* Las mejores combinaciones usando solo 2-8-13 + Plus 4 se han identificado como 02-08-13-33-41-44, 02-08-13-38-41-43, 02-08-13-32-40-45, 02-08-13-34-38-42 y 02-08-13-27-38-",
-      "longitud_respuesta": 1483,
-      "prompt_len": 16911
-    },
-    {
-      "timestamp": "2026-06-09T15:17:16.640145",
-      "task": "🎯 TAREA PRINCIPAL INALTERABLE: test\n\n📋 SÍNTESIS HISTÓRICA DEL PROGRESO (RONDAS PREVIAS):\n● Resumen Ronda 1: **Tesis principales**\n\n* La base histórica de 364 sorteos permite calcular la frecuencia de ",
-      "respuesta": "**Cluster estadístico**\n\n* La distribución de la frecuencia de cambio de la zona dominante sigue un patrón de **mixta**.\n* La volatilidad del viento en verano es **estable**.\n\n**Mejores combinaciones**\n\n* Usando el scoring v9.0 y forzando 2-8-13 como base fija, las mejores combinaciones son 04-12-19-27-35-42 y 01-08-15-22-30-38.\n\n**U-Score como filtro de unicidad**\n\n* Priorizar combinaciones con U-Score > 75 para entrar en zona de máxima unicidad (Q4).\n* Ajustar pesos según datos reales para evi",
-      "longitud_respuesta": 1861,
-      "prompt_len": 20405
-    },
-    {
-      "timestamp": "2026-06-09T15:17:27.319078",
-      "task": "🎯 TAREA PRINCIPAL INALTERABLE: test\n\n📋 SÍNTESIS HISTÓRICA DEL PROGRESO (RONDAS PREVIAS):\n● Resumen Ronda 1: **Tesis principales**\n\n* La base histórica de 364 sorteos permite calcular la frecuencia de ",
-      "respuesta": "**Cluster estadístico**\n\nLa distribución de la frecuencia de cambio de la zona dominante sigue un patrón de **mixta**.\nLa volatilidad del viento en verano es **estable**.\n\n**Mejores combinaciones**\n\nUsando el scoring v9.0 y forzando 2-8-13 como base fija, las mejores combinaciones son 04-12-19-27-35-42 y 01-08-15-22-30-38.\n\n**Fórmula ajustada**\n\nv = √(2 \\* (P - P0) / (ρ \\* (1 - (C_d \\* A / (2 \\* ρ \\* v^2))))\n\n**U-Score como filtro de unicidad**\n\nPriorizar combinaciones con U-Score > 75 para entr",
-      "longitud_respuesta": 954,
-      "prompt_len": 22234
-    },
-    {
-      "timestamp": "2026-06-09T15:17:56.166010",
-      "task": "🎯 TAREA PRINCIPAL INALTERABLE: test\n\n📋 SÍNTESIS HISTÓRICA DEL PROGRESO (RONDAS PREVIAS):\n● Resumen Ronda 1: **Tesis principales**\n\n* La base histórica de 364 sorteos permite calcular la frecuencia de ",
-      "respuesta": "**Cluster estadístico**\n\nLa distribución de la frecuencia de cambio de la zona dominante sigue un patrón de **mixta** (25.5%). La volatilidad del viento en verano es **estable** (0.3).\n\n**Mejores combinaciones**\n\nUsando el scoring v9.0 y forzando 2-8-13 como base fija, las mejores combinaciones son 04-12-19-27-35-42 (U-Score: 82.1) y 01-08-15-22-30-38 (U-Score: 79.5).\n\n**Fórmula ajustada**\n\nv = √(2 \\* (P - P0) / (ρ \\* (1 - (C_d \\* A / (2 \\* ρ \\* v^2))))\n\n**U-Score como filtro de unicidad**\n\nPrio",
-      "longitud_respuesta": 2331,
-      "prompt_len": 20654
-    },
-    {
-      "timestamp": "2026-06-09T15:18:16.336813",
-      "task": "Tarea: Fase de Cierre Analítico: critique.\nTodo el búnker ya debatió fuertemente en las rondas cuánticas previas.\nA continuación tenés el mapa acumulado de la discusión:\n\nTAREA ORIGINAL: test\n\nSÍNTESI",
-      "respuesta": "**Análisis de la situación actual**\n\n* La ecuación de Bernoulli utilizada por Gemini_Cuantico (v = √(2 \\\\* (P - P0) / ρ)) no tiene en cuenta la resistencia aerodinámica de los árboles, lo que la hace inapropiada para calcular la velocidad del viento en un bosque.\n* La distribución de la frecuencia de cambio de la zona dominante sigue un patrón de **mixta**.\n* La volatilidad del viento en verano es **estable**.\n\n**Mejores combinaciones**\n\n* Usando el scoring v9.0 y forzando 2-8-13 como base fija,",
-      "longitud_respuesta": 1124,
-      "prompt_len": 139469
-    },
-    {
-      "timestamp": "2026-06-09T15:21:21.741640",
-      "task": "TAREA/PATRÓN INICIAL DE ANÁLISIS: Evaluar la consistencia de 3 clusters de activos con las siguientes características:\n\nCluster A (Alta volatilidad): varianza 0.35, rendimiento esperado 12%, correlaci",
-      "respuesta": "**Ratio Sharpe de cada cluster**\n\nCluster A: varianza 0.35, rendimiento esperado 12%, correlación con mercado 0.85\nSharpe Ratio = (rendimiento esperado - tasa libre) / std dev = (12% - 2.5%) / √0.35 = 1.83\n\nCluster B: varianza 0.18, rendimiento esperado 7%, correlación con mercado 0.65\nSharpe Ratio = (rendimiento esperado - tasa libre) / std dev = (7% - 2.5%) / √0.18 = 1.23\n\nCluster C: varianza 0.08, rendimiento esperado 3.5%, correlación con mercado 0.40\nSharpe Ratio = (rendimiento esperado - t",
-      "longitud_respuesta": 994,
-      "prompt_len": 7754
-    },
-    {
-      "timestamp": "2026-06-09T15:21:29.800043",
-      "task": "🎯 TAREA PRINCIPAL INALTERABLE: Evaluar la consistencia de 3 clusters de activos con las siguientes características:\n\nCluster A (Alta volatilidad): varianza 0.35, rendimiento esperado 12%, correlación ",
-      "respuesta": "**Cluster A (Alta volatilidad)**\n\n*   Ratio Sharpe = (Rendimiento Esperado - Tasa Libre) / Desviación Estándar = (12% - 2.5%) / √0.35 = 2.43\n*   Cluster con mejor rendimiento ajustado por riesgo\n\n**Cluster B (Media volatilidad)**\n\n*   Ratio Sharpe = (Rendimiento Esperado - Tasa Libre) / Desviación Estándar = (7% - 2.5%) / √0.18 = 1.83\n*   No ofrece mejor rendimiento ajustado por riesgo\n\n**Cluster C (Baja volatilidad)**\n\n*   Ratio Sharpe = (Rendimiento Esperado - Tasa Libre) / Desviación Estándar",
-      "longitud_respuesta": 701,
-      "prompt_len": 14591
-    },
-    {
-      "timestamp": "2026-06-09T15:21:37.192509",
-      "task": "🎯 TAREA PRINCIPAL INALTERABLE: Evaluar la consistencia de 3 clusters de activos con las siguientes características:\n\nCluster A (Alta volatilidad): varianza 0.35, rendimiento esperado 12%, correlación ",
-      "respuesta": "**Cluster A (Alta volatilidad)**\n\n*   Ratio Sharpe: (12% - 2.5%) / √0.35 = 2.43\n*   Rendimiento esperado: 12%\n*   Desviación estándar: 0.35\n*   Correlación con mercado: 0.85\n\n**Cluster B (Media volatilidad)**\n\n*   Ratio Sharpe: (7% - 2.5%) / √0.18 = 1.83\n*   Rendimiento esperado: 7%\n*   Desviación estándar: 0.18\n*   Correlación con mercado: 0.65\n\n**Cluster C (Baja volatilidad)**\n\n*   Ratio Sharpe: (3.5% - 2.5%) / √0.08 = 1.25\n*   Rendimiento esperado: 3.5%\n*   Desviación estándar: 0.08\n*   Corre",
-      "longitud_respuesta": 1047,
-      "prompt_len": 14435
-    },
-    {
-      "timestamp": "2026-06-09T15:21:42.997870",
-      "task": "🎯 TAREA PRINCIPAL INALTERABLE: Evaluar la consistencia de 3 clusters de activos con las siguientes características:\n\nCluster A (Alta volatilidad): varianza 0.35, rendimiento esperado 12%, correlación ",
-      "respuesta": "**Cluster A (Alta volatilidad)**\n\n*   Ratio Sharpe: (12% - 2.5%) / √0.35 = 2.31\n*   Rendimiento esperado: 12%\n*   Desviación estándar: 0.35\n*   Correlación con mercado: 0.85\n\n**Cluster B (Media volatilidad)**\n\n*   Ratio Sharpe: (7% - 2.5%) / √0.18 = 1.43\n*   Rendimiento esperado: 7%\n*   Desviación estándar: 0.18\n*   Correlación con mercado: 0.65\n\n**Cluster C (Baja volatilidad)**\n\n*   Ratio Sharpe: (3.5% - 2.5%) / √0.08 = 0.71\n*   Rendimiento esperado: 3.5%\n*   Desviación estándar: 0.08\n*   Corre",
-      "longitud_respuesta": 1047,
-      "prompt_len": 15325
-    },
-    {
       "timestamp": "2026-06-09T15:21:48.849725",
       "task": "🎯 TAREA PRINCIPAL INALTERABLE: Evaluar la consistencia de 3 clusters de activos con las siguientes características:\n\nCluster A (Alta volatilidad): varianza 0.35, rendimiento esperado 12%, correlación ",
       "respuesta": "**Cluster A (Alta volatilidad)**\n\n*   Ratio Sharpe: (12% - 2.5%) / √0.35 = 2.31\n*   Rendimiento esperado: 12%\n*   Desviación estándar: 0.35\n*   Correlación con mercado: 0.85\n\n**Cluster B (Media volatilidad)**\n\n*   Ratio Sharpe: (7% - 2.5%) / √0.18 = 1.43\n*   Rendimiento esperado: 7%\n*   Desviación estándar: 0.18\n*   Correlación con mercado: 0.65\n\n**Cluster C (Baja volatilidad)**\n\n*   Ratio Sharpe: (3.5% - 2.5%) / √0.08 = 0.71\n*   Rendimiento esperado: 3.5%\n*   Desviación estándar: 0.08\n*   Corre",
@@ -349,9 +146,212 @@
       "respuesta": "No tengo información sobre un problema específico que deba resolver. ¿Puedes proporcionar más contexto o una pregunta concreta para que pueda ayudarte de manera efectiva?",
       "longitud_respuesta": 170,
       "prompt_len": 4978
+    },
+    {
+      "timestamp": "2026-07-04T00:11:13.728523",
+      "task": "🎯 TAREA PRINCIPAL INALTERABLE: OBJETIVO TÁCTICO: Evaluar la matriz combinatoria bajo las directrices del búnker.\n\nPARÁMETROS:\n- Régimen activo: CAZADOR (zonas bajas Z1-Z4)\n- Regla V19: 3 números bajos",
+      "respuesta": "**Evaluación de la matriz combinatoria**\n\n**Patrones detectados:**\n\n* **Zonas bajas (Z1-Z4)**: 3 números bajos, 2 medios, 1 alto. Suma 110-140\n* **Exclusión de patrones simétricos, secuenciales o de calendario**\n* **Evaluación de zonas Z8/Z9 (40-45) para mitigar licuación humana**\n\n**Métricas estadísticas:**\n\n* **Uma ratio de 4 si 5**: garantía matemática defensiva\n* **Bloquear sobreajuste > 22.1% (azar estructural baseline)**\n\n**Análisis de la colisión anterior:**\n\n* **La estrategia A no es la ",
+      "longitud_respuesta": 1090,
+      "prompt_len": 9396
+    },
+    {
+      "timestamp": "2026-07-04T00:11:25.398316",
+      "task": "TAREA/PATRÓN INICIAL DE ANÁLISIS: OBJETIVO TÁCTICO: Evaluar la matriz combinatoria bajo las directrices del búnker.\n\nPARÁMETROS:\n- Régimen activo: CAZADOR (zonas bajas Z1-Z4)\n- Regla V19: 3 números ba",
+      "respuesta": "**Análisis de la Matriz Combinatoria**\n\n**Regla V19:** 3 números bajos, 2 medios, 1 alto. Suma 110-140\n\n**Excluir patrones simétricos, secuenciales o de calendario**\n\n**Evaluar zonas Z8/Z9 (40-45) para mitigar licuación humana**\n\n**Garantía matemática defensiva '4 si 5'**\n\n**Bloquear sobreajuste > 22.1% (azar estructural baseline)**\n\n**Patrones validados:**\n\n* Zona caliente fuerte: 23–34–39–45\n* Zona media activa: 12–15–27–33\n* Zona baja irregular pero presente: 0–8–10\n\n**Patrones descartados:**",
+      "longitud_respuesta": 4986,
+      "prompt_len": 8505
+    },
+    {
+      "timestamp": "2026-07-04T00:11:55.131284",
+      "task": "🎯 TAREA PRINCIPAL INALTERABLE: OBJETIVO TÁCTICO: Evaluar la matriz combinatoria bajo las directrices del búnker.\n\nPARÁMETROS:\n- Régimen activo: CAZADOR (zonas bajas Z1-Z4)\n- Regla V19: 3 números bajos",
+      "respuesta": "**Evaluación de la matriz combinatoria**\n\nLa matriz combinatoria se evalúa bajo las directrices del búnker con los siguientes parámetros:\n\n* Régimen activo: CAZADOR (zonas bajas Z1-Z4)\n* Regla V19: 3 números bajos, 2 medios, 1 alto. Suma 110-140\n* Excluir patrones simétricos, secuenciales o de calendario\n* Evaluar zonas Z8/Z9 (40-45) para mitigar licuación humana\n* Garantía matemática defensiva '4 si 5'\n* Bloquear sobreajuste > 22.1% (azar estructural baseline)\n\n**Análisis de la matriz combinato",
+      "longitud_respuesta": 3724,
+      "prompt_len": 22909
+    },
+    {
+      "timestamp": "2026-07-04T00:12:44.959218",
+      "task": "🎯 TAREA PRINCIPAL INALTERABLE: OBJETIVO TÁCTICO: Evaluar la matriz combinatoria bajo las directrices del búnker.\n\nPARÁMETROS:\n- Régimen activo: CAZADOR (zonas bajas Z1-Z4)\n- Regla V19: 3 números bajos",
+      "respuesta": "**Evaluación de la matriz combinatoria**\n\nLa matriz combinatoria se evalúa bajo las directrices del búnker con los siguientes parámetros:\n\n*   Régimen activo: CAZADOR (zonas bajas Z1-Z4)\n*   Regla V19: 3 números bajos, 2 medios, 1 alto. Suma 110-140\n*   Excluir patrones simétricos, secuenciales o de calendario\n*   Evaluar zonas Z8/Z9 (40-45) para mitigar licuación humana\n*   Garantía matemática defensiva '4 si 5'\n*   Bloquear sobreajuste > 22.1% (azar estructural baseline)\n\n**Análisis de la matr",
+      "longitud_respuesta": 5112,
+      "prompt_len": 37870
+    },
+    {
+      "timestamp": "2026-07-04T00:13:32.539449",
+      "task": "🎯 TAREA PRINCIPAL INALTERABLE: OBJETIVO TÁCTICO: Evaluar la matriz combinatoria bajo las directrices del búnker.\n\nPARÁMETROS:\n- Régimen activo: CAZADOR (zonas bajas Z1-Z4)\n- Regla V19: 3 números bajos",
+      "respuesta": "**Evaluación de la matriz combinatoria**\n\nLa matriz combinatoria se evalúa bajo las directrices del búnker con los siguientes parámetros:\n\n*   Régimen activo: CAZADOR (zonas bajas Z1-Z4)\n*   Regla V19: 3 números bajos, 2 medios, 1 alto. Suma 110-140\n*   Excluir patrones simétricos, secuenciales o de calendario\n*   Evaluar zonas Z8/Z9 (40-45) para mitigar licuación humana\n*   Garantía matemática defensiva '4 si 5'\n*   Bloquear sobreajuste > 22.1% (azar estructural baseline)\n\n**Análisis de la matr",
+      "longitud_respuesta": 5124,
+      "prompt_len": 39083
+    },
+    {
+      "timestamp": "2026-07-04T00:14:50.049601",
+      "task": "Tarea: Fase de Cierre Analítico: critique.\nTodo el búnker ya debatió fuertemente en las rondas cuánticas previas.\nA continuación tenés el mapa acumulado de la discusión:\n\nTAREA ORIGINAL: OBJETIVO TÁCT",
+      "respuesta": "Basándome en el contexto evolutivo y las instrucciones proporcionadas, puedo ofrecerte una respuesta técnica y concisa.\n\nLa matriz combinatoria se evalúa bajo las directrices del búnker con los siguientes parámetros:\n\n*   Régimen activo: CAZADOR (zonas bajas Z1-Z4)\n*   Regla V19: 3 números bajos, 2 medios, 1 alto. Suma 110-140\n*   Excluir patrones simétricos, secuenciales o de calendario\n*   Evaluar zonas Z8/Z9 (40-45) para mitigar licuación humana\n*   Garantía matemática defensiva '4 si 5'\n*   ",
+      "longitud_respuesta": 4884,
+      "prompt_len": 197514
+    },
+    {
+      "timestamp": "2026-07-04T00:16:07.710927",
+      "task": "TAREA/PATRÓN INICIAL DE ANÁLISIS: OBJETIVO TÁCTICO: Evaluar la matriz combinatoria bajo las directrices del búnker.\n\nPARÁMETROS:\n- Régimen activo: CAZADOR (zonas bajas Z1-Z4)\n- Regla V19: 3 números ba",
+      "respuesta": "**Evaluación de la matriz combinatoria**\n\nLa matriz combinatoria se evalúa bajo las directrices del búnker con los siguientes parámetros:\n\n*   Régimen activo: CAZADOR (zonas bajas Z1-Z4)\n*   Regla V19: 3 números bajos, 2 medios, 1 alto. Suma 110-140\n*   Excluir patrones simétricos, secuenciales o de calendario\n*   Evaluar zonas Z8/Z9 (40-45) para mitigar licuación humana\n*   Garantía matemática defensiva '4 si 5'\n*   Bloquear sobreajuste > 22.1% (azar estructural baseline)\n\n**Análisis**\n\n*   La ",
+      "longitud_respuesta": 1701,
+      "prompt_len": 8495
+    },
+    {
+      "timestamp": "2026-07-04T00:16:12.205791",
+      "task": "🎯 TAREA PRINCIPAL INALTERABLE: OBJETIVO TÁCTICO: Evaluar la matriz combinatoria bajo las directrices del búnker.\n\nPARÁMETROS:\n- Régimen activo: CAZADOR (zonas bajas Z1-Z4)\n- Regla V19: 3 números bajos",
+      "respuesta": "**Evaluación de la matriz combinatoria**\n\nLa matriz combinatoria se evalúa bajo las directrices del búnker con los siguientes parámetros:\n\n*   Régimen activo: CAZADOR (zonas bajas Z1-Z4)\n*   Regla V19: 3 números bajos, 2 medios, 1 alto. Suma 110-140\n*   Excluir patrones simétricos, secuenciales o de calendario\n*   Evaluar zonas Z8/Z9 (40-45) para mitigar licuación humana\n*   Garantía matemática defensiva '4 si 5'\n*   Bloquear sobreajuste > 22.1% (azar estructural baseline)\n\n**Análisis de la hipó",
+      "longitud_respuesta": 1014,
+      "prompt_len": 9504
+    },
+    {
+      "timestamp": "2026-07-04T00:16:30.818574",
+      "task": "🎯 TAREA PRINCIPAL INALTERABLE: OBJETIVO TÁCTICO: Evaluar la matriz combinatoria bajo las directrices del búnker.\n\nPARÁMETROS:\n- Régimen activo: CAZADOR (zonas bajas Z1-Z4)\n- Regla V19: 3 números bajos",
+      "respuesta": "**Evaluación de la matriz combinatoria**\n\nLa matriz combinatoria se evalúa bajo las directrices del búnker con los siguientes parámetros:\n\n*   Régimen activo: CAZADOR (zonas bajas Z1-Z4)\n*   Regla V19: 3 números bajos, 2 medios, 1 alto. Suma 110-140\n*   Excluir patrones simétricos, secuenciales o de calendario\n*   Evaluar zonas Z8/Z9 (40-45) para mitigar licuación humana\n*   Garantía matemática defensiva '4 si 5'\n*   Bloquear sobreajuste > 22.1% (azar estructural baseline)\n\n**Análisis técnico**\n",
+      "longitud_respuesta": 1775,
+      "prompt_len": 20047
+    },
+    {
+      "timestamp": "2026-07-04T00:16:46.131895",
+      "task": "🎯 TAREA PRINCIPAL INALTERABLE: OBJETIVO TÁCTICO: Evaluar la matriz combinatoria bajo las directrices del búnker.\n\nPARÁMETROS:\n- Régimen activo: CAZADOR (zonas bajas Z1-Z4)\n- Regla V19: 3 números bajos",
+      "respuesta": "**Evaluación de la matriz combinatoria**\n\nLa matriz combinatoria se evalúa bajo las directrices del búnker con los siguientes parámetros:\n\n*   Régimen activo: CAZADOR (zonas bajas Z1-Z4)\n*   Regla V19: 3 números bajos, 2 medios, 1 alto. Suma 110-140\n*   Excluir patrones simétricos, secuenciales o de calendario\n*   Evaluar zonas Z8/Z9 (40-45) para mitigar licuación humana\n*   Garantía matemática defensiva '4 si 5'\n*   Bloquear sobreajuste > 22.1% (azar estructural baseline)\n\n**Análisis técnico**\n",
+      "longitud_respuesta": 1775,
+      "prompt_len": 21627
+    },
+    {
+      "timestamp": "2026-07-04T00:17:01.397562",
+      "task": "🎯 TAREA PRINCIPAL INALTERABLE: OBJETIVO TÁCTICO: Evaluar la matriz combinatoria bajo las directrices del búnker.\n\nPARÁMETROS:\n- Régimen activo: CAZADOR (zonas bajas Z1-Z4)\n- Regla V19: 3 números bajos",
+      "respuesta": "**Evaluación de la matriz combinatoria**\n\nLa matriz combinatoria se evalúa bajo las directrices del búnker con los siguientes parámetros:\n\n*   Régimen activo: CAZADOR (zonas bajas Z1-Z4)\n*   Regla V19: 3 números bajos, 2 medios, 1 alto. Suma 110-140\n*   Excluir patrones simétricos, secuenciales o de calendario\n*   Evaluar zonas Z8/Z9 (40-45) para mitigar licuación humana\n*   Garantía matemática defensiva '4 si 5'\n*   Bloquear sobreajuste > 22.1% (azar estructural baseline)\n\n**Cluster estadístico",
+      "longitud_respuesta": 1832,
+      "prompt_len": 23815
+    },
+    {
+      "timestamp": "2026-07-04T00:17:25.542078",
+      "task": "Tarea: Fase de Cierre Analítico: critique.\nTodo el búnker ya debatió fuertemente en las rondas cuánticas previas.\nA continuación tenés el mapa acumulado de la discusión:\n\nTAREA ORIGINAL: OBJETIVO TÁCT",
+      "respuesta": "**Evaluación de la matriz combinatoria**\n\nLa matriz combinatoria se evalúa bajo las directrices del búnker con los siguientes parámetros:\n\n*   Régimen activo: CAZADOR (zonas bajas Z1-Z4)\n*   Regla V19: 3 números bajos, 2 medios, 1 alto. Suma 110-140\n*   Excluir patrones simétricos, secuenciales o de calendario\n*   Evaluar zonas Z8/Z9 (40-45) para mitigar licuación humana\n*   Garantía matemática defensiva '4 si 5'\n*   Bloquear sobreajuste > 22.1% (azar estructural baseline)\n\n**Cluster estadístico",
+      "longitud_respuesta": 1832,
+      "prompt_len": 120663
+    },
+    {
+      "timestamp": "2026-07-04T00:25:51.772144",
+      "task": "TAREA/PATRÓN INICIAL DE ANÁLISIS: test\n\nCONTEXTO EVOLUTIVO DINÁMICO:\n- objetivo_ciclo: 50\n- fase_actual: entrenamiento\n- instruccion_fase: FASE DE ENTRENAMIENTO: Estás analizando datos históricos (202",
+      "respuesta": "**Análisis de la situación actual**\n\n*   **Fase de entrenamiento**: Estás analizando datos históricos (2022-2024) para aprender patrones, calibrar U-Score y VER, y validar hipótesis.\n*   **Resultados visibles hasta**: 3799\n*   **Parámetros evolutivos**:\n    *   **Pesos zonales**: {\"Z1\": 0.9, \"Z2\": 0.2, \"Z3\": 0.2, \"Z4\": 0.3, \"Z5\": 0.5, \"Z6\": 0.6, \"Z7\": 0.7, \"Z8\": 0.8, \"Z9\": 0.9}\n    *   **Exposición actual**: 80\n    *   **Umbral U-Score**: 66\n    *   **Umbral VER**: 0.3\n    *   **Filtros activos*",
+      "longitud_respuesta": 2058,
+      "prompt_len": 8079
+    },
+    {
+      "timestamp": "2026-07-04T00:26:02.916077",
+      "task": "🎯 TAREA PRINCIPAL INALTERABLE: test\n\n📋 SÍNTESIS HISTÓRICA DEL PROGRESO (RONDAS PREVIAS):\n● Resumen Ronda 1: **EXTRAER TESIS PRINCIPALES, NÚMEROS CLAVE Y PUNTOS DE DESACUERDO**\n\n*   **Tesis principal**",
+      "respuesta": "**Análisis de la situación actual**\n\n*   **U-Score**: El umbral de U-Score es 66. En el contexto de entrenamiento, no hay suficiente información para calcular el U-Score de manera precisa.\n*   **Exposición**: La exposición actual es del 80%, lo que está dentro del umbral permitido.\n*   **Pesos zonales**: Los pesos zonales actuales son {\"Z1\": 0.9, \"Z2\": 0.2, \"Z3\": 0.2, \"Z4\": 0.3, \"Z5\": 0.5, \"Z6\": 0.6, \"Z7\": 0.7, \"Z8\": 0.8, \"Z9\": 0.9}. Estos pesos no están optimizados para el contexto actual.\n*   ",
+      "longitud_respuesta": 1461,
+      "prompt_len": 18039
+    },
+    {
+      "timestamp": "2026-07-04T00:26:20.774122",
+      "task": "🎯 TAREA PRINCIPAL INALTERABLE: test\n\n📋 SÍNTESIS HISTÓRICA DEL PROGRESO (RONDAS PREVIAS):\n● Resumen Ronda 1: **EXTRAER TESIS PRINCIPALES, NÚMEROS CLAVE Y PUNTOS DE DESACUERDO**\n\n*   **Tesis principal**",
+      "respuesta": "**Análisis de la situación actual**\n\n*   **U-Score**: El umbral de U-Score es 66. En el contexto de entrenamiento, no hay suficiente información para calcular el U-Score de manera precisa.\n*   **Exposición**: La exposición actual es del 80%, lo que está dentro del umbral permitido.\n*   **Pesos zonales**: Los pesos zonales actuales son {\"Z1\": 0.9, \"Z2\": 0.2, \"Z3\": 0.2, \"Z4\": 0.3, \"Z5\": 0.5, \"Z6\": 0.6, \"Z7\": 0.7, \"Z8\": 0.8, \"Z9\": 0.9}. Estos pesos no están optimizados para el contexto actual.\n*   ",
+      "longitud_respuesta": 1461,
+      "prompt_len": 20474
+    },
+    {
+      "timestamp": "2026-07-04T00:26:41.400540",
+      "task": "🎯 TAREA PRINCIPAL INALTERABLE: test\n\n📋 SÍNTESIS HISTÓRICA DEL PROGRESO (RONDAS PREVIAS):\n● Resumen Ronda 1: **EXTRAER TESIS PRINCIPALES, NÚMEROS CLAVE Y PUNTOS DE DESACUERDO**\n\n*   **Tesis principal**",
+      "respuesta": "**ANÁLISIS TÉCNICO**\n\n*   **U-Score**: El umbral de U-Score es 66. La exposición actual es del 80%, lo que está dentro del umbral permitido.\n*   **Exposición**: La exposición actual es del 80%.\n*   **Pesos zonales**: Los pesos zonales actuales son {\"Z1\": 0.9, \"Z2\": 0.2, \"Z3\": 0.2, \"Z4\": 0.3, \"Z5\": 0.5, \"Z6\": 0.6, \"Z7\": 0.7, \"Z8\": 0.8, \"Z9\": 0.9}. Estos pesos no están optimizados para el contexto actual.\n*   **Filtros activos**: No hay filtros activos en este momento.\n*   **Patrones validados**: ",
+      "longitud_respuesta": 2373,
+      "prompt_len": 21490
+    },
+    {
+      "timestamp": "2026-07-04T00:27:14.974626",
+      "task": "Tarea: Fase de Cierre Analítico: critique.\nTodo el búnker ya debatió fuertemente en las rondas cuánticas previas.\nA continuación tenés el mapa acumulado de la discusión:\n\nTAREA ORIGINAL: test\n\nSÍNTESI",
+      "respuesta": "**ANÁLISIS TÉCNICO**\n\n*   **U-Score**: El umbral de U-Score es 66. La exposición actual es del 80% y el U-Score de Cluster A es 61.41, lo que indica que no es una buena jugada.\n*   **Exposición**: La exposición actual es del 80%.\n*   **Pesos zonales**: Los pesos zonales actuales son {\"Z1\": 0.9, \"Z2\": 0.2, \"Z3\": 0.2, \"Z4\": 0.3, \"Z5\": 0.5, \"Z6\": 0.6, \"Z7\": 0.7, \"Z8\": 0.8, \"Z9\": 0.9}. Estos pesos no están optimizados para el contexto actual.\n*   **Filtros activos**: No hay filtros activos en este m",
+      "longitud_respuesta": 2409,
+      "prompt_len": 118434
+    },
+    {
+      "timestamp": "2026-07-04T08:45:13.194672",
+      "task": "TAREA/PATRÓN INICIAL DE ANÁLISIS: Prueba end-to-end\n\nCONTEXTO EVOLUTIVO DINÁMICO:\n- objetivo_ciclo: 50\n- fase_actual: entrenamiento\n- instruccion_fase: FASE DE ENTRENAMIENTO: Estás analizando datos hi",
+      "respuesta": "**Análisis de la situación actual**\n\n*   **U-Score**: El sorteo 3882 tiene una distribución distinta al azar puro, con una suma de 125 (centro clásico) y 178 (ultra disperso). Esto sugiere que el U-Score podría ser significativo.\n*   **Exposición**: La exposición actual es del 80%, lo que está dentro del umbral permitido.\n*   **Pesos zonales**: Los pesos zonales actuales son {\"Z1\": 0.9, \"Z2\": 0.2, \"Z3\": 0.2, \"Z4\": 0.3, \"Z5\": 0.5, \"Z6\": 0.6, \"Z7\": 0.7, \"Z8\": 0.8, \"Z9\": 0.9}.\n\n**Recomendación**\n\n1",
+      "longitud_respuesta": 674,
+      "prompt_len": 8760
+    },
+    {
+      "timestamp": "2026-07-04T08:45:49.441440",
+      "task": "🎯 TAREA PRINCIPAL INALTERABLE: Prueba end-to-end\n\n📋 SÍNTESIS HISTÓRICA DEL PROGRESO (RONDAS PREVIAS):\n● Resumen Ronda 1: **Tesis principales**\n\n*   El Cluster A no es una buena jugada debido a su bajo",
+      "respuesta": "**ANÁLISIS DE LA SITUACIÓN ACTUAL**\n\n*   **U-Score**: El sorteo 3882 tiene una distribución distinta al azar puro, con una suma de 125 (centro clásico) y 178 (ultra disperso). Esto sugiere que el U-Score podría ser significativo.\n*   **Exposición**: La exposición actual es del 80%, lo que está dentro del umbral permitido.\n*   **Pesos zonales**: Los pesos zonales actuales son {\"Z1\": 0.9, \"Z2\": 0.2, \"Z3\": 0.2, \"Z4\": 0.3, \"Z5\": 0.5, \"Z6\": 0.6, \"Z7\": 0.7, \"Z8\": 0.8, \"Z9\": 0.9}.\n\n**RECOMENDACIÓN**\n\n1",
+      "longitud_respuesta": 674,
+      "prompt_len": 17993
+    },
+    {
+      "timestamp": "2026-07-04T08:46:06.539690",
+      "task": "🎯 TAREA PRINCIPAL INALTERABLE: Prueba end-to-end\n\n📋 SÍNTESIS HISTÓRICA DEL PROGRESO (RONDAS PREVIAS):\n● Resumen Ronda 1: **Tesis principales**\n\n*   El Cluster A no es una buena jugada debido a su bajo",
+      "respuesta": "**ANÁLISIS TÉCNICO**\n\n*   **U-Score**: El sorteo 3882 tiene una distribución distinta al azar puro, con una suma de 125 (centro clásico) y 178 (ultra disperso). Esto sugiere que el U-Score podría ser significativo.\n*   **Exposición**: La exposición actual es del 80%, lo que está dentro del umbral permitido.\n*   **Pesos zonales**: Los pesos zonales actuales son {\"Z1\": 0.9, \"Z2\": 0.2, \"Z3\": 0.2, \"Z4\": 0.3, \"Z5\": 0.5, \"Z6\": 0.6, \"Z7\": 0.7, \"Z8\": 0.8, \"Z9\": 0.9}.\n\n**EVALUACIÓN DE LA MATRIZ COMBINATO",
+      "longitud_respuesta": 1254,
+      "prompt_len": 19313
+    },
+    {
+      "timestamp": "2026-07-04T08:46:22.843557",
+      "task": "🎯 TAREA PRINCIPAL INALTERABLE: Prueba end-to-end\n\n📋 SÍNTESIS HISTÓRICA DEL PROGRESO (RONDAS PREVIAS):\n● Resumen Ronda 1: **Tesis principales**\n\n*   El Cluster A no es una buena jugada debido a su bajo",
+      "respuesta": "**ANÁLISIS TÉCNICO**\n\n*   **U-Score**: El sorteo 3882 tiene una distribución distinta al azar puro, con una suma de 125 (centro clásico) y 178 (ultra disperso). Esto sugiere que el U-Score podría ser significativo.\n*   **Exposición**: La exposición actual es del 80%, lo que está dentro del umbral permitido.\n*   **Pesos zonales**: Los pesos zonales actuales son {\"Z1\": 0.9, \"Z2\": 0.2, \"Z3\": 0.2, \"Z4\": 0.3, \"Z5\": 0.5, \"Z6\": 0.6, \"Z7\": 0.7, \"Z8\": 0.8, \"Z9\": 0.9}.\n\n**EVALUACIÓN DE LA MATRIZ COMBINATO",
+      "longitud_respuesta": 1252,
+      "prompt_len": 21132
+    },
+    {
+      "timestamp": "2026-07-04T08:46:44.941424",
+      "task": "🎯 TAREA PRINCIPAL INALTERABLE: Prueba end-to-end\n\n📋 SÍNTESIS HISTÓRICA DEL PROGRESO (RONDAS PREVIAS):\n● Resumen Ronda 1: **Tesis principales**\n\n*   El Cluster A no es una buena jugada debido a su bajo",
+      "respuesta": "**ANÁLISIS TÉCNICO**\n\n*   **U-Score**: El sorteo 3882 tiene una distribución distinta al azar puro, con una suma de 125 (centro clásico) y 178 (ultra disperso). Esto sugiere que el U-Score podría ser significativo.\n*   **Exposición**: La exposición actual es del 80%, lo que está dentro del umbral permitido.\n*   **Pesos zonales**: Los pesos zonales actuales son {\"Z1\": 0.9, \"Z2\": 0.2, \"Z3\": 0.2, \"Z4\": 0.3, \"Z5\": 0.5, \"Z6\": 0.6, \"Z7\": 0.7, \"Z8\": 0.8, \"Z9\": 0.9}.\n\n**EVALUACIÓN DE LA MATRIZ COMBINATO",
+      "longitud_respuesta": 1252,
+      "prompt_len": 25000
+    },
+    {
+      "timestamp": "2026-07-04T08:47:18.996576",
+      "task": "Tarea: Fase de Cierre Analítico: critique.\nTodo el búnker ya debatió fuertemente en las rondas cuánticas previas.\nA continuación tenés el mapa acumulado de la discusión:\n\nTAREA ORIGINAL: Prueba end-to",
+      "respuesta": "**ANÁLISIS TÉCNICO**\n\n*   **U-Score**: El sorteo 3882 tiene una distribución distinta al azar puro, con una suma de 125 (centro clásico) y 178 (ultra disperso). Esto sugiere que el U-Score podría ser significativo.\n*   **Exposición**: La exposición actual es del 80%, lo que está dentro del umbral permitido.\n*   **Pesos zonales**: Los pesos zonales actuales son {\"Z1\": 0.9, \"Z2\": 0.2, \"Z3\": 0.2, \"Z4\": 0.3, \"Z5\": 0.5, \"Z6\": 0.6, \"Z7\": 0.7, \"Z8\": 0.8, \"Z9\": 0.9}.\n\n**EVALUACIÓN DE LA MATRIZ COMBINATO",
+      "longitud_respuesta": 1252,
+      "prompt_len": 139893
+    },
+    {
+      "timestamp": "2026-07-04T08:49:27.591714",
+      "task": "TAREA/PATRÓN INICIAL DE ANÁLISIS: Prueba end-to-end\n\nCONTEXTO EVOLUTIVO DINÁMICO:\n- objetivo_ciclo: 50\n- fase_actual: entrenamiento\n- instruccion_fase: FASE DE ENTRENAMIENTO: Estás analizando datos hi",
+      "respuesta": "**ANÁLISIS TÉCNICO**\n\n*   **U-Score**: El sorteo 3882 tiene una distribución distinta al azar puro, con una suma de 125 (centro clásico) y 178 (ultra disperso). Esto sugiere que el U-Score podría ser significativo.\n*   **Exposición**: La exposición actual es del 80%, lo que está dentro del umbral permitido.\n*   **Pesos zonales**: Los pesos zonales actuales son {\"Z1\": 0.9, \"Z2\": 0.2, \"Z3\": 0.2, \"Z4\": 0.3, \"Z5\": 0.5, \"Z6\": 0.6, \"Z7\": 0.7, \"Z8\": 0.8, \"Z9\": 0.9}.\n*   **Acción**: Calcular U-Score exa",
+      "longitud_respuesta": 641,
+      "prompt_len": 8747
+    },
+    {
+      "timestamp": "2026-07-04T08:49:53.168851",
+      "task": "🎯 TAREA PRINCIPAL INALTERABLE: Prueba end-to-end\n\n📋 SÍNTESIS HISTÓRICA DEL PROGRESO (RONDAS PREVIAS):\n● Resumen Ronda 1: **Tesis principales**\n\n*   La situación actual se caracteriza por una alta vola",
+      "respuesta": "**ANÁLISIS TÉCNICO**\n\n*   **U-Score**: El sorteo 3882 tiene una distribución distinta al azar puro, con una suma de 125 (centro clásico) y 178 (ultra disperso). Esto sugiere que el U-Score podría ser significativo.\n*   **Correlación de Pearson**: Calcular la correlación de Pearson entre `U-Score` y `log(ganadores5)` y entre `U-Score` y `log(ganadores4)` para determinar si el U-Score predice la compartición.\n*   **Correlación negativa significativa**: Si la correlación es negativa y significativa",
+      "longitud_respuesta": 1686,
+      "prompt_len": 18806
+    },
+    {
+      "timestamp": "2026-07-04T08:50:32.471410",
+      "task": "🎯 TAREA PRINCIPAL INALTERABLE: Prueba end-to-end\n\n📋 SÍNTESIS HISTÓRICA DEL PROGRESO (RONDAS PREVIAS):\n● Resumen Ronda 1: **Tesis principales**\n\n*   La situación actual se caracteriza por una alta vola",
+      "respuesta": "**ANÁLISIS TÉCNICO**\n\n*   **U-Score**: El sorteo 3882 tiene una distribución distinta al azar puro, con una suma de 125 (centro clásico) y 178 (ultra disperso). Esto sugiere que el U-Score podría ser significativo.\n*   **Correlación de Pearson**: Calcular la correlación de Pearson entre `U-Score` y `log(ganadores5)` y entre `U-Score` y `log(ganadores4)` para determinar si el U-Score predice la compartición.\n*   **Correlación negativa significativa**: Si la correlación es negativa y significativa",
+      "longitud_respuesta": 1686,
+      "prompt_len": 23578
+    },
+    {
+      "timestamp": "2026-07-04T08:51:08.963262",
+      "task": "🎯 TAREA PRINCIPAL INALTERABLE: Prueba end-to-end\n\n📋 SÍNTESIS HISTÓRICA DEL PROGRESO (RONDAS PREVIAS):\n● Resumen Ronda 1: **Tesis principales**\n\n*   La situación actual se caracteriza por una alta vola",
+      "respuesta": "**ANÁLISIS TÉCNICO**\n\n*   **U-Score**: El sorteo 3882 tiene una distribución distinta al azar puro, con una suma de 125 (centro clásico) y 178 (ultra disperso). Esto sugiere que el U-Score podría ser significativo.\n*   **Correlación de Pearson**: Calcular la correlación de Pearson entre `U-Score` y `log(ganadores5)` y entre `U-Score` y `log(ganadores4)` para determinar si el U-Score predice la compartición.\n*   **Correlación negativa significativa**: Si la correlación es negativa y significativa",
+      "longitud_respuesta": 1686,
+      "prompt_len": 20838
+    },
+    {
+      "timestamp": "2026-07-04T08:51:25.982580",
+      "task": "🎯 TAREA PRINCIPAL INALTERABLE: Prueba end-to-end\n\n📋 SÍNTESIS HISTÓRICA DEL PROGRESO (RONDAS PREVIAS):\n● Resumen Ronda 1: **Tesis principales**\n\n*   La situación actual se caracteriza por una alta vola",
+      "respuesta": "**ANÁLISIS TÉCNICO**\n\n*   **U-Score**: El sorteo 3882 tiene una distribución distinta al azar puro, con una suma de 125 (centro clásico) y 178 (ultra disperso). Esto sugiere que el U-Score podría ser significativo.\n*   **Correlación de Pearson**: Calcular la correlación de Pearson entre `U-Score` y `log(ganadores5)` y entre `U-Score` y `log(ganadores4)` para determinar si el U-Score predice la compartición.\n*   **Correlación negativa significativa**: Si la correlación es negativa y significativa",
+      "longitud_respuesta": 1686,
+      "prompt_len": 23469
+    },
+    {
+      "timestamp": "2026-07-04T08:52:04.028137",
+      "task": "Tarea: Fase de Cierre Analítico: critique.\nTodo el búnker ya debatió fuertemente en las rondas cuánticas previas.\nA continuación tenés el mapa acumulado de la discusión:\n\nTAREA ORIGINAL: Prueba end-to",
+      "respuesta": "**ANÁLISIS TÉCNICO**\n\n*   **U-Score**: El sorteo 3882 tiene una distribución distinta al azar puro, con una suma de 125 (centro clásico) y 178 (ultra disperso). Esto sugiere que el U-Score podría ser significativo.\n*   **Correlación de Pearson**: Calcular la correlación de Pearson entre `U-Score` y `log(ganadores5)` y entre `U-Score` y `log(ganadores4)` para determinar si el U-Score predice la compartición.\n*   **Correlación negativa significativa**: Si la correlación es negativa y significativa",
+      "longitud_respuesta": 1329,
+      "prompt_len": 138003
     }
   ],
-  "ultima_actualizacion": "2026-07-03T16:36:28.101145",
+  "ultima_actualizacion": "2026-07-04T08:52:20.846668",
   "agente_id": "gpt_auditor",
   "creado": "2026-06-08T00:18:48.784823",
   "conocimiento_base": "",
@@ -361,63 +361,15 @@
       "score": 60.51,
       "timestamp": "2026-06-09T15:21:59.980456",
       "debate_id": "7bd506ab-b734-44cd-856a-5a22cdb4cec5"
+    },
+    {
+      "patron": "**ANÁLISIS TÉCNICO**\n\n*   **U-Score**: El umbral de U-Score es 66. La exposición actual es del 80% y el U-Score de Cluster A es 61.41, lo que indica que no es una buena jugada.\n*   **Exposición**: La exposición actual es del 80%.\n*   **Pesos zonales**: Los pesos zonales actuales son {\"Z1\": 0.9, \"Z2\"",
+      "score": 64.94,
+      "timestamp": "2026-07-04T00:27:29.684727",
+      "debate_id": "f85b135d-543a-4897-8d95-fb0b2b510a71"
     }
   ],
   "errores_cometidos": [
-    {
-      "error": "**Calcular velocidad del viento en un bosque lleno de árboles desde el suelo**\n\nPara calcular la velocidad del viento en un bosque lleno de árboles desde el suelo, se pueden utilizar las siguientes fórmulas:\n\n1. **Fórmula de la velocidad del viento**: v = √(2 \\* ΔP / (ρ \\* A))\n * v: velocidad del vi",
-      "score": 42.39,
-      "timestamp": "2026-06-09T15:05:17.180197",
-      "debate_id": "2c362003-2e22-458a-bf3d-d377d9b0e559"
-    },
-    {
-      "error": "**Calcular velocidad del viento en un bosque lleno de árboles desde el suelo**\n\n**Fórmula de la velocidad del viento**: v = √(2 \\* ΔP / (ρ \\* A))\n\n**Fórmula de la diferencia de presión**: ΔP = 0,5 \\* ρ \\* v² \\* C_d\n\n**Variables necesarias**:\n\n* Densidad del aire (ρ): aproximadamente 1,2 kg/m³ a temp",
-      "score": 36.04,
-      "timestamp": "2026-06-09T15:05:17.280132",
-      "debate_id": "2c362003-2e22-458a-bf3d-d377d9b0e559"
-    },
-    {
-      "error": "**Velocidad del viento en un bosque lleno de árboles**\n\n* Fórmula: v = √(2 \\* ΔP / (ρ \\* A))\n* Fórmula de la diferencia de presión: ΔP = 0,5 \\* ρ \\* v² \\* C_d\n* Variables necesarias: ρ, A, C_d\n\n**Cluster estadístico**: La distribución de la frecuencia de cambio de la zona dominante sigue un patrón d",
-      "score": 36.04,
-      "timestamp": "2026-06-09T15:05:17.406399",
-      "debate_id": "2c362003-2e22-458a-bf3d-d377d9b0e559"
-    },
-    {
-      "error": "**Velocidad del viento en un bosque lleno de árboles**\n\n* Fórmula: v = √(2 \\* ΔP / (ρ \\* A))\n* Fórmula de la diferencia de presión: ΔP = 0,5 \\* ρ \\* v² \\* C_d\n* Variables necesarias:\n + Densidad del aire (ρ): aproximadamente 1,2 kg/m³ a temperatura ambiente\n + Área de la superficie (A): depende de l",
-      "score": 39.79,
-      "timestamp": "2026-06-09T15:05:17.514983",
-      "debate_id": "2c362003-2e22-458a-bf3d-d377d9b0e559"
-    },
-    {
-      "error": "**Análisis de la volatilidad del viento en verano**\n\n* **Fórmula de la velocidad del viento**: v = √(2 \\* ΔP / (ρ \\* A))\n* **Fórmula de la diferencia de presión**: ΔP = 0,5 \\* ρ \\* v² \\* C_d\n* **Variables necesarias**: ρ (densidad del aire), A (área de la superficie), C_d (coeficiente de arrastre)\n\n",
-      "score": 44.96,
-      "timestamp": "2026-06-09T15:07:50.978917",
-      "debate_id": "b607a56e-75d3-4dc2-bbe9-7a245bd88b78"
-    },
-    {
-      "error": "**Análisis de la volatilidad del viento en verano**\n\n* La ecuación de Bernoulli utilizada por Gemini_Cuantico (v = √(2 \\* (P - P0) / ρ)) no tiene en cuenta la resistencia aerodinámica de los árboles, lo que la hace inapropiada para calcular la velocidad del viento en un bosque.\n* La resistencia aero",
-      "score": 37.1,
-      "timestamp": "2026-06-09T15:07:51.099388",
-      "debate_id": "b607a56e-75d3-4dc2-bbe9-7a245bd88b78"
-    },
-    {
-      "error": "**Análisis de la volatilidad del viento en verano**\n\n* La ecuación de Bernoulli utilizada por Gemini_Cuantico (v = √(2 \\* (P - P0) / ρ)) no tiene en cuenta la resistencia aerodinámica de los árboles, lo que la hace inapropiada para calcular la velocidad del viento en un bosque.\n* La resistencia aero",
-      "score": 37.1,
-      "timestamp": "2026-06-09T15:07:51.236578",
-      "debate_id": "b607a56e-75d3-4dc2-bbe9-7a245bd88b78"
-    },
-    {
-      "error": "**Cluster estadístico**\n\nLa distribución de la frecuencia de cambio de la zona dominante sigue un patrón de **mixta**.\n\n**Tendencia**\n\nLa volatilidad del viento en verano es **estable**.\n\n**Mejores combinaciones**\n\nUsando el scoring v9.0 y forzando 2-8-13 como base fija, las mejores combinaciones so",
-      "score": 39.34,
-      "timestamp": "2026-06-09T15:07:51.363668",
-      "debate_id": "b607a56e-75d3-4dc2-bbe9-7a245bd88b78"
-    },
-    {
-      "error": "**Cluster estadístico**\n\nLa distribución de la frecuencia de cambio de la zona dominante sigue un patrón de **mixta**.\n\n**Tendencia**\n\nLa volatilidad del viento en verano es **estable**.\n\n**Mejores combinaciones**\n\nUsando el scoring v9.0 y forzando 2-8-13 como base fija, las mejores combinaciones so",
-      "score": 39.34,
-      "timestamp": "2026-06-09T15:07:51.488561",
-      "debate_id": "b607a56e-75d3-4dc2-bbe9-7a245bd88b78"
-    },
     {
       "error": "**Análisis de la situación actual**\n\n* La base fija 2-8-13 ha sido estable durante el último año con una frecuencia de aparición de 10.6% para el número 2, 8.7% para el número 8 y 11.5% para el número 13.\n* No hay evidencia de que los números 2, 8 y 13 salgan juntos en los últimos 104 sorteos o en l",
       "score": 28.01,
@@ -561,6 +513,162 @@
       "score": 23.62,
       "timestamp": "2026-06-17T20:02:23.121970",
       "debate_id": "97cebb97-39a8-47d1-9648-28e9afc75a7a"
+    },
+    {
+      "error": "**Evaluación de la matriz combinatoria**\n\n**Patrones detectados:**\n\n* **Zonas bajas (Z1-Z4)**: 3 números bajos, 2 medios, 1 alto. Suma 110-140\n* **Exclusión de patrones simétricos, secuenciales o de calendario**\n* **Evaluación de zonas Z8/Z9 (40-45) para mitigar licuación humana**\n\n**Métricas estadí",
+      "score": 58.51,
+      "timestamp": "2026-07-04T00:15:20.559537",
+      "debate_id": "42ac5206-4d5e-4b86-b178-73cb23a71273"
+    },
+    {
+      "error": "**Evaluación de la matriz combinatoria**\n\nLa matriz combinatoria se evalúa bajo las directrices del búnker con los siguientes parámetros:\n\n* Régimen activo: CAZADOR (zonas bajas Z1-Z4)\n* Regla V19: 3 números bajos, 2 medios, 1 alto. Suma 110-140\n* Excluir patrones simétricos, secuenciales o de calen",
+      "score": 58.51,
+      "timestamp": "2026-07-04T00:15:20.630182",
+      "debate_id": "42ac5206-4d5e-4b86-b178-73cb23a71273"
+    },
+    {
+      "error": "**Evaluación de la matriz combinatoria**\n\nLa matriz combinatoria se evalúa bajo las directrices del búnker con los siguientes parámetros:\n\n*   Régimen activo: CAZADOR (zonas bajas Z1-Z4)\n*   Regla V19: 3 números bajos, 2 medios, 1 alto. Suma 110-140\n*   Excluir patrones simétricos, secuenciales o de",
+      "score": 58.51,
+      "timestamp": "2026-07-04T00:15:20.752008",
+      "debate_id": "42ac5206-4d5e-4b86-b178-73cb23a71273"
+    },
+    {
+      "error": "**Evaluación de la matriz combinatoria**\n\nLa matriz combinatoria se evalúa bajo las directrices del búnker con los siguientes parámetros:\n\n*   Régimen activo: CAZADOR (zonas bajas Z1-Z4)\n*   Regla V19: 3 números bajos, 2 medios, 1 alto. Suma 110-140\n*   Excluir patrones simétricos, secuenciales o de",
+      "score": 58.51,
+      "timestamp": "2026-07-04T00:15:20.833133",
+      "debate_id": "42ac5206-4d5e-4b86-b178-73cb23a71273"
+    },
+    {
+      "error": "Basándome en el contexto evolutivo y las instrucciones proporcionadas, puedo ofrecerte una respuesta técnica y concisa.\n\nLa matriz combinatoria se evalúa bajo las directrices del búnker con los siguientes parámetros:\n\n*   Régimen activo: CAZADOR (zonas bajas Z1-Z4)\n*   Regla V19: 3 números bajos, 2 ",
+      "score": 58.51,
+      "timestamp": "2026-07-04T00:15:20.935841",
+      "debate_id": "42ac5206-4d5e-4b86-b178-73cb23a71273"
+    },
+    {
+      "error": "**Evaluación de la matriz combinatoria**\n\nLa matriz combinatoria se evalúa bajo las directrices del búnker con los siguientes parámetros:\n\n*   Régimen activo: CAZADOR (zonas bajas Z1-Z4)\n*   Regla V19: 3 números bajos, 2 medios, 1 alto. Suma 110-140\n*   Excluir patrones simétricos, secuenciales o de",
+      "score": 58.51,
+      "timestamp": "2026-07-04T00:17:36.946110",
+      "debate_id": "698c2df0-7582-4ed5-911e-3edaeaada25a"
+    },
+    {
+      "error": "**Evaluación de la matriz combinatoria**\n\nLa matriz combinatoria se evalúa bajo las directrices del búnker con los siguientes parámetros:\n\n*   Régimen activo: CAZADOR (zonas bajas Z1-Z4)\n*   Regla V19: 3 números bajos, 2 medios, 1 alto. Suma 110-140\n*   Excluir patrones simétricos, secuenciales o de",
+      "score": 58.51,
+      "timestamp": "2026-07-04T00:17:37.015881",
+      "debate_id": "698c2df0-7582-4ed5-911e-3edaeaada25a"
+    },
+    {
+      "error": "**Evaluación de la matriz combinatoria**\n\nLa matriz combinatoria se evalúa bajo las directrices del búnker con los siguientes parámetros:\n\n*   Régimen activo: CAZADOR (zonas bajas Z1-Z4)\n*   Regla V19: 3 números bajos, 2 medios, 1 alto. Suma 110-140\n*   Excluir patrones simétricos, secuenciales o de",
+      "score": 58.51,
+      "timestamp": "2026-07-04T00:17:37.141512",
+      "debate_id": "698c2df0-7582-4ed5-911e-3edaeaada25a"
+    },
+    {
+      "error": "**Evaluación de la matriz combinatoria**\n\nLa matriz combinatoria se evalúa bajo las directrices del búnker con los siguientes parámetros:\n\n*   Régimen activo: CAZADOR (zonas bajas Z1-Z4)\n*   Regla V19: 3 números bajos, 2 medios, 1 alto. Suma 110-140\n*   Excluir patrones simétricos, secuenciales o de",
+      "score": 58.51,
+      "timestamp": "2026-07-04T00:17:37.267253",
+      "debate_id": "698c2df0-7582-4ed5-911e-3edaeaada25a"
+    },
+    {
+      "error": "**Evaluación de la matriz combinatoria**\n\nLa matriz combinatoria se evalúa bajo las directrices del búnker con los siguientes parámetros:\n\n*   Régimen activo: CAZADOR (zonas bajas Z1-Z4)\n*   Regla V19: 3 números bajos, 2 medios, 1 alto. Suma 110-140\n*   Excluir patrones simétricos, secuenciales o de",
+      "score": 58.51,
+      "timestamp": "2026-07-04T00:17:37.412354",
+      "debate_id": "698c2df0-7582-4ed5-911e-3edaeaada25a"
+    },
+    {
+      "error": "**Análisis de la situación actual**\n\n*   **Fase de entrenamiento**: Estás analizando datos históricos (2022-2024) para aprender patrones, calibrar U-Score y VER, y validar hipótesis.\n*   **Resultados visibles hasta**: 3799\n*   **Parámetros evolutivos**:\n    *   **Pesos zonales**: {\"Z1\": 0.9, \"Z2\": 0",
+      "score": 50.41,
+      "timestamp": "2026-07-04T00:27:29.196881",
+      "debate_id": "f85b135d-543a-4897-8d95-fb0b2b510a71"
+    },
+    {
+      "error": "**Análisis de la situación actual**\n\n*   **U-Score**: El umbral de U-Score es 66. En el contexto de entrenamiento, no hay suficiente información para calcular el U-Score de manera precisa.\n*   **Exposición**: La exposición actual es del 80%, lo que está dentro del umbral permitido.\n*   **Pesos zonal",
+      "score": 50.41,
+      "timestamp": "2026-07-04T00:27:29.294597",
+      "debate_id": "f85b135d-543a-4897-8d95-fb0b2b510a71"
+    },
+    {
+      "error": "**Análisis de la situación actual**\n\n*   **U-Score**: El umbral de U-Score es 66. En el contexto de entrenamiento, no hay suficiente información para calcular el U-Score de manera precisa.\n*   **Exposición**: La exposición actual es del 80%, lo que está dentro del umbral permitido.\n*   **Pesos zonal",
+      "score": 50.41,
+      "timestamp": "2026-07-04T00:27:29.413787",
+      "debate_id": "f85b135d-543a-4897-8d95-fb0b2b510a71"
+    },
+    {
+      "error": "**ANÁLISIS TÉCNICO**\n\n*   **U-Score**: El umbral de U-Score es 66. La exposición actual es del 80%, lo que está dentro del umbral permitido.\n*   **Exposición**: La exposición actual es del 80%.\n*   **Pesos zonales**: Los pesos zonales actuales son {\"Z1\": 0.9, \"Z2\": 0.2, \"Z3\": 0.2, \"Z4\": 0.3, \"Z5\": 0",
+      "score": 50.41,
+      "timestamp": "2026-07-04T00:27:29.543622",
+      "debate_id": "f85b135d-543a-4897-8d95-fb0b2b510a71"
+    },
+    {
+      "error": "**Análisis de la situación actual**\n\n*   **U-Score**: El sorteo 3882 tiene una distribución distinta al azar puro, con una suma de 125 (centro clásico) y 178 (ultra disperso). Esto sugiere que el U-Score podría ser significativo.\n*   **Exposición**: La exposición actual es del 80%, lo que está dentr",
+      "score": 50.41,
+      "timestamp": "2026-07-04T08:47:29.913083",
+      "debate_id": "0c5cd1dc-3adf-4da9-abcf-8ace7d16eecb"
+    },
+    {
+      "error": "**ANÁLISIS DE LA SITUACIÓN ACTUAL**\n\n*   **U-Score**: El sorteo 3882 tiene una distribución distinta al azar puro, con una suma de 125 (centro clásico) y 178 (ultra disperso). Esto sugiere que el U-Score podría ser significativo.\n*   **Exposición**: La exposición actual es del 80%, lo que está dentr",
+      "score": 50.41,
+      "timestamp": "2026-07-04T08:47:30.041592",
+      "debate_id": "0c5cd1dc-3adf-4da9-abcf-8ace7d16eecb"
+    },
+    {
+      "error": "**ANÁLISIS TÉCNICO**\n\n*   **U-Score**: El sorteo 3882 tiene una distribución distinta al azar puro, con una suma de 125 (centro clásico) y 178 (ultra disperso). Esto sugiere que el U-Score podría ser significativo.\n*   **Exposición**: La exposición actual es del 80%, lo que está dentro del umbral pe",
+      "score": 50.41,
+      "timestamp": "2026-07-04T08:47:30.185580",
+      "debate_id": "0c5cd1dc-3adf-4da9-abcf-8ace7d16eecb"
+    },
+    {
+      "error": "**ANÁLISIS TÉCNICO**\n\n*   **U-Score**: El sorteo 3882 tiene una distribución distinta al azar puro, con una suma de 125 (centro clásico) y 178 (ultra disperso). Esto sugiere que el U-Score podría ser significativo.\n*   **Exposición**: La exposición actual es del 80%, lo que está dentro del umbral pe",
+      "score": 50.41,
+      "timestamp": "2026-07-04T08:47:30.411924",
+      "debate_id": "0c5cd1dc-3adf-4da9-abcf-8ace7d16eecb"
+    },
+    {
+      "error": "**ANÁLISIS TÉCNICO**\n\n*   **U-Score**: El sorteo 3882 tiene una distribución distinta al azar puro, con una suma de 125 (centro clásico) y 178 (ultra disperso). Esto sugiere que el U-Score podría ser significativo.\n*   **Exposición**: La exposición actual es del 80%, lo que está dentro del umbral pe",
+      "score": 50.41,
+      "timestamp": "2026-07-04T08:47:30.545461",
+      "debate_id": "0c5cd1dc-3adf-4da9-abcf-8ace7d16eecb"
+    },
+    {
+      "error": "**ANÁLISIS TÉCNICO**\n\n*   **U-Score**: El sorteo 3882 tiene una distribución distinta al azar puro, con una suma de 125 (centro clásico) y 178 (ultra disperso). Esto sugiere que el U-Score podría ser significativo.\n*   **Exposición**: La exposición actual es del 80%, lo que está dentro del umbral pe",
+      "score": 50.41,
+      "timestamp": "2026-07-04T08:47:30.695218",
+      "debate_id": "0c5cd1dc-3adf-4da9-abcf-8ace7d16eecb"
+    },
+    {
+      "error": "**ANÁLISIS TÉCNICO**\n\n*   **U-Score**: El sorteo 3882 tiene una distribución distinta al azar puro, con una suma de 125 (centro clásico) y 178 (ultra disperso). Esto sugiere que el U-Score podría ser significativo.\n*   **Exposición**: La exposición actual es del 80%, lo que está dentro del umbral pe",
+      "score": 50.41,
+      "timestamp": "2026-07-04T08:52:20.078471",
+      "debate_id": "acf33292-410c-4c4e-ad97-739b68db5b62"
+    },
+    {
+      "error": "**ANÁLISIS TÉCNICO**\n\n*   **U-Score**: El sorteo 3882 tiene una distribución distinta al azar puro, con una suma de 125 (centro clásico) y 178 (ultra disperso). Esto sugiere que el U-Score podría ser significativo.\n*   **Correlación de Pearson**: Calcular la correlación de Pearson entre `U-Score` y ",
+      "score": 37.39,
+      "timestamp": "2026-07-04T08:52:20.229397",
+      "debate_id": "acf33292-410c-4c4e-ad97-739b68db5b62"
+    },
+    {
+      "error": "**ANÁLISIS TÉCNICO**\n\n*   **U-Score**: El sorteo 3882 tiene una distribución distinta al azar puro, con una suma de 125 (centro clásico) y 178 (ultra disperso). Esto sugiere que el U-Score podría ser significativo.\n*   **Correlación de Pearson**: Calcular la correlación de Pearson entre `U-Score` y ",
+      "score": 37.39,
+      "timestamp": "2026-07-04T08:52:20.352757",
+      "debate_id": "acf33292-410c-4c4e-ad97-739b68db5b62"
+    },
+    {
+      "error": "**ANÁLISIS TÉCNICO**\n\n*   **U-Score**: El sorteo 3882 tiene una distribución distinta al azar puro, con una suma de 125 (centro clásico) y 178 (ultra disperso). Esto sugiere que el U-Score podría ser significativo.\n*   **Correlación de Pearson**: Calcular la correlación de Pearson entre `U-Score` y ",
+      "score": 37.39,
+      "timestamp": "2026-07-04T08:52:20.488477",
+      "debate_id": "acf33292-410c-4c4e-ad97-739b68db5b62"
+    },
+    {
+      "error": "**ANÁLISIS TÉCNICO**\n\n*   **U-Score**: El sorteo 3882 tiene una distribución distinta al azar puro, con una suma de 125 (centro clásico) y 178 (ultra disperso). Esto sugiere que el U-Score podría ser significativo.\n*   **Correlación de Pearson**: Calcular la correlación de Pearson entre `U-Score` y ",
+      "score": 37.39,
+      "timestamp": "2026-07-04T08:52:20.650592",
+      "debate_id": "acf33292-410c-4c4e-ad97-739b68db5b62"
+    },
+    {
+      "error": "**ANÁLISIS TÉCNICO**\n\n*   **U-Score**: El sorteo 3882 tiene una distribución distinta al azar puro, con una suma de 125 (centro clásico) y 178 (ultra disperso). Esto sugiere que el U-Score podría ser significativo.\n*   **Correlación de Pearson**: Calcular la correlación de Pearson entre `U-Score` y ",
+      "score": 41.51,
+      "timestamp": "2026-07-04T08:52:20.845286",
+      "debate_id": "acf33292-410c-4c4e-ad97-739b68db5b62"
     }
   ],
   "aciertos_historicos": [],

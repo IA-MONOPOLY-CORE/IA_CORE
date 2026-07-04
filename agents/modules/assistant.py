@@ -10,6 +10,7 @@ from agents.lightweight_assistant_runner import run_fast_chat, stream_fast_chat
 AGENT_NAME = "assistant"
 AGENT_PROVIDER = "ollama"
 AGENT_MODEL = "phi3"
+AGENT_IS_GENERIC_BASELINE = True
 
 
 class Agent(BaseAgent):

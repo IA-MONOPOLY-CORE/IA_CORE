@@ -1,309 +1,309 @@
 {
   "agente_id": "critic",
   "creado": "2026-07-03T16:23:31.092780",
-  "ultima_actualizacion": "2026-07-04T00:04:57.448703",
+  "ultima_actualizacion": "2026-07-04T09:20:53.447250",
   "conocimiento_base": "",
   "patrones_aprendidos": [],
   "errores_cometidos": [
     {
       "error": "Critical feedback: there is a weakness in the design",
       "score": 53.2,
-      "timestamp": "2026-07-03T23:09:52.034499",
-      "debate_id": "6b9fadec-2653-4b9f-ba89-094ba7b2463c"
+      "timestamp": "2026-07-04T09:09:58.621578",
+      "debate_id": "f810906d-71f4-425e-8e03-a8ab6727d9af"
     },
     {
       "error": "Critical feedback: there is a weakness in the design",
       "score": 53.2,
-      "timestamp": "2026-07-03T23:09:52.087831",
-      "debate_id": "6b9fadec-2653-4b9f-ba89-094ba7b2463c"
+      "timestamp": "2026-07-04T09:09:58.671873",
+      "debate_id": "f810906d-71f4-425e-8e03-a8ab6727d9af"
     },
     {
       "error": "Critical feedback: there is a weakness in the design",
       "score": 53.2,
-      "timestamp": "2026-07-03T23:20:05.348205",
-      "debate_id": "d6805986-c72b-4b91-9539-e29d5807bc3b"
+      "timestamp": "2026-07-04T09:10:01.712774",
+      "debate_id": "28b2dc46-8ef5-44fa-acee-0dc97e33f7a4"
     },
     {
       "error": "Critical feedback: there is a weakness in the design",
       "score": 53.2,
-      "timestamp": "2026-07-03T23:20:05.385563",
-      "debate_id": "d6805986-c72b-4b91-9539-e29d5807bc3b"
+      "timestamp": "2026-07-04T09:10:01.747996",
+      "debate_id": "28b2dc46-8ef5-44fa-acee-0dc97e33f7a4"
     },
     {
       "error": "Critical feedback: there is a weakness in the design",
       "score": 53.2,
-      "timestamp": "2026-07-03T23:20:05.433127",
-      "debate_id": "d6805986-c72b-4b91-9539-e29d5807bc3b"
+      "timestamp": "2026-07-04T09:10:01.783737",
+      "debate_id": "28b2dc46-8ef5-44fa-acee-0dc97e33f7a4"
     },
     {
       "error": "Critical feedback: there is a weakness in the design",
       "score": 53.2,
-      "timestamp": "2026-07-03T23:20:05.479871",
-      "debate_id": "d6805986-c72b-4b91-9539-e29d5807bc3b"
+      "timestamp": "2026-07-04T09:10:01.819916",
+      "debate_id": "28b2dc46-8ef5-44fa-acee-0dc97e33f7a4"
     },
     {
       "error": "Critical feedback: there is a weakness in the design",
       "score": 53.2,
-      "timestamp": "2026-07-03T23:20:05.526871",
-      "debate_id": "d6805986-c72b-4b91-9539-e29d5807bc3b"
+      "timestamp": "2026-07-04T09:10:01.854896",
+      "debate_id": "28b2dc46-8ef5-44fa-acee-0dc97e33f7a4"
     },
     {
       "error": "Critical feedback: there is a weakness in the design",
       "score": 53.2,
-      "timestamp": "2026-07-03T23:20:05.572972",
-      "debate_id": "d6805986-c72b-4b91-9539-e29d5807bc3b"
+      "timestamp": "2026-07-04T09:10:01.890807",
+      "debate_id": "28b2dc46-8ef5-44fa-acee-0dc97e33f7a4"
     },
     {
       "error": "Critical feedback: there is a weakness in the design",
       "score": 53.2,
-      "timestamp": "2026-07-03T23:20:08.504014",
-      "debate_id": "e52c0f7d-73a6-4723-9fa4-ccfb51a3924f"
+      "timestamp": "2026-07-04T09:10:04.997008",
+      "debate_id": "1714728f-e965-4ff2-abb0-9e0b506958f8"
     },
     {
       "error": "Critical feedback: there is a weakness in the design",
       "score": 53.2,
-      "timestamp": "2026-07-03T23:20:08.538527",
-      "debate_id": "e52c0f7d-73a6-4723-9fa4-ccfb51a3924f"
+      "timestamp": "2026-07-04T09:10:05.056416",
+      "debate_id": "1714728f-e965-4ff2-abb0-9e0b506958f8"
     },
     {
       "error": "Critical feedback: there is a weakness in the design",
       "score": 53.2,
-      "timestamp": "2026-07-03T23:20:08.570120",
-      "debate_id": "e52c0f7d-73a6-4723-9fa4-ccfb51a3924f"
+      "timestamp": "2026-07-04T09:10:05.117042",
+      "debate_id": "1714728f-e965-4ff2-abb0-9e0b506958f8"
     },
     {
       "error": "Critical feedback: there is a weakness in the design",
       "score": 53.2,
-      "timestamp": "2026-07-03T23:20:08.600614",
-      "debate_id": "e52c0f7d-73a6-4723-9fa4-ccfb51a3924f"
+      "timestamp": "2026-07-04T09:10:05.182540",
+      "debate_id": "1714728f-e965-4ff2-abb0-9e0b506958f8"
     },
     {
       "error": "Critical feedback: there is a weakness in the design",
       "score": 53.2,
-      "timestamp": "2026-07-03T23:20:08.633003",
-      "debate_id": "e52c0f7d-73a6-4723-9fa4-ccfb51a3924f"
+      "timestamp": "2026-07-04T09:10:05.237621",
+      "debate_id": "1714728f-e965-4ff2-abb0-9e0b506958f8"
     },
     {
       "error": "Critical feedback: there is a weakness in the design",
       "score": 53.2,
-      "timestamp": "2026-07-03T23:20:08.663028",
-      "debate_id": "e52c0f7d-73a6-4723-9fa4-ccfb51a3924f"
+      "timestamp": "2026-07-04T09:10:05.295267",
+      "debate_id": "1714728f-e965-4ff2-abb0-9e0b506958f8"
     },
     {
       "error": "Critical feedback: there is a weakness in the design",
       "score": 53.2,
-      "timestamp": "2026-07-03T23:20:11.589461",
-      "debate_id": "22ee6311-0266-44cd-adb0-39ff4f1235c0"
+      "timestamp": "2026-07-04T09:10:08.392213",
+      "debate_id": "1311f328-d6a3-4920-b074-6337f7c9937d"
     },
     {
       "error": "Critical feedback: there is a weakness in the design",
       "score": 53.2,
-      "timestamp": "2026-07-03T23:20:11.625676",
-      "debate_id": "22ee6311-0266-44cd-adb0-39ff4f1235c0"
+      "timestamp": "2026-07-04T09:10:08.444415",
+      "debate_id": "1311f328-d6a3-4920-b074-6337f7c9937d"
     },
     {
       "error": "Critical feedback: there is a weakness in the design",
       "score": 53.2,
-      "timestamp": "2026-07-03T23:20:11.673565",
-      "debate_id": "22ee6311-0266-44cd-adb0-39ff4f1235c0"
+      "timestamp": "2026-07-04T09:10:08.500637",
+      "debate_id": "1311f328-d6a3-4920-b074-6337f7c9937d"
     },
     {
       "error": "Critical feedback: there is a weakness in the design",
       "score": 53.2,
-      "timestamp": "2026-07-03T23:20:11.722182",
-      "debate_id": "22ee6311-0266-44cd-adb0-39ff4f1235c0"
+      "timestamp": "2026-07-04T09:10:08.557444",
+      "debate_id": "1311f328-d6a3-4920-b074-6337f7c9937d"
     },
     {
       "error": "Critical feedback: there is a weakness in the design",
       "score": 53.2,
-      "timestamp": "2026-07-03T23:20:11.769060",
-      "debate_id": "22ee6311-0266-44cd-adb0-39ff4f1235c0"
+      "timestamp": "2026-07-04T09:10:08.621285",
+      "debate_id": "1311f328-d6a3-4920-b074-6337f7c9937d"
     },
     {
       "error": "Critical feedback: there is a weakness in the design",
       "score": 53.2,
-      "timestamp": "2026-07-03T23:20:11.813879",
-      "debate_id": "22ee6311-0266-44cd-adb0-39ff4f1235c0"
+      "timestamp": "2026-07-04T09:10:08.687816",
+      "debate_id": "1311f328-d6a3-4920-b074-6337f7c9937d"
     },
     {
       "error": "Critical feedback: there is a weakness in the design",
       "score": 53.2,
-      "timestamp": "2026-07-03T23:20:14.726829",
-      "debate_id": "09a4c664-4b0c-4e68-a79b-985d4971fde8"
+      "timestamp": "2026-07-04T09:10:11.731978",
+      "debate_id": "8b39a5ee-882a-4f76-bf1f-6070c01574c2"
     },
     {
       "error": "Critical feedback: there is a weakness in the design",
       "score": 53.2,
-      "timestamp": "2026-07-03T23:20:14.763012",
-      "debate_id": "09a4c664-4b0c-4e68-a79b-985d4971fde8"
+      "timestamp": "2026-07-04T09:10:11.811408",
+      "debate_id": "8b39a5ee-882a-4f76-bf1f-6070c01574c2"
     },
     {
       "error": "Critical feedback: there is a weakness in the design",
       "score": 53.2,
-      "timestamp": "2026-07-03T23:20:14.809743",
-      "debate_id": "09a4c664-4b0c-4e68-a79b-985d4971fde8"
+      "timestamp": "2026-07-04T09:10:11.868955",
+      "debate_id": "8b39a5ee-882a-4f76-bf1f-6070c01574c2"
     },
     {
       "error": "Critical feedback: there is a weakness in the design",
       "score": 53.2,
-      "timestamp": "2026-07-03T23:20:14.858406",
-      "debate_id": "09a4c664-4b0c-4e68-a79b-985d4971fde8"
+      "timestamp": "2026-07-04T09:20:40.214108",
+      "debate_id": "5469f8b3-ea9d-4b93-96af-058dfe139eaa"
     },
     {
       "error": "Critical feedback: there is a weakness in the design",
       "score": 53.2,
-      "timestamp": "2026-07-03T23:20:14.902947",
-      "debate_id": "09a4c664-4b0c-4e68-a79b-985d4971fde8"
+      "timestamp": "2026-07-04T09:20:40.265425",
+      "debate_id": "5469f8b3-ea9d-4b93-96af-058dfe139eaa"
     },
     {
       "error": "Critical feedback: there is a weakness in the design",
       "score": 53.2,
-      "timestamp": "2026-07-03T23:20:14.950522",
-      "debate_id": "09a4c664-4b0c-4e68-a79b-985d4971fde8"
+      "timestamp": "2026-07-04T09:20:40.313188",
+      "debate_id": "5469f8b3-ea9d-4b93-96af-058dfe139eaa"
     },
     {
       "error": "Critical feedback: there is a weakness in the design",
       "score": 53.2,
-      "timestamp": "2026-07-03T23:20:17.824945",
-      "debate_id": "bed483b4-ab2e-4903-b01b-78f7d53f60db"
+      "timestamp": "2026-07-04T09:20:40.360545",
+      "debate_id": "5469f8b3-ea9d-4b93-96af-058dfe139eaa"
     },
     {
       "error": "Critical feedback: there is a weakness in the design",
       "score": 53.2,
-      "timestamp": "2026-07-03T23:20:17.866768",
-      "debate_id": "bed483b4-ab2e-4903-b01b-78f7d53f60db"
+      "timestamp": "2026-07-04T09:20:40.403445",
+      "debate_id": "5469f8b3-ea9d-4b93-96af-058dfe139eaa"
     },
     {
       "error": "Critical feedback: there is a weakness in the design",
       "score": 53.2,
-      "timestamp": "2026-07-03T23:20:17.920668",
-      "debate_id": "bed483b4-ab2e-4903-b01b-78f7d53f60db"
+      "timestamp": "2026-07-04T09:20:40.450418",
+      "debate_id": "5469f8b3-ea9d-4b93-96af-058dfe139eaa"
     },
     {
       "error": "Critical feedback: there is a weakness in the design",
       "score": 53.2,
-      "timestamp": "2026-07-04T00:04:47.944090",
-      "debate_id": "7749b0b1-02bc-44ed-ad89-55bdd8db836c"
+      "timestamp": "2026-07-04T09:20:43.374241",
+      "debate_id": "a6aec922-c149-4270-8e9c-86e401139737"
     },
     {
       "error": "Critical feedback: there is a weakness in the design",
       "score": 53.2,
-      "timestamp": "2026-07-04T00:04:47.980931",
-      "debate_id": "7749b0b1-02bc-44ed-ad89-55bdd8db836c"
+      "timestamp": "2026-07-04T09:20:43.407749",
+      "debate_id": "a6aec922-c149-4270-8e9c-86e401139737"
     },
     {
       "error": "Critical feedback: there is a weakness in the design",
       "score": 53.2,
-      "timestamp": "2026-07-04T00:04:48.011311",
-      "debate_id": "7749b0b1-02bc-44ed-ad89-55bdd8db836c"
+      "timestamp": "2026-07-04T09:20:43.451549",
+      "debate_id": "a6aec922-c149-4270-8e9c-86e401139737"
     },
     {
       "error": "Critical feedback: there is a weakness in the design",
       "score": 53.2,
-      "timestamp": "2026-07-04T00:04:48.044183",
-      "debate_id": "7749b0b1-02bc-44ed-ad89-55bdd8db836c"
+      "timestamp": "2026-07-04T09:20:43.485151",
+      "debate_id": "a6aec922-c149-4270-8e9c-86e401139737"
     },
     {
       "error": "Critical feedback: there is a weakness in the design",
       "score": 53.2,
-      "timestamp": "2026-07-04T00:04:48.075820",
-      "debate_id": "7749b0b1-02bc-44ed-ad89-55bdd8db836c"
+      "timestamp": "2026-07-04T09:20:43.516995",
+      "debate_id": "a6aec922-c149-4270-8e9c-86e401139737"
     },
     {
       "error": "Critical feedback: there is a weakness in the design",
       "score": 53.2,
-      "timestamp": "2026-07-04T00:04:48.106657",
-      "debate_id": "7749b0b1-02bc-44ed-ad89-55bdd8db836c"
+      "timestamp": "2026-07-04T09:20:43.553544",
+      "debate_id": "a6aec922-c149-4270-8e9c-86e401139737"
     },
     {
       "error": "Critical feedback: there is a weakness in the design",
       "score": 53.2,
-      "timestamp": "2026-07-04T00:04:51.050130",
-      "debate_id": "18fe077b-4f47-4134-97b7-4038b9ac7385"
+      "timestamp": "2026-07-04T09:20:46.725299",
+      "debate_id": "252b40f0-ab30-463c-9bb2-ac778e8f65e4"
     },
     {
       "error": "Critical feedback: there is a weakness in the design",
       "score": 53.2,
-      "timestamp": "2026-07-04T00:04:51.089152",
-      "debate_id": "18fe077b-4f47-4134-97b7-4038b9ac7385"
+      "timestamp": "2026-07-04T09:20:46.771420",
+      "debate_id": "252b40f0-ab30-463c-9bb2-ac778e8f65e4"
     },
     {
       "error": "Critical feedback: there is a weakness in the design",
       "score": 53.2,
-      "timestamp": "2026-07-04T00:04:51.138034",
-      "debate_id": "18fe077b-4f47-4134-97b7-4038b9ac7385"
+      "timestamp": "2026-07-04T09:20:46.820278",
+      "debate_id": "252b40f0-ab30-463c-9bb2-ac778e8f65e4"
     },
     {
       "error": "Critical feedback: there is a weakness in the design",
       "score": 53.2,
-      "timestamp": "2026-07-04T00:04:51.193427",
-      "debate_id": "18fe077b-4f47-4134-97b7-4038b9ac7385"
+      "timestamp": "2026-07-04T09:20:46.913401",
+      "debate_id": "252b40f0-ab30-463c-9bb2-ac778e8f65e4"
     },
     {
       "error": "Critical feedback: there is a weakness in the design",
       "score": 53.2,
-      "timestamp": "2026-07-04T00:04:51.247493",
-      "debate_id": "18fe077b-4f47-4134-97b7-4038b9ac7385"
+      "timestamp": "2026-07-04T09:20:46.960823",
+      "debate_id": "252b40f0-ab30-463c-9bb2-ac778e8f65e4"
     },
     {
       "error": "Critical feedback: there is a weakness in the design",
       "score": 53.2,
-      "timestamp": "2026-07-04T00:04:51.303380",
-      "debate_id": "18fe077b-4f47-4134-97b7-4038b9ac7385"
+      "timestamp": "2026-07-04T09:20:47.008267",
+      "debate_id": "252b40f0-ab30-463c-9bb2-ac778e8f65e4"
     },
     {
       "error": "Critical feedback: there is a weakness in the design",
       "score": 53.2,
-      "timestamp": "2026-07-04T00:04:54.250867",
-      "debate_id": "dc7fbe6c-c267-4360-8ca2-45582f2b287c"
+      "timestamp": "2026-07-04T09:20:50.008146",
+      "debate_id": "5f8d029c-50a0-4275-aae7-1bd21216c053"
     },
     {
       "error": "Critical feedback: there is a weakness in the design",
       "score": 53.2,
-      "timestamp": "2026-07-04T00:04:54.289909",
-      "debate_id": "dc7fbe6c-c267-4360-8ca2-45582f2b287c"
+      "timestamp": "2026-07-04T09:20:50.056306",
+      "debate_id": "5f8d029c-50a0-4275-aae7-1bd21216c053"
     },
     {
       "error": "Critical feedback: there is a weakness in the design",
       "score": 53.2,
-      "timestamp": "2026-07-04T00:04:54.343207",
-      "debate_id": "dc7fbe6c-c267-4360-8ca2-45582f2b287c"
+      "timestamp": "2026-07-04T09:20:50.107372",
+      "debate_id": "5f8d029c-50a0-4275-aae7-1bd21216c053"
     },
     {
       "error": "Critical feedback: there is a weakness in the design",
       "score": 53.2,
-      "timestamp": "2026-07-04T00:04:54.396139",
-      "debate_id": "dc7fbe6c-c267-4360-8ca2-45582f2b287c"
+      "timestamp": "2026-07-04T09:20:50.200360",
+      "debate_id": "5f8d029c-50a0-4275-aae7-1bd21216c053"
     },
     {
       "error": "Critical feedback: there is a weakness in the design",
       "score": 53.2,
-      "timestamp": "2026-07-04T00:04:54.449852",
-      "debate_id": "dc7fbe6c-c267-4360-8ca2-45582f2b287c"
+      "timestamp": "2026-07-04T09:20:50.245946",
+      "debate_id": "5f8d029c-50a0-4275-aae7-1bd21216c053"
     },
     {
       "error": "Critical feedback: there is a weakness in the design",
       "score": 53.2,
-      "timestamp": "2026-07-04T00:04:54.503650",
-      "debate_id": "dc7fbe6c-c267-4360-8ca2-45582f2b287c"
+      "timestamp": "2026-07-04T09:20:50.293101",
+      "debate_id": "5f8d029c-50a0-4275-aae7-1bd21216c053"
     },
     {
       "error": "Critical feedback: there is a weakness in the design",
       "score": 53.2,
-      "timestamp": "2026-07-04T00:04:57.364038",
-      "debate_id": "665835d8-4796-410a-af76-250475425110"
+      "timestamp": "2026-07-04T09:20:53.328654",
+      "debate_id": "cb428d35-3574-46fa-9c84-365d6f335f32"
     },
     {
       "error": "Critical feedback: there is a weakness in the design",
       "score": 53.2,
-      "timestamp": "2026-07-04T00:04:57.399199",
-      "debate_id": "665835d8-4796-410a-af76-250475425110"
+      "timestamp": "2026-07-04T09:20:53.387106",
+      "debate_id": "cb428d35-3574-46fa-9c84-365d6f335f32"
     },
     {
       "error": "Critical feedback: there is a weakness in the design",
       "score": 53.2,
-      "timestamp": "2026-07-04T00:04:57.448703",
-      "debate_id": "665835d8-4796-410a-af76-250475425110"
+      "timestamp": "2026-07-04T09:20:53.446204",
+      "debate_id": "cb428d35-3574-46fa-9c84-365d6f335f32"
     }
   ],
   "aciertos_historicos": [],

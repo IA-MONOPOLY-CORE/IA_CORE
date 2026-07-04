@@ -7,6 +7,7 @@ AGENT_NAME = "optimizer"
 AGENT_ROLE = AgentRole.OPTIMIZER.value
 AGENT_PROVIDER = "ollama"
 AGENT_MODEL = "phi3"
+AGENT_IS_GENERIC_BASELINE = True
 
 
 class Agent(RoleAgent):

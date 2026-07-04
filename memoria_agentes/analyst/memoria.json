@@ -1,309 +1,309 @@
 {
   "agente_id": "analyst",
   "creado": "2026-07-03T16:23:31.075690",
-  "ultima_actualizacion": "2026-07-04T00:04:57.431109",
+  "ultima_actualizacion": "2026-07-04T09:20:53.426993",
   "conocimiento_base": "",
   "patrones_aprendidos": [],
   "errores_cometidos": [
     {
       "error": "Positive analysis: looks solid",
       "score": 53.2,
-      "timestamp": "2026-07-03T23:09:52.018059",
-      "debate_id": "6b9fadec-2653-4b9f-ba89-094ba7b2463c"
+      "timestamp": "2026-07-04T09:09:58.604382",
+      "debate_id": "f810906d-71f4-425e-8e03-a8ab6727d9af"
     },
     {
       "error": "Positive analysis: looks solid",
       "score": 53.2,
-      "timestamp": "2026-07-03T23:09:52.069585",
-      "debate_id": "6b9fadec-2653-4b9f-ba89-094ba7b2463c"
+      "timestamp": "2026-07-04T09:09:58.654658",
+      "debate_id": "f810906d-71f4-425e-8e03-a8ab6727d9af"
     },
     {
       "error": "Positive analysis: looks solid",
       "score": 53.2,
-      "timestamp": "2026-07-03T23:20:05.344687",
-      "debate_id": "d6805986-c72b-4b91-9539-e29d5807bc3b"
+      "timestamp": "2026-07-04T09:10:01.692873",
+      "debate_id": "28b2dc46-8ef5-44fa-acee-0dc97e33f7a4"
     },
     {
       "error": "Positive analysis: looks solid",
       "score": 53.2,
-      "timestamp": "2026-07-03T23:20:05.369914",
-      "debate_id": "d6805986-c72b-4b91-9539-e29d5807bc3b"
+      "timestamp": "2026-07-04T09:10:01.730162",
+      "debate_id": "28b2dc46-8ef5-44fa-acee-0dc97e33f7a4"
     },
     {
       "error": "Positive analysis: looks solid",
       "score": 53.2,
-      "timestamp": "2026-07-03T23:20:05.416882",
-      "debate_id": "d6805986-c72b-4b91-9539-e29d5807bc3b"
+      "timestamp": "2026-07-04T09:10:01.766220",
+      "debate_id": "28b2dc46-8ef5-44fa-acee-0dc97e33f7a4"
     },
     {
       "error": "Positive analysis: looks solid",
       "score": 53.2,
-      "timestamp": "2026-07-03T23:20:05.464130",
-      "debate_id": "d6805986-c72b-4b91-9539-e29d5807bc3b"
+      "timestamp": "2026-07-04T09:10:01.800521",
+      "debate_id": "28b2dc46-8ef5-44fa-acee-0dc97e33f7a4"
     },
     {
       "error": "Positive analysis: looks solid",
       "score": 53.2,
-      "timestamp": "2026-07-03T23:20:05.510616",
-      "debate_id": "d6805986-c72b-4b91-9539-e29d5807bc3b"
+      "timestamp": "2026-07-04T09:10:01.837076",
+      "debate_id": "28b2dc46-8ef5-44fa-acee-0dc97e33f7a4"
     },
     {
       "error": "Positive analysis: looks solid",
       "score": 53.2,
-      "timestamp": "2026-07-03T23:20:05.558280",
-      "debate_id": "d6805986-c72b-4b91-9539-e29d5807bc3b"
+      "timestamp": "2026-07-04T09:10:01.873736",
+      "debate_id": "28b2dc46-8ef5-44fa-acee-0dc97e33f7a4"
     },
     {
       "error": "Positive analysis: looks solid",
       "score": 53.2,
-      "timestamp": "2026-07-03T23:20:08.500258",
-      "debate_id": "e52c0f7d-73a6-4723-9fa4-ccfb51a3924f"
+      "timestamp": "2026-07-04T09:10:04.977687",
+      "debate_id": "1714728f-e965-4ff2-abb0-9e0b506958f8"
     },
     {
       "error": "Positive analysis: looks solid",
       "score": 53.2,
-      "timestamp": "2026-07-03T23:20:08.522146",
-      "debate_id": "e52c0f7d-73a6-4723-9fa4-ccfb51a3924f"
+      "timestamp": "2026-07-04T09:10:05.035324",
+      "debate_id": "1714728f-e965-4ff2-abb0-9e0b506958f8"
     },
     {
       "error": "Positive analysis: looks solid",
       "score": 53.2,
-      "timestamp": "2026-07-03T23:20:08.553783",
-      "debate_id": "e52c0f7d-73a6-4723-9fa4-ccfb51a3924f"
+      "timestamp": "2026-07-04T09:10:05.093250",
+      "debate_id": "1714728f-e965-4ff2-abb0-9e0b506958f8"
     },
     {
       "error": "Positive analysis: looks solid",
       "score": 53.2,
-      "timestamp": "2026-07-03T23:20:08.584412",
-      "debate_id": "e52c0f7d-73a6-4723-9fa4-ccfb51a3924f"
+      "timestamp": "2026-07-04T09:10:05.163207",
+      "debate_id": "1714728f-e965-4ff2-abb0-9e0b506958f8"
     },
     {
       "error": "Positive analysis: looks solid",
       "score": 53.2,
-      "timestamp": "2026-07-03T23:20:08.617415",
-      "debate_id": "e52c0f7d-73a6-4723-9fa4-ccfb51a3924f"
+      "timestamp": "2026-07-04T09:10:05.220487",
+      "debate_id": "1714728f-e965-4ff2-abb0-9e0b506958f8"
     },
     {
       "error": "Positive analysis: looks solid",
       "score": 53.2,
-      "timestamp": "2026-07-03T23:20:08.648187",
-      "debate_id": "e52c0f7d-73a6-4723-9fa4-ccfb51a3924f"
+      "timestamp": "2026-07-04T09:10:05.276947",
+      "debate_id": "1714728f-e965-4ff2-abb0-9e0b506958f8"
     },
     {
       "error": "Positive analysis: looks solid",
       "score": 53.2,
-      "timestamp": "2026-07-03T23:20:11.585873",
-      "debate_id": "22ee6311-0266-44cd-adb0-39ff4f1235c0"
+      "timestamp": "2026-07-04T09:10:08.372194",
+      "debate_id": "1311f328-d6a3-4920-b074-6337f7c9937d"
     },
     {
       "error": "Positive analysis: looks solid",
       "score": 53.2,
-      "timestamp": "2026-07-03T23:20:11.611478",
-      "debate_id": "22ee6311-0266-44cd-adb0-39ff4f1235c0"
+      "timestamp": "2026-07-04T09:10:08.425321",
+      "debate_id": "1311f328-d6a3-4920-b074-6337f7c9937d"
     },
     {
       "error": "Positive analysis: looks solid",
       "score": 53.2,
-      "timestamp": "2026-07-03T23:20:11.658514",
-      "debate_id": "22ee6311-0266-44cd-adb0-39ff4f1235c0"
+      "timestamp": "2026-07-04T09:10:08.482116",
+      "debate_id": "1311f328-d6a3-4920-b074-6337f7c9937d"
     },
     {
       "error": "Positive analysis: looks solid",
       "score": 53.2,
-      "timestamp": "2026-07-03T23:20:11.706491",
-      "debate_id": "22ee6311-0266-44cd-adb0-39ff4f1235c0"
+      "timestamp": "2026-07-04T09:10:08.537721",
+      "debate_id": "1311f328-d6a3-4920-b074-6337f7c9937d"
     },
     {
       "error": "Positive analysis: looks solid",
       "score": 53.2,
-      "timestamp": "2026-07-03T23:20:11.752746",
-      "debate_id": "22ee6311-0266-44cd-adb0-39ff4f1235c0"
+      "timestamp": "2026-07-04T09:10:08.603068",
+      "debate_id": "1311f328-d6a3-4920-b074-6337f7c9937d"
     },
     {
       "error": "Positive analysis: looks solid",
       "score": 53.2,
-      "timestamp": "2026-07-03T23:20:11.799688",
-      "debate_id": "22ee6311-0266-44cd-adb0-39ff4f1235c0"
+      "timestamp": "2026-07-04T09:10:08.665498",
+      "debate_id": "1311f328-d6a3-4920-b074-6337f7c9937d"
     },
     {
       "error": "Positive analysis: looks solid",
       "score": 53.2,
-      "timestamp": "2026-07-03T23:20:14.722777",
-      "debate_id": "09a4c664-4b0c-4e68-a79b-985d4971fde8"
+      "timestamp": "2026-07-04T09:10:11.713260",
+      "debate_id": "8b39a5ee-882a-4f76-bf1f-6070c01574c2"
     },
     {
       "error": "Positive analysis: looks solid",
       "score": 53.2,
-      "timestamp": "2026-07-03T23:20:14.747238",
-      "debate_id": "09a4c664-4b0c-4e68-a79b-985d4971fde8"
+      "timestamp": "2026-07-04T09:10:11.792224",
+      "debate_id": "8b39a5ee-882a-4f76-bf1f-6070c01574c2"
     },
     {
       "error": "Positive analysis: looks solid",
       "score": 53.2,
-      "timestamp": "2026-07-03T23:20:14.794095",
-      "debate_id": "09a4c664-4b0c-4e68-a79b-985d4971fde8"
+      "timestamp": "2026-07-04T09:10:11.847067",
+      "debate_id": "8b39a5ee-882a-4f76-bf1f-6070c01574c2"
     },
     {
       "error": "Positive analysis: looks solid",
       "score": 53.2,
-      "timestamp": "2026-07-03T23:20:14.841423",
-      "debate_id": "09a4c664-4b0c-4e68-a79b-985d4971fde8"
+      "timestamp": "2026-07-04T09:20:40.194267",
+      "debate_id": "5469f8b3-ea9d-4b93-96af-058dfe139eaa"
     },
     {
       "error": "Positive analysis: looks solid",
       "score": 53.2,
-      "timestamp": "2026-07-03T23:20:14.889082",
-      "debate_id": "09a4c664-4b0c-4e68-a79b-985d4971fde8"
+      "timestamp": "2026-07-04T09:20:40.248153",
+      "debate_id": "5469f8b3-ea9d-4b93-96af-058dfe139eaa"
     },
     {
       "error": "Positive analysis: looks solid",
       "score": 53.2,
-      "timestamp": "2026-07-03T23:20:14.934339",
-      "debate_id": "09a4c664-4b0c-4e68-a79b-985d4971fde8"
+      "timestamp": "2026-07-04T09:20:40.296155",
+      "debate_id": "5469f8b3-ea9d-4b93-96af-058dfe139eaa"
     },
     {
       "error": "Positive analysis: looks solid",
       "score": 53.2,
-      "timestamp": "2026-07-03T23:20:17.821912",
-      "debate_id": "bed483b4-ab2e-4903-b01b-78f7d53f60db"
+      "timestamp": "2026-07-04T09:20:40.344316",
+      "debate_id": "5469f8b3-ea9d-4b93-96af-058dfe139eaa"
     },
     {
       "error": "Positive analysis: looks solid",
       "score": 53.2,
-      "timestamp": "2026-07-03T23:20:17.847857",
-      "debate_id": "bed483b4-ab2e-4903-b01b-78f7d53f60db"
+      "timestamp": "2026-07-04T09:20:40.375986",
+      "debate_id": "5469f8b3-ea9d-4b93-96af-058dfe139eaa"
     },
     {
       "error": "Positive analysis: looks solid",
       "score": 53.2,
-      "timestamp": "2026-07-03T23:20:17.903774",
-      "debate_id": "bed483b4-ab2e-4903-b01b-78f7d53f60db"
+      "timestamp": "2026-07-04T09:20:40.425599",
+      "debate_id": "5469f8b3-ea9d-4b93-96af-058dfe139eaa"
     },
     {
       "error": "Positive analysis: looks solid",
       "score": 53.2,
-      "timestamp": "2026-07-04T00:04:47.941512",
-      "debate_id": "7749b0b1-02bc-44ed-ad89-55bdd8db836c"
+      "timestamp": "2026-07-04T09:20:43.359476",
+      "debate_id": "a6aec922-c149-4270-8e9c-86e401139737"
     },
     {
       "error": "Positive analysis: looks solid",
       "score": 53.2,
-      "timestamp": "2026-07-04T00:04:47.964343",
-      "debate_id": "7749b0b1-02bc-44ed-ad89-55bdd8db836c"
+      "timestamp": "2026-07-04T09:20:43.403867",
+      "debate_id": "a6aec922-c149-4270-8e9c-86e401139737"
     },
     {
       "error": "Positive analysis: looks solid",
       "score": 53.2,
-      "timestamp": "2026-07-04T00:04:47.996610",
-      "debate_id": "7749b0b1-02bc-44ed-ad89-55bdd8db836c"
+      "timestamp": "2026-07-04T09:20:43.433435",
+      "debate_id": "a6aec922-c149-4270-8e9c-86e401139737"
     },
     {
       "error": "Positive analysis: looks solid",
       "score": 53.2,
-      "timestamp": "2026-07-04T00:04:48.027548",
-      "debate_id": "7749b0b1-02bc-44ed-ad89-55bdd8db836c"
+      "timestamp": "2026-07-04T09:20:43.470617",
+      "debate_id": "a6aec922-c149-4270-8e9c-86e401139737"
     },
     {
       "error": "Positive analysis: looks solid",
       "score": 53.2,
-      "timestamp": "2026-07-04T00:04:48.059704",
-      "debate_id": "7749b0b1-02bc-44ed-ad89-55bdd8db836c"
+      "timestamp": "2026-07-04T09:20:43.505847",
+      "debate_id": "a6aec922-c149-4270-8e9c-86e401139737"
     },
     {
       "error": "Positive analysis: looks solid",
       "score": 53.2,
-      "timestamp": "2026-07-04T00:04:48.091364",
-      "debate_id": "7749b0b1-02bc-44ed-ad89-55bdd8db836c"
+      "timestamp": "2026-07-04T09:20:43.532454",
+      "debate_id": "a6aec922-c149-4270-8e9c-86e401139737"
     },
     {
       "error": "Positive analysis: looks solid",
       "score": 53.2,
-      "timestamp": "2026-07-04T00:04:51.046085",
-      "debate_id": "18fe077b-4f47-4134-97b7-4038b9ac7385"
+      "timestamp": "2026-07-04T09:20:46.709066",
+      "debate_id": "252b40f0-ab30-463c-9bb2-ac778e8f65e4"
     },
     {
       "error": "Positive analysis: looks solid",
       "score": 53.2,
-      "timestamp": "2026-07-04T00:04:51.074326",
-      "debate_id": "18fe077b-4f47-4134-97b7-4038b9ac7385"
+      "timestamp": "2026-07-04T09:20:46.756341",
+      "debate_id": "252b40f0-ab30-463c-9bb2-ac778e8f65e4"
     },
     {
       "error": "Positive analysis: looks solid",
       "score": 53.2,
-      "timestamp": "2026-07-04T00:04:51.121213",
-      "debate_id": "18fe077b-4f47-4134-97b7-4038b9ac7385"
+      "timestamp": "2026-07-04T09:20:46.804202",
+      "debate_id": "252b40f0-ab30-463c-9bb2-ac778e8f65e4"
     },
     {
       "error": "Positive analysis: looks solid",
       "score": 53.2,
-      "timestamp": "2026-07-04T00:04:51.175509",
-      "debate_id": "18fe077b-4f47-4134-97b7-4038b9ac7385"
+      "timestamp": "2026-07-04T09:20:46.894698",
+      "debate_id": "252b40f0-ab30-463c-9bb2-ac778e8f65e4"
     },
     {
       "error": "Positive analysis: looks solid",
       "score": 53.2,
-      "timestamp": "2026-07-04T00:04:51.227034",
-      "debate_id": "18fe077b-4f47-4134-97b7-4038b9ac7385"
+      "timestamp": "2026-07-04T09:20:46.944559",
+      "debate_id": "252b40f0-ab30-463c-9bb2-ac778e8f65e4"
     },
     {
       "error": "Positive analysis: looks solid",
       "score": 53.2,
-      "timestamp": "2026-07-04T00:04:51.281546",
-      "debate_id": "18fe077b-4f47-4134-97b7-4038b9ac7385"
+      "timestamp": "2026-07-04T09:20:46.991813",
+      "debate_id": "252b40f0-ab30-463c-9bb2-ac778e8f65e4"
     },
     {
       "error": "Positive analysis: looks solid",
       "score": 53.2,
-      "timestamp": "2026-07-04T00:04:54.246843",
-      "debate_id": "dc7fbe6c-c267-4360-8ca2-45582f2b287c"
+      "timestamp": "2026-07-04T09:20:49.991098",
+      "debate_id": "5f8d029c-50a0-4275-aae7-1bd21216c053"
     },
     {
       "error": "Positive analysis: looks solid",
       "score": 53.2,
-      "timestamp": "2026-07-04T00:04:54.274145",
-      "debate_id": "dc7fbe6c-c267-4360-8ca2-45582f2b287c"
+      "timestamp": "2026-07-04T09:20:50.040524",
+      "debate_id": "5f8d029c-50a0-4275-aae7-1bd21216c053"
     },
     {
       "error": "Positive analysis: looks solid",
       "score": 53.2,
-      "timestamp": "2026-07-04T00:04:54.324202",
-      "debate_id": "dc7fbe6c-c267-4360-8ca2-45582f2b287c"
+      "timestamp": "2026-07-04T09:20:50.089237",
+      "debate_id": "5f8d029c-50a0-4275-aae7-1bd21216c053"
     },
     {
       "error": "Positive analysis: looks solid",
       "score": 53.2,
-      "timestamp": "2026-07-04T00:04:54.380253",
-      "debate_id": "dc7fbe6c-c267-4360-8ca2-45582f2b287c"
+      "timestamp": "2026-07-04T09:20:50.184053",
+      "debate_id": "5f8d029c-50a0-4275-aae7-1bd21216c053"
     },
     {
       "error": "Positive analysis: looks solid",
       "score": 53.2,
-      "timestamp": "2026-07-04T00:04:54.431598",
-      "debate_id": "dc7fbe6c-c267-4360-8ca2-45582f2b287c"
+      "timestamp": "2026-07-04T09:20:50.230471",
+      "debate_id": "5f8d029c-50a0-4275-aae7-1bd21216c053"
     },
     {
       "error": "Positive analysis: looks solid",
       "score": 53.2,
-      "timestamp": "2026-07-04T00:04:54.486177",
-      "debate_id": "dc7fbe6c-c267-4360-8ca2-45582f2b287c"
+      "timestamp": "2026-07-04T09:20:50.277708",
+      "debate_id": "5f8d029c-50a0-4275-aae7-1bd21216c053"
     },
     {
       "error": "Positive analysis: looks solid",
       "score": 53.2,
-      "timestamp": "2026-07-04T00:04:57.360093",
-      "debate_id": "665835d8-4796-410a-af76-250475425110"
+      "timestamp": "2026-07-04T09:20:53.306607",
+      "debate_id": "cb428d35-3574-46fa-9c84-365d6f335f32"
     },
     {
       "error": "Positive analysis: looks solid",
       "score": 53.2,
-      "timestamp": "2026-07-04T00:04:57.382955",
-      "debate_id": "665835d8-4796-410a-af76-250475425110"
+      "timestamp": "2026-07-04T09:20:53.369782",
+      "debate_id": "cb428d35-3574-46fa-9c84-365d6f335f32"
     },
     {
       "error": "Positive analysis: looks solid",
       "score": 53.2,
-      "timestamp": "2026-07-04T00:04:57.431109",
-      "debate_id": "665835d8-4796-410a-af76-250475425110"
+      "timestamp": "2026-07-04T09:20:53.426273",
+      "debate_id": "cb428d35-3574-46fa-9c84-365d6f335f32"
     }
   ],
   "aciertos_historicos": [],
