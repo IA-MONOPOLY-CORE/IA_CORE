@@ -2,6 +2,14 @@
 
 Este documento mapea qué partes del sistema son el "motor de debate genérico" y cuáles son específicas del caso de uso Lotería/S.A.A.O.P.
 
+## Estado verificado al 4 de julio de 2026
+
+- **Paso 5 — COMPLETADO:** los seis papers de identidad se movieron de `agents/papers/` a `domains/loteria/agents/papers/`. La ruta está centralizada en `config.AGENTS_PAPERS_DIR` y es consumida por `agents/runtime_json_agent.py`, `api.py` y las pruebas de eliminación de agentes.
+- **Paso 6 — COMPLETADO:** la memoria vectorial genérica permanece en `core/memoria_perpetua.py` y almacena metadata arbitraria en `memoria_vectorial/`; `domains/loteria/memoria_loteria.py` adapta el concepto `sorteo`. La persistencia SQL específica quedó en `domains/loteria/database_loteria.py`, con la base `domains/loteria/loto_plus.db`; `memory/database.py` fue eliminado.
+- **Paso 8 — COMPLETADO:** `SAAOP_TASK` se define en `domains/loteria/config_loteria.py` y la ejecución/revelación de validación ciega vive en `domains/loteria/validation_loteria.py`. `api.py` conserva únicamente los endpoints/fachada y carga el dominio de forma perezosa; si Lotería no está disponible responde `501`.
+- **Paso 9 — COMPLETADO:** `analyst`, `assistant`, `critic` y `optimizer` se identifican con `AGENT_IS_GENERIC_BASELINE = True`; `AgentManager` conserva esa clasificación, `/api/agents/list` publica `is_generic_baseline` y `ui/web/index.html` muestra dos grupos: **Agentes base (demo) [4]** y **Agentes S.A.A.O.P. [6]**.
+- **Interfaz — COMPLETADO:** Streamlit fue eliminado por completo (`ui/app.py`, `ui/panels/`, `ui/components/`, `ui/state/`, `.streamlit/` y `requirements-ui.txt` ya no existen). `ui/web/`, servido por FastAPI, es la única interfaz de usuario del proyecto.
+
 ## Leyenda
 - **NO**: Lógica 100% genérica, reusable en cualquier dominio
 - **SÍ**: Lógica 100% específica de Lotería/S.A.A.O.P.
@@ -22,14 +30,15 @@ Este documento mapea qué partes del sistema son el "motor de debate genérico" 
 | core/memoria_perpetua.py | NO | Sistema genérico de memoria con ChromaDB, búsqueda vectorial y filtros de metadata arbitrarios; toda referencia a `sorteo` fue extraída al adaptador de Lotería |
 | core/orchestration.py | NO | Modelos de datos genéricos (AgentStepResult, DebateResult, OrchestrationResult) |
 | core/scoring.py | MOVIDO | Movido a domains/loteria/scoring.py (100% específico de Lotería) |
-| core/supervisor.py | PARCIAL | BUNKER_EXPERT_MAPPING movido a domains/loteria/config_loteria.py, lógica de orquestación genérica, pero _execute_single_quantum_agent_async() usa scoring específico de lotería |
+| core/supervisor.py | PARCIAL | La evolución, el pipeline, el mapeo de expertos y las funciones de scoring se inyectan por constructor; ya no hay scoring rígido en los ejecutores. Conserva fallbacks perezosos hacia Lotería por compatibilidad, textos S.A.A.O.P. y extracción de combinaciones 0-50, por lo que aún no es 100% agnóstico |
 | **agents/** | | |
 | agents/base.py | NO | Contrato ABC genérico para agentes |
-| agents/manager.py | NO | Gestión genérica de agentes (carga JSON, registro, lifecycle) |
-| agents/prompts.py | NO | Estructura genérica de construcción de prompts (docstring generalizado), prompts específicos movidos a domains/loteria/prompts_loteria.py |
-| agents/loader.py | NO | Descubrimiento genérico de módulos de agentes |
+| agents/manager.py | NO | Gestión genérica de agentes (carga JSON, registro, lifecycle) y registro de IDs marcados como baseline genérico |
+| agents/prompts.py | PARCIAL | Conserva helpers genéricos, pero todavía importa directamente los prompts de `domains/loteria/prompts_loteria.py` |
+| agents/loader.py | NO | Descubrimiento genérico de módulos y lectura opcional de `AGENT_IS_GENERIC_BASELINE` |
+| agents/modules/{analyst,assistant,critic,optimizer}.py | NO | Agentes base reutilizables, identificados con `AGENT_IS_GENERIC_BASELINE = True` para diferenciarlos de los agentes reales del dominio |
 | agents/llm_runner.py | NO | Runner genérico de LLM |
-| agents/runtime_json_agent.py | NO | Implementación genérica de agente desde JSON |
+| agents/runtime_json_agent.py | PARCIAL | Implementación de agente desde JSON y carga de papers por ruta configurable; la integración de memoria aún usa directamente `domains/loteria/memoria_loteria.py` |
 | agents/result.py | NO | Modelos de resultado genéricos |
 | agents/role_agent.py | NO | Agente con rol genérico |
 | agents/roles.py | NO | Enum de roles genérico |
@@ -59,7 +68,7 @@ Este documento mapea qué partes del sistema son el "motor de debate genérico" 
 | backtest_ciego.py | MOVIDO | Movido a domains/loteria/backtest_ciego.py (100% específico de Lotería) |
 | lotoplus_completo_3511_3885.json | MOVIDO | Movido a domains/loteria/lotoplus_completo_3511_3885.json (datos específicos de Lotería) |
 | **config.py** | PARCIAL | Variables genéricas de configuración (rutas, timeouts, proveedores) PERO variables específicas movidas a domains/loteria/config_loteria.py: DEFAULT_DEBATE_TASK, DEBATE_AGENTS, TRAINING_END/BLIND_TEST_START/LIVE_TEST_START/LIVE_TEST_END |
-| **api.py** | PARCIAL | Endpoints genéricos de API REST PERO VALIDATION_AGENTS movido a domains/loteria/config_loteria.py (alias), SAAOP_TASK específico, límites de sistema TRAINING_END/BLIND_TEST_START/etc importados desde config_loteria.py, endpoints específicos de validación ciega con lógica de sorteos |
+| **api.py** | PARCIAL | API REST genérica con fachada opcional de Lotería: carga perezosamente `SAAOP_TASK`, límites y funciones de validación desde `domains/loteria/`, devuelve `501` sin ese dominio y publica `is_generic_baseline` en `/api/agents/list`. La lógica de negocio de validación ciega ya no reside aquí |
 | **domains/loteria/** | | |
 | domains/loteria/config_loteria.py | SÍ | **NUEVO** - Configuración específica de Lotería: DEBATE_AGENTS, DEFAULT_DEBATE_TASK, TRAINING_END/BLIND_TEST_START/LIVE_TEST_START/LIVE_TEST_END, BUNKER_EXPERT_MAPPING, VALIDATION_AGENTS (alias), DEBATE_PIPELINE_6_AGENTS |
 | domains/loteria/debate_loteria.py | SÍ | **NUEVO** - Función get_loteria_contradiction_patterns() con patrones específicos de contradicción de zonas (CAZADOR/ESPEJO/PUENTE) |
@@ -71,6 +80,7 @@ Este documento mapea qué partes del sistema son el "motor de debate genérico" 
 | domains/loteria/cargar_sorteos.py | SÍ | **MOVIDO** desde memory/ - Carga de sorteos específica de Lotería |
 | domains/loteria/database_loteria.py | SÍ | **MOVIDO** desde memory/database.py - Persistencia SQLite de sorteos, debates, intervenciones y métricas de Lotería |
 | domains/loteria/memoria_loteria.py | SÍ | **NUEVO** - Adaptador que conserva la API de Lotería y traduce `sorteo` a metadata genérica `{"sorteo": valor}` |
+| domains/loteria/loto_plus.db | SÍ | Base SQLite específica regenerada desde el histórico JSON y ubicada junto al dominio |
 | domains/loteria/lotoplus_completo_3511_3885.json | SÍ | **MOVIDO** desde raíz - Datos históricos específicos de Loto Plus (3511-3885) |
 | domains/loteria/validation_loteria.py | SÍ | **NUEVO** - Lógica específica de validación ciega y revelación de resultados: run_validation_debate(), reveal_validation_result() y _extraer_numeros_de_respuesta() |
 | domains/loteria/agents/config/*.json | SÍ | **MOVIDOS** desde agents/config/ - Todos los prompts de sistema son 100% específicos de S.A.A.O.P.: |
@@ -87,6 +97,11 @@ Este documento mapea qué partes del sistema son el "motor de debate genérico" 
 | domains/loteria/agents/papers/viejo_lobo_rey_paper.json | SÍ | Paper específico con identidad, reglas y lecciones aprendidas del viejo lobo rey |
 | domains/loteria/agents/papers/viejo_deepseek_paper.json | SÍ | Paper específico con identidad, reglas y lecciones aprendidas del viejo deepseek |
 | domains/loteria/agents/papers/nuevo_deepseek_saaop_paper.json | SÍ | Paper específico con identidad, reglas y lecciones aprendidas del nuevo deepseek S.A.A.O.P. |
+| **ui/** | | |
+| ui/web/ | PARCIAL | Única interfaz de usuario vigente: HUD HTML/CSS/JavaScript servido por FastAPI; combina paneles genéricos con presentación y agentes S.A.A.O.P., incluido el selector agrupado |
+| ui/app.py y antigua UI Streamlit | ELIMINADO | Streamlit, sus paneles, componentes, estado, traducciones y dependencias específicas fueron retirados completamente |
+| **tests/** | | |
+| tests/test_no_hardcoded_agent_paths.py | NO | Test anti-regresión que escanea Core, agentes, proveedores, dominios, UI y archivos Python raíz para impedir que reaparezcan rutas hardcodeadas como `agents/config`; obliga a usar `config.AGENTS_CONFIG_DIR` |
 
 ---
 
@@ -101,7 +116,6 @@ Este documento mapea qué partes del sistema son el "motor de debate genérico" 
 - agents/manager.py
 - agents/loader.py
 - agents/llm_runner.py
-- agents/runtime_json_agent.py
 - agents/result.py
 - agents/role_agent.py
 - agents/roles.py
@@ -119,8 +133,11 @@ Este documento mapea qué partes del sistema son el "motor de debate genérico" 
 - domains/loteria/cargar_sorteos.py (**MOVIDO** desde memory/)
 - domains/loteria/database_loteria.py (**MOVIDO** desde memory/)
 - domains/loteria/memoria_loteria.py (**NUEVO** - adaptador de memoria para `sorteo`)
+- domains/loteria/validation_loteria.py (**NUEVO** - ejecución y revelación de validación ciega)
 - domains/loteria/lotoplus_completo_3511_3885.json (**MOVIDO** desde raíz)
+- domains/loteria/loto_plus.db (SQLite específica del dominio)
 - domains/loteria/agents/config/*.json (**MOVIDOS** desde agents/config/)
+- domains/loteria/agents/papers/*.json (**MOVIDOS** desde agents/papers/)
 
 ### Parcial (Mezcla - requiere separación)
 - core/debate.py
@@ -133,12 +150,17 @@ Este documento mapea qué partes del sistema son el "motor de debate genérico" 
   - Mantener: sistema de registro y traducción de herramientas (patrones de extracción genéricos en español)
 - core/supervisor.py
   - **COMPLETADO** - BUNKER_EXPERT_MAPPING movido a domains/loteria/config_loteria.py
-  - Pendiente: lógica de scoring específica en _execute_single_quantum_agent_async()
+  - **COMPLETADO** - EvolutionManager, pipeline, expertos y funciones de scoring se reciben por inyección
+  - **RESIDUAL** - Fallbacks perezosos a Lotería, texto S.A.A.O.P. y extracción numérica 0-50 permanecen por compatibilidad
   - Mantener: orquestación asíncrona, gestión de timeouts, persistencia
 - agents/prompts.py
   - **COMPLETADO** - _analyst_prompt(), _analyst_reformulate_prompt(), _critic_prompt(), _optimizer_prompt() movidos a domains/loteria/prompts_loteria.py
   - **COMPLETADO** - Docstring generalizado (eliminado "LOTO PLUS WALK-FORWARD")
-  - Mantener: build_role_prompt(), _format_previous_block(), _assistant_prompt()
+  - **RESIDUAL** - `build_role_prompt()` todavía importa directamente los prompts del dominio Lotería
+  - Mantener: _format_previous_block(), _assistant_prompt()
+- agents/runtime_json_agent.py
+  - **COMPLETADO** - Papers resueltos mediante `config.AGENTS_PAPERS_DIR`
+  - **RESIDUAL** - La memoria vectorial se obtiene directamente desde `domains/loteria/memoria_loteria.py`
 - config.py
   - **COMPLETADO** - DEFAULT_DEBATE_TASK, DEBATE_AGENTS, límites de sorteos movidos a domains/loteria/config_loteria.py
   - Mantener: rutas, timeouts, configuración de proveedores
@@ -148,11 +170,14 @@ Este documento mapea qué partes del sistema son el "motor de debate genérico" 
   - **COMPLETADO** - Límites de sorteos (TRAINING_END, BLIND_TEST_START, etc.) importados desde config_loteria.py
   - **COMPLETADO** - _run_validation_debate y reveal_validation_result movidos a domains/loteria/validation_loteria.py
   - **COMPLETADO** - Lazy imports para funciones de validación, devolviendo 501 si el dominio lotería no está disponible
-  - Mantener: estructura de API, endpoints genéricos de chat/debate
+  - Mantener: estructura de API, endpoints genéricos de chat/debate y endpoints-fachada opcionales del dominio
+- ui/web/
+  - **COMPLETADO** - Absorbió las capacidades operativas de la antigua interfaz Streamlit
+  - **COMPLETADO** - Selector de agentes dividido en baseline genérico y agentes reales S.A.A.O.P.
 
 ---
 
-## Bloques Específicos a Extraer (Detalle)
+## Estado de extracción por componente
 
 ### 1. core/debate.py
 - **COMPLETADO** - DEBATE_PIPELINE_6_AGENTS movido a domains/loteria/config_loteria.py
@@ -172,8 +197,9 @@ Este documento mapea qué partes del sistema son el "motor de debate genérico" 
 
 ### 4. core/supervisor.py
 - **COMPLETADO** - BUNKER_EXPERT_MAPPING movido a domains/loteria/config_loteria.py
-- Pendiente: Inyección de contexto evolutivo específico
-- Pendiente: Scoring específico en execute_single_quantum_agent_async y execute_debate_turn_async
+- **COMPLETADO** - Contexto evolutivo desacoplado mediante `evolution_manager_class`
+- **COMPLETADO** - Scoring desacoplado mediante `score_response_fn` y `build_scores_summary_fn`; ambos ejecutores usan las funciones inyectadas
+- **RESIDUAL** - Los defaults perezosos siguen apuntando a Lotería para compatibilidad y quedan textos/formato numérico específicos dentro del supervisor
 
 ### 5. config.py
 - **COMPLETADO** - DEBATE_AGENTS movido a domains/loteria/config_loteria.py
@@ -209,3 +235,23 @@ Este documento mapea qué partes del sistema son el "motor de debate genérico" 
 ### 11. Memoria vectorial
 - **COMPLETADO** - `core/memoria_perpetua.py` acepta metadata arbitraria y ya no conoce el concepto `sorteo`
 - **COMPLETADO** - `domains/loteria/memoria_loteria.py` traduce los parámetros históricos de Lotería a `{"sorteo": valor}`
+
+### 12. Papers de agentes
+- **COMPLETADO** - `agents/papers/` dejó de ser la ubicación activa
+- **COMPLETADO** - Los seis papers S.A.A.O.P. residen en `domains/loteria/agents/papers/`
+- **COMPLETADO** - `config.AGENTS_PAPERS_DIR` centraliza la ruta consumida por runtime, API y tests
+
+### 13. Validación ciega y tarea por defecto
+- **COMPLETADO** - `SAAOP_TASK` se define en `domains/loteria/config_loteria.py`
+- **COMPLETADO** - `run_validation_debate()` y `reveal_validation_result()` residen en `domains/loteria/validation_loteria.py`
+- **COMPLETADO** - `api.py` funciona como fachada con carga perezosa y respuesta `501` cuando el dominio no está instalado
+
+### 14. Clasificación de agentes
+- **COMPLETADO** - Los cuatro agentes base declaran `AGENT_IS_GENERIC_BASELINE = True`
+- **COMPLETADO** - `agents/loader.py` y `agents/manager.py` propagan la clasificación hasta `/api/agents/list`
+- **COMPLETADO** - El HUD conserva los diez agentes y los renderiza en grupos de 4 baseline/demo y 6 S.A.A.O.P.
+- **COMPLETADO** - `tests/test_api_admin_panels.py` cubre el contrato del endpoint y evita que el frontend descarte el flag
+
+### 15. Interfaz de usuario
+- **COMPLETADO** - Streamlit y toda su estructura auxiliar fueron eliminados
+- **COMPLETADO** - `ui/web/` es la única interfaz y concentra agentes, proveedores, memoria, logs, modo híbrido, orquestación y overview
