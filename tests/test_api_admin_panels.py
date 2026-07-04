@@ -34,8 +34,11 @@ class FakeMemory:
 
 
 class FakeRegistry:
+    def __init__(self, providers=None):
+        self.providers = providers or []
+
     def list_providers(self):
-        return []
+        return list(self.providers)
 
 
 class FakeListManager:
@@ -57,6 +60,24 @@ class FakeHybridRouter:
             "safe_mode": False,
             "full": full,
         }
+
+
+class FakeProvider:
+    def __init__(self, name, *, fail_health=False):
+        self.name = name
+        self.fail_health = fail_health
+        self.IS_PLACEHOLDER = name == "demo"
+
+    def provider_name(self):
+        return self.name
+
+    def health_check(self):
+        if self.fail_health:
+            raise RuntimeError("health unavailable")
+        return SimpleNamespace(healthy=True, message="ok")
+
+    def available_models(self):
+        return ["model-a"]
 
 
 def test_memory_endpoint_exposes_keys_history_latest_and_value(monkeypatch):
@@ -144,3 +165,38 @@ def test_hud_contains_all_migrated_sections_and_script():
         assert f'data-section="{section}"' in html
         assert f'id="config-{section}"' in html
     assert '<script src="/admin-panels.js"></script>' in html
+
+
+def test_provider_status_keeps_catalog_when_one_health_check_fails(monkeypatch):
+    fake_supervisor = SimpleNamespace(
+        running=True,
+        memory=FakeMemory(),
+        providers=FakeRegistry(
+            [FakeProvider("healthy"), FakeProvider("demo", fail_health=True)]
+        ),
+        agents=FakeListManager([]),
+        tools=FakeListManager([]),
+        hybrid_router=None,
+    )
+    monkeypatch.setattr(api, "supervisor", fake_supervisor)
+    monkeypatch.setattr(api, "evolution", None)
+
+    payload = asyncio.run(api.get_status())
+
+    assert payload["providers_ready"] is True
+    assert [provider["name"] for provider in payload["providers"]] == ["healthy", "demo"]
+    assert payload["providers"][1]["healthy"] is False
+    assert "health unavailable" in payload["providers"][1]["message"]
+
+
+def test_provider_panel_has_single_flight_loading_and_visible_error_state():
+    html = Path("ui/web/index.html").read_text(encoding="utf-8")
+    settings_handler = next(
+        line for line in html.splitlines() if "settings-fab').onclick" in line
+    )
+
+    assert "cargarProveedores" not in settings_handler
+    assert "providersLoadPromise" in html
+    assert "Cargando proveedores..." in html
+    assert "No se pudieron cargar los proveedores" in html
+    assert "REINTENTAR" in html

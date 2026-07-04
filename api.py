@@ -327,6 +327,43 @@ def _tail_log(path: Path, lines: int) -> list[str]:
         return []
 
 
+def _provider_status(provider: Any) -> dict[str, Any]:
+    """Aísla fallos de diagnóstico para no perder el catálogo completo."""
+    try:
+        name = provider.provider_name()
+    except Exception as exc:
+        name = type(provider).__name__
+        logger.warning("No se pudo obtener el nombre del provider %s: %s", name, exc)
+
+    is_placeholder = getattr(provider, "IS_PLACEHOLDER", False)
+    healthy = False
+    message = "Diagnóstico no disponible"
+    models: list[str] = []
+
+    try:
+        health = provider.health_check()
+        healthy = bool(health.healthy)
+        message = health.message
+    except Exception as exc:
+        message = f"Health check falló: {exc}"
+        logger.warning("Health check falló para %s: %s", name, exc)
+
+    try:
+        models = provider.available_models()
+    except Exception as exc:
+        logger.warning("No se pudieron listar modelos de %s: %s", name, exc)
+        if message == "Diagnóstico no disponible":
+            message = f"Listado de modelos falló: {exc}"
+
+    return {
+        "name": name,
+        "is_placeholder": is_placeholder,
+        "healthy": healthy,
+        "message": message,
+        "models": models,
+    }
+
+
 def _extraer_numeros_de_respuesta(output: str) -> list[int]:
     numeros = re.findall(r"\b([0-4]?[0-9]|45)\b", output)
     numeros_int = [int(n) for n in numeros if 0 <= int(n) <= 45]
@@ -536,19 +573,14 @@ async def get_status(full: bool = False) -> dict:
         if hasattr(evolution, "_state"):
             sorteo_actual = evolution._state["evolucion_lotoplus"]["ciclo_actual"]["sorteo_actual"]
 
-    providers_info = []
+    providers_info: list[dict[str, Any]] = []
     if supervisor:
-        for provider in supervisor.providers.list_providers():
-            name = provider.provider_name()
-            is_placeholder = getattr(provider, "IS_PLACEHOLDER", False)
-            health = provider.health_check()
-            providers_info.append({
-                "name": name,
-                "is_placeholder": is_placeholder,
-                "healthy": health.healthy,
-                "message": health.message,
-                "models": provider.available_models()
-            })
+        providers = supervisor.providers.list_providers()
+        providers_info = list(
+            await asyncio.gather(
+                *(asyncio.to_thread(_provider_status, provider) for provider in providers)
+            )
+        )
 
     hybrid_status: dict[str, Any] | None = None
     if supervisor and supervisor.hybrid_router:
@@ -566,6 +598,7 @@ async def get_status(full: bool = False) -> dict:
     memory = _memory_summary()
     return {
         "running": supervisor is not None and supervisor.running,
+        "providers_ready": bool(supervisor and supervisor.running and providers_info),
         "providers": providers_info,
         "agents": supervisor.agents.list_ids() if supervisor else [],
         "fase_actual": fase_actual,

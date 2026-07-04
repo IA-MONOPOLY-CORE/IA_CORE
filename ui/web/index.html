@@ -851,12 +851,13 @@
     </div>
 
     <script>
-        const API_BASE = 'http://localhost:8000';
+        const API_BASE = window.location.origin;
         let agentes = [];
         let selectedAgents = [];
         let activePolling = null;
         let isRunning = false;
         let currentEditId = null;
+        let providersLoadPromise = null;
 
         // Agentes del sistema que NO deben aparecer
         const SYSTEM_AGENTS = ["analyst", "assistant", "critic", "echo", "optimizer"];
@@ -1018,31 +1019,94 @@
             });
         }
 
-        async function cargarProveedores() {
+        function mostrarEstadoProveedores(message, isError = false) {
             const container = document.getElementById('providers-list');
             if (!container) return;
-            container.innerHTML = '';
-            try {
-                const res = await fetch(`${API_BASE}/api/status`);
-                const data = await res.json();
-                if (data.providers) {
-                    data.providers.forEach(provider => {
+            container.replaceChildren();
+            const state = document.createElement('div');
+            state.className = 'provider-status';
+            state.style.color = isError ? 'var(--red)' : 'var(--text-muted)';
+            state.textContent = message;
+            container.appendChild(state);
+
+            if (isError) {
+                const retry = document.createElement('button');
+                retry.className = 'btn-primary';
+                retry.style.marginTop = '12px';
+                retry.textContent = 'REINTENTAR';
+                retry.addEventListener('click', () => cargarProveedores(true));
+                container.appendChild(retry);
+            }
+        }
+
+        function esperar(ms) {
+            return new Promise(resolve => setTimeout(resolve, ms));
+        }
+
+        async function obtenerProveedoresConReintentos(maxAttempts = 4) {
+            let lastError = null;
+            for (let attempt = 1; attempt <= maxAttempts; attempt++) {
+                try {
+                    const res = await fetch(`${API_BASE}/api/status`, { cache: 'no-store' });
+                    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+                    const data = await res.json();
+                    if (!Array.isArray(data.providers) || data.providers.length === 0) {
+                        throw new Error('El backend todavía no publicó el catálogo de proveedores');
+                    }
+                    return data.providers;
+                } catch (error) {
+                    lastError = error;
+                    if (attempt < maxAttempts) await esperar(attempt * 350);
+                }
+            }
+            throw lastError || new Error('No se pudieron cargar los proveedores');
+        }
+
+        async function cargarProveedores(force = false) {
+            if (providersLoadPromise && !force) return providersLoadPromise;
+
+            mostrarEstadoProveedores('Cargando proveedores...');
+            const request = (async () => {
+                try {
+                    const providers = await obtenerProveedoresConReintentos();
+                    const fragment = document.createDocumentFragment();
+                    providers.forEach(provider => {
                         const item = document.createElement('div');
                         item.className = 'provider-item';
-                        item.innerHTML = `
-                            <div style="flex: 1;">
-                                <div class="provider-name">${provider.name}</div>
-                                <div class="provider-status">${provider.message}</div>
-                            </div>
-                            ${provider.is_placeholder ? '<span class="demo-badge">DEMO</span>' : ''}
-                        `;
-                        container.appendChild(item);
+
+                        const details = document.createElement('div');
+                        details.style.flex = '1';
+                        const name = document.createElement('div');
+                        name.className = 'provider-name';
+                        name.textContent = provider.name || 'unknown';
+                        const status = document.createElement('div');
+                        status.className = 'provider-status';
+                        status.textContent = provider.message || 'Sin estado informado';
+                        details.append(name, status);
+                        item.appendChild(details);
+
+                        if (provider.is_placeholder) {
+                            const badge = document.createElement('span');
+                            badge.className = 'demo-badge';
+                            badge.textContent = 'DEMO';
+                            item.appendChild(badge);
+                        }
+                        fragment.appendChild(item);
                     });
+                    document.getElementById('providers-list').replaceChildren(fragment);
+                } catch (error) {
+                    console.error('Error cargando proveedores:', error);
+                    mostrarEstadoProveedores(`No se pudieron cargar los proveedores: ${error.message}`, true);
                 }
-            } catch(e) {
-                console.error('Error cargando proveedores:', e);
-                container.innerHTML = '<div style="color: var(--text-muted);">Error al cargar proveedores</div>';
+            })();
+
+            providersLoadPromise = request;
+            try {
+                await request;
+            } finally {
+                if (providersLoadPromise === request) providersLoadPromise = null;
             }
+            return request;
         }
 
         async function eliminarAgente(id) {
@@ -1406,7 +1470,7 @@
             document.getElementById('current-radar-sticker').innerText = savedSticker;
             
             document.getElementById('start-btn').onclick = startDebate;
-            document.getElementById('settings-fab').onclick = () => { cargarChecklist(); cargarProveedores(); document.getElementById('config-modal').style.display = 'flex'; };
+            document.getElementById('settings-fab').onclick = () => { cargarChecklist(); document.getElementById('config-modal').style.display = 'flex'; };
             document.getElementById('add-fab').onclick = () => { currentEditId = null; document.getElementById('agent-modal-title').innerText = 'CREAR AGENTE'; document.getElementById('agent-id').disabled = false; document.getElementById('agent-id').value = ''; document.getElementById('agent-prompt').value = ''; document.getElementById('agent-memory').value = ''; document.getElementById('agent-modal').style.display = 'flex'; };
             document.getElementById('save-agent-btn').onclick = guardarAgente;
             document.getElementById('cancel-agent-btn').onclick = () => { document.getElementById('agent-modal').style.display = 'none'; document.getElementById('agent-id').disabled = false; currentEditId = null; };
