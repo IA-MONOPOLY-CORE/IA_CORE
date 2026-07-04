@@ -1267,3 +1267,26 @@ async def delete_agent(agent_id: str):
         logger.exception(f"Error eliminando agente {agent_id}: {e}")
         return {"success": False, "error": str(e)}
 
+
+# ========================================================================
+# Servir frontend
+# ========================================================================
+WEB_DIR = ROOT / "ui" / "web"
+
+if WEB_DIR.exists():
+    app.mount("/", StaticFiles(directory=str(WEB_DIR), html=True), name="static")
+else:
+
+    @app.get("/")
+    async def root() -> dict:
+        return {"message": "S.A.A.O.P. API activa. Coloca index.html en ui/web/"}
+
+
+# ========================================================================
+# Entry point
+# ========================================================================
+if __name__ == "__main__":
+    import uvicorn
+
+    uvicorn.run("api:app", host="0.0.0.0", port=8000, reload=True)
+
