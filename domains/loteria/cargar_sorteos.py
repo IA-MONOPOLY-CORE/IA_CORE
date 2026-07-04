@@ -16,11 +16,11 @@ raiz = Path(__file__).parent.parent.parent
 for archivo in raiz.rglob("*.json"):
     if archivo.name in posibles_nombres or "lotoplus" in archivo.name.lower():
         JSON_PATH = archivo
-        print(f"✅ JSON encontrado: {JSON_PATH}")
+        print(f"OK JSON encontrado: {JSON_PATH}")
         break
 
 if JSON_PATH is None:
-    print("❌ No se encontró el archivo JSON con sorteos")
+    print("ERROR No se encontró el archivo JSON con sorteos")
     print("   Por favor, asegurate de que el archivo esté en C:\\IA_CORE\\")
     exit(1)
 
@@ -126,7 +126,7 @@ def cargar_sorteos():
     conn.commit()
     conn.close()
 
-    print(f"✅ Carga completada:")
+    print(f"Carga completada:")
     print(f"   - Entrenamiento (3511-3799): {clasificados['entrenamiento']} sorteos")
     print(f"   - Validación ciega (3800-3850): {clasificados['validacion']} sorteos")
     print(f"   - Prueba real (3851-3885): {clasificados['prueba_real']} sorteos")

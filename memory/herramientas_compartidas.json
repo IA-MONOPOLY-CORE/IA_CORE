@@ -1455,13 +1455,115 @@
         "critic",
         "optimizer"
       ]
+    },
+    {
+      "timestamp": "2026-07-04T00:04:47.934337",
+      "debate_id": "7749b0b1-02bc-44ed-ad89-55bdd8db836c",
+      "contradiccion_inicial": 53.85,
+      "consenso_final": 46.15,
+      "mejor_agente": "analyst",
+      "mejor_score": 53.2,
+      "leccion": "## VISIÓN DEL OPTIMIZER\nOptimized version: improved by adding error handling\n\n---\n\n## ANÁLISIS DEL ANALYST\nPositive analysis: looks solid",
+      "agentes_participantes": [
+        "analyst",
+        "critic",
+        "analyst",
+        "critic",
+        "analyst",
+        "critic",
+        "analyst",
+        "critic",
+        "analyst",
+        "critic",
+        "analyst",
+        "critic",
+        "optimizer"
+      ]
+    },
+    {
+      "timestamp": "2026-07-04T00:04:51.038770",
+      "debate_id": "18fe077b-4f47-4134-97b7-4038b9ac7385",
+      "contradiccion_inicial": 66.67,
+      "consenso_final": 33.33,
+      "mejor_agente": "analyst",
+      "mejor_score": 53.2,
+      "leccion": "## VISIÓN DEL OPTIMIZER\nOptimized version: improved by adding error handling\n\n---\n\n## ANÁLISIS DEL ANALYST\nPositive analysis: looks solid",
+      "agentes_participantes": [
+        "analyst",
+        "critic",
+        "optimizer",
+        "analyst",
+        "critic",
+        "optimizer",
+        "analyst",
+        "critic",
+        "optimizer",
+        "analyst",
+        "critic",
+        "optimizer",
+        "analyst",
+        "critic",
+        "optimizer",
+        "analyst",
+        "critic",
+        "optimizer"
+      ]
+    },
+    {
+      "timestamp": "2026-07-04T00:04:54.239798",
+      "debate_id": "dc7fbe6c-c267-4360-8ca2-45582f2b287c",
+      "contradiccion_inicial": 66.67,
+      "consenso_final": 33.33,
+      "mejor_agente": "analyst",
+      "mejor_score": 53.2,
+      "leccion": "## VISIÓN DEL OPTIMIZER\nOptimized version: improved by adding error handling\n\n---\n\n## ANÁLISIS DEL ANALYST\nPositive analysis: looks solid",
+      "agentes_participantes": [
+        "analyst",
+        "critic",
+        "optimizer",
+        "analyst",
+        "critic",
+        "optimizer",
+        "analyst",
+        "critic",
+        "optimizer",
+        "analyst",
+        "critic",
+        "optimizer",
+        "analyst",
+        "critic",
+        "optimizer",
+        "analyst",
+        "critic",
+        "optimizer"
+      ]
+    },
+    {
+      "timestamp": "2026-07-04T00:04:57.351489",
+      "debate_id": "665835d8-4796-410a-af76-250475425110",
+      "contradiccion_inicial": 5.0,
+      "consenso_final": 95.0,
+      "mejor_agente": "analyst",
+      "mejor_score": 53.2,
+      "leccion": "## VISIÓN DEL OPTIMIZER\nOptimized version: improved by adding error handling\n\n---\n\n## ANÁLISIS DEL ANALYST\nPositive analysis: looks solid",
+      "agentes_participantes": [
+        "analyst",
+        "critic",
+        "optimizer",
+        "analyst",
+        "critic",
+        "optimizer",
+        "analyst",
+        "critic",
+        "optimizer"
+      ]
     }
   ],
   "lecciones_compartidas": [],
-  "ultima_actualizacion": "2026-07-03T23:20:17.817398",
+  "ultima_actualizacion": "2026-07-04T00:04:57.354097",
   "versiones_por_agente": {},
   "metricas_globales": {
-    "total_contradicciones": 52,
+    "total_contradicciones": 56,
     "total_consensos": 0,
     "total_herramientas_registradas": 0
   }
