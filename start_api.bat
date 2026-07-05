@@ -8,7 +8,7 @@ echo Starting FastAPI server on http://localhost:8000
 echo Press Ctrl+C to stop
 echo.
 
-cd /d C:\IA_CORE
+cd /d "%~dp0"
 
 if exist venv\Scripts\activate (
     call venv\Scripts\activate

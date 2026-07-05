@@ -8,7 +8,7 @@ Este documento mapea qué partes del sistema son el "motor de debate genérico" 
 - **Paso 6 — COMPLETADO:** la memoria vectorial genérica permanece en `core/memoria_perpetua.py` y almacena metadata arbitraria en `memoria_vectorial/`; `domains/loteria/memoria_loteria.py` adapta el concepto `sorteo`. La persistencia SQL específica quedó en `domains/loteria/database_loteria.py`, con la base `domains/loteria/loto_plus.db`; `memory/database.py` fue eliminado.
 - **Paso 8 — COMPLETADO:** `SAAOP_TASK` se define en `domains/loteria/config_loteria.py` y la ejecución/revelación de validación ciega vive en `domains/loteria/validation_loteria.py`. `api.py` conserva únicamente los endpoints/fachada y carga el dominio de forma perezosa; si Lotería no está disponible responde `501`.
 - **Paso 9 — COMPLETADO:** `analyst`, `assistant`, `critic` y `optimizer` se identifican con `AGENT_IS_GENERIC_BASELINE = True`; `AgentManager` conserva esa clasificación, `/api/agents/list` publica `is_generic_baseline` y `ui/web/index.html` muestra dos grupos: **Agentes base (demo) [4]** y **Agentes S.A.A.O.P. [6]**.
-- **Interfaz — COMPLETADO:** Streamlit fue eliminado por completo (`ui/app.py`, `ui/panels/`, `ui/components/`, `ui/state/`, `.streamlit/` y `requirements-ui.txt` ya no existen). `ui/web/`, servido por FastAPI, es la única interfaz de usuario del proyecto.
+- **Interfaz — COMPLETADO:** `ui/web/`, servido por FastAPI, es la única interfaz de usuario del proyecto; la estructura auxiliar de la interfaz anterior ya no existe.
 
 ## Leyenda
 - **NO**: Lógica 100% genérica, reusable en cualquier dominio
@@ -99,7 +99,7 @@ Este documento mapea qué partes del sistema son el "motor de debate genérico" 
 | domains/loteria/agents/papers/nuevo_deepseek_saaop_paper.json | SÍ | Paper específico con identidad, reglas y lecciones aprendidas del nuevo deepseek S.A.A.O.P. |
 | **ui/** | | |
 | ui/web/ | PARCIAL | Única interfaz de usuario vigente: HUD HTML/CSS/JavaScript servido por FastAPI; combina paneles genéricos con presentación y agentes S.A.A.O.P., incluido el selector agrupado |
-| ui/app.py y antigua UI Streamlit | ELIMINADO | Streamlit, sus paneles, componentes, estado, traducciones y dependencias específicas fueron retirados completamente |
+| ui/app.py e interfaz anterior | ELIMINADO | Sus paneles, componentes, estado, traducciones y dependencias específicas fueron retirados completamente |
 | **tests/** | | |
 | tests/test_no_hardcoded_agent_paths.py | NO | Test anti-regresión que escanea Core, agentes, proveedores, dominios, UI y archivos Python raíz para impedir que reaparezcan rutas hardcodeadas como `agents/config`; obliga a usar `config.AGENTS_CONFIG_DIR` |
 
@@ -172,7 +172,7 @@ Este documento mapea qué partes del sistema son el "motor de debate genérico" 
   - **COMPLETADO** - Lazy imports para funciones de validación, devolviendo 501 si el dominio lotería no está disponible
   - Mantener: estructura de API, endpoints genéricos de chat/debate y endpoints-fachada opcionales del dominio
 - ui/web/
-  - **COMPLETADO** - Absorbió las capacidades operativas de la antigua interfaz Streamlit
+  - **COMPLETADO** - Absorbió las capacidades operativas de la interfaz anterior
   - **COMPLETADO** - Selector de agentes dividido en baseline genérico y agentes reales S.A.A.O.P.
 
 ---
@@ -253,5 +253,5 @@ Este documento mapea qué partes del sistema son el "motor de debate genérico" 
 - **COMPLETADO** - `tests/test_api_admin_panels.py` cubre el contrato del endpoint y evita que el frontend descarte el flag
 
 ### 15. Interfaz de usuario
-- **COMPLETADO** - Streamlit y toda su estructura auxiliar fueron eliminados
+- **COMPLETADO** - La interfaz anterior y toda su estructura auxiliar fueron eliminadas
 - **COMPLETADO** - `ui/web/` es la única interfaz y concentra agentes, proveedores, memoria, logs, modo híbrido, orquestación y overview

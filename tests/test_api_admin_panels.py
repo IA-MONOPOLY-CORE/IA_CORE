@@ -129,6 +129,14 @@ def test_debate_request_accepts_mode_and_agent_selection():
     assert request.agents == ["agent-a"]
 
 
+def test_validation_next_route_precedes_dynamic_validation_route():
+    paths = [route.path for route in api.app.routes]
+
+    assert paths.index("/api/validation/next") < paths.index(
+        "/api/validation/{validation_id}"
+    )
+
+
 def test_start_debate_reuses_existing_route_for_sequential(monkeypatch):
     monkeypatch.setattr(api, "supervisor", SimpleNamespace(running=True))
     monkeypatch.setattr(api, "debate_store", {})

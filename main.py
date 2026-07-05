@@ -15,7 +15,7 @@ import config
 from core.orchestration import ExecutionMode, OrchestrationResult
 from core.supervisor import Supervisor
 
-# 🎛️ ARTILLERÍA EXPERTA: IDs exactos que creamos en agents/config/
+# 🎛️ ARTILLERÍA EXPERTA: IDs exactos de domains/loteria/agents/config/
 SAAOOP_BUNKER_AGENTS = [
     "gpt_auditor",  # 1. CRITIC - destruye primero
     "gemini_cuantico",  # 2. ANALYST_ZONAS - densidad energética

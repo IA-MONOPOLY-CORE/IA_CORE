@@ -10,6 +10,7 @@ import logging
 from typing import Any, Dict, List
 from datetime import datetime
 
+import config
 from core.evolution_base import EvolutionManagerBase
 
 logger = logging.getLogger(__name__)
@@ -35,8 +36,11 @@ class EvolutionManagerLoteria(EvolutionManagerBase):
     - Gestiona las fases del sistema (entrenamiento, validación ciega, etc.)
     """
 
-    def __init__(self, memory_path: str = "C:\\IA_CORE\\memory\\state.json"):
-        super().__init__(memory_path=memory_path, state_key="evolucion_lotoplus")
+    def __init__(self, memory_path: str | None = None):
+        super().__init__(
+            memory_path=memory_path or config.MEMORY_STATE_FILE,
+            state_key="evolucion_lotoplus",
+        )
 
     def _get_initial_phase(self) -> str:
         """Retorna la fase inicial del sistema"""
@@ -455,10 +459,12 @@ class EvolutionManagerLoteria(EvolutionManagerBase):
     def get_estadisticas_ciclo(self) -> dict:
         """Retorna estadísticas resumidas del ciclo actual"""
         ciclo = self._state[self.state_key]["ciclo_actual"]
+        fase_actual = self.get_fase(ciclo["sorteo_actual"])
+        ciclo["fase_actual"] = fase_actual
         return {
             "sorteos_completados": ciclo.get("sorteos_completados", 0),
             "restantes": ciclo["objetivo"] - ciclo.get("sorteos_completados", 0),
-            "fase_actual": ciclo["fase_actual"],
+            "fase_actual": fase_actual,
             "aciertos_4": ciclo["metricas_acumuladas"]["total_aciertos_4"],
             "aciertos_5": ciclo["metricas_acumuladas"]["total_aciertos_5"],
             "aciertos_6": ciclo["metricas_acumuladas"]["total_aciertos_6"],

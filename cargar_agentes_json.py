@@ -7,6 +7,7 @@ from pathlib import Path
 # Agregar IA_CORE al path
 sys.path.insert(0, str(Path(__file__).parent))
 
+import config
 from memory.manager import MemoryManager
 from tools.manager import ToolManager
 from providers.registry import ProviderRegistry
@@ -30,8 +31,8 @@ def cargar_agentes_json():
     providers = ProviderRegistry()
     providers.load_builtin_providers()
 
-    # Directorio de configuraciones
-    config_dir = Path("domains/loteria/agents/config")
+    # Directorio centralizado de configuraciones, independiente del CWD.
+    config_dir = config.AGENTS_CONFIG_DIR
 
     if not config_dir.exists():
         print(f"❌ Directorio no encontrado: {config_dir}")

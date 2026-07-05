@@ -729,30 +729,6 @@ async def start_validation(
     }
 
 
-@app.get("/api/validation/{validation_id}")
-async def get_validation(validation_id: str) -> dict:
-    data = validation_store.get(validation_id)
-    if data is None:
-        raise HTTPException(status_code=404, detail="Validación no encontrada")
-    return data
-
-
-@app.post("/api/validation/{validation_id}/reveal")
-async def reveal_validation(
-    validation_id: str,
-    result_data: ValidationResultRequest,
-) -> dict:
-    loteria = _require_loteria()
-
-    if not evolution:
-        raise HTTPException(status_code=503, detail="EvolutionManager no disponible")
-
-    try:
-        return loteria["reveal_validation_result"](validation_id, result_data, evolution, validation_store)
-    except ValueError as e:
-        raise HTTPException(status_code=400, detail=str(e))
-
-
 @app.get("/api/validation/next")
 async def get_next_validation_info() -> dict:
     loteria = _require_loteria()
@@ -782,6 +758,30 @@ async def get_next_validation_info() -> dict:
         "progreso": {"completados": completados, "restantes": restantes, "total_fase": total_test},
         "ranking_herramientas": evolution.get_ranking_herramientas() if evolution else {},
     }
+
+
+@app.get("/api/validation/{validation_id}")
+async def get_validation(validation_id: str) -> dict:
+    data = validation_store.get(validation_id)
+    if data is None:
+        raise HTTPException(status_code=404, detail="Validación no encontrada")
+    return data
+
+
+@app.post("/api/validation/{validation_id}/reveal")
+async def reveal_validation(
+    validation_id: str,
+    result_data: ValidationResultRequest,
+) -> dict:
+    loteria = _require_loteria()
+
+    if not evolution:
+        raise HTTPException(status_code=503, detail="EvolutionManager no disponible")
+
+    try:
+        return loteria["reveal_validation_result"](validation_id, result_data, evolution, validation_store)
+    except ValueError as e:
+        raise HTTPException(status_code=400, detail=str(e))
 
 
 @app.get("/api/ranking")
@@ -959,7 +959,7 @@ async def create_agent_endpoint(
 ):
     """
     Crea un nuevo agente en el sistema.
-    - Genera el JSON en agents/config/{id}.json
+    - Genera el JSON en domains/loteria/agents/config/{id}.json
     - Si hay archivo de memoria, lo indexa en ChromaDB
     - Genera el paper automáticamente
     """
@@ -1292,4 +1292,3 @@ if __name__ == "__main__":
     import uvicorn
 
     uvicorn.run("api:app", host="0.0.0.0", port=8000, reload=True)
-

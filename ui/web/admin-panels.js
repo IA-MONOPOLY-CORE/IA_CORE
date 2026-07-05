@@ -1,4 +1,4 @@
-// Capacidades operativas migradas desde la consola interna de Streamlit.
+// Capacidades operativas del HUD web.
 (() => {
     'use strict';
 
