@@ -12,6 +12,7 @@
    - [SD (Saturación por Decena)](#6-sd-saturación-por-decena)
 3. [Normalización y Pesos](#normalización-y-pesos)
 4. [Constantes Mágicas y Por Qué](#constantes-mágicas-y-por-qué)
+5. [Implementación canónica](#implementación-canónica)
 
 ---
 ## Visión General
@@ -95,3 +96,10 @@ Todas las constantes se eligen por **calibración histórica** sobre 10+ años d
 - **28.5**: Valor máximo de IPN crudo (teórico y calibrado).
 - **130**: Suma ideal de combinación de 6 números.
 - **Pesos 30/20/20/10/10/10**: Determinados por análisis de importancia de cada factor en la probabilidad de ganar y el tamaño del premio.
+
+---
+## Implementación canónica
+
+La única implementación de la fórmula U-Score v2.1 es `domains/loteria/scoring.py::u_score_v2_1()`. Sus constantes oficiales viven en `domains/loteria/config_loteria.py` y son las documentadas arriba: suma ideal 130 y pesos 30/20/20/10/10/10.
+
+`domains/loteria/uscore_calculator.py` conserva por compatibilidad las APIs `UScoreCalculator.calculate()`, `UScoreCalculator.compare()` y `calcular_uscore()`, pero todas delegan el cálculo a `u_score_v2_1()`; no mantienen una segunda fórmula.

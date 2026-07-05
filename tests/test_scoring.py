@@ -1,6 +1,8 @@
 import config
-from domains.loteria.scoring import score_response, u_score_v2_1
 from core.supervisor import MEMORY_SCORES_KEY, Supervisor
+from domains.loteria.config_loteria import DSI_SUM_IDEAL, U_SCORE_WEIGHTS
+from domains.loteria.scoring import score_response, u_score_v2_1
+from domains.loteria.uscore_calculator import UScoreCalculator, calcular_uscore
 
 
 def test_score_failed_response_is_zero():
@@ -112,6 +114,38 @@ def test_u_score_v2_1_components_clipped_to_range():
     )
 
 
+def test_uscore_compatibility_api_delegates_to_official_formula(tmp_path):
+    combinacion = [2, 8, 13, 16, 25, 41]
+    oficial = u_score_v2_1(combinacion)
+    compat = calcular_uscore(combinacion)
+    calculator = UScoreCalculator(str(tmp_path / "historico-inexistente.json"))
+    resultado = calculator.calculate(combinacion)
+
+    assert DSI_SUM_IDEAL == 130
+    assert sum(U_SCORE_WEIGHTS.values()) == 100
+    assert compat["uscore_total"] == oficial.total == resultado.total
+    assert compat["metricas"] == {
+        "ipn": oficial.ipn,
+        "pp": oficial.pp,
+        "pz": oficial.pz,
+        "dsi": oficial.dsi,
+        "cd": oficial.cd,
+        "sd": oficial.sd,
+    }
+
+
+def test_uscore_compare_uses_official_formula(tmp_path):
+    combinaciones = [[2, 8, 13, 16, 25, 41], [0, 7, 19, 28, 36, 45]]
+    calculator = UScoreCalculator(str(tmp_path / "historico-inexistente.json"))
+
+    ranking = calculator.compare(combinaciones)
+
+    assert [item.total for item in ranking] == sorted(
+        [u_score_v2_1(combinacion).total for combinacion in combinaciones],
+        reverse=True,
+    )
+
+
 def test_responsescore_hybrid_access_and_tolerance():
     """Verifica que ResponseScore soporte acceso como atributo y como dict, y sea tolerante a claves inexistentes."""
     result = {
@@ -126,20 +160,20 @@ def test_responsescore_hybrid_access_and_tolerance():
         success=True,
         duration_ms=50,
     )
-    
+
     # a) Verificar equivalencia de acceso
     assert score.total == score["total"]
     assert score.confidence == score["confidence"]
     assert score.reasoning_quality == score["reasoning_quality"]
-    
+
     # b) Verificar acceso a clave inexistente devuelve None sin error
     assert score["clave_inventada"] is None
     assert score[123] is None  # Probamos con una clave de tipo incorrecto
-    
+
     # c) Verificar __contains__ funciona bien
     assert "total" in score
     assert "clave_inventada" not in score
-    
+
     # d) Verificar iteración funciona
     fields = list(score)
     assert "total" in fields

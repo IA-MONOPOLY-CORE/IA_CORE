@@ -1,15 +1,17 @@
-"""
-U-Score v2.1 Calculator - Herramienta independiente para evaluación en tiempo real
-No depende del pipeline de debate. Evaluación instantánea de cualquier combinación.
-USANDO HISTÓRICO REAL DE LOTO PLUS (3511-3885)
+"""Fachada compatible del U-Score v2.1 oficial definido en ``scoring.py``.
+
+La fórmula vive únicamente en :func:`domains.loteria.scoring.u_score_v2_1`.
+Este módulo conserva la API histórica de ``UScoreCalculator`` y
+``calcular_uscore`` para sus consumidores existentes.
 """
 
-from typing import List, Dict, Any, Tuple
-from dataclasses import dataclass
-from collections import Counter
-import math
 import json
 import os
+from collections import Counter
+from dataclasses import dataclass
+from typing import Any, Dict, List
+
+from .scoring import u_score_v2_1
 
 
 @dataclass
@@ -42,7 +44,6 @@ class UScoreCalculator:
             )
         self.historical_data_path = historical_data_path
         self.historical_draws = self._load_historical_draws()
-        self.zones = self._define_zones()
 
     def _load_historical_draws(self) -> List[List[int]]:
         """Cargar sorteos históricos reales del JSON"""
@@ -88,157 +89,26 @@ class UScoreCalculator:
         print(f"✅ Cargados {len(draws)} sorteos históricos reales")
         return draws
 
-    def _define_zones(self) -> Dict[str, Tuple[int, int]]:
-        """9 zonas de 5 números (0-45, incluyendo el 00)"""
-        return {
-            "Z1": (0, 4),
-            "Z2": (5, 9),
-            "Z3": (10, 14),
-            "Z4": (15, 19),
-            "Z5": (20, 24),
-            "Z6": (25, 29),
-            "Z7": (30, 34),
-            "Z8": (35, 39),
-            "Z9": (40, 45),
-        }
-
-    def _get_zone(self, num: int) -> str:
-        for zone, (low, high) in self.zones.items():
-            if low <= num <= high:
-                return zone
-        return None
-
-    def _popularidad_numero(self, n: int) -> float:
-        if n == 0:
-            return 0.05
-        elif 1 <= n <= 12:
-            return 0.90
-        elif 13 <= n <= 31:
-            return 0.70
-        else:
-            return 0.20
-
-    def _calc_ipn(self, combinacion: List[int]) -> float:
-        popularidades = [self._popularidad_numero(n) for n in combinacion]
-        promedio_pop = sum(popularidades) / 6
-        ipn_raw = 30 * (1 - promedio_pop)
-        ipn = (ipn_raw - 0.75) / (28.5 - 0.75) * 100
-        return max(0, min(100, ipn))
-
-    def _detectar_patrones(self, combinacion: List[int]) -> int:
-        penalizacion = 0
-        nums = sorted(combinacion)
-
-        for i in range(len(nums) - 1):
-            if nums[i + 1] - nums[i] == 1:
-                penalizacion += 2
-
-        consecutivos = 1
-        for i in range(len(nums) - 1):
-            if nums[i + 1] - nums[i] == 1:
-                consecutivos += 1
-            else:
-                if consecutivos >= 3:
-                    penalizacion += 5
-                consecutivos = 1
-        if consecutivos >= 3:
-            penalizacion += 5
-
-        digitos = [n % 10 for n in nums]
-        for d in set(digitos):
-            if digitos.count(d) >= 3:
-                penalizacion += 3
-                break
-
-        pares = sum(1 for n in nums if n % 2 == 0)
-        if pares == 6 or pares == 0:
-            penalizacion += 8
-
-        suma = sum(nums)
-        if 100 <= suma <= 160:
-            penalizacion += 5
-
-        return penalizacion
-
-    def _calc_pp(self, combinacion: List[int]) -> float:
-        penalizacion = self._detectar_patrones(combinacion)
-        pp_raw = max(0, 25 - penalizacion)
-        return min(100, pp_raw * 4)
-
-    def _calc_pz(self, combinacion: List[int]) -> float:
-        pesos_zona = {
-            "Z1": 0.9,
-            "Z2": 0.2,
-            "Z3": 0.2,
-            "Z4": 0.3,
-            "Z5": 0.5,
-            "Z6": 0.6,
-            "Z7": 0.7,
-            "Z8": 0.8,
-            "Z9": 0.9,
-        }
-        pesos = [pesos_zona.get(self._get_zone(n), 0.5) for n in combinacion]
-        promedio_zonal = sum(pesos) / 6
-        return (promedio_zonal - 0.2) / 0.7 * 100
-
-    def _calc_dsi(self, combinacion: List[int]) -> float:
-        suma = sum(combinacion)
-        ideal = 140
-        tolerancia = 40
-        desvio = abs(suma - ideal)
-        if desvio <= tolerancia:
-            return 100 * (1 - desvio / tolerancia)
-        return 0
-
-    def _calc_cd(self, combinacion: List[int]) -> float:
-        nums = sorted(combinacion)
-        gaps = [nums[i + 1] - nums[i] for i in range(5)]
-        desviacion = math.sqrt(sum((g - sum(gaps) / 5) ** 2 for g in gaps) / 5) if gaps else 0
-        if desviacion < 2:
-            return 20
-        elif desviacion > 12:
-            return 30
-        else:
-            return min(100, 50 + (desviacion - 3) * 8)
-
-    def _calc_sd(self, combinacion: List[int]) -> float:
-        decenas = [n // 10 for n in combinacion]
-        max_concentracion = max(Counter(decenas).values()) if decenas else 0
-        if max_concentracion >= 4:
-            return 0
-        elif max_concentracion == 3:
-            return 50
-        return 100
-
     def calculate(self, combinacion: List[int]) -> UScoreResult:
+        """Calcula mediante la implementación canónica y adapta el resultado."""
         if len(combinacion) != 6:
             raise ValueError("La combinación debe tener exactamente 6 números")
         if not all(0 <= n <= 45 for n in combinacion):
             raise ValueError("Todos los números deben estar entre 0 y 45")
 
-        ipn = self._calc_ipn(combinacion)
-        pp = self._calc_pp(combinacion)
-        pz = self._calc_pz(combinacion)
-        dsi = self._calc_dsi(combinacion)
-        cd = self._calc_cd(combinacion)
-        sd = self._calc_sd(combinacion)
-
-        total = ipn * 0.35 + pp * 0.25 + pz * 0.20 + dsi * 0.12 + cd * 0.08 + sd * 0.10
-
-        es_estructural_optima = total >= 66
-        diagnostico = self._generar_diagnostico(total)
+        score = u_score_v2_1(combinacion)
 
         return UScoreResult(
-            total=round(total, 2),
-            ipn=round(ipn, 2),
-            pp=round(pp, 2),
-            pz=round(pz, 2),
-            dsi=round(dsi, 2),
-            cd=round(cd, 2),
-            sd=round(sd, 2),
+            total=score.total,
+            ipn=score.ipn,
+            pp=score.pp,
+            pz=score.pz,
+            dsi=score.dsi,
+            cd=score.cd,
+            sd=score.sd,
             combinacion=sorted(combinacion),
-            es_estructural_optima=es_estructural_optima,
-            diagnostico=diagnostico,
+            es_estructural_optima=score.total >= 66,
+            diagnostico=self._generar_diagnostico(score.total),
         )
 
     def _generar_diagnostico(self, total: float) -> str:
