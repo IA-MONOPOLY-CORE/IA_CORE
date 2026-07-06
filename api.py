@@ -1005,7 +1005,7 @@ async def create_agent_endpoint(
     system_prompt: str = Form(...),
     temperature: float = Form(0.3),
     memory_file: Optional[UploadFile] = File(None),
-    domain_id: str = Form(config.DEFAULT_DOMAIN_ID),
+    domain_id: str = Form(...),
 ):
     """
     Crea un nuevo agente en el sistema.

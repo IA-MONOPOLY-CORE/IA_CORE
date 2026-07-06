@@ -111,7 +111,7 @@ def test_domain_creation_ui_uses_catalog_and_gates_agent_creation():
 
     assert 'id="domain-modal"' in html
     assert 'id="domain-theme-grid"' in html
-    assert 'id="agent-domain"' in html
+    assert 'id="agent-domain" required' in html
     assert '<script src="/domains.js"></script>' in html
     assert "requireDomain" in script
     assert "state.domains.length > 0" in script
@@ -122,3 +122,16 @@ def test_domain_creation_ui_uses_catalog_and_gates_agent_creation():
         "Análisis de contratos",
         "Investigación de mercado",
     ]
+
+
+def test_agent_creation_requires_domain_id():
+    route = next(
+        route
+        for route in api.app.routes
+        if getattr(route, "path", None) == "/api/agents/create"
+    )
+    domain_field = next(
+        field for field in route.dependant.body_params if field.name == "domain_id"
+    )
+
+    assert domain_field.field_info.is_required() is True
