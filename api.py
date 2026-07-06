@@ -66,6 +66,7 @@ def _get_loteria():
         from domains.loteria.database_loteria import (
             init_db as loteria_init_db,
             get_v19_status as loteria_get_v19_status,
+            get_sorteo_by_numero as loteria_get_sorteo_by_numero,
         )
         from domains.loteria.validation_loteria import (
             run_validation_debate,
@@ -83,6 +84,7 @@ def _get_loteria():
             "EvolutionManagerLoteria": EvolutionManagerLoteria,
             "init_db": loteria_init_db,
             "get_v19_status": loteria_get_v19_status,
+            "get_sorteo_by_numero": loteria_get_sorteo_by_numero,
             "run_validation_debate": run_validation_debate,
             "reveal_validation_result": reveal_validation_result,
         }
@@ -755,6 +757,8 @@ async def get_next_validation_info() -> dict:
 
     sorteo_actual = evolution._state["evolucion_lotoplus"]["ciclo_actual"]["sorteo_actual"]
     fase = evolution.get_fase(sorteo_actual)
+    sorteo_info = loteria["get_sorteo_by_numero"](sorteo_actual)
+    fecha_sorteo = sorteo_info.get("fecha") if sorteo_info else None
 
     if fase == "validacion_ciega":
         total_test = loteria["BLIND_TEST_END"] - loteria["BLIND_TEST_START"] + 1
@@ -771,6 +775,7 @@ async def get_next_validation_info() -> dict:
 
     return {
         "sorteo_actual": sorteo_actual,
+        "fecha": fecha_sorteo,
         "fase_actual": fase,
         "progreso": {"completados": completados, "restantes": restantes, "total_fase": total_test},
         "ranking_herramientas": evolution.get_ranking_herramientas() if evolution else {},

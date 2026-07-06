@@ -137,6 +137,37 @@ def test_validation_next_route_precedes_dynamic_validation_route():
     )
 
 
+def test_validation_next_includes_draw_date(monkeypatch):
+    fake_loteria = {
+        "BLIND_TEST_START": 3800,
+        "BLIND_TEST_END": 3850,
+        "LIVE_TEST_START": 3851,
+        "LIVE_TEST_END": 3885,
+        "get_sorteo_by_numero": lambda numero: {
+            "numero": numero,
+            "fecha": "sábado, 3 de enero de 2026",
+        },
+    }
+    fake_evolution = SimpleNamespace(
+        _state={
+            "evolucion_lotoplus": {
+                "ciclo_actual": {"sorteo_actual": 3800},
+            }
+        },
+        get_fase=lambda sorteo: "validacion_ciega",
+        get_estadisticas_ciclo=lambda: {"sorteos_completados": 2},
+        get_ranking_herramientas=lambda: {"tool-a": 1},
+    )
+    monkeypatch.setattr(api, "_loteria_cache", fake_loteria)
+    monkeypatch.setattr(api, "evolution", fake_evolution)
+
+    payload = asyncio.run(api.get_next_validation_info())
+
+    assert payload["sorteo_actual"] == 3800
+    assert payload["fecha"] == "sábado, 3 de enero de 2026"
+    assert payload["progreso"]["completados"] == 2
+
+
 def test_start_debate_reuses_existing_route_for_sequential(monkeypatch):
     monkeypatch.setattr(api, "supervisor", SimpleNamespace(running=True))
     monkeypatch.setattr(api, "debate_store", {})

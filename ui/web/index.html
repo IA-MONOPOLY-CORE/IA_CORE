@@ -231,130 +231,88 @@
             gap: 6px;
         }
 
-        /* RADAR */
-        .radar-container {
-            position: fixed;
-            top: 180px;
-            right: 380px;
-            z-index: 99;
-            cursor: grab;
+        /* WIDGETS FUNCIONALES */
+        .widgets-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+            gap: 12px;
+            margin-top: 12px;
         }
-        .radar-container:active { cursor: grabbing; }
-        .radar-wrapper { position: relative; display: inline-block; }
-        .radar-hud-main {
-            width: 110px; height: 110px;
-            border-radius: 50%;
+        .data-widget {
             border: 1px solid var(--border-color);
-            position: relative;
-            background: rgba(0,0,0,0.3);
-            box-shadow: 0 0 15px rgba(0,212,255,0.2);
+            background: rgba(0,0,0,0.36);
+            border-radius: var(--border-radius);
+            padding: 14px;
+            min-height: 140px;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
         }
-        .radar-sweep {
-            position: absolute;
-            width: 100%; height: 100%;
-            background: conic-gradient(from 0deg, rgba(0,212,255,0.12) 0deg, transparent 80deg);
-            border-radius: 50%;
-            animation: sweep 4s linear infinite;
+        .data-widget.is-updating {
+            border-color: var(--cyan);
+            box-shadow: 0 0 12px rgba(0,212,255,0.18);
+            transform: translateY(-1px);
         }
-        @keyframes sweep { to { transform: rotate(360deg); } }
-        .radar-sticker {
-            position: absolute;
-            top: 50%; left: 50%;
-            transform: translate(-50%, -50%);
-            font-size: 28px;
-            pointer-events: none;
-            z-index: 2;
-        }
-
-        /* WIDGETS ANIMADOS VARIADOS */
-        .animated-widget-box {
-            width: 65px; height: 65px;
-            border: 1px solid var(--border-color);
-            background: rgba(0,0,0,0.4);
-            position: relative;
+        .data-widget-header {
             display: flex;
             align-items: center;
-            justify-content: center;
-            cursor: grab;
+            justify-content: space-between;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+        .data-widget-title {
+            font-size: 0.78rem;
+            color: var(--cyan);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            font-weight: 700;
+        }
+        .data-widget-source {
+            color: var(--text-muted);
+            font-size: 0.65rem;
+            margin-top: 3px;
+        }
+        .data-widget-value {
+            font-size: 1rem;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 6px;
+        }
+        .data-widget-meta,
+        .data-widget-detail {
+            font-size: 0.72rem;
+            color: var(--text-muted);
+            line-height: 1.45;
+        }
+        .data-widget-detail {
+            margin-top: 8px;
+            color: rgba(255,255,255,0.76);
+        }
+        .widget-refresh-btn {
+            border: 1px solid var(--border-color);
+            background: rgba(0,0,0,0.3);
+            color: var(--text-muted);
             border-radius: var(--border-radius);
-            transition: transform 0.2s;
-            margin: 5px;
+            padding: 4px 8px;
+            font-family: inherit;
+            font-size: 0.68rem;
+            cursor: pointer;
         }
-        .animated-widget-box:hover { transform: scale(1.05); border-color: var(--cyan); }
-        .widget-symbol { font-size: 24px; z-index: 2; position: relative; }
-
-        /* Widget: Radar sweep */
-        .widget-radar-sweep {
-            position: absolute;
-            width: 100%; height: 100%;
-            background: conic-gradient(from 0deg, rgba(0,212,255,0.2) 0deg, transparent 70deg);
+        .widget-refresh-btn:hover { color: var(--cyan); border-color: var(--cyan); }
+        .provider-health-row {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 8px;
+        }
+        .provider-health-light {
+            width: 12px;
+            height: 12px;
             border-radius: 50%;
-            animation: sweepWidget 3s linear infinite;
+            background: var(--text-muted);
+            box-shadow: 0 0 8px rgba(255,255,255,0.08);
         }
-        @keyframes sweepWidget { to { transform: rotate(360deg); } }
-
-        /* Widget: Pulso cardíaco */
-        .widget-pulse-ring {
-            position: absolute;
-            width: 80%; height: 80%;
-            border: 2px solid var(--cyan);
-            border-radius: 50%;
-            animation: pulseRing 1.5s ease-out infinite;
-        }
-        @keyframes pulseRing {
-            0% { transform: scale(0.8); opacity: 0.8; }
-            100% { transform: scale(1.3); opacity: 0; }
-        }
-
-        /* Widget: Brújula rotatoria */
-        .widget-compass-rotate {
-            position: absolute;
-            width: 90%; height: 90%;
-            border: 1px dashed var(--amber);
-            border-radius: 50%;
-            animation: rotateCompass 6s linear infinite;
-        }
-        @keyframes rotateCompass { to { transform: rotate(360deg); } }
-
-        /* Widget: Escáner lineal */
-        .widget-scan-line {
-            position: absolute;
-            width: 100%; height: 2px;
-            background: linear-gradient(90deg, transparent, var(--cyan), transparent);
-            animation: scanLine 2s ease-in-out infinite;
-        }
-        @keyframes scanLine {
-            0% { top: 0%; opacity: 0; }
-            50% { top: 100%; opacity: 1; }
-            100% { top: 0%; opacity: 0; }
-        }
-
-        /* Widget: Glow pulsante */
-        .widget-glow-pulse {
-            position: absolute;
-            width: 100%; height: 100%;
-            background: radial-gradient(circle, rgba(0,212,255,0.3), transparent);
-            border-radius: 50%;
-            animation: glowPulse 1.8s ease-in-out infinite;
-        }
-        @keyframes glowPulse {
-            0% { opacity: 0.3; transform: scale(0.9); }
-            50% { opacity: 0.8; transform: scale(1.1); }
-            100% { opacity: 0.3; transform: scale(0.9); }
-        }
-
-        /* Widget: Anillos de blanco */
-        .widget-target-rings {
-            position: absolute;
-            width: 100%; height: 100%;
-            border-radius: 50%;
-            box-shadow: 0 0 0 0px rgba(0,212,255,0.4), 0 0 0 0px rgba(0,212,255,0.2);
-            animation: targetPulse 2s ease-out infinite;
-        }
-        @keyframes targetPulse {
-            0% { box-shadow: 0 0 0 0px rgba(0,212,255,0.5), 0 0 0 0px rgba(0,212,255,0.2); }
-            100% { box-shadow: 0 0 0 10px rgba(0,212,255,0), 0 0 0 20px rgba(0,212,255,0); }
-        }
+        .provider-health-light.green { background: var(--green); box-shadow: 0 0 10px rgba(0,255,136,0.32); }
+        .provider-health-light.yellow { background: var(--amber); box-shadow: 0 0 10px rgba(255,193,7,0.32); }
+        .provider-health-light.red { background: var(--red); box-shadow: 0 0 10px rgba(255,61,113,0.32); }
 
         .metrics-bar {
             display: grid;
@@ -529,11 +487,6 @@
             }
         .skin-option { display: inline-block; padding: 6px 14px; background: rgba(0,0,0,0.3); border: 1px solid var(--border-color); cursor: pointer; margin-right: 10px; border-radius: var(--border-radius); transition: all 0.2s; }
         .skin-option.active { border-color: var(--cyan); background: rgba(0,212,255,0.15); color: var(--cyan); }
-        .widget-palette-flex { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 10px; justify-content: flex-start; }
-
-        .floating-sticker { position: fixed; cursor: grab; z-index: 999; user-select: none; }
-        .floating-sticker:active { cursor: grabbing; }
-
         .floating-settings {
             position: fixed; bottom: 20px; left: 20px; width: 45px; height: 45px;
             background: var(--bg-panel); border: 1px solid var(--border-color); border-radius: 50%;
@@ -615,16 +568,6 @@
         </div>
     </header>
 
-    <!-- RADAR ARRASTRABLE -->
-    <div class="radar-container" id="radar-container">
-        <div class="radar-wrapper">
-            <div class="radar-hud-main">
-                <div class="radar-sweep"></div>
-                <div class="radar-sticker" id="radar-sticker">📡</div>
-            </div>
-        </div>
-    </div>
-
     <!-- MÉTRICAS -->
     <div class="metrics-bar" id="metrics-bar" style="display:none">
         <div class="hud-panel metric-card"><div class="metric-title">ACUERDO</div><div class="metric-value" id="val-acuerdo">-</div></div>
@@ -675,7 +618,7 @@
                 <div class="config-sidebar-item" data-section="overview">📊 OVERVIEW</div>
                 <div class="config-sidebar-item" data-section="skins">🎨 SKINS</div>
                 <div class="config-sidebar-item" data-section="branding">🏷️ BRANDING</div>
-                <div class="config-sidebar-item" data-section="stickers">🎭 WIDGETS</div>
+                <div class="config-sidebar-item" data-section="widgets">📡 WIDGETS</div>
                 <div class="config-sidebar-item" data-section="gadgets">🔧 GADGETS</div>
             </div>
             <div class="config-main">
@@ -753,17 +696,52 @@
                     <h3>BRANDING</h3>
                     <input type="text" id="brand-input" placeholder="Nombre del sistema" style="width:100%; background:rgba(0,0,0,0.4); border:1px solid var(--border-color); color:#fff; padding:8px; font-family:inherit; border-radius:var(--border-radius);">
                 </div>
-                <div id="config-stickers" class="config-section">
-                    <h3>🎭 WIDGETS HUD ANIMADOS</h3>
-                    <div class="widget-palette-flex" id="sticker-palette"></div>
-                    <div style="margin-top:20px; border-top:1px dashed var(--border-color); padding-top:15px;">
-                        <h3 style="font-size:0.9rem;">🔄 WIDGET DEL RADAR</h3>
-                        <div style="display:flex; gap:12px; align-items:center; flex-wrap:wrap;">
-                            <span>Actual:</span>
-                            <span id="current-radar-sticker" style="font-size:1.8rem;">📡</span>
-                            <button id="clear-radar-sticker" class="btn-primary">QUITAR</button>
-                            <button id="show-radar-btn" class="btn-primary">MOSTRAR RADAR</button>
-                        </div>
+                <div id="config-widgets" class="config-section">
+                    <h3>WIDGETS FUNCIONALES</h3>
+                    <div class="admin-toolbar">
+                        <button class="btn-primary" id="widgets-refresh-btn">ACTUALIZAR DATOS</button>
+                        <span class="admin-status" id="widgets-last-refresh">Sin actualizar.</span>
+                    </div>
+                    <div class="widgets-grid" id="functional-widgets">
+                        <section class="data-widget" id="widget-last-debate">
+                            <div class="data-widget-header">
+                                <div>
+                                    <div class="data-widget-title">Estado del último debate</div>
+                                    <div class="data-widget-source">Fuente: /api/debates + /api/debate/{id}</div>
+                                </div>
+                                <button class="widget-refresh-btn" type="button" data-widget-refresh>↻</button>
+                            </div>
+                            <div class="data-widget-value" id="last-debate-status">Cargando...</div>
+                            <div class="data-widget-meta" id="last-debate-meta">Buscando debates registrados.</div>
+                            <div class="data-widget-detail" id="last-debate-detail">Sin resultado todavía.</div>
+                        </section>
+                        <section class="data-widget" id="widget-next-validation">
+                            <div class="data-widget-header">
+                                <div>
+                                    <div class="data-widget-title">Próxima validación</div>
+                                    <div class="data-widget-source">Fuente: /api/validation/next</div>
+                                </div>
+                                <button class="widget-refresh-btn" type="button" data-widget-refresh>↻</button>
+                            </div>
+                            <div class="data-widget-value" id="next-validation-sorteo">Cargando...</div>
+                            <div class="data-widget-meta" id="next-validation-date">Fecha no cargada.</div>
+                            <div class="data-widget-detail" id="next-validation-detail">Dominio activo con validación pendiente.</div>
+                        </section>
+                        <section class="data-widget" id="widget-provider-health">
+                            <div class="data-widget-header">
+                                <div>
+                                    <div class="data-widget-title">Salud de proveedores</div>
+                                    <div class="data-widget-source">Fuente: /api/status</div>
+                                </div>
+                                <button class="widget-refresh-btn" type="button" data-widget-refresh>↻</button>
+                            </div>
+                            <div class="provider-health-row">
+                                <span class="provider-health-light" id="provider-health-light"></span>
+                                <span class="data-widget-value" id="provider-health-status" style="margin-bottom:0;">Cargando...</span>
+                            </div>
+                            <div class="data-widget-meta" id="provider-health-meta">Revisando proveedores reales.</div>
+                            <div class="data-widget-detail" id="provider-health-detail">Los proveedores placeholder no cuentan para el semáforo.</div>
+                        </section>
                     </div>
                 </div>
                 <div id="config-gadgets" class="config-section">
@@ -1049,16 +1027,6 @@
             strategic_competitor: "Competidor estratégico",
             anti_system: "Antisistema"
         };
-
-        // Widgets animados variados
-        const WIDGETS_LIBRARY = [
-            { id: "radar_widget", name: "Radar", symbol: "📡", animation: "sweep", html: `<div class="widget-radar-sweep"></div><div class="widget-symbol">📡</div>` },
-            { id: "pulse_widget", name: "Pulso", symbol: "💓", animation: "pulse", html: `<div class="widget-pulse-ring"></div><div class="widget-symbol">💓</div>` },
-            { id: "compass_widget", name: "Brújula", symbol: "🧭", animation: "compass", html: `<div class="widget-compass-rotate"></div><div class="widget-symbol">🧭</div>` },
-            { id: "scan_widget", name: "Escáner", symbol: "🔍", animation: "scan", html: `<div class="widget-scan-line"></div><div class="widget-symbol">🔍</div>` },
-            { id: "glow_widget", name: "Glow", symbol: "✨", animation: "glow", html: `<div class="widget-glow-pulse"></div><div class="widget-symbol">✨</div>` },
-            { id: "target_widget", name: "Blanco", symbol: "🎯", animation: "target", html: `<div class="widget-target-rings"></div><div class="widget-symbol">🎯</div>` }
-        ];
 
         // ========== ESPECIALIZACIONES ==========
         function actualizarEspecializaciones() {
@@ -1357,76 +1325,149 @@
             }
         }
 
-        // ========== WIDGETS / STICKERS ==========
-        function renderWidgetsLibrary() {
-            const container = document.getElementById('sticker-palette');
-            if (!container) return;
-            container.innerHTML = '';
-            WIDGETS_LIBRARY.forEach(w => {
-                const widget = document.createElement('div');
-                widget.className = 'animated-widget-box';
-                widget.setAttribute('data-widget-id', w.id);
-                widget.setAttribute('data-widget-symbol', w.symbol);
-                widget.setAttribute('draggable', 'true');
-                widget.innerHTML = w.html;
-                widget.addEventListener('dragstart', (e) => {
-                    e.dataTransfer.setData('text/plain', JSON.stringify({ id: w.id, symbol: w.symbol, html: w.html }));
-                });
-                widget.addEventListener('click', () => {
-                    document.getElementById('radar-sticker').innerText = w.symbol;
-                    document.getElementById('current-radar-sticker').innerText = w.symbol;
-                    localStorage.setItem('radar_sticker', w.symbol);
-                });
-                container.appendChild(widget);
-            });
+        // ========== WIDGETS FUNCIONALES ==========
+        function setWidgetUpdating(widgetId, isUpdating) {
+            const widget = document.getElementById(widgetId);
+            if (widget) widget.classList.toggle('is-updating', isUpdating);
         }
 
-        function iniciarDragAndDropWidgets() {
-            document.body.addEventListener('dragover', (e) => e.preventDefault());
-            document.body.addEventListener('drop', (e) => {
-                e.preventDefault();
-                const raw = e.dataTransfer.getData('text/plain');
-                if (!raw) return;
-                try {
-                    const widgetData = JSON.parse(raw);
-                    const widgetDiv = document.createElement('div');
-                    widgetDiv.className = 'floating-sticker animated-widget-box';
-                    widgetDiv.style.left = (e.clientX - 35) + 'px';
-                    widgetDiv.style.top = (e.clientY - 35) + 'px';
-                    widgetDiv.innerHTML = widgetData.html;
-                    let drag = false, sx, sy, ol, ot;
-                    widgetDiv.addEventListener('mousedown', (ev) => {
-                        drag = true; sx = ev.clientX; sy = ev.clientY;
-                        ol = widgetDiv.offsetLeft; ot = widgetDiv.offsetTop;
-                    });
-                    document.addEventListener('mousemove', (ev) => {
-                        if (!drag) return;
-                        widgetDiv.style.left = (ol + (ev.clientX - sx)) + 'px';
-                        widgetDiv.style.top = (ot + (ev.clientY - sy)) + 'px';
-                    });
-                    document.addEventListener('mouseup', () => drag = false);
-                    widgetDiv.addEventListener('contextmenu', (ev) => { ev.preventDefault(); widgetDiv.remove(); });
-                    document.body.appendChild(widgetDiv);
-                } catch(e) { console.warn(e); }
-            });
+        function setText(id, value) {
+            const element = document.getElementById(id);
+            if (element) element.innerText = value;
         }
 
-        // ========== RADAR ==========
-        function initRadar() {
-            const radar = document.getElementById('radar-container');
-            let drag = false, sx, sy, ol, ot;
-            radar.addEventListener('mousedown', (e) => {
-                drag = true; sx = e.clientX; sy = e.clientY;
-                ol = radar.offsetLeft; ot = radar.offsetTop;
+        function formatWidgetDate(value) {
+            if (!value) return 'Fecha no informada por el endpoint.';
+            const normalized = typeof value === 'number' && value < 1000000000000 ? value * 1000 : value;
+            const parsed = new Date(normalized);
+            if (Number.isNaN(parsed.getTime())) return String(value);
+            return parsed.toLocaleString('es-AR', { dateStyle: 'short', timeStyle: 'short' });
+        }
+
+        function summarizeDebateResult(detail) {
+            const result = detail?.result || {};
+            const synthesis = result.debate?.synthesis;
+            if (synthesis) return synthesis.length > 150 ? `${synthesis.slice(0, 147)}...` : synthesis;
+            const average = result.scores_summary?.average_total;
+            if (typeof average === 'number') return `Score de Consenso: ${average.toFixed(2)}`;
+            if (detail?.error) return detail.error;
+            return 'Sin síntesis disponible.';
+        }
+
+        async function actualizarWidgetUltimoDebate() {
+            setWidgetUpdating('widget-last-debate', true);
+            try {
+                const res = await fetch(`${API_BASE}/api/debates`, { cache: 'no-store' });
+                if (!res.ok) throw new Error(`HTTP ${res.status}`);
+                const data = await res.json();
+                const debates = Array.isArray(data.debates) ? data.debates : [];
+                if (debates.length === 0) {
+                    setText('last-debate-status', 'Sin debates registrados');
+                    setText('last-debate-meta', 'Todavía no se ejecutó ningún debate en esta sesión.');
+                    setText('last-debate-detail', 'Ejecutá un debate para ver acá su estado y resultado resumido.');
+                    return;
+                }
+
+                const last = debates[debates.length - 1];
+                const detailRes = await fetch(`${API_BASE}/api/debate/${encodeURIComponent(last.debate_id)}`, { cache: 'no-store' });
+                const detail = detailRes.ok ? await detailRes.json() : last;
+                const status = detail.status || last.status || 'desconocido';
+                const result = detail.result || {};
+                const when = formatWidgetDate(result.started_at || detail.started_at || last.started_at);
+                const duration = result.duration_ms ? ` · duración ${(result.duration_ms / 1000).toFixed(2)}s` : '';
+
+                setText('last-debate-status', status === 'complete' ? 'Terminado' : status.toUpperCase());
+                setText('last-debate-meta', `ID ${last.debate_id} · ${when}${duration}`);
+                setText('last-debate-detail', summarizeDebateResult(detail));
+            } catch (error) {
+                setText('last-debate-status', 'No disponible');
+                setText('last-debate-meta', `Error leyendo debates: ${error.message}`);
+                setText('last-debate-detail', 'Reintentá cuando el backend esté conectado.');
+            } finally {
+                setWidgetUpdating('widget-last-debate', false);
+            }
+        }
+
+        async function actualizarWidgetProximaValidacion() {
+            setWidgetUpdating('widget-next-validation', true);
+            try {
+                const res = await fetch(`${API_BASE}/api/validation/next`, { cache: 'no-store' });
+                if (!res.ok) throw new Error(`HTTP ${res.status}`);
+                const data = await res.json();
+                const sorteo = data.sorteo_actual ?? data.sorteo ?? 'sin sorteo';
+                const fecha = data.fecha || data.fecha_sorteo || data.fecha_programada || data.next_draw_date;
+                const fase = data.fase_actual || data.fase || 'fase no informada';
+                const progreso = data.progreso || {};
+                const avance = progreso.total_fase
+                    ? `${progreso.completados ?? 0}/${progreso.total_fase} completados · ${progreso.restantes ?? 0} restantes`
+                    : 'Progreso de fase no informado.';
+
+                setText('next-validation-sorteo', `Sorteo ${sorteo}`);
+                setText('next-validation-date', formatWidgetDate(fecha));
+                setText('next-validation-detail', `Fase: ${fase}. ${avance}`);
+            } catch (error) {
+                setText('next-validation-sorteo', 'No disponible');
+                setText('next-validation-date', `Error leyendo validación: ${error.message}`);
+                setText('next-validation-detail', 'Este widget depende del endpoint de validación del dominio activo.');
+            } finally {
+                setWidgetUpdating('widget-next-validation', false);
+            }
+        }
+
+        async function actualizarWidgetSaludProveedores() {
+            setWidgetUpdating('widget-provider-health', true);
+            try {
+                const res = await fetch(`${API_BASE}/api/status`, { cache: 'no-store' });
+                if (!res.ok) throw new Error(`HTTP ${res.status}`);
+                const data = await res.json();
+                const providers = Array.isArray(data.providers) ? data.providers : [];
+                const realProviders = providers.filter(provider => provider.is_placeholder !== true);
+                const healthyProviders = realProviders.filter(provider => provider.healthy === true);
+                const light = document.getElementById('provider-health-light');
+                const color = realProviders.length === 0
+                    ? 'red'
+                    : healthyProviders.length === realProviders.length
+                        ? 'green'
+                        : healthyProviders.length > 0
+                            ? 'yellow'
+                            : 'red';
+                if (light) light.className = `provider-health-light ${color}`;
+
+                const label = color === 'green' ? 'Verde' : color === 'yellow' ? 'Amarillo' : 'Rojo';
+                const placeholders = providers.length - realProviders.length;
+                setText('provider-health-status', `${label}: ${healthyProviders.length}/${realProviders.length} reales healthy`);
+                setText('provider-health-meta', `${providers.length} proveedores registrados · ${placeholders} placeholder/demo.`);
+                setText('provider-health-detail', realProviders.length
+                    ? realProviders.map(provider => `${provider.name}: ${provider.healthy ? 'OK' : 'falló'}`).join(' · ')
+                    : 'No hay proveedores reales registrados para evaluar.');
+            } catch (error) {
+                const light = document.getElementById('provider-health-light');
+                if (light) light.className = 'provider-health-light red';
+                setText('provider-health-status', 'No disponible');
+                setText('provider-health-meta', `Error leyendo estado: ${error.message}`);
+                setText('provider-health-detail', 'Reintentá cuando el backend esté conectado.');
+            } finally {
+                setWidgetUpdating('widget-provider-health', false);
+            }
+        }
+
+        async function actualizarWidgetsFuncionales() {
+            await Promise.allSettled([
+                actualizarWidgetUltimoDebate(),
+                actualizarWidgetProximaValidacion(),
+                actualizarWidgetSaludProveedores(),
+            ]);
+            setText('widgets-last-refresh', `Última actualización: ${new Date().toLocaleTimeString('es-AR')}`);
+        }
+
+        function initFunctionalWidgets() {
+            document.querySelectorAll('[data-widget-refresh]').forEach(button => {
+                button.addEventListener('click', actualizarWidgetsFuncionales);
             });
-            document.addEventListener('mousemove', (e) => {
-                if (!drag) return;
-                radar.style.left = (ol + (e.clientX - sx)) + 'px';
-                radar.style.top = (ot + (e.clientY - sy)) + 'px';
-            });
-            document.addEventListener('mouseup', () => drag = false);
-            radar.addEventListener('contextmenu', (e) => { e.preventDefault(); radar.style.display = 'none'; localStorage.setItem('radar_hidden', 'true'); });
-            if (localStorage.getItem('radar_hidden') === 'true') radar.style.display = 'none';
+            const refresh = document.getElementById('widgets-refresh-btn');
+            if (refresh) refresh.addEventListener('click', actualizarWidgetsFuncionales);
+            actualizarWidgetsFuncionales();
+            setInterval(actualizarWidgetsFuncionales, 60000);
         }
 
         // ========== BANNER LOGOS ==========
@@ -1528,6 +1569,7 @@
                 });
                 const data = await res.json();
                 if (data.debate_id) {
+                    actualizarWidgetsFuncionales();
                     if (activePolling) clearInterval(activePolling);
                     activePolling = setInterval(() => pollDebate(data.debate_id), 2500);
                 } else throw new Error();
@@ -1573,6 +1615,7 @@
                     document.getElementById('metrics-bar').style.display = 'grid';
                     document.getElementById('debate-metrics').style.display = 'grid';
                     document.getElementById('synthesis-panel').style.display = 'block';
+                    actualizarWidgetsFuncionales();
                     resetDebateUI();
                 } else if (data.status === 'error') { clearInterval(activePolling); resetDebateUI(); alert('Error en debate'); }
             } catch(e) {}
@@ -1604,9 +1647,7 @@
         window.onload = async () => {
             await cargarAgentes();
             await window.domainUI?.initialize();
-            renderWidgetsLibrary();
-            iniciarDragAndDropWidgets();
-            initRadar();
+            initFunctionalWidgets();
             initLogoBanner();
             
             // Configurar event listener para cambio de proveedor
@@ -1630,17 +1671,11 @@
             if (savedBrand) document.getElementById('brand-title').innerText = savedBrand;
             if (localStorage.getItem('brand_input')) document.getElementById('brand-input').value = localStorage.getItem('brand_input');
             
-            const savedSticker = localStorage.getItem('radar_sticker') || '📡';
-            document.getElementById('radar-sticker').innerText = savedSticker;
-            document.getElementById('current-radar-sticker').innerText = savedSticker;
-            
             document.getElementById('start-btn').onclick = startDebate;
             document.getElementById('settings-fab').onclick = () => { cargarChecklist(); document.getElementById('config-modal').style.display = 'flex'; };
             document.getElementById('add-fab').onclick = () => window.domainUI.requireDomain(() => { currentEditId = null; document.getElementById('agent-modal-title').innerText = 'CREAR AGENTE'; document.getElementById('agent-id').disabled = false; document.getElementById('agent-domain').disabled = false; document.getElementById('agent-id').value = ''; document.getElementById('agent-prompt').value = ''; document.getElementById('agent-memory').value = ''; document.getElementById('agent-modal').style.display = 'flex'; });
             document.getElementById('save-agent-btn').onclick = guardarAgente;
             document.getElementById('cancel-agent-btn').onclick = () => { document.getElementById('agent-modal').style.display = 'none'; document.getElementById('agent-id').disabled = false; document.getElementById('agent-domain').disabled = false; currentEditId = null; };
-            document.getElementById('clear-radar-sticker').onclick = () => { document.getElementById('radar-sticker').innerText = ''; document.getElementById('current-radar-sticker').innerText = ''; localStorage.removeItem('radar_sticker'); };
-            document.getElementById('show-radar-btn').onclick = () => { document.getElementById('radar-container').style.display = 'block'; localStorage.removeItem('radar_hidden'); };
             document.getElementById('apply-config-btn').onclick = () => aplicarConfiguracion(false);
             document.getElementById('accept-config-btn').onclick = () => aplicarConfiguracion(true);
             document.getElementById('close-config-modal').onclick = () => document.getElementById('config-modal').style.display = 'none';

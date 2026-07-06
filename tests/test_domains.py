@@ -150,3 +150,37 @@ def test_agent_form_memory_is_optional_and_labels_are_spanish():
     assert '<option value="orchestrator">Orquestador</option>' in html
     assert 'bayesian: "Bayesiano"' in html
     assert "option.value = spec;" in html
+
+
+def test_widgets_are_functional_and_not_decorative():
+    html = Path("ui/web/index.html").read_text(encoding="utf-8")
+    catalog = json.loads(Path("ui/web/i18n_es.json").read_text(encoding="utf-8"))
+
+    assert "WIDGETS FUNCIONALES" in html
+    assert "Estado del último debate" in html
+    assert "Próxima validación" in html
+    assert "Salud de proveedores" in html
+    assert "/api/debates" in html
+    assert "/api/debate/${encodeURIComponent(last.debate_id)}" in html
+    assert "/api/validation/next" in html
+    assert "/api/status" in html
+    assert "provider.is_placeholder !== true" in html
+
+    decorative_artifacts = [
+        "WIDGETS_LIBRARY",
+        "renderWidgetsLibrary",
+        "iniciarDragAndDropWidgets",
+        "initRadar",
+        "radar-container",
+        "animated-widget-box",
+        "widget-pulse-ring",
+        "widget-compass-rotate",
+        "widget-scan-line",
+        "widget-glow-pulse",
+        "widget-target-rings",
+        "radar_widget",
+        "show_radar",
+    ]
+    for artifact in decorative_artifacts:
+        assert artifact not in html
+        assert artifact not in json.dumps(catalog, ensure_ascii=False)
