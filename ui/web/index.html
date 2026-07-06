@@ -586,7 +586,7 @@
         <div class="hud-panel metric-card"><div class="metric-title">ACUERDO</div><div class="metric-value" id="val-acuerdo">-</div></div>
         <div class="hud-panel metric-card"><div class="metric-title">CONTRADICCIÓN</div><div class="metric-value" id="val-contradiccion">-</div></div>
         <div class="hud-panel metric-card glow-cyan"><div class="metric-title">DURACIÓN</div><div class="metric-value" id="val-duracion">-</div></div>
-        <div class="hud-panel metric-card glow-cyan"><div class="metric-title">uSCORE</div><div class="metric-value" id="val-uscore">-</div></div>
+        <div class="hud-panel metric-card glow-cyan"><div class="metric-title">PUNTAJE DE CONSENSO</div><div class="metric-value" id="val-consensus-score">-</div></div>
         <div class="hud-panel metric-card glow-cyan"><div class="metric-title">EXEC ID</div><div class="metric-value" id="val-execid" style="font-size:0.7rem;">-</div></div>
     </div>
 
@@ -604,7 +604,7 @@
         <div class="debate-metrics" id="debate-metrics" style="display:none">
             <div><div class="metric-title">ACUERDO</div><div id="debate-acuerdo">-</div></div>
             <div><div class="metric-title">CONTRADICCIÓN</div><div id="debate-contradiccion">-</div></div>
-            <div><div class="metric-title">uSCORE</div><div id="debate-uscore">-</div></div>
+            <div><div class="metric-title">PUNTAJE DE CONSENSO</div><div id="debate-consensus-score">-</div></div>
         </div>
         <div class="debate-synthesis" id="synthesis-panel" style="display:none">
             <div style="font-size:0.7rem; color:var(--green); margin-bottom:6px;">📋 SÍNTESIS FINAL</div>
@@ -998,7 +998,7 @@
                         </div>
                     </div>
                     <div class="agent-output" id="output-${ag.id}" onclick="verRespuesta('${ag.id}')">// ESPERANDO INSTRUCCIÓN...</div>
-                    <div class="agent-footer-metrics"><span>uSCORE: <strong id="score-${ag.id}">-</strong></span><span>DUR: <strong id="time-${ag.id}">-</strong></span></div>
+                    <div class="agent-footer-metrics"><span>PUNTAJE: <strong id="score-${ag.id}">-</strong></span><span>DUR: <strong id="time-${ag.id}">-</strong></span></div>
                 `;
                 grid.appendChild(panel);
             });
@@ -1429,15 +1429,15 @@
                     });
                     const agreement = result.debate?.agreement_score || 0;
                     const contradiction = result.debate?.contradiction_score || 0;
-                    const avgScore = result.scores_summary?.average_total || 0;
+                    const consensusScore = result.scores_summary?.average_total || 0;
                     const synthesis = result.debate?.synthesis || 'Síntesis no disponible';
                     document.getElementById('val-acuerdo').innerText = `${agreement}%`;
                     document.getElementById('val-contradiccion').innerText = `${contradiction}%`;
                     document.getElementById('val-duracion').innerText = `${(result.duration_ms / 1000).toFixed(2)}s`;
-                    document.getElementById('val-uscore').innerText = avgScore.toFixed(2);
+                    document.getElementById('val-consensus-score').innerText = consensusScore.toFixed(2);
                     document.getElementById('debate-acuerdo').innerText = `${agreement}%`;
                     document.getElementById('debate-contradiccion').innerText = `${contradiction}%`;
-                    document.getElementById('debate-uscore').innerText = avgScore.toFixed(2);
+                    document.getElementById('debate-consensus-score').innerText = consensusScore.toFixed(2);
                     document.getElementById('synthesis-text').innerText = synthesis;
                     document.getElementById('metrics-bar').style.display = 'grid';
                     document.getElementById('debate-metrics').style.display = 'grid';

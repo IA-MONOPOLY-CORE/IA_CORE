@@ -184,6 +184,28 @@ def test_hud_contains_all_migrated_sections_and_script():
     assert '<script src="/admin-panels.js"></script>' in html
 
 
+def test_hud_reserves_u_score_label_for_lottery_metric():
+    html = Path("ui/web/index.html").read_text(encoding="utf-8")
+
+    assert "PUNTAJE DE CONSENSO" in html
+    assert "val-consensus-score" in html
+    assert "debate-consensus-score" in html
+    assert "val-uscore" not in html
+    assert "debate-uscore" not in html
+    assert ">uSCORE<" not in html
+
+
+def test_spanish_catalog_is_valid_and_dashboard_legacy_is_removed():
+    html = Path("ui/web/index.html").read_text(encoding="utf-8")
+    catalog = json.loads(Path("ui/web/i18n_es.json").read_text(encoding="utf-8"))
+
+    assert not Path("ui/web/dashboard.js").exists()
+    assert "dashboard.js" not in html
+    assert catalog["locale"] == "es-AR"
+    assert catalog["metrics"]["consensus_score"] == "Puntaje de consenso"
+    assert catalog["metrics"]["lottery_u_score"] == "U-Score"
+
+
 def test_agents_endpoint_and_hud_keep_generic_baseline_agents(monkeypatch, tmp_path):
     real_agents = [
         "estadistico_integral",
