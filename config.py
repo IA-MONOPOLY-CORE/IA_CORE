@@ -29,6 +29,10 @@ MEMORY_STATE_FILE = MEMORY_DIR / "state.json"
 
 TOOLS_MODULES_DIR = ROOT_DIR / "tools" / "modules"
 
+DOMAINS_DIR = ROOT_DIR / "domains"
+
+DEFAULT_DOMAIN_ID = "loteria"
+
 # =========================================================
 # CONFIGURACIÓN DE AGENTES - CORREGIDA PARA JSON
 # =========================================================

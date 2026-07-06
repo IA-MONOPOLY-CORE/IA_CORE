@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "id": "loteria",
+  "nombre": "Lotería / S.A.A.O.P.",
+  "descripcion": "Análisis combinatorio, debate multiagente y validación ciega de sorteos.",
+  "instrucciones": "Aplicar la metodología S.A.A.O.P., distinguir evidencia de hipótesis y respetar las reglas de validación ciega sin revelar resultados futuros.",
+  "tema_id": "tactico",
+  "color_primario": "#00D4FF",
+  "tipografia": {
+    "familia": "Share Tech Mono, monospace",
+    "titulo_px": 32,
+    "cuerpo_px": 14,
+    "peso_titulo": 700,
+    "peso_cuerpo": 400
+  },
+  "nicho_sugerido": "Lotería y análisis combinatorio",
+  "creado_en": "2026-07-05T00:00:00"
+}

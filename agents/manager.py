@@ -11,6 +11,7 @@ import config
 from agents.base import Agent
 from agents.loader import AgentSpec, discover
 from core.base import BaseManager
+from core.domain_registry import find_agent_json, iter_agent_config_dirs
 from providers.registry import ProviderRegistry
 
 if TYPE_CHECKING:
@@ -44,6 +45,7 @@ class AgentManager(BaseManager):
         self._roles: dict[str, str | None] = {}
         self._provider_names: dict[str, str | None] = {}
         self._models: dict[str, str | None] = {}
+        self._domain_ids: dict[str, str | None] = {}
         self._internal: set[str] = set()
         self._json_agents: set[str] = set()  # Nuevo: IDs de agentes cargados desde JSON
         self._generic_baseline: set[str] = set()  # Nuevo: IDs de agentes base genéricos
@@ -92,20 +94,33 @@ class AgentManager(BaseManager):
         name = self.get_provider_name(agent_name)
         return self._providers.get(name) if name else None
 
+    def get_domain_id(self, agent_name: str) -> str | None:
+        return self._domain_ids.get(agent_name)
+
     def start(self) -> None:
         # Primero cargar módulos Python (para que existan los agentes base)
         loaded = self.load_modules()
 
         # Luego cargar agentes JSON (sobrescriben/agregan)
         json_loaded = 0
-        if self._config_dir.exists():
-            for json_file in self._config_dir.glob("*.json"):
+        loaded_dirs: list[Path] = []
+        for domain_id, config_dir in iter_agent_config_dirs():
+            if not config_dir.exists():
+                continue
+            loaded_dirs.append(config_dir)
+            for json_file in config_dir.glob("*.json"):
                 if json_file.name.endswith(".bak"):
                     continue
                 try:
                     with open(json_file, "r", encoding="utf-8-sig") as f:
                         data = json.load(f)
                     agent_id = data.get("id") or data.get("agent_id") or json_file.stem
+                    if agent_id in self._json_agents:
+                        logger.warning(
+                            "Agente JSON duplicado '%s' en %s, omitido", agent_id, json_file
+                        )
+                        continue
+                    data.setdefault("domain_id", domain_id)
 
                     # Cargar el agente JSON (esto lo agrega a self._agents)
                     agent = self._construir_agente_desde_json(agent_id, json_file, data)
@@ -126,7 +141,7 @@ class AgentManager(BaseManager):
             loaded,
             json_loaded,
         )
-        logger.info("Directorio de configuraciones JSON: %s", self._config_dir)
+        logger.info("Directorios de configuraciones JSON: %s", loaded_dirs)
 
     def _construir_agente_desde_json(
         self, agent_id: str, json_path: Path, data: dict
@@ -166,6 +181,7 @@ class AgentManager(BaseManager):
             self._roles[agent.id] = role
             self._provider_names[agent.id] = provider_name
             self._models[agent.id] = model
+            self._domain_ids[agent.id] = data.get("domain_id")
 
             return agent
         except Exception as e:
@@ -177,6 +193,7 @@ class AgentManager(BaseManager):
         self._roles.clear()
         self._provider_names.clear()
         self._models.clear()
+        self._domain_ids.clear()
         self._internal.clear()
         self._json_agents.clear()
         self._generic_baseline.clear()
@@ -256,6 +273,7 @@ class AgentManager(BaseManager):
         self._roles[spec.name] = role
         self._provider_names[spec.name] = provider_name
         self._models[spec.name] = resolved_model
+        self._domain_ids[spec.name] = None
 
         logger.info(
             "Agente registrado desde módulo Python: %s (rol=%s)",
@@ -286,6 +304,7 @@ class AgentManager(BaseManager):
         self._roles[agent.id] = role
         self._provider_names[agent.id] = resolved
         self._models[agent.id] = agent.model
+        self._domain_ids[agent.id] = getattr(agent, "domain_id", None)
 
         logger.info(
             "Agente registrado manualmente: %s",
@@ -298,19 +317,18 @@ class AgentManager(BaseManager):
         if agent_id in self._agents:
             return self._agents[agent_id]
 
-        # Buscar el JSON en el directorio de configuraciones
-        json_path = self._config_dir / f"{agent_id}.json"
-
-        if not json_path.exists():
+        found = find_agent_json(agent_id)
+        if found is None:
             logger.debug(
-                "JSON de agente no encontrado: %s",
-                json_path,
+                "JSON de agente no encontrado: %s", agent_id
             )
             return None
+        domain_id, json_path = found
 
         try:
             with open(json_path, "r", encoding="utf-8-sig") as f:
                 data = json.load(f)
+            data.setdefault("domain_id", domain_id)
 
             agent = self._construir_agente_desde_json(agent_id, json_path, data)
             if agent:

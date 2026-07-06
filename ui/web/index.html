@@ -548,6 +548,50 @@
             font-size: 1.5rem; font-weight: bold; transition: all 0.2s;
         }
         .floating-add:hover { background: var(--green); color: #000; transform: scale(1.05); }
+        .floating-domain {
+            position: fixed; bottom: 20px; left: 130px; min-width: 45px; height: 45px;
+            padding: 0 12px; background: var(--bg-panel); border: 1px solid var(--border-color);
+            border-radius: 22px; color: var(--text-primary); cursor: pointer; z-index: 90;
+            font-family: inherit; font-weight: bold; transition: all 0.2s;
+        }
+        .floating-domain:hover { background: var(--amber); color: #000; transform: scale(1.03); }
+        .floating-add.requires-domain { border-color: var(--amber); color: var(--amber); }
+        .domain-modal {
+            display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.94);
+            backdrop-filter: blur(8px); z-index: 1003; justify-content: center; align-items: center;
+        }
+        .domain-modal-content {
+            background: var(--bg-panel); border: 1px solid var(--border-color); width: 92%;
+            max-width: 680px; max-height: 90vh; overflow-y: auto; padding: 24px;
+            border-radius: var(--border-radius); box-shadow: var(--panel-glow);
+        }
+        .domain-field { margin-bottom: 16px; }
+        .domain-field label { display: block; font-size: 0.78rem; margin-bottom: 6px; color: var(--text-muted); }
+        .domain-field input, .domain-field textarea, #agent-domain {
+            width: 100%; background: rgba(0,0,0,0.45); border: 1px solid var(--border-color);
+            color: var(--text-primary); padding: 10px; font-family: inherit; border-radius: var(--border-radius);
+        }
+        .domain-suggestions { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 8px; }
+        .domain-suggestion {
+            border: 1px solid rgba(255,255,255,0.14); background: rgba(255,255,255,0.04);
+            color: var(--text-muted); border-radius: 16px; padding: 5px 10px; cursor: pointer;
+            font-family: inherit; font-size: 0.72rem;
+        }
+        .domain-suggestion:hover { border-color: var(--cyan); color: var(--cyan); }
+        .domain-theme-grid { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 10px; }
+        .domain-theme-card {
+            display: block; position: relative; padding: 14px; border: 1px solid var(--border-color);
+            background: rgba(0,0,0,0.28); border-radius: var(--border-radius); cursor: pointer;
+        }
+        .domain-theme-card.selected { border-color: var(--theme-color); box-shadow: inset 3px 0 0 var(--theme-color); }
+        .domain-theme-card input { position: absolute; opacity: 0; pointer-events: none; }
+        .domain-theme-name { font-size: 0.9rem; font-weight: 700; color: var(--theme-color); }
+        .domain-theme-sample { margin: 8px 0 4px; }
+        .domain-theme-meta { color: var(--text-muted); font-size: 0.68rem; line-height: 1.4; }
+        .domain-modal-actions { display: flex; justify-content: flex-end; gap: 8px; margin-top: 20px; }
+        .domain-form-status { min-height: 20px; margin-top: 10px; color: var(--text-muted); font-size: 0.75rem; }
+        .domain-form-status.error { color: var(--red); }
+        @media (max-width: 620px) { .domain-theme-grid { grid-template-columns: 1fr; } }
         footer { text-align: center; color: var(--text-muted); font-size: 0.65rem; margin-top: 30px; padding-top: 12px; border-top: 1px solid rgba(255,255,255,0.05); opacity: 0.6; }
     </style>
 </head>
@@ -615,6 +659,7 @@
     <!-- BOTONES FLOTANTES -->
     <div class="floating-settings" id="settings-fab">⚙️</div>
     <div class="floating-add" id="add-fab">+</div>
+    <button class="floating-domain" id="domain-fab" type="button">◇ DOMINIO</button>
 
     <!-- MODAL CONFIGURACIÓN -->
     <div id="config-modal" class="config-modal">
@@ -762,6 +807,7 @@
         <div style="background:var(--bg-panel); border:1px solid var(--border-color); width:90%; max-width:450px; padding:20px; border-radius:var(--border-radius);">
             <h3 id="agent-modal-title" style="color:var(--cyan); margin-bottom:15px;">CREAR AGENTE</h3>
             <input type="hidden" id="edit-agent-id">
+            <div class="domain-field"><label for="agent-domain">DOMINIO</label><select id="agent-domain"></select></div>
             <div style="margin-bottom:12px;"><label style="font-size:0.8rem;">ID <span style="color:var(--red);">*</span></label><input type="text" id="agent-id" style="width:100%; background:rgba(0,0,0,0.5); border:1px solid var(--border-color); color:#fff; padding:8px; border-radius:var(--border-radius);"></div>
             <div style="margin-bottom:12px;"><label style="font-size:0.8rem;">ROL <span style="color:var(--red);">*</span></label>
                 <select id="agent-role" style="width:100%; background:rgba(0,0,0,0.5); border:1px solid var(--border-color); color:#fff; padding:8px; border-radius:var(--border-radius);">
@@ -847,6 +893,46 @@
                 <button id="save-agent-btn" class="btn-primary">ACEPTAR</button>
                 <button id="cancel-agent-btn" class="btn-primary">CANCELAR</button>
             </div>
+        </div>
+    </div>
+
+    <!-- MODAL CREAR DOMINIO -->
+    <div id="domain-modal" class="domain-modal" role="dialog" aria-modal="true" aria-labelledby="domain-modal-title">
+        <div class="domain-modal-content">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:18px;">
+                <div>
+                    <h3 id="domain-modal-title" style="color:var(--cyan);" data-i18n="domains.create_title">CREAR DOMINIO</h3>
+                    <div style="font-size:0.72rem; color:var(--text-muted);" data-i18n="domains.create_subtitle">Definí el contexto compartido antes de crear agentes.</div>
+                </div>
+                <button id="close-domain-modal" type="button" class="btn-primary" aria-label="Cerrar">×</button>
+            </div>
+            <form id="domain-form">
+                <div class="domain-field">
+                    <label for="domain-name" data-i18n="domains.name">NOMBRE</label>
+                    <input id="domain-name" name="nombre" maxlength="80" autocomplete="off" required>
+                    <div style="font-size:0.68rem; color:var(--text-muted); margin-top:7px;" data-i18n="domains.suggestions_label">Sugerencias de nicho</div>
+                    <div class="domain-suggestions" id="domain-suggestions"></div>
+                </div>
+                <div class="domain-field">
+                    <label for="domain-description" data-i18n="domains.short_description">DESCRIPCIÓN CORTA</label>
+                    <textarea id="domain-description" name="descripcion" rows="2" maxlength="240" required></textarea>
+                </div>
+                <div class="domain-field">
+                    <label for="domain-instructions" data-i18n="domains.global_instructions">INSTRUCCIONES QUE TODOS LOS AGENTES HEREDAN</label>
+                    <textarea id="domain-instructions" name="instrucciones" rows="5" maxlength="4000" required></textarea>
+                </div>
+                <div class="domain-field">
+                    <label data-i18n="domains.theme_title">TEMA DEL DOMINIO</label>
+                    <div style="font-size:0.68rem; color:var(--text-muted); margin-bottom:9px;" data-i18n="domains.theme_help">El color y la jerarquía tipográfica se aplican como un paquete único.</div>
+                    <div id="domain-theme-grid" class="domain-theme-grid"></div>
+                </div>
+                <input type="hidden" id="domain-suggested-niche" value="">
+                <div id="domain-form-status" class="domain-form-status" role="status"></div>
+                <div class="domain-modal-actions">
+                    <button id="cancel-domain-btn" type="button" class="btn-primary" data-i18n="common.cancel">CANCELAR</button>
+                    <button id="save-domain-btn" type="submit" class="btn-primary" data-i18n="domains.create_action">CREAR DOMINIO</button>
+                </div>
+            </form>
         </div>
     </div>
 
@@ -962,7 +1048,8 @@
                             role: (a.role || 'analyst').toLowerCase(),
                             avatar: a.id.substring(0, 2).toUpperCase(),
                             color: '#00d4ff',
-                            is_generic_baseline: a.is_generic_baseline === true
+                            is_generic_baseline: a.is_generic_baseline === true,
+                            domain_id: a.domain_id || null
                         }));
                 }
                 const saved = localStorage.getItem('saaop_selected');
@@ -1163,6 +1250,8 @@
                 document.getElementById('agent-modal-title').innerText = `EDITAR: ${ag.name}`;
                 document.getElementById('agent-id').value = id;
                 document.getElementById('agent-id').disabled = true;
+                document.getElementById('agent-domain').value = ag.domain_id || '';
+                document.getElementById('agent-domain').disabled = true;
                 const roleSelect = document.getElementById('agent-role');
                 for (let i = 0; i < roleSelect.options.length; i++) {
                     if (roleSelect.options[i].value === ag.role) {
@@ -1185,8 +1274,10 @@
             const model = document.getElementById('agent-model').value;
             let prompt = document.getElementById('agent-prompt').value.trim();
             const memoryFile = document.getElementById('agent-memory').files[0];
+            const domainId = document.getElementById('agent-domain').value;
 
             if (!id) { alert('ID es obligatorio'); return; }
+            if (!domainId) { alert('Debe seleccionar un dominio'); return; }
             if (!prompt) { alert('System Prompt es obligatorio'); return; }
             if (!currentEditId && !memoryFile) { alert('Debe seleccionar un archivo de memoria'); return; }
 
@@ -1199,6 +1290,7 @@
             formData.append('model', model);
             formData.append('system_prompt', prompt);
             formData.append('temperature', '0.3');
+            formData.append('domain_id', domainId);
             if (memoryFile) formData.append('memory_file', memoryFile);
 
             const url = currentEditId ? `${API_BASE}/api/agents/${id}` : `${API_BASE}/api/agents/create`;
@@ -1211,6 +1303,7 @@
                     alert(currentEditId ? 'Agente actualizado' : 'Agente creado');
                     document.getElementById('agent-modal').style.display = 'none';
                     document.getElementById('agent-id').disabled = false;
+                    document.getElementById('agent-domain').disabled = false;
                     currentEditId = null;
                     await cargarAgentes();
                 } else alert('Error: ' + data.error);
@@ -1472,6 +1565,7 @@
         // ========== INICIALIZACIÓN ==========
         window.onload = async () => {
             await cargarAgentes();
+            await window.domainUI?.initialize();
             renderWidgetsLibrary();
             iniciarDragAndDropWidgets();
             initRadar();
@@ -1504,9 +1598,9 @@
             
             document.getElementById('start-btn').onclick = startDebate;
             document.getElementById('settings-fab').onclick = () => { cargarChecklist(); document.getElementById('config-modal').style.display = 'flex'; };
-            document.getElementById('add-fab').onclick = () => { currentEditId = null; document.getElementById('agent-modal-title').innerText = 'CREAR AGENTE'; document.getElementById('agent-id').disabled = false; document.getElementById('agent-id').value = ''; document.getElementById('agent-prompt').value = ''; document.getElementById('agent-memory').value = ''; document.getElementById('agent-modal').style.display = 'flex'; };
+            document.getElementById('add-fab').onclick = () => window.domainUI.requireDomain(() => { currentEditId = null; document.getElementById('agent-modal-title').innerText = 'CREAR AGENTE'; document.getElementById('agent-id').disabled = false; document.getElementById('agent-domain').disabled = false; document.getElementById('agent-id').value = ''; document.getElementById('agent-prompt').value = ''; document.getElementById('agent-memory').value = ''; document.getElementById('agent-modal').style.display = 'flex'; });
             document.getElementById('save-agent-btn').onclick = guardarAgente;
-            document.getElementById('cancel-agent-btn').onclick = () => { document.getElementById('agent-modal').style.display = 'none'; document.getElementById('agent-id').disabled = false; currentEditId = null; };
+            document.getElementById('cancel-agent-btn').onclick = () => { document.getElementById('agent-modal').style.display = 'none'; document.getElementById('agent-id').disabled = false; document.getElementById('agent-domain').disabled = false; currentEditId = null; };
             document.getElementById('clear-radar-sticker').onclick = () => { document.getElementById('radar-sticker').innerText = ''; document.getElementById('current-radar-sticker').innerText = ''; localStorage.removeItem('radar_sticker'); };
             document.getElementById('show-radar-btn').onclick = () => { document.getElementById('radar-container').style.display = 'block'; localStorage.removeItem('radar_hidden'); };
             document.getElementById('apply-config-btn').onclick = () => aplicarConfiguracion(false);
@@ -1553,6 +1647,7 @@
             setInterval(checkConnection, 5000);
         };
     </script>
+    <script src="/domains.js"></script>
     <script src="/admin-panels.js"></script>
 </body>
 </html>

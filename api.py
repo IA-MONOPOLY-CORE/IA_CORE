@@ -28,6 +28,15 @@ from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 
 import config
+from core.domain_registry import (
+    create_domain,
+    find_agent_json,
+    get_domain_agent_paths,
+    get_theme_presets,
+    iter_agent_config_dirs,
+    list_domains,
+    load_domain,
+)
 from core.supervisor import MEMORY_HISTORY_KEY, Supervisor
 from core.orchestration import ExecutionMode
 
@@ -456,6 +465,14 @@ class LearnRequest(BaseModel):
     content: str
     agent_id: str
     source: str = "user_input"
+
+
+class DomainCreateRequest(BaseModel):
+    nombre: str
+    descripcion: str
+    instrucciones: str
+    tema_id: str
+    nicho_sugerido: str | None = None
 
 
 class CreateAgentRequest(BaseModel):
@@ -945,6 +962,38 @@ async def get_conversation(conversation_id: str):
 
 
 # ========================================================================
+# Dominios (genéricos)
+# ========================================================================
+@app.get("/api/domains/list")
+async def get_domains() -> dict:
+    domains = list_domains()
+    return {
+        "success": True,
+        "domains": domains,
+        "themes": get_theme_presets(),
+        "total": len(domains),
+    }
+
+
+@app.post("/api/domains/create")
+async def create_domain_endpoint(request: DomainCreateRequest) -> dict:
+    try:
+        domain = create_domain(
+            name=request.nombre,
+            description=request.descripcion,
+            instructions=request.instrucciones,
+            theme_id=request.tema_id,
+            suggested_niche=request.nicho_sugerido,
+        )
+        logger.info("Dominio creado: %s", domain["id"])
+        return {"success": True, "domain": domain}
+    except FileExistsError as exc:
+        raise HTTPException(status_code=409, detail=str(exc)) from exc
+    except ValueError as exc:
+        raise HTTPException(status_code=400, detail=str(exc)) from exc
+
+
+# ========================================================================
 # Agentes (genéricos)
 # ========================================================================
 @app.post("/api/agents/create")
@@ -956,10 +1005,11 @@ async def create_agent_endpoint(
     system_prompt: str = Form(...),
     temperature: float = Form(0.3),
     memory_file: Optional[UploadFile] = File(None),
+    domain_id: str = Form(config.DEFAULT_DOMAIN_ID),
 ):
     """
     Crea un nuevo agente en el sistema.
-    - Genera el JSON en domains/loteria/agents/config/{id}.json
+    - Genera el JSON en domains/{domain_id}/agents/config/{id}.json
     - Si hay archivo de memoria, lo indexa en ChromaDB
     - Genera el paper automáticamente
     """
@@ -974,8 +1024,11 @@ async def create_agent_endpoint(
         logger.warning(f"ID sanitizado: {id} -> {safe_id}")
         id = safe_id
 
-    config_dir = config.AGENTS_CONFIG_DIR
-    papers_dir = config.AGENTS_PAPERS_DIR
+    domain = load_domain(domain_id)
+    if domain is None:
+        return {"success": False, "error": f"Dominio '{domain_id}' no encontrado"}
+
+    config_dir, papers_dir = get_domain_agent_paths(domain_id)
     config_dir.mkdir(parents=True, exist_ok=True)
     papers_dir.mkdir(parents=True, exist_ok=True)
 
@@ -994,11 +1047,13 @@ async def create_agent_endpoint(
         "temperature": temperature,
         "system_prompt": system_prompt,
         "instructions": [],
+        "domain_id": domain_id,
+        "domain_instructions": domain.get("instrucciones", ""),
     }
 
     json_path = config_dir / f"{id}.json"
 
-    if json_path.exists():
+    if find_agent_json(id) is not None:
         return {"success": False, "error": f"Ya existe un agente con ID '{id}'"}
 
     try:
@@ -1024,18 +1079,22 @@ async def create_agent_endpoint(
             logger.warning(f"Error indexando memoria para {id}: {e}")
 
     paper_generado = False
-    try:
-        from mejorar_papers import mejorar_paper
+    if domain_id == config.DEFAULT_DOMAIN_ID:
+        try:
+            from mejorar_papers import mejorar_paper
 
-        mejorar_paper(id, usar_llm=False)
-        paper_generado = True
-        logger.info(f"✅ Paper generado automáticamente para {id}")
-    except ImportError as e:
-        logger.warning(f"No se pudo importar mejorar_papers: {e}")
+            mejorar_paper(id, usar_llm=False)
+            paper_generado = True
+            logger.info(f"✅ Paper generado automáticamente para {id}")
+        except Exception as e:
+            logger.warning(f"No se pudo mejorar el paper de {id}: {e}")
+
+    if not paper_generado:
         paper_basico = {
             "agente_id": id,
             "rol": role,
             "identidad": system_prompt[:500],
+            "instrucciones_dominio": domain.get("instrucciones", ""),
             "reglas_clave": [],
             "lecciones_aprendidas": [],
             "errores_a_evitar": [],
@@ -1047,8 +1106,6 @@ async def create_agent_endpoint(
             json.dump(paper_basico, f, indent=2, ensure_ascii=False)
         paper_generado = True
         logger.info(f"✅ Paper básico creado para {id}")
-    except Exception as e:
-        logger.error(f"Error generando paper para {id}: {e}")
 
     return {
         "success": True,
@@ -1145,9 +1202,10 @@ async def list_agents():
     agentes = []
     agentes_ids = set()
 
-    # Fuente 1: Agentes desde JSON (leer directorio directamente)
-    config_dir = config.AGENTS_CONFIG_DIR
-    if config_dir.exists():
+    # Fuente 1: Agentes JSON de todos los dominios registrados.
+    for domain_id, config_dir in iter_agent_config_dirs():
+        if not config_dir.exists():
+            continue
         for json_file in config_dir.glob("*.json"):
             if json_file.name.endswith(".bak"):
                 continue
@@ -1165,6 +1223,7 @@ async def list_agents():
                             "model": data.get("model", "unknown"),
                             "source": "json",
                             "is_generic_baseline": False,
+                            "domain_id": data.get("domain_id", domain_id),
                         }
                     )
             except Exception as e:
@@ -1174,9 +1233,8 @@ async def list_agents():
     for agent_id in supervisor.agents.list_ids():
         if agent_id not in agentes_ids:
             role = supervisor.agents.get_role(agent_id)
-            # Verificar si existe el JSON
-            json_path = config_dir / f"{agent_id}.json"
-            source = "json" if json_path.exists() else "python"
+            found = find_agent_json(agent_id)
+            source = "json" if found else "python"
             is_generic = supervisor.agents.is_generic_baseline(agent_id)
             provider = "nvidia" if source == "json" else "python_module"
             model = "builtin" if source == "python" else "unknown"
@@ -1189,6 +1247,9 @@ async def list_agents():
                     "model": model,
                     "source": source,
                     "is_generic_baseline": is_generic,
+                    "domain_id": found[0]
+                    if found
+                    else getattr(supervisor.agents, "get_domain_id", lambda _id: None)(agent_id),
                 }
             )
             agentes_ids.add(agent_id)
@@ -1209,9 +1270,10 @@ async def update_agent(agent_id: str, request: Request):
         model = data.get("model")
         system_prompt = data.get("system_prompt")
 
-        json_path = config.AGENTS_CONFIG_DIR / f"{agent_id}.json"
-        if not json_path.exists():
+        found = find_agent_json(agent_id)
+        if found is None:
             return {"success": False, "error": f"Agente {agent_id} no encontrado"}
+        _, json_path = found
 
         with open(json_path, "r", encoding="utf-8") as f:
             config_data = json.load(f)
@@ -1243,13 +1305,13 @@ async def delete_agent(agent_id: str):
         if re.sub(r"[^a-zA-Z0-9_-]", "", agent_id) != agent_id:
             return {"success": False, "error": "ID de agente inválido"}
 
-        json_path = config.AGENTS_CONFIG_DIR / f"{agent_id}.json"
-        paper_path = config.AGENTS_PAPERS_DIR / f"{agent_id}_paper.json"
+        found = find_agent_json(agent_id)
+        if found is None:
+            return {"success": False, "error": f"Agente {agent_id} no encontrado"}
+        _, json_path = found
+        paper_path = json_path.parent.parent / "papers" / f"{agent_id}_paper.json"
         memory_path = ROOT / "memoria_agentes" / agent_id
         vector_path = ROOT / "memoria_vectorial" / agent_id
-
-        if not json_path.exists():
-            return {"success": False, "error": f"Agente {agent_id} no encontrado"}
 
         json_path.unlink()
         logger.info(f"🗑️ Eliminado JSON de {agent_id}")

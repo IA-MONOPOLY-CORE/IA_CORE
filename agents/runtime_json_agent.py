@@ -8,6 +8,7 @@ from typing import Any
 import config
 
 from agents.base import Agent
+from core.domain_registry import load_domain
 
 logger = logging.getLogger(__name__)
 
@@ -45,6 +46,11 @@ class RuntimeJsonAgent(Agent):
         self.provider_name = self.profile.get("provider", "nvidia")
         self.model_name = self.profile.get("model", "meta/llama-4-maverick-17b-128e-instruct")
         self.instructions = self.profile.get("instructions", [])
+        self.domain_id = self.profile.get("domain_id", config.DEFAULT_DOMAIN_ID)
+        domain = load_domain(self.domain_id) or {}
+        self.domain_instructions = self.profile.get(
+            "domain_instructions", domain.get("instrucciones", "")
+        ).strip()
 
         # ========== IDENTIDAD PRINCIPAL: PAPER (mutable) ==========
         self.paper = None
@@ -57,6 +63,13 @@ class RuntimeJsonAgent(Agent):
                 f"⚠️ {self.id}: No se encontró paper, usando system_prompt del JSON como fallback"
             )
 
+        if self.domain_instructions:
+            self.system_prompt = (
+                "[INSTRUCCIONES GLOBALES DEL DOMINIO]\n"
+                f"{self.domain_instructions}\n\n"
+                f"{self.system_prompt}"
+            )
+
         # Inicializar memoria vectorial para este agente (carga diferida)
         self._memoria_vectorial = None
 
@@ -65,7 +78,7 @@ class RuntimeJsonAgent(Agent):
         Carga la identidad del agente desde su paper.
         El paper es la fuente de verdad de la personalidad del agente.
         """
-        paper_path = config.AGENTS_PAPERS_DIR / f"{self.id}_paper.json"
+        paper_path = self.json_path.parent.parent / "papers" / f"{self.id}_paper.json"
 
         if not paper_path.exists():
             logger.warning(f"⚠️ Paper no encontrado para {self.id} en {paper_path}")
@@ -121,9 +134,14 @@ class RuntimeJsonAgent(Agent):
         """Carga diferida de la memoria vectorial para evitar dependencias circulares."""
         if self._memoria_vectorial is None:
             try:
-                from domains.loteria.memoria_loteria import MemoriaVectorialLoteria
+                if self.domain_id == "loteria":
+                    from domains.loteria.memoria_loteria import MemoriaVectorialLoteria
 
-                self._memoria_vectorial = MemoriaVectorialLoteria(self.id)
+                    self._memoria_vectorial = MemoriaVectorialLoteria(self.id)
+                else:
+                    from core.memoria_perpetua import MemoriaVectorial
+
+                    self._memoria_vectorial = MemoriaVectorial(self.id)
             except ImportError as e:
                 logger.warning(f"No se pudo cargar memoria vectorial para {self.id}: {e}")
                 self._memoria_vectorial = False
@@ -195,13 +213,18 @@ class RuntimeJsonAgent(Agent):
 
         # Memoria optimizada
         try:
-            from domains.loteria.memoria_loteria import cargar_memoria_al_prompt
+            if self.domain_id == "loteria":
+                from domains.loteria.memoria_loteria import cargar_memoria_al_prompt
 
-            memoria_texto = cargar_memoria_al_prompt(
-                self.id,
-                consulta_actual=task,
-                sorteo_actual=sorteo_actual,
-            )
+                memoria_texto = cargar_memoria_al_prompt(
+                    self.id,
+                    consulta_actual=task,
+                    sorteo_actual=sorteo_actual,
+                )
+            else:
+                from core.memoria_perpetua import cargar_memoria_al_prompt
+
+                memoria_texto = cargar_memoria_al_prompt(self.id, consulta_actual=task)
         except Exception as e:
             logger.warning(f"Error cargando memoria para {self.id}: {e}")
             memoria_texto = "\n[Memoria temporalmente no disponible]\n"

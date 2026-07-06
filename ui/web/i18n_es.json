@@ -210,6 +210,27 @@
     "remove_logo": "Quitar logo",
     "drag_hint": "Se puede arrastrar dentro del banner. Usá el menú contextual para eliminarlo."
   },
+  "domains": {
+    "create_title": "Crear dominio",
+    "create_subtitle": "Definí el contexto compartido antes de crear agentes.",
+    "create_action": "Crear dominio",
+    "creating": "Creando dominio...",
+    "name": "Nombre",
+    "short_description": "Descripción corta",
+    "global_instructions": "Instrucciones que todos los agentes heredan",
+    "suggestions_label": "Sugerencias de nicho",
+    "niche_suggestions": [
+      "Lotería",
+      "Trading",
+      "Atención al cliente",
+      "Análisis de contratos",
+      "Investigación de mercado"
+    ],
+    "theme_title": "Tema del dominio",
+    "theme_help": "El color y la jerarquía tipográfica se aplican como un paquete único.",
+    "theme_sample": "Título · Texto de muestra",
+    "required_before_agent": "Primero creá un dominio para poder crear agentes."
+  },
   "errors": {
     "network": "Error de red.",
     "load_agents": "No se pudieron cargar los agentes.",
