@@ -135,3 +135,18 @@ def test_agent_creation_requires_domain_id():
     )
 
     assert domain_field.field_info.is_required() is True
+
+
+def test_agent_form_memory_is_optional_and_labels_are_spanish():
+    html = Path("ui/web/index.html").read_text(encoding="utf-8")
+
+    assert "* OBLIGATORIA" not in html
+    assert "Debe seleccionar un archivo de memoria" not in html
+    assert "MEMORIA <span style=\"color:var(--text-muted);\">(OPCIONAL)</span>" in html
+
+    assert '<option value="simulator">Simulador</option>' in html
+    assert '<option value="critic">Crítico</option>' in html
+    assert '<option value="optimizer">Optimizador</option>' in html
+    assert '<option value="orchestrator">Orquestador</option>' in html
+    assert 'bayesian: "Bayesiano"' in html
+    assert "option.value = spec;" in html
