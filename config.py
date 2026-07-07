@@ -31,15 +31,15 @@ TOOLS_MODULES_DIR = ROOT_DIR / "tools" / "modules"
 
 DOMAINS_DIR = ROOT_DIR / "domains"
 
-DEFAULT_DOMAIN_ID = "loteria"
+DEFAULT_DOMAIN_ID = "loteria"  # Compatibilidad legacy: Lotería como dominio histórico por defecto.
 
 # =========================================================
-# CONFIGURACIÓN DE AGENTES - CORREGIDA PARA JSON
+# CONFIGURACIÓN DE AGENTES - COMPATIBILIDAD LEGACY
 # =========================================================
-# Directorio donde están los archivos JSON de los agentes
+# Estas rutas apuntan al dominio histórico Lotería para mantener compatibilidad con
+# scripts/tests antiguos. Los flujos genéricos nuevos deben resolver rutas por
+# domain_id mediante core.domain_registry.
 AGENTS_CONFIG_DIR = ROOT_DIR / "domains" / "loteria" / "agents" / "config"
-
-# Directorio donde están los papers (identidad) de los agentes
 AGENTS_PAPERS_DIR = ROOT_DIR / "domains" / "loteria" / "agents" / "papers"
 
 # Directorio de módulos Python (para agentes personalizados, puede estar vacío)

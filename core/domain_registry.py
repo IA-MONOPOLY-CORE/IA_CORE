@@ -99,6 +99,19 @@ def _safe_domain_dir(domain_id: str, domains_dir: str | Path | None = None) -> P
     return target
 
 
+def get_domain_dir(domain_id: str, domains_dir: str | Path | None = None) -> Path:
+    """Devuelve la carpeta raíz de un dominio registrado."""
+    domain_dir = _safe_domain_dir(domain_id, domains_dir)
+    if load_domain(domain_id, domains_dir) is None:
+        raise ValueError(f"Dominio no encontrado: {domain_id}")
+    return domain_dir
+
+
+def get_domain_manifest_path(domain_id: str, domains_dir: str | Path | None = None) -> Path:
+    """Devuelve la ruta al domain.json de un dominio registrado."""
+    return get_domain_dir(domain_id, domains_dir) / "domain.json"
+
+
 def load_domain(domain_id: str, domains_dir: str | Path | None = None) -> dict[str, Any] | None:
     manifest_path = _safe_domain_dir(domain_id, domains_dir) / "domain.json"
     if not manifest_path.exists():
@@ -110,7 +123,13 @@ def load_domain(domain_id: str, domains_dir: str | Path | None = None) -> dict[s
     return data
 
 
-def list_domains(domains_dir: str | Path | None = None) -> list[dict[str, Any]]:
+def _is_internal_domain(domain: dict[str, Any]) -> bool:
+    return domain.get("visible_en_hud") is False or domain.get("es_demo") is True
+
+
+def list_domains(
+    domains_dir: str | Path | None = None, *, include_internal: bool = False
+) -> list[dict[str, Any]]:
     root = _domains_dir(domains_dir)
     if not root.exists():
         return []
@@ -121,6 +140,8 @@ def list_domains(domains_dir: str | Path | None = None) -> list[dict[str, Any]]:
             with open(manifest_path, "r", encoding="utf-8") as file:
                 data = json.load(file)
             if isinstance(data, dict) and data.get("id") == manifest_path.parent.name:
+                if not include_internal and _is_internal_domain(data):
+                    continue
                 domains.append(data)
         except (OSError, json.JSONDecodeError):
             continue
@@ -170,25 +191,52 @@ def create_domain(
 
     (domain_dir / "agents" / "config").mkdir(parents=True, exist_ok=True)
     (domain_dir / "agents" / "papers").mkdir(parents=True, exist_ok=True)
+    (domain_dir / "agents" / "memory_sources").mkdir(parents=True, exist_ok=True)
     with open(manifest_path, "x", encoding="utf-8") as file:
         json.dump(manifest, file, indent=2, ensure_ascii=False)
     return manifest
 
 
 def get_domain_agent_paths(
-    domain_id: str, domains_dir: str | Path | None = None
+    domain_id: str, domains_dir: str | Path | None = None, *, ensure: bool = False
 ) -> tuple[Path, Path]:
-    domain = load_domain(domain_id, domains_dir)
-    if domain is None:
-        raise ValueError(f"Dominio no encontrado: {domain_id}")
-    root = _safe_domain_dir(domain_id, domains_dir) / "agents"
-    return root / "config", root / "papers"
+    root = get_domain_dir(domain_id, domains_dir) / "agents"
+    config_dir = root / "config"
+    papers_dir = root / "papers"
+    if ensure:
+        config_dir.mkdir(parents=True, exist_ok=True)
+        papers_dir.mkdir(parents=True, exist_ok=True)
+    return config_dir, papers_dir
+
+
+def get_domain_agents_config_dir(
+    domain_id: str, domains_dir: str | Path | None = None, *, ensure: bool = False
+) -> Path:
+    config_dir, _ = get_domain_agent_paths(domain_id, domains_dir, ensure=ensure)
+    return config_dir
+
+
+def get_domain_agents_papers_dir(
+    domain_id: str, domains_dir: str | Path | None = None, *, ensure: bool = False
+) -> Path:
+    _, papers_dir = get_domain_agent_paths(domain_id, domains_dir, ensure=ensure)
+    return papers_dir
+
+
+def get_domain_memory_sources_dir(
+    domain_id: str, domains_dir: str | Path | None = None, *, ensure: bool = False
+) -> Path:
+    memory_sources_dir = get_domain_dir(domain_id, domains_dir) / "agents" / "memory_sources"
+    if ensure:
+        memory_sources_dir.mkdir(parents=True, exist_ok=True)
+    return memory_sources_dir
 
 
 def iter_agent_config_dirs(
     domains_dir: str | Path | None = None,
     *,
     include_legacy: bool = True,
+    include_internal: bool = False,
 ) -> Iterator[tuple[str, Path]]:
     seen: set[Path] = set()
     if include_legacy:
@@ -196,7 +244,7 @@ def iter_agent_config_dirs(
         seen.add(legacy.resolve())
         yield config.DEFAULT_DOMAIN_ID, legacy
 
-    for domain in list_domains(domains_dir):
+    for domain in list_domains(domains_dir, include_internal=include_internal):
         config_dir, _ = get_domain_agent_paths(domain["id"], domains_dir)
         resolved = config_dir.resolve()
         if resolved not in seen:
@@ -207,8 +255,38 @@ def iter_agent_config_dirs(
 def find_agent_json(
     agent_id: str, domains_dir: str | Path | None = None
 ) -> tuple[str, Path] | None:
+    matches = find_agent_json_all(agent_id, domains_dir)
+    return matches[0] if matches else None
+
+
+def find_agent_json_all(
+    agent_id: str, domains_dir: str | Path | None = None
+) -> list[tuple[str, Path]]:
+    matches: list[tuple[str, Path]] = []
     for domain_id, config_dir in iter_agent_config_dirs(domains_dir):
         json_path = config_dir / f"{agent_id}.json"
         if json_path.exists():
-            return domain_id, json_path
-    return None
+            matches.append((domain_id, json_path))
+    return matches
+
+
+def resolve_agent_json(
+    agent_id: str,
+    domain_id: str | None = None,
+    domains_dir: str | Path | None = None,
+) -> tuple[str, Path]:
+    """Resuelve un agente JSON por dominio opcional, fallando si el ID es ambiguo."""
+    if domain_id:
+        config_dir = get_domain_agents_config_dir(domain_id, domains_dir)
+        json_path = config_dir / f"{agent_id}.json"
+        if not json_path.exists():
+            raise FileNotFoundError(f"Agente {agent_id} no encontrado en dominio {domain_id}")
+        return domain_id, json_path
+
+    matches = find_agent_json_all(agent_id, domains_dir)
+    if not matches:
+        raise FileNotFoundError(f"Agente {agent_id} no encontrado")
+    if len(matches) > 1:
+        domains = ", ".join(domain for domain, _ in matches)
+        raise ValueError(f"Agente {agent_id} existe en múltiples dominios: {domains}")
+    return matches[0]

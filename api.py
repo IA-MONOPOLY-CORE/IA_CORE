@@ -36,6 +36,7 @@ from core.domain_registry import (
     iter_agent_config_dirs,
     list_domains,
     load_domain,
+    resolve_agent_json,
 )
 from core.supervisor import MEMORY_HISTORY_KEY, Supervisor
 from core.orchestration import ExecutionMode
@@ -1033,9 +1034,7 @@ async def create_agent_endpoint(
     if domain is None:
         return {"success": False, "error": f"Dominio '{domain_id}' no encontrado"}
 
-    config_dir, papers_dir = get_domain_agent_paths(domain_id)
-    config_dir.mkdir(parents=True, exist_ok=True)
-    papers_dir.mkdir(parents=True, exist_ok=True)
+    config_dir, papers_dir = get_domain_agent_paths(domain_id, ensure=True)
 
     final_model = model
     if not final_model:
@@ -1083,34 +1082,23 @@ async def create_agent_endpoint(
         except Exception as e:
             logger.warning(f"Error indexando memoria para {id}: {e}")
 
-    paper_generado = False
-    if domain_id == config.DEFAULT_DOMAIN_ID:
-        try:
-            from mejorar_papers import mejorar_paper
-
-            mejorar_paper(id, usar_llm=False)
-            paper_generado = True
-            logger.info(f"✅ Paper generado automáticamente para {id}")
-        except Exception as e:
-            logger.warning(f"No se pudo mejorar el paper de {id}: {e}")
-
-    if not paper_generado:
-        paper_basico = {
-            "agente_id": id,
-            "rol": role,
-            "identidad": system_prompt[:500],
-            "instrucciones_dominio": domain.get("instrucciones", ""),
-            "reglas_clave": [],
-            "lecciones_aprendidas": [],
-            "errores_a_evitar": [],
-            "estilo_respuesta": "Técnico, directo",
-            "fecha_creacion": datetime.now().isoformat(),
-        }
-        paper_path = papers_dir / f"{id}_paper.json"
-        with open(paper_path, "w", encoding="utf-8") as f:
-            json.dump(paper_basico, f, indent=2, ensure_ascii=False)
-        paper_generado = True
-        logger.info(f"✅ Paper básico creado para {id}")
+    paper_basico = {
+        "agente_id": id,
+        "dominio_id": domain_id,
+        "rol": role,
+        "identidad": system_prompt[:500],
+        "instrucciones_dominio": domain.get("instrucciones", ""),
+        "reglas_clave": [],
+        "lecciones_aprendidas": [],
+        "errores_a_evitar": [],
+        "estilo_respuesta": "Técnico, directo",
+        "fecha_creacion": datetime.now().isoformat(),
+    }
+    paper_path = papers_dir / f"{id}_paper.json"
+    with open(paper_path, "w", encoding="utf-8") as f:
+        json.dump(paper_basico, f, indent=2, ensure_ascii=False)
+    paper_generado = True
+    logger.info(f"✅ Paper básico creado para {id} en dominio {domain_id}")
 
     return {
         "success": True,
@@ -1266,7 +1254,7 @@ async def list_agents():
 # Modificar y eliminar agentes (genéricos)
 # ========================================================================
 @app.put("/api/agents/{agent_id}")
-async def update_agent(agent_id: str, request: Request):
+async def update_agent(agent_id: str, request: Request, domain_id: str | None = None):
     """Actualiza un agente existente (rol, provider, modelo, system_prompt)."""
     try:
         data = await request.json()
@@ -1275,10 +1263,7 @@ async def update_agent(agent_id: str, request: Request):
         model = data.get("model")
         system_prompt = data.get("system_prompt")
 
-        found = find_agent_json(agent_id)
-        if found is None:
-            return {"success": False, "error": f"Agente {agent_id} no encontrado"}
-        _, json_path = found
+        _, json_path = resolve_agent_json(agent_id, domain_id)
 
         with open(json_path, "r", encoding="utf-8") as f:
             config_data = json.load(f)
@@ -1298,22 +1283,21 @@ async def update_agent(agent_id: str, request: Request):
         logger.info(f"✅ Agente {agent_id} actualizado")
         return {"success": True, "message": f"Agente {agent_id} actualizado"}
 
+    except (FileNotFoundError, ValueError) as e:
+        return {"success": False, "error": str(e)}
     except Exception as e:
         logger.error(f"Error actualizando agente {agent_id}: {e}")
         return {"success": False, "error": str(e)}
 
 
 @app.delete("/api/agents/{agent_id}")
-async def delete_agent(agent_id: str):
+async def delete_agent(agent_id: str, domain_id: str | None = None):
     """Elimina un agente (JSON, paper y memorias asociadas)."""
     try:
         if re.sub(r"[^a-zA-Z0-9_-]", "", agent_id) != agent_id:
             return {"success": False, "error": "ID de agente inválido"}
 
-        found = find_agent_json(agent_id)
-        if found is None:
-            return {"success": False, "error": f"Agente {agent_id} no encontrado"}
-        _, json_path = found
+        _, json_path = resolve_agent_json(agent_id, domain_id)
         paper_path = json_path.parent.parent / "papers" / f"{agent_id}_paper.json"
         memory_path = ROOT / "memoria_agentes" / agent_id
         vector_path = ROOT / "memoria_vectorial" / agent_id
@@ -1333,6 +1317,8 @@ async def delete_agent(agent_id: str):
 
         return {"success": True, "message": f"Agente {agent_id} eliminado exitosamente"}
 
+    except (FileNotFoundError, ValueError) as e:
+        return {"success": False, "error": str(e)}
     except Exception as e:
         logger.exception(f"Error eliminando agente {agent_id}: {e}")
         return {"success": False, "error": str(e)}

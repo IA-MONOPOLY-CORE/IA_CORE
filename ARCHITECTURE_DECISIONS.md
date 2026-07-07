@@ -71,3 +71,20 @@ def _get_default_score_response_fn() -> Callable:
 ---
 
 **Respuesta a la pregunta de clasificación**: Lo que acabamos de mover (agents/papers/ → domains/loteria/agents/papers/) pasa a pertenecer al **Dominio** (específicamente al dominio Lotería), no al Core, ni a un Agente individual, ni es Patrimonio compartido. Esto confirma la actualización del ADR-003.
+
+---
+
+## ADR-005 — Lotería es un dominio declarado, no una dependencia global para rutas de agentes
+
+**Estado**: Aceptado
+
+**Contexto**: Los agentes JSON y sus papers ya viven bajo `domains/<dominio>/agents/`, pero algunos flujos genéricos seguían usando constantes legacy que apuntaban a Lotería (`config.AGENTS_CONFIG_DIR`, `config.AGENTS_PAPERS_DIR`) o trataban `config.DEFAULT_DOMAIN_ID == "loteria"` como caso especial.
+
+**Decisión**: Los flujos genéricos de creación, edición, borrado y mejora de papers resuelven rutas por `domain_id` mediante `core.domain_registry`. Lotería sigue funcionando, pero como dominio con `domains/loteria/domain.json`, no como destino implícito del Core.
+
+**Compatibilidad**: `config.DEFAULT_DOMAIN_ID`, `config.AGENTS_CONFIG_DIR` y `config.AGENTS_PAPERS_DIR` permanecen como compatibilidad legacy/default Lotería para scripts y pruebas antiguas. No son el patrón para nuevos flujos genéricos.
+
+**Evidencia**:
+- `core/domain_registry.py` centraliza `get_domain_dir()`, `get_domain_agents_config_dir()`, `get_domain_agents_papers_dir()`, `get_domain_memory_sources_dir()` y `resolve_agent_json()`.
+- `api.py` crea papers básicos en `domains/<domain_id>/agents/papers/` para cualquier dominio y resuelve `PUT/DELETE /api/agents/{agent_id}` por `domain_id` opcional, fallando si el ID es ambiguo.
+- `mejorar_papers.py` acepta `domain_id`, `config_path` o `paper_path` y ya no usa `config.AGENTS_PAPERS_DIR` como destino universal.

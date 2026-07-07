@@ -4,11 +4,14 @@ from pathlib import Path
 
 import config
 import api
+import mejorar_papers
 from agents.runtime_json_agent import RuntimeJsonAgent
 from core.domain_registry import (
     create_domain,
+    get_domain_agents_papers_dir,
     get_theme_presets,
     list_domains,
+    resolve_agent_json,
     slugify_domain_name,
 )
 
@@ -53,6 +56,7 @@ def test_create_domain_writes_manifest_and_agent_directories(tmp_path):
     assert persisted["instrucciones"] == "Separar hechos, riesgos y recomendaciones."
     assert (domain_dir / "agents" / "config").is_dir()
     assert (domain_dir / "agents" / "papers").is_dir()
+    assert (domain_dir / "agents" / "memory_sources").is_dir()
     assert [item["id"] for item in list_domains(tmp_path)] == ["analisis_de_contratos"]
 
 
@@ -84,14 +88,131 @@ def test_domain_api_and_agent_creation_inherit_global_instructions(tmp_path, mon
     assert result["success"] is True
 
     json_path = tmp_path / "investigacion_de_mercado" / "agents" / "config" / "market_researcher_test.json"
+    paper_path = tmp_path / "investigacion_de_mercado" / "agents" / "papers" / "market_researcher_test_paper.json"
     profile = json.loads(json_path.read_text(encoding="utf-8"))
+    paper = json.loads(paper_path.read_text(encoding="utf-8"))
     assert profile["domain_id"] == "investigacion_de_mercado"
     assert profile["domain_instructions"] == "Citar evidencia y declarar incertidumbre."
+    assert paper["dominio_id"] == "investigacion_de_mercado"
+    assert not (tmp_path / "loteria" / "agents" / "config" / "market_researcher_test.json").exists()
+    assert not (tmp_path / "loteria" / "agents" / "papers" / "market_researcher_test_paper.json").exists()
 
     runtime = RuntimeJsonAgent(memory=object(), json_path=json_path)
     assert runtime.domain_id == "investigacion_de_mercado"
     assert runtime.system_prompt.startswith("[INSTRUCCIONES GLOBALES DEL DOMINIO]")
     assert "Citar evidencia y declarar incertidumbre." in runtime.system_prompt
+
+
+def test_agent_creation_in_lottery_domain_writes_lottery_config_and_paper(tmp_path, monkeypatch):
+    monkeypatch.setattr(config, "DOMAINS_DIR", tmp_path)
+
+    create_domain(
+        name="Lotería",
+        description="Dominio de test para sorteos.",
+        instructions="Aplicar reglas de validación ciega.",
+        theme_id="tactico",
+        domains_dir=tmp_path,
+    )
+
+    result = asyncio.run(
+        api.create_agent_endpoint(
+            id="lottery_test_agent",
+            role="analyst",
+            provider="ollama",
+            model="phi3:mini",
+            system_prompt="Analizá combinaciones.",
+            temperature=0.2,
+            memory_file=None,
+            domain_id="loteria",
+        )
+    )
+
+    assert result["success"] is True
+    config_path = tmp_path / "loteria" / "agents" / "config" / "lottery_test_agent.json"
+    paper_path = tmp_path / "loteria" / "agents" / "papers" / "lottery_test_agent_paper.json"
+    assert config_path.exists()
+    assert paper_path.exists()
+    assert json.loads(config_path.read_text(encoding="utf-8"))["domain_id"] == "loteria"
+    assert json.loads(paper_path.read_text(encoding="utf-8"))["dominio_id"] == "loteria"
+
+
+def test_mejorar_paper_resolves_non_lottery_domain(tmp_path, monkeypatch):
+    monkeypatch.setattr(config, "DOMAINS_DIR", tmp_path)
+    monkeypatch.setattr(
+        mejorar_papers,
+        "cargar_memoria",
+        lambda _agent_id: {
+            "patrones_aprendidos": [{"patron": "Separar evidencia observable de hipótesis de mercado."}],
+            "errores_cometidos": [],
+            "aciertos_historicos": [],
+        },
+    )
+
+    create_domain(
+        name="Trading",
+        description="Dominio de señales financieras.",
+        instructions="Evaluar riesgo antes de sugerir acciones.",
+        theme_id="corporativo",
+        domains_dir=tmp_path,
+    )
+    config_dir = tmp_path / "trading" / "agents" / "config"
+    paper_dir = get_domain_agents_papers_dir("trading", domains_dir=tmp_path, ensure=True)
+    agent_config = config_dir / "risk_agent.json"
+    agent_config.write_text(
+        json.dumps(
+            {
+                "id": "risk_agent",
+                "role": "critic",
+                "provider": "mock",
+                "model": "mock",
+                "system_prompt": "Criticar riesgo.",
+                "domain_id": "trading",
+            }
+        ),
+        encoding="utf-8",
+    )
+    paper_path = paper_dir / "risk_agent_paper.json"
+    paper_path.write_text(
+        json.dumps({"agente_id": "risk_agent", "reglas_clave": []}),
+        encoding="utf-8",
+    )
+
+    mejorar_papers.mejorar_paper("risk_agent", usar_llm=False, domain_id="trading")
+
+    updated = json.loads(paper_path.read_text(encoding="utf-8"))
+    assert "Separar evidencia observable de hipótesis de mercado." in updated["reglas_clave"]
+    assert not (tmp_path / "loteria" / "agents" / "papers" / "risk_agent_paper.json").exists()
+
+
+def test_resolve_agent_json_reports_ambiguity_and_can_pin_domain(tmp_path, monkeypatch):
+    monkeypatch.setattr(config, "DOMAINS_DIR", tmp_path)
+
+    for name in ["Trading", "Atención al cliente"]:
+        create_domain(
+            name=name,
+            description="Dominio de prueba.",
+            instructions="Instrucciones.",
+            theme_id="corporativo",
+            domains_dir=tmp_path,
+        )
+
+    for domain_id in ["trading", "atencion_al_cliente"]:
+        config_dir = tmp_path / domain_id / "agents" / "config"
+        (config_dir / "duplicado.json").write_text(
+            json.dumps({"id": "duplicado", "domain_id": domain_id}),
+            encoding="utf-8",
+        )
+
+    try:
+        resolve_agent_json("duplicado", domains_dir=tmp_path)
+    except ValueError as exc:
+        assert "múltiples dominios" in str(exc)
+    else:
+        raise AssertionError("Se esperaba ambigüedad para IDs duplicados")
+
+    domain_id, path = resolve_agent_json("duplicado", "trading", domains_dir=tmp_path)
+    assert domain_id == "trading"
+    assert path == tmp_path / "trading" / "agents" / "config" / "duplicado.json"
 
 
 def test_lottery_domain_has_retroactive_manifest():
@@ -108,6 +229,16 @@ def test_lottery_domain_has_retroactive_manifest():
         "endpoint": "/api/validation/next",
         "domain_specific": True,
     }
+
+
+def test_demo_generico_domain_is_internal_and_hidden_from_default_list():
+    manifest = json.loads(Path("domains/demo_generico/domain.json").read_text(encoding="utf-8"))
+
+    assert manifest["id"] == "demo_generico"
+    assert manifest["es_demo"] is True
+    assert manifest["visible_en_hud"] is False
+    assert "demo_generico" not in {domain["id"] for domain in list_domains()}
+    assert "demo_generico" in {domain["id"] for domain in list_domains(include_internal=True)}
 
 
 def test_domain_creation_ui_uses_catalog_and_gates_agent_creation():

@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "id": "demo_generico",
+  "nombre": "Demo genérico",
+  "descripcion": "Dominio interno para agentes baseline y pruebas de demostración generalista.",
+  "instrucciones": "Responder como agente generalista de demostración, separando análisis, crítica y optimización sin asumir reglas de un dominio productivo.",
+  "tema_id": "corporativo",
+  "color_primario": "#2563EB",
+  "tipografia": {
+    "familia": "Inter, Arial, sans-serif",
+    "titulo_px": 28,
+    "cuerpo_px": 15,
+    "peso_titulo": 700,
+    "peso_cuerpo": 400
+  },
+  "nicho_sugerido": "Demostración interna",
+  "es_demo": true,
+  "visible_en_hud": false,
+  "creado_en": "2026-07-07T00:00:00"
+}

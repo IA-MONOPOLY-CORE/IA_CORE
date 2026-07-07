@@ -10,13 +10,35 @@ from datetime import datetime
 sys.path.insert(0, str(Path(__file__).parent))
 
 import config
+from core.domain_registry import get_domain_agents_papers_dir, resolve_agent_json
 from core.memoria_perpetua import MemoriaVectorial, cargar_memoria
 from providers.registry import ProviderRegistry
 
 
-def cargar_paper_manual(agente_id: str) -> dict:
+def resolver_paper_path(
+    agente_id: str,
+    *,
+    domain_id: str | None = None,
+    config_path: str | Path | None = None,
+    paper_path: str | Path | None = None,
+) -> Path:
+    """Resuelve el paper de un agente sin asumir un dominio global."""
+    if paper_path is not None:
+        return Path(paper_path)
+
+    if config_path is not None:
+        agent_config_path = Path(config_path)
+        return agent_config_path.parent.parent / "papers" / f"{agente_id}_paper.json"
+
+    if domain_id is not None:
+        return get_domain_agents_papers_dir(domain_id, ensure=True) / f"{agente_id}_paper.json"
+
+    _, agent_config_path = resolve_agent_json(agente_id)
+    return agent_config_path.parent.parent / "papers" / f"{agente_id}_paper.json"
+
+
+def cargar_paper_manual(paper_path: Path) -> dict | None:
     """Carga el paper manual existente."""
-    paper_path = config.AGENTS_PAPERS_DIR / f"{agente_id}_paper.json"
     if paper_path.exists():
         with open(paper_path, "r", encoding="utf-8") as f:
             return json.load(f)
@@ -197,11 +219,25 @@ def merge_todos_los_papers(manual: dict, desde_json: dict, desde_vectorial: dict
     return resultado
 
 
-def mejorar_paper(agente_id: str, usar_llm: bool = True):
+def mejorar_paper(
+    agente_id: str,
+    usar_llm: bool = True,
+    *,
+    domain_id: str | None = None,
+    config_path: str | Path | None = None,
+    paper_path: str | Path | None = None,
+):
     """Mejora un paper existente con información de la memoria."""
     print(f"\n📄 Mejorando paper para {agente_id}...")
 
-    manual = cargar_paper_manual(agente_id)
+    resolved_paper_path = resolver_paper_path(
+        agente_id,
+        domain_id=domain_id,
+        config_path=config_path,
+        paper_path=paper_path,
+    )
+
+    manual = cargar_paper_manual(resolved_paper_path)
     if manual:
         print(f"   ✅ Paper manual encontrado")
     else:
@@ -233,13 +269,14 @@ def mejorar_paper(agente_id: str, usar_llm: bool = True):
 
     # 3. Fusionar todo
     final = merge_todos_los_papers(manual, lecciones_json, lecciones_vectorial or {})
+    final["agente_id"] = final.get("agente_id") or agente_id
 
     # 4. Guardar
-    paper_path = config.AGENTS_PAPERS_DIR / f"{agente_id}_paper.json"
-    with open(paper_path, "w", encoding="utf-8") as f:
+    resolved_paper_path.parent.mkdir(parents=True, exist_ok=True)
+    with open(resolved_paper_path, "w", encoding="utf-8") as f:
         json.dump(final, f, indent=2, ensure_ascii=False)
 
-    print(f"   ✅ Paper mejorado guardado en {paper_path}")
+    print(f"   ✅ Paper mejorado guardado en {resolved_paper_path}")
     return final
 
 
@@ -261,7 +298,7 @@ def regenerar_todos_los_papers(usar_llm: bool = True):
     print("=" * 60)
 
     for agente in agentes:
-        mejorar_paper(agente, usar_llm=usar_llm)
+        mejorar_paper(agente, usar_llm=usar_llm, domain_id=config.DEFAULT_DOMAIN_ID)
 
     print("\n" + "=" * 60)
     print("✅ TODOS LOS PAPERS REGENERADOS")
@@ -271,6 +308,9 @@ def regenerar_todos_los_papers(usar_llm: bool = True):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Regenerar papers de agentes desde su memoria")
     parser.add_argument("--agente", type=str, help="ID de un agente específico (opcional)")
+    parser.add_argument("--domain-id", type=str, help="Dominio del agente (opcional)")
+    parser.add_argument("--config-path", type=str, help="Ruta al JSON del agente (opcional)")
+    parser.add_argument("--paper-path", type=str, help="Ruta al paper a actualizar (opcional)")
     parser.add_argument("--no-llm", action="store_true", help="No usar LLM, solo memoria JSON")
     parser.add_argument(
         "--periodico", action="store_true", help="Modo periódico (sin output verbose)"
@@ -284,6 +324,12 @@ if __name__ == "__main__":
         logging.disable(logging.CRITICAL)
 
     if args.agente:
-        mejorar_paper(args.agente, usar_llm=not args.no_llm)
+        mejorar_paper(
+            args.agente,
+            usar_llm=not args.no_llm,
+            domain_id=args.domain_id,
+            config_path=args.config_path,
+            paper_path=args.paper_path,
+        )
     else:
         regenerar_todos_los_papers(usar_llm=not args.no_llm)

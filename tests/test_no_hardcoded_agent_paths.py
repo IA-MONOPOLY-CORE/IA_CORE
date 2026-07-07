@@ -1,18 +1,26 @@
-"""Test to prevent hardcoded agent config paths (ensure everyone uses config.AGENTS_CONFIG_DIR)."""
-import pathlib
+"""Regresión: los flujos genéricos no deben hardcodear rutas de agentes."""
 from pathlib import Path
 
 
 def test_no_hardcoded_agent_paths():
     root_dir = Path(__file__).parent.parent
 
-    # Patterns to look for (hardcoded paths instead of using config.AGENTS_CONFIG_DIR)
     forbidden_patterns = [
         'ROOT / "agents" / "config"',
         'Path("agents/config")',
         'Path("agents", "config")',
         '"agents/config"',
+        'ROOT / "domains" / "loteria"',
+        'ROOT_DIR / "domains" / "loteria"',
+        "domain_id == config.DEFAULT_DOMAIN_ID",
     ]
+
+    forbidden_in_generic_files = {
+        "config.AGENTS_PAPERS_DIR": {
+            root_dir / "api.py",
+            root_dir / "mejorar_papers.py",
+        },
+    }
 
     errors = []
 
@@ -39,7 +47,10 @@ def test_no_hardcoded_agent_paths():
             continue
         if "__pycache__" in str(py_file):
             continue
-        # Skip config.py since it's where AGENTS_CONFIG_DIR is defined!
+        if root_dir / "domains" / "loteria" in py_file.parents:
+            continue
+        if root_dir / "docs" in py_file.parents:
+            continue
         if py_file.name == "config.py":
             continue
 
@@ -60,7 +71,12 @@ def test_no_hardcoded_agent_paths():
             for pattern in forbidden_patterns:
                 if pattern in line:
                     errors.append(
-                        f"{py_file}:{line_num}: Found hardcoded path pattern '{pattern}'. Use config.AGENTS_CONFIG_DIR instead!"
+                        f"{py_file}:{line_num}: Found hardcoded path pattern '{pattern}'. Use domain_registry resolvers instead."
+                    )
+            for pattern, generic_files in forbidden_in_generic_files.items():
+                if py_file in generic_files and pattern in line:
+                    errors.append(
+                        f"{py_file}:{line_num}: Found legacy path constant '{pattern}' in generic flow. Resolve by domain_id instead."
                     )
 
     # If we found any errors, fail the test!

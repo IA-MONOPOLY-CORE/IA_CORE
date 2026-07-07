@@ -4,7 +4,7 @@ Este documento mapea qué partes del sistema son el "motor de debate genérico" 
 
 ## Estado verificado al 4 de julio de 2026
 
-- **Paso 5 — COMPLETADO:** los seis papers de identidad se movieron de `agents/papers/` a `domains/loteria/agents/papers/`. La ruta está centralizada en `config.AGENTS_PAPERS_DIR` y es consumida por `agents/runtime_json_agent.py`, `api.py` y las pruebas de eliminación de agentes.
+- **Paso 5 — COMPLETADO:** los seis papers de identidad se movieron de `agents/papers/` a `domains/loteria/agents/papers/`. La resolución activa ya no depende de una constante global de Lotería: los flujos genéricos usan `core/domain_registry.py` para resolver `domains/<dominio>/agents/config/`, `papers/` y `memory_sources/` por `domain_id`. `config.AGENTS_PAPERS_DIR` queda solo como compatibilidad legacy/default Lotería.
 - **Paso 6 — COMPLETADO:** la memoria vectorial genérica permanece en `core/memoria_perpetua.py` y almacena metadata arbitraria en `memoria_vectorial/`; `domains/loteria/memoria_loteria.py` adapta el concepto `sorteo`. La persistencia SQL específica quedó en `domains/loteria/database_loteria.py`, con la base `domains/loteria/loto_plus.db`; `memory/database.py` fue eliminado.
 - **Paso 8 — COMPLETADO:** `SAAOP_TASK` se define en `domains/loteria/config_loteria.py` y la ejecución/revelación de validación ciega vive en `domains/loteria/validation_loteria.py`. `api.py` conserva únicamente los endpoints/fachada y carga el dominio de forma perezosa; si Lotería no está disponible responde `501`.
 - **Paso 9 — COMPLETADO:** `analyst`, `assistant`, `critic` y `optimizer` se identifican con `AGENT_IS_GENERIC_BASELINE = True`; `AgentManager` conserva esa clasificación, `/api/agents/list` publica `is_generic_baseline` y `ui/web/index.html` muestra dos grupos: **Agentes base (demo) [4]** y **Agentes S.A.A.O.P. [6]**.
@@ -28,6 +28,7 @@ Este documento mapea qué partes del sistema son el "motor de debate genérico" 
 | core/evolution_base.py | NO | **NUEVO** - Clase base genérica EvolutionManagerBase para cualquier sistema evolutivo (fases configurables, historial de agentes, ranking de herramientas, persistencia JSON, hooks para subclases) |
 | core/herramientas.py | NO | Sistema genérico de herramientas compartidas (docstring generalizado, patrones de extracción genéricos en español) |
 | core/memoria_perpetua.py | NO | Sistema genérico de memoria con ChromaDB, búsqueda vectorial y filtros de metadata arbitrarios; toda referencia a `sorteo` fue extraída al adaptador de Lotería |
+| core/domain_registry.py | NO | Registro y resolución genérica de dominios: lee `domain.json`, crea dominios, resuelve carpetas de agentes/config/papers/memory_sources por `domain_id` y detecta ambigüedad de IDs de agente entre dominios |
 | core/orchestration.py | NO | Modelos de datos genéricos (AgentStepResult, DebateResult, OrchestrationResult) |
 | core/scoring.py | MOVIDO | Movido a domains/loteria/scoring.py (100% específico de Lotería) |
 | core/supervisor.py | PARCIAL | La evolución, el pipeline, el mapeo de expertos y las funciones de scoring se inyectan por constructor; ya no hay scoring rígido en los ejecutores. Conserva fallbacks perezosos hacia Lotería por compatibilidad, textos S.A.A.O.P. y extracción de combinaciones 0-50, por lo que aún no es 100% agnóstico |
@@ -101,7 +102,7 @@ Este documento mapea qué partes del sistema son el "motor de debate genérico" 
 | ui/web/ | PARCIAL | Única interfaz de usuario vigente: HUD HTML/CSS/JavaScript servido por FastAPI; combina paneles genéricos con presentación y agentes S.A.A.O.P., incluido el selector agrupado |
 | ui/app.py e interfaz anterior | ELIMINADO | Sus paneles, componentes, estado, traducciones y dependencias específicas fueron retirados completamente |
 | **tests/** | | |
-| tests/test_no_hardcoded_agent_paths.py | NO | Test anti-regresión que escanea Core, agentes, proveedores, dominios, UI y archivos Python raíz para impedir que reaparezcan rutas hardcodeadas como `agents/config`; obliga a usar `config.AGENTS_CONFIG_DIR` |
+| tests/test_no_hardcoded_agent_paths.py | NO | Test anti-regresión que escanea Core, agentes, proveedores, dominios, UI y archivos Python raíz para impedir que reaparezcan rutas hardcodeadas como `agents/config`, `ROOT / "domains" / "loteria"` o `domain_id == config.DEFAULT_DOMAIN_ID` en flujos genéricos; obliga a usar resolvers por dominio |
 
 ---
 
@@ -159,7 +160,7 @@ Este documento mapea qué partes del sistema son el "motor de debate genérico" 
   - **RESIDUAL** - `build_role_prompt()` todavía importa directamente los prompts del dominio Lotería
   - Mantener: _format_previous_block(), _assistant_prompt()
 - agents/runtime_json_agent.py
-  - **COMPLETADO** - Papers resueltos mediante `config.AGENTS_PAPERS_DIR`
+  - **COMPLETADO** - Papers resueltos de forma relativa al JSON del agente (`domains/<dominio>/agents/papers/`), sin asumir Lotería
   - **RESIDUAL** - La memoria vectorial se obtiene directamente desde `domains/loteria/memoria_loteria.py`
 - config.py
   - **COMPLETADO** - DEFAULT_DEBATE_TASK, DEBATE_AGENTS, límites de sorteos movidos a domains/loteria/config_loteria.py
@@ -239,7 +240,7 @@ Este documento mapea qué partes del sistema son el "motor de debate genérico" 
 ### 12. Papers de agentes
 - **COMPLETADO** - `agents/papers/` dejó de ser la ubicación activa
 - **COMPLETADO** - Los seis papers S.A.A.O.P. residen en `domains/loteria/agents/papers/`
-- **COMPLETADO** - `config.AGENTS_PAPERS_DIR` centraliza la ruta consumida por runtime, API y tests
+- **COMPLETADO** - Los flujos genéricos usan `core/domain_registry.py` para resolver `agents/config`, `agents/papers` y `agents/memory_sources` por dominio; `config.AGENTS_PAPERS_DIR` queda como compatibilidad legacy/default Lotería
 
 ### 13. Validación ciega y tarea por defecto
 - **COMPLETADO** - `SAAOP_TASK` se define en `domains/loteria/config_loteria.py`
