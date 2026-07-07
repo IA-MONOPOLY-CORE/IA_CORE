@@ -1,0 +1,184 @@
+[
+  {
+    "id": "comercial_ventas_negocios",
+    "nombre": "Comercial, Ventas y Negocios",
+    "descripcion": "Área profesional orientada a generación de oportunidades, gestión comercial, desarrollo de cuentas y crecimiento de ingresos.",
+    "activo": true,
+    "orden": 1
+  },
+  {
+    "id": "administracion_contabilidad_finanzas",
+    "nombre": "Administración, Contabilidad y Finanzas",
+    "descripcion": "Área profesional enfocada en administración operativa, información contable, planificación financiera y control económico.",
+    "activo": true,
+    "orden": 2
+  },
+  {
+    "id": "produccion_manufactura",
+    "nombre": "Producción y Manufactura",
+    "descripcion": "Área profesional dedicada a procesos productivos, calidad, eficiencia operativa y continuidad industrial.",
+    "activo": true,
+    "orden": 3
+  },
+  {
+    "id": "abastecimiento_logistica",
+    "nombre": "Abastecimiento y Logística",
+    "descripcion": "Área profesional centrada en compras, proveedores, inventarios, distribución y coordinación de la cadena de suministro.",
+    "activo": true,
+    "orden": 4
+  },
+  {
+    "id": "oficios_otros",
+    "nombre": "Oficios y Otros",
+    "descripcion": "Área profesional para servicios especializados, oficios, actividades operativas diversas y nichos no encuadrados en otras áreas.",
+    "activo": true,
+    "orden": 5
+  },
+  {
+    "id": "tecnologia_sistemas_telecomunicaciones",
+    "nombre": "Tecnología, Sistemas y Telecomunicaciones",
+    "descripcion": "Área profesional enfocada en software, infraestructura, soporte técnico, datos, seguridad y comunicaciones digitales.",
+    "activo": true,
+    "orden": 6
+  },
+  {
+    "id": "atencion_cliente_call_center_telemarketing",
+    "nombre": "Atención al Cliente, Call Center y Telemarketing",
+    "descripcion": "Área profesional orientada a consultas, reclamos, soporte, ventas telefónicas y mejora de la experiencia del cliente.",
+    "activo": true,
+    "orden": 7
+  },
+  {
+    "id": "salud_medicina_farmacia",
+    "nombre": "Salud, Medicina y Farmacia",
+    "descripcion": "Área profesional vinculada a atención sanitaria, gestión clínica, medicamentos, auditoría y acompañamiento de pacientes.",
+    "activo": true,
+    "orden": 8
+  },
+  {
+    "id": "gastronomia_turismo",
+    "nombre": "Gastronomía y Turismo",
+    "descripcion": "Área profesional dedicada a servicios gastronómicos, hotelería, viajes, experiencias y operaciones turísticas.",
+    "activo": true,
+    "orden": 9
+  },
+  {
+    "id": "recursos_humanos_capacitacion",
+    "nombre": "Recursos Humanos y Capacitación",
+    "descripcion": "Área profesional enfocada en talento, clima, cultura, desempeño, formación y desarrollo organizacional.",
+    "activo": true,
+    "orden": 10
+  },
+  {
+    "id": "marketing_publicidad",
+    "nombre": "Marketing y Publicidad",
+    "descripcion": "Área profesional orientada a estrategia de marca, comunicación comercial, campañas, investigación y crecimiento de audiencias.",
+    "activo": true,
+    "orden": 11
+  },
+  {
+    "id": "ingenierias",
+    "nombre": "Ingenierías",
+    "descripcion": "Área profesional centrada en diseño, mejora, control y gestión de soluciones técnicas e industriales.",
+    "activo": true,
+    "orden": 12
+  },
+  {
+    "id": "ingenieria_civil_construccion",
+    "nombre": "Ingeniería Civil y Construcción",
+    "descripcion": "Área profesional dedicada a obras, presupuestos, dirección técnica, seguridad y gestión de proyectos constructivos.",
+    "activo": true,
+    "orden": 13
+  },
+  {
+    "id": "legales",
+    "nombre": "Legales",
+    "descripcion": "Área profesional orientada a análisis jurídico, contratos, cumplimiento normativo, litigios y asesoramiento legal.",
+    "activo": true,
+    "orden": 14
+  },
+  {
+    "id": "departamento_tecnico",
+    "nombre": "Departamento Técnico",
+    "descripcion": "Área profesional enfocada en soporte técnico, documentación, diagnóstico, implementación y mejora de productos o servicios.",
+    "activo": true,
+    "orden": 15
+  },
+  {
+    "id": "secretarias_recepcion",
+    "nombre": "Secretarias y Recepción",
+    "descripcion": "Área profesional dedicada a coordinación administrativa, recepción, atención presencial, agenda y gestión documental.",
+    "activo": true,
+    "orden": 16
+  },
+  {
+    "id": "gerencia_direccion_general",
+    "nombre": "Gerencia y Dirección General",
+    "descripcion": "Área profesional orientada a conducción estratégica, toma de decisiones, tableros ejecutivos y transformación organizacional.",
+    "activo": true,
+    "orden": 17
+  },
+  {
+    "id": "diseno",
+    "nombre": "Diseño",
+    "descripcion": "Área profesional enfocada en comunicación visual, experiencia de usuario, producto, identidad y sistemas gráficos.",
+    "activo": true,
+    "orden": 18
+  },
+  {
+    "id": "mineria_petroleo_gas",
+    "nombre": "Minería, Petróleo y Gas",
+    "descripcion": "Área profesional vinculada a operaciones extractivas, seguridad, ambiente, mantenimiento y gestión de activos energéticos.",
+    "activo": true,
+    "orden": 19
+  },
+  {
+    "id": "aduana_comercio_exterior",
+    "nombre": "Aduana y Comercio Exterior",
+    "descripcion": "Área profesional centrada en importación, exportación, normativa aduanera, documentación y comercio internacional.",
+    "activo": true,
+    "orden": 20
+  },
+  {
+    "id": "educacion_docencia_investigacion",
+    "nombre": "Educación, Docencia e Investigación",
+    "descripcion": "Área profesional orientada a enseñanza, diseño pedagógico, investigación, evaluación y gestión educativa.",
+    "activo": true,
+    "orden": 21
+  },
+  {
+    "id": "seguros",
+    "nombre": "Seguros",
+    "descripcion": "Área profesional enfocada en riesgos, pólizas, siniestros, productores, suscripción y atención aseguradora.",
+    "activo": true,
+    "orden": 22
+  },
+  {
+    "id": "comunicacion_relaciones_institucionales_publicas",
+    "nombre": "Comunicación, Relaciones Institucionales y Públicas",
+    "descripcion": "Área profesional dedicada a comunicación institucional, prensa, reputación, vínculos públicos y asuntos corporativos.",
+    "activo": true,
+    "orden": 23
+  },
+  {
+    "id": "sociologia_trabajo_social",
+    "nombre": "Sociología / Trabajo Social",
+    "descripcion": "Área profesional orientada a diagnóstico social, intervención comunitaria, programas sociales y acompañamiento territorial.",
+    "activo": true,
+    "orden": 24
+  },
+  {
+    "id": "enfermeria",
+    "nombre": "Enfermería",
+    "descripcion": "Área profesional dedicada al cuidado clínico, admisión, educación del paciente, seguimiento y coordinación asistencial.",
+    "activo": true,
+    "orden": 25
+  },
+  {
+    "id": "naviero_maritimo_portuario",
+    "nombre": "Naviero, Marítimo, Portuario",
+    "descripcion": "Área profesional vinculada a operaciones portuarias, logística marítima, documentación naviera y coordinación de cargas.",
+    "activo": true,
+    "orden": 26
+  }
+]

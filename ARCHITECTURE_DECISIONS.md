@@ -88,3 +88,17 @@ def _get_default_score_response_fn() -> Callable:
 - `core/domain_registry.py` centraliza `get_domain_dir()`, `get_domain_agents_config_dir()`, `get_domain_agents_papers_dir()`, `get_domain_memory_sources_dir()` y `resolve_agent_json()`.
 - `api.py` crea papers básicos en `domains/<domain_id>/agents/papers/` para cualquier dominio y resuelve `PUT/DELETE /api/agents/{agent_id}` por `domain_id` opcional, fallando si el ID es ambiguo.
 - `mejorar_papers.py` acepta `domain_id`, `config_path` o `paper_path` y ya no usa `config.AGENTS_PAPERS_DIR` como destino universal.
+
+---
+
+## ADR-006 — `catalogs/` es Patrimonio compartido para creación asistida de dominios
+
+**Estado**: Aceptado
+
+**Contexto**: El sistema necesita una fuente común para sugerir áreas profesionales y nichos al crear dominios, sin convertir ningún dominio existente en default global ni mezclar esta base con roles, especializaciones o presets de agentes.
+
+**Decisión**: Se crea `catalogs/` como Patrimonio compartido. `catalogs/areas.json` define áreas profesionales y `catalogs/niches.json` define nichos iniciales con sugerencias de nombre, descripción e instrucciones para futuros dominios. Lotería se modela como el nicho `Análisis de Lotería y Juegos de Azar` dentro de `Oficios y Otros`.
+
+**Backend**: `core/catalog_registry.py` carga y valida los catálogos, filtra activos por defecto y expone una estructura agrupada para creación de dominios. `GET /api/catalogs/domain-creation` publica esa estructura como endpoint read-only.
+
+**Alcance diferido**: El HUD todavía no consume este endpoint en este prompt. Roles, especializaciones, presets inteligentes, memoria `.md` inicial y papers automáticos quedan para prompts posteriores.

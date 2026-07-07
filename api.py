@@ -28,6 +28,7 @@ from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 
 import config
+from core.catalog_registry import get_domain_creation_catalog
 from core.domain_registry import (
     create_domain,
     find_agent_json,
@@ -970,6 +971,15 @@ async def get_conversation(conversation_id: str):
 # ========================================================================
 # Dominios (genéricos)
 # ========================================================================
+@app.get("/api/catalogs/domain-creation")
+async def get_domain_creation_catalog_endpoint() -> dict:
+    """Devuelve catálogos compartidos para asistir la creación de dominios."""
+    try:
+        return {"success": True, **get_domain_creation_catalog()}
+    except (FileNotFoundError, ValueError) as exc:
+        raise HTTPException(status_code=500, detail=str(exc)) from exc
+
+
 @app.get("/api/domains/list")
 async def get_domains() -> dict:
     domains = list_domains()

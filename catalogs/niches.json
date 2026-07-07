@@ -1,0 +1,942 @@
+[
+  {
+    "id": "prospeccion_b2b",
+    "area_id": "comercial_ventas_negocios",
+    "nombre": "Prospección B2B",
+    "nombre_dominio_sugerido": "Comercial — Prospección B2B",
+    "descripcion_sugerida": "Dominio orientado a identificar oportunidades comerciales, priorizar cuentas y mejorar la conversión de prospectos empresariales.",
+    "instrucciones_sugeridas": "Todos los agentes de este dominio deben priorizar segmentación, relevancia comercial, claridad de propuesta de valor y seguimiento accionable.",
+    "activo": true,
+    "orden": 1
+  },
+  {
+    "id": "gestion_cuentas_clave",
+    "area_id": "comercial_ventas_negocios",
+    "nombre": "Gestión de cuentas clave",
+    "nombre_dominio_sugerido": "Comercial — Gestión de Cuentas Clave",
+    "descripcion_sugerida": "Dominio orientado a analizar clientes estratégicos, detectar riesgos de cuenta y proponer acciones de expansión o retención.",
+    "instrucciones_sugeridas": "Todos los agentes de este dominio deben trabajar con foco en relación comercial, valor entregado, señales de riesgo y oportunidades de crecimiento.",
+    "activo": true,
+    "orden": 2
+  },
+  {
+    "id": "ventas_retail",
+    "area_id": "comercial_ventas_negocios",
+    "nombre": "Ventas retail",
+    "nombre_dominio_sugerido": "Comercial — Ventas Retail",
+    "descripcion_sugerida": "Dominio orientado a mejorar ventas de mostrador, tiendas físicas, atención comercial y gestión de productos en punto de venta.",
+    "instrucciones_sugeridas": "Todos los agentes de este dominio deben priorizar experiencia de compra, objeciones frecuentes, rotación de productos y acciones simples para vender mejor.",
+    "activo": true,
+    "orden": 3
+  },
+  {
+    "id": "estrategia_comercial",
+    "area_id": "comercial_ventas_negocios",
+    "nombre": "Estrategia comercial",
+    "nombre_dominio_sugerido": "Comercial — Estrategia Comercial",
+    "descripcion_sugerida": "Dominio orientado a diseñar planes comerciales, evaluar canales, ordenar objetivos y mejorar decisiones de crecimiento.",
+    "instrucciones_sugeridas": "Todos los agentes de este dominio deben distinguir datos, hipótesis y decisiones; recomendar acciones medibles y cuidar la consistencia estratégica.",
+    "activo": true,
+    "orden": 4
+  },
+  {
+    "id": "ecommerce_y_marketplaces",
+    "area_id": "comercial_ventas_negocios",
+    "nombre": "E-commerce y marketplaces",
+    "nombre_dominio_sugerido": "Comercial — E-commerce y Marketplaces",
+    "descripcion_sugerida": "Dominio orientado a analizar ventas digitales, publicaciones, precios, conversión y operación comercial en canales online.",
+    "instrucciones_sugeridas": "Todos los agentes de este dominio deben priorizar conversión, claridad de oferta, competitividad, experiencia del comprador y métricas accionables.",
+    "activo": true,
+    "orden": 5
+  },
+  {
+    "id": "contabilidad_general",
+    "area_id": "administracion_contabilidad_finanzas",
+    "nombre": "Contabilidad general",
+    "nombre_dominio_sugerido": "Administración y Finanzas — Contabilidad General",
+    "descripcion_sugerida": "Dominio orientado a ordenar registros contables, detectar inconsistencias y preparar información útil para gestión.",
+    "instrucciones_sugeridas": "Todos los agentes de este dominio deben priorizar trazabilidad, precisión documental, criterios contables claros y advertencias sobre supuestos.",
+    "activo": true,
+    "orden": 1
+  },
+  {
+    "id": "control_gestion",
+    "area_id": "administracion_contabilidad_finanzas",
+    "nombre": "Control de gestión",
+    "nombre_dominio_sugerido": "Administración y Finanzas — Control de Gestión",
+    "descripcion_sugerida": "Dominio orientado a analizar indicadores, desvíos presupuestarios, rentabilidad y desempeño económico-operativo.",
+    "instrucciones_sugeridas": "Todos los agentes de este dominio deben explicar causas de desvíos, priorizar indicadores críticos y proponer acciones medibles.",
+    "activo": true,
+    "orden": 2
+  },
+  {
+    "id": "tesoreria_cashflow",
+    "area_id": "administracion_contabilidad_finanzas",
+    "nombre": "Tesorería y cashflow",
+    "nombre_dominio_sugerido": "Administración y Finanzas — Tesorería y Cashflow",
+    "descripcion_sugerida": "Dominio orientado a proyectar flujo de fondos, anticipar necesidades de caja y ordenar decisiones de pagos y cobranzas.",
+    "instrucciones_sugeridas": "Todos los agentes de este dominio deben priorizar liquidez, vencimientos, escenarios prudentes y alertas tempranas de tensión financiera.",
+    "activo": true,
+    "orden": 3
+  },
+  {
+    "id": "impuestos_auditoria",
+    "area_id": "administracion_contabilidad_finanzas",
+    "nombre": "Impuestos y auditoría",
+    "nombre_dominio_sugerido": "Administración y Finanzas — Impuestos y Auditoría",
+    "descripcion_sugerida": "Dominio orientado a revisar obligaciones fiscales, controles internos, documentación y riesgos de cumplimiento.",
+    "instrucciones_sugeridas": "Todos los agentes de este dominio deben separar información verificada de supuestos, señalar riesgos y recomendar revisión profesional cuando corresponda.",
+    "activo": true,
+    "orden": 4
+  },
+  {
+    "id": "planeamiento_financiero",
+    "area_id": "administracion_contabilidad_finanzas",
+    "nombre": "Planeamiento financiero",
+    "nombre_dominio_sugerido": "Administración y Finanzas — Planeamiento Financiero",
+    "descripcion_sugerida": "Dominio orientado a presupuestos, escenarios, metas financieras y evaluación de decisiones de inversión o crecimiento.",
+    "instrucciones_sugeridas": "Todos los agentes de este dominio deben trabajar con escenarios, supuestos explícitos, sensibilidad de variables y recomendaciones comparables.",
+    "activo": true,
+    "orden": 5
+  },
+  {
+    "id": "planificacion_produccion",
+    "area_id": "produccion_manufactura",
+    "nombre": "Planificación de producción",
+    "nombre_dominio_sugerido": "Producción — Planificación de Producción",
+    "descripcion_sugerida": "Dominio orientado a organizar capacidad, cargas de trabajo, prioridades productivas y cumplimiento de entregas.",
+    "instrucciones_sugeridas": "Todos los agentes de este dominio deben priorizar restricciones reales, secuencia de producción, tiempos de entrega y uso eficiente de recursos.",
+    "activo": true,
+    "orden": 1
+  },
+  {
+    "id": "control_calidad",
+    "area_id": "produccion_manufactura",
+    "nombre": "Control de calidad",
+    "nombre_dominio_sugerido": "Producción — Control de Calidad",
+    "descripcion_sugerida": "Dominio orientado a analizar defectos, estándares, causas raíz y acciones preventivas en procesos productivos.",
+    "instrucciones_sugeridas": "Todos los agentes de este dominio deben priorizar evidencia, trazabilidad del defecto, impacto operativo y prevención de recurrencias.",
+    "activo": true,
+    "orden": 2
+  },
+  {
+    "id": "mantenimiento_industrial",
+    "area_id": "produccion_manufactura",
+    "nombre": "Mantenimiento industrial",
+    "nombre_dominio_sugerido": "Producción — Mantenimiento Industrial",
+    "descripcion_sugerida": "Dominio orientado a planificar mantenimiento, analizar fallas, reducir paradas y mejorar disponibilidad de equipos.",
+    "instrucciones_sugeridas": "Todos los agentes de este dominio deben priorizar seguridad, criticidad de equipos, historial de fallas y acciones preventivas.",
+    "activo": true,
+    "orden": 3
+  },
+  {
+    "id": "compras_proveedores",
+    "area_id": "abastecimiento_logistica",
+    "nombre": "Compras y proveedores",
+    "nombre_dominio_sugerido": "Abastecimiento — Compras y Proveedores",
+    "descripcion_sugerida": "Dominio orientado a comparar proveedores, negociar condiciones, evaluar riesgos y mejorar procesos de compra.",
+    "instrucciones_sugeridas": "Todos los agentes de este dominio deben priorizar costo total, confiabilidad, plazos, calidad y transparencia de criterios.",
+    "activo": true,
+    "orden": 1
+  },
+  {
+    "id": "gestion_inventarios",
+    "area_id": "abastecimiento_logistica",
+    "nombre": "Gestión de inventarios",
+    "nombre_dominio_sugerido": "Abastecimiento — Gestión de Inventarios",
+    "descripcion_sugerida": "Dominio orientado a optimizar stock, reducir faltantes, detectar sobreinventario y ordenar reposiciones.",
+    "instrucciones_sugeridas": "Todos los agentes de este dominio deben priorizar disponibilidad, rotación, criticidad, costos de inventario y alertas accionables.",
+    "activo": true,
+    "orden": 2
+  },
+  {
+    "id": "distribucion_transporte",
+    "area_id": "abastecimiento_logistica",
+    "nombre": "Distribución y transporte",
+    "nombre_dominio_sugerido": "Logística — Distribución y Transporte",
+    "descripcion_sugerida": "Dominio orientado a mejorar rutas, entregas, coordinación de cargas y seguimiento logístico.",
+    "instrucciones_sugeridas": "Todos los agentes de este dominio deben priorizar puntualidad, costo operativo, trazabilidad, restricciones logísticas y comunicación clara.",
+    "activo": true,
+    "orden": 3
+  },
+  {
+    "id": "mantenimiento_edilicio",
+    "area_id": "oficios_otros",
+    "nombre": "Mantenimiento edilicio",
+    "nombre_dominio_sugerido": "Oficios — Mantenimiento Edilicio",
+    "descripcion_sugerida": "Dominio orientado a coordinar tareas de mantenimiento, priorizar reparaciones y documentar incidencias edilicias.",
+    "instrucciones_sugeridas": "Todos los agentes de este dominio deben priorizar seguridad, urgencia, materiales necesarios, responsables y seguimiento de tareas.",
+    "activo": true,
+    "orden": 1
+  },
+  {
+    "id": "servicios_tecnicos",
+    "area_id": "oficios_otros",
+    "nombre": "Servicios técnicos",
+    "nombre_dominio_sugerido": "Oficios — Servicios Técnicos",
+    "descripcion_sugerida": "Dominio orientado a diagnosticar solicitudes técnicas, ordenar intervenciones y mejorar atención de servicios especializados.",
+    "instrucciones_sugeridas": "Todos los agentes de este dominio deben priorizar diagnóstico claro, pasos verificables, seguridad y comunicación simple con el solicitante.",
+    "activo": true,
+    "orden": 2
+  },
+  {
+    "id": "analisis_loteria_juegos_azar",
+    "area_id": "oficios_otros",
+    "nombre": "Análisis de Lotería y Juegos de Azar",
+    "nombre_dominio_sugerido": "Lotería — Análisis de Juegos de Azar",
+    "descripcion_sugerida": "Dominio orientado a analizar sorteos, combinaciones, métricas históricas y procesos de validación bajo criterios explícitos.",
+    "instrucciones_sugeridas": "Todos los agentes de este dominio deben distinguir evidencia de hipótesis, evitar promesas de certeza, documentar criterios y respetar validaciones ciegas.",
+    "activo": true,
+    "orden": 3
+  },
+  {
+    "id": "soporte_it",
+    "area_id": "tecnologia_sistemas_telecomunicaciones",
+    "nombre": "Soporte IT",
+    "nombre_dominio_sugerido": "Tecnología — Soporte IT",
+    "descripcion_sugerida": "Dominio orientado a clasificar incidentes, guiar resolución técnica y mejorar la experiencia de usuarios internos.",
+    "instrucciones_sugeridas": "Todos los agentes de este dominio deben priorizar diagnóstico reproducible, pasos seguros, impacto del incidente y comunicación clara.",
+    "activo": true,
+    "orden": 1
+  },
+  {
+    "id": "desarrollo_software",
+    "area_id": "tecnologia_sistemas_telecomunicaciones",
+    "nombre": "Desarrollo de software",
+    "nombre_dominio_sugerido": "Tecnología — Desarrollo de Software",
+    "descripcion_sugerida": "Dominio orientado a analizar requerimientos, revisar código, diseñar soluciones y mejorar ciclos de desarrollo.",
+    "instrucciones_sugeridas": "Todos los agentes de este dominio deben priorizar mantenibilidad, pruebas, claridad técnica, seguridad y criterios de aceptación.",
+    "activo": true,
+    "orden": 2
+  },
+  {
+    "id": "ciberseguridad",
+    "area_id": "tecnologia_sistemas_telecomunicaciones",
+    "nombre": "Ciberseguridad",
+    "nombre_dominio_sugerido": "Tecnología — Ciberseguridad",
+    "descripcion_sugerida": "Dominio orientado a identificar riesgos, priorizar vulnerabilidades, responder incidentes y fortalecer controles digitales.",
+    "instrucciones_sugeridas": "Todos los agentes de este dominio deben priorizar confidencialidad, integridad, disponibilidad, evidencia y medidas proporcionales al riesgo.",
+    "activo": true,
+    "orden": 3
+  },
+  {
+    "id": "telecomunicaciones",
+    "area_id": "tecnologia_sistemas_telecomunicaciones",
+    "nombre": "Telecomunicaciones",
+    "nombre_dominio_sugerido": "Tecnología — Telecomunicaciones",
+    "descripcion_sugerida": "Dominio orientado a redes, conectividad, disponibilidad de servicios y coordinación de infraestructura de comunicaciones.",
+    "instrucciones_sugeridas": "Todos los agentes de este dominio deben priorizar continuidad, latencia, cobertura, impacto operativo y escalamiento técnico adecuado.",
+    "activo": true,
+    "orden": 4
+  },
+  {
+    "id": "datos_bi",
+    "area_id": "tecnologia_sistemas_telecomunicaciones",
+    "nombre": "Datos y BI",
+    "nombre_dominio_sugerido": "Tecnología — Datos y BI",
+    "descripcion_sugerida": "Dominio orientado a transformar datos en indicadores, detectar patrones y apoyar decisiones con tableros o análisis.",
+    "instrucciones_sugeridas": "Todos los agentes de este dominio deben priorizar calidad de datos, definiciones consistentes, trazabilidad y conclusiones accionables.",
+    "activo": true,
+    "orden": 5
+  },
+  {
+    "id": "soporte_cliente",
+    "area_id": "atencion_cliente_call_center_telemarketing",
+    "nombre": "Soporte al cliente",
+    "nombre_dominio_sugerido": "Atención al Cliente — Soporte",
+    "descripcion_sugerida": "Dominio orientado a resolver consultas, ordenar información del caso y mejorar la calidad de respuesta al cliente.",
+    "instrucciones_sugeridas": "Todos los agentes de este dominio deben priorizar claridad, empatía, resolución concreta, trazabilidad y reducción de fricción para el cliente.",
+    "activo": true,
+    "orden": 1
+  },
+  {
+    "id": "reclamos_postventa",
+    "area_id": "atencion_cliente_call_center_telemarketing",
+    "nombre": "Reclamos y postventa",
+    "nombre_dominio_sugerido": "Atención al Cliente — Reclamos y Postventa",
+    "descripcion_sugerida": "Dominio orientado a analizar reclamos, mejorar respuestas, detectar fricciones y optimizar la experiencia posterior a la venta.",
+    "instrucciones_sugeridas": "Todos los agentes de este dominio deben priorizar empatía, trazabilidad del caso, solución concreta y prevención de recurrencias.",
+    "activo": true,
+    "orden": 2
+  },
+  {
+    "id": "ventas_telefonicas",
+    "area_id": "atencion_cliente_call_center_telemarketing",
+    "nombre": "Ventas telefónicas",
+    "nombre_dominio_sugerido": "Atención al Cliente — Ventas Telefónicas",
+    "descripcion_sugerida": "Dominio orientado a mejorar guiones, manejar objeciones y aumentar conversión en llamadas comerciales.",
+    "instrucciones_sugeridas": "Todos los agentes de este dominio deben priorizar escucha activa, propuesta de valor, objeciones, cumplimiento normativo y cierre respetuoso.",
+    "activo": true,
+    "orden": 3
+  },
+  {
+    "id": "experiencia_cliente",
+    "area_id": "atencion_cliente_call_center_telemarketing",
+    "nombre": "Experiencia del cliente",
+    "nombre_dominio_sugerido": "Atención al Cliente — Experiencia del Cliente",
+    "descripcion_sugerida": "Dominio orientado a detectar puntos de fricción, mejorar journeys y priorizar iniciativas de experiencia.",
+    "instrucciones_sugeridas": "Todos los agentes de este dominio deben priorizar voz del cliente, evidencia cualitativa y cuantitativa, impacto y acciones simples de mejora.",
+    "activo": true,
+    "orden": 4
+  },
+  {
+    "id": "mesa_ayuda",
+    "area_id": "atencion_cliente_call_center_telemarketing",
+    "nombre": "Mesa de ayuda",
+    "nombre_dominio_sugerido": "Atención al Cliente — Mesa de Ayuda",
+    "descripcion_sugerida": "Dominio orientado a clasificar tickets, priorizar solicitudes, responder con consistencia y mejorar tiempos de resolución.",
+    "instrucciones_sugeridas": "Todos los agentes de este dominio deben priorizar categorización correcta, SLA, pasos reproducibles y comunicación clara del estado.",
+    "activo": true,
+    "orden": 5
+  },
+  {
+    "id": "gestion_consultorios",
+    "area_id": "salud_medicina_farmacia",
+    "nombre": "Gestión de consultorios",
+    "nombre_dominio_sugerido": "Salud — Gestión de Consultorios",
+    "descripcion_sugerida": "Dominio orientado a mejorar turnos, admisión, seguimiento administrativo y coordinación de atención ambulatoria.",
+    "instrucciones_sugeridas": "Todos los agentes de este dominio deben priorizar privacidad, claridad operativa, continuidad de atención y derivación responsable.",
+    "activo": true,
+    "orden": 1
+  },
+  {
+    "id": "farmacia_clinica",
+    "area_id": "salud_medicina_farmacia",
+    "nombre": "Farmacia clínica",
+    "nombre_dominio_sugerido": "Salud — Farmacia Clínica",
+    "descripcion_sugerida": "Dominio orientado a organizar información farmacéutica, adherencia, interacciones y consultas frecuentes bajo supervisión profesional.",
+    "instrucciones_sugeridas": "Todos los agentes de este dominio deben priorizar seguridad del paciente, advertencias claras y consulta profesional ante riesgos clínicos.",
+    "activo": true,
+    "orden": 2
+  },
+  {
+    "id": "auditoria_medica",
+    "area_id": "salud_medicina_farmacia",
+    "nombre": "Auditoría médica",
+    "nombre_dominio_sugerido": "Salud — Auditoría Médica",
+    "descripcion_sugerida": "Dominio orientado a revisar documentación, criterios de cobertura, consistencia de casos y trazabilidad administrativa.",
+    "instrucciones_sugeridas": "Todos los agentes de este dominio deben priorizar evidencia documental, criterios explícitos, confidencialidad y revisión por responsables habilitados.",
+    "activo": true,
+    "orden": 3
+  },
+  {
+    "id": "gestion_restaurantes",
+    "area_id": "gastronomia_turismo",
+    "nombre": "Gestión de restaurantes",
+    "nombre_dominio_sugerido": "Gastronomía — Gestión de Restaurantes",
+    "descripcion_sugerida": "Dominio orientado a mejorar operación, servicio, costos, reservas y experiencia de comensales.",
+    "instrucciones_sugeridas": "Todos los agentes de este dominio deben priorizar calidad de servicio, tiempos, costos, coordinación del equipo y satisfacción del cliente.",
+    "activo": true,
+    "orden": 1
+  },
+  {
+    "id": "hoteleria_experiencia_huesped",
+    "area_id": "gastronomia_turismo",
+    "nombre": "Hotelería y experiencia del huésped",
+    "nombre_dominio_sugerido": "Turismo — Hotelería y Experiencia del Huésped",
+    "descripcion_sugerida": "Dominio orientado a mejorar recepción, estadías, atención de solicitudes y reputación de alojamientos.",
+    "instrucciones_sugeridas": "Todos los agentes de este dominio deben priorizar hospitalidad, anticipación de necesidades, resolución rápida y cuidado de la reputación.",
+    "activo": true,
+    "orden": 2
+  },
+  {
+    "id": "planificacion_turistica",
+    "area_id": "gastronomia_turismo",
+    "nombre": "Planificación turística",
+    "nombre_dominio_sugerido": "Turismo — Planificación Turística",
+    "descripcion_sugerida": "Dominio orientado a diseñar itinerarios, analizar preferencias, coordinar experiencias y mejorar propuestas de viaje.",
+    "instrucciones_sugeridas": "Todos los agentes de este dominio deben priorizar preferencias del viajero, factibilidad, tiempos, presupuesto y alternativas claras.",
+    "activo": true,
+    "orden": 3
+  },
+  {
+    "id": "cocina_costos_menu",
+    "area_id": "gastronomia_turismo",
+    "nombre": "Cocina, costos y menú",
+    "nombre_dominio_sugerido": "Gastronomía — Cocina, Costos y Menú",
+    "descripcion_sugerida": "Dominio orientado a analizar cartas, costos de receta, compras y coherencia gastronómica.",
+    "instrucciones_sugeridas": "Todos los agentes de este dominio deben priorizar costo real, disponibilidad de insumos, consistencia culinaria y margen operativo.",
+    "activo": true,
+    "orden": 4
+  },
+  {
+    "id": "reservas_operaciones",
+    "area_id": "gastronomia_turismo",
+    "nombre": "Reservas y operaciones",
+    "nombre_dominio_sugerido": "Turismo — Reservas y Operaciones",
+    "descripcion_sugerida": "Dominio orientado a coordinar reservas, disponibilidad, confirmaciones, cambios y operación diaria de servicios.",
+    "instrucciones_sugeridas": "Todos los agentes de este dominio deben priorizar precisión, confirmación documental, comunicación oportuna y prevención de conflictos operativos.",
+    "activo": true,
+    "orden": 5
+  },
+  {
+    "id": "seleccion_talento",
+    "area_id": "recursos_humanos_capacitacion",
+    "nombre": "Selección de talento",
+    "nombre_dominio_sugerido": "Recursos Humanos — Selección de Talento",
+    "descripcion_sugerida": "Dominio orientado a analizar perfiles, entrevistas, criterios de selección y adecuación al puesto.",
+    "instrucciones_sugeridas": "Todos los agentes de este dominio deben priorizar criterios objetivos, equidad, evidencia de competencias y claridad en recomendaciones.",
+    "activo": true,
+    "orden": 1
+  },
+  {
+    "id": "clima_cultura",
+    "area_id": "recursos_humanos_capacitacion",
+    "nombre": "Clima y cultura",
+    "nombre_dominio_sugerido": "Recursos Humanos — Clima y Cultura",
+    "descripcion_sugerida": "Dominio orientado a interpretar señales de clima laboral, cultura organizacional y riesgos de convivencia.",
+    "instrucciones_sugeridas": "Todos los agentes de este dominio deben priorizar escucha, confidencialidad, patrones observables y acciones respetuosas.",
+    "activo": true,
+    "orden": 2
+  },
+  {
+    "id": "capacitacion_desarrollo",
+    "area_id": "recursos_humanos_capacitacion",
+    "nombre": "Capacitación y desarrollo",
+    "nombre_dominio_sugerido": "Recursos Humanos — Capacitación y Desarrollo",
+    "descripcion_sugerida": "Dominio orientado a diseñar planes de formación, detectar brechas y evaluar aprendizaje.",
+    "instrucciones_sugeridas": "Todos los agentes de este dominio deben priorizar objetivos de aprendizaje, aplicabilidad, medición de avances y mejora continua.",
+    "activo": true,
+    "orden": 3
+  },
+  {
+    "id": "estrategia_marca",
+    "area_id": "marketing_publicidad",
+    "nombre": "Estrategia de marca",
+    "nombre_dominio_sugerido": "Marketing — Estrategia de Marca",
+    "descripcion_sugerida": "Dominio orientado a posicionamiento, propuesta de valor, mensajes clave y coherencia de marca.",
+    "instrucciones_sugeridas": "Todos los agentes de este dominio deben priorizar diferenciación, consistencia, audiencia objetivo y claridad narrativa.",
+    "activo": true,
+    "orden": 1
+  },
+  {
+    "id": "performance_ads",
+    "area_id": "marketing_publicidad",
+    "nombre": "Performance y anuncios",
+    "nombre_dominio_sugerido": "Marketing — Performance y Anuncios",
+    "descripcion_sugerida": "Dominio orientado a analizar campañas pagas, métricas de conversión, costos y oportunidades de optimización.",
+    "instrucciones_sugeridas": "Todos los agentes de este dominio deben priorizar métricas accionables, hipótesis testeables, segmentación y eficiencia presupuestaria.",
+    "activo": true,
+    "orden": 2
+  },
+  {
+    "id": "investigacion_mercado",
+    "area_id": "marketing_publicidad",
+    "nombre": "Investigación de mercado",
+    "nombre_dominio_sugerido": "Marketing — Investigación de Mercado",
+    "descripcion_sugerida": "Dominio orientado a estudiar consumidores, competencia, tendencias y oportunidades de posicionamiento.",
+    "instrucciones_sugeridas": "Todos los agentes de este dominio deben priorizar evidencia, segmentación, incertidumbre declarada y conclusiones aplicables.",
+    "activo": true,
+    "orden": 3
+  },
+  {
+    "id": "contenidos_redes",
+    "area_id": "marketing_publicidad",
+    "nombre": "Contenidos y redes sociales",
+    "nombre_dominio_sugerido": "Marketing — Contenidos y Redes Sociales",
+    "descripcion_sugerida": "Dominio orientado a planificar contenidos, adaptar mensajes por canal y mejorar interacción con audiencias.",
+    "instrucciones_sugeridas": "Todos los agentes de este dominio deben priorizar tono de marca, valor para la audiencia, calendario editorial y aprendizaje por métricas.",
+    "activo": true,
+    "orden": 4
+  },
+  {
+    "id": "crm_fidelizacion",
+    "area_id": "marketing_publicidad",
+    "nombre": "CRM y fidelización",
+    "nombre_dominio_sugerido": "Marketing — CRM y Fidelización",
+    "descripcion_sugerida": "Dominio orientado a segmentar clientes, diseñar comunicaciones y mejorar recurrencia o retención.",
+    "instrucciones_sugeridas": "Todos los agentes de este dominio deben priorizar ciclo de vida del cliente, consentimiento, relevancia del mensaje y métricas de retención.",
+    "activo": true,
+    "orden": 5
+  },
+  {
+    "id": "ingenieria_procesos",
+    "area_id": "ingenierias",
+    "nombre": "Ingeniería de procesos",
+    "nombre_dominio_sugerido": "Ingenierías — Procesos",
+    "descripcion_sugerida": "Dominio orientado a analizar flujos, eliminar desperdicios, mejorar productividad y documentar procesos técnicos.",
+    "instrucciones_sugeridas": "Todos los agentes de este dominio deben priorizar medición, causa raíz, eficiencia, seguridad y estandarización.",
+    "activo": true,
+    "orden": 1
+  },
+  {
+    "id": "ingenieria_calidad",
+    "area_id": "ingenierias",
+    "nombre": "Ingeniería de calidad",
+    "nombre_dominio_sugerido": "Ingenierías — Calidad",
+    "descripcion_sugerida": "Dominio orientado a mejorar sistemas de calidad, controles, documentación técnica y prevención de no conformidades.",
+    "instrucciones_sugeridas": "Todos los agentes de este dominio deben priorizar estándares, evidencia, prevención, trazabilidad y acciones correctivas verificables.",
+    "activo": true,
+    "orden": 2
+  },
+  {
+    "id": "gestion_proyectos_ingenieria",
+    "area_id": "ingenierias",
+    "nombre": "Gestión de proyectos de ingeniería",
+    "nombre_dominio_sugerido": "Ingenierías — Gestión de Proyectos",
+    "descripcion_sugerida": "Dominio orientado a planificar proyectos técnicos, coordinar recursos, gestionar riesgos y controlar avances.",
+    "instrucciones_sugeridas": "Todos los agentes de este dominio deben priorizar alcance, hitos, riesgos, dependencias técnicas y comunicación de avance.",
+    "activo": true,
+    "orden": 3
+  },
+  {
+    "id": "direccion_obra",
+    "area_id": "ingenieria_civil_construccion",
+    "nombre": "Dirección de obra",
+    "nombre_dominio_sugerido": "Construcción — Dirección de Obra",
+    "descripcion_sugerida": "Dominio orientado a coordinar obra, controlar avances, ordenar decisiones técnicas y gestionar incidencias.",
+    "instrucciones_sugeridas": "Todos los agentes de este dominio deben priorizar seguridad, cronograma, documentación, responsables y decisiones trazables.",
+    "activo": true,
+    "orden": 1
+  },
+  {
+    "id": "presupuestos_computos",
+    "area_id": "ingenieria_civil_construccion",
+    "nombre": "Presupuestos y cómputos",
+    "nombre_dominio_sugerido": "Construcción — Presupuestos y Cómputos",
+    "descripcion_sugerida": "Dominio orientado a estimar materiales, costos, partidas, desvíos y comparativas presupuestarias.",
+    "instrucciones_sugeridas": "Todos los agentes de este dominio deben priorizar unidades claras, supuestos explícitos, precios trazables y márgenes de contingencia.",
+    "activo": true,
+    "orden": 2
+  },
+  {
+    "id": "seguridad_higiene_obra",
+    "area_id": "ingenieria_civil_construccion",
+    "nombre": "Seguridad e higiene en obra",
+    "nombre_dominio_sugerido": "Construcción — Seguridad e Higiene",
+    "descripcion_sugerida": "Dominio orientado a identificar riesgos, ordenar medidas preventivas y mejorar cumplimiento de seguridad en obra.",
+    "instrucciones_sugeridas": "Todos los agentes de este dominio deben priorizar prevención, normativa aplicable, evidencia de riesgo y acciones inmediatas.",
+    "activo": true,
+    "orden": 3
+  },
+  {
+    "id": "analisis_contratos",
+    "area_id": "legales",
+    "nombre": "Análisis de contratos",
+    "nombre_dominio_sugerido": "Legales — Análisis de Contratos",
+    "descripcion_sugerida": "Dominio orientado a revisar cláusulas, detectar riesgos, resumir obligaciones y proponer puntos de negociación.",
+    "instrucciones_sugeridas": "Todos los agentes de este dominio deben priorizar precisión, riesgos explícitos, obligaciones concretas y recomendación de revisión profesional cuando aplique.",
+    "activo": true,
+    "orden": 1
+  },
+  {
+    "id": "litigios_contencioso",
+    "area_id": "legales",
+    "nombre": "Litigios y contencioso",
+    "nombre_dominio_sugerido": "Legales — Litigios y Contencioso",
+    "descripcion_sugerida": "Dominio orientado a ordenar hechos, documentos, argumentos, riesgos procesales y próximos pasos de casos disputados.",
+    "instrucciones_sugeridas": "Todos los agentes de este dominio deben distinguir hechos, prueba, hipótesis legal, plazos y riesgos; no deben reemplazar asesoramiento profesional.",
+    "activo": true,
+    "orden": 2
+  },
+  {
+    "id": "compliance_normativo",
+    "area_id": "legales",
+    "nombre": "Compliance normativo",
+    "nombre_dominio_sugerido": "Legales — Compliance Normativo",
+    "descripcion_sugerida": "Dominio orientado a analizar obligaciones, políticas internas, controles y riesgos de incumplimiento.",
+    "instrucciones_sugeridas": "Todos los agentes de este dominio deben priorizar trazabilidad normativa, controles verificables, evidencia documental y alertas de riesgo.",
+    "activo": true,
+    "orden": 3
+  },
+  {
+    "id": "derecho_laboral",
+    "area_id": "legales",
+    "nombre": "Derecho laboral",
+    "nombre_dominio_sugerido": "Legales — Derecho Laboral",
+    "descripcion_sugerida": "Dominio orientado a ordenar consultas laborales, documentación, riesgos, obligaciones y escenarios de decisión.",
+    "instrucciones_sugeridas": "Todos los agentes de este dominio deben priorizar prudencia, documentación, plazos, derechos y consulta con profesionales habilitados.",
+    "activo": true,
+    "orden": 4
+  },
+  {
+    "id": "propiedad_intelectual",
+    "area_id": "legales",
+    "nombre": "Propiedad intelectual",
+    "nombre_dominio_sugerido": "Legales — Propiedad Intelectual",
+    "descripcion_sugerida": "Dominio orientado a analizar marcas, derechos de autor, licencias, uso de activos y riesgos de infracción.",
+    "instrucciones_sugeridas": "Todos los agentes de este dominio deben priorizar titularidad, alcance de uso, restricciones, evidencia y revisión profesional ante decisiones relevantes.",
+    "activo": true,
+    "orden": 5
+  },
+  {
+    "id": "soporte_tecnico_producto",
+    "area_id": "departamento_tecnico",
+    "nombre": "Soporte técnico de producto",
+    "nombre_dominio_sugerido": "Departamento Técnico — Soporte de Producto",
+    "descripcion_sugerida": "Dominio orientado a resolver consultas técnicas, documentar incidencias y mejorar conocimiento sobre productos o servicios.",
+    "instrucciones_sugeridas": "Todos los agentes de este dominio deben priorizar diagnóstico, versión o contexto técnico, pasos seguros y documentación reutilizable.",
+    "activo": true,
+    "orden": 1
+  },
+  {
+    "id": "documentacion_tecnica",
+    "area_id": "departamento_tecnico",
+    "nombre": "Documentación técnica",
+    "nombre_dominio_sugerido": "Departamento Técnico — Documentación Técnica",
+    "descripcion_sugerida": "Dominio orientado a crear, revisar y ordenar manuales, procedimientos, fichas técnicas y guías operativas.",
+    "instrucciones_sugeridas": "Todos los agentes de este dominio deben priorizar precisión, estructura, lenguaje claro, versionado y validación técnica.",
+    "activo": true,
+    "orden": 2
+  },
+  {
+    "id": "diagnostico_fallas",
+    "area_id": "departamento_tecnico",
+    "nombre": "Diagnóstico de fallas",
+    "nombre_dominio_sugerido": "Departamento Técnico — Diagnóstico de Fallas",
+    "descripcion_sugerida": "Dominio orientado a identificar causas probables, ordenar pruebas y recomendar acciones de corrección técnica.",
+    "instrucciones_sugeridas": "Todos los agentes de este dominio deben priorizar seguridad, pasos verificables, descarte ordenado de causas y registro de evidencias.",
+    "activo": true,
+    "orden": 3
+  },
+  {
+    "id": "agenda_coordinacion",
+    "area_id": "secretarias_recepcion",
+    "nombre": "Agenda y coordinación",
+    "nombre_dominio_sugerido": "Secretaría — Agenda y Coordinación",
+    "descripcion_sugerida": "Dominio orientado a organizar reuniones, prioridades, recordatorios, disponibilidad y coordinación entre personas.",
+    "instrucciones_sugeridas": "Todos los agentes de este dominio deben priorizar claridad de fechas, responsables, confirmaciones y seguimiento ordenado.",
+    "activo": true,
+    "orden": 1
+  },
+  {
+    "id": "recepcion_atencion",
+    "area_id": "secretarias_recepcion",
+    "nombre": "Recepción y atención presencial",
+    "nombre_dominio_sugerido": "Recepción — Atención Presencial",
+    "descripcion_sugerida": "Dominio orientado a mejorar recepción de visitantes, derivaciones, mensajes y calidad de atención inicial.",
+    "instrucciones_sugeridas": "Todos los agentes de este dominio deben priorizar cortesía, rapidez, identificación del motivo y derivación correcta.",
+    "activo": true,
+    "orden": 2
+  },
+  {
+    "id": "gestion_documental",
+    "area_id": "secretarias_recepcion",
+    "nombre": "Gestión documental",
+    "nombre_dominio_sugerido": "Secretaría — Gestión Documental",
+    "descripcion_sugerida": "Dominio orientado a ordenar documentos, registros, vencimientos, archivos y circuitos administrativos.",
+    "instrucciones_sugeridas": "Todos los agentes de este dominio deben priorizar trazabilidad, versiones, confidencialidad y ubicación clara de documentos.",
+    "activo": true,
+    "orden": 3
+  },
+  {
+    "id": "planificacion_estrategica",
+    "area_id": "gerencia_direccion_general",
+    "nombre": "Planificación estratégica",
+    "nombre_dominio_sugerido": "Dirección — Planificación Estratégica",
+    "descripcion_sugerida": "Dominio orientado a formular objetivos, analizar escenarios, priorizar iniciativas y alinear decisiones ejecutivas.",
+    "instrucciones_sugeridas": "Todos los agentes de este dominio deben priorizar contexto, trade-offs, impacto, riesgos y claridad de decisión.",
+    "activo": true,
+    "orden": 1
+  },
+  {
+    "id": "tablero_direccion",
+    "area_id": "gerencia_direccion_general",
+    "nombre": "Tablero de dirección",
+    "nombre_dominio_sugerido": "Dirección — Tablero Ejecutivo",
+    "descripcion_sugerida": "Dominio orientado a construir indicadores ejecutivos, interpretar desempeño y detectar alertas de gestión.",
+    "instrucciones_sugeridas": "Todos los agentes de este dominio deben priorizar indicadores críticos, lectura ejecutiva, tendencia, causa probable y acción recomendada.",
+    "activo": true,
+    "orden": 2
+  },
+  {
+    "id": "transformacion_organizacional",
+    "area_id": "gerencia_direccion_general",
+    "nombre": "Transformación organizacional",
+    "nombre_dominio_sugerido": "Dirección — Transformación Organizacional",
+    "descripcion_sugerida": "Dominio orientado a gestionar cambios, procesos, adopción interna y evolución de capacidades organizacionales.",
+    "instrucciones_sugeridas": "Todos los agentes de este dominio deben priorizar impacto humano, secuencia de cambio, comunicación y riesgos de adopción.",
+    "activo": true,
+    "orden": 3
+  },
+  {
+    "id": "diseno_grafico_marca",
+    "area_id": "diseno",
+    "nombre": "Diseño gráfico y marca",
+    "nombre_dominio_sugerido": "Diseño — Gráfico y Marca",
+    "descripcion_sugerida": "Dominio orientado a identidad visual, piezas gráficas, coherencia de marca y comunicación visual.",
+    "instrucciones_sugeridas": "Todos los agentes de este dominio deben priorizar consistencia, legibilidad, intención comunicacional y sistema visual.",
+    "activo": true,
+    "orden": 1
+  },
+  {
+    "id": "ux_ui",
+    "area_id": "diseno",
+    "nombre": "UX/UI",
+    "nombre_dominio_sugerido": "Diseño — UX/UI",
+    "descripcion_sugerida": "Dominio orientado a experiencia de usuario, arquitectura de información, flujos e interfaces digitales.",
+    "instrucciones_sugeridas": "Todos los agentes de este dominio deben priorizar necesidades del usuario, claridad del flujo, accesibilidad y reducción de fricción.",
+    "activo": true,
+    "orden": 2
+  },
+  {
+    "id": "diseno_producto",
+    "area_id": "diseno",
+    "nombre": "Diseño de producto",
+    "nombre_dominio_sugerido": "Diseño — Producto",
+    "descripcion_sugerida": "Dominio orientado a definir soluciones, validar hipótesis, mejorar propuesta de valor y organizar decisiones de producto.",
+    "instrucciones_sugeridas": "Todos los agentes de este dominio deben priorizar problema real, usuario, restricciones, prototipos y aprendizaje validado.",
+    "activo": true,
+    "orden": 3
+  },
+  {
+    "id": "operaciones_mineras",
+    "area_id": "mineria_petroleo_gas",
+    "nombre": "Operaciones mineras",
+    "nombre_dominio_sugerido": "Minería — Operaciones",
+    "descripcion_sugerida": "Dominio orientado a analizar operaciones, turnos, productividad, riesgos y coordinación de recursos en minería.",
+    "instrucciones_sugeridas": "Todos los agentes de este dominio deben priorizar seguridad, continuidad operativa, restricciones del terreno y evidencia de producción.",
+    "activo": true,
+    "orden": 1
+  },
+  {
+    "id": "seguridad_ambiental",
+    "area_id": "mineria_petroleo_gas",
+    "nombre": "Seguridad y ambiente",
+    "nombre_dominio_sugerido": "Minería, Petróleo y Gas — Seguridad y Ambiente",
+    "descripcion_sugerida": "Dominio orientado a revisar riesgos HSE, controles ambientales, incidentes y acciones preventivas.",
+    "instrucciones_sugeridas": "Todos los agentes de este dominio deben priorizar prevención, cumplimiento, evidencia, impacto ambiental y escalamiento oportuno.",
+    "activo": true,
+    "orden": 2
+  },
+  {
+    "id": "mantenimiento_equipos_pesados",
+    "area_id": "mineria_petroleo_gas",
+    "nombre": "Mantenimiento de equipos pesados",
+    "nombre_dominio_sugerido": "Minería, Petróleo y Gas — Mantenimiento de Equipos",
+    "descripcion_sugerida": "Dominio orientado a analizar fallas, disponibilidad, mantenimiento preventivo y criticidad de equipos pesados.",
+    "instrucciones_sugeridas": "Todos los agentes de este dominio deben priorizar seguridad, historial técnico, criticidad operacional y planificación preventiva.",
+    "activo": true,
+    "orden": 3
+  },
+  {
+    "id": "clasificacion_arancelaria",
+    "area_id": "aduana_comercio_exterior",
+    "nombre": "Clasificación arancelaria",
+    "nombre_dominio_sugerido": "Comercio Exterior — Clasificación Arancelaria",
+    "descripcion_sugerida": "Dominio orientado a ordenar información de mercadería, criterios de clasificación y riesgos aduaneros.",
+    "instrucciones_sugeridas": "Todos los agentes de este dominio deben priorizar descripción precisa, normativa aplicable, evidencia documental y revisión por especialistas.",
+    "activo": true,
+    "orden": 1
+  },
+  {
+    "id": "documentacion_import_export",
+    "area_id": "aduana_comercio_exterior",
+    "nombre": "Documentación import/export",
+    "nombre_dominio_sugerido": "Comercio Exterior — Documentación Import/Export",
+    "descripcion_sugerida": "Dominio orientado a revisar documentación de operaciones internacionales, requisitos y consistencia de datos.",
+    "instrucciones_sugeridas": "Todos los agentes de este dominio deben priorizar exactitud documental, plazos, partes involucradas y alertas de inconsistencia.",
+    "activo": true,
+    "orden": 2
+  },
+  {
+    "id": "compliance_comercio_exterior",
+    "area_id": "aduana_comercio_exterior",
+    "nombre": "Compliance de comercio exterior",
+    "nombre_dominio_sugerido": "Comercio Exterior — Compliance",
+    "descripcion_sugerida": "Dominio orientado a riesgos regulatorios, restricciones, controles internos y cumplimiento en operaciones internacionales.",
+    "instrucciones_sugeridas": "Todos los agentes de este dominio deben priorizar normativa, trazabilidad, listas de control, documentación y prudencia ante riesgos legales.",
+    "activo": true,
+    "orden": 3
+  },
+  {
+    "id": "diseno_curricular",
+    "area_id": "educacion_docencia_investigacion",
+    "nombre": "Diseño curricular",
+    "nombre_dominio_sugerido": "Educación — Diseño Curricular",
+    "descripcion_sugerida": "Dominio orientado a planificar contenidos, objetivos, secuencias didácticas y criterios de evaluación.",
+    "instrucciones_sugeridas": "Todos los agentes de este dominio deben priorizar objetivos de aprendizaje, progresión, evaluación clara e inclusión pedagógica.",
+    "activo": true,
+    "orden": 1
+  },
+  {
+    "id": "tutoria_academica",
+    "area_id": "educacion_docencia_investigacion",
+    "nombre": "Tutoría académica",
+    "nombre_dominio_sugerido": "Educación — Tutoría Académica",
+    "descripcion_sugerida": "Dominio orientado a acompañar estudiantes, detectar dificultades, proponer estrategias de estudio y seguimiento.",
+    "instrucciones_sugeridas": "Todos los agentes de este dominio deben priorizar claridad, autonomía del estudiante, retroalimentación constructiva y seguimiento respetuoso.",
+    "activo": true,
+    "orden": 2
+  },
+  {
+    "id": "investigacion_academica",
+    "area_id": "educacion_docencia_investigacion",
+    "nombre": "Investigación académica",
+    "nombre_dominio_sugerido": "Educación — Investigación Académica",
+    "descripcion_sugerida": "Dominio orientado a organizar preguntas de investigación, metodología, revisión bibliográfica y análisis de hallazgos.",
+    "instrucciones_sugeridas": "Todos los agentes de este dominio deben priorizar rigor, fuentes verificables, límites metodológicos y distinción entre evidencia e interpretación.",
+    "activo": true,
+    "orden": 3
+  },
+  {
+    "id": "gestion_instituciones_educativas",
+    "area_id": "educacion_docencia_investigacion",
+    "nombre": "Gestión de instituciones educativas",
+    "nombre_dominio_sugerido": "Educación — Gestión Institucional",
+    "descripcion_sugerida": "Dominio orientado a coordinar procesos académicos, comunicación institucional, indicadores y mejora educativa.",
+    "instrucciones_sugeridas": "Todos los agentes de este dominio deben priorizar comunidad educativa, indicadores, procesos claros y decisiones trazables.",
+    "activo": true,
+    "orden": 4
+  },
+  {
+    "id": "capacitacion_corporativa",
+    "area_id": "educacion_docencia_investigacion",
+    "nombre": "Capacitación corporativa",
+    "nombre_dominio_sugerido": "Educación — Capacitación Corporativa",
+    "descripcion_sugerida": "Dominio orientado a diseñar formación para equipos, onboarding, transferencia de habilidades y medición de aprendizaje.",
+    "instrucciones_sugeridas": "Todos los agentes de este dominio deben priorizar aplicación laboral, objetivos concretos, actividades prácticas y evaluación de transferencia.",
+    "activo": true,
+    "orden": 5
+  },
+  {
+    "id": "gestion_siniestros",
+    "area_id": "seguros",
+    "nombre": "Gestión de siniestros",
+    "nombre_dominio_sugerido": "Seguros — Gestión de Siniestros",
+    "descripcion_sugerida": "Dominio orientado a ordenar denuncias, documentación, cobertura, seguimiento y comunicación de siniestros.",
+    "instrucciones_sugeridas": "Todos los agentes de este dominio deben priorizar trazabilidad, plazos, documentación completa y comunicación empática.",
+    "activo": true,
+    "orden": 1
+  },
+  {
+    "id": "suscripcion_riesgos",
+    "area_id": "seguros",
+    "nombre": "Suscripción de riesgos",
+    "nombre_dominio_sugerido": "Seguros — Suscripción de Riesgos",
+    "descripcion_sugerida": "Dominio orientado a analizar perfiles de riesgo, condiciones de cobertura, exclusiones y criterios de aceptación.",
+    "instrucciones_sugeridas": "Todos los agentes de este dominio deben priorizar criterios técnicos, evidencia, consistencia de datos y prudencia en evaluación.",
+    "activo": true,
+    "orden": 2
+  },
+  {
+    "id": "atencion_productores",
+    "area_id": "seguros",
+    "nombre": "Atención a productores",
+    "nombre_dominio_sugerido": "Seguros — Atención a Productores",
+    "descripcion_sugerida": "Dominio orientado a responder consultas de productores, ordenar solicitudes comerciales y facilitar operación aseguradora.",
+    "instrucciones_sugeridas": "Todos los agentes de este dominio deben priorizar precisión, rapidez, condiciones claras y seguimiento de solicitudes.",
+    "activo": true,
+    "orden": 3
+  },
+  {
+    "id": "comunicacion_institucional",
+    "area_id": "comunicacion_relaciones_institucionales_publicas",
+    "nombre": "Comunicación institucional",
+    "nombre_dominio_sugerido": "Comunicación — Institucional",
+    "descripcion_sugerida": "Dominio orientado a mensajes institucionales, coherencia narrativa, comunicación interna y reputación corporativa.",
+    "instrucciones_sugeridas": "Todos los agentes de este dominio deben priorizar claridad, consistencia, públicos relevantes y tono institucional adecuado.",
+    "activo": true,
+    "orden": 1
+  },
+  {
+    "id": "prensa_medios",
+    "area_id": "comunicacion_relaciones_institucionales_publicas",
+    "nombre": "Prensa y medios",
+    "nombre_dominio_sugerido": "Comunicación — Prensa y Medios",
+    "descripcion_sugerida": "Dominio orientado a gacetillas, respuestas a medios, mensajes clave y gestión de solicitudes periodísticas.",
+    "instrucciones_sugeridas": "Todos los agentes de este dominio deben priorizar precisión, oportunidad, vocería clara y cuidado reputacional.",
+    "activo": true,
+    "orden": 2
+  },
+  {
+    "id": "asuntos_publicos",
+    "area_id": "comunicacion_relaciones_institucionales_publicas",
+    "nombre": "Asuntos públicos",
+    "nombre_dominio_sugerido": "Comunicación — Asuntos Públicos",
+    "descripcion_sugerida": "Dominio orientado a relaciones institucionales, mapa de actores, contexto público y mensajes para stakeholders.",
+    "instrucciones_sugeridas": "Todos los agentes de este dominio deben priorizar sensibilidad contextual, intereses de actores, claridad y prudencia comunicacional.",
+    "activo": true,
+    "orden": 3
+  },
+  {
+    "id": "intervencion_comunitaria",
+    "area_id": "sociologia_trabajo_social",
+    "nombre": "Intervención comunitaria",
+    "nombre_dominio_sugerido": "Trabajo Social — Intervención Comunitaria",
+    "descripcion_sugerida": "Dominio orientado a acompañar situaciones comunitarias, organizar recursos y priorizar acciones territoriales.",
+    "instrucciones_sugeridas": "Todos los agentes de este dominio deben priorizar escucha, contexto, derechos, redes de apoyo y cuidado de la dignidad.",
+    "activo": true,
+    "orden": 1
+  },
+  {
+    "id": "diagnostico_social",
+    "area_id": "sociologia_trabajo_social",
+    "nombre": "Diagnóstico social",
+    "nombre_dominio_sugerido": "Sociología — Diagnóstico Social",
+    "descripcion_sugerida": "Dominio orientado a analizar información social, detectar patrones, necesidades y factores de vulnerabilidad.",
+    "instrucciones_sugeridas": "Todos los agentes de este dominio deben priorizar evidencia, contexto, enfoque de derechos y límites de interpretación.",
+    "activo": true,
+    "orden": 2
+  },
+  {
+    "id": "programas_sociales",
+    "area_id": "sociologia_trabajo_social",
+    "nombre": "Programas sociales",
+    "nombre_dominio_sugerido": "Trabajo Social — Programas Sociales",
+    "descripcion_sugerida": "Dominio orientado a diseñar, monitorear y mejorar programas sociales, beneficios y acompañamiento institucional.",
+    "instrucciones_sugeridas": "Todos los agentes de este dominio deben priorizar criterios claros, impacto, accesibilidad, seguimiento y transparencia.",
+    "activo": true,
+    "orden": 3
+  },
+  {
+    "id": "cuidados_clinicos",
+    "area_id": "enfermeria",
+    "nombre": "Cuidados clínicos",
+    "nombre_dominio_sugerido": "Enfermería — Cuidados Clínicos",
+    "descripcion_sugerida": "Dominio orientado a organizar cuidados, seguimiento, registro de signos y coordinación asistencial.",
+    "instrucciones_sugeridas": "Todos los agentes de este dominio deben priorizar seguridad del paciente, protocolos, registro claro y derivación profesional.",
+    "activo": true,
+    "orden": 1
+  },
+  {
+    "id": "triage_admision",
+    "area_id": "enfermeria",
+    "nombre": "Triage y admisión",
+    "nombre_dominio_sugerido": "Enfermería — Triage y Admisión",
+    "descripcion_sugerida": "Dominio orientado a ordenar admisión, priorizar atención, registrar motivos de consulta y derivar adecuadamente.",
+    "instrucciones_sugeridas": "Todos los agentes de este dominio deben priorizar urgencia, seguridad, registro preciso, criterios claros y escalamiento inmediato cuando corresponda.",
+    "activo": true,
+    "orden": 2
+  },
+  {
+    "id": "educacion_paciente",
+    "area_id": "enfermeria",
+    "nombre": "Educación del paciente",
+    "nombre_dominio_sugerido": "Enfermería — Educación del Paciente",
+    "descripcion_sugerida": "Dominio orientado a explicar cuidados, indicaciones, señales de alarma y hábitos de seguimiento para pacientes.",
+    "instrucciones_sugeridas": "Todos los agentes de este dominio deben priorizar lenguaje claro, seguridad, adherencia, límites de la información y consulta profesional.",
+    "activo": true,
+    "orden": 3
+  },
+  {
+    "id": "operaciones_portuarias",
+    "area_id": "naviero_maritimo_portuario",
+    "nombre": "Operaciones portuarias",
+    "nombre_dominio_sugerido": "Naviero y Portuario — Operaciones Portuarias",
+    "descripcion_sugerida": "Dominio orientado a coordinar carga, descarga, turnos, recursos y comunicación operativa portuaria.",
+    "instrucciones_sugeridas": "Todos los agentes de este dominio deben priorizar seguridad, tiempos, documentación, coordinación y restricciones operativas.",
+    "activo": true,
+    "orden": 1
+  },
+  {
+    "id": "documentacion_maritima",
+    "area_id": "naviero_maritimo_portuario",
+    "nombre": "Documentación marítima",
+    "nombre_dominio_sugerido": "Naviero — Documentación Marítima",
+    "descripcion_sugerida": "Dominio orientado a revisar documentación de buques, cargas, permisos, certificados y movimientos marítimos.",
+    "instrucciones_sugeridas": "Todos los agentes de este dominio deben priorizar precisión documental, plazos, trazabilidad y cumplimiento normativo.",
+    "activo": true,
+    "orden": 2
+  },
+  {
+    "id": "logistica_naviera",
+    "area_id": "naviero_maritimo_portuario",
+    "nombre": "Logística naviera",
+    "nombre_dominio_sugerido": "Naviero — Logística Naviera",
+    "descripcion_sugerida": "Dominio orientado a planificar rutas, coordinación de cargas, disponibilidad y seguimiento de operaciones navieras.",
+    "instrucciones_sugeridas": "Todos los agentes de este dominio deben priorizar continuidad, costos, tiempos, coordinación interviniente y alertas operativas.",
+    "activo": true,
+    "orden": 3
+  }
+]
