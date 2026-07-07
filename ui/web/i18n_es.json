@@ -199,7 +199,7 @@
     "system_name": "Nombre del sistema",
     "functional_widgets": "Componentes funcionales del HUD",
     "last_debate_widget": "Estado del último debate",
-    "next_validation_widget": "Próxima validación",
+    "primary_action_widget": "Próxima acción del dominio",
     "provider_health_widget": "Salud de proveedores",
     "current": "Actual",
     "panel_opacity": "Opacidad de paneles",

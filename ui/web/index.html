@@ -715,17 +715,17 @@
                             <div class="data-widget-meta" id="last-debate-meta">Buscando debates registrados.</div>
                             <div class="data-widget-detail" id="last-debate-detail">Sin resultado todavía.</div>
                         </section>
-                        <section class="data-widget" id="widget-next-validation">
+                        <section class="data-widget" id="widget-primary-action">
                             <div class="data-widget-header">
                                 <div>
-                                    <div class="data-widget-title">Próxima validación</div>
-                                    <div class="data-widget-source">Fuente: /api/validation/next</div>
+                                    <div class="data-widget-title" id="primary-action-title">Próxima acción del dominio</div>
+                                    <div class="data-widget-source" id="primary-action-source">Fuente: metadata del dominio activo</div>
                                 </div>
                                 <button class="widget-refresh-btn" type="button" data-widget-refresh>↻</button>
                             </div>
-                            <div class="data-widget-value" id="next-validation-sorteo">Cargando...</div>
-                            <div class="data-widget-meta" id="next-validation-date">Fecha no cargada.</div>
-                            <div class="data-widget-detail" id="next-validation-detail">Dominio activo con validación pendiente.</div>
+                            <div class="data-widget-value" id="primary-action-value">Cargando...</div>
+                            <div class="data-widget-meta" id="primary-action-meta">Leyendo dominio activo.</div>
+                            <div class="data-widget-detail" id="primary-action-detail">Buscando acción pendiente configurada.</div>
                         </section>
                         <section class="data-widget" id="widget-provider-health">
                             <div class="data-widget-header">
@@ -1388,29 +1388,88 @@
             }
         }
 
-        async function actualizarWidgetProximaValidacion() {
-            setWidgetUpdating('widget-next-validation', true);
+        function renderPrimaryActionEmpty(domain) {
+            setText('primary-action-title', 'Próxima acción del dominio');
+            setText('primary-action-source', domain ? `Dominio activo: ${domain.nombre || domain.id}` : 'Sin dominio activo');
+            setText('primary-action-value', 'No disponible para este dominio');
+            setText('primary-action-meta', 'Este dominio no tiene acción pendiente configurada.');
+            setText('primary-action-detail', 'Definí primary_action_widget en domain.json para mostrar una acción acá.');
+        }
+
+        function renderPrimaryActionNoData(action, domain) {
+            setText('primary-action-title', action.title || 'Próxima acción del dominio');
+            setText('primary-action-source', `Dominio activo: ${domain.nombre || domain.id} · ${action.endpoint}`);
+            setText('primary-action-value', 'Sin datos disponibles');
+            setText('primary-action-meta', 'La acción está configurada, pero el endpoint no devolvió datos útiles.');
+            setText('primary-action-detail', 'Revisá el endpoint del dominio o reintentá más tarde.');
+        }
+
+        function renderPrimaryActionGeneric(action, domain, data) {
+            const value = data.titulo || data.title || data.estado || data.status || data.message || 'Acción configurada';
+            const meta = data.fecha || data.fecha_programada || data.updated_at || data.timestamp || `Dominio activo: ${domain.nombre || domain.id}`;
+            const detail = data.detalle || data.detail || data.descripcion || data.description || data.summary || JSON.stringify(data, null, 2);
+            setText('primary-action-title', action.title || 'Próxima acción del dominio');
+            setText('primary-action-source', `Fuente: ${action.endpoint}`);
+            setText('primary-action-value', String(value));
+            setText('primary-action-meta', formatWidgetDate(meta));
+            setText('primary-action-detail', typeof detail === 'string' ? detail : JSON.stringify(detail));
+        }
+
+        function renderLotteryValidationAction(action, domain, data) {
+            const sorteo = data.sorteo_actual ?? data.sorteo ?? 'sin sorteo';
+            const fecha = data.fecha || data.fecha_sorteo || data.fecha_programada || data.next_draw_date;
+            const fase = data.fase_actual || data.fase || 'fase no informada';
+            const progreso = data.progreso || {};
+            const avance = progreso.total_fase
+                ? `${progreso.completados ?? 0}/${progreso.total_fase} completados · ${progreso.restantes ?? 0} restantes`
+                : 'Progreso de fase no informado.';
+
+            setText('primary-action-title', action.title || 'Próxima validación');
+            setText('primary-action-source', `Dominio activo: ${domain.nombre || domain.id} · ${action.endpoint}`);
+            setText('primary-action-value', `Sorteo ${sorteo}`);
+            setText('primary-action-meta', formatWidgetDate(fecha));
+            setText('primary-action-detail', `Fase: ${fase}. ${avance}`);
+        }
+
+        async function actualizarWidgetAccionDominio() {
+            setWidgetUpdating('widget-primary-action', true);
+            setText('primary-action-value', 'Cargando...');
+            setText('primary-action-meta', 'Leyendo metadata del dominio activo.');
+            setText('primary-action-detail', 'Buscando acción pendiente configurada.');
             try {
-                const res = await fetch(`${API_BASE}/api/validation/next`, { cache: 'no-store' });
+                const domain = window.domainUI?.getActiveDomain?.() || null;
+                const action = domain?.primary_action_widget;
+                if (!domain || !action || !action.endpoint) {
+                    renderPrimaryActionEmpty(domain);
+                    return;
+                }
+
+                if (!String(action.endpoint).startsWith('/api/')) {
+                    throw new Error('Endpoint de acción no permitido');
+                }
+
+                const res = await fetch(`${API_BASE}${action.endpoint}`, { cache: 'no-store' });
                 if (!res.ok) throw new Error(`HTTP ${res.status}`);
                 const data = await res.json();
-                const sorteo = data.sorteo_actual ?? data.sorteo ?? 'sin sorteo';
-                const fecha = data.fecha || data.fecha_sorteo || data.fecha_programada || data.next_draw_date;
-                const fase = data.fase_actual || data.fase || 'fase no informada';
-                const progreso = data.progreso || {};
-                const avance = progreso.total_fase
-                    ? `${progreso.completados ?? 0}/${progreso.total_fase} completados · ${progreso.restantes ?? 0} restantes`
-                    : 'Progreso de fase no informado.';
+                const hasData = data && typeof data === 'object' && Object.keys(data).length > 0;
+                if (!hasData) {
+                    renderPrimaryActionNoData(action, domain);
+                    return;
+                }
 
-                setText('next-validation-sorteo', `Sorteo ${sorteo}`);
-                setText('next-validation-date', formatWidgetDate(fecha));
-                setText('next-validation-detail', `Fase: ${fase}. ${avance}`);
+                if (action.id === 'proxima_validacion') {
+                    renderLotteryValidationAction(action, domain, data);
+                } else {
+                    renderPrimaryActionGeneric(action, domain, data);
+                }
             } catch (error) {
-                setText('next-validation-sorteo', 'No disponible');
-                setText('next-validation-date', `Error leyendo validación: ${error.message}`);
-                setText('next-validation-detail', 'Este widget depende del endpoint de validación del dominio activo.');
+                setText('primary-action-title', 'Próxima acción del dominio');
+                setText('primary-action-source', 'Error leyendo acción del dominio');
+                setText('primary-action-value', 'No disponible');
+                setText('primary-action-meta', `Error: ${error.message}`);
+                setText('primary-action-detail', 'Reintentá cuando el backend o el endpoint del dominio estén disponibles.');
             } finally {
-                setWidgetUpdating('widget-next-validation', false);
+                setWidgetUpdating('widget-primary-action', false);
             }
         }
 
@@ -1454,7 +1513,7 @@
         async function actualizarWidgetsFuncionales() {
             await Promise.allSettled([
                 actualizarWidgetUltimoDebate(),
-                actualizarWidgetProximaValidacion(),
+                actualizarWidgetAccionDominio(),
                 actualizarWidgetSaludProveedores(),
             ]);
             setText('widgets-last-refresh', `Última actualización: ${new Date().toLocaleTimeString('es-AR')}`);
@@ -1466,6 +1525,7 @@
             });
             const refresh = document.getElementById('widgets-refresh-btn');
             if (refresh) refresh.addEventListener('click', actualizarWidgetsFuncionales);
+            window.addEventListener('ia-core-active-domain-changed', actualizarWidgetsFuncionales);
             actualizarWidgetsFuncionales();
             setInterval(actualizarWidgetsFuncionales, 60000);
         }

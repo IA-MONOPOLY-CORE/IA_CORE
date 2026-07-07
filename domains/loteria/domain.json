@@ -14,5 +14,11 @@
     "peso_cuerpo": 400
   },
   "nicho_sugerido": "Lotería y análisis combinatorio",
+  "primary_action_widget": {
+    "id": "proxima_validacion",
+    "title": "Próxima validación",
+    "endpoint": "/api/validation/next",
+    "domain_specific": true
+  },
   "creado_en": "2026-07-05T00:00:00"
 }

@@ -102,6 +102,12 @@ def test_lottery_domain_has_retroactive_manifest():
     assert manifest["id"] == "loteria"
     assert manifest["tema_id"] == "tactico"
     assert manifest["instrucciones"]
+    assert manifest["primary_action_widget"] == {
+        "id": "proxima_validacion",
+        "title": "Próxima validación",
+        "endpoint": "/api/validation/next",
+        "domain_specific": True,
+    }
 
 
 def test_domain_creation_ui_uses_catalog_and_gates_agent_creation():
@@ -114,6 +120,8 @@ def test_domain_creation_ui_uses_catalog_and_gates_agent_creation():
     assert 'id="agent-domain" required' in html
     assert '<script src="/domains.js"></script>' in html
     assert "requireDomain" in script
+    assert "getActiveDomain" in script
+    assert "ia-core-active-domain-changed" in script
     assert "state.domains.length > 0" in script
     assert catalog["domains"]["niche_suggestions"] == [
         "Lotería",
@@ -158,13 +166,19 @@ def test_widgets_are_functional_and_not_decorative():
 
     assert "WIDGETS FUNCIONALES" in html
     assert "Estado del último debate" in html
-    assert "Próxima validación" in html
+    assert "Próxima acción del dominio" in html
     assert "Salud de proveedores" in html
+    assert "primary_action_widget" in html
+    assert "window.domainUI?.getActiveDomain" in html
+    assert "action.endpoint" in html
+    assert "renderLotteryValidationAction" in html
+    assert "Este dominio no tiene acción pendiente configurada." in html
+    assert "La acción está configurada, pero el endpoint no devolvió datos útiles." in html
     assert "/api/debates" in html
     assert "/api/debate/${encodeURIComponent(last.debate_id)}" in html
-    assert "/api/validation/next" in html
     assert "/api/status" in html
     assert "provider.is_placeholder !== true" in html
+    assert catalog["appearance"]["primary_action_widget"] == "Próxima acción del dominio"
 
     decorative_artifacts = [
         "WIDGETS_LIBRARY",

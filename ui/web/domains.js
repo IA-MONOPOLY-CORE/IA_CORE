@@ -113,6 +113,17 @@
         return state.domains[0]?.id || '';
     }
 
+    function getActiveDomain() {
+        const id = activeDomainId();
+        return state.domains.find((domain) => domain.id === id) || null;
+    }
+
+    function notifyActiveDomainChanged() {
+        window.dispatchEvent(new CustomEvent('ia-core-active-domain-changed', {
+            detail: { domain: getActiveDomain() },
+        }));
+    }
+
     function populateAgentDomainSelect() {
         const select = byId('agent-domain');
         if (!select) return;
@@ -126,7 +137,10 @@
         });
         if (state.domains.some((domain) => domain.id === previous)) select.value = previous;
         select.onchange = () => {
-            if (select.value) localStorage.setItem('ia_core_active_domain', select.value);
+            if (select.value) {
+                localStorage.setItem('ia_core_active_domain', select.value);
+                notifyActiveDomainChanged();
+            }
         };
     }
 
@@ -147,6 +161,7 @@
         renderThemes();
         populateAgentDomainSelect();
         updateAgentGate();
+        notifyActiveDomainChanged();
         return state.domains;
     }
 
@@ -245,5 +260,6 @@
         openCreateModal,
         requireDomain,
         refreshDomains,
+        getActiveDomain,
     };
 })();
