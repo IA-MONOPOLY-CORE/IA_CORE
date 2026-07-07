@@ -101,4 +101,8 @@ def _get_default_score_response_fn() -> Callable:
 
 **Backend**: `core/catalog_registry.py` carga y valida los catálogos, filtra activos por defecto y expone una estructura agrupada para creación de dominios. `GET /api/catalogs/domain-creation` publica esa estructura como endpoint read-only.
 
-**Alcance diferido**: El HUD todavía no consume este endpoint en este prompt. Roles, especializaciones, presets inteligentes, memoria `.md` inicial y papers automáticos quedan para prompts posteriores.
+**HUD**: El modal Crear Dominio consume el endpoint read-only para ofrecer el flujo Área profesional → Nicho específico. Al elegir un nicho se autocompletan nombre, descripción e instrucciones heredadas, pero el usuario conserva edición manual antes de crear el dominio.
+
+**Metadata de dominio**: Los dominios nuevos pueden persistir `area_profesional_id` y `nicho_id` en `domain.json`, manteniendo `nicho_sugerido` como compatibilidad.
+
+**Alcance diferido**: Roles, especializaciones, presets inteligentes, memoria `.md` inicial y papers automáticos quedan para prompts posteriores.

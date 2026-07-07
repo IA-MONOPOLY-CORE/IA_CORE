@@ -11,6 +11,7 @@ from pathlib import Path
 from typing import Any, Iterator
 
 import config
+from core.catalog_registry import validate_domain_catalog_selection
 
 
 DOMAIN_SCHEMA_VERSION = 1
@@ -155,6 +156,8 @@ def create_domain(
     instructions: str,
     theme_id: str,
     suggested_niche: str | None = None,
+    area_profesional_id: str | None = None,
+    nicho_id: str | None = None,
     domains_dir: str | Path | None = None,
 ) -> dict[str, Any]:
     name = name.strip()
@@ -168,6 +171,7 @@ def create_domain(
         raise ValueError("Las instrucciones globales del dominio son obligatorias")
     if theme_id not in DOMAIN_THEME_PRESETS:
         raise ValueError("Tema de dominio no soportado")
+    catalog_selection = validate_domain_catalog_selection(area_profesional_id, nicho_id)
 
     domain_id = slugify_domain_name(name)
     domain_dir = _safe_domain_dir(domain_id, domains_dir)
@@ -185,9 +189,15 @@ def create_domain(
         "tema_id": theme_id,
         "color_primario": theme["color_primario"],
         "tipografia": deepcopy(theme["tipografia"]),
-        "nicho_sugerido": (suggested_niche or name).strip(),
+        "nicho_sugerido": (
+            suggested_niche or catalog_selection.get("nicho_nombre") or name
+        ).strip(),
         "creado_en": datetime.now().isoformat(),
     }
+    if catalog_selection.get("area_profesional_id"):
+        manifest["area_profesional_id"] = catalog_selection["area_profesional_id"]
+    if catalog_selection.get("nicho_id"):
+        manifest["nicho_id"] = catalog_selection["nicho_id"]
 
     (domain_dir / "agents" / "config").mkdir(parents=True, exist_ok=True)
     (domain_dir / "agents" / "papers").mkdir(parents=True, exist_ok=True)

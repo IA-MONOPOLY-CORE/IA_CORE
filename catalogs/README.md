@@ -15,6 +15,9 @@ Los nichos incluyen sugerencias para crear dominios:
 - descripción sugerida;
 - instrucciones sugeridas que luego podrán heredar los agentes del dominio.
 
+El modal **Crear Dominio** consume estos catálogos desde `GET /api/catalogs/domain-creation`.
+El usuario elige primero un área profesional y luego un nicho específico; con esa selección se autocompletan nombre, descripción e instrucciones, pero los campos siguen siendo editables antes de guardar.
+
 ## Alcance actual
 
 Este primer catálogo solo cubre áreas profesionales y nichos iniciales.

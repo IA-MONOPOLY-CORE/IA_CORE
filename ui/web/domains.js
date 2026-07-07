@@ -6,6 +6,12 @@
         catalog: {},
         domains: [],
         themes: [],
+        domainCreationCatalog: null,
+        domainFieldTouched: {
+            name: false,
+            description: false,
+            instructions: false,
+        },
         pendingAgentCallback: null,
         initialized: false,
     };
@@ -38,28 +44,97 @@
         });
     }
 
-    function renderSuggestions() {
-        const suggestions = catalogValue('domains.niche_suggestions', [
-            'Lotería',
-            'Trading',
-            'Atención al cliente',
-            'Análisis de contratos',
-            'Investigación de mercado',
-        ]);
-        const container = byId('domain-suggestions');
-        container.replaceChildren();
-        suggestions.forEach((suggestion) => {
-            const button = document.createElement('button');
-            button.type = 'button';
-            button.className = 'domain-suggestion';
-            button.textContent = suggestion;
-            button.addEventListener('click', () => {
-                byId('domain-name').value = suggestion;
-                byId('domain-suggested-niche').value = suggestion;
-                byId('domain-name').focus();
-            });
-            container.appendChild(button);
+    function createPlaceholderOption(text) {
+        const option = document.createElement('option');
+        option.value = '';
+        option.textContent = text;
+        return option;
+    }
+
+    async function ensureDomainCreationCatalog() {
+        if (state.domainCreationCatalog) return state.domainCreationCatalog;
+        const data = await fetchJson('/api/catalogs/domain-creation');
+        state.domainCreationCatalog = {
+            areas: data.areas || [],
+            nichesByArea: data.niches_by_area || {},
+        };
+        return state.domainCreationCatalog;
+    }
+
+    function populateAreaSelect() {
+        const select = byId('domain-area');
+        if (!select) return;
+        select.replaceChildren(createPlaceholderOption('Seleccioná un área profesional...'));
+        (state.domainCreationCatalog?.areas || []).forEach((area) => {
+            const option = document.createElement('option');
+            option.value = area.id;
+            option.textContent = area.nombre;
+            select.appendChild(option);
         });
+        select.disabled = false;
+    }
+
+    function populateNicheSelect(areaId) {
+        const select = byId('domain-niche');
+        if (!select) return;
+        select.replaceChildren(createPlaceholderOption(
+            areaId ? 'Seleccioná un nicho específico...' : 'Primero seleccioná un área profesional'
+        ));
+        const niches = state.domainCreationCatalog?.nichesByArea?.[areaId] || [];
+        niches.forEach((niche) => {
+            const option = document.createElement('option');
+            option.value = niche.id;
+            option.textContent = niche.nombre;
+            select.appendChild(option);
+        });
+        select.disabled = !areaId || niches.length === 0;
+    }
+
+    function selectedNiche() {
+        const areaId = byId('domain-area')?.value || '';
+        const nicheId = byId('domain-niche')?.value || '';
+        return (state.domainCreationCatalog?.nichesByArea?.[areaId] || [])
+            .find((niche) => niche.id === nicheId) || null;
+    }
+
+    function setIfEditable(fieldId, touchedKey, value) {
+        const field = byId(fieldId);
+        if (!field || value == null) return;
+        if (!state.domainFieldTouched[touchedKey] || !field.value.trim()) {
+            field.value = value;
+        }
+    }
+
+    function applyNicheSuggestion() {
+        const niche = selectedNiche();
+        if (!niche) {
+            byId('domain-suggested-niche').value = '';
+            return;
+        }
+        byId('domain-suggested-niche').value = niche.nombre;
+        setIfEditable('domain-name', 'name', niche.nombre_dominio_sugerido);
+        setIfEditable('domain-description', 'description', niche.descripcion_sugerida);
+        setIfEditable('domain-instructions', 'instructions', niche.instrucciones_sugeridas);
+    }
+
+    async function loadDomainCreationCatalogIntoForm() {
+        const status = byId('domain-form-status');
+        const areaSelect = byId('domain-area');
+        const nicheSelect = byId('domain-niche');
+        areaSelect.disabled = true;
+        nicheSelect.disabled = true;
+        areaSelect.replaceChildren(createPlaceholderOption('Cargando áreas profesionales...'));
+        nicheSelect.replaceChildren(createPlaceholderOption('Primero seleccioná un área profesional'));
+        try {
+            await ensureDomainCreationCatalog();
+            populateAreaSelect();
+            populateNicheSelect('');
+        } catch (error) {
+            status.textContent = `No se pudieron cargar áreas y nichos: ${error.message}`;
+            status.classList.add('error');
+            areaSelect.replaceChildren(createPlaceholderOption('Catálogo no disponible'));
+            nicheSelect.replaceChildren(createPlaceholderOption('Catálogo no disponible'));
+        }
     }
 
     function selectTheme(themeId) {
@@ -167,15 +242,22 @@
 
     function resetForm() {
         byId('domain-form').reset();
+        state.domainFieldTouched = {
+            name: false,
+            description: false,
+            instructions: false,
+        };
         byId('domain-suggested-niche').value = '';
         byId('domain-form-status').textContent = '';
         byId('domain-form-status').classList.remove('error');
+        populateNicheSelect('');
         if (state.themes[0]) selectTheme(state.themes[0].id);
     }
 
     function openCreateModal({ forAgent = false } = {}) {
         if (!forAgent) state.pendingAgentCallback = null;
         resetForm();
+        loadDomainCreationCatalogIntoForm();
         if (forAgent) {
             byId('domain-form-status').textContent = catalogValue(
                 'domains.required_before_agent',
@@ -183,7 +265,7 @@
             );
         }
         byId('domain-modal').style.display = 'flex';
-        byId('domain-name').focus();
+        byId('domain-area').focus();
     }
 
     function closeCreateModal() {
@@ -210,6 +292,8 @@
                     instrucciones: byId('domain-instructions').value.trim(),
                     tema_id: selectedTheme?.value || '',
                     nicho_sugerido: byId('domain-suggested-niche').value.trim() || null,
+                    area_profesional_id: byId('domain-area').value || null,
+                    nicho_id: byId('domain-niche').value || null,
                 }),
             });
             localStorage.setItem('ia_core_active_domain', data.domain.id);
@@ -240,11 +324,18 @@
         if (state.initialized) return;
         state.initialized = true;
         await loadCatalog();
-        renderSuggestions();
         byId('domain-fab').addEventListener('click', () => openCreateModal());
         byId('close-domain-modal').addEventListener('click', closeCreateModal);
         byId('cancel-domain-btn').addEventListener('click', closeCreateModal);
         byId('domain-form').addEventListener('submit', submitDomain);
+        byId('domain-area').addEventListener('change', (event) => {
+            byId('domain-suggested-niche').value = '';
+            populateNicheSelect(event.target.value);
+        });
+        byId('domain-niche').addEventListener('change', applyNicheSuggestion);
+        byId('domain-name').addEventListener('input', () => { state.domainFieldTouched.name = true; });
+        byId('domain-description').addEventListener('input', () => { state.domainFieldTouched.description = true; });
+        byId('domain-instructions').addEventListener('input', () => { state.domainFieldTouched.instructions = true; });
         try {
             await refreshDomains();
         } catch (error) {
@@ -262,4 +353,10 @@
         refreshDomains,
         getActiveDomain,
     };
+
+    if (document.readyState === 'loading') {
+        window.addEventListener('DOMContentLoaded', () => initialize());
+    } else {
+        initialize();
+    }
 })();

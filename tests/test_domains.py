@@ -5,6 +5,7 @@ from pathlib import Path
 import config
 import api
 import mejorar_papers
+from fastapi.testclient import TestClient
 from agents.runtime_json_agent import RuntimeJsonAgent
 from core.domain_registry import (
     create_domain,
@@ -101,6 +102,97 @@ def test_domain_api_and_agent_creation_inherit_global_instructions(tmp_path, mon
     assert runtime.domain_id == "investigacion_de_mercado"
     assert runtime.system_prompt.startswith("[INSTRUCCIONES GLOBALES DEL DOMINIO]")
     assert "Citar evidencia y declarar incertidumbre." in runtime.system_prompt
+
+
+def test_domain_creation_with_area_and_niche_metadata_persists_manifest(tmp_path, monkeypatch):
+    monkeypatch.setattr(config, "DOMAINS_DIR", tmp_path)
+
+    response = TestClient(api.app).post(
+        "/api/domains/create",
+        json={
+            "nombre": "Atención al Cliente — Reclamos Codex",
+            "descripcion": "Dominio de prueba para reclamos.",
+            "instrucciones": "Priorizar claridad, empatía y trazabilidad.",
+            "tema_id": "corporativo",
+            "area_profesional_id": "atencion_cliente_call_center_telemarketing",
+            "nicho_id": "reclamos_postventa",
+            "nicho_sugerido": "Reclamos y postventa",
+        },
+    )
+
+    assert response.status_code == 200
+    assert response.json()["success"] is True
+    domain_id = response.json()["domain"]["id"]
+    manifest = json.loads((tmp_path / domain_id / "domain.json").read_text(encoding="utf-8"))
+    assert manifest["area_profesional_id"] == "atencion_cliente_call_center_telemarketing"
+    assert manifest["nicho_id"] == "reclamos_postventa"
+    assert manifest["nicho_sugerido"] == "Reclamos y postventa"
+
+    listed = TestClient(api.app).get("/api/domains/list").json()["domains"]
+    listed_domain = next(domain for domain in listed if domain["id"] == domain_id)
+    assert listed_domain["area_profesional_id"] == "atencion_cliente_call_center_telemarketing"
+    assert listed_domain["nicho_id"] == "reclamos_postventa"
+
+
+def test_domain_creation_rejects_invalid_area_or_niche(tmp_path, monkeypatch):
+    monkeypatch.setattr(config, "DOMAINS_DIR", tmp_path)
+    client = TestClient(api.app)
+    base_payload = {
+        "nombre": "Dominio inválido",
+        "descripcion": "Dominio de prueba.",
+        "instrucciones": "Instrucciones de prueba.",
+        "tema_id": "corporativo",
+    }
+
+    invalid_area = client.post(
+        "/api/domains/create",
+        json={
+            **base_payload,
+            "nombre": "Área inválida",
+            "area_profesional_id": "area_inexistente",
+        },
+    )
+    assert invalid_area.status_code == 400
+    assert "Área profesional inexistente" in invalid_area.json()["detail"]
+
+    invalid_niche = client.post(
+        "/api/domains/create",
+        json={
+            **base_payload,
+            "nombre": "Nicho inválido",
+            "nicho_id": "nicho_inexistente",
+        },
+    )
+    assert invalid_niche.status_code == 400
+    assert "Nicho inexistente" in invalid_niche.json()["detail"]
+
+    mismatched = client.post(
+        "/api/domains/create",
+        json={
+            **base_payload,
+            "nombre": "Nicho fuera de área",
+            "area_profesional_id": "oficios_otros",
+            "nicho_id": "reclamos_postventa",
+        },
+    )
+    assert mismatched.status_code == 400
+    assert "no pertenece" in mismatched.json()["detail"]
+
+
+def test_domain_creation_without_catalog_metadata_remains_compatible(tmp_path):
+    domain = create_domain(
+        name="Dominio manual legacy",
+        description="Creado sin catálogo estructurado.",
+        instructions="Mantener compatibilidad.",
+        theme_id="editorial",
+        suggested_niche="Manual",
+        domains_dir=tmp_path,
+    )
+    manifest = json.loads((tmp_path / domain["id"] / "domain.json").read_text(encoding="utf-8"))
+
+    assert manifest["nicho_sugerido"] == "Manual"
+    assert "area_profesional_id" not in manifest
+    assert "nicho_id" not in manifest
 
 
 def test_agent_creation_in_lottery_domain_writes_lottery_config_and_paper(tmp_path, monkeypatch):
@@ -247,20 +339,23 @@ def test_domain_creation_ui_uses_catalog_and_gates_agent_creation():
     catalog = json.loads(Path("ui/web/i18n_es.json").read_text(encoding="utf-8"))
 
     assert 'id="domain-modal"' in html
+    assert 'id="domain-area" name="area_profesional_id" required' in html
+    assert 'id="domain-niche" name="nicho_id" required disabled' in html
     assert 'id="domain-theme-grid"' in html
     assert 'id="agent-domain" required' in html
-    assert '<script src="/domains.js"></script>' in html
+    assert 'src="/domains.js?v=prompt2"' in html
+    assert "/api/catalogs/domain-creation" in script
+    assert "ensureDomainCreationCatalog" in script
+    assert "applyNicheSuggestion" in script
+    assert "domainFieldTouched" in script
+    assert "domain-suggestions" not in html
+    assert "domain-suggestion" not in html
+    assert "niche_suggestions" not in script
     assert "requireDomain" in script
     assert "getActiveDomain" in script
     assert "ia-core-active-domain-changed" in script
     assert "state.domains.length > 0" in script
-    assert catalog["domains"]["niche_suggestions"] == [
-        "Lotería",
-        "Trading",
-        "Atención al cliente",
-        "Análisis de contratos",
-        "Investigación de mercado",
-    ]
+    assert "niche_suggestions" not in catalog["domains"]
 
 
 def test_agent_creation_requires_domain_id():

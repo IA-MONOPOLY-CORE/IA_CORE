@@ -477,6 +477,8 @@ class DomainCreateRequest(BaseModel):
     instrucciones: str
     tema_id: str
     nicho_sugerido: str | None = None
+    area_profesional_id: str | None = None
+    nicho_id: str | None = None
 
 
 class CreateAgentRequest(BaseModel):
@@ -1000,6 +1002,8 @@ async def create_domain_endpoint(request: DomainCreateRequest) -> dict:
             instructions=request.instrucciones,
             theme_id=request.tema_id,
             suggested_niche=request.nicho_sugerido,
+            area_profesional_id=request.area_profesional_id,
+            nicho_id=request.nicho_id,
         )
         logger.info("Dominio creado: %s", domain["id"])
         return {"success": True, "domain": domain}

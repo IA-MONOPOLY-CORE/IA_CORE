@@ -520,17 +520,11 @@
         }
         .domain-field { margin-bottom: 16px; }
         .domain-field label { display: block; font-size: 0.78rem; margin-bottom: 6px; color: var(--text-muted); }
-        .domain-field input, .domain-field textarea, #agent-domain {
+        .domain-field input, .domain-field textarea, .domain-field select, #agent-domain {
             width: 100%; background: rgba(0,0,0,0.45); border: 1px solid var(--border-color);
             color: var(--text-primary); padding: 10px; font-family: inherit; border-radius: var(--border-radius);
         }
-        .domain-suggestions { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 8px; }
-        .domain-suggestion {
-            border: 1px solid rgba(255,255,255,0.14); background: rgba(255,255,255,0.04);
-            color: var(--text-muted); border-radius: 16px; padding: 5px 10px; cursor: pointer;
-            font-family: inherit; font-size: 0.72rem;
-        }
-        .domain-suggestion:hover { border-color: var(--cyan); color: var(--cyan); }
+        .domain-field select:disabled { opacity: 0.55; cursor: not-allowed; }
         .domain-theme-grid { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 10px; }
         .domain-theme-card {
             display: block; position: relative; padding: 14px; border: 1px solid var(--border-color);
@@ -886,10 +880,16 @@
             </div>
             <form id="domain-form">
                 <div class="domain-field">
+                    <label for="domain-area" data-i18n="domains.professional_area">ÁREA PROFESIONAL</label>
+                    <select id="domain-area" name="area_profesional_id" required></select>
+                </div>
+                <div class="domain-field">
+                    <label for="domain-niche" data-i18n="domains.specific_niche">NICHO ESPECÍFICO</label>
+                    <select id="domain-niche" name="nicho_id" required disabled></select>
+                </div>
+                <div class="domain-field">
                     <label for="domain-name" data-i18n="domains.name">NOMBRE</label>
                     <input id="domain-name" name="nombre" maxlength="80" autocomplete="off" required>
-                    <div style="font-size:0.68rem; color:var(--text-muted); margin-top:7px;" data-i18n="domains.suggestions_label">Sugerencias de nicho</div>
-                    <div class="domain-suggestions" id="domain-suggestions"></div>
                 </div>
                 <div class="domain-field">
                     <label for="domain-description" data-i18n="domains.short_description">DESCRIPCIÓN CORTA</label>
@@ -914,6 +914,7 @@
         </div>
     </div>
 
+    <script src="/domains.js?v=prompt2"></script>
     <script>
         const API_BASE = window.location.origin;
         let agentes = [];
@@ -1780,7 +1781,6 @@
             setInterval(checkConnection, 5000);
         };
     </script>
-    <script src="/domains.js"></script>
     <script src="/admin-panels.js"></script>
 </body>
 </html>

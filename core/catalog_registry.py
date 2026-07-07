@@ -170,3 +170,45 @@ def get_domain_creation_catalog(
             for area in areas
         },
     }
+
+
+def validate_domain_catalog_selection(
+    area_profesional_id: str | None,
+    nicho_id: str | None,
+    *,
+    catalogs_dir: str | Path | None = None,
+) -> dict[str, Any]:
+    """Valida la metadata área/nicho enviada al crear un dominio."""
+    if not area_profesional_id and not nicho_id:
+        return {}
+
+    areas = load_areas(active_only=True, catalogs_dir=catalogs_dir)
+    niches = load_niches(active_only=True, catalogs_dir=catalogs_dir)
+    areas_by_id = {area["id"]: area for area in areas}
+    niches_by_id = {niche["id"]: niche for niche in niches}
+
+    if area_profesional_id:
+        _validate_snake_id(area_profesional_id, field="area_profesional_id", source="domain.json")
+        if area_profesional_id not in areas_by_id:
+            raise ValueError(f"Área profesional inexistente: {area_profesional_id}")
+
+    selected_niche = None
+    if nicho_id:
+        _validate_snake_id(nicho_id, field="nicho_id", source="domain.json")
+        selected_niche = niches_by_id.get(nicho_id)
+        if selected_niche is None:
+            raise ValueError(f"Nicho inexistente: {nicho_id}")
+
+    if selected_niche and area_profesional_id and selected_niche["area_id"] != area_profesional_id:
+        raise ValueError(
+            f"El nicho {nicho_id} no pertenece al área profesional {area_profesional_id}"
+        )
+
+    if selected_niche and not area_profesional_id:
+        area_profesional_id = selected_niche["area_id"]
+
+    return {
+        "area_profesional_id": area_profesional_id,
+        "nicho_id": nicho_id,
+        "nicho_nombre": selected_niche["nombre"] if selected_niche else None,
+    }
