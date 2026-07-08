@@ -106,3 +106,19 @@ def _get_default_score_response_fn() -> Callable:
 **Metadata de dominio**: Los dominios nuevos pueden persistir `area_profesional_id` y `nicho_id` en `domain.json`, manteniendo `nicho_sugerido` como compatibilidad.
 
 **Alcance diferido**: Roles, especializaciones, presets inteligentes, memoria `.md` inicial y papers automáticos quedan para prompts posteriores.
+
+---
+
+## ADR-007 — Catálogo global de roles/arquetipos profesionales
+
+**Estado**: Aceptado
+
+**Contexto**: Luego de definir áreas profesionales y nichos, IA_CORE necesita una biblioteca madre de roles reutilizables que no dependa de Lotería ni de un dominio particular.
+
+**Decisión**: Se crea `catalogs/roles.json` como Patrimonio compartido. Cada rol describe un arquetipo cognitivo u operativo global con nombre visible, descripción, función cognitiva, usos recomendados, usos a evitar, familia, estado y orden.
+
+**Backend**: `core/catalog_registry.py` carga y valida los roles con `load_roles()` y expone `get_roles_catalog()`. `GET /api/catalogs/roles` publica los roles activos ordenados como endpoint read-only.
+
+**Relación con Lotería**: Los perfiles de Lotería se usan solo como semilla conceptual para algunos arquetipos globales. El catálogo no incluye prompts ni lenguaje específico de Lotería como default global.
+
+**Alcance diferido**: Crear Agente todavía no consume este catálogo. La habilitación Dominio → Roles, especializaciones y presets inteligentes quedan para prompts posteriores.

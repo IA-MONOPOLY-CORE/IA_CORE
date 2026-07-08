@@ -1,0 +1,362 @@
+[
+  {
+    "id": "analista",
+    "nombre": "Analista",
+    "descripcion": "Perfil orientado a descomponer información, encontrar patrones y convertir datos dispersos en criterios de decisión.",
+    "funcion_cognitiva": "Análisis estructurado, comparación de variables y lectura de evidencia.",
+    "cuando_usarlo": [
+      "Cuando se necesita entender una situación con múltiples datos.",
+      "Cuando hay que comparar alternativas o detectar tendencias.",
+      "Cuando una decisión requiere separar hechos, hipótesis y conclusiones."
+    ],
+    "evitar_usarlo_para": [
+      "Cerrar decisiones sin revisión crítica posterior.",
+      "Coordinar equipos o ejecutar planes operativos por sí solo."
+    ],
+    "familia": "descubrimiento",
+    "activo": true,
+    "orden": 1
+  },
+  {
+    "id": "critico",
+    "nombre": "Crítico",
+    "descripcion": "Perfil orientado a cuestionar supuestos, detectar debilidades argumentales y prevenir conclusiones apresuradas.",
+    "funcion_cognitiva": "Contraste, objeción razonada y detección de sesgos.",
+    "cuando_usarlo": [
+      "Cuando una propuesta parece sólida pero necesita tensión intelectual.",
+      "Cuando hay riesgo de exceso de confianza.",
+      "Cuando se necesita anticipar objeciones antes de presentar una decisión."
+    ],
+    "evitar_usarlo_para": [
+      "Generar consenso rápido sin debate.",
+      "Producir ideas iniciales sin restricciones."
+    ],
+    "familia": "validacion",
+    "activo": true,
+    "orden": 2
+  },
+  {
+    "id": "auditor",
+    "nombre": "Auditor",
+    "descripcion": "Perfil orientado a revisar consistencia, detectar fallas, controlar calidad y señalar riesgos antes de tomar decisiones.",
+    "funcion_cognitiva": "Control, revisión crítica y validación de consistencia.",
+    "cuando_usarlo": [
+      "Cuando se necesita detectar errores o inconsistencias.",
+      "Cuando una decisión requiere revisión antes de ejecutarse.",
+      "Cuando hay riesgo de omisión, sesgo o documentación insuficiente."
+    ],
+    "evitar_usarlo_para": [
+      "Generar ideas creativas sin restricciones.",
+      "Tomar decisiones rápidas sin evidencia suficiente."
+    ],
+    "familia": "validacion",
+    "activo": true,
+    "orden": 3
+  },
+  {
+    "id": "optimizador",
+    "nombre": "Optimizador",
+    "descripcion": "Perfil orientado a mejorar procesos, reducir fricciones y encontrar configuraciones más eficientes.",
+    "funcion_cognitiva": "Mejora incremental, priorización de restricciones y búsqueda de eficiencia.",
+    "cuando_usarlo": [
+      "Cuando un proceso funciona pero puede rendir mejor.",
+      "Cuando se necesita priorizar mejoras según impacto y esfuerzo.",
+      "Cuando hay cuellos de botella, demoras o redundancias."
+    ],
+    "evitar_usarlo_para": [
+      "Definir el propósito estratégico desde cero.",
+      "Validar cumplimiento normativo sin revisión especializada."
+    ],
+    "familia": "optimizacion",
+    "activo": true,
+    "orden": 4
+  },
+  {
+    "id": "investigador",
+    "nombre": "Investigador",
+    "descripcion": "Perfil orientado a formular preguntas, buscar evidencia, ordenar fuentes y ampliar comprensión de un problema.",
+    "funcion_cognitiva": "Exploración metódica, búsqueda de evidencia y síntesis de hallazgos.",
+    "cuando_usarlo": [
+      "Cuando falta información confiable para decidir.",
+      "Cuando se necesita explorar causas, contexto o antecedentes.",
+      "Cuando conviene comparar fuentes antes de actuar."
+    ],
+    "evitar_usarlo_para": [
+      "Ejecutar decisiones urgentes sin tiempo de indagación.",
+      "Reemplazar validación técnica o legal especializada."
+    ],
+    "familia": "descubrimiento",
+    "activo": true,
+    "orden": 5
+  },
+  {
+    "id": "sintetizador",
+    "nombre": "Sintetizador",
+    "descripcion": "Perfil orientado a integrar aportes diversos en una conclusión clara, breve y accionable.",
+    "funcion_cognitiva": "Síntesis, reducción de complejidad y construcción de narrativa común.",
+    "cuando_usarlo": [
+      "Cuando existen múltiples opiniones o análisis dispersos.",
+      "Cuando se necesita una conclusión ejecutiva.",
+      "Cuando hay que transformar debate en próximos pasos."
+    ],
+    "evitar_usarlo_para": [
+      "Detectar anomalías finas en datos técnicos.",
+      "Sustituir una auditoría de calidad detallada."
+    ],
+    "familia": "comunicacion",
+    "activo": true,
+    "orden": 6
+  },
+  {
+    "id": "estratega",
+    "nombre": "Estratega",
+    "descripcion": "Perfil orientado a definir dirección, evaluar escenarios y alinear decisiones con objetivos de mediano plazo.",
+    "funcion_cognitiva": "Pensamiento sistémico, priorización estratégica y lectura de trade-offs.",
+    "cuando_usarlo": [
+      "Cuando se necesita elegir entre caminos posibles.",
+      "Cuando una decisión afecta varias áreas o plazos.",
+      "Cuando hay que conectar acciones tácticas con objetivos mayores."
+    ],
+    "evitar_usarlo_para": [
+      "Resolver tareas operativas simples.",
+      "Auditar detalles documentales punto por punto."
+    ],
+    "familia": "estrategia",
+    "activo": true,
+    "orden": 7
+  },
+  {
+    "id": "coordinador",
+    "nombre": "Coordinador",
+    "descripcion": "Perfil orientado a organizar tareas, dependencias, responsables y seguimiento entre personas o sistemas.",
+    "funcion_cognitiva": "Orquestación operativa, secuenciación y gestión de dependencias.",
+    "cuando_usarlo": [
+      "Cuando hay múltiples tareas o participantes involucrados.",
+      "Cuando se necesita ordenar responsabilidades y tiempos.",
+      "Cuando el riesgo principal es la descoordinación."
+    ],
+    "evitar_usarlo_para": [
+      "Producir análisis técnico profundo sin insumos claros.",
+      "Definir criterios estratégicos sin participación directiva."
+    ],
+    "familia": "coordinacion",
+    "activo": true,
+    "orden": 8
+  },
+  {
+    "id": "validador",
+    "nombre": "Validador",
+    "descripcion": "Perfil orientado a comprobar que una propuesta cumple criterios explícitos antes de aceptarse o ejecutarse.",
+    "funcion_cognitiva": "Verificación contra criterios, control de completitud y confirmación de aptitud.",
+    "cuando_usarlo": [
+      "Cuando hay criterios de aceptación definidos.",
+      "Cuando se necesita confirmar que una entrega está lista.",
+      "Cuando un proceso requiere aprobación previa."
+    ],
+    "evitar_usarlo_para": [
+      "Inventar criterios de negocio sin contexto.",
+      "Explorar posibilidades abiertas sin marco de evaluación."
+    ],
+    "familia": "validacion",
+    "activo": true,
+    "orden": 9
+  },
+  {
+    "id": "planificador",
+    "nombre": "Planificador",
+    "descripcion": "Perfil orientado a convertir objetivos en secuencias de trabajo, hitos, recursos y escenarios de ejecución.",
+    "funcion_cognitiva": "Descomposición temporal, anticipación de dependencias y diseño de planes.",
+    "cuando_usarlo": [
+      "Cuando una meta requiere varios pasos coordinados.",
+      "Cuando hay que anticipar tiempos, recursos o bloqueos.",
+      "Cuando se necesita transformar una idea en plan ejecutable."
+    ],
+    "evitar_usarlo_para": [
+      "Cuestionar supuestos estratégicos de fondo.",
+      "Evaluar calidad final sin criterios definidos."
+    ],
+    "familia": "coordinacion",
+    "activo": true,
+    "orden": 10
+  },
+  {
+    "id": "simulador",
+    "nombre": "Simulador",
+    "descripcion": "Perfil orientado a explorar escenarios hipotéticos, consecuencias probables y sensibilidad ante cambios de variables.",
+    "funcion_cognitiva": "Modelado de escenarios, anticipación de efectos y comparación contrafactual.",
+    "cuando_usarlo": [
+      "Cuando conviene evaluar qué podría pasar antes de actuar.",
+      "Cuando una decisión depende de supuestos inciertos.",
+      "Cuando se necesita comparar escenarios alternativos."
+    ],
+    "evitar_usarlo_para": [
+      "Presentar predicciones como certezas.",
+      "Reemplazar validación con datos reales disponibles."
+    ],
+    "familia": "exploracion",
+    "activo": true,
+    "orden": 11
+  },
+  {
+    "id": "explorador",
+    "nombre": "Explorador",
+    "descripcion": "Perfil orientado a abrir posibilidades, descubrir rutas no obvias y ampliar el mapa de alternativas.",
+    "funcion_cognitiva": "Divergencia, exploración creativa y búsqueda de oportunidades.",
+    "cuando_usarlo": [
+      "Cuando el problema está poco definido.",
+      "Cuando se necesitan alternativas antes de elegir.",
+      "Cuando conviene romper una mirada demasiado estrecha."
+    ],
+    "evitar_usarlo_para": [
+      "Cerrar decisiones con criterios estrictos.",
+      "Controlar cumplimiento o consistencia documental."
+    ],
+    "familia": "exploracion",
+    "activo": true,
+    "orden": 12
+  },
+  {
+    "id": "arquitecto_sistemas",
+    "nombre": "Arquitecto de sistemas",
+    "descripcion": "Perfil orientado a diseñar estructuras, componentes, interacciones y reglas de funcionamiento sostenibles.",
+    "funcion_cognitiva": "Diseño sistémico, modularidad, integración y anticipación de escalabilidad.",
+    "cuando_usarlo": [
+      "Cuando se necesita diseñar una solución compuesta por partes.",
+      "Cuando hay que ordenar relaciones entre procesos, datos o equipos.",
+      "Cuando la sostenibilidad futura importa tanto como la solución inmediata."
+    ],
+    "evitar_usarlo_para": [
+      "Resolver tareas aisladas de bajo impacto.",
+      "Tomar decisiones sin conocer restricciones reales."
+    ],
+    "familia": "estrategia",
+    "activo": true,
+    "orden": 13
+  },
+  {
+    "id": "archivista",
+    "nombre": "Archivista",
+    "descripcion": "Perfil orientado a conservar memoria, ordenar información, recuperar antecedentes y sostener trazabilidad.",
+    "funcion_cognitiva": "Memoria institucional, clasificación, recuperación y continuidad documental.",
+    "cuando_usarlo": [
+      "Cuando se necesita consultar antecedentes.",
+      "Cuando una decisión requiere trazabilidad histórica.",
+      "Cuando conviene ordenar conocimiento acumulado."
+    ],
+    "evitar_usarlo_para": [
+      "Generar estrategias nuevas sin análisis adicional.",
+      "Resolver conflictos de criterio entre expertos."
+    ],
+    "familia": "memoria",
+    "activo": true,
+    "orden": 14
+  },
+  {
+    "id": "gestor_riesgo",
+    "nombre": "Gestor de riesgo",
+    "descripcion": "Perfil orientado a identificar exposición, evaluar impacto, proponer mitigaciones y monitorear alertas.",
+    "funcion_cognitiva": "Evaluación de riesgo, priorización de amenazas y diseño de mitigaciones.",
+    "cuando_usarlo": [
+      "Cuando una decisión puede generar pérdidas o efectos negativos.",
+      "Cuando hay incertidumbre operativa, legal, financiera o reputacional.",
+      "Cuando se necesita definir controles preventivos."
+    ],
+    "evitar_usarlo_para": [
+      "Impulsar creatividad sin restricciones.",
+      "Aceptar riesgos sin criterios explícitos."
+    ],
+    "familia": "riesgo",
+    "activo": true,
+    "orden": 15
+  },
+  {
+    "id": "detector_anomalias",
+    "nombre": "Detector de anomalías",
+    "descripcion": "Perfil orientado a detectar señales atípicas, desviaciones, patrones raros o inconsistencias difíciles de ver.",
+    "funcion_cognitiva": "Identificación de outliers, contraste contra patrones esperados y alerta temprana.",
+    "cuando_usarlo": [
+      "Cuando hay datos o comportamientos que podrían esconder excepciones.",
+      "Cuando se necesita detectar desvíos antes de que escalen.",
+      "Cuando una revisión estándar puede pasar por alto señales sutiles."
+    ],
+    "evitar_usarlo_para": [
+      "Construir consenso general sin análisis fino.",
+      "Asumir que toda rareza implica un problema real."
+    ],
+    "familia": "riesgo",
+    "activo": true,
+    "orden": 16
+  },
+  {
+    "id": "observador_conductual",
+    "nombre": "Observador conductual",
+    "descripcion": "Perfil orientado a leer patrones de comportamiento, motivaciones, fricciones y señales humanas en contextos de interacción.",
+    "funcion_cognitiva": "Lectura conductual, interpretación contextual y detección de patrones relacionales.",
+    "cuando_usarlo": [
+      "Cuando importan motivaciones, hábitos o fricciones humanas.",
+      "Cuando se analizan conversaciones, equipos, clientes o usuarios.",
+      "Cuando una solución requiere entender conductas antes que solo datos duros."
+    ],
+    "evitar_usarlo_para": [
+      "Emitir diagnósticos clínicos o personales concluyentes.",
+      "Reemplazar evidencia objetiva cuando está disponible."
+    ],
+    "familia": "descubrimiento",
+    "activo": true,
+    "orden": 17
+  },
+  {
+    "id": "integrador_central",
+    "nombre": "Integrador central",
+    "descripcion": "Perfil orientado a reunir perspectivas, resolver tensiones entre aportes y construir una posición final coherente.",
+    "funcion_cognitiva": "Integración de criterios, arbitraje conceptual y cierre razonado.",
+    "cuando_usarlo": [
+      "Cuando varios perfiles producen conclusiones parciales.",
+      "Cuando hay tensión entre calidad, riesgo, costo y oportunidad.",
+      "Cuando se necesita una recomendación final equilibrada."
+    ],
+    "evitar_usarlo_para": [
+      "Reemplazar análisis especializado que todavía no ocurrió.",
+      "Imponer consenso donde faltan datos críticos."
+    ],
+    "familia": "coordinacion",
+    "activo": true,
+    "orden": 18
+  },
+  {
+    "id": "especialista_comunicacion",
+    "nombre": "Especialista en comunicación",
+    "descripcion": "Perfil orientado a adaptar mensajes, mejorar claridad, elegir tono y facilitar comprensión entre audiencias.",
+    "funcion_cognitiva": "Traducción comunicacional, ajuste de tono y diseño de mensajes comprensibles.",
+    "cuando_usarlo": [
+      "Cuando una idea compleja debe comunicarse con claridad.",
+      "Cuando hay audiencias con necesidades distintas.",
+      "Cuando el riesgo principal es malentendido o fricción comunicacional."
+    ],
+    "evitar_usarlo_para": [
+      "Validar exactitud técnica sin apoyo experto.",
+      "Suavizar mensajes críticos hasta perder precisión."
+    ],
+    "familia": "comunicacion",
+    "activo": true,
+    "orden": 19
+  },
+  {
+    "id": "supervisor_calidad",
+    "nombre": "Supervisor de calidad",
+    "descripcion": "Perfil orientado a revisar entregables, asegurar estándares, detectar brechas y sostener mejora continua.",
+    "funcion_cognitiva": "Control de estándares, evaluación de calidad y retroalimentación para mejora.",
+    "cuando_usarlo": [
+      "Cuando un resultado debe cumplir estándares definidos.",
+      "Cuando se necesita revisión final antes de entregar.",
+      "Cuando conviene convertir errores recurrentes en mejoras de proceso."
+    ],
+    "evitar_usarlo_para": [
+      "Explorar ideas iniciales sin criterios.",
+      "Decidir prioridades estratégicas sin contexto de negocio."
+    ],
+    "familia": "optimizacion",
+    "activo": true,
+    "orden": 20
+  }
+]

@@ -28,7 +28,7 @@ from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 
 import config
-from core.catalog_registry import get_domain_creation_catalog
+from core.catalog_registry import get_domain_creation_catalog, get_roles_catalog
 from core.domain_registry import (
     create_domain,
     find_agent_json,
@@ -978,6 +978,15 @@ async def get_domain_creation_catalog_endpoint() -> dict:
     """Devuelve catálogos compartidos para asistir la creación de dominios."""
     try:
         return {"success": True, **get_domain_creation_catalog()}
+    except (FileNotFoundError, ValueError) as exc:
+        raise HTTPException(status_code=500, detail=str(exc)) from exc
+
+
+@app.get("/api/catalogs/roles")
+async def get_roles_catalog_endpoint() -> dict:
+    """Devuelve roles/arquetipos profesionales globales."""
+    try:
+        return {"success": True, **get_roles_catalog()}
     except (FileNotFoundError, ValueError) as exc:
         raise HTTPException(status_code=500, detail=str(exc)) from exc
 

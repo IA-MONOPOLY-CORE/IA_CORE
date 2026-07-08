@@ -25,6 +25,17 @@ NICHE_REQUIRED_FIELDS = {
     "activo",
     "orden",
 }
+ROLE_REQUIRED_FIELDS = {
+    "id",
+    "nombre",
+    "descripcion",
+    "funcion_cognitiva",
+    "cuando_usarlo",
+    "evitar_usarlo_para",
+    "familia",
+    "activo",
+    "orden",
+}
 
 
 def _catalogs_dir(catalogs_dir: str | Path | None = None) -> Path:
@@ -127,6 +138,51 @@ def load_niches(
                 raise ValueError(f"{source}: campo {field} debe ser texto no vacío")
     _validate_unique_ids(niches, source="niches.json")
     return _sorted_active(niches, active_only=active_only)
+
+
+def load_roles(
+    *, active_only: bool = True, catalogs_dir: str | Path | None = None
+) -> list[dict[str, Any]]:
+    """Carga roles/arquetipos profesionales globales, activos y ordenados por defecto."""
+    roles = _read_catalog("roles.json", catalogs_dir)
+    for role in roles:
+        source = f"roles.json[{role.get('id', '?')}]"
+        _validate_required_fields(role, ROLE_REQUIRED_FIELDS, source=source)
+        _validate_common_item(role, source=source)
+        _validate_snake_id(role.get("familia"), field="familia", source=source)
+        for field in ["nombre", "descripcion", "funcion_cognitiva"]:
+            if not isinstance(role.get(field), str) or not role[field].strip():
+                raise ValueError(f"{source}: campo {field} debe ser texto no vacío")
+        for field in ["cuando_usarlo", "evitar_usarlo_para"]:
+            value = role.get(field)
+            if not isinstance(value, list) or not value:
+                raise ValueError(f"{source}: campo {field} debe ser una lista no vacía")
+            if any(not isinstance(item, str) or not item.strip() for item in value):
+                raise ValueError(f"{source}: campo {field} solo acepta textos no vacíos")
+    _validate_unique_ids(roles, source="roles.json")
+    return _sorted_active(roles, active_only=active_only)
+
+
+def get_roles_catalog(
+    *, active_only: bool = True, catalogs_dir: str | Path | None = None
+) -> dict[str, Any]:
+    """Devuelve roles globales listos para consumo read-only."""
+    roles = load_roles(active_only=active_only, catalogs_dir=catalogs_dir)
+    return {
+        "roles": [
+            {
+                "id": role["id"],
+                "nombre": role["nombre"],
+                "descripcion": role["descripcion"],
+                "funcion_cognitiva": role["funcion_cognitiva"],
+                "cuando_usarlo": role["cuando_usarlo"],
+                "evitar_usarlo_para": role["evitar_usarlo_para"],
+                "familia": role["familia"],
+                "orden": role["orden"],
+            }
+            for role in roles
+        ]
+    }
 
 
 def get_domain_creation_catalog(
