@@ -1056,10 +1056,64 @@ async def create_domain_endpoint(request: DomainCreateRequest) -> dict:
 # ========================================================================
 # Agentes (genéricos)
 # ========================================================================
+def _validate_agent_profile_selection(
+    *,
+    domain_id: str,
+    role: str | None,
+    specialization_id: str | None = None,
+) -> dict[str, Any]:
+    """Valida rol/especialización contra profile_catalog si el dominio lo declara."""
+    try:
+        profile_catalog = get_domain_profile_catalog(domain_id)
+    except FileNotFoundError:
+        # Fallback temporal para dominios que todavía no tienen profile_catalog.json.
+        return {"success": True, "profile_catalog": None}
+    except ValueError as exc:
+        return {"success": False, "error": str(exc)}
+
+    roles = profile_catalog.get("roles", [])
+    role_entry = next((item for item in roles if item.get("role_id") == role), None)
+    if role_entry is None:
+        return {
+            "success": False,
+            "error": f"Rol '{role}' no está habilitado para el dominio '{domain_id}'",
+        }
+
+    normalized_specialization_id = (
+        specialization_id.strip() if isinstance(specialization_id, str) else None
+    )
+    if not normalized_specialization_id:
+        return {"success": True, "profile_catalog": profile_catalog}
+
+    specialization_entry = next(
+        (
+            item
+            for item in role_entry.get("specializations", [])
+            if item.get("specialization_id") == normalized_specialization_id
+        ),
+        None,
+    )
+    if specialization_entry is None:
+        return {
+            "success": False,
+            "error": (
+                f"Especialización '{normalized_specialization_id}' no está habilitada "
+                f"para el rol '{role}' en el dominio '{domain_id}'"
+            ),
+        }
+
+    return {
+        "success": True,
+        "profile_catalog": profile_catalog,
+        "specialization_name": specialization_entry.get("nombre_visible"),
+    }
+
+
 @app.post("/api/agents/create")
 async def create_agent_endpoint(
     id: str = Form(...),
     role: str = Form(...),
+    specialization_id: Optional[str] = Form(None),
     provider: str = Form("nvidia"),
     model: Optional[str] = Form(None),
     system_prompt: str = Form(...),
@@ -1079,6 +1133,9 @@ async def create_agent_endpoint(
     if not system_prompt or not system_prompt.strip():
         return {"success": False, "error": "System Prompt es obligatorio"}
 
+    if not isinstance(specialization_id, str) or not specialization_id.strip():
+        specialization_id = None
+
     safe_id = re.sub(r"[^a-zA-Z0-9_-]", "", id)
     if safe_id != id:
         logger.warning(f"ID sanitizado: {id} -> {safe_id}")
@@ -1087,6 +1144,14 @@ async def create_agent_endpoint(
     domain = load_domain(domain_id)
     if domain is None:
         return {"success": False, "error": f"Dominio '{domain_id}' no encontrado"}
+
+    profile_validation = _validate_agent_profile_selection(
+        domain_id=domain_id,
+        role=role,
+        specialization_id=specialization_id,
+    )
+    if profile_validation.get("success") is False:
+        return profile_validation
 
     config_dir, papers_dir = get_domain_agent_paths(domain_id, ensure=True)
 
@@ -1108,6 +1173,10 @@ async def create_agent_endpoint(
         "domain_id": domain_id,
         "domain_instructions": domain.get("instrucciones", ""),
     }
+    if specialization_id:
+        agent_config["specialization_id"] = specialization_id
+        if profile_validation.get("specialization_name"):
+            agent_config["specialization_name"] = profile_validation["specialization_name"]
 
     json_path = config_dir / f"{id}.json"
 
@@ -1271,6 +1340,8 @@ async def list_agents():
                             "source": "json",
                             "is_generic_baseline": False,
                             "domain_id": data.get("domain_id", domain_id),
+                            "specialization_id": data.get("specialization_id"),
+                            "specialization_name": data.get("specialization_name"),
                         }
                     )
             except Exception as e:
@@ -1316,11 +1387,23 @@ async def update_agent(agent_id: str, request: Request, domain_id: str | None = 
         provider = data.get("provider")
         model = data.get("model")
         system_prompt = data.get("system_prompt")
+        specialization_id = data.get("specialization_id")
 
-        _, json_path = resolve_agent_json(agent_id, domain_id)
+        resolved_domain_id, json_path = resolve_agent_json(agent_id, domain_id)
 
         with open(json_path, "r", encoding="utf-8") as f:
             config_data = json.load(f)
+
+        effective_domain_id = config_data.get("domain_id") or resolved_domain_id
+        effective_role = role or config_data.get("role")
+        if "specialization_id" in data or role:
+            profile_validation = _validate_agent_profile_selection(
+                domain_id=effective_domain_id,
+                role=effective_role,
+                specialization_id=specialization_id,
+            )
+            if profile_validation.get("success") is False:
+                return profile_validation
 
         if role:
             config_data["role"] = role
@@ -1330,6 +1413,16 @@ async def update_agent(agent_id: str, request: Request, domain_id: str | None = 
             config_data["model"] = model
         if system_prompt:
             config_data["system_prompt"] = system_prompt
+        if "specialization_id" in data:
+            if specialization_id:
+                config_data["specialization_id"] = specialization_id
+                if profile_validation.get("specialization_name"):
+                    config_data["specialization_name"] = profile_validation[
+                        "specialization_name"
+                    ]
+            else:
+                config_data.pop("specialization_id", None)
+                config_data.pop("specialization_name", None)
 
         with open(json_path, "w", encoding="utf-8") as f:
             json.dump(config_data, f, indent=2, ensure_ascii=False)

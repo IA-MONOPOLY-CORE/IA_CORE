@@ -154,3 +154,19 @@ def _get_default_score_response_fn() -> Callable:
 **Relación con Lotería**: `domains/loteria/profile_catalog.json` es el primer dominio semilla. Los perfiles históricos de Lotería/S.A.A.O.P. se mapearon a roles/especializaciones globales con lenguaje profesional, sin copiar promesas irreales ni convertir Lotería en default global.
 
 **Alcance diferido**: Crear Agente todavía no consume este catálogo. No se modifican roles hardcodeados del HUD, `specializationMap`, presets, memoria `.md`, papers ni `mejorar_papers.py`.
+
+---
+
+## ADR-010 — Crear Agente consume perfiles del dominio activo
+
+**Estado**: Aceptado
+
+**Contexto**: El modal Crear Agente todavía usaba roles y especializaciones hardcodeados en el HUD. Eso impedía que cada dominio controlara qué perfiles estaban disponibles y mezclaba el diseño histórico de Lotería con futuros dominios.
+
+**Decisión**: Crear Agente carga `GET /api/domains/{domain_id}/profile-catalog` al abrir el modal y cada vez que cambia el dominio seleccionado. El selector de rol se puebla con `roles[].nombre_visible` y `roles[].role_id`; el selector de especialización se puebla con las `specializations` del rol elegido.
+
+**Persistencia**: `/api/agents/create` acepta `specialization_id` opcional y lo guarda como metadata estructurada del agente junto con `role` y `domain_id`. Si el dominio tiene `profile_catalog.json`, el backend valida que el rol esté habilitado y que la especialización pertenezca a ese rol. Los agentes existentes sin `specialization_id` siguen siendo válidos.
+
+**Fallback temporal**: Si un dominio todavía no tiene `profile_catalog.json`, el HUD muestra una advertencia y usa temporalmente los catálogos globales `GET /api/catalogs/roles` y `GET /api/catalogs/specializations`. Si esos catálogos no cargan, conserva `specializationMap` como fallback legacy aislado. Ese fallback no convierte a Lotería en default global.
+
+**Alcance diferido**: Esta decisión no crea presets, no autocompleta system prompt, no genera memoria `.md` y no modifica papers ni `runtime_json_agent.py`. Los presets Rol + Especialización quedan para prompts posteriores.

@@ -734,33 +734,35 @@ def test_catalog_prompt_does_not_add_roles_presets_or_lottery_default_to_core():
     assert "AGENTS_PAPERS_DIR" not in loader_source
 
 
-def test_roles_prompt_does_not_connect_create_agent_or_specializations():
+def test_roles_catalog_can_be_used_as_create_agent_fallback_without_lottery_default():
     html = (ROOT / "ui" / "web" / "index.html").read_text(encoding="utf-8")
     domains_js = (ROOT / "ui" / "web" / "domains.js").read_text(encoding="utf-8")
     catalog_source = Path("core/catalog_registry.py").read_text(encoding="utf-8")
 
-    assert "/api/catalogs/roles" not in html
+    assert "/api/catalogs/roles" in html
     assert "/api/catalogs/roles" not in domains_js
+    assert "Este dominio todavía no tiene catálogo de perfiles" in html
     assert "specializationMap" in html
     assert "get_roles_catalog" in catalog_source
     assert "DEFAULT_DOMAIN_ID" not in inspect.getsource(api.get_roles_catalog_endpoint)
 
 
-def test_specializations_prompt_does_not_connect_create_agent_or_presets():
+def test_specializations_catalog_can_be_used_as_create_agent_fallback_without_presets():
     html = (ROOT / "ui" / "web" / "index.html").read_text(encoding="utf-8")
     domains_js = (ROOT / "ui" / "web" / "domains.js").read_text(encoding="utf-8")
     api_source = Path("api.py").read_text(encoding="utf-8")
 
-    assert "/api/catalogs/specializations" not in html
+    assert "/api/catalogs/specializations" in html
     assert "/api/catalogs/specializations" not in domains_js
     assert "specializationMap" in html
+    assert "specialization_id" in html
     assert "agent_presets" not in api_source
     assert "DEFAULT_DOMAIN_ID" not in inspect.getsource(
         api.get_specializations_catalog_endpoint
     )
 
 
-def test_profile_catalog_prompt_does_not_connect_create_agent_or_runtime():
+def test_profile_catalog_prompt_connects_create_agent_but_not_runtime_or_papers():
     html = (ROOT / "ui" / "web" / "index.html").read_text(encoding="utf-8")
     domains_js = (ROOT / "ui" / "web" / "domains.js").read_text(encoding="utf-8")
     api_source = Path("api.py").read_text(encoding="utf-8")
@@ -768,7 +770,7 @@ def test_profile_catalog_prompt_does_not_connect_create_agent_or_runtime():
     mejorar_papers_source = Path("mejorar_papers.py").read_text(encoding="utf-8")
 
     assert "/api/domains/loteria/profile-catalog" not in html
-    assert "profile-catalog" not in html
+    assert "profile-catalog" in html
     assert "profile-catalog" not in domains_js
     assert "specializationMap" in html
     assert "load_domain_profile_catalog" not in runtime_source

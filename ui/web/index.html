@@ -1043,6 +1043,181 @@
             });
         }
 
+        let legacyRoleOptions = null;
+        const agentProfileCatalogCache = {};
+        let activeAgentProfileCatalog = { mode: 'legacy', roles: [] };
+
+        function makeOption(value, text) {
+            const option = document.createElement('option');
+            option.value = value;
+            option.textContent = text;
+            return option;
+        }
+
+        async function fetchJson(path) {
+            const response = await fetch(`${API_BASE}${path}`, { cache: 'no-store' });
+            const data = await response.json().catch(() => ({}));
+            if (!response.ok || data.success === false) {
+                throw new Error(data.detail || data.error || `HTTP ${response.status}`);
+            }
+            return data;
+        }
+
+        function ensureLegacyRoleOptions() {
+            if (legacyRoleOptions) return legacyRoleOptions;
+            const roleSelect = document.getElementById('agent-role');
+            legacyRoleOptions = Array.from(roleSelect.querySelectorAll('option'))
+                .filter(option => option.value)
+                .map(option => ({
+                    role_id: option.value,
+                    nombre_visible: option.textContent.trim(),
+                    familia: 'legacy'
+                }));
+            return legacyRoleOptions;
+        }
+
+        function buildLegacyProfileCatalog() {
+            return {
+                mode: 'legacy',
+                roles: ensureLegacyRoleOptions().map(role => ({
+                    ...role,
+                    orden: 999,
+                    specializations: (specializationMap[role.role_id] || []).map((spec, index) => ({
+                        specialization_id: spec,
+                        nombre_visible: specializationLabels[spec] || spec,
+                        orden: index + 1,
+                    })),
+                })),
+            };
+        }
+
+        async function buildGlobalFallbackProfileCatalog() {
+            const [rolesData, specializationsData] = await Promise.all([
+                fetchJson('/api/catalogs/roles'),
+                fetchJson('/api/catalogs/specializations'),
+            ]);
+            const specializationsByRole = specializationsData.specializations_by_role || {};
+            return {
+                mode: 'global',
+                roles: (rolesData.roles || []).map(role => ({
+                    role_id: role.id,
+                    nombre_visible: role.nombre,
+                    familia: role.familia,
+                    orden: role.orden,
+                    specializations: (specializationsByRole[role.id] || []).map(spec => ({
+                        specialization_id: spec.id,
+                        nombre_visible: spec.nombre,
+                        orden: spec.orden,
+                    })),
+                })),
+            };
+        }
+
+        function normalizeDomainProfileCatalog(data) {
+            return {
+                mode: 'domain',
+                domain_id: data.domain_id,
+                roles: (data.roles || []).map(role => ({
+                    role_id: role.role_id,
+                    nombre_visible: role.nombre_visible,
+                    familia: role.familia,
+                    orden: role.orden,
+                    specializations: (role.specializations || []).map(spec => ({
+                        specialization_id: spec.specialization_id,
+                        nombre_visible: spec.nombre_visible,
+                        orden: spec.orden,
+                    })),
+                })),
+            };
+        }
+
+        function setAgentProfileStatus(message = '', isWarning = false) {
+            let status = document.getElementById('agent-profile-catalog-status');
+            if (!status) {
+                const specSelect = document.getElementById('agent-specialization');
+                status = document.createElement('div');
+                status.id = 'agent-profile-catalog-status';
+                status.style.cssText = 'min-height:18px; margin-top:-6px; margin-bottom:12px; color:var(--text-muted); font-size:0.72rem;';
+                specSelect?.parentElement?.insertAdjacentElement('afterend', status);
+            }
+            status.textContent = message;
+            status.style.color = isWarning ? 'var(--amber)' : 'var(--text-muted)';
+        }
+
+        function populateRoleSelect(selectedRole = '') {
+            const roleSelect = document.getElementById('agent-role');
+            const roles = [...(activeAgentProfileCatalog.roles || [])]
+                .sort((a, b) => (a.orden || 0) - (b.orden || 0) || a.nombre_visible.localeCompare(b.nombre_visible));
+            roleSelect.replaceChildren(makeOption('', roles.length ? 'Seleccioná un rol...' : 'Sin roles configurados para este dominio'));
+            roles.forEach(role => roleSelect.appendChild(makeOption(role.role_id, role.nombre_visible)));
+            if (selectedRole && !roles.some(role => role.role_id === selectedRole)) {
+                roleSelect.appendChild(makeOption(selectedRole, `${selectedRole} (rol existente no catalogado)`));
+            }
+            roleSelect.disabled = roles.length === 0 && !selectedRole;
+            roleSelect.value = selectedRole || '';
+        }
+
+        // Fuente principal nueva: profile_catalog del dominio. specializationMap queda como fallback legacy temporal.
+        function actualizarEspecializaciones(selectedSpecialization = '') {
+            const roleSelect = document.getElementById('agent-role');
+            const specSelect = document.getElementById('agent-specialization');
+            const roleEntry = (activeAgentProfileCatalog.roles || []).find(role => role.role_id === roleSelect.value);
+            const specializations = [...(roleEntry?.specializations || [])]
+                .sort((a, b) => (a.orden || 0) - (b.orden || 0) || a.nombre_visible.localeCompare(b.nombre_visible));
+
+            specSelect.replaceChildren(makeOption('', specializations.length ? 'Seleccioná una especialización...' : 'Sin especializaciones configuradas para este rol'));
+            specializations.forEach(spec => {
+                specSelect.appendChild(makeOption(spec.specialization_id, spec.nombre_visible));
+            });
+            if (selectedSpecialization && !specializations.some(spec => spec.specialization_id === selectedSpecialization)) {
+                specSelect.appendChild(makeOption(selectedSpecialization, `${selectedSpecialization} (especialización existente no catalogada)`));
+            }
+            specSelect.disabled = !roleSelect.value || (specializations.length === 0 && !selectedSpecialization);
+            specSelect.value = selectedSpecialization || '';
+        }
+
+        async function cargarProfileCatalogAgente(domainId, selectedRole = '', selectedSpecialization = '') {
+            const roleSelect = document.getElementById('agent-role');
+            const specSelect = document.getElementById('agent-specialization');
+            ensureLegacyRoleOptions();
+            roleSelect.replaceChildren(makeOption('', 'Cargando roles...'));
+            roleSelect.disabled = true;
+            specSelect.replaceChildren(makeOption('', 'Seleccioná una especialización...'));
+            specSelect.disabled = true;
+            setAgentProfileStatus('Cargando catálogo de perfiles del dominio...');
+
+            if (!domainId) {
+                activeAgentProfileCatalog = { mode: 'empty', roles: [] };
+                populateRoleSelect();
+                actualizarEspecializaciones();
+                setAgentProfileStatus('Seleccioná un dominio para cargar roles y especializaciones.', true);
+                return;
+            }
+
+            try {
+                if (!agentProfileCatalogCache[domainId]) {
+                    const data = await fetchJson(`/api/domains/${encodeURIComponent(domainId)}/profile-catalog`);
+                    agentProfileCatalogCache[domainId] = normalizeDomainProfileCatalog(data);
+                }
+                activeAgentProfileCatalog = agentProfileCatalogCache[domainId];
+                populateRoleSelect(selectedRole);
+                actualizarEspecializaciones(selectedSpecialization);
+                setAgentProfileStatus('');
+            } catch (error) {
+                try {
+                    activeAgentProfileCatalog = await buildGlobalFallbackProfileCatalog();
+                    populateRoleSelect(selectedRole);
+                    actualizarEspecializaciones(selectedSpecialization);
+                    setAgentProfileStatus('Este dominio todavía no tiene catálogo de perfiles. Se usará selección básica temporal.', true);
+                } catch (fallbackError) {
+                    activeAgentProfileCatalog = buildLegacyProfileCatalog();
+                    populateRoleSelect(selectedRole);
+                    actualizarEspecializaciones(selectedSpecialization);
+                    setAgentProfileStatus('Catálogos no disponibles. Se usará selección legacy temporal.', true);
+                }
+            }
+        }
+
         // ========== AGENTES ==========
         async function cargarAgentes() {
             try {
@@ -1058,7 +1233,8 @@
                             avatar: a.id.substring(0, 2).toUpperCase(),
                             color: '#00d4ff',
                             is_generic_baseline: a.is_generic_baseline === true,
-                            domain_id: a.domain_id || null
+                            domain_id: a.domain_id || null,
+                            specialization_id: a.specialization_id || ''
                         }));
                 }
                 const saved = localStorage.getItem('saaop_selected');
@@ -1252,7 +1428,7 @@
             }
         }
 
-        function abrirMenuAgente(id) {
+        async function abrirMenuAgente(id) {
             const ag = agentes.find(a => a.id === id);
             if (ag) {
                 currentEditId = id;
@@ -1261,14 +1437,7 @@
                 document.getElementById('agent-id').disabled = true;
                 document.getElementById('agent-domain').value = ag.domain_id || '';
                 document.getElementById('agent-domain').disabled = true;
-                const roleSelect = document.getElementById('agent-role');
-                for (let i = 0; i < roleSelect.options.length; i++) {
-                    if (roleSelect.options[i].value === ag.role) {
-                        roleSelect.selectedIndex = i;
-                        break;
-                    }
-                }
-                actualizarEspecializaciones();
+                await cargarProfileCatalogAgente(ag.domain_id || '', ag.role, ag.specialization_id || '');
                 document.getElementById('agent-prompt').value = '';
                 document.getElementById('agent-memory').value = '';
                 document.getElementById('agent-modal').style.display = 'flex';
@@ -1287,24 +1456,40 @@
 
             if (!id) { alert('ID es obligatorio'); return; }
             if (!domainId) { alert('Debe seleccionar un dominio'); return; }
+            if (!role) { alert('Debe seleccionar un rol'); return; }
             if (!prompt) { alert('System Prompt es obligatorio'); return; }
-            if (specialization) prompt = `[ESPECIALIZACIÓN: ${specialization.replace(/_/g, ' ')}]\n${prompt}`;
 
-            const formData = new FormData();
-            formData.append('id', id);
-            formData.append('role', role);
-            formData.append('provider', provider);
-            formData.append('model', model);
-            formData.append('system_prompt', prompt);
-            formData.append('temperature', '0.3');
-            formData.append('domain_id', domainId);
-            if (memoryFile) formData.append('memory_file', memoryFile);
-
-            const url = currentEditId ? `${API_BASE}/api/agents/${id}` : `${API_BASE}/api/agents/create`;
-            const method = currentEditId ? 'PUT' : 'POST';
+            let url = `${API_BASE}/api/agents/create`;
+            let requestOptions;
+            if (currentEditId) {
+                url = `${API_BASE}/api/agents/${encodeURIComponent(id)}?domain_id=${encodeURIComponent(domainId)}`;
+                requestOptions = {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        role,
+                        specialization_id: specialization || null,
+                        provider,
+                        model,
+                        system_prompt: prompt,
+                    }),
+                };
+            } else {
+                const formData = new FormData();
+                formData.append('id', id);
+                formData.append('role', role);
+                if (specialization) formData.append('specialization_id', specialization);
+                formData.append('provider', provider);
+                formData.append('model', model);
+                formData.append('system_prompt', prompt);
+                formData.append('temperature', '0.3');
+                formData.append('domain_id', domainId);
+                if (memoryFile) formData.append('memory_file', memoryFile);
+                requestOptions = { method: 'POST', body: formData };
+            }
 
             try {
-                const res = await fetch(url, { method, body: formData });
+                const res = await fetch(url, requestOptions);
                 const data = await res.json();
                 if (data.success) {
                     alert(currentEditId ? 'Agente actualizado' : 'Agente creado');
@@ -1734,7 +1919,7 @@
             
             document.getElementById('start-btn').onclick = startDebate;
             document.getElementById('settings-fab').onclick = () => { cargarChecklist(); document.getElementById('config-modal').style.display = 'flex'; };
-            document.getElementById('add-fab').onclick = () => window.domainUI.requireDomain(() => { currentEditId = null; document.getElementById('agent-modal-title').innerText = 'CREAR AGENTE'; document.getElementById('agent-id').disabled = false; document.getElementById('agent-domain').disabled = false; document.getElementById('agent-id').value = ''; document.getElementById('agent-prompt').value = ''; document.getElementById('agent-memory').value = ''; document.getElementById('agent-modal').style.display = 'flex'; });
+            document.getElementById('add-fab').onclick = () => window.domainUI.requireDomain(async () => { currentEditId = null; document.getElementById('agent-modal-title').innerText = 'CREAR AGENTE'; document.getElementById('agent-id').disabled = false; document.getElementById('agent-domain').disabled = false; document.getElementById('agent-id').value = ''; document.getElementById('agent-prompt').value = ''; document.getElementById('agent-memory').value = ''; await cargarProfileCatalogAgente(document.getElementById('agent-domain').value); document.getElementById('agent-modal').style.display = 'flex'; });
             document.getElementById('save-agent-btn').onclick = guardarAgente;
             document.getElementById('cancel-agent-btn').onclick = () => { document.getElementById('agent-modal').style.display = 'none'; document.getElementById('agent-id').disabled = false; document.getElementById('agent-domain').disabled = false; currentEditId = null; };
             document.getElementById('apply-config-btn').onclick = () => aplicarConfiguracion(false);
@@ -1775,8 +1960,9 @@
                 };
             });
             
-            document.getElementById('agent-role').addEventListener('change', actualizarEspecializaciones);
-            actualizarEspecializaciones();
+            document.getElementById('agent-domain').addEventListener('change', (event) => cargarProfileCatalogAgente(event.target.value));
+            document.getElementById('agent-role').addEventListener('change', () => actualizarEspecializaciones());
+            cargarProfileCatalogAgente(document.getElementById('agent-domain').value);
             checkConnection();
             setInterval(checkConnection, 5000);
         };

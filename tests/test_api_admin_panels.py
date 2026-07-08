@@ -4,6 +4,7 @@ from pathlib import Path
 from types import SimpleNamespace
 
 from fastapi import BackgroundTasks
+from fastapi.testclient import TestClient
 
 import api
 
@@ -87,6 +88,31 @@ class FakeProvider:
 
     def available_models(self):
         return ["model-a"]
+
+
+def _patch_agent_create_paths(monkeypatch, tmp_path, *, domain_id="loteria"):
+    config_dir = tmp_path / "domains" / domain_id / "agents" / "config"
+    papers_dir = tmp_path / "domains" / domain_id / "agents" / "papers"
+    config_dir.mkdir(parents=True)
+    papers_dir.mkdir(parents=True)
+
+    monkeypatch.setattr(
+        api,
+        "load_domain",
+        lambda selected_domain_id: {
+            "id": selected_domain_id,
+            "instrucciones": "Instrucciones del dominio",
+        }
+        if selected_domain_id == domain_id
+        else None,
+    )
+    monkeypatch.setattr(
+        api,
+        "get_domain_agent_paths",
+        lambda selected_domain_id, ensure=False: (config_dir, papers_dir),
+    )
+    monkeypatch.setattr(api, "find_agent_json", lambda agent_id: None)
+    return config_dir, papers_dir
 
 
 def test_memory_endpoint_exposes_keys_history_latest_and_value(monkeypatch):
@@ -277,6 +303,155 @@ def test_agents_endpoint_and_hud_keep_generic_baseline_agents(monkeypatch, tmp_p
     assert "is_generic_baseline: a.is_generic_baseline === true" in html
     assert "ag.is_generic_baseline === true" in html
     assert "ag.is_generic_baseline !== true" in html
+
+
+def test_create_agent_persists_specialization_id_when_domain_catalog_validates(monkeypatch, tmp_path):
+    config_dir, _ = _patch_agent_create_paths(monkeypatch, tmp_path)
+
+    response = TestClient(api.app).post(
+        "/api/agents/create",
+        data={
+            "id": "agente_catalogado_test",
+            "domain_id": "loteria",
+            "role": "analista",
+            "specialization_id": "analisis_datos",
+            "provider": "ollama",
+            "model": "phi3:mini",
+            "system_prompt": "Prompt manual del agente.",
+            "temperature": "0.3",
+        },
+    )
+
+    payload = response.json()
+    assert response.status_code == 200
+    assert payload["success"] is True
+
+    config = json.loads((config_dir / "agente_catalogado_test.json").read_text(encoding="utf-8"))
+    assert config["role"] == "analista"
+    assert config["domain_id"] == "loteria"
+    assert config["specialization_id"] == "analisis_datos"
+    assert config["specialization_name"] == "Estadístico integral"
+    assert config["system_prompt"] == "Prompt manual del agente."
+
+
+def test_create_agent_allows_missing_specialization_for_compatibility(monkeypatch, tmp_path):
+    config_dir, _ = _patch_agent_create_paths(monkeypatch, tmp_path)
+
+    response = TestClient(api.app).post(
+        "/api/agents/create",
+        data={
+            "id": "agente_sin_especializacion_test",
+            "domain_id": "loteria",
+            "role": "analista",
+            "provider": "ollama",
+            "model": "phi3:mini",
+            "system_prompt": "Prompt manual sin especialización.",
+        },
+    )
+
+    payload = response.json()
+    assert response.status_code == 200
+    assert payload["success"] is True
+
+    config = json.loads(
+        (config_dir / "agente_sin_especializacion_test.json").read_text(encoding="utf-8")
+    )
+    assert config["role"] == "analista"
+    assert config["domain_id"] == "loteria"
+    assert "specialization_id" not in config
+
+
+def test_create_agent_rejects_invalid_specialization_when_domain_has_catalog(monkeypatch, tmp_path):
+    config_dir, _ = _patch_agent_create_paths(monkeypatch, tmp_path)
+
+    response = TestClient(api.app).post(
+        "/api/agents/create",
+        data={
+            "id": "agente_especializacion_invalida_test",
+            "domain_id": "loteria",
+            "role": "analista",
+            "specialization_id": "auditoria_sesgos",
+            "provider": "ollama",
+            "model": "phi3:mini",
+            "system_prompt": "Prompt manual.",
+        },
+    )
+
+    payload = response.json()
+    assert response.status_code == 200
+    assert payload["success"] is False
+    assert "no está habilitada" in payload["error"]
+    assert not (config_dir / "agente_especializacion_invalida_test.json").exists()
+
+
+def test_create_agent_allows_legacy_selection_when_domain_has_no_profile_catalog(monkeypatch, tmp_path):
+    config_dir, _ = _patch_agent_create_paths(monkeypatch, tmp_path, domain_id="demo_sin_catalogo")
+    monkeypatch.setattr(
+        api,
+        "get_domain_profile_catalog",
+        lambda domain_id: (_ for _ in ()).throw(FileNotFoundError("sin catalogo")),
+    )
+
+    response = TestClient(api.app).post(
+        "/api/agents/create",
+        data={
+            "id": "agente_legacy_test",
+            "domain_id": "demo_sin_catalogo",
+            "role": "rol_legacy",
+            "specialization_id": "especializacion_legacy",
+            "provider": "ollama",
+            "model": "phi3:mini",
+            "system_prompt": "Prompt legacy temporal.",
+        },
+    )
+
+    payload = response.json()
+    assert response.status_code == 200
+    assert payload["success"] is True
+
+    config = json.loads((config_dir / "agente_legacy_test.json").read_text(encoding="utf-8"))
+    assert config["role"] == "rol_legacy"
+    assert config["specialization_id"] == "especializacion_legacy"
+
+
+def test_agents_list_exposes_specialization_metadata(monkeypatch, tmp_path):
+    (tmp_path / "agente_con_especializacion.json").write_text(
+        json.dumps(
+            {
+                "id": "agente_con_especializacion",
+                "role": "analista",
+                "domain_id": "loteria",
+                "specialization_id": "analisis_datos",
+                "specialization_name": "Estadístico integral",
+            }
+        ),
+        encoding="utf-8",
+    )
+    fake_supervisor = SimpleNamespace(agents=FakeAgentManager([]))
+    monkeypatch.setattr(api, "supervisor", fake_supervisor)
+    monkeypatch.setattr(api.config, "AGENTS_CONFIG_DIR", tmp_path)
+    monkeypatch.setattr(api, "iter_agent_config_dirs", lambda: iter([("loteria", tmp_path)]))
+
+    payload = asyncio.run(api.list_agents())
+
+    agent = payload["agents"][0]
+    assert agent["specialization_id"] == "analisis_datos"
+    assert agent["specialization_name"] == "Estadístico integral"
+
+
+def test_hud_create_agent_consumes_domain_profile_catalog_and_persists_specialization():
+    html = Path("ui/web/index.html").read_text(encoding="utf-8")
+
+    assert "profile-catalog" in html
+    assert "/api/catalogs/roles" in html
+    assert "/api/catalogs/specializations" in html
+    assert "agentProfileCatalogCache" in html
+    assert "activeAgentProfileCatalog" in html
+    assert "formData.append('specialization_id', specialization)" in html
+    assert "specialization_id: specialization || null" in html
+    assert "Este dominio todavía no tiene catálogo de perfiles" in html
+    assert "specializationMap queda como fallback legacy temporal" in html
+    assert "[ESPECIALIZACIÓN:" not in html
 
 
 def test_provider_status_keeps_catalog_when_one_health_check_fails(monkeypatch):

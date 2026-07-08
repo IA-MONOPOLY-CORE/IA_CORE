@@ -42,7 +42,9 @@ Los presets inteligentes de agentes, memoria `.md` inicial y papers automáticos
 
 El endpoint `GET /api/domains/{domain_id}/profile-catalog` expone el catálogo de perfiles de un dominio como read-only. Si un dominio no tiene `profile_catalog.json`, la API devuelve `404` claro en lugar de inventar un perfil por defecto.
 
-Crear Agente todavía no consume `profile_catalog.json`: los selectores hardcodeados actuales del HUD y `specializationMap` se mantienen hasta el prompt que conecte formalmente este catálogo.
+Crear Agente ya consume `profile_catalog.json` cuando el dominio seleccionado lo declara. En ese caso, los roles/especializaciones globales no se muestran directamente como UI final: el catálogo de dominio decide la disponibilidad y las etiquetas visibles.
+
+Para dominios sin `profile_catalog.json`, el HUD usa un fallback temporal con `GET /api/catalogs/roles` y `GET /api/catalogs/specializations`, mostrando una advertencia suave. Si esos catálogos tampoco están disponibles, `specializationMap` queda como fallback legacy aislado hasta que todos los dominios relevantes tengan catálogo propio.
 
 ## Lotería
 

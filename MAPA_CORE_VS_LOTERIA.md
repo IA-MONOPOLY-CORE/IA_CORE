@@ -100,7 +100,7 @@ Este documento mapea qué partes del sistema son el "motor de debate genérico" 
 | domains/loteria/agents/papers/viejo_deepseek_paper.json | SÍ | Paper específico con identidad, reglas y lecciones aprendidas del viejo deepseek |
 | domains/loteria/agents/papers/nuevo_deepseek_saaop_paper.json | SÍ | Paper específico con identidad, reglas y lecciones aprendidas del nuevo deepseek S.A.A.O.P. |
 | **ui/** | | |
-| ui/web/ | PARCIAL | Única interfaz de usuario vigente: HUD HTML/CSS/JavaScript servido por FastAPI; combina paneles genéricos con presentación y agentes S.A.A.O.P., incluido el selector agrupado |
+| ui/web/ | PARCIAL | Única interfaz de usuario vigente: HUD HTML/CSS/JavaScript servido por FastAPI; combina paneles genéricos con presentación y agentes S.A.A.O.P. Crear Agente consume `GET /api/domains/{domain_id}/profile-catalog` para roles/especializaciones del dominio seleccionado y usa fallback global/legacy si el dominio no tiene catálogo |
 | ui/app.py e interfaz anterior | ELIMINADO | Sus paneles, componentes, estado, traducciones y dependencias específicas fueron retirados completamente |
 | **tests/** | | |
 | tests/test_no_hardcoded_agent_paths.py | NO | Test anti-regresión que escanea Core, agentes, proveedores, dominios, UI y archivos Python raíz para impedir que reaparezcan rutas hardcodeadas como `agents/config`, `ROOT / "domains" / "loteria"` o `domain_id == config.DEFAULT_DOMAIN_ID` en flujos genéricos; obliga a usar resolvers por dominio |
