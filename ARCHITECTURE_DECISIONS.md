@@ -203,4 +203,20 @@ def _get_default_score_response_fn() -> Callable:
 
 **Relación con Lotería**: `domains/loteria/agent_presets.json` es la primera semilla, con presets responsables para descubrimiento, validación, destrucción crítica, riesgo e integración. Se evita lenguaje de promesa, método infalible o resultado asegurado como garantía operativa.
 
-**Alcance diferido**: Crear Agente todavía no consume estos presets, no autocompleta nombre ni system prompt, no crea agentes automáticamente, no genera memoria `.md`, no genera papers desde `paper_seed` y no modifica `runtime_json_agent.py`, `mejorar_papers.py` ni la UI.
+**Alcance diferido original**: En esta etapa inicial Crear Agente todavía no consumía estos presets, no autocompletaba nombre ni system prompt, no creaba agentes automáticamente, no generaba memoria `.md`, no generaba papers desde `paper_seed` y no modificaba `runtime_json_agent.py`, `mejorar_papers.py` ni la UI. El consumo editable desde Crear Agente queda definido en ADR-013.
+
+---
+
+## ADR-013 — Crear Agente aplica presets como sugerencias editables
+
+**Estado**: Aceptado
+
+**Contexto**: Los presets operativos por dominio ya existen y la API puede resolver un preset exacto por `domain_id + role_id + specialization_id`, pero el formulario Crear Agente todavía requería completar manualmente ID y system prompt aun cuando hubiera una combinación predefinida.
+
+**Decisión**: Crear Agente consulta `GET /api/domains/{domain_id}/agent-presets/match` al seleccionar una especialización. Si existe preset activo, lo aplica como sugerencia editable: autocompleta campos no tocados, muestra un bloque informativo y conserva la posibilidad de edición manual. Si no hay preset o el dominio no tiene presets, informa el estado y no bloquea la creación.
+
+**Regla de no pisado**: La UI mantiene flags de campos tocados para ID, system prompt, proveedor y modelo. Un preset solo completa un campo si está vacío o si el usuario todavía no lo editó. Cambiar rol, especialización o dominio limpia el preset actual sin destruir texto escrito.
+
+**Persistencia**: `/api/agents/create` acepta `profile_preset_id` opcional. Si viene, el backend valida que exista en los presets activos del dominio y que corresponda al mismo `role + specialization_id`. El JSON del agente guarda `profile_preset_id`, `profile_preset_name` y `preset_applied_at`; el `system_prompt` guardado sigue siendo el texto final editado por el usuario.
+
+**Alcance diferido**: No se genera paper desde `paper_seed`, no se integra memoria `.md`, no se modifica `runtime_json_agent.py`, no se toca `mejorar_papers.py` y no se crean agentes automáticamente.

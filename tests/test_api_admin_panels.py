@@ -334,6 +334,120 @@ def test_create_agent_persists_specialization_id_when_domain_catalog_validates(m
     assert config["system_prompt"] == "Prompt manual del agente."
 
 
+def test_create_agent_persists_valid_profile_preset_metadata(monkeypatch, tmp_path):
+    config_dir, _ = _patch_agent_create_paths(monkeypatch, tmp_path)
+
+    response = TestClient(api.app).post(
+        "/api/agents/create",
+        data={
+            "id": "agente_con_preset_test",
+            "domain_id": "loteria",
+            "role": "analista",
+            "specialization_id": "analisis_datos",
+            "profile_preset_id": "loteria_analista_estadistico_integral",
+            "provider": "ollama",
+            "model": "phi3:mini",
+            "system_prompt": "Prompt final editado por el usuario.",
+            "temperature": "0.3",
+        },
+    )
+
+    payload = response.json()
+    assert response.status_code == 200
+    assert payload["success"] is True
+
+    config = json.loads((config_dir / "agente_con_preset_test.json").read_text(encoding="utf-8"))
+    assert config["role"] == "analista"
+    assert config["specialization_id"] == "analisis_datos"
+    assert "integral" in config["specialization_name"].lower()
+    assert config["profile_preset_id"] == "loteria_analista_estadistico_integral"
+    assert config["profile_preset_name"] == "Estadistico integral"
+    assert config["preset_applied_at"]
+    assert config["system_prompt"] == "Prompt final editado por el usuario."
+
+
+def test_create_agent_rejects_unknown_profile_preset_id(monkeypatch, tmp_path):
+    config_dir, _ = _patch_agent_create_paths(monkeypatch, tmp_path)
+
+    response = TestClient(api.app).post(
+        "/api/agents/create",
+        data={
+            "id": "agente_preset_inexistente_test",
+            "domain_id": "loteria",
+            "role": "analista",
+            "specialization_id": "analisis_datos",
+            "profile_preset_id": "preset_inexistente",
+            "provider": "ollama",
+            "model": "phi3:mini",
+            "system_prompt": "Prompt manual.",
+        },
+    )
+
+    payload = response.json()
+    assert response.status_code == 200
+    assert payload["success"] is False
+    assert "no existe" in payload["error"]
+    assert not (config_dir / "agente_preset_inexistente_test.json").exists()
+
+
+def test_create_agent_rejects_profile_preset_for_other_role_or_specialization(monkeypatch, tmp_path):
+    config_dir, _ = _patch_agent_create_paths(monkeypatch, tmp_path)
+
+    response = TestClient(api.app).post(
+        "/api/agents/create",
+        data={
+            "id": "agente_preset_cruzado_test",
+            "domain_id": "loteria",
+            "role": "analista",
+            "specialization_id": "analisis_datos",
+            "profile_preset_id": "loteria_auditor_hostil",
+            "provider": "ollama",
+            "model": "phi3:mini",
+            "system_prompt": "Prompt manual.",
+        },
+    )
+
+    payload = response.json()
+    assert response.status_code == 200
+    assert payload["success"] is False
+    assert "no corresponde" in payload["error"]
+    assert not (config_dir / "agente_preset_cruzado_test.json").exists()
+
+
+def test_create_agent_rejects_profile_preset_when_domain_has_no_presets(monkeypatch, tmp_path):
+    config_dir, _ = _patch_agent_create_paths(monkeypatch, tmp_path, domain_id="demo_sin_presets")
+    monkeypatch.setattr(
+        api,
+        "get_domain_profile_catalog",
+        lambda domain_id: (_ for _ in ()).throw(FileNotFoundError("sin catalogo")),
+    )
+    monkeypatch.setattr(
+        api,
+        "get_domain_agent_presets",
+        lambda domain_id: (_ for _ in ()).throw(FileNotFoundError("sin presets")),
+    )
+
+    response = TestClient(api.app).post(
+        "/api/agents/create",
+        data={
+            "id": "agente_preset_sin_dominio_test",
+            "domain_id": "demo_sin_presets",
+            "role": "rol_legacy",
+            "specialization_id": "especializacion_legacy",
+            "profile_preset_id": "preset_legacy",
+            "provider": "ollama",
+            "model": "phi3:mini",
+            "system_prompt": "Prompt manual.",
+        },
+    )
+
+    payload = response.json()
+    assert response.status_code == 200
+    assert payload["success"] is False
+    assert "no tiene presets de agentes" in payload["error"]
+    assert not (config_dir / "agente_preset_sin_dominio_test.json").exists()
+
+
 def test_create_agent_allows_missing_specialization_for_compatibility(monkeypatch, tmp_path):
     config_dir, _ = _patch_agent_create_paths(monkeypatch, tmp_path)
 
@@ -422,6 +536,8 @@ def test_agents_list_exposes_specialization_metadata(monkeypatch, tmp_path):
                 "role": "analista",
                 "domain_id": "loteria",
                 "specialization_id": "analisis_datos",
+                "profile_preset_id": "loteria_analista_estadistico_integral",
+                "profile_preset_name": "Estadistico integral",
                 "specialization_name": "Estadístico integral",
             }
         ),
@@ -436,6 +552,8 @@ def test_agents_list_exposes_specialization_metadata(monkeypatch, tmp_path):
 
     agent = payload["agents"][0]
     assert agent["specialization_id"] == "analisis_datos"
+    assert agent["profile_preset_id"] == "loteria_analista_estadistico_integral"
+    assert agent["profile_preset_name"] == "Estadistico integral"
     assert agent["specialization_name"] == "Estadístico integral"
 
 
@@ -443,14 +561,22 @@ def test_hud_create_agent_consumes_domain_profile_catalog_and_persists_specializ
     html = Path("ui/web/index.html").read_text(encoding="utf-8")
 
     assert "profile-catalog" in html
+    assert "agent-presets/match" in html
     assert "/api/catalogs/roles" in html
     assert "/api/catalogs/specializations" in html
     assert "agentProfileCatalogCache" in html
     assert "activeAgentProfileCatalog" in html
+    assert "currentAgentPreset" in html
+    assert "agentFieldTouched" in html
+    assert "setFieldIfAllowed" in html
+    assert "consultarPresetAgente" in html
+    assert "Preset aplicado:" in html
+    assert "agent-preset-summary" in html
     assert "role_groups" in html
     assert "document.createElement('optgroup')" in html
     assert "optgroup.label = group.nombre" in html
     assert "formData.append('specialization_id', specialization)" in html
+    assert "formData.append('profile_preset_id', appliedPreset.id)" in html
     assert "specialization_id: specialization || null" in html
     assert "Este dominio todavía no tiene catálogo de perfiles" in html
     assert "specializationMap queda como fallback legacy temporal" in html

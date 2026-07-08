@@ -1172,6 +1172,7 @@ async def create_agent_endpoint(
     id: str = Form(...),
     role: str = Form(...),
     specialization_id: Optional[str] = Form(None),
+    profile_preset_id: Optional[str] = Form(None),
     provider: str = Form("nvidia"),
     model: Optional[str] = Form(None),
     system_prompt: str = Form(...),
@@ -1193,6 +1194,8 @@ async def create_agent_endpoint(
 
     if not isinstance(specialization_id, str) or not specialization_id.strip():
         specialization_id = None
+    if not isinstance(profile_preset_id, str) or not profile_preset_id.strip():
+        profile_preset_id = None
 
     safe_id = re.sub(r"[^a-zA-Z0-9_-]", "", id)
     if safe_id != id:
@@ -1210,6 +1213,47 @@ async def create_agent_endpoint(
     )
     if profile_validation.get("success") is False:
         return profile_validation
+
+    profile_preset = None
+    if profile_preset_id:
+        if not specialization_id:
+            return {
+                "success": False,
+                "error": "profile_preset_id requiere specialization_id",
+            }
+        try:
+            presets_catalog = get_domain_agent_presets(domain_id)
+        except FileNotFoundError:
+            return {
+                "success": False,
+                "error": f"El dominio '{domain_id}' no tiene presets de agentes",
+            }
+        except ValueError as exc:
+            return {"success": False, "error": str(exc)}
+        profile_preset = next(
+            (
+                preset
+                for preset in presets_catalog.get("presets", [])
+                if preset.get("id") == profile_preset_id
+            ),
+            None,
+        )
+        if profile_preset is None:
+            return {
+                "success": False,
+                "error": f"profile_preset_id '{profile_preset_id}' no existe en el dominio '{domain_id}'",
+            }
+        if (
+            profile_preset.get("role_id") != role
+            or profile_preset.get("specialization_id") != specialization_id
+        ):
+            return {
+                "success": False,
+                "error": (
+                    f"profile_preset_id '{profile_preset_id}' no corresponde a "
+                    f"role='{role}' y specialization_id='{specialization_id}'"
+                ),
+            }
 
     config_dir, papers_dir = get_domain_agent_paths(domain_id, ensure=True)
 
@@ -1235,6 +1279,10 @@ async def create_agent_endpoint(
         agent_config["specialization_id"] = specialization_id
         if profile_validation.get("specialization_name"):
             agent_config["specialization_name"] = profile_validation["specialization_name"]
+    if profile_preset:
+        agent_config["profile_preset_id"] = profile_preset["id"]
+        agent_config["profile_preset_name"] = profile_preset.get("nombre_visible")
+        agent_config["preset_applied_at"] = datetime.now().isoformat()
 
     json_path = config_dir / f"{id}.json"
 
@@ -1400,6 +1448,8 @@ async def list_agents():
                             "domain_id": data.get("domain_id", domain_id),
                             "specialization_id": data.get("specialization_id"),
                             "specialization_name": data.get("specialization_name"),
+                            "profile_preset_id": data.get("profile_preset_id"),
+                            "profile_preset_name": data.get("profile_preset_name"),
                         }
                     )
             except Exception as e:

@@ -776,7 +776,7 @@
 
     <!-- MODAL CREAR/EDITAR AGENTE -->
     <div id="agent-modal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.95); backdrop-filter:blur(8px); z-index:1002; justify-content:center; align-items:center;">
-        <div style="background:var(--bg-panel); border:1px solid var(--border-color); width:90%; max-width:450px; padding:20px; border-radius:var(--border-radius);">
+        <div style="background:var(--bg-panel); border:1px solid var(--border-color); width:90%; max-width:450px; max-height:90vh; overflow-y:auto; padding:20px; border-radius:var(--border-radius);">
             <h3 id="agent-modal-title" style="color:var(--cyan); margin-bottom:15px;">CREAR AGENTE</h3>
             <input type="hidden" id="edit-agent-id">
             <div class="domain-field"><label for="agent-domain">DOMINIO <span style="color:var(--red);">*</span></label><select id="agent-domain" required></select></div>
@@ -850,6 +850,8 @@
                     <option value="">-- Seleccionar especialización --</option>
                 </select>
             </div>
+            <div id="agent-preset-status" style="display:none; margin:-4px 0 10px 0; color:var(--text-muted); font-size:0.72rem;"></div>
+            <div id="agent-preset-summary" style="display:none; margin-bottom:12px; padding:10px; background:rgba(0,212,255,0.06); border:1px solid rgba(0,212,255,0.18); border-radius:var(--border-radius); font-size:0.72rem; line-height:1.4;"></div>
             <div style="margin-bottom:12px;"><label style="font-size:0.8rem;">PROVEEDOR</label>
                 <select id="agent-provider" style="width:100%; background:rgba(0,0,0,0.5); border:1px solid var(--border-color); color:#fff; padding:8px; border-radius:var(--border-radius);">
                     <option value="ollama">Ollama (Local)</option>
@@ -1046,6 +1048,16 @@
         let legacyRoleOptions = null;
         const agentProfileCatalogCache = {};
         let activeAgentProfileCatalog = { mode: 'legacy', roles: [] };
+        let currentAgentPreset = null;
+        let currentPresetTemperature = null;
+        let agentPresetRequestSeq = 0;
+        let agentFieldTouched = {
+            id: false,
+            prompt: false,
+            provider: false,
+            model: false,
+            temperature: false,
+        };
 
         function makeOption(value, text) {
             const option = document.createElement('option');
@@ -1151,6 +1163,120 @@
             status.style.color = isWarning ? 'var(--amber)' : 'var(--text-muted)';
         }
 
+        function escapeHtml(value = '') {
+            return String(value)
+                .replaceAll('&', '&amp;')
+                .replaceAll('<', '&lt;')
+                .replaceAll('>', '&gt;')
+                .replaceAll('"', '&quot;')
+                .replaceAll("'", '&#039;');
+        }
+
+        function resetAgentFieldTouched(markTouched = false) {
+            agentFieldTouched = {
+                id: markTouched,
+                prompt: markTouched,
+                provider: markTouched,
+                model: markTouched,
+                temperature: markTouched,
+            };
+        }
+
+        function setAgentPresetStatus(message = '', isWarning = false) {
+            const status = document.getElementById('agent-preset-status');
+            if (!status) return;
+            status.textContent = message;
+            status.style.display = message ? 'block' : 'none';
+            status.style.color = isWarning ? 'var(--amber)' : 'var(--cyan)';
+        }
+
+        function clearAgentPreset(message = '', isWarning = false) {
+            currentAgentPreset = null;
+            currentPresetTemperature = null;
+            setAgentPresetStatus(message, isWarning);
+            const summary = document.getElementById('agent-preset-summary');
+            if (summary) {
+                summary.style.display = 'none';
+                summary.innerHTML = '';
+            }
+        }
+
+        function renderAgentPresetSummary(preset) {
+            const summary = document.getElementById('agent-preset-summary');
+            if (!summary || !preset) return;
+            const criteria = (preset.decision_criteria || []).map(item => `<li>${escapeHtml(item)}</li>`).join('');
+            const avoid = (preset.avoid || []).map(item => `<li>${escapeHtml(item)}</li>`).join('');
+            const memory = preset.memory_policy?.description || 'Sin recomendacion de memoria informada.';
+            summary.innerHTML = `
+                <div style="color:var(--cyan); font-weight:bold; margin-bottom:6px;">Preset operativo</div>
+                <div><strong>Nombre:</strong> ${escapeHtml(preset.nombre_visible || preset.id)}</div>
+                <div><strong>Descripcion:</strong> ${escapeHtml(preset.short_description || '')}</div>
+                <div style="margin-top:6px;"><strong>Criterios:</strong><ul style="margin:4px 0 0 18px; padding:0;">${criteria}</ul></div>
+                <div style="margin-top:6px;"><strong>Evitar:</strong><ul style="margin:4px 0 0 18px; padding:0;">${avoid}</ul></div>
+                <div style="margin-top:6px;"><strong>Memoria recomendada:</strong> ${escapeHtml(memory)}</div>
+            `;
+            summary.style.display = 'block';
+        }
+
+        function optionExists(select, value) {
+            return Array.from(select.options).some(option => option.value === value);
+        }
+
+        function setFieldIfAllowed(fieldKey, element, value) {
+            if (value === null || value === undefined || value === '') return false;
+            if (!element) return false;
+            if (agentFieldTouched[fieldKey] && String(element.value || '').trim()) return false;
+            element.value = value;
+            return true;
+        }
+
+        function applyAgentPresetToForm(preset) {
+            currentAgentPreset = preset;
+            currentPresetTemperature = preset.recommended_temperature ?? null;
+            setFieldIfAllowed('id', document.getElementById('agent-id'), preset.suggested_agent_id);
+            setFieldIfAllowed('prompt', document.getElementById('agent-prompt'), preset.system_prompt);
+
+            const providerSelect = document.getElementById('agent-provider');
+            if (preset.recommended_provider && optionExists(providerSelect, preset.recommended_provider)) {
+                if (setFieldIfAllowed('provider', providerSelect, preset.recommended_provider)) {
+                    actualizarSelectModelos();
+                }
+            }
+
+            const modelSelect = document.getElementById('agent-model');
+            if (preset.recommended_model && optionExists(modelSelect, preset.recommended_model)) {
+                setFieldIfAllowed('model', modelSelect, preset.recommended_model);
+            }
+
+            setAgentPresetStatus(`Preset aplicado: ${preset.nombre_visible || preset.id}`);
+            renderAgentPresetSummary(preset);
+        }
+
+        async function consultarPresetAgente() {
+            const domainId = document.getElementById('agent-domain').value;
+            const roleId = document.getElementById('agent-role').value;
+            const specializationId = document.getElementById('agent-specialization').value;
+            const requestId = ++agentPresetRequestSeq;
+
+            clearAgentPreset();
+            if (!domainId || !roleId || !specializationId) return;
+            setAgentPresetStatus('Buscando preset operativo...');
+
+            try {
+                const data = await fetchJson(`/api/domains/${encodeURIComponent(domainId)}/agent-presets/match?role_id=${encodeURIComponent(roleId)}&specialization_id=${encodeURIComponent(specializationId)}`);
+                if (requestId !== agentPresetRequestSeq) return;
+                applyAgentPresetToForm(data.preset);
+            } catch (error) {
+                if (requestId !== agentPresetRequestSeq) return;
+                const message = error.message || '';
+                if (message.includes('No existe preset activo') || message.includes('Presets de agentes no encontrados')) {
+                    clearAgentPreset('No hay preset especifico para esta combinacion. Podes completar el agente manualmente.', true);
+                } else {
+                    clearAgentPreset(`No se pudo consultar el preset: ${message}`, true);
+                }
+            }
+        }
+
         function populateRoleSelect(selectedRole = '') {
             const roleSelect = document.getElementById('agent-role');
             const roles = [...(activeAgentProfileCatalog.roles || [])]
@@ -1210,6 +1336,7 @@
         async function cargarProfileCatalogAgente(domainId, selectedRole = '', selectedSpecialization = '') {
             const roleSelect = document.getElementById('agent-role');
             const specSelect = document.getElementById('agent-specialization');
+            clearAgentPreset();
             ensureLegacyRoleOptions();
             roleSelect.replaceChildren(makeOption('', 'Cargando roles...'));
             roleSelect.disabled = true;
@@ -1265,7 +1392,9 @@
                             color: '#00d4ff',
                             is_generic_baseline: a.is_generic_baseline === true,
                             domain_id: a.domain_id || null,
-                            specialization_id: a.specialization_id || ''
+                            specialization_id: a.specialization_id || '',
+                            profile_preset_id: a.profile_preset_id || '',
+                            profile_preset_name: a.profile_preset_name || ''
                         }));
                 }
                 const saved = localStorage.getItem('saaop_selected');
@@ -1459,10 +1588,26 @@
             }
         }
 
+        async function abrirCrearAgente() {
+            currentEditId = null;
+            resetAgentFieldTouched(false);
+            clearAgentPreset();
+            document.getElementById('agent-modal-title').innerText = 'CREAR AGENTE';
+            document.getElementById('agent-id').disabled = false;
+            document.getElementById('agent-domain').disabled = false;
+            document.getElementById('agent-id').value = '';
+            document.getElementById('agent-prompt').value = '';
+            document.getElementById('agent-memory').value = '';
+            await cargarProfileCatalogAgente(document.getElementById('agent-domain').value);
+            document.getElementById('agent-modal').style.display = 'flex';
+        }
+
         async function abrirMenuAgente(id) {
             const ag = agentes.find(a => a.id === id);
             if (ag) {
                 currentEditId = id;
+                resetAgentFieldTouched(true);
+                clearAgentPreset();
                 document.getElementById('agent-modal-title').innerText = `EDITAR: ${ag.name}`;
                 document.getElementById('agent-id').value = id;
                 document.getElementById('agent-id').disabled = true;
@@ -1471,6 +1616,9 @@
                 await cargarProfileCatalogAgente(ag.domain_id || '', ag.role, ag.specialization_id || '');
                 document.getElementById('agent-prompt').value = '';
                 document.getElementById('agent-memory').value = '';
+                if (ag.profile_preset_id) {
+                    setAgentPresetStatus(`Preset asociado: ${ag.profile_preset_name || ag.profile_preset_id}`);
+                }
                 document.getElementById('agent-modal').style.display = 'flex';
             }
         }
@@ -1484,6 +1632,7 @@
             let prompt = document.getElementById('agent-prompt').value.trim();
             const memoryFile = document.getElementById('agent-memory').files[0];
             const domainId = document.getElementById('agent-domain').value;
+            const appliedPreset = currentAgentPreset;
 
             if (!id) { alert('ID es obligatorio'); return; }
             if (!domainId) { alert('Debe seleccionar un dominio'); return; }
@@ -1513,8 +1662,9 @@
                 formData.append('provider', provider);
                 formData.append('model', model);
                 formData.append('system_prompt', prompt);
-                formData.append('temperature', '0.3');
+                formData.append('temperature', String(currentPresetTemperature ?? 0.3));
                 formData.append('domain_id', domainId);
+                if (appliedPreset) formData.append('profile_preset_id', appliedPreset.id);
                 if (memoryFile) formData.append('memory_file', memoryFile);
                 requestOptions = { method: 'POST', body: formData };
             }
@@ -1528,6 +1678,8 @@
                     document.getElementById('agent-id').disabled = false;
                     document.getElementById('agent-domain').disabled = false;
                     currentEditId = null;
+                    clearAgentPreset();
+                    resetAgentFieldTouched(false);
                     await cargarAgentes();
                 } else alert('Error: ' + data.error);
             } catch(e) { alert('Error de red'); }
@@ -1928,7 +2080,14 @@
             initLogoBanner();
             
             // Configurar event listener para cambio de proveedor
-            document.getElementById('agent-provider').addEventListener('change', actualizarSelectModelos);
+            document.getElementById('agent-id').addEventListener('input', () => { agentFieldTouched.id = true; });
+            document.getElementById('agent-prompt').addEventListener('input', () => { agentFieldTouched.prompt = true; });
+            document.getElementById('agent-provider').addEventListener('change', () => {
+                agentFieldTouched.provider = true;
+                agentFieldTouched.model = true;
+                actualizarSelectModelos();
+            });
+            document.getElementById('agent-model').addEventListener('change', () => { agentFieldTouched.model = true; });
             // Inicializar el select de modelos con el proveedor por defecto
             actualizarSelectModelos();
             
@@ -1950,9 +2109,9 @@
             
             document.getElementById('start-btn').onclick = startDebate;
             document.getElementById('settings-fab').onclick = () => { cargarChecklist(); document.getElementById('config-modal').style.display = 'flex'; };
-            document.getElementById('add-fab').onclick = () => window.domainUI.requireDomain(async () => { currentEditId = null; document.getElementById('agent-modal-title').innerText = 'CREAR AGENTE'; document.getElementById('agent-id').disabled = false; document.getElementById('agent-domain').disabled = false; document.getElementById('agent-id').value = ''; document.getElementById('agent-prompt').value = ''; document.getElementById('agent-memory').value = ''; await cargarProfileCatalogAgente(document.getElementById('agent-domain').value); document.getElementById('agent-modal').style.display = 'flex'; });
+            document.getElementById('add-fab').onclick = () => window.domainUI.requireDomain(abrirCrearAgente);
             document.getElementById('save-agent-btn').onclick = guardarAgente;
-            document.getElementById('cancel-agent-btn').onclick = () => { document.getElementById('agent-modal').style.display = 'none'; document.getElementById('agent-id').disabled = false; document.getElementById('agent-domain').disabled = false; currentEditId = null; };
+            document.getElementById('cancel-agent-btn').onclick = () => { document.getElementById('agent-modal').style.display = 'none'; document.getElementById('agent-id').disabled = false; document.getElementById('agent-domain').disabled = false; currentEditId = null; clearAgentPreset(); resetAgentFieldTouched(false); };
             document.getElementById('apply-config-btn').onclick = () => aplicarConfiguracion(false);
             document.getElementById('accept-config-btn').onclick = () => aplicarConfiguracion(true);
             document.getElementById('close-config-modal').onclick = () => document.getElementById('config-modal').style.display = 'none';
@@ -1991,8 +2150,15 @@
                 };
             });
             
-            document.getElementById('agent-domain').addEventListener('change', (event) => cargarProfileCatalogAgente(event.target.value));
-            document.getElementById('agent-role').addEventListener('change', () => actualizarEspecializaciones());
+            document.getElementById('agent-domain').addEventListener('change', (event) => {
+                clearAgentPreset();
+                cargarProfileCatalogAgente(event.target.value);
+            });
+            document.getElementById('agent-role').addEventListener('change', () => {
+                clearAgentPreset();
+                actualizarEspecializaciones();
+            });
+            document.getElementById('agent-specialization').addEventListener('change', consultarPresetAgente);
             cargarProfileCatalogAgente(document.getElementById('agent-domain').value);
             checkConnection();
             setInterval(checkConnection, 5000);

@@ -34,7 +34,9 @@ La habilitación Dominio → Roles → Especializaciones empieza a vivir en `dom
 
 Los presets inteligentes de agentes viven en `domains/<domain_id>/agent_presets.json` cuando un dominio los declara. Ese archivo tampoco pertenece a `catalogs/`: define presets operativos por combinación `role_id + specialization_id`, con nombre/id sugeridos, descripción, system prompt, criterios de decisión, sesgos a evitar, sugerencias de proveedor/modelo/temperatura, política de memoria y `paper_seed`.
 
-Crear Agente todavía no consume `agent_presets.json`; los presets quedan expuestos como lectura para prompts posteriores. La memoria `.md` inicial y la generación automática de papers desde presets siguen diferidas.
+Crear Agente consume `agent_presets.json` como sugerencia editable cuando el usuario selecciona una combinación Dominio + Rol + Especialización con preset activo. El preset puede autocompletar ID, system prompt y temperatura recomendada, y muestra un resumen operativo compacto. Si el usuario ya editó un campo, la UI no lo pisa silenciosamente.
+
+La memoria `.md` inicial y la generación automática de papers desde presets siguen diferidas.
 
 ## Catálogos globales vs catálogos de perfil por dominio
 
@@ -45,11 +47,13 @@ Crear Agente todavía no consume `agent_presets.json`; los presets quedan expues
 
 El endpoint `GET /api/domains/{domain_id}/profile-catalog` expone el catálogo de perfiles de un dominio como read-only. Si un dominio no tiene `profile_catalog.json`, la API devuelve `404` claro en lugar de inventar un perfil por defecto.
 
-El endpoint `GET /api/domains/{domain_id}/agent-presets` expone presets activos de un dominio como read-only. `GET /api/domains/{domain_id}/agent-presets/match?role_id=...&specialization_id=...` devuelve un preset exacto si existe. Ambos endpoints validan que los IDs referencien combinaciones reales de `profile_catalog.json` y no dependen de `config.DEFAULT_DOMAIN_ID`.
+El endpoint `GET /api/domains/{domain_id}/agent-presets` expone presets activos de un dominio como read-only. `GET /api/domains/{domain_id}/agent-presets/match?role_id=...&specialization_id=...` devuelve un preset exacto si existe. Crear Agente usa el endpoint `match` para sugerir valores editables. Ambos endpoints validan que los IDs referencien combinaciones reales de `profile_catalog.json` y no dependen de `config.DEFAULT_DOMAIN_ID`.
 
 Un `profile_catalog.json` también puede declarar `role_groups`: grupos visuales/mentales propios del dominio para ordenar los roles. Lotería usa esta metadata para recuperar sus capas operativas (`Capa 1: Descubrimiento`, `Capa 2: Validación`, etc.) sin hardcodearlas en el HUD.
 
 Crear Agente ya consume `profile_catalog.json` cuando el dominio seleccionado lo declara. En ese caso, los roles/especializaciones globales no se muestran directamente como UI final: el catálogo de dominio decide la disponibilidad y las etiquetas visibles.
+
+Cuando un preset activo existe para la combinación seleccionada, Crear Agente guarda `profile_preset_id` y `profile_preset_name` como metadata del agente. El system prompt persistido sigue siendo el texto final editado por el usuario.
 
 Para dominios sin `profile_catalog.json`, el HUD usa un fallback temporal con `GET /api/catalogs/roles` y `GET /api/catalogs/specializations`, mostrando una advertencia suave. Si esos catálogos tampoco están disponibles, `specializationMap` queda como fallback legacy aislado hasta que todos los dominios relevantes tengan catálogo propio.
 

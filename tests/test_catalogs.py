@@ -980,6 +980,12 @@ def test_domain_agent_presets_match_endpoint_returns_exact_preset():
     assert payload["domain_id"] == "loteria"
     assert payload["preset"]["id"] == "loteria_analista_estadistico_integral"
     assert payload["preset"]["suggested_agent_id"] == "estadistico_integral"
+    assert payload["preset"]["system_prompt"]
+    assert payload["preset"]["short_description"]
+    assert payload["preset"]["decision_criteria"]
+    assert payload["preset"]["avoid"]
+    assert payload["preset"]["memory_policy"]
+    assert payload["preset"]["recommended_temperature"] == 0.3
 
     endpoint_source = inspect.getsource(api.get_domain_agent_preset_match_endpoint)
     assert "DEFAULT_DOMAIN_ID" not in endpoint_source
@@ -1040,7 +1046,7 @@ def test_specializations_catalog_can_be_used_as_create_agent_fallback_without_pr
     assert "/api/catalogs/specializations" not in domains_js
     assert "specializationMap" in html
     assert "specialization_id" in html
-    assert "agent-presets" not in html
+    assert "agent-presets/match" in html
     assert "agent_presets" not in html
     assert "agent-presets" not in domains_js
     assert "agent_presets" not in domains_js
@@ -1065,7 +1071,7 @@ def test_profile_catalog_prompt_connects_create_agent_but_not_runtime_or_papers(
     assert "profile_catalog" not in runtime_source
     assert "load_domain_profile_catalog" not in mejorar_papers_source
     assert "profile_catalog" not in mejorar_papers_source
-    assert "agent-presets" not in html
+    assert "agent-presets/match" in html
     assert "agent_presets" not in html
     assert "agent-presets" not in domains_js
     assert "agent_presets" not in domains_js
