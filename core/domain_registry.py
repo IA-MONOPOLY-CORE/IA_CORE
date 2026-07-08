@@ -11,10 +11,33 @@ from pathlib import Path
 from typing import Any, Iterator
 
 import config
-from core.catalog_registry import validate_domain_catalog_selection
+from core.catalog_registry import (
+    load_roles,
+    load_specializations,
+    validate_domain_catalog_selection,
+)
 
 
 DOMAIN_SCHEMA_VERSION = 1
+PROFILE_CATALOG_SCHEMA_VERSION = "1.0"
+
+PROFILE_ROLE_REQUIRED_FIELDS = {
+    "role_id",
+    "nombre_visible",
+    "adaptacion_dominio",
+    "familia",
+    "activo",
+    "orden",
+    "specializations",
+}
+PROFILE_SPECIALIZATION_REQUIRED_FIELDS = {
+    "specialization_id",
+    "nombre_visible",
+    "adaptacion_dominio",
+    "activo",
+    "orden",
+}
+_SNAKE_CASE_RE = re.compile(r"^[a-z0-9]+(?:_[a-z0-9]+)*$")
 
 DOMAIN_THEME_PRESETS: dict[str, dict[str, Any]] = {
     "tactico": {
@@ -100,6 +123,32 @@ def _safe_domain_dir(domain_id: str, domains_dir: str | Path | None = None) -> P
     return target
 
 
+def _validate_snake_id(value: Any, *, field: str, source: str) -> None:
+    if not isinstance(value, str) or not _SNAKE_CASE_RE.fullmatch(value):
+        raise ValueError(f"{source}: campo {field} debe ser snake_case estable")
+
+
+def _validate_non_empty_text(value: Any, *, field: str, source: str) -> None:
+    if not isinstance(value, str) or not value.strip():
+        raise ValueError(f"{source}: campo {field} debe ser texto no vacío")
+
+
+def _validate_required_fields(
+    item: dict[str, Any], required_fields: set[str], *, source: str
+) -> None:
+    missing = required_fields - set(item)
+    if missing:
+        missing_list = ", ".join(sorted(missing))
+        raise ValueError(f"{source}: faltan campos obligatorios: {missing_list}")
+
+
+def _validate_profile_common_fields(item: dict[str, Any], *, source: str) -> None:
+    if not isinstance(item.get("activo"), bool):
+        raise ValueError(f"{source}: campo activo debe ser booleano")
+    if not isinstance(item.get("orden"), int):
+        raise ValueError(f"{source}: campo orden debe ser numérico entero")
+
+
 def get_domain_dir(domain_id: str, domains_dir: str | Path | None = None) -> Path:
     """Devuelve la carpeta raíz de un dominio registrado."""
     domain_dir = _safe_domain_dir(domain_id, domains_dir)
@@ -122,6 +171,193 @@ def load_domain(domain_id: str, domains_dir: str | Path | None = None) -> dict[s
     if not isinstance(data, dict) or data.get("id") != domain_id:
         raise ValueError(f"Manifiesto inválido para el dominio {domain_id}")
     return data
+
+
+def validate_domain_profile_catalog(
+    domain_id: str,
+    catalog: dict[str, Any],
+    *,
+    active_only: bool = True,
+    catalogs_dir: str | Path | None = None,
+) -> dict[str, Any]:
+    """Valida y normaliza un catálogo de perfiles habilitados por dominio."""
+    _validate_snake_id(domain_id, field="domain_id", source="profile_catalog")
+    if not isinstance(catalog, dict):
+        raise ValueError("profile_catalog.json debe ser un objeto JSON")
+    if catalog.get("schema_version") != PROFILE_CATALOG_SCHEMA_VERSION:
+        raise ValueError(
+            f"profile_catalog.json: schema_version debe ser {PROFILE_CATALOG_SCHEMA_VERSION}"
+        )
+    if catalog.get("domain_id") != domain_id:
+        raise ValueError(
+            f"profile_catalog.json: domain_id no coincide con el dominio {domain_id}"
+        )
+    _validate_non_empty_text(catalog.get("nombre"), field="nombre", source="profile_catalog.json")
+    _validate_non_empty_text(
+        catalog.get("descripcion"), field="descripcion", source="profile_catalog.json"
+    )
+    if not isinstance(catalog.get("roles"), list) or not catalog["roles"]:
+        raise ValueError("profile_catalog.json: roles debe ser una lista no vacía")
+
+    roles_by_id = {
+        role["id"]: role for role in load_roles(active_only=False, catalogs_dir=catalogs_dir)
+    }
+    specializations_by_id = {
+        specialization["id"]: specialization
+        for specialization in load_specializations(active_only=False, catalogs_dir=catalogs_dir)
+    }
+
+    seen_roles: set[str] = set()
+    normalized_roles: list[dict[str, Any]] = []
+    for role in catalog["roles"]:
+        if not isinstance(role, dict):
+            raise ValueError("profile_catalog.json: cada rol debe ser un objeto")
+        role_id = role.get("role_id")
+        source = f"profile_catalog.json.roles[{role_id or '?'}]"
+        _validate_required_fields(role, PROFILE_ROLE_REQUIRED_FIELDS, source=source)
+        _validate_snake_id(role_id, field="role_id", source=source)
+        _validate_snake_id(role.get("familia"), field="familia", source=source)
+        _validate_profile_common_fields(role, source=source)
+        for field in ["nombre_visible", "adaptacion_dominio"]:
+            _validate_non_empty_text(role.get(field), field=field, source=source)
+        if role_id in seen_roles:
+            raise ValueError(f"{source}: role_id duplicado: {role_id}")
+        seen_roles.add(role_id)
+        global_role = roles_by_id.get(role_id)
+        if global_role is None:
+            raise ValueError(f"{source}: role_id inexistente: {role_id}")
+        if global_role.get("activo") is not True:
+            raise ValueError(f"{source}: role_id inactivo: {role_id}")
+        if not isinstance(role.get("specializations"), list) or not role["specializations"]:
+            raise ValueError(f"{source}: specializations debe ser una lista no vacía")
+
+        seen_specializations: set[str] = set()
+        normalized_specializations: list[dict[str, Any]] = []
+        for specialization in role["specializations"]:
+            if not isinstance(specialization, dict):
+                raise ValueError(f"{source}: cada especialización debe ser un objeto")
+            specialization_id = specialization.get("specialization_id")
+            spec_source = f"{source}.specializations[{specialization_id or '?'}]"
+            _validate_required_fields(
+                specialization,
+                PROFILE_SPECIALIZATION_REQUIRED_FIELDS,
+                source=spec_source,
+            )
+            _validate_snake_id(
+                specialization_id, field="specialization_id", source=spec_source
+            )
+            _validate_profile_common_fields(specialization, source=spec_source)
+            for field in ["nombre_visible", "adaptacion_dominio"]:
+                _validate_non_empty_text(
+                    specialization.get(field), field=field, source=spec_source
+                )
+            if specialization_id in seen_specializations:
+                raise ValueError(
+                    f"{spec_source}: specialization_id duplicado: {specialization_id}"
+                )
+            seen_specializations.add(specialization_id)
+            global_specialization = specializations_by_id.get(specialization_id)
+            if global_specialization is None:
+                raise ValueError(
+                    f"{spec_source}: specialization_id inexistente: {specialization_id}"
+                )
+            if global_specialization.get("activo") is not True:
+                raise ValueError(
+                    f"{spec_source}: specialization_id inactivo: {specialization_id}"
+                )
+            if global_specialization["role_id"] != role_id:
+                raise ValueError(
+                    f"{spec_source}: specialization_id {specialization_id} pertenece a "
+                    f"{global_specialization['role_id']}, no a {role_id}"
+                )
+            if active_only and specialization["activo"] is not True:
+                continue
+            normalized_specializations.append(
+                {
+                    "specialization_id": specialization_id,
+                    "nombre_visible": specialization["nombre_visible"].strip(),
+                    "adaptacion_dominio": specialization["adaptacion_dominio"].strip(),
+                    "orden": specialization["orden"],
+                }
+            )
+
+        if active_only and role["activo"] is not True:
+            continue
+        normalized_roles.append(
+            {
+                "role_id": role_id,
+                "nombre_visible": role["nombre_visible"].strip(),
+                "adaptacion_dominio": role["adaptacion_dominio"].strip(),
+                "familia": role["familia"],
+                "orden": role["orden"],
+                "specializations": sorted(
+                    normalized_specializations,
+                    key=lambda item: (
+                        item["orden"],
+                        item["nombre_visible"],
+                        item["specialization_id"],
+                    ),
+                ),
+            }
+        )
+
+    return {
+        "schema_version": catalog["schema_version"],
+        "domain_id": domain_id,
+        "nombre": catalog["nombre"],
+        "descripcion": catalog["descripcion"],
+        "notas_adaptacion": [
+            note
+            for note in catalog.get("notas_adaptacion", [])
+            if isinstance(note, str) and note.strip()
+        ],
+        "roles": sorted(
+            normalized_roles,
+            key=lambda item: (item["orden"], item["nombre_visible"], item["role_id"]),
+        ),
+    }
+
+
+def load_domain_profile_catalog(
+    domain_id: str,
+    *,
+    active_only: bool = True,
+    domains_dir: str | Path | None = None,
+    catalogs_dir: str | Path | None = None,
+) -> dict[str, Any]:
+    """Carga el profile_catalog.json de un dominio registrado."""
+    profile_path = _safe_domain_dir(domain_id, domains_dir) / "profile_catalog.json"
+    if not profile_path.exists():
+        raise FileNotFoundError(
+            f"Catálogo de perfiles no encontrado para el dominio {domain_id}"
+        )
+    try:
+        with open(profile_path, "r", encoding="utf-8") as file:
+            catalog = json.load(file)
+    except json.JSONDecodeError as exc:
+        raise ValueError(f"profile_catalog.json inválido para {domain_id}: {exc}") from exc
+    return validate_domain_profile_catalog(
+        domain_id,
+        catalog,
+        active_only=active_only,
+        catalogs_dir=catalogs_dir,
+    )
+
+
+def get_domain_profile_catalog(
+    domain_id: str,
+    *,
+    active_only: bool = True,
+    domains_dir: str | Path | None = None,
+    catalogs_dir: str | Path | None = None,
+) -> dict[str, Any]:
+    """Devuelve el catálogo de perfiles de un dominio para consumo read-only."""
+    return load_domain_profile_catalog(
+        domain_id,
+        active_only=active_only,
+        domains_dir=domains_dir,
+        catalogs_dir=catalogs_dir,
+    )
 
 
 def _is_internal_domain(domain: dict[str, Any]) -> bool:

@@ -37,6 +37,7 @@ from core.domain_registry import (
     create_domain,
     find_agent_json,
     get_domain_agent_paths,
+    get_domain_profile_catalog,
     get_theme_presets,
     iter_agent_config_dirs,
     list_domains,
@@ -1017,6 +1018,19 @@ async def get_domains() -> dict:
         "themes": get_theme_presets(),
         "total": len(domains),
     }
+
+
+@app.get("/api/domains/{domain_id}/profile-catalog")
+async def get_domain_profile_catalog_endpoint(domain_id: str) -> dict:
+    """Devuelve el catálogo read-only de perfiles habilitados para un dominio."""
+    try:
+        return {"success": True, **get_domain_profile_catalog(domain_id)}
+    except FileNotFoundError as exc:
+        raise HTTPException(status_code=404, detail=str(exc)) from exc
+    except ValueError as exc:
+        message = str(exc)
+        status_code = 400 if "inválid" in message.lower() else 500
+        raise HTTPException(status_code=status_code, detail=message) from exc
 
 
 @app.post("/api/domains/create")

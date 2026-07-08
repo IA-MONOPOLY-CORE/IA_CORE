@@ -10,10 +10,13 @@ from fastapi.testclient import TestClient
 
 import api
 from core import catalog_registry
+from core import domain_registry
 
 
 ROOT = Path(__file__).parent.parent
 CATALOGS_DIR = ROOT / "catalogs"
+DOMAINS_DIR = ROOT / "domains"
+LOTERIA_PROFILE_CATALOG_PATH = DOMAINS_DIR / "loteria" / "profile_catalog.json"
 SNAKE_CASE_RE = re.compile(r"^[a-z0-9]+(?:_[a-z0-9]+)*$")
 
 PRIORITY_AREAS = {
@@ -47,6 +50,14 @@ FORBIDDEN_LOTTERY_TERMS = [
     "jugador",
     "apuesta",
 ]
+FORBIDDEN_PROFILE_PROMISES = [
+    "ganador cincuenta",
+    "ganador 50",
+    "ganar la lotería",
+    "garantiza",
+    "garantizado",
+    "infalible",
+]
 
 
 def _read_json(path: Path):
@@ -61,6 +72,15 @@ def _copy_catalogs(tmp_path: Path) -> Path:
     shutil.copy(CATALOGS_DIR / "roles.json", target / "roles.json")
     shutil.copy(CATALOGS_DIR / "specializations.json", target / "specializations.json")
     return target
+
+
+def _copy_loteria_domain(tmp_path: Path) -> Path:
+    domains_dir = tmp_path / "domains"
+    loteria_dir = domains_dir / "loteria"
+    loteria_dir.mkdir(parents=True)
+    shutil.copy(DOMAINS_DIR / "loteria" / "domain.json", loteria_dir / "domain.json")
+    shutil.copy(LOTERIA_PROFILE_CATALOG_PATH, loteria_dir / "profile_catalog.json")
+    return domains_dir
 
 
 def test_areas_catalog_exists_is_valid_and_uses_professional_area_language():
@@ -237,6 +257,82 @@ def test_specializations_catalog_exists_is_valid_and_covers_roles():
     assert all(counts_by_role[role_id] >= 5 for role_id in CENTRAL_ROLE_IDS)
 
 
+def test_loteria_profile_catalog_exists_is_valid_and_domain_specific():
+    assert LOTERIA_PROFILE_CATALOG_PATH.exists()
+
+    profile = _read_json(LOTERIA_PROFILE_CATALOG_PATH)
+    roles = _read_json(CATALOGS_DIR / "roles.json")
+    specializations = _read_json(CATALOGS_DIR / "specializations.json")
+    roles_by_id = {role["id"]: role for role in roles if role["activo"]}
+    specializations_by_id = {
+        specialization["id"]: specialization
+        for specialization in specializations
+        if specialization["activo"]
+    }
+
+    assert profile["schema_version"] == "1.0"
+    assert profile["domain_id"] == "loteria"
+    assert profile["roles"]
+    assert len(profile["roles"]) >= 8
+
+    serialized = json.dumps(profile, ensure_ascii=False).lower()
+    for forbidden in FORBIDDEN_PROFILE_PROMISES:
+        assert forbidden not in serialized
+
+    role_required_fields = {
+        "role_id",
+        "nombre_visible",
+        "adaptacion_dominio",
+        "familia",
+        "activo",
+        "orden",
+        "specializations",
+    }
+    specialization_required_fields = {
+        "specialization_id",
+        "nombre_visible",
+        "adaptacion_dominio",
+        "activo",
+        "orden",
+    }
+
+    enabled_specialization_count = 0
+    for role in profile["roles"]:
+        assert role_required_fields.issubset(role)
+        assert role["role_id"] in roles_by_id
+        assert SNAKE_CASE_RE.fullmatch(role["familia"])
+        assert role["nombre_visible"].strip()
+        assert role["adaptacion_dominio"].strip()
+        assert isinstance(role["activo"], bool)
+        assert isinstance(role["orden"], int)
+        assert isinstance(role["specializations"], list)
+        assert role["specializations"]
+
+        for specialization in role["specializations"]:
+            assert specialization_required_fields.issubset(specialization)
+            assert specialization["specialization_id"] in specializations_by_id
+            assert (
+                specializations_by_id[specialization["specialization_id"]]["role_id"]
+                == role["role_id"]
+            )
+            assert specialization["nombre_visible"].strip()
+            assert specialization["adaptacion_dominio"].strip()
+            assert isinstance(specialization["activo"], bool)
+            assert isinstance(specialization["orden"], int)
+            if specialization["activo"]:
+                enabled_specialization_count += 1
+
+    assert enabled_specialization_count >= 20
+
+    global_catalogs_text = (
+        (CATALOGS_DIR / "roles.json").read_text(encoding="utf-8")
+        + (CATALOGS_DIR / "specializations.json").read_text(encoding="utf-8")
+    ).lower()
+    assert "estadístico integral" not in global_catalogs_text
+    assert "auditor hostil" not in global_catalogs_text
+    assert "gestor de bankroll" not in global_catalogs_text
+
+
 def test_catalog_loader_returns_active_items_ordered_and_grouped():
     areas = catalog_registry.load_areas()
     niches = catalog_registry.load_niches()
@@ -340,6 +436,96 @@ def test_specializations_loader_filters_inactive_items_by_default(tmp_path):
     assert specializations[0]["id"] not in {
         specialization["id"] for specialization in loaded_specializations
     }
+
+
+def test_domain_profile_catalog_loader_loads_loteria_ordered_and_active():
+    catalog = domain_registry.load_domain_profile_catalog("loteria")
+
+    assert catalog["domain_id"] == "loteria"
+    assert len(catalog["roles"]) >= 8
+    assert [role["orden"] for role in catalog["roles"]] == sorted(
+        role["orden"] for role in catalog["roles"]
+    )
+    assert "activo" not in catalog["roles"][0]
+
+    specialization_total = sum(len(role["specializations"]) for role in catalog["roles"])
+    assert specialization_total >= 20
+    for role in catalog["roles"]:
+        assert [item["orden"] for item in role["specializations"]] == sorted(
+            item["orden"] for item in role["specializations"]
+        )
+        assert "activo" not in role["specializations"][0]
+
+
+def test_domain_profile_catalog_loader_filters_inactive_items_by_default(tmp_path):
+    domains_dir = _copy_loteria_domain(tmp_path)
+    profile_path = domains_dir / "loteria" / "profile_catalog.json"
+    profile = _read_json(profile_path)
+    inactive_role_id = profile["roles"][0]["role_id"]
+    inactive_specialization_id = profile["roles"][1]["specializations"][0][
+        "specialization_id"
+    ]
+    profile["roles"][0]["activo"] = False
+    profile["roles"][1]["specializations"][0]["activo"] = False
+    profile_path.write_text(json.dumps(profile, ensure_ascii=False), encoding="utf-8")
+
+    loaded = domain_registry.load_domain_profile_catalog(
+        "loteria", domains_dir=domains_dir
+    )
+
+    assert inactive_role_id not in {role["role_id"] for role in loaded["roles"]}
+    all_specialization_ids = {
+        specialization["specialization_id"]
+        for role in loaded["roles"]
+        for specialization in role["specializations"]
+    }
+    assert inactive_specialization_id not in all_specialization_ids
+
+
+def test_domain_profile_catalog_loader_fails_on_domain_mismatch(tmp_path):
+    domains_dir = _copy_loteria_domain(tmp_path)
+    profile_path = domains_dir / "loteria" / "profile_catalog.json"
+    profile = _read_json(profile_path)
+    profile["domain_id"] = "otro_dominio"
+    profile_path.write_text(json.dumps(profile, ensure_ascii=False), encoding="utf-8")
+
+    with pytest.raises(ValueError, match="domain_id no coincide"):
+        domain_registry.load_domain_profile_catalog("loteria", domains_dir=domains_dir)
+
+
+def test_domain_profile_catalog_loader_fails_on_invalid_role_id(tmp_path):
+    domains_dir = _copy_loteria_domain(tmp_path)
+    profile_path = domains_dir / "loteria" / "profile_catalog.json"
+    profile = _read_json(profile_path)
+    profile["roles"][0]["role_id"] = "rol_inexistente"
+    profile_path.write_text(json.dumps(profile, ensure_ascii=False), encoding="utf-8")
+
+    with pytest.raises(ValueError, match="role_id inexistente"):
+        domain_registry.load_domain_profile_catalog("loteria", domains_dir=domains_dir)
+
+
+def test_domain_profile_catalog_loader_fails_on_invalid_specialization_id(tmp_path):
+    domains_dir = _copy_loteria_domain(tmp_path)
+    profile_path = domains_dir / "loteria" / "profile_catalog.json"
+    profile = _read_json(profile_path)
+    profile["roles"][0]["specializations"][0][
+        "specialization_id"
+    ] = "especializacion_inexistente"
+    profile_path.write_text(json.dumps(profile, ensure_ascii=False), encoding="utf-8")
+
+    with pytest.raises(ValueError, match="specialization_id inexistente"):
+        domain_registry.load_domain_profile_catalog("loteria", domains_dir=domains_dir)
+
+
+def test_domain_profile_catalog_loader_fails_on_specialization_role_mismatch(tmp_path):
+    domains_dir = _copy_loteria_domain(tmp_path)
+    profile_path = domains_dir / "loteria" / "profile_catalog.json"
+    profile = _read_json(profile_path)
+    profile["roles"][0]["specializations"][0]["specialization_id"] = "auditoria_sesgos"
+    profile_path.write_text(json.dumps(profile, ensure_ascii=False), encoding="utf-8")
+
+    with pytest.raises(ValueError, match="pertenece a auditor, no a analista"):
+        domain_registry.load_domain_profile_catalog("loteria", domains_dir=domains_dir)
 
 
 def test_catalog_loader_fails_on_invalid_area_id(tmp_path):
@@ -504,6 +690,34 @@ def test_specializations_catalog_endpoint_rejects_invalid_role():
     assert "Rol inexistente" in response.json()["detail"]
 
 
+def test_domain_profile_catalog_endpoint_returns_loteria_profiles():
+    response = TestClient(api.app).get("/api/domains/loteria/profile-catalog")
+
+    assert response.status_code == 200
+    payload = response.json()
+    assert payload["success"] is True
+    assert payload["domain_id"] == "loteria"
+    assert payload["roles"]
+    assert len(payload["roles"]) >= 8
+    assert "activo" not in payload["roles"][0]
+
+    specialization_total = sum(len(role["specializations"]) for role in payload["roles"])
+    assert specialization_total >= 20
+    assert payload["roles"][0]["role_id"] == "analista"
+    assert payload["roles"][0]["specializations"][0]["specialization_id"] == "analisis_datos"
+    assert "activo" not in payload["roles"][0]["specializations"][0]
+
+    endpoint_source = inspect.getsource(api.get_domain_profile_catalog_endpoint)
+    assert "DEFAULT_DOMAIN_ID" not in endpoint_source
+
+
+def test_domain_profile_catalog_endpoint_returns_clear_404_for_missing_catalog():
+    response = TestClient(api.app).get("/api/domains/no_existe/profile-catalog")
+
+    assert response.status_code == 404
+    assert "Catálogo de perfiles no encontrado" in response.json()["detail"]
+
+
 def test_catalog_prompt_does_not_add_roles_presets_or_lottery_default_to_core():
     catalogs_text = (
         (CATALOGS_DIR / "areas.json").read_text(encoding="utf-8")
@@ -543,4 +757,25 @@ def test_specializations_prompt_does_not_connect_create_agent_or_presets():
     assert "agent_presets" not in api_source
     assert "DEFAULT_DOMAIN_ID" not in inspect.getsource(
         api.get_specializations_catalog_endpoint
+    )
+
+
+def test_profile_catalog_prompt_does_not_connect_create_agent_or_runtime():
+    html = (ROOT / "ui" / "web" / "index.html").read_text(encoding="utf-8")
+    domains_js = (ROOT / "ui" / "web" / "domains.js").read_text(encoding="utf-8")
+    api_source = Path("api.py").read_text(encoding="utf-8")
+    runtime_source = Path("agents/runtime_json_agent.py").read_text(encoding="utf-8")
+    mejorar_papers_source = Path("mejorar_papers.py").read_text(encoding="utf-8")
+
+    assert "/api/domains/loteria/profile-catalog" not in html
+    assert "profile-catalog" not in html
+    assert "profile-catalog" not in domains_js
+    assert "specializationMap" in html
+    assert "load_domain_profile_catalog" not in runtime_source
+    assert "profile_catalog" not in runtime_source
+    assert "load_domain_profile_catalog" not in mejorar_papers_source
+    assert "profile_catalog" not in mejorar_papers_source
+    assert "agent_presets" not in api_source
+    assert "DEFAULT_DOMAIN_ID" not in inspect.getsource(
+        api.get_domain_profile_catalog_endpoint
     )

@@ -30,12 +30,26 @@ Los roles globales describen funciones cognitivas u operativas reutilizables, co
 
 Las especializaciones son ángulos profesionales asociados a roles globales. Por ejemplo, `auditor` puede tener `Auditoría de calidad`, `Auditoría de consistencia` o `Auditoría de sesgos`. No representan todavía especializaciones habilitadas por dominio y no reemplazan `specializationMap`.
 
-La conexión Dominio → Roles → Especializaciones, los presets inteligentes de agentes, memoria `.md` inicial y papers automáticos se implementarán en prompts posteriores.
+La habilitación Dominio → Roles → Especializaciones empieza a vivir en `domains/<domain_id>/profile_catalog.json`. Ese archivo no pertenece a `catalogs/`: es específico de cada dominio y declara qué roles globales y especializaciones globales están disponibles allí, con etiquetas visibles y notas de adaptación propias del dominio.
+
+Los presets inteligentes de agentes, memoria `.md` inicial y papers automáticos se implementarán en prompts posteriores.
+
+## Catálogos globales vs catálogos de perfil por dominio
+
+- `catalogs/roles.json`: biblioteca madre de roles profesionales reutilizables entre dominios.
+- `catalogs/specializations.json`: biblioteca madre de especializaciones asociadas a esos roles.
+- `domains/<domain_id>/profile_catalog.json`: selección y adaptación de roles/especializaciones para un dominio concreto.
+
+El endpoint `GET /api/domains/{domain_id}/profile-catalog` expone el catálogo de perfiles de un dominio como read-only. Si un dominio no tiene `profile_catalog.json`, la API devuelve `404` claro en lugar de inventar un perfil por defecto.
+
+Crear Agente todavía no consume `profile_catalog.json`: los selectores hardcodeados actuales del HUD y `specializationMap` se mantienen hasta el prompt que conecte formalmente este catálogo.
 
 ## Lotería
 
 Lotería aparece como el nicho `Análisis de Lotería y Juegos de Azar` dentro de `Oficios y Otros`.
 
 Lotería también aportó semilla conceptual para algunos arquetipos y especializaciones globales, como `Auditor`, `Detector de anomalías`, `Gestor de riesgo`, `Integrador central`, `Auditoría de consistencia`, `Detección de anomalías` y `Gestión de exposición`. Esa inspiración no convierte el catálogo global en un catálogo específico de Lotería.
+
+El primer catálogo de perfil por dominio es `domains/loteria/profile_catalog.json`. Allí los perfiles históricos de Lotería/S.A.A.O.P. se profesionalizan y se mapean a roles/especializaciones globales, por ejemplo `Estadístico integral` → `analista` + `analisis_datos`, `Auditor hostil` → `auditor` + `auditoria_consistencia`, `Cazador de anomalías` → `detector_anomalias` + `deteccion_anomalias`, y `Gestor de bankroll` → `gestor_riesgo` + `gestion_exposicion`.
 
 Eso refleja la regla arquitectónica actual: Lotería es un dominio/nicho más del sistema, no el centro del Core ni una dependencia global.

@@ -138,3 +138,19 @@ def _get_default_score_response_fn() -> Callable:
 **Relación con Lotería**: Los perfiles de Lotería aportan inspiración conceptual, pero el catálogo evita prompts o lenguaje específico de Lotería como default global.
 
 **Alcance diferido**: Crear Agente todavía no consume este catálogo. La conexión Dominio → Roles → Especializaciones y los presets inteligentes quedan para prompts posteriores.
+
+---
+
+## ADR-009 — Catálogo de perfiles habilitados por dominio
+
+**Estado**: Aceptado
+
+**Contexto**: Los catálogos globales de roles y especializaciones son patrimonio compartido, pero cada dominio necesita declarar qué subconjunto usa y cómo se nombran/adaptan esos perfiles en su propio lenguaje operativo.
+
+**Decisión**: Se introduce `domains/<domain_id>/profile_catalog.json` como catálogo específico de dominio. El archivo declara roles habilitados, especializaciones habilitadas por rol, etiquetas visibles, orden y notas de adaptación. Cada `role_id` debe existir en `catalogs/roles.json` y cada `specialization_id` debe existir en `catalogs/specializations.json` y pertenecer al rol global indicado.
+
+**Backend**: `core/domain_registry.py` carga y valida estos catálogos mediante `load_domain_profile_catalog()`, `validate_domain_profile_catalog()` y `get_domain_profile_catalog()`. `GET /api/domains/{domain_id}/profile-catalog` expone el catálogo read-only; si el dominio no tiene `profile_catalog.json`, responde `404`.
+
+**Relación con Lotería**: `domains/loteria/profile_catalog.json` es el primer dominio semilla. Los perfiles históricos de Lotería/S.A.A.O.P. se mapearon a roles/especializaciones globales con lenguaje profesional, sin copiar promesas irreales ni convertir Lotería en default global.
+
+**Alcance diferido**: Crear Agente todavía no consume este catálogo. No se modifican roles hardcodeados del HUD, `specializationMap`, presets, memoria `.md`, papers ni `mejorar_papers.py`.
