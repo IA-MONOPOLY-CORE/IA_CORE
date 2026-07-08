@@ -17,6 +17,7 @@ ROOT = Path(__file__).parent.parent
 CATALOGS_DIR = ROOT / "catalogs"
 DOMAINS_DIR = ROOT / "domains"
 LOTERIA_PROFILE_CATALOG_PATH = DOMAINS_DIR / "loteria" / "profile_catalog.json"
+LOTERIA_AGENT_PRESETS_PATH = DOMAINS_DIR / "loteria" / "agent_presets.json"
 SNAKE_CASE_RE = re.compile(r"^[a-z0-9]+(?:_[a-z0-9]+)*$")
 
 PRIORITY_AREAS = {
@@ -80,6 +81,8 @@ def _copy_loteria_domain(tmp_path: Path) -> Path:
     loteria_dir.mkdir(parents=True)
     shutil.copy(DOMAINS_DIR / "loteria" / "domain.json", loteria_dir / "domain.json")
     shutil.copy(LOTERIA_PROFILE_CATALOG_PATH, loteria_dir / "profile_catalog.json")
+    if LOTERIA_AGENT_PRESETS_PATH.exists():
+        shutil.copy(LOTERIA_AGENT_PRESETS_PATH, loteria_dir / "agent_presets.json")
     return domains_dir
 
 
@@ -349,6 +352,87 @@ def test_loteria_profile_catalog_exists_is_valid_and_domain_specific():
     assert "gestor de bankroll" not in global_catalogs_text
 
 
+def test_loteria_agent_presets_exist_are_valid_and_domain_specific():
+    assert LOTERIA_AGENT_PRESETS_PATH.exists()
+
+    presets_catalog = _read_json(LOTERIA_AGENT_PRESETS_PATH)
+    profile = _read_json(LOTERIA_PROFILE_CATALOG_PATH)
+    specializations_by_role = {
+        role["role_id"]: {
+            specialization["specialization_id"]
+            for specialization in role["specializations"]
+        }
+        for role in profile["roles"]
+    }
+
+    assert presets_catalog["schema_version"] == "1.0"
+    assert presets_catalog["domain_id"] == "loteria"
+    assert presets_catalog["presets"]
+    assert len(presets_catalog["presets"]) >= 8
+
+    preset_ids = [preset["id"] for preset in presets_catalog["presets"]]
+    assert len(preset_ids) == len(set(preset_ids))
+
+    serialized = json.dumps(presets_catalog, ensure_ascii=False).lower()
+    forbidden_terms = [
+        "ganador cincuenta veces",
+        "ganador 50",
+        "ganar",
+        "garantiza",
+        "garantizado",
+        "garantizados",
+        "infalible",
+        "prediccion segura",
+        "predicción segura",
+        "certeza predictiva",
+        "método infalible",
+        "metodo infalible",
+    ]
+    for forbidden in forbidden_terms:
+        assert forbidden not in serialized
+
+    required_fields = {
+        "id",
+        "role_id",
+        "specialization_id",
+        "nombre_visible",
+        "suggested_agent_id",
+        "suggested_agent_name",
+        "short_description",
+        "system_prompt",
+        "decision_criteria",
+        "avoid",
+        "recommended_provider",
+        "recommended_model",
+        "recommended_temperature",
+        "memory_policy",
+        "paper_seed",
+        "activo",
+        "orden",
+    }
+    for preset in presets_catalog["presets"]:
+        assert required_fields.issubset(preset)
+        assert SNAKE_CASE_RE.fullmatch(preset["id"])
+        assert SNAKE_CASE_RE.fullmatch(preset["suggested_agent_id"])
+        assert preset["role_id"] in specializations_by_role
+        assert preset["specialization_id"] in specializations_by_role[preset["role_id"]]
+        assert preset["suggested_agent_name"].strip()
+        assert preset["short_description"].strip()
+        assert preset["system_prompt"].strip()
+        assert isinstance(preset["decision_criteria"], list)
+        assert preset["decision_criteria"]
+        assert isinstance(preset["avoid"], list)
+        assert preset["avoid"]
+        assert isinstance(preset["memory_policy"], dict)
+        assert isinstance(preset["memory_policy"]["recommended"], bool)
+        assert preset["memory_policy"]["description"].strip()
+        assert set(["identity", "operating_style", "learning_focus"]).issubset(
+            preset["paper_seed"]
+        )
+        assert isinstance(preset["activo"], bool)
+        assert isinstance(preset["orden"], int)
+
+
 def test_catalog_loader_returns_active_items_ordered_and_grouped():
     areas = catalog_registry.load_areas()
     niches = catalog_registry.load_niches()
@@ -583,6 +667,98 @@ def test_domain_profile_catalog_loader_fails_on_specialization_role_mismatch(tmp
         domain_registry.load_domain_profile_catalog("loteria", domains_dir=domains_dir)
 
 
+def test_domain_agent_presets_loader_loads_loteria_ordered_active_and_matchable():
+    catalog = domain_registry.load_domain_agent_presets("loteria")
+
+    assert catalog["domain_id"] == "loteria"
+    assert len(catalog["presets"]) >= 8
+    assert [preset["orden"] for preset in catalog["presets"]] == sorted(
+        preset["orden"] for preset in catalog["presets"]
+    )
+    assert "activo" not in catalog["presets"][0]
+    assert catalog["presets"][0]["role_id"] == "analista"
+    assert catalog["presets"][0]["specialization_id"] == "analisis_datos"
+
+    matched = domain_registry.get_domain_agent_preset(
+        "loteria",
+        role_id="analista",
+        specialization_id="analisis_datos",
+    )
+    assert matched is not None
+    assert matched["id"] == "loteria_analista_estadistico_integral"
+
+
+def test_domain_agent_presets_loader_filters_inactive_items_by_default(tmp_path):
+    domains_dir = _copy_loteria_domain(tmp_path)
+    presets_path = domains_dir / "loteria" / "agent_presets.json"
+    presets_catalog = _read_json(presets_path)
+    inactive_id = presets_catalog["presets"][0]["id"]
+    presets_catalog["presets"][0]["activo"] = False
+    presets_path.write_text(
+        json.dumps(presets_catalog, ensure_ascii=False),
+        encoding="utf-8",
+    )
+
+    loaded = domain_registry.load_domain_agent_presets(
+        "loteria",
+        domains_dir=domains_dir,
+    )
+
+    assert inactive_id not in {preset["id"] for preset in loaded["presets"]}
+
+
+def test_domain_agent_presets_loader_fails_on_invalid_role_id(tmp_path):
+    domains_dir = _copy_loteria_domain(tmp_path)
+    presets_path = domains_dir / "loteria" / "agent_presets.json"
+    presets_catalog = _read_json(presets_path)
+    presets_catalog["presets"][0]["role_id"] = "rol_inexistente"
+    presets_path.write_text(
+        json.dumps(presets_catalog, ensure_ascii=False),
+        encoding="utf-8",
+    )
+
+    with pytest.raises(ValueError, match="role_id inexistente"):
+        domain_registry.load_domain_agent_presets("loteria", domains_dir=domains_dir)
+
+
+def test_domain_agent_presets_loader_fails_on_invalid_specialization_id(tmp_path):
+    domains_dir = _copy_loteria_domain(tmp_path)
+    presets_path = domains_dir / "loteria" / "agent_presets.json"
+    presets_catalog = _read_json(presets_path)
+    presets_catalog["presets"][0]["specialization_id"] = "especializacion_inexistente"
+    presets_path.write_text(
+        json.dumps(presets_catalog, ensure_ascii=False),
+        encoding="utf-8",
+    )
+
+    with pytest.raises(ValueError, match="specialization_id .* no existe bajo"):
+        domain_registry.load_domain_agent_presets("loteria", domains_dir=domains_dir)
+
+
+def test_domain_agent_presets_loader_fails_on_duplicate_ids(tmp_path):
+    domains_dir = _copy_loteria_domain(tmp_path)
+    presets_path = domains_dir / "loteria" / "agent_presets.json"
+    presets_catalog = _read_json(presets_path)
+    presets_catalog["presets"][1]["id"] = presets_catalog["presets"][0]["id"]
+    presets_path.write_text(
+        json.dumps(presets_catalog, ensure_ascii=False),
+        encoding="utf-8",
+    )
+
+    with pytest.raises(ValueError, match="id de preset duplicado"):
+        domain_registry.load_domain_agent_presets("loteria", domains_dir=domains_dir)
+
+
+def test_domain_agent_preset_match_returns_none_for_unknown_combination():
+    preset = domain_registry.get_domain_agent_preset(
+        "loteria",
+        role_id="analista",
+        specialization_id="analisis_patrones",
+    )
+
+    assert preset is None
+
+
 def test_catalog_loader_fails_on_invalid_area_id(tmp_path):
     catalogs_dir = _copy_catalogs(tmp_path)
     niches = _read_json(catalogs_dir / "niches.json")
@@ -776,6 +952,56 @@ def test_domain_profile_catalog_endpoint_returns_clear_404_for_missing_catalog()
     assert "Catálogo de perfiles no encontrado" in response.json()["detail"]
 
 
+def test_domain_agent_presets_endpoint_returns_loteria_presets():
+    response = TestClient(api.app).get("/api/domains/loteria/agent-presets")
+
+    assert response.status_code == 200
+    payload = response.json()
+    assert payload["success"] is True
+    assert payload["domain_id"] == "loteria"
+    assert payload["presets"]
+    assert len(payload["presets"]) >= 8
+    assert payload["presets"][0]["id"] == "loteria_analista_estadistico_integral"
+    assert "activo" not in payload["presets"][0]
+
+    endpoint_source = inspect.getsource(api.get_domain_agent_presets_endpoint)
+    assert "DEFAULT_DOMAIN_ID" not in endpoint_source
+
+
+def test_domain_agent_presets_match_endpoint_returns_exact_preset():
+    response = TestClient(api.app).get(
+        "/api/domains/loteria/agent-presets/match"
+        "?role_id=analista&specialization_id=analisis_datos"
+    )
+
+    assert response.status_code == 200
+    payload = response.json()
+    assert payload["success"] is True
+    assert payload["domain_id"] == "loteria"
+    assert payload["preset"]["id"] == "loteria_analista_estadistico_integral"
+    assert payload["preset"]["suggested_agent_id"] == "estadistico_integral"
+
+    endpoint_source = inspect.getsource(api.get_domain_agent_preset_match_endpoint)
+    assert "DEFAULT_DOMAIN_ID" not in endpoint_source
+
+
+def test_domain_agent_presets_match_endpoint_returns_clear_404_for_missing_match():
+    response = TestClient(api.app).get(
+        "/api/domains/loteria/agent-presets/match"
+        "?role_id=analista&specialization_id=analisis_patrones"
+    )
+
+    assert response.status_code == 404
+    assert "No existe preset activo" in response.json()["detail"]
+
+
+def test_domain_agent_presets_endpoint_returns_clear_404_for_missing_domain():
+    response = TestClient(api.app).get("/api/domains/no_existe/agent-presets")
+
+    assert response.status_code == 404
+    assert "Dominio no encontrado" in response.json()["detail"]
+
+
 def test_catalog_prompt_does_not_add_roles_presets_or_lottery_default_to_core():
     catalogs_text = (
         (CATALOGS_DIR / "areas.json").read_text(encoding="utf-8")
@@ -814,7 +1040,11 @@ def test_specializations_catalog_can_be_used_as_create_agent_fallback_without_pr
     assert "/api/catalogs/specializations" not in domains_js
     assert "specializationMap" in html
     assert "specialization_id" in html
-    assert "agent_presets" not in api_source
+    assert "agent-presets" not in html
+    assert "agent_presets" not in html
+    assert "agent-presets" not in domains_js
+    assert "agent_presets" not in domains_js
+    assert "get_domain_agent_presets_endpoint" in api_source
     assert "DEFAULT_DOMAIN_ID" not in inspect.getsource(
         api.get_specializations_catalog_endpoint
     )
@@ -835,7 +1065,13 @@ def test_profile_catalog_prompt_connects_create_agent_but_not_runtime_or_papers(
     assert "profile_catalog" not in runtime_source
     assert "load_domain_profile_catalog" not in mejorar_papers_source
     assert "profile_catalog" not in mejorar_papers_source
-    assert "agent_presets" not in api_source
+    assert "agent-presets" not in html
+    assert "agent_presets" not in html
+    assert "agent-presets" not in domains_js
+    assert "agent_presets" not in domains_js
+    assert "agent_presets" in api_source
+    assert "agent_presets" not in runtime_source
+    assert "agent_presets" not in mejorar_papers_source
     assert "DEFAULT_DOMAIN_ID" not in inspect.getsource(
         api.get_domain_profile_catalog_endpoint
     )

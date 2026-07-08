@@ -20,6 +20,7 @@ from core.catalog_registry import (
 
 DOMAIN_SCHEMA_VERSION = 1
 PROFILE_CATALOG_SCHEMA_VERSION = "1.0"
+AGENT_PRESETS_SCHEMA_VERSION = "1.0"
 
 PROFILE_GROUP_REQUIRED_FIELDS = {
     "id",
@@ -40,6 +41,25 @@ PROFILE_SPECIALIZATION_REQUIRED_FIELDS = {
     "specialization_id",
     "nombre_visible",
     "adaptacion_dominio",
+    "activo",
+    "orden",
+}
+AGENT_PRESET_REQUIRED_FIELDS = {
+    "id",
+    "role_id",
+    "specialization_id",
+    "nombre_visible",
+    "suggested_agent_id",
+    "suggested_agent_name",
+    "short_description",
+    "system_prompt",
+    "decision_criteria",
+    "avoid",
+    "recommended_provider",
+    "recommended_model",
+    "recommended_temperature",
+    "memory_policy",
+    "paper_seed",
     "activo",
     "orden",
 }
@@ -412,6 +432,258 @@ def get_domain_profile_catalog(
         active_only=active_only,
         domains_dir=domains_dir,
         catalogs_dir=catalogs_dir,
+    )
+
+
+def _validate_text_list(value: Any, *, field: str, source: str) -> list[str]:
+    if not isinstance(value, list) or not value:
+        raise ValueError(f"{source}: campo {field} debe ser una lista no vacía")
+    normalized: list[str] = []
+    for item in value:
+        if not isinstance(item, str) or not item.strip():
+            raise ValueError(f"{source}: campo {field} solo acepta textos no vacíos")
+        normalized.append(item.strip())
+    return normalized
+
+
+def _validate_preset_memory_policy(value: Any, *, source: str) -> dict[str, Any]:
+    if not isinstance(value, dict):
+        raise ValueError(f"{source}: campo memory_policy debe ser un objeto")
+    if not isinstance(value.get("recommended"), bool):
+        raise ValueError(f"{source}: memory_policy.recommended debe ser booleano")
+    _validate_non_empty_text(
+        value.get("description"),
+        field="memory_policy.description",
+        source=source,
+    )
+    return {
+        "recommended": value["recommended"],
+        "description": value["description"].strip(),
+    }
+
+
+def _validate_preset_paper_seed(value: Any, *, source: str) -> dict[str, Any]:
+    if not isinstance(value, dict):
+        raise ValueError(f"{source}: campo paper_seed debe ser un objeto")
+    normalized: dict[str, Any] = {}
+    for field in ["identity", "operating_style", "learning_focus"]:
+        _validate_non_empty_text(value.get(field), field=f"paper_seed.{field}", source=source)
+        normalized[field] = value[field].strip()
+    return normalized
+
+
+def validate_domain_agent_presets(
+    domain_id: str,
+    catalog: dict[str, Any],
+    *,
+    active_only: bool = True,
+    domains_dir: str | Path | None = None,
+    catalogs_dir: str | Path | None = None,
+) -> dict[str, Any]:
+    """Valida y normaliza presets operativos de agentes para un dominio."""
+    _validate_snake_id(domain_id, field="domain_id", source="agent_presets")
+    if not isinstance(catalog, dict):
+        raise ValueError("agent_presets.json debe ser un objeto JSON")
+    if catalog.get("schema_version") != AGENT_PRESETS_SCHEMA_VERSION:
+        raise ValueError(
+            f"agent_presets.json: schema_version debe ser {AGENT_PRESETS_SCHEMA_VERSION}"
+        )
+    if catalog.get("domain_id") != domain_id:
+        raise ValueError(
+            f"agent_presets.json: domain_id no coincide con el dominio {domain_id}"
+        )
+    _validate_non_empty_text(catalog.get("nombre"), field="nombre", source="agent_presets.json")
+    _validate_non_empty_text(
+        catalog.get("descripcion"), field="descripcion", source="agent_presets.json"
+    )
+    if not isinstance(catalog.get("presets"), list) or not catalog["presets"]:
+        raise ValueError("agent_presets.json: presets debe ser una lista no vacía")
+
+    profile_catalog = load_domain_profile_catalog(
+        domain_id,
+        active_only=False,
+        domains_dir=domains_dir,
+        catalogs_dir=catalogs_dir,
+    )
+    specializations_by_role = {
+        role["role_id"]: {
+            specialization["specialization_id"]
+            for specialization in role.get("specializations", [])
+        }
+        for role in profile_catalog.get("roles", [])
+    }
+
+    seen_ids: set[str] = set()
+    normalized_presets: list[dict[str, Any]] = []
+    for preset in catalog["presets"]:
+        if not isinstance(preset, dict):
+            raise ValueError("agent_presets.json: cada preset debe ser un objeto")
+        preset_id = preset.get("id")
+        source = f"agent_presets.json.presets[{preset_id or '?'}]"
+        _validate_required_fields(preset, AGENT_PRESET_REQUIRED_FIELDS, source=source)
+        _validate_snake_id(preset_id, field="id", source=source)
+        _validate_snake_id(preset.get("role_id"), field="role_id", source=source)
+        _validate_snake_id(
+            preset.get("specialization_id"),
+            field="specialization_id",
+            source=source,
+        )
+        _validate_snake_id(
+            preset.get("suggested_agent_id"),
+            field="suggested_agent_id",
+            source=source,
+        )
+        if preset_id in seen_ids:
+            raise ValueError(f"{source}: id de preset duplicado: {preset_id}")
+        seen_ids.add(preset_id)
+        role_id = preset["role_id"]
+        specialization_id = preset["specialization_id"]
+        if role_id not in specializations_by_role:
+            raise ValueError(f"{source}: role_id inexistente en profile_catalog: {role_id}")
+        if specialization_id not in specializations_by_role[role_id]:
+            raise ValueError(
+                f"{source}: specialization_id {specialization_id} no existe bajo {role_id}"
+            )
+        if not isinstance(preset.get("activo"), bool):
+            raise ValueError(f"{source}: campo activo debe ser booleano")
+        if not isinstance(preset.get("orden"), int):
+            raise ValueError(f"{source}: campo orden debe ser numérico entero")
+        if not isinstance(preset.get("recommended_temperature"), (int, float)):
+            raise ValueError(f"{source}: campo recommended_temperature debe ser numérico")
+        for field in [
+            "nombre_visible",
+            "suggested_agent_name",
+            "short_description",
+            "system_prompt",
+        ]:
+            _validate_non_empty_text(preset.get(field), field=field, source=source)
+        for field in ["recommended_provider", "recommended_model"]:
+            if preset.get(field) is not None and not isinstance(preset.get(field), str):
+                raise ValueError(f"{source}: campo {field} debe ser texto o null")
+
+        decision_criteria = _validate_text_list(
+            preset["decision_criteria"],
+            field="decision_criteria",
+            source=source,
+        )
+        avoid = _validate_text_list(preset["avoid"], field="avoid", source=source)
+        memory_policy = _validate_preset_memory_policy(
+            preset["memory_policy"],
+            source=source,
+        )
+        paper_seed = _validate_preset_paper_seed(
+            preset["paper_seed"],
+            source=source,
+        )
+
+        if active_only and preset["activo"] is not True:
+            continue
+        normalized_presets.append(
+            {
+                "id": preset_id,
+                "role_id": role_id,
+                "specialization_id": specialization_id,
+                "nombre_visible": preset["nombre_visible"].strip(),
+                "suggested_agent_id": preset["suggested_agent_id"],
+                "suggested_agent_name": preset["suggested_agent_name"].strip(),
+                "short_description": preset["short_description"].strip(),
+                "system_prompt": preset["system_prompt"].strip(),
+                "decision_criteria": decision_criteria,
+                "avoid": avoid,
+                "recommended_provider": preset.get("recommended_provider"),
+                "recommended_model": preset.get("recommended_model"),
+                "recommended_temperature": preset["recommended_temperature"],
+                "memory_policy": memory_policy,
+                "paper_seed": paper_seed,
+                "orden": preset["orden"],
+            }
+        )
+
+    return {
+        "schema_version": catalog["schema_version"],
+        "domain_id": domain_id,
+        "nombre": catalog["nombre"].strip(),
+        "descripcion": catalog["descripcion"].strip(),
+        "presets": sorted(
+            normalized_presets,
+            key=lambda item: (item["orden"], item["nombre_visible"], item["id"]),
+        ),
+    }
+
+
+def load_domain_agent_presets(
+    domain_id: str,
+    *,
+    active_only: bool = True,
+    domains_dir: str | Path | None = None,
+    catalogs_dir: str | Path | None = None,
+) -> dict[str, Any]:
+    """Carga agent_presets.json de un dominio registrado."""
+    presets_path = get_domain_dir(domain_id, domains_dir) / "agent_presets.json"
+    if not presets_path.exists():
+        raise FileNotFoundError(
+            f"Presets de agentes no encontrados para el dominio {domain_id}"
+        )
+    try:
+        with open(presets_path, "r", encoding="utf-8") as file:
+            catalog = json.load(file)
+    except json.JSONDecodeError as exc:
+        raise ValueError(f"agent_presets.json inválido para {domain_id}: {exc}") from exc
+    return validate_domain_agent_presets(
+        domain_id,
+        catalog,
+        active_only=active_only,
+        domains_dir=domains_dir,
+        catalogs_dir=catalogs_dir,
+    )
+
+
+def get_domain_agent_presets(
+    domain_id: str,
+    *,
+    active_only: bool = True,
+    domains_dir: str | Path | None = None,
+    catalogs_dir: str | Path | None = None,
+) -> dict[str, Any]:
+    """Devuelve presets operativos de agentes de un dominio para consumo read-only."""
+    return load_domain_agent_presets(
+        domain_id,
+        active_only=active_only,
+        domains_dir=domains_dir,
+        catalogs_dir=catalogs_dir,
+    )
+
+
+def get_domain_agent_preset(
+    domain_id: str,
+    role_id: str,
+    specialization_id: str,
+    *,
+    active_only: bool = True,
+    domains_dir: str | Path | None = None,
+    catalogs_dir: str | Path | None = None,
+) -> dict[str, Any] | None:
+    """Busca un preset exacto por combinación role_id + specialization_id."""
+    _validate_snake_id(role_id, field="role_id", source="agent_presets.match")
+    _validate_snake_id(
+        specialization_id,
+        field="specialization_id",
+        source="agent_presets.match",
+    )
+    catalog = load_domain_agent_presets(
+        domain_id,
+        active_only=active_only,
+        domains_dir=domains_dir,
+        catalogs_dir=catalogs_dir,
+    )
+    return next(
+        (
+            preset
+            for preset in catalog["presets"]
+            if preset["role_id"] == role_id
+            and preset["specialization_id"] == specialization_id
+        ),
+        None,
     )
 
 

@@ -186,3 +186,21 @@ def _get_default_score_response_fn() -> Callable:
 **Relación con Lotería**: `domains/loteria/profile_catalog.json` usa `role_groups` para representar sus capas operativas: Descubrimiento, Validación, Destrucción, Riesgo e Integración.
 
 **Alcance diferido**: No se crean presets, no se autocompleta system prompt y no se modifican memoria `.md`, papers ni runtime.
+
+---
+
+## ADR-012 — Presets operativos de agentes por dominio
+
+**Estado**: Aceptado
+
+**Contexto**: Crear Agente ya conoce el dominio activo, los roles habilitados y las especializaciones disponibles por `profile_catalog.json`, pero todavía no existe una biblioteca operativa que proponga nombre, descripción, system prompt, criterios, sesgos a evitar, política de memoria y semilla de paper para combinaciones concretas.
+
+**Decisión**: Se introduce `domains/<domain_id>/agent_presets.json` como archivo específico de dominio. Cada preset pertenece a una combinación exacta `role_id + specialization_id` declarada en `profile_catalog.json`; no vive en `catalogs/`, no es Core y no convierte a Lotería en default global.
+
+**Backend**: `core/domain_registry.py` carga y valida estos presets mediante `load_domain_agent_presets()`, `validate_domain_agent_presets()`, `get_domain_agent_presets()` y `get_domain_agent_preset()`. El loader valida `schema_version`, `domain_id`, IDs únicos, campos obligatorios, orden, estado activo y que cada combinación exista bajo el rol correcto del `profile_catalog.json` del dominio. Por defecto devuelve solo presets activos y ordenados.
+
+**API**: `GET /api/domains/{domain_id}/agent-presets` expone presets activos como read-only. `GET /api/domains/{domain_id}/agent-presets/match?role_id=...&specialization_id=...` devuelve un preset exacto o `404` claro si no existe. Los endpoints no escriben archivos y no dependen de `config.DEFAULT_DOMAIN_ID`.
+
+**Relación con Lotería**: `domains/loteria/agent_presets.json` es la primera semilla, con presets responsables para descubrimiento, validación, destrucción crítica, riesgo e integración. Se evita lenguaje de promesa, método infalible o resultado asegurado como garantía operativa.
+
+**Alcance diferido**: Crear Agente todavía no consume estos presets, no autocompleta nombre ni system prompt, no crea agentes automáticamente, no genera memoria `.md`, no genera papers desde `paper_seed` y no modifica `runtime_json_agent.py`, `mejorar_papers.py` ni la UI.

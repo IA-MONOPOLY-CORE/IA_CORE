@@ -37,6 +37,8 @@ from core.domain_registry import (
     create_domain,
     find_agent_json,
     get_domain_agent_paths,
+    get_domain_agent_preset,
+    get_domain_agent_presets,
     get_domain_profile_catalog,
     get_theme_presets,
     iter_agent_config_dirs,
@@ -1031,6 +1033,62 @@ async def get_domain_profile_catalog_endpoint(domain_id: str) -> dict:
         message = str(exc)
         status_code = 400 if "inválid" in message.lower() else 500
         raise HTTPException(status_code=status_code, detail=message) from exc
+
+
+@app.get("/api/domains/{domain_id}/agent-presets")
+async def get_domain_agent_presets_endpoint(domain_id: str) -> dict:
+    """Devuelve presets read-only de agentes para un dominio."""
+    try:
+        return {"success": True, **get_domain_agent_presets(domain_id)}
+    except FileNotFoundError as exc:
+        raise HTTPException(status_code=404, detail=str(exc)) from exc
+    except ValueError as exc:
+        message = str(exc)
+        lowered = message.lower()
+        if "dominio no encontrado" in lowered:
+            status_code = 404
+        elif "inv" in lowered or "inexistente" in lowered or "no existe" in lowered:
+            status_code = 400
+        else:
+            status_code = 500
+        raise HTTPException(status_code=status_code, detail=message) from exc
+
+
+@app.get("/api/domains/{domain_id}/agent-presets/match")
+async def get_domain_agent_preset_match_endpoint(
+    domain_id: str,
+    role_id: str,
+    specialization_id: str,
+) -> dict:
+    """Devuelve un preset exacto por role_id + specialization_id."""
+    try:
+        preset = get_domain_agent_preset(
+            domain_id,
+            role_id=role_id,
+            specialization_id=specialization_id,
+        )
+    except FileNotFoundError as exc:
+        raise HTTPException(status_code=404, detail=str(exc)) from exc
+    except ValueError as exc:
+        message = str(exc)
+        lowered = message.lower()
+        if "dominio no encontrado" in lowered:
+            status_code = 404
+        elif "inv" in lowered or "inexistente" in lowered or "no existe" in lowered:
+            status_code = 400
+        else:
+            status_code = 500
+        raise HTTPException(status_code=status_code, detail=message) from exc
+
+    if preset is None:
+        raise HTTPException(
+            status_code=404,
+            detail=(
+                f"No existe preset activo para role_id={role_id} "
+                f"y specialization_id={specialization_id} en dominio {domain_id}"
+            ),
+        )
+    return {"success": True, "domain_id": domain_id, "preset": preset}
 
 
 @app.post("/api/domains/create")
