@@ -122,3 +122,19 @@ def _get_default_score_response_fn() -> Callable:
 **Relación con Lotería**: Los perfiles de Lotería se usan solo como semilla conceptual para algunos arquetipos globales. El catálogo no incluye prompts ni lenguaje específico de Lotería como default global.
 
 **Alcance diferido**: Crear Agente todavía no consume este catálogo. La habilitación Dominio → Roles, especializaciones y presets inteligentes quedan para prompts posteriores.
+
+---
+
+## ADR-008 — Catálogo global de especializaciones profesionales por rol
+
+**Estado**: Aceptado
+
+**Contexto**: Después de crear roles/arquetipos globales, IA_CORE necesita una biblioteca de especializaciones reutilizables que detalle ángulos profesionales asociados a cada rol sin depender de un dominio particular.
+
+**Decisión**: Se crea `catalogs/specializations.json` como Patrimonio compartido. Cada especialización pertenece a un `role_id` existente de `catalogs/roles.json` y define nombre, descripción, enfoque, usos recomendados, usos a evitar, estado y orden.
+
+**Backend**: `core/catalog_registry.py` carga, valida y agrupa especializaciones mediante `load_specializations()`, `get_specializations_by_role()` y `get_specializations_catalog()`. `GET /api/catalogs/specializations` expone el catálogo read-only y acepta `role_id` opcional para filtrar por rol.
+
+**Relación con Lotería**: Los perfiles de Lotería aportan inspiración conceptual, pero el catálogo evita prompts o lenguaje específico de Lotería como default global.
+
+**Alcance diferido**: Crear Agente todavía no consume este catálogo. La conexión Dominio → Roles → Especializaciones y los presets inteligentes quedan para prompts posteriores.

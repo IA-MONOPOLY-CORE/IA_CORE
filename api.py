@@ -28,7 +28,11 @@ from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 
 import config
-from core.catalog_registry import get_domain_creation_catalog, get_roles_catalog
+from core.catalog_registry import (
+    get_domain_creation_catalog,
+    get_roles_catalog,
+    get_specializations_catalog,
+)
 from core.domain_registry import (
     create_domain,
     find_agent_json,
@@ -988,6 +992,19 @@ async def get_roles_catalog_endpoint() -> dict:
     try:
         return {"success": True, **get_roles_catalog()}
     except (FileNotFoundError, ValueError) as exc:
+        raise HTTPException(status_code=500, detail=str(exc)) from exc
+
+
+@app.get("/api/catalogs/specializations")
+async def get_specializations_catalog_endpoint(role_id: str | None = None) -> dict:
+    """Devuelve especializaciones profesionales globales agrupadas por rol."""
+    try:
+        return {"success": True, **get_specializations_catalog(role_id=role_id)}
+    except ValueError as exc:
+        message = str(exc)
+        status_code = 400 if "Rol inexistente" in message or "role_id" in message else 500
+        raise HTTPException(status_code=status_code, detail=message) from exc
+    except FileNotFoundError as exc:
         raise HTTPException(status_code=500, detail=str(exc)) from exc
 
 

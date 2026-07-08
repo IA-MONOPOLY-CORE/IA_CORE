@@ -36,6 +36,17 @@ ROLE_REQUIRED_FIELDS = {
     "activo",
     "orden",
 }
+SPECIALIZATION_REQUIRED_FIELDS = {
+    "id",
+    "role_id",
+    "nombre",
+    "descripcion",
+    "enfoque",
+    "cuando_usarla",
+    "evitar_usarla_para",
+    "activo",
+    "orden",
+}
 
 
 def _catalogs_dir(catalogs_dir: str | Path | None = None) -> Path:
@@ -182,6 +193,92 @@ def get_roles_catalog(
             }
             for role in roles
         ]
+    }
+
+
+def load_specializations(
+    *, active_only: bool = True, catalogs_dir: str | Path | None = None
+) -> list[dict[str, Any]]:
+    """Carga especializaciones profesionales globales, activas y ordenadas por defecto."""
+    roles = load_roles(active_only=False, catalogs_dir=catalogs_dir)
+    role_ids = {role["id"] for role in roles}
+    specializations = _read_catalog("specializations.json", catalogs_dir)
+    for specialization in specializations:
+        source = f"specializations.json[{specialization.get('id', '?')}]"
+        _validate_required_fields(specialization, SPECIALIZATION_REQUIRED_FIELDS, source=source)
+        _validate_common_item(specialization, source=source)
+        _validate_snake_id(specialization.get("role_id"), field="role_id", source=source)
+        if specialization["role_id"] not in role_ids:
+            raise ValueError(f"{source}: role_id inexistente: {specialization['role_id']}")
+        for field in ["nombre", "descripcion", "enfoque"]:
+            if not isinstance(specialization.get(field), str) or not specialization[field].strip():
+                raise ValueError(f"{source}: campo {field} debe ser texto no vacío")
+        for field in ["cuando_usarla", "evitar_usarla_para"]:
+            value = specialization.get(field)
+            if not isinstance(value, list) or not value:
+                raise ValueError(f"{source}: campo {field} debe ser una lista no vacía")
+            if any(not isinstance(item, str) or not item.strip() for item in value):
+                raise ValueError(f"{source}: campo {field} solo acepta textos no vacíos")
+    _validate_unique_ids(specializations, source="specializations.json")
+    return _sorted_active(specializations, active_only=active_only)
+
+
+def get_specializations_by_role(
+    *,
+    role_id: str | None = None,
+    active_only: bool = True,
+    catalogs_dir: str | Path | None = None,
+) -> dict[str, list[dict[str, Any]]]:
+    """Agrupa especializaciones globales por role_id."""
+    if role_id is not None:
+        _validate_snake_id(role_id, field="role_id", source="specializations")
+        role_ids = {role["id"] for role in load_roles(active_only=active_only, catalogs_dir=catalogs_dir)}
+        if role_id not in role_ids:
+            raise ValueError(f"Rol inexistente: {role_id}")
+
+    specializations = load_specializations(active_only=active_only, catalogs_dir=catalogs_dir)
+    grouped: dict[str, list[dict[str, Any]]] = defaultdict(list)
+    for specialization in specializations:
+        if role_id and specialization["role_id"] != role_id:
+            continue
+        grouped[specialization["role_id"]].append(
+            {
+                "id": specialization["id"],
+                "role_id": specialization["role_id"],
+                "nombre": specialization["nombre"],
+                "descripcion": specialization["descripcion"],
+                "enfoque": specialization["enfoque"],
+                "cuando_usarla": specialization["cuando_usarla"],
+                "evitar_usarla_para": specialization["evitar_usarla_para"],
+                "orden": specialization["orden"],
+            }
+        )
+    return {
+        current_role_id: sorted(
+            values,
+            key=lambda specialization: (
+                specialization["orden"],
+                specialization["nombre"],
+                specialization["id"],
+            ),
+        )
+        for current_role_id, values in sorted(grouped.items())
+    }
+
+
+def get_specializations_catalog(
+    *,
+    role_id: str | None = None,
+    active_only: bool = True,
+    catalogs_dir: str | Path | None = None,
+) -> dict[str, Any]:
+    """Devuelve especializaciones agrupadas por rol para consumo read-only."""
+    return {
+        "specializations_by_role": get_specializations_by_role(
+            role_id=role_id,
+            active_only=active_only,
+            catalogs_dir=catalogs_dir,
+        )
     }
 
 

@@ -23,16 +23,19 @@ El usuario elige primero un área profesional y luego un nicho específico; con 
 El catálogo cubre:
 
 - áreas profesionales y nichos iniciales;
-- roles/arquetipos profesionales globales en `roles.json`.
+- roles/arquetipos profesionales globales en `roles.json`;
+- especializaciones profesionales globales por rol en `specializations.json`.
 
 Los roles globales describen funciones cognitivas u operativas reutilizables, como `Analista`, `Auditor`, `Optimizador` o `Gestor de riesgo`. No representan todavía los roles habilitados para un dominio específico y no reemplazan el selector actual de Crear Agente.
 
-La conexión Dominio → Roles, las especializaciones, presets inteligentes de agentes, memoria `.md` inicial y papers automáticos se implementarán en prompts posteriores.
+Las especializaciones son ángulos profesionales asociados a roles globales. Por ejemplo, `auditor` puede tener `Auditoría de calidad`, `Auditoría de consistencia` o `Auditoría de sesgos`. No representan todavía especializaciones habilitadas por dominio y no reemplazan `specializationMap`.
+
+La conexión Dominio → Roles → Especializaciones, los presets inteligentes de agentes, memoria `.md` inicial y papers automáticos se implementarán en prompts posteriores.
 
 ## Lotería
 
 Lotería aparece como el nicho `Análisis de Lotería y Juegos de Azar` dentro de `Oficios y Otros`.
 
-Lotería también aportó semilla conceptual para algunos arquetipos globales, como `Auditor`, `Detector de anomalías`, `Gestor de riesgo`, `Integrador central` y `Archivista`. Esa inspiración no convierte el catálogo global en un catálogo específico de Lotería.
+Lotería también aportó semilla conceptual para algunos arquetipos y especializaciones globales, como `Auditor`, `Detector de anomalías`, `Gestor de riesgo`, `Integrador central`, `Auditoría de consistencia`, `Detección de anomalías` y `Gestión de exposición`. Esa inspiración no convierte el catálogo global en un catálogo específico de Lotería.
 
 Eso refleja la regla arquitectónica actual: Lotería es un dominio/nicho más del sistema, no el centro del Core ni una dependencia global.

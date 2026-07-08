@@ -26,6 +26,27 @@ PRIORITY_AREAS = {
     "comercial_ventas_negocios",
     "educacion_docencia_investigacion",
 }
+CENTRAL_ROLE_IDS = {
+    "analista",
+    "critico",
+    "auditor",
+    "optimizador",
+    "investigador",
+    "estratega",
+    "coordinador",
+    "validador",
+    "gestor_riesgo",
+    "integrador_central",
+}
+FORBIDDEN_LOTTERY_TERMS = [
+    "lotería",
+    "sorteo",
+    "cartón",
+    "bankroll",
+    "ganador",
+    "jugador",
+    "apuesta",
+]
 
 
 def _read_json(path: Path):
@@ -38,6 +59,7 @@ def _copy_catalogs(tmp_path: Path) -> Path:
     shutil.copy(CATALOGS_DIR / "areas.json", target / "areas.json")
     shutil.copy(CATALOGS_DIR / "niches.json", target / "niches.json")
     shutil.copy(CATALOGS_DIR / "roles.json", target / "roles.json")
+    shutil.copy(CATALOGS_DIR / "specializations.json", target / "specializations.json")
     return target
 
 
@@ -125,16 +147,8 @@ def test_roles_catalog_exists_is_valid_and_global():
     ids = [role["id"] for role in roles]
     assert len(ids) == len(set(ids))
 
-    forbidden_lottery_terms = [
-        "lotería",
-        "sorteo",
-        "cartón",
-        "bankroll",
-        "ganador",
-        "jugador",
-    ]
     serialized = json.dumps(roles, ensure_ascii=False).lower()
-    for term in forbidden_lottery_terms:
+    for term in FORBIDDEN_LOTTERY_TERMS[:-1]:
         assert term not in serialized
 
     required_fields = {
@@ -165,6 +179,62 @@ def test_roles_catalog_exists_is_valid_and_global():
         )
         assert isinstance(role["activo"], bool)
         assert isinstance(role["orden"], int)
+
+
+def test_specializations_catalog_exists_is_valid_and_covers_roles():
+    path = CATALOGS_DIR / "specializations.json"
+    assert path.exists()
+
+    roles = _read_json(CATALOGS_DIR / "roles.json")
+    role_ids = {role["id"] for role in roles if role["activo"]}
+    specializations = _read_json(path)
+
+    assert isinstance(specializations, list)
+    assert len(specializations) == 80
+
+    ids = [specialization["id"] for specialization in specializations]
+    assert len(ids) == len(set(ids))
+
+    serialized = json.dumps(specializations, ensure_ascii=False).lower()
+    for term in FORBIDDEN_LOTTERY_TERMS:
+        assert term not in serialized
+
+    required_fields = {
+        "id",
+        "role_id",
+        "nombre",
+        "descripcion",
+        "enfoque",
+        "cuando_usarla",
+        "evitar_usarla_para",
+        "activo",
+        "orden",
+    }
+    counts_by_role = Counter()
+    for specialization in specializations:
+        assert required_fields.issubset(specialization)
+        assert SNAKE_CASE_RE.fullmatch(specialization["id"])
+        assert specialization["role_id"] in role_ids
+        assert specialization["nombre"].strip()
+        assert specialization["descripcion"].strip()
+        assert specialization["enfoque"].strip()
+        assert isinstance(specialization["cuando_usarla"], list)
+        assert specialization["cuando_usarla"]
+        assert all(
+            isinstance(item, str) and item.strip() for item in specialization["cuando_usarla"]
+        )
+        assert isinstance(specialization["evitar_usarla_para"], list)
+        assert specialization["evitar_usarla_para"]
+        assert all(
+            isinstance(item, str) and item.strip()
+            for item in specialization["evitar_usarla_para"]
+        )
+        assert isinstance(specialization["activo"], bool)
+        assert isinstance(specialization["orden"], int)
+        counts_by_role[specialization["role_id"]] += 1
+
+    assert all(counts_by_role[role_id] >= 3 for role_id in role_ids)
+    assert all(counts_by_role[role_id] >= 5 for role_id in CENTRAL_ROLE_IDS)
 
 
 def test_catalog_loader_returns_active_items_ordered_and_grouped():
@@ -200,6 +270,30 @@ def test_roles_loader_returns_active_items_ordered():
     assert catalog["roles"][0]["familia"] == "descubrimiento"
 
 
+def test_specializations_loader_returns_active_items_ordered_and_grouped():
+    specializations = catalog_registry.load_specializations()
+    grouped = catalog_registry.get_specializations_by_role()
+    catalog = catalog_registry.get_specializations_catalog()
+
+    assert len(specializations) == 80
+    assert [item["orden"] for item in specializations[:5]] == sorted(
+        item["orden"] for item in specializations[:5]
+    )
+    assert "analista" in grouped
+    assert len(grouped["analista"]) == 5
+    assert grouped["analista"][0]["id"] == "analisis_datos"
+    assert catalog["specializations_by_role"]["auditor"][0]["role_id"] == "auditor"
+    assert "activo" not in catalog["specializations_by_role"]["auditor"][0]
+
+
+def test_specializations_loader_can_filter_by_role():
+    grouped = catalog_registry.get_specializations_by_role(role_id="auditor")
+
+    assert set(grouped) == {"auditor"}
+    assert len(grouped["auditor"]) == 5
+    assert all(item["role_id"] == "auditor" for item in grouped["auditor"])
+
+
 def test_catalog_loader_filters_inactive_items_by_default(tmp_path):
     catalogs_dir = _copy_catalogs(tmp_path)
     areas = _read_json(catalogs_dir / "areas.json")
@@ -231,6 +325,21 @@ def test_roles_loader_filters_inactive_items_by_default(tmp_path):
     loaded_roles = catalog_registry.load_roles(catalogs_dir=catalogs_dir)
 
     assert roles[0]["id"] not in {role["id"] for role in loaded_roles}
+
+
+def test_specializations_loader_filters_inactive_items_by_default(tmp_path):
+    catalogs_dir = _copy_catalogs(tmp_path)
+    specializations = _read_json(catalogs_dir / "specializations.json")
+    specializations[0]["activo"] = False
+    (catalogs_dir / "specializations.json").write_text(
+        json.dumps(specializations, ensure_ascii=False), encoding="utf-8"
+    )
+
+    loaded_specializations = catalog_registry.load_specializations(catalogs_dir=catalogs_dir)
+
+    assert specializations[0]["id"] not in {
+        specialization["id"] for specialization in loaded_specializations
+    }
 
 
 def test_catalog_loader_fails_on_invalid_area_id(tmp_path):
@@ -281,6 +390,42 @@ def test_roles_loader_fails_on_missing_required_fields(tmp_path):
         catalog_registry.load_roles(catalogs_dir=catalogs_dir)
 
 
+def test_specializations_loader_fails_on_duplicate_ids(tmp_path):
+    catalogs_dir = _copy_catalogs(tmp_path)
+    specializations = _read_json(catalogs_dir / "specializations.json")
+    specializations[1]["id"] = specializations[0]["id"]
+    (catalogs_dir / "specializations.json").write_text(
+        json.dumps(specializations, ensure_ascii=False), encoding="utf-8"
+    )
+
+    with pytest.raises(ValueError, match="ids duplicados"):
+        catalog_registry.load_specializations(catalogs_dir=catalogs_dir)
+
+
+def test_specializations_loader_fails_on_invalid_role_id(tmp_path):
+    catalogs_dir = _copy_catalogs(tmp_path)
+    specializations = _read_json(catalogs_dir / "specializations.json")
+    specializations[0]["role_id"] = "rol_inexistente"
+    (catalogs_dir / "specializations.json").write_text(
+        json.dumps(specializations, ensure_ascii=False), encoding="utf-8"
+    )
+
+    with pytest.raises(ValueError, match="role_id inexistente"):
+        catalog_registry.load_specializations(catalogs_dir=catalogs_dir)
+
+
+def test_specializations_loader_fails_on_missing_required_fields(tmp_path):
+    catalogs_dir = _copy_catalogs(tmp_path)
+    specializations = _read_json(catalogs_dir / "specializations.json")
+    specializations[0].pop("enfoque")
+    (catalogs_dir / "specializations.json").write_text(
+        json.dumps(specializations, ensure_ascii=False), encoding="utf-8"
+    )
+
+    with pytest.raises(ValueError, match="faltan campos obligatorios"):
+        catalog_registry.load_specializations(catalogs_dir=catalogs_dir)
+
+
 def test_domain_creation_catalog_endpoint_is_read_only_and_complete():
     response = TestClient(api.app).get("/api/catalogs/domain-creation")
 
@@ -318,6 +463,47 @@ def test_roles_catalog_endpoint_is_read_only_and_complete():
     assert "DEFAULT_DOMAIN_ID" not in endpoint_source
 
 
+def test_specializations_catalog_endpoint_is_read_only_and_complete():
+    response = TestClient(api.app).get("/api/catalogs/specializations")
+
+    assert response.status_code == 200
+    payload = response.json()
+    assert payload["success"] is True
+    assert payload["specializations_by_role"]
+    assert len(payload["specializations_by_role"]) == 20
+    assert len(payload["specializations_by_role"]["auditor"]) == 5
+    assert "activo" not in payload["specializations_by_role"]["auditor"][0]
+
+    serialized = json.dumps(payload, ensure_ascii=False).lower()
+    for term in FORBIDDEN_LOTTERY_TERMS:
+        assert term not in serialized
+
+    endpoint_source = inspect.getsource(api.get_specializations_catalog_endpoint)
+    assert "DEFAULT_DOMAIN_ID" not in endpoint_source
+
+
+def test_specializations_catalog_endpoint_can_filter_by_role():
+    response = TestClient(api.app).get("/api/catalogs/specializations?role_id=auditor")
+
+    assert response.status_code == 200
+    payload = response.json()
+    assert payload["success"] is True
+    assert set(payload["specializations_by_role"]) == {"auditor"}
+    assert len(payload["specializations_by_role"]["auditor"]) == 5
+    assert all(
+        item["role_id"] == "auditor" for item in payload["specializations_by_role"]["auditor"]
+    )
+
+
+def test_specializations_catalog_endpoint_rejects_invalid_role():
+    response = TestClient(api.app).get(
+        "/api/catalogs/specializations?role_id=rol_inexistente"
+    )
+
+    assert response.status_code == 400
+    assert "Rol inexistente" in response.json()["detail"]
+
+
 def test_catalog_prompt_does_not_add_roles_presets_or_lottery_default_to_core():
     catalogs_text = (
         (CATALOGS_DIR / "areas.json").read_text(encoding="utf-8")
@@ -344,3 +530,17 @@ def test_roles_prompt_does_not_connect_create_agent_or_specializations():
     assert "specializationMap" in html
     assert "get_roles_catalog" in catalog_source
     assert "DEFAULT_DOMAIN_ID" not in inspect.getsource(api.get_roles_catalog_endpoint)
+
+
+def test_specializations_prompt_does_not_connect_create_agent_or_presets():
+    html = (ROOT / "ui" / "web" / "index.html").read_text(encoding="utf-8")
+    domains_js = (ROOT / "ui" / "web" / "domains.js").read_text(encoding="utf-8")
+    api_source = Path("api.py").read_text(encoding="utf-8")
+
+    assert "/api/catalogs/specializations" not in html
+    assert "/api/catalogs/specializations" not in domains_js
+    assert "specializationMap" in html
+    assert "agent_presets" not in api_source
+    assert "DEFAULT_DOMAIN_ID" not in inspect.getsource(
+        api.get_specializations_catalog_endpoint
+    )
