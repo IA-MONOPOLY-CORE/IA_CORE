@@ -220,3 +220,29 @@ def _get_default_score_response_fn() -> Callable:
 **Persistencia**: `/api/agents/create` acepta `profile_preset_id` opcional. Si viene, el backend valida que exista en los presets activos del dominio y que corresponda al mismo `role + specialization_id`. El JSON del agente guarda `profile_preset_id`, `profile_preset_name` y `preset_applied_at`; el `system_prompt` guardado sigue siendo el texto final editado por el usuario.
 
 **Alcance diferido**: No se genera paper desde `paper_seed`, no se integra memoria `.md`, no se modifica `runtime_json_agent.py`, no se toca `mejorar_papers.py` y no se crean agentes automáticamente.
+
+---
+
+## ADR-014 — Normalización de metadata de agentes creados con presets
+
+**Estado**: Aceptado
+
+**Contexto**: Los agentes creados con el nuevo flujo (via `/api/agents/create` con presets) necesitan una estructura JSON consistente y trazable. Los agentes legacy existían sin campos de metadata, memory o información de preset aplicado, lo que dificultaba la auditoría y el mantenimiento de la configuración.
+
+**Decisión**: Se introduce un schema técnico mínimo para agentes que incluye bloques `memory` y `metadata`. El helper `core.agent_config_schema.build_agent_config()` construye configuraciones normalizadas con estos bloques. `/api/agents/create` usa este helper para asegurar que todos los agentes nuevos tengan estructura consistente, independientemente de si usan preset o no. `PUT /api/agents/{agent_id}` preserva los campos nuevos y actualiza `updated_at` en metadata. `GET /api/agents/list` expone `memory` y `metadata` en la respuesta.
+
+**Estructura del schema**:
+- **Memory**: Bloque con `source_uploaded` (bool), `source_filename` (str|None), `indexed` (bool)
+- **Metadata**: Bloque con `schema_version` (str), `created_at` (ISO timestamp), `updated_at` (ISO timestamp), `created_via` (str), `preset_source` (str|None)
+- **Preset info**: Campos opcionales `profile_preset_id`, `profile_preset_name`, `preset_applied_at` cuando se aplica un preset
+
+**Compatibilidad**: Agentes legacy sin estos bloques siguen funcionando. El endpoint de listado devuelve `null` para campos faltantes en agentes legacy. El helper `normalize_agent_config()` puede agregar bloques memory y metadata con defaults a agentes legacy si se necesita normalización explícita.
+
+**Evidencia**:
+- `core/agent_config_schema.py` — Helper con `build_agent_config()`, `normalize_agent_config()`, `validate_agent_config()`
+- `api.py:1267-1289` — `/api/agents/create` usa `build_agent_config()` y agrega metadata
+- `api.py:1303-1322` — Actualiza JSON del agente después de indexación de memoria
+- `api.py:1490-1572` — `PUT /api/agents/{agent_id}` preserva campos nuevos y actualiza `updated_at`
+- `api.py:1463-1464` — `GET /api/agents/list` incluye `memory` y `metadata` en respuesta
+
+**Alcance**: Esta decisión normaliza la estructura técnica de agentes creados con el nuevo flujo, pero no modifica papers, memoria `.md`, runtime de agentes ni presets existentes. Los tests unitarios en `tests/test_agent_config_schema.py` validan el helper/schema.

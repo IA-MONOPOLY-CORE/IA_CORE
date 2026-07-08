@@ -1264,25 +1264,29 @@ async def create_agent_endpoint(
         else:
             final_model = "meta/llama-3.1-8b-instruct"
 
-    agent_config = {
-        "id": id,
-        "role": role,
-        "provider": provider,
-        "model": final_model,
-        "temperature": temperature,
-        "system_prompt": system_prompt,
-        "instructions": [],
-        "domain_id": domain_id,
-        "domain_instructions": domain.get("instrucciones", ""),
-    }
-    if specialization_id:
-        agent_config["specialization_id"] = specialization_id
-        if profile_validation.get("specialization_name"):
-            agent_config["specialization_name"] = profile_validation["specialization_name"]
-    if profile_preset:
-        agent_config["profile_preset_id"] = profile_preset["id"]
-        agent_config["profile_preset_name"] = profile_preset.get("nombre_visible")
-        agent_config["preset_applied_at"] = datetime.now().isoformat()
+    from core.agent_config_schema import build_agent_config
+
+    agent_config = build_agent_config(
+        id=id,
+        role=role,
+        domain_id=domain_id,
+        domain_instructions=domain.get("instrucciones", ""),
+        provider=provider,
+        model=final_model,
+        temperature=temperature,
+        system_prompt=system_prompt,
+        instructions=[],
+        specialization_id=specialization_id,
+        specialization_name=profile_validation.get("specialization_name") if specialization_id else None,
+        profile_preset_id=profile_preset["id"] if profile_preset else None,
+        profile_preset_name=profile_preset.get("nombre_visible") if profile_preset else None,
+        preset_applied_at=datetime.now().isoformat() if profile_preset else None,
+        memory_uploaded=bool(memory_file and memory_file.filename),
+        memory_filename=memory_file.filename if memory_file and memory_file.filename else None,
+        memory_indexed=False,  # Se actualizará después de indexar
+        created_via="hud_create_agent",
+        preset_source="domain_agent_presets" if profile_preset else None,
+    )
 
     json_path = config_dir / f"{id}.json"
 
@@ -1308,6 +1312,12 @@ async def create_agent_endpoint(
             if fragmentos:
                 memoria_indexada = True
                 logger.info(f"✅ Memoria vectorial indexada para {id}: {fragmentos} fragmentos")
+
+                # Actualizar el JSON del agente para reflejar que la memoria fue indexada
+                agent_config["memory"]["indexed"] = True
+                agent_config["metadata"]["updated_at"] = datetime.now().isoformat()
+                with open(json_path, "w", encoding="utf-8") as f:
+                    json.dump(agent_config, f, indent=2, ensure_ascii=False)
         except Exception as e:
             logger.warning(f"Error indexando memoria para {id}: {e}")
 
@@ -1450,6 +1460,8 @@ async def list_agents():
                             "specialization_name": data.get("specialization_name"),
                             "profile_preset_id": data.get("profile_preset_id"),
                             "profile_preset_name": data.get("profile_preset_name"),
+                            "memory": data.get("memory"),
+                            "metadata": data.get("metadata"),
                         }
                     )
             except Exception as e:
@@ -1531,6 +1543,24 @@ async def update_agent(agent_id: str, request: Request, domain_id: str | None = 
             else:
                 config_data.pop("specialization_id", None)
                 config_data.pop("specialization_name", None)
+
+        # Preservar campos nuevos y actualizar metadata
+        if "metadata" not in config_data:
+            config_data["metadata"] = {
+                "schema_version": "1.0",
+                "created_at": datetime.now().isoformat(),
+                "updated_at": datetime.now().isoformat(),
+                "created_via": "legacy_import",
+            }
+        else:
+            config_data["metadata"]["updated_at"] = datetime.now().isoformat()
+
+        if "memory" not in config_data:
+            config_data["memory"] = {
+                "source_uploaded": False,
+                "source_filename": None,
+                "indexed": False,
+            }
 
         with open(json_path, "w", encoding="utf-8") as f:
             json.dump(config_data, f, indent=2, ensure_ascii=False)
