@@ -274,6 +274,20 @@ def test_loteria_profile_catalog_exists_is_valid_and_domain_specific():
     assert profile["domain_id"] == "loteria"
     assert profile["roles"]
     assert len(profile["roles"]) >= 8
+    assert profile["role_groups"]
+    assert len(profile["role_groups"]) >= 5
+
+    group_required_fields = {"id", "nombre", "descripcion", "orden"}
+    group_ids = [group["id"] for group in profile["role_groups"]]
+    assert len(group_ids) == len(set(group_ids))
+    assert "capa_1_descubrimiento" in group_ids
+    assert "capa_5_integracion" in group_ids
+    for group in profile["role_groups"]:
+        assert group_required_fields.issubset(group)
+        assert SNAKE_CASE_RE.fullmatch(group["id"])
+        assert group["nombre"].strip()
+        assert group["descripcion"].strip()
+        assert isinstance(group["orden"], int)
 
     serialized = json.dumps(profile, ensure_ascii=False).lower()
     for forbidden in FORBIDDEN_PROFILE_PROMISES:
@@ -282,6 +296,7 @@ def test_loteria_profile_catalog_exists_is_valid_and_domain_specific():
     role_required_fields = {
         "role_id",
         "nombre_visible",
+        "group_id",
         "adaptacion_dominio",
         "familia",
         "activo",
@@ -300,6 +315,7 @@ def test_loteria_profile_catalog_exists_is_valid_and_domain_specific():
     for role in profile["roles"]:
         assert role_required_fields.issubset(role)
         assert role["role_id"] in roles_by_id
+        assert role["group_id"] in group_ids
         assert SNAKE_CASE_RE.fullmatch(role["familia"])
         assert role["nombre_visible"].strip()
         assert role["adaptacion_dominio"].strip()
@@ -443,10 +459,20 @@ def test_domain_profile_catalog_loader_loads_loteria_ordered_and_active():
 
     assert catalog["domain_id"] == "loteria"
     assert len(catalog["roles"]) >= 8
-    assert [role["orden"] for role in catalog["roles"]] == sorted(
-        role["orden"] for role in catalog["roles"]
+    assert catalog["role_groups"]
+    assert [group["orden"] for group in catalog["role_groups"]] == sorted(
+        group["orden"] for group in catalog["role_groups"]
+    )
+    group_order = {group["id"]: index for index, group in enumerate(catalog["role_groups"])}
+    assert [
+        (group_order.get(role["group_id"], 999), role["orden"])
+        for role in catalog["roles"]
+    ] == sorted(
+        (group_order.get(role["group_id"], 999), role["orden"])
+        for role in catalog["roles"]
     )
     assert "activo" not in catalog["roles"][0]
+    assert catalog["roles"][0]["group_id"] == "capa_1_descubrimiento"
 
     specialization_total = sum(len(role["specializations"]) for role in catalog["roles"])
     assert specialization_total >= 20
@@ -502,6 +528,35 @@ def test_domain_profile_catalog_loader_fails_on_invalid_role_id(tmp_path):
 
     with pytest.raises(ValueError, match="role_id inexistente"):
         domain_registry.load_domain_profile_catalog("loteria", domains_dir=domains_dir)
+
+
+def test_domain_profile_catalog_loader_fails_on_invalid_group_id(tmp_path):
+    domains_dir = _copy_loteria_domain(tmp_path)
+    profile_path = domains_dir / "loteria" / "profile_catalog.json"
+    profile = _read_json(profile_path)
+    profile["roles"][0]["group_id"] = "grupo_inexistente"
+    profile_path.write_text(json.dumps(profile, ensure_ascii=False), encoding="utf-8")
+
+    with pytest.raises(ValueError, match="group_id inexistente"):
+        domain_registry.load_domain_profile_catalog("loteria", domains_dir=domains_dir)
+
+
+def test_domain_profile_catalog_loader_keeps_compatibility_without_role_groups(tmp_path):
+    domains_dir = _copy_loteria_domain(tmp_path)
+    profile_path = domains_dir / "loteria" / "profile_catalog.json"
+    profile = _read_json(profile_path)
+    profile.pop("role_groups")
+    for role in profile["roles"]:
+        role.pop("group_id", None)
+    profile_path.write_text(json.dumps(profile, ensure_ascii=False), encoding="utf-8")
+
+    loaded = domain_registry.load_domain_profile_catalog(
+        "loteria", domains_dir=domains_dir
+    )
+
+    assert loaded["role_groups"] == []
+    assert loaded["roles"]
+    assert all(role["group_id"] is None for role in loaded["roles"])
 
 
 def test_domain_profile_catalog_loader_fails_on_invalid_specialization_id(tmp_path):
@@ -697,9 +752,12 @@ def test_domain_profile_catalog_endpoint_returns_loteria_profiles():
     payload = response.json()
     assert payload["success"] is True
     assert payload["domain_id"] == "loteria"
+    assert payload["role_groups"]
+    assert payload["role_groups"][0]["id"] == "capa_1_descubrimiento"
     assert payload["roles"]
     assert len(payload["roles"]) >= 8
     assert "activo" not in payload["roles"][0]
+    assert payload["roles"][0]["group_id"] == "capa_1_descubrimiento"
 
     specialization_total = sum(len(role["specializations"]) for role in payload["roles"])
     assert specialization_total >= 20

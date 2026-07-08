@@ -71,7 +71,7 @@ Este documento mapea qué partes del sistema son el "motor de debate genérico" 
 | **config.py** | PARCIAL | Variables genéricas de configuración (rutas, timeouts, proveedores) PERO variables específicas movidas a domains/loteria/config_loteria.py: DEFAULT_DEBATE_TASK, DEBATE_AGENTS, TRAINING_END/BLIND_TEST_START/LIVE_TEST_START/LIVE_TEST_END |
 | **api.py** | PARCIAL | API REST genérica con fachada opcional de Lotería: carga perezosamente `SAAOP_TASK`, límites y funciones de validación desde `domains/loteria/`, devuelve `501` sin ese dominio y publica `is_generic_baseline` en `/api/agents/list`. La lógica de negocio de validación ciega ya no reside aquí |
 | **domains/loteria/** | | |
-| domains/loteria/profile_catalog.json | SÍ | Catálogo de perfiles habilitados para Lotería: mapea perfiles profesionalizados de S.A.A.O.P. a roles y especializaciones globales sin convertirlos en default del Core |
+| domains/loteria/profile_catalog.json | SÍ | Catálogo de perfiles habilitados para Lotería: mapea perfiles profesionalizados de S.A.A.O.P. a roles y especializaciones globales, y declara `role_groups` para sus capas operativas sin convertirlas en default del Core |
 | domains/loteria/config_loteria.py | SÍ | **NUEVO** - Configuración específica de Lotería: DEBATE_AGENTS, DEFAULT_DEBATE_TASK, TRAINING_END/BLIND_TEST_START/LIVE_TEST_START/LIVE_TEST_END, BUNKER_EXPERT_MAPPING, VALIDATION_AGENTS (alias), DEBATE_PIPELINE_6_AGENTS |
 | domains/loteria/debate_loteria.py | SÍ | **NUEVO** - Función get_loteria_contradiction_patterns() con patrones específicos de contradicción de zonas (CAZADOR/ESPEJO/PUENTE) |
 | domains/loteria/prompts_loteria.py | SÍ | **NUEVO** - Prompts específicos: _analyst_prompt(), _analyst_reformulate_prompt(), _critic_prompt(), _optimizer_prompt() |
@@ -100,7 +100,7 @@ Este documento mapea qué partes del sistema son el "motor de debate genérico" 
 | domains/loteria/agents/papers/viejo_deepseek_paper.json | SÍ | Paper específico con identidad, reglas y lecciones aprendidas del viejo deepseek |
 | domains/loteria/agents/papers/nuevo_deepseek_saaop_paper.json | SÍ | Paper específico con identidad, reglas y lecciones aprendidas del nuevo deepseek S.A.A.O.P. |
 | **ui/** | | |
-| ui/web/ | PARCIAL | Única interfaz de usuario vigente: HUD HTML/CSS/JavaScript servido por FastAPI; combina paneles genéricos con presentación y agentes S.A.A.O.P. Crear Agente consume `GET /api/domains/{domain_id}/profile-catalog` para roles/especializaciones del dominio seleccionado y usa fallback global/legacy si el dominio no tiene catálogo |
+| ui/web/ | PARCIAL | Única interfaz de usuario vigente: HUD HTML/CSS/JavaScript servido por FastAPI; combina paneles genéricos con presentación y agentes S.A.A.O.P. Crear Agente consume `GET /api/domains/{domain_id}/profile-catalog` para roles/especializaciones del dominio seleccionado, renderiza `role_groups` como grupos visuales cuando existen y usa fallback global/legacy si el dominio no tiene catálogo |
 | ui/app.py e interfaz anterior | ELIMINADO | Sus paneles, componentes, estado, traducciones y dependencias específicas fueron retirados completamente |
 | **tests/** | | |
 | tests/test_no_hardcoded_agent_paths.py | NO | Test anti-regresión que escanea Core, agentes, proveedores, dominios, UI y archivos Python raíz para impedir que reaparezcan rutas hardcodeadas como `agents/config`, `ROOT / "domains" / "loteria"` o `domain_id == config.DEFAULT_DOMAIN_ID` en flujos genéricos; obliga a usar resolvers por dominio |

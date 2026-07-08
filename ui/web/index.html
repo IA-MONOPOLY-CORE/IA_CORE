@@ -1117,10 +1117,17 @@
             return {
                 mode: 'domain',
                 domain_id: data.domain_id,
+                role_groups: (data.role_groups || []).map(group => ({
+                    id: group.id,
+                    nombre: group.nombre,
+                    descripcion: group.descripcion,
+                    orden: group.orden,
+                })),
                 roles: (data.roles || []).map(role => ({
                     role_id: role.role_id,
                     nombre_visible: role.nombre_visible,
                     familia: role.familia,
+                    group_id: role.group_id || '',
                     orden: role.orden,
                     specializations: (role.specializations || []).map(spec => ({
                         specialization_id: spec.specialization_id,
@@ -1149,7 +1156,31 @@
             const roles = [...(activeAgentProfileCatalog.roles || [])]
                 .sort((a, b) => (a.orden || 0) - (b.orden || 0) || a.nombre_visible.localeCompare(b.nombre_visible));
             roleSelect.replaceChildren(makeOption('', roles.length ? 'Seleccioná un rol...' : 'Sin roles configurados para este dominio'));
-            roles.forEach(role => roleSelect.appendChild(makeOption(role.role_id, role.nombre_visible)));
+            const groups = [...(activeAgentProfileCatalog.role_groups || [])]
+                .sort((a, b) => (a.orden || 0) - (b.orden || 0) || a.nombre.localeCompare(b.nombre));
+            if (groups.length > 0) {
+                const renderedRoleIds = new Set();
+                groups.forEach(group => {
+                    const groupRoles = roles.filter(role => role.group_id === group.id);
+                    if (groupRoles.length === 0) return;
+                    const optgroup = document.createElement('optgroup');
+                    optgroup.label = group.nombre;
+                    groupRoles.forEach(role => {
+                        optgroup.appendChild(makeOption(role.role_id, role.nombre_visible));
+                        renderedRoleIds.add(role.role_id);
+                    });
+                    roleSelect.appendChild(optgroup);
+                });
+                const ungroupedRoles = roles.filter(role => !renderedRoleIds.has(role.role_id));
+                if (ungroupedRoles.length > 0) {
+                    const optgroup = document.createElement('optgroup');
+                    optgroup.label = 'Otros';
+                    ungroupedRoles.forEach(role => optgroup.appendChild(makeOption(role.role_id, role.nombre_visible)));
+                    roleSelect.appendChild(optgroup);
+                }
+            } else {
+                roles.forEach(role => roleSelect.appendChild(makeOption(role.role_id, role.nombre_visible)));
+            }
             if (selectedRole && !roles.some(role => role.role_id === selectedRole)) {
                 roleSelect.appendChild(makeOption(selectedRole, `${selectedRole} (rol existente no catalogado)`));
             }

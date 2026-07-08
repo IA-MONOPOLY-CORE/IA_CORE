@@ -170,3 +170,19 @@ def _get_default_score_response_fn() -> Callable:
 **Fallback temporal**: Si un dominio todavía no tiene `profile_catalog.json`, el HUD muestra una advertencia y usa temporalmente los catálogos globales `GET /api/catalogs/roles` y `GET /api/catalogs/specializations`. Si esos catálogos no cargan, conserva `specializationMap` como fallback legacy aislado. Ese fallback no convierte a Lotería en default global.
 
 **Alcance diferido**: Esta decisión no crea presets, no autocompleta system prompt, no genera memoria `.md` y no modifica papers ni `runtime_json_agent.py`. Los presets Rol + Especialización quedan para prompts posteriores.
+
+---
+
+## ADR-011 — Los dominios pueden declarar grupos visuales de roles
+
+**Estado**: Aceptado
+
+**Contexto**: Al conectar Crear Agente a `profile_catalog.json`, Lotería dejó de depender del selector hardcodeado antiguo, pero también perdió la jerarquía mental por capas que organizaba sus perfiles.
+
+**Decisión**: `domains/<domain_id>/profile_catalog.json` puede declarar `role_groups` opcionales. Cada grupo define `id`, `nombre`, `descripcion` y `orden`; cada rol puede referenciarlo con `group_id`. El loader valida grupos, IDs únicos y referencias válidas, pero mantiene compatibilidad con dominios sin grupos.
+
+**HUD**: Crear Agente renderiza `<optgroup>` cuando el catálogo del dominio trae `role_groups`. Si no existen, conserva el selector plano/fallback global. La UI no hardcodea capas de Lotería: lee la jerarquía desde el endpoint genérico `GET /api/domains/{domain_id}/profile-catalog`.
+
+**Relación con Lotería**: `domains/loteria/profile_catalog.json` usa `role_groups` para representar sus capas operativas: Descubrimiento, Validación, Destrucción, Riesgo e Integración.
+
+**Alcance diferido**: No se crean presets, no se autocompleta system prompt y no se modifican memoria `.md`, papers ni runtime.

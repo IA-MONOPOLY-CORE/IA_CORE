@@ -21,6 +21,12 @@ from core.catalog_registry import (
 DOMAIN_SCHEMA_VERSION = 1
 PROFILE_CATALOG_SCHEMA_VERSION = "1.0"
 
+PROFILE_GROUP_REQUIRED_FIELDS = {
+    "id",
+    "nombre",
+    "descripcion",
+    "orden",
+}
 PROFILE_ROLE_REQUIRED_FIELDS = {
     "role_id",
     "nombre_visible",
@@ -207,6 +213,43 @@ def validate_domain_profile_catalog(
         for specialization in load_specializations(active_only=False, catalogs_dir=catalogs_dir)
     }
 
+    raw_groups = catalog.get("role_groups", [])
+    if raw_groups is None:
+        raw_groups = []
+    if not isinstance(raw_groups, list):
+        raise ValueError("profile_catalog.json: role_groups debe ser una lista")
+    seen_groups: set[str] = set()
+    normalized_groups: list[dict[str, Any]] = []
+    for group in raw_groups:
+        if not isinstance(group, dict):
+            raise ValueError("profile_catalog.json: cada grupo debe ser un objeto")
+        group_id = group.get("id")
+        source = f"profile_catalog.json.role_groups[{group_id or '?'}]"
+        _validate_required_fields(group, PROFILE_GROUP_REQUIRED_FIELDS, source=source)
+        _validate_snake_id(group_id, field="id", source=source)
+        if group_id in seen_groups:
+            raise ValueError(f"{source}: id de grupo duplicado: {group_id}")
+        seen_groups.add(group_id)
+        if not isinstance(group.get("orden"), int):
+            raise ValueError(f"{source}: campo orden debe ser numérico entero")
+        for field in ["nombre", "descripcion"]:
+            _validate_non_empty_text(group.get(field), field=field, source=source)
+        normalized_groups.append(
+            {
+                "id": group_id,
+                "nombre": group["nombre"].strip(),
+                "descripcion": group["descripcion"].strip(),
+                "orden": group["orden"],
+            }
+        )
+    normalized_groups = sorted(
+        normalized_groups,
+        key=lambda group: (group["orden"], group["nombre"], group["id"]),
+    )
+    group_order_by_id = {
+        group["id"]: index for index, group in enumerate(normalized_groups, start=1)
+    }
+
     seen_roles: set[str] = set()
     normalized_roles: list[dict[str, Any]] = []
     for role in catalog["roles"]:
@@ -217,6 +260,11 @@ def validate_domain_profile_catalog(
         _validate_required_fields(role, PROFILE_ROLE_REQUIRED_FIELDS, source=source)
         _validate_snake_id(role_id, field="role_id", source=source)
         _validate_snake_id(role.get("familia"), field="familia", source=source)
+        group_id = role.get("group_id")
+        if group_id is not None:
+            _validate_snake_id(group_id, field="group_id", source=source)
+            if group_id not in group_order_by_id:
+                raise ValueError(f"{source}: group_id inexistente: {group_id}")
         _validate_profile_common_fields(role, source=source)
         for field in ["nombre_visible", "adaptacion_dominio"]:
             _validate_non_empty_text(role.get(field), field=field, source=source)
@@ -289,6 +337,7 @@ def validate_domain_profile_catalog(
                 "nombre_visible": role["nombre_visible"].strip(),
                 "adaptacion_dominio": role["adaptacion_dominio"].strip(),
                 "familia": role["familia"],
+                "group_id": group_id,
                 "orden": role["orden"],
                 "specializations": sorted(
                     normalized_specializations,
@@ -311,9 +360,15 @@ def validate_domain_profile_catalog(
             for note in catalog.get("notas_adaptacion", [])
             if isinstance(note, str) and note.strip()
         ],
+        "role_groups": normalized_groups,
         "roles": sorted(
             normalized_roles,
-            key=lambda item: (item["orden"], item["nombre_visible"], item["role_id"]),
+            key=lambda item: (
+                group_order_by_id.get(item.get("group_id"), 999),
+                item["orden"],
+                item["nombre_visible"],
+                item["role_id"],
+            ),
         ),
     }
 

@@ -447,6 +447,9 @@ def test_hud_create_agent_consumes_domain_profile_catalog_and_persists_specializ
     assert "/api/catalogs/specializations" in html
     assert "agentProfileCatalogCache" in html
     assert "activeAgentProfileCatalog" in html
+    assert "role_groups" in html
+    assert "document.createElement('optgroup')" in html
+    assert "optgroup.label = group.nombre" in html
     assert "formData.append('specialization_id', specialization)" in html
     assert "specialization_id: specialization || null" in html
     assert "Este dominio todavía no tiene catálogo de perfiles" in html
