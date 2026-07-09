@@ -28,6 +28,9 @@ def build_agent_config(
     memory_uploaded: bool = False,
     memory_filename: Optional[str] = None,
     memory_indexed: bool = False,
+    paper_enriched: bool = False,
+    paper_enrichment_applied_at: Optional[str] = None,
+    paper_enrichment_reason: Optional[str] = None,
     created_via: str = "hud_create_agent",
     preset_source: Optional[str] = None,
     paper_created: bool = False,
@@ -78,6 +81,9 @@ def build_agent_config(
             "source_uploaded": memory_uploaded,
             "source_filename": memory_filename,
             "indexed": memory_indexed,
+            "paper_enriched": paper_enriched,
+            "paper_enrichment_applied_at": paper_enrichment_applied_at,
+            "paper_enrichment_reason": paper_enrichment_reason,
         },
         "metadata": {
             "schema_version": "1.0",
@@ -133,7 +139,17 @@ def normalize_agent_config(config: dict[str, Any]) -> dict[str, Any]:
             "source_uploaded": False,
             "source_filename": None,
             "indexed": False,
+            "paper_enriched": False,
+            "paper_enrichment_applied_at": None,
+            "paper_enrichment_reason": None,
         }
+    else:
+        if "paper_enriched" not in normalized["memory"]:
+            normalized["memory"]["paper_enriched"] = False
+        if "paper_enrichment_applied_at" not in normalized["memory"]:
+            normalized["memory"]["paper_enrichment_applied_at"] = None
+        if "paper_enrichment_reason" not in normalized["memory"]:
+            normalized["memory"]["paper_enrichment_reason"] = None
 
     # Asegurar campos de metadata
     if "metadata" not in normalized:

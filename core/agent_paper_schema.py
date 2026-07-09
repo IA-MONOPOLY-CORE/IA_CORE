@@ -1,6 +1,7 @@
 
 from __future__ import annotations
 
+import re
 from datetime import datetime
 from pathlib import Path
 from typing import Any, Dict, Optional
@@ -8,10 +9,35 @@ from typing import Any, Dict, Optional
 from core.domain_registry import get_domain_agents_papers_dir
 
 
+def _parse_markdown_memory(content: str) -> Dict[str, Any]:
+    """
+    Parses markdown content to extract title, sections, and other metadata.
+    No LLM involved - simple regex-based parsing.
+    """
+    title = None
+    sections = []
+
+    # Extract title (first level-1 heading)
+    title_match = re.search(r"^#\s+(.+)$", content, re.MULTILINE)
+    if title_match:
+        title = title_match.group(1).strip()
+
+    # Extract sections (level-1 and level-2 headings)
+    section_pattern = re.compile(r"^(#|##)\s+(.+)$", re.MULTILINE)
+    for match in section_pattern.finditer(content):
+        sections.append(match.group(2).strip())
+
+    return {
+        "title": title,
+        "sections": sections,
+    }
+
+
 def build_initial_paper_from_preset(
     agent_config: Dict[str, Any],
     profile_preset: Dict[str, Any],
     domain_metadata: Optional[Dict[str, Any]] = None,
+    memory_source: Optional[Dict[str, Any]] = None,
 ) -> Dict[str, Any]:
     """
     Construye un paper inicial a partir de un preset y la configuración del agente.
@@ -48,6 +74,11 @@ def build_initial_paper_from_preset(
         "decision_criteria": profile_preset.get("decision_criteria", []),
         "avoid": profile_preset.get("avoid", []),
         "memory_policy": profile_preset.get("memory_policy", {"recommended": False, "description": ""}),
+        "memory_enrichment": {
+            "applied": False,
+            "source": None,
+            "source_filename": None,
+        },
         "domain_context": {
             "nombre": domain_metadata.get("nombre", "") if domain_metadata else "",
             "descripcion": domain_metadata.get("descripcion", "") if domain_metadata else "",
@@ -65,6 +96,39 @@ def build_initial_paper_from_preset(
             }
         ],
     }
+
+    # Handle memory enrichment if provided
+    if memory_source and memory_source.get("content"):
+        content = memory_source["content"]
+        filename = memory_source.get("filename", "unknown")
+        max_chars = 6000
+        original_char_count = len(content)
+        truncated = original_char_count > max_chars
+        content_excerpt = content[:max_chars] if truncated else content
+        stored_char_count = len(content_excerpt)
+
+        parsed_md = _parse_markdown_memory(content)
+
+        paper["memory_enrichment"] = {
+            "applied": True,
+            "source": "uploaded_md",
+            "source_filename": filename,
+            "title": parsed_md["title"],
+            "sections_detected": parsed_md["sections"],
+            "content_excerpt": content_excerpt,
+            "truncated": truncated,
+            "original_char_count": original_char_count,
+            "stored_char_count": stored_char_count,
+            "applied_at": now,
+        }
+
+        # Add event to history
+        paper["history"].append({
+            "event": "memory_enrichment_applied",
+            "timestamp": now,
+            "source_filename": filename,
+            "mode": "deterministic_append",
+        })
 
     # Agregar campos legacy para compatibilidad
     paper["agente_id"] = paper["agent_id"]

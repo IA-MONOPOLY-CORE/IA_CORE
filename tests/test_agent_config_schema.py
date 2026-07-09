@@ -169,6 +169,198 @@ class TestAgentPaperSchema:
         assert normalized["paper"]["created"] is False
         assert normalized["paper"]["source"] is None
 
+    def test_build_initial_paper_from_preset_with_memory(self):
+        """Construir paper inicial desde preset con memoria adjunta."""
+        agent_config = build_agent_config(
+            id="test_agent",
+            role="analyst",
+            domain_id="loteria",
+            domain_instructions="Instrucciones del dominio",
+            provider="nvidia",
+            model="meta/llama-3.1-8b-instruct",
+            temperature=0.3,
+            system_prompt="Eres un analista de lotería.",
+            specialization_id="estadistico_integral",
+            specialization_name="Estadístico Integral",
+            profile_preset_id="loteria_analista_estadistico_integral",
+        )
+
+        preset = {
+            "id": "loteria_analista_estadistico_integral",
+            "nombre_visible": "Estadístico Integral",
+            "short_description": "Analiza resultados históricos con prudencia",
+            "decision_criteria": ["Distinguir señal de ruido"],
+            "avoid": ["Prometer resultados asegurados"],
+            "memory_policy": {"recommended": True},
+            "paper_seed": {
+                "identity": "Analista estadístico prudente",
+                "operating_style": "Metódico y trazable",
+                "learning_focus": "Mejorar distinción señal/ruido",
+            },
+        }
+
+        domain_metadata = {
+            "nombre": "Lotería",
+            "descripcion": "Dominio de lotería",
+            "instrucciones": "Instrucciones del dominio",
+        }
+
+        memory_source = {
+            "content": """# Memoria del Estadístico Integral
+
+## Criterios clave
+- Siempre verificar la fuente de los datos
+- Priorizar datos de los últimos 100 sorteos
+
+## Errores a evitar
+- No hacer predicciones absolutas
+- No sobreinterpretar patrones pequeños
+
+Esta es la memoria del agente con información adicional.""",
+            "filename": "memoria_estadistico.md",
+        }
+
+        paper = build_initial_paper_from_preset(agent_config, preset, domain_metadata, memory_source)
+
+        assert paper["memory_enrichment"]["applied"] is True
+        assert paper["memory_enrichment"]["source"] == "uploaded_md"
+        assert paper["memory_enrichment"]["source_filename"] == "memoria_estadistico.md"
+        assert paper["memory_enrichment"]["title"] == "Memoria del Estadístico Integral"
+        assert "Criterios clave" in paper["memory_enrichment"]["sections_detected"]
+        assert "Errores a evitar" in paper["memory_enrichment"]["sections_detected"]
+        assert "Siempre verificar la fuente de los datos" in paper["memory_enrichment"]["content_excerpt"]
+        assert paper["memory_enrichment"]["truncated"] is False
+        assert len(paper["history"]) == 2
+        assert paper["history"][1]["event"] == "memory_enrichment_applied"
+        assert paper["history"][1]["source_filename"] == "memoria_estadistico.md"
+
+    def test_build_initial_paper_from_preset_with_long_memory(self):
+        """Construir paper inicial con memoria larga que debe truncarse."""
+        agent_config = build_agent_config(
+            id="test_agent",
+            role="analyst",
+            domain_id="loteria",
+            domain_instructions="Instrucciones del dominio",
+            provider="nvidia",
+            model="meta/llama-3.1-8b-instruct",
+            temperature=0.3,
+            system_prompt="Eres un analista de lotería.",
+            specialization_id="estadistico_integral",
+            specialization_name="Estadístico Integral",
+            profile_preset_id="loteria_analista_estadistico_integral",
+        )
+
+        preset = {
+            "id": "loteria_analista_estadistico_integral",
+            "nombre_visible": "Estadístico Integral",
+            "short_description": "Analiza resultados históricos con prudencia",
+            "decision_criteria": ["Distinguir señal de ruido"],
+            "avoid": ["Prometer resultados asegurados"],
+            "memory_policy": {"recommended": True},
+            "paper_seed": {
+                "identity": "Analista estadístico prudente",
+                "operating_style": "Metódico y trazable",
+                "learning_focus": "Mejorar distinción señal/ruido",
+            },
+        }
+
+        domain_metadata = {
+            "nombre": "Lotería",
+            "descripcion": "Dominio de lotería",
+            "instrucciones": "Instrucciones del dominio",
+        }
+
+        # Create a very long content (over 6000 characters)
+        long_content = "# Memoria muy larga\n\n" + ("Esta es una línea de texto muy larga. " * 1000)
+
+        memory_source = {
+            "content": long_content,
+            "filename": "memoria_larga.md",
+        }
+
+        paper = build_initial_paper_from_preset(agent_config, preset, domain_metadata, memory_source)
+
+        assert paper["memory_enrichment"]["applied"] is True
+        assert paper["memory_enrichment"]["truncated"] is True
+        assert len(paper["memory_enrichment"]["content_excerpt"]) <= 6000
+
+    def test_build_initial_paper_from_preset_without_memory(self):
+        """Construir paper inicial sin memoria (memory_enrichment.applied=False)."""
+        agent_config = build_agent_config(
+            id="test_agent",
+            role="analyst",
+            domain_id="loteria",
+            domain_instructions="Instrucciones del dominio",
+            provider="nvidia",
+            model="meta/llama-3.1-8b-instruct",
+            temperature=0.3,
+            system_prompt="Eres un analista de lotería.",
+            specialization_id="estadistico_integral",
+            specialization_name="Estadístico Integral",
+            profile_preset_id="loteria_analista_estadistico_integral",
+        )
+
+        preset = {
+            "id": "loteria_analista_estadistico_integral",
+            "nombre_visible": "Estadístico Integral",
+            "short_description": "Analiza resultados históricos con prudencia",
+            "decision_criteria": ["Distinguir señal de ruido"],
+            "avoid": ["Prometer resultados asegurados"],
+            "memory_policy": {"recommended": True},
+            "paper_seed": {
+                "identity": "Analista estadístico prudente",
+                "operating_style": "Metódico y trazable",
+                "learning_focus": "Mejorar distinción señal/ruido",
+            },
+        }
+
+        domain_metadata = {
+            "nombre": "Lotería",
+            "descripcion": "Dominio de lotería",
+            "instrucciones": "Instrucciones del dominio",
+        }
+
+        paper = build_initial_paper_from_preset(agent_config, preset, domain_metadata)
+
+        assert paper["memory_enrichment"]["applied"] is False
+        assert paper["memory_enrichment"]["source"] is None
+        assert paper["memory_enrichment"]["source_filename"] is None
+
+    def test_build_agent_config_with_paper_enrichment(self):
+        """Construir config con campos de paper enrichment."""
+        config = build_agent_config(
+            id="test_agent",
+            role="analyst",
+            domain_id="loteria",
+            domain_instructions="Instrucciones del dominio",
+            provider="nvidia",
+            model="meta/llama-3.1-8b-instruct",
+            temperature=0.3,
+            system_prompt="Eres un analista.",
+            memory_uploaded=True,
+            memory_filename="memoria.md",
+            memory_indexed=True,
+            paper_enriched=True,
+            paper_enrichment_applied_at="2024-01-01T00:00:00",
+        )
+
+        assert config["memory"]["paper_enriched"] is True
+        assert config["memory"]["paper_enrichment_applied_at"] == "2024-01-01T00:00:00"
+
+    def test_normalize_agent_config_adds_paper_enrichment_fields(self):
+        """Normalizar config legacy debe añadir campos de paper enrichment a memory."""
+        legacy_config = {
+            "id": "legacy_agent",
+            "role": "analyst",
+            "provider": "nvidia",
+            "model": "meta/llama-3.1-8b-instruct",
+            "system_prompt": "Eres un analista.",
+        }
+        normalized = normalize_agent_config(legacy_config)
+        assert normalized["memory"]["paper_enriched"] is False
+        assert normalized["memory"]["paper_enrichment_applied_at"] is None
+        assert normalized["memory"]["paper_enrichment_reason"] is None
+
 
 class TestAgentConfigSchema:
     """Tests del helper/schema de configuración de agentes."""

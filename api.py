@@ -1272,6 +1272,23 @@ async def create_agent_endpoint(
     paper_source = None
     paper_path = None
     agent_config = None
+    memory_source = None
+    paper_enriched = False
+    paper_enrichment_applied_at = None
+    paper_enrichment_reason = None
+
+    # Read memory file content early if available
+    contenido_memoria = None
+    if memory_file and memory_file.filename:
+        try:
+            contenido = await memory_file.read()
+            contenido_memoria = contenido.decode("utf-8", errors="replace")
+            memory_source = {
+                "content": contenido_memoria,
+                "filename": memory_file.filename,
+            }
+        except Exception as e:
+            return {"success": False, "error": f"Error leyendo archivo de memoria: {e}"}
 
     # Primero verificar si paper ya existe para evitar basura
     if profile_preset:
@@ -1299,6 +1316,9 @@ async def create_agent_endpoint(
         memory_uploaded=bool(memory_file and memory_file.filename),
         memory_filename=memory_file.filename if memory_file and memory_file.filename else None,
         memory_indexed=False,  # Se actualizará después de indexar
+        paper_enriched=False,  # Will update if we enrich
+        paper_enrichment_applied_at=None,
+        paper_enrichment_reason=None,
         created_via="hud_create_agent",
         preset_source="domain_agent_presets" if profile_preset else None,
         paper_created=False,  # Se actualizará después de crear paper
@@ -1322,18 +1342,30 @@ async def create_agent_endpoint(
                 agent_config=agent_config,
                 profile_preset=profile_preset,
                 domain_metadata=domain_metadata,
+                memory_source=memory_source,
             )
             paper_path = write_initial_agent_paper(domain_id, id, paper, overwrite=False)
             paper_created = True
             paper_source = "preset_initial_paper"
             logger.info(f"✅ Paper inicial generado para {id} desde preset")
+            # Check if paper was enriched with memory
+            if paper.get("memory_enrichment", {}).get("applied"):
+                paper_enriched = True
+                paper_enrichment_applied_at = paper["memory_enrichment"]["applied_at"]
         except Exception as e:
             return {"success": False, "error": f"Error generando paper desde preset: {e}"}
+    else:
+        if memory_file and memory_file.filename:
+            paper_enrichment_reason = "no_profile_preset"
 
     # Ahora guardar JSON del agente (con paper info actualizada si aplica)
     if paper_created:
         agent_config["paper"]["created"] = True
         agent_config["paper"]["source"] = paper_source
+    # Update memory block with enrichment info
+    agent_config["memory"]["paper_enriched"] = paper_enriched
+    agent_config["memory"]["paper_enrichment_applied_at"] = paper_enrichment_applied_at
+    agent_config["memory"]["paper_enrichment_reason"] = paper_enrichment_reason
 
     try:
         with open(json_path, "w", encoding="utf-8") as f:
@@ -1350,11 +1382,8 @@ async def create_agent_endpoint(
         return {"success": False, "error": f"Error guardando JSON: {e}"}
 
     memoria_indexada = False
-    if memory_file and memory_file.filename:
+    if memory_file and memory_file.filename and contenido_memoria:
         try:
-            contenido = await memory_file.read()
-            contenido_memoria = contenido.decode("utf-8", errors="replace")
-
             from core.memoria_perpetua import sincronizar_memoria_vectorial
 
             fragmentos = sincronizar_memoria_vectorial(id, contenido_memoria)

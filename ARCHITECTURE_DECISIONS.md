@@ -284,3 +284,60 @@ def _get_default_score_response_fn() -> Callable:
 - `paper_seed` en `domains/<domain_id>/agent_presets.json`: **Dominio** — Semilla de identidad específica del dominio
 
 **Alcance diferido**: No se integra memoria `.md`, no se llama a LLM para generar papers, no se regeneran papers existentes, no se modifica `mejorar_papers.py`, no se modifica `runtime_json_agent.py` (excepto si fuera estrictamente necesario para compatibilidad, lo que no fue el caso).
+
+---
+
+## ADR-016 — Memoria `.md` opcional como enriquecimiento determinístico del paper inicial
+
+**Estado**: Aceptado
+
+**Contexto**: Después de generar papers iniciales desde presets, el siguiente paso es integrar la memoria `.md` opcional que el usuario puede subir al crear un agente. La memoria debe enriquecer el paper, pero no reemplazar el preset ni el paper_seed, y no debe llamar a un LLM para resumir ni generar contenido creativo.
+
+**Decisión**:
+1. Si el usuario sube una memoria `.md` al crear un agente con preset, se lee el contenido como texto plano (sin LLM)
+2. Se agrega un bloque `memory_enrichment` al paper con:
+   - `applied`: bool (true si hubo memoria)
+   - `source`: "uploaded_md"
+   - `source_filename`: nombre del archivo
+   - `title`: título extraído del primer encabezado `#` (si existe)
+   - `sections_detected`: lista de encabezados `#` y `##`
+   - `content_excerpt`: extracto del contenido (truncado a 6000 caracteres)
+   - `truncated`: bool (true si el contenido excedió 6000 caracteres)
+   - `original_char_count`: int (longitud original del contenido)
+   - `stored_char_count`: int (longitud del extracto guardado)
+   - `applied_at`: ISO timestamp
+3. Se agrega un evento `memory_enrichment_applied` al `history` del paper
+4. El bloque `memory` del JSON del agente se actualiza con `paper_enriched` (bool), `paper_enrichment_applied_at` (ISO timestamp) y `paper_enrichment_reason` (str | None, para casos sin preset)
+5. Si el usuario sube memoria pero no hay preset, `paper_enriched` es false y `paper_enrichment_reason` es "no_profile_preset"
+
+**Reglas clave**:
+- No se usa LLM ni se genera contenido creativo
+- No se reemplaza el preset ni el paper_seed
+- No se modifica `runtime_json_agent.py` ni `mejorar_papers.py`
+- No se regeneran papers existentes
+- No se guarda el contenido completo de la memoria en el JSON del agente ni en el paper (solo el extracto)
+
+**Estructura**:
+- `core/agent_paper_schema.py`: Actualizado con `_parse_markdown_memory()` y `build_initial_paper_from_preset()` acepta `memory_source` opcional
+- `core/agent_config_schema.py`: Actualizado para agregar campos `paper_enriched`, `paper_enrichment_applied_at` y `paper_enrichment_reason` al bloque `memory`
+- `api.py`: Actualizado para leer el contenido de la memoria antes de construir el paper, pasarla al helper y actualizar el JSON del agente
+
+**Compatibilidad**:
+- Papers sin `memory_enrichment` siguen funcionando
+- Agentes legacy sin campos `paper_enriched` en el bloque `memory` siguen funcionando
+- `normalize_agent_config()` agrega los campos faltantes con valores predeterminados
+
+**Evidencia**:
+- `core/agent_paper_schema.py:12-33` — `_parse_markdown_memory()` para extraer título y secciones
+- `core/agent_paper_schema.py:36-131` — `build_initial_paper_from_preset()` actualizado para manejar `memory_source`
+- `core/agent_config_schema.py:31-33` — `build_agent_config()` acepta campos de paper enrichment
+- `core/agent_config_schema.py:136-163` — `normalize_agent_config()` agrega campos faltantes
+- `api.py:1275-1290` — Lee contenido de memoria antes de construir paper
+- `api.py:1321-1346` — Construye paper con memoria y actualiza config del agente
+- `tests/test_agent_config_schema.py:172-362` — Tests para la nueva funcionalidad
+
+**Clasificación Patrimonio/Core/Dominio/Agente**:
+- `core/agent_paper_schema.py` (actualizado): **Core** — Funcionalidad genérica para enriquecer papers con memoria, sin dependencia de dominio
+- `core/agent_config_schema.py` (actualizado): **Core** — Schema normalizado para agentes, sin dependencia de dominio
+- `memory_source` (contenido de memoria cargada por el usuario): **Agente** — Información específica de un agente
+- Papers enriquecidos en `domains/<domain_id>/agents/papers/`: **Agente** — Identidad enriquecida de un agente específico
