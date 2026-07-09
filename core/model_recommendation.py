@@ -10,7 +10,11 @@ Este módulo provee recomendaciones de proveedor y modelo basadas en:
 
 from __future__ import annotations
 
+import json
+import os
+import platform
 from dataclasses import dataclass
+from pathlib import Path
 from typing import Any
 
 
@@ -20,7 +24,9 @@ class HardwareProfile:
     cpu: str
     ram_gb: int
     gpu: bool
-    local_mode: str  # "limited", "capable", "high_end"
+    gpu_name: str | None = None
+    local_mode: str = "limited"  # "limited", "capable", "high_end"
+    source: str = "unknown"  # "manual_config", "autodetect", "fallback"
 
 
 @dataclass
@@ -45,18 +51,124 @@ class ModelRecommendation:
     fallback: dict[str, Any] | None = None
 
 
-def get_default_hardware_profile() -> HardwareProfile:
+def get_hardware_profile() -> HardwareProfile:
     """Retorna el perfil de hardware local del usuario.
     
-    Por ahora está hardcoded como perfil ajustable del usuario.
-    Futuro: podría detectarse automáticamente o leerse de config.
+    Prioridad:
+    1. config/hardware_profile.json si existe
+    2. Autodetección básica
+    3. Fallback seguro
     """
+    # 1. Intentar cargar desde config
+    config_profile = _load_hardware_profile_from_config()
+    if config_profile:
+        return config_profile
+    
+    # 2. Intentar autodetectar
+    autodetect_profile = _autodetect_hardware_profile()
+    if autodetect_profile:
+        return autodetect_profile
+    
+    # 3. Fallback seguro
+    return _get_fallback_hardware_profile()
+
+
+def _load_hardware_profile_from_config() -> HardwareProfile | None:
+    """Carga el perfil de hardware desde config/hardware_profile.json."""
+    try:
+        config_path = Path("config/hardware_profile.json")
+        if not config_path.exists():
+            return None
+        
+        with open(config_path, "r", encoding="utf-8") as f:
+            data = json.load(f)
+        
+        return HardwareProfile(
+            cpu=data.get("cpu", "unknown"),
+            ram_gb=data.get("ram_gb", 8),
+            gpu=data.get("gpu", False),
+            gpu_name=data.get("gpu_name"),
+            local_mode=data.get("local_mode", "limited"),
+            source=data.get("source", "manual_config"),
+        )
+    except Exception:
+        return None
+
+
+def _autodetect_hardware_profile() -> HardwareProfile | None:
+    """Autodetecta el perfil de hardware básico."""
+    try:
+        cpu = platform.processor() or "unknown"
+        
+        # Detectar RAM
+        ram_gb = 8  # Default
+        try:
+            ram_bytes = os.sysconf("SC_PHYS_PAGES") * os.sysconf("SC_PAGE_SIZE")
+            ram_gb = int(ram_bytes / (1024 ** 3))
+        except Exception:
+            pass
+        
+        # GPU detection básica (sin dependencias pesadas)
+        gpu = False
+        gpu_name = None
+        try:
+            # Intento simple de detectar NVIDIA en Windows
+            if platform.system() == "Windows":
+                try:
+                    import subprocess
+                    result = subprocess.run(
+                        ["nvidia-smi", "--query-gpu=name", "--format=csv,noheader"],
+                        capture_output=True,
+                        text=True,
+                        timeout=2,
+                    )
+                    if result.returncode == 0 and result.stdout.strip():
+                        gpu = True
+                        gpu_name = result.stdout.strip().split("\n")[0]
+                except Exception:
+                    pass
+        except Exception:
+            pass
+        
+        # Determinar local_mode basado en RAM y GPU
+        if gpu and ram_gb >= 32:
+            local_mode = "high_end"
+        elif gpu and ram_gb >= 16:
+            local_mode = "capable"
+        else:
+            local_mode = "limited"
+        
+        return HardwareProfile(
+            cpu=cpu,
+            ram_gb=ram_gb,
+            gpu=gpu,
+            gpu_name=gpu_name,
+            local_mode=local_mode,
+            source="autodetect",
+        )
+    except Exception:
+        return None
+
+
+def _get_fallback_hardware_profile() -> HardwareProfile:
+    """Retorna un perfil de hardware seguro como fallback."""
     return HardwareProfile(
-        cpu="Ryzen 7 7730U",
-        ram_gb=16,
+        cpu="unknown",
+        ram_gb=8,
         gpu=False,
+        gpu_name=None,
         local_mode="limited",
+        source="fallback",
     )
+
+
+def get_default_hardware_profile() -> HardwareProfile:
+    """Retorna el perfil de hardware local del usuario (legacy).
+    
+    Esta función mantiene compatibilidad con código existente.
+    Usa get_hardware_profile() internamente.
+    """
+    return get_hardware_profile()
 
 
 def classify_agent_model_need(
@@ -290,12 +402,15 @@ def _select_provider_model(
                 provider = "nvidia"
             else:
                 provider = cloud_providers[0]
-            
+
             models = providers_dict[provider]
             model = _select_best_model_for_workload(models, workload)
-            reason = f"Workload {workload} requiere razonamiento profundo; se recomienda cloud para calidad."
+            if hardware_profile.local_mode == "limited":
+                reason = f"Workload {workload} requiere razonamiento profundo; el perfil de hardware local está marcado como limited/sin GPU, se recomienda cloud."
+            else:
+                reason = f"Workload {workload} requiere razonamiento profundo; se recomienda cloud para calidad."
             return provider, model, reason
-        
+
         # Fallback a local con advertencia
         local_providers = [p for p in providers_dict.keys() if _is_local_provider(p)]
         if local_providers:
@@ -304,7 +419,7 @@ def _select_provider_model(
             model = _select_best_model_for_workload(models, "light")  # Usar modelo liviano
             reason = f"Workload {workload} pero no hay cloud disponible; local como fallback limitado."
             return provider, model, reason
-        
+
         return None, None, "No hay providers disponibles para este workload."
     
     elif workload == "medium":

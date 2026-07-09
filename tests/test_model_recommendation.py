@@ -6,6 +6,7 @@ from core.model_recommendation import (
     HardwareProfile,
     AgentWorkloadClassification,
     ModelRecommendation,
+    get_hardware_profile,
     get_default_hardware_profile,
     classify_agent_model_need,
     recommend_provider_model,
@@ -17,11 +18,23 @@ from core.model_recommendation import (
 
 class TestHardwareProfile:
     """Tests para el perfil de hardware."""
-    
-    def test_get_default_hardware_profile(self):
-        """El perfil de hardware default debe tener valores específicos."""
+
+    def test_get_hardware_profile_from_config(self):
+        """El perfil de hardware debe cargarse desde config si existe."""
+        profile = get_hardware_profile()
+
+        # Como existe config/hardware_profile.json, debe usar ese
+        assert profile.cpu == "Ryzen 7 7730U"
+        assert profile.ram_gb == 16
+        assert profile.gpu is False
+        assert profile.local_mode == "limited"
+        assert profile.source == "manual_config"
+
+    def test_get_default_hardware_profile_compatibility(self):
+        """get_default_hardware_profile debe mantener compatibilidad."""
         profile = get_default_hardware_profile()
-        
+
+        # Debe usar el mismo perfil que get_hardware_profile
         assert profile.cpu == "Ryzen 7 7730U"
         assert profile.ram_gb == 16
         assert profile.gpu is False
@@ -297,7 +310,7 @@ class TestModelSelectionHelpers:
 
 class TestHardwareLimitations:
     """Tests para limitaciones de hardware."""
-    
+
     def test_limited_hardware_no_local_for_heavy(self):
         """Hardware limitado no debe recomendar local para workload heavy."""
         hardware = HardwareProfile(
@@ -306,7 +319,7 @@ class TestHardwareLimitations:
             gpu=False,
             local_mode="limited",
         )
-        
+
         available_providers = [
             {
                 "name": "nvidia",
@@ -321,7 +334,7 @@ class TestHardwareLimitations:
                 "is_placeholder": False,
             },
         ]
-        
+
         recommendation = recommend_provider_model(
             domain_id="loteria",
             role_id="auditor",
@@ -329,11 +342,40 @@ class TestHardwareLimitations:
             available_providers=available_providers,
             hardware_profile=hardware,
         )
-        
+
         # Debe preferir cloud a pesar de que local está disponible
         assert recommendation.provider == "nvidia"
         assert "cloud" in recommendation.reason.lower()
-    
+
+    def test_limited_hardware_reason_mentions_limitation(self):
+        """Hardware limitado debe mencionar limitación en reason."""
+        hardware = HardwareProfile(
+            cpu="Ryzen 7 7730U",
+            ram_gb=16,
+            gpu=False,
+            local_mode="limited",
+        )
+
+        available_providers = [
+            {
+                "name": "nvidia",
+                "models": ["meta/llama-3.1-8b-instruct"],
+                "healthy": True,
+                "is_placeholder": False,
+            },
+        ]
+
+        recommendation = recommend_provider_model(
+            domain_id="loteria",
+            role_id="auditor",
+            specialization_id="auditoria_consistencia",
+            available_providers=available_providers,
+            hardware_profile=hardware,
+        )
+
+        # Reason debe mencionar "limited" o "sin GPU"
+        assert "limited" in recommendation.reason.lower() or "sin gpu" in recommendation.reason.lower()
+
     def test_limited_hardware_local_ok_for_light(self):
         """Hardware limitado permite local para workload light."""
         hardware = HardwareProfile(
@@ -342,7 +384,7 @@ class TestHardwareLimitations:
             gpu=False,
             local_mode="limited",
         )
-        
+
         available_providers = [
             {
                 "name": "ollama",
@@ -357,7 +399,7 @@ class TestHardwareLimitations:
                 "is_placeholder": False,
             },
         ]
-        
+
         recommendation = recommend_provider_model(
             domain_id="loteria",
             role_id="archivista",
@@ -365,6 +407,78 @@ class TestHardwareLimitations:
             available_providers=available_providers,
             hardware_profile=hardware,
         )
-        
+
         # Debe permitir local para workload light
         assert recommendation.provider == "ollama"
+
+    def test_capable_hardware_allows_local_for_medium(self):
+        """Hardware capaz permite local para workload medium."""
+        hardware = HardwareProfile(
+            cpu="Intel i7-12700K",
+            ram_gb=32,
+            gpu=True,
+            gpu_name="NVIDIA RTX 3080",
+            local_mode="capable",
+        )
+
+        available_providers = [
+            {
+                "name": "ollama",
+                "models": ["llama3.2:3b", "llama3.2:7b"],
+                "healthy": True,
+                "is_placeholder": False,
+            },
+            {
+                "name": "nvidia",
+                "models": ["meta/llama-3.1-8b-instruct"],
+                "healthy": True,
+                "is_placeholder": False,
+            },
+        ]
+
+        recommendation = recommend_provider_model(
+            domain_id="loteria",
+            role_id="analista",
+            specialization_id="analisis_datos",
+            available_providers=available_providers,
+            hardware_profile=hardware,
+        )
+
+        # Con hardware capaz, puede preferir cloud pero local es aceptable
+        assert recommendation.recommended is True
+
+    def test_high_end_hardware_allows_local_for_heavy(self):
+        """Hardware high-end permite local para workload heavy."""
+        hardware = HardwareProfile(
+            cpu="AMD Ryzen 9 5950X",
+            ram_gb=64,
+            gpu=True,
+            gpu_name="NVIDIA RTX 4090",
+            local_mode="high_end",
+        )
+
+        available_providers = [
+            {
+                "name": "ollama",
+                "models": ["llama3.2:70b"],
+                "healthy": True,
+                "is_placeholder": False,
+            },
+            {
+                "name": "nvidia",
+                "models": ["meta/llama-3.3-70b-instruct"],
+                "healthy": True,
+                "is_placeholder": False,
+            },
+        ]
+
+        recommendation = recommend_provider_model(
+            domain_id="loteria",
+            role_id="auditor",
+            specialization_id="auditoria_consistencia",
+            available_providers=available_providers,
+            hardware_profile=hardware,
+        )
+
+        # Con hardware high-end, puede preferir cloud pero local es aceptable
+        assert recommendation.recommended is True

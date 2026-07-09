@@ -1589,6 +1589,31 @@ async def get_model_recommendation(
         }
 
 
+@app.get("/api/system/hardware-profile")
+async def get_hardware_profile():
+    from core.model_recommendation import get_hardware_profile
+
+    try:
+        profile = get_hardware_profile()
+        return {
+            "success": True,
+            "profile": {
+                "cpu": profile.cpu,
+                "ram_gb": profile.ram_gb,
+                "gpu": profile.gpu,
+                "gpu_name": profile.gpu_name,
+                "local_mode": profile.local_mode,
+                "source": profile.source,
+            },
+        }
+    except Exception as e:
+        logger.exception("Error obteniendo perfil de hardware")
+        return {
+            "success": False,
+            "error": str(e),
+        }
+
+
 @app.get("/api/agents/list")
 async def list_agents():
     if not supervisor:

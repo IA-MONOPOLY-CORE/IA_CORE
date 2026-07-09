@@ -1,0 +1,8 @@
+{
+  "cpu": "Ryzen 7 7730U",
+  "ram_gb": 16,
+  "gpu": false,
+  "gpu_name": null,
+  "local_mode": "limited",
+  "source": "manual_config"
+}
