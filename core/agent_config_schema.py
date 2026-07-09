@@ -30,6 +30,8 @@ def build_agent_config(
     memory_indexed: bool = False,
     created_via: str = "hud_create_agent",
     preset_source: Optional[str] = None,
+    paper_created: bool = False,
+    paper_source: Optional[str] = None,
 ) -> dict[str, Any]:
     """
     Construye un diccionario de configuración de agente con estructura normalizada.
@@ -54,6 +56,8 @@ def build_agent_config(
         memory_indexed: Si la memoria fue indexada en ChromaDB
         created_via: Método de creación (default: "hud_create_agent")
         preset_source: Fuente del preset (opcional)
+        paper_created: Si el paper inicial fue creado (default: False)
+        paper_source: Fuente del paper (opcional, e.g., "preset_initial_paper")
 
     Returns:
         Diccionario con la configuración normalizada del agente
@@ -80,6 +84,12 @@ def build_agent_config(
             "created_at": now,
             "updated_at": now,
             "created_via": created_via,
+        },
+        "paper": {
+            "created": paper_created,
+            "source": paper_source,
+            "created_at": now if paper_created else None,
+            "schema_version": "1.0" if paper_created else None,
         },
     }
 
@@ -132,6 +142,15 @@ def normalize_agent_config(config: dict[str, Any]) -> dict[str, Any]:
             "created_at": datetime.now().isoformat(),
             "updated_at": datetime.now().isoformat(),
             "created_via": "legacy_import",
+        }
+
+    # Asegurar campos de paper
+    if "paper" not in normalized:
+        normalized["paper"] = {
+            "created": False,
+            "source": None,
+            "created_at": None,
+            "schema_version": None,
         }
 
     # Actualizar updated_at si existe metadata

@@ -11,6 +11,163 @@ import pytest
 from datetime import datetime
 
 from core.agent_config_schema import build_agent_config, normalize_agent_config, validate_agent_config
+from core.agent_paper_schema import build_initial_paper_from_preset, write_initial_agent_paper
+from core.domain_registry import get_domain_agent_paths
+
+
+class TestAgentPaperSchema:
+    """Tests del helper/schema de papers iniciales desde presets."""
+
+    def test_build_initial_paper_from_preset_valid(self):
+        """Construir paper inicial desde preset válido."""
+        agent_config = build_agent_config(
+            id="test_agent",
+            role="analyst",
+            domain_id="loteria",
+            domain_instructions="Instrucciones del dominio",
+            provider="nvidia",
+            model="meta/llama-3.1-8b-instruct",
+            temperature=0.3,
+            system_prompt="Eres un analista de lotería.",
+            specialization_id="estadistico_integral",
+            specialization_name="Estadístico Integral",
+            profile_preset_id="loteria_analista_estadistico_integral",
+        )
+
+        preset = {
+            "id": "loteria_analista_estadistico_integral",
+            "nombre_visible": "Estadístico Integral",
+            "short_description": "Analiza resultados históricos con prudencia",
+            "decision_criteria": ["Distinguir señal de ruido"],
+            "avoid": ["Prometer resultados asegurados"],
+            "memory_policy": {"recommended": True},
+            "paper_seed": {
+                "identity": "Analista estadístico prudente",
+                "operating_style": "Metódico y trazable",
+                "learning_focus": "Mejorar distinción señal/ruido",
+            },
+        }
+
+        domain_metadata = {
+            "nombre": "Lotería",
+            "descripcion": "Dominio de lotería",
+            "instrucciones": "Instrucciones del dominio",
+        }
+
+        paper = build_initial_paper_from_preset(agent_config, preset, domain_metadata)
+
+        assert paper["agent_id"] == "test_agent"
+        assert paper["domain_id"] == "loteria"
+        assert paper["source"] == "preset_initial_paper"
+        assert paper["profile_preset_id"] == "loteria_analista_estadistico_integral"
+        assert paper["profile_preset_name"] == "Estadístico Integral"
+        assert paper["identity"] == "Analista estadístico prudente"
+        assert paper["role"] == "analyst"
+        assert paper["specialization_id"] == "estadistico_integral"
+        assert paper["specialization_name"] == "Estadístico Integral"
+        assert paper["short_description"] == "Analiza resultados históricos con prudencia"
+        assert paper["operating_style"] == "Metódico y trazable"
+        assert paper["learning_focus"] == "Mejorar distinción señal/ruido"
+        assert paper["decision_criteria"] == ["Distinguir señal de ruido"]
+        assert paper["avoid"] == ["Prometer resultados asegurados"]
+        assert paper["memory_policy"] == {"recommended": True}
+        assert paper["system_prompt_snapshot"] == "Eres un analista de lotería."
+        assert "created_at" in paper
+        assert "updated_at" in paper
+        assert paper["history"][0]["event"] == "created_from_preset"
+        # Verificar campos legacy para compatibilidad
+        assert paper["agente_id"] == "test_agent"
+        assert paper["dominio_id"] == "loteria"
+        assert paper["rol"] == "analyst"
+        assert paper["identidad"] == "Analista estadístico prudente"
+        assert paper["reglas_clave"] == ["Distinguir señal de ruido"]
+        assert paper["lecciones_aprendidas"] == []
+        assert paper["errores_a_evitar"] == ["Prometer resultados asegurados"]
+        assert paper["estilo_respuesta"] == "Metódico y trazable"
+
+    def test_build_initial_paper_missing_paper_seed(self):
+        """Fallar al construir paper sin paper_seed en preset."""
+        agent_config = build_agent_config(
+            id="test_agent",
+            role="analyst",
+            domain_id="loteria",
+            domain_instructions="Instrucciones del dominio",
+            provider="nvidia",
+            model="meta/llama-3.1-8b-instruct",
+            temperature=0.3,
+            system_prompt="Eres un analista.",
+        )
+        preset = {"id": "test_preset", "nombre_visible": "Test Preset"}
+
+        with pytest.raises(ValueError, match="El preset no tiene 'paper_seed' definido"):
+            build_initial_paper_from_preset(agent_config, preset)
+
+    def test_build_initial_paper_missing_seed_fields(self):
+        """Fallar al construir paper sin campos obligatorios en paper_seed."""
+        agent_config = build_agent_config(
+            id="test_agent",
+            role="analyst",
+            domain_id="loteria",
+            domain_instructions="Instrucciones del dominio",
+            provider="nvidia",
+            model="meta/llama-3.1-8b-instruct",
+            temperature=0.3,
+            system_prompt="Eres un analista.",
+        )
+        preset = {"id": "test_preset", "nombre_visible": "Test Preset", "paper_seed": {}}
+
+        with pytest.raises(ValueError, match="El 'paper_seed' del preset no tiene el campo 'identity'"):
+            build_initial_paper_from_preset(agent_config, preset)
+
+    def test_agent_config_with_paper_info(self):
+        """Construir config de agente con paper info."""
+        config = build_agent_config(
+            id="test_agent",
+            role="analyst",
+            domain_id="loteria",
+            domain_instructions="Instrucciones del dominio",
+            provider="nvidia",
+            model="meta/llama-3.1-8b-instruct",
+            temperature=0.3,
+            system_prompt="Eres un analista.",
+            paper_created=True,
+            paper_source="preset_initial_paper",
+        )
+        assert config["paper"]["created"] is True
+        assert config["paper"]["source"] == "preset_initial_paper"
+        assert "created_at" in config["paper"]
+        assert config["paper"]["schema_version"] == "1.0"
+
+    def test_agent_config_without_paper_info(self):
+        """Construir config de agente sin paper info (sin preset)."""
+        config = build_agent_config(
+            id="test_agent",
+            role="analyst",
+            domain_id="loteria",
+            domain_instructions="Instrucciones del dominio",
+            provider="nvidia",
+            model="meta/llama-3.1-8b-instruct",
+            temperature=0.3,
+            system_prompt="Eres un analista.",
+        )
+        assert config["paper"]["created"] is False
+        assert config["paper"]["source"] is None
+        assert config["paper"]["created_at"] is None
+        assert config["paper"]["schema_version"] is None
+
+    def test_normalize_agent_config_adds_paper_field(self):
+        """Normalizar config legacy debe añadir campo paper."""
+        legacy_config = {
+            "id": "legacy_agent",
+            "role": "analyst",
+            "provider": "nvidia",
+            "model": "meta/llama-3.1-8b-instruct",
+            "system_prompt": "Eres un analista.",
+        }
+        normalized = normalize_agent_config(legacy_config)
+        assert "paper" in normalized
+        assert normalized["paper"]["created"] is False
+        assert normalized["paper"]["source"] is None
 
 
 class TestAgentConfigSchema:

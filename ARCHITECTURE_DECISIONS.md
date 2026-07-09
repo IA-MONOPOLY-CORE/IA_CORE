@@ -246,3 +246,41 @@ def _get_default_score_response_fn() -> Callable:
 - `api.py:1463-1464` — `GET /api/agents/list` incluye `memory` y `metadata` en respuesta
 
 **Alcance**: Esta decisión normaliza la estructura técnica de agentes creados con el nuevo flujo, pero no modifica papers, memoria `.md`, runtime de agentes ni presets existentes. Los tests unitarios en `tests/test_agent_config_schema.py` validan el helper/schema.
+
+---
+
+## ADR-015 — Generar paper inicial desde preset al crear agente
+
+**Estado**: Aceptado
+
+**Contexto**: Después de normalizar la estructura de agentes con presets y metadata, el siguiente paso es usar el campo `paper_seed` del preset para generar un paper inicial automáticamente al crear un agente con preset. Los papers existentes deben seguir funcionando, y no se genera paper para agentes creados sin preset (pero se crea un paper básico para compatibilidad legacy).
+
+**Decisión**: Se introduce `core.agent_paper_schema.py` con helpers para construir papers desde presets y escribirlos en la carpeta correcta del dominio (`domains/<domain_id>/agents/papers/`). `/api/agents/create` usa este helper:
+1. Si `profile_preset_id` viene y existe, valida que el preset tenga `paper_seed`
+2. Construye el paper inicial desde `paper_seed`, `agent_config` y `domain_metadata`
+3. Guarda el paper en la carpeta del dominio (fallando si ya existe un paper para ese agent_id)
+4. Agrega un bloque `paper` en la config del agente con `created`, `source`, `created_at`, `schema_version`
+5. Si falla la creación del paper, no se crea el agente (rollback)
+
+**Estructura del paper inicial**:
+- **Nuevo schema**: `schema_version`, `agent_id`, `domain_id`, `source`, `profile_preset_id`, `profile_preset_name`, `identity`, `role`, `specialization_id`, `specialization_name`, `short_description`, `operating_style`, `learning_focus`, `decision_criteria`, `avoid`, `memory_policy`, `domain_context`, `system_prompt_snapshot`, `created_at`, `updated_at`, `history`
+- **Campos legacy**: Se incluyen `agente_id`, `dominio_id`, `rol`, `identidad`, `instrucciones_dominio`, `reglas_clave`, `lecciones_aprendidas`, `errores_a_evitar`, `estilo_respuesta`, `fecha_creacion` para compatibilidad con `runtime_json_agent.py`
+
+**Compatibilidad**:
+- Agentes legacy sin bloque `paper` siguen funcionando
+- Papers legacy existentes se siguen leyendo sin modificar
+- `runtime_json_agent.py` no requiere cambios (usa campos legacy)
+- Agentes creados sin preset reciben un paper básico para mantener compatibilidad con tests y scripts antiguos
+
+**Evidencia**:
+- `core/agent_paper_schema.py` — `build_initial_paper_from_preset()`, `get_domain_agent_paper_path()`, `write_initial_agent_paper()`
+- `core/agent_config_schema.py` — Actualizado para agregar campo `paper` en `build_agent_config()` y `normalize_agent_config()`
+- `api.py:1291-1320` — Integración en `/api/agents/create` para generar y guardar paper
+- `tests/test_agent_config_schema.py` — Tests para el helper/schema de papers
+
+**Clasificación Patrimonio/Core/Dominio/Agente**:
+- `core/agent_paper_schema.py`: **Core** — Funcionalidad genérica para crear papers desde presets, independiente de dominio
+- Papers generados en `domains/<domain_id>/agents/papers/`: **Agente** — Identidad de un agente específico del dominio
+- `paper_seed` en `domains/<domain_id>/agent_presets.json`: **Dominio** — Semilla de identidad específica del dominio
+
+**Alcance diferido**: No se integra memoria `.md`, no se llama a LLM para generar papers, no se regeneran papers existentes, no se modifica `mejorar_papers.py`, no se modifica `runtime_json_agent.py` (excepto si fuera estrictamente necesario para compatibilidad, lo que no fue el caso).

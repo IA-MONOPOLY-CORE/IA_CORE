@@ -1265,7 +1265,22 @@ async def create_agent_endpoint(
             final_model = "meta/llama-3.1-8b-instruct"
 
     from core.agent_config_schema import build_agent_config
+    from core.agent_paper_schema import build_initial_paper_from_preset, write_initial_agent_paper
 
+    # Preparar variables para paper
+    paper_created = False
+    paper_source = None
+    paper_path = None
+    agent_config = None
+
+    # Primero verificar si paper ya existe para evitar basura
+    if profile_preset:
+        _, papers_dir_check = get_domain_agent_paths(domain_id, ensure=False)
+        paper_path_check = papers_dir_check / f"{id}_paper.json"
+        if paper_path_check.exists():
+            return {"success": False, "error": f"Ya existe un paper para el agente con ID '{id}'"}
+
+    # Crear config de agente con paper info inicial
     agent_config = build_agent_config(
         id=id,
         role=role,
@@ -1286,6 +1301,8 @@ async def create_agent_endpoint(
         memory_indexed=False,  # Se actualizará después de indexar
         created_via="hud_create_agent",
         preset_source="domain_agent_presets" if profile_preset else None,
+        paper_created=False,  # Se actualizará después de crear paper
+        paper_source=None,
     )
 
     json_path = config_dir / f"{id}.json"
@@ -1293,11 +1310,43 @@ async def create_agent_endpoint(
     if find_agent_json(id) is not None:
         return {"success": False, "error": f"Ya existe un agente con ID '{id}'"}
 
+    # Generar paper primero si hay preset, para evitar basura si falla
+    if profile_preset:
+        try:
+            domain_metadata = {
+                "nombre": domain.get("nombre"),
+                "descripcion": domain.get("descripcion"),
+                "instrucciones": domain.get("instrucciones"),
+            }
+            paper = build_initial_paper_from_preset(
+                agent_config=agent_config,
+                profile_preset=profile_preset,
+                domain_metadata=domain_metadata,
+            )
+            paper_path = write_initial_agent_paper(domain_id, id, paper, overwrite=False)
+            paper_created = True
+            paper_source = "preset_initial_paper"
+            logger.info(f"✅ Paper inicial generado para {id} desde preset")
+        except Exception as e:
+            return {"success": False, "error": f"Error generando paper desde preset: {e}"}
+
+    # Ahora guardar JSON del agente (con paper info actualizada si aplica)
+    if paper_created:
+        agent_config["paper"]["created"] = True
+        agent_config["paper"]["source"] = paper_source
+
     try:
         with open(json_path, "w", encoding="utf-8") as f:
             json.dump(agent_config, f, indent=2, ensure_ascii=False)
         logger.info(f"✅ Agente JSON creado: {json_path}")
     except Exception as e:
+        # Si falla guardar JSON y ya habíamos guardado paper, intentar eliminar paper
+        if paper_created and paper_path:
+            try:
+                paper_path.unlink(missing_ok=True)
+                logger.warning(f"⚠️ Eliminado paper por fallo en guardar JSON del agente {id}")
+            except Exception:
+                pass
         return {"success": False, "error": f"Error guardando JSON: {e}"}
 
     memoria_indexada = False
@@ -1321,30 +1370,39 @@ async def create_agent_endpoint(
         except Exception as e:
             logger.warning(f"Error indexando memoria para {id}: {e}")
 
-    paper_basico = {
-        "agente_id": id,
-        "dominio_id": domain_id,
-        "rol": role,
-        "identidad": system_prompt[:500],
-        "instrucciones_dominio": domain.get("instrucciones", ""),
-        "reglas_clave": [],
-        "lecciones_aprendidas": [],
-        "errores_a_evitar": [],
-        "estilo_respuesta": "Técnico, directo",
-        "fecha_creacion": datetime.now().isoformat(),
-    }
-    paper_path = papers_dir / f"{id}_paper.json"
-    with open(paper_path, "w", encoding="utf-8") as f:
-        json.dump(paper_basico, f, indent=2, ensure_ascii=False)
-    paper_generado = True
-    logger.info(f"✅ Paper básico creado para {id} en dominio {domain_id}")
+    # Si no hay preset, generar paper básico para compatibilidad hacia atrás
+    if not profile_preset:
+        paper_basico = {
+            "agente_id": id,
+            "dominio_id": domain_id,
+            "rol": role,
+            "identidad": system_prompt[:500],
+            "instrucciones_dominio": domain.get("instrucciones", ""),
+            "reglas_clave": [],
+            "lecciones_aprendidas": [],
+            "errores_a_evitar": [],
+            "estilo_respuesta": "Técnico, directo",
+            "fecha_creacion": datetime.now().isoformat(),
+        }
+        paper_path = papers_dir / f"{id}_paper.json"
+        with open(paper_path, "w", encoding="utf-8") as f:
+            json.dump(paper_basico, f, indent=2, ensure_ascii=False)
+        paper_created = True
+        paper_source = "basic_compatibility"
+        # Actualizar la config del agente para reflejar que se creó el paper
+        agent_config["paper"]["created"] = True
+        agent_config["paper"]["source"] = paper_source
+        agent_config["metadata"]["updated_at"] = datetime.now().isoformat()
+        with open(json_path, "w", encoding="utf-8") as f:
+            json.dump(agent_config, f, indent=2, ensure_ascii=False)
+        logger.info(f"✅ Paper básico creado para {id} en dominio {domain_id}")
 
     return {
         "success": True,
         "agent_id": id,
         "config_path": str(json_path),
         "memoria_indexada": memoria_indexada,
-        "paper_generado": paper_generado,
+        "paper_generado": paper_created,
         "message": f"Agente '{id}' creado exitosamente",
     }
 

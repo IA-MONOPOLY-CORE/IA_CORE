@@ -10,6 +10,7 @@ Este documento mapea qué partes del sistema son el "motor de debate genérico" 
 - **Paso 9 — COMPLETADO:** `analyst`, `assistant`, `critic` y `optimizer` se identifican con `AGENT_IS_GENERIC_BASELINE = True`; `AgentManager` conserva esa clasificación, `/api/agents/list` publica `is_generic_baseline` y `ui/web/index.html` muestra dos grupos: **Agentes base (demo) [4]** y **Agentes S.A.A.O.P. [6]**.
 - **Presets por dominio — COMPLETADO:** `domains/loteria/agent_presets.json` crea la primera biblioteca semilla de presets operativos para combinaciones `role_id + specialization_id`; `core/domain_registry.py` la valida contra `profile_catalog.json`, `api.py` la expone por endpoints read-only y Crear Agente la consume como sugerencia editable.
 - **Metadata de agentes — COMPLETADO:** `core/agent_config_schema.py` introduce helper/schema para normalizar estructura JSON de agentes con bloques `memory` y `metadata`; `/api/agents/create` usa el helper para asegurar consistencia, `PUT /api/agents/{agent_id}` preserva campos nuevos y actualiza `updated_at`, `GET /api/agents/list` expone `memory` y `metadata` en respuesta. Agentes legacy siguen funcionando con `null` para campos faltantes.
+- **Papers desde presets — COMPLETADO:** `core/agent_paper_schema.py` introduce helper para construir papers iniciales desde presets; `/api/agents/create` usa este helper para generar y guardar papers en `domains/<domain_id>/agents/papers/` al crear un agente con preset; se agrega un bloque `paper` en la config del agente para registro; papers generados incluyen campos legacy para compatibilidad con `runtime_json_agent.py`; tests exhaustivos en `tests/test_agent_config_schema.py`; `ARCHITECTURE_DECISIONS.md` actualizado con ADR-015.
 - **Interfaz — COMPLETADO:** `ui/web/`, servido por FastAPI, es la única interfaz de usuario del proyecto; la estructura auxiliar de la interfaz anterior ya no existe.
 
 ## Leyenda
@@ -34,6 +35,8 @@ Este documento mapea qué partes del sistema son el "motor de debate genérico" 
 | core/orchestration.py | NO | Modelos de datos genéricos (AgentStepResult, DebateResult, OrchestrationResult) |
 | core/scoring.py | MOVIDO | Movido a domains/loteria/scoring.py (100% específico de Lotería) |
 | core/supervisor.py | PARCIAL | La evolución, el pipeline, el mapeo de expertos y las funciones de scoring se inyectan por constructor; ya no hay scoring rígido en los ejecutores. Conserva fallbacks perezosos hacia Lotería por compatibilidad, textos S.A.A.O.P. y extracción de combinaciones 0-50, por lo que aún no es 100% agnóstico |
+| core/agent_paper_schema.py | NO | **NUEVO** - Helper/schema genérico para construir papers iniciales desde presets, escribir papers en carpetas de dominio y resolver rutas de papers por dominio |
+| core/agent_config_schema.py | NO | Helper/schema genérico para normalizar estructura JSON de agentes con bloques `memory`, `metadata` y `paper` |
 | **agents/** | | |
 | agents/base.py | NO | Contrato ABC genérico para agentes |
 | agents/manager.py | NO | Gestión genérica de agentes (carga JSON, registro, lifecycle) y registro de IDs marcados como baseline genérico |
@@ -117,6 +120,8 @@ Este documento mapea qué partes del sistema son el "motor de debate genérico" 
 - core/evolution_base.py (**NUEVO** - clase base genérica para sistemas evolutivos)
 - core/memoria_perpetua.py
 - core/orchestration.py
+- core/agent_paper_schema.py (**NUEVO** - helper/schema para generar papers iniciales desde presets)
+- core/agent_config_schema.py (**NUEVO** - helper/schema para normalizar config de agentes)
 - agents/base.py
 - agents/manager.py
 - agents/loader.py
