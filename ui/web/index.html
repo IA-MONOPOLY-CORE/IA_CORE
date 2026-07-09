@@ -857,6 +857,10 @@
                 <div id="recommendation-text"></div>
                 <button id="apply-recommendation-btn" type="button" style="margin-top:8px; padding:4px 12px; background:rgba(245, 158, 11, 0.15); border:1px solid var(--amber); color:var(--amber); font-size:0.7rem; cursor:pointer; border-radius:var(--border-radius);">Aplicar recomendación</button>
             </div>
+            <div id="model-compatibility" style="display:none; margin-bottom:12px; padding:10px; background:rgba(33, 150, 243, 0.08); border:1px solid rgba(33, 150, 243, 0.3); border-radius:var(--border-radius); font-size:0.72rem; line-height:1.4;">
+                <div style="color:var(--cyan); font-weight:bold; margin-bottom:4px;">⚙️ Compatibilidad del modelo seleccionado</div>
+                <div id="compatibility-text"></div>
+            </div>
             <div style="margin-bottom:12px;"><label style="font-size:0.8rem;">PROVEEDOR</label>
                 <select id="agent-provider" style="width:100%; background:rgba(0,0,0,0.5); border:1px solid var(--border-color); color:#fff; padding:8px; border-radius:var(--border-radius);">
                     <option value="ollama">Ollama (Local)</option>
@@ -1372,6 +1376,82 @@
             }
         }
 
+        function clearModelCompatibility() {
+            const container = document.getElementById('model-compatibility');
+            if (container) {
+                container.style.display = 'none';
+            }
+        }
+
+        async function consultarModelCompatibility() {
+            const provider = document.getElementById('agent-provider').value;
+            const model = document.getElementById('agent-model').value;
+
+            clearModelCompatibility();
+            if (!provider || !model) return;
+
+            try {
+                const formData = new FormData();
+                formData.append('provider', provider);
+                formData.append('model', model);
+
+                const data = await fetchJson('/api/system/model-compatibility', {
+                    method: 'POST',
+                    body: formData,
+                });
+
+                if (data.success && data.compatibility) {
+                    displayModelCompatibility(data.compatibility);
+                }
+            } catch (error) {
+                // Silencioso - la compatibilidad es opcional
+                console.warn('No se pudo obtener compatibilidad del modelo:', error.message);
+            }
+        }
+
+        function displayModelCompatibility(compatibility) {
+            const container = document.getElementById('model-compatibility');
+            const textDiv = document.getElementById('compatibility-text');
+
+            if (!container || !textDiv) return;
+
+            const providerName = compatibility.provider || 'N/A';
+            const modelName = compatibility.model || 'N/A';
+            const compatStatus = compatibility.compatibility || 'unknown';
+            const hardwareReason = compatibility.hardware_reason || '';
+
+            // Color según compatibilidad
+            let compatColor = 'var(--text-muted)';
+            let compatEmoji = '❓';
+            let compatText = 'DESCONOCIDO';
+
+            if (compatStatus === 'compatible') {
+                compatColor = '#4caf50';
+                compatEmoji = '🟢';
+                compatText = 'COMPATIBLE';
+            } else if (compatStatus === 'warning') {
+                compatColor = '#ff9800';
+                compatEmoji = '🟠';
+                compatText = 'ADVERTENCIA';
+            } else if (compatStatus === 'blocked') {
+                compatColor = '#f44336';
+                compatEmoji = '🔴';
+                compatText = 'NO RECOMENDADO';
+            } else if (compatStatus === 'cloud_available') {
+                compatColor = '#2196f3';
+                compatEmoji = '🔵';
+                compatText = 'CLOUD';
+            }
+
+            textDiv.innerHTML = `
+                <div><strong>Modelo evaluado:</strong> ${escapeHtml(providerName)} / ${escapeHtml(modelName)}</div>
+                <div style="margin-top:4px;"><strong>Estado:</strong> <span style="color:${compatColor}; font-weight:bold;">${compatEmoji} ${compatText}</span></div>
+                ${hardwareReason ? `<div style="margin-top:4px;"><strong>Motivo:</strong> ${escapeHtml(hardwareReason)}</div>` : ''}
+            `;
+
+            container.style.display = 'block';
+        }
+
         function applyModelRecommendation() {
             const container = document.getElementById('model-recommendation');
             if (!container) return;
@@ -1730,6 +1810,7 @@
                 resetAgentFieldTouched(true);
                 clearAgentPreset();
                 clearModelRecommendation();
+                clearModelCompatibility();
                 document.getElementById('agent-modal-title').innerText = `EDITAR: ${ag.name}`;
                 document.getElementById('agent-id').value = id;
                 document.getElementById('agent-id').disabled = true;
@@ -1751,6 +1832,8 @@
                 }
                 // Consultar recomendación de modelo (no pisa selección manual)
                 consultarModelRecommendation();
+                // Consultar compatibilidad del modelo seleccionado
+                consultarModelCompatibility();
                 document.getElementById('agent-modal').style.display = 'flex';
             }
         }
@@ -2293,19 +2376,29 @@
             document.getElementById('agent-domain').addEventListener('change', (event) => {
                 clearAgentPreset();
                 clearModelRecommendation();
+                clearModelCompatibility();
                 cargarProfileCatalogAgente(event.target.value);
             });
             document.getElementById('agent-role').addEventListener('change', () => {
                 clearAgentPreset();
                 clearModelRecommendation();
+                clearModelCompatibility();
                 actualizarEspecializaciones();
                 consultarModelRecommendation();
             });
             document.getElementById('agent-specialization').addEventListener('change', () => {
                 consultarPresetAgente();
                 consultarModelRecommendation();
+                consultarModelCompatibility();
             });
             document.getElementById('apply-recommendation-btn').addEventListener('click', applyModelRecommendation);
+            document.getElementById('agent-provider').addEventListener('change', () => {
+                actualizarSelectModelos();
+                consultarModelCompatibility();
+            });
+            document.getElementById('agent-model').addEventListener('change', () => {
+                consultarModelCompatibility();
+            });
             cargarProfileCatalogAgente(document.getElementById('agent-domain').value);
             checkConnection();
             setInterval(checkConnection, 5000);

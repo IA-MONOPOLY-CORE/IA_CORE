@@ -368,9 +368,9 @@ def _get_default_score_response_fn() -> Callable:
 
 No se usan providers demo/placeholders. No se eligen modelos inexistentes en la lista real del provider.
 
-**Backend**: `POST /api/agents/model-recommendation` acepta `domain_id`, `role_id`, `specialization_id`, `profile_preset_id`, `current_provider`, `current_model` y devuelve recomendación con provider, modelo, workload, execution preference, reasoning_need, reason, compatibility, hardware_reason. El endpoint consulta providers disponibles desde supervisor y filtra placeholders/no saludables. `GET /api/system/hardware-profile` expone el perfil de hardware actual con todos sus campos y source.
+**Backend**: `POST /api/agents/model-recommendation` acepta `domain_id`, `role_id`, `specialization_id`, `profile_preset_id`, `current_provider`, `current_model` y devuelve recomendación con provider, modelo, workload, execution preference, reasoning_need, reason, compatibility, hardware_reason. El endpoint consulta providers disponibles desde supervisor y filtra placeholders/no saludables. `GET /api/system/hardware-profile` expone el perfil de hardware actual con todos sus campos y source. `POST /api/system/model-compatibility` acepta `provider` y `model` y devuelve compatibilidad del modelo seleccionado con el hardware local.
 
-**HUD**: En Crear Agente, al seleccionar dominio, rol y especialización, se muestra un bloque de recomendación con modelo sugerido, workload, motivo, compatibilidad (con color según tipo) y hardware_reason. Botón "Aplicar recomendación" permite aplicar la sugerencia manualmente. En Editar Agente, al abrir un agente existente, se muestra recomendación si el provider/model actual parece subóptimo, sin cambiar automáticamente sin acción del usuario.
+**HUD**: En Crear Agente, al seleccionar dominio, rol y especialización, se muestra un bloque de recomendación con modelo sugerido, workload, motivo, compatibilidad (con color según tipo) y hardware_reason. Botón "Aplicar recomendación" permite aplicar la sugerencia manualmente. Además, se muestra un bloque separado de "Compatibilidad del modelo seleccionado" que evalúa el provider/model actualmente elegido por el usuario, con estado (COMPATIBLE/ADVERTENCIA/NO RECOMENDADO/CLOUD/DESCONOCIDO), emoji, color y motivo del hardware. En Editar Agente, al abrir un agente existente, se muestra recomendación si el provider/model actual parece subóptimo, sin cambiar automáticamente sin acción del usuario. La compatibilidad se recalcula cuando cambian: dominio, rol, especialización, provider o modelo.
 
 **Regla de no pisado**: La UI mantiene flags de campos tocados. Si el usuario ya cambió provider/model manualmente, no se pisa su elección. La recomendación es solo una sugerencia.
 
@@ -379,8 +379,11 @@ No se usan providers demo/placeholders. No se eligen modelos inexistentes en la 
 - `config/hardware_profile.json` — Archivo de configuración editable para perfil de hardware
 - `api.py:1517-1589` — Endpoint `POST /api/agents/model-recommendation` (ahora incluye compatibility y hardware_reason)
 - `api.py:1592-1614` — Endpoint `GET /api/system/hardware-profile`
-- `ui/web/index.html:855-859` — Bloque UI de recomendación en modal de agente
-- `ui/web/index.html:1322-1364` — Funciones JS `consultarModelRecommendation()`, `displayModelRecommendation()` (ahora muestra compatibilidad con color)
+- `api.py:1619-1635` — Endpoint `POST /api/system/model-compatibility` (evalúa compatibilidad del modelo seleccionado)
+- `ui/web/index.html:855-863` — Bloques UI de recomendación y compatibilidad en modal de agente
+- `ui/web/index.html:1322-1364` — Funciones JS `consultarModelRecommendation()`, `displayModelRecommendation()` (muestra compatibilidad con color)
+- `ui/web/index.html:1379-1453` — Funciones JS `clearModelCompatibility()`, `consultarModelCompatibility()`, `displayModelCompatibility()` (muestra compatibilidad del modelo seleccionado con emoji y texto)
+- `ui/web/index.html:2373-2398` — Event listeners para recalcular compatibilidad al cambiar campos
 - `tests/test_model_recommendation.py` — Tests para clasificación, hardware flexible, selección de provider/model, compatibilidad modelo/hardware
 
 **Clasificación Patrimonio/Core/Dominio/Agente**:

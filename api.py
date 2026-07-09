@@ -1616,6 +1616,25 @@ async def get_hardware_profile():
         }
 
 
+@app.post("/api/system/model-compatibility")
+async def get_model_compatibility(provider: str = Form(...), model: str = Form(...)):
+    from core.model_recommendation import evaluate_model_compatibility, get_hardware_profile
+
+    try:
+        hardware_profile = get_hardware_profile()
+        compatibility = evaluate_model_compatibility(provider, model, hardware_profile)
+        return {
+            "success": True,
+            "compatibility": compatibility,
+        }
+    except Exception as e:
+        logger.exception("Error evaluando compatibilidad del modelo")
+        return {
+            "success": False,
+            "error": str(e),
+        }
+
+
 @app.get("/api/agents/list")
 async def list_agents():
     if not supervisor:
