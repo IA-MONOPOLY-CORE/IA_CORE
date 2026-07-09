@@ -959,7 +959,7 @@
             const provider = document.getElementById('agent-provider').value;
             const modelSelect = document.getElementById('agent-model');
             const modelos = MODELOS_POR_PROVEEDOR[provider] || MODELOS_POR_PROVEEDOR.ollama;
-            
+
             modelSelect.innerHTML = '';
             modelos.forEach(modelo => {
                 const option = document.createElement('option');
@@ -967,6 +967,10 @@
                 option.textContent = modelo;
                 modelSelect.appendChild(option);
             });
+            // Seleccionar el primer modelo por defecto para evitar dejar vacío
+            if (modelos.length > 0) {
+                modelSelect.value = modelos[0];
+            }
         }
 
         // Mapeo de especializaciones por capa
@@ -1620,6 +1624,9 @@
                 await cargarProfileCatalogAgente(ag.domain_id || '', ag.role, ag.specialization_id || '');
                 // Cargar provider/model del agente
                 document.getElementById('agent-provider').value = ag.provider || 'nvidia';
+                // Actualizar lista de modelos según el provider del agente
+                actualizarSelectModelos();
+                // Setear modelo después de actualizar la lista
                 document.getElementById('agent-model').value = ag.model || 'meta/llama-3.1-8b-instruct';
                 // Cargar system_prompt existente con prioridad: system_prompt > instructions > vacío
                 const existingPrompt = ag.system_prompt || ag.instructions || '';
