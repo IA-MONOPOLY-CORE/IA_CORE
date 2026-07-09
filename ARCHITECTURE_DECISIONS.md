@@ -341,3 +341,48 @@ def _get_default_score_response_fn() -> Callable:
 - `core/agent_config_schema.py` (actualizado): **Core** — Schema normalizado para agentes, sin dependencia de dominio
 - `memory_source` (contenido de memoria cargada por el usuario): **Agente** — Información específica de un agente
 - Papers enriquecidos en `domains/<domain_id>/agents/papers/`: **Agente** — Identidad enriquecida de un agente específico
+
+---
+
+## ADR-017 — Recomendación inteligente de provider/model por perfil de agente
+
+**Estado**: Aceptado
+
+**Contexto**: Los agentes pueden elegir provider/model manualmente, pero IA_CORE no recomienda qué modelo conviene según el perfil del agente. El usuario tiene hardware local limitado (Ryzen 7 7730U, 16GB RAM, sin GPU), por lo que Ollama/local puede servir para agentes livianos pero no como default operativo para agentes pesados.
+
+**Decisión**: Se introduce `core/model_recommendation.py` como módulo Core que provee recomendaciones de provider/model basadas en reglas determinísticas (sin LLM). Las recomendaciones consideran dominio, rol, especialización, carga cognitiva esperada, requerimientos de razonamiento y hardware local disponible. La recomendación es una sugerencia editable, NO una imposición.
+
+**Reglas de clasificación**:
+- **Workload heavy/critical** (auditor, simulador, integrador_central, gestor_riesgo): `cloud_preferred`, razonamiento alto
+- **Workload medium** (analista, critico, investigador): `cloud_preferred` o cloud/local según disponibilidad
+- **Workload light** (archivista, comunicador): `local` permitido si hay modelo chico disponible
+
+**Perfil de hardware local**: Hardcoded como `get_default_hardware_profile()` con CPU Ryzen 7 7730U, 16GB RAM, sin GPU, `local_mode="limited"`. Si hardware es limitado y workload es heavy/critical, no se recomienda local como primera opción.
+
+**Selección de provider/model**:
+1. Si workload heavy/critical: preferir provider cloud operativo (NVIDIA si disponible), fallback local con advertencia
+2. Si workload medium: preferir cloud si disponible, si no local chico
+3. Si workload light: local chico si disponible, cloud económico si no
+
+No se usan providers demo/placeholders. No se eligen modelos inexistentes en la lista real del provider.
+
+**Backend**: `POST /api/agents/model-recommendation` acepta `domain_id`, `role_id`, `specialization_id`, `profile_preset_id`, `current_provider`, `current_model` y devuelve recomendación con provider, modelo, workload, execution preference, reasoning_need y reason. El endpoint consulta providers disponibles desde supervisor y filtra placeholders/no saludables.
+
+**HUD**: En Crear Agente, al seleccionar dominio, rol y especialización, se muestra un bloque de recomendación con modelo sugerido, workload y motivo. Botón "Aplicar recomendación" permite aplicar la sugerencia manualmente. En Editar Agente, al abrir un agente existente, se muestra recomendación si el provider/model actual parece subóptimo, sin cambiar automáticamente sin acción del usuario.
+
+**Regla de no pisado**: La UI mantiene flags de campos tocados. Si el usuario ya cambió provider/model manualmente, no se pisa su elección. La recomendación es solo una sugerencia.
+
+**Evidencia**:
+- `core/model_recommendation.py` — Helper con `classify_agent_model_need()`, `recommend_provider_model()`, `get_default_hardware_profile()`
+- `api.py:1517-1589` — Endpoint `POST /api/agents/model-recommendation`
+- `ui/web/index.html:855-859` — Bloque UI de recomendación en modal de agente
+- `ui/web/index.html:1290-1379` — Funciones JS `consultarModelRecommendation()`, `displayModelRecommendation()`, `applyModelRecommendation()`
+- `tests/test_model_recommendation.py` — Tests para clasificación, hardware, selección de provider/model
+
+**Clasificación Patrimonio/Core/Dominio/Agente**:
+- `core/model_recommendation.py`: **Core** — Funcionalidad genérica de recomendación, independiente de dominio
+- Reglas específicas de Lotería (auditor, simulador, etc.): **Dominio** — Lógica específica dentro del helper Core
+- Perfil de hardware local: **Patrimonio compartido** — Configuración de hardware del usuario, reusable entre dominios
+- Recomendaciones aplicadas a agentes: **Agente** — Elección específica de un agente
+
+**Alcance diferido**: No se modifican masivamente agentes existentes, no se toca `agent_presets.json`, no se toca `profile_catalog.json`, no se modifica `runtime_json_agent.py`, no se modifica `mejorar_papers.py`, no se avanza a Prompt 13.

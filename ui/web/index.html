@@ -852,6 +852,11 @@
             </div>
             <div id="agent-preset-status" style="display:none; margin:-4px 0 10px 0; color:var(--text-muted); font-size:0.72rem;"></div>
             <div id="agent-preset-summary" style="display:none; margin-bottom:12px; padding:10px; background:rgba(0,212,255,0.06); border:1px solid rgba(0,212,255,0.18); border-radius:var(--border-radius); font-size:0.72rem; line-height:1.4;"></div>
+            <div id="model-recommendation" style="display:none; margin-bottom:12px; padding:10px; background:rgba(245, 158, 11, 0.08); border:1px solid rgba(245, 158, 11, 0.3); border-radius:var(--border-radius); font-size:0.72rem; line-height:1.4;">
+                <div style="color:var(--amber); font-weight:bold; margin-bottom:4px;">💡 Recomendación de modelo</div>
+                <div id="recommendation-text"></div>
+                <button id="apply-recommendation-btn" type="button" style="margin-top:8px; padding:4px 12px; background:rgba(245, 158, 11, 0.15); border:1px solid var(--amber); color:var(--amber); font-size:0.7rem; cursor:pointer; border-radius:var(--border-radius);">Aplicar recomendación</button>
+            </div>
             <div style="margin-bottom:12px;"><label style="font-size:0.8rem;">PROVEEDOR</label>
                 <select id="agent-provider" style="width:100%; background:rgba(0,0,0,0.5); border:1px solid var(--border-color); color:#fff; padding:8px; border-radius:var(--border-radius);">
                     <option value="ollama">Ollama (Local)</option>
@@ -1263,6 +1268,7 @@
             const requestId = ++agentPresetRequestSeq;
 
             clearAgentPreset();
+            clearModelRecommendation();
             if (!domainId || !roleId || !specializationId) return;
             setAgentPresetStatus('Buscando preset operativo...');
 
@@ -1277,6 +1283,97 @@
                     clearAgentPreset('No hay preset especifico para esta combinacion. Podes completar el agente manualmente.', true);
                 } else {
                     clearAgentPreset(`No se pudo consultar el preset: ${message}`, true);
+                }
+            }
+        }
+
+        async function consultarModelRecommendation() {
+            const domainId = document.getElementById('agent-domain').value;
+            const roleId = document.getElementById('agent-role').value;
+            const specializationId = document.getElementById('agent-specialization').value;
+            const currentProvider = document.getElementById('agent-provider').value;
+            const currentModel = document.getElementById('agent-model').value;
+
+            clearModelRecommendation();
+            if (!domainId || !roleId) return;
+
+            try {
+                const formData = new FormData();
+                formData.append('domain_id', domainId);
+                formData.append('role_id', roleId);
+                if (specializationId) formData.append('specialization_id', specializationId);
+                if (currentProvider) formData.append('current_provider', currentProvider);
+                if (currentModel) formData.append('current_model', currentModel);
+
+                const data = await fetchJson('/api/agents/model-recommendation', {
+                    method: 'POST',
+                    body: formData,
+                });
+
+                if (data.success && data.recommendation) {
+                    displayModelRecommendation(data.recommendation);
+                }
+            } catch (error) {
+                // Silencioso - la recomendación es opcional
+                console.warn('No se pudo obtener recomendación de modelo:', error.message);
+            }
+        }
+
+        function displayModelRecommendation(recommendation) {
+            const container = document.getElementById('model-recommendation');
+            const textDiv = document.getElementById('recommendation-text');
+            
+            if (!container || !textDiv) return;
+
+            if (!recommendation.recommended) {
+                container.style.display = 'none';
+                return;
+            }
+
+            const providerName = recommendation.provider || 'N/A';
+            const modelName = recommendation.model || 'N/A';
+            const workload = recommendation.workload || 'N/A';
+            const reason = recommendation.reason || '';
+
+            textDiv.innerHTML = `
+                <div><strong>Modelo recomendado:</strong> ${escapeHtml(providerName)} / ${escapeHtml(modelName)}</div>
+                <div><strong>Workload:</strong> ${escapeHtml(workload)}</div>
+                <div><strong>Motivo:</strong> ${escapeHtml(reason)}</div>
+                ${recommendation.fallback ? `<div style="margin-top:4px; color:var(--text-muted);"><strong>Fallback:</strong> ${escapeHtml(recommendation.fallback.warning || '')}</div>` : ''}
+            `;
+
+            container.style.display = 'block';
+            container.dataset.recommendedProvider = recommendation.provider || '';
+            container.dataset.recommendedModel = recommendation.model || '';
+        }
+
+        function clearModelRecommendation() {
+            const container = document.getElementById('model-recommendation');
+            if (container) {
+                container.style.display = 'none';
+                container.dataset.recommendedProvider = '';
+                container.dataset.recommendedModel = '';
+            }
+        }
+
+        function applyModelRecommendation() {
+            const container = document.getElementById('model-recommendation');
+            if (!container) return;
+
+            const recommendedProvider = container.dataset.recommendedProvider;
+            const recommendedModel = container.dataset.recommendedModel;
+
+            if (!recommendedProvider || !recommendedModel) return;
+
+            const providerSelect = document.getElementById('agent-provider');
+            const modelSelect = document.getElementById('agent-model');
+
+            if (providerSelect && optionExists(providerSelect, recommendedProvider)) {
+                providerSelect.value = recommendedProvider;
+                actualizarSelectModelos();
+                
+                if (modelSelect && optionExists(modelSelect, recommendedModel)) {
+                    modelSelect.value = recommendedModel;
                 }
             }
         }
@@ -1616,6 +1713,7 @@
                 currentEditId = id;
                 resetAgentFieldTouched(true);
                 clearAgentPreset();
+                clearModelRecommendation();
                 document.getElementById('agent-modal-title').innerText = `EDITAR: ${ag.name}`;
                 document.getElementById('agent-id').value = id;
                 document.getElementById('agent-id').disabled = true;
@@ -1635,6 +1733,8 @@
                 if (ag.profile_preset_id) {
                     setAgentPresetStatus(`Preset asociado: ${ag.profile_preset_name || ag.profile_preset_id}`);
                 }
+                // Consultar recomendación de modelo (no pisa selección manual)
+                consultarModelRecommendation();
                 document.getElementById('agent-modal').style.display = 'flex';
             }
         }
@@ -2176,13 +2276,20 @@
             
             document.getElementById('agent-domain').addEventListener('change', (event) => {
                 clearAgentPreset();
+                clearModelRecommendation();
                 cargarProfileCatalogAgente(event.target.value);
             });
             document.getElementById('agent-role').addEventListener('change', () => {
                 clearAgentPreset();
+                clearModelRecommendation();
                 actualizarEspecializaciones();
+                consultarModelRecommendation();
             });
-            document.getElementById('agent-specialization').addEventListener('change', consultarPresetAgente);
+            document.getElementById('agent-specialization').addEventListener('change', () => {
+                consultarPresetAgente();
+                consultarModelRecommendation();
+            });
+            document.getElementById('apply-recommendation-btn').addEventListener('click', applyModelRecommendation);
             cargarProfileCatalogAgente(document.getElementById('agent-domain').value);
             checkConnection();
             setInterval(checkConnection, 5000);

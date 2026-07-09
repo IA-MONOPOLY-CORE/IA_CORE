@@ -48,6 +48,7 @@ from core.domain_registry import (
 )
 from core.supervisor import MEMORY_HISTORY_KEY, Supervisor
 from core.orchestration import ExecutionMode
+from core.model_recommendation import recommend_provider_model
 
 
 # ========================================================================
@@ -1511,6 +1512,81 @@ async def get_settings():
         return {"success": True, **settings, "api_key_configured": bool(config.NVIDIA_API_KEY)}
     except Exception as e:
         return {"success": False, "error": str(e)}
+
+
+@app.post("/api/agents/model-recommendation")
+async def get_model_recommendation(
+    domain_id: str = Form(...),
+    role_id: str = Form(...),
+    specialization_id: Optional[str] = Form(None),
+    profile_preset_id: Optional[str] = Form(None),
+    current_provider: Optional[str] = Form(None),
+    current_model: Optional[str] = Form(None),
+):
+    """
+    Obtiene una recomendación de provider/model para un perfil de agente.
+    
+    La recomendación se basa en:
+    - Dominio, rol y especialización
+    - Carga cognitiva esperada
+    - Hardware local disponible
+    - Providers realmente disponibles
+    
+    Es una sugerencia editable, NO una imposición.
+    """
+    try:
+        # Obtener providers disponibles desde supervisor
+        available_providers = []
+        if supervisor:
+            providers = supervisor.providers.list_providers()
+            for provider in providers:
+                try:
+                    name = provider.provider_name()
+                    models = provider.available_models()
+                    health = provider.health_check()
+                    is_placeholder = getattr(provider, "IS_PLACEHOLDER", False)
+                    
+                    available_providers.append({
+                        "name": name,
+                        "models": models,
+                        "healthy": health.healthy,
+                        "is_placeholder": is_placeholder,
+                        "message": health.message,
+                    })
+                except Exception as e:
+                    logger.warning(f"Error obteniendo info de provider: {e}")
+        
+        # Generar recomendación
+        recommendation = recommend_provider_model(
+            domain_id=domain_id,
+            role_id=role_id,
+            specialization_id=specialization_id,
+            profile_preset_id=profile_preset_id,
+            current_provider=current_provider,
+            current_model=current_model,
+            available_providers=available_providers,
+        )
+        
+        return {
+            "success": True,
+            "recommendation": {
+                "recommended": recommendation.recommended,
+                "provider": recommendation.provider,
+                "model": recommendation.model,
+                "workload": recommendation.workload,
+                "recommended_execution": recommendation.recommended_execution,
+                "reasoning_need": recommendation.reasoning_need,
+                "reason": recommendation.reason,
+                "fallback": recommendation.fallback,
+            },
+            "available_providers": available_providers,
+        }
+    except Exception as e:
+        logger.exception("Error generando recomendación de modelo")
+        return {
+            "success": False,
+            "error": str(e),
+        }
 
 
 @app.get("/api/agents/list")
