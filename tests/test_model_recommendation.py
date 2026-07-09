@@ -10,6 +10,8 @@ from core.model_recommendation import (
     get_default_hardware_profile,
     classify_agent_model_need,
     recommend_provider_model,
+    evaluate_model_compatibility,
+    _classify_model_size,
     _is_cloud_provider,
     _is_local_provider,
     _select_best_model_for_workload,
@@ -482,3 +484,248 @@ class TestHardwareLimitations:
 
         # Con hardware high-end, puede preferir cloud pero local es aceptable
         assert recommendation.recommended is True
+
+
+class TestModelCompatibility:
+    """Tests para la compatibilidad modelo/hardware."""
+
+    def test_classify_model_size_small(self):
+        """Clasificación correcta de modelos pequeños."""
+        assert _classify_model_size("phi3:mini") == "small"
+        assert _classify_model_size("gemma2:2b") == "small"
+        assert _classify_model_size("qwen:1b") == "small"
+        assert _classify_model_size("tiny:0.5b") == "small"
+
+    def test_classify_model_size_medium(self):
+        """Clasificación correcta de modelos medianos."""
+        assert _classify_model_size("mistral:7b") == "medium"
+        assert _classify_model_size("llama3:8b") == "medium"
+        assert _classify_model_size("llama3:13b") == "medium"
+        assert _classify_model_size("llama3:14b") == "medium"
+
+    def test_classify_model_size_large(self):
+        """Clasificación correcta de modelos grandes."""
+        assert _classify_model_size("llama3:70b") == "large"
+        assert _classify_model_size("llama3:100b") == "large"
+        assert _classify_model_size("llama3:120b") == "large"
+
+    def test_classify_model_size_unknown(self):
+        """Modelos sin patrón conocido default a medium."""
+        assert _classify_model_size("unknown-model") == "medium"
+
+    def test_evaluate_compatibility_cloud_provider(self):
+        """Provider cloud siempre es cloud_available."""
+        hardware = HardwareProfile(
+            cpu="Ryzen 7 7730U",
+            ram_gb=16,
+            gpu=False,
+            local_mode="limited",
+        )
+
+        result = evaluate_model_compatibility("nvidia", "meta/llama-3.3-70b-instruct", hardware)
+
+        assert result["compatibility"] == "cloud_available"
+        assert "cloud" in result["hardware_reason"].lower()
+        assert "no depende del hardware local" in result["hardware_reason"].lower()
+
+    def test_evaluate_compatibility_local_small_limited(self):
+        """Modelo pequeño en hardware limitado es compatible."""
+        hardware = HardwareProfile(
+            cpu="Ryzen 7 7730U",
+            ram_gb=16,
+            gpu=False,
+            local_mode="limited",
+        )
+
+        result = evaluate_model_compatibility("ollama", "phi3:mini", hardware)
+
+        assert result["compatibility"] == "compatible"
+        assert "liviano" in result["hardware_reason"].lower()
+        assert "limitado" in result["hardware_reason"].lower()
+
+    def test_evaluate_compatibility_local_medium_limited(self):
+        """Modelo mediano en hardware limitado es warning."""
+        hardware = HardwareProfile(
+            cpu="Ryzen 7 7730U",
+            ram_gb=16,
+            gpu=False,
+            local_mode="limited",
+        )
+
+        result = evaluate_model_compatibility("ollama", "mistral:7b", hardware)
+
+        assert result["compatibility"] == "warning"
+        assert "mediano" in result["hardware_reason"].lower()
+        assert "lento" in result["hardware_reason"].lower()
+
+    def test_evaluate_compatibility_local_large_limited(self):
+        """Modelo grande en hardware limitado es blocked."""
+        hardware = HardwareProfile(
+            cpu="Ryzen 7 7730U",
+            ram_gb=16,
+            gpu=False,
+            local_mode="limited",
+        )
+
+        result = evaluate_model_compatibility("ollama", "llama3:70b", hardware)
+
+        assert result["compatibility"] == "blocked"
+        assert "pesado" in result["hardware_reason"].lower()
+        assert "no recomendado" in result["hardware_reason"].lower()
+
+    def test_evaluate_compatibility_local_large_capable(self):
+        """Modelo grande en hardware capaz es warning."""
+        hardware = HardwareProfile(
+            cpu="Intel i7-12700K",
+            ram_gb=32,
+            gpu=True,
+            gpu_name="NVIDIA RTX 3080",
+            local_mode="capable",
+        )
+
+        result = evaluate_model_compatibility("ollama", "llama3:70b", hardware)
+
+        assert result["compatibility"] == "warning"
+        assert "pesado" in result["hardware_reason"].lower()
+        assert "capaz" in result["hardware_reason"].lower()
+
+    def test_evaluate_compatibility_local_large_high_end(self):
+        """Modelo grande en hardware high-end es compatible."""
+        hardware = HardwareProfile(
+            cpu="AMD Ryzen 9 5950X",
+            ram_gb=64,
+            gpu=True,
+            gpu_name="NVIDIA RTX 4090",
+            local_mode="high_end",
+        )
+
+        result = evaluate_model_compatibility("ollama", "llama3:70b", hardware)
+
+        assert result["compatibility"] == "compatible"
+        assert "high-end" in result["hardware_reason"].lower()
+
+    def test_evaluate_compatibility_unknown_provider(self):
+        """Provider desconocido retorna unknown."""
+        hardware = HardwareProfile(
+            cpu="Ryzen 7 7730U",
+            ram_gb=16,
+            gpu=False,
+            local_mode="limited",
+        )
+
+        result = evaluate_model_compatibility("unknown", "phi3:mini", hardware)
+
+        assert result["compatibility"] == "unknown"
+        assert "no clasificado" in result["hardware_reason"].lower()
+
+    def test_recommendation_includes_compatibility(self):
+        """La recomendación debe incluir compatibilidad."""
+        available_providers = [
+            {
+                "name": "nvidia",
+                "models": ["meta/llama-3.1-8b-instruct"],
+                "healthy": True,
+                "is_placeholder": False,
+            },
+        ]
+
+        recommendation = recommend_provider_model(
+            domain_id="loteria",
+            role_id="auditor",
+            specialization_id="auditoria_consistencia",
+            available_providers=available_providers,
+        )
+
+        assert recommendation.compatibility == "cloud_available"
+        assert recommendation.hardware_reason != ""
+
+    def test_recommendation_limited_hardware_with_cloud(self):
+        """Hardware limitado con cloud disponible recomienda cloud."""
+        hardware = HardwareProfile(
+            cpu="Ryzen 7 7730U",
+            ram_gb=16,
+            gpu=False,
+            local_mode="limited",
+        )
+
+        available_providers = [
+            {
+                "name": "nvidia",
+                "models": ["meta/llama-3.1-8b-instruct"],
+                "healthy": True,
+                "is_placeholder": False,
+            },
+        ]
+
+        recommendation = recommend_provider_model(
+            domain_id="loteria",
+            role_id="auditor",
+            specialization_id="auditoria_consistencia",
+            available_providers=available_providers,
+            hardware_profile=hardware,
+        )
+
+        assert recommendation.compatibility == "cloud_available"
+        assert recommendation.provider == "nvidia"
+
+    def test_recommendation_limited_hardware_only_local_heavy(self):
+        """Hardware limitado sin cloud para workload heavy devuelve warning."""
+        hardware = HardwareProfile(
+            cpu="Ryzen 7 7730U",
+            ram_gb=16,
+            gpu=False,
+            local_mode="limited",
+        )
+
+        available_providers = [
+            {
+                "name": "ollama",
+                "models": ["llama3:70b", "phi3:mini"],
+                "healthy": True,
+                "is_placeholder": False,
+            },
+        ]
+
+        recommendation = recommend_provider_model(
+            domain_id="loteria",
+            role_id="auditor",
+            specialization_id="auditoria_consistencia",
+            available_providers=available_providers,
+            hardware_profile=hardware,
+        )
+
+        # Debe recomendar el modelo liviano como fallback
+        assert recommendation.recommended is True
+        assert recommendation.provider == "ollama"
+        # El modelo recomendado debe ser compatible (phi3:mini es small)
+        assert recommendation.compatibility in ["compatible", "warning"]
+
+    def test_recommendation_light_workload_local_compatible(self):
+        """Workload light con hardware limitado puede recomendar local compatible."""
+        hardware = HardwareProfile(
+            cpu="Ryzen 7 7730U",
+            ram_gb=16,
+            gpu=False,
+            local_mode="limited",
+        )
+
+        available_providers = [
+            {
+                "name": "ollama",
+                "models": ["phi3:mini"],
+                "healthy": True,
+                "is_placeholder": False,
+            },
+        ]
+
+        recommendation = recommend_provider_model(
+            domain_id="loteria",
+            role_id="archivista",
+            specialization_id="archivo_documental",
+            available_providers=available_providers,
+            hardware_profile=hardware,
+        )
+
+        assert recommendation.recommended is True
+        assert recommendation.provider == "ollama"
+        assert recommendation.compatibility == "compatible"

@@ -359,6 +359,8 @@ def _get_default_score_response_fn() -> Callable:
 
 **Perfil de hardware local**: Flexible y configurable. Prioridad: 1) `config/hardware_profile.json` si existe, 2) autodetección básica (CPU, RAM, GPU vía nvidia-smi en Windows), 3) fallback seguro. El perfil incluye `cpu`, `ram_gb`, `gpu`, `gpu_name`, `local_mode` ("limited", "capable", "high_end") y `source` ("manual_config", "autodetect", "fallback"). Si hardware es limitado y workload es heavy/critical, no se recomienda local como primera opción.
 
+**Compatibilidad modelo/hardware**: Capa de protección que evalúa si un modelo específico es compatible con el hardware local. Valores: `compatible` (modelo funciona bien), `warning` (modelo puede funcionar pero con limitaciones), `blocked` (modelo no recomendado para este hardware), `cloud_available` (cloud no depende de hardware local), `unknown` (no se puede determinar). Cloud providers siempre son `cloud_available` porque la inferencia corre en cloud. Local providers se evalúan según tamaño del modelo (small/medium/large) y `local_mode` del hardware. Esta capa protege al usuario de elegir modelos no funcionales como opción normal.
+
 **Selección de provider/model**:
 1. Si workload heavy/critical: preferir provider cloud operativo (NVIDIA si disponible), fallback local con advertencia
 2. Si workload medium: preferir cloud si disponible, si no local chico
@@ -366,20 +368,20 @@ def _get_default_score_response_fn() -> Callable:
 
 No se usan providers demo/placeholders. No se eligen modelos inexistentes en la lista real del provider.
 
-**Backend**: `POST /api/agents/model-recommendation` acepta `domain_id`, `role_id`, `specialization_id`, `profile_preset_id`, `current_provider`, `current_model` y devuelve recomendación con provider, modelo, workload, execution preference, reasoning_need y reason. El endpoint consulta providers disponibles desde supervisor y filtra placeholders/no saludables. `GET /api/system/hardware-profile` expone el perfil de hardware actual con todos sus campos y source.
+**Backend**: `POST /api/agents/model-recommendation` acepta `domain_id`, `role_id`, `specialization_id`, `profile_preset_id`, `current_provider`, `current_model` y devuelve recomendación con provider, modelo, workload, execution preference, reasoning_need, reason, compatibility, hardware_reason. El endpoint consulta providers disponibles desde supervisor y filtra placeholders/no saludables. `GET /api/system/hardware-profile` expone el perfil de hardware actual con todos sus campos y source.
 
-**HUD**: En Crear Agente, al seleccionar dominio, rol y especialización, se muestra un bloque de recomendación con modelo sugerido, workload y motivo. Botón "Aplicar recomendación" permite aplicar la sugerencia manualmente. En Editar Agente, al abrir un agente existente, se muestra recomendación si el provider/model actual parece subóptimo, sin cambiar automáticamente sin acción del usuario.
+**HUD**: En Crear Agente, al seleccionar dominio, rol y especialización, se muestra un bloque de recomendación con modelo sugerido, workload, motivo, compatibilidad (con color según tipo) y hardware_reason. Botón "Aplicar recomendación" permite aplicar la sugerencia manualmente. En Editar Agente, al abrir un agente existente, se muestra recomendación si el provider/model actual parece subóptimo, sin cambiar automáticamente sin acción del usuario.
 
 **Regla de no pisado**: La UI mantiene flags de campos tocados. Si el usuario ya cambió provider/model manualmente, no se pisa su elección. La recomendación es solo una sugerencia.
 
 **Evidencia**:
-- `core/model_recommendation.py` — Helper con `classify_agent_model_need()`, `recommend_provider_model()`, `get_hardware_profile()`, `get_default_hardware_profile()`, `_load_hardware_profile_from_config()`, `_autodetect_hardware_profile()`, `_get_fallback_hardware_profile()`
+- `core/model_recommendation.py` — Helper con `classify_agent_model_need()`, `recommend_provider_model()`, `get_hardware_profile()`, `get_default_hardware_profile()`, `_load_hardware_profile_from_config()`, `_autodetect_hardware_profile()`, `_get_fallback_hardware_profile()`, `evaluate_model_compatibility()`, `_classify_model_size()`
 - `config/hardware_profile.json` — Archivo de configuración editable para perfil de hardware
-- `api.py:1517-1589` — Endpoint `POST /api/agents/model-recommendation`
+- `api.py:1517-1589` — Endpoint `POST /api/agents/model-recommendation` (ahora incluye compatibility y hardware_reason)
 - `api.py:1592-1614` — Endpoint `GET /api/system/hardware-profile`
 - `ui/web/index.html:855-859` — Bloque UI de recomendación en modal de agente
-- `ui/web/index.html:1290-1379` — Funciones JS `consultarModelRecommendation()`, `displayModelRecommendation()`, `applyModelRecommendation()`
-- `tests/test_model_recommendation.py` — Tests para clasificación, hardware flexible, selección de provider/model
+- `ui/web/index.html:1322-1364` — Funciones JS `consultarModelRecommendation()`, `displayModelRecommendation()` (ahora muestra compatibilidad con color)
+- `tests/test_model_recommendation.py` — Tests para clasificación, hardware flexible, selección de provider/model, compatibilidad modelo/hardware
 
 **Clasificación Patrimonio/Core/Dominio/Agente**:
 - `core/model_recommendation.py`: **Core** — Funcionalidad genérica de recomendación, independiente de dominio

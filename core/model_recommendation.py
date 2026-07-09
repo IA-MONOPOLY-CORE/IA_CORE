@@ -49,6 +49,8 @@ class ModelRecommendation:
     reasoning_need: str
     reason: str
     fallback: dict[str, Any] | None = None
+    compatibility: str = "unknown"  # "compatible", "warning", "blocked", "cloud_available"
+    hardware_reason: str = ""
 
 
 def get_hardware_profile() -> HardwareProfile:
@@ -344,6 +346,14 @@ def recommend_provider_model(
             hardware_profile=hardware_profile,
         )
     
+    # Evaluar compatibilidad del modelo recomendado
+    compatibility = "unknown"
+    hardware_reason = ""
+    if provider and model:
+        compat_result = evaluate_model_compatibility(provider, model, hardware_profile)
+        compatibility = compat_result.get("compatibility", "unknown")
+        hardware_reason = compat_result.get("hardware_reason", "")
+    
     return ModelRecommendation(
         recommended=provider is not None and model is not None,
         provider=provider,
@@ -353,6 +363,8 @@ def recommend_provider_model(
         reasoning_need=classification.reasoning_need,
         reason=reason,
         fallback=fallback,
+        compatibility=compatibility,
+        hardware_reason=hardware_reason,
     )
 
 
@@ -535,3 +547,150 @@ def _is_local_provider(provider_name: str) -> bool:
     """Determina si un provider es local."""
     local_providers = {"ollama", "lmstudio", "localai"}
     return provider_name.lower() in local_providers
+
+
+def evaluate_model_compatibility(
+    provider: str,
+    model: str,
+    hardware_profile: HardwareProfile,
+) -> dict[str, str]:
+    """Evalúa la compatibilidad de un modelo con el hardware local.
+    
+    Args:
+        provider: Nombre del provider (ej. "nvidia", "ollama")
+        model: Nombre del modelo (ej. "phi3:mini", "meta/llama-3.3-70b-instruct")
+        hardware_profile: Perfil de hardware local
+    
+    Returns:
+        Dict con compatibility, hardware_reason
+    """
+    # A. Provider cloud: siempre cloud_available
+    if _is_cloud_provider(provider):
+        return {
+            "provider": provider,
+            "model": model,
+            "compatibility": "cloud_available",
+            "hardware_reason": "La inferencia corre en cloud; no depende del hardware local.",
+        }
+    
+    # B. Provider local: evaluar según hardware y tamaño del modelo
+    if not _is_local_provider(provider):
+        # Provider desconocido
+        return {
+            "provider": provider,
+            "model": model,
+            "compatibility": "unknown",
+            "hardware_reason": "Provider no clasificado como cloud ni local.",
+        }
+    
+    # Clasificar tamaño del modelo
+    model_size = _classify_model_size(model)
+    local_mode = hardware_profile.local_mode
+    
+    # Reglas según hardware y tamaño
+    if local_mode == "limited":
+        if model_size == "small":
+            return {
+                "provider": provider,
+                "model": model,
+                "compatibility": "compatible",
+                "hardware_reason": "Modelo liviano compatible con hardware local limitado.",
+            }
+        elif model_size == "medium":
+            return {
+                "provider": provider,
+                "model": model,
+                "compatibility": "warning",
+                "hardware_reason": "Modelo mediano puede ser lento en hardware limitado; se recomienda cloud.",
+            }
+        else:  # large
+            return {
+                "provider": provider,
+                "model": model,
+                "compatibility": "blocked",
+                "hardware_reason": "Modelo pesado no recomendado para hardware limitado; se requiere cloud.",
+            }
+    
+    elif local_mode == "capable":
+        if model_size == "small":
+            return {
+                "provider": provider,
+                "model": model,
+                "compatibility": "compatible",
+                "hardware_reason": "Modelo liviano compatible con hardware capaz.",
+            }
+        elif model_size == "medium":
+            return {
+                "provider": provider,
+                "model": model,
+                "compatibility": "compatible",
+                "hardware_reason": "Modelo mediano compatible con hardware capaz.",
+            }
+        else:  # large
+            return {
+                "provider": provider,
+                "model": model,
+                "compatibility": "warning",
+                "hardware_reason": "Modelo pesado puede ser lento incluso en hardware capaz; cloud puede ser mejor.",
+            }
+    
+    elif local_mode == "high_end":
+        if model_size == "small":
+            return {
+                "provider": provider,
+                "model": model,
+                "compatibility": "compatible",
+                "hardware_reason": "Modelo liviano compatible con hardware high-end.",
+            }
+        elif model_size == "medium":
+            return {
+                "provider": provider,
+                "model": model,
+                "compatibility": "compatible",
+                "hardware_reason": "Modelo mediano compatible con hardware high-end.",
+            }
+        else:  # large
+            return {
+                "provider": provider,
+                "model": model,
+                "compatibility": "compatible",
+                "hardware_reason": "Modelo pesado compatible con hardware high-end.",
+            }
+    
+    else:  # unknown local_mode
+        return {
+            "provider": provider,
+            "model": model,
+            "compatibility": "unknown",
+            "hardware_reason": "Modo de hardware local desconocido.",
+        }
+
+
+def _classify_model_size(model: str) -> str:
+    """Clasifica el tamaño de un modelo según su nombre.
+    
+    Returns:
+        "small", "medium", "large"
+    """
+    model_lower = model.lower()
+    
+    # Patrones para modelos grandes
+    large_patterns = ["70b", "100b", "120b", "130b", "180b", "200b", "300b", "400b"]
+    for pattern in large_patterns:
+        if pattern in model_lower:
+            return "large"
+    
+    # Patrones para modelos medianos
+    medium_patterns = ["7b", "8b", "13b", "14b", "30b", "34b", "40b"]
+    for pattern in medium_patterns:
+        if pattern in model_lower:
+            return "medium"
+    
+    # Patrones para modelos pequeños
+    small_patterns = ["0.5b", "1b", "2b", "3b", "4b", "mini", "tiny", "nano"]
+    for pattern in small_patterns:
+        if pattern in model_lower:
+            return "small"
+    
+    # Default: asumir mediano si no se puede clasificar
+    return "medium"

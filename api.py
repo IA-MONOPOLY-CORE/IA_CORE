@@ -1578,6 +1578,8 @@ async def get_model_recommendation(
                 "reasoning_need": recommendation.reasoning_need,
                 "reason": recommendation.reason,
                 "fallback": recommendation.fallback,
+                "compatibility": recommendation.compatibility,
+                "hardware_reason": recommendation.hardware_reason,
             },
             "available_providers": available_providers,
         }

@@ -1322,7 +1322,7 @@
         function displayModelRecommendation(recommendation) {
             const container = document.getElementById('model-recommendation');
             const textDiv = document.getElementById('recommendation-text');
-            
+
             if (!container || !textDiv) return;
 
             if (!recommendation.recommended) {
@@ -1334,11 +1334,27 @@
             const modelName = recommendation.model || 'N/A';
             const workload = recommendation.workload || 'N/A';
             const reason = recommendation.reason || '';
+            const compatibility = recommendation.compatibility || 'unknown';
+            const hardwareReason = recommendation.hardware_reason || '';
+
+            // Color según compatibilidad
+            let compatColor = 'var(--text-muted)';
+            if (compatibility === 'compatible') {
+                compatColor = '#4caf50';
+            } else if (compatibility === 'warning') {
+                compatColor = '#ff9800';
+            } else if (compatibility === 'blocked') {
+                compatColor = '#f44336';
+            } else if (compatibility === 'cloud_available') {
+                compatColor = '#2196f3';
+            }
 
             textDiv.innerHTML = `
                 <div><strong>Modelo recomendado:</strong> ${escapeHtml(providerName)} / ${escapeHtml(modelName)}</div>
                 <div><strong>Workload:</strong> ${escapeHtml(workload)}</div>
                 <div><strong>Motivo:</strong> ${escapeHtml(reason)}</div>
+                <div><strong>Compatibilidad:</strong> <span style="color:${compatColor};">${escapeHtml(compatibility)}</span></div>
+                ${hardwareReason ? `<div><strong>Hardware:</strong> ${escapeHtml(hardwareReason)}</div>` : ''}
                 ${recommendation.fallback ? `<div style="margin-top:4px; color:var(--text-muted);"><strong>Fallback:</strong> ${escapeHtml(recommendation.fallback.warning || '')}</div>` : ''}
             `;
 
