@@ -1653,16 +1653,23 @@
             let requestOptions;
             if (currentEditId) {
                 url = `${API_BASE}/api/agents/${encodeURIComponent(id)}?domain_id=${encodeURIComponent(domainId)}`;
+                const ag = agentes.find(a => a.id === id);
+                const bodyData = {
+                    provider,
+                    model,
+                    system_prompt: prompt,
+                };
+                // Solo enviar role/specialization si cambiaron (permite edición operativa de legacy)
+                if (ag && role !== ag.role) {
+                    bodyData.role = role;
+                }
+                if (ag && specialization !== ag.specialization_id) {
+                    bodyData.specialization_id = specialization || null;
+                }
                 requestOptions = {
                     method: 'PUT',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        role,
-                        specialization_id: specialization || null,
-                        provider,
-                        model,
-                        system_prompt: prompt,
-                    }),
+                    body: JSON.stringify(bodyData),
                 };
             } else {
                 const formData = new FormData();

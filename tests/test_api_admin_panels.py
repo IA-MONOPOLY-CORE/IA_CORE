@@ -588,7 +588,8 @@ def test_hud_create_agent_consumes_domain_profile_catalog_and_persists_specializ
     assert "optgroup.label = group.nombre" in html
     assert "formData.append('specialization_id', specialization)" in html
     assert "formData.append('profile_preset_id', appliedPreset.id)" in html
-    assert "specialization_id: specialization || null" in html
+    # Verificar que la edición condicional de specialization_id existe (para legacy)
+    assert "specialization !== ag.specialization_id" in html
     assert "Este dominio todavía no tiene catálogo de perfiles" in html
     assert "specializationMap queda como fallback legacy temporal" in html
     assert "[ESPECIALIZACIÓN:" not in html

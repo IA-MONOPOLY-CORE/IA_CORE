@@ -1604,7 +1604,11 @@ async def update_agent(agent_id: str, request: Request, domain_id: str | None = 
 
         effective_domain_id = config_data.get("domain_id") or resolved_domain_id
         effective_role = role or config_data.get("role")
-        if "specialization_id" in data or role:
+        # Solo validar role/specialization si el usuario está cambiando esos campos explícitamente
+        # Esto permite edición operativa (provider/model/system_prompt) de agentes legacy
+        role_changed = role is not None and role != config_data.get("role")
+        specialization_changed = "specialization_id" in data and specialization_id != config_data.get("specialization_id")
+        if role_changed or specialization_changed:
             profile_validation = _validate_agent_profile_selection(
                 domain_id=effective_domain_id,
                 role=effective_role,
