@@ -1396,7 +1396,9 @@
                             profile_preset_id: a.profile_preset_id || '',
                             profile_preset_name: a.profile_preset_name || '',
                             system_prompt: a.system_prompt || '',
-                            instructions: a.instructions || ''
+                            instructions: a.instructions || '',
+                            provider: a.provider || 'nvidia',
+                            model: a.model || 'meta/llama-3.1-8b-instruct'
                         }));
                 }
                 const saved = localStorage.getItem('saaop_selected');
@@ -1616,6 +1618,9 @@
                 document.getElementById('agent-domain').value = ag.domain_id || '';
                 document.getElementById('agent-domain').disabled = true;
                 await cargarProfileCatalogAgente(ag.domain_id || '', ag.role, ag.specialization_id || '');
+                // Cargar provider/model del agente
+                document.getElementById('agent-provider').value = ag.provider || 'nvidia';
+                document.getElementById('agent-model').value = ag.model || 'meta/llama-3.1-8b-instruct';
                 // Cargar system_prompt existente con prioridad: system_prompt > instructions > vacío
                 const existingPrompt = ag.system_prompt || ag.instructions || '';
                 document.getElementById('agent-prompt').value = existingPrompt;
