@@ -1394,7 +1394,9 @@
                             domain_id: a.domain_id || null,
                             specialization_id: a.specialization_id || '',
                             profile_preset_id: a.profile_preset_id || '',
-                            profile_preset_name: a.profile_preset_name || ''
+                            profile_preset_name: a.profile_preset_name || '',
+                            system_prompt: a.system_prompt || '',
+                            instructions: a.instructions || ''
                         }));
                 }
                 const saved = localStorage.getItem('saaop_selected');
