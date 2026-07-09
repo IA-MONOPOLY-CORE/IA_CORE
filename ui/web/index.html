@@ -1614,7 +1614,9 @@
                 document.getElementById('agent-domain').value = ag.domain_id || '';
                 document.getElementById('agent-domain').disabled = true;
                 await cargarProfileCatalogAgente(ag.domain_id || '', ag.role, ag.specialization_id || '');
-                document.getElementById('agent-prompt').value = '';
+                // Cargar system_prompt existente con prioridad: system_prompt > instructions > vacío
+                const existingPrompt = ag.system_prompt || ag.instructions || '';
+                document.getElementById('agent-prompt').value = existingPrompt;
                 document.getElementById('agent-memory').value = '';
                 if (ag.profile_preset_id) {
                     setAgentPresetStatus(`Preset asociado: ${ag.profile_preset_name || ag.profile_preset_id}`);
@@ -1637,7 +1639,8 @@
             if (!id) { alert('ID es obligatorio'); return; }
             if (!domainId) { alert('Debe seleccionar un dominio'); return; }
             if (!role) { alert('Debe seleccionar un rol'); return; }
-            if (!prompt) { alert('System Prompt es obligatorio'); return; }
+            // Al crear, prompt es obligatorio. Al editar, si está vacío se mantiene el existente.
+            if (!currentEditId && !prompt) { alert('System Prompt es obligatorio'); return; }
 
             let url = `${API_BASE}/api/agents/create`;
             let requestOptions;

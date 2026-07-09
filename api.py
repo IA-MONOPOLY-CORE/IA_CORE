@@ -1549,6 +1549,7 @@ async def list_agents():
                             "profile_preset_name": data.get("profile_preset_name"),
                             "memory": data.get("memory"),
                             "metadata": data.get("metadata"),
+                            "system_prompt": data.get("system_prompt"),
                         }
                     )
             except Exception as e:
@@ -1618,7 +1619,8 @@ async def update_agent(agent_id: str, request: Request, domain_id: str | None = 
             config_data["provider"] = provider
         if model:
             config_data["model"] = model
-        if system_prompt:
+        # Solo actualizar system_prompt si no está vacío (preservar existente)
+        if system_prompt and system_prompt.strip():
             config_data["system_prompt"] = system_prompt
         if "specialization_id" in data:
             if specialization_id:
