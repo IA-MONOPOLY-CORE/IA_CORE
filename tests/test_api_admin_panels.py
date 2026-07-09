@@ -271,6 +271,11 @@ def test_agents_endpoint_and_hud_keep_generic_baseline_agents(monkeypatch, tmp_p
         "nuevo_deepseek_saaop",
         "viejo_deepseek",
         "viejo_lobo_rey",
+        "auditor_hostil",
+        "cazador_anomalias",
+        "simulador_escenarios",
+        "gestor_exposicion",
+        "integrador_central",
     ]
     baseline_agents = ["analyst", "assistant", "critic", "optimizer"]
 
@@ -294,7 +299,7 @@ def test_agents_endpoint_and_hud_keep_generic_baseline_agents(monkeypatch, tmp_p
         agent for agent in payload["agents"] if agent["is_generic_baseline"] is False
     ]
 
-    assert payload["total"] == 10
+    assert payload["total"] == 15
     assert {agent["id"] for agent in baseline} == set(baseline_agents)
     assert {agent["id"] for agent in real} == set(real_agents)
 
@@ -335,12 +340,16 @@ def test_create_agent_persists_specialization_id_when_domain_catalog_validates(m
 
 
 def test_create_agent_persists_valid_profile_preset_metadata(monkeypatch, tmp_path):
-    config_dir, _ = _patch_agent_create_paths(monkeypatch, tmp_path)
-
+    config_dir, papers_dir = _patch_agent_create_paths(monkeypatch, tmp_path)
+    
+    # Usar ID único para evitar colisiones con tests anteriores
+    import uuid
+    unique_id = f"agente_con_preset_{uuid.uuid4().hex[:8]}"
+    
     response = TestClient(api.app).post(
         "/api/agents/create",
         data={
-            "id": "agente_con_preset_test",
+            "id": unique_id,
             "domain_id": "loteria",
             "role": "analista",
             "specialization_id": "analisis_datos",
@@ -353,10 +362,12 @@ def test_create_agent_persists_valid_profile_preset_metadata(monkeypatch, tmp_pa
     )
 
     payload = response.json()
+    if not payload.get("success"):
+        print(f"Error creating agent with preset: {payload}")
     assert response.status_code == 200
     assert payload["success"] is True
 
-    config = json.loads((config_dir / "agente_con_preset_test.json").read_text(encoding="utf-8"))
+    config = json.loads((config_dir / f"{unique_id}.json").read_text(encoding="utf-8"))
     assert config["role"] == "analista"
     assert config["specialization_id"] == "analisis_datos"
     assert "integral" in config["specialization_name"].lower()

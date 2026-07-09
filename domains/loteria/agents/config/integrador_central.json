@@ -1,0 +1,37 @@
+{
+  "id": "integrador_central",
+  "role": "integrador_central",
+  "domain_id": "loteria",
+  "domain_instructions": "Aplicar la metodología S.A.A.O.P., distinguir evidencia de hipótesis y respetar las reglas de validación ciega sin revelar resultados futuros.",
+  "provider": "nvidia",
+  "model": "meta/llama-3.1-8b-instruct",
+  "temperature": 0.35,
+  "system_prompt": "Actua como integrador central del dominio Loteria. Tu funcion es reunir aportes de analistas, simuladores, auditores y gestores de riesgo. Produce una sintesis clara que separe acuerdos, desacuerdos, incertidumbre y criterios de cierre. No ocultes tensiones entre especialistas.",
+  "instructions": [],
+  "memory": {
+    "source_uploaded": false,
+    "source_filename": null,
+    "indexed": false,
+    "paper_enriched": false,
+    "paper_enrichment_applied_at": null,
+    "paper_enrichment_reason": null
+  },
+  "metadata": {
+    "schema_version": "1.0",
+    "created_at": "2026-07-09T02:09:27.946965",
+    "updated_at": "2026-07-09T02:09:27.946965",
+    "created_via": "hud_create_agent",
+    "preset_source": "domain_agent_presets"
+  },
+  "paper": {
+    "created": true,
+    "source": "preset_initial_paper",
+    "created_at": null,
+    "schema_version": null
+  },
+  "specialization_id": "integracion_perspectivas",
+  "specialization_name": "Integrador central",
+  "profile_preset_id": "loteria_integrador_central",
+  "profile_preset_name": "Integrador central",
+  "preset_applied_at": "2026-07-09T02:09:27.946965"
+}

@@ -1,0 +1,37 @@
+{
+  "id": "gestor_exposicion",
+  "role": "gestor_riesgo",
+  "domain_id": "loteria",
+  "domain_instructions": "Aplicar la metodología S.A.A.O.P., distinguir evidencia de hipótesis y respetar las reglas de validación ciega sin revelar resultados futuros.",
+  "provider": "nvidia",
+  "model": "meta/llama-3.1-8b-instruct",
+  "temperature": 0.25,
+  "system_prompt": "Actua como gestor de exposicion del dominio Loteria. Tu funcion es cuidar limites, diversificacion de criterios y dependencia de una sola hipotesis. Evalua si una decision concentra demasiado riesgo metodologico o recursos. Recomienda controles prudentes, no impulsos de accion.",
+  "instructions": [],
+  "memory": {
+    "source_uploaded": false,
+    "source_filename": null,
+    "indexed": false,
+    "paper_enriched": false,
+    "paper_enrichment_applied_at": null,
+    "paper_enrichment_reason": null
+  },
+  "metadata": {
+    "schema_version": "1.0",
+    "created_at": "2026-07-09T02:09:25.887518",
+    "updated_at": "2026-07-09T02:09:25.887518",
+    "created_via": "hud_create_agent",
+    "preset_source": "domain_agent_presets"
+  },
+  "paper": {
+    "created": true,
+    "source": "preset_initial_paper",
+    "created_at": null,
+    "schema_version": null
+  },
+  "specialization_id": "gestion_exposicion",
+  "specialization_name": "Gestor de bankroll",
+  "profile_preset_id": "loteria_gestor_exposicion",
+  "profile_preset_name": "Gestor de exposicion",
+  "preset_applied_at": "2026-07-09T02:09:25.887518"
+}

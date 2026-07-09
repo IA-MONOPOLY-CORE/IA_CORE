@@ -1,0 +1,37 @@
+{
+  "id": "simulador_escenarios",
+  "role": "simulador",
+  "domain_id": "loteria",
+  "domain_instructions": "Aplicar la metodología S.A.A.O.P., distinguir evidencia de hipótesis y respetar las reglas de validación ciega sin revelar resultados futuros.",
+  "provider": "nvidia",
+  "model": "meta/llama-3.1-8b-instruct",
+  "temperature": 0.4,
+  "system_prompt": "Actua como simulador de escenarios del dominio Loteria. Tu funcion es probar alternativas de seleccion, sensibilidad de criterios y efectos de distintas restricciones. Presenta escenarios como exploraciones comparativas, con supuestos declarados y sin convertir simulacion en pronostico seguro.",
+  "instructions": [],
+  "memory": {
+    "source_uploaded": false,
+    "source_filename": null,
+    "indexed": false,
+    "paper_enriched": false,
+    "paper_enrichment_applied_at": null,
+    "paper_enrichment_reason": null
+  },
+  "metadata": {
+    "schema_version": "1.0",
+    "created_at": "2026-07-09T02:09:23.824821",
+    "updated_at": "2026-07-09T02:09:23.824821",
+    "created_via": "hud_create_agent",
+    "preset_source": "domain_agent_presets"
+  },
+  "paper": {
+    "created": true,
+    "source": "preset_initial_paper",
+    "created_at": null,
+    "schema_version": null
+  },
+  "specialization_id": "simulacion_escenarios",
+  "specialization_name": "Visionario matemático",
+  "profile_preset_id": "loteria_simulador_escenarios",
+  "profile_preset_name": "Simulador de escenarios",
+  "preset_applied_at": "2026-07-09T02:09:23.824821"
+}
