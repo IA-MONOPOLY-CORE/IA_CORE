@@ -395,3 +395,16 @@ No se usan providers demo/placeholders. No se eligen modelos inexistentes en la 
 **Alcance diferido**: No se modifican masivamente agentes existentes, no se toca `agent_presets.json`, no se toca `profile_catalog.json`, no se modifica `runtime_json_agent.py`, no se modifica `mejorar_papers.py`, no se avanza a Prompt 13.
 
 **Deuda UI pendiente**: Hacer visible de forma confiable en HUD la compatibilidad del modelo seleccionado. El backend y los endpoints existen (`POST /api/system/model-compatibility`), pero la representación visual queda diferida para una fase posterior de refinamiento UI. La capa backend de compatibilidad modelo/hardware queda implementada y testeada, pero la visualización HUD del semáforo de compatibilidad queda en stand by porque el bloque no muestra el estado real de forma confiable en la verificación manual.
+
+**Deuda futura — Validación cross-platform real**: La arquitectura de hardware_profile y compatibilidad modelo/hardware debe mantenerse preparada para funcionar en distintos entornos: Windows local, Linux, macOS, Docker/contenedores, servidores, equipos con GPU dedicada, equipos sin GPU, equipos con RAM limitada, equipos con RAM alta. En esta fase NO se certifica multi-sistema. La validación real queda diferida para una fase futura.
+
+**Alcance de la validación futura**: Una fase futura deberá comprobar:
+- A. Perfil de hardware: carga desde config/hardware_profile.json, autodetección básica, fallback seguro, local_mode correcto, no exposición de datos sensibles.
+- B. Endpoints: GET /api/system/hardware-profile, POST /api/system/model-compatibility, POST /api/agents/model-recommendation.
+- C. Providers/modelos: Ollama/local en cada sistema donde aplique, cloud providers independientemente del hardware local, placeholders no operativos ignorados.
+- D. Compatibilidad modelo/hardware: modelos locales chicos, modelos locales medianos/pesados, cloud_available, warning/blocked, unknown/fallback.
+- E. Degradación segura: si no se puede detectar hardware, no romper; si no existe nvidia-smi, no romper; si no existe lspci, no romper; si corre en Docker con recursos limitados visibles, usar esos recursos o fallback.
+
+**Regla de diseño cross-platform**: La detección de hardware debe ser best-effort. Nunca debe ser requisito para arrancar IA_CORE. Si la detección falla: usar config manual si existe; si no, fallback seguro; informar limitación; no bloquear el sistema salvo que no haya ningún provider/model operativo.
+
+**No probar ahora**: No se ejecutan pruebas reales en Linux/macOS/Docker en esta fase. Esta tarea solo registra la deuda y deja preparada la arquitectura documentalmente.
