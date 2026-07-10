@@ -1108,6 +1108,47 @@ El campo `operationalization_contract` puede contener:
 
 El loader `core/catalog_registry.py` ahora valida:
 
+## Auditoría y Alineación de Datos Existentes (Prompt 17.1.1)
+
+### Estado de la Base Antes de Expansión
+
+Antes de proceder con la carga masiva de nuevos nichos en Prompt 17.2, se ejecutó una auditoría completa de la base existente para asegurar consistencia y trazabilidad operativa.
+
+### Inconsistencias Detectadas y Resueltas
+
+**Dominio Lotería:**
+- **19 combinaciones role+specialization** sin preset operativo → Marcadas como `activo: false` en `profile_catalog.json`
+- **11 presets** sin `recommended_provider`/`recommended_model` → No es inconsistencia: diseño delega recomendación a `core/model_recommendation.py`
+- **5 agentes legacy** sin combinación formal role+specialization → Documentados como legacy (gemini_cuantico, gpt_auditor, nuevo_deepseek_saaop, viejo_deepseek, viejo_lobo_rey)
+- **Todos los role_ids y specialization_ids** en profiles y presets son válidos → No requiere corrección
+
+### Regla Vigente Post-Auditoría
+
+Todo elemento seleccionable para crear agentes debe tener trazabilidad completa:
+
+```
+profile_catalog (activo: true)
+→ role_id válido en catalogs/roles.json
+→ specialization_id válida en catalogs/specializations.json
+→ preset correspondiente en agent_presets.json
+→ paper_seed definido
+→ default_model_policy o recomendación dinámica
+→ agent config capaz de ejecutarse
+```
+
+### Tests de Consistencia Agregados
+
+Se creó `tests/test_profile_preset_consistency.py` con 10 tests para validar:
+- Ningún profile usable sin preset
+- Ningún preset usable sin profile
+- Ningún preset usable sin paper_seed
+- Todos los role_ids y specialization_ids son válidos
+- Los 11 agentes, 11 papers y 11 presets de Lotería siguen existiendo
+
+### Impacto en Prompt 17.2
+
+Prompt 17.2 puede avanzar sobre una base saneada. La estructura existente cumple con las reglas de trazabilidad operativa. Los perfiles históricos de Lotería que no tienen combinación formal role+specialización quedan documentados para recuperación futura en Prompt 18.1.
+
 - Si `status` aparece, debe ser uno de: proposed, draft, active, deprecated
 - Si `complexity` aparece, debe ser uno de: low, medium, high, critical
 - Si `operational_priority` aparece, debe ser uno de: low, medium, high, critical

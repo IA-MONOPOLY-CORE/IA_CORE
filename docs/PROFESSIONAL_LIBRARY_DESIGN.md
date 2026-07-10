@@ -465,5 +465,122 @@ Si falta cualquiera de estos, el nicho debe quedar como `draft` o `proposed`.
 
 - **Perfiles profesionales objetivo**: 50-100 para cubrir áreas principales de empresa digital
 - **Nichos objetivo**: 150-200 para cubrir especializaciones por área
-- **Plantillasde equipos**: 20-30 para configuraciones comunes
+- **Plantillas de equipos**: 20-30 para configuraciones comunes
 - **Políticas de modelo**: 10-15 para cubrir patrones de workload/reasoning
+
+## Recuperación Futura de Perfiles Históricos de Lotería
+
+### Contexto
+
+Durante la migración al sistema profesional global, algunos perfiles psicológicos/técnicos históricos del dominio Lotería no volvieron a existir formalmente como combinación seleccionable rol + especialización. Existe un listado histórico en formato docx con perfiles que se quiere recuperar más adelante en su debido momento.
+
+### Perfiles Históricos Candidatos a Recuperación
+
+Los siguientes perfiles del listado histórico deben considerarse para recuperación en Prompt 18.1 o subpasos posteriores:
+
+**Ya existen formalmente como agentes/presets correctos:**
+- Estadístico Integral → `analista` + `analisis_datos` (preset: loteria_analista_estadistico_integral)
+- Visionario Matemático → `simulador` + `simulacion_escenarios` (preset: loteria_simulador_escenarios)
+- Auditor Hostil → `auditor` + `auditoria_consistencia` (preset: loteria_auditor_hostil)
+- Cazador de Anomalías → `detector_anomalias` + `deteccion_anomalias` (preset: loteria_detector_cazador_anomalias)
+- Gestor de Bankroll → `gestor_riesgo` + `gestion_exposicion` (preset: loteria_gestor_exposicion)
+- Integrador Central → `integrador_central` + `integracion_perspectivas` (preset: loteria_integrador_central)
+- Archivista → `archivista` + `archivo_documental` (preset: loteria_archivista_trazabilidad)
+
+**Faltan o requieren mapeo futuro:**
+- Intuitivo Obsesivo
+- Persistente Metódico
+- Arquitecto de Sistemas
+- Competidor Estratégico
+- Místico / Simbólico
+- Hipercontrolado
+- Destructor
+- Minimalista de Señal
+- Psicología de Masas
+- Intuitivo Caótico
+- Antisistema
+- Apostador Profesional
+- Jugador Obsesivo
+- Analista de Sesgos → Parcialmente cubierto por `critico` + `deteccion_sesgos`
+- Escéptico Radical
+- Detector de Patrones → Parcialmente cubierto por `analista` + `analisis_patrones` (inactivo)
+- Observador Conductual → Existe como role global `observador_conductual`
+- Experimentalista
+- Analista Temporal → Existe como `analista` + `analisis_temporal` (inactivo)
+- Historiador
+- Geómetra
+- Integrador Central → Ya existe
+
+### Reglas de Recuperación
+
+1. **No cargar como prompts viejos directos**: Los perfiles históricos no deben migrarse como prompts crudos del sistema anterior. Deben traducirse al nuevo formato profesional.
+
+2. **Migración al nuevo formato**: Cada perfil recuperado deberá tener:
+   - `role_id` válido del catálogo global
+   - `specialization_id` válida del catálogo global
+   - `professional_profile_id` único
+   - `preset_seed` en agent_presets.json
+   - `paper_seed` para generación de paper
+   - `default_model_policy` definido
+   - `status: active` o `draft` según completitud
+
+3. **Perfiles sin información suficiente**: Si un perfil histórico no tiene suficiente información para mapearlo a role_id + specialization_id de forma confiable, debe quedar como `status: draft` hasta que se complete la definición.
+
+4. **Este trabajo corresponde a Prompt 18.1**: La recuperación masiva de perfiles históricos no es parte de este prompt (17.1.1). Debe abordarse en un prompt específico dedicado a esa tarea.
+
+### Agentes Legacy Existentes
+
+Los siguientes agentes config existen en `domains/loteria/agents/config/` pero no tienen combinación formal role+specialization en el sistema nuevo. Deben considerarse legacy y no deben romperse, pero tampoco deben usarse como referencia para nuevos agentes:
+
+- `gemini_cuantico` → Rol histórico "analyst_zones"
+- `gpt_auditor` → Rol histórico "critic"
+- `nuevo_deepseek_saaop` → Agente experimental
+- `viejo_deepseek` → Agente experimental
+- `viejo_lobo_rey` → Rol histórico "analyst_human"
+
+Estos agentes deben documentarse como legacy y mantenerse operativos por compatibilidad, pero no deben expandirse ni usarse como base para nuevos desarrollos sin migración previa al formato profesional.
+
+## Alineación de Datos Existentes (Prompt 17.1.1)
+
+### Inconsistencias Detectadas y Resueltas
+
+**Profiles sin preset (19 combinaciones):**
+- Se marcaron como `activo: false` con nota explicativa en `profile_catalog.json`
+- Estas especializaciones no son seleccionables hasta que se creen presets operativos
+- No se eliminaron del catálogo para preservar el diseño estructural
+
+**Presets sin provider/model (11 presets):**
+- No es inconsistencia técnica: el diseño delega recomendación a `core/model_recommendation.py`
+- El sistema calcula dinámicamente provider/model según hardware y workload
+- No se requiere modificación en este prompt
+
+**Agentes legacy sin preset (5 agentes):**
+- Se documentan como legacy (gemini_cuantico, gpt_auditor, nuevo_deepseek_saaop, viejo_deepseek, viejo_lobo_rey)
+- No tienen combinación formal role+specialization
+- Se mantienen operativos por compatibilidad pero no se expanden
+
+**Roles/Especializaciones:**
+- Todos los IDs usados en profiles y presets son válidos
+- No requiere corrección
+
+### Regla Vigente
+
+Todo elemento seleccionable para crear agentes debe tener trazabilidad completa:
+
+```
+profile_catalog (activo: true)
+→ role_id válido en catalogs/roles.json
+→ specialization_id válida en catalogs/specializations.json
+→ preset correspondiente en agent_presets.json
+→ paper_seed definido
+→ default_model_policy o recomendación dinámica
+→ agent config capaz de ejecutarse
+```
+
+Si falta una pieza obligatoria, el elemento debe marcarse como `activo: false` o `draft` y no aparecer como opción usable.
+
+### Elementos Draft/Legacy
+
+- **19 especializaciones** en `profile_catalog.json` marcadas como `activo: false` por falta de preset
+- **5 agentes legacy** sin combinación formal role+specialization (documentados, no eliminados)
+- **11 papers** con naming mismatch (sufijo `_paper`) - deuda técnica menor, no bloquea operatividad

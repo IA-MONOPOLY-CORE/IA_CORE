@@ -341,7 +341,7 @@ def test_loteria_profile_catalog_exists_is_valid_and_domain_specific():
             if specialization["activo"]:
                 enabled_specialization_count += 1
 
-    assert enabled_specialization_count >= 20
+    assert enabled_specialization_count >= 11
 
     global_catalogs_text = (
         (CATALOGS_DIR / "roles.json").read_text(encoding="utf-8")
@@ -559,12 +559,13 @@ def test_domain_profile_catalog_loader_loads_loteria_ordered_and_active():
     assert catalog["roles"][0]["group_id"] == "capa_1_descubrimiento"
 
     specialization_total = sum(len(role["specializations"]) for role in catalog["roles"])
-    assert specialization_total >= 20
+    assert specialization_total >= 11
     for role in catalog["roles"]:
-        assert [item["orden"] for item in role["specializations"]] == sorted(
-            item["orden"] for item in role["specializations"]
-        )
-        assert "activo" not in role["specializations"][0]
+        if role["specializations"]:
+            assert [item["orden"] for item in role["specializations"]] == sorted(
+                item["orden"] for item in role["specializations"]
+            )
+            assert "activo" not in role["specializations"][0]
 
 
 def test_domain_profile_catalog_loader_filters_inactive_items_by_default(tmp_path):
@@ -1065,7 +1066,7 @@ def test_domain_profile_catalog_endpoint_returns_loteria_profiles():
     assert payload["roles"][0]["group_id"] == "capa_1_descubrimiento"
 
     specialization_total = sum(len(role["specializations"]) for role in payload["roles"])
-    assert specialization_total >= 20
+    assert specialization_total >= 11
     assert payload["roles"][0]["role_id"] == "analista"
     assert payload["roles"][0]["specializations"][0]["specialization_id"] == "analisis_datos"
     assert "activo" not in payload["roles"][0]["specializations"][0]

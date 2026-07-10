@@ -61,8 +61,9 @@
           "specialization_id": "analisis_patrones",
           "nombre_visible": "Lectura de patrones",
           "adaptacion_dominio": "Detecta recurrencias, agrupamientos y señales repetidas sin confundir patrón observado con certeza predictiva.",
-          "activo": true,
-          "orden": 2
+          "activo": false,
+          "orden": 2,
+          "notas": "Sin preset operativo; marcado como no seleccionable hasta Prompt 18."
         },
         {
           "specialization_id": "analisis_comparativo",
@@ -100,15 +101,17 @@
           "specialization_id": "simulacion_decisiones",
           "nombre_visible": "Explorador de hipótesis",
           "adaptacion_dominio": "Compara decisiones alternativas de armado y descarte para detectar trade-offs explícitos.",
-          "activo": true,
-          "orden": 2
+          "activo": false,
+          "orden": 2,
+          "notas": "Sin preset operativo; marcado como no seleccionable hasta Prompt 18."
         },
         {
           "specialization_id": "simulacion_capacidad",
           "nombre_visible": "Modelador de cobertura",
           "adaptacion_dominio": "Evalúa límites de cobertura, diversidad y saturación de criterios cuando se prueban varias combinaciones.",
-          "activo": true,
-          "orden": 3
+          "activo": false,
+          "orden": 3,
+          "notas": "Sin preset operativo; marcado como no seleccionable hasta Prompt 18."
         }
       ]
     },
@@ -132,15 +135,17 @@
           "specialization_id": "auditoria_sesgos",
           "nombre_visible": "Auditor de sesgos",
           "adaptacion_dominio": "Revisa exceso de confianza, sesgo de confirmación y preferencias visuales no justificadas.",
-          "activo": true,
-          "orden": 2
+          "activo": false,
+          "orden": 2,
+          "notas": "Sin preset operativo; marcado como no seleccionable hasta Prompt 18."
         },
         {
           "specialization_id": "auditoria_riesgo",
           "nombre_visible": "Auditor de exposición",
           "adaptacion_dominio": "Controla riesgos de sobreinterpretar señales débiles o concentrar demasiado la decisión en una sola hipótesis.",
-          "activo": true,
-          "orden": 3
+          "activo": false,
+          "orden": 3,
+          "notas": "Sin preset operativo; marcado como no seleccionable hasta Prompt 18."
         }
       ]
     },
@@ -157,8 +162,9 @@
           "specialization_id": "refutacion_hipotesis",
           "nombre_visible": "Destructor de hipótesis",
           "adaptacion_dominio": "Intenta refutar la combinación propuesta con contraejemplos, supuestos faltantes y pruebas de resistencia.",
-          "activo": true,
-          "orden": 1
+          "activo": false,
+          "orden": 1,
+          "notas": "Sin preset operativo; marcado como no seleccionable hasta Prompt 18."
         },
         {
           "specialization_id": "deteccion_sesgos",
@@ -171,8 +177,9 @@
           "specialization_id": "critica_viabilidad",
           "nombre_visible": "Crítico de viabilidad",
           "adaptacion_dominio": "Evalúa si la propuesta puede sostenerse con datos disponibles, reglas explícitas y límites metodológicos.",
-          "activo": true,
-          "orden": 3
+          "activo": false,
+          "orden": 3,
+          "notas": "Sin preset operativo; marcado como no seleccionable hasta Prompt 18."
         }
       ]
     },
@@ -196,15 +203,17 @@
           "specialization_id": "deteccion_patrones_atipicos",
           "nombre_visible": "Lector de patrones atípicos",
           "adaptacion_dominio": "Busca combinaciones poco frecuentes o secuencias inusuales sin convertir rareza en recomendación automática.",
-          "activo": true,
-          "orden": 2
+          "activo": false,
+          "orden": 2,
+          "notas": "Sin preset operativo; marcado como no seleccionable hasta Prompt 18."
         },
         {
           "specialization_id": "alerta_temprana",
           "nombre_visible": "Alerta de señales débiles",
           "adaptacion_dominio": "Marca indicios tempranos que merecen seguimiento, revisión o descarte explícito.",
-          "activo": true,
-          "orden": 3
+          "activo": false,
+          "orden": 3,
+          "notas": "Sin preset operativo; marcado como no seleccionable hasta Prompt 18."
         }
       ]
     },
@@ -228,15 +237,17 @@
           "specialization_id": "control_riesgo",
           "nombre_visible": "Control de riesgo operativo",
           "adaptacion_dominio": "Define alertas y controles para que una decisión no dependa de una sola señal ni de una lectura incompleta.",
-          "activo": true,
-          "orden": 2
+          "activo": false,
+          "orden": 2,
+          "notas": "Sin preset operativo; marcado como no seleccionable hasta Prompt 18."
         },
         {
           "specialization_id": "priorizacion_riesgos",
           "nombre_visible": "Priorizador de riesgos",
           "adaptacion_dominio": "Ordena riesgos por impacto metodológico, incertidumbre y posibilidad de mitigación antes del cierre.",
-          "activo": true,
-          "orden": 3
+          "activo": false,
+          "orden": 3,
+          "notas": "Sin preset operativo; marcado como no seleccionable hasta Prompt 18."
         },
         {
           "specialization_id": "administracion_recursos",
@@ -267,22 +278,25 @@
           "specialization_id": "integracion_criterios",
           "nombre_visible": "Integrador de criterios",
           "adaptacion_dominio": "Pondera cobertura, riesgo, consistencia y diversidad sin ocultar incertidumbre.",
-          "activo": true,
-          "orden": 2
+          "activo": false,
+          "orden": 2,
+          "notas": "Sin preset operativo; marcado como no seleccionable hasta Prompt 18."
         },
         {
           "specialization_id": "cierre_decision",
           "nombre_visible": "Cierre de jugada",
           "adaptacion_dominio": "Transforma el debate en una decisión final justificada y revisable.",
-          "activo": true,
-          "orden": 3
+          "activo": false,
+          "orden": 3,
+          "notas": "Sin preset operativo; marcado como no seleccionable hasta Prompt 18."
         },
         {
           "specialization_id": "sintesis_multicriterio",
           "nombre_visible": "Síntesis multicriterio",
           "adaptacion_dominio": "Resume variables múltiples en una evaluación final transparente.",
-          "activo": true,
-          "orden": 4
+          "activo": false,
+          "orden": 4,
+          "notas": "Sin preset operativo; marcado como no seleccionable hasta Prompt 18."
         }
       ]
     },
@@ -306,15 +320,17 @@
           "specialization_id": "memoria_operativa",
           "nombre_visible": "Memoria de lecciones",
           "adaptacion_dominio": "Conserva aprendizajes verificables y evita repetir errores metodológicos.",
-          "activo": true,
-          "orden": 2
+          "activo": false,
+          "orden": 2,
+          "notas": "Sin preset operativo; marcado como no seleccionable hasta Prompt 18."
         },
         {
           "specialization_id": "recuperacion_antecedentes",
           "nombre_visible": "Recuperador de antecedentes",
           "adaptacion_dominio": "Trae decisiones y casos anteriores relevantes para comparar contra el análisis actual.",
-          "activo": true,
-          "orden": 3
+          "activo": false,
+          "orden": 3,
+          "notas": "Sin preset operativo; marcado como no seleccionable hasta Prompt 18."
         }
       ]
     },
@@ -331,22 +347,25 @@
           "specialization_id": "validacion_criterios",
           "nombre_visible": "Juez de validación ciega",
           "adaptacion_dominio": "Revisa si la propuesta respeta criterios definidos sin apoyarse en información revelada fuera de tiempo.",
-          "activo": true,
-          "orden": 1
+          "activo": false,
+          "orden": 1,
+          "notas": "Sin preset operativo; marcado como no seleccionable hasta Prompt 18."
         },
         {
           "specialization_id": "validacion_datos",
           "nombre_visible": "Validador de datos",
           "adaptacion_dominio": "Comprueba integridad, formato y coherencia de los datos usados para justificar la combinación.",
-          "activo": true,
-          "orden": 2
+          "activo": false,
+          "orden": 2,
+          "notas": "Sin preset operativo; marcado como no seleccionable hasta Prompt 18."
         },
         {
           "specialization_id": "validacion_impacto",
           "nombre_visible": "Validador de aprendizaje",
           "adaptacion_dominio": "Evalúa si el resultado deja señales útiles para mejorar el proceso sin sobregeneralizar un caso aislado.",
-          "activo": true,
-          "orden": 3
+          "activo": false,
+          "orden": 3,
+          "notas": "Sin preset operativo; marcado como no seleccionable hasta Prompt 18."
         }
       ]
     }

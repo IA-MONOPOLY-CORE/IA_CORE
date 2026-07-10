@@ -574,3 +574,32 @@ El reporte del Prompt 17 detectó que el catálogo actual (areas.json, niches.js
 - `compatible_business_scales`: micro / local_business / freelancer / pyme / company / enterprise / department / research_team / experimental_domain
 - `tags`, `typical_needs`, `expected_profile_types`, `likely_professional_profiles`, `required_capabilities`, `possible_team_templates`, `activation_requirements`: list[str]
 - `operationalization_contract`: object con estructura específica
+
+---
+
+## ADR-022 — Ningún perfil o preset usable puede quedar sin trazabilidad operativa completa
+
+**Estado**: Aceptado
+
+**Prompt**: 17.1.1
+
+**Contexto**:
+La auditoría de Prompt 17.1.1 detectó que 19 combinaciones role+specialization en `profile_catalog.json` no tenían preset operativo correspondiente. Esto violaba la regla de que todo elemento seleccionable para crear agentes debe tener trazabilidad completa. Sin corrección, estos profiles aparecerían como opciones usables pero no podrían crear agentes operativos.
+
+**Decisión**:
+- Todo elemento seleccionable (activo: true) debe tener trazabilidad operativa completa.
+- La cadena de trazabilidad obligatoria es: profile_catalog (activo: true) → role_id válido → specialization_id válida → preset correspondiente → paper_seed → default_model_policy o recomendación dinámica → agent config ejecutable.
+- Si falta una pieza obligatoria, el elemento debe marcarse como `activo: false` o `draft` y no aparecer como opción usable.
+- Los presets sin `recommended_provider`/`recommended_model` no es inconsistencia: el diseño delega recomendación a `core/model_recommendation.py`.
+- Los agentes legacy sin combinación formal role+specialization se documentan pero no se eliminan por compatibilidad.
+
+**Consecuencias**:
+- 19 especializaciones en `profile_catalog.json` fueron marcadas como `activo: false` con nota explicativa.
+- Se agregó campo `notas` para documentar por qué una especialización no es seleccionable.
+- Se creó `tests/test_profile_preset_consistency.py` con 10 tests para validar consistencia.
+- Los 11 agentes, 11 papers y 11 presets de Lotería siguen operativos e intactos.
+- Los 5 agentes legacy (gemini_cuantico, gpt_auditor, nuevo_deepseek_saaop, viejo_deepseek, viejo_lobo_rey) se documentan como legacy pero no se rompen.
+- Prompt 17.2 puede avanzar sobre una base saneada con trazabilidad operativa garantizada.
+
+**Regla No Negociable**:
+No puede existir un perfil usable sin preset operativo. No puede existir un preset usable sin profile asociado. No puede existir un agente operativo sin trazabilidad a profile/preset/paper/model policy, salvo que se documente explícitamente como legacy y no sea parte del flujo nuevo.
