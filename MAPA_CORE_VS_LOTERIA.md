@@ -14,6 +14,7 @@ Este documento mapea qué partes del sistema son el "motor de debate genérico" 
 - **Memoria md como enriquecimiento — COMPLETADO:** `core/agent_paper_schema.py` actualizado para agregar `memory_enrichment` al paper cuando el usuario sube una memoria `.md` al crear un agente con preset; `core/agent_config_schema.py` actualizado para agregar campos `paper_enriched`, `paper_enrichment_applied_at` y `paper_enrichment_reason` al bloque `memory`; `api.py` actualizado para leer contenido de memoria, pasar a helper de paper y actualizar JSON del agente; no se usa LLM ni se genera contenido creativo; tests exhaustivos en `tests/test_agent_config_schema.py`; `ARCHITECTURE_DECISIONS.md` actualizado con ADR-016.
 - **Lote base de agentes Lotería — COMPLETADO:** Se crearon 5 agentes nuevos usando el flujo nuevo con presets: `auditor_hostil`, `cazador_anomalias`, `simulador_escenarios`, `gestor_exposicion`, `integrador_central`. Los 6 agentes legacy fueron validados: `estadistico_integral`, `gpt_auditor`, `gemini_cuantico`, `nuevo_deepseek_saaop`, `viejo_deepseek`, `viejo_lobo_rey`. Todos los agentes nuevos tienen estructura JSON normalizada con bloques `memory` y `metadata`, y papers generados desde presets. Agentes legacy siguen funcionando con compatibilidad.
 - **Interfaz — COMPLETADO:** `ui/web/`, servido por FastAPI, es la única interfaz de usuario del proyecto; la estructura auxiliar de la interfaz anterior ya no existe.
+- **Generalización de mejorar_papers.py por dominio — COMPLETADO (Prompt 13):** `mejorar_papers.py` confirma su rol como herramienta Core multi-dominio. `regenerar_todos_los_papers()` queda documentada explícitamente como legacy-Lotería. Bug corregido: `agente_id` se asignaba incorrectamente como `"unknown"` al crear paper desde cero. No se creó `core/agent_paths.py` porque los helpers ya existen en `core/domain_registry.py`. `api.py` no requirió cambios. 11 tests nuevos en `tests/test_mejorar_papers_domain.py`. `ARCHITECTURE_DECISIONS.md` actualizado con ADR-018.
 
 ## Leyenda
 - **NO**: Lógica 100% genérica, reusable en cualquier dominio
@@ -75,6 +76,7 @@ Este documento mapea qué partes del sistema son el "motor de debate genérico" 
 | **raíz/** | | |
 | backtest_ciego.py | MOVIDO | Movido a domains/loteria/backtest_ciego.py (100% específico de Lotería) |
 | lotoplus_completo_3511_3885.json | MOVIDO | Movido a domains/loteria/lotoplus_completo_3511_3885.json (datos específicos de Lotería) |
+| mejorar_papers.py | NO | **Core multi-dominio** — Acepta `domain_id` explícito y resuelve rutas mediante `core/domain_registry`; `regenerar_todos_los_papers()` es legacy-Lotería documentada; no usa `config.AGENTS_PAPERS_DIR` como destino; bug de `agente_id="unknown"` corregido |
 | **config.py** | PARCIAL | Variables genéricas de configuración (rutas, timeouts, proveedores) PERO variables específicas movidas a domains/loteria/config_loteria.py: DEFAULT_DEBATE_TASK, DEBATE_AGENTS, TRAINING_END/BLIND_TEST_START/LIVE_TEST_START/LIVE_TEST_END |
 | **api.py** | PARCIAL | API REST genérica con fachada opcional de Lotería: carga perezosamente `SAAOP_TASK`, límites y funciones de validación desde `domains/loteria/`, devuelve `501` sin ese dominio, publica `is_generic_baseline` en `/api/agents/list`, expone `GET /api/domains/{domain_id}/agent-presets` / `match` como lectura genérica de presets por dominio y persiste `profile_preset_id` validado en `/api/agents/create`. La lógica de negocio de validación ciega ya no reside aquí |
 | **domains/loteria/** | | |
@@ -136,6 +138,7 @@ Este documento mapea qué partes del sistema son el "motor de debate genérico" 
 - tools/loader.py
 - tools/cargar_memoria_desde_chat.py
 - memoria_agentes/* (formato, no contenido)
+- mejorar_papers.py (**Core multi-dominio** — resuelve rutas por `domain_id`; `regenerar_todos_los_papers()` permanece como legacy-Lotería documentada)
 
 ### 100% Específico Lotería/S.A.A.O.P. (Movidos a domains/loteria/)
 - domains/loteria/evolution_loteria.py (**NUEVO** - implementación específica de Lotería)
@@ -267,3 +270,13 @@ Este documento mapea qué partes del sistema son el "motor de debate genérico" 
 ### 15. Interfaz de usuario
 - **COMPLETADO** - La interfaz anterior y toda su estructura auxiliar fueron eliminadas
 - **COMPLETADO** - `ui/web/` es la única interfaz y concentra agentes, proveedores, memoria, logs, modo híbrido, orquestación y overview
+
+### 16. mejorar_papers.py — generalización por dominio (Prompt 13)
+- **COMPLETADO** - `mejorar_papers.py` confirmado como Core multi-dominio
+- **COMPLETADO** - `regenerar_todos_los_papers()` documentada explícitamente como legacy-Lotería con docstring e instrucciones para el flujo genérico
+- **COMPLETADO** - Bug corregido: `agente_id` se inicializaba como `"unknown"` al crear paper desde cero; ahora siempre es el `agente_id` pasado como argumento
+- **COMPLETADO** - Docstring de módulo expandido con ejemplos de uso por dominio y ruta canónica `domains/<domain_id>/agents/papers/`
+- **COMPLETADO** - No se creó `core/agent_paths.py` (helpers ya existen en `core/domain_registry.py`)
+- **COMPLETADO** - `api.py` sin cambios (ya usa `write_initial_agent_paper()` con `domain_id`)
+- **COMPLETADO** - 11 tests nuevos en `tests/test_mejorar_papers_domain.py`: ruta por dominio, compatibilidad Lotería, fallback legacy, no hardcode de `AGENTS_PAPERS_DIR`
+- **COMPLETADO** - `ARCHITECTURE_DECISIONS.md` actualizado con ADR-018

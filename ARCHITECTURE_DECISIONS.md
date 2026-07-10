@@ -398,6 +398,41 @@ No se usan providers demo/placeholders. No se eligen modelos inexistentes en la 
 
 **Deuda futura — Validación cross-platform real**: La arquitectura de hardware_profile y compatibilidad modelo/hardware debe mantenerse preparada para funcionar en distintos entornos: Windows local, Linux, macOS, Docker/contenedores, servidores, equipos con GPU dedicada, equipos sin GPU, equipos con RAM limitada, equipos con RAM alta. En esta fase NO se certifica multi-sistema. La validación real queda diferida para una fase futura.
 
+---
+
+## ADR-018 — Resolución de papers por dominio: `mejorar_papers.py` deja de pertenecer a Lotería
+
+**Estado**: Aceptado
+
+**Contexto**: `mejorar_papers.py` ya aceptaba `domain_id` como parámetro opcional, pero la función `regenerar_todos_los_papers()` tenía una lista hardcodeada de agentes de Lotería sin documentar explícitamente su naturaleza legacy. Tampoco existía cobertura de test que validara el comportamiento multi-dominio, la creación correcta de agentes en dominios temporales o la no contaminación entre dominios.
+
+**Decisión**:
+
+1. **`mejorar_papers.py` es Core**, no una utilidad del dominio Lotería. La resolución de rutas de papers por dominio pertenece a Core; el contenido semántico de cada paper pertenece al Agente; la carpeta que lo contiene pertenece al Dominio.
+
+2. **Ruta canónica invariable**: `domains/<domain_id>/agents/papers/<agent_id>_paper.json`. `mejorar_paper()` siempre resuelve la ruta a través de `core/domain_registry.get_domain_agents_papers_dir(domain_id)` cuando se pasa `domain_id` explícito, y nunca usa `config.AGENTS_PAPERS_DIR` como destino universal.
+
+3. **`regenerar_todos_los_papers()` es explícitamente legacy-Lotería**: La función lleva docstring que la identifica como compatibilidad con la lista histórica de agentes Lotería. El flujo genérico recomendado para nuevos dominios es llamar `mejorar_paper(agent_id, domain_id=<mi_dominio>, usar_llm=False)` directamente.
+
+4. **Corrección de bug**: `mejorar_paper()` inicializaba `agente_id = "unknown"` cuando no había paper previo. La condición `final.get("agente_id") or agente_id` no sobreescribía `"unknown"` porque el string es truthy. Corregido a asignación directa `final["agente_id"] = agente_id`.
+
+5. **No se crea `core/agent_paths.py`**: Los helpers de resolución de rutas ya existen en `core/domain_registry.py` (`get_domain_agents_papers_dir`, `get_domain_agents_config_dir`, `resolve_agent_json`). Un módulo separado sería redundancia sin valor.
+
+6. **`api.py` no requiere cambios**: `/api/agents/create` usa `write_initial_agent_paper()` y un paper básico inline — ambos ya resuelven rutas por `domain_id` correctamente desde el Prompt 15.
+
+**Evidencia**:
+- `mejorar_papers.py` — Docstring de módulo expandido con ejemplos de uso y ruta canónica; `regenerar_todos_los_papers()` marcada como legacy-Lotería con instrucciones para el flujo genérico; `final["agente_id"] = agente_id` garantiza el ID correcto incluso al crear paper desde cero
+- `tests/test_mejorar_papers_domain.py` — 11 tests en 4 clases: `TestRutaPorDominio` (5), `TestCompatibilidadLoteria` (2), `TestFallbackLegacy` (2), `TestNoHardcodeAGENTS_PAPERS_DIR` (2)
+- `tests/test_no_hardcoded_agent_paths.py` — Ya cubría que `mejorar_papers.py` no use `config.AGENTS_PAPERS_DIR` directamente como destino de guardado
+
+**Clasificación Patrimonio/Core/Dominio/Agente**:
+- `mejorar_papers.py` (lógica de resolución de rutas): **Core** — Funcionalidad genérica para mejorar papers en cualquier dominio
+- `regenerar_todos_los_papers()` (lista hardcodeada): **Dominio Lotería** — Legacy; contenido acoplado a la lista histórica de Lotería, documentado como tal
+- Papers mejorados en `domains/<domain_id>/agents/papers/`: **Agente** — Identidad actualizada de un agente específico del dominio
+- `config.AGENTS_PAPERS_DIR`: Permanece como compatibilidad legacy, nunca como destino operativo del flujo genérico
+
+**Alcance diferido**: No se crea endpoint de regeneración de papers. No se tocan papeles reales masivamente. No se modifica `runtime_json_agent.py`. No se avanza a Prompt 14.
+
 **Alcance de la validación futura**: Una fase futura deberá comprobar:
 - A. Perfil de hardware: carga desde config/hardware_profile.json, autodetección básica, fallback seguro, local_mode correcto, no exposición de datos sensibles.
 - B. Endpoints: GET /api/system/hardware-profile, POST /api/system/model-compatibility, POST /api/agents/model-recommendation.

@@ -1,4 +1,18 @@
-"""Mejora los papers existentes con información de la memoria del agente (JSON + vectorial)."""
+"""Mejora los papers existentes con información de la memoria del agente (JSON + vectorial).
+
+Uso por dominio (recomendado para dominios nuevos):
+    python mejorar_papers.py --agente <agent_id> --domain-id <domain_id> --no-llm
+
+    Ejemplo:
+        python mejorar_papers.py --agente estadistico_integral --domain-id loteria --no-llm
+        python mejorar_papers.py --agente mi_agente --domain-id mi_dominio --no-llm
+
+Sin --domain-id se intenta resolver el dominio automáticamente (falla si el ID es ambiguo).
+Sin --agente regenera la lista legacy de agentes del dominio por defecto (Lotería).
+
+La ruta canónica de papers es:
+    domains/<domain_id>/agents/papers/<agent_id>_paper.json
+"""
 
 import sys
 import json
@@ -269,7 +283,10 @@ def mejorar_paper(
 
     # 3. Fusionar todo
     final = merge_todos_los_papers(manual, lecciones_json, lecciones_vectorial or {})
-    final["agente_id"] = final.get("agente_id") or agente_id
+    # Siempre fijar agente_id al valor canónico recibido como argumento.
+    # Si el paper era vacío, merge_todos_los_papers inicializa agente_id="unknown";
+    # aquí se sobreescribe con el ID real en todos los casos.
+    final["agente_id"] = agente_id
 
     # 4. Guardar
     resolved_paper_path.parent.mkdir(parents=True, exist_ok=True)
@@ -281,7 +298,21 @@ def mejorar_paper(
 
 
 def regenerar_todos_los_papers(usar_llm: bool = True):
-    """Regenera todos los papers de los agentes."""
+    """Regenera todos los papers de los agentes.
+
+    NOTA LEGACY: Esta función opera sobre la lista histórica de agentes del dominio
+    Lotería (config.DEFAULT_DOMAIN_ID). No es el flujo genérico recomendado para
+    nuevos dominios.
+
+    Para mejorar papers de un dominio arbitrario, usar mejorar_paper() directamente
+    con domain_id explícito:
+
+        mejorar_paper("mi_agente", domain_id="mi_dominio", usar_llm=False)
+
+    Esta función se mantiene por compatibilidad con scripts de regeneración periódica.
+    """
+    # Lista hardcodeada: agentes históricos del dominio Lotería.
+    # No expandir con agentes de otros dominios — usar mejorar_paper() individualmente.
     agentes = [
         "estadistico_integral",
         "gemini_cuantico",
@@ -293,6 +324,7 @@ def regenerar_todos_los_papers(usar_llm: bool = True):
 
     print("=" * 60)
     print("REGENERANDO PAPERS CON MEMORIA DEL AGENTE")
+    print(f"Dominio: {config.DEFAULT_DOMAIN_ID} (legacy)")
     print("=" * 60)
     print(f"Modo LLM: {'activado' if usar_llm else 'desactivado (solo JSON)'}")
     print("=" * 60)
