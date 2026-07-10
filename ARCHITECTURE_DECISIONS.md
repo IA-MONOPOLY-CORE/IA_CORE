@@ -393,3 +393,5 @@ No se usan providers demo/placeholders. No se eligen modelos inexistentes en la 
 - Recomendaciones aplicadas a agentes: **Agente** — Elección específica de un agente
 
 **Alcance diferido**: No se modifican masivamente agentes existentes, no se toca `agent_presets.json`, no se toca `profile_catalog.json`, no se modifica `runtime_json_agent.py`, no se modifica `mejorar_papers.py`, no se avanza a Prompt 13.
+
+**Deuda UI pendiente**: Hacer visible de forma confiable en HUD la compatibilidad del modelo seleccionado. El backend y los endpoints existen (`POST /api/system/model-compatibility`), pero la representación visual queda diferida para una fase posterior de refinamiento UI. La capa backend de compatibilidad modelo/hardware queda implementada y testeada, pero la visualización HUD del semáforo de compatibilidad queda en stand by porque el bloque no muestra el estado real de forma confiable en la verificación manual.
