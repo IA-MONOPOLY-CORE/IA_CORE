@@ -857,10 +857,6 @@
                 <div id="recommendation-text"></div>
                 <button id="apply-recommendation-btn" type="button" style="margin-top:8px; padding:4px 12px; background:rgba(245, 158, 11, 0.15); border:1px solid var(--amber); color:var(--amber); font-size:0.7rem; cursor:pointer; border-radius:var(--border-radius);">Aplicar recomendación</button>
             </div>
-            <div id="model-compatibility" style="display:none; margin-bottom:12px; padding:10px; background:rgba(33, 150, 243, 0.08); border:1px solid rgba(33, 150, 243, 0.3); border-radius:var(--border-radius); font-size:0.72rem; line-height:1.4;">
-                <div style="color:var(--cyan); font-weight:bold; margin-bottom:4px;">⚙️ Compatibilidad del modelo seleccionado</div>
-                <div id="compatibility-text"></div>
-            </div>
             <div style="margin-bottom:12px;"><label style="font-size:0.8rem;">PROVEEDOR</label>
                 <select id="agent-provider" style="width:100%; background:rgba(0,0,0,0.5); border:1px solid var(--border-color); color:#fff; padding:8px; border-radius:var(--border-radius);">
                     <option value="ollama">Ollama (Local)</option>
@@ -869,6 +865,10 @@
             </div>
             <div style="margin-bottom:12px;"><label style="font-size:0.8rem;">MODELO</label>
                 <select id="agent-model" style="width:100%; background:rgba(0,0,0,0.5); border:1px solid var(--border-color); color:#fff; padding:8px; border-radius:var(--border-radius);"></select>
+            </div>
+            <div id="model-compatibility" style="display:none; margin-bottom:12px; padding:10px; background:rgba(33, 150, 243, 0.08); border:1px solid rgba(33, 150, 243, 0.3); border-radius:var(--border-radius); font-size:0.72rem; line-height:1.4;">
+                <div style="color:var(--cyan); font-weight:bold; margin-bottom:4px;">⚙️ Compatibilidad del modelo seleccionado</div>
+                <div id="compatibility-text"></div>
             </div>
             <div style="margin-bottom:12px;"><label style="font-size:0.8rem;">SYSTEM PROMPT <span style="color:var(--red);">*</span></label><textarea id="agent-prompt" rows="3" style="width:100%; background:rgba(0,0,0,0.5); border:1px solid var(--border-color); color:#fff; padding:8px; resize:none; border-radius:var(--border-radius);"></textarea></div>
             <div style="margin-bottom:12px;"><label style="font-size:0.8rem;">MEMORIA <span style="color:var(--text-muted);">(OPCIONAL)</span></label><input type="file" id="agent-memory" accept=".md,.txt" style="font-size:0.75rem;"></div>
@@ -979,6 +979,8 @@
             // Seleccionar el primer modelo por defecto para evitar dejar vacío
             if (modelos.length > 0) {
                 modelSelect.value = modelos[0];
+                // Disparar evento change para actualizar compatibilidad
+                modelSelect.dispatchEvent(new Event('change'));
             }
         }
 
