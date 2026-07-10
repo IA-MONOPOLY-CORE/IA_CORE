@@ -542,3 +542,35 @@ IA_CORE evolucionó desde un dominio específico (Lotería) a un framework multi
 - `domains/*/profile_catalog.json`: **Dominio** — Hereda y adapta perfiles globales
 - `domains/*/agent_presets.json`: **Dominio** — Hereda y adapta presets globales
 - Papers generados: **Agente** — Identidad específica de cada agente operativo
+
+## ADR-021 — Catálogos de áreas/nichos soportan metadatos operativos sin romper compatibilidad
+
+**Estado**: Aceptado
+**Fecha**: 2026-07-10
+**Prompt**: 17.1
+
+**Contexto**:
+El reporte del Prompt 17 detectó que el catálogo actual (areas.json, niches.json) no soporta metadatos operativos necesarios para la Biblioteca Profesional Global a escala. Para cargar 106 nichos nuevos con trazabilidad operativa, el loader necesita soportar campos como status, complexity, operational_priority, model_policy_need, expected_profile_types y operationalization_contract.
+
+**Decisión**:
+- Los catálogos globales de áreas y nichos pueden contener metadatos operativos opcionales.
+- Los campos nuevos son opcionales y no se requieren para los JSON existentes.
+- El loader `core/catalog_registry.py` valida los campos si están presentes pero no los exige.
+- Los catálogos actuales no requieren migración y siguen funcionando sin cambios.
+- Los valores válidos para cada campo están definidos como constantes en el loader.
+- El status `active` no debe usarse como decoración; requiere trazabilidad operativa completa.
+
+**Consecuencias**:
+- Permite cargar expansión de nichos con metadatos operativos sin romper compatibilidad.
+- Facilita trazabilidad hacia perfiles profesionales, presets, papers y políticas de modelo.
+- Mantiene compatibilidad hacia atrás con los 94 nichos existentes.
+- Prepara el terreno para Prompt 17.2 (carga de expansión real).
+
+**Campos Soportados**:
+- `status`: proposed / draft / active / deprecated
+- `complexity`: low / medium / high / critical
+- `operational_priority`: low / medium / high / critical
+- `model_policy_need`: local_ok / auto / cloud_preferred / cloud_required / critical_reasoning_required
+- `compatible_business_scales`: micro / local_business / freelancer / pyme / company / enterprise / department / research_team / experimental_domain
+- `tags`, `typical_needs`, `expected_profile_types`, `likely_professional_profiles`, `required_capabilities`, `possible_team_templates`, `activation_requirements`: list[str]
+- `operationalization_contract`: object con estructura específica

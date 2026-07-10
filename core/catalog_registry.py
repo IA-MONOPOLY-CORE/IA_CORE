@@ -14,6 +14,13 @@ import config
 CATALOGS_DIR = config.ROOT_DIR / "catalogs"
 _SNAKE_CASE_RE = re.compile(r"^[a-z0-9]+(?:_[a-z0-9]+)*$")
 
+# Metadatos operativos válidos
+VALID_STATUS_VALUES = {"proposed", "draft", "active", "deprecated"}
+VALID_COMPLEXITY_VALUES = {"low", "medium", "high", "critical"}
+VALID_PRIORITY_VALUES = {"low", "medium", "high", "critical"}
+VALID_MODEL_POLICY_VALUES = {"local_ok", "auto", "cloud_preferred", "cloud_required", "critical_reasoning_required"}
+VALID_BUSINESS_SCALES = {"micro", "local_business", "freelancer", "pyme", "company", "enterprise", "department", "research_team", "experimental_domain"}
+
 AREA_REQUIRED_FIELDS = {"id", "nombre", "descripcion", "activo", "orden"}
 NICHE_REQUIRED_FIELDS = {
     "id",
@@ -91,6 +98,77 @@ def _validate_common_item(item: dict[str, Any], *, source: str) -> None:
         raise ValueError(f"{source}: campo orden debe ser numérico entero")
 
 
+def _validate_optional_status(item: dict[str, Any], *, source: str) -> None:
+    """Valida campo status si está presente."""
+    status = item.get("status")
+    if status is not None:
+        if status not in VALID_STATUS_VALUES:
+            raise ValueError(f"{source}: campo status debe ser uno de {VALID_STATUS_VALUES}, got '{status}'")
+
+
+def _validate_optional_complexity(item: dict[str, Any], *, source: str) -> None:
+    """Valida campo complexity si está presente."""
+    complexity = item.get("complexity")
+    if complexity is not None:
+        if complexity not in VALID_COMPLEXITY_VALUES:
+            raise ValueError(f"{source}: campo complexity debe ser uno de {VALID_COMPLEXITY_VALUES}, got '{complexity}'")
+
+
+def _validate_optional_priority(item: dict[str, Any], *, source: str) -> None:
+    """Valida campo operational_priority si está presente."""
+    priority = item.get("operational_priority")
+    if priority is not None:
+        if priority not in VALID_PRIORITY_VALUES:
+            raise ValueError(f"{source}: campo operational_priority debe ser uno de {VALID_PRIORITY_VALUES}, got '{priority}'")
+
+
+def _validate_optional_model_policy(item: dict[str, Any], *, source: str) -> None:
+    """Valida campo model_policy_need si está presente."""
+    model_policy = item.get("model_policy_need")
+    if model_policy is not None:
+        if model_policy not in VALID_MODEL_POLICY_VALUES:
+            raise ValueError(f"{source}: campo model_policy_need debe ser uno de {VALID_MODEL_POLICY_VALUES}, got '{model_policy}'")
+
+
+def _validate_optional_business_scales(item: dict[str, Any], *, source: str) -> None:
+    """Valida campo compatible_business_scales si está presente."""
+    scales = item.get("compatible_business_scales")
+    if scales is not None:
+        if not isinstance(scales, list):
+            raise ValueError(f"{source}: campo compatible_business_scales debe ser una lista")
+        for scale in scales:
+            if scale not in VALID_BUSINESS_SCALES:
+                raise ValueError(f"{source}: compatible_business_scales contiene valor inválido '{scale}', debe ser uno de {VALID_BUSINESS_SCALES}")
+
+
+def _validate_optional_list_field(item: dict[str, Any], field: str, *, source: str) -> None:
+    """Valida que un campo sea una lista de strings no vacíos si está presente."""
+    value = item.get(field)
+    if value is not None:
+        if not isinstance(value, list):
+            raise ValueError(f"{source}: campo {field} debe ser una lista")
+        if any(not isinstance(item, str) or not item.strip() for item in value):
+            raise ValueError(f"{source}: campo {field} solo acepta textos no vacíos")
+
+
+def _validate_optional_operationalization_contract(item: dict[str, Any], *, source: str) -> None:
+    """Valida campo operationalization_contract si está presente."""
+    contract = item.get("operationalization_contract")
+    if contract is not None:
+        if not isinstance(contract, dict):
+            raise ValueError(f"{source}: campo operationalization_contract debe ser un objeto")
+        # Validar estructura esperada pero permitir campos extra flexibilidad
+        for field in ["needs_professional_profiles", "needs_presets", "needs_paper_seed", "needs_model_policy"]:
+            if field in contract and not isinstance(contract[field], bool):
+                raise ValueError(f"{source}: operationalization_contract.{field} debe ser booleano")
+        for field in ["can_create_agent_when", "can_join_team_when"]:
+            if field in contract and not isinstance(contract[field], str):
+                raise ValueError(f"{source}: operationalization_contract.{field} debe ser texto")
+        if "blocked_by" in contract:
+            if not isinstance(contract["blocked_by"], list):
+                raise ValueError(f"{source}: operationalization_contract.blocked_by debe ser una lista")
+
+
 def _validate_unique_ids(items: list[dict[str, Any]], *, source: str) -> None:
     seen: set[str] = set()
     duplicates: set[str] = set()
@@ -121,6 +199,13 @@ def load_areas(
         for field in ["nombre", "descripcion"]:
             if not isinstance(area.get(field), str) or not area[field].strip():
                 raise ValueError(f"{source}: campo {field} debe ser texto no vacío")
+        # Validar metadatos operativos opcionales
+        _validate_optional_status(area, source=source)
+        _validate_optional_complexity(area, source=source)
+        _validate_optional_priority(area, source=source)
+        _validate_optional_business_scales(area, source=source)
+        _validate_optional_list_field(area, "tags", source=source)
+        _validate_optional_list_field(area, "typical_domains", source=source)
     _validate_unique_ids(areas, source="areas.json")
     return _sorted_active(areas, active_only=active_only)
 
@@ -147,6 +232,20 @@ def load_niches(
         ]:
             if not isinstance(niche.get(field), str) or not niche[field].strip():
                 raise ValueError(f"{source}: campo {field} debe ser texto no vacío")
+        # Validar metadatos operativos opcionales
+        _validate_optional_status(niche, source=source)
+        _validate_optional_complexity(niche, source=source)
+        _validate_optional_priority(niche, source=source)
+        _validate_optional_model_policy(niche, source=source)
+        _validate_optional_business_scales(niche, source=source)
+        _validate_optional_list_field(niche, "tags", source=source)
+        _validate_optional_list_field(niche, "typical_needs", source=source)
+        _validate_optional_list_field(niche, "expected_profile_types", source=source)
+        _validate_optional_list_field(niche, "likely_professional_profiles", source=source)
+        _validate_optional_list_field(niche, "required_capabilities", source=source)
+        _validate_optional_list_field(niche, "possible_team_templates", source=source)
+        _validate_optional_list_field(niche, "activation_requirements", source=source)
+        _validate_optional_operationalization_contract(niche, source=source)
     _validate_unique_ids(niches, source="niches.json")
     return _sorted_active(niches, active_only=active_only)
 

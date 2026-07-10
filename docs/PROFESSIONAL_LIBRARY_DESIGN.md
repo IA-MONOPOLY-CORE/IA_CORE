@@ -370,6 +370,59 @@ IA_CORE evolucionó desde un dominio específico (Lotería) a un framework multi
 
 No hay límite fijo de nichos por área. Si la lista crece mucho, primero se mide y después se decide cómo agrupar, filtrar, paginar o versionar. No se imponen restricciones artificiales.
 
+## Status Operativo de Áreas/Nichos
+
+Las áreas y nichos pueden tener un campo `status` opcional con valores:
+
+- **proposed**: Existe como parte del universo objetivo, no necesariamente usable
+- **draft**: Tiene estructura parcial, todavía no usable
+- **active**: Solo debe usarse para elementos compatibles con flujo operativo actual o heredados por compatibilidad
+- **deprecated**: Existe pero no debe sugerirse para nuevos usos
+
+Los catálogos actuales (areas.json, niches.json) no requieren migración. Si el campo `status` no está presente, se asume compatibilidad con el estado actual.
+
+## Compatible Business Scales
+
+Las áreas y nichos pueden tener un campo `compatible_business_scales` opcional con valores:
+
+- micro
+- local_business
+- freelancer
+- pyme
+- company
+- enterprise
+- department
+- research_team
+- experimental_domain
+
+Esta capa prepara una futura segunda capa de adaptación por tipo de negocio, pero no se implementa todavía.
+
+## Contrato de Operacionalización
+
+Los nichos pueden tener un campo `operationalization_contract` opcional que define:
+
+- `needs_professional_profiles`: bool
+- `needs_presets`: bool
+- `needs_paper_seed`: bool
+- `needs_model_policy`: bool
+- `can_create_agent_when`: string
+- `can_join_team_when`: string
+- `blocked_by`: list[str]
+
+Este contrato asegura que ningún nicho se marque como `active` si no tiene trazabilidad operativa completa hacia perfiles profesionales, presets, papers y políticas de modelo.
+
+## Regla: Active No Debe Usarse Como Decoración
+
+El status `active` no debe usarse como decoración. Un nicho solo puede marcarse como `active` si:
+
+1. Tiene professional_profile_id válido
+2. Tiene preset_seed válido
+3. Tiene paper_seed válido
+4. Tiene default_model_policy definido
+5. Puede crear agente operativo sin errores
+
+Si falta cualquiera de estos, el nicho debe quedar como `draft` o `proposed`.
+
 ## Qué Queda Fuera de Alcance
 
 - Integración n8n

@@ -1048,3 +1048,91 @@ Total estimado: **12-15 políticas de modelo**
 - **Perfiles profesionales**: 80-100 (Prompt 18)
 - **Plantillas de equipo**: 25-30 (Prompt 23)
 - **Políticas de modelo**: 12-15 (Prompt 20)
+
+## Preparación Técnica del Catálogo
+
+### Campos Nuevos Soportados
+
+El catálogo ahora soporta metadatos operativos opcionales para áreas y nichos, manteniendo compatibilidad hacia atrás con los JSON existentes.
+
+#### Campos para Áreas
+
+**Campos operativos opcionales**:
+- `status`: proposed / draft / active / deprecated
+- `tags`: list[str]
+- `business_value`: string
+- `typical_domains`: list[str]
+- `compatible_business_scales`: list[str]
+- `operational_priority`: low / medium / high / critical
+- `suggested_niche_count`: int
+- `notes`: string
+
+#### Campos para Nichos
+
+**Campos operativos opcionales**:
+- `status`: proposed / draft / active / deprecated
+- `tags`: list[str]
+- `typical_needs`: list[str]
+- `expected_profile_types`: list[str]
+- `likely_professional_profiles`: list[str]
+- `required_capabilities`: list[str]
+- `possible_team_templates`: list[str]
+- `model_policy_need`: local_ok / auto / cloud_preferred / cloud_required / critical_reasoning_required
+- `complexity`: low / medium / high / critical
+- `operational_priority`: low / medium / high / critical
+- `compatible_business_scales`: list[str]
+- `activation_requirements`: list[str]
+- `operationalization_contract`: object
+- `notes`: string
+
+#### Operationalization Contract
+
+El campo `operationalization_contract` puede contener:
+- `needs_professional_profiles`: bool
+- `needs_presets`: bool
+- `needs_paper_seed`: bool
+- `needs_model_policy`: bool
+- `can_create_agent_when`: string
+- `can_join_team_when`: string
+- `blocked_by`: list[str]
+
+### Compatibilidad Hacia Atrás
+
+- Los catálogos actuales (areas.json, niches.json) no requieren migración
+- Los campos nuevos son opcionales
+- Si un campo no está presente, el loader no lo valida ni lo requiere
+- Los catálogos existentes siguen funcionando sin cambios
+- Los tests existentes siguen pasando sin modificaciones
+
+### Validaciones Implementadas
+
+El loader `core/catalog_registry.py` ahora valida:
+
+- Si `status` aparece, debe ser uno de: proposed, draft, active, deprecated
+- Si `complexity` aparece, debe ser uno de: low, medium, high, critical
+- Si `operational_priority` aparece, debe ser uno de: low, medium, high, critical
+- Si `model_policy_need` aparece, debe ser uno de: local_ok, auto, cloud_preferred, cloud_required, critical_reasoning_required
+- Si `compatible_business_scales` aparece, debe ser una lista con valores válidos: micro, local_business, freelancer, pyme, company, enterprise, department, research_team, experimental_domain
+- Si `operationalization_contract` aparece, debe tener la estructura esperada con tipos correctos
+- Si campos de lista aparecen (tags, typical_needs, expected_profile_types, etc.), deben ser listas de strings no vacíos
+
+### Por Qué No Se Cargan Todavía los 106 Nichos
+
+Aunque el catálogo ahora soporta los metadatos operativos necesarios, no se cargan los 106 nichos nuevos en este prompt porque:
+
+1. **Prioridad técnica**: Primero se prepara la infraestructura de validación y loader
+2. **Validación gradual**: Es mejor cargar en grupos pequeños (Prompt 17.2) para validar usabilidad
+3. **Dependencia de Prompt 18**: Los nichos nuevos requieren perfiles profesionales que aún no existen
+4. **Trazabilidad operativa**: Los nichos nuevos no deben marcarse como `active` hasta que tengan preset_seed, paper_seed y default_model_policy
+
+### Qué Queda Listo para Prompt 17.2
+
+Prompt 17.2 podrá:
+
+1. Cargar una primera expansión de 50 nichos con metadatos operativos completos
+2. Marcar nichos como `proposed` o `draft` según su estado de preparación
+3. Validar que cada nicho tenga `expected_profile_types` definidos
+4. Validar que cada nicho tenga `model_policy_need` definido
+5. Validar que cada nicho tenga `operationalization_contract` definido
+6. Mantener compatibilidad con los 94 nichos existentes
+7. Usar los nuevos tests para validar que la expansión no rompe el loader

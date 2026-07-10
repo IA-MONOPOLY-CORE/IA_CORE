@@ -861,6 +861,135 @@ def test_domain_creation_catalog_endpoint_is_read_only_and_complete():
     assert '"activo"' not in serialized
 
 
+def test_catalog_loader_accepts_optional_operational_metadata(tmp_path):
+    """Valida que el loader acepte metadatos operativos opcionales sin romper compatibilidad."""
+    catalogs_dir = _copy_catalogs(tmp_path)
+    areas = _read_json(catalogs_dir / "areas.json")
+    niches = _read_json(catalogs_dir / "niches.json")
+
+    # Agregar metadatos operativos a un área
+    areas[0]["status"] = "active"
+    areas[0]["tags"] = ["digital", "core"]
+    areas[0]["operational_priority"] = "high"
+    areas[0]["compatible_business_scales"] = ["company", "enterprise"]
+
+    # Agregar metadatos operativos a un nicho
+    niches[0]["status"] = "active"
+    niches[0]["tags"] = ["sales", "b2b"]
+    niches[0]["complexity"] = "medium"
+    niches[0]["operational_priority"] = "high"
+    niches[0]["model_policy_need"] = "auto"
+    niches[0]["expected_profile_types"] = ["sales_manager", "account_executive"]
+    niches[0]["compatible_business_scales"] = ["pyme", "company"]
+    niches[0]["operationalization_contract"] = {
+        "needs_professional_profiles": True,
+        "needs_presets": True,
+        "needs_paper_seed": True,
+        "needs_model_policy": True,
+        "can_create_agent_when": "Professional profile exists with preset_seed, paper_seed and default_model_policy",
+        "can_join_team_when": "Team template includes this professional_profile_id",
+        "blocked_by": ["No professional_profile_id defined"]
+    }
+
+    (catalogs_dir / "areas.json").write_text(
+        json.dumps(areas, ensure_ascii=False), encoding="utf-8"
+    )
+    (catalogs_dir / "niches.json").write_text(
+        json.dumps(niches, ensure_ascii=False), encoding="utf-8"
+    )
+
+    # Debe cargar sin errores
+    loaded_areas = catalog_registry.load_areas(catalogs_dir=catalogs_dir)
+    loaded_niches = catalog_registry.load_niches(catalogs_dir=catalogs_dir)
+
+    assert len(loaded_areas) > 0
+    assert len(loaded_niches) > 0
+
+
+def test_catalog_loader_rejects_invalid_status_value(tmp_path):
+    """Valida que el loader rechace valores de status inválidos."""
+    catalogs_dir = _copy_catalogs(tmp_path)
+    areas = _read_json(catalogs_dir / "areas.json")
+    areas[0]["status"] = "invalid_status"
+
+    (catalogs_dir / "areas.json").write_text(
+        json.dumps(areas, ensure_ascii=False), encoding="utf-8"
+    )
+
+    with pytest.raises(ValueError, match="campo status debe ser uno de"):
+        catalog_registry.load_areas(catalogs_dir=catalogs_dir)
+
+
+def test_catalog_loader_rejects_invalid_complexity_value(tmp_path):
+    """Valida que el loader rechace valores de complexity inválidos."""
+    catalogs_dir = _copy_catalogs(tmp_path)
+    niches = _read_json(catalogs_dir / "niches.json")
+    niches[0]["complexity"] = "invalid_complexity"
+
+    (catalogs_dir / "niches.json").write_text(
+        json.dumps(niches, ensure_ascii=False), encoding="utf-8"
+    )
+
+    with pytest.raises(ValueError, match="campo complexity debe ser uno de"):
+        catalog_registry.load_niches(catalogs_dir=catalogs_dir)
+
+
+def test_catalog_loader_rejects_invalid_model_policy_value(tmp_path):
+    """Valida que el loader rechace valores de model_policy_need inválidos."""
+    catalogs_dir = _copy_catalogs(tmp_path)
+    niches = _read_json(catalogs_dir / "niches.json")
+    niches[0]["model_policy_need"] = "invalid_policy"
+
+    (catalogs_dir / "niches.json").write_text(
+        json.dumps(niches, ensure_ascii=False), encoding="utf-8"
+    )
+
+    with pytest.raises(ValueError, match="campo model_policy_need debe ser uno de"):
+        catalog_registry.load_niches(catalogs_dir=catalogs_dir)
+
+
+def test_catalog_loader_rejects_invalid_business_scale(tmp_path):
+    """Valida que el loader rechace valores de compatible_business_scales inválidos."""
+    catalogs_dir = _copy_catalogs(tmp_path)
+    niches = _read_json(catalogs_dir / "niches.json")
+    niches[0]["compatible_business_scales"] = ["invalid_scale"]
+
+    (catalogs_dir / "niches.json").write_text(
+        json.dumps(niches, ensure_ascii=False), encoding="utf-8"
+    )
+
+    with pytest.raises(ValueError, match="compatible_business_scales contiene valor inválido"):
+        catalog_registry.load_niches(catalogs_dir=catalogs_dir)
+
+
+def test_catalog_loader_rejects_invalid_operationalization_contract(tmp_path):
+    """Valida que el loader rechace estructura de operationalization_contract inválida."""
+    catalogs_dir = _copy_catalogs(tmp_path)
+    niches = _read_json(catalogs_dir / "niches.json")
+    niches[0]["operationalization_contract"] = {
+        "needs_professional_profiles": "not_a_bool"  # Debe ser bool
+    }
+
+    (catalogs_dir / "niches.json").write_text(
+        json.dumps(niches, ensure_ascii=False), encoding="utf-8"
+    )
+
+    with pytest.raises(ValueError, match="operationalization_contract.needs_professional_profiles debe ser booleano"):
+        catalog_registry.load_niches(catalogs_dir=catalogs_dir)
+
+
+def test_catalog_loader_accepts_metadata_without_existing_fields(tmp_path):
+    """Valida que catálogos sin metadatos operativos sigan funcionando (compatibilidad hacia atrás)."""
+    catalogs_dir = _copy_catalogs(tmp_path)
+
+    # No agregar ningún campo nuevo
+    loaded_areas = catalog_registry.load_areas(catalogs_dir=catalogs_dir)
+    loaded_niches = catalog_registry.load_niches(catalogs_dir=catalogs_dir)
+
+    assert len(loaded_areas) > 0
+    assert len(loaded_niches) > 0
+
+
 def test_roles_catalog_endpoint_is_read_only_and_complete():
     response = TestClient(api.app).get("/api/catalogs/roles")
 
