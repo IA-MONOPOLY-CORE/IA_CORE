@@ -22,7 +22,7 @@ ROOT = Path(__file__).resolve().parent
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
-from fastapi import FastAPI, BackgroundTasks, HTTPException, UploadFile, File, Form, Request
+from fastapi import FastAPI, BackgroundTasks, HTTPException, UploadFile, File, Form, Request, Body
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
@@ -1821,6 +1821,95 @@ async def delete_agent(agent_id: str, domain_id: str | None = None):
         return {"success": False, "error": str(e)}
     except Exception as e:
         logger.exception(f"Error eliminando agente {agent_id}: {e}")
+        return {"success": False, "error": str(e)}
+
+
+@app.post("/api/agents/{agent_id}/regenerate-paper")
+async def regenerate_agent_paper(agent_id: str, request: Request):
+    """
+    Regenera el paper de un agente existente usando mejorar_papers.py.
+
+    Request body:
+    {
+        "domain_id": "loteria",
+        "usar_llm": false
+    }
+
+    Response:
+    {
+        "success": true,
+        "agent_id": "auditor_hostil",
+        "domain_id": "loteria",
+        "paper_path": "domains/loteria/agents/papers/auditor_hostil_paper.json",
+        "changed": true,
+        "message": "Paper regenerado correctamente.",
+        "paper": {...}
+    }
+    """
+    try:
+        # Validar agent_id
+        if not agent_id or not agent_id.strip():
+            return {"success": False, "error": "ID del agente es obligatorio"}
+
+        safe_agent_id = re.sub(r"[^a-zA-Z0-9_-]", "", agent_id)
+        if safe_agent_id != agent_id:
+            return {"success": False, "error": "ID de agente inválido"}
+
+        # Extraer parámetros del request
+        body = await request.json()
+        domain_id = body.get("domain_id")
+        usar_llm = body.get("usar_llm", False)
+
+        # Validar domain_id
+        if not domain_id or not domain_id.strip():
+            return {"success": False, "error": "domain_id es obligatorio"}
+
+        # Validar que el dominio existe
+        domain = load_domain(domain_id)
+        if domain is None:
+            return {"success": False, "error": f"Dominio '{domain_id}' no encontrado"}
+
+        # Validar que el agente existe (config JSON)
+        try:
+            _, agent_config_path = resolve_agent_json(safe_agent_id, domain_id)
+        except (FileNotFoundError, ValueError) as e:
+            return {"success": False, "error": f"Agente '{safe_agent_id}' no encontrado en dominio '{domain_id}': {e}"}
+
+        # Validar usar_llm
+        if not isinstance(usar_llm, bool):
+            return {"success": False, "error": "usar_llm debe ser un valor booleano"}
+
+        # Importar mejorar_papers
+        import mejorar_papers
+
+        # Llamar a mejorar_paper
+        paper_result = mejorar_papers.mejorar_paper(
+            safe_agent_id,
+            usar_llm=usar_llm,
+            domain_id=domain_id,
+        )
+
+        # Obtener ruta relativa del paper
+        paper_path = mejorar_papers.resolver_paper_path(safe_agent_id, domain_id=domain_id)
+        try:
+            relative_paper_path = str(paper_path.relative_to(ROOT)) if paper_path.is_absolute() else str(paper_path)
+        except ValueError:
+            # Si paper_path no está dentro de ROOT (ej. en tmp_path durante tests), usar el nombre del archivo
+            relative_paper_path = f"domains/{domain_id}/agents/papers/{safe_agent_id}_paper.json"
+
+        # Devolver respuesta
+        return {
+            "success": True,
+            "agent_id": safe_agent_id,
+            "domain_id": domain_id,
+            "paper_path": relative_paper_path,
+            "changed": True,
+            "message": "Paper regenerado correctamente.",
+            "paper": paper_result,
+        }
+
+    except Exception as e:
+        logger.exception(f"Error regenerando paper para agente {agent_id}: {e}")
         return {"success": False, "error": str(e)}
 
 

@@ -431,7 +431,36 @@ No se usan providers demo/placeholders. No se eligen modelos inexistentes en la 
 - Papers mejorados en `domains/<domain_id>/agents/papers/`: **Agente** — Identidad actualizada de un agente específico del dominio
 - `config.AGENTS_PAPERS_DIR`: Permanece como compatibilidad legacy, nunca como destino operativo del flujo genérico
 
-**Alcance diferido**: No se crea endpoint de regeneración de papers. No se tocan papeles reales masivamente. No se modifica `runtime_json_agent.py`. No se avanza a Prompt 14.
+**Alcance diferido**: Se crea endpoint de regeneración de papers en Prompt 14. No se tocan papeles reales masivamente. No se modifica `runtime_json_agent.py`.
+
+---
+
+## ADR-019 — Endpoint de regeneración de paper por agente
+
+**Estado**: Aceptado
+
+**Contexto**: El sistema necesita un endpoint administrativo backend para regenerar el paper de un agente puntual, usando la lógica ya generalizada de `mejorar_papers.py` por dominio. Este prompt agrega backend/API, no UI.
+
+**Decisión**: Crear endpoint `POST /api/agents/{agent_id}/regenerate-paper` que acepta `domain_id` y `usar_llm` en el body JSON, valida que el dominio y agente existen, llama a `mejorar_paper()` con los parámetros correspondientes, y devuelve el paper regenerado con ruta relativa. El endpoint es genérico por dominio y no pertenece a Lotería.
+
+**Backend**: `POST /api/agents/{agent_id}/regenerate-paper` acepta `{"domain_id": "loteria", "usar_llm": false}` y devuelve `{"success": true, "agent_id": "auditor_hostil", "domain_id": "loteria", "paper_path": "domains/loteria/agents/papers/auditor_hostil_paper.json", "changed": true, "message": "Paper regenerado correctamente.", "paper": {...}}`. El endpoint valida domain_id requerido, dominio existente, agente existente, y usar_llm booleano. No expone rutas absolutas del sistema en la respuesta.
+
+**Validaciones**: El endpoint valida que domain_id sea requerido, que el dominio exista, que el agente exista (config JSON), y que usar_llm sea booleano. Si alguna validación falla, devuelve error claro con código HTTP apropiado. No llama LLM salvo que el body lo pida explícitamente (usar_llm=true).
+
+**Integración**: El endpoint llama a `mejorar_paper(agent_id, usar_llm=usar_llm, domain_id=domain_id)` desde `mejorar_papers.py`, que ya está generalizado por dominio. No duplica lógica de regeneración dentro de `api.py`.
+
+**Manejo de errores**: Responde con errores claros para: dominio inexistente, agente inexistente, error al regenerar paper, paper resultante inválido, usar_llm inválido, domain_id faltante. No expone tracebacks crudos al cliente.
+
+**UI**: La UI queda fuera de este prompt. Este prompt solo agrega el endpoint backend.
+
+**Evidencia**:
+- `api.py:1827-1908` — Endpoint `POST /api/agents/{agent_id}/regenerate-paper` con validaciones, integración con `mejorar_papers.py`, y manejo de errores
+- `tests/test_api_regenerate_paper.py` — 7 tests en 1 clase: `TestEndpointRegeneratePaper` (endpoint exitoso, agente inexistente, dominio inexistente, domain_id faltante, usar_llm default false, no toca papers reales, respuesta no expone path absoluto)
+
+**Clasificación Patrimonio/Core/Dominio/Agente**:
+- `api.py` (endpoint): **Core** — Orquestador genérico que llama a `mejorar_papers.py`
+- `mejorar_papers.py` (lógica): **Core** — Funcionalidad genérica para mejorar papers en cualquier dominio
+- Papers regenerados en `domains/<domain_id>/agents/papers/`: **Agente** — Identidad actualizada de un agente específico del dominio
 
 **Alcance de la validación futura**: Una fase futura deberá comprobar:
 - A. Perfil de hardware: carga desde config/hardware_profile.json, autodetección básica, fallback seguro, local_mode correcto, no exposición de datos sensibles.
