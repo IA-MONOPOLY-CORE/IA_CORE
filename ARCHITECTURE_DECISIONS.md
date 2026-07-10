@@ -462,6 +462,42 @@ No se usan providers demo/placeholders. No se eligen modelos inexistentes en la 
 - `mejorar_papers.py` (lógica): **Core** — Funcionalidad genérica para mejorar papers en cualquier dominio
 - Papers regenerados en `domains/<domain_id>/agents/papers/`: **Agente** — Identidad actualizada de un agente específico del dominio
 
+---
+
+## Cierre del bloque de profesionalización de creación de agentes / presets / papers
+
+**Estado**: Cerrado (Prompt 15)
+
+**Últimos commits relevantes**:
+- `01b11b1` — Generalizar mejorar_papers.py por dominio (Prompt 13)
+- `59cdff0` — Limpieza final y cierre real de Prompt 13
+- `a2faa08` — Agregar endpoint para regenerar paper de agente (Prompt 14)
+
+**Estado de endpoints nuevos**:
+- `POST /api/agents/{agent_id}/regenerate-paper` — Backend listo para regeneración de paper por agente y dominio
+- `POST /api/agents/create` — Soporta presets, papers iniciales y enriquecimiento con memoria .md
+- `GET /api/system/hardware-profile` — Perfil de hardware configurable/detectable
+- `POST /api/system/model-compatibility` — Compatibilidad modelo/hardware backend
+- `POST /api/agents/model-recommendation` — Recomendación provider/model por perfil
+
+**Tests finales**:
+- Suite completa: 219 passed, 4 deselected, 5 warnings
+- Tests focalizados: test_agent_config_schema (19), test_model_recommendation (40), test_mejorar_papers_domain (11), test_api_regenerate_paper (7)
+
+**Deudas no bloqueantes**:
+- Semáforo/compatibilidad visual HUD en stand by (registrado en ADR-017)
+- Validación cross-platform futura (registrada en ADR-017)
+- UI de regeneración de paper queda fuera de este bloque (para prompt posterior)
+
+**Confirmaciones arquitectónicas**:
+- Lotería quedó como dominio y no como Core (ADR-001, ADR-003)
+- Papers se resuelven por dominio mediante `core/domain_registry.py` (ADR-018)
+- Regeneración de paper ya tiene endpoint backend (ADR-019)
+- `mejorar_papers.py` es Core genérico multi-dominio (ADR-018)
+- `regenerar_todos_los_papers()` es explícitamente legacy-Lotería (ADR-018)
+- No hay hardcodes nuevos de Lotería en Core (solo imports perezosos con fallback)
+- Tests no modifican papers reales (usan tmp_path/monkeypatch)
+
 **Alcance de la validación futura**: Una fase futura deberá comprobar:
 - A. Perfil de hardware: carga desde config/hardware_profile.json, autodetección básica, fallback seguro, local_mode correcto, no exposición de datos sensibles.
 - B. Endpoints: GET /api/system/hardware-profile, POST /api/system/model-compatibility, POST /api/agents/model-recommendation.
