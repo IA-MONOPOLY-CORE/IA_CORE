@@ -508,3 +508,37 @@ No se usan providers demo/placeholders. No se eligen modelos inexistentes en la 
 **Regla de diseño cross-platform**: La detección de hardware debe ser best-effort. Nunca debe ser requisito para arrancar IA_CORE. Si la detección falla: usar config manual si existe; si no, fallback seguro; informar limitación; no bloquear el sistema salvo que no haya ningún provider/model operativo.
 
 **No probar ahora**: No se ejecutan pruebas reales en Linux/macOS/Docker en esta fase. Esta tarea solo registra la deuda y deja preparada la arquitectura documentalmente.
+
+---
+
+## ADR-020 — La Biblioteca Profesional es patrimonio compartido global y los dominios heredan perfiles compatibles
+
+**Estado**: Propuesto
+**Fecha**: 2026-07-10
+**Prompt**: 16
+
+**Contexto**:
+IA_CORE evolucionó desde un dominio específico (Lotería) a un framework multi-dominio. Los perfiles profesionales actuales están fuertemente influenciados por Lotería y no hay una estructura global reutilizable. El sistema actual obliga a duplicar presets por dominio de forma innecesaria.
+
+**Decisión**:
+- Los perfiles profesionales no nacen dentro de un dominio puntual.
+- Se definen globalmente en `catalogs/professional_profiles.json`.
+- Los dominios seleccionan o heredan perfiles compatibles vía `profile_catalog.json`.
+- Todo perfil usable debe tener preset_seed y paper_seed.
+- Toda recomendación de modelo debe considerar carga cognitiva, tipo de tarea y hardware.
+- Los dominios pueden tener overrides, pero no deben duplicar la definición global sin necesidad.
+
+**Consecuencias**:
+- Permite escalar a múltiples dominios sin duplicar definiciones.
+- Facilita la creación de nuevos dominios reusando perfiles existentes.
+- Mantiene consistencia en la definición de roles y especializaciones.
+- Permite evolucionar la biblioteca global sin impactar dominios existentes.
+
+**Clasificación Patrimonio/Core/Dominio/Agente**:
+- `catalogs/professional_profiles.json`: **Patrimonio compartido** — Definiciones globales reusables
+- `catalogs/professional_archetypes.json`: **Patrimonio compartido** — Modelos psicológicos/cognitivos
+- `catalogs/team_templates.json`: **Patrimonio compartido** — Configuraciones de equipos
+- `catalogs/profile_model_policies.json`: **Patrimonio compartido** — Políticas de ejecución
+- `domains/*/profile_catalog.json`: **Dominio** — Hereda y adapta perfiles globales
+- `domains/*/agent_presets.json`: **Dominio** — Hereda y adapta presets globales
+- Papers generados: **Agente** — Identidad específica de cada agente operativo
