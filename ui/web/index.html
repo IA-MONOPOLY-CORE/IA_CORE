@@ -979,8 +979,6 @@
             // Seleccionar el primer modelo por defecto para evitar dejar vacío
             if (modelos.length > 0) {
                 modelSelect.value = modelos[0];
-                // Disparar evento change para actualizar compatibilidad
-                modelSelect.dispatchEvent(new Event('change'));
             }
         }
 
@@ -1817,9 +1815,11 @@
             document.getElementById('agent-prompt').value = '';
             document.getElementById('agent-memory').value = '';
             await cargarProfileCatalogAgente(document.getElementById('agent-domain').value);
-            // Inicializar modelos y mostrar compatibilidad
-            actualizarSelectModelos();
             document.getElementById('agent-modal').style.display = 'flex';
+            // Inicializar modelos
+            actualizarSelectModelos();
+            // Consultar compatibilidad después de actualizar modelos
+            consultarModelCompatibility();
         }
 
         async function abrirMenuAgente(id) {
