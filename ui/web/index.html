@@ -1385,12 +1385,23 @@
             }
         }
 
+        function showCompatibilityPlaceholder() {
+            const container = document.getElementById('model-compatibility');
+            const textDiv = document.getElementById('compatibility-text');
+            if (!container || !textDiv) return;
+
+            textDiv.innerHTML = 'Seleccioná proveedor y modelo para evaluar compatibilidad.';
+            container.style.display = 'block';
+        }
+
         async function consultarModelCompatibility() {
             const provider = document.getElementById('agent-provider').value;
             const model = document.getElementById('agent-model').value;
 
-            clearModelCompatibility();
-            if (!provider || !model) return;
+            if (!provider || !model) {
+                showCompatibilityPlaceholder();
+                return;
+            }
 
             try {
                 const formData = new FormData();
@@ -1404,10 +1415,12 @@
 
                 if (data.success && data.compatibility) {
                     displayModelCompatibility(data.compatibility);
+                } else {
+                    showCompatibilityPlaceholder();
                 }
             } catch (error) {
-                // Silencioso - la compatibilidad es opcional
                 console.warn('No se pudo obtener compatibilidad del modelo:', error.message);
+                showCompatibilityPlaceholder();
             }
         }
 
@@ -1795,6 +1808,8 @@
             currentEditId = null;
             resetAgentFieldTouched(false);
             clearAgentPreset();
+            clearModelRecommendation();
+            clearModelCompatibility();
             document.getElementById('agent-modal-title').innerText = 'CREAR AGENTE';
             document.getElementById('agent-id').disabled = false;
             document.getElementById('agent-domain').disabled = false;
@@ -1802,6 +1817,8 @@
             document.getElementById('agent-prompt').value = '';
             document.getElementById('agent-memory').value = '';
             await cargarProfileCatalogAgente(document.getElementById('agent-domain').value);
+            // Inicializar modelos y mostrar compatibilidad
+            actualizarSelectModelos();
             document.getElementById('agent-modal').style.display = 'flex';
         }
 
