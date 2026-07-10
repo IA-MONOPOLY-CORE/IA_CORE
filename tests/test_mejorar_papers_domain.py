@@ -211,11 +211,12 @@ class TestRutaPorDominio:
 class TestCompatibilidadLoteria:
     """domain_id='loteria' resuelve rutas reales de Lotería sin romper schemas."""
 
-    def test_paper_loteria_no_se_rompe(self, monkeypatch):
-        """mejorar_paper con domain_id=loteria deja el paper de estadistico_integral intacto."""
+    def test_paper_loteria_no_se_rompe(self, tmp_path, monkeypatch):
+        """mejorar_paper con domain_id=loteria NO modifica el paper real; opera sobre copia temporal."""
         _mock_memoria_vacia(monkeypatch)
 
-        paper_path = (
+        # Fuente real (solo lectura — no se toca)
+        real_paper_path = (
             Path(config.ROOT_DIR)
             / "domains"
             / "loteria"
@@ -223,22 +224,57 @@ class TestCompatibilidadLoteria:
             / "papers"
             / "estadistico_integral_paper.json"
         )
-        assert paper_path.exists(), "Paper de estadistico_integral debe existir para este test"
+        assert real_paper_path.exists(), "Paper de estadistico_integral debe existir para este test"
 
-        before = json.loads(paper_path.read_text(encoding="utf-8"))
+        # Copiar dominio Lotería en tmp_path para operar sin tocar el real
+        monkeypatch.setattr(config, "DOMAINS_DIR", tmp_path)
+
+        # Recrear estructura mínima de Lotería en tmp_path
+        loteria_config_dir = tmp_path / "loteria" / "agents" / "config"
+        loteria_papers_dir = tmp_path / "loteria" / "agents" / "papers"
+        loteria_config_dir.mkdir(parents=True)
+        loteria_papers_dir.mkdir(parents=True)
+
+        # Copiar el JSON de config del agente real
+        real_config_path = (
+            Path(config.ROOT_DIR)
+            / "domains" / "loteria" / "agents" / "config" / "estadistico_integral.json"
+        )
+        if real_config_path.exists():
+            import shutil
+            shutil.copy(real_config_path, loteria_config_dir / "estadistico_integral.json")
+
+        # Copiar el paper real al directorio temporal (esta copia puede modificarse)
+        import shutil
+        tmp_paper_path = loteria_papers_dir / "estadistico_integral_paper.json"
+        shutil.copy(real_paper_path, tmp_paper_path)
+
+        # Crear domain.json mínimo para que load_domain funcione
+        import json as _json
+        real_domain_manifest = Path(config.ROOT_DIR) / "domains" / "loteria" / "domain.json"
+        if real_domain_manifest.exists():
+            shutil.copy(real_domain_manifest, tmp_path / "loteria" / "domain.json")
+
+        before = _json.loads(tmp_paper_path.read_text(encoding="utf-8"))
+        real_before = _json.loads(real_paper_path.read_text(encoding="utf-8"))
 
         mejorar_papers.mejorar_paper(
             "estadistico_integral", usar_llm=False, domain_id="loteria"
         )
 
-        after = json.loads(paper_path.read_text(encoding="utf-8"))
+        after = _json.loads(tmp_paper_path.read_text(encoding="utf-8"))
+        real_after = _json.loads(real_paper_path.read_text(encoding="utf-8"))
 
-        # El agente_id no debe cambiar
-        assert after.get("agente_id") == before.get("agente_id") or after.get("agente_id") == "estadistico_integral"
-        # Los campos de schema deben seguir presentes
+        # El paper real NO debe haber sido modificado
+        assert real_before == real_after, (
+            "mejorar_paper modificó el paper real de estadistico_integral. "
+            "El test debe operar solo sobre copias temporales."
+        )
+
+        # La copia temporal sí puede haber cambiado
+        assert after.get("agente_id") == "estadistico_integral"
         for key in ["reglas_clave", "lecciones_aprendidas", "errores_a_evitar"]:
             assert key in after, f"Falta campo de schema: {key}"
-        # La actualización debe ser legítima (no borró contenido)
         assert isinstance(after["reglas_clave"], list)
         assert isinstance(after["lecciones_aprendidas"], list)
 
