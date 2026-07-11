@@ -4,7 +4,7 @@ import json
 from pathlib import Path
 from collections import defaultdict
 
-ROOT = Path(__file__).parent
+ROOT = Path(__file__).parent.parent
 
 # Cargar datos
 with open(ROOT / "domains" / "loteria" / "profile_catalog.json", encoding="utf-8") as f:
