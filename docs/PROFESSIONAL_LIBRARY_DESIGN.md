@@ -33,6 +33,25 @@ Después de Tanda 2B, el catálogo global queda en:
 
 Este estado deja el terreno listo para Prompt 18. Los 200 nichos serán la base para mapear 80-100 perfiles profesionales globales, sus compatibilidades por área/nicho, posibles team templates y futuras model policies. Los nichos ya existen como opciones de creación de dominio, pero todavía no crean perfiles, presets, agentes ni papers por sí mismos.
 
+## Base 30/200 lista para perfiles profesionales
+
+La etapa de áreas/nichos queda cerrada como base operativa:
+
+- El catálogo global llegó a **30 áreas profesionales** y **200 nichos PASSED**.
+- Ningún nicho operativo está en `proposed`, `draft` o `deprecated`.
+- No se crearon perfiles profesionales globales en Prompt 17.5.1.
+- No se crearon presets, agentes ni papers.
+- Los nichos son opciones usables de creación de dominio, no perfiles ejecutables.
+
+Prompt 18 debe usar esta base para inventariar **80-100 perfiles profesionales globales PASSED**. Cada perfil futuro deberá:
+
+- Conectarse con áreas y nichos compatibles.
+- Declarar su función profesional con lenguaje global, no dependiente de Lotería.
+- Definir luego `preset_seed`, `paper_seed` y `default_model_policy` o una política de recomendación equivalente.
+- Evitar perfiles fantasma: si un perfil no tiene ruta hacia preset, paper y modelo, no debe aparecer como usable.
+
+La biblioteca profesional global debe avanzar desde estos 200 nichos hacia perfiles reutilizables por múltiples dominios, team templates y model policies, manteniendo la regla PASSED.
+
 ### Perfiles y Presets por Dominio
 
 **Dominio Lotería**:

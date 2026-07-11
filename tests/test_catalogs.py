@@ -812,6 +812,54 @@ def test_prompt_17_5_catalog_is_ready_for_professional_profile_inventory():
     assert sum(len(niches) for niches in catalog["niches_by_area"].values()) == 200
 
 
+def test_prompt_17_5_1_final_catalog_audit_has_no_ghost_or_placeholder_items():
+    areas = _read_json(CATALOGS_DIR / "areas.json")
+    niches = _read_json(CATALOGS_DIR / "niches.json")
+    counts_by_area = Counter(niche["area_id"] for niche in niches)
+    area_ids = {area["id"] for area in areas}
+
+    assert len(areas) == 30
+    assert len(niches) == 200
+    assert all(area["activo"] is True for area in areas)
+    assert all(niche["activo"] is True for niche in niches)
+    assert all(niche.get("status", "active") == "active" for niche in niches)
+    assert not any(
+        item.get("status") in {"proposed", "draft", "deprecated"}
+        for item in [*areas, *niches]
+    )
+    assert all(niche["area_id"] in area_ids for niche in niches)
+    assert all(counts_by_area[area_id] > 0 for area_id in area_ids)
+    assert min(counts_by_area.values()) >= 4
+
+    placeholder_terms = [
+        "por definir",
+        "pendiente de definir",
+        "tbd",
+        "placeholder",
+        "lorem ipsum",
+    ]
+    forbidden_embedded_terms = [
+        "system_prompt",
+        "user_prompt",
+        "assistant_prompt",
+        "actúa como",
+        "actua como",
+        "ignora las instrucciones",
+        "suggested_agent_id",
+        "agent_presets",
+    ]
+    searchable_text = json.dumps([*areas, *niches], ensure_ascii=False).lower()
+
+    for term in placeholder_terms:
+        assert term not in searchable_text
+    for term in forbidden_embedded_terms:
+        assert term not in searchable_text
+
+    assert PROMPT_17_2_NICHE_IDS.issubset({niche["id"] for niche in niches})
+    assert PROMPT_17_4_NICHE_IDS.issubset({niche["id"] for niche in niches})
+    assert PROMPT_17_5_NICHE_IDS.issubset({niche["id"] for niche in niches})
+
+
 def test_lottery_is_catalogued_as_one_niche_not_a_global_default():
     niches = _read_json(CATALOGS_DIR / "niches.json")
     lottery_niche = next(

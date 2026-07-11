@@ -1603,3 +1603,98 @@ Ese cierre debería:
 - Preparar el inventario de 80-100 perfiles profesionales sin cargar perfiles todavía.
 
 Si esa auditoría final queda verde, el siguiente paso natural será Prompt 18: inventario de perfiles profesionales globales.
+
+## Cierre de etapa áreas/nichos — 30 áreas / 200 nichos
+
+### Conteo final
+
+- Áreas totales: 30.
+- Áreas activas/PASSED: 30.
+- Nichos totales: 200.
+- Nichos activos/PASSED: 200.
+- Estados `proposed`/`draft`/`deprecated` en JSON operativo: 0.
+- IDs duplicados: 0.
+- Nichos con `area_id` inválido: 0.
+- Áreas sin nichos: 0.
+- Menor cobertura por área: 4 nichos.
+- Mayor cobertura por área: 13 nichos.
+
+### Distribución final por área
+
+| Área | Nichos |
+|---|---:|
+| `administracion_contabilidad_finanzas` | 13 |
+| `marketing_publicidad` | 13 |
+| `comercial_ventas_negocios` | 12 |
+| `automatizacion_integraciones` | 9 |
+| `customer_success_experiencia_cliente` | 9 |
+| `datos_bi_analytics` | 9 |
+| `gerencia_direccion_general` | 9 |
+| `tecnologia_sistemas_telecomunicaciones` | 9 |
+| `legales` | 9 |
+| `recursos_humanos_capacitacion` | 7 |
+| `atencion_cliente_call_center_telemarketing` | 6 |
+| `educacion_docencia_investigacion` | 6 |
+| `abastecimiento_logistica` | 5 |
+| `aduana_comercio_exterior` | 5 |
+| `comunicacion_relaciones_institucionales_publicas` | 5 |
+| `departamento_tecnico` | 5 |
+| `diseno` | 5 |
+| `enfermeria` | 5 |
+| `gastronomia_turismo` | 5 |
+| `ingenieria_civil_construccion` | 5 |
+| `ingenierias` | 5 |
+| `mineria_petroleo_gas` | 5 |
+| `naviero_maritimo_portuario` | 5 |
+| `produccion_manufactura` | 5 |
+| `producto_gestion_producto` | 5 |
+| `salud_medicina_farmacia` | 5 |
+| `secretarias_recepcion` | 5 |
+| `seguros` | 5 |
+| `sociologia_trabajo_social` | 5 |
+| `oficios_otros` | 4 |
+
+### Resumen de tandas
+
+- **Tanda 1 / Prompt 17.2**: llevó el catálogo a 30 áreas y 134 nichos, agregando producto, automatización, datos/BI y customer success como áreas nuevas.
+- **Validación / Prompt 17.3**: confirmó que Tanda 1 funciona en creación de dominios y que `active_only=True` no expone elementos no usables.
+- **Tanda 2A / Prompt 17.4**: agregó 35 nichos PASSED y llevó el catálogo de 134 a 169 nichos.
+- **Tanda 2B / Prompt 17.5**: agregó 31 nichos PASSED y completó el objetivo exacto de 200 nichos.
+- **Auditoría final / Prompt 17.5.1**: confirma que la etapa áreas/nichos queda lista para alimentar Prompt 18.
+
+### Auditoría conceptual y UX
+
+La muestra auditada incluyó nichos históricos, Tanda 1, Tanda 2A, Tanda 2B, Lotería, áreas nuevas, áreas técnicas, áreas de negocio, atención, operación y administración.
+
+Resultado:
+
+- Los nombres son entendibles para usuarios no técnicos.
+- `nombre_dominio_sugerido` permite crear dominios reconocibles.
+- `descripcion_sugerida` describe casos de uso reales.
+- `instrucciones_sugeridas` orienta el comportamiento del dominio sin crear agentes.
+- No se detectaron duplicados de nombre visible ni de nombre de dominio sugerido.
+- No se detectaron placeholders reales como `por definir`, `tbd`, `placeholder` o textos vacíos.
+- No se detectaron prompts/presets embebidos inválidos.
+- Lotería sigue siendo un nicho y dominio específico, no un default global.
+
+### Preparación para Prompt 18
+
+El catálogo 30/200 ya puede guiar el inventario de perfiles profesionales globales:
+
+- **Perfiles estratégicos**: gerencia, modelos de negocio, OKRs, análisis competitivo, planificación y transformación.
+- **Perfiles operativos**: producción, logística, abastecimiento, secretaría, coordinación interna, proyectos y procedimientos.
+- **Perfiles técnicos**: tecnología, soporte IT, departamento técnico, ingeniería, construcción, minería/energía y operaciones portuarias.
+- **Perfiles de datos**: dashboards, indicadores, auditoría de datos, segmentación, cohortes, margen/costos y BI comercial.
+- **Perfiles comerciales**: ventas, CRM, revenue operations, pipeline, scripts, e-commerce, prospección y cuentas clave.
+- **Perfiles administrativos/financieros**: contabilidad, tesorería, cashflow, presupuestos, deuda, rentabilidad y control de gestión.
+- **Perfiles legales/compliance**: contratos, compliance normativo, protección de datos, políticas internas y documentación básica.
+- **Perfiles de atención/soporte**: atención al cliente, reclamos, mesa de ayuda, postventa, protocolos y customer success.
+- **Perfiles de investigación**: research de usuarios, investigación de mercado, análisis de tendencias, competidores, impacto social y aprendizaje.
+
+Muchos perfiles futuros podrán ser globales y reutilizables: analista de datos, operations manager, project manager, compliance analyst, customer success manager, marketing/growth strategist, financial controller, technical writer, service designer, support manager y business analyst.
+
+### Decisión final
+
+La etapa de áreas/nichos queda **lista para Prompt 18**.
+
+No se recomienda cargar más nichos antes de perfiles. El próximo paso debe ser inventariar 80-100 perfiles profesionales globales PASSED, evitando perfiles fantasma y conectando cada perfil futuro con áreas/nichos, preset_seed, paper_seed y model policy.
