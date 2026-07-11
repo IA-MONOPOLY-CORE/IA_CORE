@@ -13,7 +13,7 @@ IA_CORE debe pasar de "crear agentes por dominio" a "crear equipos profesionales
 ### Catálogos Globales Existentes
 
 - **Áreas**: 30 (catalogs/areas.json)
-- **Nichos**: 169 (catalogs/niches.json)
+- **Nichos**: 200 (catalogs/niches.json)
 - **Roles**: 20 (catalogs/roles.json)
 - **Especializaciones**: 80 (catalogs/specializations.json)
 
@@ -21,6 +21,17 @@ IA_CORE debe pasar de "crear agentes por dominio" a "crear equipos profesionales
 
 - **Combinaciones rol + especialización posibles**: 80 (cada especialización pertenece a un rol)
 - **Combinaciones rol + especialización usadas en Lotería**: 30 (domains/loteria/profile_catalog.json)
+
+## Estado del catálogo global antes de perfiles profesionales
+
+Después de Tanda 2B, el catálogo global queda en:
+
+- **30 áreas profesionales activas/PASSED**.
+- **200 nichos activos/PASSED**.
+- **0 nichos operativos en `proposed`, `draft` o `deprecated`**.
+- **0 áreas nuevas pendientes de justificar para el objetivo 30/200**.
+
+Este estado deja el terreno listo para Prompt 18. Los 200 nichos serán la base para mapear 80-100 perfiles profesionales globales, sus compatibilidades por área/nicho, posibles team templates y futuras model policies. Los nichos ya existen como opciones de creación de dominio, pero todavía no crean perfiles, presets, agentes ni papers por sí mismos.
 
 ### Perfiles y Presets por Dominio
 
@@ -48,7 +59,7 @@ IA_CORE debe pasar de "crear agentes por dominio" a "crear equipos profesionales
 
 ### Limitaciones Actuales
 
-1. **Nichos insuficientes para empresa digital completa**: Los 169 nichos actuales ya incorporan expansiones PASSED para empresa digital moderna, operaciones, datos, growth, finanzas, legal básico y gestión de proyectos, pero todavía faltan tandas posteriores para:
+1. **Catálogo de nichos listo para perfiles profesionales**: Los 200 nichos actuales ya cubren la base PASSED esperada para empresa digital, pymes, operaciones, datos, growth, finanzas, legal básico, gestión de proyectos y áreas profesionales sectoriales. Las brechas restantes pasan a ser refinamientos posteriores, no bloqueantes para Prompt 18:
    - Data engineering y analítica avanzada
    - Seguridad operativa avanzada
    - Community management y operaciones de comunidad
@@ -648,7 +659,7 @@ Ningún perfil/nicho/preset puede estar visible como usable sin cumplir reglas d
 | Tipo de Elemento | Cantidad | Estado Actual | Categoría de Decisión | Motivo | Piezas Faltantes | Subprompt Sugerido | Aparece como Usable |
 |---|---|---|---|---|---|---|---|
 | Áreas existentes | 30 | activo: true | PASSED | Operativas, validadas | Ninguna | - | Sí |
-| Nichos existentes | 169 | activo: true | PASSED | Operativos, validados | Ninguna | - | Sí |
+| Nichos existentes | 200 | activo: true | PASSED | Operativos, validados | Ninguna | - | Sí |
 | Profiles activos Lotería | 11 | activo: true | PASSED | Tienen preset operativo | Ninguna | - | Sí |
 | Profiles inactivos Lotería | 19 | activo: false | baja/desactivado temporal | Sin preset operativo | Preset | Prompt 18.1 / Prompt 20 | No |
 | Presets existentes | 11 | activo: true | PASSED | Tienen paper_seed y trazabilidad | Ninguna | - | Sí |

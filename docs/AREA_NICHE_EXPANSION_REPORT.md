@@ -13,10 +13,10 @@ Este reporte define el universo objetivo de áreas y nichos profesionales para I
 ### Auditoría Real
 
 - **Áreas actuales**: 30 (catalogs/areas.json)
-- **Nichos actuales**: 169 (catalogs/niches.json)
-- **Promedio de nichos por área**: 5.6
+- **Nichos actuales**: 200 (catalogs/niches.json)
+- **Promedio de nichos por área**: 6.7
 - **Áreas con más nichos**: 2 áreas con 13 nichos cada una
-- **Áreas con menos nichos**: 13 áreas con 3 nichos cada una
+- **Área con menos nichos**: 1 área con 4 nichos
 
 ### Distribución por Área
 
@@ -31,22 +31,21 @@ Este reporte define el universo objetivo de áreas y nichos profesionales para I
 - tecnologia_sistemas_telecomunicaciones: 9
 - legales: 8
 
-**Áreas con cobertura mínima pendiente**:
-- oficios_otros: 3
-- salud_medicina_farmacia: 3
-- ingenierias: 3
-- ingenieria_civil_construccion: 3
-- departamento_tecnico: 3
-- secretarias_recepcion: 3
-- gerencia_direccion_general: 3
-- diseno: 3
-- mineria_petroleo_gas: 3
-- aduana_comercio_exterior: 3
-- seguros: 3
-- comunicacion_relaciones_institucionales_publicas: 3
-- sociologia_trabajo_social: 3
-- enfermeria: 3
-- naviero_maritimo_portuario: 3
+**Áreas con menor cobertura actual**:
+- oficios_otros: 4
+- salud_medicina_farmacia: 5
+- ingenierias: 5
+- ingenieria_civil_construccion: 5
+- departamento_tecnico: 5
+- secretarias_recepcion: 5
+- diseno: 5
+- mineria_petroleo_gas: 5
+- aduana_comercio_exterior: 5
+- seguros: 5
+- comunicacion_relaciones_institucionales_publicas: 5
+- sociologia_trabajo_social: 5
+- enfermeria: 5
+- naviero_maritimo_portuario: 5
 
 ### Nichos Específicos Detectados
 
@@ -56,33 +55,15 @@ Este reporte define el universo objetivo de áreas y nichos profesionales para I
 
 ### Diagnóstico de Cobertura Actual
 
-**Áreas artificialmente incompletas**:
-- tecnologia_sistemas_telecomunicaciones: Solo 5 nichos para un área que debería cubrir desarrollo, DevOps, seguridad, datos, automatización, integraciones, cloud, etc.
-- marketing_publicidad: Solo 5 nichos para un área que debería cubrir growth, SEO, contenido, paid media, branding, analytics, etc.
-- recursos_humanos_capacitacion: Solo 3 nichos para un área que debería cubrir talento, cultura, payroll, benefits, L&D, etc.
-- gerencia_direccion_general: Solo 3 nichos para un área que debería cubrir estrategia, ejecutivos, board, transformación, etc.
+**Estado post Tanda 2B**:
+- El catálogo llegó al objetivo operativo de 30 áreas y 200 nichos PASSED.
+- Todas las áreas tienen al menos 4 nichos activos y la mayoría tiene 5 o más.
+- Las áreas transversales de empresa digital, pymes, operaciones, datos, marketing, ventas, finanzas, customer success, legal básico y gestión de proyectos ya tienen cobertura suficiente para iniciar Prompt 18.
 
-**Nichos faltantes para empresa digital completa**:
-- Automatización de procesos
-- Growth hacking
-- Product management
-- Data engineering
-- DevOps
-- Community management
-- Customer success
-- Business intelligence avanzado
-- Revenue operations
-- Sales enablement
-- Customer experience
-- UX/UI design
-- Product operations
-- Technical writing
-- Knowledge management
-- AI/ML engineering
-- Security operations
-- Compliance automation
-- Supply chain digital
-- E-commerce operations
+**Brechas residuales para etapas posteriores**:
+- Data engineering, seguridad avanzada, AI/ML engineering y compliance sectorial específico requieren perfiles/model policies más especializados.
+- Nichos verticales por país, regulación o industria deben cargarse más adelante para evitar catálogos fantasma.
+- PMO enterprise, gestión de portafolios y operaciones complejas pueden esperar hasta tener perfiles profesionales definidos.
 
 ## Criterio de Diseño
 
@@ -1523,9 +1504,9 @@ El catálogo queda en 30 áreas y 169 nichos PASSED. Faltan aproximadamente 31 n
 
 La cobertura de empresa digital queda mucho más completa en automatización, datos, growth, ventas, customer success, finanzas, legal básico, proyectos y operaciones. Las brechas restantes se concentran en áreas con baja cobertura, escala de negocio, investigación avanzada, compliance más específico y verticales operativos.
 
-## Preparación de Tanda 2B PASSED
+## Preparación histórica de Tanda 2B PASSED
 
-Tanda 2B no se carga todavía. Su objetivo debería ser cerrar el tramo restante hacia aproximadamente 200 nichos sin duplicar Tanda 1 ni Tanda 2A.
+Esta sección quedó como preparación documental previa a Prompt 17.5. Tanda 2B ya cargó el tramo restante y dejó el catálogo en 200 nichos PASSED.
 
 ### Enfoque recomendado
 
@@ -1539,3 +1520,86 @@ Tanda 2B no se carga todavía. Su objetivo debería ser cerrar el tramo restante
 ### Criterio de corte
 
 Si Tanda 2B agrega aproximadamente 30-31 nichos PASSED, el catálogo llegaría a 199-200 nichos y quedaría listo para que Prompt 18 avance sobre perfiles profesionales sin sensación de base incompleta.
+
+## Tanda 2B PASSED
+
+### Conteo antes
+
+- Áreas: 30.
+- Nichos: 169.
+- Estados transicionales en JSON operativo: 0.
+
+### Conteo después
+
+- Áreas: 30.
+- Nichos: 200.
+- Estados transicionales en JSON operativo: 0.
+
+### Nichos agregados
+
+Tanda 2B agregó 31 nichos PASSED, todos en áreas existentes:
+
+| Área | Cantidad | Nichos |
+|---|---:|---|
+| `oficios_otros` | 1 | `gestion_servicios_oficios` |
+| `salud_medicina_farmacia` | 2 | `agenda_consultorios_salud`, `seguimiento_pacientes_cronicos` |
+| `ingenierias` | 2 | `validacion_requerimientos_tecnicos`, `gestion_cambios_ingenieria` |
+| `ingenieria_civil_construccion` | 2 | `seguimiento_avance_obra`, `control_costos_obra` |
+| `departamento_tecnico` | 2 | `gestion_garantias_tecnicas`, `base_conocimiento_tecnica` |
+| `secretarias_recepcion` | 2 | `seguimiento_tramites`, `coordinacion_reuniones_eventos` |
+| `diseno` | 2 | `sistemas_diseno_marca`, `investigacion_visual_usuarios` |
+| `mineria_petroleo_gas` | 2 | `control_produccion_minera_energia`, `permisos_reportes_ambientales` |
+| `aduana_comercio_exterior` | 2 | `seguimiento_embarques`, `costos_importacion_exportacion` |
+| `seguros` | 2 | `renovacion_polizas`, `analisis_cartera_seguros` |
+| `comunicacion_relaciones_institucionales_publicas` | 2 | `gestion_crisis_comunicacional`, `comunicacion_interna` |
+| `sociologia_trabajo_social` | 2 | `evaluacion_impacto_social`, `gestion_casos_sociales` |
+| `enfermeria` | 2 | `coordinacion_turnos_enfermeria`, `seguimiento_indicaciones_cuidado` |
+| `naviero_maritimo_portuario` | 2 | `coordinacion_operaciones_embarque`, `control_documental_portuario` |
+| `atencion_cliente_call_center_telemarketing` | 1 | `protocolos_respuesta_cliente` |
+| `legales` | 1 | `proteccion_datos_basica` |
+| `recursos_humanos_capacitacion` | 1 | `gestion_beneficios_compensaciones` |
+| `educacion_docencia_investigacion` | 1 | `evaluacion_aprendizaje` |
+
+### Criterio de selección
+
+La tanda cerró brechas de áreas con baja cobertura y completó el objetivo 30/200 sin crear áreas nuevas. Se priorizaron:
+
+- Áreas profesionales que seguían en 3 nichos y necesitaban casos de uso reales.
+- Operación administrativa, técnica, social, salud, diseño, seguros, comercio exterior, comunicación y sectores industriales.
+- Casos que un usuario no técnico puede elegir para crear un dominio útil.
+- Nichos con ruta futura hacia perfiles profesionales, team templates y model policies.
+
+### Nichos descartados o pospuestos
+
+- Nichos regulatorios altamente especializados por país o industria quedan fuera hasta tener perfiles legales/sectoriales.
+- Nichos clínicos de diagnóstico o tratamiento quedan fuera; salud y enfermería se mantuvieron en coordinación y gestión operativa.
+- Nichos de ingeniería extremadamente técnicos quedan fuera para evitar prometer capacidades sin perfiles expertos.
+- Nichos enterprise complejos de PMO, data engineering y seguridad avanzada quedan para después de Prompt 18.
+
+### Confirmación PASSED
+
+- No se cargó ningún `proposed`, `draft` ni `deprecated`.
+- Todo nicho nuevo entra con `activo:true` y `status: active`.
+- Todo nicho nuevo tiene campos mínimos completos y metadata operativa.
+- Todo nicho nuevo conserva `operationalization_contract` hacia Prompt 18.
+- No se agregaron áreas nuevas.
+- No se tocaron profiles, presets, agentes, papers, HUD ni n8n.
+
+### Acercamiento al objetivo 30/200
+
+El catálogo queda exactamente en 30 áreas y 200 nichos PASSED. El objetivo de áreas/nichos del libro queda cubierto para iniciar la etapa de perfiles profesionales globales.
+
+## Preparación de cierre de etapa áreas/nichos
+
+Recomendación: ejecutar un micro-prompt 17.5.1 de auditoría final 30/200 antes de Prompt 18.
+
+Ese cierre debería:
+
+- Revisar deduplicación conceptual de los 200 nichos.
+- Validar UX de nombres, descripciones e instrucciones sugeridas.
+- Confirmar 0 `proposed`/`draft`/`deprecated`.
+- Confirmar que Lotería sigue aislada como dominio específico.
+- Congelar el catálogo de áreas/nichos como base de Prompt 18.
+- Preparar el inventario de 80-100 perfiles profesionales sin cargar perfiles todavía.
+
+Si esa auditoría final queda verde, el siguiente paso natural será Prompt 18: inventario de perfiles profesionales globales.
