@@ -623,6 +623,7 @@ En Prompt 17.1 se preparó soporte técnico para status como proposed/draft/acti
 - `activo: false` = baja/desactivado temporal.
 - `status: active` (si se usa en futuro) = PASSED operativo.
 - `status: proposed/draft` = estados de transición para clasificar y decidir, no usables.
+- Los loaders operativos (`active_only=True`) excluyen `proposed`, `draft` y `deprecated` aunque `activo` sea `true`.
 - Elementos incompletos deben clasificarse como recuperar_para_operar, legacy, baja/desactivado o backlog_documental.
 - Ningún elemento puede aparecer como opción usable sin cumplir reglas de consistencia.
 

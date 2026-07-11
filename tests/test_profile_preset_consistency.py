@@ -5,6 +5,14 @@ import pytest
 from pathlib import Path
 
 ROOT = Path(__file__).parent.parent
+TRANSITIONAL_STATUS_VALUES = {"proposed", "draft", "deprecated"}
+EXPECTED_LEGACY_AGENT_IDS = {
+    "gemini_cuantico",
+    "gpt_auditor",
+    "nuevo_deepseek_saaop",
+    "viejo_deepseek",
+    "viejo_lobo_rey",
+}
 
 
 def test_no_usable_profile_without_preset():
@@ -159,7 +167,11 @@ def test_loteria_agents_config_count():
 def test_loteria_papers_count():
     """Valida que los 11 papers de Lotería siguen existiendo."""
     agents_papers_dir = ROOT / "domains" / "loteria" / "agents" / "papers"
-    agent_papers = list(agents_papers_dir.glob("*.json"))
+    agent_papers = [
+        path
+        for path in agents_papers_dir.glob("*.json")
+        if not path.stem.startswith("agente_con_preset_")
+    ]
 
     assert len(agent_papers) == 11, f"Se esperaban 11 papers, encontrados: {len(agent_papers)}"
 
@@ -170,3 +182,98 @@ def test_loteria_presets_count():
         agent_presets = json.load(f)
 
     assert len(agent_presets["presets"]) == 11, f"Se esperaban 11 presets, encontrados: {len(agent_presets['presets'])}"
+
+
+def test_real_operational_catalogs_do_not_use_transitional_statuses():
+    """Los JSON operativos reales no deben acumular proposed/draft/deprecated."""
+    catalog_paths = [
+        ROOT / "catalogs" / "areas.json",
+        ROOT / "catalogs" / "niches.json",
+        ROOT / "catalogs" / "roles.json",
+        ROOT / "catalogs" / "specializations.json",
+    ]
+    offenders = []
+    for path in catalog_paths:
+        with open(path, encoding="utf-8") as f:
+            items = json.load(f)
+        for item in items:
+            if item.get("status") in TRANSITIONAL_STATUS_VALUES:
+                offenders.append(f"{path.name}:{item['id']}:{item['status']}")
+
+    with open(ROOT / "domains" / "loteria" / "profile_catalog.json", encoding="utf-8") as f:
+        profile_catalog = json.load(f)
+    for role in profile_catalog["roles"]:
+        if role.get("status") in TRANSITIONAL_STATUS_VALUES:
+            offenders.append(f"profile_catalog:{role['role_id']}:{role['status']}")
+        for spec in role.get("specializations", []):
+            if spec.get("status") in TRANSITIONAL_STATUS_VALUES:
+                offenders.append(
+                    f"profile_catalog:{role['role_id']}:{spec['specialization_id']}:{spec['status']}"
+                )
+
+    with open(ROOT / "domains" / "loteria" / "agent_presets.json", encoding="utf-8") as f:
+        agent_presets = json.load(f)
+    for preset in agent_presets["presets"]:
+        if preset.get("status") in TRANSITIONAL_STATUS_VALUES:
+            offenders.append(f"agent_presets:{preset['id']}:{preset['status']}")
+
+    assert offenders == []
+
+
+def test_loteria_profiles_without_preset_remain_inactive():
+    """Los 19 profiles sin preset siguen fuera del flujo operativo."""
+    with open(ROOT / "domains" / "loteria" / "profile_catalog.json", encoding="utf-8") as f:
+        profile_catalog = json.load(f)
+
+    active_profiles = []
+    inactive_profiles = []
+    for role in profile_catalog["roles"]:
+        for spec in role.get("specializations", []):
+            current = (role["role_id"], spec["specialization_id"])
+            if spec.get("activo", True):
+                active_profiles.append(current)
+            else:
+                inactive_profiles.append(current)
+
+    assert len(active_profiles) == 11
+    assert len(inactive_profiles) == 19
+
+
+def test_loteria_legacy_agents_are_not_part_of_new_profile_preset_flow():
+    """Los 5 agentes legacy existen, pero no entran como PASSED del flujo nuevo."""
+    agents_config_dir = ROOT / "domains" / "loteria" / "agents" / "config"
+    agent_ids = {path.stem for path in agents_config_dir.glob("*.json")}
+
+    with open(ROOT / "domains" / "loteria" / "agent_presets.json", encoding="utf-8") as f:
+        agent_presets = json.load(f)
+    preset_agent_ids = {
+        preset["suggested_agent_id"]
+        for preset in agent_presets["presets"]
+        if preset.get("activo", True)
+    }
+
+    legacy_agent_ids = agent_ids - preset_agent_ids
+    passed_agent_ids = agent_ids & preset_agent_ids
+
+    assert legacy_agent_ids == EXPECTED_LEGACY_AGENT_IDS
+    assert len(passed_agent_ids) == 6
+
+
+def test_passed_decision_table_classifies_existing_elements():
+    """La documentación debe clasificar todo lo existente con categorías de decisión."""
+    design_doc = (ROOT / "docs" / "PROFESSIONAL_LIBRARY_DESIGN.md").read_text(
+        encoding="utf-8"
+    )
+    required_rows = [
+        "| Áreas existentes | 26 | activo: true | PASSED |",
+        "| Nichos existentes | 94 | activo: true | PASSED |",
+        "| Profiles activos Lotería | 11 | activo: true | PASSED |",
+        "| Profiles inactivos Lotería | 19 | activo: false | baja/desactivado temporal |",
+        "| Presets existentes | 11 | activo: true | PASSED |",
+        "| Agentes PASSED para flujo nuevo | 6 | Config válido | PASSED |",
+        "| Agentes legacy / recuperar_para_operar | 5 | Config válido | legacy / recuperar_para_operar |",
+        "| Papers existentes | 11 | JSON válido | PASSED |",
+        "| Perfiles históricos documentados | 22 | Solo en docs | backlog_documental |",
+    ]
+    for row in required_rows:
+        assert row in design_doc

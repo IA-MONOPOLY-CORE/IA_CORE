@@ -630,7 +630,7 @@ Un perfil puede estar PASSED solo si:
 - Tiene preset operativo
 - Tiene paper_seed o paper asociado
 - Tiene default_model_policy o recomendación dinámica válida
-- Peut crear agente operativo
+- Puede crear agente operativo
 - Pasa tests de consistencia
 
 ### Equivalencia Técnica
@@ -639,6 +639,7 @@ Un perfil puede estar PASSED solo si:
 - `activo: false` = baja/desactivado temporal
 - `status: active` (si se usa en futuro) = PASSED operativo
 - `status: proposed/draft` = estados de transición para clasificar y decidir, no usables
+- En loaders operativos (`active_only=True`), `proposed`, `draft` y `deprecated` quedan fuera de las respuestas usables aunque `activo` sea `true`
 
 ### Regla No Negociable
 

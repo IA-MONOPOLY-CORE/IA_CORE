@@ -1170,8 +1170,8 @@ Aunque el catálogo ahora soporta los metadatos operativos necesarios, no se car
 
 Prompt 17.2 podrá:
 
-1. Cargar una primera expansión de 50 nichos con metadatos operativos completos
-2. Marcar nichos como `proposed` o `draft` según su estado de preparación
+1. Cargar una primera expansión de nichos PASSED con metadatos operativos completos
+2. Mantener candidatos `proposed` o `draft` en documentación/backlog hasta que puedan pasar a operativo
 3. Validar que cada nicho tenga `expected_profile_types` definidos
 4. Validar que cada nicho tenga `model_policy_need` definido
 5. Validar que cada nicho tenga `operationalization_contract` definido
@@ -1201,6 +1201,7 @@ IA_CORE distingue entre:
 - `activo: false` = baja/desactivado temporal
 - `status: active` (si se usa en futuro) = PASSED operativo
 - `status: proposed/draft` = estados de transición para clasificar y decidir, no usables
+- En loaders operativos (`active_only=True`), `proposed`, `draft` y `deprecated` quedan fuera de respuestas usables aunque `activo` sea `true`
 
 ### Impacto en Prompt 17.2
 

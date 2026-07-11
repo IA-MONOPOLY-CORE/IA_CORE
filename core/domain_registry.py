@@ -12,6 +12,7 @@ from typing import Any, Iterator
 
 import config
 from core.catalog_registry import (
+    VALID_STATUS_VALUES,
     load_roles,
     load_specializations,
     validate_domain_catalog_selection,
@@ -173,6 +174,17 @@ def _validate_profile_common_fields(item: dict[str, Any], *, source: str) -> Non
         raise ValueError(f"{source}: campo activo debe ser booleano")
     if not isinstance(item.get("orden"), int):
         raise ValueError(f"{source}: campo orden debe ser numérico entero")
+    _validate_optional_status(item, source=source)
+
+
+def _validate_optional_status(item: dict[str, Any], *, source: str) -> None:
+    status = item.get("status")
+    if status is not None and status not in VALID_STATUS_VALUES:
+        raise ValueError(f"{source}: campo status debe ser uno de {VALID_STATUS_VALUES}, got '{status}'")
+
+
+def _is_operationally_usable(item: dict[str, Any]) -> bool:
+    return item.get("activo") is True and item.get("status", "active") == "active"
 
 
 def get_domain_dir(domain_id: str, domains_dir: str | Path | None = None) -> Path:
@@ -338,7 +350,7 @@ def validate_domain_profile_catalog(
                     f"{spec_source}: specialization_id {specialization_id} pertenece a "
                     f"{global_specialization['role_id']}, no a {role_id}"
                 )
-            if active_only and specialization["activo"] is not True:
+            if active_only and not _is_operationally_usable(specialization):
                 continue
             normalized_specializations.append(
                 {
@@ -349,7 +361,7 @@ def validate_domain_profile_catalog(
                 }
             )
 
-        if active_only and role["activo"] is not True:
+        if active_only and not _is_operationally_usable(role):
             continue
         normalized_roles.append(
             {
@@ -548,6 +560,7 @@ def validate_domain_agent_presets(
             raise ValueError(f"{source}: campo activo debe ser booleano")
         if not isinstance(preset.get("orden"), int):
             raise ValueError(f"{source}: campo orden debe ser numérico entero")
+        _validate_optional_status(preset, source=source)
         if not isinstance(preset.get("recommended_temperature"), (int, float)):
             raise ValueError(f"{source}: campo recommended_temperature debe ser numérico")
         for field in [
@@ -576,7 +589,7 @@ def validate_domain_agent_presets(
             source=source,
         )
 
-        if active_only and preset["activo"] is not True:
+        if active_only and not _is_operationally_usable(preset):
             continue
         normalized_presets.append(
             {

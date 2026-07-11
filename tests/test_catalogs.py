@@ -510,6 +510,56 @@ def test_catalog_loader_filters_inactive_items_by_default(tmp_path):
     assert niches[0]["id"] not in {niche["id"] for niche in loaded_niches}
 
 
+def test_catalog_loader_filters_transitional_status_items_by_default(tmp_path):
+    catalogs_dir = _copy_catalogs(tmp_path)
+    areas = _read_json(catalogs_dir / "areas.json")
+    niches = _read_json(catalogs_dir / "niches.json")
+    roles = _read_json(catalogs_dir / "roles.json")
+    specializations = _read_json(catalogs_dir / "specializations.json")
+
+    transitional_area_ids = {
+        areas[0]["id"]: "proposed",
+        areas[1]["id"]: "draft",
+        areas[2]["id"]: "deprecated",
+    }
+    for area in areas:
+        if area["id"] in transitional_area_ids:
+            area["status"] = transitional_area_ids[area["id"]]
+    niches[0]["status"] = "proposed"
+    niches[1]["status"] = "draft"
+    roles[0]["status"] = "proposed"
+    specializations[0]["status"] = "draft"
+
+    (catalogs_dir / "areas.json").write_text(
+        json.dumps(areas, ensure_ascii=False), encoding="utf-8"
+    )
+    (catalogs_dir / "niches.json").write_text(
+        json.dumps(niches, ensure_ascii=False), encoding="utf-8"
+    )
+    (catalogs_dir / "roles.json").write_text(
+        json.dumps(roles, ensure_ascii=False), encoding="utf-8"
+    )
+    (catalogs_dir / "specializations.json").write_text(
+        json.dumps(specializations, ensure_ascii=False), encoding="utf-8"
+    )
+
+    loaded_area_ids = {area["id"] for area in catalog_registry.load_areas(catalogs_dir=catalogs_dir)}
+    loaded_niche_ids = {niche["id"] for niche in catalog_registry.load_niches(catalogs_dir=catalogs_dir)}
+    loaded_role_ids = {role["id"] for role in catalog_registry.load_roles(catalogs_dir=catalogs_dir)}
+    loaded_specialization_ids = {
+        specialization["id"]
+        for specialization in catalog_registry.load_specializations(catalogs_dir=catalogs_dir)
+    }
+    all_area_ids = {area["id"] for area in catalog_registry.load_areas(active_only=False, catalogs_dir=catalogs_dir)}
+
+    assert not set(transitional_area_ids).intersection(loaded_area_ids)
+    assert niches[0]["id"] not in loaded_niche_ids
+    assert niches[1]["id"] not in loaded_niche_ids
+    assert roles[0]["id"] not in loaded_role_ids
+    assert specializations[0]["id"] not in loaded_specialization_ids
+    assert set(transitional_area_ids).issubset(all_area_ids)
+
+
 def test_roles_loader_filters_inactive_items_by_default(tmp_path):
     catalogs_dir = _copy_catalogs(tmp_path)
     roles = _read_json(catalogs_dir / "roles.json")
@@ -591,6 +641,35 @@ def test_domain_profile_catalog_loader_filters_inactive_items_by_default(tmp_pat
         for specialization in role["specializations"]
     }
     assert inactive_specialization_id not in all_specialization_ids
+
+
+def test_domain_profile_catalog_loader_filters_transitional_status_items_by_default(tmp_path):
+    domains_dir = _copy_loteria_domain(tmp_path)
+    profile_path = domains_dir / "loteria" / "profile_catalog.json"
+    profile = _read_json(profile_path)
+    proposed_role_id = profile["roles"][0]["role_id"]
+    draft_specialization_id = profile["roles"][1]["specializations"][0][
+        "specialization_id"
+    ]
+    profile["roles"][0]["status"] = "proposed"
+    profile["roles"][1]["specializations"][0]["status"] = "draft"
+    profile_path.write_text(json.dumps(profile, ensure_ascii=False), encoding="utf-8")
+
+    loaded = domain_registry.load_domain_profile_catalog(
+        "loteria", domains_dir=domains_dir
+    )
+    all_loaded = domain_registry.load_domain_profile_catalog(
+        "loteria", active_only=False, domains_dir=domains_dir
+    )
+
+    assert proposed_role_id not in {role["role_id"] for role in loaded["roles"]}
+    all_specialization_ids = {
+        specialization["specialization_id"]
+        for role in loaded["roles"]
+        for specialization in role["specializations"]
+    }
+    assert draft_specialization_id not in all_specialization_ids
+    assert proposed_role_id in {role["role_id"] for role in all_loaded["roles"]}
 
 
 def test_domain_profile_catalog_loader_fails_on_domain_mismatch(tmp_path):
@@ -706,6 +785,36 @@ def test_domain_agent_presets_loader_filters_inactive_items_by_default(tmp_path)
     )
 
     assert inactive_id not in {preset["id"] for preset in loaded["presets"]}
+
+
+def test_domain_agent_presets_loader_filters_transitional_status_items_by_default(tmp_path):
+    domains_dir = _copy_loteria_domain(tmp_path)
+    presets_path = domains_dir / "loteria" / "agent_presets.json"
+    presets_catalog = _read_json(presets_path)
+    proposed_id = presets_catalog["presets"][0]["id"]
+    draft_id = presets_catalog["presets"][1]["id"]
+    presets_catalog["presets"][0]["status"] = "proposed"
+    presets_catalog["presets"][1]["status"] = "draft"
+    presets_path.write_text(
+        json.dumps(presets_catalog, ensure_ascii=False),
+        encoding="utf-8",
+    )
+
+    loaded = domain_registry.load_domain_agent_presets(
+        "loteria",
+        domains_dir=domains_dir,
+    )
+    all_loaded = domain_registry.load_domain_agent_presets(
+        "loteria",
+        active_only=False,
+        domains_dir=domains_dir,
+    )
+
+    assert proposed_id not in {preset["id"] for preset in loaded["presets"]}
+    assert draft_id not in {preset["id"] for preset in loaded["presets"]}
+    assert {proposed_id, draft_id}.issubset(
+        {preset["id"] for preset in all_loaded["presets"]}
+    )
 
 
 def test_domain_agent_presets_loader_fails_on_invalid_role_id(tmp_path):

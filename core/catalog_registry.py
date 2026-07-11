@@ -106,6 +106,11 @@ def _validate_optional_status(item: dict[str, Any], *, source: str) -> None:
             raise ValueError(f"{source}: campo status debe ser uno de {VALID_STATUS_VALUES}, got '{status}'")
 
 
+def _is_operationally_usable(item: dict[str, Any]) -> bool:
+    """Un item usable debe estar activo y no ser proposed/draft/deprecated."""
+    return item.get("activo") is True and item.get("status", "active") == "active"
+
+
 def _validate_optional_complexity(item: dict[str, Any], *, source: str) -> None:
     """Valida campo complexity si está presente."""
     complexity = item.get("complexity")
@@ -183,7 +188,7 @@ def _validate_unique_ids(items: list[dict[str, Any]], *, source: str) -> None:
 
 
 def _sorted_active(items: list[dict[str, Any]], *, active_only: bool) -> list[dict[str, Any]]:
-    filtered = [item for item in items if item.get("activo") is True] if active_only else list(items)
+    filtered = [item for item in items if _is_operationally_usable(item)] if active_only else list(items)
     return sorted(filtered, key=lambda item: (item["orden"], item["nombre"], item["id"]))
 
 
@@ -263,6 +268,7 @@ def load_roles(
         for field in ["nombre", "descripcion", "funcion_cognitiva"]:
             if not isinstance(role.get(field), str) or not role[field].strip():
                 raise ValueError(f"{source}: campo {field} debe ser texto no vacío")
+        _validate_optional_status(role, source=source)
         for field in ["cuando_usarlo", "evitar_usarlo_para"]:
             value = role.get(field)
             if not isinstance(value, list) or not value:
@@ -312,6 +318,7 @@ def load_specializations(
         for field in ["nombre", "descripcion", "enfoque"]:
             if not isinstance(specialization.get(field), str) or not specialization[field].strip():
                 raise ValueError(f"{source}: campo {field} debe ser texto no vacío")
+        _validate_optional_status(specialization, source=source)
         for field in ["cuando_usarla", "evitar_usarla_para"]:
             value = specialization.get(field)
             if not isinstance(value, list) or not value:
