@@ -584,3 +584,104 @@ Si falta una pieza obligatoria, el elemento debe marcarse como `activo: false` o
 - **19 especializaciones** en `profile_catalog.json` marcadas como `activo: false` por falta de preset
 - **5 agentes legacy** sin combinación formal role+specialization (documentados, no eliminados)
 - **11 papers** con naming mismatch (sufijo `_paper`) - deuda técnica menor, no bloquea operatividad
+
+---
+
+## Regla PASSED: No existen catálogos fantasma
+
+### Contexto
+
+IA_CORE puede documentar propuestas, borradores e ideas en reportes y documentos de diseño, pero los catálogos operativos deben exponer solo elementos PASSED/active con camino real hacia uso. Elementos incompletos deben clasificarse como recuperar_para_operar, legacy, baja/desactivado o backlog_documental, y no pueden aparecer como opciones usables.
+
+### Universo Exploratorio vs Catálogo Operativo
+
+IA_CORE distingue entre:
+
+**A. Universo exploratorio / backlog documental:**
+- Ideas, propuestas, borradores, perfiles históricos, nichos candidatos
+- Viven en: `docs/`, reportes, backlog futuro, documentos de diseño, Prompt 18.1 o futuros subprompts
+- No aparecen como opción usable
+
+**B. Catálogo operativo:**
+- Solo elementos PASSED
+- Lo que está en catálogo operativo debe poder avanzar hacia uso real
+
+### Semántica PASSED
+
+**Para áreas/nichos:**
+Un área o nicho puede estar PASSED solo si:
+- Tiene id válido
+- Tiene nombre
+- Tiene descripción
+- Está asociado correctamente
+- No está duplicado
+- No rompe loader
+- Tiene sentido operativo
+- Si es nicho, tiene expected_profile_types concretos o justificación clara
+- Tiene model_policy_need si corresponde
+- Tiene compatible_business_scales si corresponde
+- Tiene operationalization_contract si corresponde
+- No se presenta como usable si todavía no puede conectarse a perfiles/presets/papers/model policies
+
+**Para perfiles/presets:**
+Un perfil puede estar PASSED solo si:
+- Tiene role_id válido
+- Tiene specialization_id válida
+- Tiene preset operativo
+- Tiene paper_seed o paper asociado
+- Tiene default_model_policy o recomendación dinámica válida
+- Peut crear agente operativo
+- Pasa tests de consistencia
+
+### Equivalencia Técnica
+
+- `activo: true` = PASSED operativo
+- `activo: false` = baja/desactivado temporal
+- `status: active` (si se usa en futuro) = PASSED operativo
+- `status: proposed/draft` = estados de transición para clasificar y decidir, no usables
+
+### Regla No Negociable
+
+Ningún perfil/nicho/preset puede estar visible como usable sin cumplir reglas de consistencia. El soporte técnico para proposed/draft NO existe para acumular ideas dormidas o catálogos fantasma. Existe para convertir lo que ya está creado en algo operativo, o para decidir formalmente que debe darse de baja, quedar legacy o pasar a recuperación posterior.
+
+### Tabla de Decisión de Elementos Existentes
+
+| Tipo de Elemento | Cantidad | Estado Actual | Categoría de Decisión | Motivo | Piezas Faltantes | Subprompt Sugerido | Aparece como Usable |
+|---|---|---|---|---|---|---|---|
+| Áreas existentes | 26 | activo: true | PASSED | Operativas, validadas | Ninguna | - | Sí |
+| Nichos existentes | 94 | activo: true | PASSED | Operativos, validados | Ninguna | - | Sí |
+| Profiles activos Lotería | 11 | activo: true | PASSED | Tienen preset operativo | Ninguna | - | Sí |
+| Profiles inactivos Lotería | 19 | activo: false | baja/desactivado temporal | Sin preset operativo | Preset | Prompt 18.1 / Prompt 20 | No |
+| Presets existentes | 11 | activo: true | PASSED | Tienen paper_seed y trazabilidad | Ninguna | - | Sí |
+| Agentes operativos | 11 | Config válido | PASSED | Tienen config y paper | Ninguna | - | Sí |
+| Agentes legacy | 5 | Config válido | legacy / recuperar_para_operar | Ejecutables pero sin combinación formal role+specialization | Role+specialization formales | Prompt 18.1 | No |
+| Papers existentes | 11 | JSON válido | PASSED | Corresponden a agentes | Ninguna | - | Sí |
+| Perfiles históricos documentados | 22 | Solo en docs | backlog_documental | Listados para recuperación futura | Preset, paper, model policy | Prompt 18.1 | No |
+
+### Clasificación de Decisiones
+
+**A. Alta operativa / PASSED:**
+- Elemento está completo, tiene trazabilidad y puede usarse
+- Aparece como opción usable en UI
+
+**B. Recuperar y volver operativo:**
+- Elemento es valioso, pero le faltan piezas
+- Debe quedar identificado con las piezas faltantes y el subprompt donde se completará
+- No aparece como opción usable hasta completar
+
+**C. Legacy:**
+- Elemento existe por historia o compatibilidad
+- Puede seguir ejecutándose si corresponde
+- No pasa por el flujo nuevo hasta que sea recuperado formalmente
+- No aparece como opción usable en flujo nuevo
+
+**D. Baja / desactivar:**
+- Elemento no debe usarse, no aporta o quedó obsoleto
+- No se elimina necesariamente si hay riesgo histórico
+- No aparece como opción usable
+
+**E. Backlog documental:**
+- Elemento es una idea o candidato futuro
+- No entra todavía al catálogo operativo
+- Vive en docs/ o reportes
+- No aparece como opción usable

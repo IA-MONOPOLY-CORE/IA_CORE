@@ -603,3 +603,35 @@ La auditoría de Prompt 17.1.1 detectó que 19 combinaciones role+specialization
 
 **Regla No Negociable**:
 No puede existir un perfil usable sin preset operativo. No puede existir un preset usable sin profile asociado. No puede existir un agente operativo sin trazabilidad a profile/preset/paper/model policy, salvo que se documente explícitamente como legacy y no sea parte del flujo nuevo.
+
+---
+
+## ADR-023 — Catálogos operativos no deben contener elementos fantasma
+
+**Estado**: Aceptado
+
+**Prompt**: 17.1.2
+
+**Contexto**:
+En Prompt 17.1 se preparó soporte técnico para status como proposed/draft/active/deprecated. Sin embargo, la decisión de producto es más estricta: IA_CORE no debe tener elementos "propuestos" o "borradores" dentro de los catálogos operativos si después no se pueden usar. No queremos catálogos llenos de candidatos que nunca pasan a uso real, ni opciones visibles que no pueden terminar en agente/equipo operativo.
+
+**Decisión**:
+- IA_CORE distingue entre universo exploratorio/backlog documental y catálogo operativo.
+- El universo exploratorio (ideas, propuestas, borradores, perfiles históricos, nichos candidatos) vive en docs/, reportes, backlog futuro o documentos de diseño.
+- El catálogo operativo expone solo elementos PASSED/active con camino real hacia uso.
+- `activo: true` = PASSED operativo.
+- `activo: false` = baja/desactivado temporal.
+- `status: active` (si se usa en futuro) = PASSED operativo.
+- `status: proposed/draft` = estados de transición para clasificar y decidir, no usables.
+- Elementos incompletos deben clasificarse como recuperar_para_operar, legacy, baja/desactivado o backlog_documental.
+- Ningún elemento puede aparecer como opción usable sin cumplir reglas de consistencia.
+
+**Consecuencias**:
+- El soporte técnico para proposed/draft NO existe para acumular ideas dormidas o catálogos fantasma.
+- Existe para convertir lo que ya está creado en algo operativo, o para decidir formalmente que debe darse de baja, quedar legacy o pasar a recuperación posterior.
+- Todo elemento existente queda clasificado en una tabla de decisión: PASSED / recuperar_para_operar / legacy / baja/desactivado / backlog_documental.
+- Prompt 17.2 debe cargar solo elementos PASSED o preparar bloques con trazabilidad suficiente.
+- Lo no validado queda en reporte/backlog, no en JSON operativo.
+
+**Regla No Negociable**:
+Ningún perfil/nicho/preset puede estar visible como usable sin cumplir reglas de consistencia. Todo elemento propuesto debe tender a operación real o darse de baja.

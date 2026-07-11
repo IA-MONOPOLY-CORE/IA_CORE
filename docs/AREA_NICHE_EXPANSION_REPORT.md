@@ -1177,3 +1177,59 @@ Prompt 17.2 podrá:
 5. Validar que cada nicho tenga `operationalization_contract` definido
 6. Mantener compatibilidad con los 94 nichos existentes
 7. Usar los nuevos tests para validar que la expansión no rompe el loader
+
+---
+
+## Universo Objetivo vs Catálogo Operativo PASSED
+
+### Regla PASSED
+
+IA_CORE distingue entre:
+
+**A. Universo exploratorio / backlog documental:**
+- Ideas, propuestas, borradores, perfiles históricos, nichos candidatos
+- Viven en: `docs/`, reportes, backlog futuro, documentos de diseño, Prompt 18.1 o futuros subprompts
+- No aparecen como opción usable
+
+**B. Catálogo operativo:**
+- Solo elementos PASSED
+- Lo que está en catálogo operativo debe poder avanzar hacia uso real
+
+### Equivalencia Técnica
+
+- `activo: true` = PASSED operativo
+- `activo: false` = baja/desactivado temporal
+- `status: active` (si se usa en futuro) = PASSED operativo
+- `status: proposed/draft` = estados de transición para clasificar y decidir, no usables
+
+### Impacto en Prompt 17.2
+
+El universo objetivo puede tener 200 nichos, pero no se cargarán como opciones operativas hasta que estén PASSED. Prompt 17.2 debe cargar solo elementos PASSED o preparar bloques con trazabilidad suficiente. Lo no validado queda en reporte/backlog. Todo elemento propuesto debe tender a operación real o darse de baja.
+
+### Clasificación de Decisiones
+
+**A. Alta operativa / PASSED:**
+- Elemento está completo, tiene trazabilidad y puede usarse
+- Aparece como opción usable en UI
+
+**B. Recuperar y volver operativo:**
+- Elemento es valioso, pero le faltan piezas
+- Debe quedar identificado con las piezas faltantes y el subprompt donde se completará
+- No aparece como opción usable hasta completar
+
+**C. Legacy:**
+- Elemento existe por historia o compatibilidad
+- Puede seguir ejecutándose si corresponde
+- No pasa por el flujo nuevo hasta que sea recuperado formalmente
+- No aparece como opción usable en flujo nuevo
+
+**D. Baja / desactivar:**
+- Elemento no debe usarse, no aporta o quedó obsoleto
+- No se elimina necesariamente si hay riesgo histórico
+- No aparece como opción usable
+
+**E. Backlog documental:**
+- Elemento es una idea o candidato futuro
+- No entra todavía al catálogo operativo
+- Vive en docs/ o reportes
+- No aparece como opción usable
