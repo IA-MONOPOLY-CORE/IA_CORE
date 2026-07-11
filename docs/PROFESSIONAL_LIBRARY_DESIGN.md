@@ -12,8 +12,8 @@ IA_CORE debe pasar de "crear agentes por dominio" a "crear equipos profesionales
 
 ### Catálogos Globales Existentes
 
-- **Áreas**: 26 (catalogs/areas.json)
-- **Nichos**: 94 (catalogs/niches.json)
+- **Áreas**: 30 (catalogs/areas.json)
+- **Nichos**: 134 (catalogs/niches.json)
 - **Roles**: 20 (catalogs/roles.json)
 - **Especializaciones**: 80 (catalogs/specializations.json)
 
@@ -48,7 +48,7 @@ IA_CORE debe pasar de "crear agentes por dominio" a "crear equipos profesionales
 
 ### Limitaciones Actuales
 
-1. **Nichos insuficientes para empresa digital completa**: Los 94 nichos actuales cubren muchas áreas tradicionales pero faltan nichos específicos para:
+1. **Nichos insuficientes para empresa digital completa**: Los 134 nichos actuales ya incorporan una primera expansión PASSED para empresa digital moderna, pero todavía faltan tandas posteriores para:
    - Automatización de procesos
    - Growth hacking
    - Product management
@@ -649,8 +649,8 @@ Ningún perfil/nicho/preset puede estar visible como usable sin cumplir reglas d
 
 | Tipo de Elemento | Cantidad | Estado Actual | Categoría de Decisión | Motivo | Piezas Faltantes | Subprompt Sugerido | Aparece como Usable |
 |---|---|---|---|---|---|---|---|
-| Áreas existentes | 26 | activo: true | PASSED | Operativas, validadas | Ninguna | - | Sí |
-| Nichos existentes | 94 | activo: true | PASSED | Operativos, validados | Ninguna | - | Sí |
+| Áreas existentes | 30 | activo: true | PASSED | Operativas, validadas | Ninguna | - | Sí |
+| Nichos existentes | 134 | activo: true | PASSED | Operativos, validados | Ninguna | - | Sí |
 | Profiles activos Lotería | 11 | activo: true | PASSED | Tienen preset operativo | Ninguna | - | Sí |
 | Profiles inactivos Lotería | 19 | activo: false | baja/desactivado temporal | Sin preset operativo | Preset | Prompt 18.1 / Prompt 20 | No |
 | Presets existentes | 11 | activo: true | PASSED | Tienen paper_seed y trazabilidad | Ninguna | - | Sí |

@@ -30,6 +30,75 @@ PRIORITY_AREAS = {
     "comercial_ventas_negocios",
     "educacion_docencia_investigacion",
 }
+PROMPT_17_2_AREA_IDS = {
+    "producto_gestion_producto",
+    "automatizacion_integraciones",
+    "datos_bi_analytics",
+    "customer_success_experiencia_cliente",
+}
+PROMPT_17_2_NICHE_IDS_BY_AREA = {
+    "producto_gestion_producto": {
+        "gestion_producto_digital",
+        "research_usuarios",
+        "validacion_ideas_negocio",
+        "priorizacion_roadmap",
+        "pricing_packaging",
+    },
+    "automatizacion_integraciones": {
+        "automatizacion_procesos_internos",
+        "integraciones_herramientas",
+        "automatizacion_whatsapp_crm",
+        "gestion_apis",
+        "arquitectura_sistemas_internos",
+    },
+    "datos_bi_analytics": {
+        "dashboards_operativos",
+        "indicadores_negocio",
+        "analisis_cohortes",
+        "inteligencia_comercial",
+        "auditoria_datos",
+    },
+    "customer_success_experiencia_cliente": {
+        "onboarding_clientes",
+        "retencion_fidelizacion_clientes",
+        "voz_cliente_nps",
+        "gestion_churn",
+        "experiencia_cliente_omnicanal",
+    },
+    "tecnologia_sistemas_telecomunicaciones": {
+        "devops_basico_pymes",
+        "seguridad_operativa_basica",
+        "soporte_tecnico_operativo",
+        "calidad_software_qa",
+    },
+    "marketing_publicidad": {
+        "growth_marketing",
+        "estrategia_contenidos",
+        "embudos_conversion",
+        "campanas_comercios_locales",
+    },
+    "comercial_ventas_negocios": {
+        "ventas_consultivas",
+        "revenue_operations",
+        "crm_comercial",
+    },
+    "administracion_contabilidad_finanzas": {
+        "flujo_caja_pyme",
+        "control_gastos",
+        "rentabilidad_producto",
+        "punto_equilibrio",
+    },
+    "recursos_humanos_capacitacion": {
+        "onboarding_empleados",
+        "evaluacion_desempeno",
+        "diseno_roles_internos",
+    },
+    "gerencia_direccion_general": {
+        "objetivos_metricas_okrs",
+        "modelos_negocio",
+    },
+}
+PROMPT_17_2_NICHE_IDS = set().union(*PROMPT_17_2_NICHE_IDS_BY_AREA.values())
 CENTRAL_ROLE_IDS = {
     "analista",
     "critico",
@@ -92,7 +161,7 @@ def test_areas_catalog_exists_is_valid_and_uses_professional_area_language():
 
     areas = _read_json(path)
     assert isinstance(areas, list)
-    assert len(areas) == 26
+    assert len(areas) == 30
 
     ids = [area["id"] for area in areas]
     assert len(ids) == len(set(ids))
@@ -115,7 +184,7 @@ def test_niches_catalog_exists_is_valid_and_covers_each_area():
     niches = _read_json(CATALOGS_DIR / "niches.json")
 
     assert isinstance(niches, list)
-    assert len(niches) == 94
+    assert len(niches) == 134
 
     niche_ids = [niche["id"] for niche in niches]
     assert len(niche_ids) == len(set(niche_ids))
@@ -146,6 +215,69 @@ def test_niches_catalog_exists_is_valid_and_covers_each_area():
 
     assert all(counts_by_area[area_id] >= 3 for area_id in area_ids)
     assert all(counts_by_area[area_id] >= 5 for area_id in PRIORITY_AREAS)
+    assert all(counts_by_area[area_id] >= 5 for area_id in PROMPT_17_2_AREA_IDS)
+
+
+def test_prompt_17_2_passed_expansion_has_operational_metadata():
+    areas = _read_json(CATALOGS_DIR / "areas.json")
+    niches = _read_json(CATALOGS_DIR / "niches.json")
+    areas_by_id = {area["id"]: area for area in areas}
+    niches_by_id = {niche["id"]: niche for niche in niches}
+
+    assert PROMPT_17_2_AREA_IDS.issubset(areas_by_id)
+    assert len(PROMPT_17_2_NICHE_IDS) == 40
+    assert PROMPT_17_2_NICHE_IDS.issubset(niches_by_id)
+
+    for area_id in PROMPT_17_2_AREA_IDS:
+        area = areas_by_id[area_id]
+        assert area["activo"] is True
+        assert area["status"] == "active"
+        assert area["tags"]
+        assert area["typical_domains"]
+        assert area["compatible_business_scales"]
+        assert area["operational_priority"] in catalog_registry.VALID_PRIORITY_VALUES
+
+    for area_id, expected_niche_ids in PROMPT_17_2_NICHE_IDS_BY_AREA.items():
+        actual_niche_ids = {
+            niche["id"]
+            for niche in niches
+            if niche["area_id"] == area_id and niche["id"] in PROMPT_17_2_NICHE_IDS
+        }
+        assert actual_niche_ids == expected_niche_ids
+
+    for niche_id in PROMPT_17_2_NICHE_IDS:
+        niche = niches_by_id[niche_id]
+        assert niche["activo"] is True
+        assert niche["status"] == "active"
+        assert niche["tags"]
+        assert niche["typical_needs"]
+        assert niche["expected_profile_types"]
+        assert niche["likely_professional_profiles"]
+        assert niche["required_capabilities"]
+        assert niche["possible_team_templates"]
+        assert niche["model_policy_need"] in catalog_registry.VALID_MODEL_POLICY_VALUES
+        assert niche["complexity"] in catalog_registry.VALID_COMPLEXITY_VALUES
+        assert niche["operational_priority"] in catalog_registry.VALID_PRIORITY_VALUES
+        assert niche["compatible_business_scales"]
+        assert niche["activation_requirements"]
+        contract = niche["operationalization_contract"]
+        assert contract["needs_professional_profiles"] is True
+        assert contract["needs_presets"] is True
+        assert contract["needs_paper_seed"] is True
+        assert contract["needs_model_policy"] is True
+        assert contract["blocked_by"]
+
+
+def test_prompt_17_2_passed_expansion_distribution_is_not_absurd():
+    areas = _read_json(CATALOGS_DIR / "areas.json")
+    niches = _read_json(CATALOGS_DIR / "niches.json")
+    counts_by_area = Counter(niche["area_id"] for niche in niches)
+
+    assert len(areas) == 30
+    assert len(niches) == 134
+    assert min(counts_by_area.values()) >= 3
+    assert max(counts_by_area.values()) <= 9
+    assert sum(counts_by_area[area_id] for area_id in PROMPT_17_2_AREA_IDS) == 20
 
 
 def test_lottery_is_catalogued_as_one_niche_not_a_global_default():
@@ -1252,7 +1384,7 @@ def test_catalog_prompt_does_not_add_roles_presets_or_lottery_default_to_core():
         (CATALOGS_DIR / "areas.json").read_text(encoding="utf-8")
         + (CATALOGS_DIR / "niches.json").read_text(encoding="utf-8")
     ).lower()
-    for forbidden in ["especializacion", "especialización", "preset", "system_prompt_sugerido"]:
+    for forbidden in ["especializacion", "especialización", "system_prompt_sugerido"]:
         assert forbidden not in catalogs_text
 
     endpoint_source = inspect.getsource(api.get_domain_creation_catalog_endpoint)

@@ -12,8 +12,8 @@ Este reporte define el universo objetivo de áreas y nichos profesionales para I
 
 ### Auditoría Real
 
-- **Áreas actuales**: 26 (catalogs/areas.json)
-- **Nichos actuales**: 94 (catalogs/niches.json)
+- **Áreas actuales**: 30 (catalogs/areas.json)
+- **Nichos actuales**: 134 (catalogs/niches.json)
 - **Promedio de nichos por área**: 3.6
 - **Áreas con más nichos**: 8 áreas con 5 nichos cada una
 - **Áreas con menos nichos**: 18 áreas con 3 nichos cada una
@@ -1234,3 +1234,93 @@ El universo objetivo puede tener 200 nichos, pero no se cargarán como opciones 
 - No entra todavía al catálogo operativo
 - Vive en docs/ o reportes
 - No aparece como opción usable
+
+---
+
+## Estrategia de expansión PASSED por tandas
+
+### Objetivo final del libro
+
+La Biblioteca Profesional Global debe avanzar progresivamente hacia:
+
+- Aproximadamente 30 áreas profesionales activas/PASSED.
+- Aproximadamente 200 nichos activos/PASSED.
+- 80-100 perfiles profesionales conectables a dominios reales.
+- 25-30 team templates para equipos profesionales frecuentes.
+- 12-15 model policies o políticas de recomendación de modelo.
+
+La expansión no busca inflar catálogos. Cada incorporación debe mejorar la utilidad real del sistema y conservar una ruta posterior hacia perfiles, presets, papers y model policies.
+
+### Regla de carga
+
+- No se cargan 200 nichos de golpe si no están bien definidos.
+- No se cargan propuestas dormidas ni `draft` eternos.
+- Cada tanda entra como PASSED o queda fuera del JSON operativo.
+- Cada tanda debe dejar IA_CORE más usable que antes.
+- `proposed`, `draft` y `deprecated` pueden vivir como discusión documental, pero no como opción usable.
+
+### Tandas sugeridas
+
+1. **Tanda 1 — Empresa digital moderna**: producto, automatización, datos/BI, customer success y nichos prácticos para ventas, marketing, finanzas, RRHH, tecnología y dirección.
+2. **Tanda 2 — Automatización, datos, operaciones y crecimiento**: profundizar flujos internos, RevOps avanzado, operaciones digitales, analítica aplicada y crecimiento por canal.
+3. **Tanda 3 — Escala de negocio**: nichos diferenciados para emprendedor, comercio local, pyme, empresa y enterprise.
+4. **Tanda 4 — Investigación, estrategia avanzada, riesgo y compliance**: dominios de mayor complejidad, gobernanza, auditoría, riesgo y especializaciones sectoriales.
+5. **Tanda 5 — Normalización final**: acercamiento al objetivo 30/200, deduplicación conceptual y ajuste de metadata operativa.
+
+Cada tanda debe cerrar con tests, conteo actualizado, documentación, commit y working tree limpio.
+
+## Prompt 17.2 — Tanda 1 PASSED cargada
+
+### Conteo antes
+
+- Áreas: 26.
+- Nichos: 94.
+- Estados transicionales en JSON operativo: 0.
+
+### Conteo después
+
+- Áreas: 30.
+- Nichos: 134.
+- Estados transicionales en JSON operativo: 0.
+
+### Áreas nuevas agregadas
+
+| Área | Motivo |
+|---|---|
+| `producto_gestion_producto` | Cubre discovery, roadmap, pricing y ciclo de producto completo, que no estaban resueltos por diseño UX o gerencia general. |
+| `automatizacion_integraciones` | Separa automatización operativa transversal de tecnología genérica. |
+| `datos_bi_analytics` | Convierte el nicho de datos/BI en un área global para métricas, tableros, calidad de datos y decisión. |
+| `customer_success_experiencia_cliente` | Distingue adopción, retención y churn de soporte/call center tradicional. |
+
+### Nichos nuevos agregados por área
+
+| Área | Cantidad | Nichos |
+|---|---:|---|
+| `producto_gestion_producto` | 5 | `gestion_producto_digital`, `research_usuarios`, `validacion_ideas_negocio`, `priorizacion_roadmap`, `pricing_packaging` |
+| `automatizacion_integraciones` | 5 | `automatizacion_procesos_internos`, `integraciones_herramientas`, `automatizacion_whatsapp_crm`, `gestion_apis`, `arquitectura_sistemas_internos` |
+| `datos_bi_analytics` | 5 | `dashboards_operativos`, `indicadores_negocio`, `analisis_cohortes`, `inteligencia_comercial`, `auditoria_datos` |
+| `customer_success_experiencia_cliente` | 5 | `onboarding_clientes`, `retencion_fidelizacion_clientes`, `voz_cliente_nps`, `gestion_churn`, `experiencia_cliente_omnicanal` |
+| `tecnologia_sistemas_telecomunicaciones` | 4 | `devops_basico_pymes`, `seguridad_operativa_basica`, `soporte_tecnico_operativo`, `calidad_software_qa` |
+| `marketing_publicidad` | 4 | `growth_marketing`, `estrategia_contenidos`, `embudos_conversion`, `campanas_comercios_locales` |
+| `comercial_ventas_negocios` | 3 | `ventas_consultivas`, `revenue_operations`, `crm_comercial` |
+| `administracion_contabilidad_finanzas` | 4 | `flujo_caja_pyme`, `control_gastos`, `rentabilidad_producto`, `punto_equilibrio` |
+| `recursos_humanos_capacitacion` | 3 | `onboarding_empleados`, `evaluacion_desempeno`, `diseno_roles_internos` |
+| `gerencia_direccion_general` | 2 | `objetivos_metricas_okrs`, `modelos_negocio` |
+
+### Criterio de selección
+
+La primera tanda prioriza dominios frecuentes en empresas digitales, pymes, comercios y servicios reales: producto, automatización, datos, customer success, crecimiento, ventas, finanzas, RRHH, tecnología operativa y dirección. Se agregaron áreas nuevas solo cuando el concepto no estaba suficientemente cubierto por áreas existentes.
+
+### Nichos descartados o pospuestos
+
+- Operaciones avanzadas, logística digital, compliance ampliado y riesgo sectorial quedan para tandas posteriores.
+- Nichos de IA aplicada, data science avanzada y seguridad especializada quedan pospuestos hasta tener perfiles/model policies más específicos.
+- Nichos verticales por industria quedan para la tanda de escala/sector, para evitar duplicar áreas existentes.
+
+### Acercamiento al objetivo 30/200
+
+La tanda deja el sistema en 30 áreas y 134 nichos. Faltan aproximadamente 66 nichos PASSED para llegar al objetivo de 200. La siguiente expansión debe priorizar profundidad operativa y deduplicación, no cantidad por sí misma.
+
+### Próxima tanda sugerida
+
+Prompt 17.3 debería validar usabilidad de esta tanda con creación de dominios y, si no hay regresiones, preparar la Tanda 2: automatización avanzada, operaciones digitales, datos aplicados y crecimiento por canal, manteniendo la regla PASSED.

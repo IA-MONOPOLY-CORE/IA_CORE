@@ -938,5 +938,2721 @@
     "instrucciones_sugeridas": "Todos los agentes de este dominio deben priorizar continuidad, costos, tiempos, coordinación interviniente y alertas operativas.",
     "activo": true,
     "orden": 3
+  },
+  {
+    "id": "ventas_consultivas",
+    "area_id": "comercial_ventas_negocios",
+    "nombre": "Ventas consultivas",
+    "nombre_dominio_sugerido": "Comercial — Ventas Consultivas",
+    "descripcion_sugerida": "Dominio orientado a vender soluciones complejas mediante diagnóstico, confianza, preguntas, propuesta de valor y seguimiento.",
+    "instrucciones_sugeridas": "Todos los agentes deben priorizar necesidad real, contexto del comprador, objeciones, valor económico y próximos pasos claros.",
+    "activo": true,
+    "orden": 6,
+    "status": "active",
+    "tags": [
+      "ventas",
+      "consultiva",
+      "b2b"
+    ],
+    "typical_needs": [
+      "Diagnóstico inicial del dominio",
+      "Priorización de acciones operativas",
+      "Definición de métricas y criterios de seguimiento"
+    ],
+    "expected_profile_types": [
+      "sales_consultant",
+      "account_executive",
+      "estratega_comercial"
+    ],
+    "likely_professional_profiles": [
+      "sales_consultant",
+      "account_executive",
+      "estratega_comercial"
+    ],
+    "required_capabilities": [
+      "diagnóstico comercial",
+      "manejo de objeciones",
+      "diseño de propuesta",
+      "diagnóstico estructurado",
+      "priorización accionable"
+    ],
+    "possible_team_templates": [
+      "equipo_ventas_consultivas",
+      "equipo_diagnostico_operativo"
+    ],
+    "model_policy_need": "auto",
+    "complexity": "medium",
+    "operational_priority": "high",
+    "compatible_business_scales": [
+      "freelancer",
+      "pyme",
+      "company",
+      "enterprise"
+    ],
+    "activation_requirements": [
+      "Definir perfiles profesionales globales compatibles",
+      "Crear preset_seed y paper_seed antes de uso como agente operativo",
+      "Asignar política de modelo o recomendación dinámica"
+    ],
+    "operationalization_contract": {
+      "needs_professional_profiles": true,
+      "needs_presets": true,
+      "needs_paper_seed": true,
+      "needs_model_policy": true,
+      "can_create_agent_when": "Existen perfiles profesionales PASSED con preset_seed, paper_seed y política de modelo para este nicho.",
+      "can_join_team_when": "Existe una plantilla de equipo PASSED que incluya perfiles compatibles con este nicho.",
+      "blocked_by": [
+        "Perfiles profesionales globales pendientes de Prompt 18"
+      ]
+    },
+    "notes": "Nicho PASSED de la primera tanda 17.2; entra como catálogo operativo de dominio, no como perfil/preset/agente todavía."
+  },
+  {
+    "id": "revenue_operations",
+    "area_id": "comercial_ventas_negocios",
+    "nombre": "Revenue operations",
+    "nombre_dominio_sugerido": "Comercial — Revenue Operations",
+    "descripcion_sugerida": "Dominio orientado a alinear marketing, ventas y customer success mediante procesos, datos, CRM y métricas de ingresos.",
+    "instrucciones_sugeridas": "Todos los agentes deben priorizar calidad de datos, handoffs, SLA internos, forecast y consistencia del pipeline.",
+    "activo": true,
+    "orden": 7,
+    "status": "active",
+    "tags": [
+      "revops",
+      "crm",
+      "ingresos"
+    ],
+    "typical_needs": [
+      "Diagnóstico inicial del dominio",
+      "Priorización de acciones operativas",
+      "Definición de métricas y criterios de seguimiento"
+    ],
+    "expected_profile_types": [
+      "revops_analyst",
+      "sales_ops_analyst",
+      "customer_success_ops"
+    ],
+    "likely_professional_profiles": [
+      "revops_analyst",
+      "sales_ops_analyst",
+      "customer_success_ops"
+    ],
+    "required_capabilities": [
+      "diseño de procesos revenue",
+      "gobierno de CRM",
+      "análisis de pipeline",
+      "diagnóstico estructurado",
+      "priorización accionable"
+    ],
+    "possible_team_templates": [
+      "equipo_revops",
+      "equipo_diagnostico_operativo"
+    ],
+    "model_policy_need": "auto",
+    "complexity": "high",
+    "operational_priority": "critical",
+    "compatible_business_scales": [
+      "pyme",
+      "company",
+      "enterprise"
+    ],
+    "activation_requirements": [
+      "Definir perfiles profesionales globales compatibles",
+      "Crear preset_seed y paper_seed antes de uso como agente operativo",
+      "Asignar política de modelo o recomendación dinámica"
+    ],
+    "operationalization_contract": {
+      "needs_professional_profiles": true,
+      "needs_presets": true,
+      "needs_paper_seed": true,
+      "needs_model_policy": true,
+      "can_create_agent_when": "Existen perfiles profesionales PASSED con preset_seed, paper_seed y política de modelo para este nicho.",
+      "can_join_team_when": "Existe una plantilla de equipo PASSED que incluya perfiles compatibles con este nicho.",
+      "blocked_by": [
+        "Perfiles profesionales globales pendientes de Prompt 18"
+      ]
+    },
+    "notes": "Nicho PASSED de la primera tanda 17.2; entra como catálogo operativo de dominio, no como perfil/preset/agente todavía."
+  },
+  {
+    "id": "crm_comercial",
+    "area_id": "comercial_ventas_negocios",
+    "nombre": "CRM comercial",
+    "nombre_dominio_sugerido": "Comercial — CRM Comercial",
+    "descripcion_sugerida": "Dominio orientado a ordenar pipeline, etapas, actividades, calidad de carga y seguimiento de oportunidades comerciales.",
+    "instrucciones_sugeridas": "Todos los agentes deben cuidar definición de etapas, datos mínimos, disciplina de seguimiento y alertas accionables.",
+    "activo": true,
+    "orden": 8,
+    "status": "active",
+    "tags": [
+      "crm",
+      "pipeline",
+      "ventas"
+    ],
+    "typical_needs": [
+      "Diagnóstico inicial del dominio",
+      "Priorización de acciones operativas",
+      "Definición de métricas y criterios de seguimiento"
+    ],
+    "expected_profile_types": [
+      "sales_ops_analyst",
+      "account_executive",
+      "coordinador_comercial"
+    ],
+    "likely_professional_profiles": [
+      "sales_ops_analyst",
+      "account_executive",
+      "coordinador_comercial"
+    ],
+    "required_capabilities": [
+      "gestión de pipeline",
+      "higiene de CRM",
+      "seguimiento comercial",
+      "diagnóstico estructurado",
+      "priorización accionable"
+    ],
+    "possible_team_templates": [
+      "equipo_crm_comercial",
+      "equipo_diagnostico_operativo"
+    ],
+    "model_policy_need": "auto",
+    "complexity": "medium",
+    "operational_priority": "high",
+    "compatible_business_scales": [
+      "local_business",
+      "pyme",
+      "company"
+    ],
+    "activation_requirements": [
+      "Definir perfiles profesionales globales compatibles",
+      "Crear preset_seed y paper_seed antes de uso como agente operativo",
+      "Asignar política de modelo o recomendación dinámica"
+    ],
+    "operationalization_contract": {
+      "needs_professional_profiles": true,
+      "needs_presets": true,
+      "needs_paper_seed": true,
+      "needs_model_policy": true,
+      "can_create_agent_when": "Existen perfiles profesionales PASSED con preset_seed, paper_seed y política de modelo para este nicho.",
+      "can_join_team_when": "Existe una plantilla de equipo PASSED que incluya perfiles compatibles con este nicho.",
+      "blocked_by": [
+        "Perfiles profesionales globales pendientes de Prompt 18"
+      ]
+    },
+    "notes": "Nicho PASSED de la primera tanda 17.2; entra como catálogo operativo de dominio, no como perfil/preset/agente todavía."
+  },
+  {
+    "id": "flujo_caja_pyme",
+    "area_id": "administracion_contabilidad_finanzas",
+    "nombre": "Flujo de caja para pymes",
+    "nombre_dominio_sugerido": "Administración y Finanzas — Flujo de Caja Pyme",
+    "descripcion_sugerida": "Dominio orientado a proyectar ingresos, egresos, vencimientos y tensiones de liquidez en pequeñas y medianas empresas.",
+    "instrucciones_sugeridas": "Todos los agentes deben priorizar vencimientos, escenarios prudentes, brechas de caja y acciones concretas de anticipación.",
+    "activo": true,
+    "orden": 6,
+    "status": "active",
+    "tags": [
+      "cashflow",
+      "pyme",
+      "finanzas"
+    ],
+    "typical_needs": [
+      "Diagnóstico inicial del dominio",
+      "Priorización de acciones operativas",
+      "Definición de métricas y criterios de seguimiento"
+    ],
+    "expected_profile_types": [
+      "analista_financiero",
+      "controller",
+      "tesorero"
+    ],
+    "likely_professional_profiles": [
+      "analista_financiero",
+      "controller",
+      "tesorero"
+    ],
+    "required_capabilities": [
+      "proyección de caja",
+      "análisis de vencimientos",
+      "escenarios financieros",
+      "diagnóstico estructurado",
+      "priorización accionable"
+    ],
+    "possible_team_templates": [
+      "equipo_finanzas_pyme",
+      "equipo_diagnostico_operativo"
+    ],
+    "model_policy_need": "auto",
+    "complexity": "medium",
+    "operational_priority": "critical",
+    "compatible_business_scales": [
+      "pyme",
+      "company"
+    ],
+    "activation_requirements": [
+      "Definir perfiles profesionales globales compatibles",
+      "Crear preset_seed y paper_seed antes de uso como agente operativo",
+      "Asignar política de modelo o recomendación dinámica"
+    ],
+    "operationalization_contract": {
+      "needs_professional_profiles": true,
+      "needs_presets": true,
+      "needs_paper_seed": true,
+      "needs_model_policy": true,
+      "can_create_agent_when": "Existen perfiles profesionales PASSED con preset_seed, paper_seed y política de modelo para este nicho.",
+      "can_join_team_when": "Existe una plantilla de equipo PASSED que incluya perfiles compatibles con este nicho.",
+      "blocked_by": [
+        "Perfiles profesionales globales pendientes de Prompt 18"
+      ]
+    },
+    "notes": "Nicho PASSED de la primera tanda 17.2; entra como catálogo operativo de dominio, no como perfil/preset/agente todavía."
+  },
+  {
+    "id": "control_gastos",
+    "area_id": "administracion_contabilidad_finanzas",
+    "nombre": "Control de gastos",
+    "nombre_dominio_sugerido": "Administración y Finanzas — Control de Gastos",
+    "descripcion_sugerida": "Dominio orientado a clasificar gastos, detectar desvíos, oportunidades de ahorro y reglas de aprobación.",
+    "instrucciones_sugeridas": "Todos los agentes deben distinguir gasto necesario, gasto negociable y fuga operativa; proponer controles simples.",
+    "activo": true,
+    "orden": 7,
+    "status": "active",
+    "tags": [
+      "gastos",
+      "control",
+      "finanzas"
+    ],
+    "typical_needs": [
+      "Diagnóstico inicial del dominio",
+      "Priorización de acciones operativas",
+      "Definición de métricas y criterios de seguimiento"
+    ],
+    "expected_profile_types": [
+      "controller",
+      "analista_financiero",
+      "auditor"
+    ],
+    "likely_professional_profiles": [
+      "controller",
+      "analista_financiero",
+      "auditor"
+    ],
+    "required_capabilities": [
+      "clasificación de gastos",
+      "análisis de desvíos",
+      "diseño de controles",
+      "diagnóstico estructurado",
+      "priorización accionable"
+    ],
+    "possible_team_templates": [
+      "equipo_control_gastos",
+      "equipo_diagnostico_operativo"
+    ],
+    "model_policy_need": "auto",
+    "complexity": "low",
+    "operational_priority": "high",
+    "compatible_business_scales": [
+      "micro",
+      "local_business",
+      "freelancer",
+      "pyme",
+      "company",
+      "enterprise"
+    ],
+    "activation_requirements": [
+      "Definir perfiles profesionales globales compatibles",
+      "Crear preset_seed y paper_seed antes de uso como agente operativo",
+      "Asignar política de modelo o recomendación dinámica"
+    ],
+    "operationalization_contract": {
+      "needs_professional_profiles": true,
+      "needs_presets": true,
+      "needs_paper_seed": true,
+      "needs_model_policy": true,
+      "can_create_agent_when": "Existen perfiles profesionales PASSED con preset_seed, paper_seed y política de modelo para este nicho.",
+      "can_join_team_when": "Existe una plantilla de equipo PASSED que incluya perfiles compatibles con este nicho.",
+      "blocked_by": [
+        "Perfiles profesionales globales pendientes de Prompt 18"
+      ]
+    },
+    "notes": "Nicho PASSED de la primera tanda 17.2; entra como catálogo operativo de dominio, no como perfil/preset/agente todavía."
+  },
+  {
+    "id": "rentabilidad_producto",
+    "area_id": "administracion_contabilidad_finanzas",
+    "nombre": "Rentabilidad por producto",
+    "nombre_dominio_sugerido": "Administración y Finanzas — Rentabilidad por Producto",
+    "descripcion_sugerida": "Dominio orientado a estimar margen, costos directos/indirectos, contribución y decisiones de cartera de productos.",
+    "instrucciones_sugeridas": "Todos los agentes deben explicitar supuestos de costo, unidad económica, margen y sensibilidad antes de recomendar cambios.",
+    "activo": true,
+    "orden": 8,
+    "status": "active",
+    "tags": [
+      "rentabilidad",
+      "producto",
+      "margen"
+    ],
+    "typical_needs": [
+      "Diagnóstico inicial del dominio",
+      "Priorización de acciones operativas",
+      "Definición de métricas y criterios de seguimiento"
+    ],
+    "expected_profile_types": [
+      "analista_financiero",
+      "product_manager",
+      "controller"
+    ],
+    "likely_professional_profiles": [
+      "analista_financiero",
+      "product_manager",
+      "controller"
+    ],
+    "required_capabilities": [
+      "análisis de margen",
+      "costeo por producto",
+      "modelado de sensibilidad",
+      "diagnóstico estructurado",
+      "priorización accionable"
+    ],
+    "possible_team_templates": [
+      "equipo_rentabilidad_producto",
+      "equipo_diagnostico_operativo"
+    ],
+    "model_policy_need": "auto",
+    "complexity": "medium",
+    "operational_priority": "high",
+    "compatible_business_scales": [
+      "local_business",
+      "pyme",
+      "company"
+    ],
+    "activation_requirements": [
+      "Definir perfiles profesionales globales compatibles",
+      "Crear preset_seed y paper_seed antes de uso como agente operativo",
+      "Asignar política de modelo o recomendación dinámica"
+    ],
+    "operationalization_contract": {
+      "needs_professional_profiles": true,
+      "needs_presets": true,
+      "needs_paper_seed": true,
+      "needs_model_policy": true,
+      "can_create_agent_when": "Existen perfiles profesionales PASSED con preset_seed, paper_seed y política de modelo para este nicho.",
+      "can_join_team_when": "Existe una plantilla de equipo PASSED que incluya perfiles compatibles con este nicho.",
+      "blocked_by": [
+        "Perfiles profesionales globales pendientes de Prompt 18"
+      ]
+    },
+    "notes": "Nicho PASSED de la primera tanda 17.2; entra como catálogo operativo de dominio, no como perfil/preset/agente todavía."
+  },
+  {
+    "id": "punto_equilibrio",
+    "area_id": "administracion_contabilidad_finanzas",
+    "nombre": "Análisis de punto de equilibrio",
+    "nombre_dominio_sugerido": "Administración y Finanzas — Punto de Equilibrio",
+    "descripcion_sugerida": "Dominio orientado a calcular ventas mínimas, estructura de costos, margen de contribución y escenarios de equilibrio.",
+    "instrucciones_sugeridas": "Todos los agentes deben separar costos fijos/variables, validar supuestos y comunicar umbrales de manera simple.",
+    "activo": true,
+    "orden": 9,
+    "status": "active",
+    "tags": [
+      "breakeven",
+      "costos",
+      "finanzas"
+    ],
+    "typical_needs": [
+      "Diagnóstico inicial del dominio",
+      "Priorización de acciones operativas",
+      "Definición de métricas y criterios de seguimiento"
+    ],
+    "expected_profile_types": [
+      "analista_financiero",
+      "controller",
+      "estratega_negocio"
+    ],
+    "likely_professional_profiles": [
+      "analista_financiero",
+      "controller",
+      "estratega_negocio"
+    ],
+    "required_capabilities": [
+      "modelado financiero básico",
+      "análisis de costos",
+      "escenarios de ventas",
+      "diagnóstico estructurado",
+      "priorización accionable"
+    ],
+    "possible_team_templates": [
+      "equipo_planificacion_financiera",
+      "equipo_diagnostico_operativo"
+    ],
+    "model_policy_need": "local_ok",
+    "complexity": "low",
+    "operational_priority": "high",
+    "compatible_business_scales": [
+      "micro",
+      "local_business",
+      "pyme"
+    ],
+    "activation_requirements": [
+      "Definir perfiles profesionales globales compatibles",
+      "Crear preset_seed y paper_seed antes de uso como agente operativo",
+      "Asignar política de modelo o recomendación dinámica"
+    ],
+    "operationalization_contract": {
+      "needs_professional_profiles": true,
+      "needs_presets": true,
+      "needs_paper_seed": true,
+      "needs_model_policy": true,
+      "can_create_agent_when": "Existen perfiles profesionales PASSED con preset_seed, paper_seed y política de modelo para este nicho.",
+      "can_join_team_when": "Existe una plantilla de equipo PASSED que incluya perfiles compatibles con este nicho.",
+      "blocked_by": [
+        "Perfiles profesionales globales pendientes de Prompt 18"
+      ]
+    },
+    "notes": "Nicho PASSED de la primera tanda 17.2; entra como catálogo operativo de dominio, no como perfil/preset/agente todavía."
+  },
+  {
+    "id": "devops_basico_pymes",
+    "area_id": "tecnologia_sistemas_telecomunicaciones",
+    "nombre": "DevOps básico para pymes",
+    "nombre_dominio_sugerido": "Tecnología — DevOps Básico para Pymes",
+    "descripcion_sugerida": "Dominio orientado a ordenar despliegues, backups, entornos, monitoreo mínimo y continuidad técnica en equipos pequeños.",
+    "instrucciones_sugeridas": "Todos los agentes deben priorizar simplicidad, reversibilidad, documentación y reducción de riesgo operativo.",
+    "activo": true,
+    "orden": 6,
+    "status": "active",
+    "tags": [
+      "devops",
+      "pymes",
+      "operaciones_tecnicas"
+    ],
+    "typical_needs": [
+      "Diagnóstico inicial del dominio",
+      "Priorización de acciones operativas",
+      "Definición de métricas y criterios de seguimiento"
+    ],
+    "expected_profile_types": [
+      "devops_engineer",
+      "technical_lead",
+      "soporte_it"
+    ],
+    "likely_professional_profiles": [
+      "devops_engineer",
+      "technical_lead",
+      "soporte_it"
+    ],
+    "required_capabilities": [
+      "gestión de despliegues",
+      "monitoreo básico",
+      "backup y recuperación",
+      "diagnóstico estructurado",
+      "priorización accionable"
+    ],
+    "possible_team_templates": [
+      "equipo_devops_pyme",
+      "equipo_diagnostico_operativo"
+    ],
+    "model_policy_need": "cloud_preferred",
+    "complexity": "medium",
+    "operational_priority": "high",
+    "compatible_business_scales": [
+      "pyme",
+      "company"
+    ],
+    "activation_requirements": [
+      "Definir perfiles profesionales globales compatibles",
+      "Crear preset_seed y paper_seed antes de uso como agente operativo",
+      "Asignar política de modelo o recomendación dinámica"
+    ],
+    "operationalization_contract": {
+      "needs_professional_profiles": true,
+      "needs_presets": true,
+      "needs_paper_seed": true,
+      "needs_model_policy": true,
+      "can_create_agent_when": "Existen perfiles profesionales PASSED con preset_seed, paper_seed y política de modelo para este nicho.",
+      "can_join_team_when": "Existe una plantilla de equipo PASSED que incluya perfiles compatibles con este nicho.",
+      "blocked_by": [
+        "Perfiles profesionales globales pendientes de Prompt 18"
+      ]
+    },
+    "notes": "Nicho PASSED de la primera tanda 17.2; entra como catálogo operativo de dominio, no como perfil/preset/agente todavía."
+  },
+  {
+    "id": "seguridad_operativa_basica",
+    "area_id": "tecnologia_sistemas_telecomunicaciones",
+    "nombre": "Seguridad operativa básica",
+    "nombre_dominio_sugerido": "Tecnología — Seguridad Operativa Básica",
+    "descripcion_sugerida": "Dominio orientado a ordenar accesos, contraseñas, backups, permisos, dispositivos y hábitos mínimos de seguridad.",
+    "instrucciones_sugeridas": "Todos los agentes deben priorizar controles simples, riesgo real, educación operativa y trazabilidad de accesos.",
+    "activo": true,
+    "orden": 7,
+    "status": "active",
+    "tags": [
+      "seguridad",
+      "operaciones",
+      "it"
+    ],
+    "typical_needs": [
+      "Diagnóstico inicial del dominio",
+      "Priorización de acciones operativas",
+      "Definición de métricas y criterios de seguimiento"
+    ],
+    "expected_profile_types": [
+      "security_analyst",
+      "soporte_it",
+      "auditor"
+    ],
+    "likely_professional_profiles": [
+      "security_analyst",
+      "soporte_it",
+      "auditor"
+    ],
+    "required_capabilities": [
+      "gestión de accesos",
+      "evaluación de riesgos básicos",
+      "diseño de controles",
+      "diagnóstico estructurado",
+      "priorización accionable"
+    ],
+    "possible_team_templates": [
+      "equipo_seguridad_operativa",
+      "equipo_diagnostico_operativo"
+    ],
+    "model_policy_need": "auto",
+    "complexity": "medium",
+    "operational_priority": "critical",
+    "compatible_business_scales": [
+      "micro",
+      "local_business",
+      "freelancer",
+      "pyme",
+      "company",
+      "enterprise"
+    ],
+    "activation_requirements": [
+      "Definir perfiles profesionales globales compatibles",
+      "Crear preset_seed y paper_seed antes de uso como agente operativo",
+      "Asignar política de modelo o recomendación dinámica"
+    ],
+    "operationalization_contract": {
+      "needs_professional_profiles": true,
+      "needs_presets": true,
+      "needs_paper_seed": true,
+      "needs_model_policy": true,
+      "can_create_agent_when": "Existen perfiles profesionales PASSED con preset_seed, paper_seed y política de modelo para este nicho.",
+      "can_join_team_when": "Existe una plantilla de equipo PASSED que incluya perfiles compatibles con este nicho.",
+      "blocked_by": [
+        "Perfiles profesionales globales pendientes de Prompt 18"
+      ]
+    },
+    "notes": "Nicho PASSED de la primera tanda 17.2; entra como catálogo operativo de dominio, no como perfil/preset/agente todavía."
+  },
+  {
+    "id": "soporte_tecnico_operativo",
+    "area_id": "tecnologia_sistemas_telecomunicaciones",
+    "nombre": "Soporte técnico operativo",
+    "nombre_dominio_sugerido": "Tecnología — Soporte Técnico Operativo",
+    "descripcion_sugerida": "Dominio orientado a organizar tickets, incidentes, documentación, prioridades y resolución recurrente de problemas técnicos.",
+    "instrucciones_sugeridas": "Todos los agentes deben distinguir incidente, requerimiento y problema recurrente; documentar causas y acciones preventivas.",
+    "activo": true,
+    "orden": 8,
+    "status": "active",
+    "tags": [
+      "soporte",
+      "tickets",
+      "it"
+    ],
+    "typical_needs": [
+      "Diagnóstico inicial del dominio",
+      "Priorización de acciones operativas",
+      "Definición de métricas y criterios de seguimiento"
+    ],
+    "expected_profile_types": [
+      "service_desk_analyst",
+      "soporte_it",
+      "coordinador_tecnico"
+    ],
+    "likely_professional_profiles": [
+      "service_desk_analyst",
+      "soporte_it",
+      "coordinador_tecnico"
+    ],
+    "required_capabilities": [
+      "triage técnico",
+      "gestión de tickets",
+      "documentación de soluciones",
+      "diagnóstico estructurado",
+      "priorización accionable"
+    ],
+    "possible_team_templates": [
+      "equipo_soporte_it",
+      "equipo_diagnostico_operativo"
+    ],
+    "model_policy_need": "local_ok",
+    "complexity": "low",
+    "operational_priority": "high",
+    "compatible_business_scales": [
+      "micro",
+      "local_business",
+      "freelancer",
+      "pyme",
+      "company",
+      "enterprise"
+    ],
+    "activation_requirements": [
+      "Definir perfiles profesionales globales compatibles",
+      "Crear preset_seed y paper_seed antes de uso como agente operativo",
+      "Asignar política de modelo o recomendación dinámica"
+    ],
+    "operationalization_contract": {
+      "needs_professional_profiles": true,
+      "needs_presets": true,
+      "needs_paper_seed": true,
+      "needs_model_policy": true,
+      "can_create_agent_when": "Existen perfiles profesionales PASSED con preset_seed, paper_seed y política de modelo para este nicho.",
+      "can_join_team_when": "Existe una plantilla de equipo PASSED que incluya perfiles compatibles con este nicho.",
+      "blocked_by": [
+        "Perfiles profesionales globales pendientes de Prompt 18"
+      ]
+    },
+    "notes": "Nicho PASSED de la primera tanda 17.2; entra como catálogo operativo de dominio, no como perfil/preset/agente todavía."
+  },
+  {
+    "id": "calidad_software_qa",
+    "area_id": "tecnologia_sistemas_telecomunicaciones",
+    "nombre": "Calidad de software y QA",
+    "nombre_dominio_sugerido": "Tecnología — Calidad de Software y QA",
+    "descripcion_sugerida": "Dominio orientado a diseñar pruebas, detectar defectos, documentar criterios de aceptación y reducir regresiones.",
+    "instrucciones_sugeridas": "Todos los agentes deben priorizar reproducibilidad, impacto del defecto, cobertura crítica y comunicación clara con desarrollo/producto.",
+    "activo": true,
+    "orden": 9,
+    "status": "active",
+    "tags": [
+      "qa",
+      "software",
+      "testing"
+    ],
+    "typical_needs": [
+      "Diagnóstico inicial del dominio",
+      "Priorización de acciones operativas",
+      "Definición de métricas y criterios de seguimiento"
+    ],
+    "expected_profile_types": [
+      "qa_analyst",
+      "developer",
+      "product_manager"
+    ],
+    "likely_professional_profiles": [
+      "qa_analyst",
+      "developer",
+      "product_manager"
+    ],
+    "required_capabilities": [
+      "diseño de casos de prueba",
+      "reporte de bugs",
+      "criterios de aceptación",
+      "diagnóstico estructurado",
+      "priorización accionable"
+    ],
+    "possible_team_templates": [
+      "equipo_calidad_software",
+      "equipo_diagnostico_operativo"
+    ],
+    "model_policy_need": "auto",
+    "complexity": "medium",
+    "operational_priority": "high",
+    "compatible_business_scales": [
+      "pyme",
+      "company",
+      "enterprise"
+    ],
+    "activation_requirements": [
+      "Definir perfiles profesionales globales compatibles",
+      "Crear preset_seed y paper_seed antes de uso como agente operativo",
+      "Asignar política de modelo o recomendación dinámica"
+    ],
+    "operationalization_contract": {
+      "needs_professional_profiles": true,
+      "needs_presets": true,
+      "needs_paper_seed": true,
+      "needs_model_policy": true,
+      "can_create_agent_when": "Existen perfiles profesionales PASSED con preset_seed, paper_seed y política de modelo para este nicho.",
+      "can_join_team_when": "Existe una plantilla de equipo PASSED que incluya perfiles compatibles con este nicho.",
+      "blocked_by": [
+        "Perfiles profesionales globales pendientes de Prompt 18"
+      ]
+    },
+    "notes": "Nicho PASSED de la primera tanda 17.2; entra como catálogo operativo de dominio, no como perfil/preset/agente todavía."
+  },
+  {
+    "id": "onboarding_empleados",
+    "area_id": "recursos_humanos_capacitacion",
+    "nombre": "Onboarding de empleados",
+    "nombre_dominio_sugerido": "Recursos Humanos — Onboarding de Empleados",
+    "descripcion_sugerida": "Dominio orientado a estructurar ingreso, capacitación inicial, expectativas, recursos y seguimiento de nuevos colaboradores.",
+    "instrucciones_sugeridas": "Todos los agentes deben priorizar claridad de rol, tiempos de aprendizaje, responsables y señales tempranas de adaptación.",
+    "activo": true,
+    "orden": 4,
+    "status": "active",
+    "tags": [
+      "onboarding",
+      "rrhh",
+      "empleados"
+    ],
+    "typical_needs": [
+      "Diagnóstico inicial del dominio",
+      "Priorización de acciones operativas",
+      "Definición de métricas y criterios de seguimiento"
+    ],
+    "expected_profile_types": [
+      "hr_business_partner",
+      "capacitador",
+      "coordinador_equipo"
+    ],
+    "likely_professional_profiles": [
+      "hr_business_partner",
+      "capacitador",
+      "coordinador_equipo"
+    ],
+    "required_capabilities": [
+      "diseño de onboarding",
+      "gestión de roles",
+      "seguimiento de aprendizaje",
+      "diagnóstico estructurado",
+      "priorización accionable"
+    ],
+    "possible_team_templates": [
+      "equipo_onboarding_interno",
+      "equipo_diagnostico_operativo"
+    ],
+    "model_policy_need": "local_ok",
+    "complexity": "low",
+    "operational_priority": "high",
+    "compatible_business_scales": [
+      "micro",
+      "local_business",
+      "freelancer",
+      "pyme",
+      "company",
+      "enterprise"
+    ],
+    "activation_requirements": [
+      "Definir perfiles profesionales globales compatibles",
+      "Crear preset_seed y paper_seed antes de uso como agente operativo",
+      "Asignar política de modelo o recomendación dinámica"
+    ],
+    "operationalization_contract": {
+      "needs_professional_profiles": true,
+      "needs_presets": true,
+      "needs_paper_seed": true,
+      "needs_model_policy": true,
+      "can_create_agent_when": "Existen perfiles profesionales PASSED con preset_seed, paper_seed y política de modelo para este nicho.",
+      "can_join_team_when": "Existe una plantilla de equipo PASSED que incluya perfiles compatibles con este nicho.",
+      "blocked_by": [
+        "Perfiles profesionales globales pendientes de Prompt 18"
+      ]
+    },
+    "notes": "Nicho PASSED de la primera tanda 17.2; entra como catálogo operativo de dominio, no como perfil/preset/agente todavía."
+  },
+  {
+    "id": "evaluacion_desempeno",
+    "area_id": "recursos_humanos_capacitacion",
+    "nombre": "Evaluación de desempeño",
+    "nombre_dominio_sugerido": "Recursos Humanos — Evaluación de Desempeño",
+    "descripcion_sugerida": "Dominio orientado a definir criterios, conversaciones, evidencias, feedback y planes de mejora de desempeño.",
+    "instrucciones_sugeridas": "Todos los agentes deben cuidar justicia, claridad, evidencia observable y acciones de desarrollo concretas.",
+    "activo": true,
+    "orden": 5,
+    "status": "active",
+    "tags": [
+      "desempeno",
+      "feedback",
+      "rrhh"
+    ],
+    "typical_needs": [
+      "Diagnóstico inicial del dominio",
+      "Priorización de acciones operativas",
+      "Definición de métricas y criterios de seguimiento"
+    ],
+    "expected_profile_types": [
+      "hr_business_partner",
+      "lider_equipo",
+      "analista_rrhh"
+    ],
+    "likely_professional_profiles": [
+      "hr_business_partner",
+      "lider_equipo",
+      "analista_rrhh"
+    ],
+    "required_capabilities": [
+      "diseño de criterios",
+      "feedback estructurado",
+      "planes de mejora",
+      "diagnóstico estructurado",
+      "priorización accionable"
+    ],
+    "possible_team_templates": [
+      "equipo_desempeno_rrhh",
+      "equipo_diagnostico_operativo"
+    ],
+    "model_policy_need": "auto",
+    "complexity": "medium",
+    "operational_priority": "high",
+    "compatible_business_scales": [
+      "pyme",
+      "company",
+      "enterprise"
+    ],
+    "activation_requirements": [
+      "Definir perfiles profesionales globales compatibles",
+      "Crear preset_seed y paper_seed antes de uso como agente operativo",
+      "Asignar política de modelo o recomendación dinámica"
+    ],
+    "operationalization_contract": {
+      "needs_professional_profiles": true,
+      "needs_presets": true,
+      "needs_paper_seed": true,
+      "needs_model_policy": true,
+      "can_create_agent_when": "Existen perfiles profesionales PASSED con preset_seed, paper_seed y política de modelo para este nicho.",
+      "can_join_team_when": "Existe una plantilla de equipo PASSED que incluya perfiles compatibles con este nicho.",
+      "blocked_by": [
+        "Perfiles profesionales globales pendientes de Prompt 18"
+      ]
+    },
+    "notes": "Nicho PASSED de la primera tanda 17.2; entra como catálogo operativo de dominio, no como perfil/preset/agente todavía."
+  },
+  {
+    "id": "diseno_roles_internos",
+    "area_id": "recursos_humanos_capacitacion",
+    "nombre": "Diseño de roles internos",
+    "nombre_dominio_sugerido": "Recursos Humanos — Diseño de Roles Internos",
+    "descripcion_sugerida": "Dominio orientado a clarificar responsabilidades, perfiles, interfaces, seniority y expectativas de puestos internos.",
+    "instrucciones_sugeridas": "Todos los agentes deben evitar ambigüedad, solapamientos críticos y roles imposibles; documentar responsabilidades medibles.",
+    "activo": true,
+    "orden": 6,
+    "status": "active",
+    "tags": [
+      "roles",
+      "organizacion",
+      "rrhh"
+    ],
+    "typical_needs": [
+      "Diagnóstico inicial del dominio",
+      "Priorización de acciones operativas",
+      "Definición de métricas y criterios de seguimiento"
+    ],
+    "expected_profile_types": [
+      "hr_business_partner",
+      "organization_designer",
+      "lider_equipo"
+    ],
+    "likely_professional_profiles": [
+      "hr_business_partner",
+      "organization_designer",
+      "lider_equipo"
+    ],
+    "required_capabilities": [
+      "diseño organizacional",
+      "definición de responsabilidades",
+      "mapeo de interfaces",
+      "diagnóstico estructurado",
+      "priorización accionable"
+    ],
+    "possible_team_templates": [
+      "equipo_diseno_organizacional",
+      "equipo_diagnostico_operativo"
+    ],
+    "model_policy_need": "auto",
+    "complexity": "medium",
+    "operational_priority": "high",
+    "compatible_business_scales": [
+      "pyme",
+      "company",
+      "enterprise"
+    ],
+    "activation_requirements": [
+      "Definir perfiles profesionales globales compatibles",
+      "Crear preset_seed y paper_seed antes de uso como agente operativo",
+      "Asignar política de modelo o recomendación dinámica"
+    ],
+    "operationalization_contract": {
+      "needs_professional_profiles": true,
+      "needs_presets": true,
+      "needs_paper_seed": true,
+      "needs_model_policy": true,
+      "can_create_agent_when": "Existen perfiles profesionales PASSED con preset_seed, paper_seed y política de modelo para este nicho.",
+      "can_join_team_when": "Existe una plantilla de equipo PASSED que incluya perfiles compatibles con este nicho.",
+      "blocked_by": [
+        "Perfiles profesionales globales pendientes de Prompt 18"
+      ]
+    },
+    "notes": "Nicho PASSED de la primera tanda 17.2; entra como catálogo operativo de dominio, no como perfil/preset/agente todavía."
+  },
+  {
+    "id": "growth_marketing",
+    "area_id": "marketing_publicidad",
+    "nombre": "Growth marketing",
+    "nombre_dominio_sugerido": "Marketing — Growth Marketing",
+    "descripcion_sugerida": "Dominio orientado a experimentos de crecimiento, adquisición, activación, retención y aprendizaje rápido sobre canales.",
+    "instrucciones_sugeridas": "Todos los agentes deben priorizar hipótesis, medición, velocidad de aprendizaje y cuidado de marca.",
+    "activo": true,
+    "orden": 6,
+    "status": "active",
+    "tags": [
+      "growth",
+      "marketing",
+      "experimentos"
+    ],
+    "typical_needs": [
+      "Diagnóstico inicial del dominio",
+      "Priorización de acciones operativas",
+      "Definición de métricas y criterios de seguimiento"
+    ],
+    "expected_profile_types": [
+      "growth_marketer",
+      "analista_marketing",
+      "product_manager"
+    ],
+    "likely_professional_profiles": [
+      "growth_marketer",
+      "analista_marketing",
+      "product_manager"
+    ],
+    "required_capabilities": [
+      "diseño de experimentos",
+      "análisis de funnel",
+      "priorización de canales",
+      "diagnóstico estructurado",
+      "priorización accionable"
+    ],
+    "possible_team_templates": [
+      "equipo_growth",
+      "equipo_diagnostico_operativo"
+    ],
+    "model_policy_need": "auto",
+    "complexity": "medium",
+    "operational_priority": "high",
+    "compatible_business_scales": [
+      "freelancer",
+      "pyme",
+      "company",
+      "enterprise"
+    ],
+    "activation_requirements": [
+      "Definir perfiles profesionales globales compatibles",
+      "Crear preset_seed y paper_seed antes de uso como agente operativo",
+      "Asignar política de modelo o recomendación dinámica"
+    ],
+    "operationalization_contract": {
+      "needs_professional_profiles": true,
+      "needs_presets": true,
+      "needs_paper_seed": true,
+      "needs_model_policy": true,
+      "can_create_agent_when": "Existen perfiles profesionales PASSED con preset_seed, paper_seed y política de modelo para este nicho.",
+      "can_join_team_when": "Existe una plantilla de equipo PASSED que incluya perfiles compatibles con este nicho.",
+      "blocked_by": [
+        "Perfiles profesionales globales pendientes de Prompt 18"
+      ]
+    },
+    "notes": "Nicho PASSED de la primera tanda 17.2; entra como catálogo operativo de dominio, no como perfil/preset/agente todavía."
+  },
+  {
+    "id": "estrategia_contenidos",
+    "area_id": "marketing_publicidad",
+    "nombre": "Estrategia de contenidos",
+    "nombre_dominio_sugerido": "Marketing — Estrategia de Contenidos",
+    "descripcion_sugerida": "Dominio orientado a planificar contenidos por audiencia, canal, intención, etapa del funnel y objetivos de negocio.",
+    "instrucciones_sugeridas": "Todos los agentes deben cuidar consistencia de voz, relevancia, calendario editorial y medición de impacto.",
+    "activo": true,
+    "orden": 7,
+    "status": "active",
+    "tags": [
+      "contenidos",
+      "marca",
+      "audiencia"
+    ],
+    "typical_needs": [
+      "Diagnóstico inicial del dominio",
+      "Priorización de acciones operativas",
+      "Definición de métricas y criterios de seguimiento"
+    ],
+    "expected_profile_types": [
+      "content_strategist",
+      "copywriter",
+      "analista_marketing"
+    ],
+    "likely_professional_profiles": [
+      "content_strategist",
+      "copywriter",
+      "analista_marketing"
+    ],
+    "required_capabilities": [
+      "planificación editorial",
+      "segmentación de audiencia",
+      "medición de contenido",
+      "diagnóstico estructurado",
+      "priorización accionable"
+    ],
+    "possible_team_templates": [
+      "equipo_contenidos",
+      "equipo_diagnostico_operativo"
+    ],
+    "model_policy_need": "auto",
+    "complexity": "low",
+    "operational_priority": "high",
+    "compatible_business_scales": [
+      "micro",
+      "local_business",
+      "freelancer",
+      "pyme",
+      "company",
+      "enterprise"
+    ],
+    "activation_requirements": [
+      "Definir perfiles profesionales globales compatibles",
+      "Crear preset_seed y paper_seed antes de uso como agente operativo",
+      "Asignar política de modelo o recomendación dinámica"
+    ],
+    "operationalization_contract": {
+      "needs_professional_profiles": true,
+      "needs_presets": true,
+      "needs_paper_seed": true,
+      "needs_model_policy": true,
+      "can_create_agent_when": "Existen perfiles profesionales PASSED con preset_seed, paper_seed y política de modelo para este nicho.",
+      "can_join_team_when": "Existe una plantilla de equipo PASSED que incluya perfiles compatibles con este nicho.",
+      "blocked_by": [
+        "Perfiles profesionales globales pendientes de Prompt 18"
+      ]
+    },
+    "notes": "Nicho PASSED de la primera tanda 17.2; entra como catálogo operativo de dominio, no como perfil/preset/agente todavía."
+  },
+  {
+    "id": "embudos_conversion",
+    "area_id": "marketing_publicidad",
+    "nombre": "Embudos de conversión",
+    "nombre_dominio_sugerido": "Marketing — Embudos de Conversión",
+    "descripcion_sugerida": "Dominio orientado a analizar pasos de conversión, fricciones, mensajes, ofertas y métricas por etapa.",
+    "instrucciones_sugeridas": "Todos los agentes deben conectar cada etapa con una métrica, una objeción y una acción de mejora verificable.",
+    "activo": true,
+    "orden": 8,
+    "status": "active",
+    "tags": [
+      "funnel",
+      "conversion",
+      "marketing"
+    ],
+    "typical_needs": [
+      "Diagnóstico inicial del dominio",
+      "Priorización de acciones operativas",
+      "Definición de métricas y criterios de seguimiento"
+    ],
+    "expected_profile_types": [
+      "conversion_specialist",
+      "growth_marketer",
+      "analista_datos"
+    ],
+    "likely_professional_profiles": [
+      "conversion_specialist",
+      "growth_marketer",
+      "analista_datos"
+    ],
+    "required_capabilities": [
+      "análisis de funnel",
+      "optimización de conversión",
+      "diseño de experimentos",
+      "diagnóstico estructurado",
+      "priorización accionable"
+    ],
+    "possible_team_templates": [
+      "equipo_conversion",
+      "equipo_diagnostico_operativo"
+    ],
+    "model_policy_need": "auto",
+    "complexity": "medium",
+    "operational_priority": "high",
+    "compatible_business_scales": [
+      "freelancer",
+      "pyme",
+      "company",
+      "enterprise"
+    ],
+    "activation_requirements": [
+      "Definir perfiles profesionales globales compatibles",
+      "Crear preset_seed y paper_seed antes de uso como agente operativo",
+      "Asignar política de modelo o recomendación dinámica"
+    ],
+    "operationalization_contract": {
+      "needs_professional_profiles": true,
+      "needs_presets": true,
+      "needs_paper_seed": true,
+      "needs_model_policy": true,
+      "can_create_agent_when": "Existen perfiles profesionales PASSED con preset_seed, paper_seed y política de modelo para este nicho.",
+      "can_join_team_when": "Existe una plantilla de equipo PASSED que incluya perfiles compatibles con este nicho.",
+      "blocked_by": [
+        "Perfiles profesionales globales pendientes de Prompt 18"
+      ]
+    },
+    "notes": "Nicho PASSED de la primera tanda 17.2; entra como catálogo operativo de dominio, no como perfil/preset/agente todavía."
+  },
+  {
+    "id": "campanas_comercios_locales",
+    "area_id": "marketing_publicidad",
+    "nombre": "Campañas para comercios locales",
+    "nombre_dominio_sugerido": "Marketing — Campañas para Comercios Locales",
+    "descripcion_sugerida": "Dominio orientado a diseñar campañas simples para negocios locales, promociones, audiencias cercanas y seguimiento comercial.",
+    "instrucciones_sugeridas": "Todos los agentes deben priorizar claridad de oferta, presupuesto realista, canal adecuado y medición simple.",
+    "activo": true,
+    "orden": 9,
+    "status": "active",
+    "tags": [
+      "marketing_local",
+      "comercios",
+      "campanas"
+    ],
+    "typical_needs": [
+      "Diagnóstico inicial del dominio",
+      "Priorización de acciones operativas",
+      "Definición de métricas y criterios de seguimiento"
+    ],
+    "expected_profile_types": [
+      "marketer_local",
+      "copywriter",
+      "analista_comercial"
+    ],
+    "likely_professional_profiles": [
+      "marketer_local",
+      "copywriter",
+      "analista_comercial"
+    ],
+    "required_capabilities": [
+      "diseño de campañas locales",
+      "segmentación geográfica",
+      "medición simple",
+      "diagnóstico estructurado",
+      "priorización accionable"
+    ],
+    "possible_team_templates": [
+      "equipo_marketing_local",
+      "equipo_diagnostico_operativo"
+    ],
+    "model_policy_need": "local_ok",
+    "complexity": "low",
+    "operational_priority": "high",
+    "compatible_business_scales": [
+      "micro",
+      "local_business",
+      "pyme"
+    ],
+    "activation_requirements": [
+      "Definir perfiles profesionales globales compatibles",
+      "Crear preset_seed y paper_seed antes de uso como agente operativo",
+      "Asignar política de modelo o recomendación dinámica"
+    ],
+    "operationalization_contract": {
+      "needs_professional_profiles": true,
+      "needs_presets": true,
+      "needs_paper_seed": true,
+      "needs_model_policy": true,
+      "can_create_agent_when": "Existen perfiles profesionales PASSED con preset_seed, paper_seed y política de modelo para este nicho.",
+      "can_join_team_when": "Existe una plantilla de equipo PASSED que incluya perfiles compatibles con este nicho.",
+      "blocked_by": [
+        "Perfiles profesionales globales pendientes de Prompt 18"
+      ]
+    },
+    "notes": "Nicho PASSED de la primera tanda 17.2; entra como catálogo operativo de dominio, no como perfil/preset/agente todavía."
+  },
+  {
+    "id": "objetivos_metricas_okrs",
+    "area_id": "gerencia_direccion_general",
+    "nombre": "Objetivos, métricas y OKRs",
+    "nombre_dominio_sugerido": "Dirección — Objetivos, Métricas y OKRs",
+    "descripcion_sugerida": "Dominio orientado a definir objetivos, resultados clave, cadencia de seguimiento y alineación de equipos.",
+    "instrucciones_sugeridas": "Todos los agentes deben priorizar foco, medición, responsabilidad clara y conexión entre objetivos y decisiones.",
+    "activo": true,
+    "orden": 4,
+    "status": "active",
+    "tags": [
+      "okr",
+      "direccion",
+      "metricas"
+    ],
+    "typical_needs": [
+      "Diagnóstico inicial del dominio",
+      "Priorización de acciones operativas",
+      "Definición de métricas y criterios de seguimiento"
+    ],
+    "expected_profile_types": [
+      "estratega",
+      "coordinador",
+      "analista_negocio"
+    ],
+    "likely_professional_profiles": [
+      "estratega",
+      "coordinador",
+      "analista_negocio"
+    ],
+    "required_capabilities": [
+      "diseño de OKRs",
+      "alineación estratégica",
+      "seguimiento de métricas",
+      "diagnóstico estructurado",
+      "priorización accionable"
+    ],
+    "possible_team_templates": [
+      "equipo_direccion_metricas",
+      "equipo_diagnostico_operativo"
+    ],
+    "model_policy_need": "auto",
+    "complexity": "medium",
+    "operational_priority": "critical",
+    "compatible_business_scales": [
+      "pyme",
+      "company",
+      "enterprise"
+    ],
+    "activation_requirements": [
+      "Definir perfiles profesionales globales compatibles",
+      "Crear preset_seed y paper_seed antes de uso como agente operativo",
+      "Asignar política de modelo o recomendación dinámica"
+    ],
+    "operationalization_contract": {
+      "needs_professional_profiles": true,
+      "needs_presets": true,
+      "needs_paper_seed": true,
+      "needs_model_policy": true,
+      "can_create_agent_when": "Existen perfiles profesionales PASSED con preset_seed, paper_seed y política de modelo para este nicho.",
+      "can_join_team_when": "Existe una plantilla de equipo PASSED que incluya perfiles compatibles con este nicho.",
+      "blocked_by": [
+        "Perfiles profesionales globales pendientes de Prompt 18"
+      ]
+    },
+    "notes": "Nicho PASSED de la primera tanda 17.2; entra como catálogo operativo de dominio, no como perfil/preset/agente todavía."
+  },
+  {
+    "id": "modelos_negocio",
+    "area_id": "gerencia_direccion_general",
+    "nombre": "Modelos de negocio",
+    "nombre_dominio_sugerido": "Dirección — Modelos de Negocio",
+    "descripcion_sugerida": "Dominio orientado a analizar propuesta de valor, segmentos, canales, ingresos, costos y ventajas de un negocio.",
+    "instrucciones_sugeridas": "Todos los agentes deben explicitar hipótesis, riesgos, fuentes de ingreso, costos críticos y señales de validación.",
+    "activo": true,
+    "orden": 5,
+    "status": "active",
+    "tags": [
+      "modelo_negocio",
+      "estrategia",
+      "valor"
+    ],
+    "typical_needs": [
+      "Diagnóstico inicial del dominio",
+      "Priorización de acciones operativas",
+      "Definición de métricas y criterios de seguimiento"
+    ],
+    "expected_profile_types": [
+      "estratega_negocio",
+      "analista_financiero",
+      "product_manager"
+    ],
+    "likely_professional_profiles": [
+      "estratega_negocio",
+      "analista_financiero",
+      "product_manager"
+    ],
+    "required_capabilities": [
+      "modelado de negocio",
+      "análisis estratégico",
+      "validación de hipótesis",
+      "diagnóstico estructurado",
+      "priorización accionable"
+    ],
+    "possible_team_templates": [
+      "equipo_estrategia_negocio",
+      "equipo_diagnostico_operativo"
+    ],
+    "model_policy_need": "auto",
+    "complexity": "high",
+    "operational_priority": "high",
+    "compatible_business_scales": [
+      "freelancer",
+      "pyme",
+      "company",
+      "enterprise"
+    ],
+    "activation_requirements": [
+      "Definir perfiles profesionales globales compatibles",
+      "Crear preset_seed y paper_seed antes de uso como agente operativo",
+      "Asignar política de modelo o recomendación dinámica"
+    ],
+    "operationalization_contract": {
+      "needs_professional_profiles": true,
+      "needs_presets": true,
+      "needs_paper_seed": true,
+      "needs_model_policy": true,
+      "can_create_agent_when": "Existen perfiles profesionales PASSED con preset_seed, paper_seed y política de modelo para este nicho.",
+      "can_join_team_when": "Existe una plantilla de equipo PASSED que incluya perfiles compatibles con este nicho.",
+      "blocked_by": [
+        "Perfiles profesionales globales pendientes de Prompt 18"
+      ]
+    },
+    "notes": "Nicho PASSED de la primera tanda 17.2; entra como catálogo operativo de dominio, no como perfil/preset/agente todavía."
+  },
+  {
+    "id": "gestion_producto_digital",
+    "area_id": "producto_gestion_producto",
+    "nombre": "Gestión de producto digital",
+    "nombre_dominio_sugerido": "Producto — Gestión de Producto Digital",
+    "descripcion_sugerida": "Dominio orientado a ordenar visión de producto, objetivos, usuarios, funcionalidades y decisiones de evolución digital.",
+    "instrucciones_sugeridas": "Todos los agentes deben priorizar valor para usuarios, impacto de negocio, evidencia, trade-offs y claridad de roadmap.",
+    "activo": true,
+    "orden": 1,
+    "status": "active",
+    "tags": [
+      "producto",
+      "roadmap",
+      "negocio_digital"
+    ],
+    "typical_needs": [
+      "Diagnóstico inicial del dominio",
+      "Priorización de acciones operativas",
+      "Definición de métricas y criterios de seguimiento"
+    ],
+    "expected_profile_types": [
+      "product_manager",
+      "product_ops",
+      "analista_producto"
+    ],
+    "likely_professional_profiles": [
+      "product_manager",
+      "product_ops",
+      "analista_producto"
+    ],
+    "required_capabilities": [
+      "gestión de roadmap",
+      "definición de objetivos de producto",
+      "análisis de trade-offs",
+      "diagnóstico estructurado",
+      "priorización accionable"
+    ],
+    "possible_team_templates": [
+      "equipo_producto_digital",
+      "equipo_diagnostico_operativo"
+    ],
+    "model_policy_need": "auto",
+    "complexity": "high",
+    "operational_priority": "critical",
+    "compatible_business_scales": [
+      "freelancer",
+      "pyme",
+      "company",
+      "enterprise"
+    ],
+    "activation_requirements": [
+      "Definir perfiles profesionales globales compatibles",
+      "Crear preset_seed y paper_seed antes de uso como agente operativo",
+      "Asignar política de modelo o recomendación dinámica"
+    ],
+    "operationalization_contract": {
+      "needs_professional_profiles": true,
+      "needs_presets": true,
+      "needs_paper_seed": true,
+      "needs_model_policy": true,
+      "can_create_agent_when": "Existen perfiles profesionales PASSED con preset_seed, paper_seed y política de modelo para este nicho.",
+      "can_join_team_when": "Existe una plantilla de equipo PASSED que incluya perfiles compatibles con este nicho.",
+      "blocked_by": [
+        "Perfiles profesionales globales pendientes de Prompt 18"
+      ]
+    },
+    "notes": "Nicho PASSED de la primera tanda 17.2; entra como catálogo operativo de dominio, no como perfil/preset/agente todavía."
+  },
+  {
+    "id": "research_usuarios",
+    "area_id": "producto_gestion_producto",
+    "nombre": "Research de usuarios",
+    "nombre_dominio_sugerido": "Producto — Research de Usuarios",
+    "descripcion_sugerida": "Dominio orientado a planificar investigación, analizar entrevistas, sintetizar hallazgos y detectar necesidades reales de usuarios.",
+    "instrucciones_sugeridas": "Todos los agentes deben distinguir evidencia, opinión e hipótesis; preservar contexto del usuario y traducir hallazgos en decisiones.",
+    "activo": true,
+    "orden": 2,
+    "status": "active",
+    "tags": [
+      "research",
+      "usuarios",
+      "ux"
+    ],
+    "typical_needs": [
+      "Diagnóstico inicial del dominio",
+      "Priorización de acciones operativas",
+      "Definición de métricas y criterios de seguimiento"
+    ],
+    "expected_profile_types": [
+      "ux_researcher",
+      "analista_producto",
+      "facilitador"
+    ],
+    "likely_professional_profiles": [
+      "ux_researcher",
+      "analista_producto",
+      "facilitador"
+    ],
+    "required_capabilities": [
+      "diseño de entrevistas",
+      "síntesis cualitativa",
+      "detección de patrones",
+      "diagnóstico estructurado",
+      "priorización accionable"
+    ],
+    "possible_team_templates": [
+      "equipo_descubrimiento_producto",
+      "equipo_diagnostico_operativo"
+    ],
+    "model_policy_need": "auto",
+    "complexity": "medium",
+    "operational_priority": "high",
+    "compatible_business_scales": [
+      "freelancer",
+      "pyme",
+      "company",
+      "enterprise"
+    ],
+    "activation_requirements": [
+      "Definir perfiles profesionales globales compatibles",
+      "Crear preset_seed y paper_seed antes de uso como agente operativo",
+      "Asignar política de modelo o recomendación dinámica"
+    ],
+    "operationalization_contract": {
+      "needs_professional_profiles": true,
+      "needs_presets": true,
+      "needs_paper_seed": true,
+      "needs_model_policy": true,
+      "can_create_agent_when": "Existen perfiles profesionales PASSED con preset_seed, paper_seed y política de modelo para este nicho.",
+      "can_join_team_when": "Existe una plantilla de equipo PASSED que incluya perfiles compatibles con este nicho.",
+      "blocked_by": [
+        "Perfiles profesionales globales pendientes de Prompt 18"
+      ]
+    },
+    "notes": "Nicho PASSED de la primera tanda 17.2; entra como catálogo operativo de dominio, no como perfil/preset/agente todavía."
+  },
+  {
+    "id": "validacion_ideas_negocio",
+    "area_id": "producto_gestion_producto",
+    "nombre": "Validación de ideas de negocio",
+    "nombre_dominio_sugerido": "Producto — Validación de Ideas",
+    "descripcion_sugerida": "Dominio orientado a evaluar ideas, supuestos críticos, experimentos mínimos y señales tempranas de viabilidad.",
+    "instrucciones_sugeridas": "Todos los agentes deben explicitar supuestos, definir pruebas pequeñas, medir señales reales y evitar entusiasmos sin evidencia.",
+    "activo": true,
+    "orden": 3,
+    "status": "active",
+    "tags": [
+      "validacion",
+      "experimentos",
+      "negocio"
+    ],
+    "typical_needs": [
+      "Diagnóstico inicial del dominio",
+      "Priorización de acciones operativas",
+      "Definición de métricas y criterios de seguimiento"
+    ],
+    "expected_profile_types": [
+      "product_manager",
+      "estratega_negocio",
+      "analista_validacion"
+    ],
+    "likely_professional_profiles": [
+      "product_manager",
+      "estratega_negocio",
+      "analista_validacion"
+    ],
+    "required_capabilities": [
+      "diseño de experimentos",
+      "priorización de supuestos",
+      "lectura de señales",
+      "diagnóstico estructurado",
+      "priorización accionable"
+    ],
+    "possible_team_templates": [
+      "equipo_validacion_ideas",
+      "equipo_diagnostico_operativo"
+    ],
+    "model_policy_need": "auto",
+    "complexity": "medium",
+    "operational_priority": "high",
+    "compatible_business_scales": [
+      "freelancer",
+      "pyme",
+      "company"
+    ],
+    "activation_requirements": [
+      "Definir perfiles profesionales globales compatibles",
+      "Crear preset_seed y paper_seed antes de uso como agente operativo",
+      "Asignar política de modelo o recomendación dinámica"
+    ],
+    "operationalization_contract": {
+      "needs_professional_profiles": true,
+      "needs_presets": true,
+      "needs_paper_seed": true,
+      "needs_model_policy": true,
+      "can_create_agent_when": "Existen perfiles profesionales PASSED con preset_seed, paper_seed y política de modelo para este nicho.",
+      "can_join_team_when": "Existe una plantilla de equipo PASSED que incluya perfiles compatibles con este nicho.",
+      "blocked_by": [
+        "Perfiles profesionales globales pendientes de Prompt 18"
+      ]
+    },
+    "notes": "Nicho PASSED de la primera tanda 17.2; entra como catálogo operativo de dominio, no como perfil/preset/agente todavía."
+  },
+  {
+    "id": "priorizacion_roadmap",
+    "area_id": "producto_gestion_producto",
+    "nombre": "Priorización de roadmap",
+    "nombre_dominio_sugerido": "Producto — Priorización de Roadmap",
+    "descripcion_sugerida": "Dominio orientado a ordenar iniciativas, estimar impacto/esfuerzo y construir roadmaps realistas.",
+    "instrucciones_sugeridas": "Todos los agentes deben comparar impacto, costo, riesgo, dependencias y aprendizaje antes de recomendar prioridades.",
+    "activo": true,
+    "orden": 4,
+    "status": "active",
+    "tags": [
+      "roadmap",
+      "priorizacion",
+      "producto"
+    ],
+    "typical_needs": [
+      "Diagnóstico inicial del dominio",
+      "Priorización de acciones operativas",
+      "Definición de métricas y criterios de seguimiento"
+    ],
+    "expected_profile_types": [
+      "product_manager",
+      "product_ops",
+      "coordinador_proyecto"
+    ],
+    "likely_professional_profiles": [
+      "product_manager",
+      "product_ops",
+      "coordinador_proyecto"
+    ],
+    "required_capabilities": [
+      "matrices de priorización",
+      "gestión de dependencias",
+      "planificación incremental",
+      "diagnóstico estructurado",
+      "priorización accionable"
+    ],
+    "possible_team_templates": [
+      "equipo_roadmap_producto",
+      "equipo_diagnostico_operativo"
+    ],
+    "model_policy_need": "auto",
+    "complexity": "medium",
+    "operational_priority": "high",
+    "compatible_business_scales": [
+      "freelancer",
+      "pyme",
+      "company",
+      "enterprise"
+    ],
+    "activation_requirements": [
+      "Definir perfiles profesionales globales compatibles",
+      "Crear preset_seed y paper_seed antes de uso como agente operativo",
+      "Asignar política de modelo o recomendación dinámica"
+    ],
+    "operationalization_contract": {
+      "needs_professional_profiles": true,
+      "needs_presets": true,
+      "needs_paper_seed": true,
+      "needs_model_policy": true,
+      "can_create_agent_when": "Existen perfiles profesionales PASSED con preset_seed, paper_seed y política de modelo para este nicho.",
+      "can_join_team_when": "Existe una plantilla de equipo PASSED que incluya perfiles compatibles con este nicho.",
+      "blocked_by": [
+        "Perfiles profesionales globales pendientes de Prompt 18"
+      ]
+    },
+    "notes": "Nicho PASSED de la primera tanda 17.2; entra como catálogo operativo de dominio, no como perfil/preset/agente todavía."
+  },
+  {
+    "id": "pricing_packaging",
+    "area_id": "producto_gestion_producto",
+    "nombre": "Pricing y packaging",
+    "nombre_dominio_sugerido": "Producto — Pricing y Packaging",
+    "descripcion_sugerida": "Dominio orientado a diseñar paquetes, precios, límites de planes, propuesta de valor y monetización de productos o servicios.",
+    "instrucciones_sugeridas": "Todos los agentes deben cuidar percepción de valor, margen, simplicidad comercial y coherencia entre segmento, precio y oferta.",
+    "activo": true,
+    "orden": 5,
+    "status": "active",
+    "tags": [
+      "pricing",
+      "monetizacion",
+      "propuesta_valor"
+    ],
+    "typical_needs": [
+      "Diagnóstico inicial del dominio",
+      "Priorización de acciones operativas",
+      "Definición de métricas y criterios de seguimiento"
+    ],
+    "expected_profile_types": [
+      "product_manager",
+      "analista_financiero",
+      "estratega_comercial"
+    ],
+    "likely_professional_profiles": [
+      "product_manager",
+      "analista_financiero",
+      "estratega_comercial"
+    ],
+    "required_capabilities": [
+      "modelado de paquetes",
+      "análisis de valor",
+      "evaluación de márgenes",
+      "diagnóstico estructurado",
+      "priorización accionable"
+    ],
+    "possible_team_templates": [
+      "equipo_pricing_producto",
+      "equipo_diagnostico_operativo"
+    ],
+    "model_policy_need": "auto",
+    "complexity": "high",
+    "operational_priority": "high",
+    "compatible_business_scales": [
+      "pyme",
+      "company",
+      "enterprise"
+    ],
+    "activation_requirements": [
+      "Definir perfiles profesionales globales compatibles",
+      "Crear preset_seed y paper_seed antes de uso como agente operativo",
+      "Asignar política de modelo o recomendación dinámica"
+    ],
+    "operationalization_contract": {
+      "needs_professional_profiles": true,
+      "needs_presets": true,
+      "needs_paper_seed": true,
+      "needs_model_policy": true,
+      "can_create_agent_when": "Existen perfiles profesionales PASSED con preset_seed, paper_seed y política de modelo para este nicho.",
+      "can_join_team_when": "Existe una plantilla de equipo PASSED que incluya perfiles compatibles con este nicho.",
+      "blocked_by": [
+        "Perfiles profesionales globales pendientes de Prompt 18"
+      ]
+    },
+    "notes": "Nicho PASSED de la primera tanda 17.2; entra como catálogo operativo de dominio, no como perfil/preset/agente todavía."
+  },
+  {
+    "id": "automatizacion_procesos_internos",
+    "area_id": "automatizacion_integraciones",
+    "nombre": "Automatización de procesos internos",
+    "nombre_dominio_sugerido": "Automatización — Procesos Internos",
+    "descripcion_sugerida": "Dominio orientado a mapear tareas repetitivas, diseñar flujos automatizados y reducir fricción operativa.",
+    "instrucciones_sugeridas": "Todos los agentes deben priorizar seguridad, trazabilidad, simplicidad, mantenimiento y ahorro de tiempo verificable.",
+    "activo": true,
+    "orden": 1,
+    "status": "active",
+    "tags": [
+      "automatizacion",
+      "procesos",
+      "backoffice"
+    ],
+    "typical_needs": [
+      "Diagnóstico inicial del dominio",
+      "Priorización de acciones operativas",
+      "Definición de métricas y criterios de seguimiento"
+    ],
+    "expected_profile_types": [
+      "automation_specialist",
+      "analista_procesos",
+      "coordinador_operativo"
+    ],
+    "likely_professional_profiles": [
+      "automation_specialist",
+      "analista_procesos",
+      "coordinador_operativo"
+    ],
+    "required_capabilities": [
+      "mapeo de procesos",
+      "diseño de flujos",
+      "control de excepciones",
+      "diagnóstico estructurado",
+      "priorización accionable"
+    ],
+    "possible_team_templates": [
+      "equipo_automatizacion_operativa",
+      "equipo_diagnostico_operativo"
+    ],
+    "model_policy_need": "auto",
+    "complexity": "medium",
+    "operational_priority": "critical",
+    "compatible_business_scales": [
+      "micro",
+      "local_business",
+      "freelancer",
+      "pyme",
+      "company",
+      "enterprise"
+    ],
+    "activation_requirements": [
+      "Definir perfiles profesionales globales compatibles",
+      "Crear preset_seed y paper_seed antes de uso como agente operativo",
+      "Asignar política de modelo o recomendación dinámica"
+    ],
+    "operationalization_contract": {
+      "needs_professional_profiles": true,
+      "needs_presets": true,
+      "needs_paper_seed": true,
+      "needs_model_policy": true,
+      "can_create_agent_when": "Existen perfiles profesionales PASSED con preset_seed, paper_seed y política de modelo para este nicho.",
+      "can_join_team_when": "Existe una plantilla de equipo PASSED que incluya perfiles compatibles con este nicho.",
+      "blocked_by": [
+        "Perfiles profesionales globales pendientes de Prompt 18"
+      ]
+    },
+    "notes": "Nicho PASSED de la primera tanda 17.2; entra como catálogo operativo de dominio, no como perfil/preset/agente todavía."
+  },
+  {
+    "id": "integraciones_herramientas",
+    "area_id": "automatizacion_integraciones",
+    "nombre": "Integraciones entre herramientas",
+    "nombre_dominio_sugerido": "Automatización — Integraciones entre Herramientas",
+    "descripcion_sugerida": "Dominio orientado a conectar aplicaciones de negocio, sincronizar datos y evitar doble carga manual.",
+    "instrucciones_sugeridas": "Todos los agentes deben identificar fuente de verdad, frecuencia de sincronización, errores esperables y responsables de mantenimiento.",
+    "activo": true,
+    "orden": 2,
+    "status": "active",
+    "tags": [
+      "integraciones",
+      "herramientas",
+      "sistemas"
+    ],
+    "typical_needs": [
+      "Diagnóstico inicial del dominio",
+      "Priorización de acciones operativas",
+      "Definición de métricas y criterios de seguimiento"
+    ],
+    "expected_profile_types": [
+      "integration_specialist",
+      "analista_sistemas",
+      "arquitecto_soluciones"
+    ],
+    "likely_professional_profiles": [
+      "integration_specialist",
+      "analista_sistemas",
+      "arquitecto_soluciones"
+    ],
+    "required_capabilities": [
+      "diseño de integraciones",
+      "mapeo de datos",
+      "gestión de errores",
+      "diagnóstico estructurado",
+      "priorización accionable"
+    ],
+    "possible_team_templates": [
+      "equipo_integraciones",
+      "equipo_diagnostico_operativo"
+    ],
+    "model_policy_need": "auto",
+    "complexity": "high",
+    "operational_priority": "critical",
+    "compatible_business_scales": [
+      "freelancer",
+      "pyme",
+      "company",
+      "enterprise"
+    ],
+    "activation_requirements": [
+      "Definir perfiles profesionales globales compatibles",
+      "Crear preset_seed y paper_seed antes de uso como agente operativo",
+      "Asignar política de modelo o recomendación dinámica"
+    ],
+    "operationalization_contract": {
+      "needs_professional_profiles": true,
+      "needs_presets": true,
+      "needs_paper_seed": true,
+      "needs_model_policy": true,
+      "can_create_agent_when": "Existen perfiles profesionales PASSED con preset_seed, paper_seed y política de modelo para este nicho.",
+      "can_join_team_when": "Existe una plantilla de equipo PASSED que incluya perfiles compatibles con este nicho.",
+      "blocked_by": [
+        "Perfiles profesionales globales pendientes de Prompt 18"
+      ]
+    },
+    "notes": "Nicho PASSED de la primera tanda 17.2; entra como catálogo operativo de dominio, no como perfil/preset/agente todavía."
+  },
+  {
+    "id": "automatizacion_whatsapp_crm",
+    "area_id": "automatizacion_integraciones",
+    "nombre": "Automatización de WhatsApp y CRM",
+    "nombre_dominio_sugerido": "Automatización — WhatsApp y CRM",
+    "descripcion_sugerida": "Dominio orientado a ordenar conversaciones, leads, seguimientos y automatizaciones comerciales o de atención.",
+    "instrucciones_sugeridas": "Todos los agentes deben cuidar consentimiento, contexto del cliente, handoff humano, trazabilidad comercial y calidad de respuesta.",
+    "activo": true,
+    "orden": 3,
+    "status": "active",
+    "tags": [
+      "whatsapp",
+      "crm",
+      "ventas",
+      "atencion"
+    ],
+    "typical_needs": [
+      "Diagnóstico inicial del dominio",
+      "Priorización de acciones operativas",
+      "Definición de métricas y criterios de seguimiento"
+    ],
+    "expected_profile_types": [
+      "automation_specialist",
+      "revops_analyst",
+      "customer_success_ops"
+    ],
+    "likely_professional_profiles": [
+      "automation_specialist",
+      "revops_analyst",
+      "customer_success_ops"
+    ],
+    "required_capabilities": [
+      "diseño conversacional",
+      "segmentación de leads",
+      "automatización de seguimiento",
+      "diagnóstico estructurado",
+      "priorización accionable"
+    ],
+    "possible_team_templates": [
+      "equipo_crm_automatizado",
+      "equipo_diagnostico_operativo"
+    ],
+    "model_policy_need": "auto",
+    "complexity": "medium",
+    "operational_priority": "critical",
+    "compatible_business_scales": [
+      "micro",
+      "local_business",
+      "pyme",
+      "company"
+    ],
+    "activation_requirements": [
+      "Definir perfiles profesionales globales compatibles",
+      "Crear preset_seed y paper_seed antes de uso como agente operativo",
+      "Asignar política de modelo o recomendación dinámica"
+    ],
+    "operationalization_contract": {
+      "needs_professional_profiles": true,
+      "needs_presets": true,
+      "needs_paper_seed": true,
+      "needs_model_policy": true,
+      "can_create_agent_when": "Existen perfiles profesionales PASSED con preset_seed, paper_seed y política de modelo para este nicho.",
+      "can_join_team_when": "Existe una plantilla de equipo PASSED que incluya perfiles compatibles con este nicho.",
+      "blocked_by": [
+        "Perfiles profesionales globales pendientes de Prompt 18"
+      ]
+    },
+    "notes": "Nicho PASSED de la primera tanda 17.2; entra como catálogo operativo de dominio, no como perfil/preset/agente todavía."
+  },
+  {
+    "id": "gestion_apis",
+    "area_id": "automatizacion_integraciones",
+    "nombre": "Gestión de APIs",
+    "nombre_dominio_sugerido": "Automatización — Gestión de APIs",
+    "descripcion_sugerida": "Dominio orientado a documentar, consumir, monitorear y gobernar APIs usadas por sistemas internos o productos.",
+    "instrucciones_sugeridas": "Todos los agentes deben priorizar contratos claros, autenticación, límites, versionado, trazabilidad y manejo de fallos.",
+    "activo": true,
+    "orden": 4,
+    "status": "active",
+    "tags": [
+      "apis",
+      "integraciones",
+      "arquitectura"
+    ],
+    "typical_needs": [
+      "Diagnóstico inicial del dominio",
+      "Priorización de acciones operativas",
+      "Definición de métricas y criterios de seguimiento"
+    ],
+    "expected_profile_types": [
+      "api_product_owner",
+      "desarrollador_backend",
+      "arquitecto_soluciones"
+    ],
+    "likely_professional_profiles": [
+      "api_product_owner",
+      "desarrollador_backend",
+      "arquitecto_soluciones"
+    ],
+    "required_capabilities": [
+      "lectura de documentación técnica",
+      "diseño de contratos",
+      "gestión de autenticación",
+      "diagnóstico estructurado",
+      "priorización accionable"
+    ],
+    "possible_team_templates": [
+      "equipo_api_integraciones",
+      "equipo_diagnostico_operativo"
+    ],
+    "model_policy_need": "cloud_preferred",
+    "complexity": "high",
+    "operational_priority": "high",
+    "compatible_business_scales": [
+      "pyme",
+      "company",
+      "enterprise"
+    ],
+    "activation_requirements": [
+      "Definir perfiles profesionales globales compatibles",
+      "Crear preset_seed y paper_seed antes de uso como agente operativo",
+      "Asignar política de modelo o recomendación dinámica"
+    ],
+    "operationalization_contract": {
+      "needs_professional_profiles": true,
+      "needs_presets": true,
+      "needs_paper_seed": true,
+      "needs_model_policy": true,
+      "can_create_agent_when": "Existen perfiles profesionales PASSED con preset_seed, paper_seed y política de modelo para este nicho.",
+      "can_join_team_when": "Existe una plantilla de equipo PASSED que incluya perfiles compatibles con este nicho.",
+      "blocked_by": [
+        "Perfiles profesionales globales pendientes de Prompt 18"
+      ]
+    },
+    "notes": "Nicho PASSED de la primera tanda 17.2; entra como catálogo operativo de dominio, no como perfil/preset/agente todavía."
+  },
+  {
+    "id": "arquitectura_sistemas_internos",
+    "area_id": "automatizacion_integraciones",
+    "nombre": "Arquitectura de sistemas internos",
+    "nombre_dominio_sugerido": "Automatización — Arquitectura de Sistemas Internos",
+    "descripcion_sugerida": "Dominio orientado a organizar herramientas, responsabilidades, datos y flujos que sostienen operaciones internas.",
+    "instrucciones_sugeridas": "Todos los agentes deben evitar complejidad innecesaria, identificar dependencias críticas y proponer arquitectura mantenible.",
+    "activo": true,
+    "orden": 5,
+    "status": "active",
+    "tags": [
+      "arquitectura",
+      "sistemas_internos",
+      "operaciones"
+    ],
+    "typical_needs": [
+      "Diagnóstico inicial del dominio",
+      "Priorización de acciones operativas",
+      "Definición de métricas y criterios de seguimiento"
+    ],
+    "expected_profile_types": [
+      "arquitecto_soluciones",
+      "analista_sistemas",
+      "operations_manager"
+    ],
+    "likely_professional_profiles": [
+      "arquitecto_soluciones",
+      "analista_sistemas",
+      "operations_manager"
+    ],
+    "required_capabilities": [
+      "modelado de sistemas",
+      "gestión de dependencias",
+      "diseño de gobierno operativo",
+      "diagnóstico estructurado",
+      "priorización accionable"
+    ],
+    "possible_team_templates": [
+      "equipo_arquitectura_operativa",
+      "equipo_diagnostico_operativo"
+    ],
+    "model_policy_need": "cloud_preferred",
+    "complexity": "high",
+    "operational_priority": "high",
+    "compatible_business_scales": [
+      "pyme",
+      "company",
+      "enterprise"
+    ],
+    "activation_requirements": [
+      "Definir perfiles profesionales globales compatibles",
+      "Crear preset_seed y paper_seed antes de uso como agente operativo",
+      "Asignar política de modelo o recomendación dinámica"
+    ],
+    "operationalization_contract": {
+      "needs_professional_profiles": true,
+      "needs_presets": true,
+      "needs_paper_seed": true,
+      "needs_model_policy": true,
+      "can_create_agent_when": "Existen perfiles profesionales PASSED con preset_seed, paper_seed y política de modelo para este nicho.",
+      "can_join_team_when": "Existe una plantilla de equipo PASSED que incluya perfiles compatibles con este nicho.",
+      "blocked_by": [
+        "Perfiles profesionales globales pendientes de Prompt 18"
+      ]
+    },
+    "notes": "Nicho PASSED de la primera tanda 17.2; entra como catálogo operativo de dominio, no como perfil/preset/agente todavía."
+  },
+  {
+    "id": "dashboards_operativos",
+    "area_id": "datos_bi_analytics",
+    "nombre": "Dashboards operativos",
+    "nombre_dominio_sugerido": "Datos y BI — Dashboards Operativos",
+    "descripcion_sugerida": "Dominio orientado a diseñar tableros de control para seguimiento diario, alertas, objetivos e indicadores accionables.",
+    "instrucciones_sugeridas": "Todos los agentes deben priorizar indicadores útiles, lectura rápida, fuentes confiables y decisiones asociadas a cada métrica.",
+    "activo": true,
+    "orden": 1,
+    "status": "active",
+    "tags": [
+      "dashboards",
+      "operaciones",
+      "metricas"
+    ],
+    "typical_needs": [
+      "Diagnóstico inicial del dominio",
+      "Priorización de acciones operativas",
+      "Definición de métricas y criterios de seguimiento"
+    ],
+    "expected_profile_types": [
+      "bi_analyst",
+      "analista_operativo",
+      "data_product_owner"
+    ],
+    "likely_professional_profiles": [
+      "bi_analyst",
+      "analista_operativo",
+      "data_product_owner"
+    ],
+    "required_capabilities": [
+      "definición de KPIs",
+      "visualización de datos",
+      "diseño de alertas",
+      "diagnóstico estructurado",
+      "priorización accionable"
+    ],
+    "possible_team_templates": [
+      "equipo_bi_operativo",
+      "equipo_diagnostico_operativo"
+    ],
+    "model_policy_need": "auto",
+    "complexity": "medium",
+    "operational_priority": "critical",
+    "compatible_business_scales": [
+      "freelancer",
+      "pyme",
+      "company",
+      "enterprise"
+    ],
+    "activation_requirements": [
+      "Definir perfiles profesionales globales compatibles",
+      "Crear preset_seed y paper_seed antes de uso como agente operativo",
+      "Asignar política de modelo o recomendación dinámica"
+    ],
+    "operationalization_contract": {
+      "needs_professional_profiles": true,
+      "needs_presets": true,
+      "needs_paper_seed": true,
+      "needs_model_policy": true,
+      "can_create_agent_when": "Existen perfiles profesionales PASSED con preset_seed, paper_seed y política de modelo para este nicho.",
+      "can_join_team_when": "Existe una plantilla de equipo PASSED que incluya perfiles compatibles con este nicho.",
+      "blocked_by": [
+        "Perfiles profesionales globales pendientes de Prompt 18"
+      ]
+    },
+    "notes": "Nicho PASSED de la primera tanda 17.2; entra como catálogo operativo de dominio, no como perfil/preset/agente todavía."
+  },
+  {
+    "id": "indicadores_negocio",
+    "area_id": "datos_bi_analytics",
+    "nombre": "Indicadores de negocio",
+    "nombre_dominio_sugerido": "Datos y BI — Indicadores de Negocio",
+    "descripcion_sugerida": "Dominio orientado a definir, auditar y explicar métricas clave de desempeño comercial, financiero y operativo.",
+    "instrucciones_sugeridas": "Todos los agentes deben diferenciar métricas vanidosas de métricas accionables y documentar fórmula, fuente y responsable.",
+    "activo": true,
+    "orden": 2,
+    "status": "active",
+    "tags": [
+      "kpi",
+      "metricas",
+      "direccion"
+    ],
+    "typical_needs": [
+      "Diagnóstico inicial del dominio",
+      "Priorización de acciones operativas",
+      "Definición de métricas y criterios de seguimiento"
+    ],
+    "expected_profile_types": [
+      "bi_analyst",
+      "controller",
+      "estratega_negocio"
+    ],
+    "likely_professional_profiles": [
+      "bi_analyst",
+      "controller",
+      "estratega_negocio"
+    ],
+    "required_capabilities": [
+      "modelado de indicadores",
+      "definición de fuentes",
+      "análisis de desempeño",
+      "diagnóstico estructurado",
+      "priorización accionable"
+    ],
+    "possible_team_templates": [
+      "equipo_metricas_negocio",
+      "equipo_diagnostico_operativo"
+    ],
+    "model_policy_need": "auto",
+    "complexity": "medium",
+    "operational_priority": "critical",
+    "compatible_business_scales": [
+      "freelancer",
+      "pyme",
+      "company",
+      "enterprise"
+    ],
+    "activation_requirements": [
+      "Definir perfiles profesionales globales compatibles",
+      "Crear preset_seed y paper_seed antes de uso como agente operativo",
+      "Asignar política de modelo o recomendación dinámica"
+    ],
+    "operationalization_contract": {
+      "needs_professional_profiles": true,
+      "needs_presets": true,
+      "needs_paper_seed": true,
+      "needs_model_policy": true,
+      "can_create_agent_when": "Existen perfiles profesionales PASSED con preset_seed, paper_seed y política de modelo para este nicho.",
+      "can_join_team_when": "Existe una plantilla de equipo PASSED que incluya perfiles compatibles con este nicho.",
+      "blocked_by": [
+        "Perfiles profesionales globales pendientes de Prompt 18"
+      ]
+    },
+    "notes": "Nicho PASSED de la primera tanda 17.2; entra como catálogo operativo de dominio, no como perfil/preset/agente todavía."
+  },
+  {
+    "id": "analisis_cohortes",
+    "area_id": "datos_bi_analytics",
+    "nombre": "Análisis de cohortes",
+    "nombre_dominio_sugerido": "Datos y BI — Análisis de Cohortes",
+    "descripcion_sugerida": "Dominio orientado a estudiar comportamiento por grupos de clientes, usuarios o ventas a través del tiempo.",
+    "instrucciones_sugeridas": "Todos los agentes deben cuidar segmentación, período de observación, sesgos de supervivencia y lectura de retención real.",
+    "activo": true,
+    "orden": 3,
+    "status": "active",
+    "tags": [
+      "cohortes",
+      "retencion",
+      "producto"
+    ],
+    "typical_needs": [
+      "Diagnóstico inicial del dominio",
+      "Priorización de acciones operativas",
+      "Definición de métricas y criterios de seguimiento"
+    ],
+    "expected_profile_types": [
+      "data_analyst",
+      "product_analyst",
+      "customer_success_ops"
+    ],
+    "likely_professional_profiles": [
+      "data_analyst",
+      "product_analyst",
+      "customer_success_ops"
+    ],
+    "required_capabilities": [
+      "análisis temporal",
+      "segmentación",
+      "lectura de retención",
+      "diagnóstico estructurado",
+      "priorización accionable"
+    ],
+    "possible_team_templates": [
+      "equipo_analytics_producto",
+      "equipo_diagnostico_operativo"
+    ],
+    "model_policy_need": "auto",
+    "complexity": "high",
+    "operational_priority": "high",
+    "compatible_business_scales": [
+      "pyme",
+      "company",
+      "enterprise"
+    ],
+    "activation_requirements": [
+      "Definir perfiles profesionales globales compatibles",
+      "Crear preset_seed y paper_seed antes de uso como agente operativo",
+      "Asignar política de modelo o recomendación dinámica"
+    ],
+    "operationalization_contract": {
+      "needs_professional_profiles": true,
+      "needs_presets": true,
+      "needs_paper_seed": true,
+      "needs_model_policy": true,
+      "can_create_agent_when": "Existen perfiles profesionales PASSED con preset_seed, paper_seed y política de modelo para este nicho.",
+      "can_join_team_when": "Existe una plantilla de equipo PASSED que incluya perfiles compatibles con este nicho.",
+      "blocked_by": [
+        "Perfiles profesionales globales pendientes de Prompt 18"
+      ]
+    },
+    "notes": "Nicho PASSED de la primera tanda 17.2; entra como catálogo operativo de dominio, no como perfil/preset/agente todavía."
+  },
+  {
+    "id": "inteligencia_comercial",
+    "area_id": "datos_bi_analytics",
+    "nombre": "Inteligencia comercial",
+    "nombre_dominio_sugerido": "Datos y BI — Inteligencia Comercial",
+    "descripcion_sugerida": "Dominio orientado a analizar oportunidades, segmentos, cuentas, pipeline, competencia y señales de mercado.",
+    "instrucciones_sugeridas": "Todos los agentes deben conectar datos comerciales con acciones concretas, priorizando calidad de oportunidad y timing.",
+    "activo": true,
+    "orden": 4,
+    "status": "active",
+    "tags": [
+      "ventas",
+      "mercado",
+      "pipeline"
+    ],
+    "typical_needs": [
+      "Diagnóstico inicial del dominio",
+      "Priorización de acciones operativas",
+      "Definición de métricas y criterios de seguimiento"
+    ],
+    "expected_profile_types": [
+      "sales_ops_analyst",
+      "bi_analyst",
+      "estratega_comercial"
+    ],
+    "likely_professional_profiles": [
+      "sales_ops_analyst",
+      "bi_analyst",
+      "estratega_comercial"
+    ],
+    "required_capabilities": [
+      "análisis comercial",
+      "segmentación de cuentas",
+      "lectura de pipeline",
+      "diagnóstico estructurado",
+      "priorización accionable"
+    ],
+    "possible_team_templates": [
+      "equipo_inteligencia_comercial",
+      "equipo_diagnostico_operativo"
+    ],
+    "model_policy_need": "auto",
+    "complexity": "medium",
+    "operational_priority": "high",
+    "compatible_business_scales": [
+      "freelancer",
+      "pyme",
+      "company",
+      "enterprise"
+    ],
+    "activation_requirements": [
+      "Definir perfiles profesionales globales compatibles",
+      "Crear preset_seed y paper_seed antes de uso como agente operativo",
+      "Asignar política de modelo o recomendación dinámica"
+    ],
+    "operationalization_contract": {
+      "needs_professional_profiles": true,
+      "needs_presets": true,
+      "needs_paper_seed": true,
+      "needs_model_policy": true,
+      "can_create_agent_when": "Existen perfiles profesionales PASSED con preset_seed, paper_seed y política de modelo para este nicho.",
+      "can_join_team_when": "Existe una plantilla de equipo PASSED que incluya perfiles compatibles con este nicho.",
+      "blocked_by": [
+        "Perfiles profesionales globales pendientes de Prompt 18"
+      ]
+    },
+    "notes": "Nicho PASSED de la primera tanda 17.2; entra como catálogo operativo de dominio, no como perfil/preset/agente todavía."
+  },
+  {
+    "id": "auditoria_datos",
+    "area_id": "datos_bi_analytics",
+    "nombre": "Auditoría de datos",
+    "nombre_dominio_sugerido": "Datos y BI — Auditoría de Datos",
+    "descripcion_sugerida": "Dominio orientado a detectar inconsistencias, duplicados, vacíos, definiciones ambiguas y riesgos en datos operativos.",
+    "instrucciones_sugeridas": "Todos los agentes deben priorizar trazabilidad, definición de reglas, impacto operativo de errores y plan de limpieza gradual.",
+    "activo": true,
+    "orden": 5,
+    "status": "active",
+    "tags": [
+      "calidad_datos",
+      "auditoria",
+      "gobierno"
+    ],
+    "typical_needs": [
+      "Diagnóstico inicial del dominio",
+      "Priorización de acciones operativas",
+      "Definición de métricas y criterios de seguimiento"
+    ],
+    "expected_profile_types": [
+      "data_quality_analyst",
+      "auditor",
+      "bi_analyst"
+    ],
+    "likely_professional_profiles": [
+      "data_quality_analyst",
+      "auditor",
+      "bi_analyst"
+    ],
+    "required_capabilities": [
+      "perfilado de datos",
+      "detección de inconsistencias",
+      "documentación de reglas",
+      "diagnóstico estructurado",
+      "priorización accionable"
+    ],
+    "possible_team_templates": [
+      "equipo_calidad_datos",
+      "equipo_diagnostico_operativo"
+    ],
+    "model_policy_need": "auto",
+    "complexity": "medium",
+    "operational_priority": "high",
+    "compatible_business_scales": [
+      "freelancer",
+      "pyme",
+      "company",
+      "enterprise"
+    ],
+    "activation_requirements": [
+      "Definir perfiles profesionales globales compatibles",
+      "Crear preset_seed y paper_seed antes de uso como agente operativo",
+      "Asignar política de modelo o recomendación dinámica"
+    ],
+    "operationalization_contract": {
+      "needs_professional_profiles": true,
+      "needs_presets": true,
+      "needs_paper_seed": true,
+      "needs_model_policy": true,
+      "can_create_agent_when": "Existen perfiles profesionales PASSED con preset_seed, paper_seed y política de modelo para este nicho.",
+      "can_join_team_when": "Existe una plantilla de equipo PASSED que incluya perfiles compatibles con este nicho.",
+      "blocked_by": [
+        "Perfiles profesionales globales pendientes de Prompt 18"
+      ]
+    },
+    "notes": "Nicho PASSED de la primera tanda 17.2; entra como catálogo operativo de dominio, no como perfil/preset/agente todavía."
+  },
+  {
+    "id": "onboarding_clientes",
+    "area_id": "customer_success_experiencia_cliente",
+    "nombre": "Onboarding de clientes",
+    "nombre_dominio_sugerido": "Customer Success — Onboarding de Clientes",
+    "descripcion_sugerida": "Dominio orientado a acompañar activación inicial, adopción, expectativas y primeros resultados de clientes nuevos.",
+    "instrucciones_sugeridas": "Todos los agentes deben priorizar claridad de pasos, valor temprano, riesgos de abandono y handoff responsable.",
+    "activo": true,
+    "orden": 1,
+    "status": "active",
+    "tags": [
+      "onboarding",
+      "clientes",
+      "adopcion"
+    ],
+    "typical_needs": [
+      "Diagnóstico inicial del dominio",
+      "Priorización de acciones operativas",
+      "Definición de métricas y criterios de seguimiento"
+    ],
+    "expected_profile_types": [
+      "customer_success_manager",
+      "implementation_specialist",
+      "coordinador"
+    ],
+    "likely_professional_profiles": [
+      "customer_success_manager",
+      "implementation_specialist",
+      "coordinador"
+    ],
+    "required_capabilities": [
+      "diseño de onboarding",
+      "seguimiento de adopción",
+      "gestión de expectativas",
+      "diagnóstico estructurado",
+      "priorización accionable"
+    ],
+    "possible_team_templates": [
+      "equipo_onboarding_clientes",
+      "equipo_diagnostico_operativo"
+    ],
+    "model_policy_need": "auto",
+    "complexity": "medium",
+    "operational_priority": "high",
+    "compatible_business_scales": [
+      "local_business",
+      "pyme",
+      "company",
+      "enterprise"
+    ],
+    "activation_requirements": [
+      "Definir perfiles profesionales globales compatibles",
+      "Crear preset_seed y paper_seed antes de uso como agente operativo",
+      "Asignar política de modelo o recomendación dinámica"
+    ],
+    "operationalization_contract": {
+      "needs_professional_profiles": true,
+      "needs_presets": true,
+      "needs_paper_seed": true,
+      "needs_model_policy": true,
+      "can_create_agent_when": "Existen perfiles profesionales PASSED con preset_seed, paper_seed y política de modelo para este nicho.",
+      "can_join_team_when": "Existe una plantilla de equipo PASSED que incluya perfiles compatibles con este nicho.",
+      "blocked_by": [
+        "Perfiles profesionales globales pendientes de Prompt 18"
+      ]
+    },
+    "notes": "Nicho PASSED de la primera tanda 17.2; entra como catálogo operativo de dominio, no como perfil/preset/agente todavía."
+  },
+  {
+    "id": "retencion_fidelizacion_clientes",
+    "area_id": "customer_success_experiencia_cliente",
+    "nombre": "Retención y fidelización de clientes",
+    "nombre_dominio_sugerido": "Customer Success — Retención y Fidelización",
+    "descripcion_sugerida": "Dominio orientado a sostener recurrencia, detectar oportunidades de mejora y aumentar lealtad de clientes.",
+    "instrucciones_sugeridas": "Todos los agentes deben analizar valor entregado, señales de riesgo, oportunidades de relación y acciones de retención medibles.",
+    "activo": true,
+    "orden": 2,
+    "status": "active",
+    "tags": [
+      "retencion",
+      "fidelizacion",
+      "clientes"
+    ],
+    "typical_needs": [
+      "Diagnóstico inicial del dominio",
+      "Priorización de acciones operativas",
+      "Definición de métricas y criterios de seguimiento"
+    ],
+    "expected_profile_types": [
+      "customer_success_manager",
+      "analista_retencion",
+      "estratega_comercial"
+    ],
+    "likely_professional_profiles": [
+      "customer_success_manager",
+      "analista_retencion",
+      "estratega_comercial"
+    ],
+    "required_capabilities": [
+      "análisis de retención",
+      "diseño de acciones de fidelización",
+      "lectura de valor percibido",
+      "diagnóstico estructurado",
+      "priorización accionable"
+    ],
+    "possible_team_templates": [
+      "equipo_retencion_clientes",
+      "equipo_diagnostico_operativo"
+    ],
+    "model_policy_need": "auto",
+    "complexity": "medium",
+    "operational_priority": "high",
+    "compatible_business_scales": [
+      "micro",
+      "local_business",
+      "freelancer",
+      "pyme",
+      "company",
+      "enterprise"
+    ],
+    "activation_requirements": [
+      "Definir perfiles profesionales globales compatibles",
+      "Crear preset_seed y paper_seed antes de uso como agente operativo",
+      "Asignar política de modelo o recomendación dinámica"
+    ],
+    "operationalization_contract": {
+      "needs_professional_profiles": true,
+      "needs_presets": true,
+      "needs_paper_seed": true,
+      "needs_model_policy": true,
+      "can_create_agent_when": "Existen perfiles profesionales PASSED con preset_seed, paper_seed y política de modelo para este nicho.",
+      "can_join_team_when": "Existe una plantilla de equipo PASSED que incluya perfiles compatibles con este nicho.",
+      "blocked_by": [
+        "Perfiles profesionales globales pendientes de Prompt 18"
+      ]
+    },
+    "notes": "Nicho PASSED de la primera tanda 17.2; entra como catálogo operativo de dominio, no como perfil/preset/agente todavía."
+  },
+  {
+    "id": "voz_cliente_nps",
+    "area_id": "customer_success_experiencia_cliente",
+    "nombre": "Voz del cliente y NPS",
+    "nombre_dominio_sugerido": "Customer Success — Voz del Cliente y NPS",
+    "descripcion_sugerida": "Dominio orientado a capturar, ordenar y convertir feedback de clientes en decisiones de producto, servicio y operación.",
+    "instrucciones_sugeridas": "Todos los agentes deben distinguir casos aislados de patrones, preservar citas relevantes y cerrar el ciclo de feedback.",
+    "activo": true,
+    "orden": 3,
+    "status": "active",
+    "tags": [
+      "feedback",
+      "nps",
+      "voz_cliente"
+    ],
+    "typical_needs": [
+      "Diagnóstico inicial del dominio",
+      "Priorización de acciones operativas",
+      "Definición de métricas y criterios de seguimiento"
+    ],
+    "expected_profile_types": [
+      "cx_analyst",
+      "ux_researcher",
+      "customer_success_ops"
+    ],
+    "likely_professional_profiles": [
+      "cx_analyst",
+      "ux_researcher",
+      "customer_success_ops"
+    ],
+    "required_capabilities": [
+      "análisis de feedback",
+      "clasificación temática",
+      "síntesis accionable",
+      "diagnóstico estructurado",
+      "priorización accionable"
+    ],
+    "possible_team_templates": [
+      "equipo_voz_cliente",
+      "equipo_diagnostico_operativo"
+    ],
+    "model_policy_need": "auto",
+    "complexity": "medium",
+    "operational_priority": "high",
+    "compatible_business_scales": [
+      "freelancer",
+      "pyme",
+      "company",
+      "enterprise"
+    ],
+    "activation_requirements": [
+      "Definir perfiles profesionales globales compatibles",
+      "Crear preset_seed y paper_seed antes de uso como agente operativo",
+      "Asignar política de modelo o recomendación dinámica"
+    ],
+    "operationalization_contract": {
+      "needs_professional_profiles": true,
+      "needs_presets": true,
+      "needs_paper_seed": true,
+      "needs_model_policy": true,
+      "can_create_agent_when": "Existen perfiles profesionales PASSED con preset_seed, paper_seed y política de modelo para este nicho.",
+      "can_join_team_when": "Existe una plantilla de equipo PASSED que incluya perfiles compatibles con este nicho.",
+      "blocked_by": [
+        "Perfiles profesionales globales pendientes de Prompt 18"
+      ]
+    },
+    "notes": "Nicho PASSED de la primera tanda 17.2; entra como catálogo operativo de dominio, no como perfil/preset/agente todavía."
+  },
+  {
+    "id": "gestion_churn",
+    "area_id": "customer_success_experiencia_cliente",
+    "nombre": "Gestión de churn",
+    "nombre_dominio_sugerido": "Customer Success — Gestión de Churn",
+    "descripcion_sugerida": "Dominio orientado a anticipar cancelaciones, explicar causas de abandono y diseñar acciones de prevención o recuperación.",
+    "instrucciones_sugeridas": "Todos los agentes deben diferenciar churn evitable/no evitable, priorizar segmentos y evitar acciones invasivas sin valor real.",
+    "activo": true,
+    "orden": 4,
+    "status": "active",
+    "tags": [
+      "churn",
+      "riesgo_cliente",
+      "retencion"
+    ],
+    "typical_needs": [
+      "Diagnóstico inicial del dominio",
+      "Priorización de acciones operativas",
+      "Definición de métricas y criterios de seguimiento"
+    ],
+    "expected_profile_types": [
+      "customer_success_manager",
+      "data_analyst",
+      "gestor_riesgo"
+    ],
+    "likely_professional_profiles": [
+      "customer_success_manager",
+      "data_analyst",
+      "gestor_riesgo"
+    ],
+    "required_capabilities": [
+      "detección de señales de riesgo",
+      "segmentación de churn",
+      "diseño de playbooks",
+      "diagnóstico estructurado",
+      "priorización accionable"
+    ],
+    "possible_team_templates": [
+      "equipo_prevencion_churn",
+      "equipo_diagnostico_operativo"
+    ],
+    "model_policy_need": "auto",
+    "complexity": "high",
+    "operational_priority": "critical",
+    "compatible_business_scales": [
+      "pyme",
+      "company",
+      "enterprise"
+    ],
+    "activation_requirements": [
+      "Definir perfiles profesionales globales compatibles",
+      "Crear preset_seed y paper_seed antes de uso como agente operativo",
+      "Asignar política de modelo o recomendación dinámica"
+    ],
+    "operationalization_contract": {
+      "needs_professional_profiles": true,
+      "needs_presets": true,
+      "needs_paper_seed": true,
+      "needs_model_policy": true,
+      "can_create_agent_when": "Existen perfiles profesionales PASSED con preset_seed, paper_seed y política de modelo para este nicho.",
+      "can_join_team_when": "Existe una plantilla de equipo PASSED que incluya perfiles compatibles con este nicho.",
+      "blocked_by": [
+        "Perfiles profesionales globales pendientes de Prompt 18"
+      ]
+    },
+    "notes": "Nicho PASSED de la primera tanda 17.2; entra como catálogo operativo de dominio, no como perfil/preset/agente todavía."
+  },
+  {
+    "id": "experiencia_cliente_omnicanal",
+    "area_id": "customer_success_experiencia_cliente",
+    "nombre": "Experiencia de cliente omnicanal",
+    "nombre_dominio_sugerido": "Customer Success — Experiencia Omnicanal",
+    "descripcion_sugerida": "Dominio orientado a coordinar experiencia entre canales digitales, presenciales, soporte, ventas y postventa.",
+    "instrucciones_sugeridas": "Todos los agentes deben mapear puntos de contacto, fricciones, responsables y métricas de experiencia por canal.",
+    "activo": true,
+    "orden": 5,
+    "status": "active",
+    "tags": [
+      "cx",
+      "omnicanal",
+      "servicio"
+    ],
+    "typical_needs": [
+      "Diagnóstico inicial del dominio",
+      "Priorización de acciones operativas",
+      "Definición de métricas y criterios de seguimiento"
+    ],
+    "expected_profile_types": [
+      "cx_manager",
+      "service_designer",
+      "operations_manager"
+    ],
+    "likely_professional_profiles": [
+      "cx_manager",
+      "service_designer",
+      "operations_manager"
+    ],
+    "required_capabilities": [
+      "mapeo de journey",
+      "análisis de fricciones",
+      "coordinación multicanal",
+      "diagnóstico estructurado",
+      "priorización accionable"
+    ],
+    "possible_team_templates": [
+      "equipo_experiencia_omnicanal",
+      "equipo_diagnostico_operativo"
+    ],
+    "model_policy_need": "auto",
+    "complexity": "high",
+    "operational_priority": "high",
+    "compatible_business_scales": [
+      "local_business",
+      "pyme",
+      "company",
+      "enterprise"
+    ],
+    "activation_requirements": [
+      "Definir perfiles profesionales globales compatibles",
+      "Crear preset_seed y paper_seed antes de uso como agente operativo",
+      "Asignar política de modelo o recomendación dinámica"
+    ],
+    "operationalization_contract": {
+      "needs_professional_profiles": true,
+      "needs_presets": true,
+      "needs_paper_seed": true,
+      "needs_model_policy": true,
+      "can_create_agent_when": "Existen perfiles profesionales PASSED con preset_seed, paper_seed y política de modelo para este nicho.",
+      "can_join_team_when": "Existe una plantilla de equipo PASSED que incluya perfiles compatibles con este nicho.",
+      "blocked_by": [
+        "Perfiles profesionales globales pendientes de Prompt 18"
+      ]
+    },
+    "notes": "Nicho PASSED de la primera tanda 17.2; entra como catálogo operativo de dominio, no como perfil/preset/agente todavía."
   }
 ]

@@ -180,5 +180,133 @@
     "descripcion": "Área profesional vinculada a operaciones portuarias, logística marítima, documentación naviera y coordinación de cargas.",
     "activo": true,
     "orden": 26
+  },
+  {
+    "id": "producto_gestion_producto",
+    "nombre": "Producto y Gestión de Producto",
+    "descripcion": "Área profesional enfocada en producto digital, propuesta de valor, descubrimiento, validación, roadmap, pricing y mejora continua de experiencias.",
+    "activo": true,
+    "orden": 27,
+    "status": "active",
+    "tags": [
+      "producto",
+      "ux",
+      "negocio_digital",
+      "roadmap"
+    ],
+    "business_value": "Permite convertir ideas y necesidades de usuarios en productos digitales priorizados, medibles y sostenibles.",
+    "typical_domains": [
+      "SaaS",
+      "aplicaciones móviles",
+      "plataformas internas",
+      "e-commerce",
+      "servicios digitales"
+    ],
+    "compatible_business_scales": [
+      "freelancer",
+      "pyme",
+      "company",
+      "enterprise"
+    ],
+    "operational_priority": "high",
+    "suggested_niche_count": 5,
+    "notes": "Área nueva porque diseño UX aislado y gerencia general no cubren discovery, roadmap y ciclo de producto completo."
+  },
+  {
+    "id": "automatizacion_integraciones",
+    "nombre": "Automatización e Integraciones",
+    "descripcion": "Área profesional dedicada a automatizar procesos, conectar herramientas, diseñar flujos internos, operar APIs y reducir trabajo manual repetitivo.",
+    "activo": true,
+    "orden": 28,
+    "status": "active",
+    "tags": [
+      "automatizacion",
+      "integraciones",
+      "apis",
+      "operaciones"
+    ],
+    "business_value": "Mejora eficiencia operativa conectando sistemas reales de negocio sin requerir rediseños completos de infraestructura.",
+    "typical_domains": [
+      "CRM",
+      "WhatsApp Business",
+      "backoffice",
+      "formularios",
+      "sistemas internos",
+      "automatización no-code/low-code"
+    ],
+    "compatible_business_scales": [
+      "micro",
+      "local_business",
+      "freelancer",
+      "pyme",
+      "company",
+      "enterprise"
+    ],
+    "operational_priority": "critical",
+    "suggested_niche_count": 5,
+    "notes": "Área nueva porque tecnología general cubre IT/software, pero no la práctica transversal de automatización operativa."
+  },
+  {
+    "id": "datos_bi_analytics",
+    "nombre": "Datos, BI y Analytics",
+    "descripcion": "Área profesional orientada a indicadores, tableros, analítica comercial, calidad de datos, cohortes, forecasting y toma de decisiones basada en evidencia.",
+    "activo": true,
+    "orden": 29,
+    "status": "active",
+    "tags": [
+      "datos",
+      "bi",
+      "analytics",
+      "metricas"
+    ],
+    "business_value": "Convierte datos dispersos en información accionable para dirección, operaciones, marketing, ventas y finanzas.",
+    "typical_domains": [
+      "dashboards",
+      "ventas",
+      "producto",
+      "marketing",
+      "finanzas",
+      "operaciones"
+    ],
+    "compatible_business_scales": [
+      "freelancer",
+      "pyme",
+      "company",
+      "enterprise"
+    ],
+    "operational_priority": "critical",
+    "suggested_niche_count": 5,
+    "notes": "Área nueva porque el nicho existente datos_bi era insuficiente para una biblioteca global multiárea."
+  },
+  {
+    "id": "customer_success_experiencia_cliente",
+    "nombre": "Customer Success y Experiencia de Cliente",
+    "descripcion": "Área profesional centrada en adopción, retención, salud de clientes, voz del cliente, prevención de churn y experiencia omnicanal.",
+    "activo": true,
+    "orden": 30,
+    "status": "active",
+    "tags": [
+      "customer_success",
+      "experiencia_cliente",
+      "retencion",
+      "churn"
+    ],
+    "business_value": "Ayuda a sostener ingresos y mejorar servicio después de la venta, conectando soporte, producto, marketing y gestión comercial.",
+    "typical_domains": [
+      "SaaS",
+      "servicios profesionales",
+      "e-commerce",
+      "educación online",
+      "clubes de suscripción"
+    ],
+    "compatible_business_scales": [
+      "local_business",
+      "pyme",
+      "company",
+      "enterprise"
+    ],
+    "operational_priority": "high",
+    "suggested_niche_count": 5,
+    "notes": "Área nueva porque atención al cliente cubre soporte/call center, pero no adopción, retención y éxito del cliente como disciplina."
   }
 ]
