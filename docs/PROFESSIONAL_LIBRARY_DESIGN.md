@@ -653,10 +653,13 @@ Ningún perfil/nicho/preset puede estar visible como usable sin cumplir reglas d
 | Profiles activos Lotería | 11 | activo: true | PASSED | Tienen preset operativo | Ninguna | - | Sí |
 | Profiles inactivos Lotería | 19 | activo: false | baja/desactivado temporal | Sin preset operativo | Preset | Prompt 18.1 / Prompt 20 | No |
 | Presets existentes | 11 | activo: true | PASSED | Tienen paper_seed y trazabilidad | Ninguna | - | Sí |
-| Agentes operativos | 11 | Config válido | PASSED | Tienen config y paper | Ninguna | - | Sí |
-| Agentes legacy | 5 | Config válido | legacy / recuperar_para_operar | Ejecutables pero sin combinación formal role+specialization | Role+specialization formales | Prompt 18.1 | No |
+| Agentes config existentes | 11 | Config válido | - | Total agentes en domains/loteria/agents/config/ | - | - | - |
+| Agentes PASSED para flujo nuevo | 6 | Config válido | PASSED | Tienen trazabilidad completa profile→preset→paper/model policy | Ninguna | - | Sí |
+| Agentes legacy / recuperar_para_operar | 5 | Config válido | legacy / recuperar_para_operar | Ejecutables pero sin combinación formal role+specialization | Role+specialization formales | Prompt 18.1 | No |
 | Papers existentes | 11 | JSON válido | PASSED | Corresponden a agentes | Ninguna | - | Sí |
 | Perfiles históricos documentados | 22 | Solo en docs | backlog_documental | Listados para recuperación futura | Preset, paper, model policy | Prompt 18.1 | No |
+
+**Nota**: Los 5 agentes legacy (gemini_cuantico, gpt_auditor, nuevo_deepseek_saaop, viejo_deepseek, viejo_lobo_rey) son subset de los 11 agentes config existentes. Son ejecutables por historia pero no tienen trazabilidad completa para el flujo nuevo.
 
 ### Clasificación de Decisiones
 
