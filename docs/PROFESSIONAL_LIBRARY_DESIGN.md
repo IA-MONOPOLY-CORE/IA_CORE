@@ -13,7 +13,7 @@ IA_CORE debe pasar de "crear agentes por dominio" a "crear equipos profesionales
 ### Catálogos Globales Existentes
 
 - **Áreas**: 30 (catalogs/areas.json)
-- **Nichos**: 134 (catalogs/niches.json)
+- **Nichos**: 169 (catalogs/niches.json)
 - **Roles**: 20 (catalogs/roles.json)
 - **Especializaciones**: 80 (catalogs/specializations.json)
 
@@ -48,15 +48,13 @@ IA_CORE debe pasar de "crear agentes por dominio" a "crear equipos profesionales
 
 ### Limitaciones Actuales
 
-1. **Nichos insuficientes para empresa digital completa**: Los 134 nichos actuales ya incorporan una primera expansión PASSED para empresa digital moderna, pero todavía faltan tandas posteriores para:
-   - Automatización de procesos
-   - Growth hacking
-   - Product management
-   - Data engineering
-   - DevOps
-   - Community management
-   - Customer success
-   - Business intelligence avanzado
+1. **Nichos insuficientes para empresa digital completa**: Los 169 nichos actuales ya incorporan expansiones PASSED para empresa digital moderna, operaciones, datos, growth, finanzas, legal básico y gestión de proyectos, pero todavía faltan tandas posteriores para:
+   - Data engineering y analítica avanzada
+   - Seguridad operativa avanzada
+   - Community management y operaciones de comunidad
+   - Compliance sectorial específico
+   - Nichos por industria regulada
+   - Escalas enterprise y PMO avanzada
 
 2. **Perfiles heredados de semillas anteriores**: Los perfiles actuales están fuertemente influenciados por el dominio Lotería, con roles como "auditor_hostil", "cazador_anomalias" que son específicos de ese dominio.
 
@@ -650,7 +648,7 @@ Ningún perfil/nicho/preset puede estar visible como usable sin cumplir reglas d
 | Tipo de Elemento | Cantidad | Estado Actual | Categoría de Decisión | Motivo | Piezas Faltantes | Subprompt Sugerido | Aparece como Usable |
 |---|---|---|---|---|---|---|---|
 | Áreas existentes | 30 | activo: true | PASSED | Operativas, validadas | Ninguna | - | Sí |
-| Nichos existentes | 134 | activo: true | PASSED | Operativos, validados | Ninguna | - | Sí |
+| Nichos existentes | 169 | activo: true | PASSED | Operativos, validados | Ninguna | - | Sí |
 | Profiles activos Lotería | 11 | activo: true | PASSED | Tienen preset operativo | Ninguna | - | Sí |
 | Profiles inactivos Lotería | 19 | activo: false | baja/desactivado temporal | Sin preset operativo | Preset | Prompt 18.1 / Prompt 20 | No |
 | Presets existentes | 11 | activo: true | PASSED | Tienen paper_seed y trazabilidad | Ninguna | - | Sí |

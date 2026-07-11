@@ -266,7 +266,7 @@ def test_passed_decision_table_classifies_existing_elements():
     )
     required_rows = [
         "| Áreas existentes | 30 | activo: true | PASSED |",
-        "| Nichos existentes | 134 | activo: true | PASSED |",
+        "| Nichos existentes | 169 | activo: true | PASSED |",
         "| Profiles activos Lotería | 11 | activo: true | PASSED |",
         "| Profiles inactivos Lotería | 19 | activo: false | baja/desactivado temporal |",
         "| Presets existentes | 11 | activo: true | PASSED |",

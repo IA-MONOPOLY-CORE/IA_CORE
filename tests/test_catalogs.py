@@ -111,6 +111,76 @@ PROMPT_17_3_DOMAIN_FLOW_SAMPLE_NICHE_IDS = [
     "onboarding_empleados",
     "objetivos_metricas_okrs",
 ]
+PROMPT_17_4_NICHE_IDS_BY_AREA = {
+    "automatizacion_integraciones": {
+        "aprobaciones_internas",
+        "automatizacion_reportes_recurrentes",
+        "flujos_no_code_low_code",
+        "automatizacion_tareas_administrativas",
+    },
+    "datos_bi_analytics": {
+        "rentabilidad_por_canal",
+        "analisis_clientes_recurrentes",
+        "tableros_margen_costos",
+        "segmentacion_comercial_avanzada",
+    },
+    "marketing_publicidad": {
+        "crecimiento_whatsapp",
+        "crecimiento_instagram_tiktok",
+        "calendario_comercial",
+        "analisis_rendimiento_campanas",
+    },
+    "comercial_ventas_negocios": {
+        "diseno_pipeline_comercial",
+        "seguimiento_oportunidades_comerciales",
+        "procesos_venta_pymes",
+        "scripts_objeciones_comerciales",
+    },
+    "customer_success_experiencia_cliente": {
+        "recuperacion_clientes_inactivos",
+        "medicion_satisfaccion_cliente",
+        "programas_fidelizacion",
+        "experiencia_postventa",
+    },
+    "administracion_contabilidad_finanzas": {
+        "rentabilidad_unidad_negocio",
+        "flujo_caja_semanal",
+        "control_deuda_pagos",
+        "presupuesto_por_area",
+    },
+    "legales": {
+        "checklist_documental_basico",
+        "contratos_simples_pymes",
+        "politicas_internas_basicas",
+    },
+    "gerencia_direccion_general": {
+        "planificacion_proyectos_internos",
+        "seguimiento_entregables",
+        "gestion_riesgos_proyecto",
+        "analisis_competidores",
+    },
+    "abastecimiento_logistica": {
+        "planificacion_compras",
+        "seguimiento_proveedores",
+    },
+    "produccion_manufactura": {
+        "mejora_continua_procesos",
+        "estandarizacion_procedimientos",
+    },
+}
+PROMPT_17_4_NICHE_IDS = set().union(*PROMPT_17_4_NICHE_IDS_BY_AREA.values())
+PROMPT_17_4_DOMAIN_FLOW_SAMPLE_NICHE_IDS = [
+    "aprobaciones_internas",
+    "rentabilidad_por_canal",
+    "crecimiento_whatsapp",
+    "diseno_pipeline_comercial",
+    "recuperacion_clientes_inactivos",
+    "flujo_caja_semanal",
+    "checklist_documental_basico",
+    "planificacion_proyectos_internos",
+    "planificacion_compras",
+    "mejora_continua_procesos",
+]
 CENTRAL_ROLE_IDS = {
     "analista",
     "critico",
@@ -196,7 +266,7 @@ def test_niches_catalog_exists_is_valid_and_covers_each_area():
     niches = _read_json(CATALOGS_DIR / "niches.json")
 
     assert isinstance(niches, list)
-    assert len(niches) == 134
+    assert len(niches) == 169
 
     niche_ids = [niche["id"] for niche in niches]
     assert len(niche_ids) == len(set(niche_ids))
@@ -286,10 +356,71 @@ def test_prompt_17_2_passed_expansion_distribution_is_not_absurd():
     counts_by_area = Counter(niche["area_id"] for niche in niches)
 
     assert len(areas) == 30
-    assert len(niches) == 134
+    assert len(niches) == 169
     assert min(counts_by_area.values()) >= 3
-    assert max(counts_by_area.values()) <= 9
-    assert sum(counts_by_area[area_id] for area_id in PROMPT_17_2_AREA_IDS) == 20
+    assert max(counts_by_area.values()) <= 13
+    assert sum(counts_by_area[area_id] for area_id in PROMPT_17_2_AREA_IDS) >= 20
+
+
+def test_prompt_17_4_passed_expansion_has_operational_metadata():
+    areas = _read_json(CATALOGS_DIR / "areas.json")
+    niches = _read_json(CATALOGS_DIR / "niches.json")
+    area_ids = {area["id"] for area in areas}
+    niches_by_id = {niche["id"]: niche for niche in niches}
+
+    assert len(PROMPT_17_4_NICHE_IDS) == 35
+    assert PROMPT_17_4_NICHE_IDS.issubset(niches_by_id)
+
+    for area_id, expected_niche_ids in PROMPT_17_4_NICHE_IDS_BY_AREA.items():
+        assert area_id in area_ids
+        actual_niche_ids = {
+            niche["id"]
+            for niche in niches
+            if niche["area_id"] == area_id and niche["id"] in PROMPT_17_4_NICHE_IDS
+        }
+        assert actual_niche_ids == expected_niche_ids
+
+    for niche_id in PROMPT_17_4_NICHE_IDS:
+        niche = niches_by_id[niche_id]
+        assert niche["activo"] is True
+        assert niche["status"] == "active"
+        assert niche["area_id"] in area_ids
+        assert niche["nombre"].strip()
+        assert niche["nombre_dominio_sugerido"].strip()
+        assert niche["descripcion_sugerida"].strip()
+        assert niche["instrucciones_sugeridas"].strip()
+        assert niche["tags"]
+        assert niche["typical_needs"]
+        assert niche["expected_profile_types"]
+        assert niche["likely_professional_profiles"]
+        assert niche["required_capabilities"]
+        assert niche["possible_team_templates"]
+        assert niche["model_policy_need"] in catalog_registry.VALID_MODEL_POLICY_VALUES
+        assert niche["complexity"] in catalog_registry.VALID_COMPLEXITY_VALUES
+        assert niche["operational_priority"] in catalog_registry.VALID_PRIORITY_VALUES
+        assert niche["compatible_business_scales"]
+        assert niche["activation_requirements"]
+        contract = niche["operationalization_contract"]
+        assert contract["needs_professional_profiles"] is True
+        assert contract["needs_presets"] is True
+        assert contract["needs_paper_seed"] is True
+        assert contract["needs_model_policy"] is True
+        assert contract["blocked_by"]
+
+        serialized = json.dumps(niche, ensure_ascii=False).lower()
+        for forbidden in FORBIDDEN_LOTTERY_TERMS:
+            assert forbidden not in serialized
+        for forbidden in [
+            "system_prompt",
+            "user_prompt",
+            "assistant_prompt",
+            "actúa como",
+            "actua como",
+            "ignora las instrucciones",
+            "suggested_agent_id",
+            "agent_presets",
+        ]:
+            assert forbidden not in serialized
 
 
 def test_prompt_17_3_tanda_one_niches_are_usable_in_domain_creation_flow(tmp_path):
@@ -383,7 +514,84 @@ def test_prompt_17_3_all_tanda_one_niches_are_visible_as_passed_options():
     assert PROMPT_17_2_NICHE_IDS.issubset(active_niche_ids)
     assert PROMPT_17_2_NICHE_IDS.issubset(catalog_niche_ids)
     assert len(catalog["areas"]) == 30
-    assert sum(len(niches) for niches in catalog["niches_by_area"].values()) == 134
+    assert sum(len(niches) for niches in catalog["niches_by_area"].values()) == 169
+
+
+def test_prompt_17_4_tanda_two_a_niches_are_usable_in_domain_creation_flow(tmp_path):
+    areas_by_id = {area["id"]: area for area in catalog_registry.load_areas()}
+    niches_by_id = {niche["id"]: niche for niche in catalog_registry.load_niches()}
+    catalog = catalog_registry.get_domain_creation_catalog()
+    catalog_niches = {
+        niche["id"]: (area_id, niche)
+        for area_id, area_niches in catalog["niches_by_area"].items()
+        for niche in area_niches
+    }
+
+    assert set(PROMPT_17_4_DOMAIN_FLOW_SAMPLE_NICHE_IDS).issubset(PROMPT_17_4_NICHE_IDS)
+
+    for index, niche_id in enumerate(PROMPT_17_4_DOMAIN_FLOW_SAMPLE_NICHE_IDS, start=1):
+        niche = niches_by_id[niche_id]
+        assert niche["activo"] is True
+        assert niche["status"] == "active"
+        assert niche["area_id"] in areas_by_id
+        assert niche["nombre_dominio_sugerido"].strip()
+        assert niche["descripcion_sugerida"].strip()
+        assert niche["instrucciones_sugeridas"].strip()
+        assert niche["tags"]
+        assert niche["typical_needs"]
+        assert niche["expected_profile_types"]
+        assert niche["required_capabilities"]
+
+        catalog_area_id, catalog_niche = catalog_niches[niche_id]
+        assert catalog_area_id == niche["area_id"]
+        assert catalog_niche["nombre_dominio_sugerido"] == niche["nombre_dominio_sugerido"]
+        assert catalog_niche["descripcion_sugerida"] == niche["descripcion_sugerida"]
+        assert catalog_niche["instrucciones_sugeridas"] == niche["instrucciones_sugeridas"]
+
+        selection = catalog_registry.validate_domain_catalog_selection(
+            niche["area_id"],
+            niche_id,
+        )
+        assert selection == {
+            "area_profesional_id": niche["area_id"],
+            "nicho_id": niche_id,
+            "nicho_nombre": niche["nombre"],
+        }
+
+        domain = domain_registry.create_domain(
+            name=f"{niche['nombre_dominio_sugerido']} Validacion 2A {index}",
+            description=niche["descripcion_sugerida"],
+            instructions=niche["instrucciones_sugeridas"],
+            theme_id="corporativo",
+            suggested_niche=niche["nombre"],
+            area_profesional_id=niche["area_id"],
+            nicho_id=niche_id,
+            domains_dir=tmp_path,
+        )
+        manifest = _read_json(tmp_path / domain["id"] / "domain.json")
+        assert manifest["area_profesional_id"] == niche["area_id"]
+        assert manifest["nicho_id"] == niche_id
+        assert manifest["nicho_sugerido"] == niche["nombre"]
+        assert manifest["descripcion"] == niche["descripcion_sugerida"]
+        assert manifest["instrucciones"] == niche["instrucciones_sugeridas"]
+        assert not list((tmp_path / domain["id"] / "agents" / "config").glob("*.json"))
+        assert not list((tmp_path / domain["id"] / "agents" / "papers").glob("*.json"))
+
+
+def test_prompt_17_4_all_tanda_two_a_niches_are_visible_as_passed_options():
+    active_niche_ids = {niche["id"] for niche in catalog_registry.load_niches()}
+    catalog = catalog_registry.get_domain_creation_catalog()
+    catalog_niche_ids = {
+        niche["id"]
+        for area_niches in catalog["niches_by_area"].values()
+        for niche in area_niches
+    }
+
+    assert len(PROMPT_17_4_NICHE_IDS) == 35
+    assert PROMPT_17_4_NICHE_IDS.issubset(active_niche_ids)
+    assert PROMPT_17_4_NICHE_IDS.issubset(catalog_niche_ids)
+    assert len(catalog["areas"]) == 30
+    assert sum(len(niches) for niches in catalog["niches_by_area"].values()) == 169
 
 
 def test_lottery_is_catalogued_as_one_niche_not_a_global_default():

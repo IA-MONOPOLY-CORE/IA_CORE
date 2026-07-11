@@ -13,29 +13,27 @@ Este reporte define el universo objetivo de áreas y nichos profesionales para I
 ### Auditoría Real
 
 - **Áreas actuales**: 30 (catalogs/areas.json)
-- **Nichos actuales**: 134 (catalogs/niches.json)
-- **Promedio de nichos por área**: 3.6
-- **Áreas con más nichos**: 8 áreas con 5 nichos cada una
-- **Áreas con menos nichos**: 18 áreas con 3 nichos cada una
+- **Nichos actuales**: 169 (catalogs/niches.json)
+- **Promedio de nichos por área**: 5.6
+- **Áreas con más nichos**: 2 áreas con 13 nichos cada una
+- **Áreas con menos nichos**: 13 áreas con 3 nichos cada una
 
 ### Distribución por Área
 
-**Áreas con 5 nichos (prioridades actuales)**:
-- comercial_ventas_negocios: 5
-- administracion_contabilidad_finanzas: 5
-- tecnologia_sistemas_telecomunicaciones: 5
-- atencion_cliente_call_center_telemarketing: 5
-- gastronomia_turismo: 5
-- marketing_publicidad: 5
-- legales: 5
-- educacion_docencia_investigacion: 5
+**Áreas con mayor cobertura**:
+- administracion_contabilidad_finanzas: 13
+- marketing_publicidad: 13
+- comercial_ventas_negocios: 12
+- automatizacion_integraciones: 9
+- customer_success_experiencia_cliente: 9
+- datos_bi_analytics: 9
+- gerencia_direccion_general: 9
+- tecnologia_sistemas_telecomunicaciones: 9
+- legales: 8
 
-**Áreas con 3 nichos**:
-- produccion_manufactura: 3
-- abastecimiento_logistica: 3
+**Áreas con cobertura mínima pendiente**:
 - oficios_otros: 3
 - salud_medicina_farmacia: 3
-- recursos_humanos_capacitacion: 3
 - ingenierias: 3
 - ingenieria_civil_construccion: 3
 - departamento_tecnico: 3
@@ -54,7 +52,7 @@ Este reporte define el universo objetivo de áreas y nichos profesionales para I
 
 - **Nichos específicos de Lotería**: 1 (analisis_loteria_juegos_azar en oficios_otros)
 - **Nichos duplicados o parecidos**: No detectados
-- **Nichos útiles para empresa digital**: Parcialmente cubiertos en tecnología, marketing, ventas, finanzas
+- **Nichos útiles para empresa digital**: Cubiertos progresivamente en tecnología, automatización, producto, datos, marketing, ventas, finanzas, customer success, legal básico y gestión operativa
 
 ### Diagnóstico de Cobertura Actual
 
@@ -1423,9 +1421,9 @@ No se modificó `catalogs/areas.json` ni `catalogs/niches.json` en este prompt. 
 
 Tanda 1 queda validada como usable para creación de dominios. El siguiente paso debe ampliar cobertura sin romper deduplicación ni la regla PASSED.
 
-## Preparación de Tanda 2 PASSED
+## Preparación histórica de Tanda 2 PASSED
 
-Tanda 2 no se carga todavía. Queda preparada como alcance documental para acercar el catálogo desde 134 hacia aproximadamente 200 nichos, idealmente en una o más sub-tandas si el volumen completo aumenta el riesgo.
+Esta sección quedó como preparación documental previa a Prompt 17.4. Tanda 2A ya cargó una primera sub-tanda y dejó el catálogo en 169 nichos PASSED; el tramo restante queda preparado más abajo como Tanda 2B.
 
 ### Alcance sugerido
 
@@ -1456,3 +1454,88 @@ Cada nicho de Tanda 2 debe entrar solo si cumple:
 - Sin referencias a Lotería, agentes legacy, presets inexistentes, papers ni n8n.
 
 Si una sub-tanda no puede cumplir esos criterios, debe quedar en backlog documental y no en JSON operativo.
+
+## Tanda 2A PASSED
+
+### Conteo antes
+
+- Áreas: 30.
+- Nichos: 134.
+- Estados transicionales en JSON operativo: 0.
+
+### Conteo después
+
+- Áreas: 30.
+- Nichos: 169.
+- Estados transicionales en JSON operativo: 0.
+
+### Nichos agregados
+
+Tanda 2A agregó 35 nichos PASSED, todos en áreas existentes:
+
+| Área | Cantidad | Nichos |
+|---|---:|---|
+| `automatizacion_integraciones` | 4 | `aprobaciones_internas`, `automatizacion_reportes_recurrentes`, `flujos_no_code_low_code`, `automatizacion_tareas_administrativas` |
+| `datos_bi_analytics` | 4 | `rentabilidad_por_canal`, `analisis_clientes_recurrentes`, `tableros_margen_costos`, `segmentacion_comercial_avanzada` |
+| `marketing_publicidad` | 4 | `crecimiento_whatsapp`, `crecimiento_instagram_tiktok`, `calendario_comercial`, `analisis_rendimiento_campanas` |
+| `comercial_ventas_negocios` | 4 | `diseno_pipeline_comercial`, `seguimiento_oportunidades_comerciales`, `procesos_venta_pymes`, `scripts_objeciones_comerciales` |
+| `customer_success_experiencia_cliente` | 4 | `recuperacion_clientes_inactivos`, `medicion_satisfaccion_cliente`, `programas_fidelizacion`, `experiencia_postventa` |
+| `administracion_contabilidad_finanzas` | 4 | `rentabilidad_unidad_negocio`, `flujo_caja_semanal`, `control_deuda_pagos`, `presupuesto_por_area` |
+| `legales` | 3 | `checklist_documental_basico`, `contratos_simples_pymes`, `politicas_internas_basicas` |
+| `gerencia_direccion_general` | 4 | `planificacion_proyectos_internos`, `seguimiento_entregables`, `gestion_riesgos_proyecto`, `analisis_competidores` |
+| `abastecimiento_logistica` | 2 | `planificacion_compras`, `seguimiento_proveedores` |
+| `produccion_manufactura` | 2 | `mejora_continua_procesos`, `estandarizacion_procedimientos` |
+
+### Criterio de selección
+
+La tanda priorizó casos reales y frecuentes para empresa digital, pyme, local comercial y equipos internos:
+
+- Automatización que reduce trabajo manual sin depender de n8n ni de agentes reales todavía.
+- Datos aplicados a margen, canales, clientes recurrentes y segmentación comercial.
+- Growth por canales concretos, calendario comercial y medición de campañas.
+- Procesos de venta entendibles para pymes y equipos comerciales pequeños.
+- Customer success avanzado sin duplicar soporte ni Lotería.
+- Finanzas operativas de corto plazo y control de gestión.
+- Legal/compliance básico con lenguaje práctico y sin prometer asesoramiento jurídico completo.
+- Gestión de proyectos internos, entregables, riesgos y análisis competitivo.
+- Operaciones de compras, proveedores, mejora continua y procedimientos.
+
+### Nichos descartados o pospuestos
+
+- IA aplicada, data science avanzada y data engineering quedan para una tanda posterior con model policies más específicas.
+- Security operations avanzado queda fuera para no duplicar `ciberseguridad` y `seguridad_operativa_basica`.
+- Compliance regulatorio sectorial se pospone para evitar cargar nichos legales que requieren especialización vertical.
+- Gestión de proyectos enterprise, PMO avanzada y portafolios complejos se dejan para Tanda 2B o una tanda de escala.
+- Nichos por industria específica se mantienen fuera para no contaminar áreas transversales con verticales prematuros.
+
+### Confirmación PASSED
+
+- No se cargó ningún `proposed`, `draft` ni `deprecated`.
+- Todo nicho nuevo entra con `activo:true` y `status: active`.
+- Todo nicho nuevo tiene campos mínimos completos y metadata operativa.
+- Todo nicho nuevo conserva `operationalization_contract` hacia Prompt 18.
+- No se agregaron áreas nuevas.
+- No se tocaron profiles, presets, agentes, papers, HUD ni n8n.
+
+### Acercamiento al objetivo 30/200
+
+El catálogo queda en 30 áreas y 169 nichos PASSED. Faltan aproximadamente 31 nichos para llegar al objetivo orientativo de 200.
+
+La cobertura de empresa digital queda mucho más completa en automatización, datos, growth, ventas, customer success, finanzas, legal básico, proyectos y operaciones. Las brechas restantes se concentran en áreas con baja cobertura, escala de negocio, investigación avanzada, compliance más específico y verticales operativos.
+
+## Preparación de Tanda 2B PASSED
+
+Tanda 2B no se carga todavía. Su objetivo debería ser cerrar el tramo restante hacia aproximadamente 200 nichos sin duplicar Tanda 1 ni Tanda 2A.
+
+### Enfoque recomendado
+
+- Cerrar brechas en áreas con 3 nichos: salud, ingeniería, construcción, seguros, comunicación, sociología/trabajo social, enfermería, marítimo/portuario, minería/energía, diseño, secretaría/recepción y departamento técnico.
+- Sumar nichos por escala de negocio: emprendedor, local comercial, pyme, empresa y enterprise.
+- Reforzar investigación y estrategia sin duplicar `investigacion_mercado`, `research_usuarios` ni `analisis_competidores`.
+- Agregar operaciones digitales pendientes: coordinación interna, mesa de operaciones, gestión de capacidad, documentación operacional y control de calidad de servicio.
+- Ampliar legal/compliance solo con casos básicos y usables, evitando verticales regulados complejos hasta tener perfiles especializados.
+- Mantener cada nuevo nicho con caso de uso real, nombre claro, metadata completa y ruta posterior hacia perfiles, team templates y model policies.
+
+### Criterio de corte
+
+Si Tanda 2B agrega aproximadamente 30-31 nichos PASSED, el catálogo llegaría a 199-200 nichos y quedaría listo para que Prompt 18 avance sobre perfiles profesionales sin sensación de base incompleta.
