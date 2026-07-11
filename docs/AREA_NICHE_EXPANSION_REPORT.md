@@ -1324,3 +1324,135 @@ La tanda deja el sistema en 30 áreas y 134 nichos. Faltan aproximadamente 66 ni
 ### Próxima tanda sugerida
 
 Prompt 17.3 debería validar usabilidad de esta tanda con creación de dominios y, si no hay regresiones, preparar la Tanda 2: automatización avanzada, operaciones digitales, datos aplicados y crecimiento por canal, manteniendo la regla PASSED.
+
+## Validación de usabilidad de Tanda 1
+
+### Qué se validó
+
+Prompt 17.3 validó que la Tanda 1 no quedara solo como JSON cargado. La revisión cubrió:
+
+- Carga de áreas activas con `load_areas(active_only=True)`.
+- Carga de nichos activos con `load_niches(active_only=True)`.
+- Agrupación de opciones para Crear Dominio mediante `get_domain_creation_catalog()`.
+- Validación de selección `area_profesional_id` + `nicho_id` con `validate_domain_catalog_selection()`.
+- Creación temporal de dominios desde nichos nuevos usando `nombre_dominio_sugerido`, `descripcion_sugerida` e `instrucciones_sugeridas`.
+- Filtro de `proposed`, `draft`, `deprecated` y `activo:false` con `active_only=True`.
+- Separación entre catálogo global y dominio Lotería.
+
+### Muestra de nichos probados
+
+La muestra de flujo de dominio cubrió las 4 áreas nuevas y áreas existentes enriquecidas:
+
+| Área | Nicho validado |
+|---|---|
+| `producto_gestion_producto` | `gestion_producto_digital` |
+| `automatizacion_integraciones` | `automatizacion_procesos_internos` |
+| `datos_bi_analytics` | `dashboards_operativos` |
+| `customer_success_experiencia_cliente` | `onboarding_clientes` |
+| `tecnologia_sistemas_telecomunicaciones` | `devops_basico_pymes` |
+| `marketing_publicidad` | `growth_marketing` |
+| `comercial_ventas_negocios` | `ventas_consultivas` |
+| `administracion_contabilidad_finanzas` | `flujo_caja_pyme` |
+| `recursos_humanos_capacitacion` | `onboarding_empleados` |
+| `gerencia_direccion_general` | `objetivos_metricas_okrs` |
+
+Para cada nicho se validó que:
+
+- Está activo/PASSED.
+- Pertenece a un `area_id` válido.
+- Aparece como opción usable en el catálogo de creación de dominios.
+- Expone nombre, descripción e instrucciones sugeridas.
+- Conserva metadata operativa mínima.
+- No contiene dependencias de Lotería.
+- No contiene prompts embebidos de agente ni IDs concretos de agentes/perfiles.
+- Permite crear un dominio temporal sin crear agentes, presets ni papers permanentes.
+
+### Resultado del flujo de dominio
+
+El flujo global puede consumir Tanda 1 de punta a punta:
+
+- La API `/api/catalogs/domain-creation` consume automáticamente las áreas y nichos nuevos porque usa el registry global.
+- La UI de Crear Dominio carga áreas y nichos desde ese endpoint y rellena los campos editables con las sugerencias del nicho seleccionado.
+- `create_domain()` acepta la selección área/nicho y persiste `area_profesional_id`, `nicho_id` y `nicho_sugerido` en `domain.json`.
+- La creación probada se hizo en fixtures temporales, sin modificar `domains/` operativo.
+
+### Separación de Lotería
+
+La expansión global no contamina Lotería:
+
+- Los 40 nichos nuevos no referencian `domains/loteria`.
+- Los textos de Tanda 1 no contienen términos de lotería, sorteos, cartones, bankroll, apuestas ni promesas de azar.
+- Lotería sigue siendo un dominio específico con su `domain.json`, `profile_catalog.json` y `agent_presets.json`.
+- Los tests de Lotería siguen cubriendo perfil, presets y separación de agentes/papers por dominio.
+
+### Catálogos fantasma
+
+Se reforzó la prueba de estados no usables:
+
+- `status: proposed` queda fuera con `active_only=True`.
+- `status: draft` queda fuera con `active_only=True`.
+- `status: deprecated` queda fuera con `active_only=True`.
+- `activo:false` queda fuera con `active_only=True`.
+- `activo:true` + `status: active` aparece correctamente.
+- `activo:true` sin `status` aparece correctamente como PASSED por compatibilidad.
+
+El JSON operativo real sigue sin estados `proposed`, `draft` ni `deprecated`.
+
+### Problemas detectados y correcciones
+
+No se detectaron problemas graves de UX en los 40 nichos nuevos:
+
+- No hay nombres excesivamente largos.
+- No hay `nombre_dominio_sugerido` excesivamente largo.
+- No hay descripciones demasiado cortas o demasiado largas.
+- No hay instrucciones sugeridas demasiado cortas o demasiado largas.
+- No hay IDs duplicados ni nombres visibles duplicados.
+- No hay referencias a Lotería ni prompts embebidos.
+
+No se modificó `catalogs/areas.json` ni `catalogs/niches.json` en este prompt. La corrección realizada fue de cobertura: tests de flujo real y filtros PASSED.
+
+### Estado final de Tanda 1
+
+- Áreas totales: 30.
+- Áreas activas/PASSED: 30.
+- Nichos totales: 134.
+- Nichos activos/PASSED: 134.
+- Estados `proposed`/`draft`/`deprecated` en JSON operativo: 0.
+- Nichos de Tanda 1 usables/PASSED: 40 de 40.
+- Áreas nuevas usables/PASSED: 4 de 4.
+
+Tanda 1 queda validada como usable para creación de dominios. El siguiente paso debe ampliar cobertura sin romper deduplicación ni la regla PASSED.
+
+## Preparación de Tanda 2 PASSED
+
+Tanda 2 no se carga todavía. Queda preparada como alcance documental para acercar el catálogo desde 134 hacia aproximadamente 200 nichos, idealmente en una o más sub-tandas si el volumen completo aumenta el riesgo.
+
+### Alcance sugerido
+
+Tanda 2 debería priorizar nichos reales y entendibles para usuarios no técnicos en:
+
+- Automatización avanzada.
+- Operaciones digitales.
+- Datos aplicados por negocio.
+- Crecimiento por canal.
+- Ventas y revenue operations.
+- Customer success avanzado.
+- Administración y finanzas para pymes.
+- Legal/compliance básico.
+- Gestión de proyectos.
+- Investigación y estrategia avanzada.
+- Perfiles por escala de negocio: emprendedor, local comercial, pyme, empresa y enterprise.
+
+### Criterio de entrada
+
+Cada nicho de Tanda 2 debe entrar solo si cumple:
+
+- Caso de uso real y distinguible.
+- `area_id` válido y sin duplicación conceptual grave.
+- Nombre comprensible para usuario no técnico.
+- `nombre_dominio_sugerido`, `descripcion_sugerida` e `instrucciones_sugeridas` accionables.
+- Metadata operativa mínima completa.
+- `activo:true` y, si usa `status`, `status: active`.
+- Sin referencias a Lotería, agentes legacy, presets inexistentes, papers ni n8n.
+
+Si una sub-tanda no puede cumplir esos criterios, debe quedar en backlog documental y no en JSON operativo.

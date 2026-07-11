@@ -99,6 +99,18 @@ PROMPT_17_2_NICHE_IDS_BY_AREA = {
     },
 }
 PROMPT_17_2_NICHE_IDS = set().union(*PROMPT_17_2_NICHE_IDS_BY_AREA.values())
+PROMPT_17_3_DOMAIN_FLOW_SAMPLE_NICHE_IDS = [
+    "gestion_producto_digital",
+    "automatizacion_procesos_internos",
+    "dashboards_operativos",
+    "onboarding_clientes",
+    "devops_basico_pymes",
+    "growth_marketing",
+    "ventas_consultivas",
+    "flujo_caja_pyme",
+    "onboarding_empleados",
+    "objetivos_metricas_okrs",
+]
 CENTRAL_ROLE_IDS = {
     "analista",
     "critico",
@@ -278,6 +290,100 @@ def test_prompt_17_2_passed_expansion_distribution_is_not_absurd():
     assert min(counts_by_area.values()) >= 3
     assert max(counts_by_area.values()) <= 9
     assert sum(counts_by_area[area_id] for area_id in PROMPT_17_2_AREA_IDS) == 20
+
+
+def test_prompt_17_3_tanda_one_niches_are_usable_in_domain_creation_flow(tmp_path):
+    areas_by_id = {area["id"]: area for area in catalog_registry.load_areas()}
+    niches_by_id = {niche["id"]: niche for niche in catalog_registry.load_niches()}
+    catalog = catalog_registry.get_domain_creation_catalog()
+    catalog_niches = {
+        niche["id"]: (area_id, niche)
+        for area_id, area_niches in catalog["niches_by_area"].items()
+        for niche in area_niches
+    }
+
+    assert PROMPT_17_2_AREA_IDS.issubset(areas_by_id)
+    assert set(PROMPT_17_3_DOMAIN_FLOW_SAMPLE_NICHE_IDS).issubset(PROMPT_17_2_NICHE_IDS)
+
+    for index, niche_id in enumerate(PROMPT_17_3_DOMAIN_FLOW_SAMPLE_NICHE_IDS, start=1):
+        niche = niches_by_id[niche_id]
+        assert niche["activo"] is True
+        assert niche.get("status", "active") == "active"
+        assert niche["area_id"] in areas_by_id
+        assert niche["nombre_dominio_sugerido"].strip()
+        assert niche["descripcion_sugerida"].strip()
+        assert niche["instrucciones_sugeridas"].strip()
+        assert niche["tags"]
+        assert niche["typical_needs"]
+        assert niche["expected_profile_types"]
+        assert niche["required_capabilities"]
+
+        serialized = json.dumps(niche, ensure_ascii=False).lower()
+        for forbidden in FORBIDDEN_LOTTERY_TERMS:
+            assert forbidden not in serialized
+        for forbidden in [
+            "system_prompt",
+            "user_prompt",
+            "assistant_prompt",
+            "actúa como",
+            "actua como",
+            "ignora las instrucciones",
+            "professional_profile_id",
+            "suggested_agent_id",
+            "agent_presets",
+        ]:
+            assert forbidden not in serialized
+
+        catalog_area_id, catalog_niche = catalog_niches[niche_id]
+        assert catalog_area_id == niche["area_id"]
+        assert catalog_niche["nombre_dominio_sugerido"] == niche["nombre_dominio_sugerido"]
+        assert catalog_niche["descripcion_sugerida"] == niche["descripcion_sugerida"]
+        assert catalog_niche["instrucciones_sugeridas"] == niche["instrucciones_sugeridas"]
+
+        selection = catalog_registry.validate_domain_catalog_selection(
+            niche["area_id"],
+            niche_id,
+        )
+        assert selection == {
+            "area_profesional_id": niche["area_id"],
+            "nicho_id": niche_id,
+            "nicho_nombre": niche["nombre"],
+        }
+
+        domain = domain_registry.create_domain(
+            name=f"{niche['nombre_dominio_sugerido']} Validacion {index}",
+            description=niche["descripcion_sugerida"],
+            instructions=niche["instrucciones_sugeridas"],
+            theme_id="corporativo",
+            suggested_niche=niche["nombre"],
+            area_profesional_id=niche["area_id"],
+            nicho_id=niche_id,
+            domains_dir=tmp_path,
+        )
+        manifest = _read_json(tmp_path / domain["id"] / "domain.json")
+        assert manifest["area_profesional_id"] == niche["area_id"]
+        assert manifest["nicho_id"] == niche_id
+        assert manifest["nicho_sugerido"] == niche["nombre"]
+        assert manifest["descripcion"] == niche["descripcion_sugerida"]
+        assert manifest["instrucciones"] == niche["instrucciones_sugeridas"]
+        assert not list((tmp_path / domain["id"] / "agents" / "config").glob("*.json"))
+        assert not list((tmp_path / domain["id"] / "agents" / "papers").glob("*.json"))
+
+
+def test_prompt_17_3_all_tanda_one_niches_are_visible_as_passed_options():
+    active_niche_ids = {niche["id"] for niche in catalog_registry.load_niches()}
+    catalog = catalog_registry.get_domain_creation_catalog()
+    catalog_niche_ids = {
+        niche["id"]
+        for area_niches in catalog["niches_by_area"].values()
+        for niche in area_niches
+    }
+
+    assert len(PROMPT_17_2_NICHE_IDS) == 40
+    assert PROMPT_17_2_NICHE_IDS.issubset(active_niche_ids)
+    assert PROMPT_17_2_NICHE_IDS.issubset(catalog_niche_ids)
+    assert len(catalog["areas"]) == 30
+    assert sum(len(niches) for niches in catalog["niches_by_area"].values()) == 134
 
 
 def test_lottery_is_catalogued_as_one_niche_not_a_global_default():
@@ -657,8 +763,21 @@ def test_catalog_loader_filters_transitional_status_items_by_default(tmp_path):
     for area in areas:
         if area["id"] in transitional_area_ids:
             area["status"] = transitional_area_ids[area["id"]]
-    niches[0]["status"] = "proposed"
-    niches[1]["status"] = "draft"
+    usable_fixture_niches = [
+        niche for niche in niches if niche["area_id"] not in transitional_area_ids
+    ]
+    proposed_niche_id = usable_fixture_niches[0]["id"]
+    draft_niche_id = usable_fixture_niches[1]["id"]
+    deprecated_niche_id = usable_fixture_niches[2]["id"]
+    inactive_niche_id = usable_fixture_niches[3]["id"]
+    active_niche_with_status_id = usable_fixture_niches[4]["id"]
+    active_niche_without_status_id = usable_fixture_niches[5]["id"]
+    usable_fixture_niches[0]["status"] = "proposed"
+    usable_fixture_niches[1]["status"] = "draft"
+    usable_fixture_niches[2]["status"] = "deprecated"
+    usable_fixture_niches[3]["activo"] = False
+    usable_fixture_niches[4]["status"] = "active"
+    usable_fixture_niches[5].pop("status", None)
     roles[0]["status"] = "proposed"
     specializations[0]["status"] = "draft"
 
@@ -683,13 +802,27 @@ def test_catalog_loader_filters_transitional_status_items_by_default(tmp_path):
         for specialization in catalog_registry.load_specializations(catalogs_dir=catalogs_dir)
     }
     all_area_ids = {area["id"] for area in catalog_registry.load_areas(active_only=False, catalogs_dir=catalogs_dir)}
+    creation_catalog = catalog_registry.get_domain_creation_catalog(catalogs_dir=catalogs_dir)
+    creation_catalog_niche_ids = {
+        niche["id"]
+        for area_niches in creation_catalog["niches_by_area"].values()
+        for niche in area_niches
+    }
 
     assert not set(transitional_area_ids).intersection(loaded_area_ids)
-    assert niches[0]["id"] not in loaded_niche_ids
-    assert niches[1]["id"] not in loaded_niche_ids
+    assert proposed_niche_id not in loaded_niche_ids
+    assert draft_niche_id not in loaded_niche_ids
+    assert deprecated_niche_id not in loaded_niche_ids
+    assert inactive_niche_id not in loaded_niche_ids
     assert roles[0]["id"] not in loaded_role_ids
     assert specializations[0]["id"] not in loaded_specialization_ids
     assert set(transitional_area_ids).issubset(all_area_ids)
+    assert proposed_niche_id not in creation_catalog_niche_ids
+    assert draft_niche_id not in creation_catalog_niche_ids
+    assert deprecated_niche_id not in creation_catalog_niche_ids
+    assert inactive_niche_id not in creation_catalog_niche_ids
+    assert active_niche_with_status_id in creation_catalog_niche_ids
+    assert active_niche_without_status_id in creation_catalog_niche_ids
 
 
 def test_roles_loader_filters_inactive_items_by_default(tmp_path):
