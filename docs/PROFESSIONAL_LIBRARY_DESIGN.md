@@ -1445,3 +1445,27 @@ La clasificación completa vive en `docs/HISTORICAL_PROFILES_RECOVERY_REPORT.md`
 ### Preparación para Prompt 18.7
 
 Prompt 18.7 debería auditar la cobertura real 30 áreas / 200 nichos con 100 perfiles globales PASSED, detectar huecos residuales por área, nicho, escala de negocio y policy de modelo, y decidir si hace falta una expansión mínima adicional o si corresponde pasar a perfiles/presets operativos.
+
+## Auditoría de cobertura inicial 100 perfiles
+
+Prompt 18.7 audita la cobertura real de los 100 perfiles globales PASSED contra 30 áreas y 200 nichos. No agrega perfiles nuevos, no crea presets, papers ni agentes, y no modifica dominios específicos.
+
+Resumen de cobertura:
+
+- 24 de 30 áreas tienen al menos un perfil compatible.
+- 6 áreas no tienen cobertura: salud/medicina/farmacia, ingenierías, ingeniería civil/construcción, minería/petróleo/gas, aduana/comercio exterior y naviero/marítimo/portuario.
+- 137 de 200 nichos tienen al menos un perfil compatible.
+- 63 nichos no tienen cobertura.
+- 19 áreas tienen cobertura fuerte, 1 cobertura media y 4 cobertura débil.
+- 14 de 16 familias profesionales aparecen en perfiles.
+- 13 de 15 model policies están usadas.
+
+La masa crítica inicial es útil para avanzar, pero no debe considerarse cobertura completa. El test de cobertura nuevo exige al menos 25 áreas cubiertas y actualmente falla con 24, dejando visible que la siguiente etapa debe resolver huecos sectoriales o documentar una decisión explícita de postergarlos.
+
+Principales huecos detectados:
+
+- áreas sectoriales reguladas o técnicas: salud, enfermería, ingeniería, construcción, minería/energía, comercio exterior, naviero/portuario y seguros;
+- nichos técnicos sin cobertura específica: ciberseguridad, telecomunicaciones y datos/BI dentro del área tecnológica histórica;
+- valores económicos débiles: escalamiento de equipo, operación sectorial regulada, continuidad asistencial, comercio exterior y seguridad/ciberseguridad.
+
+Prompt 18.8 debería normalizar roles/especializaciones contra estos hallazgos y decidir si la expansión sectorial se hace antes o después de presets/papers. La auditoría completa está en `docs/PROFESSIONAL_PROFILE_COVERAGE_AUDIT.md`.
