@@ -306,3 +306,18 @@ Nichos reforzados:
 - Gestión de consultorios, farmacia clínica, auditoría médica, agenda de salud y seguimiento de pacientes crónicos.
 
 Esta corrección no crea perfiles de dominio específico. Son perfiles globales sectoriales para áreas profesionales reguladas o técnicas que antes estaban completamente descubiertas.
+
+## Nota 18.8 - Normalizacion role_id / specialization_id
+
+Prompt 18.8 normalizo la relacion entre perfiles globales y roles/especializaciones.
+
+Resultado:
+
+- 106 de 106 perfiles tienen `expected_role_id` valido.
+- 106 de 106 perfiles tienen `expected_specialization_id` valido.
+- 0 perfiles mantienen valores `pending`, `required` o invalidos.
+- 20 de 20 roles globales estan usados por perfiles.
+- 49 de 80 especializaciones globales estan usadas por perfiles.
+- No se agregaron roles, especializaciones ni perfiles.
+
+La normalizacion queda documentada en `docs/PROFESSIONAL_PROFILE_ROLE_SPECIALIZATION_AUDIT.md` y validada por `tests/test_professional_profile_role_specialization.py`.

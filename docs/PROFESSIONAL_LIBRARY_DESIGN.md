@@ -1475,3 +1475,24 @@ Prompt 18.8 debería normalizar roles/especializaciones contra estos hallazgos y
 La auditoría 18.7 detectó 6 áreas sin cobertura. El subprompt 18.7.A agregó cobertura sectorial mínima para cerrar el hueco sin romper la regla de no escalar por cantidad.
 
 Se agregaron 6 perfiles globales sectoriales: comercio exterior/aduana, construcción, ingeniería operativa, minería/energía, operaciones portuarias y operaciones de salud/farmacia. Con esto la cobertura pasa a 30 de 30 áreas y la suite puede volver a verde sin relajar el test.
+
+## Normalizacion role_id / specialization_id
+
+Prompt 18.8 audito los 106 perfiles globales contra `catalogs/roles.json` y `catalogs/specializations.json`.
+
+Resultado:
+
+- Perfiles normalizados: 106 de 106.
+- Roles usados: 20 de 20.
+- Especializaciones usadas: 49 de 80.
+- Roles agregados: 0.
+- Especializaciones agregadas: 0.
+- `expected_role_id` pending/required/invalid: 0.
+- `expected_specialization_id` pending/required/invalid: 0.
+- Desajustes entre `expected_role_id` y el `role_id` de la especializacion esperada: 0.
+
+Los gaps documentados en bloques anteriores eran semanticos y operativos, no roturas de catalogo. La decision fue no crear roles ni especializaciones por cantidad: CRM/WhatsApp, BI, finanzas pyme, legal/compliance, RRHH, soporte, no-code, QA y sectores regulados quedan cubiertos con roles y especializaciones existentes hasta que presets/papers demuestren una necesidad repetida de mayor granularidad.
+
+Se agrego `tests/test_professional_profile_role_specialization.py` como compuerta especifica para validar que cada perfil activo apunte a roles y especializaciones existentes, activos y coherentes entre si. El reporte completo vive en `docs/PROFESSIONAL_PROFILE_ROLE_SPECIALIZATION_AUDIT.md`.
+
+Preparacion para Prompt 18.9: cerrar el inventario inicial con 106 perfiles PASSED, sin agregar perfiles nuevos ni crear presets/papers/agentes todavia.
