@@ -163,3 +163,9 @@ Crear roles nuevos ahora seria prematuro: los huecos son variantes concretas, no
 ## Recomendacion Para Prompt 18.9
 
 Avanzar a cierre del inventario inicial con la biblioteca de 106 perfiles. Prompt 18.9 deberia mantener la regla de no agregar perfiles por cantidad, usar este test como compuerta y preparar la transicion hacia presets/papers sin crear catalogos fantasma.
+
+## Nota 18.9 - Certificacion de cierre
+
+18.9 certifica que la relacion perfil -> rol/especializacion queda validada para la fase inicial.
+
+La biblioteca cierra con 106 perfiles, 106 role_id validos, 106 specialization_id validos, 0 pending y 0 desajustes entre rol esperado y rol de la especializacion. No se agregan roles ni especializaciones en este cierre.

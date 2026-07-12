@@ -1718,3 +1718,9 @@ Prompt 18.6 revisó perfiles históricos de dominios específicos y solo recuper
 Prompt 18.7 auditó la cobertura real de los 100 perfiles globales contra 30 áreas y 200 nichos.
 
 La cobertura sectorial mínima permite que las 30 áreas tengan al menos un perfil compatible.
+
+## Nota 18.9 - Cierre del inventario inicial de perfiles
+
+El inventario inicial de perfiles profesionales globales cierra con 106 perfiles, 30 de 30 areas cubiertas y 166 de 200 nichos cubiertos.
+
+Los 34 nichos sin cobertura quedan documentados como deuda futura. No se agregan perfiles, presets, papers ni agentes en este cierre.

@@ -321,3 +321,9 @@ Resultado:
 - No se agregaron roles, especializaciones ni perfiles.
 
 La normalizacion queda documentada en `docs/PROFESSIONAL_PROFILE_ROLE_SPECIALIZATION_AUDIT.md` y validada por `tests/test_professional_profile_role_specialization.py`.
+
+## Nota 18.9 - Cierre del inventario inicial
+
+Despues de 18.7.A y 18.8, la biblioteca inicial queda con 30 de 30 areas cubiertas y roles/especializaciones normalizadas.
+
+Prompt 18.9 certifica el cierre con 106 perfiles globales, 166 de 200 nichos cubiertos y 0 perfiles con role_id o specialization_id pendiente. Los 34 nichos sin cobertura quedan documentados como deuda futura, no como bloqueo para iniciar la fase de matriz/presets.

@@ -1496,3 +1496,25 @@ Los gaps documentados en bloques anteriores eran semanticos y operativos, no rot
 Se agrego `tests/test_professional_profile_role_specialization.py` como compuerta especifica para validar que cada perfil activo apunte a roles y especializaciones existentes, activos y coherentes entre si. El reporte completo vive en `docs/PROFESSIONAL_PROFILE_ROLE_SPECIALIZATION_AUDIT.md`.
 
 Preparacion para Prompt 18.9: cerrar el inventario inicial con 106 perfiles PASSED, sin agregar perfiles nuevos ni crear presets/papers/agentes todavia.
+
+## Cierre del inventario inicial de perfiles profesionales globales
+
+Prompt 18.9 cierra formalmente el inventario inicial con 106 perfiles globales PASSED.
+
+Estado certificado:
+
+- 106 perfiles globales PASSED.
+- 30 de 30 areas cubiertas.
+- 166 de 200 nichos cubiertos.
+- 106 de 106 `expected_role_id` validos.
+- 106 de 106 `expected_specialization_id` validos.
+- 0 perfiles con role_id o specialization_id pendiente.
+- 106 de 106 perfiles con `preset_seed_expected`.
+- 106 de 106 perfiles con `paper_seed_expected`.
+- 106 de 106 perfiles con `economic_value`.
+
+No se crearon presets, papers, agentes ni dominios especificos. El inventario inicial queda listo para la fase siguiente.
+
+Deudas futuras: 34 nichos sin cobertura, solapamientos operativos, policies subrepresentadas (`local_heavy`, `local_light`, `multimodal`, `offline_capable`), gaps semanticos para presets/papers, matriz perfil-area/nicho, team templates, validacion end-to-end con dominio nuevo, cross-platform real e integraciones externas como n8n.
+
+Recomendacion: avanzar con Prompt 19.0 para generar/validar una matriz perfil <-> area/nicho desde `catalogs/professional_profiles.json`, sin duplicar datos fuente.
