@@ -1469,3 +1469,9 @@ Principales huecos detectados:
 - valores económicos débiles: escalamiento de equipo, operación sectorial regulada, continuidad asistencial, comercio exterior y seguridad/ciberseguridad.
 
 Prompt 18.8 debería normalizar roles/especializaciones contra estos hallazgos y decidir si la expansión sectorial se hace antes o después de presets/papers. La auditoría completa está en `docs/PROFESSIONAL_PROFILE_COVERAGE_AUDIT.md`.
+
+### Corrección 18.7.A
+
+La auditoría 18.7 detectó 6 áreas sin cobertura. El subprompt 18.7.A agregó cobertura sectorial mínima para cerrar el hueco sin romper la regla de no escalar por cantidad.
+
+Se agregaron 6 perfiles globales sectoriales: comercio exterior/aduana, construcción, ingeniería operativa, minería/energía, operaciones portuarias y operaciones de salud/farmacia. Con esto la cobertura pasa a 30 de 30 áreas y la suite puede volver a verde sin relajar el test.

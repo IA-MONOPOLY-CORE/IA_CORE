@@ -43,7 +43,7 @@ def test_professional_profile_coverage_has_catalog_and_stage_count():
     assert PROFESSIONAL_PROFILES_PATH.exists()
     profiles = _profiles()
 
-    assert 95 <= len(profiles) <= 110
+    assert 106 <= len(profiles) <= 110
 
 
 def test_professional_profile_coverage_references_existing_areas_and_niches():
@@ -82,6 +82,25 @@ def test_professional_profile_coverage_reaches_minimum_area_and_niche_surface():
 
     assert len(covered_areas) >= 25
     assert len(covered_niches) >= 100
+
+
+def test_professional_profile_coverage_closes_sectorial_zero_areas():
+    profiles = _profiles()
+    previously_uncovered_area_ids = {
+        "aduana_comercio_exterior",
+        "ingenieria_civil_construccion",
+        "ingenierias",
+        "mineria_petroleo_gas",
+        "naviero_maritimo_portuario",
+        "salud_medicina_farmacia",
+    }
+    covered_areas = {
+        area_id
+        for profile in profiles
+        for area_id in profile["areas_compatibles"]
+    }
+
+    assert previously_uncovered_area_ids <= covered_areas
 
 
 def test_professional_profile_coverage_uses_allowed_families_and_business_scales():

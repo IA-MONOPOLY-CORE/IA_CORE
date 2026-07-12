@@ -126,7 +126,7 @@ def test_professional_profiles_catalog_exists_and_has_expected_structure():
     assert catalog["status"] == "active"
     assert isinstance(catalog["description"], str)
     assert isinstance(catalog["profiles"], list)
-    assert 95 <= len(catalog["profiles"]) <= 105
+    assert 106 <= len(catalog["profiles"]) <= 110
     assert "domain_id" not in catalog
 
 

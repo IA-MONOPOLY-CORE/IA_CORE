@@ -265,3 +265,44 @@ Solapamientos a revisar en futuro:
 La masa crítica de 100 perfiles es **útil y suficiente para avanzar a Prompt 18.8**, pero no es suficiente para declarar cobertura completa. La siguiente etapa debe normalizar roles/especializaciones y, después, planificar una expansión sectorial controlada para áreas hoy sin cobertura.
 
 No se agregaron perfiles en Prompt 18.7.
+
+## 18.7.A — Expansión sectorial mínima para cerrar cobertura
+
+La auditoría 18.7 detectó 6 áreas sin cobertura:
+
+- `aduana_comercio_exterior`
+- `ingenieria_civil_construccion`
+- `ingenierias`
+- `mineria_petroleo_gas`
+- `naviero_maritimo_portuario`
+- `salud_medicina_farmacia`
+
+El subprompt 18.7.A no relajó el test de cobertura. Agregó una expansión sectorial mínima de 6 perfiles PASSED, uno por área descubierta, para resolver el hueco real sin convertir la corrección en expansión masiva.
+
+Perfiles agregados:
+
+- `especialista_comercio_exterior_aduana` cubre `aduana_comercio_exterior`.
+- `coordinador_proyectos_construccion` cubre `ingenieria_civil_construccion`.
+- `analista_ingenieria_operativa` cubre `ingenierias`.
+- `analista_operaciones_mineria_energia` cubre `mineria_petroleo_gas`.
+- `coordinador_operaciones_portuarias` cubre `naviero_maritimo_portuario`.
+- `consultor_operaciones_salud_farmacia` cubre `salud_medicina_farmacia`.
+
+Cobertura resultante:
+
+- Perfiles globales: 106.
+- Áreas con cobertura: 30 de 30.
+- Áreas sin cobertura: 0.
+- Nichos con cobertura: 166 de 200.
+- Nichos sin cobertura: 34.
+
+Nichos reforzados:
+
+- Documentación import/export, clasificación arancelaria, compliance de comercio exterior, seguimiento de embarques y costos de import/export.
+- Dirección de obra, presupuestos/cómputos, seguridad e higiene, seguimiento de avance y control de costos de obra.
+- Ingeniería de procesos, ingeniería de calidad, proyectos de ingeniería, requerimientos técnicos y cambios de ingeniería.
+- Operaciones mineras, seguridad/ambiente, mantenimiento de equipos pesados, producción minera/energética y reportes ambientales.
+- Operaciones portuarias, documentación marítima, logística naviera, coordinación de embarque y control documental portuario.
+- Gestión de consultorios, farmacia clínica, auditoría médica, agenda de salud y seguimiento de pacientes crónicos.
+
+Esta corrección no crea perfiles de dominio específico. Son perfiles globales sectoriales para áreas profesionales reguladas o técnicas que antes estaban completamente descubiertas.
