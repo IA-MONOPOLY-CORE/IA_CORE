@@ -1291,3 +1291,60 @@ No se crearon presets reales, papers reales ni agentes reales. No se modificaron
 ### Preparación para Prompt 18.4
 
 Prompt 18.4 debería cargar el tercer bloque PASSED orientado a técnica, datos y automatización: perfiles de data quality, data engineering ligero, soporte IT, seguridad básica, integraciones, no-code/low-code, documentación técnica, QA técnico, sistemas internos y automatización avanzada. Ese bloque debe profundizar la columna técnica sin contaminar dominios específicos.
+
+## Tercer bloque PASSED de perfiles profesionales — técnica, datos y automatización
+
+Prompt 18.4 agrega 22 perfiles profesionales globales PASSED y lleva el catálogo a 72 perfiles activos. El bloque refuerza la capa técnica, de datos y automatización sin crear presets reales, papers reales ni agentes reales.
+
+Perfiles agregados:
+
+- `arquitecto_datos_negocio`
+- `modelador_metricas_kpis`
+- `especialista_reporting_operativo`
+- `analista_calidad_datos`
+- `analista_segmentacion_clientes`
+- `analista_experimentos_ab_testing`
+- `auditor_dashboards_metricas`
+- `disenador_workflows_automatizados`
+- `especialista_integraciones_api`
+- `constructor_automatizaciones_no_code`
+- `auditor_automatizaciones`
+- `documentador_flujos_sistemas`
+- `arquitecto_crm_operativo`
+- `administrador_sistemas_internos`
+- `especialista_base_conocimiento`
+- `tester_funcional_negocio`
+- `auditor_errores_sistemas`
+- `especialista_monitoreo_alertas`
+- `analista_riesgo_tecnico_operativo`
+- `coordinador_soporte_tecnico`
+- `especialista_entornos_despliegue`
+- `evaluador_herramientas_software`
+
+### Familias y cobertura
+
+El bloque refuerza `datos_analytics`, `automatizacion_tecnologia`, `calidad_riesgo`, `ventas_revenue` y `soporte_customer_success`.
+
+Áreas reforzadas: `datos_bi_analytics`, `automatizacion_integraciones`, `tecnologia_sistemas_telecomunicaciones`, `departamento_tecnico`, `producto_gestion_producto`, `marketing_publicidad`, `comercial_ventas_negocios`, `customer_success_experiencia_cliente`, `administracion_contabilidad_finanzas`, `gerencia_direccion_general`, `educacion_docencia_investigacion`, `comunicacion_relaciones_institucionales_publicas` y `diseno`.
+
+El criterio de selección fue cubrir infraestructura operativa reutilizable: datos confiables, dashboards, reportes, automatizaciones, integraciones, CRM, sistemas internos, soporte técnico, QA funcional, monitoreo, despliegues básicos y evaluación de herramientas.
+
+### Valor económico y problemas cubiertos
+
+El bloque reduce trabajo manual, baja errores operativos, detecta problemas antes, mejora decisiones con datos, ahorra horas de soporte, protege continuidad, evita compras de software innecesarias y crea infraestructura reutilizable.
+
+Cubre problemas reales de métricas inconsistentes, dashboards poco confiables, datos sucios, tareas repetidas, sistemas aislados, CRM desordenado, conocimiento interno disperso, fallas funcionales, alertas inexistentes, soporte técnico lento y adopción de herramientas sin criterio económico.
+
+### Relación con roles, especializaciones y model policies
+
+Todos los perfiles usan `expected_role_id` y `expected_specialization_id` existentes. No se modifican `catalogs/roles.json` ni `catalogs/specializations.json`.
+
+Gaps para Prompt 18.8: BI avanzado, data quality, CRM operativo, automatizaciones no-code/low-code, integraciones API, webhooks/eventos, QA funcional, monitoreo/alertas, documentación técnica, soporte técnico, herramientas SaaS y base de conocimiento.
+
+El bloque usa `batch_analysis`, `high_reliability`, `long_context`, `privacy_sensitive`, `cloud_reasoning`, `hybrid`, `fast_iteration`, `human_review_required`, `cloud_low_latency`, `local_standard` y `cost_sensitive` según riesgo, carga cognitiva, privacidad, velocidad o costo.
+
+### Alcance y preparación
+
+No se crearon presets reales, papers reales ni agentes reales. No se modificaron dominios específicos, `profile_catalog.json`, `agent_presets.json`, HUD, n8n ni orquestadores.
+
+Prompt 18.5 debería continuar la expansión hacia perfiles de soporte institucional, legal/compliance, RRHH/capacitación, investigación, industria/oficios y dominios especializados, usando auditoría de huecos contra las 30 áreas y 200 nichos antes de cargar más perfiles.

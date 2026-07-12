@@ -126,7 +126,7 @@ def test_professional_profiles_catalog_exists_and_has_expected_structure():
     assert catalog["status"] == "active"
     assert isinstance(catalog["description"], str)
     assert isinstance(catalog["profiles"], list)
-    assert 45 <= len(catalog["profiles"]) <= 50
+    assert 70 <= len(catalog["profiles"]) <= 75
     assert "domain_id" not in catalog
 
 
@@ -249,3 +249,25 @@ def test_professional_profiles_cover_small_business_scales():
     assert len(profiles_by_scale["emprendedor"]) >= 20
     assert len(profiles_by_scale["local_comercial"]) >= 20
     assert len(profiles_by_scale["pyme"]) >= 35
+
+
+def test_professional_profiles_cover_technical_data_and_automation_surface():
+    profiles = _profiles_catalog()["profiles"]
+    profiles_by_area = {
+        area: [
+            profile["id"]
+            for profile in profiles
+            if area in profile["areas_compatibles"]
+        ]
+        for area in [
+            "datos_bi_analytics",
+            "automatizacion_integraciones",
+            "tecnologia_sistemas_telecomunicaciones",
+        ]
+    }
+    policies = {profile["default_model_policy"] for profile in profiles}
+
+    assert len(profiles_by_area["datos_bi_analytics"]) >= 20
+    assert len(profiles_by_area["automatizacion_integraciones"]) >= 18
+    assert len(profiles_by_area["tecnologia_sistemas_telecomunicaciones"]) >= 15
+    assert {"batch_analysis", "high_reliability", "long_context", "privacy_sensitive"} <= policies

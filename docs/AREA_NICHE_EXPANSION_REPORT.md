@@ -1708,3 +1708,5 @@ Las 30 áreas y 200 nichos serán cubiertos primero por familias profesionales g
 Los primeros perfiles profesionales globales ya empiezan a cubrir la superficie 30/200: Prompt 18.2 crea 25 perfiles PASSED de empresa digital moderna, con cobertura inicial sobre estrategia, producto, marketing, ventas, datos, automatización, finanzas, customer success, contenido y calidad/riesgo.
 
 El segundo bloque de perfiles globales amplía cobertura hacia pyme, local comercial y emprendedor. Prompt 18.3 suma perfiles de caja diaria, costos, compras, stock, turnos, WhatsApp, atención, promociones, reclamos, experiencia local y control de rentabilidad.
+
+Tercer bloque de perfiles globales amplía cobertura hacia datos, automatización, BI, sistemas internos y soporte técnico operativo.
