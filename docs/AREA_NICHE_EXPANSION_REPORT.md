@@ -1704,3 +1704,5 @@ No se recomienda cargar más nichos antes de perfiles. El próximo paso debe ser
 Etapa 30/200 cerrada; siguiente etapa: perfiles profesionales globales. Prompt 18.0 define el modelo, la regla PASSED y la cobertura inteligente antes de cargar perfiles masivos.
 
 Las 30 áreas y 200 nichos serán cubiertos primero por familias profesionales globales antes de crear perfiles individuales. Esta capa evita perfiles sueltos, ayuda a detectar huecos de cobertura y ordena la futura masa crítica de perfiles por valor económico, transversalidad, soporte, riesgo, tecnología y especialización sectorial.
+
+Los primeros perfiles profesionales globales ya empiezan a cubrir la superficie 30/200: Prompt 18.2 crea 25 perfiles PASSED de empresa digital moderna, con cobertura inicial sobre estrategia, producto, marketing, ventas, datos, automatización, finanzas, customer success, contenido y calidad/riesgo.

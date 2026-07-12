@@ -1025,3 +1025,128 @@ Si Prompt 18.2 o una auditoria posterior decide formalizar familias como catalog
 ```
 
 No se crea este JSON en Prompt 18.1 porque todavia no hay perfiles individuales ni tests de contrato para familias. La documentacion queda como fuente de diseño para el siguiente paso.
+
+## Primer bloque PASSED de perfiles profesionales - empresa digital moderna
+
+Prompt 18.2 crea el primer catálogo global real en `catalogs/professional_profiles.json`. El bloque inicial contiene **25 perfiles profesionales PASSED** orientados a empresa digital moderna, transformación de ideas en operación, generación de ingresos y creación de activos reutilizables.
+
+### Perfiles creados
+
+- `estratega_negocio_digital`
+- `director_operativo_digital`
+- `consultor_modelo_negocio`
+- `product_manager_digital`
+- `investigador_usuarios`
+- `estratega_propuesta_valor`
+- `priorizador_roadmap`
+- `estratega_growth`
+- `especialista_performance_marketing`
+- `estratega_contenidos`
+- `copywriter_conversion`
+- `gestor_calendario_comercial`
+- `disenador_pipeline_comercial`
+- `especialista_ventas_consultivas`
+- `revenue_operations_manager`
+- `analista_datos_negocio`
+- `especialista_bi_dashboards`
+- `analista_rentabilidad_margen`
+- `arquitecto_automatizaciones`
+- `integrador_herramientas_digitales`
+- `especialista_crm_whatsapp`
+- `coordinador_operaciones_digitales`
+- `analista_finanzas_pyme`
+- `especialista_customer_success`
+- `auditor_calidad_operativa`
+
+### Familias cubiertas
+
+El bloque cubre 11 de las 16 familias profesionales iniciales:
+
+- `estrategia_direccion`
+- `operaciones_procesos`
+- `producto_ux`
+- `marketing_growth`
+- `ventas_revenue`
+- `datos_analytics`
+- `automatizacion_tecnologia`
+- `finanzas_administracion`
+- `soporte_customer_success`
+- `calidad_riesgo`
+- `contenido_comunicacion`
+
+Quedan para bloques posteriores: `legal_compliance`, `rrhh_capacitacion`, `investigacion_analisis`, `industria_oficios` y `dominio_especializado`.
+
+### Criterio de selección
+
+La selección prioriza perfiles que ayudan a:
+
+- convertir ideas en modelos de negocio y producto;
+- ordenar operaciones digitales;
+- generar demanda, ventas y retención;
+- crear activos de contenido, CRM, dashboards y automatización;
+- proteger margen, calidad y ejecución.
+
+No se eligieron perfiles por cantidad. Se eligieron porque cubren necesidades base de una empresa digital moderna y tienen ruta futura hacia preset, paper, equipos y model policy.
+
+### Cobertura inicial
+
+El bloque cubre 15 áreas y 64 nichos únicos de la superficie 30/200. Las áreas más representadas son comercial, marketing, producto, datos, automatización, tecnología, finanzas, customer success, gerencia, diseño y atención.
+
+Nichos clave cubiertos:
+
+- `planificacion_estrategica`, `modelos_negocio`, `objetivos_metricas_okrs`
+- `gestion_producto_digital`, `research_usuarios`, `priorizacion_roadmap`, `pricing_packaging`
+- `growth_marketing`, `performance_ads`, `embudos_conversion`, `calendario_comercial`
+- `prospeccion_b2b`, `ventas_consultivas`, `revenue_operations`, `crm_comercial`
+- `dashboards_operativos`, `indicadores_negocio`, `inteligencia_comercial`, `rentabilidad_por_canal`
+- `automatizacion_procesos_internos`, `integraciones_herramientas`, `automatizacion_whatsapp_crm`, `gestion_apis`
+- `tesoreria_cashflow`, `control_gestion`, `onboarding_clientes`, `gestion_churn`, `control_calidad`
+
+### Valor económico del bloque
+
+El bloque cubre cinco caminos de valor principales:
+
+- generación de ingresos: growth, performance, ventas consultivas, pipeline, RevOps;
+- mejora de margen: rentabilidad, pricing, finanzas pyme, performance;
+- reducción de costos: automatización, operaciones digitales, dashboards, calidad;
+- creación de activos digitales: producto, contenido, copy, CRM, BI, workflows;
+- protección de valor: customer success, auditoría operativa, finanzas, calidad de datos.
+
+### Relación con roles y especializaciones
+
+Todos los perfiles del primer bloque usan `expected_role_id` y `expected_specialization_id` existentes en `catalogs/roles.json` y `catalogs/specializations.json`.
+
+Gaps semánticos a revisar en Prompt 18.8:
+
+- `especialista_bi_dashboards` usa `sintetizador` + `sintesis_ejecutiva`, pero podría requerir una especialización futura de BI/dashboarding.
+- `analista_finanzas_pyme` usa `gestor_riesgo` + `administracion_recursos`, pero podría requerir una especialización financiera más directa.
+- `especialista_crm_whatsapp` usa `coordinador` + `coordinacion_flujos`, pero podría requerir una especialización CRM/marketing ops.
+- Algunos perfiles comerciales usan comunicación persuasiva como aproximación funcional; Prompt 18.8 puede decidir si ventas necesita especializaciones propias.
+
+Estos gaps no bloquean el bloque PASSED porque cada perfil tiene rol/especialización existente, cobertura real y trazabilidad futura.
+
+### Relación con model policies
+
+Policies usadas en el bloque:
+
+- `batch_analysis`
+- `cloud_low_latency`
+- `cloud_reasoning`
+- `cost_sensitive`
+- `fast_iteration`
+- `high_reliability`
+- `hybrid`
+- `local_heavy`
+- `local_standard`
+- `long_context`
+- `privacy_sensitive`
+
+No se crea `catalogs/profile_model_policies.json` todavía. Prompt 20 debe formalizar estas políticas e integrarlas con recomendación hardware-aware.
+
+### Alcance explícito
+
+No se crearon presets reales, papers reales ni agentes reales. `preset_seed_expected` y `paper_seed_expected` son semillas esperadas para prompts posteriores. No se modificaron dominios específicos, `profile_catalog.json` ni `agent_presets.json`.
+
+### Preparación para Prompt 18.3
+
+Prompt 18.3 debería cargar el segundo bloque PASSED orientado a pyme, local comercial y emprendedor: perfiles de administración práctica, atención, operaciones de comercio, agenda, compras, inventario, servicios, RRHH inicial, soporte y gestión cotidiana. Ese bloque debe complementar el foco digital de 18.2 con perfiles más aterrizados a negocio real de baja y media escala.
