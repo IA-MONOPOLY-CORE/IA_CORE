@@ -1706,3 +1706,5 @@ Etapa 30/200 cerrada; siguiente etapa: perfiles profesionales globales. Prompt 1
 Las 30 áreas y 200 nichos serán cubiertos primero por familias profesionales globales antes de crear perfiles individuales. Esta capa evita perfiles sueltos, ayuda a detectar huecos de cobertura y ordena la futura masa crítica de perfiles por valor económico, transversalidad, soporte, riesgo, tecnología y especialización sectorial.
 
 Los primeros perfiles profesionales globales ya empiezan a cubrir la superficie 30/200: Prompt 18.2 crea 25 perfiles PASSED de empresa digital moderna, con cobertura inicial sobre estrategia, producto, marketing, ventas, datos, automatización, finanzas, customer success, contenido y calidad/riesgo.
+
+El segundo bloque de perfiles globales amplía cobertura hacia pyme, local comercial y emprendedor. Prompt 18.3 suma perfiles de caja diaria, costos, compras, stock, turnos, WhatsApp, atención, promociones, reclamos, experiencia local y control de rentabilidad.

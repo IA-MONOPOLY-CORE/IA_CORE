@@ -126,7 +126,7 @@ def test_professional_profiles_catalog_exists_and_has_expected_structure():
     assert catalog["status"] == "active"
     assert isinstance(catalog["description"], str)
     assert isinstance(catalog["profiles"], list)
-    assert 20 <= len(catalog["profiles"]) <= 25
+    assert 45 <= len(catalog["profiles"]) <= 50
     assert "domain_id" not in catalog
 
 
@@ -233,3 +233,19 @@ def test_professional_profiles_catalog_is_global_not_domain_specific():
     offenders = [term for term in forbidden_terms if term in catalog_text]
 
     assert offenders == []
+
+
+def test_professional_profiles_cover_small_business_scales():
+    profiles = _profiles_catalog()["profiles"]
+    profiles_by_scale = {
+        scale: [
+            profile["id"]
+            for profile in profiles
+            if scale in profile["compatible_business_scales"]
+        ]
+        for scale in ["emprendedor", "local_comercial", "pyme"]
+    }
+
+    assert len(profiles_by_scale["emprendedor"]) >= 20
+    assert len(profiles_by_scale["local_comercial"]) >= 20
+    assert len(profiles_by_scale["pyme"]) >= 35

@@ -1150,3 +1150,144 @@ No se crearon presets reales, papers reales ni agentes reales. `preset_seed_expe
 ### Preparación para Prompt 18.3
 
 Prompt 18.3 debería cargar el segundo bloque PASSED orientado a pyme, local comercial y emprendedor: perfiles de administración práctica, atención, operaciones de comercio, agenda, compras, inventario, servicios, RRHH inicial, soporte y gestión cotidiana. Ese bloque debe complementar el foco digital de 18.2 con perfiles más aterrizados a negocio real de baja y media escala.
+
+## Segundo bloque PASSED de perfiles profesionales - pyme, local y emprendedor
+
+Prompt 18.3 amplía `catalogs/professional_profiles.json` con **25 perfiles PASSED nuevos** enfocados en negocios reales de menor escala: emprendedores, locales comerciales, pymes, comercios físicos, servicios, operaciones por WhatsApp, caja, stock, compras, turnos, reclamos y rentabilidad cotidiana.
+
+El catálogo global queda en **50 perfiles profesionales PASSED**.
+
+### Perfiles agregados
+
+- `coordinador_operacion_local`
+- `organizador_procesos_pyme`
+- `documentador_procedimientos_operativos`
+- `supervisor_turnos_y_tareas`
+- `gestor_caja_diaria`
+- `analista_costos_local`
+- `controlador_gastos_pyme`
+- `planificador_compras_proveedores`
+- `gestor_stock_inventario`
+- `coordinador_abastecimiento`
+- `optimizador_logistica_entregas`
+- `operador_ventas_whatsapp`
+- `gestor_consultas_clientes`
+- `especialista_promociones_locales`
+- `fidelizador_clientes_recurrentes`
+- `gestor_reclamos_postventa`
+- `responsable_experiencia_cliente_local`
+- `gestor_marketing_barrial`
+- `creador_contenido_negocio_local`
+- `coordinador_canal_whatsapp`
+- `asesor_emprendedor_generalista`
+- `priorizador_tareas_dueno_negocio`
+- `analista_oportunidades_locales`
+- `auditor_operacion_diaria`
+- `detector_fugas_rentabilidad`
+
+### Familias y cobertura
+
+El bloque refuerza 10 familias:
+
+- `operaciones_procesos`
+- `finanzas_administracion`
+- `ventas_revenue`
+- `soporte_customer_success`
+- `marketing_growth`
+- `contenido_comunicacion`
+- `automatizacion_tecnologia`
+- `estrategia_direccion`
+- `investigacion_analisis`
+- `calidad_riesgo`
+
+Áreas reforzadas o ampliadas:
+
+- `administracion_contabilidad_finanzas`
+- `comercial_ventas_negocios`
+- `marketing_publicidad`
+- `atencion_cliente_call_center_telemarketing`
+- `customer_success_experiencia_cliente`
+- `abastecimiento_logistica`
+- `secretarias_recepcion`
+- `gastronomia_turismo`
+- `oficios_otros`
+- `produccion_manufactura`
+- `recursos_humanos_capacitacion`
+- `gerencia_direccion_general`
+- `automatizacion_integraciones`
+- `comunicacion_relaciones_institucionales_publicas`
+- `datos_bi_analytics`
+- `departamento_tecnico`
+- `diseno`
+- `enfermeria`
+- `sociologia_trabajo_social`
+
+El segundo bloque toca 66 nichos únicos y el catálogo completo llega a 100 nichos únicos cubiertos.
+
+### Problemas reales cubiertos
+
+Este bloque baja IA_CORE al terreno de la operación diaria:
+
+- caja diaria, cashflow semanal, gastos y deuda;
+- costos por producto, menú, canal o unidad de negocio;
+- compras, proveedores, inventario, stock y entregas;
+- turnos, tareas, procedimientos y documentación operativa;
+- WhatsApp como canal de venta, consulta y seguimiento;
+- promociones locales, calendario comercial y contenido simple;
+- reclamos, postventa, experiencia del cliente y fidelización;
+- priorización del dueño, oportunidades locales y fugas de rentabilidad.
+
+### Valor económico del bloque
+
+El bloque aporta valor económico concreto:
+
+- vender más por WhatsApp y atención rápida;
+- mejorar conversión de consultas;
+- reducir desperdicio y compras innecesarias;
+- controlar caja, gastos y deuda;
+- mejorar rotación de stock;
+- reducir reclamos y pérdida de clientes;
+- aumentar recompra;
+- liberar tiempo del dueño;
+- detectar fugas de rentabilidad;
+- profesionalizar operación diaria sin estructura corporativa.
+
+### Relación con roles y especializaciones
+
+Todos los perfiles usan `expected_role_id` y `expected_specialization_id` existentes. No se modifican `catalogs/roles.json` ni `catalogs/specializations.json`.
+
+Gaps semánticos nuevos para Prompt 18.8:
+
+- atención/ventas por WhatsApp podría requerir especialización propia.
+- administración pyme, caja diaria y control de gastos podrían requerir especializaciones financieras más concretas.
+- stock/inventario y compras/proveedores podrían requerir especializaciones operativas específicas.
+- marketing local, promociones y calendario comercial podrían requerir especializaciones de marketing pyme.
+- experiencia de cliente local y reclamos podrían requerir especializaciones de atención local/postventa.
+
+Estos gaps no bloquean el bloque PASSED porque cada perfil tiene referencias válidas, valor económico claro, nichos reales y semillas futuras.
+
+### Relación con model policies
+
+Policies usadas por el bloque:
+
+- `local_light`
+- `local_standard`
+- `cost_sensitive`
+- `cloud_low_latency`
+- `fast_iteration`
+- `hybrid`
+- `privacy_sensitive`
+- `high_reliability`
+- `human_review_required`
+- `batch_analysis`
+- `cloud_reasoning`
+
+La tendencia del bloque es intencionalmente más liviana y económica que el bloque de empresa digital moderna: perfiles operativos simples usan `local_standard` o `cost_sensitive`; caja/costos usan `privacy_sensitive`, `high_reliability` o `batch_analysis`; WhatsApp y atención usan `cloud_low_latency`; decisiones integradoras usan `hybrid` o `cloud_reasoning`.
+
+### Alcance explícito
+
+No se crearon presets reales, papers reales ni agentes reales. No se modificaron dominios específicos, `profile_catalog.json` ni `agent_presets.json`.
+
+### Preparación para Prompt 18.4
+
+Prompt 18.4 debería cargar el tercer bloque PASSED orientado a técnica, datos y automatización: perfiles de data quality, data engineering ligero, soporte IT, seguridad básica, integraciones, no-code/low-code, documentación técnica, QA técnico, sistemas internos y automatización avanzada. Ese bloque debe profundizar la columna técnica sin contaminar dominios específicos.
