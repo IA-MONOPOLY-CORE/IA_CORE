@@ -917,3 +917,111 @@ Un perfil profesional global solo tiene sentido si ayuda a generar esas salidas 
 - 18.9 - Cierre del inventario inicial de perfiles globales.
 
 Este árbol puede dividirse más si el trabajo real lo pide. El método sigue siendo capa por capa. Los números iniciales no son techo: la auditoría de cobertura manda.
+
+## Familias profesionales globales
+
+Prompt 18.1 ordena la superficie profesional antes de crear perfiles individuales. Las familias no son perfiles, presets ni agentes: son la capa de organizacion que permite decidir que perfiles PASSED cargar, que valor economico cubren y que huecos quedan antes de avanzar a Prompt 18.2.
+
+No se crea todavia `catalogs/professional_profile_families.json`. La estructura queda documentada para convertirla en catalogo formal si la auditoria de perfiles lo justifica.
+
+### Inventario inicial de familias
+
+| family_id | Nombre y descripcion | Tipo de valor principal | Areas y nichos representativos | Tipos de perfil esperados | Escalas y model policy tendencial | Valor economico, salidas y notas de cobertura |
+|---|---|---|---|---|---|---|
+| `estrategia_direccion` | Estrategia y Direccion: objetivos, prioridades, modelos de negocio, vision y coordinacion ejecutiva. | `mejorar_decision`, `profesionalizar_negocio`, `validar_oportunidades`, `generar_ingresos` | Gerencia, comercial, producto, datos, finanzas. Nichos: `planificacion_estrategica`, `tablero_direccion`, `modelos_negocio`, `estrategia_comercial`, `validacion_ideas_negocio`. | estrategico, coordinacion, analitico, mixto | pyme, empresa_mediana, enterprise, emprendedor; `cloud_reasoning`, `hybrid`, `long_context` | Mejora foco, priorizacion y decisiones. Salidas: roadmap ejecutivo, matriz de prioridades, plan de accion, hipotesis de negocio. Es transversal y debe evitar volverse consultoria generica sin entregables. |
+| `operaciones_procesos` | Operaciones y Procesos: ordenar, documentar, controlar y mejorar la ejecucion diaria. | `ordenar_operacion`, `reducir_costos`, `acelerar_ejecucion`, `profesionalizar_negocio` | Produccion, abastecimiento, secretarias, gastronomia, soporte, proyectos. Nichos: `mejora_continua_procesos`, `estandarizacion_procedimientos`, `agenda_coordinacion`, `planificacion_produccion`, `compras_proveedores`. | operativo, coordinacion, administrativo, mixto | local_comercial, pyme, empresa_mediana; `local_standard`, `hybrid`, `batch_analysis` | Reduce friccion y errores. Salidas: SOPs, checklist, tablero operativo, mapa de proceso. Requiere perfiles aterrizados para pyme/local y no solo operations manager generico. |
+| `producto_ux` | Producto y UX: propuesta de valor, discovery, research, roadmap, experiencia y validacion. | `validar_oportunidades`, `crear_activos_digitales`, `mejorar_retencion`, `generar_ingresos` | Producto, diseno, customer success, marketing, tecnologia. Nichos: `gestion_producto_digital`, `research_usuarios`, `priorizacion_roadmap`, `ux_ui`, `experiencia_cliente_omnicanal`. | estrategico, creativo, analitico, investigacion | emprendedor, pyme, empresa_mediana, enterprise; `hybrid`, `cloud_reasoning`, `multimodal` | Convierte ideas en productos vendibles. Salidas: brief de producto, roadmap, journeys, experimentos de validacion. Necesita dividir product strategy, UX research, UX/UI y service design. |
+| `marketing_growth` | Marketing y Growth: adquisicion, campanas, contenidos, embudos, canales y crecimiento. | `generar_ingresos`, `aumentar_ventas`, `crear_activos_digitales`, `mejorar_retencion` | Marketing, comercial, customer success, datos. Nichos: `performance_ads`, `contenidos_redes`, `crm_fidelizacion`, `growth_experimentos`, `investigacion_mercado`. | estrategico, creativo, analitico, comercial | emprendedor, local_comercial, pyme, empresa_mediana; `local_standard`, `hybrid`, `fast_iteration`, `cloud_low_latency` | Acelera adquisicion y conversion. Salidas: campanas, calendario editorial, experimentos, mensajes, analisis de canales. Debe separar estrategia, performance, contenido y lifecycle. |
+| `ventas_revenue` | Ventas y Revenue: pipeline, objeciones, revenue operations, seguimiento comercial y monetizacion. | `generar_ingresos`, `aumentar_ventas`, `mejorar_margen`, `profesionalizar_negocio` | Comercial, atencion, marketing, seguros, aduana. Nichos: `prospeccion_b2b`, `gestion_cuentas_clave`, `ventas_retail`, `ecommerce_y_marketplaces`, `diseno_pipeline_comercial`. | comercial, operativo, analitico, coordinacion | emprendedor, local_comercial, pyme, empresa_mediana, enterprise; `local_standard`, `hybrid`, `cloud_low_latency` | Genera ingresos directos. Salidas: scripts, CRM, pipeline, playbooks, propuestas comerciales. Es una familia critica para monetizacion y no debe quedar absorbida por marketing. |
+| `datos_analytics` | Datos, BI y Analytics: metricas, dashboards, BI, rentabilidad, segmentacion y decisiones basadas en datos. | `mejorar_decision`, `mejorar_margen`, `reducir_costos`, `validar_oportunidades` | Datos, finanzas, marketing, customer success, operaciones. Nichos: `dashboards_operativos`, `indicadores_negocio`, `auditoria_datos`, `inteligencia_comercial`, `rentabilidad_por_canal`. | analitico, tecnico, investigacion | pyme, empresa_mediana, enterprise, investigacion; `batch_analysis`, `long_context`, `cloud_reasoning`, `local_heavy` | Convierte datos en decisiones. Salidas: dashboards, metricas, modelos de margen, segmentacion. Debe separar analista de negocio, BI, data quality y analytics avanzado. |
+| `automatizacion_tecnologia` | Automatizacion y Tecnologia: integraciones, APIs, no-code/low-code, sistemas internos, soporte IT y automatizacion. | `automatizar_trabajo`, `reducir_costos`, `acelerar_ejecucion`, `crear_activos_digitales` | Automatizacion, tecnologia, departamento tecnico, datos. Nichos: `automatizacion_procesos_internos`, `integraciones_herramientas`, `gestion_apis`, `arquitectura_sistemas_internos`, `soporte_it`. | tecnico, operativo, coordinacion, mixto | pyme, empresa_mediana, enterprise, dominio_especializado; `local_heavy`, `hybrid`, `cloud_reasoning`, `offline_capable` | Reduce trabajo manual y crea sistemas. Salidas: workflows, especificaciones, integraciones, base tecnica. Debe separar automation specialist, system architect, soporte tecnico y seguridad. |
+| `finanzas_administracion` | Finanzas y Administracion: caja, costos, rentabilidad, presupuestos, pagos, compras y control financiero. | `mejorar_margen`, `proteger_valor`, `reducir_costos`, `mejorar_decision` | Administracion, abastecimiento, seguros, comercio exterior. Nichos: `tesoreria_cashflow`, `control_gestion`, `planeamiento_financiero`, `costos_importacion_exportacion`, `presupuestos_computos`. | administrativo, analitico, compliance, operativo | emprendedor, local_comercial, pyme, empresa_mediana; `local_standard`, `batch_analysis`, `privacy_sensitive` | Ordena dinero y evita fuga de margen. Salidas: cashflow, presupuesto, analisis de costos, control de gestion. Requiere perfiles separados para controller, tesoreria, costos y administracion. |
+| `legal_compliance` | Legal y Compliance: contratos, politicas, privacidad, riesgos legales, cumplimiento y prevencion. | `reducir_riesgo`, `proteger_valor`, `profesionalizar_negocio` | Legales, RRHH, comercio exterior, seguros, salud, tecnologia. Nichos: `analisis_contratos`, `compliance_normativo`, `proteccion_datos`, `derecho_laboral`, `compliance_comercio_exterior`. | compliance, analitico, critico, investigacion | pyme, empresa_mediana, enterprise, dominio_especializado; `privacy_sensitive`, `human_review_required`, `high_reliability`, `cloud_reasoning` | Protege valor y reduce contingencias. Salidas: matriz de riesgos, checklist legal, borradores, politicas. Siempre requiere limites claros y revision humana. |
+| `rrhh_capacitacion` | RRHH y Capacitacion: roles, seleccion, onboarding, cultura, desempeno, aprendizaje y procesos internos de personas. | `escalar_equipo`, `profesionalizar_negocio`, `acelerar_ejecucion`, `mejorar_retencion` | RRHH, educacion, gerencia, comunicacion interna. Nichos: `seleccion_talento`, `onboarding_empleados`, `capacitacion_desarrollo`, `evaluacion_desempeno`, `clima_cultura`. | operativo, coordinacion, soporte, investigacion | pyme, empresa_mediana, enterprise; `local_standard`, `hybrid`, `human_review_required` | Mejora equipos y aprendizaje. Salidas: perfiles de puesto, onboarding, planes de capacitacion, evaluaciones. Debe distinguir HR ops, recruiter, trainer y people partner. |
+| `soporte_customer_success` | Soporte y Customer Success: atencion, reclamos, postventa, onboarding, fidelizacion y satisfaccion. | `mejorar_retencion`, `proteger_valor`, `aumentar_ventas`, `ordenar_operacion` | Customer success, atencion, soporte tecnico, salud, seguros. Nichos: `soporte_cliente`, `reclamos_postventa`, `onboarding_clientes`, `gestion_churn`, `mesa_ayuda`. | soporte, operativo, analitico, coordinacion | local_comercial, pyme, empresa_mediana, enterprise; `cloud_low_latency`, `local_standard`, `hybrid` | Retiene clientes y reduce friccion. Salidas: protocolos, macros, playbooks, analisis de churn. Requiere perfiles diferenciados para soporte, CX, CS ops y calidad. |
+| `investigacion_analisis` | Investigacion y Analisis: mercado, competencia, hipotesis, tendencias, evidencia y oportunidades. | `validar_oportunidades`, `mejorar_decision`, `generar_ingresos`, `proteger_valor` | Marketing, producto, educacion, sociologia, gerencia. Nichos: `investigacion_mercado`, `analisis_competitivo`, `investigacion_academica`, `evaluacion_impacto_social`, `research_usuarios`. | investigacion, analitico, estrategico, critico | emprendedor, pyme, empresa_mediana, investigacion, enterprise; `long_context`, `cloud_reasoning`, `batch_analysis` | Reduce incertidumbre. Salidas: research brief, mapa competitivo, hipotesis validadas, oportunidades. Necesita perfiles con razonamiento alto y buena gestion de evidencia. |
+| `calidad_riesgo` | Calidad y Riesgo: auditoria, validacion, control, robustez, sesgos, inconsistencias y prevencion. | `reducir_riesgo`, `proteger_valor`, `mejorar_decision`, `profesionalizar_negocio` | Produccion, legal, datos, seguros, salud, ingenieria. Nichos: `control_calidad`, `auditoria_datos`, `suscripcion_riesgos`, `auditoria_medica`, `seguridad_higiene_obra`. | compliance, critico, analitico, auditor | pyme, empresa_mediana, enterprise, dominio_especializado; `high_reliability`, `human_review_required`, `batch_analysis` | Evita errores caros. Salidas: auditorias, controles, pruebas, matriz de riesgos. Debe separar QA, auditor, risk analyst y safety/compliance por sector. |
+| `contenido_comunicacion` | Contenido y Comunicacion: mensajes, storytelling, piezas, comunicacion institucional, documentacion comercial y canales. | `crear_activos_digitales`, `aumentar_ventas`, `profesionalizar_negocio`, `proteger_valor` | Marketing, comunicacion, diseno, ventas, soporte. Nichos: `estrategia_marca`, `contenidos_redes`, `comunicacion_institucional`, `prensa_medios`, `documentacion_tecnica`. | creativo, estrategico, soporte, comercial | emprendedor, local_comercial, pyme, empresa_mediana; `local_standard`, `multimodal`, `fast_iteration` | Convierte conocimiento en activos comunicables. Salidas: mensajes, piezas, docs, guiones, comunicados. Debe distinguir copy, contenido, comunicacion institucional y documentacion tecnica. |
+| `industria_oficios` | Industria y Oficios: rubros, operaciones fisicas, campo, construccion, salud, logistica, produccion y servicios tecnicos. | `ordenar_operacion`, `reducir_costos`, `proteger_valor`, `profesionalizar_negocio` | Produccion, ingenierias, construccion, salud, mineria, naviero, gastronomia, oficios. Nichos: `direccion_obra`, `operaciones_portuarias`, `gestion_restaurantes`, `operaciones_mineras`, `servicios_tecnicos`. | operativo, tecnico, coordinacion, dominio_especializado | local_comercial, pyme, empresa_mediana, enterprise, dominio_especializado; `hybrid`, `offline_capable`, `human_review_required` | Baja la IA a operaciones reales. Salidas: procedimientos, presupuestos, controles, coordinacion de campo. Es sectorial y requiere perfiles especificos cuando el riesgo operativo sea alto. |
+| `dominio_especializado` | Dominio Especializado: perfiles no universales que tienen valor en dominios concretos o altamente especializados. | `validar_oportunidades`, `proteger_valor`, `generar_ingresos`, `crear_activos_digitales` | Loteria/juegos de azar, seguros, salud, comercio exterior, mineria, naviero, sociologia. Nichos: `analisis_loteria_juegos_azar`, `gestion_siniestros`, `farmacia_clinica`, `clasificacion_arancelaria`, `documentacion_maritima`. | dominio_especializado, investigacion, analitico, tecnico | dominio_especializado, investigacion, enterprise; `cloud_reasoning`, `privacy_sensitive`, `human_review_required`, `long_context` | Permite recuperar o crear perfiles muy concretos sin contaminar el core. Salidas: criterios especializados, auditorias de dominio, simulaciones, papers base. Debe entrar solo cuando haya valor real y trazabilidad. |
+
+### Familias por tipo de valor economico
+
+- **Generacion directa de ingresos**: `ventas_revenue`, `marketing_growth`, `producto_ux`, `estrategia_direccion`, `contenido_comunicacion`, `finanzas_administracion`.
+- **Proteccion de valor y riesgo**: `legal_compliance`, `calidad_riesgo`, `finanzas_administracion`, `datos_analytics`, `operaciones_procesos`, `industria_oficios`.
+- **Aceleracion y reduccion de costos**: `operaciones_procesos`, `automatizacion_tecnologia`, `datos_analytics`, `soporte_customer_success`, `rrhh_capacitacion`.
+- **Creacion de activos digitales**: `producto_ux`, `contenido_comunicacion`, `marketing_growth`, `automatizacion_tecnologia`, `investigacion_analisis`.
+- **Profesionalizacion y escalabilidad**: `estrategia_direccion`, `operaciones_procesos`, `rrhh_capacitacion`, `finanzas_administracion`, `calidad_riesgo`.
+
+Las familias mas directamente relacionadas con ingresos son `ventas_revenue`, `marketing_growth`, `producto_ux`, `estrategia_direccion` y `contenido_comunicacion`. `finanzas_administracion` no siempre genera ventas, pero protege margen y mejora monetizacion.
+
+### Mapa inicial de cobertura
+
+- **Familias mas transversales**: `estrategia_direccion`, `operaciones_procesos`, `datos_analytics`, `automatizacion_tecnologia`, `calidad_riesgo`, `contenido_comunicacion`.
+- **Familias de soporte**: `finanzas_administracion`, `rrhh_capacitacion`, `soporte_customer_success`, `legal_compliance`, `contenido_comunicacion`.
+- **Familias sectoriales**: `industria_oficios`, `dominio_especializado`, con apoyo de `calidad_riesgo`, `legal_compliance` y `automatizacion_tecnologia`.
+- **Nichos criticos de negocio**: `prospeccion_b2b`, `performance_ads`, `gestion_producto_digital`, `pricing_packaging`, `indicadores_negocio`, `tesoreria_cashflow`, `gestion_churn`, `automatizacion_procesos_internos`, `analisis_contratos`.
+- **Areas con alta demanda de cobertura**: administracion/finanzas, marketing, comercial, gerencia, datos, automatizacion, tecnologia, customer success y legales.
+- **Areas con riesgo de cobertura debil si no hay perfiles especificos**: enfermeria, salud, mineria/petroleo/gas, naviero/portuario, aduana/comercio exterior, ingenieria civil/construccion, seguros, sociologia/trabajo social y oficios.
+- **Nichos que probablemente necesitaran perfiles especializados**: `auditoria_medica`, `farmacia_clinica`, `seguridad_ambiental`, `permisos_reportes_ambientales`, `clasificacion_arancelaria`, `documentacion_maritima`, `suscripcion_riesgos`, `seguridad_higiene_obra`, `analisis_loteria_juegos_azar`.
+
+### Masa critica inicial sugerida por familia
+
+Estos rangos son punto de partida, no techo. La auditoria de cobertura de Prompt 18.7 puede ampliar, dividir o fusionar familias y perfiles.
+
+| family_id | Perfiles iniciales sugeridos |
+|---|---:|
+| `estrategia_direccion` | 5-7 |
+| `operaciones_procesos` | 7-9 |
+| `producto_ux` | 5-7 |
+| `marketing_growth` | 7-9 |
+| `ventas_revenue` | 6-8 |
+| `datos_analytics` | 6-8 |
+| `automatizacion_tecnologia` | 6-8 |
+| `finanzas_administracion` | 5-7 |
+| `legal_compliance` | 4-6 |
+| `rrhh_capacitacion` | 4-5 |
+| `soporte_customer_success` | 5-6 |
+| `investigacion_analisis` | 4-6 |
+| `calidad_riesgo` | 4-5 |
+| `contenido_comunicacion` | 4-6 |
+| `industria_oficios` | 5-8 |
+| `dominio_especializado` | 2-5 |
+
+Rango total inicial orientativo: 79-110 perfiles. Para la primera masa critica conviene apuntar al tramo 80-100 y dejar el excedente como expansion justificada por huecos.
+
+### Huecos probables antes de perfiles
+
+- Las areas con 9-13 nichos requieren varios perfiles por familia para no depender de perfiles demasiado genericos.
+- Marketing y ventas necesitan perfiles separados para estrategia, performance, contenido, CRM, pipeline y revenue operations.
+- Datos no debe quedar reducido a "analista de datos": hacen falta BI, data quality, analisis de negocio, inteligencia comercial y rentabilidad.
+- Tecnologia y automatizacion requieren separar soporte IT, integraciones, arquitectura, ciberseguridad y no-code/low-code.
+- Legal, salud, seguros, comercio exterior y obra requieren perfiles con limites, revision humana y conocimiento sectorial.
+- Pymes/locales necesitan perfiles aterrizados a ejecucion diaria, no solo perfiles enterprise.
+- Investigacion y estrategia requieren perfiles de razonamiento alto, manejo de evidencia y capacidad de convertir hallazgos en decisiones.
+- Dominios historicos o especializados deben recuperarse sin contaminar la biblioteca global.
+
+### Estructura futura recomendada para `professional_profile_families.json`
+
+Si Prompt 18.2 o una auditoria posterior decide formalizar familias como catalogo, la estructura recomendada es:
+
+```json
+{
+  "family_id": "marketing_growth",
+  "nombre": "Marketing y Growth",
+  "descripcion": "Familia orientada a adquisicion, campanas, canales, embudos y crecimiento medible.",
+  "tipo_valor_principal": ["generar_ingresos", "aumentar_ventas", "crear_activos_digitales"],
+  "areas_compatibles": ["marketing_publicidad", "comercial_ventas_negocios", "customer_success_experiencia_cliente"],
+  "nichos_representativos": ["performance_ads", "contenidos_redes", "crm_fidelizacion"],
+  "tipos_perfil_esperados": ["estrategico", "creativo", "analitico", "comercial"],
+  "escalas_negocio_compatibles": ["emprendedor", "local_comercial", "pyme", "empresa_mediana"],
+  "model_policy_tendencia": ["local_standard", "hybrid", "cloud_reasoning"],
+  "valor_economico": "Ayuda a generar demanda, mejorar conversion y convertir mensajes en activos comerciales.",
+  "ejemplos_de_salidas": ["plan de campana", "calendario de contenido", "analisis de canal", "experimento growth"],
+  "notas_de_cobertura": "Debe dividirse entre estrategia, performance, contenido y lifecycle si la cobertura queda generica.",
+  "status": "active",
+  "activo": true
+}
+```
+
+No se crea este JSON en Prompt 18.1 porque todavia no hay perfiles individuales ni tests de contrato para familias. La documentacion queda como fuente de diseño para el siguiente paso.
