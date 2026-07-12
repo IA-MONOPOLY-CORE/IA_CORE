@@ -1712,3 +1712,5 @@ El segundo bloque de perfiles globales amplía cobertura hacia pyme, local comer
 Tercer bloque de perfiles globales amplía cobertura hacia datos, automatización, BI, sistemas internos y soporte técnico operativo.
 
 Cuarto bloque de perfiles globales completa la masa crítica inicial reforzando legal, finanzas, RRHH, soporte, compliance y control.
+
+Prompt 18.6 revisó perfiles históricos de dominios específicos y solo recuperó valor global si aportaba cobertura real no cubierta.

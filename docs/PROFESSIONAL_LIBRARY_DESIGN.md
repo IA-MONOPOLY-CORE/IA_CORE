@@ -1406,3 +1406,42 @@ El bloque usa `privacy_sensitive`, `human_review_required`, `high_reliability`, 
 No se crearon presets reales, papers reales ni agentes reales. No se modificaron dominios especificos, `profile_catalog.json`, `agent_presets.json`, HUD, n8n ni orquestadores.
 
 Prompt 18.6 deberia auditar la cobertura 30/200 con 95 perfiles globales y decidir si faltan perfiles sectoriales, industria/oficios, investigacion especializada o dominios de alta regulacion antes de seguir escalando.
+
+## Recuperación controlada de perfiles históricos
+
+Prompt 18.6 revisa identidades y perfiles históricos de dominios específicos sin copiar prompts viejos ni trasladar nombres decorativos al catálogo global.
+
+Se revisaron 42 identidades o perfiles históricos documentados en catálogos de dominio, presets, configuraciones, papers históricos, documentación de diseño, README de catálogos y UI histórica.
+
+Clasificación final:
+
+- 5 perfiles recuperados como globales PASSED.
+- 6 perfiles mantenidos como dominio específico.
+- 9 perfiles clasificados como `legacy_no_selectable`.
+- 12 perfiles clasificados como `ya_cubierto`.
+- 6 perfiles descartados.
+- 4 perfiles enviados a `backlog_documental`.
+
+Perfiles recuperados como globales:
+
+- `analista_sesgos_decision`
+- `integrador_sintesis_decisiones`
+- `simulador_escenarios_negocio`
+- `minimalista_senal_ruido`
+- `historiador_contexto_negocio`
+
+### Criterio de recuperación
+
+Solo se recuperó una identidad histórica cuando podía convertirse en función profesional reutilizable, mapearse a áreas y nichos reales, explicar valor económico, usar roles/especializaciones existentes y operar con lenguaje neutral. No se recuperó ningún perfil por nostalgia, familiaridad o peso simbólico.
+
+Los perfiles recuperados fueron neutralizados y profesionalizados: sesgos de decisión, síntesis multicriterio, escenarios de negocio, separación señal/ruido y memoria contextual. El resto queda como dominio específico, cubierto por perfiles actuales, legacy/backlog o descartado.
+
+### Alcance explícito
+
+No se copiaron prompts históricos, no se crearon presets reales, papers reales ni agentes reales. No se modificaron dominios específicos, `profile_catalog.json`, `agent_presets.json`, HUD, n8n ni orquestadores.
+
+La clasificación completa vive en `docs/HISTORICAL_PROFILES_RECOVERY_REPORT.md`.
+
+### Preparación para Prompt 18.7
+
+Prompt 18.7 debería auditar la cobertura real 30 áreas / 200 nichos con 100 perfiles globales PASSED, detectar huecos residuales por área, nicho, escala de negocio y policy de modelo, y decidir si hace falta una expansión mínima adicional o si corresponde pasar a perfiles/presets operativos.

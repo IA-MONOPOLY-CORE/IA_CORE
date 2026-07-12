@@ -126,7 +126,7 @@ def test_professional_profiles_catalog_exists_and_has_expected_structure():
     assert catalog["status"] == "active"
     assert isinstance(catalog["description"], str)
     assert isinstance(catalog["profiles"], list)
-    assert 92 <= len(catalog["profiles"]) <= 97
+    assert 95 <= len(catalog["profiles"]) <= 105
     assert "domain_id" not in catalog
 
 
@@ -301,3 +301,21 @@ def test_professional_profiles_cover_control_compliance_finance_hr_and_support()
     assert len(profiles_by_area["customer_success_experiencia_cliente"]) >= 28
     assert len(quality_risk_profiles) >= 12
     assert {"privacy_sensitive", "human_review_required", "high_reliability", "long_context"} <= policies
+
+
+def test_recovered_historical_profiles_are_neutralized_and_documented():
+    recovered_profile_ids = {
+        "analista_sesgos_decision",
+        "integrador_sintesis_decisiones",
+        "simulador_escenarios_negocio",
+        "minimalista_senal_ruido",
+        "historiador_contexto_negocio",
+    }
+    profiles_by_id = {profile["id"]: profile for profile in _profiles_catalog()["profiles"]}
+
+    assert recovered_profile_ids <= set(profiles_by_id)
+    for profile_id in recovered_profile_ids:
+        profile = profiles_by_id[profile_id]
+        recovery_text = f"{profile['coverage_notes']} {profile['notes']}".lower()
+        assert "recuperacion historica controlada" in recovery_text
+        assert "neutraliz" in recovery_text
