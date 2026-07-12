@@ -126,7 +126,7 @@ def test_professional_profiles_catalog_exists_and_has_expected_structure():
     assert catalog["status"] == "active"
     assert isinstance(catalog["description"], str)
     assert isinstance(catalog["profiles"], list)
-    assert 70 <= len(catalog["profiles"]) <= 75
+    assert 92 <= len(catalog["profiles"]) <= 97
     assert "domain_id" not in catalog
 
 
@@ -271,3 +271,33 @@ def test_professional_profiles_cover_technical_data_and_automation_surface():
     assert len(profiles_by_area["automatizacion_integraciones"]) >= 18
     assert len(profiles_by_area["tecnologia_sistemas_telecomunicaciones"]) >= 15
     assert {"batch_analysis", "high_reliability", "long_context", "privacy_sensitive"} <= policies
+
+
+def test_professional_profiles_cover_control_compliance_finance_hr_and_support():
+    profiles = _profiles_catalog()["profiles"]
+    profiles_by_area = {
+        area: [
+            profile["id"]
+            for profile in profiles
+            if area in profile["areas_compatibles"]
+        ]
+        for area in [
+            "legales",
+            "administracion_contabilidad_finanzas",
+            "recursos_humanos_capacitacion",
+            "customer_success_experiencia_cliente",
+        ]
+    }
+    quality_risk_profiles = [
+        profile["id"]
+        for profile in profiles
+        if profile["familia_profesional"] == "calidad_riesgo"
+    ]
+    policies = {profile["default_model_policy"] for profile in profiles}
+
+    assert len(profiles_by_area["legales"]) >= 7
+    assert len(profiles_by_area["administracion_contabilidad_finanzas"]) >= 30
+    assert len(profiles_by_area["recursos_humanos_capacitacion"]) >= 9
+    assert len(profiles_by_area["customer_success_experiencia_cliente"]) >= 28
+    assert len(quality_risk_profiles) >= 12
+    assert {"privacy_sensitive", "human_review_required", "high_reliability", "long_context"} <= policies

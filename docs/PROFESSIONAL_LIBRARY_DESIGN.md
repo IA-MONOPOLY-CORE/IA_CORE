@@ -1348,3 +1348,61 @@ El bloque usa `batch_analysis`, `high_reliability`, `long_context`, `privacy_sen
 No se crearon presets reales, papers reales ni agentes reales. No se modificaron dominios específicos, `profile_catalog.json`, `agent_presets.json`, HUD, n8n ni orquestadores.
 
 Prompt 18.5 debería continuar la expansión hacia perfiles de soporte institucional, legal/compliance, RRHH/capacitación, investigación, industria/oficios y dominios especializados, usando auditoría de huecos contra las 30 áreas y 200 nichos antes de cargar más perfiles.
+
+## Cuarto bloque PASSED de perfiles profesionales — legal, finanzas, RRHH, soporte, compliance y control
+
+Prompt 18.5 agrega 23 perfiles profesionales globales PASSED y lleva el catálogo a 95 perfiles activos. Este bloque completa la masa crítica inicial 80-100 reforzando protección de valor, gobierno interno, administración, personas, soporte y control.
+
+Perfiles agregados:
+
+- `analista_contratos_operativos`
+- `gestor_compliance_pyme`
+- `auditor_privacidad_datos`
+- `redactor_politicas_internas`
+- `analista_riesgo_legal_preventivo`
+- `planificador_financiero_operativo`
+- `analista_flujo_caja`
+- `controlador_presupuesto`
+- `auditor_facturacion_cobros`
+- `analista_precios_margenes`
+- `gestor_documentacion_administrativa`
+- `disenador_onboarding_empleados`
+- `capacitador_operativo_interno`
+- `analista_roles_responsabilidades`
+- `gestor_evaluacion_desempeno`
+- `documentador_cultura_procesos`
+- `disenador_base_respuestas_cliente`
+- `analista_satisfaccion_cliente`
+- `coordinador_soporte_multicanal`
+- `auditor_calidad_atencion`
+- `auditor_procesos_negocio`
+- `controlador_cumplimiento_sops`
+- `especialista_continuidad_operativa`
+
+### Familias y cobertura
+
+El bloque refuerza `legal_compliance`, `finanzas_administracion`, `rrhh_capacitacion`, `soporte_customer_success`, `calidad_riesgo` y `contenido_comunicacion`.
+
+Áreas reforzadas: `legales`, `administracion_contabilidad_finanzas`, `recursos_humanos_capacitacion`, `customer_success_experiencia_cliente`, `atencion_cliente_call_center_telemarketing`, `gerencia_direccion_general`, `comunicacion_relaciones_institucionales_publicas`, `datos_bi_analytics`, `automatizacion_integraciones`, `seguros`, `educacion_docencia_investigacion`, `produccion_manufactura` y `tecnologia_sistemas_telecomunicaciones`.
+
+El criterio de selección fue profesionalizar decisiones sensibles, controles administrativos, cumplimiento, privacidad, caja, presupuesto, roles, onboarding, capacitacion, atencion al cliente, SOPs, auditoria y continuidad operativa.
+
+### Valor económico y problemas cubiertos
+
+El bloque protege valor evitando incumplimientos, reduciendo riesgo legal, mejorando caja y cobros, controlando presupuesto, protegiendo datos, reduciendo errores administrativos, bajando rotacion temprana, acelerando onboarding, estandarizando atencion, reduciendo reclamos y preparando continuidad operativa.
+
+Cubre problemas reales de contratos simples, compliance pyme, privacidad, politicas internas, flujo de caja, facturacion/cobros, precios/margenes, documentacion administrativa, onboarding, capacitacion operativa, roles ambiguos, evaluacion de desempeno, respuestas de cliente, satisfaccion, soporte multicanal, calidad de atencion, procesos, SOPs y continuidad.
+
+### Relación con roles, especializaciones y model policies
+
+Todos los perfiles usan `expected_role_id` y `expected_specialization_id` existentes. No se modifican `catalogs/roles.json` ni `catalogs/specializations.json`.
+
+Gaps para Prompt 18.8: contratos operativos, compliance pyme, privacidad/datos, politicas internas, flujo de caja, facturacion/cobros, precios/margenes, onboarding empleados, capacitacion operativa, evaluacion de desempeno, soporte multicanal, satisfaccion del cliente, SOPs, riesgo operativo y continuidad operativa.
+
+El bloque usa `privacy_sensitive`, `human_review_required`, `high_reliability`, `long_context`, `hybrid`, `batch_analysis`, `cloud_low_latency`, `local_standard`, `cost_sensitive` y `fast_iteration` segun sensibilidad, riesgo, privacidad, costo o necesidad de revision humana.
+
+### Alcance y preparación
+
+No se crearon presets reales, papers reales ni agentes reales. No se modificaron dominios especificos, `profile_catalog.json`, `agent_presets.json`, HUD, n8n ni orquestadores.
+
+Prompt 18.6 deberia auditar la cobertura 30/200 con 95 perfiles globales y decidir si faltan perfiles sectoriales, industria/oficios, investigacion especializada o dominios de alta regulacion antes de seguir escalando.

@@ -1710,3 +1710,5 @@ Los primeros perfiles profesionales globales ya empiezan a cubrir la superficie 
 El segundo bloque de perfiles globales amplía cobertura hacia pyme, local comercial y emprendedor. Prompt 18.3 suma perfiles de caja diaria, costos, compras, stock, turnos, WhatsApp, atención, promociones, reclamos, experiencia local y control de rentabilidad.
 
 Tercer bloque de perfiles globales amplía cobertura hacia datos, automatización, BI, sistemas internos y soporte técnico operativo.
+
+Cuarto bloque de perfiles globales completa la masa crítica inicial reforzando legal, finanzas, RRHH, soporte, compliance y control.
