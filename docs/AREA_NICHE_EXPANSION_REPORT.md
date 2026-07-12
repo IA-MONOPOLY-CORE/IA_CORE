@@ -1724,3 +1724,9 @@ La cobertura sectorial mínima permite que las 30 áreas tengan al menos un perf
 El inventario inicial de perfiles profesionales globales cierra con 106 perfiles, 30 de 30 areas cubiertas y 166 de 200 nichos cubiertos.
 
 Los 34 nichos sin cobertura quedan documentados como deuda futura. No se agregan perfiles, presets, papers ni agentes en este cierre.
+
+## Nota 19.0 - Matriz perfil-area/nicho
+
+La matriz perfil <-> area/nicho permite consultar cobertura y preparar generacion por dominio.
+
+La fuente de verdad sigue siendo `catalogs/professional_profiles.json`; la matriz es un reporte derivado y regenerable.

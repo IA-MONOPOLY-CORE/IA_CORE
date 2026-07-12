@@ -662,3 +662,28 @@ IA_CORE necesita iniciar el inventario de perfiles profesionales globales sobre 
 - Los perfiles históricos de dominios específicos se recuperarán solo mediante conversión controlada a perfiles PASSED, legacy o específicos de dominio.
 - El inventario futuro de perfiles podrá validar cobertura contra áreas, nichos, escalas de negocio, tipos de equipo, model policies y valor económico.
 - Prompt 18.0 no crea perfiles, presets, papers ni agentes; solo fija el contrato para cargarlos ordenadamente después.
+
+## ADR-025 - Matriz perfil-area-nicho como artefacto derivado
+
+**Estado**: Aceptado
+
+**Prompt**: 19.0
+
+**Contexto**:
+Los perfiles profesionales globales ya declaran `areas_compatibles` y `nichos_compatibles` en `catalogs/professional_profiles.json`. El sistema necesita una matriz consultable para auditoria, cobertura y preparacion de generadores futuros, pero duplicar manualmente esa relacion crearia una segunda fuente de verdad.
+
+**Decision**:
+- La matriz Perfil Profesional <-> Area/Nicho es un artefacto derivado.
+- La fuente de verdad sigue siendo `catalogs/professional_profiles.json`.
+- La matriz se genera con `scripts/generate_professional_profile_matrix.py`.
+- El reporte derivado vive en `docs/PROFESSIONAL_PROFILE_AREA_NICHE_MATRIX.md`.
+- Si cambia un perfil, la matriz debe regenerarse.
+- La matriz no debe editarse manualmente como catalogo operativo.
+
+**Consecuencias**:
+- Permite consultar cobertura por area y nicho sin duplicar logica manual.
+- Facilita detectar huecos, cobertura debil y sobrecobertura.
+- Prepara generacion futura de dominios, presets, papers y team templates.
+- Los tests validan que la matriz generada coincida con los catalogos fuente.
+
+---

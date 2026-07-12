@@ -200,3 +200,9 @@ Opcion recomendada:
 Prompt 19.0 - Generador/validador de matriz perfil <-> area/nicho desde `professional_profiles.json`.
 
 No ejecutar Prompt 19 desde este cierre.
+
+## Nota 19.0 - Matriz derivada perfil-area/nicho
+
+Prompt 19.0 formaliza la matriz derivada perfil <-> area/nicho desde `catalogs/professional_profiles.json`.
+
+La matriz vive en `docs/PROFESSIONAL_PROFILE_AREA_NICHE_MATRIX.md` y se regenera con `scripts/generate_professional_profile_matrix.py`. No reemplaza al catalogo global como fuente de verdad.

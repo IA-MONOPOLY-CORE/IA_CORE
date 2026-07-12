@@ -1518,3 +1518,16 @@ No se crearon presets, papers, agentes ni dominios especificos. El inventario in
 Deudas futuras: 34 nichos sin cobertura, solapamientos operativos, policies subrepresentadas (`local_heavy`, `local_light`, `multimodal`, `offline_capable`), gaps semanticos para presets/papers, matriz perfil-area/nicho, team templates, validacion end-to-end con dominio nuevo, cross-platform real e integraciones externas como n8n.
 
 Recomendacion: avanzar con Prompt 19.0 para generar/validar una matriz perfil <-> area/nicho desde `catalogs/professional_profiles.json`, sin duplicar datos fuente.
+
+## Matriz derivada Perfil Profesional <-> Area/Nicho
+
+Prompt 19.0 formaliza una matriz derivada desde `catalogs/professional_profiles.json`.
+
+- Fuente de verdad: `catalogs/professional_profiles.json`.
+- Script generador: `scripts/generate_professional_profile_matrix.py`.
+- Reporte generado: `docs/PROFESSIONAL_PROFILE_AREA_NICHE_MATRIX.md`.
+- Uso: consultar perfiles por area, perfiles por nicho, huecos, sobrecobertura, cobertura debil, familias dominantes, model policies dominantes y escalas dominantes.
+- La matriz no es un catalogo editable ni reemplaza los campos `areas_compatibles` y `nichos_compatibles` de cada perfil.
+- Si cambia un perfil, se debe regenerar la matriz.
+
+La matriz prepara futuras fases de generacion de dominios, presets, papers y equipos sin duplicar logica manual.
