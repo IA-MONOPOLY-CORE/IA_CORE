@@ -1698,3 +1698,7 @@ Muchos perfiles futuros podrán ser globales y reutilizables: analista de datos,
 La etapa de áreas/nichos queda **lista para Prompt 18**.
 
 No se recomienda cargar más nichos antes de perfiles. El próximo paso debe ser inventariar 80-100 perfiles profesionales globales PASSED, evitando perfiles fantasma y conectando cada perfil futuro con áreas/nichos, preset_seed, paper_seed y model policy.
+
+### Transición a perfiles profesionales globales
+
+Etapa 30/200 cerrada; siguiente etapa: perfiles profesionales globales. Prompt 18.0 define el modelo, la regla PASSED y la cobertura inteligente antes de cargar perfiles masivos.

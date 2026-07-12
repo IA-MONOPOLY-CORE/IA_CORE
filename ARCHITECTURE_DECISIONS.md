@@ -636,3 +636,29 @@ En Prompt 17.1 se preparó soporte técnico para status como proposed/draft/acti
 
 **Regla No Negociable**:
 Ningún perfil/nicho/preset puede estar visible como usable sin cumplir reglas de consistencia. Todo elemento propuesto debe tender a operación real o darse de baja.
+
+---
+
+## ADR-024 — Perfil Profesional Global como entidad reutilizable previa al agente
+
+**Estado**: Aceptado
+
+**Prompt**: 18.0
+
+**Contexto**:
+IA_CORE necesita iniciar el inventario de perfiles profesionales globales sobre una base de 30 áreas y 200 nichos PASSED. Sin una entidad previa al agente, los perfiles pueden volverse otra lista decorativa o mezclarse con presets, papers, perfiles específicos de dominio y agentes legacy.
+
+**Decisión**:
+- IA_CORE define el Perfil Profesional Global como entidad reutilizable anterior a `domains/*/profile_catalog.json`, presets, papers y agentes.
+- Un perfil global no es un agente ejecutable por sí mismo.
+- Cada perfil global debe mapear áreas y nichos compatibles.
+- Cada perfil global debe preparar trazabilidad hacia `role_id`, `specialization_id`, `preset_seed`, `paper_seed` y `default_model_policy`.
+- `catalogs/professional_profiles.json` será la ubicación recomendada para el catálogo global PASSED cuando Prompt 18 cargue perfiles reales.
+- La masa crítica inicial de 80-100 perfiles no es un techo; la auditoría de cobertura decide si conviene ampliar, dividir o fusionar perfiles.
+- Ningún perfil debe entrar como PASSED si no puede avanzar hacia operación real y generación de valor.
+
+**Consecuencias**:
+- Los dominios específicos dejan de ser el centro simbólico del sistema y pasan a consumir o adaptar patrimonio global.
+- Los perfiles históricos de dominios específicos se recuperarán solo mediante conversión controlada a perfiles PASSED, legacy o específicos de dominio.
+- El inventario futuro de perfiles podrá validar cobertura contra áreas, nichos, escalas de negocio, tipos de equipo, model policies y valor económico.
+- Prompt 18.0 no crea perfiles, presets, papers ni agentes; solo fija el contrato para cargarlos ordenadamente después.

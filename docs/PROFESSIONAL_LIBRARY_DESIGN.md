@@ -717,3 +717,203 @@ Ningún perfil/nicho/preset puede estar visible como usable sin cumplir reglas d
 - No entra todavía al catálogo operativo
 - Vive en docs/ o reportes
 - No aparece como opción usable
+
+## Modelo de Perfil Profesional Global PASSED
+
+Un Perfil Profesional Global es una entidad reutilizable de IA_CORE que define un tipo de profesional antes de convertirse en agente. No es un prompt, no es un preset, no es un paper y no es una instancia ejecutable. Su tarea es ordenar identidad profesional, utilidad, cobertura, límites y trazabilidad para que después pueda mapearse a dominios, equipos, presets, papers, políticas de modelo y agentes operativos.
+
+El perfil global existe para responder con claridad:
+
+- Para qué sirve.
+- Qué problema resuelve.
+- A qué negocio, proyecto o dominio puede ayudar.
+- Cómo genera, protege o mejora valor económico.
+- Cómo puede volverse operativo sin inventar piezas fantasma.
+
+### Diferencia entre conceptos
+
+- **Área**: campo amplio de actividad profesional, por ejemplo tecnología, ventas, finanzas, salud o legal.
+- **Nicho**: caso de uso, subcampo o necesidad operativa dentro de un área.
+- **Perfil Profesional Global**: tipo de profesional reutilizable que puede aportar en varias áreas y nichos.
+- **Rol**: función técnica u operativa que IA_CORE usa para clasificar agentes y capacidades cognitivas.
+- **Especialización**: afinación concreta de un rol para una función más precisa.
+- **Preset**: configuración operativa para crear o ejecutar un agente.
+- **Paper seed**: base documental o marco de conocimiento que profesionaliza al agente.
+- **Agente**: instancia ejecutable concreta, creada desde perfil, preset, paper y configuración.
+- **Equipo**: conjunto coordinado de perfiles o agentes para lograr un objetivo.
+- **Model policy**: política que orienta el tipo de modelo según carga cognitiva, razonamiento, hardware, privacidad, latencia y costo.
+
+### Campos obligatorios del perfil global
+
+Cada perfil futuro en `catalogs/professional_profiles.json` debe declarar estos campos:
+
+- `id`: identificador estable, `snake_case`, global y no dependiente de un único dominio.
+- `nombre`: nombre visible en español claro para usuarios no técnicos.
+- `descripcion`: explicación concreta de qué hace el perfil y para qué sirve.
+- `familia_profesional`: agrupador de alto nivel. Valores esperados iniciales: `estrategia_direccion`, `operaciones_procesos`, `producto_ux`, `marketing_growth`, `ventas_revenue`, `datos_analytics`, `automatizacion_tecnologia`, `finanzas_administracion`, `legal_compliance`, `rrhh_capacitacion`, `soporte_customer_success`, `investigacion_analisis`, `calidad_riesgo`, `industria_oficios`, `dominio_especializado`.
+- `tipo_perfil`: clase funcional del perfil. Valores esperados iniciales: `estrategico`, `operativo`, `tecnico`, `analitico`, `creativo`, `comercial`, `administrativo`, `soporte`, `compliance`, `investigacion`, `coordinacion`, `mixto`.
+- `areas_compatibles`: lista de `area_id` existentes en `catalogs/areas.json`.
+- `nichos_compatibles`: lista de `niche_id` existentes en `catalogs/niches.json`; debe ser realista y no inflada para simular cobertura.
+- `capacidades_principales`: lista concreta de capacidades que el perfil puede ejecutar o asistir.
+- `limites`: lista de cosas que no debe hacer, condiciones donde no conviene usarlo o decisiones que requieren humano.
+- `seniority`: `junior`, `semi_senior`, `senior`, `lead`, `principal` o `executive`.
+- `compatible_business_scales`: `emprendedor`, `local_comercial`, `pyme`, `empresa_mediana`, `enterprise`, `investigacion` o `dominio_especializado`.
+- `cognitive_load`: `baja`, `media`, `alta` o `muy_alta`.
+- `reasoning_style`: `operativo`, `analitico`, `creativo`, `estrategico`, `critico`, `investigativo`, `coordinador`, `tecnico` o `mixto`.
+- `economic_value`: explicación de cómo el perfil aumenta ventas, reduce costos, mejora margen, evita riesgos, ordena operaciones, acelera ejecución, mejora retención, mejora decisiones o convierte ideas en activos vendibles.
+- `value_creation_paths`: lista de caminos concretos de valor, por ejemplo optimización de precios, campañas comerciales, automatización de tareas, reducción de errores, creación de activos digitales, mejora de conversión, análisis de rentabilidad o prevención de riesgos.
+- `default_model_policy`: política esperada de modelo. No define todavía un modelo concreto.
+- `expected_role_id`: `role_id` esperado si ya existe; si no existe, se debe declarar un tipo requerido antes de normalizar.
+- `expected_specialization_id`: `specialization_id` esperada si ya existe; si no existe, se debe declarar un tipo requerido antes de normalizar.
+- `required_role_type`: descripción obligatoria cuando el `role_id` aún no existe.
+- `required_specialization_type`: descripción obligatoria cuando la `specialization_id` aún no existe.
+- `preset_seed_expected`: nombre o idea del preset futuro; no crea el preset.
+- `paper_seed_expected`: nombre o idea del paper seed futuro; no crea el paper.
+- `team_roles`: forma de participar en equipos: `lider`, `especialista`, `auditor`, `ejecutor`, `soporte`, `integrador`, `validador` o `investigador`.
+- `coverage_notes`: explica qué superficie cubre el perfil y cuándo debería dividirse en perfiles más específicos.
+- `status`: `active` solo si el perfil está PASSED; estados transicionales no son usables.
+- `activo`: booleano operativo.
+- `notes`: observaciones útiles, sin texto decorativo.
+
+### Regla PASSED para perfiles
+
+Un Perfil Profesional Global PASSED debe cumplir:
+
+- Tiene `id` único, estable y no ambiguo.
+- Tiene `nombre` claro y `descripcion` útil.
+- Pertenece a una `familia_profesional`.
+- Tiene `tipo_perfil` válido.
+- Declara áreas compatibles reales.
+- Declara nichos compatibles reales.
+- Tiene capacidades principales concretas.
+- Tiene límites explícitos.
+- Tiene seniority.
+- Tiene escalas de negocio compatibles.
+- Tiene carga cognitiva.
+- Tiene estilo de razonamiento.
+- Explica valor económico.
+- Declara caminos concretos de creación de valor.
+- Tiene `default_model_policy` esperada.
+- Tiene `expected_role_id` o `required_role_type`.
+- Tiene `expected_specialization_id` o `required_specialization_type`.
+- Tiene `preset_seed_expected`.
+- Tiene `paper_seed_expected`.
+- Tiene `coverage_notes`.
+- Puede mapearse luego a `role_id`, `specialization_id`, preset, paper y model policy.
+- No es decorativo.
+- No existe solo para completar un número.
+
+Regla no negociable: si un perfil no puede avanzar hacia operación real, no debe entrar como PASSED.
+
+### Masa crítica inicial y cobertura inteligente
+
+La meta de 80-100 perfiles profesionales es masa crítica inicial, no techo. IA_CORE no debe crear perfiles para cumplir un número; debe crearlos para cubrir necesidades reales.
+
+La auditoría de cobertura futura debe medir perfiles contra:
+
+- 30 áreas.
+- 200 nichos.
+- Escalas de negocio.
+- Tipos de usuario.
+- Tipos de equipo.
+- Complejidad operativa.
+- Necesidades de modelo.
+- Posibilidad real de preset, paper y agente.
+- Valor económico real.
+
+Si la cobertura queda corta, el sistema debe recomendar expansión a 120, 150, 200 o la cantidad razonable que resulte usable y mantenible. Si la cobertura queda demasiado genérica, algunos perfiles deben dividirse. Si hay demasiada superposición, algunos perfiles deben fusionarse. La auditoría manda sobre el número.
+
+Criterios futuros de auditoría:
+
+- Cobertura por área.
+- Cobertura por nicho.
+- Cobertura por escala de negocio.
+- Cobertura por tipo de valor económico.
+- Cobertura por tipo de tarea.
+- Cobertura por model policy.
+- Cobertura por equipo.
+- Solapamiento entre perfiles.
+- Huecos de cobertura.
+- Recomendación de expansión, fusión o división.
+
+### Ubicación recomendada del catálogo global
+
+La ubicación recomendada para Prompt 18.1/18.2 es:
+
+- `catalogs/professional_profiles.json`: catálogo global PASSED de perfiles profesionales reutilizables.
+
+Archivos futuros relacionados:
+
+- `catalogs/professional_profile_families.json`: normalización opcional de familias si el catálogo crece.
+- `catalogs/profile_model_policies.json`: políticas de modelo formalizadas por Prompt 20.
+- `catalogs/team_templates.json`: plantillas de equipos profesionales.
+
+En Prompt 18.0 no se crea el catálogo masivo. El contrato vive en este documento hasta que Prompt 18.1/18.2 cargue perfiles reales.
+
+### Relación con roles y especializaciones
+
+La base actual contiene 20 roles globales y 80 especializaciones globales, todos activos. Esa base alcanza para iniciar una masa crítica, pero no debe forzar perfiles artificiales. Algunos perfiles futuros mapearán directo a `expected_role_id` y `expected_specialization_id`; otros necesitarán `required_role_type` o `required_specialization_type` hasta que Prompt 18.8 normalice los gaps.
+
+La normalización de roles/especializaciones conviene hacer durante y después de cargar bloques de perfiles: primero se detectan huecos reales, luego se agregan roles o especializaciones si la cobertura lo justifica. Para evitar perfiles no seleccionables, ningún perfil PASSED debe quedar sin ruta futura a rol, especialización, preset seed, paper seed y model policy.
+
+Los perfiles globales son patrimonio compartido. Los perfiles específicos de dominio viven en `domains/*/profile_catalog.json` y solo adaptan o restringen perfiles globales cuando corresponde. Ningún dominio específico debe volver a ser centro simbólico del sistema.
+
+### Relación con model policies
+
+Cada perfil futuro debe declarar una política de modelo esperada. Prompt 18 no fija modelos concretos, pero deja categorías preliminares:
+
+- `local_light`
+- `local_standard`
+- `local_heavy`
+- `cloud_reasoning`
+- `cloud_low_latency`
+- `hybrid`
+- `privacy_sensitive`
+- `long_context`
+- `multimodal`
+- `batch_analysis`
+- `cost_sensitive`
+- `high_reliability`
+- `fast_iteration`
+- `offline_capable`
+- `human_review_required`
+
+Prompt 20 debe formalizar estas políticas e integrarlas con recomendación hardware-aware, costo, privacidad, latencia y confiabilidad.
+
+### Relación con dominios específicos e históricos
+
+Todo dominio específico existente o futuro debe tratarse como un dominio más dentro del sistema global. Puede tener perfiles propios si corresponde, puede aportar perfiles recuperables al catálogo global si son reutilizables y debe mantenerse aislado del core salvo por referencias formales y controladas.
+
+Los perfiles históricos de dominios específicos no se cargan en Prompt 18.0. Se recuperarán controladamente en un subprompt posterior, sin copiar prompts viejos. Cada recuperación debe convertirse a perfil formal PASSED, quedar legacy, quedar específica del dominio original o descartarse. Algunos perfiles históricos podrán transformarse en perfiles globales de análisis, auditoría, simulación, riesgo o integración; otros no.
+
+Lenguaje recomendado: dominios específicos, dominios existentes, dominios especializados, separación Core/Dominios y sin contaminación entre dominios.
+
+### Relación con producto terminado y generación de valor
+
+IA_CORE debe tender a producir salidas útiles:
+
+- Dominio recomendado.
+- Equipo profesional recomendado.
+- Perfiles compatibles.
+- Modelo recomendado.
+- Plan de acción.
+- Activos a crear.
+- Riesgos.
+- Primeros pasos.
+
+Un perfil profesional global solo tiene sentido si ayuda a generar esas salidas y a convertir una idea o necesidad en acción, activo, mejora, ingreso o reducción de riesgo.
+
+### Árbol sugerido de Prompt 18
+
+- 18.0 - Modelo de perfil profesional global.
+- 18.1 - Inventario de familias profesionales.
+- 18.2 - Primer bloque PASSED: empresa digital moderna.
+- 18.3 - Segundo bloque PASSED: pyme/local/emprendedor.
+- 18.4 - Tercer bloque PASSED: técnica/datos/automatización.
+- 18.5 - Cuarto bloque PASSED: legal/finanzas/RRHH/soporte.
+- 18.6 - Recuperación controlada de perfiles históricos de dominios específicos.
+- 18.7 - Auditoría de cobertura perfiles vs áreas/nichos.
+- 18.8 - Normalización role_id/specialization_id.
+- 18.9 - Cierre del inventario inicial de perfiles globales.
+
+Este árbol puede dividirse más si el trabajo real lo pide. El método sigue siendo capa por capa. Los números iniciales no son techo: la auditoría de cobertura manda.
