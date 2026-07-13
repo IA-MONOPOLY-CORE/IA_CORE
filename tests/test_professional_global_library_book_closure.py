@@ -151,7 +151,30 @@ def test_book_closure_domains_are_not_modified_in_working_tree():
         check=True,
     )
 
-    assert result.stdout.strip() == ""
+    changed = {
+        path.strip()
+        for path in result.stdout.splitlines()
+        if path.strip()
+    }
+    reset_manifest = ROOT / "docs" / "legacy" / "loteria" / "legacy_cleanup_manifest.md"
+    if reset_manifest.exists():
+        allowed_exact = {
+            "domains/loteria/agent_presets.json",
+            "domains/loteria/config_loteria.py",
+            "domains/loteria/domain.json",
+            "domains/loteria/profile_catalog.json",
+        }
+        unexpected = [
+            path
+            for path in sorted(changed)
+            if path not in allowed_exact
+            and not path.startswith("domains/loteria/agents/config/")
+            and not path.startswith("domains/loteria/agents/papers/")
+        ]
+        assert unexpected == []
+        return
+
+    assert changed == set()
 
 
 def test_book_closure_report_contains_required_key_phrases():

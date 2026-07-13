@@ -216,7 +216,7 @@ class TestCompatibilidadLoteria:
         _mock_memoria_vacia(monkeypatch)
 
         # Fuente real (solo lectura — no se toca)
-        real_paper_path = (
+        operational_paper_path = (
             Path(config.ROOT_DIR)
             / "domains"
             / "loteria"
@@ -224,7 +224,17 @@ class TestCompatibilidadLoteria:
             / "papers"
             / "estadistico_integral_paper.json"
         )
-        assert real_paper_path.exists(), "Paper de estadistico_integral debe existir para este test"
+        assert not operational_paper_path.exists()
+
+        legacy_paper_path = (
+            Path(config.ROOT_DIR)
+            / "docs"
+            / "legacy"
+            / "loteria"
+            / "legacy_papers_snapshot"
+            / "estadistico_integral_paper.json"
+        )
+        assert legacy_paper_path.exists(), "El snapshot legacy de estadistico_integral debe existir"
 
         # Copiar dominio Lotería en tmp_path para operar sin tocar el real
         monkeypatch.setattr(config, "DOMAINS_DIR", tmp_path)
@@ -236,18 +246,22 @@ class TestCompatibilidadLoteria:
         loteria_papers_dir.mkdir(parents=True)
 
         # Copiar el JSON de config del agente real
-        real_config_path = (
+        legacy_config_path = (
             Path(config.ROOT_DIR)
-            / "domains" / "loteria" / "agents" / "config" / "estadistico_integral.json"
+            / "docs"
+            / "legacy"
+            / "loteria"
+            / "agents_config_snapshot"
+            / "estadistico_integral.json"
         )
-        if real_config_path.exists():
-            import shutil
-            shutil.copy(real_config_path, loteria_config_dir / "estadistico_integral.json")
+        assert legacy_config_path.exists(), "El snapshot legacy de config debe existir"
+
+        import shutil
+        shutil.copy(legacy_config_path, loteria_config_dir / "estadistico_integral.json")
 
         # Copiar el paper real al directorio temporal (esta copia puede modificarse)
-        import shutil
         tmp_paper_path = loteria_papers_dir / "estadistico_integral_paper.json"
-        shutil.copy(real_paper_path, tmp_paper_path)
+        shutil.copy(legacy_paper_path, tmp_paper_path)
 
         # Crear domain.json mínimo para que load_domain funcione
         import json as _json
@@ -256,17 +270,17 @@ class TestCompatibilidadLoteria:
             shutil.copy(real_domain_manifest, tmp_path / "loteria" / "domain.json")
 
         before = _json.loads(tmp_paper_path.read_text(encoding="utf-8"))
-        real_before = _json.loads(real_paper_path.read_text(encoding="utf-8"))
+        legacy_before = _json.loads(legacy_paper_path.read_text(encoding="utf-8"))
 
         mejorar_papers.mejorar_paper(
             "estadistico_integral", usar_llm=False, domain_id="loteria"
         )
 
         after = _json.loads(tmp_paper_path.read_text(encoding="utf-8"))
-        real_after = _json.loads(real_paper_path.read_text(encoding="utf-8"))
+        legacy_after = _json.loads(legacy_paper_path.read_text(encoding="utf-8"))
 
         # El paper real NO debe haber sido modificado
-        assert real_before == real_after, (
+        assert legacy_before == legacy_after, (
             "mejorar_paper modificó el paper real de estadistico_integral. "
             "El test debe operar solo sobre copias temporales."
         )

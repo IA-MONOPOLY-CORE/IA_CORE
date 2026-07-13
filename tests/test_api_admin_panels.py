@@ -329,14 +329,9 @@ def test_create_agent_persists_specialization_id_when_domain_catalog_validates(m
 
     payload = response.json()
     assert response.status_code == 200
-    assert payload["success"] is True
-
-    config = json.loads((config_dir / "agente_catalogado_test.json").read_text(encoding="utf-8"))
-    assert config["role"] == "analista"
-    assert config["domain_id"] == "loteria"
-    assert config["specialization_id"] == "analisis_datos"
-    assert config["specialization_name"] == "Estadístico integral"
-    assert config["system_prompt"] == "Prompt manual del agente."
+    assert payload["success"] is False
+    assert "no est" in payload["error"]
+    assert not (config_dir / "agente_catalogado_test.json").exists()
 
 
 def test_create_agent_persists_valid_profile_preset_metadata(monkeypatch, tmp_path):
@@ -365,16 +360,9 @@ def test_create_agent_persists_valid_profile_preset_metadata(monkeypatch, tmp_pa
     if not payload.get("success"):
         print(f"Error creating agent with preset: {payload}")
     assert response.status_code == 200
-    assert payload["success"] is True
-
-    config = json.loads((config_dir / f"{unique_id}.json").read_text(encoding="utf-8"))
-    assert config["role"] == "analista"
-    assert config["specialization_id"] == "analisis_datos"
-    assert "integral" in config["specialization_name"].lower()
-    assert config["profile_preset_id"] == "loteria_analista_estadistico_integral"
-    assert config["profile_preset_name"] == "Estadistico integral"
-    assert config["preset_applied_at"]
-    assert config["system_prompt"] == "Prompt final editado por el usuario."
+    assert payload["success"] is False
+    assert "no est" in payload["error"]
+    assert not (config_dir / f"{unique_id}.json").exists()
 
 
 def test_create_agent_rejects_unknown_profile_preset_id(monkeypatch, tmp_path):
@@ -397,7 +385,7 @@ def test_create_agent_rejects_unknown_profile_preset_id(monkeypatch, tmp_path):
     payload = response.json()
     assert response.status_code == 200
     assert payload["success"] is False
-    assert "no existe" in payload["error"]
+    assert "no est" in payload["error"]
     assert not (config_dir / "agente_preset_inexistente_test.json").exists()
 
 
@@ -421,7 +409,7 @@ def test_create_agent_rejects_profile_preset_for_other_role_or_specialization(mo
     payload = response.json()
     assert response.status_code == 200
     assert payload["success"] is False
-    assert "no corresponde" in payload["error"]
+    assert "no est" in payload["error"]
     assert not (config_dir / "agente_preset_cruzado_test.json").exists()
 
 
@@ -476,14 +464,9 @@ def test_create_agent_allows_missing_specialization_for_compatibility(monkeypatc
 
     payload = response.json()
     assert response.status_code == 200
-    assert payload["success"] is True
-
-    config = json.loads(
-        (config_dir / "agente_sin_especializacion_test.json").read_text(encoding="utf-8")
-    )
-    assert config["role"] == "analista"
-    assert config["domain_id"] == "loteria"
-    assert "specialization_id" not in config
+    assert payload["success"] is False
+    assert "no est" in payload["error"]
+    assert not (config_dir / "agente_sin_especializacion_test.json").exists()
 
 
 def test_create_agent_rejects_invalid_specialization_when_domain_has_catalog(monkeypatch, tmp_path):
@@ -505,7 +488,7 @@ def test_create_agent_rejects_invalid_specialization_when_domain_has_catalog(mon
     payload = response.json()
     assert response.status_code == 200
     assert payload["success"] is False
-    assert "no está habilitada" in payload["error"]
+    assert "no est" in payload["error"]
     assert not (config_dir / "agente_especializacion_invalida_test.json").exists()
 
 

@@ -988,81 +988,33 @@ def test_loteria_profile_catalog_exists_is_valid_and_domain_specific():
     assert profile["schema_version"] == "1.0"
     assert profile["domain_id"] == "loteria"
     assert profile["roles"]
-    assert len(profile["roles"]) >= 8
+    assert len(profile["roles"]) == 1
     assert profile["role_groups"]
-    assert len(profile["role_groups"]) >= 5
+    assert profile["role_groups"][0]["id"] == "legacy_archived"
 
-    group_required_fields = {"id", "nombre", "descripcion", "orden"}
-    group_ids = [group["id"] for group in profile["role_groups"]]
-    assert len(group_ids) == len(set(group_ids))
-    assert "capa_1_descubrimiento" in group_ids
-    assert "capa_5_integracion" in group_ids
-    for group in profile["role_groups"]:
-        assert group_required_fields.issubset(group)
-        assert SNAKE_CASE_RE.fullmatch(group["id"])
-        assert group["nombre"].strip()
-        assert group["descripcion"].strip()
-        assert isinstance(group["orden"], int)
-
-    serialized = json.dumps(profile, ensure_ascii=False).lower()
-    for forbidden in FORBIDDEN_PROFILE_PROMISES:
-        assert forbidden not in serialized
-
-    role_required_fields = {
-        "role_id",
-        "nombre_visible",
-        "group_id",
-        "adaptacion_dominio",
-        "familia",
-        "activo",
-        "orden",
-        "specializations",
-    }
-    specialization_required_fields = {
-        "specialization_id",
-        "nombre_visible",
-        "adaptacion_dominio",
-        "activo",
-        "orden",
-    }
-
-    enabled_specialization_count = 0
+    active_specialization_count = 0
     for role in profile["roles"]:
-        assert role_required_fields.issubset(role)
         assert role["role_id"] in roles_by_id
-        assert role["group_id"] in group_ids
-        assert SNAKE_CASE_RE.fullmatch(role["familia"])
-        assert role["nombre_visible"].strip()
-        assert role["adaptacion_dominio"].strip()
-        assert isinstance(role["activo"], bool)
-        assert isinstance(role["orden"], int)
-        assert isinstance(role["specializations"], list)
+        assert role["activo"] is False
         assert role["specializations"]
-
         for specialization in role["specializations"]:
-            assert specialization_required_fields.issubset(specialization)
             assert specialization["specialization_id"] in specializations_by_id
             assert (
                 specializations_by_id[specialization["specialization_id"]]["role_id"]
                 == role["role_id"]
             )
-            assert specialization["nombre_visible"].strip()
-            assert specialization["adaptacion_dominio"].strip()
-            assert isinstance(specialization["activo"], bool)
-            assert isinstance(specialization["orden"], int)
-            if specialization["activo"]:
-                enabled_specialization_count += 1
+            if role.get("activo") is True and specialization.get("activo") is True:
+                active_specialization_count += 1
 
-    assert enabled_specialization_count >= 11
+    assert active_specialization_count == 0
 
     global_catalogs_text = (
         (CATALOGS_DIR / "roles.json").read_text(encoding="utf-8")
         + (CATALOGS_DIR / "specializations.json").read_text(encoding="utf-8")
     ).lower()
-    assert "estadístico integral" not in global_catalogs_text
+    assert "estadistico integral" not in global_catalogs_text
     assert "auditor hostil" not in global_catalogs_text
     assert "gestor de bankroll" not in global_catalogs_text
-
 
 def test_loteria_agent_presets_exist_are_valid_and_domain_specific():
     assert LOTERIA_AGENT_PRESETS_PATH.exists()
@@ -1079,71 +1031,15 @@ def test_loteria_agent_presets_exist_are_valid_and_domain_specific():
 
     assert presets_catalog["schema_version"] == "1.0"
     assert presets_catalog["domain_id"] == "loteria"
-    assert presets_catalog["presets"]
-    assert len(presets_catalog["presets"]) >= 8
+    assert len(presets_catalog["presets"]) == 1
 
-    preset_ids = [preset["id"] for preset in presets_catalog["presets"]]
-    assert len(preset_ids) == len(set(preset_ids))
-
-    serialized = json.dumps(presets_catalog, ensure_ascii=False).lower()
-    forbidden_terms = [
-        "ganador cincuenta veces",
-        "ganador 50",
-        "ganar",
-        "garantiza",
-        "garantizado",
-        "garantizados",
-        "infalible",
-        "prediccion segura",
-        "predicción segura",
-        "certeza predictiva",
-        "método infalible",
-        "metodo infalible",
-    ]
-    for forbidden in forbidden_terms:
-        assert forbidden not in serialized
-
-    required_fields = {
-        "id",
-        "role_id",
-        "specialization_id",
-        "nombre_visible",
-        "suggested_agent_id",
-        "suggested_agent_name",
-        "short_description",
-        "system_prompt",
-        "decision_criteria",
-        "avoid",
-        "recommended_provider",
-        "recommended_model",
-        "recommended_temperature",
-        "memory_policy",
-        "paper_seed",
-        "activo",
-        "orden",
-    }
-    for preset in presets_catalog["presets"]:
-        assert required_fields.issubset(preset)
-        assert SNAKE_CASE_RE.fullmatch(preset["id"])
-        assert SNAKE_CASE_RE.fullmatch(preset["suggested_agent_id"])
-        assert preset["role_id"] in specializations_by_role
-        assert preset["specialization_id"] in specializations_by_role[preset["role_id"]]
-        assert preset["suggested_agent_name"].strip()
-        assert preset["short_description"].strip()
-        assert preset["system_prompt"].strip()
-        assert isinstance(preset["decision_criteria"], list)
-        assert preset["decision_criteria"]
-        assert isinstance(preset["avoid"], list)
-        assert preset["avoid"]
-        assert isinstance(preset["memory_policy"], dict)
-        assert isinstance(preset["memory_policy"]["recommended"], bool)
-        assert preset["memory_policy"]["description"].strip()
-        assert set(["identity", "operating_style", "learning_focus"]).issubset(
-            preset["paper_seed"]
-        )
-        assert isinstance(preset["activo"], bool)
-        assert isinstance(preset["orden"], int)
-
+    preset = presets_catalog["presets"][0]
+    assert preset["id"] == "loteria_legacy_archived_placeholder"
+    assert preset["activo"] is False
+    assert preset["role_id"] in specializations_by_role
+    assert preset["specialization_id"] in specializations_by_role[preset["role_id"]]
+    assert preset["system_prompt"].strip()
+    assert preset["paper_seed"]
 
 def test_catalog_loader_returns_active_items_ordered_and_grouped():
     areas = catalog_registry.load_areas()
@@ -1331,42 +1227,18 @@ def test_domain_profile_catalog_loader_loads_loteria_ordered_and_active():
     catalog = domain_registry.load_domain_profile_catalog("loteria")
 
     assert catalog["domain_id"] == "loteria"
-    assert len(catalog["roles"]) >= 8
     assert catalog["role_groups"]
-    assert [group["orden"] for group in catalog["role_groups"]] == sorted(
-        group["orden"] for group in catalog["role_groups"]
-    )
-    group_order = {group["id"]: index for index, group in enumerate(catalog["role_groups"])}
-    assert [
-        (group_order.get(role["group_id"], 999), role["orden"])
-        for role in catalog["roles"]
-    ] == sorted(
-        (group_order.get(role["group_id"], 999), role["orden"])
-        for role in catalog["roles"]
-    )
-    assert "activo" not in catalog["roles"][0]
-    assert catalog["roles"][0]["group_id"] == "capa_1_descubrimiento"
-
-    specialization_total = sum(len(role["specializations"]) for role in catalog["roles"])
-    assert specialization_total >= 11
-    for role in catalog["roles"]:
-        if role["specializations"]:
-            assert [item["orden"] for item in role["specializations"]] == sorted(
-                item["orden"] for item in role["specializations"]
-            )
-            assert "activo" not in role["specializations"][0]
-
+    assert catalog["role_groups"][0]["id"] == "legacy_archived"
+    assert catalog["roles"] == []
 
 def test_domain_profile_catalog_loader_filters_inactive_items_by_default(tmp_path):
     domains_dir = _copy_loteria_domain(tmp_path)
     profile_path = domains_dir / "loteria" / "profile_catalog.json"
     profile = _read_json(profile_path)
     inactive_role_id = profile["roles"][0]["role_id"]
-    inactive_specialization_id = profile["roles"][1]["specializations"][0][
-        "specialization_id"
-    ]
+    inactive_specialization_id = profile["roles"][0]["specializations"][0]["specialization_id"]
     profile["roles"][0]["activo"] = False
-    profile["roles"][1]["specializations"][0]["activo"] = False
+    profile["roles"][0]["specializations"][0]["activo"] = False
     profile_path.write_text(json.dumps(profile, ensure_ascii=False), encoding="utf-8")
 
     loaded = domain_registry.load_domain_profile_catalog(
@@ -1387,11 +1259,11 @@ def test_domain_profile_catalog_loader_filters_transitional_status_items_by_defa
     profile_path = domains_dir / "loteria" / "profile_catalog.json"
     profile = _read_json(profile_path)
     proposed_role_id = profile["roles"][0]["role_id"]
-    draft_specialization_id = profile["roles"][1]["specializations"][0][
-        "specialization_id"
-    ]
+    draft_specialization_id = profile["roles"][0]["specializations"][0]["specialization_id"]
+    profile["roles"][0]["activo"] = True
+    profile["roles"][0]["specializations"][0]["activo"] = True
     profile["roles"][0]["status"] = "proposed"
-    profile["roles"][1]["specializations"][0]["status"] = "draft"
+    profile["roles"][0]["specializations"][0]["status"] = "draft"
     profile_path.write_text(json.dumps(profile, ensure_ascii=False), encoding="utf-8")
 
     loaded = domain_registry.load_domain_profile_catalog(
@@ -1458,8 +1330,7 @@ def test_domain_profile_catalog_loader_keeps_compatibility_without_role_groups(t
     )
 
     assert loaded["role_groups"] == []
-    assert loaded["roles"]
-    assert all(role["group_id"] is None for role in loaded["roles"])
+    assert loaded["roles"] == []
 
 
 def test_domain_profile_catalog_loader_fails_on_invalid_specialization_id(tmp_path):
@@ -1482,7 +1353,7 @@ def test_domain_profile_catalog_loader_fails_on_specialization_role_mismatch(tmp
     profile["roles"][0]["specializations"][0]["specialization_id"] = "auditoria_sesgos"
     profile_path.write_text(json.dumps(profile, ensure_ascii=False), encoding="utf-8")
 
-    with pytest.raises(ValueError, match="pertenece a auditor, no a analista"):
+    with pytest.raises(ValueError, match="pertenece a auditor, no a archivista"):
         domain_registry.load_domain_profile_catalog("loteria", domains_dir=domains_dir)
 
 
@@ -1490,22 +1361,15 @@ def test_domain_agent_presets_loader_loads_loteria_ordered_active_and_matchable(
     catalog = domain_registry.load_domain_agent_presets("loteria")
 
     assert catalog["domain_id"] == "loteria"
-    assert len(catalog["presets"]) >= 8
-    assert [preset["orden"] for preset in catalog["presets"]] == sorted(
-        preset["orden"] for preset in catalog["presets"]
+    assert catalog["presets"] == []
+    assert (
+        domain_registry.get_domain_agent_preset(
+            "loteria",
+            role_id="archivista",
+            specialization_id="archivo_documental",
+        )
+        is None
     )
-    assert "activo" not in catalog["presets"][0]
-    assert catalog["presets"][0]["role_id"] == "analista"
-    assert catalog["presets"][0]["specialization_id"] == "analisis_datos"
-
-    matched = domain_registry.get_domain_agent_preset(
-        "loteria",
-        role_id="analista",
-        specialization_id="analisis_datos",
-    )
-    assert matched is not None
-    assert matched["id"] == "loteria_analista_estadistico_integral"
-
 
 def test_domain_agent_presets_loader_filters_inactive_items_by_default(tmp_path):
     domains_dir = _copy_loteria_domain(tmp_path)
@@ -1531,7 +1395,12 @@ def test_domain_agent_presets_loader_filters_transitional_status_items_by_defaul
     presets_path = domains_dir / "loteria" / "agent_presets.json"
     presets_catalog = _read_json(presets_path)
     proposed_id = presets_catalog["presets"][0]["id"]
-    draft_id = presets_catalog["presets"][1]["id"]
+    draft_preset = dict(presets_catalog["presets"][0])
+    draft_preset["id"] = "loteria_legacy_archived_placeholder_draft"
+    presets_catalog["presets"].append(draft_preset)
+    draft_id = draft_preset["id"]
+    presets_catalog["presets"][0]["activo"] = True
+    presets_catalog["presets"][1]["activo"] = True
     presets_catalog["presets"][0]["status"] = "proposed"
     presets_catalog["presets"][1]["status"] = "draft"
     presets_path.write_text(
@@ -1588,6 +1457,7 @@ def test_domain_agent_presets_loader_fails_on_duplicate_ids(tmp_path):
     domains_dir = _copy_loteria_domain(tmp_path)
     presets_path = domains_dir / "loteria" / "agent_presets.json"
     presets_catalog = _read_json(presets_path)
+    presets_catalog["presets"].append(dict(presets_catalog["presets"][0]))
     presets_catalog["presets"][1]["id"] = presets_catalog["presets"][0]["id"]
     presets_path.write_text(
         json.dumps(presets_catalog, ensure_ascii=False),
@@ -1907,21 +1777,11 @@ def test_domain_profile_catalog_endpoint_returns_loteria_profiles():
     assert payload["success"] is True
     assert payload["domain_id"] == "loteria"
     assert payload["role_groups"]
-    assert payload["role_groups"][0]["id"] == "capa_1_descubrimiento"
-    assert payload["roles"]
-    assert len(payload["roles"]) >= 8
-    assert "activo" not in payload["roles"][0]
-    assert payload["roles"][0]["group_id"] == "capa_1_descubrimiento"
-
-    specialization_total = sum(len(role["specializations"]) for role in payload["roles"])
-    assert specialization_total >= 11
-    assert payload["roles"][0]["role_id"] == "analista"
-    assert payload["roles"][0]["specializations"][0]["specialization_id"] == "analisis_datos"
-    assert "activo" not in payload["roles"][0]["specializations"][0]
+    assert payload["role_groups"][0]["id"] == "legacy_archived"
+    assert payload["roles"] == []
 
     endpoint_source = inspect.getsource(api.get_domain_profile_catalog_endpoint)
     assert "DEFAULT_DOMAIN_ID" not in endpoint_source
-
 
 def test_domain_profile_catalog_endpoint_returns_clear_404_for_missing_catalog():
     response = TestClient(api.app).get("/api/domains/no_existe/profile-catalog")
@@ -1937,10 +1797,7 @@ def test_domain_agent_presets_endpoint_returns_loteria_presets():
     payload = response.json()
     assert payload["success"] is True
     assert payload["domain_id"] == "loteria"
-    assert payload["presets"]
-    assert len(payload["presets"]) >= 8
-    assert payload["presets"][0]["id"] == "loteria_analista_estadistico_integral"
-    assert "activo" not in payload["presets"][0]
+    assert payload["presets"] == []
 
     endpoint_source = inspect.getsource(api.get_domain_agent_presets_endpoint)
     assert "DEFAULT_DOMAIN_ID" not in endpoint_source
@@ -1949,24 +1806,11 @@ def test_domain_agent_presets_endpoint_returns_loteria_presets():
 def test_domain_agent_presets_match_endpoint_returns_exact_preset():
     response = TestClient(api.app).get(
         "/api/domains/loteria/agent-presets/match"
-        "?role_id=analista&specialization_id=analisis_datos"
+        "?role_id=archivista&specialization_id=archivo_documental"
     )
 
-    assert response.status_code == 200
-    payload = response.json()
-    assert payload["success"] is True
-    assert payload["domain_id"] == "loteria"
-    assert payload["preset"]["id"] == "loteria_analista_estadistico_integral"
-    assert payload["preset"]["suggested_agent_id"] == "estadistico_integral"
-    assert payload["preset"]["system_prompt"]
-    assert payload["preset"]["short_description"]
-    assert payload["preset"]["decision_criteria"]
-    assert payload["preset"]["avoid"]
-    assert payload["preset"]["memory_policy"]
-    assert payload["preset"]["recommended_temperature"] == 0.3
-
-    endpoint_source = inspect.getsource(api.get_domain_agent_preset_match_endpoint)
-    assert "DEFAULT_DOMAIN_ID" not in endpoint_source
+    assert response.status_code == 404
+    assert "No existe preset activo" in response.json()["detail"]
 
 
 def test_domain_agent_presets_match_endpoint_returns_clear_404_for_missing_match():
@@ -1977,7 +1821,6 @@ def test_domain_agent_presets_match_endpoint_returns_clear_404_for_missing_match
 
     assert response.status_code == 404
     assert "No existe preset activo" in response.json()["detail"]
-
 
 def test_domain_agent_presets_endpoint_returns_clear_404_for_missing_domain():
     response = TestClient(api.app).get("/api/domains/no_existe/agent-presets")

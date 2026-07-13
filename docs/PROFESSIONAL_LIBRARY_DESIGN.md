@@ -1644,3 +1644,21 @@ professional_profiles
 Queda para proximas fases la materializacion controlada en dominios reales, generacion de papers candidatos, revision humana previa a escritura operativa, validacion de providers/modelos en vivo, versionado de perfiles y deteccion hardware cross-platform real.
 
 Reporte de cierre: `docs/PROFESSIONAL_GLOBAL_LIBRARY_BOOK_CLOSURE.md`.
+
+## Nota RESET 01 - Arquetipos psicologicos globales
+
+Los perfiles psicologicos historicos se tratan como arquetipos reutilizables, no como perfiles exclusivos de Loteria. Sus system prompts legacy quedan archivados como baseline, no como instruccion activa.
+
+Tabla de decision posterior al reset:
+
+| Elemento | Cantidad | Estado | Decision |
+|---|---:|---|---|
+| Areas existentes | 30 | activo: true | PASSED |
+| Nichos existentes | 200 | activo: true | PASSED |
+| Profiles legacy Loteria | 30 | archivados | legacy_no_operativo |
+| Presets legacy Loteria | 11 | archivados | legacy_no_operativo |
+| Agentes legacy Loteria | 11 | archivados | legacy_no_operativo |
+| Papers legacy Loteria | 11 | archivados | legacy_no_operativo |
+| Perfiles historicos documentados | 29 | arquetipos globales | PASSED |
+
+Los backups viven en `docs/legacy/loteria/`. La biblioteca nueva vive en `catalogs/agent_archetypes.json`.

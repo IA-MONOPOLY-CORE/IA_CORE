@@ -1,5 +1,6 @@
 """
-S.A.A.O.P. — Servidor FastAPI
+IA_CORE — Servidor FastAPI.
+
 Expone el sistema multiagente como API REST.
 Ejecutar: uvicorn api:app --host 0.0.0.0 --port 8000 --reload
 """
@@ -65,7 +66,7 @@ def _get_loteria():
     try:
         from domains.loteria.config_loteria import (
             VALIDATION_AGENTS,
-            SAAOP_TASK,
+            DEFAULT_VALIDATION_TASK,
             TRAINING_END,
             BLIND_TEST_START,
             BLIND_TEST_END,
@@ -85,7 +86,7 @@ def _get_loteria():
 
         _loteria_cache = {
             "VALIDATION_AGENTS": VALIDATION_AGENTS,
-            "SAAOP_TASK": SAAOP_TASK,
+            "DEFAULT_VALIDATION_TASK": DEFAULT_VALIDATION_TASK,
             "TRAINING_END": TRAINING_END,
             "BLIND_TEST_START": BLIND_TEST_START,
             "BLIND_TEST_END": BLIND_TEST_END,
@@ -164,7 +165,7 @@ def _delete_agent_directory(path: Path, agent_id: str, label: str) -> None:
 # ========================================================================
 # App setup
 # ========================================================================
-app = FastAPI(title="S.A.A.O.P. API", version="2.3.0")
+app = FastAPI(title="IA_CORE API", version="2.3.0")
 
 app.add_middleware(
     CORSMiddleware,
@@ -215,7 +216,7 @@ async def startup() -> None:
     )
     session_events.clear()
     _record_event("system", "API y Supervisor iniciados")
-    logger.info("S.A.A.O.P. API lista")
+    logger.info("IA_CORE API lista")
 
 
 @app.on_event("shutdown")
@@ -223,7 +224,7 @@ async def shutdown() -> None:
     if supervisor:
         await asyncio.to_thread(supervisor.shutdown)
     _record_event("system", "API y Supervisor detenidos")
-    logger.info("S.A.A.O.P. API detenida")
+    logger.info("IA_CORE API detenida")
 
 
 # ========================================================================
@@ -689,7 +690,7 @@ async def start_debate(
     debate_id = str(uuid.uuid4())
 
     loteria = _get_loteria()
-    task = request.task or (loteria["SAAOP_TASK"] if loteria else "Debate genérico")
+    task = request.task or (loteria["DEFAULT_VALIDATION_TASK"] if loteria else "Debate genérico")
 
     debate_store[debate_id] = {
         "status": "queued",
@@ -727,7 +728,7 @@ async def start_validation(
         )
 
     validation_id = str(uuid.uuid4())
-    task = request.task or loteria["SAAOP_TASK"]
+    task = request.task or loteria["DEFAULT_VALIDATION_TASK"]
 
     validation_store[validation_id] = {
         "status": "queued",
@@ -1924,7 +1925,7 @@ else:
 
     @app.get("/")
     async def root() -> dict:
-        return {"message": "S.A.A.O.P. API activa. Coloca index.html en ui/web/"}
+        return {"message": "IA_CORE API activa. Coloca index.html en ui/web/"}
 
 
 # ========================================================================

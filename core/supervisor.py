@@ -698,7 +698,7 @@ class Supervisor:
             history = await build_previous_outputs_async(current_steps)
 
             fast_mode_rules = (
-                "\n\n[DIRECTRICE CRÍTICA S.A.A.O.P.]\n"
+                "\n\n[DIRECTRICE CRITICA IA_CORE]\n"
                 "Sé directo, ultra-conciso y técnico. NO incluyas introducciones amables. "
                 "Ve al grano escribiendo directamente tus datos, fórmulas o bullets de impacto numérico. "
                 "Máximo 3 a 5 líneas por argumento técnico."

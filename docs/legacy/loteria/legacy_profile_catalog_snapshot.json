@@ -1,0 +1,373 @@
+{
+  "schema_version": "1.0",
+  "domain_id": "loteria",
+  "nombre": "Catálogo de perfiles de Lotería",
+  "descripcion": "Roles y especializaciones habilitados para agentes del dominio Lotería.",
+  "notas_adaptacion": [
+    "Los perfiles históricos de S.A.A.O.P. se traducen a roles profesionales globales sin copiar promesas irreales ni identidad cruda.",
+    "Las etiquetas visibles conservan familiaridad operativa para Lotería, pero cada entrada referencia un role_id y specialization_id del patrimonio compartido.",
+    "Crear Agente consume este catálogo por endpoint genérico; la jerarquía de capas vive acá, no en HTML hardcodeado."
+  ],
+  "role_groups": [
+    {
+      "id": "capa_1_descubrimiento",
+      "nombre": "Capa 1: Descubrimiento",
+      "descripcion": "Perfiles orientados a observar datos, detectar señales, explorar patrones y formular hipótesis iniciales.",
+      "orden": 1
+    },
+    {
+      "id": "capa_2_validacion",
+      "nombre": "Capa 2: Validación",
+      "descripcion": "Perfiles orientados a contrastar, simular, validar datos y revisar consistencia antes de avanzar.",
+      "orden": 2
+    },
+    {
+      "id": "capa_3_destruccion",
+      "nombre": "Capa 3: Destrucción",
+      "descripcion": "Perfiles orientados a tensionar hipótesis, buscar sesgos, derribar argumentos débiles y prevenir exceso de confianza.",
+      "orden": 3
+    },
+    {
+      "id": "capa_4_riesgo",
+      "nombre": "Capa 4: Riesgo",
+      "descripcion": "Perfiles orientados a cuidar exposición, recursos, prudencia operativa y límites de decisión bajo incertidumbre.",
+      "orden": 4
+    },
+    {
+      "id": "capa_5_integracion",
+      "nombre": "Capa 5: Integración",
+      "descripcion": "Perfiles orientados a integrar perspectivas, conservar memoria y producir cierres trazables.",
+      "orden": 5
+    }
+  ],
+  "roles": [
+    {
+      "role_id": "analista",
+      "nombre_visible": "Analista de datos históricos",
+      "group_id": "capa_1_descubrimiento",
+      "adaptacion_dominio": "Perfil orientado a observar resultados históricos, distribuciones, recurrencias y señales cuantitativas del dominio Lotería con prudencia interpretativa.",
+      "familia": "descubrimiento",
+      "activo": true,
+      "orden": 1,
+      "specializations": [
+        {
+          "specialization_id": "analisis_datos",
+          "nombre_visible": "Estadístico integral",
+          "adaptacion_dominio": "Aplica lectura estadística, cobertura matemática y revisión de calidad sobre combinaciones históricas y candidatas.",
+          "activo": true,
+          "orden": 1
+        },
+        {
+          "specialization_id": "analisis_patrones",
+          "nombre_visible": "Lectura de patrones",
+          "adaptacion_dominio": "Detecta recurrencias, agrupamientos y señales repetidas sin confundir patrón observado con certeza predictiva.",
+          "activo": false,
+          "orden": 2,
+          "notas": "Sin preset operativo; marcado como no seleccionable hasta Prompt 18."
+        },
+        {
+          "specialization_id": "analisis_comparativo",
+          "nombre_visible": "Comparador de coberturas",
+          "adaptacion_dominio": "Compara combinaciones, zonas y criterios de cobertura con reglas homogéneas antes de recomendar una opción.",
+          "activo": true,
+          "orden": 3
+        },
+        {
+          "specialization_id": "analisis_temporal",
+          "nombre_visible": "Cronista de ciclos",
+          "adaptacion_dominio": "Revisa evolución, ventanas temporales y cambios de comportamiento entre sorteos históricos.",
+          "activo": true,
+          "orden": 4
+        }
+      ]
+    },
+    {
+      "role_id": "simulador",
+      "nombre_visible": "Simulador matemático",
+      "group_id": "capa_2_validacion",
+      "adaptacion_dominio": "Perfil orientado a explorar escenarios hipotéticos de combinaciones, sensibilidad de criterios y consecuencias de elegir distintos enfoques.",
+      "familia": "exploracion",
+      "activo": true,
+      "orden": 2,
+      "specializations": [
+        {
+          "specialization_id": "simulacion_escenarios",
+          "nombre_visible": "Visionario matemático",
+          "adaptacion_dominio": "Prueba escenarios de selección y contraste entre combinaciones para entender efectos posibles antes del cierre.",
+          "activo": true,
+          "orden": 1
+        },
+        {
+          "specialization_id": "simulacion_decisiones",
+          "nombre_visible": "Explorador de hipótesis",
+          "adaptacion_dominio": "Compara decisiones alternativas de armado y descarte para detectar trade-offs explícitos.",
+          "activo": false,
+          "orden": 2,
+          "notas": "Sin preset operativo; marcado como no seleccionable hasta Prompt 18."
+        },
+        {
+          "specialization_id": "simulacion_capacidad",
+          "nombre_visible": "Modelador de cobertura",
+          "adaptacion_dominio": "Evalúa límites de cobertura, diversidad y saturación de criterios cuando se prueban varias combinaciones.",
+          "activo": false,
+          "orden": 3,
+          "notas": "Sin preset operativo; marcado como no seleccionable hasta Prompt 18."
+        }
+      ]
+    },
+    {
+      "role_id": "auditor",
+      "nombre_visible": "Auditor metodológico",
+      "group_id": "capa_3_destruccion",
+      "adaptacion_dominio": "Perfil orientado a revisar consistencia, sesgos, exposición y calidad de las conclusiones antes de validar una combinación.",
+      "familia": "validacion",
+      "activo": true,
+      "orden": 3,
+      "specializations": [
+        {
+          "specialization_id": "auditoria_consistencia",
+          "nombre_visible": "Auditor hostil",
+          "adaptacion_dominio": "Busca contradicciones entre datos, argumentos y conclusiones para evitar cierres frágiles.",
+          "activo": true,
+          "orden": 1
+        },
+        {
+          "specialization_id": "auditoria_sesgos",
+          "nombre_visible": "Auditor de sesgos",
+          "adaptacion_dominio": "Revisa exceso de confianza, sesgo de confirmación y preferencias visuales no justificadas.",
+          "activo": false,
+          "orden": 2,
+          "notas": "Sin preset operativo; marcado como no seleccionable hasta Prompt 18."
+        },
+        {
+          "specialization_id": "auditoria_riesgo",
+          "nombre_visible": "Auditor de exposición",
+          "adaptacion_dominio": "Controla riesgos de sobreinterpretar señales débiles o concentrar demasiado la decisión en una sola hipótesis.",
+          "activo": false,
+          "orden": 3,
+          "notas": "Sin preset operativo; marcado como no seleccionable hasta Prompt 18."
+        }
+      ]
+    },
+    {
+      "role_id": "critico",
+      "nombre_visible": "Crítico de hipótesis",
+      "group_id": "capa_3_destruccion",
+      "adaptacion_dominio": "Perfil orientado a tensionar hipótesis de selección, derribar argumentos débiles y exigir evidencia suficiente.",
+      "familia": "destruccion_critica",
+      "activo": true,
+      "orden": 4,
+      "specializations": [
+        {
+          "specialization_id": "refutacion_hipotesis",
+          "nombre_visible": "Destructor de hipótesis",
+          "adaptacion_dominio": "Intenta refutar la combinación propuesta con contraejemplos, supuestos faltantes y pruebas de resistencia.",
+          "activo": false,
+          "orden": 1,
+          "notas": "Sin preset operativo; marcado como no seleccionable hasta Prompt 18."
+        },
+        {
+          "specialization_id": "deteccion_sesgos",
+          "nombre_visible": "Detector de sesgos de selección",
+          "adaptacion_dominio": "Señala patrones elegidos por intuición, narrativa o comodidad antes que por evidencia revisable.",
+          "activo": true,
+          "orden": 2
+        },
+        {
+          "specialization_id": "critica_viabilidad",
+          "nombre_visible": "Crítico de viabilidad",
+          "adaptacion_dominio": "Evalúa si la propuesta puede sostenerse con datos disponibles, reglas explícitas y límites metodológicos.",
+          "activo": false,
+          "orden": 3,
+          "notas": "Sin preset operativo; marcado como no seleccionable hasta Prompt 18."
+        }
+      ]
+    },
+    {
+      "role_id": "detector_anomalias",
+      "nombre_visible": "Cazador de anomalías",
+      "group_id": "capa_1_descubrimiento",
+      "adaptacion_dominio": "Perfil orientado a detectar rarezas, desviaciones y señales atípicas en combinaciones, zonas o secuencias históricas.",
+      "familia": "exploracion",
+      "activo": true,
+      "orden": 5,
+      "specializations": [
+        {
+          "specialization_id": "deteccion_anomalias",
+          "nombre_visible": "Cazador de anomalías",
+          "adaptacion_dominio": "Identifica valores, estructuras o distribuciones fuera de lo esperado para abrir revisión focalizada.",
+          "activo": true,
+          "orden": 1
+        },
+        {
+          "specialization_id": "deteccion_patrones_atipicos",
+          "nombre_visible": "Lector de patrones atípicos",
+          "adaptacion_dominio": "Busca combinaciones poco frecuentes o secuencias inusuales sin convertir rareza en recomendación automática.",
+          "activo": false,
+          "orden": 2,
+          "notas": "Sin preset operativo; marcado como no seleccionable hasta Prompt 18."
+        },
+        {
+          "specialization_id": "alerta_temprana",
+          "nombre_visible": "Alerta de señales débiles",
+          "adaptacion_dominio": "Marca indicios tempranos que merecen seguimiento, revisión o descarte explícito.",
+          "activo": false,
+          "orden": 3,
+          "notas": "Sin preset operativo; marcado como no seleccionable hasta Prompt 18."
+        }
+      ]
+    },
+    {
+      "role_id": "gestor_riesgo",
+      "nombre_visible": "Gestor de riesgo",
+      "group_id": "capa_4_riesgo",
+      "adaptacion_dominio": "Perfil orientado a cuidar exposición, diversificación, límites y prudencia operativa en decisiones bajo incertidumbre.",
+      "familia": "riesgo",
+      "activo": true,
+      "orden": 6,
+      "specializations": [
+        {
+          "specialization_id": "gestion_exposicion",
+          "nombre_visible": "Gestor de bankroll",
+          "adaptacion_dominio": "Traduce la exposición del dominio a límites claros, evitando sobrerreaccionar ante una hipótesis atractiva.",
+          "activo": true,
+          "orden": 1
+        },
+        {
+          "specialization_id": "control_riesgo",
+          "nombre_visible": "Control de riesgo operativo",
+          "adaptacion_dominio": "Define alertas y controles para que una decisión no dependa de una sola señal ni de una lectura incompleta.",
+          "activo": false,
+          "orden": 2,
+          "notas": "Sin preset operativo; marcado como no seleccionable hasta Prompt 18."
+        },
+        {
+          "specialization_id": "priorizacion_riesgos",
+          "nombre_visible": "Priorizador de riesgos",
+          "adaptacion_dominio": "Ordena riesgos por impacto metodológico, incertidumbre y posibilidad de mitigación antes del cierre.",
+          "activo": false,
+          "orden": 3,
+          "notas": "Sin preset operativo; marcado como no seleccionable hasta Prompt 18."
+        },
+        {
+          "specialization_id": "administracion_recursos",
+          "nombre_visible": "Administrador prudente",
+          "adaptacion_dominio": "Cuida recursos, tiempo de análisis y cantidad de combinaciones candidatas para sostener capacidad de decisión.",
+          "activo": true,
+          "orden": 4
+        }
+      ]
+    },
+    {
+      "role_id": "integrador_central",
+      "nombre_visible": "Integrador central",
+      "group_id": "capa_5_integracion",
+      "adaptacion_dominio": "Perfil orientado a reunir miradas estadísticas, críticas, exploratorias y de riesgo para producir un cierre trazable.",
+      "familia": "coordinacion",
+      "activo": true,
+      "orden": 7,
+      "specializations": [
+        {
+          "specialization_id": "integracion_perspectivas",
+          "nombre_visible": "Integrador central",
+          "adaptacion_dominio": "Combina aportes de especialistas y explicita tensiones entre evidencia, intuición y prudencia.",
+          "activo": true,
+          "orden": 1
+        },
+        {
+          "specialization_id": "integracion_criterios",
+          "nombre_visible": "Integrador de criterios",
+          "adaptacion_dominio": "Pondera cobertura, riesgo, consistencia y diversidad sin ocultar incertidumbre.",
+          "activo": false,
+          "orden": 2,
+          "notas": "Sin preset operativo; marcado como no seleccionable hasta Prompt 18."
+        },
+        {
+          "specialization_id": "cierre_decision",
+          "nombre_visible": "Cierre de jugada",
+          "adaptacion_dominio": "Transforma el debate en una decisión final justificada y revisable.",
+          "activo": false,
+          "orden": 3,
+          "notas": "Sin preset operativo; marcado como no seleccionable hasta Prompt 18."
+        },
+        {
+          "specialization_id": "sintesis_multicriterio",
+          "nombre_visible": "Síntesis multicriterio",
+          "adaptacion_dominio": "Resume variables múltiples en una evaluación final transparente.",
+          "activo": false,
+          "orden": 4,
+          "notas": "Sin preset operativo; marcado como no seleccionable hasta Prompt 18."
+        }
+      ]
+    },
+    {
+      "role_id": "archivista",
+      "nombre_visible": "Archivista de memoria operativa",
+      "group_id": "capa_5_integracion",
+      "adaptacion_dominio": "Perfil orientado a conservar trazabilidad de decisiones, aprendizajes y antecedentes del dominio Lotería.",
+      "familia": "memoria",
+      "activo": true,
+      "orden": 8,
+      "specializations": [
+        {
+          "specialization_id": "archivo_documental",
+          "nombre_visible": "Archivista documental",
+          "adaptacion_dominio": "Ordena configuraciones, decisiones y evidencias usadas en cada ciclo de análisis.",
+          "activo": true,
+          "orden": 1
+        },
+        {
+          "specialization_id": "memoria_operativa",
+          "nombre_visible": "Memoria de lecciones",
+          "adaptacion_dominio": "Conserva aprendizajes verificables y evita repetir errores metodológicos.",
+          "activo": false,
+          "orden": 2,
+          "notas": "Sin preset operativo; marcado como no seleccionable hasta Prompt 18."
+        },
+        {
+          "specialization_id": "recuperacion_antecedentes",
+          "nombre_visible": "Recuperador de antecedentes",
+          "adaptacion_dominio": "Trae decisiones y casos anteriores relevantes para comparar contra el análisis actual.",
+          "activo": false,
+          "orden": 3,
+          "notas": "Sin preset operativo; marcado como no seleccionable hasta Prompt 18."
+        }
+      ]
+    },
+    {
+      "role_id": "validador",
+      "nombre_visible": "Validador de criterio",
+      "group_id": "capa_2_validacion",
+      "adaptacion_dominio": "Perfil orientado a comprobar que una propuesta cumple criterios explícitos antes de pasar a validación o cierre.",
+      "familia": "validacion",
+      "activo": true,
+      "orden": 9,
+      "specializations": [
+        {
+          "specialization_id": "validacion_criterios",
+          "nombre_visible": "Juez de validación ciega",
+          "adaptacion_dominio": "Revisa si la propuesta respeta criterios definidos sin apoyarse en información revelada fuera de tiempo.",
+          "activo": false,
+          "orden": 1,
+          "notas": "Sin preset operativo; marcado como no seleccionable hasta Prompt 18."
+        },
+        {
+          "specialization_id": "validacion_datos",
+          "nombre_visible": "Validador de datos",
+          "adaptacion_dominio": "Comprueba integridad, formato y coherencia de los datos usados para justificar la combinación.",
+          "activo": false,
+          "orden": 2,
+          "notas": "Sin preset operativo; marcado como no seleccionable hasta Prompt 18."
+        },
+        {
+          "specialization_id": "validacion_impacto",
+          "nombre_visible": "Validador de aprendizaje",
+          "adaptacion_dominio": "Evalúa si el resultado deja señales útiles para mejorar el proceso sin sobregeneralizar un caso aislado.",
+          "activo": false,
+          "orden": 3,
+          "notas": "Sin preset operativo; marcado como no seleccionable hasta Prompt 18."
+        }
+      ]
+    }
+  ]
+}

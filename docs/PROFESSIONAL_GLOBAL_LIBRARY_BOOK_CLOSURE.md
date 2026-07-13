@@ -192,3 +192,7 @@ El cierre debe quedar en un commit especifico de documentacion/test. El estado g
 La Biblioteca Profesional Global queda cerrada como base tecnica y documental de IA_CORE para la siguiente fase. El sistema ya puede razonar desde perfiles globales hacia matriz, modelos, profile catalogs, presets, equipos y validacion end-to-end sin contaminar dominios reales.
 
 El paso siguiente no es inventar mas catalogos: es decidir como materializar con control, revision humana y trazabilidad.
+
+## Nota posterior - RESET 01
+
+Despues del cierre del libro, se realizo una limpieza de legacy operativo y se movieron los perfiles psicologicos historicos a una biblioteca global de arquetipos reutilizables. Los system prompts legacy fueron archivados como baseline no operativo para comparacion futura. IA_CORE deja de usar SAAOP/SAAOPS/S.A.A.O.P. como identidad activa.

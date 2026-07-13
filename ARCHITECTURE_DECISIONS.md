@@ -813,3 +813,28 @@ IA_CORE puede derivar perfiles, presets, recomendaciones de modelo y equipos. An
 Prompt 25 no agrega una decision arquitectonica nueva. Cierra y consolida las decisiones ADR-024 a ADR-030 como el bloque arquitectonico de la Biblioteca Profesional Global.
 
 La decision consolidada es mantener `catalogs/professional_profiles.json` como fuente de verdad, y tratar matriz, recomendaciones, `profile_catalog`, `agent_presets`, team templates y validacion end-to-end como artefactos derivados, trazables y no operativos hasta que una fase posterior autorice materializacion controlada en dominios reales.
+
+---
+
+## ADR-031 - Arquetipos psicologicos globales reutilizables, baseline legacy y limpieza de identidad activa
+
+**Estado**: Aceptado
+
+**Prompt**: RESET 01
+
+**Contexto**:
+Los perfiles/agentes psicologicos historicos de Loteria sirvieron como semilla conceptual de IA_CORE, pero quedaron mezclados con agentes reales, papers, presets y system prompts manuales creados antes de la Biblioteca Profesional Global. Esa mezcla mantenia a Loteria como excepcion y preservaba una identidad vieja como si fuera activa.
+
+**Decision**:
+- Los perfiles psicologicos historicos pasan a `catalogs/agent_archetypes.json` como arquetipos globales reutilizables.
+- Los system prompts legacy se archivan en `docs/legacy/loteria/legacy_system_prompts_baseline.json` y `.md`.
+- Los snapshots completos de profile catalog, agent presets, configs y papers legacy de Loteria se preservan en `docs/legacy/loteria/`.
+- `domains/loteria/profile_catalog.json` y `domains/loteria/agent_presets.json` quedan como estructuras minimas no operativas, sin perfiles ni presets legacy activos.
+- Los configs y papers legacy salen de `domains/loteria/agents/` para no quedar como agentes/papers operativos.
+- IA_CORE deja de usar SAAOP/SAAOPS/S.A.A.O.P. como identidad activa en templates nuevos.
+
+**Consecuencias**:
+- Loteria deja de ser excepcion del framework.
+- Los arquetipos pueden combinarse con cualquier dominio, area, nicho, escala y objetivo.
+- La historia queda preservada para comparacion, pero no ejecuta ni define identidad activa.
+- La recreacion futura de agentes debe pasar por materializacion controlada y revision humana.

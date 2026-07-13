@@ -1,9 +1,9 @@
 {
   "schema_version": 1,
   "id": "loteria",
-  "nombre": "Lotería / S.A.A.O.P.",
-  "descripcion": "Análisis combinatorio, debate multiagente y validación ciega de sorteos.",
-  "instrucciones": "Aplicar la metodología S.A.A.O.P., distinguir evidencia de hipótesis y respetar las reglas de validación ciega sin revelar resultados futuros.",
+  "nombre": "Loteria / IA_CORE",
+  "descripcion": "Analisis combinatorio y validacion ciega dentro del framework IA_CORE.",
+  "instrucciones": "Distinguir evidencia de hipotesis, respetar validacion ciega y operar con identidad activa IA_CORE.",
   "tema_id": "tactico",
   "color_primario": "#00D4FF",
   "tipografia": {
