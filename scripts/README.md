@@ -79,3 +79,7 @@ python scripts/generate_professional_team_template.py --area marketing_publicida
 ```
 
 **Nota**: El script rechaza rutas dentro de `domains/`, no sobrescribe archivos existentes y no crea agentes, papers ni equipos operativos reales.
+
+### `run_professional_domain_end_to_end.py`
+
+Valida la cadena profesional completa como JSON no operativo. Acepta area, nichos, escala, objetivo, complejidad y limites de perfiles/presets; rechaza salidas dentro de `domains/`.

@@ -112,3 +112,7 @@ El script rechaza salidas dentro de `domains/` y no sobrescribe archivos existen
 ## Relacion Con Prompt 24
 
 Prompt 24 puede usar estas plantillas para validar composicion end-to-end, preparar escritura controlada o proponer papers/equipos candidatos. La regla sigue siendo no convertir artefactos derivados en operacion sin revision.
+
+## Validacion end-to-end
+
+Prompt 24 valida `team_template` derivado dentro del flujo end-to-end.

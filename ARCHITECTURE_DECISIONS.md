@@ -784,3 +784,26 @@ IA_CORE ya puede derivar profile_catalogs y agent_presets desde la Biblioteca Pr
 - Prompt 24 puede validar composicion end-to-end o preparar escritura controlada sin duplicar verdad.
 
 ---
+
+## ADR-030 - validacion end-to-end profesional como artefacto no operativo
+
+**Estado**: Aceptado
+
+**Prompt**: 24
+
+**Contexto**:
+IA_CORE puede derivar perfiles, presets, recomendaciones de modelo y equipos. Antes de materializar recursos reales necesita demostrar que la cadena completa conserva consistencia y trazabilidad sin contaminar dominios existentes.
+
+**Decision**:
+- La validacion end-to-end vive en `core/professional_domain_end_to_end.py`.
+- Su salida es un artefacto derivado, seguro y explicitamente no operativo.
+- Compone los generadores existentes y agrega paper seeds esperados, gaps, warnings, riesgos, outputs y plan de activacion.
+- El CLI rechaza escrituras dentro de `domains/` y no sobrescribe salidas.
+- La validacion no crea dominios, presets operativos, papers ni agentes.
+
+**Consecuencias**:
+- La cadena profesional completa puede auditarse antes de autorizar materializacion.
+- Cada pieza conserva su origen en `catalogs/professional_profiles.json`.
+- Los faltantes se informan y no se sustituyen por catalogos inventados.
+
+---

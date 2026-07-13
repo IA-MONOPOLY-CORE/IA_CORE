@@ -103,3 +103,7 @@ Prompt 23 puede tomar estos presets derivados para preparar papers candidatos o 
 ## Nota Prompt 23
 
 Prompt 23 usa `agent_presets` derivados para armar team templates. Cada preset aporta provider/model, fallback, paper seed esperado, revision humana, privacidad y trazabilidad hacia el perfil profesional original.
+
+## Validacion end-to-end
+
+Prompt 24 valida `agent_presets` derivados dentro del flujo end-to-end.

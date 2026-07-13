@@ -1600,3 +1600,7 @@ Se definen 12 tipos iniciales de equipo: lanzamiento de negocio, operacion pyme,
 El scoring considera cobertura de area/nicho, diversidad de familias, presencia de `team_roles`, escala de negocio, objetivo, value paths, balance entre direccion/ejecucion/control, `model_recommendation` y disponibilidad de preset derivado. Penaliza equipos demasiado grandes para escalas chicas, concentracion excesiva, falta de control en areas sensibles y exceso de `cloud_reasoning` cuando el costo puede importar.
 
 La salida incluye `model_policy_mix`, `expected_outputs`, `activation_criteria`, `risks`, `gaps`, `warnings`, perfiles recomendados y presets derivados recomendados. No crea agentes, papers ni equipos operativos reales.
+
+## Validacion end-to-end de dominio profesional
+
+Prompt 24 compone la biblioteca global, el `profile_catalog`, los `agent_presets`, el `team_template`, las recomendaciones de modelo y los paper seeds en un unico artefacto de validacion. El resultado agrega gaps, riesgos, outputs y un plan de activacion pendiente, sin crear ni modificar recursos operativos.

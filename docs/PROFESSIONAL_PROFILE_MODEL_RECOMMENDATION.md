@@ -106,3 +106,7 @@ Prompt 21 usa la recomendacion provider/model dentro de cada `profile_catalog` d
 ## Nota Prompt 22
 
 Prompt 22 incrusta `model_recommendation` en presets derivados. Cada preset conserva provider/model recomendado, fallback, privacidad y revision humana para que la fase de agentes no pierda la decision hardware-aware tomada desde el perfil profesional.
+
+## Validacion end-to-end
+
+Prompt 24 valida `model_recommendations` dentro del flujo end-to-end.
