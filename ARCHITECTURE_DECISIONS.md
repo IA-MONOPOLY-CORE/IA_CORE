@@ -838,3 +838,26 @@ Los perfiles/agentes psicologicos historicos de Loteria sirvieron como semilla c
 - Los arquetipos pueden combinarse con cualquier dominio, area, nicho, escala y objetivo.
 - La historia queda preservada para comparacion, pero no ejecuta ni define identidad activa.
 - La recreacion futura de agentes debe pasar por materializacion controlada y revision humana.
+
+---
+
+## ADR-032 - Unicidad de dominios y limpieza de dominios legacy duplicados
+
+**Estado**: Aceptado
+
+**Prompt**: CORE 01
+
+**Contexto**:
+IA_CORE podia mostrar dominios duplicados o funcionalmente equivalentes. El dominio historico `loteria` seguia visible como "Loteria / IA_CORE" y coexistia con `loteria_analisis_de_juegos_de_azar`, creado desde la UI como "Loteria - Analisis de Juegos de Azar". El primero era legacy y el segundo estaba parcial, pero ambos aparecian como candidatos operativos.
+
+**Decision**:
+- IA_CORE no permite dominios duplicados o equivalentes.
+- La equivalencia de dominios se normaliza en `core/domain_identity.py`.
+- `core/domain_registry.create_domain()` valida unicidad contra dominios activos, dominios internos/legacy y snapshots archivados en `docs/legacy/domains/`.
+- `domains/loteria/domain.json` queda marcado como `visible_en_hud=false`, `status=legacy` y `legacy=true`.
+- El dominio UI `domains/loteria_analisis_de_juegos_de_azar` se preserva como snapshot documental y sale del flujo operativo.
+
+**Consecuencias**:
+- El selector de dominios ya no expone Loteria como dominio activo hasta que sea recreada con el framework nuevo.
+- Un dominio archivado o legacy sigue bloqueando recreaciones duplicadas sin accion admin explicita.
+- Los dominios vacios, historicos o equivalentes no pueden presentarse como operativos por accidente.

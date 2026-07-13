@@ -1,5 +1,4 @@
 import json
-import subprocess
 from pathlib import Path
 
 from core import domain_registry
@@ -70,17 +69,10 @@ def test_loteria_minimal_files_load_and_domain_registry_still_works():
 
 
 def test_loteria_has_no_operational_references_to_removed_agents():
-    result = subprocess.run(
-        ["git", "diff", "--name-only", "--", "domains/loteria/agents"],
-        cwd=ROOT,
-        text=True,
-        capture_output=True,
-        check=True,
-    )
-    removed_paths = [line for line in result.stdout.splitlines() if line.strip()]
-
-    assert removed_paths
-    assert all("/config/" in path or "/papers/" in path for path in removed_paths)
+    assert list((LOT / "agents" / "config").glob("*.json")) == []
+    assert list((LOT / "agents" / "papers").glob("*.json")) == []
+    assert len(list((LEGACY / "agents_config_snapshot").glob("*.json"))) == 11
+    assert len(list((LEGACY / "legacy_papers_snapshot").glob("*.json"))) == 11
 
 
 def test_old_identity_is_not_active_in_new_loteria_or_archetype_artifacts():

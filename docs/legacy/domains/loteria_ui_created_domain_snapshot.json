@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "id": "loteria_analisis_de_juegos_de_azar",
+  "nombre": "Lotería — Análisis de Juegos de Azar",
+  "descripcion": "Dominio orientado a analizar sorteos, combinaciones, métricas históricas y procesos de validación bajo criterios explícitos.",
+  "instrucciones": "Todos los agentes de este dominio deben distinguir evidencia de hipótesis, evitar promesas de certeza, documentar criterios y respetar validaciones ciegas.",
+  "tema_id": "calido",
+  "color_primario": "#F59E0B",
+  "tipografia": {
+    "familia": "Segoe UI, Arial, sans-serif",
+    "titulo_px": 28,
+    "cuerpo_px": 15,
+    "peso_titulo": 700,
+    "peso_cuerpo": 500
+  },
+  "nicho_sugerido": "Análisis de Lotería y Juegos de Azar",
+  "creado_en": "2026-07-13T01:15:36.407519",
+  "area_profesional_id": "oficios_otros",
+  "nicho_id": "analisis_loteria_juegos_azar"
+}

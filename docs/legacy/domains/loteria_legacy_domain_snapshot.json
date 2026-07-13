@@ -20,9 +20,5 @@
     "endpoint": "/api/validation/next",
     "domain_specific": true
   },
-  "creado_en": "2026-07-05T00:00:00",
-  "visible_en_hud": false,
-  "status": "legacy",
-  "legacy": true,
-  "cleanup_note": "Preservado como referencia historica, no dominio operativo activo. Ver docs/legacy/domains/loteria_domain_cleanup_manifest.md."
+  "creado_en": "2026-07-05T00:00:00"
 }

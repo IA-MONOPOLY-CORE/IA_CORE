@@ -196,3 +196,7 @@ El paso siguiente no es inventar mas catalogos: es decidir como materializar con
 ## Nota posterior - RESET 01
 
 Despues del cierre del libro, se realizo una limpieza de legacy operativo y se movieron los perfiles psicologicos historicos a una biblioteca global de arquetipos reutilizables. Los system prompts legacy fueron archivados como baseline no operativo para comparacion futura. IA_CORE deja de usar SAAOP/SAAOPS/S.A.A.O.P. como identidad activa.
+
+## Nota posterior - CORE 01
+
+Se detecto que podian coexistir dominios duplicados/equivalentes. Se agrego regla de unicidad de dominios y se limpio Loteria del registry activo hasta que sea recreada con el flujo nuevo.

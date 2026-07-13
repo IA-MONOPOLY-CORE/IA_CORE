@@ -17,6 +17,7 @@ from core.catalog_registry import (
     load_specializations,
     validate_domain_catalog_selection,
 )
+from core.domain_identity import validate_unique_domain
 
 
 DOMAIN_SCHEMA_VERSION = 1
@@ -725,6 +726,28 @@ def list_domains(
     return domains
 
 
+def _load_archived_domain_records(domains_dir: str | Path | None = None) -> list[dict[str, Any]]:
+    root = _domains_dir(domains_dir)
+    archive_dir = root.parent / "docs" / "legacy" / "domains"
+    if not archive_dir.exists():
+        return []
+
+    archived: list[dict[str, Any]] = []
+    for snapshot_path in sorted(archive_dir.glob("*domain_snapshot.json")):
+        try:
+            with open(snapshot_path, "r", encoding="utf-8") as file:
+                data = json.load(file)
+            if isinstance(data, dict):
+                data = deepcopy(data)
+                data.setdefault("archived", True)
+                data.setdefault("visible_en_hud", False)
+                data.setdefault("source_path", str(snapshot_path))
+                archived.append(data)
+        except (OSError, json.JSONDecodeError):
+            continue
+    return archived
+
+
 def create_domain(
     *,
     name: str,
@@ -750,6 +773,23 @@ def create_domain(
     catalog_selection = validate_domain_catalog_selection(area_profesional_id, nicho_id)
 
     domain_id = slugify_domain_name(name)
+    candidate = {
+        "id": domain_id,
+        "nombre": name,
+        "descripcion": description,
+        "instrucciones": instructions,
+        "nicho_sugerido": (suggested_niche or catalog_selection.get("nicho_nombre") or name),
+        "area_profesional_id": catalog_selection.get("area_profesional_id"),
+        "nicho_id": catalog_selection.get("nicho_id"),
+    }
+    validate_unique_domain(
+        candidate,
+        [
+            *list_domains(domains_dir, include_internal=True),
+            *_load_archived_domain_records(domains_dir),
+        ],
+    )
+
     domain_dir = _safe_domain_dir(domain_id, domains_dir)
     manifest_path = domain_dir / "domain.json"
     if manifest_path.exists():
