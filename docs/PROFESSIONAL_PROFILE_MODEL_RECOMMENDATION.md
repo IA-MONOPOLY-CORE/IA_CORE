@@ -98,3 +98,7 @@ Patron inicial:
 ## Proxima Fase
 
 Prompt 21 deberia preparar la generacion de presets o la capa que consume estas recomendaciones sin crear agentes prematuramente.
+
+## Nota Prompt 21
+
+Prompt 21 usa la recomendacion provider/model dentro de cada `profile_catalog` derivado. Cada candidato generado por `core/professional_profile_catalog_generator.py` incluye `model_recommendation` con provider/model primario, fallback, privacidad, revision humana, compatibilidad y nota de hardware.

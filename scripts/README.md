@@ -27,3 +27,21 @@ python scripts/generate_professional_profile_matrix.py
 ```
 
 **Nota**: La matriz generada no debe editarse como catalogo. Si cambian los perfiles, ejecutar el script y validar con `tests/test_professional_profile_matrix.py`.
+
+## generate_domain_profile_catalog.py
+
+Genera un `profile_catalog` derivado desde la Biblioteca Profesional Global sin modificar dominios reales.
+
+**Proposito**: obtener candidatos trazables por area/nicho para preparar dominios futuros sin duplicar `catalogs/professional_profiles.json`.
+
+**Uso**:
+```bash
+python scripts/generate_domain_profile_catalog.py --area marketing_publicidad --niche contenidos_redes --max-profiles 5
+```
+
+**Salida JSON opcional**:
+```bash
+python scripts/generate_domain_profile_catalog.py --area marketing_publicidad --niche contenidos_redes --output docs/example_profile_catalog.json
+```
+
+**Nota**: El script rechaza rutas dentro de `domains/`, no sobrescribe archivos existentes y no crea presets, papers ni agentes.

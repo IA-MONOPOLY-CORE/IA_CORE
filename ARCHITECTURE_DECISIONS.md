@@ -711,3 +711,27 @@ Los perfiles profesionales globales declaran `default_model_policy`, pero esa po
 - `human_review_required` y privacidad no quedan como texto decorativo: afectan la recomendacion.
 
 ---
+
+## ADR-027 - profile_catalog por dominio como seleccion derivada
+
+**Estado**: Aceptado
+
+**Prompt**: 21
+
+**Contexto**:
+IA_CORE ya tiene perfiles profesionales globales, matriz area/nicho y recomendacion provider/model por perfil. El siguiente paso necesita llevar esa biblioteca a dominios concretos, pero escribir directamente `domains/*/profile_catalog.json` desde la biblioteca global crearia riesgo de duplicar verdad o modificar dominios reales prematuramente.
+
+**Decision**:
+- IA_CORE genera `profile_catalog` por dominio como una seleccion derivada de `catalogs/professional_profiles.json`.
+- La Biblioteca Profesional Global sigue siendo fuente de verdad.
+- El generador vive en `core/professional_profile_catalog_generator.py`.
+- El CLI seguro vive en `scripts/generate_domain_profile_catalog.py`.
+- Cada entrada derivada conserva `source_profile_id`, `role_id`, `specialization_id`, `default_model_policy`, `preset_seed_expected`, `paper_seed_expected`, scoring y `model_recommendation`.
+- El CLI no escribe dentro de `domains/` ni sobrescribe archivos existentes.
+
+**Consecuencias**:
+- Los dominios futuros pueden recibir candidatos testeables sin crear agentes, presets ni papers.
+- Los gaps de cobertura se reportan como warnings en lugar de inventar perfiles.
+- Prompt 22 puede consumir esta seleccion para generar presets candidatos sin cambiar la fuente de verdad.
+
+---

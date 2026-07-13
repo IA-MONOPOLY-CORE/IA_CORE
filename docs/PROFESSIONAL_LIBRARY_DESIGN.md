@@ -1545,3 +1545,21 @@ Prompt 20 formaliza `default_model_policy` como puente entre perfil profesional 
 La capa reutiliza `core.model_recommendation.HardwareProfile` y `evaluate_model_compatibility`. No crea agentes ni presets; deja una decision estructurada para que futuras fases puedan generar presets, papers, equipos o configuraciones sin mezclar logica de negocio con seleccion de modelo.
 
 Deudas: deteccion hardware cross-platform real, salud de providers en vivo, recomendaciones por dominio y validacion multimodal real.
+
+## Generacion segura de profile_catalog por dominio
+
+Prompt 21 agrega una capa segura para generar selecciones derivadas de perfiles profesionales por dominio sin modificar dominios reales.
+
+- Fuente de verdad: `catalogs/professional_profiles.json`.
+- Catalogos auxiliares: `catalogs/areas.json`, `catalogs/niches.json`, `catalogs/roles.json`, `catalogs/specializations.json` y `catalogs/profile_model_policies.json`.
+- Helper: `core/professional_profile_catalog_generator.py`.
+- CLI: `scripts/generate_domain_profile_catalog.py`.
+- Documento: `docs/GENERATED_DOMAIN_PROFILE_CATALOG.md`.
+
+La salida conserva trazabilidad hacia `source_profile_id`, `role_id`, `specialization_id`, `default_model_policy`, `preset_seed_expected` y `paper_seed_expected`. Tambien incluye `model_recommendation` por entrada, `selection_reason`, `coverage_score`, `warnings` y `gaps`.
+
+El scoring inicial es explicito: area, nichos solicitados, escala de negocio, capacidades requeridas, preferencia de model policy, valor economico y viabilidad hardware/fallback. Los nichos sin cobertura se reportan como gaps; no se inventan perfiles.
+
+Restricciones: no escribe bajo `domains/`, no crea presets, no crea papers, no crea agentes y no toca HUD, n8n ni orquestadores.
+
+Proxima fase natural: Prompt 22 puede usar esta seleccion derivada para generar presets candidatos manteniendo la Biblioteca Profesional Global como fuente de verdad.

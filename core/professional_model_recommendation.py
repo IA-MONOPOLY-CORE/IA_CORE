@@ -6,7 +6,6 @@ import json
 from pathlib import Path
 from typing import Any
 
-import config
 from core.model_recommendation import (
     HardwareProfile,
     evaluate_model_compatibility,
@@ -14,7 +13,8 @@ from core.model_recommendation import (
 )
 
 
-CATALOGS_DIR = config.ROOT_DIR / "catalogs"
+ROOT_DIR = Path(__file__).resolve().parent.parent
+CATALOGS_DIR = ROOT_DIR / "catalogs"
 MODEL_POLICIES_PATH = CATALOGS_DIR / "profile_model_policies.json"
 
 LOCAL_LIGHT = ("ollama", "phi3:mini")

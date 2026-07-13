@@ -212,3 +212,9 @@ La matriz vive en `docs/PROFESSIONAL_PROFILE_AREA_NICHE_MATRIX.md` y se regenera
 Prompt 20 agrega capa de recomendacion provider/model por perfil profesional.
 
 La recomendacion se deriva desde `default_model_policy`, carga cognitiva, estilo de razonamiento y hardware disponible. No crea presets, papers ni agentes; prepara la siguiente fase con una decision testeable y extensible.
+
+## Nota 21 - Seleccion derivada de perfiles por dominio
+
+Prompt 21 habilita la generacion segura de un `profile_catalog` derivado por dominio desde la Biblioteca Profesional Global.
+
+La salida se genera con `core/professional_profile_catalog_generator.py` y `scripts/generate_domain_profile_catalog.py`. No modifica dominios reales, no crea presets, no crea papers y no crea agentes; solo prepara candidatos trazables con `source_profile_id`, scoring, gaps y `model_recommendation`.
