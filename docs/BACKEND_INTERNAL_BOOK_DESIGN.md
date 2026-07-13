@@ -62,6 +62,82 @@ Artefacto operativo real:
 - Puede ser consumido por servicios internos o UI mediante contrato backend.
 - Debe poder explicar su origen, version, dependencias y errores.
 
+## 4.1 Contrato derivado vs operativo real
+
+El contrato tecnico vive en `core/artifact_state.py`. Su objetivo es impedir que una salida calculada, sugerida o previsualizada sea confundida con un artefacto real de IA_CORE.
+
+Estados definidos:
+
+- `derived_preview`: salida generada para revision. No escribe artefacto operativo. No puede ser consumida como materializada.
+- `ready_to_materialize`: salida derivada validada y lista para materializacion posterior. Todavia no es operativa.
+- `materialized`: artefacto escrito en filesystem o registry sandbox con manifest o trazabilidad minima. No necesariamente activo.
+- `active`: artefacto operativo PASSED, usable por backend o flujo correspondiente.
+- `archived`: artefacto retirado del flujo activo, conservado por trazabilidad.
+- `legacy`: artefacto historico conservado, no parte del flujo nuevo salvo recuperacion formal.
+- `broken`: artefacto inconsistente, incompleto o fallido. No puede usarse.
+
+Transiciones validas:
+
+- `derived_preview -> ready_to_materialize`
+- `ready_to_materialize -> materialized`
+- `materialized -> active`
+- `active -> archived`
+- `materialized -> archived`
+- `legacy -> ready_to_materialize` solo mediante recuperacion formal
+- cualquier estado relevante puede pasar a `broken` si falla validacion critica
+- `broken -> derived_preview` o `broken -> ready_to_materialize` solo mediante regeneracion validada
+
+Transiciones invalidas:
+
+- `derived_preview -> active`
+- `ready_to_materialize -> active` sin materializacion
+- `legacy -> active` sin recuperacion formal
+- `broken -> active` sin reparacion
+- `archived -> active` sin restore y validacion
+
+Relacion con PASSED:
+
+Solo `active` con trazabilidad completa equivale a PASSED operativo y puede aparecer como usable. `derived_preview`, `ready_to_materialize`, `materialized`, `archived`, `legacy` y `broken` no son opciones usables por defecto. Estados desconocidos, incluidos valores transicionales historicos como `proposed` o `draft`, no pasan como operativos.
+
+Impacto sobre UI:
+
+La UI puede mostrar previews, warnings y proximas acciones, pero no debe inferir que una propuesta existe operativamente. La UI debe consumir estado y permisos desde backend. Si un helper genera un `profile_catalog`, ese resultado es `derived_preview` o `ready_to_materialize`; no se vuelve real hasta escribirse bajo un sandbox con manifest y validacion.
+
+Ejemplos:
+
+- `profile_catalog` generado por helper: `derived_preview` / `ready_to_materialize`, no operativo.
+- `profile_catalog` escrito dentro de `domains/sandbox_x/profile_catalog.json` con manifest: `materialized`.
+- `profile_catalog` validado, consistente y usable: `active` / PASSED.
+- `paper_seed_expected`: derivado, no paper real.
+- paper real escrito y validado: `materialized` o `active` segun estado.
+
+## 4.2 Inventario de artefactos actuales y previstos
+
+Artefactos derivados detectados hoy:
+
+- `derived_profile_catalog`: generado por `core/professional_profile_catalog_generator.py`; existe como salida derivada, no como catalogo operativo.
+- `derived_agent_presets`: generado por `core/professional_agent_preset_generator.py`; existe como salida derivada, no como presets reales.
+- `derived_team_template`: generado por `core/professional_team_template_generator.py`; existe como plantilla derivada, no como equipo real.
+- `derived_model_recommendation`: generado por `core/professional_model_recommendation.py` y usado en generadores; recomendacion, no seleccion operativa obligatoria.
+- `derived_paper_seed`: presente como `paper_seed_expected` y `paper_seed` en presets derivados; no es paper real.
+- `derived_end_to_end_output`: generado por `core/professional_domain_end_to_end.py`; valida cadena completa sin modificar dominios.
+
+Artefactos operativos reales detectados o previstos:
+
+- `domain_registry_entry`: `domains/*/domain.json`, cargado por `core/domain_registry.py`; puede ser visible o interno segun estado/metadata.
+- `materialized_domain`: previsto para Fase 1 bajo sandbox; no existe todavia para este libro.
+- `materialized_profile_catalog`: previsto para Fase 2 bajo `domains/<sandbox>/profile_catalog.json`; no existe todavia para este libro.
+- `materialized_agent_presets`: previsto para Fase 2 bajo `domains/<sandbox>/agent_presets.json`; no existe todavia para este libro.
+- `materialized_paper`: previsto para Fase 3 bajo `domains/<sandbox>/agents/papers/`; no se crea en Fase 0.
+- `materialized_agent`: previsto para Fase 4 bajo `domains/<sandbox>/agents/config/`; no se crea en Fase 0.
+- `materialized_team`: previsto para Fase 5 mediante manifest de equipo; no existe todavia.
+
+Artefactos historicos o no operativos:
+
+- `legacy_artifact`: Loteria historica y arquetipos recuperados en `docs/legacy/loteria/` y `catalogs/agent_archetypes.json`.
+- `archived_artifact`: snapshots de dominios y legacy en `docs/legacy/`.
+- `broken_artifact`: categoria reservada para artefactos incompletos, invalidos o fallidos; no debe aparecer como usable.
+
 ## 5. Alcance del libro
 
 Este libro cubre solo backend interno:

@@ -884,3 +884,26 @@ La Biblioteca Profesional Global dejo artefactos derivados y no operativos prepa
 - El proximo libro debe comenzar por reglas internas, estados y contrato antes de crear sandbox real.
 - Los derivados existentes no se consideran operativos hasta pasar por materializacion controlada.
 - La UI puede mostrar estados, errores y acciones, pero no inferir ni reparar reglas internas.
+
+---
+
+## ADR-034 - Separacion obligatoria entre artefactos derivados y operativos
+
+**Estado**: Aceptado
+
+**Prompt**: 0.1 - Contrato derivado vs operativo real
+
+**Contexto**:
+IA_CORE ya puede generar `profile_catalog`, `agent_presets`, recomendaciones, team templates, paper seeds y validaciones end-to-end como salidas derivadas. Sin un contrato tecnico, esas salidas podrian confundirse con artefactos reales disponibles para backend o UI.
+
+**Decision**:
+- IA_CORE distingue formalmente artefactos derivados/no operativos de artefactos operativos reales mediante `core/artifact_state.py`.
+- Las salidas derivadas pueden estar listas para revision o materializacion, pero no son usables ni visibles como operativas hasta estar materializadas, validadas, trazadas y marcadas como `active`/PASSED.
+- `derived_preview` y `ready_to_materialize` nunca son operativos.
+- `materialized` existe en filesystem o registry sandbox, pero no equivale automaticamente a `active`.
+- Estados historicos o fallidos (`legacy`, `archived`, `broken`) no entran al flujo nuevo salvo recuperacion, restore o regeneracion formal.
+
+**Consecuencias**:
+- La UI y los servicios internos no pueden tratar previews, seeds, templates o outputs derivados como artefactos reales.
+- Todo paso hacia operacion debe pasar por materializacion controlada, validacion y trazabilidad.
+- Estados desconocidos o transicionales como `proposed`/`draft` no pasan como operativos por defecto.
