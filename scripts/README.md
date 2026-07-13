@@ -63,3 +63,19 @@ python scripts/generate_domain_agent_presets.py --input docs/example_profile_cat
 ```
 
 **Nota**: El script rechaza rutas dentro de `domains/`, no sobrescribe archivos existentes y no crea agentes ni papers.
+
+## generate_professional_team_template.py
+
+Genera una plantilla de equipo profesional derivada desde area/nicho, profile_catalog derivado y agent_presets derivados.
+
+**Uso**:
+```bash
+python scripts/generate_professional_team_template.py --area marketing_publicidad --niche contenidos_redes --business-scale pyme --objective growth --max-profiles 5
+```
+
+**Salida JSON opcional**:
+```bash
+python scripts/generate_professional_team_template.py --area marketing_publicidad --niche contenidos_redes --output docs/example_team_template.json
+```
+
+**Nota**: El script rechaza rutas dentro de `domains/`, no sobrescribe archivos existentes y no crea agentes, papers ni equipos operativos reales.

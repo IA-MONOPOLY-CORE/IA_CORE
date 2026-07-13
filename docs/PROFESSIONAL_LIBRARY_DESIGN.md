@@ -1581,3 +1581,22 @@ La salida incluye una vista rica para auditoria y una vista `agent_presets` comp
 `instructions_seed` es una semilla breve, no un prompt final. No crea agentes, papers ni dominios operativos.
 
 Proxima fase natural: Prompt 23 puede transformar estos presets derivados en papers candidatos o validar una escritura controlada futura, sin saltear revision humana.
+
+## Plantillas de equipos profesionales por dominio/nicho
+
+Prompt 23 agrega una capa segura para componer team templates profesionales desde perfiles, profile_catalog derivado y agent_presets derivados.
+
+- Helper: `core/professional_team_template_generator.py`.
+- CLI: `scripts/generate_professional_team_template.py`.
+- Documento: `docs/GENERATED_PROFESSIONAL_TEAM_TEMPLATES.md`.
+- Ejemplo: `docs/EXAMPLE_GENERATED_TEAM_TEMPLATE.md`.
+
+La cadena de derivacion queda:
+
+`professional_profiles -> generated profile_catalog -> generated agent_presets -> generated team_template`.
+
+Se definen 12 tipos iniciales de equipo: lanzamiento de negocio, operacion pyme, growth/ventas, datos/decision, automatizacion/sistemas, compliance/riesgo, customer success/soporte, contenido/comunicacion, finanzas/control, sectorial regulado, validacion de idea y mejora operativa.
+
+El scoring considera cobertura de area/nicho, diversidad de familias, presencia de `team_roles`, escala de negocio, objetivo, value paths, balance entre direccion/ejecucion/control, `model_recommendation` y disponibilidad de preset derivado. Penaliza equipos demasiado grandes para escalas chicas, concentracion excesiva, falta de control en areas sensibles y exceso de `cloud_reasoning` cuando el costo puede importar.
+
+La salida incluye `model_policy_mix`, `expected_outputs`, `activation_criteria`, `risks`, `gaps`, `warnings`, perfiles recomendados y presets derivados recomendados. No crea agentes, papers ni equipos operativos reales.

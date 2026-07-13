@@ -99,3 +99,7 @@ El script rechaza salidas dentro de `domains/` y no sobrescribe archivos existen
 ## Relacion Con Prompt 23
 
 Prompt 23 puede tomar estos presets derivados para preparar papers candidatos o una validacion previa a escritura real en dominios. La regla sigue siendo conservar trazabilidad y no convertir seeds en operacion sin revision.
+
+## Nota Prompt 23
+
+Prompt 23 usa `agent_presets` derivados para armar team templates. Cada preset aporta provider/model, fallback, paper seed esperado, revision humana, privacidad y trazabilidad hacia el perfil profesional original.

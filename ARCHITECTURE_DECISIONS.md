@@ -760,3 +760,27 @@ IA_CORE ya puede generar `profile_catalog` derivados desde la Biblioteca Profesi
 - Prompt 23 puede preparar papers candidatos o validacion de escritura real sin duplicar verdad.
 
 ---
+
+## ADR-029 - team templates como composicion derivada de perfiles y presets
+
+**Estado**: Aceptado
+
+**Prompt**: 23
+
+**Contexto**:
+IA_CORE ya puede derivar profile_catalogs y agent_presets desde la Biblioteca Profesional Global. Un dominio real rara vez necesita un agente aislado; necesita composiciones de capacidades, roles, control, operacion y valor economico. Crear equipos operativos automaticamente seria prematuro.
+
+**Decision**:
+- IA_CORE genera plantillas de equipos profesionales como artefactos derivados.
+- La fuente de verdad sigue siendo `catalogs/professional_profiles.json`.
+- La composicion usa profile_catalog derivado, agent_presets derivados, `team_roles`, business scales, value paths y model recommendations.
+- El generador vive en `core/professional_team_template_generator.py`.
+- El CLI seguro vive en `scripts/generate_professional_team_template.py`.
+- Las plantillas no crean agentes reales, papers ni escrituras en dominios.
+
+**Consecuencias**:
+- Los dominios futuros pueden evaluar equipos candidatos antes de operar.
+- `model_policy_mix`, gaps, riesgos y criterios de activacion quedan visibles.
+- Prompt 24 puede validar composicion end-to-end o preparar escritura controlada sin duplicar verdad.
+
+---

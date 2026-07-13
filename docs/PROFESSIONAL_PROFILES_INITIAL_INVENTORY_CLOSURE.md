@@ -224,3 +224,9 @@ La salida se genera con `core/professional_profile_catalog_generator.py` y `scri
 Prompt 22 habilita la generacion segura de `agent_presets` derivados desde un `profile_catalog` derivado.
 
 La salida se genera con `core/professional_agent_preset_generator.py` y `scripts/generate_domain_agent_presets.py`. No modifica dominios reales, no crea agentes y no crea papers; solo prepara presets candidatos con `instructions_seed`, `model_recommendation`, fallback, `paper_seed_expected`, revision humana, privacidad y trazabilidad completa.
+
+## Nota 23 - Team templates profesionales derivados
+
+Prompt 23 habilita composicion de equipos profesionales derivados sin crear agentes reales.
+
+La salida se genera con `core/professional_team_template_generator.py` y `scripts/generate_professional_team_template.py`. No modifica dominios reales, no crea agentes ni papers; compone perfiles y presets derivados en plantillas con `model_policy_mix`, expected outputs, criterios de activacion, riesgos, gaps y trazabilidad completa.
