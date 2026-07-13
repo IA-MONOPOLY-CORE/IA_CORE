@@ -861,3 +861,26 @@ IA_CORE podia mostrar dominios duplicados o funcionalmente equivalentes. El domi
 - El selector de dominios ya no expone Loteria como dominio activo hasta que sea recreada con el framework nuevo.
 - Un dominio archivado o legacy sigue bloqueando recreaciones duplicadas sin accion admin explicita.
 - Los dominios vacios, historicos o equivalentes no pueden presentarse como operativos por accidente.
+
+---
+
+## ADR-033 - Backend interno como fuente de verdad para materializacion controlada
+
+**Estado**: Aceptado
+
+**Prompt**: 0.0 - Libro Backend Interno
+
+**Contexto**:
+La Biblioteca Profesional Global dejo artefactos derivados y no operativos preparados para una futura materializacion. Para pasar de propuesta a operacion real sin contaminar dominios, IA_CORE necesita una capa interna que gobierne preview, validacion, estados, escritura, trazabilidad, rollback, regeneracion y contrato para UI.
+
+**Decision**:
+- IA_CORE separa artefactos derivados/no operativos de artefactos operativos reales.
+- La UI no materializa ni valida reglas de negocio por su cuenta.
+- El backend interno administra preview, validacion, materializacion, estados, rollback, regeneracion y contrato estable para UI.
+- Todo artefacto operativo debe tener trazabilidad, validacion y criterio PASSED.
+- Las integraciones externas quedan fuera del core y se tratan como extensiones futuras.
+
+**Consecuencias**:
+- El proximo libro debe comenzar por reglas internas, estados y contrato antes de crear sandbox real.
+- Los derivados existentes no se consideran operativos hasta pasar por materializacion controlada.
+- La UI puede mostrar estados, errores y acciones, pero no inferir ni reparar reglas internas.
