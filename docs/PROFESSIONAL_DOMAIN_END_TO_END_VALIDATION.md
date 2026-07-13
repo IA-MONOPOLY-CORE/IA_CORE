@@ -17,3 +17,7 @@ La ejecucion produce perfiles y presets trazables, equipo recomendado, provider/
 Los gaps no se rellenan con catalogos inventados: quedan registrados para revision. Los riesgos incluyen limites de la seleccion automatica y faltantes de roles cuando corresponden.
 
 No se crean dominios, agentes ni papers; no se escriben artefactos en `domains/` y nada se carga automaticamente. Una fase posterior podra revisar esta propuesta antes de autorizar cualquier creacion operativa.
+
+## Nota Prompt 25
+
+Prompt 25 cierra el libro y consolida esta validacion como hito final no operativo.

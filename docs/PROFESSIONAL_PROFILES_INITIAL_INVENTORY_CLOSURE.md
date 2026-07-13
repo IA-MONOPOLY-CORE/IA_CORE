@@ -230,3 +230,7 @@ La salida se genera con `core/professional_agent_preset_generator.py` y `scripts
 Prompt 23 habilita composicion de equipos profesionales derivados sin crear agentes reales.
 
 La salida se genera con `core/professional_team_template_generator.py` y `scripts/generate_professional_team_template.py`. No modifica dominios reales, no crea agentes ni papers; compone perfiles y presets derivados en plantillas con `model_policy_mix`, expected outputs, criterios de activacion, riesgos, gaps y trazabilidad completa.
+
+## Nota Prompt 25
+
+El inventario inicial forma parte del cierre completo del libro Biblioteca Profesional Global.

@@ -807,3 +807,9 @@ IA_CORE puede derivar perfiles, presets, recomendaciones de modelo y equipos. An
 - Los faltantes se informan y no se sustituyen por catalogos inventados.
 
 ---
+
+## Nota de cierre - Libro Biblioteca Profesional Global
+
+Prompt 25 no agrega una decision arquitectonica nueva. Cierra y consolida las decisiones ADR-024 a ADR-030 como el bloque arquitectonico de la Biblioteca Profesional Global.
+
+La decision consolidada es mantener `catalogs/professional_profiles.json` como fuente de verdad, y tratar matriz, recomendaciones, `profile_catalog`, `agent_presets`, team templates y validacion end-to-end como artefactos derivados, trazables y no operativos hasta que una fase posterior autorice materializacion controlada en dominios reales.

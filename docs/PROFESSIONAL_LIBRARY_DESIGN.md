@@ -1604,3 +1604,43 @@ La salida incluye `model_policy_mix`, `expected_outputs`, `activation_criteria`,
 ## Validacion end-to-end de dominio profesional
 
 Prompt 24 compone la biblioteca global, el `profile_catalog`, los `agent_presets`, el `team_template`, las recomendaciones de modelo y los paper seeds en un unico artefacto de validacion. El resultado agrega gaps, riesgos, outputs y un plan de activacion pendiente, sin crear ni modificar recursos operativos.
+
+## Cierre del libro Biblioteca Profesional Global
+
+Prompt 25 cierra formalmente el libro Biblioteca Profesional Global Multi-Area / Multi-Nicho / Hardware-Aware.
+
+Estado final:
+
+- 30 areas activas y 200 nichos activos.
+- 106 perfiles profesionales globales PASSED.
+- 20 roles globales y 80 especializaciones globales.
+- 15 model policies formales.
+- 30 de 30 areas cubiertas.
+- 166 de 200 nichos cubiertos.
+- 34 nichos sin cobertura documentados como deuda futura.
+
+Entregables principales:
+
+- Biblioteca global en `catalogs/professional_profiles.json`.
+- Matriz derivada perfil-area/nicho.
+- Recomendacion provider/model por perfil.
+- Generador seguro de `profile_catalog` por dominio.
+- Generador seguro de `agent_presets` derivados.
+- Generador seguro de team templates.
+- Validacion end-to-end no operativa.
+
+Cadena validada:
+
+```text
+professional_profiles
+-> matrix
+-> model_recommendation
+-> generated profile_catalog
+-> generated agent_presets
+-> generated team_template
+-> end-to-end validation
+```
+
+Queda para proximas fases la materializacion controlada en dominios reales, generacion de papers candidatos, revision humana previa a escritura operativa, validacion de providers/modelos en vivo, versionado de perfiles y deteccion hardware cross-platform real.
+
+Reporte de cierre: `docs/PROFESSIONAL_GLOBAL_LIBRARY_BOOK_CLOSURE.md`.
