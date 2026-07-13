@@ -45,3 +45,21 @@ python scripts/generate_domain_profile_catalog.py --area marketing_publicidad --
 ```
 
 **Nota**: El script rechaza rutas dentro de `domains/`, no sobrescribe archivos existentes y no crea presets, papers ni agentes.
+
+## generate_domain_agent_presets.py
+
+Genera `agent_presets` derivados desde un `profile_catalog` derivado sin modificar dominios reales.
+
+**Proposito**: transformar perfiles seleccionados en presets candidatos con instrucciones seed, provider/model, fallback, paper seed esperado y trazabilidad completa.
+
+**Uso desde area/nicho**:
+```bash
+python scripts/generate_domain_agent_presets.py --area marketing_publicidad --niche contenidos_redes --max-profiles 5
+```
+
+**Uso desde JSON derivado**:
+```bash
+python scripts/generate_domain_agent_presets.py --input docs/example_profile_catalog.json --output docs/example_agent_presets.json
+```
+
+**Nota**: El script rechaza rutas dentro de `domains/`, no sobrescribe archivos existentes y no crea agentes ni papers.

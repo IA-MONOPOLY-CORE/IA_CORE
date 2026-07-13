@@ -218,3 +218,9 @@ La recomendacion se deriva desde `default_model_policy`, carga cognitiva, estilo
 Prompt 21 habilita la generacion segura de un `profile_catalog` derivado por dominio desde la Biblioteca Profesional Global.
 
 La salida se genera con `core/professional_profile_catalog_generator.py` y `scripts/generate_domain_profile_catalog.py`. No modifica dominios reales, no crea presets, no crea papers y no crea agentes; solo prepara candidatos trazables con `source_profile_id`, scoring, gaps y `model_recommendation`.
+
+## Nota 22 - Agent presets derivados por dominio
+
+Prompt 22 habilita la generacion segura de `agent_presets` derivados desde un `profile_catalog` derivado.
+
+La salida se genera con `core/professional_agent_preset_generator.py` y `scripts/generate_domain_agent_presets.py`. No modifica dominios reales, no crea agentes y no crea papers; solo prepara presets candidatos con `instructions_seed`, `model_recommendation`, fallback, `paper_seed_expected`, revision humana, privacidad y trazabilidad completa.

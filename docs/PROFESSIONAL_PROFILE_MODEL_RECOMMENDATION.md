@@ -102,3 +102,7 @@ Prompt 21 deberia preparar la generacion de presets o la capa que consume estas 
 ## Nota Prompt 21
 
 Prompt 21 usa la recomendacion provider/model dentro de cada `profile_catalog` derivado. Cada candidato generado por `core/professional_profile_catalog_generator.py` incluye `model_recommendation` con provider/model primario, fallback, privacidad, revision humana, compatibilidad y nota de hardware.
+
+## Nota Prompt 22
+
+Prompt 22 incrusta `model_recommendation` en presets derivados. Cada preset conserva provider/model recomendado, fallback, privacidad y revision humana para que la fase de agentes no pierda la decision hardware-aware tomada desde el perfil profesional.

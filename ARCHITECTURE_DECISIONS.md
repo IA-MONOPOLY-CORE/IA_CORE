@@ -735,3 +735,28 @@ IA_CORE ya tiene perfiles profesionales globales, matriz area/nicho y recomendac
 - Prompt 22 puede consumir esta seleccion para generar presets candidatos sin cambiar la fuente de verdad.
 
 ---
+
+## ADR-028 - agent_presets por dominio como artefacto derivado
+
+**Estado**: Aceptado
+
+**Prompt**: 22
+
+**Contexto**:
+IA_CORE ya puede generar `profile_catalog` derivados desde la Biblioteca Profesional Global. El paso siguiente necesita convertir esos perfiles seleccionados en presets candidatos, pero escribir `domains/*/agent_presets.json` o crear agentes automaticamente adelantaria operacion sin revision.
+
+**Decision**:
+- IA_CORE genera `agent_presets` por dominio como artefactos derivados desde un `profile_catalog` derivado.
+- La fuente de verdad sigue siendo `catalogs/professional_profiles.json`.
+- El generador vive en `core/professional_agent_preset_generator.py`.
+- El CLI seguro vive en `scripts/generate_domain_agent_presets.py`.
+- Cada preset derivado conserva `source_profile_id`, `source_domain_profile_id`, `role_id`, `specialization_id`, `model_recommendation`, `fallback_recommendation`, `preset_seed_expected` y `paper_seed_expected`.
+- `instructions_seed` es semilla inicial, no prompt final.
+- El CLI no escribe dentro de `domains/` ni sobrescribe archivos existentes.
+
+**Consecuencias**:
+- Los dominios futuros pueden evaluar presets candidatos sin crear agentes ni papers.
+- La recomendacion provider/model no se pierde al pasar de perfil a preset.
+- Prompt 23 puede preparar papers candidatos o validacion de escritura real sin duplicar verdad.
+
+---

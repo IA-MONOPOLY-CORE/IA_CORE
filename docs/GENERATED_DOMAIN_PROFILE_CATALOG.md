@@ -124,3 +124,7 @@ El script rechaza salidas dentro de `domains/` y no sobrescribe archivos existen
 ## Relacion Con Prompt 22
 
 Prompt 22 puede consumir esta seleccion derivada para generar presets candidatos. La regla sigue siendo la misma: la Biblioteca Profesional Global es la fuente de verdad y cualquier artefacto por dominio debe conservar trazabilidad hacia `source_profile_id`, `role_id`, `specialization_id`, `default_model_policy`, `preset_seed_expected` y `paper_seed_expected`.
+
+## Nota Prompt 22
+
+Prompt 22 usa el `profile_catalog` derivado como entrada para generar `agent_presets` derivados. El profile_catalog no se vuelve operativo por si solo: funciona como puente trazable entre perfiles globales y presets candidatos.

@@ -1563,3 +1563,21 @@ El scoring inicial es explicito: area, nichos solicitados, escala de negocio, ca
 Restricciones: no escribe bajo `domains/`, no crea presets, no crea papers, no crea agentes y no toca HUD, n8n ni orquestadores.
 
 Proxima fase natural: Prompt 22 puede usar esta seleccion derivada para generar presets candidatos manteniendo la Biblioteca Profesional Global como fuente de verdad.
+
+## Generacion segura de agent_presets por dominio
+
+Prompt 22 agrega una capa segura para generar `agent_presets` derivados desde un `profile_catalog` derivado.
+
+- Fuente de verdad: `catalogs/professional_profiles.json`.
+- Entrada inmediata: salida `derived_domain_profile_catalog` del Prompt 21.
+- Helper: `core/professional_agent_preset_generator.py`.
+- CLI: `scripts/generate_domain_agent_presets.py`.
+- Documento: `docs/GENERATED_DOMAIN_AGENT_PRESETS.md`.
+
+Cada preset derivado conserva trazabilidad hacia `source_profile_id`, `source_domain_profile_id`, `role_id`, `specialization_id`, `default_model_policy`, `model_recommendation`, `fallback_recommendation`, `preset_seed_expected` y `paper_seed_expected`.
+
+La salida incluye una vista rica para auditoria y una vista `agent_presets` compatible con el schema actual: `id`, `role_id`, `specialization_id`, `nombre_visible`, `suggested_agent_id`, `suggested_agent_name`, `short_description`, `system_prompt`, `decision_criteria`, `avoid`, provider/model recomendado, temperatura, `memory_policy`, `paper_seed`, `activo` y `orden`.
+
+`instructions_seed` es una semilla breve, no un prompt final. No crea agentes, papers ni dominios operativos.
+
+Proxima fase natural: Prompt 23 puede transformar estos presets derivados en papers candidatos o validar una escritura controlada futura, sin saltear revision humana.
