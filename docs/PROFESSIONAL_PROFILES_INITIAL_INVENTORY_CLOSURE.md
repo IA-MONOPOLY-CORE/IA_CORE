@@ -206,3 +206,9 @@ No ejecutar Prompt 19 desde este cierre.
 Prompt 19.0 formaliza la matriz derivada perfil <-> area/nicho desde `catalogs/professional_profiles.json`.
 
 La matriz vive en `docs/PROFESSIONAL_PROFILE_AREA_NICHE_MATRIX.md` y se regenera con `scripts/generate_professional_profile_matrix.py`. No reemplaza al catalogo global como fuente de verdad.
+
+## Nota 20 - Recomendacion provider/model por perfil profesional
+
+Prompt 20 agrega capa de recomendacion provider/model por perfil profesional.
+
+La recomendacion se deriva desde `default_model_policy`, carga cognitiva, estilo de razonamiento y hardware disponible. No crea presets, papers ni agentes; prepara la siguiente fase con una decision testeable y extensible.

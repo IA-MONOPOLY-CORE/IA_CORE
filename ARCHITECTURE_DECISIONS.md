@@ -687,3 +687,27 @@ Los perfiles profesionales globales ya declaran `areas_compatibles` y `nichos_co
 - Los tests validan que la matriz generada coincida con los catalogos fuente.
 
 ---
+
+## ADR-026 - Model policy como puente entre perfil profesional y provider/model
+
+**Estado**: Aceptado
+
+**Prompt**: 20
+
+**Contexto**:
+Los perfiles profesionales globales declaran `default_model_policy`, pero esa policy necesitaba conectarse con recomendaciones operativas de provider/model, hardware local, privacidad, costo, latencia, contexto y revision humana.
+
+**Decision**:
+- IA_CORE usa `default_model_policy` como puente entre perfil profesional y provider/model.
+- Las policies viven en `catalogs/profile_model_policies.json`.
+- La recomendacion profesional vive en `core/professional_model_recommendation.py`.
+- La recomendacion reutiliza `core.model_recommendation.HardwareProfile` y `evaluate_model_compatibility`.
+- Cada recomendacion debe incluir provider/model primario, fallback, ejecucion recomendada, razon, privacidad, revision humana y nota hardware.
+
+**Consecuencias**:
+- Los perfiles quedan preparados para presets/papers/agentes futuros sin crear agentes ahora.
+- La seleccion de modelo queda testeable y extensible.
+- Hardware limitado puede forzar cloud o fallback local liviano.
+- `human_review_required` y privacidad no quedan como texto decorativo: afectan la recomendacion.
+
+---

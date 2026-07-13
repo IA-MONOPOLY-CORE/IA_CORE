@@ -1531,3 +1531,17 @@ Prompt 19.0 formaliza una matriz derivada desde `catalogs/professional_profiles.
 - Si cambia un perfil, se debe regenerar la matriz.
 
 La matriz prepara futuras fases de generacion de dominios, presets, papers y equipos sin duplicar logica manual.
+
+## Recomendacion provider/model por perfil profesional
+
+Prompt 20 formaliza `default_model_policy` como puente entre perfil profesional y recomendacion provider/model.
+
+- Catalogo de policies: `catalogs/profile_model_policies.json`.
+- Helper: `core/professional_model_recommendation.py`.
+- Documento: `docs/PROFESSIONAL_PROFILE_MODEL_RECOMMENDATION.md`.
+- Entrada principal: perfil profesional global + hardware profile opcional.
+- Salida principal: `recommended_execution`, `recommended_provider`, `recommended_model`, fallback, razon, privacidad, revision humana y nota de hardware.
+
+La capa reutiliza `core.model_recommendation.HardwareProfile` y `evaluate_model_compatibility`. No crea agentes ni presets; deja una decision estructurada para que futuras fases puedan generar presets, papers, equipos o configuraciones sin mezclar logica de negocio con seleccion de modelo.
+
+Deudas: deteccion hardware cross-platform real, salud de providers en vivo, recomendaciones por dominio y validacion multimodal real.
