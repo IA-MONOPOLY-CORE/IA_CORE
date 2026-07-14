@@ -907,3 +907,26 @@ IA_CORE ya puede generar `profile_catalog`, `agent_presets`, recomendaciones, te
 - La UI y los servicios internos no pueden tratar previews, seeds, templates o outputs derivados como artefactos reales.
 - Todo paso hacia operacion debe pasar por materializacion controlada, validacion y trazabilidad.
 - Estados desconocidos o transicionales como `proposed`/`draft` no pasan como operativos por defecto.
+
+---
+
+## ADR-035 - Estados y administracion interna segura de dominios
+
+**Estado**: Aceptado
+
+**Prompt**: 0.2 - Estados y administracion interna de dominios
+
+**Contexto**:
+IA_CORE necesita administrar dominios desde backend interno sin que la UI infiera si un dominio puede aparecer activo, archivarse, restaurarse, resetearse o eliminarse. CORE 01 resolvio identidad/unicidad; faltaba un contrato de estado y acciones seguras.
+
+**Decision**:
+- Se crea `core/domain_state.py` para estados y acciones internas de dominios.
+- Los estados formales son `empty`, `draft`, `preview`, `materialized`, `active`, `archived`, `legacy` y `broken`.
+- `core/domain_registry.list_domains()` oculta por defecto dominios con estados no activos.
+- `archive_domain()`, `restore_domain()`, `reset_domain()` y `delete_domain_safely()` actualizan manifest con trazabilidad y protecciones explicitas.
+- `legacy` no puede pasar a `active` directamente y `delete_domain_safely()` nunca borra legacy automaticamente.
+
+**Consecuencias**:
+- La UI futura puede consumir permisos/estado desde backend en vez de deducir reglas.
+- Archivar, restaurar, resetear y eliminar quedan diferenciados.
+- Dominios vacios, historicos, rotos o materializados pero no PASSED no aparecen como activos por accidente.

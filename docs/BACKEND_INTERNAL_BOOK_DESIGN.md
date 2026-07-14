@@ -138,6 +138,36 @@ Artefactos historicos o no operativos:
 - `archived_artifact`: snapshots de dominios y legacy en `docs/legacy/`.
 - `broken_artifact`: categoria reservada para artefactos incompletos, invalidos o fallidos; no debe aparecer como usable.
 
+## 4.3 Administracion interna de dominios
+
+El contrato tecnico de estados de dominio vive en `core/domain_state.py`. No reemplaza a `core/domain_identity.py`: identidad y duplicados siguen en `domain_identity`, mientras que estado, acciones internas y protecciones viven en `domain_state`.
+
+Estados formales de dominio:
+
+- `empty`: dominio sin contenido operativo todavia.
+- `draft`: definicion inicial no lista para uso.
+- `preview`: vista previa derivada antes de materializacion.
+- `materialized`: dominio escrito y trazado por backend interno.
+- `active`: dominio operativo PASSED.
+- `archived`: dominio retirado del flujo activo pero conservado.
+- `legacy`: dominio historico fuera del flujo nuevo.
+- `broken`: dominio inconsistente o invalido.
+
+Acciones internas:
+
+- Archivar: retira un dominio de operacion, marca `status=archived`, apaga `visible_en_hud` y conserva el manifest, archivos y trazabilidad. No borra informacion.
+- Restaurar: recupera un dominio archivado hacia `materialized` u otro estado no activo permitido. No activa directamente; `active` requiere validacion PASSED separada.
+- Resetear: devuelve el dominio a `empty`, conserva manifest y trazabilidad, y no destruye patrimonio sin backup.
+- Eliminar: accion destructiva controlada y ultimo recurso. `delete_domain_safely()` exige `confirm=True`, estado `archived`, trazabilidad previa y rechaza dominios `legacy`.
+
+Protecciones:
+
+- `legacy` no puede pasar directo a `active`.
+- `archived`, `legacy`, `broken`, `empty`, `draft`, `preview` y `materialized` no aparecen en el registry activo por defecto.
+- `broken` debe declarar `broken_reason`.
+- `active` requiere trazabilidad minima.
+- La UI futura debe consumir estas acciones desde backend; no debe inferir por su cuenta si puede archivar, resetear, restaurar o eliminar.
+
 ## 5. Alcance del libro
 
 Este libro cubre solo backend interno:

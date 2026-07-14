@@ -23,6 +23,14 @@ El viejo era historico. El nuevo estaba parcial. Dejarlos visibles generaba la f
 - Eliminar: sacar del flujo operativo cuando no debe existir como dominio activo.
 - Archivar: conservar evidencia, snapshots e inventario.
 - Resetear: limpiar contenido operativo para preparar una recreacion controlada.
+- Restaurar: recuperar un dominio archivado hacia un estado materializado o revisable, sin activarlo automaticamente.
+
+En backend interno, estas acciones viven en `core/domain_state.py`:
+
+- `archive_domain()` retira del flujo activo sin borrar informacion.
+- `restore_domain()` recupera de forma controlada, pero no marca `active`.
+- `reset_domain()` vuelve a `empty` conservando manifest y trazabilidad.
+- `delete_domain_safely()` es destructiva, exige confirmacion, dominio `archived` y rechaza `legacy`.
 
 Loteria no debe quedar como excepcion: si vuelve, debe hacerlo con estado, perfiles y trazabilidad nuevos.
 

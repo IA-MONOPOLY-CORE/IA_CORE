@@ -702,7 +702,21 @@ def get_domain_agent_preset(
 
 
 def _is_internal_domain(domain: dict[str, Any]) -> bool:
-    return domain.get("visible_en_hud") is False or domain.get("es_demo") is True
+    non_active_statuses = {
+        "empty",
+        "draft",
+        "preview",
+        "materialized",
+        "archived",
+        "legacy",
+        "broken",
+    }
+    return (
+        domain.get("visible_en_hud") is False
+        or domain.get("es_demo") is True
+        or domain.get("legacy") is True
+        or domain.get("status") in non_active_statuses
+    )
 
 
 def list_domains(
