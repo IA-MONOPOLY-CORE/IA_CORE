@@ -930,3 +930,25 @@ IA_CORE necesita administrar dominios desde backend interno sin que la UI infier
 - La UI futura puede consumir permisos/estado desde backend en vez de deducir reglas.
 - Archivar, restaurar, resetear y eliminar quedan diferenciados.
 - Dominios vacios, historicos, rotos o materializados pero no PASSED no aparecen como activos por accidente.
+
+---
+
+## ADR-036 - Preview obligatorio antes de materializacion de dominios
+
+**Estado**: Aceptado
+
+**Prompt**: 0.3 - Contrato de preview antes de materializacion
+
+**Contexto**:
+IA_CORE ya puede derivar `profile_catalog`, `agent_presets`, team templates, recomendaciones de modelo y paper seeds. Antes de crear un dominio sandbox real, el backend necesita exponer una vista previa completa y no operativa que permita revisar riesgos, gaps y acciones pendientes.
+
+**Decision**:
+- Se crea `core/domain_materialization_preview.py` como capa de preview previa a cualquier materializacion.
+- El preview compone generadores existentes y devuelve un payload serializable con `domain_request`, `source`, `derived_outputs`, `warnings`, `gaps`, `risks`, `required_actions` y `validation_status`.
+- Los estados permitidos del preview son `derived_preview`, `ready_to_materialize` y `broken`.
+- El preview nunca escribe en `domains/`, nunca crea agentes, papers, presets operativos ni equipos, y nunca marca artefactos como operativos.
+
+**Consecuencias**:
+- La materializacion futura parte de un contrato revisable, trazable y testeado.
+- La UI futura podra mostrar preview y acciones pendientes sin inferir reglas de negocio.
+- `ready_to_materialize` no equivale a PASSED; solo habilita una fase posterior controlada.

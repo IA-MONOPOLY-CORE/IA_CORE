@@ -168,6 +168,47 @@ Protecciones:
 - `active` requiere trazabilidad minima.
 - La UI futura debe consumir estas acciones desde backend; no debe inferir por su cuenta si puede archivar, resetear, restaurar o eliminar.
 
+## 4.4 Contrato de preview de materializacion
+
+El preview de materializacion vive en `core/domain_materialization_preview.py`. Es una capa obligatoria antes de crear cualquier dominio sandbox real.
+
+Un preview responde:
+
+- que dominio se quiere crear;
+- desde que fuente de verdad sale;
+- que perfiles profesionales recomienda;
+- que presets derivados se generarian;
+- que team template derivado compone;
+- que recomendaciones de modelo aparecen;
+- que paper seeds serian necesarios;
+- que warnings, gaps y riesgos hay;
+- que acciones faltan antes de materializar.
+
+El preview no puede:
+
+- crear carpetas en `domains/`;
+- crear `profile_catalog.json` operativo;
+- crear `agent_presets.json` operativo;
+- crear papers;
+- crear agentes;
+- crear equipos;
+- marcar nada como `active`;
+- activar dominios.
+
+Estados permitidos:
+
+- `derived_preview`: preview generado para revision.
+- `ready_to_materialize`: preview revisado y apto para alimentar una fase futura.
+- `broken`: preview invalido o incompleto.
+
+Relacion con PASSED:
+
+Un preview, incluso si esta `ready_to_materialize`, no es PASSED operativo. PASSED aparece recien cuando una fase posterior materializa, valida, traza y marca el artefacto real como `active`.
+
+Relacion con rollback futuro:
+
+El preview define lo que se intentaria crear y sus dependencias. Esa informacion sera la base para manifest de materializacion y rollback, pero no ejecuta rollback ni escribe recursos por si misma.
+
 ## 5. Alcance del libro
 
 Este libro cubre solo backend interno:
