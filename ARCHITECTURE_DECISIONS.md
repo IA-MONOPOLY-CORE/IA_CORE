@@ -952,3 +952,26 @@ IA_CORE ya puede derivar `profile_catalog`, `agent_presets`, team templates, rec
 - La materializacion futura parte de un contrato revisable, trazable y testeado.
 - La UI futura podra mostrar preview y acciones pendientes sin inferir reglas de negocio.
 - `ready_to_materialize` no equivale a PASSED; solo habilita una fase posterior controlada.
+
+---
+
+## ADR-037 - Creacion de dominio solo por backend interno validado
+
+**Estado**: Aceptado
+
+**Prompt**: 0.4 - Auditoria de rutas de creacion de dominio y bloqueo de bypasses
+
+**Contexto**:
+Despues de definir unicidad, estados y preview obligatorio, quedaba una ruta publica legacy (`/api/domains/create`) capaz de escribir dominios reales antes de pasar por materializacion controlada. Esa ruta podia funcionar como bypass de preview, trazabilidad y reglas PASSED.
+
+**Decision**:
+- IA_CORE no permite rutas paralelas de creacion, registro o exposicion de dominios que salteen unicidad, equivalencias, estados, preview, materializacion controlada o reglas PASSED.
+- `/api/domains/create` queda bloqueado para el root operativo `domains/`.
+- `core/domain_registry.create_domain()` queda como primitiva central para fixtures aislados y futura materializacion interna, no como ruta publica directa de UI.
+- `core/domain_registry.list_domains()` decide visibilidad activa usando `core/domain_state.py`, incluyendo rechazo de estados desconocidos.
+- Scripts, tests, endpoints y UI deben usar servicios centrales o fixtures temporales aislados.
+
+**Consecuencias**:
+- Ningun dominio puede aparecer como activo/usable por escritura directa o bypass de registry.
+- La UI futura debe reemplazar la creacion directa por preview y materializacion controlada.
+- Los tests pueden crear fixtures temporales, pero no deben modificar `domains/` operativo.

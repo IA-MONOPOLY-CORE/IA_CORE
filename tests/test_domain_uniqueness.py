@@ -4,7 +4,6 @@ from fastapi.testclient import TestClient
 import api
 from core import domain_registry
 from core.domain_identity import (
-    DUPLICATE_DOMAIN_ERROR,
     detect_duplicate_domains,
     domains_are_equivalent,
     normalize_domain_name,
@@ -118,7 +117,7 @@ def test_detector_lists_duplicate_conflicts():
     ]
 
 
-def test_create_domain_endpoint_rejects_loteria_duplicate():
+def test_create_domain_endpoint_blocks_real_domain_creation_route():
     response = TestClient(api.app).post(
         "/api/domains/create",
         json={
@@ -132,8 +131,8 @@ def test_create_domain_endpoint_rejects_loteria_duplicate():
         },
     )
 
-    assert response.status_code == 400
-    assert DUPLICATE_DOMAIN_ERROR in response.json()["detail"]
+    assert response.status_code == 409
+    assert "Creacion directa de dominios bloqueada" in response.json()["detail"]
 
 
 def test_current_active_repo_domains_have_no_duplicates():

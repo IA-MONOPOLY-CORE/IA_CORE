@@ -1095,6 +1095,14 @@ async def get_domain_agent_preset_match_endpoint(
 
 @app.post("/api/domains/create")
 async def create_domain_endpoint(request: DomainCreateRequest) -> dict:
+    if Path(config.DOMAINS_DIR).resolve() == (ROOT / "domains").resolve():
+        raise HTTPException(
+            status_code=409,
+            detail=(
+                "Creacion directa de dominios bloqueada: use preview de materializacion "
+                "y el flujo backend interno validado."
+            ),
+        )
     try:
         domain = create_domain(
             name=request.nombre,
@@ -1105,7 +1113,7 @@ async def create_domain_endpoint(request: DomainCreateRequest) -> dict:
             area_profesional_id=request.area_profesional_id,
             nicho_id=request.nicho_id,
         )
-        logger.info("Dominio creado: %s", domain["id"])
+        logger.info("Dominio fixture creado en ruta aislada: %s", domain["id"])
         return {"success": True, "domain": domain}
     except FileExistsError as exc:
         raise HTTPException(status_code=409, detail=str(exc)) from exc

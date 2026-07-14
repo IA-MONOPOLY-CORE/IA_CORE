@@ -18,6 +18,7 @@ from core.catalog_registry import (
     validate_domain_catalog_selection,
 )
 from core.domain_identity import validate_unique_domain
+from core.domain_state import is_domain_visible_as_active
 
 
 DOMAIN_SCHEMA_VERSION = 1
@@ -702,20 +703,11 @@ def get_domain_agent_preset(
 
 
 def _is_internal_domain(domain: dict[str, Any]) -> bool:
-    non_active_statuses = {
-        "empty",
-        "draft",
-        "preview",
-        "materialized",
-        "archived",
-        "legacy",
-        "broken",
-    }
     return (
         domain.get("visible_en_hud") is False
         or domain.get("es_demo") is True
         or domain.get("legacy") is True
-        or domain.get("status") in non_active_statuses
+        or not is_domain_visible_as_active(domain)
     )
 
 

@@ -209,6 +209,45 @@ Relacion con rollback futuro:
 
 El preview define lo que se intentaria crear y sus dependencias. Esa informacion sera la base para manifest de materializacion y rollback, pero no ejecuta rollback ni escribe recursos por si misma.
 
+## 4.5 Auditoria de rutas de creacion de dominio
+
+Antes de disenar el schema sandbox real se auditaron las rutas que pueden crear, registrar, listar o mostrar dominios. El detalle vive en `docs/DOMAIN_CREATION_ROUTES_AUDIT.md`.
+
+Motivo:
+
+- evitar que un endpoint viejo, script suelto, helper directo, UI bypass o test mal armado cree dominios por fuera del backend interno;
+- asegurar que unicidad, equivalencias, estados, reglas PASSED y preview previo a materializacion se apliquen desde servicios centrales;
+- confirmar que `preview != dominio materializado` y que `materialized != active`.
+
+Ruta oficial futura:
+
+1. generar preview no operativo con `core/domain_materialization_preview.py`;
+2. revisar gaps, riesgos y acciones requeridas;
+3. materializar en una fase posterior con backend interno validado;
+4. persistir manifest, trazabilidad y estado;
+5. activar solo luego de PASSED explicito.
+
+Rutas prohibidas:
+
+- escritura publica directa en `domains/`;
+- endpoint legacy que cree `domain.json` operativo sin preview;
+- UI que materialice por su cuenta;
+- scripts que escriban `profile_catalog.json` o `agent_presets.json` dentro de `domains/`;
+- restores que vuelvan directo a `active`;
+- listados que traten `legacy`, `archived`, `broken`, `preview`, `materialized` o estados desconocidos como activos.
+
+Correccion aplicada:
+
+- `/api/domains/create` queda bloqueado para el root operativo `domains/`.
+- `list_domains()` usa el contrato de `core/domain_state.py` para decidir visibilidad activa.
+- Los fixtures de tests solo pueden crear dominios en rutas temporales aisladas.
+
+Relacion con `artifact_state` y `domain_state`:
+
+- `artifact_state` gobierna outputs derivados y previews.
+- `domain_state` gobierna manifests de dominio y acciones internas.
+- Ninguna UI o integracion externa debe inferir materializacion, activacion, rollback ni reparacion sin consultar estos contratos.
+
 ## 5. Alcance del libro
 
 Este libro cubre solo backend interno:
