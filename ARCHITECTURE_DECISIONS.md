@@ -975,3 +975,26 @@ Despues de definir unicidad, estados y preview obligatorio, quedaba una ruta pub
 - Ningun dominio puede aparecer como activo/usable por escritura directa o bypass de registry.
 - La UI futura debe reemplazar la creacion directa por preview y materializacion controlada.
 - Los tests pueden crear fixtures temporales, pero no deben modificar `domains/` operativo.
+
+---
+
+## ADR-038 - Domain.json validado para todo sandbox materializado
+
+**Estado**: Aceptado
+
+**Prompt**: 1.0 - Schema de dominio sandbox real
+
+**Contexto**:
+La Fase 1 introduce dominio sandbox real, pero antes de materializar cualquier carpeta en `domains/` IA_CORE necesita un contrato minimo que impida dominios fantasma, dominios sin origen, dominios sin rollback o dominios marcados como activos sin PASSED.
+
+**Decision**:
+- Todo dominio sandbox materializado debe tener un `domain.json` validado por `core/sandbox_domain_schema.py`.
+- El manifest debe declarar identidad, `status`, `domain_type=sandbox`, `source_request`, `created_from`, `materialization_id`, `materialization_status`, `artifact_state`, fechas, `human_review_required`, `rollback_manifest`, `validation`, `warnings` y `metadata`.
+- `materialized` no equivale automaticamente a `active`.
+- `active` queda bloqueado hasta que exista trazabilidad PASSED completa y una fase posterior defina la activacion.
+- El schema no crea ni registra dominios; solo valida contrato.
+
+**Consecuencias**:
+- La futura materializacion no puede escribir carpetas o archivos sueltos sin manifest validable.
+- La UI y servicios internos deberan consumir dominios sandbox mediante estructuras validadas.
+- Rollback, preview y revision humana quedan presentes desde el primer contrato de sandbox, aunque su ejecucion real llegue en prompts posteriores.

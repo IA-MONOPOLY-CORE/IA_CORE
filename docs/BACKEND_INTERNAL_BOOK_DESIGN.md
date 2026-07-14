@@ -248,6 +248,47 @@ Relacion con `artifact_state` y `domain_state`:
 - `domain_state` gobierna manifests de dominio y acciones internas.
 - Ninguna UI o integracion externa debe inferir materializacion, activacion, rollback ni reparacion sin consultar estos contratos.
 
+## 4.6 Schema de dominio sandbox real
+
+El schema de dominio sandbox real vive en `core/sandbox_domain_schema.py` y se documenta en `docs/SANDBOX_DOMAIN_SCHEMA.md`.
+
+El schema viene antes de materializar porque la futura Fase 1 no puede crear carpetas o archivos sueltos en `domains/` sin contrato. Un sandbox materializado debe tener identidad, origen, estado, trazabilidad, validacion, revision humana y rollback desde su primer `domain.json`.
+
+Garantiza:
+
+- `domain_id` estable y normalizado;
+- `domain_type=sandbox`;
+- `status` controlado por `core/domain_state.py`;
+- `artifact_state` controlado por `core/artifact_state.py`;
+- `source_request` no vacio;
+- `created_from` trazable;
+- `materialization_id` no vacio;
+- `rollback_manifest` presente;
+- `human_review_required=true` en esta fase;
+- payload serializable como JSON;
+- bloqueo de `active` sin PASSED.
+
+Evita dominios fantasma porque un `domain.json` incompleto, sin origen, sin rollback, con estado desconocido o con `active` prematuro falla validacion. Tambien bloquea fixtures que apunten rollback a `domains/` operativo real.
+
+Conexion con preview:
+
+- `source_request` puede venir de `core/domain_materialization_preview.py`.
+- `created_from` puede referenciar `preview_id`.
+- Un preview `ready_to_materialize` todavia no es dominio operativo; solo puede alimentar una futura materializacion controlada.
+
+Conexion con rollback:
+
+- `rollback_manifest.created_paths` listara paths creados por materializacion futura.
+- `rollback_manifest.modified_paths` listara paths modificados.
+- `rollback_manifest.backup_paths` listara backups necesarios.
+- En PROMPT 1.0 no se ejecuta rollback real ni se materializa dominio persistente.
+
+Conexion con UI futura:
+
+- La UI no debe inferir si un sandbox existe, esta activo o puede operar.
+- La UI futura debera consumir manifests validados por backend y mostrar errores accionables.
+- `materialized` no es igual a `active`: `materialized` es existencia trazada; `active` exige PASSED posterior.
+
 ## 5. Alcance del libro
 
 Este libro cubre solo backend interno:
