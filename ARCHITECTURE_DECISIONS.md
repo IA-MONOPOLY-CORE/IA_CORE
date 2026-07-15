@@ -1021,3 +1021,26 @@ Una vez definido el schema de dominio sandbox, IA_CORE necesita una forma unica 
 - Ningun flujo futuro deberia crear sandboxes escribiendo archivos sueltos.
 - Tests y servicios deben usar raices temporales o controladas.
 - La activacion PASSED queda reservada para fases posteriores.
+
+---
+
+## ADR-040 - Toda materializacion sandbox debe ser reversible mediante manifest
+
+**Estado**: Aceptado
+
+**Prompt**: 1.2 - Rollback y limpieza segura de dominio sandbox
+
+**Contexto**:
+La materializacion sandbox ya crea `domain.json` y `materialization_manifest.json` en una raiz controlada. Para evitar residuos, estructuras fantasma o borrados a ciegas, cada materializacion debe poder revertirse usando evidencia declarada.
+
+**Decision**:
+- Toda materializacion sandbox debe registrar `created_paths` en `materialization_manifest.json`.
+- El rollback debe pasar por `core/domain_materialization_rollback.py`.
+- El rollback solo puede eliminar paths declarados por el manifest y contenidos dentro de la raiz sandbox permitida.
+- Cualquier path hacia `domains/` operativo queda bloqueado.
+- El rollback debe conservar trazabilidad en `_rollback_records` y ser idempotente.
+
+**Consecuencias**:
+- Una materializacion sandbox no se considera completa si no puede revertirse de forma segura.
+- Los tests ida/vuelta deben probar materializacion, rollback, limpieza e idempotencia.
+- Rollback de modificaciones o backups reales queda diferido hasta que una fase futura cree artefactos modificables.

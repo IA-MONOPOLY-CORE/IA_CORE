@@ -96,14 +96,62 @@ El preview sigue siendo no operativo. Puede alimentar `source_request` y `create
 
 ## Relacion con rollback futuro
 
-PROMPT 1.1 solo registra `rollback_manifest` y `created_paths`. No ejecuta rollback real.
+PROMPT 1.1 registra `rollback_manifest` y `created_paths`. PROMPT 1.2 agrega rollback seguro para revertir esas materializaciones sandbox.
 
-Rollback futuro debera usar:
+Rollback usa:
 
 - `created_paths`;
 - `modified_paths`;
 - `backup_paths`;
 - `materialization_manifest.json`.
+
+## Rollback de materializacion sandbox
+
+El servicio de rollback vive en `core/domain_materialization_rollback.py`.
+
+Funcion principal:
+
+- `rollback_domain_materialization(manifest_path=...)`
+- `rollback_domain_materialization(materialization_id=..., sandbox_root=...)`
+
+Cuando se ejecuta:
+
+- despues de una materializacion sandbox fallida o descartada;
+- durante tests ida/vuelta;
+- antes de volver a intentar una materializacion equivalente.
+
+Que revierte:
+
+- solo paths listados en `materialization_manifest.json.created_paths`;
+- archivos creados por la materializacion;
+- carpeta sandbox creada por esa materializacion.
+
+Que conserva:
+
+- registro de rollback en `<sandbox_root>/_rollback_records/<materialization_id>.json`;
+- `materialization_id`;
+- `domain_id`;
+- paths creados;
+- paths eliminados;
+- paths que ya no existian;
+- timestamps de rollback.
+
+Seguridad:
+
+- exige manifest existente o registro previo de rollback para idempotencia;
+- rechaza manifest corrupto;
+- rechaza paths fuera de la raiz sandbox;
+- rechaza cualquier path hacia `domains/` operativo;
+- no toca legacy;
+- no registra dominios activos;
+- permite rollback repetido sin romper.
+
+Limites:
+
+- no restaura backups todavia;
+- no revierte modificaciones porque esta fase solo crea paths nuevos;
+- no activa ni archiva dominios operativos;
+- no borra nada que no este declarado en `created_paths`.
 
 ## Validacion post materializacion
 

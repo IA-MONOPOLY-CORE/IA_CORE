@@ -333,6 +333,27 @@ Seguridad:
 - `materialized` sigue sin ser `active`;
 - rollback real queda preparado por manifest, pero no se ejecuta todavia.
 
+## 4.8 Rollback y limpieza segura de sandbox
+
+El rollback de materializacion sandbox vive en `core/domain_materialization_rollback.py`.
+
+Criterio de cierre:
+
+Una materializacion sandbox no esta completa si no puede revertirse de forma segura.
+
+El rollback:
+
+- lee `materialization_manifest.json`;
+- valida que sea manifest sandbox;
+- valida que todos los paths esten dentro de la raiz sandbox permitida;
+- bloquea cualquier path hacia `C:\IA_CORE\domains`;
+- elimina solo lo declarado en `created_paths`;
+- conserva trazabilidad en `<sandbox_root>/_rollback_records/`;
+- tolera ejecucion repetida sin romper;
+- no activa, registra ni toca dominios legacy.
+
+La limpieza segura deja el sandbox sin estructura fantasma y mantiene evidencia suficiente para auditoria. Backups y rollback de modificaciones quedan para fases posteriores si la materializacion llega a modificar artefactos existentes.
+
 ## 5. Alcance del libro
 
 Este libro cubre solo backend interno:
