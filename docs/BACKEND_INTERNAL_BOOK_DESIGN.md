@@ -128,6 +128,7 @@ Artefactos operativos reales detectados o previstos:
 - `materialized_domain`: implementado para sandbox controlado, no dominio operativo.
 - `materialized_profile_catalog`: implementado bajo sandbox en `profile_catalog/profile_catalog.json`, registrado en `artifact_manifest.json`.
 - `materialized_agent_presets`: implementado bajo sandbox en `agent_presets/agent_presets.json`, dependiente de `profile_catalog_main`.
+- `materialized_paper_seed`: implementado bajo sandbox en `paper_seed/paper_seed.json`, dependiente de `profile_catalog_main` y `agent_presets_main`.
 - `materialized_paper`: previsto para Fase 3 bajo `domains/<sandbox>/agents/papers/`; no se crea en Fase 0.
 - `materialized_agent`: previsto para Fase 4 bajo `domains/<sandbox>/agents/config/`; no se crea en Fase 0.
 - `materialized_team`: previsto para Fase 5 mediante manifest de equipo; no existe todavia.
@@ -484,6 +485,35 @@ Reglas:
 - no modifica catalogos globales.
 
 El detalle operativo queda documentado en `docs/AGENT_PRESET_SANDBOX_MATERIALIZATION.md`.
+
+## 4.13 Materializacion de paper_seed sandbox
+
+El tercer artefacto interno materializable es `paper_seed`.
+
+Contrato implementado:
+
+- servicio: `core/paper_seed_materializer.py`;
+- fuente: `paper_seed` embebido en cada preset materializado;
+- archivo de artefacto: `<sandbox>/<domain_id>/paper_seed/paper_seed.json`;
+- manifest de artefactos: `<sandbox>/<domain_id>/manifests/artifact_manifest.json`;
+- `artifact_id`: `paper_seed_main`;
+- `artifact_type`: `paper_seed`;
+- dependencias: `profile_catalog_main`, `agent_presets_main`;
+- estado inicial: `materialized`;
+- estado operativo: no activo, no PASSED.
+
+Reglas:
+
+- requiere `profile_catalog` y `agent_presets` ya materializados;
+- bloquea duplicados salvo `regenerate=True`;
+- la regeneracion incrementa version y conserva historial;
+- cada seed conserva referencia a perfil y preset;
+- el rollback parcial elimina `paper_seed` sin eliminar `profile_catalog` ni `agent_presets`;
+- no crea papers operativos, agentes ni equipos;
+- no escribe en `domains/` operativo;
+- no modifica papers globales.
+
+El detalle operativo queda documentado en `docs/PAPER_SEED_SANDBOX_MATERIALIZATION.md`.
 
 ## 5. Alcance del libro
 
