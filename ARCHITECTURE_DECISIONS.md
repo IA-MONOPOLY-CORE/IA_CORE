@@ -998,3 +998,26 @@ La Fase 1 introduce dominio sandbox real, pero antes de materializar cualquier c
 - La futura materializacion no puede escribir carpetas o archivos sueltos sin manifest validable.
 - La UI y servicios internos deberan consumir dominios sandbox mediante estructuras validadas.
 - Rollback, preview y revision humana quedan presentes desde el primer contrato de sandbox, aunque su ejecucion real llegue en prompts posteriores.
+
+---
+
+## ADR-039 - Materializacion sandbox solo mediante servicio controlado
+
+**Estado**: Aceptado
+
+**Prompt**: 1.1 - Materializacion controlada de dominio sandbox
+
+**Contexto**:
+Una vez definido el schema de dominio sandbox, IA_CORE necesita una forma unica y testeable de transformar ese contrato en archivos reales de sandbox. Es necesario evitar escrituras directas, sobrescrituras, duplicados, dominios legacy reactivados y estados activos prematuros.
+
+**Decision**:
+- La materializacion sandbox debe pasar por `core/domain_materializer.py`.
+- El materializador valida schema antes de escribir, genera `materialization_id`, crea `domain.json` y `materialization_manifest.json`, registra paths creados y ejecuta validacion post materializacion.
+- El destino no puede ser `domains/` operativo.
+- La materializacion queda en `materialized`; no activa dominios ni registra dominios operativos.
+- Rollback real queda diferido, pero su manifest debe existir desde la materializacion.
+
+**Consecuencias**:
+- Ningun flujo futuro deberia crear sandboxes escribiendo archivos sueltos.
+- Tests y servicios deben usar raices temporales o controladas.
+- La activacion PASSED queda reservada para fases posteriores.

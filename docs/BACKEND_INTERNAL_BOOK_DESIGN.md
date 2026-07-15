@@ -289,6 +289,50 @@ Conexion con UI futura:
 - La UI futura debera consumir manifests validados por backend y mostrar errores accionables.
 - `materialized` no es igual a `active`: `materialized` es existencia trazada; `active` exige PASSED posterior.
 
+## 4.7 Materializacion sandbox controlada
+
+La primera capa de materializacion sandbox vive en `core/domain_materializer.py` y se documenta en `docs/SANDBOX_MATERIALIZATION_FLOW.md`.
+
+Flujo:
+
+1. recibir un `domain_schema` validado por `core/sandbox_domain_schema.py`;
+2. validar unicidad/equivalencias contra dominios reales e internos;
+3. validar que el destino no sea `domains/` operativo;
+4. generar `materialization_id`;
+5. crear `<sandbox_root>/<domain_id>/domain.json`;
+6. crear `<sandbox_root>/<domain_id>/materialization_manifest.json`;
+7. registrar `rollback_manifest.created_paths`;
+8. ejecutar validacion post materializacion.
+
+Entradas:
+
+- schema sandbox valido;
+- raiz sandbox temporal o controlada;
+- metadata opcional de ejecucion.
+
+Salidas:
+
+- `domain.json` sandbox materializado;
+- `materialization_manifest.json`;
+- resultado de validacion post-creacion.
+
+Limites:
+
+- no escribe en `C:\IA_CORE\domains`;
+- no activa dominios;
+- no registra dominios operativos;
+- no crea `profile_catalog.json`;
+- no crea `agent_presets.json`;
+- no crea agentes, papers ni equipos.
+
+Seguridad:
+
+- toda escritura pasa por el materializador;
+- se bloquea sobrescritura accidental;
+- se bloquean duplicados y equivalentes legacy;
+- `materialized` sigue sin ser `active`;
+- rollback real queda preparado por manifest, pero no se ejecuta todavia.
+
 ## 5. Alcance del libro
 
 Este libro cubre solo backend interno:
