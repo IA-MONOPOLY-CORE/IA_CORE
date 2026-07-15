@@ -1067,3 +1067,26 @@ IA_CORE ya cuenta con preview, schema, materializacion y rollback sandbox. Falta
 - Un sandbox no se considera sano si no puede repetirse y limpiarse.
 - Los prompts posteriores deben apoyarse en este ciclo antes de crear artefactos reales como catalogos, presets, papers o agentes.
 - La trazabilidad del ciclo queda como base para auditoria y UI futura.
+
+---
+
+## ADR-042 - Todo artefacto interno sandbox debe tener manifest y trazabilidad
+
+**Estado**: Aceptado
+
+**Prompt**: 1.4.1 - Contrato de artifact_manifest para sandbox
+
+**Contexto**:
+La auditoria de preparacion sandbox detecto que el dominio y su ciclo estan listos, pero los artefactos internos futuros necesitan lineage propio para no convertirse en archivos sueltos sin dependencias ni rollback.
+
+**Decision**:
+- Todo artefacto interno sandbox debe registrarse en `artifact_manifest.json`.
+- El contrato se valida mediante `core/artifact_manifest_schema.py`.
+- Cada artefacto debe declarar `artifact_id`, `artifact_type`, `version`, `status`, `created_from`, `created_by`, `dependencies` y `rollback_info`.
+- Los estados de artefacto reutilizan `core/artifact_state.py`.
+- Las dependencias deben apuntar a otros `artifact_id` existentes dentro del mismo manifest.
+
+**Consecuencias**:
+- Fase 2 no debe materializar `profile_catalog` ni `agent_presets` como archivos sueltos.
+- Rollback parcial queda preparado por contrato, aunque no se implemente todavia.
+- Papers, agentes, equipos y memoria deberan entrar al sandbox con la misma disciplina de manifest.

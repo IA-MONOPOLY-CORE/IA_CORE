@@ -382,6 +382,52 @@ Reglas:
 
 El ciclo permite repetir operaciones sin dominios fantasma: si existe una materializacion previa, la regeneracion ejecuta rollback controlado antes de recrear el sandbox desde origen valido.
 
+## 4.10 Contrato de artefactos internos sandbox
+
+El contrato de artefactos internos vive en `core/artifact_manifest_schema.py` y se documenta en `docs/ARTIFACT_MANIFEST_DESIGN.md`.
+
+Objetivo:
+
+- inventariar artefactos internos del sandbox;
+- registrar lineage;
+- representar dependencias;
+- preparar rollback por artefacto;
+- mantener estados con `core/artifact_state.py`.
+
+Manifest minimo:
+
+```txt
+artifact_manifest.json
+  artifact_manifest_version
+  domain_id
+  artifacts[]
+```
+
+Tipos preparados:
+
+- `profile_catalog`
+- `agent_preset`
+- `paper_seed`
+- `agent`
+- `team`
+- `memory`
+- `model_recommendation`
+
+Cada artefacto debe declarar:
+
+- `artifact_id`;
+- `artifact_type`;
+- `version`;
+- `status`;
+- `created_from`;
+- `created_by`;
+- `dependencies`;
+- `rollback_info`.
+
+Regla:
+
+Fase 2 no debe escribir `profile_catalog` ni `agent_presets` como archivos sueltos. Debe registrarlos en `artifact_manifest.json` y validar dependencias antes de considerarlos materializados.
+
 ## 5. Alcance del libro
 
 Este libro cubre solo backend interno:
