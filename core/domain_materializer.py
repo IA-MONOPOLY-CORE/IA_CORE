@@ -26,6 +26,9 @@ def materialize_sandbox_domain(
     *,
     sandbox_root: str | Path,
     execution_metadata: dict[str, Any] | None = None,
+    previous_materialization_id: str | None = None,
+    generation_number: int = 1,
+    lifecycle_history: list[dict[str, Any]] | None = None,
 ) -> dict[str, Any]:
     """Materializa un dominio sandbox en una raiz temporal/controlada."""
     root = _safe_sandbox_root(sandbox_root)
@@ -61,9 +64,12 @@ def materialize_sandbox_domain(
     manifest = _build_manifest(
         domain_payload,
         materialization_id=materialization_id,
+        previous_materialization_id=previous_materialization_id,
+        generation_number=generation_number,
         materialized_at=materialized_at,
         domain_dir=domain_dir,
         execution_metadata=execution_metadata or {},
+        lifecycle_history=lifecycle_history or [],
     )
 
     domain_dir.mkdir(parents=True, exist_ok=False)
@@ -226,14 +232,29 @@ def _build_manifest(
     domain: dict[str, Any],
     *,
     materialization_id: str,
+    previous_materialization_id: str | None,
+    generation_number: int,
     materialized_at: str,
     domain_dir: Path,
     execution_metadata: dict[str, Any],
+    lifecycle_history: list[dict[str, Any]],
 ) -> dict[str, Any]:
     created_paths = list(domain["rollback_manifest"]["created_paths"])
+    history = [
+        *deepcopy(lifecycle_history),
+        {
+            "event": "materialized",
+            "materialization_id": materialization_id,
+            "previous_materialization_id": previous_materialization_id,
+            "generation_number": generation_number,
+            "at": materialized_at,
+        },
+    ]
     return {
         "schema_version": MATERIALIZATION_SCHEMA_VERSION,
         "materialization_id": materialization_id,
+        "previous_materialization_id": previous_materialization_id,
+        "generation_number": generation_number,
         "domain_id": domain["domain_id"],
         "domain_type": domain["domain_type"],
         "status": domain["status"],
@@ -245,6 +266,7 @@ def _build_manifest(
         "backup_paths": list(domain["rollback_manifest"]["backup_paths"]),
         "rollback_manifest": deepcopy(domain["rollback_manifest"]),
         "execution_metadata": deepcopy(execution_metadata),
+        "lifecycle_history": history,
         "post_validation": {
             "required": True,
             "passed": False,

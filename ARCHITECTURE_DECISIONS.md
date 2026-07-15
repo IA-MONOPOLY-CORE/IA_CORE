@@ -1044,3 +1044,26 @@ La materializacion sandbox ya crea `domain.json` y `materialization_manifest.jso
 - Una materializacion sandbox no se considera completa si no puede revertirse de forma segura.
 - Los tests ida/vuelta deben probar materializacion, rollback, limpieza e idempotencia.
 - Rollback de modificaciones o backups reales queda diferido hasta que una fase futura cree artefactos modificables.
+
+---
+
+## ADR-041 - Todo sandbox debe tener ciclo reversible y regenerable
+
+**Estado**: Aceptado
+
+**Prompt**: 1.3 - Validacion completa del ciclo sandbox y regeneracion segura
+
+**Contexto**:
+IA_CORE ya cuenta con preview, schema, materializacion y rollback sandbox. Faltaba validar que esas piezas funcionen como ciclo repetible: materializar, validar, regenerar y revertir sin residuos ni duplicados.
+
+**Decision**:
+- Todo ciclo sandbox debe poder validarse end-to-end mediante `core/sandbox_lifecycle_validation.py`.
+- La regeneracion debe ejecutar rollback controlado antes de recrear.
+- Cada regeneracion debe generar un nuevo `materialization_id`, incrementar `generation_number` y conservar `previous_materialization_id`.
+- El historial debe conservar eventos de materializacion y rollback.
+- El ciclo no puede activar dominios ni tocar `domains/` operativo.
+
+**Consecuencias**:
+- Un sandbox no se considera sano si no puede repetirse y limpiarse.
+- Los prompts posteriores deben apoyarse en este ciclo antes de crear artefactos reales como catalogos, presets, papers o agentes.
+- La trazabilidad del ciclo queda como base para auditoria y UI futura.

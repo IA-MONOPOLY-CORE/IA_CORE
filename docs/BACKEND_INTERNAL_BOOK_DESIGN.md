@@ -354,6 +354,34 @@ El rollback:
 
 La limpieza segura deja el sandbox sin estructura fantasma y mantiene evidencia suficiente para auditoria. Backups y rollback de modificaciones quedan para fases posteriores si la materializacion llega a modificar artefactos existentes.
 
+## 4.9 Ciclo de vida sandbox completo
+
+El ciclo completo vive en `core/sandbox_lifecycle_validation.py` y se documenta en `docs/SANDBOX_LIFECYCLE.md`.
+
+Secuencia validada:
+
+1. preview valido;
+2. schema sandbox valido;
+3. materializacion controlada;
+4. validacion post materializacion;
+5. regeneracion segura;
+6. rollback;
+7. estado limpio.
+
+Reglas:
+
+- el `source_request` del schema debe ser trazable al preview;
+- cada materializacion genera `materialization_id`;
+- cada regeneracion incrementa `generation_number`;
+- cada regeneracion conserva `previous_materialization_id`;
+- `lifecycle_history` conserva materializaciones y rollbacks;
+- no se sobrescribe silenciosamente;
+- no se crea estado `active`;
+- no se toca `domains/` operativo;
+- no se toca legacy.
+
+El ciclo permite repetir operaciones sin dominios fantasma: si existe una materializacion previa, la regeneracion ejecuta rollback controlado antes de recrear el sandbox desde origen valido.
+
 ## 5. Alcance del libro
 
 Este libro cubre solo backend interno:
