@@ -592,6 +592,35 @@ Reglas:
 
 Esta capa crea identidad y configuracion sandbox, no operacion real.
 
+## 4.17 Checkpoint extremo de confiabilidad y usabilidad sandbox
+
+PROMPT 2.4.1 valida la cadena sandbox desde minimo controlado hasta stress maximo actual controlado.
+
+Entregables:
+
+- tests: `tests/test_sandbox_chain_checkpoint.py`;
+- tests: `tests/test_sandbox_chain_maximum_checkpoint.py`;
+- reporte: `docs/SANDBOX_CHAIN_RELIABILITY_CHECKPOINT.md`.
+
+Resultado:
+
+- minimo controlado: `PASSED`;
+- biblioteca detectada: 30 areas, 200 nichos, 106 perfiles, 20 roles, 80 especializaciones;
+- stress ejecutado: 12 dominios reales, 295 perfiles, 295 presets, 295 paper_seed, 295 agentes sandbox;
+- rollback selectivo: `PASSED`;
+- rollback total: `PASSED`;
+- runtime boundary: `PASSED`;
+- legacy isolation: `PASSED`;
+- maximo completo 200/200: `PARTIAL`.
+
+Estado antes de PROMPT 2.5:
+
+```txt
+subprompt de refuerzo antes de 2.5
+```
+
+Refuerzo recomendado: benchmark largo y metricas persistentes de escala sandbox 200/200 antes de avanzar a memoria, herramientas, equipos, activacion o runtime.
+
 ## 5. Alcance del libro
 
 Este libro cubre solo backend interno:

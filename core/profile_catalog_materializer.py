@@ -167,6 +167,50 @@ def validate_materialized_profile_catalog(domain_dir: str | Path) -> dict[str, A
     }
 
 
+def rollback_profile_catalog(domain_dir: str | Path) -> dict[str, Any]:
+    """Elimina solo profile_catalog cuando no quedan artefactos dependientes."""
+    target = Path(domain_dir).resolve()
+    _reject_operational_domains_path(target)
+    validation = validate_materialized_sandbox_domain(target)
+    manifest_path = _safe_child(target, ARTIFACT_MANIFEST_RELATIVE_PATH)
+    artifact_manifest = validate_artifact_manifest_file(manifest_path)
+    index = _find_profile_catalog_index(artifact_manifest)
+    if index is None:
+        raise FileNotFoundError("No hay profile_catalog para rollback")
+    artifact = artifact_manifest["artifacts"][index]
+    _ensure_no_dependents(artifact_manifest, artifact["artifact_id"])
+
+    removable_paths = _profile_catalog_paths(target, artifact["rollback_info"]["created_paths"])
+    deleted_paths: list[str] = []
+    already_missing: list[str] = []
+    for path in sorted(removable_paths, key=lambda item: len(item.parts), reverse=True):
+        if not path.exists():
+            already_missing.append(str(path))
+            continue
+        if path.is_dir():
+            shutil.rmtree(path)
+        else:
+            path.unlink()
+        deleted_paths.append(str(path))
+
+    artifact_manifest["artifacts"].pop(index)
+    artifact_manifest = validate_artifact_manifest(artifact_manifest)
+    manifest_path.write_text(
+        json.dumps(artifact_manifest, indent=2, ensure_ascii=False) + "\n",
+        encoding="utf-8",
+    )
+    _remove_paths_from_materialization_manifest(target, [str(path) for path in removable_paths])
+    return {
+        "success": True,
+        "status": "rolled_back",
+        "domain_id": validation["domain"]["domain_id"],
+        "artifact_id": PROFILE_CATALOG_ARTIFACT_ID,
+        "deleted_paths": deleted_paths,
+        "already_missing": already_missing,
+        "artifact_manifest": artifact_manifest,
+    }
+
+
 def _build_profile_catalog(domain: dict[str, Any]) -> dict[str, Any]:
     request = dict(domain.get("source_request") or {})
     area_id = request.get("area_id")
@@ -330,6 +374,42 @@ def _extend_materialization_manifest(
     return updated
 
 
+def _remove_paths_from_materialization_manifest(domain_dir: Path, removed_paths: list[str]) -> None:
+    manifest_path = _safe_child(domain_dir, Path("materialization_manifest.json"))
+    if not manifest_path.exists():
+        return
+    data = json.loads(manifest_path.read_text(encoding="utf-8"))
+    removed = set(removed_paths)
+    data["created_paths"] = [path for path in data.get("created_paths", []) if path not in removed]
+    rollback = data.get("rollback_manifest", {})
+    rollback["created_paths"] = [
+        path for path in rollback.get("created_paths", []) if path not in removed
+    ]
+    data["rollback_manifest"] = rollback
+    manifest_path.write_text(json.dumps(data, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+
+
+def _ensure_no_dependents(manifest: dict[str, Any], artifact_id: str) -> None:
+    dependents = [
+        artifact["artifact_id"]
+        for artifact in manifest.get("artifacts", [])
+        if artifact["artifact_id"] != artifact_id and artifact_id in artifact.get("dependencies", [])
+    ]
+    if dependents:
+        raise ValueError(f"No se puede remover profile_catalog; tiene dependientes: {dependents}")
+
+
+def _profile_catalog_paths(domain_dir: Path, raw_paths: list[str]) -> list[Path]:
+    paths: list[Path] = []
+    profile_root = _safe_child(domain_dir, Path("profile_catalog"))
+    for raw_path in raw_paths:
+        path = Path(str(raw_path)).resolve()
+        if path == profile_root or profile_root in path.parents:
+            _safe_child(domain_dir, path.relative_to(domain_dir))
+            paths.append(path)
+    return _dedupe_paths(paths)
+
+
 def _next_patch_version(version: str) -> str:
     parts = version.split(".")
     if len(parts) != 3 or not all(part.isdigit() for part in parts):
@@ -353,6 +433,10 @@ def _reject_operational_domains_path(path: Path) -> None:
 
 
 def _dedupe(paths: list[str]) -> list[str]:
+    return list(dict.fromkeys(paths))
+
+
+def _dedupe_paths(paths: list[Path]) -> list[Path]:
     return list(dict.fromkeys(paths))
 
 

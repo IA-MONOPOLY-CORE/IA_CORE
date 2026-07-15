@@ -229,6 +229,10 @@ def rollback_sandbox_agent(domain_dir: str | Path, *, agent_id: str) -> dict[str
         else:
             path.unlink()
         deleted_paths.append(str(path))
+    agent_root = _safe_child(target, SANDBOX_AGENTS_DIR)
+    if agent_root.exists() and not any(agent_root.iterdir()):
+        agent_root.rmdir()
+        deleted_paths.append(str(agent_root))
 
     artifact_manifest["artifacts"].pop(index)
     artifact_manifest = validate_artifact_manifest(artifact_manifest)
@@ -462,7 +466,9 @@ def _agent_paths(domain_dir: Path, raw_paths: list[str], agent_id: str) -> list[
     agent_file = _safe_child(domain_dir, SANDBOX_AGENTS_DIR / f"{agent_id}.json")
     for raw_path in raw_paths:
         path = Path(str(raw_path)).resolve()
-        if path == agent_file or path == agent_root or agent_root in path.parents:
+        if path == agent_file or (
+            agent_root in path.parents and path.name.startswith(f"{agent_id}_")
+        ):
             _safe_child(domain_dir, path.relative_to(domain_dir))
             paths.append(path)
     return _dedupe_paths(paths)
