@@ -540,6 +540,30 @@ Reglas:
 
 El agente sandbox se entiende como activo trazable compuesto por identidad, rol, especializacion, modelo recomendado, conocimiento asociado y ciclo de vida.
 
+## 4.15 Lineage de agentes sandbox
+
+Antes de crear agentes sandbox reales, el sistema define lineage evolutivo de agente.
+
+Contrato implementado:
+
+- schema: `core/agent_lineage_schema.py`;
+- documentacion: `docs/AGENT_LINEAGE_DESIGN.md`;
+- entidad: `agent_lineage`;
+- cadena: `profile_catalog_main -> agent_presets_main -> paper_seed_main -> agent_identity -> agent`;
+- estrategia de identidad: `agent_id` estable para regeneraciones y actualizaciones; reemplazos trazados con `replaced_by`;
+- historial: eventos versionados en `history`;
+- compatibilidad: metadata embebible en `artifact_manifest.created_from.lineage`.
+
+Reglas:
+
+- lineage no crea agentes;
+- no escribe configs en `agents/`;
+- no crea memoria operativa;
+- no duplica dependencias del `artifact_manifest`;
+- conserva origen, version actual, artefactos relacionados, reemplazos e historial.
+
+La memoria futura debe ser artefacto separado si se vuelve persistente, compartida, vectorial o asociada a herramientas con estado.
+
 ## 5. Alcance del libro
 
 Este libro cubre solo backend interno:
