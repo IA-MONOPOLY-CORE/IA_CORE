@@ -428,6 +428,34 @@ Regla:
 
 Fase 2 no debe escribir `profile_catalog` ni `agent_presets` como archivos sueltos. Debe registrarlos en `artifact_manifest.json` y validar dependencias antes de considerarlos materializados.
 
+## 4.11 Materializacion de profile_catalog sandbox
+
+El primer artefacto interno materializable es `profile_catalog`.
+
+Contrato implementado:
+
+- servicio: `core/profile_catalog_materializer.py`;
+- generador fuente: `core.professional_profile_catalog_generator.generate_profile_catalog_for_domain`;
+- archivo de artefacto: `<sandbox>/<domain_id>/profile_catalog/profile_catalog.json`;
+- manifest de artefactos: `<sandbox>/<domain_id>/manifests/artifact_manifest.json`;
+- `artifact_id`: `profile_catalog_main`;
+- `artifact_type`: `profile_catalog`;
+- estado inicial: `materialized`;
+- estado operativo: no activo, no PASSED.
+
+Reglas:
+
+- requiere dominio sandbox ya materializado;
+- requiere `materialization_manifest.json`;
+- bloquea duplicados salvo `regenerate=True`;
+- la regeneracion incrementa version y conserva historial;
+- registra paths en `artifact_manifest.json` y en `materialization_manifest.json`;
+- no escribe en `domains/` operativo;
+- no modifica catalogos globales;
+- no crea `agent_presets`, papers, agentes ni equipos.
+
+El detalle operativo queda documentado en `docs/PROFILE_CATALOG_SANDBOX_MATERIALIZATION.md`.
+
 ## 5. Alcance del libro
 
 Este libro cubre solo backend interno:
@@ -496,10 +524,10 @@ Las integraciones futuras pueden quedar como direccion conceptual, no como imple
 ### Fase 2 - Materializacion de profile_catalog y presets
 
 - Objetivo: convertir derivados aprobados en `profile_catalog.json` y `agent_presets.json` sandbox reales.
-- Entregable esperado: archivos operativos sandbox validados contra catalogos globales.
-- Puede tocar: `domains/<sandbox>/profile_catalog.json`, `domains/<sandbox>/agent_presets.json`.
+- Entregable esperado: artefactos sandbox registrados en `artifact_manifest.json` y validados contra catalogos globales.
+- Puede tocar: carpeta del sandbox materializado y sus subcarpetas de artefactos.
 - No debe tocar: catalogos globales salvo bug bloqueante reportado, dominios productivos.
-- Criterio de cerrado: cada perfil usable tiene preset, trazabilidad a perfil global, policy de modelo y estado PASSED.
+- Criterio de cerrado: cada artefacto materializado tiene manifest, version, trazabilidad a perfil global y estado no activo hasta una aprobacion posterior.
 - Tests esperables: consistencia profile/preset, schemas, active_only, gaps rechazados.
 - Riesgos: copiar outputs derivados sin aprobacion; perder source ids.
 - Posibles subprompts: `PROMPT 2.0 - Materializar profile_catalog sandbox`.
