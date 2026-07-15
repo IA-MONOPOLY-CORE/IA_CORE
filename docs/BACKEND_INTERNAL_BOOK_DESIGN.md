@@ -564,6 +564,34 @@ Reglas:
 
 La memoria futura debe ser artefacto separado si se vuelve persistente, compartida, vectorial o asociada a herramientas con estado.
 
+## 4.16 Materializacion de agentes sandbox
+
+El sistema ya puede materializar una configuracion de agente dentro del sandbox sin activar ejecucion.
+
+Contrato implementado:
+
+- servicio: `core/sandbox_agent_materializer.py`;
+- documentacion: `docs/SANDBOX_AGENT_MATERIALIZATION.md`;
+- carpeta: `<sandbox>/<domain_id>/sandbox_agents/<agent_id>.json`;
+- `artifact_type`: `agent`;
+- dependencias: `profile_catalog_main`, `agent_presets_main`, `paper_seed_main`;
+- estado inicial: `materialized`;
+- runtime: deshabilitado.
+
+Reglas:
+
+- requiere `profile_catalog`, `agent_presets` y `paper_seed` materializados;
+- registra lineage;
+- registra agente en `artifact_manifest.json`;
+- bloquea duplicados salvo `regenerate=True`;
+- la regeneracion conserva `agent_id` e incrementa version;
+- rollback elimina solo el agente sandbox;
+- no escribe en `agents/` runtime;
+- no crea memoria operativa;
+- no activa agentes.
+
+Esta capa crea identidad y configuracion sandbox, no operacion real.
+
 ## 5. Alcance del libro
 
 Este libro cubre solo backend interno:
