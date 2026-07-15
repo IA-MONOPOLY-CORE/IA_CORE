@@ -515,6 +515,31 @@ Reglas:
 
 El detalle operativo queda documentado en `docs/PAPER_SEED_SANDBOX_MATERIALIZATION.md`.
 
+## 4.14 Contrato de agente sandbox
+
+Antes de materializar agentes reales, el sistema define un contrato validable de agente sandbox.
+
+Contrato implementado:
+
+- schema: `core/sandbox_agent_schema.py`;
+- documentacion: `docs/SANDBOX_AGENT_CONTRACT.md`;
+- `artifact_type` futuro: `agent`;
+- dependencias: `profile_catalog_main`, `agent_presets_main`, `paper_seed_main`;
+- estado permitido: `ready_to_materialize`, `materialized`, `archived` o `broken`;
+- estado bloqueado: `active`.
+
+Reglas:
+
+- el contrato no crea agentes;
+- no escribe configs en `agents/`;
+- no toca dominios operativos;
+- valida referencias a perfil, preset y paper seed;
+- valida rollback futuro;
+- representa compatibilidad con `artifact_manifest.json`;
+- deja memoria, herramientas, runtime y equipos para fases posteriores.
+
+El agente sandbox se entiende como activo trazable compuesto por identidad, rol, especializacion, modelo recomendado, conocimiento asociado y ciclo de vida.
+
 ## 5. Alcance del libro
 
 Este libro cubre solo backend interno:
