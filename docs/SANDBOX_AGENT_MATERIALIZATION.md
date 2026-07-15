@@ -121,6 +121,7 @@ Agente sandbox:
 - no carga modelos;
 - no crea memoria;
 - no expone herramientas;
+- solo puede declarar memoria/herramientas futuras con `declared_only=true`;
 - no se registra en loader runtime;
 - no esta `active`.
 
@@ -139,3 +140,4 @@ Agente operativo futuro:
 - El lineage funciona como historia evolutiva.
 - Core, sandbox y runtime quedan separados.
 - La memoria y herramientas siguen fuera de alcance hasta que exista un prompt especifico.
+- PROMPT 2.5 agrega contratos declarativos de memoria/herramientas sin activar runtime.

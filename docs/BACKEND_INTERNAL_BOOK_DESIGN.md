@@ -1039,3 +1039,32 @@ Resultado medido:
 Decision:
 
 IA_CORE soporta la escala full actual de la biblioteca profesional en sandbox temporal para la cadena `domain -> profile_catalog -> agent_presets -> paper_seed -> sandbox_agent`, sin activar runtime ni tocar flujos operativos. Queda listo para avanzar a PROMPT 2.5.
+
+## 27. PROMPT 2.5 - Contrato de memoria y herramientas para agentes sandbox
+
+Estado: `PASSED`.
+
+Evidencia:
+
+- memoria declarativa: `core/sandbox_agent_memory_contract.py`;
+- herramientas declarativas: `core/sandbox_agent_tool_contract.py`;
+- integracion opcional: `core/sandbox_agent_schema.py`;
+- tests: `tests/test_sandbox_agent_memory_tool_contract.py`;
+- documentacion: `docs/SANDBOX_AGENT_MEMORY_TOOL_CONTRACT.md`.
+
+Decision:
+
+Los agentes sandbox pueden declarar capacidades futuras en `capabilities.memory` y `capabilities.tools`, pero no pueden activarlas ni ejecutarlas. La fase solo permite `declared_only=true`; memoria exige `runtime_enabled=false`; herramientas exigen `runtime_enabled=false`, `execution_allowed=false` y `external_access=false`.
+
+Relaciones futuras:
+
+- memoria persistente o compartida deberia ser artefacto futuro separado si contiene estado propio, indices, aprendizaje o rollback independiente;
+- herramientas quedan como capability declarativa por ahora y deberian pasar a artefacto/policy futuro si requieren permisos, estado, auditoria o ejecucion;
+- se recomienda una `capability_policy` antes de activar memoria o herramientas reales.
+
+Limites:
+
+- no se implemento memoria real;
+- no se implementaron herramientas reales;
+- no se activo runtime;
+- no se tocaron UI, integraciones, `agents/` legacy, `domains/` operativo, catalogos globales ni papers globales.

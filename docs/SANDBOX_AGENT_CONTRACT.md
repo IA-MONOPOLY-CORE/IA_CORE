@@ -121,6 +121,30 @@ La memoria debe tratarse como artefacto separado si aparece cualquiera de estas 
 
 En ese caso, `memory` deberia registrarse como `artifact_type: memory` y depender del agente o del paper operativo segun corresponda.
 
+## Capacidades declarativas
+
+Desde PROMPT 2.5 el agente sandbox puede incluir opcionalmente:
+
+```json
+{
+  "capabilities": {
+    "memory": [],
+    "tools": []
+  }
+}
+```
+
+Estas capacidades son contratos declarativos, no runtime.
+
+Reglas:
+
+- memoria: `declared_only=true` y `runtime_enabled=false`;
+- herramientas: `declared_only=true`, `runtime_enabled=false`, `execution_allowed=false` y `external_access=false`;
+- `capabilities` puede omitirse y el agente sigue siendo valido;
+- ninguna capacidad declarativa crea memoria real, adapters, clients ni herramientas ejecutables.
+
+El contrato detallado esta en `docs/SANDBOX_AGENT_MEMORY_TOOL_CONTRACT.md`.
+
 ## Evolucion futura
 
 El contrato deja diferidos:
