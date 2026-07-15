@@ -1010,3 +1010,32 @@ Condicionantes no bloqueantes:
 - El README del repo se considera documento tecnico viejo, no brujula estrategica.
 
 No corresponde abrir `PROMPT 0.0.1` antes de cerrar este prompt.
+
+## 26. PROMPT 2.4.2 - Benchmark largo sandbox 200/200 y metricas persistentes
+
+Estado: `PASSED_FULL_200`.
+
+Evidencia:
+
+- runner: `scripts/run_sandbox_full_benchmark.py`;
+- test: `tests/test_sandbox_chain_full_benchmark.py`;
+- metricas: `docs/benchmarks/sandbox_full_200_benchmark.json`;
+- reporte: `docs/SANDBOX_FULL_200_BENCHMARK_REPORT.md`.
+
+Resultado medido:
+
+- areas detectadas: 30;
+- nichos detectados: 200;
+- combinaciones detectadas: 200;
+- dominios intentados/materializados: 200/200;
+- profile_catalogs: 200;
+- perfiles/presets/paper_seed/agentes sandbox: 3175/3175/3175/3175;
+- fallos de artifact_manifest, lineage, runtime boundary y legacy isolation: 0;
+- rollback selectivo: 65/65;
+- rollback total: 200/200;
+- regeneracion representativa: 4/4;
+- duracion total: 648.316 s.
+
+Decision:
+
+IA_CORE soporta la escala full actual de la biblioteca profesional en sandbox temporal para la cadena `domain -> profile_catalog -> agent_presets -> paper_seed -> sandbox_agent`, sin activar runtime ni tocar flujos operativos. Queda listo para avanzar a PROMPT 2.5.
