@@ -125,9 +125,9 @@ Artefactos derivados detectados hoy:
 Artefactos operativos reales detectados o previstos:
 
 - `domain_registry_entry`: `domains/*/domain.json`, cargado por `core/domain_registry.py`; puede ser visible o interno segun estado/metadata.
-- `materialized_domain`: previsto para Fase 1 bajo sandbox; no existe todavia para este libro.
-- `materialized_profile_catalog`: previsto para Fase 2 bajo `domains/<sandbox>/profile_catalog.json`; no existe todavia para este libro.
-- `materialized_agent_presets`: previsto para Fase 2 bajo `domains/<sandbox>/agent_presets.json`; no existe todavia para este libro.
+- `materialized_domain`: implementado para sandbox controlado, no dominio operativo.
+- `materialized_profile_catalog`: implementado bajo sandbox en `profile_catalog/profile_catalog.json`, registrado en `artifact_manifest.json`.
+- `materialized_agent_presets`: implementado bajo sandbox en `agent_presets/agent_presets.json`, dependiente de `profile_catalog_main`.
 - `materialized_paper`: previsto para Fase 3 bajo `domains/<sandbox>/agents/papers/`; no se crea en Fase 0.
 - `materialized_agent`: previsto para Fase 4 bajo `domains/<sandbox>/agents/config/`; no se crea en Fase 0.
 - `materialized_team`: previsto para Fase 5 mediante manifest de equipo; no existe todavia.
@@ -456,6 +456,35 @@ Reglas:
 
 El detalle operativo queda documentado en `docs/PROFILE_CATALOG_SANDBOX_MATERIALIZATION.md`.
 
+## 4.12 Materializacion de agent_presets sandbox
+
+El segundo artefacto interno materializable es `agent_presets`.
+
+Contrato implementado:
+
+- servicio: `core/agent_preset_materializer.py`;
+- generador fuente: `core.professional_agent_preset_generator.generate_agent_presets_for_profile_catalog`;
+- archivo de artefacto: `<sandbox>/<domain_id>/agent_presets/agent_presets.json`;
+- manifest de artefactos: `<sandbox>/<domain_id>/manifests/artifact_manifest.json`;
+- `artifact_id`: `agent_presets_main`;
+- `artifact_type`: `agent_preset`;
+- dependencia: `profile_catalog_main`;
+- estado inicial: `materialized`;
+- estado operativo: no activo, no PASSED.
+
+Reglas:
+
+- requiere `profile_catalog` ya materializado;
+- bloquea duplicados salvo `regenerate=True`;
+- la regeneracion incrementa version y conserva historial;
+- cada preset conserva referencia a perfil, rol, especializacion y policy de modelo;
+- el rollback parcial elimina `agent_presets` sin eliminar `profile_catalog`;
+- no crea agentes, papers ni equipos;
+- no escribe en `domains/` operativo;
+- no modifica catalogos globales.
+
+El detalle operativo queda documentado en `docs/AGENT_PRESET_SANDBOX_MATERIALIZATION.md`.
+
 ## 5. Alcance del libro
 
 Este libro cubre solo backend interno:
@@ -527,7 +556,7 @@ Las integraciones futuras pueden quedar como direccion conceptual, no como imple
 - Entregable esperado: artefactos sandbox registrados en `artifact_manifest.json` y validados contra catalogos globales.
 - Puede tocar: carpeta del sandbox materializado y sus subcarpetas de artefactos.
 - No debe tocar: catalogos globales salvo bug bloqueante reportado, dominios productivos.
-- Criterio de cerrado: cada artefacto materializado tiene manifest, version, trazabilidad a perfil global y estado no activo hasta una aprobacion posterior.
+- Criterio de cerrado: cada artefacto materializado tiene manifest, version, dependencias internas, trazabilidad a perfil global y estado no activo hasta una aprobacion posterior.
 - Tests esperables: consistencia profile/preset, schemas, active_only, gaps rechazados.
 - Riesgos: copiar outputs derivados sin aprobacion; perder source ids.
 - Posibles subprompts: `PROMPT 2.0 - Materializar profile_catalog sandbox`.
