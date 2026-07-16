@@ -1205,3 +1205,37 @@ No se agrega `artifact_type: capability_policy` en esta fase. Queda documentado 
 Recomendacion:
 
 Listo para avanzar a contrato de activacion futura, manteniendo approval workflow y audit log real fuera de esta fase.
+
+## 32. PROMPT 2.8.1 - Auditoria de estados y transiciones antes de promotion gate
+
+Estado: `PASSED_STATE_TRANSITION_AUDIT`.
+
+Evidencia:
+
+- auditoria: `docs/STATE_TRANSITION_AUDIT_BEFORE_PROMOTION_GATE.md`;
+- tests: `tests/test_state_transition_consistency.py`.
+
+Decision:
+
+Los estados actuales quedan suficientemente alineados para definir una promotion gate segura en el siguiente prompt. `active` existe como estado global en `domain_state` y `artifact_state`, pero los contratos sandbox de dominio, agente, equipo y capability policy lo bloquean como estado operativo prematuro.
+
+Mapa confirmado:
+
+- dominio general: `empty`, `draft`, `preview`, `materialized`, `active`, `archived`, `legacy`, `broken`;
+- artefacto general: `derived_preview`, `ready_to_materialize`, `materialized`, `active`, `archived`, `legacy`, `broken`;
+- capability policy: `declared`, `allowed_declared`, `blocked`, `forbidden`, `future_requires_approval`;
+- futuro no implementado: `validated`, `candidate_for_activation`.
+
+Reglas antes de promotion gate:
+
+- `materialized` no equivale a usable operativo;
+- `active` requiere puerta futura con evidencia, approval y auditoria;
+- sandbox domain/agent/team no aceptan `active`;
+- runtime, execution y external access siguen bloqueados;
+- legacy no transiciona directo a `active`;
+- broken/archived no son ejecutables;
+- capabilities de equipo no habilitan automaticamente agentes miembros.
+
+Recomendacion:
+
+Listo para `PROMPT 2.9 - promotion gate`. No hace falta subprompt previo, pero la gate no debe usar `can_activate()` como autorizacion suficiente sin evidencia adicional.
