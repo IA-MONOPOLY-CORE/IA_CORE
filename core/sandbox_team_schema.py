@@ -318,7 +318,16 @@ def _validate_declared_runtime_flags(payload: dict[str, Any], *, source: str) ->
         raise ValueError(f"{source} debe tener runtime_enabled=false")
     if payload.get("execution_enabled") is not False:
         raise ValueError(f"{source} debe tener execution_enabled=false")
-    for flag in ["enabled", "executable", "execution_allowed", "external_access", "external_call"]:
+    for flag in [
+        "enabled",
+        "execute",
+        "executable",
+        "execution_allowed",
+        "external_access",
+        "external_call",
+        "pipeline_enabled",
+        "debate_enabled",
+    ]:
         if payload.get(flag) is True:
             raise ValueError(f"{source} no puede declarar {flag}=true")
 

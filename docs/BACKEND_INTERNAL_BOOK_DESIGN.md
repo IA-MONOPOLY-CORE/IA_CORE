@@ -1095,3 +1095,42 @@ Reglas:
 Relacion arquitectonica:
 
 El equipo depende de agentes sandbox (`agent_<agent_id>`), no de presets directamente. Los presets quedan como dependencia indirecta de cada agente. Antes de runtime real se recomienda cerrar una `capability_policy` comun para agentes y equipos.
+
+## 29. PROMPT 2.7 - Materializacion de equipos sandbox
+
+Estado: `PASSED`.
+
+Evidencia:
+
+- materializador: `core/sandbox_team_materializer.py`;
+- tests: `tests/test_sandbox_team_materialization.py`;
+- documentacion: `docs/SANDBOX_TEAM_MATERIALIZATION.md`.
+
+Decision:
+
+Los equipos sandbox quedan materializados como artefactos trazables dentro del sandbox, no como runtime. El equipo agrupa agentes sandbox existentes, registra `artifact_type: team` en `artifact_manifest`, conserva dependencias base y dependencias `agent_<agent_id>`, y mantiene bloqueados runtime, ejecucion, debate real, pipelines reales, memoria real y herramientas reales.
+
+Flujo:
+
+```txt
+domain sandbox
+-> profile_catalog
+-> agent_presets
+-> paper_seed
+-> sandbox_agents
+-> sandbox_team
+```
+
+Controles:
+
+- miembros requeridos y existentes;
+- duplicados bloqueados;
+- coordinacion declarativa validada;
+- capabilities declarativas validadas;
+- rollback elimina solo el equipo y conserva agentes/dependencias;
+- regeneracion incrementa version y conserva identidad/dependencias;
+- sin escritura en `agents/`, `domains/` operativo, catalogos globales ni papers globales.
+
+Riesgo futuro:
+
+Antes de ejecutar equipos reales sigue siendo necesaria una `capability_policy` comun para agentes/equipos.
