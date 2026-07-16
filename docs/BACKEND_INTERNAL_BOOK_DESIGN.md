@@ -1289,3 +1289,30 @@ Bloqueos:
 Recomendacion:
 
 Listo para una fase futura de approval workflow y audit log. La promocion real todavia no existe y debe consumir evidencia de gate antes de mutar estados.
+
+## 34. PROMPT 2.9.1 - Checkpoint end-to-end de promotion gate sobre cadena sandbox completa
+
+Estado: `PASSED_PROMOTION_GATE_E2E`.
+
+Evidencia:
+
+- test: `tests/test_promotion_gate_end_to_end.py`;
+- reporte: `docs/PROMOTION_GATE_E2E_CHECKPOINT.md`.
+
+Decision:
+
+La promotion gate evalua una cadena sandbox completa real en `tmp_path`, desde dominio hasta equipo y capability_policy, sin mutar targets y sin activar nada. El checkpoint confirma evaluaciones para `validated` y `candidate_for_activation`, bloqueo de `active`, runtime boundary, execution boundary, external access boundary, manifest dependencies, lineage de agente y policy declarativa.
+
+Resultado:
+
+- targets evaluados: `domain`, `profile_catalog`, `agent_preset`, `paper_seed`, `agent`, `team`, `capability_policy`;
+- `requested_status=active` queda bloqueado;
+- manifest inconsistente bloquea;
+- agente sin lineage bloquea;
+- capability policy invalida bloquea;
+- snapshots de sandbox, manifest, dependencies, lineage y capabilities no cambian durante evaluaciones validas;
+- no se toca `agents/`, `domains/`, catalogos globales ni papers globales.
+
+Recomendacion:
+
+Listo para `PROMPT 2.10 - approval workflow y audit log`.
