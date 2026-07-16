@@ -1316,3 +1316,41 @@ Resultado:
 Recomendacion:
 
 Listo para `PROMPT 2.10 - approval workflow y audit log`.
+
+## 35. PROMPT 2.10 - Contrato de approval workflow y audit log para promotion gate
+
+Estado: `PASSED_APPROVAL_AUDIT_CONTRACT`.
+
+Evidencia:
+
+- approval schema: `core/approval_workflow_schema.py`;
+- audit schema: `core/audit_log_schema.py`;
+- helpers: `core/approval_workflow.py`;
+- tests: `tests/test_approval_workflow_audit_log.py`;
+- contrato: `docs/APPROVAL_WORKFLOW_AUDIT_LOG_CONTRACT.md`.
+
+Decision:
+
+Approval workflow y audit log quedan definidos como contratos no mutantes para decisiones futuras sobre resultados de promotion gate. La regla central queda:
+
+```txt
+promotion_gate passed
+!= approved
+!= promoted
+!= active
+```
+
+Controles:
+
+- approval request requiere `promotion_gate_result=passed`;
+- approval request bloquea `active`;
+- approval request requiere actor y evidencia;
+- approval decision registra decision pero no promueve;
+- self-approval queda bloqueado para decisiones aprobatorias;
+- audit event requiere actor, target, evidencia e `immutable=true`;
+- audit event bloquea `runtime_related=true` y `external_access_related=true`;
+- no se toca `domains/` operativo ni `agents/` legacy.
+
+Recomendacion:
+
+Listo para una futura fase de promotion executor controlado. La persistencia avanzada de audit log y auth real quedan como fases futuras, no implementadas aqui.
