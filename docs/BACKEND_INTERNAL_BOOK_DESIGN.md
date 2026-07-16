@@ -1161,3 +1161,47 @@ Resultado:
 Recomendacion:
 
 Listo para `capability_policy`.
+
+## 31. PROMPT 2.8 - Capability policy comun para agentes y equipos sandbox
+
+Estado: `PASSED_DECLARATIVE_POLICY`.
+
+Evidencia:
+
+- schema: `core/capability_policy_schema.py`;
+- tests: `tests/test_capability_policy_schema.py`;
+- contrato: `docs/CAPABILITY_POLICY_CONTRACT.md`.
+
+Decision:
+
+`capability_policy` queda definida como contrato declarativo comun para agentes y equipos sandbox. La policy valida sujetos (`agent`, `team`), tipos (`memory`, `tool`, `policy`), estados (`declared`, `allowed_declared`, `blocked`, `forbidden`, `future_requires_approval`) y frontera runtime sin activar permisos reales.
+
+Regla central:
+
+```txt
+declared + policy validated
+!= enabled
+!= runtime
+!= execution
+```
+
+Controles:
+
+- `runtime_enabled=false`;
+- `execution_allowed=false`;
+- `external_access=false`;
+- `declared_only=true`;
+- self-approval bloqueado;
+- auto-escalation bloqueado;
+- runtime mutation bloqueado;
+- capabilities de equipo no habilitan automaticamente agentes miembros;
+- agentes/equipos sin capabilities siguen validos;
+- policies faltantes pueden evaluarse como `missing/not_evaluated` sin romper compatibilidad.
+
+Relacion con manifest:
+
+No se agrega `artifact_type: capability_policy` en esta fase. Queda documentado como posible artefacto futuro si se implementan approval real, auditoria persistente, versionado o rollback independiente.
+
+Recomendacion:
+
+Listo para avanzar a contrato de activacion futura, manteniendo approval workflow y audit log real fuera de esta fase.

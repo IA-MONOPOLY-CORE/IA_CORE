@@ -9,6 +9,7 @@ from datetime import datetime
 from typing import Any
 
 from core.artifact_state import ArtifactState, coerce_artifact_state
+from core.capability_policy_schema import validate_team_capability_policies
 from core.sandbox_agent_memory_contract import validate_memory_contract
 from core.sandbox_agent_tool_contract import validate_tool_contract
 
@@ -32,7 +33,6 @@ REQUIRED_FIELDS = {
     "version",
     "member_agents",
     "coordination_model",
-    "capabilities",
     "dependencies",
     "rollback_info",
     "created_at",
@@ -148,7 +148,7 @@ def validate_sandbox_team_schema(team: dict[str, Any]) -> dict[str, Any]:
     _validate_version(team.get("version"))
     _validate_members(team.get("member_agents"))
     _validate_coordination_model(team.get("coordination_model"), team["member_agents"])
-    _validate_capabilities(team.get("capabilities"))
+    _validate_capabilities(team)
     expected_dependencies = [f"agent_{member['agent_id']}" for member in team["member_agents"]]
     _validate_dependencies(team.get("dependencies"), expected_dependencies)
     _validate_rollback_info(team.get("rollback_info"), expected_dependencies)
@@ -234,7 +234,10 @@ def _validate_coordination_model(model: Any, members: list[dict[str, Any]]) -> N
             raise ValueError("suggested_order solo puede referenciar miembros")
 
 
-def _validate_capabilities(capabilities: Any) -> None:
+def _validate_capabilities(team: dict[str, Any]) -> None:
+    capabilities = team.get("capabilities")
+    if capabilities is None:
+        return
     if not isinstance(capabilities, dict):
         raise ValueError("capabilities debe ser un objeto")
     if set(capabilities) - {"memory", "tools", "policies"}:
@@ -250,7 +253,9 @@ def _validate_capabilities(capabilities: Any) -> None:
     for contract in tools:
         validate_tool_contract(contract)
     for policy in policies:
-        _validate_policy(policy)
+        if not _is_capability_policy(policy):
+            _validate_policy(policy)
+    validate_team_capability_policies(team)
 
 
 def _validate_policy(policy: Any) -> None:
@@ -263,6 +268,10 @@ def _validate_policy(policy: Any) -> None:
     if policy.get("status") != "declared":
         raise ValueError("policy capability solo permite status declared")
     _validate_declared_runtime_flags(policy, source="policy capability")
+
+
+def _is_capability_policy(policy: Any) -> bool:
+    return isinstance(policy, dict) and "schema_version" in policy and "capability_id" in policy
 
 
 def _validate_dependencies(dependencies: Any, expected: list[str]) -> None:

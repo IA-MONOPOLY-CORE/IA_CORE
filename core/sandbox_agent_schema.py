@@ -14,6 +14,7 @@ from core.profile_catalog_materializer import PROFILE_CATALOG_ARTIFACT_ID
 from core.paper_seed_materializer import PAPER_SEED_ARTIFACT_ID
 from core.sandbox_agent_memory_contract import validate_memory_contract
 from core.sandbox_agent_tool_contract import validate_tool_contract
+from core.capability_policy_schema import validate_agent_capability_policies
 
 
 SANDBOX_AGENT_SCHEMA_VERSION = "1.0"
@@ -93,6 +94,7 @@ def build_sandbox_agent_schema(
         "capabilities": {
             "memory": [],
             "tools": [],
+            "policies": [],
         },
         "future_memory": {
             "own_memory_required": False,
@@ -124,7 +126,7 @@ def validate_sandbox_agent_schema(agent: dict[str, Any]) -> dict[str, Any]:
         raise ValueError("model_policy_reference requerido")
     _validate_dependencies(agent.get("dependencies"))
     _validate_rollback_info(agent.get("rollback_info"))
-    _validate_capabilities(agent.get("capabilities"))
+    _validate_capabilities(agent)
     _validate_non_empty_text(agent.get("created_at"), "created_at")
     _validate_non_empty_text(agent.get("updated_at"), "updated_at")
     _ensure_json_serializable(agent)
@@ -158,23 +160,28 @@ def sandbox_agent_to_artifact_record(agent: dict[str, Any]) -> dict[str, Any]:
     }
 
 
-def _validate_capabilities(capabilities: Any) -> None:
+def _validate_capabilities(agent: dict[str, Any]) -> None:
+    capabilities = agent.get("capabilities")
     if capabilities is None:
         return
     if not isinstance(capabilities, dict):
         raise ValueError("capabilities debe ser un objeto")
     memory = capabilities.get("memory", [])
     tools = capabilities.get("tools", [])
-    if set(capabilities) - {"memory", "tools"}:
-        raise ValueError("capabilities solo acepta memory y tools")
+    if set(capabilities) - {"memory", "tools", "policies"}:
+        raise ValueError("capabilities solo acepta memory, tools y policies")
     if not isinstance(memory, list):
         raise ValueError("capabilities.memory debe ser una lista")
     if not isinstance(tools, list):
         raise ValueError("capabilities.tools debe ser una lista")
+    policies = capabilities.get("policies", [])
+    if not isinstance(policies, list):
+        raise ValueError("capabilities.policies debe ser una lista")
     for contract in memory:
         validate_memory_contract(contract)
     for contract in tools:
         validate_tool_contract(contract)
+    validate_agent_capability_policies(agent)
 
 
 def _validate_references(agent: dict[str, Any]) -> None:
