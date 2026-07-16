@@ -1068,3 +1068,30 @@ Limites:
 - no se implementaron herramientas reales;
 - no se activo runtime;
 - no se tocaron UI, integraciones, `agents/` legacy, `domains/` operativo, catalogos globales ni papers globales.
+
+## 28. PROMPT 2.6 - Contrato de equipo sandbox antes de materializacion
+
+Estado: `PASSED`.
+
+Evidencia:
+
+- schema: `core/sandbox_team_schema.py`;
+- tests: `tests/test_sandbox_team_schema.py`;
+- documentacion: `docs/SANDBOX_TEAM_CONTRACT.md`.
+
+Decision:
+
+El equipo sandbox queda definido como contrato de coordinacion, no como ejecucion. Puede declarar miembros, objetivo, dependencias sobre agentes sandbox, coordinacion declarativa y capacidades futuras, pero no crea equipos reales, no ejecuta agentes, no activa runtime y no materializa artefactos.
+
+Reglas:
+
+- estado permitido en esta fase: `materialized` como contrato validado, no operativo;
+- `active`, `runtime_enabled=true` y `execution_enabled=true` quedan bloqueados;
+- miembros duplicados o sin responsabilidad fallan;
+- `coordination_model` declara estructura, no debate/pipeline/orquestacion real;
+- capabilities de equipo (`memory`, `tools`, `policies`) son declarativas y no ejecutables;
+- futura materializacion debera registrarse como `artifact_type: team`.
+
+Relacion arquitectonica:
+
+El equipo depende de agentes sandbox (`agent_<agent_id>`), no de presets directamente. Los presets quedan como dependencia indirecta de cada agente. Antes de runtime real se recomienda cerrar una `capability_policy` comun para agentes y equipos.
