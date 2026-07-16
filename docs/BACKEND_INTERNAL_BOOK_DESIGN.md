@@ -1134,3 +1134,30 @@ Controles:
 Riesgo futuro:
 
 Antes de ejecutar equipos reales sigue siendo necesaria una `capability_policy` comun para agentes/equipos.
+
+## 30. PROMPT 2.7.1 - Checkpoint end-to-end con equipos sandbox antes de capability_policy
+
+Estado: `PASSED_TEAM_CHAIN`.
+
+Evidencia:
+
+- test: `tests/test_sandbox_chain_with_team_checkpoint.py`;
+- reporte: `docs/SANDBOX_TEAM_CHAIN_CHECKPOINT.md`.
+
+Decision:
+
+La cadena completa `domain -> profile_catalog -> agent_presets -> paper_seed -> sandbox_agents -> sandbox_team` queda validada en sandbox temporal. El checkpoint confirma manifest consistente, lineage de agentes conservado, dependencias de team correctas, runtime boundary, legacy isolation, rollback selectivo, rollback total y regeneracion de equipo.
+
+Resultado:
+
+- `sandbox_team` registrado como `artifact_type: team`;
+- dependencias del team en manifest: `profile_catalog_main`, `agent_presets_main`, `paper_seed_main`, `agent_<agent_id>`;
+- equipo depende contractualmente de agentes sandbox;
+- rollback de equipo conserva agentes y dependencias base;
+- regeneracion conserva `team_id`, miembros y dependencias;
+- no se ejecutan agentes/equipos;
+- no se implementa `capability_policy`.
+
+Recomendacion:
+
+Listo para `capability_policy`.
