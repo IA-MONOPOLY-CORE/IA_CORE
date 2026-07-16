@@ -1239,3 +1239,53 @@ Reglas antes de promotion gate:
 Recomendacion:
 
 Listo para `PROMPT 2.9 - promotion gate`. No hace falta subprompt previo, pero la gate no debe usar `can_activate()` como autorizacion suficiente sin evidencia adicional.
+
+## 33. PROMPT 2.9 - Contrato de promotion gate sandbox
+
+Estado: `PASSED_PROMOTION_GATE_CONTRACT`.
+
+Evidencia:
+
+- schema: `core/promotion_gate_schema.py`;
+- evaluador: `core/promotion_gate.py`;
+- tests: `tests/test_promotion_gate.py`;
+- contrato: `docs/PROMOTION_GATE_CONTRACT.md`.
+
+Decision:
+
+La promotion gate queda definida como evaluador no mutante. Puede devolver `validated` o `candidate_for_activation` como resultado de evaluacion, pero no cambia estado operativo, no activa targets y no ejecuta runtime.
+
+Regla central:
+
+```txt
+materialized
+!= validated
+!= candidate_for_activation
+!= active
+```
+
+Targets soportados:
+
+- `domain`;
+- `artifact`;
+- `profile_catalog`;
+- `agent_preset`;
+- `paper_seed`;
+- `agent`;
+- `team`;
+- `capability_policy`.
+
+Bloqueos:
+
+- `requested_status=active`;
+- target `active`, `broken`, `archived` o `legacy`;
+- manifest inconsistente;
+- dependencias rotas;
+- runtime/execution/external access;
+- capability policy invalida;
+- agente sin lineage;
+- equipo con coordinacion ejecutable.
+
+Recomendacion:
+
+Listo para una fase futura de approval workflow y audit log. La promocion real todavia no existe y debe consumir evidencia de gate antes de mutar estados.
