@@ -1690,3 +1690,36 @@ Resultado:
 Recomendacion:
 
 El proximo paso seguro es disenar un contrato runtime futuro. Ese contrato debe existir antes de cualquier runtime executor, execution executor, tool adapter, memoria persistente o acceso externo.
+
+## 44. PROMPT 2.16 - Contrato runtime sin ejecucion real
+
+Estado: `RUNTIME_CONTRACT_NO_EXECUTION_DEFINED`.
+
+Evidencia:
+
+- schema: `core/runtime_contract_schema.py`;
+- evaluador: `core/runtime_contract.py`;
+- tests: `tests/test_runtime_contract.py`;
+- documento: `docs/RUNTIME_CONTRACT_NO_EXECUTION.md`.
+
+Decision:
+
+Runtime queda definido como contrato declarativo para `agent` y `team`, sin runtime real y sin ejecucion.
+
+Resultado:
+
+- `runtime_contract` evalua readiness declarativa, no habilita runtime;
+- solo `agent` y `team` son targets directos;
+- `domain`, `profile_catalog`, `agent_preset`, `paper_seed`, `capability_policy`, `tool_contract` y `memory_contract` quedan bloqueados como runtime directo;
+- unico runtime mode permitido: `declarative_runtime_contract`;
+- `runtime_ready_future`, `execution_ready_future` y `external_access_future` quedan bloqueados;
+- se exige target `active` y evidencia de `active_executor`;
+- se exigen capability policies, memory/tool contracts declarativos cuando existan, lineage/dependencies y audit evidence;
+- `runtime_allowed`, `runtime_enabled`, `execution_allowed`, `execution_enabled`, `external_access_allowed`, `external_access_enabled`, `tool_execution_allowed`, `tool_execution_enabled`, `memory_persistence_allowed` y `memory_persistence_enabled` permanecen bloqueados;
+- no se modifica `active_executor`;
+- no se crea runtime executor;
+- no se toca UI, integraciones, tools reales ni memoria persistente.
+
+Recomendacion:
+
+El proximo paso seguro es un checkpoint end-to-end del runtime contract sobre la cadena sandbox activa antes de disenar cualquier runtime executor.
