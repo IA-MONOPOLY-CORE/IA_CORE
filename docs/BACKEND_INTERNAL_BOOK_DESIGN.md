@@ -1487,3 +1487,55 @@ Bloqueadores antes de active real:
 Recomendacion:
 
 El proximo paso seguro es disenar `active contract`. Runtime contract y observability/audit persistence deben venir despues o como subfases explicitas, sin activar agentes/equipos.
+
+## 39. PROMPT 2.13 - Contrato de active sin runtime
+
+Estado: `ACTIVE_CONTRACT_NO_RUNTIME_DEFINED`.
+
+Evidencia:
+
+- schema: `core/active_contract_schema.py`;
+- evaluador: `core/active_contract.py`;
+- tests: `tests/test_active_contract.py`;
+- documento: `docs/ACTIVE_CONTRACT_NO_RUNTIME.md`.
+
+Decision:
+
+`active` queda definido como contrato interno, sin implementacion de promocion real y sin runtime.
+
+Separaciones obligatorias:
+
+```txt
+active interno != runtime enabled
+active interno != execution enabled
+active interno != external access enabled
+active interno != visible en UI
+active interno != herramientas reales
+active interno != memoria real
+```
+
+Targets soportados por contrato:
+
+- `domain`;
+- `profile_catalog`;
+- `agent_preset`;
+- `paper_seed`;
+- `agent`;
+- `team`;
+- `capability_policy`.
+
+Resultado:
+
+- solo `internal_active` queda evaluable contractualmente;
+- `runtime_active_future` y `external_active_future` quedan bloqueados;
+- el target debe estar en `candidate_for_activation`;
+- approval y audit son requeridos;
+- runtime/execution/external access deben permanecer false;
+- legacy/broken/archived quedan bloqueados;
+- manifest inconsistente, dependencies rotas, lineage invalido y capability_policy invalida bloquean;
+- `evaluate_active_contract()` evalua y no muta;
+- `promotion_executor` sigue bloqueando `active`.
+
+Recomendacion:
+
+Antes de implementar un active executor, ejecutar un checkpoint end-to-end del active contract sobre la cadena sandbox completa. Runtime, UI e integraciones siguen fuera de alcance.
