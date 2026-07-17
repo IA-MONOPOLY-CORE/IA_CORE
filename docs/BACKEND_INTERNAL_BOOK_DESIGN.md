@@ -1658,3 +1658,35 @@ Resultado:
 Recomendacion:
 
 Listo para auditar frontera runtime. Todavia no implementar runtime ni ejecucion real.
+
+## 43. PROMPT 2.15 - Auditoria de frontera runtime antes de ejecucion real
+
+Estado: `RUNTIME_READY_FOR_CONTRACT_ONLY`.
+
+Evidencia:
+
+- auditoria: `docs/RUNTIME_BOUNDARY_AUDIT.md`;
+- tests: `tests/test_runtime_boundary_audit.py`;
+- frontera active: `core/active_contract.py`;
+- executor active: `core/active_executor.py`;
+- policies/tools/memory declarativas: `core/capability_policy_schema.py`, `core/sandbox_agent_tool_contract.py`, `core/sandbox_agent_memory_contract.py`.
+
+Decision:
+
+La frontera runtime queda auditada y explicitamente bloqueada. `active` sigue siendo un estado interno, aprobado, auditable y reversible, sin ejecucion real.
+
+Resultado:
+
+- runtime se define como capa futura de preparacion o ejecucion operativa real;
+- `agent` y `team` son los targets con runtime directo futuro;
+- `domain`, `capability_policy`, `memory_contract` y `tool_contract` solo participan como contexto o guardrails;
+- `profile_catalog`, `agent_preset` y `paper_seed` no tienen runtime directo;
+- `runtime_enabled=true`, `execution_enabled=true`, `execution_allowed=true` y `external_access=true` permanecen bloqueados;
+- `runtime_active_future` y `external_active_future` siguen bloqueados;
+- `promotion_executor` sigue bloqueando `requested_status=active`;
+- memoria y herramientas siguen siendo declarativas;
+- no se implementa runtime executor, no se ejecutan agentes/equipos, no se crean adapters, no se habilita UI ni integraciones.
+
+Recomendacion:
+
+El proximo paso seguro es disenar un contrato runtime futuro. Ese contrato debe existir antes de cualquier runtime executor, execution executor, tool adapter, memoria persistente o acceso externo.
