@@ -1763,3 +1763,34 @@ Resultado:
 Recomendacion:
 
 Listo para decidir el proximo bloque interno: runtime executor futuro, observability/audit persistence o execution contract. No implementar runtime executor sin una decision explicita de fase.
+
+## 46. PROMPT 2.17 - Contrato de observability y audit persistence antes de runtime executor
+
+Estado: `OBSERVABILITY_AUDIT_PERSISTENCE_CONTRACT_DEFINED`.
+
+Evidencia:
+
+- schema observability: `core/observability_schema.py`;
+- schema audit persistence: `core/audit_persistence_schema.py`;
+- helpers: `core/observability.py`;
+- tests: `tests/test_observability_audit_persistence.py`;
+- documento: `docs/OBSERVABILITY_AUDIT_PERSISTENCE_CONTRACT.md`.
+
+Decision:
+
+Observability y audit persistence quedan definidos como contrato previo a runtime executor, sin runtime, sin ejecucion, sin tools reales, sin memoria real y sin UI.
+
+Resultado:
+
+- se definen eventos minimos de gate, approval, promotion, active, runtime_contract, boundary violation, snapshots y rollback;
+- cada evento exige correlation, target/domain/operation, evidence refs, mutation scope, flags runtime/execution/external/tools-memory e immutability;
+- se define correlation policy para evitar evidencia cruzada entre target, dominio, operacion, status o contrato;
+- se define snapshot policy con before/after/diff/rollback/checksum;
+- se define audit store contract con `write_mode=append_only`, `append_only=true` e `immutable_records=true`;
+- se definen metricas minimas de eventos, bloqueos, exitos, rollbacks, boundary violations, mutation violations y evidencia faltante;
+- helpers validan eventos, correlacion, refs y resumen de metricas sin mutar targets;
+- no se implementa runtime executor ni persistent event log real.
+
+Recomendacion:
+
+El proximo paso seguro es un checkpoint end-to-end de observability/audit persistence sobre la cadena sandbox activa antes de cualquier runtime executor.
