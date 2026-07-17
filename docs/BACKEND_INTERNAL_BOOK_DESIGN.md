@@ -1396,3 +1396,47 @@ Controles:
 Recomendacion:
 
 Hace falta un checkpoint E2E posterior del executor antes de considerar cualquier fase de active promotion.
+
+## 37. PROMPT 2.11.1 - Checkpoint end-to-end de promotion executor sobre cadena sandbox completa
+
+Estado: `PASSED_PROMOTION_EXECUTOR_E2E`.
+
+Evidencia:
+
+- test: `tests/test_promotion_executor_end_to_end.py`;
+- reporte: `docs/PROMOTION_EXECUTOR_E2E_CHECKPOINT.md`;
+- executor: `core/promotion_executor.py`;
+- schema: `core/promotion_executor_schema.py`.
+
+Decision:
+
+El promotion executor fue validado end-to-end sobre una cadena sandbox completa materializada en `tmp_path`:
+
+```txt
+domain -> profile_catalog -> agent_presets -> paper_seed -> sandbox_agents -> sandbox_team -> capability_policy
+```
+
+El flujo probado fue:
+
+```txt
+promotion_gate -> approval_request -> approval_decision -> audit_event -> dry_run -> execute -> rollback
+```
+
+Resultado:
+
+- targets probados: `domain`, `profile_catalog`, `agent_preset`, `paper_seed`, `agent`, `team`, `capability_policy`;
+- `validated` probado para todos los targets;
+- `candidate_for_activation` probado para targets representativos: `domain`, `agent`, `team`, `capability_policy`;
+- dry-run no muta estado, manifest, dependencies, lineage ni capabilities;
+- execute muta solo estado permitido y registra audit event `promotion_executed`;
+- rollback restaura el estado previo y no borra artefactos;
+- `active` queda bloqueado;
+- approvals invalidos quedan bloqueados;
+- gates fallidos/bloqueados e inconsistencias de manifest quedan bloqueados;
+- runtime/execution/external access quedan bloqueados;
+- legacy/broken/archived quedan bloqueados;
+- no se tocan `domains/` operativo, `agents/` legacy, catalogos globales ni papers globales.
+
+Recomendacion:
+
+Listo para revisar frontera de `active` en una fase posterior separada. Esa fase no debe reutilizar este checkpoint como activacion implicita.

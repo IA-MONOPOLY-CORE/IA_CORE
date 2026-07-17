@@ -159,12 +159,18 @@ def _execute(
     blockers: list[str] = []
     warnings: list[str] = []
     evidence: dict[str, Any] = {}
-    current_status, resolved_target_id, target_path = _current_status(
-        target_type=target_type,
-        domain_dir=domain_dir,
-        target_id=target_id,
-        target=target,
-    )
+    try:
+        current_status, resolved_target_id, target_path = _current_status(
+            target_type=target_type,
+            domain_dir=domain_dir,
+            target_id=target_id,
+            target=target,
+        )
+    except Exception as exc:  # noqa: BLE001
+        current_status = "unknown"
+        resolved_target_id = target_id or (target or {}).get("policy_id") or target_type
+        target_path = None
+        blockers.append(f"current_status no resoluble: {exc}")
     gate = promotion_gate_result or evaluate_promotion_gate(
         target_type=target_type,
         requested_status=requested_status,
