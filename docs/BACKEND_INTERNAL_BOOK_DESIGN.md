@@ -1794,3 +1794,34 @@ Resultado:
 Recomendacion:
 
 El proximo paso seguro es un checkpoint end-to-end de observability/audit persistence sobre la cadena sandbox activa antes de cualquier runtime executor.
+
+## 47. PROMPT 2.17.1 - Checkpoint end-to-end de observability/audit persistence sobre cadena sandbox activa
+
+Estado: `PASSED_OBSERVABILITY_AUDIT_E2E`.
+
+Evidencia:
+
+- test: `tests/test_observability_audit_persistence_end_to_end.py`;
+- reporte: `docs/OBSERVABILITY_AUDIT_E2E_CHECKPOINT.md`;
+- helpers: `core/observability.py`;
+- schemas: `core/observability_schema.py`, `core/audit_persistence_schema.py`.
+
+Decision:
+
+Observability/audit persistence fue validado end-to-end sobre una cadena sandbox activa completa. Queda como contrato validado, no como writer append-only real.
+
+Resultado:
+
+- cadena probada: domain -> profile_catalog -> presets -> paper_seed -> agents -> team -> capability_policy -> active -> runtime_contract;
+- eventos minimos validados para gate, approval, promotion, active, runtime_contract, rollback, snapshots, mutation scope y boundary checks;
+- correlation policy detecta evidencia cruzada por target, domain, operation, requested_status/runtime_mode, contract_ref, approval_ref y audit_ref;
+- snapshot policy valida before/after/diff/rollback/checksum;
+- mutation scope policy valida `none` y `status_only`, y bloquea scopes excesivos;
+- audit store contract valida append-only, immutability, checksum y event_count;
+- metricas minimas se generan con exitos, bloqueos, rollbacks, boundary violation, invalid correlation y missing evidence;
+- runtime, execution, external access, tool execution y memory persistence siguen bloqueados;
+- no se toca UI, integraciones, `domains/`, `agents/`, catalogos globales ni papers globales.
+
+Recomendacion:
+
+Listo para integrar observability progresivamente en executors existentes. Runtime executor debe esperar una decision explicita o un checkpoint que conecte observability real a outputs de executor.

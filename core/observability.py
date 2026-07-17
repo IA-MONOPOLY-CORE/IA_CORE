@@ -84,8 +84,16 @@ def summarize_observability_events(events: list[dict[str, Any]]) -> dict[str, An
             for event in validated
             if event["event_type"] == "mutation_scope_verified" and event["result_status"] == "blocked"
         ),
-        "missing_evidence_total": sum(1 for event in validated if not event["evidence_refs"]),
-        "invalid_correlation_total": 0,
+        "missing_evidence_total": sum(
+            1
+            for event in validated
+            if not event["evidence_refs"] or any("evidence" in blocker for blocker in event["blockers"])
+        ),
+        "invalid_correlation_total": sum(
+            1
+            for event in validated
+            if any("correlation" in blocker for blocker in event["blockers"])
+        ),
         "last_event_at": max((event["timestamp"] for event in validated), default=None),
     }
 
