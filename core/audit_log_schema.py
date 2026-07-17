@@ -21,6 +21,8 @@ ALLOWED_EVENT_TYPES = {
     "future_promotion_ready",
     "promotion_executed",
     "promotion_rollback_recorded",
+    "active_executed",
+    "active_rollback_recorded",
 }
 ALLOWED_TARGET_TYPES = {
     "domain",

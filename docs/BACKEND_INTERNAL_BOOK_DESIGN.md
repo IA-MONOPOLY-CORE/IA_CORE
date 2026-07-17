@@ -1578,3 +1578,43 @@ Resultado:
 Recomendacion:
 
 Listo para disenar un active executor interno sin runtime. Ese diseno debe seguir bloqueando runtime, UI, integraciones y ejecucion real.
+
+## 41. PROMPT 2.14 - Active executor interno sin runtime
+
+Estado: `ACTIVE_EXECUTOR_NO_RUNTIME_IMPLEMENTED`.
+
+Evidencia:
+
+- schema: `core/active_executor_schema.py`;
+- executor: `core/active_executor.py`;
+- audit events: `active_executed`, `active_rollback_recorded`;
+- tests: `tests/test_active_executor.py`;
+- documento: `docs/ACTIVE_EXECUTOR_NO_RUNTIME.md`.
+
+Decision:
+
+`active_executor` queda implementado como unico modulo para aplicar:
+
+```txt
+candidate_for_activation -> active
+```
+
+La transicion es interna, auditable, reversible y sin runtime.
+
+Resultado:
+
+- `dry_run_active_execution()` evalua sin mutar;
+- `execute_active()` muta solo status a `active`;
+- `rollback_active_execution()` revierte solo status al estado anterior;
+- se exige active contract `passed`;
+- se exige approval `approved_for_activation_candidate`;
+- se exige audit evidence;
+- se bloquean runtime/execution/external access;
+- se bloquean legacy/broken/archived;
+- se bloquean manifest inconsistente, dependencies rotas, lineage invalido y capability_policy invalida;
+- `promotion_executor` sigue bloqueando `active`;
+- no se toca UI, integraciones, memoria real ni herramientas reales.
+
+Recomendacion:
+
+El proximo paso seguro es un checkpoint end-to-end del active executor sobre la cadena sandbox completa. Runtime, execution, UI e integraciones siguen fuera de alcance.
