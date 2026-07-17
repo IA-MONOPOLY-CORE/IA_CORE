@@ -1723,3 +1723,43 @@ Resultado:
 Recomendacion:
 
 El proximo paso seguro es un checkpoint end-to-end del runtime contract sobre la cadena sandbox activa antes de disenar cualquier runtime executor.
+
+## 45. PROMPT 2.16.1 - Checkpoint end-to-end del runtime contract sobre cadena sandbox activa
+
+Estado: `PASSED_RUNTIME_CONTRACT_E2E`.
+
+Evidencia:
+
+- test: `tests/test_runtime_contract_end_to_end.py`;
+- reporte: `docs/RUNTIME_CONTRACT_E2E_CHECKPOINT.md`;
+- evaluador: `core/runtime_contract.py`;
+- schema: `core/runtime_contract_schema.py`.
+
+Decision:
+
+El runtime contract fue validado end-to-end sobre una cadena sandbox completa con `agent` y `team` en `active` interno.
+
+Flujo probado:
+
+```txt
+domain -> profile_catalog -> agent_presets -> paper_seed -> sandbox_agents -> sandbox_team -> capability_policy
+promotion_gate -> approval_request -> approval_decision -> promotion_executor -> candidate_for_activation -> active_contract -> active_executor -> runtime_contract
+```
+
+Resultado:
+
+- `agent` llega a `active` interno;
+- `team` llega a `active` interno;
+- `runtime_contract` pasa para `agent` y `team` con `declarative_runtime_contract`;
+- targets no active bloquean;
+- runtime modes futuros bloquean;
+- runtime/execution/external/tools/memory flags true bloquean;
+- evidencia faltante, capability policy faltante/invalida, memory/tool invalidos, lineage invalido y dependencies rotas bloquean;
+- targets sin runtime directo bloquean;
+- runtime contract no muta estado, manifest, lineage, dependencies ni capabilities;
+- no se habilita runtime, execution, external access, tool execution ni memory persistence;
+- no se toca UI, integraciones, `domains/`, `agents/`, catalogos globales ni papers globales.
+
+Recomendacion:
+
+Listo para decidir el proximo bloque interno: runtime executor futuro, observability/audit persistence o execution contract. No implementar runtime executor sin una decision explicita de fase.
