@@ -9,6 +9,8 @@ class ArtifactState(StrEnum):
     DERIVED_PREVIEW = "derived_preview"
     READY_TO_MATERIALIZE = "ready_to_materialize"
     MATERIALIZED = "materialized"
+    VALIDATED = "validated"
+    CANDIDATE_FOR_ACTIVATION = "candidate_for_activation"
     ACTIVE = "active"
     ARCHIVED = "archived"
     LEGACY = "legacy"
@@ -27,6 +29,12 @@ STATE_DESCRIPTIONS: dict[ArtifactState, str] = {
     ArtifactState.MATERIALIZED: (
         "Artefacto escrito en filesystem o registry sandbox con manifest o "
         "trazabilidad minima. No necesariamente activo."
+    ),
+    ArtifactState.VALIDATED: (
+        "Artefacto materializado que paso validaciones declarativas. No es activo."
+    ),
+    ArtifactState.CANDIDATE_FOR_ACTIVATION: (
+        "Artefacto validado y aprobado como candidato futuro. No es activo."
     ),
     ArtifactState.ACTIVE: (
         "Artefacto operativo PASSED, usable por el backend o flujo correspondiente."
@@ -52,7 +60,18 @@ VALID_TRANSITIONS: dict[ArtifactState, set[ArtifactState]] = {
         ArtifactState.BROKEN,
     },
     ArtifactState.MATERIALIZED: {
+        ArtifactState.VALIDATED,
+        ArtifactState.CANDIDATE_FOR_ACTIVATION,
         ArtifactState.ACTIVE,
+        ArtifactState.ARCHIVED,
+        ArtifactState.BROKEN,
+    },
+    ArtifactState.VALIDATED: {
+        ArtifactState.CANDIDATE_FOR_ACTIVATION,
+        ArtifactState.ARCHIVED,
+        ArtifactState.BROKEN,
+    },
+    ArtifactState.CANDIDATE_FOR_ACTIVATION: {
         ArtifactState.ARCHIVED,
         ArtifactState.BROKEN,
     },
@@ -91,6 +110,8 @@ def is_derived(state: ArtifactState | str) -> bool:
 def is_materialized(state: ArtifactState | str) -> bool:
     return coerce_artifact_state(state) in {
         ArtifactState.MATERIALIZED,
+        ArtifactState.VALIDATED,
+        ArtifactState.CANDIDATE_FOR_ACTIVATION,
         ArtifactState.ACTIVE,
     }
 
@@ -108,7 +129,7 @@ def can_materialize(state: ArtifactState | str) -> bool:
 
 
 def can_activate(state: ArtifactState | str, *, has_traceability: bool = True) -> bool:
-    return coerce_artifact_state(state) is ArtifactState.MATERIALIZED and has_traceability
+    return coerce_artifact_state(state) is ArtifactState.CANDIDATE_FOR_ACTIVATION and has_traceability
 
 
 def must_not_be_used_as_operational(state: ArtifactState | str) -> bool:

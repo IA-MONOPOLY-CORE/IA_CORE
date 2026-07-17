@@ -39,9 +39,16 @@ def test_ready_to_materialize_is_not_operational():
 
 def test_materialized_does_not_automatically_mean_active():
     assert is_materialized(ArtifactState.MATERIALIZED)
-    assert can_activate(ArtifactState.MATERIALIZED)
+    assert not can_activate(ArtifactState.MATERIALIZED)
     assert not is_operational(ArtifactState.MATERIALIZED)
     assert not is_visible_as_usable(ArtifactState.MATERIALIZED)
+
+
+def test_candidate_for_activation_can_enter_future_activation_flow_but_is_not_active():
+    assert is_materialized(ArtifactState.CANDIDATE_FOR_ACTIVATION)
+    assert can_activate(ArtifactState.CANDIDATE_FOR_ACTIVATION)
+    assert not is_operational(ArtifactState.CANDIDATE_FOR_ACTIVATION)
+    assert not is_visible_as_usable(ArtifactState.CANDIDATE_FOR_ACTIVATION)
 
 
 def test_active_is_operational_passed_only_with_traceability():
@@ -66,6 +73,8 @@ def test_valid_transitions_are_defined():
     expected = {
         (ArtifactState.DERIVED_PREVIEW, ArtifactState.READY_TO_MATERIALIZE),
         (ArtifactState.READY_TO_MATERIALIZE, ArtifactState.MATERIALIZED),
+        (ArtifactState.MATERIALIZED, ArtifactState.VALIDATED),
+        (ArtifactState.VALIDATED, ArtifactState.CANDIDATE_FOR_ACTIVATION),
         (ArtifactState.MATERIALIZED, ArtifactState.ACTIVE),
         (ArtifactState.ACTIVE, ArtifactState.ARCHIVED),
         (ArtifactState.MATERIALIZED, ArtifactState.ARCHIVED),

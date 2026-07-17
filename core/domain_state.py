@@ -17,6 +17,8 @@ class DomainState(StrEnum):
     DRAFT = "draft"
     PREVIEW = "preview"
     MATERIALIZED = "materialized"
+    VALIDATED = "validated"
+    CANDIDATE_FOR_ACTIVATION = "candidate_for_activation"
     ACTIVE = "active"
     ARCHIVED = "archived"
     LEGACY = "legacy"
@@ -28,6 +30,8 @@ DOMAIN_STATE_DESCRIPTIONS: dict[DomainState, str] = {
     DomainState.DRAFT: "Definicion inicial no lista para uso.",
     DomainState.PREVIEW: "Vista previa derivada antes de materializacion.",
     DomainState.MATERIALIZED: "Dominio escrito y trazado por backend interno.",
+    DomainState.VALIDATED: "Dominio sandbox validado de forma declarativa; no activo.",
+    DomainState.CANDIDATE_FOR_ACTIVATION: "Dominio candidato futuro a activacion; no activo.",
     DomainState.ACTIVE: "Dominio operativo PASSED.",
     DomainState.ARCHIVED: "Dominio retirado del flujo activo pero conservado.",
     DomainState.LEGACY: "Dominio historico fuera del flujo nuevo.",
@@ -39,6 +43,8 @@ NON_ACTIVE_DOMAIN_STATES = {
     DomainState.DRAFT,
     DomainState.PREVIEW,
     DomainState.MATERIALIZED,
+    DomainState.VALIDATED,
+    DomainState.CANDIDATE_FOR_ACTIVATION,
     DomainState.ARCHIVED,
     DomainState.LEGACY,
     DomainState.BROKEN,
@@ -48,7 +54,22 @@ VALID_DOMAIN_TRANSITIONS: dict[DomainState, set[DomainState]] = {
     DomainState.EMPTY: {DomainState.DRAFT, DomainState.PREVIEW, DomainState.MATERIALIZED, DomainState.ARCHIVED, DomainState.BROKEN},
     DomainState.DRAFT: {DomainState.PREVIEW, DomainState.MATERIALIZED, DomainState.ARCHIVED, DomainState.BROKEN},
     DomainState.PREVIEW: {DomainState.MATERIALIZED, DomainState.ARCHIVED, DomainState.BROKEN},
-    DomainState.MATERIALIZED: {DomainState.ACTIVE, DomainState.ARCHIVED, DomainState.BROKEN},
+    DomainState.MATERIALIZED: {
+        DomainState.VALIDATED,
+        DomainState.CANDIDATE_FOR_ACTIVATION,
+        DomainState.ACTIVE,
+        DomainState.ARCHIVED,
+        DomainState.BROKEN,
+    },
+    DomainState.VALIDATED: {
+        DomainState.CANDIDATE_FOR_ACTIVATION,
+        DomainState.ARCHIVED,
+        DomainState.BROKEN,
+    },
+    DomainState.CANDIDATE_FOR_ACTIVATION: {
+        DomainState.ARCHIVED,
+        DomainState.BROKEN,
+    },
     DomainState.ACTIVE: {DomainState.ARCHIVED, DomainState.BROKEN},
     DomainState.ARCHIVED: {DomainState.MATERIALIZED, DomainState.BROKEN},
     DomainState.LEGACY: {DomainState.PREVIEW, DomainState.MATERIALIZED, DomainState.BROKEN},

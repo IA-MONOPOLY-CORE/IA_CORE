@@ -19,6 +19,8 @@ ALLOWED_EVENT_TYPES = {
     "approval_revoked",
     "promotion_blocked",
     "future_promotion_ready",
+    "promotion_executed",
+    "promotion_rollback_recorded",
 }
 ALLOWED_TARGET_TYPES = {
     "domain",

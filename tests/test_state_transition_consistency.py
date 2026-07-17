@@ -118,7 +118,7 @@ def test_memory_and_tool_contracts_block_runtime():
 def test_artifact_manifest_rejects_invalid_states():
     manifest = empty_artifact_manifest("sandbox_marketing_crm_automation")
     artifact = _artifact("profile_catalog_main", "profile_catalog", dependencies=[])
-    artifact["status"] = "validated"
+    artifact["status"] = "promoted"
     manifest["artifacts"] = [artifact]
 
     with pytest.raises(ValueError, match="status de artefacto invalido"):
@@ -127,7 +127,8 @@ def test_artifact_manifest_rejects_invalid_states():
 
 def test_no_implicit_transition_to_active_for_sandbox_contracts():
     assert is_valid_transition(ArtifactState.MATERIALIZED, ArtifactState.ACTIVE) is True
-    assert can_activate(ArtifactState.MATERIALIZED, has_traceability=True) is True
+    assert can_activate(ArtifactState.MATERIALIZED, has_traceability=True) is False
+    assert can_activate(ArtifactState.CANDIDATE_FOR_ACTIVATION, has_traceability=True) is True
     assert is_operational(ArtifactState.MATERIALIZED, has_traceability=True) is False
 
     with pytest.raises(ValueError, match="active"):
@@ -168,7 +169,7 @@ def test_broken_cannot_be_candidate_for_promotion_or_active():
     assert is_valid_transition(ArtifactState.BROKEN, ArtifactState.ACTIVE) is False
     with pytest.raises(ValueError, match="Transicion de artefacto invalida"):
         require_valid_transition(ArtifactState.BROKEN, ArtifactState.ACTIVE)
-    assert "candidate_for_activation" not in {state.value for state in ArtifactState}
+    assert is_valid_transition(ArtifactState.BROKEN, ArtifactState.CANDIDATE_FOR_ACTIVATION) is False
 
 
 def test_archived_cannot_execute_or_be_operational():
@@ -184,8 +185,7 @@ def test_archived_cannot_execute_or_be_operational():
 def test_future_transitions_are_documented_but_not_implemented():
     text = AUDIT_DOC.read_text(encoding="utf-8")
 
-    assert "FUTURE_NOT_IMPLEMENTED" in text
+    assert "validated" in {state.value for state in ArtifactState}
+    assert "candidate_for_activation" in {state.value for state in ArtifactState}
     assert "materialized -> validated" in text
-    assert "validated" not in {state.value for state in ArtifactState}
-    assert "candidate_for_activation" not in {state.value for state in ArtifactState}
-    assert "candidate_for_activation" not in {state.value for state in DomainState}
+    assert "active promotion" in text

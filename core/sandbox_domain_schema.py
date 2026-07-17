@@ -49,6 +49,8 @@ ROLLBACK_REQUIRED_FIELDS = {
 
 ALLOWED_SANDBOX_STATES = {
     DomainState.MATERIALIZED,
+    DomainState.VALIDATED,
+    DomainState.CANDIDATE_FOR_ACTIVATION,
     DomainState.ARCHIVED,
     DomainState.BROKEN,
 }
@@ -180,6 +182,8 @@ def _validate_artifact_state(domain_data: dict[str, Any]) -> None:
         raise ValueError("artifact_state active no corresponde al schema sandbox inicial")
     if artifact_state not in {
         ArtifactState.MATERIALIZED,
+        ArtifactState.VALIDATED,
+        ArtifactState.CANDIDATE_FOR_ACTIVATION,
         ArtifactState.ARCHIVED,
         ArtifactState.BROKEN,
     }:

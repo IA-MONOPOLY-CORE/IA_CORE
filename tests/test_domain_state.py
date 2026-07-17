@@ -53,6 +53,8 @@ def test_domain_states_are_defined_and_documented():
         "draft",
         "preview",
         "materialized",
+        "validated",
+        "candidate_for_activation",
         "active",
         "archived",
         "legacy",
@@ -214,6 +216,8 @@ def test_loteria_legacy_domain_is_not_active_in_repo():
 
 def test_expected_transitions_are_declared():
     assert DomainState.ACTIVE in VALID_DOMAIN_TRANSITIONS[DomainState.MATERIALIZED]
+    assert DomainState.VALIDATED in VALID_DOMAIN_TRANSITIONS[DomainState.MATERIALIZED]
+    assert DomainState.CANDIDATE_FOR_ACTIVATION in VALID_DOMAIN_TRANSITIONS[DomainState.VALIDATED]
     assert DomainState.ARCHIVED in VALID_DOMAIN_TRANSITIONS[DomainState.ACTIVE]
     assert DomainState.MATERIALIZED in VALID_DOMAIN_TRANSITIONS[DomainState.ARCHIVED]
     assert DomainState.ACTIVE not in VALID_DOMAIN_TRANSITIONS[DomainState.LEGACY]

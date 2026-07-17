@@ -16,8 +16,8 @@ IA_CORE tiene una semantica de estados suficientemente consistente para disenar 
 | `preview` | `core/domain_state.py`, docs | vista previa de dominio | CODE_AND_DOC |
 | `ready_to_materialize` | `core/artifact_state.py` | artefacto derivado listo para materializar | CODE_AND_DOC |
 | `materialized` | domain/artifact/agent/team schemas | escrito o trazado, no operativo por si mismo | CODE_AND_DOC |
-| `validated` | docs y `validation.validated` como booleano | concepto futuro de promocion, no estado enum | DOCUMENTED_ONLY / FUTURE |
-| `candidate_for_activation` | prompt/docs de auditoria | etapa futura de promotion gate | DOCUMENTED_ONLY / FUTURE |
+| `validated` | `core/artifact_state.py`, `core/domain_state.py`, docs | estado intermedio no operativo formalizado en PROMPT 2.11 | CODE_AND_DOC |
+| `candidate_for_activation` | `core/artifact_state.py`, `core/domain_state.py`, docs | estado intermedio no operativo formalizado en PROMPT 2.11 | CODE_AND_DOC |
 | `active` | domain/artifact enums | operativo PASSED, bloqueado en sandbox | CODE_AND_DOC |
 | `archived` | domain/artifact enums | retirado del flujo activo | CODE_AND_DOC |
 | `legacy` | domain/artifact enums | historico fuera del flujo nuevo | CODE_AND_DOC |
@@ -85,10 +85,13 @@ Nota critica: `restore_domain()` rechaza activar dominios; `legacy -> active` no
 
 ## 5. Transiciones futuras esperadas
 
-Estas transiciones quedan documentadas como `FUTURE_NOT_IMPLEMENTED`:
+Estas transiciones quedaron implementadas como estados intermedios en PROMPT 2.11:
 
 - `materialized -> validated`
 - `validated -> candidate_for_activation`
+
+Permanece como futuro no implementado:
+
 - `candidate_for_activation -> active`
 - `active -> archived`
 
@@ -99,6 +102,7 @@ Tambien quedan futuras:
 - evidence bundle de promocion;
 - permisos efectivos de capabilities;
 - validacion de runtime antes de activacion.
+- active promotion.
 
 ## 6. Reglas criticas antes de promotion gate
 

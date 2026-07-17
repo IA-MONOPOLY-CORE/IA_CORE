@@ -240,6 +240,8 @@ def _validate_status(status: Any) -> None:
     if coerced not in {
         ArtifactState.READY_TO_MATERIALIZE,
         ArtifactState.MATERIALIZED,
+        ArtifactState.VALIDATED,
+        ArtifactState.CANDIDATE_FOR_ACTIVATION,
         ArtifactState.ARCHIVED,
         ArtifactState.BROKEN,
     }:

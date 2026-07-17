@@ -1354,3 +1354,45 @@ Controles:
 Recomendacion:
 
 Listo para una futura fase de promotion executor controlado. La persistencia avanzada de audit log y auth real quedan como fases futuras, no implementadas aqui.
+
+## 36. PROMPT 2.11 - Promotion executor controlado para estados intermedios
+
+Estado: `PASSED_PROMOTION_EXECUTOR_INTERMEDIATE`.
+
+Evidencia:
+
+- schema: `core/promotion_executor_schema.py`;
+- executor: `core/promotion_executor.py`;
+- tests: `tests/test_promotion_executor.py`;
+- contrato: `docs/PROMOTION_EXECUTOR_CONTRACT.md`.
+
+Decision:
+
+El promotion executor puede aplicar mutacion controlada solo hacia estados intermedios:
+
+```txt
+materialized -> validated
+materialized -> candidate_for_activation
+validated -> candidate_for_activation
+```
+
+Bloqueos:
+
+- `active`;
+- runtime/execution/external access;
+- legacy/broken/archived;
+- approval faltante o incorrecta;
+- promotion gate no passed;
+- approval para otro target o estado.
+
+Controles:
+
+- dry-run no mutante;
+- execute con gate passed y approval valido;
+- audit event `promotion_executed`;
+- rollback de estado, no de materializacion;
+- no se tocan `domains/` operativo ni `agents/` legacy.
+
+Recomendacion:
+
+Hace falta un checkpoint E2E posterior del executor antes de considerar cualquier fase de active promotion.

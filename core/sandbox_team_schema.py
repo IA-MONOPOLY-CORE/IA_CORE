@@ -299,8 +299,12 @@ def _validate_status(status: Any) -> None:
     coerced = coerce_artifact_state(status)
     if coerced is ArtifactState.ACTIVE:
         raise ValueError("sandbox team no puede estar active")
-    if coerced is not ArtifactState.MATERIALIZED:
-        raise ValueError("sandbox team solo permite status materialized en esta fase")
+    if coerced not in {
+        ArtifactState.MATERIALIZED,
+        ArtifactState.VALIDATED,
+        ArtifactState.CANDIDATE_FOR_ACTIVATION,
+    }:
+        raise ValueError("sandbox team solo permite status materialized/validated/candidate")
 
 
 def _validate_member_status(status: Any) -> None:
