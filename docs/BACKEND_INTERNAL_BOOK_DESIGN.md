@@ -1440,3 +1440,50 @@ Resultado:
 Recomendacion:
 
 Listo para revisar frontera de `active` en una fase posterior separada. Esa fase no debe reutilizar este checkpoint como activacion implicita.
+
+## 38. PROMPT 2.12 - Auditoria de frontera active antes de activacion real
+
+Estado: `ACTIVE_BOUNDARY_READY_BUT_RUNTIME_MISSING`.
+
+Evidencia:
+
+- auditoria: `docs/ACTIVE_BOUNDARY_AUDIT.md`;
+- tests: `tests/test_active_boundary_audit.py`;
+- contratos revisados: `artifact_state`, `domain_state`, `promotion_gate`, `approval_workflow`, `promotion_executor`, `capability_policy`, `sandbox_agent`, `sandbox_team`.
+
+Decision:
+
+`active` queda auditado como frontera conceptual, tecnica y de seguridad, no implementado como activacion real.
+
+Regla central:
+
+```txt
+candidate_for_activation != active
+validated != active
+```
+
+Resultado:
+
+- `active` existe en enums globales de dominio/artefacto, pero no como destino permitido por promotion executor;
+- promotion gate bloquea `requested_status=active`;
+- approval workflow no crea approval request para `active`;
+- capability_policy sigue declarativa y bloquea runtime/execution/external access;
+- sandbox domain/agent/team bloquean `active`;
+- legacy, broken y archived no pueden cruzar a active;
+- `active` no implica runtime automatico en esta etapa ni deberia implicarlo automaticamente en la siguiente.
+
+Bloqueadores antes de active real:
+
+- active promotion contract;
+- permission enforcement;
+- audit log persistente;
+- approval persistence;
+- auth/actor real;
+- rollback desde active;
+- runtime/execution contract;
+- observability;
+- UI visibility contract.
+
+Recomendacion:
+
+El proximo paso seguro es disenar `active contract`. Runtime contract y observability/audit persistence deben venir despues o como subfases explicitas, sin activar agentes/equipos.
