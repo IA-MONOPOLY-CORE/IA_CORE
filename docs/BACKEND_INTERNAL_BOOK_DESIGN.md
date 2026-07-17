@@ -1539,3 +1539,42 @@ Resultado:
 Recomendacion:
 
 Antes de implementar un active executor, ejecutar un checkpoint end-to-end del active contract sobre la cadena sandbox completa. Runtime, UI e integraciones siguen fuera de alcance.
+
+## 40. PROMPT 2.13.1 - Checkpoint end-to-end del active contract sin runtime
+
+Estado: `PASSED_ACTIVE_CONTRACT_E2E`.
+
+Evidencia:
+
+- test: `tests/test_active_contract_end_to_end.py`;
+- reporte: `docs/ACTIVE_CONTRACT_E2E_CHECKPOINT.md`;
+- contrato: `core/active_contract.py`;
+- schema: `core/active_contract_schema.py`.
+
+Decision:
+
+El active contract fue validado end-to-end sobre una cadena sandbox completa, con todos los targets evaluados como `candidate_for_activation` antes de `internal_active`.
+
+Flujo probado:
+
+```txt
+promotion_gate -> approval_request -> approval_decision -> audit_event -> promotion_executor -> candidate_for_activation -> evaluate_active_contract
+```
+
+Resultado:
+
+- targets candidatos: `domain`, `profile_catalog`, `agent_preset`, `paper_seed`, `agent`, `team`, `capability_policy`;
+- `internal_active` evalua `passed` cuando hay candidate, approval, audit, manifest/dependencies, lineage y policy validos;
+- `runtime_active_future` y `external_active_future` bloquean;
+- targets no candidate bloquean;
+- approval/audit faltantes bloquean;
+- manifest inconsistente y dependencies rotas bloquean;
+- lineage invalido y capability_policy invalida bloquean;
+- `promotion_executor` sigue bloqueando `requested_status=active`;
+- `evaluate_active_contract()` no muta estado ni manifest;
+- runtime/execution/external access permanecen false;
+- no se tocan `domains/`, `agents/`, catalogos globales ni papers globales.
+
+Recomendacion:
+
+Listo para disenar un active executor interno sin runtime. Ese diseno debe seguir bloqueando runtime, UI, integraciones y ejecucion real.
