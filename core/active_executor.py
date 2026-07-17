@@ -212,6 +212,9 @@ def _execute_active(
             evidence["approval_decision"] = approval_reference
             if approval_reference["decision"] != "approved_for_activation_candidate":
                 blockers.append("approval_decision no aprueba active interno")
+            contract_approval_id = (contract or {}).get("required_approval", {}).get("approval_decision_id")
+            if contract_approval_id and approval_reference["approval_decision_id"] != contract_approval_id:
+                blockers.append("approval_decision no corresponde al active_contract")
         except Exception as exc:  # noqa: BLE001
             blockers.append(f"approval_decision invalida: {exc}")
 
@@ -220,6 +223,18 @@ def _execute_active(
         blockers.append("audit_events requeridos")
     else:
         evidence["input_audit_events"] = audit_events
+        contract_audit_ids = {
+            event.get("audit_event_id")
+            for event in (contract or {}).get("required_audit_events", [])
+            if isinstance(event, dict)
+        }
+        input_audit_ids = {
+            event.get("audit_event_id")
+            for event in audit_events
+            if isinstance(event, dict)
+        }
+        if contract_audit_ids and contract_audit_ids.isdisjoint(input_audit_ids):
+            blockers.append("audit_events no corresponden al active_contract")
 
     active_execution_id = f"active_execution_{target_type}_{resolved_target_id}"
     audit_event = None
