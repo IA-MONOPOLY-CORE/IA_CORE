@@ -9,7 +9,7 @@ from typing import Any
 from core.active_executor_schema import validate_active_execution_report
 from core.artifact_manifest_schema import validate_artifact_manifest_file
 from core.capability_policy_schema import validate_capability_policy
-from core.observability import build_observability_event_from_context, build_snapshot_ref
+from core.observability import build_observability_event_from_context, build_snapshot_ref, record_observability_events
 from core.profile_catalog_materializer import ARTIFACT_MANIFEST_RELATIVE_PATH
 from core.runtime_contract_schema import DIRECT_RUNTIME_TARGET_TYPES, build_runtime_contract_report
 from core.sandbox_agent_memory_contract import validate_memory_contract
@@ -245,8 +245,9 @@ def evaluate_runtime_contract(
             external_access=runtime_flags["external_access_enabled"] or runtime_flags["external_access_allowed"],
             tool_execution_enabled=runtime_flags["tool_execution_enabled"] or runtime_flags["tool_execution_allowed"],
             memory_persistence_enabled=runtime_flags["memory_persistence_enabled"] or runtime_flags["memory_persistence_allowed"],
-        )
+    )
     report["observability_events"] = [item for item in [event, boundary_event] if item]
+    report["audit_store_result"] = record_observability_events(report["observability_events"], observability_context)
     return report
 
 

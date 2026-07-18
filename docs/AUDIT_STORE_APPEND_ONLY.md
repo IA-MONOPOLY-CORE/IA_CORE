@@ -63,6 +63,21 @@ append_audit_event(store_path, observability_event)
 
 El evento se valida antes de escribir. Si el evento es invalido, no se crea archivo parcial ni se actualiza el manifest.
 
+Tambien existe escritura opcional centralizada desde `observability_context`:
+
+```python
+from core.observability import build_observability_context
+
+context = build_observability_context(
+    correlation_id="correlation_flow",
+    operation="team_internal_flow",
+    audit_store_path=str(store_path),
+    persist_events=True,
+)
+```
+
+Los executors internos agregan `audit_store_result` cuando reciben context. Sin context, o con context sin `audit_store_path`, el flujo funcional sigue operando sin persistencia obligatoria.
+
 ## 8. Futuro
 
 - Store persistente por proyecto o workspace.

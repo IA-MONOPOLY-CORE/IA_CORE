@@ -40,7 +40,11 @@ def build_observability_context(
     contract_refs: dict[str, Any] | None = None,
     approval_refs: dict[str, Any] | None = None,
     audit_refs: dict[str, Any] | None = None,
+    audit_store_path: str | None = None,
+    persist_events: bool = False,
+    verify_after_write: bool | None = None,
 ) -> dict[str, Any]:
+    resolved_verify_after_write = persist_events if verify_after_write is None else verify_after_write
     context = {
         "correlation_id": correlation_id,
         "causation_id": causation_id,
@@ -53,6 +57,9 @@ def build_observability_context(
         "contract_refs": dict(contract_refs or {}),
         "approval_refs": dict(approval_refs or {}),
         "audit_refs": dict(audit_refs or {}),
+        "audit_store_path": audit_store_path,
+        "persist_events": persist_events,
+        "verify_after_write": resolved_verify_after_write,
     }
     return validate_observability_context(context)
 
@@ -66,6 +73,11 @@ def validate_observability_context(context: dict[str, Any]) -> dict[str, Any]:
     for field in ["contract_refs", "approval_refs", "audit_refs"]:
         if not isinstance(context.get(field, {}), dict):
             raise ValueError(f"observability_context.{field} debe ser objeto")
+    if context.get("audit_store_path") is not None and not isinstance(context.get("audit_store_path"), str):
+        raise ValueError("observability_context.audit_store_path debe ser texto")
+    for field in ["persist_events", "verify_after_write"]:
+        if field in context and not isinstance(context.get(field), bool):
+            raise ValueError(f"observability_context.{field} debe ser booleano")
     return deepcopy(context)
 
 
@@ -199,6 +211,55 @@ def validate_reference_belongs_to_event(event: dict[str, Any], *, ref_group: str
     if refs.get(ref_key) != expected_value:
         raise ValueError(f"{ref_group}.{ref_key} cruzado")
     return validated
+
+
+def record_observability_events(events: list[dict[str, Any]], observability_context: dict[str, Any] | None = None) -> dict[str, Any]:
+    """Persiste eventos en audit store solo si el context lo solicita."""
+    validated_events = [validate_observability_event(event) for event in events]
+    if observability_context is None:
+        return {
+            "persisted": False,
+            "reason": "observability_context_missing",
+            "events": deepcopy(validated_events),
+            "records": [],
+        }
+    context = validate_observability_context(observability_context)
+    if not context.get("persist_events"):
+        return {
+            "persisted": False,
+            "reason": "persist_events_false",
+            "events": deepcopy(validated_events),
+            "records": [],
+        }
+    audit_store_path = context.get("audit_store_path")
+    if not audit_store_path:
+        return {
+            "persisted": False,
+            "reason": "audit_store_path_missing",
+            "events": deepcopy(validated_events),
+            "records": [],
+        }
+
+    try:
+        from core.audit_store import append_audit_event, verify_audit_store
+
+        records = [append_audit_event(audit_store_path, event) for event in validated_events]
+        verification = verify_audit_store(audit_store_path) if context.get("verify_after_write", True) else None
+    except Exception as exc:  # noqa: BLE001
+        return {
+            "persisted": False,
+            "reason": "audit_store_error",
+            "error": str(exc),
+            "events": deepcopy(validated_events),
+            "records": [],
+        }
+    return {
+        "persisted": True,
+        "reason": "persisted",
+        "events": deepcopy(validated_events),
+        "records": records,
+        "verification": verification,
+    }
 
 
 def summarize_observability_events(events: list[dict[str, Any]]) -> dict[str, Any]:

@@ -12,7 +12,7 @@ from core.active_executor_schema import build_active_execution_report
 from core.approval_workflow_schema import validate_approval_decision
 from core.artifact_manifest_schema import validate_artifact_manifest_file
 from core.audit_log_schema import build_audit_event
-from core.observability import build_observability_event_from_context, build_snapshot_ref
+from core.observability import build_observability_event_from_context, build_snapshot_ref, record_observability_events
 from core.profile_catalog_materializer import ARTIFACT_MANIFEST_RELATIVE_PATH
 
 
@@ -165,6 +165,7 @@ def rollback_active_execution(
         },
     )
     report["observability_events"] = [event] if event else []
+    report["audit_store_result"] = record_observability_events(report["observability_events"], observability_context)
     return report
 
 
@@ -379,6 +380,7 @@ def _execute_active(
             external_access=external_access,
         )
     report["observability_events"] = [item for item in [event, boundary_event] if item]
+    report["audit_store_result"] = record_observability_events(report["observability_events"], observability_context)
     return report
 
 

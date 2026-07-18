@@ -1915,3 +1915,34 @@ Resultado:
 Recomendacion:
 
 El proximo checkpoint seguro es integrar, si se decide, escritura opcional hacia audit store desde flujos internos controlados, manteniendo el store desactivado por defecto para runtime.
+
+## 51. PROMPT 2.19.1 - Checkpoint de escritura opcional controlada desde flujos internos hacia audit store
+
+Estado: `PASSED_AUDIT_STORE_INTERNAL_FLOWS_E2E`.
+
+Evidencia:
+
+- helper/context: `core/observability.py`;
+- executors integrados: `core/promotion_executor.py`, `core/active_executor.py`, `core/runtime_contract.py`;
+- test: `tests/test_audit_store_internal_flows_end_to_end.py`;
+- reporte: `docs/AUDIT_STORE_INTERNAL_FLOWS_E2E_CHECKPOINT.md`;
+- store base: `core/audit_store.py`.
+
+Decision:
+
+La escritura hacia audit store queda como salida opcional controlada por `observability_context`, no como dependencia obligatoria. Los flujos internos pueden persistir eventos observability append-only con checksum chain cuando reciben `audit_store_path` y `persist_events=true`.
+
+Resultado:
+
+- promotion, active y runtime contract escriben eventos en audit store cuando el context lo solicita;
+- sin context siguen funcionando y no emiten eventos;
+- con context sin store siguen funcionando y reportan `audit_store_path_missing`;
+- eventos invalidos no escriben parcial porque se validan antes de persistir;
+- store inexistente o tampered reporta error controlado en `audit_store_result`;
+- read, verify y summarize validan secuencia, checksum chain, correlation y metricas;
+- runtime, execution, external access, tools y memory persistence siguen bloqueados;
+- no se toca UI, integraciones, `domains/`, `agents/`, catalogos ni papers globales.
+
+Recomendacion:
+
+Listo para disenar execution contract antes de runtime executor.

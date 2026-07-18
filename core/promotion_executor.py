@@ -9,7 +9,7 @@ from typing import Any
 from core.approval_workflow_schema import validate_approval_decision, validate_approval_request
 from core.artifact_manifest_schema import validate_artifact_manifest_file
 from core.audit_log_schema import build_audit_event
-from core.observability import build_observability_event_from_context, build_snapshot_ref
+from core.observability import build_observability_event_from_context, build_snapshot_ref, record_observability_events
 from core.promotion_executor_schema import build_promotion_execution_report
 from core.promotion_gate import evaluate_promotion_gate
 from core.promotion_gate_schema import validate_promotion_gate_report
@@ -171,6 +171,7 @@ def rollback_promotion_execution(
         },
     )
     result["observability_events"] = [event] if event else []
+    result["audit_store_result"] = record_observability_events(result["observability_events"], observability_context)
     return result
 
 
@@ -362,6 +363,7 @@ def _execute(
         warnings=warnings,
     )
     report["observability_events"] = [event] if event else []
+    report["audit_store_result"] = record_observability_events(report["observability_events"], observability_context)
     return report
 
 
