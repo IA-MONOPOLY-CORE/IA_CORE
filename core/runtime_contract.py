@@ -9,6 +9,7 @@ from typing import Any
 from core.active_executor_schema import validate_active_execution_report
 from core.artifact_manifest_schema import validate_artifact_manifest_file
 from core.capability_policy_schema import validate_capability_policy
+from core.observability import build_observability_event_from_context, build_snapshot_ref
 from core.profile_catalog_materializer import ARTIFACT_MANIFEST_RELATIVE_PATH
 from core.runtime_contract_schema import DIRECT_RUNTIME_TARGET_TYPES, build_runtime_contract_report
 from core.sandbox_agent_memory_contract import validate_memory_contract
@@ -47,6 +48,7 @@ def evaluate_runtime_contract(
     active_execution_result: dict[str, Any] | None = None,
     required_approval: dict[str, Any] | None = None,
     required_evidence: list[Any] | None = None,
+    observability_context: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
     """Evalua readiness declarativa para runtime futuro; no habilita runtime."""
     blockers: list[str] = []
@@ -152,7 +154,7 @@ def evaluate_runtime_contract(
             blockers.append(str(exc))
         model_policy_summary = {"status": "not_applicable"}
 
-    return build_runtime_contract_report(
+    report = build_runtime_contract_report(
         runtime_contract_id=f"runtime_contract_{target_type}_{resolved_target_id}",
         domain_id=domain_id,
         target_type=target_type if target_type else "agent",
@@ -190,6 +192,62 @@ def evaluate_runtime_contract(
         warnings=warnings,
         future_requirements=FUTURE_REQUIREMENTS,
     )
+    event_type = "runtime_contract_blocked" if blockers else "runtime_contract_evaluated"
+    event = build_observability_event_from_context(
+        context=observability_context,
+        event_type=event_type,
+        source_module="core.runtime_contract",
+        target_type=target_type if target_type else "agent",
+        target_id=resolved_target_id,
+        domain_id=domain_id,
+        operation_phase="runtime_contract",
+        result_status="blocked" if blockers else "passed",
+        evidence_refs={"runtime_contract_id": report["runtime_contract_id"]},
+        requested_status=runtime_mode,
+        previous_status=target_status,
+        next_status=target_status,
+        mutation_scope="none",
+        snapshot_refs={
+            "snapshots": [
+                build_snapshot_ref(
+                    {"status": target_status},
+                    {"status": target_status},
+                    mutation_scope="none",
+                )
+            ]
+        },
+        blockers=blockers,
+        runtime_enabled=runtime_flags["runtime_enabled"],
+        execution_enabled=runtime_flags["execution_enabled"] or runtime_flags["execution_allowed"],
+        external_access=runtime_flags["external_access_enabled"] or runtime_flags["external_access_allowed"],
+        tool_execution_enabled=runtime_flags["tool_execution_enabled"] or runtime_flags["tool_execution_allowed"],
+        memory_persistence_enabled=runtime_flags["memory_persistence_enabled"] or runtime_flags["memory_persistence_allowed"],
+    )
+    boundary_event = None
+    if any(runtime_flags.values()):
+        boundary_event = build_observability_event_from_context(
+            context=observability_context,
+            event_type="runtime_boundary_violation",
+            source_module="core.runtime_contract",
+            target_type=target_type if target_type else "agent",
+            target_id=resolved_target_id,
+            domain_id=domain_id,
+            operation_phase="verification",
+            result_status="blocked",
+            evidence_refs={"runtime_contract_id": report["runtime_contract_id"]},
+            requested_status=runtime_mode,
+            previous_status=target_status,
+            next_status=target_status,
+            mutation_scope="none",
+            blockers=blockers,
+            runtime_enabled=runtime_flags["runtime_enabled"],
+            execution_enabled=runtime_flags["execution_enabled"] or runtime_flags["execution_allowed"],
+            external_access=runtime_flags["external_access_enabled"] or runtime_flags["external_access_allowed"],
+            tool_execution_enabled=runtime_flags["tool_execution_enabled"] or runtime_flags["tool_execution_allowed"],
+            memory_persistence_enabled=runtime_flags["memory_persistence_enabled"] or runtime_flags["memory_persistence_allowed"],
+        )
+    report["observability_events"] = [item for item in [event, boundary_event] if item]
+    return report
 
 
 def _resolve_target(

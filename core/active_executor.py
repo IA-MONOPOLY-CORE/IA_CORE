@@ -12,6 +12,7 @@ from core.active_executor_schema import build_active_execution_report
 from core.approval_workflow_schema import validate_approval_decision
 from core.artifact_manifest_schema import validate_artifact_manifest_file
 from core.audit_log_schema import build_audit_event
+from core.observability import build_observability_event_from_context, build_snapshot_ref
 from core.profile_catalog_materializer import ARTIFACT_MANIFEST_RELATIVE_PATH
 
 
@@ -41,6 +42,7 @@ def dry_run_active_execution(
     approval_decision: dict[str, Any] | None = None,
     audit_events: list[dict[str, Any]] | None = None,
     executed_by: str,
+    observability_context: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
     return _execute_active(
         target_type=target_type,
@@ -52,6 +54,7 @@ def dry_run_active_execution(
         audit_events=audit_events,
         executed_by=executed_by,
         dry_run=True,
+        observability_context=observability_context,
     )
 
 
@@ -65,6 +68,7 @@ def execute_active(
     approval_decision: dict[str, Any] | None = None,
     audit_events: list[dict[str, Any]] | None = None,
     executed_by: str,
+    observability_context: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
     return _execute_active(
         target_type=target_type,
@@ -76,6 +80,7 @@ def execute_active(
         audit_events=audit_events,
         executed_by=executed_by,
         dry_run=False,
+        observability_context=observability_context,
     )
 
 
@@ -85,6 +90,7 @@ def rollback_active_execution(
     domain_dir: str | Path | None = None,
     target: dict[str, Any] | None = None,
     executed_by: str,
+    observability_context: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
     if not execution_report.get("rollback_supported"):
         raise ValueError("active_execution sin rollback soportado")
@@ -117,7 +123,7 @@ def rollback_active_execution(
             "active_execution_id": execution_report["active_execution_id"],
         },
     )
-    return build_active_execution_report(
+    report = build_active_execution_report(
         active_execution_id=f"rollback_{execution_report['active_execution_id']}",
         target_type=target_type,
         target_id=target_id,
@@ -135,6 +141,31 @@ def rollback_active_execution(
         rollback_supported=False,
         evidence={"rollback_of": execution_report["active_execution_id"], "audit_event": audit},
     )
+    event = build_observability_event_from_context(
+        context=observability_context,
+        event_type="active_rollback_recorded",
+        source_module="core.active_executor",
+        target_type=target_type,
+        target_id=target_id,
+        domain_id=domain_id,
+        operation_phase="rollback",
+        result_status="rolled_back",
+        evidence_refs={"active_execution_id": execution_report["active_execution_id"]},
+        previous_status="active",
+        next_status=previous_status,
+        mutation_scope=_mutation_scope(target_type),
+        snapshot_refs={
+            "snapshots": [
+                build_snapshot_ref(
+                    {"status": "active"},
+                    {"status": previous_status},
+                    mutation_scope=_mutation_scope(target_type),
+                )
+            ]
+        },
+    )
+    report["observability_events"] = [event] if event else []
+    return report
 
 
 def _execute_active(
@@ -148,6 +179,7 @@ def _execute_active(
     audit_events: list[dict[str, Any]] | None,
     executed_by: str,
     dry_run: bool,
+    observability_context: dict[str, Any] | None,
 ) -> dict[str, Any]:
     blockers: list[str] = []
     warnings: list[str] = []
@@ -276,7 +308,7 @@ def _execute_active(
         if dry_run
         else "passed"
     )
-    return build_active_execution_report(
+    report = build_active_execution_report(
         active_execution_id=active_execution_id,
         target_type=target_type,
         target_id=resolved_target_id,
@@ -296,6 +328,58 @@ def _execute_active(
         blockers=blockers,
         warnings=warnings,
     )
+    event_type = "active_executed" if not blockers and not dry_run else "mutation_scope_verified"
+    mutation_scope = "none" if dry_run or blockers else _mutation_scope(target_type)
+    event = build_observability_event_from_context(
+        context=observability_context,
+        event_type=event_type,
+        source_module="core.active_executor",
+        target_type=target_type,
+        target_id=resolved_target_id,
+        domain_id=domain_id,
+        operation_phase="active_execution",
+        result_status="blocked" if blockers else "passed" if dry_run else "applied",
+        evidence_refs={"active_execution_id": active_execution_id},
+        previous_status=previous_status,
+        next_status=previous_status if dry_run or blockers else "active",
+        mutation_scope=mutation_scope,
+        snapshot_refs={
+            "snapshots": [
+                build_snapshot_ref(
+                    {"status": previous_status},
+                    {"status": previous_status if dry_run or blockers else "active"},
+                    mutation_scope=mutation_scope,
+                )
+            ]
+        },
+        blockers=blockers,
+        warnings=warnings,
+        runtime_enabled=runtime_enabled,
+        execution_enabled=execution_enabled,
+        external_access=external_access,
+    )
+    boundary_event = None
+    if runtime_enabled or execution_enabled or external_access:
+        boundary_event = build_observability_event_from_context(
+            context=observability_context,
+            event_type="runtime_boundary_violation",
+            source_module="core.active_executor",
+            target_type=target_type,
+            target_id=resolved_target_id,
+            domain_id=domain_id,
+            operation_phase="verification",
+            result_status="blocked",
+            evidence_refs={"active_execution_id": active_execution_id},
+            previous_status=previous_status,
+            next_status=previous_status,
+            mutation_scope="none",
+            blockers=blockers,
+            runtime_enabled=runtime_enabled,
+            execution_enabled=execution_enabled,
+            external_access=external_access,
+        )
+    report["observability_events"] = [item for item in [event, boundary_event] if item]
+    return report
 
 
 def _resolve_target(

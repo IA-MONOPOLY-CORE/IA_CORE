@@ -9,6 +9,7 @@ from typing import Any
 from core.approval_workflow_schema import validate_approval_decision, validate_approval_request
 from core.artifact_manifest_schema import validate_artifact_manifest_file
 from core.audit_log_schema import build_audit_event
+from core.observability import build_observability_event_from_context, build_snapshot_ref
 from core.promotion_executor_schema import build_promotion_execution_report
 from core.promotion_gate import evaluate_promotion_gate
 from core.promotion_gate_schema import validate_promotion_gate_report
@@ -38,6 +39,7 @@ def dry_run_promotion(
     approval_request: dict[str, Any] | None = None,
     approval_decision: dict[str, Any] | None = None,
     executed_by: str,
+    observability_context: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
     return _execute(
         target_type=target_type,
@@ -50,6 +52,7 @@ def dry_run_promotion(
         approval_decision=approval_decision,
         executed_by=executed_by,
         dry_run=True,
+        observability_context=observability_context,
     )
 
 
@@ -64,6 +67,7 @@ def execute_promotion(
     approval_request: dict[str, Any] | None = None,
     approval_decision: dict[str, Any] | None = None,
     executed_by: str,
+    observability_context: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
     return _execute(
         target_type=target_type,
@@ -76,6 +80,7 @@ def execute_promotion(
         approval_decision=approval_decision,
         executed_by=executed_by,
         dry_run=False,
+        observability_context=observability_context,
     )
 
 
@@ -85,6 +90,7 @@ def rollback_promotion_execution(
     domain_dir: str | Path | None = None,
     target: dict[str, Any] | None = None,
     executed_by: str,
+    observability_context: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
     rollback = execution_report.get("rollback_info", {})
     if not rollback or not rollback.get("can_rollback"):
@@ -140,7 +146,32 @@ def rollback_promotion_execution(
             "promotion_gate_result_id": execution_report["promotion_gate_result_id"],
         },
     )
-    return {"success": True, "status": "rolled_back", "audit_event": audit}
+    result = {"success": True, "status": "rolled_back", "audit_event": audit}
+    event = build_observability_event_from_context(
+        context=observability_context,
+        event_type="promotion_rollback_recorded",
+        source_module="core.promotion_executor",
+        target_type=target_type,
+        target_id=target_id,
+        domain_id=execution_report["domain_id"],
+        operation_phase="rollback",
+        result_status="rolled_back",
+        evidence_refs={"execution_id": execution_report["execution_id"]},
+        previous_status=str(current_status),
+        next_status=previous_status,
+        mutation_scope=_mutation_scope(target_type),
+        snapshot_refs={
+            "snapshots": [
+                build_snapshot_ref(
+                    {"status": str(current_status)},
+                    {"status": previous_status},
+                    mutation_scope=_mutation_scope(target_type),
+                )
+            ]
+        },
+    )
+    result["observability_events"] = [event] if event else []
+    return result
 
 
 def _execute(
@@ -155,6 +186,7 @@ def _execute(
     approval_decision: dict[str, Any] | None,
     executed_by: str,
     dry_run: bool,
+    observability_context: dict[str, Any] | None,
 ) -> dict[str, Any]:
     blockers: list[str] = []
     warnings: list[str] = []
@@ -275,7 +307,7 @@ def _execute(
         if dry_run
         else "applied"
     )
-    return build_promotion_execution_report(
+    report = build_promotion_execution_report(
         execution_id=execution_id,
         domain_id=(gate or {}).get("domain_id") or (request or {}).get("domain_id") or "unknown_domain",
         target_type=target_type,
@@ -301,6 +333,36 @@ def _execute(
         executed_by=executed_by,
         dry_run=dry_run,
     )
+    event_type = "promotion_executed" if not blockers and not dry_run else "mutation_scope_verified"
+    mutation_scope = "none" if dry_run or blockers else _mutation_scope(target_type)
+    event = build_observability_event_from_context(
+        context=observability_context,
+        event_type=event_type,
+        source_module="core.promotion_executor",
+        target_type=target_type,
+        target_id=(gate or {}).get("target_id") or resolved_target_id,
+        domain_id=(gate or {}).get("domain_id") or (request or {}).get("domain_id") or "unknown_domain",
+        operation_phase="promotion",
+        result_status="blocked" if blockers else "passed" if dry_run else "applied",
+        evidence_refs={"execution_id": execution_id, "promotion_gate_result_id": (gate or {}).get("gate_id") or "missing_gate"},
+        requested_status=requested_status if requested_status in ALLOWED_STATUSES else None,
+        previous_status=current_status,
+        next_status=current_status if dry_run or blockers else requested_status,
+        mutation_scope=mutation_scope,
+        snapshot_refs={
+            "snapshots": [
+                build_snapshot_ref(
+                    {"status": current_status},
+                    {"status": current_status if dry_run or blockers else requested_status},
+                    mutation_scope=mutation_scope,
+                )
+            ]
+        },
+        blockers=blockers,
+        warnings=warnings,
+    )
+    report["observability_events"] = [event] if event else []
+    return report
 
 
 def _current_status(
@@ -380,6 +442,16 @@ def _set_artifact_status(domain_dir: Path, artifact_id: str, status: str) -> Non
             _write_json(manifest_path, manifest)
             return
     raise ValueError(f"artifact_id inexistente: {artifact_id}")
+
+
+def _mutation_scope(target_type: str) -> str:
+    if target_type == "domain":
+        return "status_and_artifact_state"
+    if target_type in ARTIFACT_BY_TARGET:
+        return "manifest_status_only"
+    if target_type == "capability_policy":
+        return "in_memory_status_only"
+    return "status_only"
 
 
 def _find_artifact(domain_dir: Path, artifact_id: str) -> dict[str, Any]:

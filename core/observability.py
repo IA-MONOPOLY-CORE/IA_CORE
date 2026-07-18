@@ -2,12 +2,15 @@
 
 from __future__ import annotations
 
+import hashlib
+import json
 from collections import Counter
 from copy import deepcopy
+from datetime import datetime
 from typing import Any
 
 from core.audit_persistence_schema import validate_audit_store_contract
-from core.observability_schema import MINIMUM_EVENT_TYPES, validate_observability_event
+from core.observability_schema import MINIMUM_EVENT_TYPES, build_observability_event, validate_observability_event
 
 
 MINIMUM_METRICS = {
@@ -22,6 +25,136 @@ MINIMUM_METRICS = {
     "invalid_correlation_total",
     "last_event_at",
 }
+
+
+def build_observability_context(
+    *,
+    correlation_id: str,
+    causation_id: str | None = None,
+    actor: str = "system_service",
+    actor_type: str = "service",
+    domain_id: str | None = None,
+    operation: str,
+    requested_status: str | None = None,
+    runtime_mode: str | None = None,
+    contract_refs: dict[str, Any] | None = None,
+    approval_refs: dict[str, Any] | None = None,
+    audit_refs: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    context = {
+        "correlation_id": correlation_id,
+        "causation_id": causation_id,
+        "actor": actor,
+        "actor_type": actor_type,
+        "domain_id": domain_id,
+        "operation": operation,
+        "requested_status": requested_status,
+        "runtime_mode": runtime_mode,
+        "contract_refs": dict(contract_refs or {}),
+        "approval_refs": dict(approval_refs or {}),
+        "audit_refs": dict(audit_refs or {}),
+    }
+    return validate_observability_context(context)
+
+
+def validate_observability_context(context: dict[str, Any]) -> dict[str, Any]:
+    if not isinstance(context, dict):
+        raise ValueError("observability_context debe ser un objeto")
+    for field in ["correlation_id", "actor", "actor_type", "operation"]:
+        if not isinstance(context.get(field), str) or not context[field].strip():
+            raise ValueError(f"observability_context requiere {field}")
+    for field in ["contract_refs", "approval_refs", "audit_refs"]:
+        if not isinstance(context.get(field, {}), dict):
+            raise ValueError(f"observability_context.{field} debe ser objeto")
+    return deepcopy(context)
+
+
+def build_snapshot_ref(
+    before_snapshot: dict[str, Any],
+    after_snapshot: dict[str, Any],
+    *,
+    mutation_scope: str,
+    rollback_snapshot: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    changed = sorted(
+        key
+        for key in set(before_snapshot) | set(after_snapshot)
+        if before_snapshot.get(key) != after_snapshot.get(key)
+    )
+    snapshot = {
+        "before_snapshot": deepcopy(before_snapshot),
+        "after_snapshot": deepcopy(after_snapshot),
+        "diff_summary": {"changed": changed},
+        "mutation_scope": mutation_scope,
+        "rollback_snapshot": deepcopy(rollback_snapshot if rollback_snapshot is not None else before_snapshot),
+    }
+    snapshot["checksum"] = _checksum(snapshot)
+    return snapshot
+
+
+def build_observability_event_from_context(
+    *,
+    context: dict[str, Any] | None,
+    event_type: str,
+    source_module: str,
+    target_type: str,
+    target_id: str,
+    domain_id: str,
+    operation_phase: str,
+    result_status: str,
+    evidence_refs: dict[str, Any],
+    requested_status: str | None = None,
+    previous_status: str | None = None,
+    next_status: str | None = None,
+    mutation_scope: str = "none",
+    snapshot_refs: dict[str, Any] | None = None,
+    blockers: list[str] | None = None,
+    warnings: list[str] | None = None,
+    runtime_enabled: bool = False,
+    execution_enabled: bool = False,
+    external_access: bool = False,
+    tool_execution_enabled: bool = False,
+    memory_persistence_enabled: bool = False,
+) -> dict[str, Any] | None:
+    if context is None:
+        return None
+    ctx = validate_observability_context(context)
+    event_id = f"event_{event_type}_{target_type}_{target_id}_{_short_stamp()}"
+    return build_observability_event(
+        event_id=event_id,
+        correlation_id=ctx["correlation_id"],
+        causation_id=ctx.get("causation_id"),
+        event_type=event_type,
+        actor=ctx["actor"],
+        actor_type=ctx["actor_type"],
+        source_module=source_module,
+        target_type=target_type,
+        target_id=target_id,
+        domain_id=ctx.get("domain_id") or domain_id,
+        operation=ctx["operation"],
+        operation_phase=operation_phase,
+        result_status=result_status,
+        requested_status=requested_status or ctx.get("requested_status") or ctx.get("runtime_mode"),
+        previous_status=previous_status,
+        next_status=next_status,
+        mutation_scope=mutation_scope,
+        runtime_flags={"runtime_enabled": runtime_enabled, "runtime_allowed": False},
+        execution_flags={"execution_enabled": execution_enabled, "execution_allowed": False},
+        external_access_flags={"external_access": external_access, "external_access_enabled": external_access},
+        tool_memory_flags={
+            "tool_execution_enabled": tool_execution_enabled,
+            "memory_persistence_enabled": memory_persistence_enabled,
+        },
+        evidence_refs=evidence_refs,
+        approval_refs=ctx.get("approval_refs") or {},
+        contract_refs=ctx.get("contract_refs") or {},
+        audit_refs=ctx.get("audit_refs") or {},
+        snapshot_refs=snapshot_refs or {},
+        blockers=blockers or [],
+        warnings=warnings or [],
+        rollback_available=event_type in {"promotion_executed", "active_executed"},
+        rollback_ref=f"rollback_{event_id}" if event_type in {"promotion_executed", "active_executed"} else None,
+    )
 
 
 def validate_event_correlation(
@@ -110,3 +243,12 @@ def validate_observability_store(store: dict[str, Any], events: list[dict[str, A
         "minimum_event_types": sorted(MINIMUM_EVENT_TYPES),
         "minimum_metrics": sorted(MINIMUM_METRICS),
     }
+
+
+def _checksum(payload: Any) -> str:
+    raw = json.dumps(payload, sort_keys=True, ensure_ascii=True).encode("utf-8")
+    return hashlib.sha256(raw).hexdigest()
+
+
+def _short_stamp() -> str:
+    return datetime.now().strftime("%Y%m%d%H%M%S%f")

@@ -1825,3 +1825,34 @@ Resultado:
 Recomendacion:
 
 Listo para integrar observability progresivamente en executors existentes. Runtime executor debe esperar una decision explicita o un checkpoint que conecte observability real a outputs de executor.
+
+## 48. PROMPT 2.18 - Integracion progresiva de observability en executors existentes
+
+Estado: `OBSERVABILITY_EXECUTOR_INTEGRATION_DEFINED`.
+
+Evidencia:
+
+- helpers/context: `core/observability.py`;
+- promotion executor: `core/promotion_executor.py`;
+- active executor: `core/active_executor.py`;
+- runtime contract: `core/runtime_contract.py`;
+- tests: `tests/test_observability_executor_integration.py`;
+- documento: `docs/OBSERVABILITY_EXECUTOR_INTEGRATION.md`.
+
+Decision:
+
+Observability queda integrada progresivamente en executors existentes mediante `observability_context` opcional. No cambia logica de negocio, no habilita runtime, no habilita execution y no toca UI.
+
+Resultado:
+
+- `promotion_executor` puede emitir `promotion_executed`, `promotion_rollback_recorded` y `mutation_scope_verified`;
+- `active_executor` puede emitir `active_executed`, `active_rollback_recorded`, `mutation_scope_verified` y `runtime_boundary_violation`;
+- `runtime_contract` puede emitir `runtime_contract_evaluated`, `runtime_contract_blocked` y `runtime_boundary_violation`;
+- los eventos incluyen correlation, target/domain/operation, evidence refs, approval/contract/audit refs, mutation scope y snapshots livianos;
+- sin observability context, los modulos siguen funcionando como antes;
+- no se implementa writer append-only real ni runtime executor;
+- runtime/execution/external/tools/memory siguen bloqueados.
+
+Recomendacion:
+
+El proximo paso seguro es un checkpoint end-to-end de observability integrada en executors o la integracion progresiva con un audit store append-only real.
