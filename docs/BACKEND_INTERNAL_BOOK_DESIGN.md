@@ -1946,3 +1946,34 @@ Resultado:
 Recomendacion:
 
 Listo para disenar execution contract antes de runtime executor.
+
+## 52. PROMPT 2.20 - Contrato de execution antes de runtime executor
+
+Estado: `EXECUTION_CONTRACT_DEFINED_NO_EXECUTION`.
+
+Evidencia:
+
+- schema: `core/execution_contract_schema.py`;
+- evaluador: `core/execution_contract.py`;
+- tests: `tests/test_execution_contract.py`;
+- documento: `docs/EXECUTION_CONTRACT_NO_EXECUTION.md`.
+
+Decision:
+
+Execution queda definido como contrato declarativo de readiness para una corrida futura de `agent` o `team`. No ejecuta agentes, no ejecuta equipos, no invoca modelos, no ejecuta tools, no persiste memoria y no toca UI.
+
+Resultado:
+
+- targets directos permitidos: `agent`, `team`;
+- targets operativos no ejecutables directamente quedan bloqueados;
+- modo permitido: `declarative_execution_contract`;
+- modos futuros bloqueados: `execution_ready_future`, `model_invocation_future`, `tool_execution_future`, `external_execution_future`;
+- exige `runtime_contract` passed y `active_execution` passed del mismo target/domain;
+- exige input/output contract, prompt contract, model invocation contract declarativo, timeout/retry/cancellation/failure policies;
+- exige `observability_required=true`, `audit_store_required=true`, correlation id y audit store verificable;
+- bloquea execution/external/tools/memory flags;
+- no muta targets ni habilita runtime/execution.
+
+Recomendacion:
+
+El proximo paso seguro es un checkpoint end-to-end de execution contract sobre cadena sandbox activa antes de disenar runtime executor.
