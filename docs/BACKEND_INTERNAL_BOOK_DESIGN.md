@@ -1887,3 +1887,31 @@ Resultado:
 Recomendacion:
 
 Listo para implementar audit store append-only real. Runtime executor debe esperar una decision explicita posterior.
+
+## 50. PROMPT 2.19 - Audit store append-only real
+
+Estado: `AUDIT_STORE_APPEND_ONLY_IMPLEMENTED`.
+
+Evidencia:
+
+- modulo: `core/audit_store.py`;
+- tests: `tests/test_audit_store_append_only.py`, `tests/test_audit_store_observability_integration.py`;
+- documento: `docs/AUDIT_STORE_APPEND_ONLY.md`.
+
+Decision:
+
+IA_CORE cuenta con un audit store local append-only logico/verificable para eventos observability. El store persiste eventos en filesystem local con manifest, secuencia, checksum por evento y chain por `previous_event_checksum`.
+
+Resultado:
+
+- `create_audit_store` crea/valida manifest y carpeta `events`;
+- `append_audit_event` valida observability antes de escribir, crea archivos nuevos con modo exclusivo y no sobrescribe eventos;
+- `read_audit_events` devuelve eventos ordenados por secuencia;
+- `verify_audit_store` detecta deletes, reorder, mutacion de evento y manifest inconsistente;
+- `summarize_audit_store` reutiliza metricas observability y adjunta verificacion del store;
+- la integracion E2E persiste eventos reales de promotion, active y runtime contract sin ejecutar runtime;
+- no se habilita runtime, execution, tools, memoria real, UI ni integraciones.
+
+Recomendacion:
+
+El proximo checkpoint seguro es integrar, si se decide, escritura opcional hacia audit store desde flujos internos controlados, manteniendo el store desactivado por defecto para runtime.
