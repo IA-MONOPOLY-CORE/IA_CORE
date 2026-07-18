@@ -1856,3 +1856,34 @@ Resultado:
 Recomendacion:
 
 El proximo paso seguro es un checkpoint end-to-end de observability integrada en executors o la integracion progresiva con un audit store append-only real.
+
+## 49. PROMPT 2.18.1 - Checkpoint end-to-end de observability integrada en executors
+
+Estado: `PASSED_OBSERVABILITY_EXECUTOR_INTEGRATION_E2E`.
+
+Evidencia:
+
+- test: `tests/test_observability_executor_integration_end_to_end.py`;
+- reporte: `docs/OBSERVABILITY_EXECUTOR_INTEGRATION_E2E_CHECKPOINT.md`;
+- integration test base: `tests/test_observability_executor_integration.py`;
+- modulos: `core/promotion_executor.py`, `core/active_executor.py`, `core/runtime_contract.py`.
+
+Decision:
+
+La observability integrada en executors fue validada end-to-end sobre una cadena sandbox completa. La integracion sigue siendo opcional y compatible.
+
+Resultado:
+
+- `promotion_executor` emite eventos observability validos con context;
+- `active_executor` emite eventos observability validos con context;
+- `runtime_contract` emite eventos observability validos con context;
+- eventos contienen correlation, target/domain/operation, requested_status/runtime_mode, refs y snapshots;
+- evidence crossing bloquea por correlation, target, domain, operation, requested_status, contract_ref, approval_ref y audit_ref;
+- snapshots/checksums y mutation scope quedan validados;
+- sin observability context, promotion, active y runtime mantienen resultados funcionales;
+- runtime, execution, external access, tools y memory persistence siguen bloqueados;
+- no se toca UI, integraciones, `domains/`, `agents/`, catalogos globales ni papers globales.
+
+Recomendacion:
+
+Listo para implementar audit store append-only real. Runtime executor debe esperar una decision explicita posterior.
