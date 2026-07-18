@@ -5,9 +5,10 @@ from pathlib import Path
 
 import pytest
 
-from core.audit_store import create_audit_store
+from core.audit_store import append_audit_event, create_audit_store
 from core.execution_contract import evaluate_execution_contract
 from core.execution_contract_schema import validate_execution_contract_report
+from core.observability_schema import build_observability_event
 from tests.test_runtime_contract_end_to_end import (
     _active_chain,
     _agent_path,
@@ -104,6 +105,29 @@ def _store(tmp_path: Path) -> Path:
     return path
 
 
+def _audit_event(chain: dict, target_type: str, target_id: str) -> dict:
+    return build_observability_event(
+        event_id=f"event_execution_contract_{target_type}_{target_id}",
+        correlation_id=f"correlation_execution_contract_{target_type}_{target_id}",
+        causation_id=f"causation_execution_contract_{target_type}_{target_id}",
+        event_type="runtime_contract_evaluated",
+        actor="execution_contract_test",
+        actor_type="test",
+        source_module="tests.test_execution_contract",
+        target_type=target_type,
+        target_id=target_id,
+        domain_id=chain["domain"]["domain_id"],
+        operation="execution_contract_readiness",
+        operation_phase="runtime_contract",
+        result_status="passed",
+        requested_status="declarative_execution_contract",
+        previous_status="active",
+        next_status="active",
+        mutation_scope="none",
+        evidence_refs={"runtime_contract_id": f"runtime_contract_{target_type}_{target_id}"},
+    )
+
+
 def _valid_kwargs(chain: dict, target_type: str, target_id: str, active_execution: dict, runtime_contract: dict, store_path: Path) -> dict:
     return {
         "target_type": target_type,
@@ -121,6 +145,7 @@ def _valid_kwargs(chain: dict, target_type: str, target_id: str, active_executio
         "failure_policy": _failure_policy(),
         "audit_store_path": store_path,
         "required_correlation_id": f"correlation_execution_contract_{target_type}_{target_id}",
+        "required_operation": "execution_contract_readiness",
         "required_approval": {"approval_decision_id": f"approval_execution_contract_{target_type}_{target_id}"},
         "required_evidence": [{"evidence_id": f"evidence_execution_contract_{target_type}_{target_id}"}],
     }
@@ -131,6 +156,8 @@ def _prepared(tmp_path: Path):
     agent_runtime = _runtime(chain, target_type="agent", target_id=agent_id, active_execution=agent_active)
     team_runtime = _runtime(chain, target_type="team", target_id=team_id, active_execution=team_active)
     store_path = _store(tmp_path)
+    append_audit_event(store_path, _audit_event(chain, "agent", agent_id))
+    append_audit_event(store_path, _audit_event(chain, "team", team_id))
     return chain, agent_id, team_id, agent_active, team_active, agent_runtime, team_runtime, store_path
 
 

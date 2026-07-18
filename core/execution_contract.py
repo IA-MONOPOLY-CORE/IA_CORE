@@ -7,7 +7,7 @@ from pathlib import Path
 from typing import Any
 
 from core.active_executor_schema import validate_active_execution_report
-from core.audit_store import verify_audit_store
+from core.audit_store import read_audit_events, verify_audit_store
 from core.capability_policy_schema import validate_capability_policy
 from core.execution_contract_schema import BLOCKED_EXECUTION_MODES, ALLOWED_TARGET_TYPES, build_execution_contract_report
 from core.profile_catalog_materializer import ARTIFACT_MANIFEST_RELATIVE_PATH
@@ -48,6 +48,7 @@ def evaluate_execution_contract(
     audit_store_required: bool = True,
     audit_store_path: str | Path | None = None,
     required_correlation_id: str | None = None,
+    required_operation: str | None = None,
     required_approval: dict[str, Any] | None = None,
     required_evidence: list[Any] | None = None,
 ) -> dict[str, Any]:
@@ -173,7 +174,16 @@ def evaluate_execution_contract(
         else:
             try:
                 verification = verify_audit_store(audit_store_path)
-                audit_store_ref = {"audit_store_path": str(audit_store_path), "verification": verification}
+                events = read_audit_events(audit_store_path)
+                _validate_audit_store_events(
+                    events,
+                    target_type=target_type,
+                    target_id=resolved_target_id,
+                    domain_id=domain_id,
+                    required_correlation_id=required_correlation_id,
+                    required_operation=required_operation,
+                )
+                audit_store_ref = {"audit_store_path": str(audit_store_path), "verification": verification, "event_count": len(events)}
             except Exception as exc:  # noqa: BLE001
                 blockers.append(f"audit_store invalido: {exc}")
 
@@ -257,6 +267,33 @@ def _validate_active_execution(active: dict[str, Any], *, target_type: str, targ
         raise ValueError("active_execution execution_enabled debe ser false")
     if active["external_access"] is not False:
         raise ValueError("active_execution external_access debe ser false")
+
+
+def _validate_audit_store_events(
+    events: list[dict[str, Any]],
+    *,
+    target_type: str,
+    target_id: str,
+    domain_id: str,
+    required_correlation_id: str | None,
+    required_operation: str | None,
+) -> None:
+    if not events:
+        raise ValueError("audit_store sin eventos requeridos")
+    if not required_correlation_id:
+        return
+    correlated = [event for event in events if event.get("correlation_id") == required_correlation_id]
+    if not correlated:
+        raise ValueError("audit_store correlation_id cruzado")
+    target_events = [
+        event
+        for event in correlated
+        if event.get("target_type") == target_type and event.get("target_id") == target_id and event.get("domain_id") == domain_id
+    ]
+    if not target_events:
+        raise ValueError("audit_store eventos de otro target")
+    if required_operation and not any(event.get("operation") == required_operation for event in target_events):
+        raise ValueError("audit_store eventos de otra operation")
 
 
 def _validate_named_contract(value: dict[str, Any] | None, name: str, blockers: list[str], validator) -> None:
@@ -441,6 +478,8 @@ def _validate_team_contract(team: dict[str, Any], domain_dir: Path) -> None:
 
 def _execution_flags(payload: dict[str, Any]) -> dict[str, bool]:
     return {
+        "runtime_enabled": _nested_true(payload, "runtime_enabled"),
+        "runtime_allowed": _nested_true(payload, "runtime_allowed"),
         "execution_enabled": _nested_true(payload, "execution_enabled") or _nested_true(payload, "operational"),
         "external_access_allowed": _nested_true(payload, "external_access_allowed"),
         "external_access_enabled": _nested_true(payload, "external_access") or _nested_true(payload, "external_access_enabled"),
