@@ -2036,3 +2036,32 @@ Resultado:
 Recomendacion:
 
 El proximo paso seguro es disenar contrato/schema de runtime executor prepare-only, todavia sin implementar runner ni ejecucion real.
+
+## 55. PROMPT 2.22 - Contrato de runtime executor prepare-only
+
+Estado: `RUNTIME_EXECUTOR_CONTRACT_PREPARE_ONLY_DEFINED`.
+
+Evidencia:
+
+- schema: `core/runtime_executor_schema.py`;
+- evaluador: `core/runtime_executor_contract.py`;
+- tests: `tests/test_runtime_executor_contract.py`;
+- documento: `docs/RUNTIME_EXECUTOR_CONTRACT_PREPARE_ONLY.md`.
+
+Decision:
+
+Runtime executor contract queda definido en modo `prepare_only`, sin runtime real, sin execution runner, sin ejecucion, sin modelos, sin tools reales, sin memoria real, sin UI y sin integraciones.
+
+Resultado:
+
+- targets soportados: `agent`, `team`;
+- targets bloqueados: domain, profile_catalog, agent_preset, paper_seed, capability_policy, tool_contract, memory_contract, runtime_contract, execution_contract;
+- modo permitido: `prepare_only`;
+- modos bloqueados: `dry_run_only`, `plan_only`, `execute_future`;
+- exige runtime_contract passed, execution_contract passed, observability context, audit_store verified, correlation_id, preparation_plan, abort_plan, rollback_plan, idempotency_key, lock_policy, concurrency_policy, mutation_policy y boundary_policy;
+- boundary_policy mantiene bloqueados runtime, execution, model invocation, tool execution, memory persistence, external access, UI trigger e integration runner;
+- el evaluador devuelve contrato prepare-only sin mutar targets ni habilitar flags.
+
+Recomendacion:
+
+El proximo paso seguro es un checkpoint end-to-end de runtime executor contract prepare-only sobre cadena sandbox activa.
