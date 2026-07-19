@@ -6,7 +6,7 @@ import json
 from pathlib import Path
 from typing import Any
 
-from core.audit_store import verify_audit_store
+from core.audit_store import read_audit_events, verify_audit_store
 from core.execution_contract_schema import validate_execution_contract_report
 from core.observability import validate_observability_context
 from core.profile_catalog_materializer import ARTIFACT_MANIFEST_RELATIVE_PATH
@@ -28,6 +28,22 @@ BLOCKED_ACTIONS = [
     "ui_trigger",
     "integration_runner",
 ]
+REQUIRED_AUDIT_EVENT_TYPES = {
+    "runtime_executor_contract_evaluated",
+    "runtime_executor_prepare_only_validated",
+    "mutation_scope_verified",
+}
+FORBIDDEN_AUDIT_EVENT_TYPES = {
+    "runtime_executor_started",
+    "runtime_execution_started",
+    "execution_runner_started",
+    "agent_executed",
+    "team_executed",
+    "model_invoked",
+    "tool_executed",
+    "memory_persisted",
+    "external_accessed",
+}
 
 
 def evaluate_runtime_executor_contract(
@@ -122,6 +138,7 @@ def evaluate_runtime_executor_contract(
             context = validate_observability_context(observability_context)
             correlation_id = context["correlation_id"]
         except Exception as exc:  # noqa: BLE001
+            correlation_id = None
             blockers.append(f"observability_context invalido: {exc}")
 
     if not correlation_id:
@@ -132,7 +149,16 @@ def evaluate_runtime_executor_contract(
     else:
         try:
             verification = verify_audit_store(audit_store_path)
-            audit_store_ref = {"audit_store_path": str(audit_store_path), "verification": verification}
+            events = read_audit_events(audit_store_path)
+            _validate_audit_store_events(
+                events,
+                target_type=target_type,
+                target_id=resolved_target_id,
+                domain_id=domain_id,
+                correlation_id=correlation_id,
+                operation=(observability_context or {}).get("operation"),
+            )
+            audit_store_ref = {"audit_store_path": str(audit_store_path), "verification": verification, "event_count": len(events)}
         except Exception as exc:  # noqa: BLE001
             blockers.append(f"audit_store invalido: {exc}")
 
@@ -292,6 +318,44 @@ def _validate_execution_contract(execution: dict[str, Any], *, target_type: str,
         raise ValueError("execution_contract execution_enabled debe ser false")
     if execution["model_invocation_contract"].get("invocation_enabled") is not False:
         raise ValueError("model invocation debe permanecer false")
+
+
+def _validate_audit_store_events(
+    events: list[dict[str, Any]],
+    *,
+    target_type: str,
+    target_id: str,
+    domain_id: str,
+    correlation_id: str | None,
+    operation: str | None,
+) -> None:
+    if not events:
+        raise ValueError("audit_store sin eventos requeridos")
+    forbidden_events = sorted({event.get("event_type") for event in events} & FORBIDDEN_AUDIT_EVENT_TYPES)
+    if forbidden_events:
+        raise ValueError(f"audit_store contiene eventos runtime prohibidos: {', '.join(forbidden_events)}")
+    if not correlation_id:
+        raise ValueError("audit_store correlation_id requerido")
+    correlated = [event for event in events if event.get("correlation_id") == correlation_id]
+    if not correlated:
+        raise ValueError("audit_store correlation_id cruzado")
+    target_events = [
+        event
+        for event in correlated
+        if event.get("target_type") == target_type and event.get("target_id") == target_id and event.get("domain_id") == domain_id
+    ]
+    if not target_events:
+        raise ValueError("audit_store eventos de otro target")
+    if operation and not any(event.get("operation") == operation for event in target_events):
+        raise ValueError("audit_store eventos de otra operation")
+    event_types = {event.get("event_type") for event in target_events if event.get("operation") == operation}
+    missing_event_types = REQUIRED_AUDIT_EVENT_TYPES - event_types
+    if missing_event_types:
+        raise ValueError(f"audit_store sin eventos requeridos: {', '.join(sorted(missing_event_types))}")
+    if any(not event.get("evidence_refs") for event in target_events):
+        raise ValueError("audit_store eventos sin evidence_refs")
+    if any(event.get("mutation_scope") != "none" for event in target_events):
+        raise ValueError("audit_store mutation_scope debe ser none")
 
 
 def _validate_required_plan(value: dict[str, Any] | None, name: str, blockers: list[str], validator) -> None:

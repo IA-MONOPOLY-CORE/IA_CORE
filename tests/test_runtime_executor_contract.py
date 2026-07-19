@@ -4,8 +4,10 @@ from pathlib import Path
 
 import pytest
 
+from core.audit_store import append_audit_event, create_audit_store
 from core.execution_contract import evaluate_execution_contract
 from core.observability import build_observability_context
+from core.observability_schema import build_observability_event
 from core.runtime_executor_contract import (
     build_abort_plan,
     build_boundary_policy,
@@ -44,6 +46,46 @@ def _context(chain: dict, target_type: str, target_id: str) -> dict:
     )
 
 
+def _runtime_executor_event(chain: dict, target_type: str, target_id: str, event_type: str, *, correlation_id: str | None = None, operation: str = "runtime_executor_prepare_only") -> dict:
+    return build_observability_event(
+        event_id=f"event_{event_type}_{target_type}_{target_id}",
+        correlation_id=correlation_id or f"correlation_runtime_executor_{target_type}_{target_id}",
+        causation_id=f"causation_runtime_executor_{target_type}_{target_id}",
+        event_type=event_type,
+        actor="runtime_executor_contract_test",
+        actor_type="test",
+        source_module="tests.test_runtime_executor_contract",
+        target_type=target_type,
+        target_id=target_id,
+        domain_id=chain["domain"]["domain_id"],
+        operation=operation,
+        operation_phase="verification",
+        result_status="passed",
+        requested_status="prepare_only",
+        previous_status="active",
+        next_status="active",
+        mutation_scope="none",
+        runtime_flags={"runtime_enabled": False, "runtime_allowed": False},
+        execution_flags={"execution_enabled": False, "execution_allowed": False},
+        external_access_flags={"external_access": False, "external_access_enabled": False},
+        tool_memory_flags={"tool_execution_enabled": False, "memory_persistence_enabled": False},
+        evidence_refs={"runtime_executor_contract": f"runtime_executor_contract_{target_type}_{target_id}"},
+    )
+
+
+def _runtime_executor_store(tmp_path: Path, chain: dict, agent_id: str, team_id: str) -> Path:
+    store_path = tmp_path / "runtime_executor_audit_store"
+    create_audit_store(store_path, audit_store_id="audit_store_runtime_executor_contract")
+    for target_type, target_id in [("agent", agent_id), ("team", team_id)]:
+        for event_type in [
+            "runtime_executor_contract_evaluated",
+            "runtime_executor_prepare_only_validated",
+            "mutation_scope_verified",
+        ]:
+            append_audit_event(store_path, _runtime_executor_event(chain, target_type, target_id, event_type))
+    return store_path
+
+
 def _execution(chain: dict, target_type: str, target_id: str, active: dict, runtime: dict, store_path: Path) -> dict:
     return evaluate_execution_contract(**_execution_kwargs(chain, target_type, target_id, active, runtime, store_path))
 
@@ -70,11 +112,12 @@ def _valid_kwargs(chain: dict, target_type: str, target_id: str, runtime: dict, 
 
 
 def _prepared_contracts(tmp_path: Path):
-    chain, agent_id, team_id, agent_active, team_active, agent_runtime, team_runtime, store_path = _prepared(tmp_path)
-    agent_execution = _execution(chain, "agent", agent_id, agent_active, agent_runtime, store_path)
-    team_execution = _execution(chain, "team", team_id, team_active, team_runtime, store_path)
+    chain, agent_id, team_id, agent_active, team_active, agent_runtime, team_runtime, execution_store_path = _prepared(tmp_path)
+    agent_execution = _execution(chain, "agent", agent_id, agent_active, agent_runtime, execution_store_path)
+    team_execution = _execution(chain, "team", team_id, team_active, team_runtime, execution_store_path)
     assert agent_execution["contract_result"] == "passed"
     assert team_execution["contract_result"] == "passed"
+    store_path = _runtime_executor_store(tmp_path, chain, agent_id, team_id)
     return chain, agent_id, team_id, agent_runtime, team_runtime, agent_execution, team_execution, store_path
 
 
@@ -200,7 +243,7 @@ def test_runtime_executor_contract_requires_prepare_only_inputs_and_policies(tmp
 def test_runtime_executor_contract_blocks_audit_store_verify_failure(tmp_path):
     chain, agent_id, _team_id, agent_runtime, _team_runtime, agent_execution, _team_execution, store_path = _prepared_contracts(tmp_path)
     manifest_path = store_path / "store_manifest.json"
-    manifest_path.write_text(manifest_path.read_text(encoding="utf-8").replace('"event_count": 2', '"event_count": 99'), encoding="utf-8")
+    manifest_path.write_text(manifest_path.read_text(encoding="utf-8").replace('"event_count": 6', '"event_count": 99'), encoding="utf-8")
 
     report = evaluate_runtime_executor_contract(**_valid_kwargs(chain, "agent", agent_id, agent_runtime, agent_execution, store_path))
 

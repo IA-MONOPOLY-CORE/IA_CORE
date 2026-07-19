@@ -31,6 +31,7 @@ execution_contract passed
 audit_store verified
 observability context
 correlation_id
+runtime_executor prepare-only audit events correlacionados
 capability/memory/tool policies declarativas
 abort/rollback plan
 idempotency_key
@@ -113,11 +114,36 @@ La `boundary_policy` debe mantener en `false`:
 
 El evaluador tambien bloquea esos flags si aparecen en el target.
 
-## 8. Futuro
+## 8. Audit store requerido
+
+El audit store debe verificar como append-only y contener eventos declarativos seguros del flujo `runtime_executor_prepare_only` para el mismo `correlation_id`, `target_type`, `target_id`, `domain_id` y operation.
+
+Eventos requeridos:
+
+```txt
+runtime_executor_contract_evaluated
+runtime_executor_prepare_only_validated
+mutation_scope_verified
+```
+
+Eventos runtime reales siguen prohibidos:
+
+```txt
+runtime_executor_started
+runtime_execution_started
+execution_runner_started
+agent_executed
+team_executed
+model_invoked
+tool_executed
+memory_persisted
+external_accessed
+```
+
+## 9. Futuro
 
 Proximos pasos posibles:
 
-- E2E runtime executor contract prepare-only;
 - runtime executor prepare-only implementation;
 - runtime executor prepare-only E2E;
 - execution runner contract;

@@ -27,6 +27,12 @@ MINIMUM_EVENT_TYPES = {
     "snapshot_recorded",
     "rollback_plan_recorded",
 }
+RUNTIME_EXECUTOR_EVENT_TYPES = {
+    "runtime_executor_contract_evaluated",
+    "runtime_executor_prepare_only_validated",
+    "runtime_executor_contract_blocked",
+}
+ALLOWED_EVENT_TYPES = MINIMUM_EVENT_TYPES | RUNTIME_EXECUTOR_EVENT_TYPES
 ALLOWED_TARGET_TYPES = {
     "domain",
     "artifact",
@@ -219,7 +225,7 @@ def validate_observability_event(event: dict[str, Any]) -> dict[str, Any]:
         _validate_id(event.get(field), field)
     if event.get("causation_id") is not None:
         _validate_id(event.get("causation_id"), "causation_id")
-    if event.get("event_type") not in MINIMUM_EVENT_TYPES:
+    if event.get("event_type") not in ALLOWED_EVENT_TYPES:
         raise ValueError(f"event_type invalido: {event.get('event_type')}")
     _validate_non_empty_text(event.get("event_version"), "event_version")
     for field in ["timestamp", "actor", "source_module", "operation", "created_at"]:
