@@ -2127,3 +2127,35 @@ Resultado:
 Recomendacion:
 
 El proximo paso seguro es checkpoint end-to-end de runtime executor prepare-only sobre cadena sandbox activa.
+
+## 58. PROMPT 2.23.1 - Checkpoint end-to-end de runtime executor prepare-only sobre cadena sandbox activa
+
+Estado: `PASSED_RUNTIME_EXECUTOR_PREPARE_ONLY_E2E`.
+
+Evidencia:
+
+- test: `tests/test_runtime_executor_prepare_only_end_to_end.py`;
+- modulo validado: `core/runtime_executor.py`;
+- documento: `docs/RUNTIME_EXECUTOR_PREPARE_ONLY_E2E_CHECKPOINT.md`.
+
+Decision:
+
+Runtime executor prepare-only queda validado end-to-end sobre cadena sandbox activa completa. `prepare_runtime` prepara `agent` y `team` activos con runtime_contract, execution_contract y runtime_executor_contract passed, audit_store verificado, observability valida, idempotency, lock/concurrency y abort/rollback declarativos.
+
+Resultado:
+
+- cadena temporal completa materializada desde domain hasta runtime_executor_contract y audit_store;
+- `agent` y `team` llegaron a active interno;
+- runtime_contract, execution_contract y runtime_executor_contract pasaron para ambos targets;
+- `prepare_runtime` devolvio `prepared` para `agent` y `team`;
+- preparation record, preparation_id, refs de contratos y refs audit/observability validados;
+- idempotency devuelve `noop_idempotent` sin duplicar `runtime_prepare_completed`;
+- lock/concurrency bloquea doble preparacion con `runtime_preparation_lock_conflict`;
+- abort y rollback registran eventos declarativos y no mutan targets;
+- contratos invalidos/cruzados, audit/observability invalidos, targets invalidos, flags prohibidos y modos prohibidos bloquean;
+- runtime real, execution runner, modelos, tools, memoria real, external access, UI e integraciones siguen bloqueados;
+- no toca `domains/`, `agents/`, catalogos ni papers globales.
+
+Recomendacion:
+
+Listo para auditar frontera execution runner.

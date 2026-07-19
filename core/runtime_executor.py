@@ -104,6 +104,21 @@ def prepare_runtime(
         blockers.append("runtime_executor_contract correlation_id cruzado")
     if contract and resolved_idempotency_key and contract.get("idempotency_key") != resolved_idempotency_key:
         blockers.append("runtime_executor_contract idempotency_key cruzado")
+    if contract:
+        _validate_contract_identity(
+            runtime_contract_result,
+            contract,
+            contract_name="runtime_contract",
+            id_field="runtime_contract_id",
+            blockers=blockers,
+        )
+        _validate_contract_identity(
+            execution_contract_result,
+            contract,
+            contract_name="execution_contract",
+            id_field="execution_contract_id",
+            blockers=blockers,
+        )
 
     if blockers:
         result = _result(
@@ -436,6 +451,23 @@ def _validate_contract_boundaries(contract: dict[str, Any], blockers: list[str])
             blockers.append(f"{field}=true bloqueado")
     if contract.get("mutation_policy", {}).get("mutations_allowed") is not False:
         blockers.append("mutations_allowed debe ser false")
+
+
+def _validate_contract_identity(
+    payload: dict[str, Any] | None,
+    runtime_executor_contract: dict[str, Any],
+    *,
+    contract_name: str,
+    id_field: str,
+    blockers: list[str],
+) -> None:
+    if not isinstance(payload, dict):
+        return
+    for field in ["target_type", "target_id", "domain_id"]:
+        if payload.get(field) != runtime_executor_contract.get(field):
+            blockers.append(f"{contract_name} corresponde a otro {field}")
+    if payload.get(id_field) != runtime_executor_contract.get(id_field):
+        blockers.append(f"{contract_name} corresponde a otro contrato")
 
 
 def _append_if_possible(**kwargs: Any) -> None:
