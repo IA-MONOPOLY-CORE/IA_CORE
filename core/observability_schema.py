@@ -31,6 +31,13 @@ RUNTIME_EXECUTOR_EVENT_TYPES = {
     "runtime_executor_contract_evaluated",
     "runtime_executor_prepare_only_validated",
     "runtime_executor_contract_blocked",
+    "runtime_prepare_started",
+    "runtime_prepare_validated",
+    "runtime_prepare_completed",
+    "runtime_prepare_blocked",
+    "runtime_prepare_aborted",
+    "runtime_prepare_rolled_back",
+    "runtime_prepare_idempotent_replay",
 }
 ALLOWED_EVENT_TYPES = MINIMUM_EVENT_TYPES | RUNTIME_EXECUTOR_EVENT_TYPES
 ALLOWED_TARGET_TYPES = {

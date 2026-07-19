@@ -2096,3 +2096,34 @@ Resultado:
 Recomendacion:
 
 Listo para implementar runtime executor prepare-only.
+
+## 57. PROMPT 2.23 - Implementar runtime executor prepare-only
+
+Estado: `RUNTIME_EXECUTOR_PREPARE_ONLY_IMPLEMENTED`.
+
+Evidencia:
+
+- modulo: `core/runtime_executor.py`;
+- eventos permitidos: `core/observability_schema.py`;
+- tests: `tests/test_runtime_executor_prepare_only.py`;
+- documento: `docs/RUNTIME_EXECUTOR_PREPARE_ONLY.md`.
+
+Decision:
+
+Runtime executor prepare-only queda implementado como capa operativa declarativa. Puede generar preparation record, registrar observability events, persistir audit_store events append-only, respetar idempotency y aplicar lock/concurrency minima dentro del proceso.
+
+Resultado:
+
+- funciones expuestas: `prepare_runtime`, `abort_runtime_preparation`, `rollback_runtime_preparation`;
+- status soportados: `prepared`, `blocked`, `aborted`, `rolled_back`, `noop_idempotent`;
+- `prepare_runtime` exige runtime_executor_contract passed, runtime_contract passed, execution_contract passed, observability context, audit_store verified, correlation_id e idempotency_key;
+- registra eventos seguros `runtime_prepare_started`, `runtime_prepare_validated`, `runtime_prepare_completed`, `runtime_prepare_idempotent_replay`, `runtime_prepare_blocked`, `runtime_prepare_aborted`, `runtime_prepare_rolled_back` y `mutation_scope_verified`;
+- idempotency evita duplicar `runtime_prepare_completed` ante mismo target/correlation/idempotency_key;
+- lock in-memory bloquea doble preparacion simultanea del mismo target con `runtime_preparation_lock_conflict`;
+- abort y rollback son declarativos y solo registran metadata/audit/observability;
+- no implementa execution runner, no ejecuta agentes/equipos, no invoca modelos, no ejecuta tools, no persiste memoria real, no toca UI ni integraciones;
+- no toca `domains/`, `agents/`, catalogos ni papers globales.
+
+Recomendacion:
+
+El proximo paso seguro es checkpoint end-to-end de runtime executor prepare-only sobre cadena sandbox activa.

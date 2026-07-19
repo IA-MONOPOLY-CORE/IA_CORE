@@ -50,8 +50,18 @@ def _assert_blocked(report: dict, expected: str) -> None:
     assert expected in " ".join(report["blockers"])
 
 
-def test_runtime_executor_real_module_does_not_exist_and_is_not_enabled():
-    assert not (ROOT / "core" / "runtime_executor.py").exists()
+def test_runtime_executor_prepare_only_module_exists_without_execution_runner():
+    runtime_executor_path = ROOT / "core" / "runtime_executor.py"
+    assert runtime_executor_path.exists()
+    source = runtime_executor_path.read_text(encoding="utf-8")
+    assert "def prepare_runtime(" in source
+    assert "def abort_runtime_preparation(" in source
+    assert "def rollback_runtime_preparation(" in source
+    assert "def execute_runtime(" not in source
+    assert "def run_execution(" not in source
+    assert "def invoke_model(" not in source
+    assert "def execute_tool(" not in source
+    assert "def persist_memory(" not in source
     assert not (ROOT / "core" / "execution_runner.py").exists()
     assert not (ROOT / "tests" / "test_runtime_executor.py").exists()
 
