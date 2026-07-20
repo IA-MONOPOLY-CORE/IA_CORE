@@ -2330,3 +2330,41 @@ Resultado:
 Recomendacion:
 
 El proximo paso seguro es `PROMPT 2.27.1 - Checkpoint end-to-end execution_runner_dry_run_contract sobre cadena sandbox activa`.
+
+## 64. PROMPT 2.27.1 - Checkpoint end-to-end execution_runner_dry_run_contract sobre cadena sandbox activa
+
+Estado: `PASSED_EXECUTION_RUNNER_DRY_RUN_CONTRACT_E2E`.
+
+Evidencia:
+
+- test: `tests/test_execution_runner_dry_run_contract_end_to_end.py`;
+- contrato validado: `core/execution_runner_dry_run_contract.py`;
+- documento: `docs/EXECUTION_RUNNER_DRY_RUN_CONTRACT_E2E_CHECKPOINT.md`.
+
+Decision:
+
+`execution_runner_dry_run_contract` queda validado end-to-end sobre cadena sandbox activa completa para `agent` y `team`. La validacion confirma que puede pasar en modo `dry_run_contract_only` con plan simulado declarativo, steps declarativos, input/output expectations y risk summary, sin dry-run real ni ejecucion.
+
+Resultado:
+
+- cadena temporal completa materializada desde sandbox hasta dry-run contract;
+- `agent` y `team` llegaron a active interno;
+- runtime_contract, execution_contract, runtime_executor_contract y execution_runner_contract pasaron para ambos targets;
+- runtime_executor prepare-only devolvio `prepared`;
+- dry-run contract devolvio `passed` para `agent` y `team`;
+- contratos faltantes/invalidos, audit/observability invalidos, targets invalidos, refs cruzadas, plan simulado invalido, input/output prohibido, flags prohibidos, modos prohibidos y riesgos prohibidos bloquean;
+- idempotency/replay declarativo devuelve contrato equivalente sin escribir eventos nuevos;
+- no se crea dry-run implementation;
+- no se crea `core/execution_runner.py`;
+- no se crea execution attempt ni execution attempt store;
+- no se ejecutan agentes/equipos;
+- no se invocan modelos;
+- no se ejecutan tools reales;
+- no se persiste memoria real;
+- no se habilita external access;
+- no se toca UI, integraciones, scheduler ni worker queue;
+- no hay contaminacion legacy/global.
+
+Recomendacion:
+
+Listo para auditar frontera de implementacion execution_runner dry-run sin ejecucion real.

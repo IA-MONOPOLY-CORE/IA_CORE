@@ -54,6 +54,8 @@ FORBIDDEN_FLAGS = {
     "execution_attempt_allowed": "forbidden_attempt_flag",
     "execution_attempt_store_allowed": "forbidden_attempt_flag",
     "execution_attempt_created": "forbidden_attempt_flag",
+    "agent_execution_enabled": "forbidden_execution_flag",
+    "team_execution_enabled": "forbidden_execution_flag",
     "model_invocation_enabled": "forbidden_model_flag",
     "tool_execution_enabled": "forbidden_tool_flag",
     "memory_persistence_enabled": "forbidden_memory_flag",
@@ -689,7 +691,7 @@ def _validate_plan_contract(plan, blockers):
     if plan is None:
         _block(blockers, "missing_simulated_plan", "simulated_plan requerido")
         return
-    required = set(build_plan_contract(target_type="agent", target_id="example_agent")) - {"simulated_plan_id", "steps"}
+    required = set(build_plan_contract(target_type="agent", target_id="example_agent")) - {"steps"}
     if not isinstance(plan, dict) or required - set(plan):
         _block(blockers, "invalid_simulated_plan", "simulated_plan incompleto")
         return
