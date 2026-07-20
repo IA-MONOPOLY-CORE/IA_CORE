@@ -115,6 +115,17 @@ Se valida para `agent` y `team` usando `tmp_path`.
 
 `PASSED_DRY_RUN_STORE_APPEND_ONLY_IMPLEMENTATION`
 
-## 14. Proximo Paso Recomendado
+## 14. E2E Checkpoint
 
-`PROMPT 2.33.1 - Checkpoint end-to-end dry_run_store append-only`
+Estado: `PASSED_DRY_RUN_STORE_APPEND_ONLY_E2E`.
+
+Evidencia:
+
+- checkpoint: `docs/DRY_RUN_STORE_APPEND_ONLY_E2E_CHECKPOINT.md`;
+- test E2E reforzado: `tests/test_dry_run_store_append_only_end_to_end.py`.
+
+Resultado: `dry_run_store` append-only pasa E2E para `agent` y `team` sobre cadena sandbox completa, con JSONL solo en `tmp_path`, append/get/list/verify/idempotency, checksum `sha256`, `previous_entry_checksum`, sin `execution_attempt_store`, sin `execution_attempt_id`, sin execution lifecycle, sin ejecucion real, sin payloads reales y sin mutacion.
+
+## 15. Proximo Paso Recomendado
+
+Listo para auditar frontera de `execution_attempt_store` contract.

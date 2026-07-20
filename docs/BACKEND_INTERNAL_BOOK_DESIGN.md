@@ -2669,3 +2669,40 @@ Resultado:
 Recomendacion:
 
 El proximo paso seguro es `PROMPT 2.33.1 - Checkpoint end-to-end dry_run_store append-only`.
+
+## 73. PROMPT 2.33.1 - Checkpoint end-to-end dry_run_store append-only
+
+Estado: `PASSED_DRY_RUN_STORE_APPEND_ONLY_E2E`.
+
+Evidencia:
+
+- checkpoint: `docs/DRY_RUN_STORE_APPEND_ONLY_E2E_CHECKPOINT.md`;
+- test E2E reforzado: `tests/test_dry_run_store_append_only_end_to_end.py`.
+
+Decision:
+
+Se valida E2E `dry_run_store` append-only sobre cadena sandbox completa para `agent` y `team`, usando JSONL controlado en `tmp_path`.
+
+Resultado:
+
+- `dry_run_store` append-only validado E2E;
+- JSONL en `tmp_path`;
+- append/get/list/verify/idempotency validados;
+- checksum `sha256` validado;
+- `previous_entry_checksum` validado;
+- canonical serialization validada;
+- tamper evidence validado;
+- payload boundary profundo validado;
+- sin `core/execution_attempt_store.py`;
+- sin `execution_attempt_id`;
+- sin execution attempt;
+- sin execution lifecycle;
+- sin ejecucion real;
+- sin payloads reales;
+- sin modelo/tool/memoria/external/UI/integraciones;
+- sin scheduler/worker queue;
+- sin mutacion target ni contaminacion legacy/global.
+
+Recomendacion:
+
+Listo para auditar frontera de `execution_attempt_store` contract.
