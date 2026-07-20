@@ -2550,3 +2550,41 @@ Resultado:
 Recomendacion:
 
 El proximo paso seguro es un checkpoint end-to-end de `dry_run_store_contract` antes de cualquier implementacion append-only real.
+
+## 70. PROMPT 2.31.1 - Checkpoint end-to-end dry_run_store_contract sobre dry-run result-only
+
+Estado: `PASSED_DRY_RUN_STORE_CONTRACT_E2E`.
+
+Evidencia:
+
+- checkpoint: `docs/DRY_RUN_STORE_CONTRACT_E2E_CHECKPOINT.md`;
+- test E2E: `tests/test_dry_run_store_contract_end_to_end.py`;
+- contrato validado: `core/dry_run_store_contract.py`.
+
+Decision:
+
+Se valida E2E que `dry_run_store_contract` puede pasar en modo `dry_run_store_contract_only` para `agent` y `team` usando `DryRunResult` real result-only producido por `execution_runner`.
+
+Resultado:
+
+- cadena completa validada desde sandbox hasta `dry_run_store_contract`;
+- `agent` y `team` activos;
+- runtime/execution/runtime_executor/execution_runner/dry-run contracts passed;
+- `prepare_dry_run` prepared;
+- `run_dry_run` simulated;
+- storage declarado: `append_only_jsonl`;
+- entry, append-only, idempotency, checksum, refs, payload boundary, retention, audit y observability contracts validados;
+- sin `core/dry_run_store.py`;
+- sin JSONL real;
+- sin storage real;
+- sin `core/execution_attempt_store.py`;
+- sin `execution_attempt_id`;
+- sin execution attempt;
+- sin ejecucion real;
+- sin modelo/tool/memoria/external/UI/integraciones;
+- sin scheduler/worker queue;
+- sin mutacion target ni contaminacion legacy/global.
+
+Recomendacion:
+
+Listo para auditar frontera de implementacion `dry_run_store` append-only.

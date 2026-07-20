@@ -76,4 +76,15 @@ La validacion requiere `audit_store` verificable y `observability_context` valid
 - validador: `core/dry_run_store_contract.py`;
 - tests: `tests/test_dry_run_store_contract.py`.
 
-El proximo paso seguro, si corresponde, es un checkpoint end-to-end del contrato antes de implementar cualquier store real.
+## E2E Checkpoint
+
+Estado: `PASSED_DRY_RUN_STORE_CONTRACT_E2E`.
+
+Evidencia:
+
+- checkpoint: `docs/DRY_RUN_STORE_CONTRACT_E2E_CHECKPOINT.md`;
+- test E2E: `tests/test_dry_run_store_contract_end_to_end.py`.
+
+Resultado: `dry_run_store_contract` pasa E2E para `agent` y `team` sobre `DryRunResult` real result-only producido por `execution_runner`, con `append_only_jsonl` contract-only, sin `core/dry_run_store.py`, sin JSONL real, sin storage real, sin `execution_attempt_store`, sin `execution_attempt_id`, sin ejecucion real y sin mutacion.
+
+El proximo paso seguro es auditar la frontera de implementacion `dry_run_store` append-only antes de crear cualquier store real.

@@ -458,6 +458,7 @@ def _validate_append_only_contract(contract: dict[str, Any], blockers: list[dict
         ("update_existing_allowed", "update_not_allowed"),
         ("delete_allowed", "delete_not_allowed"),
         ("physical_delete_allowed", "delete_not_allowed"),
+        ("mutable_entry_allowed", "mutable_entry_not_allowed"),
         ("entry_replacement_allowed", "replace_not_allowed"),
         ("replace_allowed", "replace_not_allowed"),
     ]:
