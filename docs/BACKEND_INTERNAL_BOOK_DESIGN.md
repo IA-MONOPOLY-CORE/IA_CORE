@@ -2296,3 +2296,37 @@ Resultado:
 Recomendacion:
 
 El proximo paso seguro es disenar `execution_runner_dry_run_contract` sin implementacion.
+
+## 63. PROMPT 2.27 - Disenar execution_runner_dry_run_contract sin implementacion
+
+Estado: `EXECUTION_RUNNER_DRY_RUN_CONTRACT_PASSED`.
+
+Evidencia:
+
+- schema: `core/execution_runner_dry_run_schema.py`;
+- validador: `core/execution_runner_dry_run_contract.py`;
+- tests: `tests/test_execution_runner_dry_run_contract.py`;
+- documento: `docs/EXECUTION_RUNNER_DRY_RUN_CONTRACT_NO_IMPLEMENTATION.md`.
+
+Decision:
+
+`execution_runner_dry_run_contract` queda creado como contrato declarativo previo al futuro dry-run. El modo canonico permitido es `dry_run_contract_only`; `dry_run_only` y los modos futuros quedan reconocidos pero bloqueados.
+
+Resultado:
+
+- valida `agent` y `team` activos con runtime_contract passed, execution_contract passed, runtime_executor_contract passed, runtime_prepare_result prepared y execution_runner_contract passed;
+- exige audit_store verified, observability context valido, capability_policy declarativa, simulated plan, simulated steps, input/output expectations, boundary, side effects, risk, idempotency, lock, abort y rollback;
+- bloquea contratos faltantes/no passed, target no active, refs cruzadas, audit/observability invalidos, plan/steps invalidos, input/output reales, flags prohibidos, side effects, risk critical sin human review y modos futuros;
+- no implementa dry-run;
+- no crea `core/execution_runner.py`;
+- no crea execution attempt ni execution attempt store;
+- no ejecuta agentes/equipos;
+- no invoca modelos;
+- no ejecuta tools reales;
+- no persiste memoria real;
+- no habilita external access;
+- no toca UI, integraciones, scheduler ni worker queue.
+
+Recomendacion:
+
+El proximo paso seguro es `PROMPT 2.27.1 - Checkpoint end-to-end execution_runner_dry_run_contract sobre cadena sandbox activa`.
