@@ -2480,3 +2480,37 @@ Resultado:
 Recomendacion:
 
 Listo para auditar frontera de `dry_run_store` o `execution attempt store`. No habilitar store/attempt directo sin auditoria previa.
+
+## 68. PROMPT 2.30 - Auditoria de frontera dry_run_store vs execution_attempt_store
+
+Estado: `DRY_RUN_STORE_READY_FOR_CONTRACT_ONLY`.
+
+Evidencia:
+
+- auditoria: `docs/DRY_RUN_STORE_VS_EXECUTION_ATTEMPT_STORE_BOUNDARY_AUDIT.md`;
+- tests: `tests/test_dry_run_store_vs_execution_attempt_store_boundary_audit.py`.
+
+Decision:
+
+`dry_run_store` y `execution_attempt_store` quedan separados. `dry_run_store` guarda simulaciones declarativas `dry_run_result_only`; `execution_attempt_store` guardaria intentos de ejecucion real o pre-ejecucion operativa y no esta listo.
+
+Resultado:
+
+- politica recomendada: `DRY_RUN_STORE_FIRST`;
+- persistencia recomendada futura: `APPEND_ONLY_JSONL`;
+- readiness principal: `DRY_RUN_STORE_READY_FOR_CONTRACT_ONLY`;
+- `EXECUTION_ATTEMPT_STORE_NOT_READY`;
+- no se crea `core/dry_run_store.py`;
+- no se crea `core/execution_attempt_store.py`;
+- no se crea storage real;
+- no hay persistencia nueva;
+- no se crea execution attempt;
+- no se habilita ejecucion real;
+- sin modelos/tools/memoria;
+- sin external/UI/integraciones;
+- sin scheduler/worker queue;
+- sin mutacion target.
+
+Recomendacion:
+
+El proximo paso seguro es `PROMPT 2.31 - Disenar dry_run_store_contract append-only sin implementation`.
