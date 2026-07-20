@@ -2368,3 +2368,42 @@ Resultado:
 Recomendacion:
 
 Listo para auditar frontera de implementacion execution_runner dry-run sin ejecucion real.
+
+## 65. PROMPT 2.28 - Auditoria de frontera de implementacion execution_runner dry-run sin ejecucion real
+
+Estado: `DRY_RUN_READY_FOR_RESULT_ONLY_IMPLEMENTATION`.
+
+Evidencia:
+
+- auditoria: `docs/EXECUTION_RUNNER_DRY_RUN_IMPLEMENTATION_BOUNDARY_AUDIT.md`;
+- tests: `tests/test_execution_runner_dry_run_implementation_boundary_audit.py`;
+- base validada: `docs/EXECUTION_RUNNER_DRY_RUN_CONTRACT_E2E_CHECKPOINT.md`.
+
+Decision:
+
+La implementacion futura de `execution_runner dry-run` queda auditada como frontera result-only. Podra existir `core/execution_runner.py` recien en el siguiente prompt, con funciones de dry-run declarativo y sin ejecucion real.
+
+Resultado:
+
+- dry-run implementation no esta creada;
+- `core/execution_runner.py` no existe;
+- no existen `prepare_dry_run`, `run_dry_run`, `abort_dry_run` ni `rollback_dry_run`;
+- no existe execution attempt real;
+- no existe execution attempt store;
+- no existe dry_run_store operativo;
+- `execution_runner_dry_run_contract passed` no implica implementacion;
+- `dry_run_contract_only passed` no implica `dry_run_only`;
+- `dry_run_only` sigue bloqueado como modo operativo;
+- futura implementacion debe requerir dry_run_contract passed, execution_runner_contract passed, runtime_prepare_result prepared, audit_store verified y observability valida;
+- primera implementacion recomendada: `FIRST_DRY_RUN_RESULT_ONLY`;
+- no se ejecutan agentes/equipos;
+- no se invocan modelos;
+- no se ejecutan tools reales;
+- no se persiste memoria real;
+- no se habilita external access;
+- no se toca UI, integraciones, scheduler ni worker queue;
+- no se mutan targets ni artefactos legacy/global.
+
+Recomendacion:
+
+El proximo paso seguro es implementar primer `execution_runner` dry-run result-only sin ejecucion real.
