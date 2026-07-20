@@ -270,6 +270,7 @@ def _validate_contract_boundaries(contract: dict[str, Any], blockers: list[dict[
     for field, code in [
         ("execution_attempt_enabled", "forbidden_execution_attempt"),
         ("execution_attempt_store_enabled", "forbidden_execution_attempt_store"),
+        ("dry_run_store_enabled", "forbidden_dry_run_store"),
         ("agent_execution_enabled", "forbidden_agent_execution"),
         ("team_execution_enabled", "forbidden_team_execution"),
         ("model_invocation_enabled", "forbidden_model_invocation"),

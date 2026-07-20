@@ -2444,3 +2444,39 @@ Resultado:
 Recomendacion:
 
 El proximo paso seguro es `PROMPT 2.29.1 - Checkpoint end-to-end execution_runner dry-run result-only`.
+
+## 67. PROMPT 2.29.1 - Checkpoint end-to-end execution_runner dry-run result-only
+
+Estado: `PASSED_DRY_RUN_RESULT_ONLY_E2E`.
+
+Evidencia:
+
+- checkpoint: `docs/EXECUTION_RUNNER_DRY_RUN_RESULT_ONLY_E2E_CHECKPOINT.md`;
+- test E2E reforzado: `tests/test_execution_runner_dry_run_result_only_end_to_end.py`;
+- implementacion validada: `core/execution_runner.py`.
+
+Decision:
+
+`execution_runner dry-run result-only` queda validado E2E para `agent` y `team` sobre cadena completa: sandbox, promotion gate, approval workflow, promotion executor, active interno, runtime contract, execution contract, runtime executor contract, runtime prepare, execution runner contract, dry-run contract, prepare, run, abort y rollback.
+
+Resultado:
+
+- dry-run result-only validado E2E;
+- `prepare_dry_run` devuelve `prepared`;
+- `run_dry_run` devuelve `simulated`;
+- `abort_dry_run` devuelve `aborted`;
+- `rollback_dry_run` devuelve `rolled_back`;
+- idempotency/replay result-only validado con registry in-memory;
+- sin execution attempt;
+- sin execution attempt store;
+- sin `dry_run_store` persistente;
+- sin ejecucion real;
+- sin modelo/tool/memoria;
+- sin external/UI/integraciones;
+- sin scheduler/worker queue;
+- sin mutacion;
+- sin contaminacion legacy/global.
+
+Recomendacion:
+
+Listo para auditar frontera de `dry_run_store` o `execution attempt store`. No habilitar store/attempt directo sin auditoria previa.

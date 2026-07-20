@@ -86,3 +86,23 @@ Se valida para `agent` y `team`.
 ## 10. Proximo paso recomendado
 
 `PROMPT 2.29.1 - Checkpoint end-to-end execution_runner dry-run result-only`
+
+## E2E checkpoint
+
+Checkpoint creado en `docs/EXECUTION_RUNNER_DRY_RUN_RESULT_ONLY_E2E_CHECKPOINT.md`.
+
+Resultado: `PASSED_DRY_RUN_RESULT_ONLY_E2E`.
+
+Cobertura validada:
+
+- `agent` y `team` activos sobre cadena sandbox completa;
+- `prepare_dry_run` devuelve `prepared`;
+- `run_dry_run` devuelve `simulated`;
+- `abort_dry_run` devuelve `aborted`;
+- `rollback_dry_run` devuelve `rolled_back`;
+- idempotency result-only in-memory devuelve `noop_idempotent` para replay equivalente;
+- no execution attempt;
+- no execution attempt store;
+- no `dry_run_store` persistente;
+- no ejecucion real, modelo, tool, memoria, external access, UI, integraciones, scheduler ni worker queue;
+- no mutacion ni contaminacion legacy/global.
