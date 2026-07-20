@@ -2159,3 +2159,32 @@ Resultado:
 Recomendacion:
 
 Listo para auditar frontera execution runner.
+
+## 59. PROMPT 2.24 - Auditoria de frontera execution runner
+
+Estado: `EXECUTION_RUNNER_READY_FOR_CONTRACT_ONLY`.
+
+Evidencia:
+
+- auditoria: `docs/EXECUTION_RUNNER_BOUNDARY_AUDIT.md`;
+- tests: `tests/test_execution_runner_boundary_audit.py`;
+- piezas auditadas: `core/runtime_executor.py`, `core/execution_contract.py`, `core/runtime_contract.py`, `core/audit_store.py`, `core/observability.py`.
+
+Decision:
+
+Execution runner queda auditado como frontera conceptual, tecnica y de seguridad. No se implementa `execution_runner`, no se habilita execution, no se invocan modelos, no se ejecutan tools reales, no se persiste memoria real, no se toca UI ni integraciones.
+
+Resultado:
+
+- `execution_runner` se define como modulo futuro para coordinar una corrida controlada, inicialmente `contract_only`;
+- no significa model invocation real, tool execution real, memory persistence real, external access, UI trigger, integration runner, scheduler ni worker queue;
+- debe requerir active_executor passed, runtime_contract passed, execution_contract passed, runtime_executor_contract passed, runtime prepare-only `prepared`, observability context, audit_store verified, policies declarativas, idempotency/lock/concurrency y abort/rollback plan;
+- targets futuros candidatos: `agent`, `team`;
+- targets directos bloqueados: domain, profile_catalog, agent_preset, paper_seed, capability_policy, tool_contract, memory_contract, runtime_contract, execution_contract y runtime_executor_contract;
+- modos futuros definidos: `contract_only`, `dry_run_only`, `simulation_only`, `no_model_execution_plan`, `model_invocation_future`, `tool_execution_future`, `memory_persistence_future`, `full_execution_future`;
+- modo recomendado: `contract_only`;
+- execution, execution runner, modelos, tools, memoria real, external access, UI e integraciones permanecen bloqueados.
+
+Recomendacion:
+
+El proximo paso seguro es disenar `execution_runner_contract` en modo `contract_only`, sin ejecucion real.
