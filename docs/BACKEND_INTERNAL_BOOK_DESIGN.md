@@ -2259,3 +2259,40 @@ Resultado:
 Recomendacion:
 
 Listo para auditar frontera execution_runner dry-run.
+
+## 62. PROMPT 2.26 - Auditoria de frontera execution_runner dry-run
+
+Estado: `DRY_RUN_READY_FOR_CONTRACT_ONLY`.
+
+Evidencia:
+
+- auditoria: `docs/EXECUTION_RUNNER_DRY_RUN_BOUNDARY_AUDIT.md`;
+- tests: `tests/test_execution_runner_dry_run_boundary_audit.py`;
+- base validada: `docs/EXECUTION_RUNNER_CONTRACT_E2E_CHECKPOINT.md`.
+
+Decision:
+
+`execution_runner dry-run` queda auditado como frontera conceptual, tecnica y de seguridad. Dry-run se define como simulacion declarativa futura de una corrida, no como ejecucion real.
+
+Resultado:
+
+- dry-run no esta implementado;
+- `core/execution_runner.py` no existe;
+- no existe execution attempt real ni execution attempt store;
+- `execution_runner_contract passed` no implica dry-run habilitado;
+- `runtime_prepare_result prepared` no implica dry-run habilitado;
+- `dry_run_only` sigue bloqueado como modo operativo;
+- dry-run futuro debe requerir execution_runner_contract passed, runtime_prepare_result prepared, audit_store verified y observability valida;
+- dry-run futuro debe producir simulated_plan, simulated_steps, expected inputs/outputs, risk summary, boundary/readiness summaries y event plans;
+- agent/team son targets futuros candidatos;
+- domains, catalogs, presets, papers, contracts, policies, UI, integrations, scheduler y worker_queue quedan bloqueados;
+- no se ejecutan agentes/equipos;
+- no se invocan modelos;
+- no se ejecutan tools reales;
+- no se persiste memoria real;
+- no se habilita external access;
+- no se toca UI, integraciones, scheduler ni worker queue.
+
+Recomendacion:
+
+El proximo paso seguro es disenar `execution_runner_dry_run_contract` sin implementacion.
