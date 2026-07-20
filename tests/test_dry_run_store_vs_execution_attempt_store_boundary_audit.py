@@ -198,8 +198,8 @@ def _boundary_codes(payload: dict) -> set[str]:
     return codes
 
 
-def test_store_modules_and_operational_store_aliases_do_not_exist_yet():
-    assert not (ROOT / "core" / "dry_run_store.py").exists()
+def test_store_modules_keep_execution_attempt_operational_aliases_absent():
+    assert (ROOT / "core" / "dry_run_store.py").exists()
     assert not (ROOT / "core" / "execution_attempt_store.py").exists()
     assert not (ROOT / "core" / "execution_history_store.py").exists()
     assert not (ROOT / "core" / "attempt_store.py").exists()

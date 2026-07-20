@@ -313,7 +313,7 @@ def test_dry_run_store_contract_does_not_create_store_jsonl_attempt_or_mutate_ta
     report = validate_dry_run_store_contract(**_contract_kwargs(kwargs, dry_run_contract, dry_run_result))
 
     assert report["status"] == "passed"
-    assert not (ROOT / "core" / "dry_run_store.py").exists()
+    assert (ROOT / "core" / "dry_run_store.py").exists()
     assert not (ROOT / "core" / "execution_attempt_store.py").exists()
     assert not any(inputs["chain"]["domain_dir"].rglob("*.jsonl"))
     assert "execution_attempt_id" not in report

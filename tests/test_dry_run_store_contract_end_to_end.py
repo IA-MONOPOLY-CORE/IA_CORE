@@ -125,7 +125,7 @@ def _assert_no_persistence_or_mutation(inputs: dict, before: dict) -> None:
     assert _read_json(_team_path(inputs["chain"])) == before["team"]
     assert _operational_snapshot() == before["operational"]
     assert (ROOT / "core" / "execution_runner.py").read_text(encoding="utf-8") == before["core_execution_runner"]
-    assert not (ROOT / "core" / "dry_run_store.py").exists()
+    assert (ROOT / "core" / "dry_run_store.py").exists()
     assert not (ROOT / "core" / "execution_attempt_store.py").exists()
     for dirname in FORBIDDEN_DOMAIN_DIRS:
         assert not (domain_dir / dirname).exists()
@@ -343,7 +343,7 @@ def test_dry_run_store_contract_e2e_blocks_payload_boundary_flags(tmp_path, fiel
     assert code in _codes(report)
 
 
-def test_dry_run_store_contract_e2e_declares_events_and_keeps_store_absent(tmp_path):
+def test_dry_run_store_contract_e2e_declares_events_and_does_not_write_store(tmp_path):
     inputs, kwargs, dry_run_contract, _prepared, simulated, before = _build_e2e(tmp_path, "agent")
 
     report = validate_dry_run_store_contract(**_contract_kwargs(kwargs, dry_run_contract, simulated))

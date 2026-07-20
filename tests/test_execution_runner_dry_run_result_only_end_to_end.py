@@ -101,7 +101,7 @@ def _assert_no_mutation(inputs: dict, before: dict) -> None:
     assert not (inputs["chain"]["domain_dir"] / "ui").exists()
     assert not (inputs["chain"]["domain_dir"] / "integrations").exists()
     assert not (ROOT / "core" / "execution_attempt_store.py").exists()
-    assert not (ROOT / "core" / "dry_run_store.py").exists()
+    assert (ROOT / "core" / "dry_run_store.py").exists()
 
 
 def _snapshot(inputs: dict) -> dict:

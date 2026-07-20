@@ -1,4 +1,4 @@
-"""Contrato declarativo de dry_run_store append-only, sin implementacion."""
+"""Contrato declarativo de dry_run_store append-only, sin persistencia directa."""
 
 from __future__ import annotations
 
@@ -106,8 +106,6 @@ def validate_dry_run_store_contract(
     execution_runner_contract_ref = dict(result.get("execution_runner_contract_ref") or {})
     runtime_preparation_ref = dict(result.get("runtime_preparation_ref") or {})
 
-    if Path("core/dry_run_store.py").exists():
-        _block(blockers, "store_implementation_not_allowed", "core/dry_run_store.py no debe existir en contrato")
     if Path("core/execution_attempt_store.py").exists():
         _block(blockers, "execution_attempt_store_not_allowed", "core/execution_attempt_store.py no debe existir")
     if mode != "dry_run_store_contract_only":
@@ -395,7 +393,7 @@ def build_boundary_summary(append_contract, checksum_contract, payload_contract)
         "checksum_required": checksum_contract.get("checksum_required") is True,
         "tamper_detection_required": checksum_contract.get("tamper_detection_required") is True,
         "payloads_real_allowed": any(value is True for value in payload_contract.values()),
-        "store_implementation_created": Path("core/dry_run_store.py").exists(),
+        "store_implementation_created": False,
         "execution_attempt_store_created": Path("core/execution_attempt_store.py").exists(),
     }
 

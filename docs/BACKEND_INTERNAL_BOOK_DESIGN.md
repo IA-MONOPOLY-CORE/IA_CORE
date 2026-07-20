@@ -2627,3 +2627,45 @@ Resultado:
 Recomendacion:
 
 El proximo paso seguro es implementar `core/dry_run_store.py` append-only en un prompt dedicado, manteniendo esta frontera.
+
+## 72. PROMPT 2.33 - Implementar dry_run_store append-only sin execution attempts
+
+Estado: `PASSED_DRY_RUN_STORE_APPEND_ONLY_IMPLEMENTATION`.
+
+Evidencia:
+
+- implementacion: `core/dry_run_store.py`;
+- tests unitarios: `tests/test_dry_run_store_append_only.py`;
+- tests E2E: `tests/test_dry_run_store_append_only_end_to_end.py`;
+- documento: `docs/DRY_RUN_STORE_APPEND_ONLY_IMPLEMENTATION.md`.
+
+Decision:
+
+Se implementa `dry_run_store` append-only JSONL para persistir `DryRunResult` result-only solo cuando `dry_run_store_contract` esta `passed`.
+
+Resultado:
+
+- `core/dry_run_store.py` creado;
+- append-only JSONL implementado;
+- serializacion canonica implementada;
+- checksum `sha256` implementado;
+- `previous_entry_checksum` implementado;
+- idempotency real implementada;
+- lectura por `dry_run_id` implementada;
+- listado read-only implementado;
+- verify/tamper evidence implementado;
+- payload boundary profundo implementado;
+- storage path configurable;
+- tests escriben solo en `tmp_path`;
+- sin `core/execution_attempt_store.py`;
+- sin `execution_attempt_id`;
+- sin execution attempt;
+- sin execution lifecycle;
+- sin ejecucion real;
+- sin modelo/tool/memoria/external/UI/integraciones;
+- sin scheduler/worker queue;
+- sin mutacion target ni artefactos globales.
+
+Recomendacion:
+
+El proximo paso seguro es `PROMPT 2.33.1 - Checkpoint end-to-end dry_run_store append-only`.

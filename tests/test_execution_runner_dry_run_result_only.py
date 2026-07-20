@@ -214,7 +214,7 @@ def test_result_only_does_not_create_attempt_stores_or_real_side_effects(tmp_pat
     assert not (inputs["chain"]["domain_dir"] / "execution_attempt_store").exists()
     assert not (inputs["chain"]["domain_dir"] / "dry_run_store").exists()
     assert not (ROOT / "core" / "execution_attempt_store.py").exists()
-    assert not (ROOT / "core" / "dry_run_store.py").exists()
+    assert (ROOT / "core" / "dry_run_store.py").exists()
     assert "real_agent_output" not in result
     assert "model_response" not in result
     assert "tool_output" not in result
