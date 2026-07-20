@@ -2188,3 +2188,37 @@ Resultado:
 Recomendacion:
 
 El proximo paso seguro es disenar `execution_runner_contract` en modo `contract_only`, sin ejecucion real.
+
+## 60. PROMPT 2.25 - Disenar execution_runner_contract sin ejecucion real
+
+Estado: `EXECUTION_RUNNER_CONTRACT_PASSED`.
+
+Evidencia:
+
+- schema: `core/execution_runner_schema.py`;
+- validador: `core/execution_runner_contract.py`;
+- tests: `tests/test_execution_runner_contract.py`;
+- documento: `docs/EXECUTION_RUNNER_CONTRACT_NO_EXECUTION.md`.
+
+Decision:
+
+`execution_runner_contract` queda creado como contrato declarativo previo al futuro runner. El unico modo operativo aceptado es `contract_only`; los modos futuros quedan reconocidos por schema pero bloqueados por contrato.
+
+Resultado:
+
+- valida `agent` y `team` activos con runtime_contract passed, execution_contract passed, runtime_executor_contract passed y runtime_prepare_result prepared;
+- exige preparation_id, audit_store verified, observability_context valido, capability_policy declarativa, idempotency_key, lock/concurrency, abort/rollback, input_contract y boundary_contract;
+- bloquea targets no directos, targets legacy/archived/broken/no active, refs cruzadas, contratos faltantes o no passed, audit/observability invalidos, input payload real y flags prohibidos;
+- no crea `core/execution_runner.py`;
+- no crea execution attempt;
+- no ejecuta agentes ni equipos;
+- no invoca modelos;
+- no ejecuta tools;
+- no persiste memoria real;
+- no habilita external access;
+- no toca UI, integraciones, scheduler ni worker queue;
+- no escribe eventos audit nuevos; solo verifica el audit_store recibido.
+
+Recomendacion:
+
+El proximo paso seguro es `PROMPT 2.25.1 - Checkpoint end-to-end execution_runner_contract sobre cadena sandbox activa`.
