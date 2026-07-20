@@ -2514,3 +2514,39 @@ Resultado:
 Recomendacion:
 
 El proximo paso seguro es `PROMPT 2.31 - Disenar dry_run_store_contract append-only sin implementation`.
+
+## 69. PROMPT 2.31 - Disenar dry_run_store_contract append-only sin implementation
+
+Estado: `DRY_RUN_STORE_CONTRACT_PASSED`.
+
+Evidencia:
+
+- schema: `core/dry_run_store_schema.py`;
+- validador: `core/dry_run_store_contract.py`;
+- tests: `tests/test_dry_run_store_contract.py`;
+- documento: `docs/DRY_RUN_STORE_CONTRACT_APPEND_ONLY.md`.
+
+Decision:
+
+Se define el contrato declarativo `dry_run_store_contract` en modo `dry_run_store_contract_only`. El contrato valida `DryRunResult` result-only para `agent` y `team`, exige refs de cadena, audit store verificado, observability valida, capability policy, idempotencia, checksum `sha256`, retention y politica append-only.
+
+Resultado:
+
+- storage futuro permitido: `append_only_jsonl`;
+- formatos futuros bloqueados: `append_only_json`, `database_future`, `in_memory_only`, `audit_store_only`, `execution_attempt_store_future`;
+- targets directos permitidos: `agent` y `team`;
+- targets internos/no operativos bloqueados;
+- payloads reales bloqueados;
+- `execution_attempt_id` bloqueado;
+- no se crea `core/dry_run_store.py`;
+- no se crea `core/execution_attempt_store.py`;
+- no se escribe JSONL;
+- no se crea store real;
+- no se ejecutan agentes/equipos;
+- sin modelo/tool/memoria/external/UI/integraciones;
+- sin scheduler/worker queue;
+- sin mutacion de targets ni artefactos.
+
+Recomendacion:
+
+El proximo paso seguro es un checkpoint end-to-end de `dry_run_store_contract` antes de cualquier implementacion append-only real.
