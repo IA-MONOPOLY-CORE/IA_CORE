@@ -98,7 +98,7 @@ def test_execution_runner_dry_run_contract_e2e_passes_for_agent_and_team_without
     assert _read_json(_team_path(inputs["chain"])) == before_team
     assert _operational_snapshot() == before_operational
     assert read_audit_events(inputs["store_path"]) == before_events
-    assert not (ROOT / "core" / "execution_runner.py").exists()
+    assert (ROOT / "core" / "execution_runner.py").exists()
     assert not (ROOT / "core" / "execution_attempt_store.py").exists()
     assert not (inputs["chain"]["domain_dir"] / "execution_attempts").exists()
     assert not (inputs["chain"]["domain_dir"] / "execution_attempt_store").exists()
@@ -288,7 +288,7 @@ def test_execution_runner_dry_run_contract_e2e_idempotency_replay_is_declarative
     assert _tree_hash(inputs["chain"]["domain_dir"]) == before_hash
     assert read_audit_events(inputs["store_path"]) == before_events
     assert verify_audit_store(inputs["store_path"])["verified"] is True
-    assert not (ROOT / "core" / "execution_runner.py").exists()
+    assert (ROOT / "core" / "execution_runner.py").exists()
     assert not (ROOT / "core" / "execution_attempt_store.py").exists()
     assert not (inputs["chain"]["domain_dir"] / "execution_attempts").exists()
     assert not (inputs["chain"]["domain_dir"] / "execution_attempt_store").exists()

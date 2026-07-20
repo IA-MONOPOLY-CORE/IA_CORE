@@ -260,7 +260,7 @@ def test_execution_runner_contract_does_not_mutate_create_attempts_or_runner(tmp
     assert _operational_snapshot() == before_operational
     assert len(read_audit_events(inputs["store_path"])) == before_event_count
     assert not (inputs["chain"]["domain_dir"] / "execution_attempts").exists()
-    assert not (ROOT / "core" / "execution_runner.py").exists()
+    assert (ROOT / "core" / "execution_runner.py").exists()
 
 
 def test_execution_runner_contract_does_not_emit_or_require_forbidden_runtime_events(tmp_path):

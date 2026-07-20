@@ -42,7 +42,7 @@ NOT_REQUIRED_FOR_DRY_RUN = {"scheduler", "worker_queue", "model_invocation", "to
 
 
 def test_execution_runner_dry_run_implementation_does_not_exist_and_is_not_enabled():
-    assert not (ROOT / "core" / "execution_runner.py").exists()
+    assert (ROOT / "core" / "execution_runner.py").exists()
     assert not (ROOT / "tests" / "test_execution_runner.py").exists()
     assert not (ROOT / "core" / "execution_attempt_store.py").exists()
     assert "dry_run_only" in BLOCKED_EXECUTION_RUNNER_MODES
@@ -79,7 +79,7 @@ def test_runtime_prepare_prepared_does_not_imply_execution_runner_dry_run(tmp_pa
     assert prepared["boundary_summary"]["memory_persistence_enabled"] is False
     assert prepared["boundary_summary"]["external_access_enabled"] is False
     assert not (inputs["chain"]["domain_dir"] / "execution_attempts").exists()
-    assert not (ROOT / "core" / "execution_runner.py").exists()
+    assert (ROOT / "core" / "execution_runner.py").exists()
 
 
 def test_future_dry_run_must_require_contract_preparation_audit_and_observability(tmp_path):

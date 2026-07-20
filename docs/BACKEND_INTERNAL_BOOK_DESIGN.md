@@ -2407,3 +2407,40 @@ Resultado:
 Recomendacion:
 
 El proximo paso seguro es implementar primer `execution_runner` dry-run result-only sin ejecucion real.
+
+## 66. PROMPT 2.29 - Implementar execution_runner dry-run result-only sin ejecucion real
+
+Estado: `PASSED_DRY_RUN_RESULT_ONLY_IMPLEMENTATION`.
+
+Evidencia:
+
+- implementacion: `core/execution_runner.py`;
+- tests unitarios: `tests/test_execution_runner_dry_run_result_only.py`;
+- tests E2E: `tests/test_execution_runner_dry_run_result_only_end_to_end.py`;
+- documento: `docs/EXECUTION_RUNNER_DRY_RUN_RESULT_ONLY.md`.
+
+Decision:
+
+Se crea el primer `execution_runner` dry-run result-only. El runner acepta contratos `execution_runner_dry_run_contract` en modo `dry_run_contract_only` o `contract_only`, valida que esten `passed`, verifica runtime preparation, audit store y observability, y devuelve un `DryRunResult` estructurado sin ejecutar agentes/equipos.
+
+Resultado:
+
+- `core/execution_runner.py` creado;
+- funciones `prepare_dry_run`, `run_dry_run`, `abort_dry_run` y `rollback_dry_run` implementadas;
+- `DryRunResult` result-only devuelve plan, steps, expectations, risk, boundaries, readiness, eventos declarativos y evidence;
+- idempotency result-only soportada con registry in-memory, sin store persistente;
+- sin execution attempt;
+- sin execution attempt store;
+- sin dry_run_store persistente;
+- sin ejecucion real de agent/team;
+- sin model invocation;
+- sin tool execution;
+- sin memory persistence;
+- sin external access;
+- sin UI ni integraciones;
+- sin scheduler ni worker queue;
+- sin mutacion de targets ni contaminacion legacy/global.
+
+Recomendacion:
+
+El proximo paso seguro es `PROMPT 2.29.1 - Checkpoint end-to-end execution_runner dry-run result-only`.

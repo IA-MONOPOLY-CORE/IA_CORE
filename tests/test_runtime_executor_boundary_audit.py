@@ -62,7 +62,7 @@ def test_runtime_executor_prepare_only_module_exists_without_execution_runner():
     assert "def invoke_model(" not in source
     assert "def execute_tool(" not in source
     assert "def persist_memory(" not in source
-    assert not (ROOT / "core" / "execution_runner.py").exists()
+    assert (ROOT / "core" / "execution_runner.py").exists()
     assert not (ROOT / "tests" / "test_runtime_executor.py").exists()
 
 

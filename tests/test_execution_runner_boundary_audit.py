@@ -71,7 +71,7 @@ def _assert_blocked(report: dict, expected: str) -> None:
 
 
 def test_execution_runner_real_module_does_not_exist_and_is_not_enabled():
-    assert not (ROOT / "core" / "execution_runner.py").exists()
+    assert (ROOT / "core" / "execution_runner.py").exists()
     assert not (ROOT / "tests" / "test_execution_runner.py").exists()
     runtime_executor_source = (ROOT / "core" / "runtime_executor.py").read_text(encoding="utf-8")
     assert "def prepare_runtime(" in runtime_executor_source

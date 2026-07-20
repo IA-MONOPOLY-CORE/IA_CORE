@@ -1,6 +1,7 @@
 from pathlib import Path
 
 from core.audit_store import read_audit_events, verify_audit_store
+from core.execution_runner import RESULT_ONLY_MODE, abort_dry_run, prepare_dry_run, rollback_dry_run, run_dry_run
 from core.execution_runner_dry_run_contract import FORBIDDEN_DRY_RUN_EVENTS, validate_execution_runner_dry_run_contract
 from core.execution_runner_dry_run_schema import BLOCKED_DRY_RUN_CONTRACT_MODES
 from tests.test_execution_runner_contract import _codes
@@ -105,13 +106,18 @@ NOT_REQUIRED_FOR_FIRST_DRY_RUN = {
 }
 
 
-def test_dry_run_implementation_files_and_functions_do_not_exist_yet():
+def test_dry_run_result_only_file_exists_without_attempt_or_store_modules():
     execution_runner_path = ROOT / "core" / "execution_runner.py"
-    assert not execution_runner_path.exists()
+    assert execution_runner_path.exists()
     assert not (ROOT / "core" / "execution_attempt_store.py").exists()
     assert not (ROOT / "core" / "dry_run_store.py").exists()
     assert not (ROOT / "tests" / "test_execution_runner.py").exists()
     assert FUTURE_DRY_RUN_FUNCTIONS == {"prepare_dry_run", "run_dry_run", "abort_dry_run", "rollback_dry_run"}
+    assert RESULT_ONLY_MODE == "dry_run_result_only"
+    assert callable(prepare_dry_run)
+    assert callable(run_dry_run)
+    assert callable(abort_dry_run)
+    assert callable(rollback_dry_run)
 
 
 def test_dry_run_contract_e2e_passed_does_not_imply_implementation_or_dry_run_only(tmp_path):
@@ -127,7 +133,7 @@ def test_dry_run_contract_e2e_passed_does_not_imply_implementation_or_dry_run_on
     assert dry_run_only["status"] == "blocked"
     assert "mode_not_allowed" in _codes(dry_run_only)
     assert "dry_run_only" in BLOCKED_DRY_RUN_CONTRACT_MODES
-    assert not (ROOT / "core" / "execution_runner.py").exists()
+    assert (ROOT / "core" / "execution_runner.py").exists()
     assert not (inputs["chain"]["domain_dir"] / "execution_attempts").exists()
     assert not (inputs["chain"]["domain_dir"] / "execution_attempt_store").exists()
     assert not (inputs["chain"]["domain_dir"] / "dry_run_store").exists()
@@ -147,7 +153,7 @@ def test_runtime_prepare_prepared_does_not_imply_dry_run_implementation(tmp_path
     assert prepared["boundary_summary"]["tool_execution_enabled"] is False
     assert prepared["boundary_summary"]["memory_persistence_enabled"] is False
     assert prepared["boundary_summary"]["external_access_enabled"] is False
-    assert not (ROOT / "core" / "execution_runner.py").exists()
+    assert (ROOT / "core" / "execution_runner.py").exists()
     assert not (inputs["chain"]["domain_dir"] / "execution_attempts").exists()
 
 
