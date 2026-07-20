@@ -2222,3 +2222,40 @@ Resultado:
 Recomendacion:
 
 El proximo paso seguro es `PROMPT 2.25.1 - Checkpoint end-to-end execution_runner_contract sobre cadena sandbox activa`.
+
+## 61. PROMPT 2.25.1 - Checkpoint end-to-end execution_runner_contract sobre cadena sandbox activa
+
+Estado: `PASSED_EXECUTION_RUNNER_CONTRACT_E2E`.
+
+Evidencia:
+
+- test: `tests/test_execution_runner_contract_end_to_end.py`;
+- contrato validado: `core/execution_runner_contract.py`;
+- documento: `docs/EXECUTION_RUNNER_CONTRACT_E2E_CHECKPOINT.md`.
+
+Decision:
+
+`execution_runner_contract` queda validado end-to-end sobre cadena sandbox activa completa para `agent` y `team`. La validacion confirma que puede pasar en modo `contract_only` cuando existen runtime_contract passed, execution_contract passed, runtime_executor_contract passed, runtime_prepare_result prepared, audit_store verified y observability valida.
+
+Resultado:
+
+- cadena temporal completa materializada desde sandbox hasta execution_runner_contract;
+- `agent` y `team` llegaron a active interno;
+- runtime_contract, execution_contract y runtime_executor_contract pasaron para ambos targets;
+- runtime_executor prepare-only devolvio `prepared`;
+- execution_runner_contract devolvio `passed` para `agent` y `team`;
+- contratos faltantes/invalidos, audit/observability invalidos, targets invalidos, refs cruzadas, inputs prohibidos, flags prohibidos y modos futuros bloquean;
+- idempotency/replay declarativo devuelve contrato equivalente sin escribir eventos nuevos;
+- no crea `core/execution_runner.py`;
+- no crea execution attempt;
+- no ejecuta agentes ni equipos;
+- no invoca modelos;
+- no ejecuta tools reales;
+- no persiste memoria real;
+- no habilita external access;
+- no toca UI, integraciones, scheduler ni worker queue;
+- no contamina legacy/global artifacts.
+
+Recomendacion:
+
+Listo para auditar frontera execution_runner dry-run.
