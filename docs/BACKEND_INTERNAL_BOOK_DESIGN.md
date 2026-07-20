@@ -2588,3 +2588,42 @@ Resultado:
 Recomendacion:
 
 Listo para auditar frontera de implementacion `dry_run_store` append-only.
+
+## 71. PROMPT 2.32 - Auditoria de frontera de implementacion dry_run_store append-only
+
+Estado: `DRY_RUN_STORE_READY_FOR_APPEND_ONLY_IMPLEMENTATION`.
+
+Estado complementario: `EXECUTION_ATTEMPT_STORE_NOT_READY`.
+
+Evidencia:
+
+- auditoria: `docs/DRY_RUN_STORE_IMPLEMENTATION_BOUNDARY_AUDIT.md`;
+- tests: `tests/test_dry_run_store_implementation_boundary_audit.py`.
+
+Decision:
+
+Se audita la frontera de implementacion futura de `dry_run_store` append-only. La implementacion no se crea en este prompt.
+
+Resultado:
+
+- archivo futuro permitido: `core/dry_run_store.py`;
+- funciones futuras permitidas: append, read by id, list read-only, verify e idempotency replay;
+- ubicacion futura recomendada: `runtime/dry_runs/dry_run_store.jsonl`;
+- formato futuro: JSONL append-only con serializacion canonica y checksum `sha256`;
+- idempotency scope: target, correlation, idempotency key, dry-run id y dry-run contract ref;
+- relacion con `audit_store`: complementaria, compartiendo `correlation_id`;
+- relacion con `execution_attempt_store`: separada, no lista;
+- no se crea `core/dry_run_store.py`;
+- no se crea JSONL real;
+- no se crea storage real;
+- no se crea `core/execution_attempt_store.py`;
+- no se crea `execution_attempt_id`;
+- no se crea execution attempt;
+- no se habilita ejecucion real;
+- sin modelo/tool/memoria/external/UI/integraciones;
+- sin scheduler/worker queue;
+- sin mutacion target ni artefactos globales.
+
+Recomendacion:
+
+El proximo paso seguro es implementar `core/dry_run_store.py` append-only en un prompt dedicado, manteniendo esta frontera.
