@@ -2706,3 +2706,40 @@ Resultado:
 Recomendacion:
 
 Listo para auditar frontera de `execution_attempt_store` contract.
+
+## 74. PROMPT 2.34 - Auditoria de frontera execution_attempt_store contract
+
+Estado: `ATTEMPT_STORE_READY_FOR_CONTRACT_ONLY`.
+
+Evidencia:
+
+- auditoria: `docs/EXECUTION_ATTEMPT_STORE_BOUNDARY_AUDIT.md`;
+- tests: `tests/test_execution_attempt_store_boundary_audit.py`.
+
+Decision:
+
+Se audita la frontera conceptual y tecnica de `execution_attempt_store` antes de disenar su contrato. IA_CORE esta listo para un contrato futuro preflight-only y contract-only, no para implementacion ni ejecucion.
+
+Resultado:
+
+- `execution_attempt_store` auditado;
+- `execution_attempt_store` no implementado;
+- no se crea `core/execution_attempt_store.py`;
+- no se crea `execution_attempt_id`;
+- no se crea execution attempt;
+- no se crea execution lifecycle;
+- no se crea execution_history_store;
+- no se habilita ejecucion real;
+- `dry_run_store` queda separado y validado como simulacion append-only;
+- datos futuros permitidos: refs, summaries, blockers, audit/observability refs, checksum e idempotencia;
+- datos prohibidos: payloads reales, agent/team outputs, model prompt/response, tool call/result, memoria, external, scheduler, worker, mutaciones, secretos y credenciales;
+- estados preflight-only futuros permitidos: `created`, `preflight_passed`, `preflight_blocked`, `blocked`, `failed`, `not_applicable`;
+- estados bloqueados: `queued_future`, `running_future`, `completed_future`, `model_invoked`, `tool_executed`, `memory_persisted`, `external_accessed`;
+- sin modelos/tools/memoria;
+- sin external/UI/integraciones;
+- sin scheduler/worker queue;
+- sin mutacion target ni contaminacion legacy/global.
+
+Recomendacion:
+
+El proximo paso seguro es `PROMPT 2.35 - Disenar execution_attempt_store_contract preflight-only sin implementation`.
