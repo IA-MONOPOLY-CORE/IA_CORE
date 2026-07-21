@@ -3034,3 +3034,45 @@ Resultado:
 Recomendacion:
 
 `PROMPT 2.39.1 - Checkpoint end-to-end execution_lifecycle_contract preflight-transitions-only`.
+
+## 82. PROMPT 2.39.1 - Checkpoint end-to-end execution_lifecycle_contract preflight-transitions-only
+
+Estado: `PASSED_EXECUTION_LIFECYCLE_CONTRACT_E2E`.
+
+Evidencia:
+
+- checkpoint: `docs/EXECUTION_LIFECYCLE_CONTRACT_E2E_CHECKPOINT.md`;
+- tests E2E: `tests/test_execution_lifecycle_contract_end_to_end.py`;
+- documentacion actualizada: `docs/EXECUTION_LIFECYCLE_CONTRACT_PREFLIGHT_TRANSITIONS_ONLY.md`.
+
+Decision:
+
+Se valida `execution_lifecycle_contract` end-to-end para `agent` y `team`, sobre cadena completa y stores verified reales en `tmp_path`.
+
+Resultado:
+
+- execution_lifecycle_contract validado E2E;
+- sobre `execution_attempt_store` verified real en `tmp_path`;
+- sobre `dry_run_store` verified real en `tmp_path`;
+- preflight-transitions-only;
+- contract-only;
+- estados permitidos validados;
+- transiciones permitidas validadas;
+- state leaks bloqueados;
+- transition leaks bloqueados;
+- attempt ID leaks bloqueados;
+- execution leaks bloqueados;
+- payload leaks bloqueados;
+- eventos prohibidos bloqueados;
+- sin `core/execution_lifecycle.py`;
+- sin `core/execution_attempt_lifecycle.py`;
+- sin `execution_attempt_id` operativo;
+- sin lifecycle real;
+- sin scheduler/worker;
+- sin ejecucion real;
+- sin payloads reales;
+- sin mutacion.
+
+Recomendacion:
+
+Listo para auditar frontera de implementacion execution_lifecycle preflight-transitions-only.

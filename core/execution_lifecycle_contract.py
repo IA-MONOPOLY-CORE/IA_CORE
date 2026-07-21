@@ -555,7 +555,7 @@ def _validate_cross_refs(*, refs, target_ref, attempt_ref, correlation_id, idemp
             _block(blockers, "idempotency_key_mismatch", f"{name} idempotency_key mismatch")
         if ref.get("dry_run_id") and dry_run_id and ref.get("dry_run_id") != dry_run_id:
             _block(blockers, "dry_run_ref_mismatch", f"{name} dry_run_ref mismatch")
-        if ref.get("contract_id") and name.endswith("contract_ref") and ref.get("status") == "failed":
+        if name.endswith("contract_ref") and ref.get("status") == "failed":
             _block(blockers, "contract_ref_mismatch", f"{name} failed")
 
 
