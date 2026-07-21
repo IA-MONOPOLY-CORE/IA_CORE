@@ -2954,3 +2954,40 @@ Resultado:
 Recomendacion:
 
 Listo para auditar frontera de execution lifecycle contract.
+
+## 80. PROMPT 2.38 - Auditoria de frontera execution lifecycle contract
+
+Estado: `LIFECYCLE_READY_FOR_CONTRACT_ONLY`.
+
+Evidencia:
+
+- auditoria: `docs/EXECUTION_LIFECYCLE_CONTRACT_BOUNDARY_AUDIT.md`;
+- tests: `tests/test_execution_lifecycle_contract_boundary_audit.py`.
+
+Decision:
+
+Se audita la frontera previa al diseno de `execution_lifecycle_contract`, partiendo de `execution_attempt_store` preflight-only E2E y manteniendo lifecycle real, execution attempt real, scheduler/worker, modelos/tools/memoria/external access y mutaciones fuera de alcance.
+
+Resultado:
+
+- execution lifecycle contract auditado;
+- readiness: `LIFECYCLE_READY_FOR_CONTRACT_ONLY`;
+- `core/execution_lifecycle.py` no creado;
+- `core/execution_lifecycle_contract.py` no creado;
+- `core/execution_lifecycle_schema.py` no creado;
+- `core/execution_attempt_lifecycle.py` no creado;
+- `core/execution_attempt_id.py` no creado;
+- `core/execution_history_store.py` no creado;
+- scheduler/worker no creado;
+- ejecucion real no habilitada;
+- agent/team execution no habilitada;
+- model invocation no habilitada;
+- tool execution no habilitada;
+- memory persistence no habilitada;
+- external access no habilitada;
+- UI/integraciones no tocadas;
+- targets no mutados.
+
+Recomendacion:
+
+`PROMPT 2.39 - Disenar execution_lifecycle_contract preflight-transitions-only sin implementation`.
