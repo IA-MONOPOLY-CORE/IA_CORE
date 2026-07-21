@@ -2917,3 +2917,40 @@ Resultado:
 Recomendacion:
 
 Ejecutar `PROMPT 2.37.1 - Checkpoint end-to-end execution_attempt_store preflight-only`.
+
+## 79. PROMPT 2.37.1 - Checkpoint end-to-end execution_attempt_store preflight-only
+
+Estado: `PASSED_EXECUTION_ATTEMPT_STORE_PREFLIGHT_ONLY_E2E`.
+
+Evidencia:
+
+- checkpoint: `docs/EXECUTION_ATTEMPT_STORE_PREFLIGHT_ONLY_E2E_CHECKPOINT.md`;
+- implementacion actualizada: `docs/EXECUTION_ATTEMPT_STORE_PREFLIGHT_ONLY_IMPLEMENTATION.md`;
+- tests E2E reforzados: `tests/test_execution_attempt_store_preflight_only_end_to_end.py`;
+- tests unitarios/base: `tests/test_execution_attempt_store_preflight_only.py`.
+
+Decision:
+
+Se valida `execution_attempt_store` preflight-only end-to-end para `agent` y `team`, usando JSONL controlado en `tmp_path` y manteniendo cerradas las fronteras de attempt ID operativo, lifecycle real, ejecucion, payloads reales y mutacion.
+
+Resultado:
+
+- execution_attempt_store preflight-only validado E2E;
+- JSONL en `tmp_path`;
+- `attempt_ref` declarativo validado;
+- append/get/list/verify/idempotency validados;
+- checksum sha256 validado;
+- `previous_entry_checksum` validado;
+- payload boundary profundo validado;
+- blockers negativos validados;
+- sin `execution_attempt_id` operativo;
+- sin lifecycle real;
+- sin ejecucion real;
+- sin payloads reales;
+- sin external/UI/integraciones;
+- sin scheduler/worker queue;
+- sin mutacion target ni contaminacion legacy/global.
+
+Recomendacion:
+
+Listo para auditar frontera de execution lifecycle contract.

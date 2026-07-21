@@ -19,6 +19,43 @@ from tests.test_runtime_contract_end_to_end import _agent_path, _operational_sna
 
 
 ROOT = Path(__file__).parent.parent
+REQUIRED_PREFLIGHT_ENTRY_FIELDS = {
+    "record_type",
+    "schema_version",
+    "attempt_ref",
+    "attempt_mode",
+    "mode",
+    "status",
+    "target_ref",
+    "dry_run_ref",
+    "dry_run_store_ref",
+    "dry_run_store_verification_ref",
+    "dry_run_store_checksum_ref",
+    "runtime_contract_ref",
+    "execution_contract_ref",
+    "runtime_executor_contract_ref",
+    "runtime_preparation_ref",
+    "execution_runner_contract_ref",
+    "dry_run_contract_ref",
+    "dry_run_store_contract_ref",
+    "execution_attempt_store_contract_ref",
+    "preflight_summary",
+    "readiness_summary",
+    "boundary_summary",
+    "risk_summary",
+    "blocked_capabilities",
+    "audit_refs",
+    "observability_refs",
+    "capability_policy_ref",
+    "correlation_id",
+    "idempotency_key",
+    "entry_checksum",
+    "previous_entry_checksum",
+    "evidence",
+    "warnings",
+    "blockers",
+}
+ALLOWED_PREFLIGHT_STATUSES = {"created", "preflight_passed", "preflight_blocked", "blocked", "failed", "not_applicable", "noop_idempotent"}
 
 
 def _snapshot(inputs: dict) -> dict:
@@ -113,10 +150,36 @@ def test_execution_attempt_store_preflight_only_e2e_agent_and_team(tmp_path, tar
     assert canonicalize_execution_attempt_store_entry(entry) == lines[0]
     assert compute_execution_attempt_entry_checksum(entry) == entry["entry_checksum"]
     assert entry["record_type"] == "execution_attempt_preflight"
+    assert REQUIRED_PREFLIGHT_ENTRY_FIELDS <= set(entry)
     assert entry["attempt_ref"].startswith("preflight:")
     assert entry["attempt_mode"] == "preflight_only"
     assert entry["mode"] == "execution_attempt_store_preflight_only"
+    assert entry["status"] in ALLOWED_PREFLIGHT_STATUSES
     assert entry["dry_run_store_checksum_ref"] == chain["verified"]["entry_checksum"]
+    for field_name in [
+        "target_ref",
+        "dry_run_ref",
+        "dry_run_store_ref",
+        "dry_run_store_verification_ref",
+        "runtime_contract_ref",
+        "execution_contract_ref",
+        "runtime_executor_contract_ref",
+        "runtime_preparation_ref",
+        "execution_runner_contract_ref",
+        "dry_run_contract_ref",
+        "dry_run_store_contract_ref",
+        "execution_attempt_store_contract_ref",
+        "preflight_summary",
+        "readiness_summary",
+        "boundary_summary",
+        "risk_summary",
+        "audit_refs",
+        "observability_refs",
+        "capability_policy_ref",
+        "correlation_id",
+        "idempotency_key",
+    ]:
+        assert entry[field_name]
     assert "execution_attempt_id" not in entry
     assert "execution_payload" not in entry
     assert "model_response" not in entry
@@ -150,6 +213,24 @@ def test_execution_attempt_store_preflight_only_e2e_hash_chain_agent_then_team(t
 
     assert verified["status"] == "verified"
     assert len(verified["entries"]) == 2
+
+
+def test_execution_attempt_store_preflight_only_e2e_blocks_append_only_false(tmp_path):
+    chain = _chain(tmp_path.parent / f"ea_preflight_negative_{uuid4().hex}" / "chain_agent", "agent")
+    contract = deepcopy(chain["attempt_contract"])
+    contract["append_only_policy"]["append_only"] = False
+    store_path = tmp_path / "attempt_store" / "execution_attempt_store.jsonl"
+
+    result = append_execution_attempt_preflight(
+        execution_attempt_store_contract=contract,
+        dry_run_store_verification=chain["verified"],
+        store_path=store_path,
+        allow_external_test_path=True,
+    )
+
+    assert result["status"] == "blocked"
+    assert any(blocker["code"] == "not_append_only" for blocker in result["blockers"])
+    assert not store_path.exists()
 
 
 def kwargs_passed(chain: dict) -> bool:

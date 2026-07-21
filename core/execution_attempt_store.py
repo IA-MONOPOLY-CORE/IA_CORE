@@ -498,6 +498,18 @@ def _validate_contract(contract: dict[str, Any] | None, blockers: list[dict[str,
         _block(blockers, "invalid_attempt_mode", "attempt_mode debe ser preflight_only")
     if contract.get("store_type") != "execution_attempt_store":
         _block(blockers, "invalid_store_type", "store_type debe ser execution_attempt_store")
+    append_policy = contract.get("append_only_policy") or {}
+    if append_policy.get("append_only") is not True:
+        _block(blockers, "not_append_only", "append_only_policy.append_only debe ser true")
+    for field_name, code in [
+        ("overwrite_allowed", "overwrite_not_allowed"),
+        ("update_allowed", "update_not_allowed"),
+        ("delete_allowed", "delete_not_allowed"),
+        ("truncate_allowed", "truncate_not_allowed"),
+        ("replace_allowed", "replace_not_allowed"),
+    ]:
+        if append_policy.get(field_name) is True:
+            _block(blockers, code, f"{field_name} debe ser false")
     _validate_payload_boundary(contract, blockers)
 
 

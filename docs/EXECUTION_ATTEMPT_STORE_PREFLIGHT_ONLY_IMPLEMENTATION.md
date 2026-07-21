@@ -158,3 +158,13 @@ Para `agent` y `team`, usando `tmp_path`.
 ## 15. Proximo Paso Recomendado
 
 `PROMPT 2.37.1 - Checkpoint end-to-end execution_attempt_store preflight-only`
+
+## 16. E2E Checkpoint
+
+Checkpoint: `docs/EXECUTION_ATTEMPT_STORE_PREFLIGHT_ONLY_E2E_CHECKPOINT.md`
+
+Resultado: `PASSED_EXECUTION_ATTEMPT_STORE_PREFLIGHT_ONLY_E2E`.
+
+Se valida `execution_attempt_store` preflight-only para `agent` y `team` sobre cadena sandbox completa, con JSONL en `tmp_path`, `attempt_ref` declarativo, append/get/list/verify/idempotency, checksum sha256, `previous_entry_checksum`, payload boundary profundo, sin `execution_attempt_id` operativo, sin lifecycle real, sin ejecucion, sin payloads reales y sin mutacion.
+
+Recomendacion posterior al checkpoint: listo para auditar frontera de execution lifecycle contract.
