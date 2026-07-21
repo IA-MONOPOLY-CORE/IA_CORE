@@ -2831,3 +2831,46 @@ Resultado:
 Recomendacion:
 
 Listo para auditar frontera de implementacion `execution_attempt_store` preflight-only.
+
+## 77. PROMPT 2.36 - Auditoria de frontera de implementacion execution_attempt_store preflight-only
+
+Estado: `EXECUTION_ATTEMPT_STORE_READY_FOR_PREFLIGHT_ONLY_IMPLEMENTATION`.
+
+Evidencia:
+
+- auditoria: `docs/EXECUTION_ATTEMPT_STORE_IMPLEMENTATION_BOUNDARY_AUDIT.md`;
+- tests: `tests/test_execution_attempt_store_implementation_boundary_audit.py`.
+
+Decision:
+
+Se audita la frontera de implementacion futura de `execution_attempt_store` preflight-only. La implementacion no se crea en este prompt.
+
+Resultado:
+
+- `execution_attempt_store` implementation auditada;
+- implementation no creada;
+- `core/execution_attempt_store.py` no creado;
+- archivo futuro permitido: `core/execution_attempt_store.py`;
+- funciones futuras permitidas: build/append/get/list/verify/replay/checksum/canonical/validate de preflight;
+- funciones de ejecucion prohibidas;
+- storage recomendado futuro: `runtime/execution_attempts/execution_attempt_store.jsonl`;
+- storage debe ser configurable/testable y tests futuros deben usar `tmp_path`;
+- attempt_ref policy definida;
+- `execution_attempt_id` operativo no creado;
+- attempt id generation/persistence/materialization disabled;
+- execution lifecycle real no creado;
+- attempts JSONL no escrito;
+- ejecucion real no habilitada;
+- payloads reales prohibidos;
+- dependencia obligatoria de `dry_run_store` verified;
+- idempotency scope definido;
+- canonical serialization/checksum sha256 definidos;
+- relacion con audit_store/observability definida por `correlation_id`;
+- sin modelos/tools/memoria;
+- sin external/UI/integraciones;
+- sin scheduler/worker queue;
+- sin mutacion target ni contaminacion legacy/global.
+
+Recomendacion:
+
+El proximo paso seguro es implementar `execution_attempt_store` preflight-only en prompt dedicado, manteniendo bloqueados lifecycle real, ejecucion real, modelos/tools/memoria, external access, scheduler y worker queue.
