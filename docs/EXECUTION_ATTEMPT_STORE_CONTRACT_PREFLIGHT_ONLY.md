@@ -194,3 +194,24 @@ Significa: contrato preflight-only creado y validado; no implementation, no atte
 
 Condicion: el checkpoint debe seguir sin crear `core/execution_attempt_store.py`, sin `execution_attempt_id` operativo, sin lifecycle real, sin ejecucion real y sin payloads reales.
 
+## 12. E2E Checkpoint
+
+Resultado: `PASSED_EXECUTION_ATTEMPT_STORE_CONTRACT_E2E`.
+
+Evidencia:
+
+- checkpoint: `docs/EXECUTION_ATTEMPT_STORE_CONTRACT_E2E_CHECKPOINT.md`;
+- test E2E: `tests/test_execution_attempt_store_contract_end_to_end.py`;
+- `agent` y `team` validados sobre cadena completa;
+- `dry_run_store` real escrito solo en `tmp_path`;
+- `verify_dry_run_store` devuelve `verified`;
+- `execution_attempt_store_contract` devuelve `passed`;
+- no `core/execution_attempt_store.py`;
+- no `execution_attempt_id` operativo;
+- no execution attempt real;
+- no lifecycle real;
+- no ejecucion real;
+- no payloads reales;
+- no mutacion.
+
+Recomendacion actual: listo para auditar frontera de implementacion `execution_attempt_store` preflight-only.

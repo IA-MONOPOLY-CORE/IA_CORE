@@ -2788,3 +2788,46 @@ Resultado:
 Recomendacion:
 
 El proximo paso seguro es `PROMPT 2.35.1 - Checkpoint end-to-end execution_attempt_store_contract preflight-only`.
+
+## 76. PROMPT 2.35.1 - Checkpoint end-to-end execution_attempt_store_contract preflight-only
+
+Estado: `PASSED_EXECUTION_ATTEMPT_STORE_CONTRACT_E2E`.
+
+Evidencia:
+
+- checkpoint: `docs/EXECUTION_ATTEMPT_STORE_CONTRACT_E2E_CHECKPOINT.md`;
+- test E2E: `tests/test_execution_attempt_store_contract_end_to_end.py`.
+
+Decision:
+
+Se valida end-to-end `execution_attempt_store_contract` para `agent` y `team`, usando cadena completa hasta `dry_run_store` real verificado en `tmp_path`.
+
+Resultado:
+
+- `execution_attempt_store_contract` validado E2E;
+- `agent` y `team` activos;
+- runtime/execution/runtime executor/execution runner/dry-run contracts passed;
+- runtime prepare `prepared`;
+- `prepare_dry_run` `prepared`;
+- `run_dry_run` `simulated`;
+- `dry_run_store_contract` `passed`;
+- append de `dry_run_store` real solo en `tmp_path`;
+- `verify_dry_run_store` `verified`;
+- `execution_attempt_store_contract` `passed`;
+- preflight-only;
+- contract-only;
+- sin `core/execution_attempt_store.py`;
+- sin `execution_attempt_id` operativo;
+- sin execution attempt real;
+- sin lifecycle real;
+- sin JSONL attempts real;
+- sin ejecucion real;
+- sin payloads reales;
+- sin modelos/tools/memoria;
+- sin external/UI/integraciones;
+- sin scheduler/worker queue;
+- sin mutacion target ni contaminacion legacy/global.
+
+Recomendacion:
+
+Listo para auditar frontera de implementacion `execution_attempt_store` preflight-only.
