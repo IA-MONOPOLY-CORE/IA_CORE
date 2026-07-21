@@ -2743,3 +2743,48 @@ Resultado:
 Recomendacion:
 
 El proximo paso seguro es `PROMPT 2.35 - Disenar execution_attempt_store_contract preflight-only sin implementation`.
+
+## 75. PROMPT 2.35 - Disenar execution_attempt_store_contract preflight-only sin implementation
+
+Estado: `EXECUTION_ATTEMPT_STORE_CONTRACT_PASSED`.
+
+Evidencia:
+
+- schema: `core/execution_attempt_store_schema.py`;
+- contrato: `core/execution_attempt_store_contract.py`;
+- tests: `tests/test_execution_attempt_store_contract.py`;
+- documento: `docs/EXECUTION_ATTEMPT_STORE_CONTRACT_PREFLIGHT_ONLY.md`.
+
+Decision:
+
+Se crea `execution_attempt_store_contract` en modo `execution_attempt_store_contract_only` y `preflight_only`. El contrato valida que un futuro attempt store solo podria registrar intencion/preflight por referencia a dry-run verificado, contratos runtime/execution, audit/observability, `correlation_id` e `idempotency_key`.
+
+Resultado:
+
+- `execution_attempt_store_contract` creado;
+- preflight-only;
+- contract-only;
+- `store_type=execution_attempt_store`;
+- `storage_format=append_only_jsonl_future`;
+- dry-run dependency obligatoria: `dry_run_ref`, `dry_run_store_ref`, `dry_run_store_verified`, `dry_run_store_checksum_ref`, `dry_run_store_contract_ref`;
+- attempt id policy: generation/persistence/materialization disabled;
+- lifecycle real bloqueado;
+- estados preflight-only permitidos: `created`, `preflight_passed`, `preflight_blocked`, `blocked`, `failed`, `not_applicable`;
+- estados operativos bloqueados: `queued`, `running`, `completed`, `cancelled`, `model_invoked`, `tool_executed`, `memory_persisted`, `external_accessed`, `scheduler_started`, `worker_started`;
+- payloads reales bloqueados profundamente;
+- append-only/checksum future policy declarada sin implementacion;
+- audit/observability refs obligatorios;
+- eventos contract-only permitidos y eventos de ejecucion prohibidos;
+- sin `core/execution_attempt_store.py`;
+- sin `execution_attempt_id` operativo;
+- sin execution attempt real;
+- sin execution lifecycle real;
+- sin ejecucion real;
+- sin modelos/tools/memoria;
+- sin external/UI/integraciones;
+- sin scheduler/worker queue;
+- sin mutacion target.
+
+Recomendacion:
+
+El proximo paso seguro es `PROMPT 2.35.1 - Checkpoint end-to-end execution_attempt_store_contract preflight-only`.
