@@ -134,8 +134,6 @@ def test_readiness_verdict_is_contract_only():
 def test_forbidden_lifecycle_modules_do_not_exist():
     forbidden = [
         "core/execution_lifecycle.py",
-        "core/execution_lifecycle_schema.py",
-        "core/execution_lifecycle_contract.py",
         "core/execution_attempt_lifecycle.py",
         "core/execution_attempt_id.py",
         "core/execution_history_store.py",
@@ -144,6 +142,8 @@ def test_forbidden_lifecycle_modules_do_not_exist():
     ]
     for relative in forbidden:
         assert not (ROOT / relative).exists(), relative
+    assert (ROOT / "core" / "execution_lifecycle_schema.py").exists()
+    assert (ROOT / "core" / "execution_lifecycle_contract.py").exists()
 
 
 def test_attempt_store_e2e_checkpoint_is_required_and_passed():

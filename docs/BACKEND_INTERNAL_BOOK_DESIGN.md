@@ -2991,3 +2991,46 @@ Resultado:
 Recomendacion:
 
 `PROMPT 2.39 - Disenar execution_lifecycle_contract preflight-transitions-only sin implementation`.
+
+## 81. PROMPT 2.39 - Disenar execution_lifecycle_contract preflight-transitions-only sin implementation
+
+Estado: `EXECUTION_LIFECYCLE_CONTRACT_PASSED`.
+
+Evidencia:
+
+- schema: `core/execution_lifecycle_schema.py`;
+- contrato: `core/execution_lifecycle_contract.py`;
+- documentacion: `docs/EXECUTION_LIFECYCLE_CONTRACT_PREFLIGHT_TRANSITIONS_ONLY.md`;
+- tests: `tests/test_execution_lifecycle_contract.py`.
+
+Decision:
+
+Se disena `execution_lifecycle_contract` como contrato declarativo preflight-transitions-only sobre `attempt_ref` declarativo y evidencia referencial verified de `execution_attempt_store` y `dry_run_store`.
+
+Resultado:
+
+- execution_lifecycle_contract creado;
+- preflight-transitions-only;
+- contract-only;
+- estados preflight permitidos definidos;
+- transiciones preflight permitidas definidas;
+- estados operativos bloqueados;
+- transiciones operativas bloqueadas;
+- attempt_ref declarativo requerido;
+- `execution_attempt_id` operativo bloqueado;
+- dependencies y refs cruzadas validadas;
+- boundary de ejecucion validado;
+- payload boundary profundo validado;
+- audit/observability policy validada;
+- sin `core/execution_lifecycle.py`;
+- sin `core/execution_attempt_lifecycle.py`;
+- sin execution lifecycle real;
+- sin execution attempt real;
+- sin scheduler/worker queue;
+- sin ejecucion real;
+- sin payloads reales;
+- sin mutacion target.
+
+Recomendacion:
+
+`PROMPT 2.39.1 - Checkpoint end-to-end execution_lifecycle_contract preflight-transitions-only`.
