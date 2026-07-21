@@ -106,8 +106,6 @@ def validate_dry_run_store_contract(
     execution_runner_contract_ref = dict(result.get("execution_runner_contract_ref") or {})
     runtime_preparation_ref = dict(result.get("runtime_preparation_ref") or {})
 
-    if Path("core/execution_attempt_store.py").exists():
-        _block(blockers, "execution_attempt_store_not_allowed", "core/execution_attempt_store.py no debe existir")
     if mode != "dry_run_store_contract_only":
         _block(blockers, "invalid_mode", f"mode no permitido: {mode}")
     if store_type != "dry_run_store":
@@ -394,7 +392,7 @@ def build_boundary_summary(append_contract, checksum_contract, payload_contract)
         "tamper_detection_required": checksum_contract.get("tamper_detection_required") is True,
         "payloads_real_allowed": any(value is True for value in payload_contract.values()),
         "store_implementation_created": False,
-        "execution_attempt_store_created": Path("core/execution_attempt_store.py").exists(),
+        "execution_attempt_store_preflight_only_created": Path("core/execution_attempt_store.py").exists(),
     }
 
 
@@ -402,7 +400,7 @@ def build_readiness_summary(blockers, audit_store_ref, observability_ref, capabi
     return {
         "dry_run_store_contract_only": True,
         "dry_run_store_implementation_absent": not Path("core/dry_run_store.py").exists(),
-        "execution_attempt_store_absent": not Path("core/execution_attempt_store.py").exists(),
+        "execution_attempt_store_preflight_only_allowed": Path("core/execution_attempt_store.py").exists(),
         "audit_store_verified": audit_store_ref.get("verification", {}).get("verified") is True,
         "observability_valid": bool(observability_ref),
         "capability_policy_present": bool(capability_ref),

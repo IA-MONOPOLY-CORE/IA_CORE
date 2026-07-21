@@ -109,7 +109,9 @@ NOT_REQUIRED_FOR_FIRST_DRY_RUN = {
 def test_dry_run_result_only_file_exists_without_attempt_store_or_auto_persistence():
     execution_runner_path = ROOT / "core" / "execution_runner.py"
     assert execution_runner_path.exists()
-    assert not (ROOT / "core" / "execution_attempt_store.py").exists()
+    assert (ROOT / "core" / "execution_attempt_store.py").exists()
+    assert not (ROOT / "core" / "execution_attempt_id.py").exists()
+    assert not (ROOT / "core" / "execution_attempt_lifecycle.py").exists()
     assert (ROOT / "core" / "dry_run_store.py").exists()
     assert not (ROOT / "tests" / "test_execution_runner.py").exists()
     assert FUTURE_DRY_RUN_FUNCTIONS == {"prepare_dry_run", "run_dry_run", "abort_dry_run", "rollback_dry_run"}

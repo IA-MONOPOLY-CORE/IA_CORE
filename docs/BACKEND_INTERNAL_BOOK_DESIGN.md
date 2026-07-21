@@ -2874,3 +2874,46 @@ Resultado:
 Recomendacion:
 
 El proximo paso seguro es implementar `execution_attempt_store` preflight-only en prompt dedicado, manteniendo bloqueados lifecycle real, ejecucion real, modelos/tools/memoria, external access, scheduler y worker queue.
+
+## 78. PROMPT 2.37 - Implementar execution_attempt_store preflight-only sin execution_attempt_id operativo
+
+Estado: `PASSED_EXECUTION_ATTEMPT_STORE_PREFLIGHT_ONLY_IMPLEMENTATION`.
+
+Evidencia:
+
+- implementacion: `core/execution_attempt_store.py`;
+- documentacion: `docs/EXECUTION_ATTEMPT_STORE_PREFLIGHT_ONLY_IMPLEMENTATION.md`;
+- tests unitarios: `tests/test_execution_attempt_store_preflight_only.py`;
+- tests E2E: `tests/test_execution_attempt_store_preflight_only_end_to_end.py`.
+
+Decision:
+
+Se implementa `execution_attempt_store` preflight-only como JSONL append-only de intencion/preflight, validado por `execution_attempt_store_contract` passed y `dry_run_store` verified.
+
+Resultado:
+
+- `core/execution_attempt_store.py` creado;
+- preflight-only JSONL append-only implementado;
+- `ExecutionAttemptPreflightStoreEntry` implementado;
+- `ExecutionAttemptStoreOperationResult` implementado;
+- `attempt_ref` declarativo implementado;
+- checksum sha256 implementado;
+- serialization canonica implementada;
+- `previous_entry_checksum` implementado;
+- idempotency real implementada;
+- append/read/list/verify implementados;
+- payload boundary profundo implementado;
+- storage path configurable y testeado con `tmp_path`;
+- sin `execution_attempt_id` operativo;
+- sin execution attempt real;
+- sin execution lifecycle real;
+- sin `execution_history_store`;
+- sin ejecucion real;
+- sin modelos/tools/memoria;
+- sin external/UI/integraciones;
+- sin scheduler/worker queue;
+- sin mutacion target ni contaminacion legacy/global.
+
+Recomendacion:
+
+Ejecutar `PROMPT 2.37.1 - Checkpoint end-to-end execution_attempt_store preflight-only`.

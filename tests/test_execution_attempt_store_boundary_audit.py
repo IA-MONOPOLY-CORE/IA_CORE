@@ -143,7 +143,7 @@ def _doc_text() -> str:
 
 
 def test_no_operational_execution_attempt_store_or_aliases_exist():
-    assert not (ROOT / "core" / "execution_attempt_store.py").exists()
+    assert (ROOT / "core" / "execution_attempt_store.py").exists()
     assert not (ROOT / "core" / "execution_history_store.py").exists()
     assert not (ROOT / "core" / "execution_attempt_lifecycle.py").exists()
     assert not (ROOT / "core" / "attempt_lifecycle.py").exists()
@@ -158,7 +158,7 @@ def test_dry_run_store_append_only_e2e_passed_does_not_imply_attempt_store():
 
     assert "PASSED_DRY_RUN_STORE_APPEND_ONLY_E2E" in checkpoint
     assert (ROOT / "core" / "dry_run_store.py").exists()
-    assert not (ROOT / "core" / "execution_attempt_store.py").exists()
+    assert (ROOT / "core" / "execution_attempt_store.py").exists()
     assert "execution_attempt_id" in checkpoint
     assert "- no `execution_attempt_id`;" in checkpoint
 

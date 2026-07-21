@@ -97,7 +97,8 @@ def test_execution_attempt_store_contract_valid_passes_for_preflight_only(tmp_pa
     assert report["checksum_policy"]["checksum_algorithm"] == "sha256"
     assert report["audit_summary"]["allowed_events"] == sorted(ALLOWED_CONTRACT_EVENTS)
     assert set(report["audit_summary"]["forbidden_events"]) == FORBIDDEN_CONTRACT_EVENTS
-    assert report["boundary_summary"]["store_implementation_created"] is False
+    assert report["boundary_summary"]["store_implementation_created"] is True
+    assert report["boundary_summary"]["store_implementation_allowed_preflight_only"] is True
     assert report["readiness_summary"]["ready_for_contract_only"] is True
     assert report["blockers"] == []
 
@@ -363,7 +364,7 @@ def test_execution_attempt_store_contract_blocks_cross_refs(tmp_path, mutator, c
 
 
 def test_execution_attempt_store_contract_does_not_create_operational_attempt_files():
-    assert not (ROOT / "core" / "execution_attempt_store.py").exists()
+    assert (ROOT / "core" / "execution_attempt_store.py").exists()
     assert not (ROOT / "core" / "execution_attempt_id.py").exists()
     assert not (ROOT / "core" / "execution_attempt_lifecycle.py").exists()
     assert not (ROOT / "core" / "execution_history_store.py").exists()

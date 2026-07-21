@@ -19,7 +19,9 @@ def _doc() -> str:
 
 def test_no_execution_attempt_store_or_runtime_storage_exists_after_dry_run_store_implementation():
     assert (ROOT / "core" / "dry_run_store.py").exists()
-    assert not (ROOT / "core" / "execution_attempt_store.py").exists()
+    assert (ROOT / "core" / "execution_attempt_store.py").exists()
+    assert not (ROOT / "core" / "execution_attempt_id.py").exists()
+    assert not (ROOT / "core" / "execution_attempt_lifecycle.py").exists()
     assert not (ROOT / "runtime" / "dry_runs" / "dry_run_store.jsonl").exists()
     assert not (ROOT / "data" / "dry_runs" / "dry_run_store.jsonl").exists()
     assert not (ROOT / ".audit" / "dry_run_store.jsonl").exists()

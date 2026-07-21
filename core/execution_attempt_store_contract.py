@@ -176,8 +176,6 @@ def validate_execution_attempt_store_contract(
     resolved_correlation_id = correlation_id if correlation_id is not None else result.get("correlation_id") or (observability_refs or {}).get("correlation_id")
     resolved_idempotency_key = idempotency_key if idempotency_key is not None else result.get("idempotency_key")
 
-    if Path("core/execution_attempt_store.py").exists():
-        _block(blockers, "execution_attempt_store_implementation_not_allowed", "core/execution_attempt_store.py no debe existir")
     if Path("core/execution_history_store.py").exists():
         _block(blockers, "execution_history_store_not_allowed", "execution_history_store no debe existir")
     if mode != CONTRACT_MODE:
@@ -591,6 +589,7 @@ def build_observability_summary(observability_refs, correlation_id) -> dict[str,
 def build_boundary_summary(blockers) -> dict[str, Any]:
     return {
         "store_implementation_created": Path("core/execution_attempt_store.py").exists(),
+        "store_implementation_allowed_preflight_only": Path("core/execution_attempt_store.py").exists(),
         "execution_attempt_id_operational": False,
         "execution_lifecycle_real": False,
         "execution_enabled": False,
@@ -603,7 +602,7 @@ def build_boundary_summary(blockers) -> dict[str, Any]:
 def build_readiness_summary(blockers) -> dict[str, Any]:
     return {
         "ready_for_contract_only": not blockers,
-        "ready_for_preflight_only_implementation": False,
+        "ready_for_preflight_only_implementation": not blockers,
         "ready_for_execution_lifecycle": False,
         "ready_for_real_execution": False,
     }
@@ -622,7 +621,7 @@ def build_evidence(result, store_ref, verification) -> list[dict[str, Any]]:
         {"evidence_id": "dry_run_ref", "dry_run_id": result.get("dry_run_id"), "mode": result.get("mode"), "status": result.get("status")},
         {"evidence_id": "dry_run_store_ref", "present": bool(store_ref)},
         {"evidence_id": "dry_run_store_verification", "status": (verification or {}).get("status")},
-        {"evidence_id": "no_execution_attempt_store_py", "exists": Path("core/execution_attempt_store.py").exists()},
+        {"evidence_id": "execution_attempt_store_py_preflight_only_allowed", "exists": Path("core/execution_attempt_store.py").exists()},
     ]
 
 

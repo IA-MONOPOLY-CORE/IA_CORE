@@ -305,7 +305,7 @@ def test_execution_runner_dry_run_contract_does_not_mutate_create_attempt_store_
     assert not (inputs["chain"]["domain_dir"] / "execution_attempts").exists()
     assert not (inputs["chain"]["domain_dir"] / "execution_attempt_store").exists()
     assert (ROOT / "core" / "execution_runner.py").exists()
-    assert not (ROOT / "core" / "execution_attempt_store.py").exists()
+    assert (ROOT / "core" / "execution_attempt_store.py").exists()
     assert {event["event_type"] for event in before_events}.isdisjoint(FORBIDDEN_DRY_RUN_EVENTS)
 
 

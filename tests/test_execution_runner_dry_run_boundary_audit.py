@@ -44,7 +44,9 @@ NOT_REQUIRED_FOR_DRY_RUN = {"scheduler", "worker_queue", "model_invocation", "to
 def test_execution_runner_dry_run_implementation_does_not_exist_and_is_not_enabled():
     assert (ROOT / "core" / "execution_runner.py").exists()
     assert not (ROOT / "tests" / "test_execution_runner.py").exists()
-    assert not (ROOT / "core" / "execution_attempt_store.py").exists()
+    assert (ROOT / "core" / "execution_attempt_store.py").exists()
+    assert not (ROOT / "core" / "execution_attempt_id.py").exists()
+    assert not (ROOT / "core" / "execution_attempt_lifecycle.py").exists()
     assert "dry_run_only" in BLOCKED_EXECUTION_RUNNER_MODES
     assert "full_execution_future" in BLOCKED_EXECUTION_RUNNER_MODES
 

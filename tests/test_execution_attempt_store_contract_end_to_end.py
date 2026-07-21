@@ -46,7 +46,7 @@ def _snapshot(inputs: dict) -> dict:
 
 
 def _assert_no_attempt_or_mutation(inputs: dict, before: dict, store_path: Path) -> None:
-    assert not (ROOT / "core" / "execution_attempt_store.py").exists()
+    assert (ROOT / "core" / "execution_attempt_store.py").exists()
     assert not (ROOT / "core" / "execution_attempt_id.py").exists()
     assert not (ROOT / "core" / "execution_attempt_lifecycle.py").exists()
     assert not (ROOT / "core" / "execution_history_store.py").exists()
@@ -179,9 +179,10 @@ def _assert_passed_chain(chain: dict, target_type: str) -> None:
     assert report["observability_refs"]
     assert report["capability_policy_ref"]
     assert report["boundary_summary"]["execution_enabled"] is False
-    assert report["boundary_summary"]["store_implementation_created"] is False
+    assert report["boundary_summary"]["store_implementation_created"] is True
+    assert report["boundary_summary"]["store_implementation_allowed_preflight_only"] is True
     assert report["readiness_summary"]["ready_for_contract_only"] is True
-    assert report["readiness_summary"]["ready_for_preflight_only_implementation"] is False
+    assert report["readiness_summary"]["ready_for_preflight_only_implementation"] is True
     assert report["risk_summary"]
     assert report["blockers"] == []
     assert report["evidence"]

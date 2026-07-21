@@ -212,8 +212,8 @@ def _doc_text() -> str:
     return (ROOT / "docs" / "EXECUTION_ATTEMPT_STORE_IMPLEMENTATION_BOUNDARY_AUDIT.md").read_text(encoding="utf-8")
 
 
-def test_no_operational_execution_attempt_store_or_attempt_artifacts_exist():
-    assert not (ROOT / "core" / "execution_attempt_store.py").exists()
+def test_no_operational_execution_attempt_id_lifecycle_or_history_artifacts_exist():
+    assert (ROOT / "core" / "execution_attempt_store.py").exists()
     assert not (ROOT / "core" / "execution_attempt_id.py").exists()
     assert not (ROOT / "core" / "execution_attempt_lifecycle.py").exists()
     assert not (ROOT / "core" / "execution_history_store.py").exists()
@@ -356,4 +356,3 @@ def test_readiness_verdict_and_next_step_are_documented():
     assert READINESS_VERDICT in text
     assert "implementar `execution_attempt_store` preflight-only en prompt dedicado" in text
     assert "No implica readiness para lifecycle real" in text
-

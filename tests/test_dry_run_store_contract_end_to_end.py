@@ -126,7 +126,7 @@ def _assert_no_persistence_or_mutation(inputs: dict, before: dict) -> None:
     assert _operational_snapshot() == before["operational"]
     assert (ROOT / "core" / "execution_runner.py").read_text(encoding="utf-8") == before["core_execution_runner"]
     assert (ROOT / "core" / "dry_run_store.py").exists()
-    assert not (ROOT / "core" / "execution_attempt_store.py").exists()
+    assert (ROOT / "core" / "execution_attempt_store.py").exists()
     for dirname in FORBIDDEN_DOMAIN_DIRS:
         assert not (domain_dir / dirname).exists()
     for pattern in FORBIDDEN_STORAGE_PATTERNS:
@@ -193,7 +193,7 @@ def _assert_store_contract(report: dict, target_type: str) -> None:
     assert report["boundary_summary"]["append_only"] is True
     assert report["boundary_summary"]["payloads_real_allowed"] is False
     assert report["boundary_summary"]["store_implementation_created"] is False
-    assert report["boundary_summary"]["execution_attempt_store_created"] is False
+    assert report["boundary_summary"]["execution_attempt_store_preflight_only_created"] is True
     assert report["readiness_summary"]["ready_for_contract_only"] is True
     assert report["readiness_summary"]["ready_for_implementation"] is False
     assert report["evidence"]

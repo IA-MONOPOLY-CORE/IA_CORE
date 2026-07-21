@@ -36,7 +36,7 @@ def _snapshot(inputs: dict) -> dict:
 
 
 def _assert_no_attempt_or_mutation(inputs: dict, before: dict) -> None:
-    assert not (ROOT / "core" / "execution_attempt_store.py").exists()
+    assert (ROOT / "core" / "execution_attempt_store.py").exists()
     assert not (inputs["chain"]["domain_dir"] / "execution_attempt_store").exists()
     assert not (inputs["chain"]["domain_dir"] / "execution_attempts").exists()
     assert not (inputs["chain"]["domain_dir"] / "ui").exists()

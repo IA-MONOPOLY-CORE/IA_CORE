@@ -242,7 +242,7 @@ def test_store_does_not_create_attempts_execute_or_mutate_targets(tmp_path):
     verify_dry_run_store(store_path, allow_external_test_path=True)
 
     assert result["status"] == "appended"
-    assert not (ROOT / "core" / "execution_attempt_store.py").exists()
+    assert (ROOT / "core" / "execution_attempt_store.py").exists()
     assert "execution_attempt_id" not in result
     assert not (inputs["chain"]["domain_dir"] / "execution_attempt_store").exists()
     assert not (inputs["chain"]["domain_dir"] / "execution_attempts").exists()

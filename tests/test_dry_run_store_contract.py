@@ -314,7 +314,7 @@ def test_dry_run_store_contract_does_not_create_store_jsonl_attempt_or_mutate_ta
 
     assert report["status"] == "passed"
     assert (ROOT / "core" / "dry_run_store.py").exists()
-    assert not (ROOT / "core" / "execution_attempt_store.py").exists()
+    assert (ROOT / "core" / "execution_attempt_store.py").exists()
     assert not any(inputs["chain"]["domain_dir"].rglob("*.jsonl"))
     assert "execution_attempt_id" not in report
     assert _tree_hash(inputs["chain"]["domain_dir"]) == before_hash
