@@ -3152,3 +3152,45 @@ Resultado:
 Recomendacion:
 
 `PROMPT 2.41.1 - Checkpoint E2E execution_lifecycle preflight-transitions-only append-only`.
+
+## 85. PROMPT 2.41.1 - Checkpoint E2E execution_lifecycle preflight-transitions-only append-only
+
+Estado: `PASSED_EXECUTION_LIFECYCLE_PREFLIGHT_TRANSITIONS_ONLY_E2E`.
+
+Evidencia:
+
+- checkpoint: `docs/EXECUTION_LIFECYCLE_PREFLIGHT_TRANSITIONS_ONLY_E2E_CHECKPOINT.md`;
+- E2E reforzado: `tests/test_execution_lifecycle_preflight_transitions_only_end_to_end.py`;
+- implementacion validada: `core/execution_lifecycle.py`.
+
+Decision:
+
+Se valida end-to-end `execution_lifecycle` append-only para `agent` y `team`, sobre cadena completa y stores reales aislados en `tmp_path`.
+
+Resultado:
+
+- `execution_lifecycle` append-only validado E2E;
+- `agent` y `team`;
+- `dry_run_store` real en `tmp_path` append/verify;
+- `execution_attempt_store` real en `tmp_path` append/verify;
+- `execution_lifecycle_store` real en `tmp_path` append/get/list/verify;
+- idempotency replay;
+- idempotency conflict bloqueado;
+- checksum chain;
+- `previous_entry_checksum`;
+- `sequence_number` monotonico;
+- sin `execution_attempt_id` operativo;
+- sin execution attempt real;
+- sin `execution_history_store`;
+- sin scheduler/worker queue;
+- sin `queued/running/completed` reales;
+- sin ejecucion real;
+- sin modelos/tools/memoria;
+- sin external access;
+- sin payloads reales;
+- sin mutacion target;
+- sin JSONL runtime real fuera de `tmp_path`.
+
+Recomendacion:
+
+Listo para auditar frontera de execution history / attempt history contract.

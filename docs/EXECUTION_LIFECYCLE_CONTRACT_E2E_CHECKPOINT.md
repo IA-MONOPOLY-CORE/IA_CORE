@@ -130,3 +130,9 @@ Los JSONL de dry-run y attempt solo se escriben en `tmp_path`.
 ## 11. Recomendacion Siguiente
 
 `PROMPT 2.41.1 - Checkpoint E2E execution_lifecycle preflight-transitions-only append-only`
+
+## 12. Checkpoint E2E Implementacion 2.41.1
+
+Resultado: `PASSED_EXECUTION_LIFECYCLE_PREFLIGHT_TRANSITIONS_ONLY_E2E`.
+
+El contrato `execution_lifecycle_contract` alimenta correctamente la implementacion append-only `core/execution_lifecycle.py` para `agent` y `team`, usando `dry_run_store`, `execution_attempt_store` y `execution_lifecycle_store` reales en `tmp_path`. Se valida append/get/list/verify, idempotency replay, checksum chain y ausencia de JSONL runtime real.

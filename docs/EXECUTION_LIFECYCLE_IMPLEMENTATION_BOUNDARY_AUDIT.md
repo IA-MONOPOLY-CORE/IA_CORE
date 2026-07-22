@@ -316,3 +316,11 @@ El store se mantiene configurable y los tests escriben solo en `tmp_path`.
 `PROMPT 2.41.1 - Checkpoint E2E execution_lifecycle preflight-transitions-only append-only`
 
 Condicion: validar la implementacion completa sin abrir runtime real.
+
+## 21. Checkpoint E2E 2.41.1
+
+Resultado: `PASSED_EXECUTION_LIFECYCLE_PREFLIGHT_TRANSITIONS_ONLY_E2E`.
+
+La implementacion `core/execution_lifecycle.py` fue validada E2E para `agent` y `team` con stores reales aislados en `tmp_path`, append/get/list/verify lifecycle, replay de idempotencia, conflicto de idempotencia, checksum chain, `previous_entry_checksum`, y deteccion de corrupcion.
+
+No se habilita execution lifecycle operativo, `execution_attempt_id`, execution attempt real, scheduler/worker, queue/running/completed reales, modelos/tools/memoria, external access, payloads reales ni mutacion target.

@@ -130,3 +130,22 @@ Resultado:
 ## 10. Proximo Prompt
 
 `PROMPT 2.41.1 - Checkpoint E2E execution_lifecycle preflight-transitions-only append-only`
+
+## 11. Checkpoint E2E 2.41.1
+
+Resultado: `PASSED_EXECUTION_LIFECYCLE_PREFLIGHT_TRANSITIONS_ONLY_E2E`.
+
+Evidencia:
+
+- checkpoint: `docs/EXECUTION_LIFECYCLE_PREFLIGHT_TRANSITIONS_ONLY_E2E_CHECKPOINT.md`;
+- E2E reforzado: `tests/test_execution_lifecycle_preflight_transitions_only_end_to_end.py`;
+- `agent` y `team` validados;
+- `dry_run_store` real solo en `tmp_path`;
+- `execution_attempt_store` real solo en `tmp_path`;
+- `execution_lifecycle_store` real solo en `tmp_path`;
+- append/get/list/verify lifecycle;
+- idempotency replay noop;
+- idempotency conflict bloqueado;
+- checksum chain y `previous_entry_checksum`;
+- corrupt JSON, checksum mismatch, previous checksum mismatch y sequence mismatch detectados;
+- sin execution lifecycle operativo ni ejecucion real.

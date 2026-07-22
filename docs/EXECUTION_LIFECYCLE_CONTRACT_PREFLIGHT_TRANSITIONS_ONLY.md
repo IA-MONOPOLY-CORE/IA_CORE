@@ -269,3 +269,9 @@ Resultado: `PASSED_EXECUTION_LIFECYCLE_PREFLIGHT_TRANSITIONS_ONLY_IMPLEMENTATION
 El contrato ahora alimenta `core/execution_lifecycle.py`, que registra transiciones preflight append-only con checksum, `previous_entry_checksum`, idempotency noop/conflict, get/list/verify read-only y path configurable.
 
 No habilita runtime real, scheduler/worker, modelos/tools/memoria, external access, payloads reales ni mutacion.
+
+## 15. Checkpoint E2E 2.41.1
+
+Resultado: `PASSED_EXECUTION_LIFECYCLE_PREFLIGHT_TRANSITIONS_ONLY_E2E`.
+
+Se valida `agent` y `team` sobre cadena completa, con lifecycle store real solo en `tmp_path`, append/get/list/verify, idempotency replay, checksum chain y deteccion de corrupcion. No se habilitan estados operativos ni ejecucion real.
