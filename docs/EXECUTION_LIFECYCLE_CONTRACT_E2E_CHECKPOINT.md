@@ -82,11 +82,13 @@ Se validan blockers para:
 - payloads reales prohibidos;
 - eventos prohibidos.
 
-## 7. No Implementation / No Lifecycle
+## 7. Frontera De Implementacion
 
-Evidencia:
+En este checkpoint original el contrato seguia siendo contract-only. A partir de `PROMPT 2.41`, `core/execution_lifecycle.py` queda permitido solo como registrador append-only de transiciones preflight.
 
-- no `core/execution_lifecycle.py`;
+Evidencia actualizada:
+
+- `core/execution_lifecycle.py` permitido como preflight-transitions-only append-only;
 - no `core/execution_attempt_lifecycle.py`;
 - no execution lifecycle real;
 - no `execution_attempt_id` operativo;
@@ -105,9 +107,8 @@ Payloads prohibidos probados: `execution_payload`, `execution_result`, `executio
 
 Los tests toman snapshots antes/despues de dominio, agente, equipo y estado operacional. No se detectan mutaciones.
 
-No se crean:
+No se crean artefactos operativos:
 
-- `core/execution_lifecycle.py`;
 - `core/execution_attempt_lifecycle.py`;
 - `core/execution_attempt_id.py`;
 - `core/execution_history_store.py`;
@@ -128,4 +129,4 @@ Los JSONL de dry-run y attempt solo se escriben en `tmp_path`.
 
 ## 11. Recomendacion Siguiente
 
-Listo para auditar frontera de implementacion execution_lifecycle preflight-transitions-only.
+`PROMPT 2.41.1 - Checkpoint E2E execution_lifecycle preflight-transitions-only append-only`

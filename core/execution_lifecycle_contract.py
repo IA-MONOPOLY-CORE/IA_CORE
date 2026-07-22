@@ -235,8 +235,6 @@ def validate_execution_lifecycle_contract(
     resolved_correlation_id = correlation_id if correlation_id is not None else attempt_store_ref.get("correlation_id") or attempt_store_contract.get("correlation_id") or (observability_refs or {}).get("correlation_id")
     resolved_idempotency_key = idempotency_key if idempotency_key is not None else attempt_store_ref.get("idempotency_key") or attempt_store_contract.get("idempotency_key")
 
-    if Path("core/execution_lifecycle.py").exists():
-        _block(blockers, "execution_lifecycle_implementation_not_allowed", "core/execution_lifecycle.py no debe existir")
     if Path("core/execution_attempt_lifecycle.py").exists():
         _block(blockers, "execution_attempt_lifecycle_not_allowed", "core/execution_attempt_lifecycle.py no debe existir")
     if Path("core/execution_attempt_id.py").exists():

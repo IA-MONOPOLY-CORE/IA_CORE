@@ -109,7 +109,7 @@ def test_execution_lifecycle_contract_valid_passes(lifecycle_inputs):
     assert report["attempt_ref"].startswith("preflight:")
     assert report["dependency_summary"]["execution_attempt_store_verified"] is True
     assert report["dependency_summary"]["dry_run_store_verified"] is True
-    assert report["boundary_summary"]["execution_lifecycle_implementation_created"] is False
+    assert report["boundary_summary"]["execution_lifecycle_implementation_created"] is True
     assert report["readiness_summary"]["ready_for_contract_only"] is True
     assert report["blockers"] == []
 
@@ -340,7 +340,7 @@ def test_execution_lifecycle_contract_policy_builders_are_contract_only(lifecycl
 def test_execution_lifecycle_contract_does_not_create_forbidden_operational_files():
     assert (ROOT / "core" / "execution_lifecycle_schema.py").exists()
     assert (ROOT / "core" / "execution_lifecycle_contract.py").exists()
-    assert not (ROOT / "core" / "execution_lifecycle.py").exists()
+    assert (ROOT / "core" / "execution_lifecycle.py").exists()
     assert not (ROOT / "core" / "execution_attempt_lifecycle.py").exists()
     assert not (ROOT / "core" / "execution_attempt_id.py").exists()
     assert not (ROOT / "core" / "execution_history_store.py").exists()

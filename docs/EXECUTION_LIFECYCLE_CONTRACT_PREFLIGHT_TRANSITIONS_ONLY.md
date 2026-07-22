@@ -6,9 +6,11 @@
 
 Readiness: `EXECUTION_LIFECYCLE_CONTRACT_PASSED`.
 
+Nota de fase: desde `PROMPT 2.41`, `core/execution_lifecycle.py` existe como implementacion permitida, limitada a append-only preflight transitions. El contrato sigue sin habilitar lifecycle operativo.
+
 ## 2. Que No Implementa
 
-- no `core/execution_lifecycle.py`;
+- no lifecycle operativo;
 - no `core/execution_attempt_lifecycle.py`;
 - no execution lifecycle real;
 - no `execution_attempt_id` operativo;
@@ -247,7 +249,7 @@ Evidencia:
 - `verify_execution_attempt_store` devuelve `verified`;
 - `execution_lifecycle_contract` devuelve `passed`;
 - veredicto: `EXECUTION_LIFECYCLE_CONTRACT_PASSED`;
-- no `core/execution_lifecycle.py`;
+- `core/execution_lifecycle.py` permitido desde `PROMPT 2.41` solo como append-only preflight transitions;
 - no `core/execution_attempt_lifecycle.py`;
 - no execution lifecycle real;
 - no `execution_attempt_id` operativo;
@@ -259,3 +261,11 @@ Evidencia:
 - no mutacion.
 
 Recomendacion posterior al checkpoint: listo para auditar frontera de implementacion execution_lifecycle preflight-transitions-only.
+
+## 14. Implementacion 2.41
+
+Resultado: `PASSED_EXECUTION_LIFECYCLE_PREFLIGHT_TRANSITIONS_ONLY_IMPLEMENTATION`.
+
+El contrato ahora alimenta `core/execution_lifecycle.py`, que registra transiciones preflight append-only con checksum, `previous_entry_checksum`, idempotency noop/conflict, get/list/verify read-only y path configurable.
+
+No habilita runtime real, scheduler/worker, modelos/tools/memoria, external access, payloads reales ni mutacion.

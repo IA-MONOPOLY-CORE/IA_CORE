@@ -3107,3 +3107,48 @@ Resultado:
 Recomendacion:
 
 `PROMPT 2.41 - Implementar execution_lifecycle preflight-transitions-only append-only`.
+
+## 84. PROMPT 2.41 - Implementar execution_lifecycle preflight-transitions-only append-only
+
+Estado: `PASSED_EXECUTION_LIFECYCLE_PREFLIGHT_TRANSITIONS_ONLY_IMPLEMENTATION`.
+
+Evidencia:
+
+- implementacion: `core/execution_lifecycle.py`;
+- documentacion: `docs/EXECUTION_LIFECYCLE_PREFLIGHT_TRANSITIONS_ONLY_IMPLEMENTATION.md`;
+- tests unitarios: `tests/test_execution_lifecycle_preflight_transitions_only.py`;
+- tests E2E: `tests/test_execution_lifecycle_preflight_transitions_only_end_to_end.py`;
+- frontera contractual actualizada: `core/execution_lifecycle_contract.py`;
+- checkpoint contractual actualizado: `tests/test_execution_lifecycle_contract_end_to_end.py`.
+
+Decision:
+
+Se implementa `execution_lifecycle` solo como store append-only de transiciones preflight, consumiendo `execution_lifecycle_contract passed` y dependencias verified de `execution_attempt_store` y `dry_run_store`.
+
+Resultado:
+
+- `core/execution_lifecycle.py` creado;
+- JSONL append-only con path configurable;
+- tests escriben solo en `tmp_path`;
+- checksum `sha256` por entrada;
+- `previous_entry_checksum`;
+- `sequence_number` monotono;
+- canonical serialization;
+- get/list/verify read-only;
+- idempotency noop/conflict;
+- estados preflight permitidos;
+- transiciones preflight permitidas;
+- estados/transiciones operativas bloqueadas;
+- `execution_attempt_id` operativo bloqueado;
+- scheduler/worker bloqueado;
+- modelos/tools/memoria/external access bloqueados;
+- payloads reales bloqueados;
+- sin mutacion target;
+- sin `core/execution_attempt_lifecycle.py`;
+- sin `core/execution_attempt_id.py`;
+- sin `core/execution_history_store.py`;
+- sin scheduler/worker queue.
+
+Recomendacion:
+
+`PROMPT 2.41.1 - Checkpoint E2E execution_lifecycle preflight-transitions-only append-only`.

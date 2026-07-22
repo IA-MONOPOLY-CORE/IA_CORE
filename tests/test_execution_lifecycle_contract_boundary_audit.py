@@ -132,8 +132,8 @@ def test_readiness_verdict_is_contract_only():
 
 
 def test_forbidden_lifecycle_modules_do_not_exist():
+    assert (ROOT / "core" / "execution_lifecycle.py").exists()
     forbidden = [
-        "core/execution_lifecycle.py",
         "core/execution_attempt_lifecycle.py",
         "core/execution_attempt_id.py",
         "core/execution_history_store.py",

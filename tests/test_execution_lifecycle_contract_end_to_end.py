@@ -103,7 +103,7 @@ def _assert_blocked(report: dict, code: str) -> None:
 
 
 def _assert_no_lifecycle_or_mutation(chain: dict) -> None:
-    assert not (ROOT / "core" / "execution_lifecycle.py").exists()
+    assert (ROOT / "core" / "execution_lifecycle.py").exists()
     assert not (ROOT / "core" / "execution_attempt_lifecycle.py").exists()
     assert not (ROOT / "core" / "execution_attempt_id.py").exists()
     assert not (ROOT / "core" / "execution_history_store.py").exists()

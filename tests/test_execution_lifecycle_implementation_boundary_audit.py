@@ -159,7 +159,7 @@ def _audit_text() -> str:
 
 
 def test_no_operational_lifecycle_attempt_id_history_or_queue_artifacts_exist():
-    assert not (ROOT / "core" / "execution_lifecycle.py").exists()
+    assert (ROOT / "core" / "execution_lifecycle.py").exists()
     for relative in BLOCKED_FILES:
         assert not (ROOT / relative).exists(), relative
 
@@ -290,7 +290,7 @@ def test_readiness_and_next_prompt_are_coherent():
     text = _audit_text()
     book = BOOK_DOC.read_text(encoding="utf-8")
     assert READINESS in text
-    assert "PROMPT 2.41 - Implementar execution_lifecycle preflight-transitions-only append-only" in text
+    assert "PROMPT 2.41.1 - Checkpoint E2E execution_lifecycle preflight-transitions-only append-only" in text
     assert "PROMPT 2.40 - Auditoria de frontera de implementacion execution_lifecycle preflight-transitions-only" in book
     assert READINESS in book
 
@@ -299,7 +299,7 @@ def test_no_real_execution_external_ui_or_mutation_scope_is_opened():
     text = _audit_text()
     for phrase in [
         "No significa readiness para lifecycle operativo",
-        "No se detecta `core/execution_lifecycle.py`",
+        "`core/execution_lifecycle.py` fue creado como implementacion permitida",
         "no como `execution_lifecycle` operativo",
         "No deben disparar ejecucion ni modificar targets",
         "sin ejecucion real",

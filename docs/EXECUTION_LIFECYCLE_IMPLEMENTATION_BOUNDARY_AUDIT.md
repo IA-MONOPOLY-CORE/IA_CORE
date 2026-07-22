@@ -288,8 +288,31 @@ Las referencias actuales a `execution_lifecycle`, `queued`, `running`, `complete
 
 No se detecta `core/execution_lifecycle.py`, `execution_attempt_lifecycle`, `execution_attempt_id`, `execution_history_store`, scheduler/worker queue ni JSONL lifecycle real.
 
-## 19. Proximo Paso Recomendado
+## 19. Implementacion 2.41
 
-`PROMPT 2.41 - Implementar execution_lifecycle preflight-transitions-only append-only`
+Resultado: `PASSED_EXECUTION_LIFECYCLE_PREFLIGHT_TRANSITIONS_ONLY_IMPLEMENTATION`.
 
-Condicion: mantener la implementacion limitada a append-only preflight transitions, con path configurable, tests en `tmp_path`, dependency policy estricta y sin ejecucion real.
+`core/execution_lifecycle.py` fue creado como implementacion permitida y limitada a append-only preflight transitions.
+
+Se mantiene bloqueado:
+
+- `core/execution_attempt_lifecycle.py`;
+- `core/execution_attempt_id.py`;
+- `core/execution_history_store.py`;
+- `core/scheduler_queue.py`;
+- `core/worker_queue.py`;
+- execution lifecycle operativo;
+- sin ejecucion real;
+- queue/running/completed reales;
+- scheduler/worker;
+- modelos/tools/memoria/external access;
+- payloads reales;
+- mutacion de targets.
+
+El store se mantiene configurable y los tests escriben solo en `tmp_path`.
+
+## 20. Proximo Paso Recomendado
+
+`PROMPT 2.41.1 - Checkpoint E2E execution_lifecycle preflight-transitions-only append-only`
+
+Condicion: validar la implementacion completa sin abrir runtime real.
