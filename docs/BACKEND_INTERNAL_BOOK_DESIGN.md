@@ -3076,3 +3076,34 @@ Resultado:
 Recomendacion:
 
 Listo para auditar frontera de implementacion execution_lifecycle preflight-transitions-only.
+
+## 83. PROMPT 2.40 - Auditoria de frontera de implementacion execution_lifecycle preflight-transitions-only
+
+Estado: `EXECUTION_LIFECYCLE_READY_FOR_PREFLIGHT_TRANSITIONS_ONLY_IMPLEMENTATION`.
+
+Evidencia:
+
+- auditoria: `docs/EXECUTION_LIFECYCLE_IMPLEMENTATION_BOUNDARY_AUDIT.md`;
+- tests: `tests/test_execution_lifecycle_implementation_boundary_audit.py`.
+
+Decision:
+
+Se audita la frontera antes de implementar `execution_lifecycle.py`. La evidencia de `execution_lifecycle_contract` E2E, `execution_attempt_store` verified y `dry_run_store` verified permite una implementacion futura limitada a append-only preflight transitions.
+
+Resultado:
+
+- implementation boundary audit creada;
+- `core/execution_lifecycle.py` no creado;
+- execution_lifecycle implementation no creada;
+- `execution_attempt_id` operativo no creado;
+- execution attempt real no creado;
+- `execution_history_store` no creado;
+- scheduler/worker no creado;
+- ejecucion real no habilitada;
+- estados `queued/running/completed/cancelled/rolled_back` siguen bloqueados;
+- store futuro permitido solo append-only JSONL con path configurable y tests en `tmp_path`;
+- readiness real: `EXECUTION_LIFECYCLE_READY_FOR_PREFLIGHT_TRANSITIONS_ONLY_IMPLEMENTATION`.
+
+Recomendacion:
+
+`PROMPT 2.41 - Implementar execution_lifecycle preflight-transitions-only append-only`.
