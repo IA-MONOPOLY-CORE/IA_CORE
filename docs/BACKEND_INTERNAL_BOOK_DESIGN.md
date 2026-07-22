@@ -3229,3 +3229,44 @@ Resultado:
 Recomendacion:
 
 `PROMPT 2.43 - Disenar execution_history_view_contract derived-only preflight-only sin store`.
+
+## 87. PROMPT 2.43 - Disenar execution_history_view_contract derived-only preflight-only sin store
+
+Estado: `EXECUTION_HISTORY_VIEW_CONTRACT_PASSED`.
+
+Evidencia:
+
+- schema: `core/execution_history_view_schema.py`;
+- contrato: `core/execution_history_view_contract.py`;
+- tests: `tests/test_execution_history_view_contract.py`;
+- documentacion: `docs/EXECUTION_HISTORY_VIEW_CONTRACT_DERIVED_ONLY.md`.
+
+Decision:
+
+Se crea `execution_history_view_contract` como contrato declarativo derived-only, preflight-only y contract-only. La vista se deriva de `dry_run_store`, `execution_attempt_store` y `execution_lifecycle_store` verified, sin store propio.
+
+Resultado:
+
+- `execution_history_view_contract` creado;
+- derived-only;
+- preflight-only;
+- contract-only;
+- sin `execution_history_store`;
+- sin attempt_history store;
+- sin `execution_result_store`;
+- sin `execution_attempt_id` operativo;
+- sin JSONL history;
+- sin ejecucion real;
+- sin payloads reales;
+- sin mutacion target;
+- timeline permitido definido;
+- estados permitidos/bloqueados definidos;
+- dependency policy validada;
+- store prohibition policy validada;
+- attempt ID policy validada;
+- execution boundary policy validada;
+- payload boundary profundo validado.
+
+Recomendacion:
+
+`PROMPT 2.43.1 - Checkpoint E2E execution_history_view_contract derived-only preflight-only`.
