@@ -3194,3 +3194,38 @@ Resultado:
 Recomendacion:
 
 Listo para auditar frontera de execution history / attempt history contract.
+
+## 86. PROMPT 2.42 - Auditoria de frontera execution history / attempt history contract
+
+Estado: `HISTORY_READY_FOR_DERIVED_VIEW_CONTRACT_ONLY`.
+
+Evidencia:
+
+- auditoria: `docs/EXECUTION_HISTORY_ATTEMPT_HISTORY_BOUNDARY_AUDIT.md`;
+- tests: `tests/test_execution_history_attempt_history_boundary_audit.py`;
+- stores primarios existentes: `dry_run_store`, `execution_attempt_store`, `execution_lifecycle`.
+
+Decision:
+
+Se audita la frontera entre lifecycle store, attempt history, execution history, result history y execution attempt real. La decision segura es no crear store nuevo: primero disenar `execution_history_view_contract` como vista derivada, preflight-only, contract-only y sin JSONL propio.
+
+Resultado:
+
+- history boundary audit creada;
+- `execution_history_store` no creado;
+- `attempt_history` no creado;
+- `execution_result_store` no creado;
+- `execution_attempt_id` operativo no creado;
+- history view derived-only recomendada;
+- stores primarios existentes deben seguir siendo la fuente de verdad;
+- sin execution attempt real;
+- sin result history real;
+- sin scheduler/worker queue;
+- sin `queued/running/completed` reales;
+- sin ejecucion real;
+- sin payloads reales;
+- readiness real: `HISTORY_READY_FOR_DERIVED_VIEW_CONTRACT_ONLY`.
+
+Recomendacion:
+
+`PROMPT 2.43 - Disenar execution_history_view_contract derived-only preflight-only sin store`.
