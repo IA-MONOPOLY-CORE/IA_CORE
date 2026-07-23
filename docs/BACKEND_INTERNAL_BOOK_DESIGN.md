@@ -3409,3 +3409,41 @@ Resultado:
 Recomendacion:
 
 `PROMPT 2.45.1 - Checkpoint E2E execution_history_view derived-only preflight-only`.
+
+## 91. PROMPT 2.45.1 - Checkpoint E2E execution_history_view derived-only preflight-only
+
+Estado: `PASSED_EXECUTION_HISTORY_VIEW_DERIVED_ONLY_E2E`.
+
+Evidencia:
+
+- checkpoint: `docs/EXECUTION_HISTORY_VIEW_DERIVED_ONLY_E2E_CHECKPOINT.md`;
+- test: `tests/test_execution_history_view_derived_only_checkpoint_end_to_end.py`;
+- implementacion validada: `core/execution_history_view.py`.
+
+Decision:
+
+Se crea checkpoint E2E fuerte para validar `execution_history_view` real de punta a punta, cubriendo `agent` y `team`, con stores primarios reales en `tmp_path` y `execution_history_view_contract` como dependencia obligatoria.
+
+Resultado:
+
+- checkpoint E2E creado;
+- `agent` y `team` validados;
+- cadena completa validada desde sandbox/promotion/active hasta `execution_history_view build/validate`;
+- history view build/validate integrado;
+- outputs derivados validados: `summary`, `timeline`, `preflight_status`, `transition_history`, `store_verification_summary`, `boundary_summary`, `risk_summary`, `evidence`, `warnings`, `blockers`;
+- negativos cubiertos: contract no passed, store no verified, attempt mismatch, target mismatch, timeline completed, `execution_result`, history store enabled, `execution_attempt_id`, scheduler y external access;
+- sin `execution_history_store`;
+- sin `attempt_history store`;
+- sin `execution_result_store`;
+- sin `execution_attempt_id` operativo;
+- sin JSONL history/result;
+- sin ejecucion real;
+- sin scheduler/worker;
+- sin modelos/tools/memoria;
+- sin external access;
+- sin mutacion target;
+- sin payloads reales.
+
+Recomendacion:
+
+`PROMPT 2.46 - Auditoria de frontera de read model interno`.

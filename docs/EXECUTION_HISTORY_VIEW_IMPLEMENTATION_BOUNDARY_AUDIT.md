@@ -357,3 +357,19 @@ Confirmacion:
 Proximo paso:
 
 `PROMPT 2.45.1 - Checkpoint E2E execution_history_view derived-only preflight-only`
+
+## 18. Checkpoint E2E 2.45.1
+
+Resultado: `PASSED_EXECUTION_HISTORY_VIEW_DERIVED_ONLY_E2E`.
+
+Evidencia:
+
+- checkpoint: `docs/EXECUTION_HISTORY_VIEW_DERIVED_ONLY_E2E_CHECKPOINT.md`;
+- test: `tests/test_execution_history_view_derived_only_checkpoint_end_to_end.py`;
+- escenarios: `agent` y `team`.
+
+La implementacion `core/execution_history_view.py` queda validada de punta a punta como vista derivada in-memory. Se preservan las boundaries: sin store propio, sin JSONL history/result, sin `execution_attempt_id` operativo, sin ejecucion real, sin scheduler/worker, sin modelos/tools/memoria, sin external access, sin mutacion target y sin payloads reales.
+
+Proximo paso:
+
+`PROMPT 2.46 - Auditoria de frontera de read model interno`

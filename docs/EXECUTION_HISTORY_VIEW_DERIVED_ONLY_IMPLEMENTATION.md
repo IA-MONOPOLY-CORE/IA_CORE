@@ -306,3 +306,35 @@ Los stores primarios usan `tmp_path`. No se crea JSONL history propio, result st
 ## 15. Proximo Paso Recomendado
 
 `PROMPT 2.45.1 - Checkpoint E2E execution_history_view derived-only preflight-only`
+
+## 16. Checkpoint E2E 2.45.1
+
+Resultado: `PASSED_EXECUTION_HISTORY_VIEW_DERIVED_ONLY_E2E`.
+
+Evidencia:
+
+- checkpoint: `docs/EXECUTION_HISTORY_VIEW_DERIVED_ONLY_E2E_CHECKPOINT.md`;
+- test: `tests/test_execution_history_view_derived_only_checkpoint_end_to_end.py`.
+
+Escenarios:
+
+- `agent`;
+- `team`.
+
+Boundaries preservadas:
+
+- sin `execution_history_store`;
+- sin `attempt_history store`;
+- sin `execution_result_store`;
+- sin `execution_attempt_id` operativo;
+- sin JSONL history/result;
+- sin ejecucion real;
+- sin scheduler/worker;
+- sin modelos/tools/memoria;
+- sin external access;
+- sin mutacion target;
+- sin payloads reales.
+
+Proximo paso:
+
+`PROMPT 2.46 - Auditoria de frontera de read model interno`

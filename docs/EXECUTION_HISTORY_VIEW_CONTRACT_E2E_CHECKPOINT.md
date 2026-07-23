@@ -135,3 +135,19 @@ Resultado:
 - sin `execution_attempt_id` operativo;
 - sin JSONL propio;
 - sin ejecucion real.
+
+## 13. Checkpoint E2E 2.45.1
+
+Resultado: `PASSED_EXECUTION_HISTORY_VIEW_DERIVED_ONLY_E2E`.
+
+Evidencia:
+
+- checkpoint: `docs/EXECUTION_HISTORY_VIEW_DERIVED_ONLY_E2E_CHECKPOINT.md`;
+- test: `tests/test_execution_history_view_derived_only_checkpoint_end_to_end.py`;
+- escenarios: `agent` y `team`.
+
+El contrato `execution_history_view_contract` queda integrado como dependencia obligatoria para `build_execution_history_view` y `validate_execution_history_view`, manteniendo las boundaries sin history store, result store, JSONL propio, execution attempt real ni payloads reales.
+
+Proximo paso:
+
+`PROMPT 2.46 - Auditoria de frontera de read model interno`
