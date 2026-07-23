@@ -3447,3 +3447,59 @@ Resultado:
 Recomendacion:
 
 `PROMPT 2.46 - Auditoria de frontera de read model interno`.
+
+## 92. PROMPT 2.46 - Auditoria de frontera de read model interno
+
+Estado: `READ_MODEL_READY_FOR_CONTRACT_ONLY`.
+
+Evidencia:
+
+- auditoria: `docs/INTERNAL_BACKEND_READ_MODEL_BOUNDARY_AUDIT.md`;
+- test: `tests/test_internal_backend_read_model_boundary_audit.py`;
+- cadena previa validada hasta `execution_history_view`.
+
+Decision:
+
+Se audita la frontera para una futura capa `internal_backend_read_model`. La decision segura es disenar primero un contrato read-only, sin crear implementacion, store, API ni dashboard adapter.
+
+Fuentes permitidas futuras:
+
+- domain/artifact state;
+- sandbox materialization preview/result;
+- promotion gate/executor result;
+- active contract/executor result;
+- runtime/execution contracts;
+- runtime preparation;
+- execution runner contract;
+- dry-run contract/result-only;
+- `dry_run_store`, `execution_attempt_store`, `execution_lifecycle` verified entries;
+- `execution_history_view` derived view;
+- audit/observability/capability refs.
+
+Archivos futuros permitidos:
+
+- `core/internal_backend_read_model_schema.py`;
+- `core/internal_backend_read_model_contract.py`;
+- `tests/test_internal_backend_read_model_contract.py`;
+- `tests/test_internal_backend_read_model_contract_end_to_end.py`;
+- `docs/INTERNAL_BACKEND_READ_MODEL_CONTRACT.md`.
+
+Archivos todavia bloqueados:
+
+- `core/internal_backend_read_model.py`;
+- `core/backend_read_model_store.py`;
+- `core/backend_status_api.py`;
+- `core/backend_dashboard_adapter.py`.
+
+Riesgos:
+
+- convertir read model en API prematura;
+- mezclar read-only con mutacion;
+- duplicar stores;
+- exponer payloads reales;
+- crear snapshots persistidos antes de tiempo;
+- acoplar UI a estructuras internas inestables.
+
+Recomendacion:
+
+`PROMPT 2.47 - Disenar internal_backend_read_model_contract read-only`.
