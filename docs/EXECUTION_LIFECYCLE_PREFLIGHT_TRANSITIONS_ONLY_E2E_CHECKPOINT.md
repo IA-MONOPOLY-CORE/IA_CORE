@@ -105,6 +105,23 @@ Los JSONL de dry-run, attempt y lifecycle se crean solo en `tmp_path`.
 
 `PASSED_EXECUTION_LIFECYCLE_PREFLIGHT_TRANSITIONS_ONLY_E2E`
 
-## 10. Proximo Paso Recomendado
+## 10. Downstream History View Checkpoint
 
-Listo para auditar frontera de execution history / attempt history contract.
+Estado downstream: `PASSED_EXECUTION_HISTORY_VIEW_CONTRACT_E2E`.
+
+Evidencia:
+
+- checkpoint: `docs/EXECUTION_HISTORY_VIEW_CONTRACT_E2E_CHECKPOINT.md`;
+- test E2E: `tests/test_execution_history_view_contract_end_to_end.py`.
+
+Confirmacion:
+
+- `execution_lifecycle_store` verified puede alimentar una vista historica derivada;
+- la vista no crea `execution_history_store`;
+- la vista no crea `execution_result_store`;
+- la vista no crea `execution_attempt_id` operativo;
+- la vista no habilita ejecucion real.
+
+## 11. Proximo Paso Recomendado
+
+Listo para auditar frontera de derived history view implementation sin store.

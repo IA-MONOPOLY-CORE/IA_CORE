@@ -3270,3 +3270,45 @@ Resultado:
 Recomendacion:
 
 `PROMPT 2.43.1 - Checkpoint E2E execution_history_view_contract derived-only preflight-only`.
+
+## 88. PROMPT 2.43.1 - Checkpoint E2E execution_history_view_contract derived-only preflight-only
+
+Estado: `PASSED_EXECUTION_HISTORY_VIEW_CONTRACT_E2E`.
+
+Evidencia:
+
+- checkpoint: `docs/EXECUTION_HISTORY_VIEW_CONTRACT_E2E_CHECKPOINT.md`;
+- test E2E: `tests/test_execution_history_view_contract_end_to_end.py`;
+- contrato base: `core/execution_history_view_contract.py`.
+
+Decision:
+
+Se valida end-to-end el contrato de vista historica derivada sobre la cadena completa y stores primarios reales aislados en `tmp_path`, para `agent` y `team`.
+
+Resultado:
+
+- `agent` y `team` validados;
+- `dry_run_store` append/verify real en `tmp_path`;
+- `execution_attempt_store` append/verify real en `tmp_path`;
+- `execution_lifecycle_store` append/verify real en `tmp_path`;
+- `execution_history_view_contract` passed;
+- `summary`, `timeline`, `preflight_status`, `transition_history`, `store_verification_summary`, `boundary_summary`, `risk_summary` y `evidence` validados como vista derivada;
+- `audit_refs`, `observability_refs`, `capability_policy_ref`, `correlation_id`, `idempotency_key`, `target_ref` y `attempt_ref` declarativo validados;
+- leaks de store/history/result bloqueados;
+- leaks de `execution_attempt_id` operativo bloqueados;
+- estados y eventos operativos bloqueados;
+- ejecucion/modelos/tools/memoria/external access/scheduler/worker bloqueados;
+- payloads reales bloqueados;
+- mismatches de refs bloqueados;
+- sin `execution_history_store`;
+- sin `attempt_history store`;
+- sin `execution_result_store`;
+- sin `execution_attempt_id` operativo;
+- sin JSONL history propio;
+- sin ejecucion real;
+- sin mutacion target;
+- sin JSONL runtime real fuera de `tmp_path`.
+
+Recomendacion:
+
+Listo para auditar frontera de derived history view implementation sin store.

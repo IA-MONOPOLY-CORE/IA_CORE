@@ -216,6 +216,31 @@ No se detecta implementacion operativa de `execution_history_store`, `attempt_hi
 
 No significa readiness para `execution_history_store`, `attempt_history` operativo, `execution_result_store`, `execution_attempt_id`, execution attempt real, result history real ni ejecucion.
 
-## 14. Proximo Paso Recomendado
+## 14. Checkpoint E2E 2.43.1
+
+Estado: `PASSED_EXECUTION_HISTORY_VIEW_CONTRACT_E2E`.
+
+Evidencia:
+
+- checkpoint: `docs/EXECUTION_HISTORY_VIEW_CONTRACT_E2E_CHECKPOINT.md`;
+- test E2E: `tests/test_execution_history_view_contract_end_to_end.py`;
+- stores primarios en `tmp_path`: `dry_run_store`, `execution_attempt_store`, `execution_lifecycle_store`.
+
+Confirmacion de frontera:
+
+- `execution_history_view_contract` puede derivar una vista historica preflight;
+- sigue bloqueado crear `execution_history_store`;
+- sigue bloqueado crear `attempt_history` operativo;
+- sigue bloqueado crear `execution_result_store`;
+- sigue bloqueado crear `execution_attempt_id` operativo;
+- sigue bloqueada la ejecucion real.
+
+## 15. Proximo Paso Recomendado
+
+Referencia historica cerrada:
 
 `PROMPT 2.43 - Disenar execution_history_view_contract derived-only preflight-only sin store`
+
+Siguiente frontera:
+
+Listo para auditar frontera de derived history view implementation sin store.

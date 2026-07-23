@@ -202,6 +202,29 @@ Exige:
 
 `EXECUTION_HISTORY_VIEW_CONTRACT_PASSED`
 
-## 14. Proximo Paso Recomendado
+## 14. Checkpoint E2E 2.43.1
 
-`PROMPT 2.43.1 - Checkpoint E2E execution_history_view_contract derived-only preflight-only`
+Estado: `PASSED_EXECUTION_HISTORY_VIEW_CONTRACT_E2E`.
+
+Evidencia:
+
+- checkpoint: `docs/EXECUTION_HISTORY_VIEW_CONTRACT_E2E_CHECKPOINT.md`;
+- test E2E: `tests/test_execution_history_view_contract_end_to_end.py`.
+
+Resultado:
+
+- `agent` y `team` validados end-to-end;
+- vista derivada desde `dry_run_store`, `execution_attempt_store` y `execution_lifecycle_store` verified;
+- stores reales solo en `tmp_path`;
+- sin `execution_history_store`;
+- sin `attempt_history store`;
+- sin `execution_result_store`;
+- sin `execution_attempt_id` operativo;
+- sin JSONL history propio;
+- sin ejecucion real;
+- sin payloads reales;
+- sin mutacion target.
+
+## 15. Proximo Paso Recomendado
+
+Listo para auditar frontera de derived history view implementation sin store.
