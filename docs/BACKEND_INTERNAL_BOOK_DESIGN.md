@@ -3312,3 +3312,52 @@ Resultado:
 Recomendacion:
 
 Listo para auditar frontera de derived history view implementation sin store.
+
+## 89. PROMPT 2.44 - Auditoria de frontera de implementacion derived history view sin store
+
+Estado: `HISTORY_VIEW_READY_FOR_DERIVED_ONLY_IMPLEMENTATION`.
+
+Evidencia:
+
+- auditoria: `docs/EXECUTION_HISTORY_VIEW_IMPLEMENTATION_BOUNDARY_AUDIT.md`;
+- tests: `tests/test_execution_history_view_implementation_boundary_audit.py`;
+- contrato E2E previo: `docs/EXECUTION_HISTORY_VIEW_CONTRACT_E2E_CHECKPOINT.md`;
+- contrato base: `core/execution_history_view_contract.py`.
+
+Decision:
+
+Se audita la frontera antes de implementar `core/execution_history_view.py`. La implementacion futura queda permitida solo como vista derivada in-memory, `preflight-only`, sin store propio y sin JSONL propio.
+
+Resultado:
+
+- implementation boundary audit creada;
+- `core/execution_history_view.py` no creado;
+- `execution_history_store` no creado;
+- `attempt_history store` no creado;
+- `execution_result_store` no creado;
+- `execution_attempt_id` operativo no creado;
+- JSONL history no creado;
+- JSONL result no creado;
+- archivo futuro permitido: `core/execution_history_view.py`;
+- archivos bloqueados: `core/execution_history_store.py`, `core/attempt_history.py`, `core/execution_attempt_history.py`, `core/execution_result_store.py`, `core/execution_attempt_id.py`, `core/scheduler_queue.py`, `core/worker_queue.py`;
+- funciones futuras permitidas: `build_execution_history_view`, `derive_execution_history_timeline`, `derive_preflight_status`, `derive_transition_history`, `derive_store_verification_summary`, `derive_boundary_summary`, `derive_risk_summary`, `validate_execution_history_view`;
+- funciones de append/write/persist/store/result/attempt_id/execution/model/tool/memory/external/scheduler/worker bloqueadas;
+- inputs futuros obligatorios: stores primarios entries + verified, `execution_history_view_contract passed`, `attempt_ref` declarativo, `target_ref`, `correlation_id`, `idempotency_key`, audit/observability/capability refs y contratos previos;
+- outputs permitidos: `summary`, `timeline`, `preflight_status`, `transition_history`, `store_verification_summary`, `boundary_summary`, `risk_summary`, `evidence`, `warnings`, `blockers`;
+- outputs prohibidos: `execution_result`, `execution_output`, `execution_history_payload`, `execution_result_history`, outputs de agent/team/model/tool/memory/external, secretos, credenciales y side effects;
+- store/jsonl policy: sin store propio, sin JSONL propio, sin history path, sin result path, sin append, sin persistencia, sin escritura runtime;
+- dependency policy: stores verified, contract passed y refs coincidentes;
+- boundary policy: execution/model/tool/memory/external/scheduler/worker/history/result/attempt_id flags siguen en false;
+- sin execution attempt real;
+- sin `queued/running/completed` reales;
+- sin ejecucion real;
+- sin UI/integraciones;
+- sin mutacion target.
+
+Riesgo principal:
+
+Convertir la vista en store, duplicar stores primarios o guardar payloads/resultados reales camuflados como resumen.
+
+Recomendacion:
+
+`PROMPT 2.45 - Implementar execution_history_view derived-only preflight-only sin store`.
