@@ -3361,3 +3361,51 @@ Convertir la vista en store, duplicar stores primarios o guardar payloads/result
 Recomendacion:
 
 `PROMPT 2.45 - Implementar execution_history_view derived-only preflight-only sin store`.
+
+## 90. PROMPT 2.45 - Implementar execution_history_view derived-only preflight-only sin store
+
+Estado: `PASSED_EXECUTION_HISTORY_VIEW_DERIVED_ONLY_IMPLEMENTATION`.
+
+Evidencia:
+
+- implementacion: `core/execution_history_view.py`;
+- documentacion: `docs/EXECUTION_HISTORY_VIEW_DERIVED_ONLY_IMPLEMENTATION.md`;
+- tests unitarios: `tests/test_execution_history_view_derived_only.py`;
+- E2E minimo: `tests/test_execution_history_view_derived_only_end_to_end.py`.
+
+Decision:
+
+Se implementa `execution_history_view` como vista historica derivada, in-memory, `derived-only` y `preflight-only`, construida desde stores primarios verificados y con `execution_history_view_contract` passed.
+
+Resultado:
+
+- `core/execution_history_view.py` creado;
+- derived-only;
+- preflight-only;
+- in-memory;
+- read/build only;
+- `ExecutionHistoryView` creado;
+- `ExecutionHistoryViewOperationResult` creado;
+- `build_execution_history_view` creado;
+- `derive_execution_history_timeline` creado;
+- `derive_preflight_status` creado;
+- `derive_transition_history` creado;
+- `derive_store_verification_summary` creado;
+- `derive_boundary_summary` creado;
+- `derive_risk_summary` creado;
+- `validate_execution_history_view` creado;
+- sin store propio;
+- sin JSONL propio;
+- sin `execution_history_store`;
+- sin `attempt_history store`;
+- sin `execution_result_store`;
+- sin `execution_attempt_id` operativo;
+- sin ejecucion real;
+- sin payloads reales;
+- sin scheduler/worker;
+- sin UI/integraciones;
+- sin mutacion target.
+
+Recomendacion:
+
+`PROMPT 2.45.1 - Checkpoint E2E execution_history_view derived-only preflight-only`.

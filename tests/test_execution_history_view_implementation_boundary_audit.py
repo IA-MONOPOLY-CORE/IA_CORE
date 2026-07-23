@@ -142,8 +142,8 @@ def _audit_text() -> str:
     return AUDIT_DOC.read_text(encoding="utf-8")
 
 
-def test_future_execution_history_view_file_is_not_created_yet():
-    assert not (ROOT / FUTURE_ALLOWED_FILE).exists()
+def test_execution_history_view_file_exists_only_as_allowed_derived_view_implementation():
+    assert (ROOT / FUTURE_ALLOWED_FILE).exists()
 
 
 def test_forbidden_history_attempt_result_id_and_queue_modules_do_not_exist():
@@ -156,7 +156,7 @@ def test_future_allowed_file_policy_allows_only_history_view_implementation():
     assert FUTURE_ALLOWED_FILE in text
     for relative in FORBIDDEN_FILES:
         assert relative in text
-    assert "Este prompt no crea `core/execution_history_view.py`" in text
+    assert "`core/execution_history_view.py` creado como vista in-memory" in text
 
 
 def test_no_store_or_jsonl_policy_is_explicit():
@@ -270,6 +270,7 @@ def test_readiness_risks_next_prompt_and_book_entry_are_coherent():
     book = BOOK_DOC.read_text(encoding="utf-8")
     assert READINESS in text
     assert "PROMPT 2.45 - Implementar execution_history_view derived-only preflight-only sin store" in text
+    assert "PROMPT 2.45.1 - Checkpoint E2E execution_history_view derived-only preflight-only" in text
     for risk in [
         "convertir view en store",
         "duplicar datos de stores primarios",
@@ -288,5 +289,5 @@ def test_readiness_risks_next_prompt_and_book_entry_are_coherent():
 
 def test_audited_references_are_contract_docs_tests_or_blockers_not_operational_history_store():
     text = _audit_text()
-    assert "No se detecta `core/execution_history_view.py` ni implementacion operativa de history/result store." in text
+    assert "`core/execution_history_view.py` creado como vista in-memory" in text
     assert "documentacion, tests, contratos, blockers, politicas `false` y riesgos futuros" in text

@@ -228,3 +228,16 @@ Resultado:
 ## 15. Proximo Paso Recomendado
 
 Listo para auditar frontera de derived history view implementation sin store.
+
+## 16. Implementacion Cerrada 2.45
+
+Estado: `PASSED_EXECUTION_HISTORY_VIEW_DERIVED_ONLY_IMPLEMENTATION`.
+
+Evidencia:
+
+- implementacion: `core/execution_history_view.py`;
+- documentacion: `docs/EXECUTION_HISTORY_VIEW_DERIVED_ONLY_IMPLEMENTATION.md`;
+- tests unitarios: `tests/test_execution_history_view_derived_only.py`;
+- E2E minimo: `tests/test_execution_history_view_derived_only_end_to_end.py`.
+
+La implementacion materializa solo una vista in-memory derivada desde stores primarios verified y `execution_history_view_contract` passed. No crea store propio, JSONL history, result store ni execution attempt real.

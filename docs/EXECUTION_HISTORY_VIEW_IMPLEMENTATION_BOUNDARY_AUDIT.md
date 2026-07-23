@@ -330,3 +330,30 @@ Referencias existentes a `execution_history_view`, `execution_history_store`, `a
 ## 16. Proximo Paso Recomendado
 
 `PROMPT 2.45 - Implementar execution_history_view derived-only preflight-only sin store`
+
+## 17. Implementacion Cerrada 2.45
+
+Estado: `PASSED_EXECUTION_HISTORY_VIEW_DERIVED_ONLY_IMPLEMENTATION`.
+
+Evidencia:
+
+- implementacion: `core/execution_history_view.py`;
+- documentacion: `docs/EXECUTION_HISTORY_VIEW_DERIVED_ONLY_IMPLEMENTATION.md`;
+- unit tests: `tests/test_execution_history_view_derived_only.py`;
+- E2E minimo: `tests/test_execution_history_view_derived_only_end_to_end.py`.
+
+Confirmacion:
+
+- `core/execution_history_view.py` creado como vista in-memory;
+- sin `execution_history_store`;
+- sin `attempt_history store`;
+- sin `execution_result_store`;
+- sin `execution_attempt_id` operativo;
+- sin JSONL history propio;
+- sin ejecucion real;
+- sin payloads reales;
+- sin mutacion target.
+
+Proximo paso:
+
+`PROMPT 2.45.1 - Checkpoint E2E execution_history_view derived-only preflight-only`
