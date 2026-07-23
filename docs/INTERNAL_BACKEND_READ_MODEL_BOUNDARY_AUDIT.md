@@ -234,3 +234,33 @@ Busqueda de referencias:
 ## 13. Recomendacion
 
 `PROMPT 2.47 - Disenar internal_backend_read_model_contract read-only`
+
+## 14. PROMPT 2.47 - internal_backend_read_model_contract read-only
+
+Estado: `INTERNAL_BACKEND_READ_MODEL_CONTRACT_PASSED`.
+
+Evidencia:
+
+- schema: `core/internal_backend_read_model_schema.py`;
+- contract: `core/internal_backend_read_model_contract.py`;
+- unit tests: `tests/test_internal_backend_read_model_contract.py`;
+- E2E contractual: `tests/test_internal_backend_read_model_contract_end_to_end.py`;
+- documentacion: `docs/INTERNAL_BACKEND_READ_MODEL_CONTRACT.md`.
+
+Resultado:
+
+- schema creado;
+- contract creado;
+- tests creados;
+- E2E contractual creado;
+- contrato read-only;
+- sin `core/internal_backend_read_model.py`;
+- sin read model store;
+- sin backend status API;
+- sin dashboard adapter;
+- sin mutacion;
+- sin ejecucion real.
+
+Proximo paso:
+
+`PROMPT 2.47.1 - Checkpoint E2E internal_backend_read_model_contract`

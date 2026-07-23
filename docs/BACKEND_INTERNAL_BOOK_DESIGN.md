@@ -3503,3 +3503,40 @@ Riesgos:
 Recomendacion:
 
 `PROMPT 2.47 - Disenar internal_backend_read_model_contract read-only`.
+
+## 93. PROMPT 2.47 - Disenar internal_backend_read_model_contract read-only
+
+Estado: `INTERNAL_BACKEND_READ_MODEL_CONTRACT_PASSED`.
+
+Evidencia:
+
+- schema: `core/internal_backend_read_model_schema.py`;
+- contract: `core/internal_backend_read_model_contract.py`;
+- unit tests: `tests/test_internal_backend_read_model_contract.py`;
+- E2E contractual: `tests/test_internal_backend_read_model_contract_end_to_end.py`;
+- documentacion: `docs/INTERNAL_BACKEND_READ_MODEL_CONTRACT.md`.
+
+Decision:
+
+Se disena el contrato read-only de `internal_backend_read_model`, sin implementar todavia el read model operativo, sin store, sin API y sin dashboard adapter.
+
+Resultado:
+
+- schema creado;
+- contract creado;
+- funciones publicas creadas: `validate_internal_backend_read_model_contract`, `build_internal_backend_read_model_contract_shape`, `validate_internal_backend_read_model_sources`, `validate_internal_backend_read_model_boundaries`, `validate_internal_backend_read_model_outputs`;
+- modos permitidos: `internal_backend_read_model_contract_only`, `internal_backend_read_model_read_only`, `internal_backend_snapshot`;
+- fuentes requeridas definidas;
+- outputs permitidos definidos;
+- outputs bloqueados definidos;
+- boundary flags read-only/contract-only definidos;
+- readiness contractual `ready_for_read_model_implementation` validada;
+- E2E contractual `agent` y `team`;
+- sin `core/internal_backend_read_model.py`;
+- sin `core/backend_read_model_store.py`;
+- sin `core/backend_status_api.py`;
+- sin `core/backend_dashboard_adapter.py`.
+
+Recomendacion:
+
+`PROMPT 2.47.1 - Checkpoint E2E internal_backend_read_model_contract`.

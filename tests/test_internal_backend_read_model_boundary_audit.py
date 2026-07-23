@@ -138,12 +138,19 @@ def test_future_sources_allowed_are_documented():
         assert source in text
 
 
-def test_future_allowed_files_are_documented_but_not_created():
+def test_future_allowed_contract_files_are_documented_and_contract_layer_created():
     text = _audit_text()
 
     for relative in FUTURE_ALLOWED_FILES:
         assert relative in text
-        assert not (ROOT / relative).exists(), relative
+    for relative in [
+        "core/internal_backend_read_model_schema.py",
+        "core/internal_backend_read_model_contract.py",
+        "tests/test_internal_backend_read_model_contract.py",
+        "tests/test_internal_backend_read_model_contract_end_to_end.py",
+        "docs/INTERNAL_BACKEND_READ_MODEL_CONTRACT.md",
+    ]:
+        assert (ROOT / relative).exists(), relative
 
 
 def test_postponed_implementation_store_api_and_dashboard_files_are_not_created():
@@ -176,7 +183,7 @@ def test_no_core_execution_or_history_modules_are_modified_by_audit_scope():
     for relative in AUDITED_CORE_UNCHANGED:
         assert (ROOT / relative).exists(), relative
     assert not (ROOT / "core" / "internal_backend_read_model.py").exists()
-    assert not (ROOT / "core" / "internal_backend_read_model_contract.py").exists()
+    assert (ROOT / "core" / "internal_backend_read_model_contract.py").exists()
 
 
 def test_no_new_store_api_ui_execution_scheduler_or_external_scope_is_created():
