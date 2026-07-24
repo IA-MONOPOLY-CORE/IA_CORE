@@ -3540,3 +3540,35 @@ Resultado:
 Recomendacion:
 
 `PROMPT 2.47.1 - Checkpoint E2E internal_backend_read_model_contract`.
+
+## 94. PROMPT 2.47.1 - Checkpoint E2E internal_backend_read_model_contract
+
+Estado: `PASSED_INTERNAL_BACKEND_READ_MODEL_CONTRACT_E2E`.
+
+Evidencia:
+
+- checkpoint: `tests/test_internal_backend_read_model_contract_checkpoint_end_to_end.py`;
+- documentacion: `docs/INTERNAL_BACKEND_READ_MODEL_CONTRACT_E2E_CHECKPOINT.md`;
+- contrato base: `core/internal_backend_read_model_contract.py`;
+- schema base: `core/internal_backend_read_model_schema.py`.
+
+Decision:
+
+Se valida end-to-end el contrato `internal_backend_read_model_contract` como snapshot contractual read-only, usando la cadena backend interna ya validada hasta `execution_history_view`, para `agent` y `team`.
+
+Resultado:
+
+- checkpoint E2E creado;
+- `agent` y `team` validados;
+- cadena contractual validada desde sandbox/promotion/active hasta `execution_history_view`;
+- snapshot fields validados: `snapshot_id`, `schema_version`, `read_model_mode`, `generated_at`, `target_type`, `target_id`, `target_ref`, `domain_ref`, `source_refs`, summaries, readiness, blockers, warnings, evidence y boundary_summary;
+- outputs permitidos validados: `summaries`, `derived_status`, `readiness`, `blockers`, `warnings`, `evidence`, `refs`, `counts`, `timestamps`, `contract_verdicts`, `boundary_summaries`;
+- negativos cubiertos: source faltante, source no verified, history view no validated, `model_response`, `tool_result`, implementation/API/mutation/execution/external access enabled;
+- sin `core/internal_backend_read_model.py`;
+- sin `core/backend_read_model_store.py`;
+- sin `core/backend_status_api.py`;
+- sin `core/backend_dashboard_adapter.py`.
+
+Recomendacion:
+
+`PROMPT 2.48 - Implementar internal_backend_read_model read-only`.

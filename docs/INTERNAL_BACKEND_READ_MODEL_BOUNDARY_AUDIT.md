@@ -264,3 +264,30 @@ Resultado:
 Proximo paso:
 
 `PROMPT 2.47.1 - Checkpoint E2E internal_backend_read_model_contract`
+
+## 15. PROMPT 2.47.1 - Checkpoint E2E internal_backend_read_model_contract
+
+Estado: `PASSED_INTERNAL_BACKEND_READ_MODEL_CONTRACT_E2E`.
+
+Evidencia:
+
+- checkpoint: `tests/test_internal_backend_read_model_contract_checkpoint_end_to_end.py`;
+- documentacion: `docs/INTERNAL_BACKEND_READ_MODEL_CONTRACT_E2E_CHECKPOINT.md`.
+
+Decision:
+
+Se cierra un checkpoint E2E fuerte sobre el contrato, cubriendo `agent` y `team`, desde la cadena backend interna validada hasta el snapshot contractual read-only.
+
+Resultado:
+
+- checkpoint creado;
+- escenarios `agent` y `team`;
+- sources, summaries, readiness, blockers, warnings, evidence y boundary_summary validados;
+- outputs permitidos validados;
+- negativos integrados cubiertos;
+- implementacion read model todavia no creada;
+- store/API/dashboard adapter todavia no creados.
+
+Proximo paso recomendado:
+
+`PROMPT 2.48 - Implementar internal_backend_read_model read-only`

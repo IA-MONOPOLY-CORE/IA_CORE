@@ -168,3 +168,27 @@ El E2E contractual reutiliza la cadena validada hasta `execution_history_view`, 
 ## 13. Proximo Paso Recomendado
 
 `PROMPT 2.47.1 - Checkpoint E2E internal_backend_read_model_contract`
+
+## 14. PROMPT 2.47.1 - Checkpoint E2E internal_backend_read_model_contract
+
+Estado: `PASSED_INTERNAL_BACKEND_READ_MODEL_CONTRACT_E2E`.
+
+Evidencia:
+
+- checkpoint creado: `tests/test_internal_backend_read_model_contract_checkpoint_end_to_end.py`;
+- documento checkpoint: `docs/INTERNAL_BACKEND_READ_MODEL_CONTRACT_E2E_CHECKPOINT.md`.
+
+Resultado:
+
+- escenarios `agent` y `team` validados;
+- snapshot contractual read-only validado con sources, summaries, readiness, blockers, warnings, evidence y boundary_summary;
+- outputs permitidos validados;
+- negativos integrados cubiertos;
+- sin `core/internal_backend_read_model.py`;
+- sin `core/backend_read_model_store.py`;
+- sin `core/backend_status_api.py`;
+- sin `core/backend_dashboard_adapter.py`.
+
+Proximo paso recomendado:
+
+`PROMPT 2.48 - Implementar internal_backend_read_model read-only`
