@@ -3610,3 +3610,34 @@ Resultado:
 Recomendacion:
 
 `PROMPT 2.48.1 - Checkpoint E2E internal_backend_read_model read-only`.
+
+## 96. PROMPT 2.48.1 - Checkpoint E2E internal_backend_read_model read-only
+
+Estado: `PASSED_INTERNAL_BACKEND_READ_MODEL_READ_ONLY_E2E`.
+
+Evidencia:
+
+- checkpoint: `tests/test_internal_backend_read_model_read_only_checkpoint_end_to_end.py`;
+- documentacion: `docs/INTERNAL_BACKEND_READ_MODEL_READ_ONLY_E2E_CHECKPOINT.md`;
+- implementacion validada: `core/internal_backend_read_model.py`.
+
+Decision:
+
+Se valida end-to-end la implementacion read-only del read model interno para `agent` y `team`, desde sources contractuales verificadas hasta build y validate del snapshot.
+
+Resultado:
+
+- checkpoint creado;
+- `agent` y `team` validados;
+- cadena E2E validada con contrato, build y validate;
+- snapshot fields validados;
+- outputs permitidos y bloqueados validados;
+- boundaries read-only validadas;
+- negativos cubiertos: source faltante, source no verified, history view no validated, outputs prohibidos, boundary leaks y modo invalido;
+- sin `core/backend_read_model_store.py`;
+- sin `core/backend_status_api.py`;
+- sin `core/backend_dashboard_adapter.py`.
+
+Recomendacion:
+
+`PROMPT 2.49 - Auditoria final de backend interno pre-operacional`.

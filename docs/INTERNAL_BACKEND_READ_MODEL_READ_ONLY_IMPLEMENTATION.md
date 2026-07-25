@@ -130,3 +130,24 @@ El E2E reutiliza la cadena contractual compatible con 2.47.1, valida el contrato
 ## 9. Proximo Paso Recomendado
 
 `PROMPT 2.48.1 - Checkpoint E2E internal_backend_read_model read-only`
+
+## 10. PROMPT 2.48.1 - Checkpoint E2E internal_backend_read_model read-only
+
+Estado: `PASSED_INTERNAL_BACKEND_READ_MODEL_READ_ONLY_E2E`.
+
+Evidencia:
+
+- checkpoint creado: `tests/test_internal_backend_read_model_read_only_checkpoint_end_to_end.py`;
+- documento checkpoint: `docs/INTERNAL_BACKEND_READ_MODEL_READ_ONLY_E2E_CHECKPOINT.md`.
+
+Resultado:
+
+- escenarios `agent` y `team` validados;
+- build/validate read-only validados de punta a punta;
+- sources verificadas, summaries, readiness, blockers, warnings, evidence y boundary_summary validados;
+- negativos integrados cubiertos;
+- sin store/API/dashboard adapter.
+
+Proximo paso recomendado:
+
+`PROMPT 2.49 - Auditoria final de backend interno pre-operacional`
