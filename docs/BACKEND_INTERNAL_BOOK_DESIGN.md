@@ -3668,3 +3668,35 @@ Resultado:
 Recomendacion:
 
 `PROMPT 2.50 - Checkpoint integral backend interno pre-operacional`.
+
+## 98. PROMPT 2.50 - Checkpoint integral backend interno pre-operacional
+
+Estado: `BACKEND_INTERNAL_PRE_OPERATIONAL_CHECKPOINT_PASSED`.
+
+Readiness:
+
+- `backend_internal_pre_operational_ready`;
+- `ready_for_next_backend_phase_planning`.
+
+Evidencia:
+
+- checkpoint integral creado: `tests/test_backend_internal_pre_operational_integral_checkpoint.py`;
+- documento creado: `docs/BACKEND_INTERNAL_PRE_OPERATIONAL_INTEGRAL_CHECKPOINT.md`.
+
+Decision:
+
+Se cierra el checkpoint integral del backend interno 2.x como bloque pre-operacional. No se implementan features nuevas.
+
+Resultado:
+
+- escenarios `agent` y `team`;
+- cadena integral validada desde sandbox hasta read model build/validate;
+- snapshot final read-only validado;
+- veredictos esperados validados;
+- gaps finales: critical none, major none, minor/deferred no bloqueantes;
+- boundaries globales preservadas;
+- features postergadas: execution real, execution_attempt_id operativo, result/history stores, scheduler/worker/queue, model invocation, tool execution, memory persistence, external access, API, dashboard adapter y UI/UX.
+
+Recomendacion:
+
+`PROMPT 2.51 - Plan de transicion hacia Backend Interno Fase 3.x`.
