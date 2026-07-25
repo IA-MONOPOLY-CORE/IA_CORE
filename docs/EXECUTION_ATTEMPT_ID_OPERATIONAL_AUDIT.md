@@ -186,3 +186,14 @@ Como el veredicto es `EXECUTION_ATTEMPT_ID_READY_FOR_SCHEMA_DESIGN`, el proximo 
 
 `PROMPT 3.3 — Schema de execution attempt operativo`
 
+## 16. PROMPT 3.2.1 E2E checkpoint
+
+La cadena 3.0 -> 3.1 -> 3.2 fue validada por checkpoint E2E y queda lista para iniciar 3.3.
+
+Estado del checkpoint:
+
+`EXECUTION_ATTEMPT_ID_OPERATIONAL_E2E_PASSED`
+
+Proximo paso:
+
+`PROMPT 3.3 — Schema de execution attempt operativo`

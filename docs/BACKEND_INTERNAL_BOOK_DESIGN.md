@@ -3869,3 +3869,22 @@ Resultado:
 Proximo paso:
 
 `PROMPT 3.3 — Schema de execution attempt operativo`
+
+## 104. PROMPT 3.2.1 - Checkpoint E2E de execution_attempt_id operativo
+
+Estado esperado:
+
+`EXECUTION_ATTEMPT_ID_OPERATIONAL_E2E_PASSED`
+
+Funcion:
+
+Validar la cadena 3.0 -> 3.1 -> 3.2 antes del schema de ExecutionAttempt.
+
+Evidencia:
+
+- checkpoint: `docs/EXECUTION_ATTEMPT_ID_OPERATIONAL_E2E_CHECKPOINT.md`;
+- test: `tests/test_execution_attempt_id_operational_e2e_checkpoint.py`.
+
+Proximo paso:
+
+`PROMPT 3.3 — Schema de execution attempt operativo`

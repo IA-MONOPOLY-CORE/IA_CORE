@@ -216,3 +216,13 @@ Resultado:
 - Business Composition Layer permanece futura/no operativa.
 
 Proximo paso: `PROMPT 3.3 — Schema de execution attempt operativo`.
+
+## 18. PROMPT 3.2.1 - Checkpoint E2E de execution_attempt_id operativo
+
+Estado esperado: `EXECUTION_ATTEMPT_ID_OPERATIONAL_E2E_PASSED`.
+
+Funcion:
+
+Validar la cadena 3.0 -> 3.1 -> 3.2 antes del schema de ExecutionAttempt.
+
+Proximo paso: `PROMPT 3.3 — Schema de execution attempt operativo`.
