@@ -180,3 +180,19 @@ Resultado esperado:
 Proximo paso:
 
 `PROMPT 3.1 — Contrato de execution intent operativo`
+
+## 16. PROMPT 3.1 - Contrato de execution intent operativo
+
+Estado esperado: `EXECUTION_INTENT_CONTRACT_READY`.
+
+Readiness esperada: `ready_for_execution_attempt_id_audit`.
+
+Resultado:
+
+- contrato `ExecutionIntent` creado como contract-only;
+- no runtime execution;
+- no attempt creation;
+- Market Catalog permanece `planned_not_active`;
+- Business Composition Layer permanece futura/no operativa.
+
+Proximo paso: `PROMPT 3.2 — Auditoría de execution_attempt_id operativo`.

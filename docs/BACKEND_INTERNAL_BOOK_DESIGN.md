@@ -3755,6 +3755,40 @@ Proximo paso:
 
 `PROMPT 3.1 — Contrato de execution intent operativo`.
 
+## 102. PROMPT 3.1 - Contrato de execution intent operativo
+
+Estado: `EXECUTION_INTENT_CONTRACT_READY`.
+
+Readiness: `ready_for_execution_attempt_id_audit`.
+
+Evidencia:
+
+- contrato: `core/execution_intent.py`;
+- documentacion: `docs/EXECUTION_INTENT_CONTRACT.md`;
+- tests: `tests/test_execution_intent_contract.py`.
+
+Decision:
+
+Se define `ExecutionIntent` como contrato operativo previo a attempt real. El contrato es contract-only y no ejecuta nada.
+
+Resultado:
+
+- schema de intent creado;
+- valores permitidos definidos;
+- constraints operativas obligatorias en false;
+- Market Catalog permanece `planned_not_active`;
+- Business Composition Layer permanece futura/no operativa;
+- no attempts;
+- no stores operativos;
+- no scheduler/worker/queue;
+- no modelos/tools/memoria;
+- no external access;
+- no API/UI.
+
+Proximo paso:
+
+`PROMPT 3.2 — Auditoría de execution_attempt_id operativo`.
+
 ## 99. PROMPT 2.50.1 - Market Catalog / Catalogo de Mercados
 
 Estado: `MARKET_CATALOG_REGISTERED_AS_PLANNED_DATABASE`.
