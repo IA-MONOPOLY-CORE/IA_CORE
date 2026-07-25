@@ -3700,3 +3700,46 @@ Resultado:
 Recomendacion:
 
 `PROMPT 2.51 - Plan de transicion hacia Backend Interno Fase 3.x`.
+
+## 99. PROMPT 2.50.1 - Market Catalog / Catalogo de Mercados
+
+Estado: `MARKET_CATALOG_REGISTERED_AS_PLANNED_DATABASE`.
+
+Evidencia:
+
+- modulo: `core/market_catalog/`;
+- database: `data/market_catalog/market_catalog.generated.json`;
+- decision de producto: `docs/MARKET_CATALOG_PRODUCT_DECISION.md`;
+- plan de activacion: `docs/MARKET_CATALOG_ACTIVATION_PLAN.md`;
+- tests: `tests/test_market_catalog_planned_database.py`.
+
+Decision:
+
+El Market Catalog queda registrado desde PROMPT 2.50.1 como database externa no activa. Su funcion futura sera alimentar la Business Composition Layer para conectar areas, nichos internos, rubros de mercado, perfiles y unidades de negocio digital. No forma parte del runtime pre-operacional ni de la ejecucion actual.
+
+Formula futura:
+
+```txt
+Area interna IA_CORE
++
+Nicho interno IA_CORE
++
+Rubro externo de mercado
++
+Perfiles compatibles
+=
+Equipo operativo / unidad de negocio digital
+```
+
+Boundaries:
+
+- `planned_not_active`;
+- runtime deshabilitado;
+- UI deshabilitada;
+- business composition deshabilitada;
+- no modifica catalogos internos activos;
+- no habilita API, scheduler, worker, ejecucion real, modelos/tools/memoria ni external access.
+
+Recomendacion:
+
+`PROMPT 2.51 - Plan de transicion hacia Backend Interno Fase 3.x`.

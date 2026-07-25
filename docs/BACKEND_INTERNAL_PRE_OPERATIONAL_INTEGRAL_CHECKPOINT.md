@@ -140,3 +140,24 @@ internal_backend_read_model build/validate
 ## 12. Proximo Paso Recomendado
 
 `PROMPT 2.51 - Plan de transicion hacia Backend Interno Fase 3.x`
+
+## 13. Post-checkpoint Strategic Intake: Market Catalog
+
+Despues del cierre de 2.50, se registra una incorporacion estrategica no activa: `Market Catalog / Catálogo de Mercados`.
+
+Esta base no modifica el checkpoint pre-operacional, pero deja preparado el ecosistema para una futura capa de composicion de negocio.
+
+Estado:
+
+- `planned_not_active`;
+- runtime deshabilitado;
+- business composition deshabilitada;
+- activation status por entrada: `not_evaluated`.
+
+Boundaries:
+
+- no participa en runtime;
+- no participa en ejecucion;
+- no habilita UI/API;
+- no modifica catalogos internos activos;
+- no crea equipos, ofertas ni unidades de negocio automaticamente.
