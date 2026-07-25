@@ -226,3 +226,20 @@ Funcion:
 Validar la cadena 3.0 -> 3.1 -> 3.2 antes del schema de ExecutionAttempt.
 
 Proximo paso: `PROMPT 3.3 — Schema de execution attempt operativo`.
+
+## 19. PROMPT 3.3 - Schema de execution attempt operativo
+
+Estado esperado: `EXECUTION_ATTEMPT_SCHEMA_READY`.
+
+Readiness esperada: `ready_for_operational_state_machine_contract`.
+
+Resultado:
+
+- schema `ExecutionAttempt` creado como schema-only;
+- `ExecutionIntent` puede derivar en schema de attempt, no en attempt operativo real;
+- no se activa factory;
+- no se escriben stores;
+- no se crea result store;
+- no se activa runtime.
+
+Proximo paso: `PROMPT 3.4 — State machine operacional contract-only`.

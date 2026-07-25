@@ -93,3 +93,18 @@ Business Composition Layer permanece futura/no operativa.
 
 La cadena 3.0 -> 3.1 -> 3.2 queda lista para iniciar PROMPT 3.3 sin activar ejecución real.
 
+## 11. PROMPT 3.3 result
+
+PROMPT 3.3 consume el readiness para schema validado en este checkpoint y crea `core/execution_attempt.py` como schema-only.
+
+Estado resultante:
+
+`EXECUTION_ATTEMPT_SCHEMA_READY`
+
+Readiness resultante:
+
+`ready_for_operational_state_machine_contract`
+
+Proximo paso:
+
+`PROMPT 3.4 — State machine operacional contract-only`

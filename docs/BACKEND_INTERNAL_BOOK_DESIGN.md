@@ -3888,3 +3888,41 @@ Evidencia:
 Proximo paso:
 
 `PROMPT 3.3 — Schema de execution attempt operativo`
+
+## 105. PROMPT 3.3 - Schema de execution attempt operativo
+
+Estado:
+
+`EXECUTION_ATTEMPT_SCHEMA_READY`
+
+Readiness:
+
+`ready_for_operational_state_machine_contract`
+
+Evidencia:
+
+- schema: `core/execution_attempt.py`;
+- documentacion: `docs/EXECUTION_ATTEMPT_SCHEMA.md`;
+- checkpoint E2E: `docs/EXECUTION_ATTEMPT_SCHEMA_E2E_CHECKPOINT.md`;
+- tests: `tests/test_execution_attempt_schema.py`, `tests/test_execution_attempt_schema_e2e_checkpoint.py`.
+
+Decision:
+
+Se define el molde oficial y validable de `ExecutionAttempt` como schema-only. El schema puede derivarse desde un `ExecutionIntent` validado, pero no crea attempts operativos reales ni genera IDs automaticamente.
+
+Resultado:
+
+- `attempt_id` recomendado: `attempt_<intent_id>_<sequence>_<short_hash>`;
+- status permitidos: `draft`, `schema_validated`, `rejected`, `blocked`;
+- lifecycle inicial permitido: `not_started`, `preflight_only`, `blocked`;
+- constraints operativas obligatorias en false;
+- Market Catalog permanece `planned_not_active`;
+- Business Composition Layer permanece futura/no operativa;
+- sin factory activa;
+- sin store writes;
+- sin result store;
+- sin runtime execution.
+
+Proximo paso:
+
+`PROMPT 3.4 — State machine operacional contract-only`

@@ -143,3 +143,13 @@ Resultado:
 Proximo paso:
 
 `PROMPT 3.3 — Schema de execution attempt operativo`
+
+## 11. PROMPT 3.3 result
+
+`ExecutionIntent` ya puede derivar en un schema de `ExecutionAttempt`, no en un attempt operativo real.
+
+La derivacion schema-only valida el intent, copia `intent_id`, `intent_type`, target, mode y requested_by, y exige un `attempt_id` explicito. No genera IDs automaticamente, no escribe stores, no crea lifecycle events, no crea result store y no activa runtime.
+
+Proximo paso:
+
+`PROMPT 3.4 — State machine operacional contract-only`

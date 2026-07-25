@@ -81,8 +81,14 @@ def test_market_catalog_database_remains_non_active():
 
 
 def test_checkpoint_did_not_create_operational_execution_modules():
+    schema_module = ROOT / "core/execution_attempt.py"
+    if schema_module.exists():
+        text = schema_module.read_text(encoding="utf-8")
+        assert 'EXECUTION_ATTEMPT_SCHEMA_STATUS = "schema_only"' in text
+        assert "EXECUTION_ATTEMPT_FACTORY_ENABLED = False" in text
+        assert "EXECUTION_ATTEMPT_EXECUTION_ENABLED = False" in text
+
     for relative in [
-        "core/execution_attempt.py",
         "core/execution_attempt_factory.py",
         "core/execution_attempt_id.py",
         "core/execution_result_store.py",
@@ -130,4 +136,3 @@ def test_checkpoint_has_no_contradictory_enabled_states():
         "business_composition_enabled = true",
     ]:
         assert forbidden not in text
-

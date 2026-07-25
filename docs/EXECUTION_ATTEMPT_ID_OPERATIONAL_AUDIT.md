@@ -186,6 +186,24 @@ Como el veredicto es `EXECUTION_ATTEMPT_ID_READY_FOR_SCHEMA_DESIGN`, el proximo 
 
 `PROMPT 3.3 — Schema de execution attempt operativo`
 
+## 17. PROMPT 3.3 result
+
+PROMPT 3.3 consume el readiness `ready_for_execution_attempt_schema` y define el schema `ExecutionAttempt` como schema-only.
+
+Resultado:
+
+- `EXECUTION_ATTEMPT_SCHEMA_READY`;
+- `ready_for_operational_state_machine_contract`;
+- sin ExecutionAttempt operativo real;
+- sin factory activa;
+- sin store writes;
+- sin result store;
+- sin runtime execution.
+
+Proximo paso:
+
+`PROMPT 3.4 — State machine operacional contract-only`
+
 ## 16. PROMPT 3.2.1 E2E checkpoint
 
 La cadena 3.0 -> 3.1 -> 3.2 fue validada por checkpoint E2E y queda lista para iniciar 3.3.
