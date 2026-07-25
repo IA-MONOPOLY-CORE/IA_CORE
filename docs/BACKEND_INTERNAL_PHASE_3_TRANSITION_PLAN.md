@@ -196,3 +196,23 @@ Resultado:
 - Business Composition Layer permanece futura/no operativa.
 
 Proximo paso: `PROMPT 3.2 — Auditoría de execution_attempt_id operativo`.
+## 17. PROMPT 3.2 - Auditoria de execution_attempt_id operativo
+
+Estado esperado: `EXECUTION_ATTEMPT_ID_AUDIT_COMPLETED`.
+
+Veredicto esperado: `EXECUTION_ATTEMPT_ID_READY_FOR_SCHEMA_DESIGN`.
+
+Readiness esperada: `ready_for_execution_attempt_schema`.
+
+Resultado:
+
+- auditoria de `execution_attempt_id` operativo completada;
+- formato recomendado: `attempt_<intent_id>_<sequence>_<short_hash>`;
+- ownership futuro: attempt factory / attempt builder controlado;
+- no se crea `core/execution_attempt_id.py`;
+- no se crean attempts operativos;
+- no se activa result store;
+- Market Catalog permanece `planned_not_active`;
+- Business Composition Layer permanece futura/no operativa.
+
+Proximo paso: `PROMPT 3.3 — Schema de execution attempt operativo`.

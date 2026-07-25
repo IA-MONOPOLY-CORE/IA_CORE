@@ -3831,3 +3831,41 @@ Boundaries:
 Recomendacion:
 
 `PROMPT 2.51 - Plan de transicion hacia Backend Interno Fase 3.x`.
+## 103. PROMPT 3.2 - Auditoria de execution_attempt_id operativo
+
+Estado esperado:
+
+`EXECUTION_ATTEMPT_ID_AUDIT_COMPLETED`
+
+Veredicto esperado:
+
+`EXECUTION_ATTEMPT_ID_READY_FOR_SCHEMA_DESIGN`
+
+Readiness esperada:
+
+`ready_for_execution_attempt_schema`
+
+Evidencia:
+
+- auditoria: `docs/EXECUTION_ATTEMPT_ID_OPERATIONAL_AUDIT.md`;
+- test: `tests/test_execution_attempt_id_operational_audit.py`.
+
+Decision:
+
+Se audita el `execution_attempt_id` operativo como identificador futuro de un ExecutionAttempt derivado de un ExecutionIntent validado. La auditoria no crea attempts reales, no crea generador operativo, no crea result store y no activa runtime.
+
+Resultado:
+
+- formato recomendado: `attempt_<intent_id>_<sequence>_<short_hash>`;
+- ownership futuro: attempt factory / attempt builder controlado;
+- `attempt_ref` preflight existente sigue separado del futuro `execution_attempt_id`;
+- Market Catalog permanece `planned_not_active`;
+- Business Composition Layer permanece futura/no operativa;
+- sin scheduler/worker/queue;
+- sin modelos/tools/memoria;
+- sin external access;
+- sin API/UI.
+
+Proximo paso:
+
+`PROMPT 3.3 — Schema de execution attempt operativo`
