@@ -56,7 +56,6 @@ REQUIRED_CHAIN_KEYS = [
     "validation",
 ]
 FORBIDDEN_RUNTIME_FILES = [
-    "core/internal_backend_read_model.py",
     "core/backend_read_model_store.py",
     "core/backend_status_api.py",
     "core/backend_dashboard_adapter.py",

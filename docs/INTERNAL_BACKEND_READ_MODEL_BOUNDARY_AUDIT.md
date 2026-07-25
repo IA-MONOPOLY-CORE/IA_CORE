@@ -291,3 +291,35 @@ Resultado:
 Proximo paso recomendado:
 
 `PROMPT 2.48 - Implementar internal_backend_read_model read-only`
+
+## 16. PROMPT 2.48 - Implementar internal_backend_read_model read-only
+
+Estado: `PASSED_INTERNAL_BACKEND_READ_MODEL_READ_ONLY_IMPLEMENTATION`.
+
+Evidencia:
+
+- implementacion: `core/internal_backend_read_model.py`;
+- unit tests: `tests/test_internal_backend_read_model_read_only.py`;
+- E2E: `tests/test_internal_backend_read_model_read_only_end_to_end.py`;
+- documentacion: `docs/INTERNAL_BACKEND_READ_MODEL_READ_ONLY_IMPLEMENTATION.md`.
+
+Decision:
+
+Se habilita solo la implementacion read-only e in-memory del read model interno. La frontera cambia de `contract_only` a implementacion read-only, pero store, API y dashboard adapter siguen fuera de alcance.
+
+Resultado:
+
+- implementacion creada;
+- tests creados;
+- E2E creado;
+- `implementation_enabled=true`;
+- `read_only=true`;
+- `store_enabled=false`;
+- `api_enabled=false`;
+- `dashboard_adapter_enabled=false`;
+- sin mutacion;
+- sin ejecucion real.
+
+Proximo paso recomendado:
+
+`PROMPT 2.48.1 - Checkpoint E2E internal_backend_read_model read-only`

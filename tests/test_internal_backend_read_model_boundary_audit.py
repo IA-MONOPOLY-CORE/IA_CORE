@@ -14,7 +14,6 @@ FUTURE_ALLOWED_FILES = {
     "docs/INTERNAL_BACKEND_READ_MODEL_CONTRACT.md",
 }
 POSTPONED_FILES = {
-    "core/internal_backend_read_model.py",
     "core/backend_read_model_store.py",
     "core/backend_status_api.py",
     "core/backend_dashboard_adapter.py",
@@ -153,9 +152,11 @@ def test_future_allowed_contract_files_are_documented_and_contract_layer_created
         assert (ROOT / relative).exists(), relative
 
 
-def test_postponed_implementation_store_api_and_dashboard_files_are_not_created():
+def test_read_only_implementation_is_created_but_store_api_and_dashboard_are_not_created():
     text = _audit_text()
 
+    assert "core/internal_backend_read_model.py" in text
+    assert (ROOT / "core/internal_backend_read_model.py").exists()
     for relative in POSTPONED_FILES:
         assert relative in text
         assert not (ROOT / relative).exists(), relative
@@ -182,7 +183,7 @@ def test_risks_and_next_prompt_are_documented():
 def test_no_core_execution_or_history_modules_are_modified_by_audit_scope():
     for relative in AUDITED_CORE_UNCHANGED:
         assert (ROOT / relative).exists(), relative
-    assert not (ROOT / "core" / "internal_backend_read_model.py").exists()
+    assert (ROOT / "core" / "internal_backend_read_model.py").exists()
     assert (ROOT / "core" / "internal_backend_read_model_contract.py").exists()
 
 

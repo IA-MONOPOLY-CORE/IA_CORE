@@ -102,7 +102,6 @@ BOUNDARY_FLAGS = {
     "external_access_enabled": (False, "external_access_enabled_not_allowed"),
 }
 FORBIDDEN_RUNTIME_FILES = {
-    "core/internal_backend_read_model.py": "read_model_implementation_not_allowed",
     "core/backend_read_model_store.py": "read_model_store_not_allowed",
     "core/backend_status_api.py": "backend_status_api_not_allowed",
     "core/backend_dashboard_adapter.py": "backend_dashboard_adapter_not_allowed",

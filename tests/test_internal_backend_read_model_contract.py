@@ -178,9 +178,8 @@ def test_shape_builder_returns_valid_snapshot(contract_input):
     assert shape["readiness_summary"]["ready_for_read_model_implementation"] is True
 
 
-def test_no_implementation_store_api_or_dashboard_adapter_created():
+def test_no_store_api_or_dashboard_adapter_created():
     for relative in [
-        "core/internal_backend_read_model.py",
         "core/backend_read_model_store.py",
         "core/backend_status_api.py",
         "core/backend_dashboard_adapter.py",
