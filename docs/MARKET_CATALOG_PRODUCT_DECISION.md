@@ -84,3 +84,7 @@ Sistema para captar, responder, ordenar y recuperar pacientes interesados.
 IA_CORE debe poder evolucionar hacia una fabrica de unidades de negocio asistidas por IA. Para eso necesita una capa que conecte capacidades internas con mercados reales.
 
 El Market Catalog prepara esa futura `Business Composition Layer / Capa de Composicion de Negocio`, sin activarla todavia.
+
+## 9. Roadmap 2.51
+
+El Market Catalog queda referenciado en el plan de transicion 2.51 como pieza estrategica futura. Su activacion operativa queda fuera de Fase 2.x y no se habilita en Fase 3.0 salvo decision explicita posterior.

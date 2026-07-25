@@ -3701,6 +3701,31 @@ Recomendacion:
 
 `PROMPT 2.51 - Plan de transicion hacia Backend Interno Fase 3.x`.
 
+## 100. PROMPT 2.51 - Plan de transicion hacia Backend Interno Fase 3.x
+
+Estado: `PHASE_3_TRANSITION_PLAN_READY`.
+
+Funcion:
+
+Cerrar formalmente 2.x y preparar 3.x sin activar runtime operativo.
+
+Evidencia:
+
+- plan: `docs/BACKEND_INTERNAL_PHASE_3_TRANSITION_PLAN.md`;
+- test: `tests/test_backend_internal_phase_3_transition_plan.py`.
+
+Resultado:
+
+- 2.x queda cerrado como backend interno pre-operacional;
+- proximo paso definido: `PROMPT 3.0 — Auditoría de frontera operacional`;
+- Market Catalog queda como planned database no activa;
+- Business Composition Layer queda futura/no operativa;
+- siguen bloqueados runtime operativo, ejecucion real, scheduler, worker, queue, modelos/tools/memoria, external access, API y UI.
+
+Recomendacion:
+
+`PROMPT 3.0 — Auditoría de frontera operacional`.
+
 ## 99. PROMPT 2.50.1 - Market Catalog / Catalogo de Mercados
 
 Estado: `MARKET_CATALOG_REGISTERED_AS_PLANNED_DATABASE`.

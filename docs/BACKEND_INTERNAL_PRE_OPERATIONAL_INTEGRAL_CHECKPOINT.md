@@ -161,3 +161,9 @@ Boundaries:
 - no habilita UI/API;
 - no modifica catalogos internos activos;
 - no crea equipos, ofertas ni unidades de negocio automaticamente.
+
+## 14. 2.x Final Transition Status
+
+El bloque 2.x queda listo para transicion hacia Fase 3.x, con Market Catalog registrado como database no activa y con el proximo paso definido como `PROMPT 3.0 — Auditoría de frontera operacional`.
+
+La transicion no activa ejecucion real, scheduler, worker, queue, modelos, tools, memoria, external access, API, UI ni Business Composition Layer operativa.
