@@ -3726,6 +3726,35 @@ Recomendacion:
 
 `PROMPT 3.0 — Auditoría de frontera operacional`.
 
+## 101. PROMPT 3.0 - Auditoria de frontera operacional
+
+Estado: `OPERATIONAL_BOUNDARY_AUDIT_COMPLETED`.
+
+Veredicto: `OPERATIONAL_BOUNDARY_READY_FOR_CONTRACT_DESIGN`.
+
+Readiness: `ready_for_execution_intent_contract`.
+
+Evidencia:
+
+- auditoria: `docs/BACKEND_INTERNAL_OPERATIONAL_BOUNDARY_AUDIT.md`;
+- test: `tests/test_backend_internal_operational_boundary_audit.py`.
+
+Decision:
+
+Se audita la frontera operacional entre preflight/dry-run/read-only/derived history y futura ejecucion operativa real. No se activa runtime operativo ni ejecucion real.
+
+Resultado:
+
+- no hay gaps criticos;
+- no hay gaps mayores bloqueantes;
+- Market Catalog queda `planned_not_active`;
+- Business Composition Layer queda futura/no operativa;
+- runtime operativo, scheduler, worker, queue, modelos/tools/memoria, external access, API y UI siguen bloqueados.
+
+Proximo paso:
+
+`PROMPT 3.1 — Contrato de execution intent operativo`.
+
 ## 99. PROMPT 2.50.1 - Market Catalog / Catalogo de Mercados
 
 Estado: `MARKET_CATALOG_REGISTERED_AS_PLANNED_DATABASE`.
