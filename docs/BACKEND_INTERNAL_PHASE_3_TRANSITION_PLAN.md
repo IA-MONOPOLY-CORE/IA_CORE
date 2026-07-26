@@ -326,3 +326,22 @@ Resultado esperado:
 - no se modifica logica funcional.
 
 Proximo paso: `PROMPT 3.7 - Auditoria de integracion result/history/read model`.
+## 24. PROMPT 3.7 - Auditoria de integracion result/history/read model
+
+Estado esperado: `RESULT_HISTORY_READ_MODEL_INTEGRATION_AUDIT_COMPLETED`.
+
+Veredicto esperado: `RESULT_HISTORY_READ_MODEL_INTEGRATION_READY_FOR_CONTRACT_DESIGN`.
+
+Readiness esperada: `ready_for_result_history_read_model_contract`.
+
+Resultado esperado:
+
+- frontera de integracion result/history/read model auditada;
+- datos candidatos de `ExecutionResult` hacia history/read model documentados;
+- lifecycle vs result diferenciado;
+- dry-run vs result diferenciado;
+- Market Catalog permanece `planned_not_active`;
+- Business Composition Layer permanece futura/no operativa;
+- no se activa integracion real, Result Store, writes ni runtime.
+
+Proximo paso: `PROMPT 3.8 — Contrato de integración result/history/read model read-only`.

@@ -168,4 +168,16 @@ El lifecycle_store futuro podra vincular estados terminales con resultados, pero
 - no UI;
 - Market Catalog remains planned_not_active;
 - Business Composition Layer remains future/non-operational.
+## PROMPT 3.7 result
 
+La integracion futura entre `ExecutionResult`, `execution_history_view` e `internal_backend_read_model` fue auditada en `docs/RESULT_HISTORY_READ_MODEL_INTEGRATION_AUDIT.md`.
+
+Resultado: `RESULT_HISTORY_READ_MODEL_INTEGRATION_AUDIT_COMPLETED`.
+
+Veredicto: `RESULT_HISTORY_READ_MODEL_INTEGRATION_READY_FOR_CONTRACT_DESIGN`.
+
+Readiness: `ready_for_result_history_read_model_contract`.
+
+La auditoria deja lista la etapa para disenar un contrato read-only de integracion, sin activar Result Store operativo, history writes, read model writes ni runtime.
+
+Proximo paso: `PROMPT 3.8 — Contrato de integración result/history/read model read-only`.

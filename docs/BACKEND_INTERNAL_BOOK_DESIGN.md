@@ -4077,3 +4077,42 @@ Resultado:
 Proximo paso:
 
 `PROMPT 3.7 - Auditoria de integracion result/history/read model`
+## 110. PROMPT 3.7 - Auditoria de integracion result/history/read model
+
+Estado:
+
+`RESULT_HISTORY_READ_MODEL_INTEGRATION_AUDIT_COMPLETED`
+
+Veredicto:
+
+`RESULT_HISTORY_READ_MODEL_INTEGRATION_READY_FOR_CONTRACT_DESIGN`
+
+Readiness:
+
+`ready_for_result_history_read_model_contract`
+
+Evidencia:
+
+- auditoria: `docs/RESULT_HISTORY_READ_MODEL_INTEGRATION_AUDIT.md`;
+- checkpoint E2E: `docs/RESULT_HISTORY_READ_MODEL_INTEGRATION_AUDIT_E2E_CHECKPOINT.md`;
+- tests: `tests/test_result_history_read_model_integration_audit.py`, `tests/test_result_history_read_model_integration_audit_e2e_checkpoint.py`.
+
+Decision:
+
+Se audita como debera integrarse en el futuro `ExecutionResult` con `execution_history_view` e `internal_backend_read_model`. La integracion queda lista para contrato read-only, pero no se implementa integracion real.
+
+Resultado:
+
+- relacion `ExecutionResult` -> `execution_history_view` documentada;
+- relacion `ExecutionResult` -> `internal_backend_read_model` documentada;
+- datos lifecycle vs result separados;
+- datos dry-run vs result separados;
+- campos candidatos de integracion futura definidos;
+- riesgos principales documentados;
+- Market Catalog permanece `planned_not_active`;
+- Business Composition Layer permanece futura/no operativa;
+- no se activan result store, history writes, read model writes, runtime, stores, lifecycle writes, scheduler, worker, queue, modelos, tools, memoria, external access, API ni UI.
+
+Proximo paso:
+
+`PROMPT 3.8 — Contrato de integración result/history/read model read-only`
