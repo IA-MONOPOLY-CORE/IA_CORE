@@ -157,3 +157,20 @@ attempt_intent_agent_audit_001_0001_ab12cd34
 
 `PROMPT 3.4 — State machine operacional contract-only`
 
+## 12. PROMPT 3.4 result
+
+El schema `ExecutionAttempt` ya tiene una state machine contractual asociada.
+
+Resultado:
+
+- `EXECUTION_ATTEMPT_STATE_MACHINE_CONTRACT_READY`;
+- `ready_for_result_store_boundary_audit`;
+- contract-only/read-only;
+- sin ejecucion real;
+- sin store writes;
+- sin lifecycle writes;
+- sin result store.
+
+Proximo paso:
+
+`PROMPT 3.5 — Auditoría de result store boundary`

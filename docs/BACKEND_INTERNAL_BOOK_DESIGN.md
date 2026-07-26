@@ -3926,3 +3926,39 @@ Resultado:
 Proximo paso:
 
 `PROMPT 3.4 — State machine operacional contract-only`
+
+## 106. PROMPT 3.4 - State machine operacional contract-only
+
+Estado:
+
+`EXECUTION_ATTEMPT_STATE_MACHINE_CONTRACT_READY`
+
+Readiness:
+
+`ready_for_result_store_boundary_audit`
+
+Evidencia:
+
+- contrato: `core/execution_attempt_state_machine.py`;
+- documentacion: `docs/EXECUTION_ATTEMPT_STATE_MACHINE_CONTRACT.md`;
+- checkpoint E2E: `docs/EXECUTION_ATTEMPT_STATE_MACHINE_E2E_CHECKPOINT.md`;
+- tests: `tests/test_execution_attempt_state_machine_contract.py`, `tests/test_execution_attempt_state_machine_e2e_checkpoint.py`.
+
+Decision:
+
+Se define la maquina de estados contractual de `ExecutionAttempt` como contract-only/read-only. Valida estados y transiciones sobre el schema sin mutar attempts, sin escribir stores y sin crear eventos de lifecycle.
+
+Resultado:
+
+- estados contract-only: `draft`, `schema_validated`, `preflight_ready`, `blocked`, `cancelled`;
+- estados futuros/no activos: `queued`, `running`, `succeeded`, `failed`, `partially_succeeded`, `retrying`, `expired`;
+- terminales contract-only: `blocked`, `cancelled`;
+- transiciones permitidas hasta `preflight_ready`, `blocked` y `cancelled`;
+- transiciones runtime futuras bloqueadas;
+- sin lifecycle writes;
+- sin result store;
+- sin runtime execution.
+
+Proximo paso:
+
+`PROMPT 3.5 — Auditoría de result store boundary`

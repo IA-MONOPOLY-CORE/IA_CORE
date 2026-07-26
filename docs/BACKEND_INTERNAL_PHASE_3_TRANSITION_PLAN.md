@@ -243,3 +243,22 @@ Resultado:
 - no se activa runtime.
 
 Proximo paso: `PROMPT 3.4 — State machine operacional contract-only`.
+
+## 20. PROMPT 3.4 - State machine operacional contract-only
+
+Estado esperado: `EXECUTION_ATTEMPT_STATE_MACHINE_CONTRACT_READY`.
+
+Readiness esperada: `ready_for_result_store_boundary_audit`.
+
+Resultado:
+
+- state machine `ExecutionAttempt` creada como contract-only/read-only;
+- estados contract-only definidos;
+- estados futuros/no activos documentados;
+- transiciones permitidas y prohibidas definidas;
+- no se escriben stores;
+- no se crean lifecycle events;
+- no se crea result store;
+- no se activa runtime.
+
+Proximo paso: `PROMPT 3.5 — Auditoría de result store boundary`.
