@@ -168,3 +168,17 @@ No deben existir funciones publicas de write/sync/persist como:
 - `apply_execution_result_projection`
 - `sync_execution_result_to_history`
 - `sync_execution_result_to_read_model`
+
+## PROMPT 3.8.1 result
+
+El contrato de proyeccion fue validado por checkpoint E2E en `docs/EXECUTION_RESULT_PROJECTION_E2E_CHECKPOINT.md`.
+
+Resultado: `EXECUTION_RESULT_PROJECTION_E2E_PASSED`.
+
+Veredicto: `EXECUTION_RESULT_PROJECTION_READY_FOR_OPERATIONAL_READINESS_GATE_AUDIT`.
+
+Readiness: `ready_for_operational_readiness_gate_audit`.
+
+Queda listo para auditoria de operational readiness gate, sin activar writes, Result Store operativo, history/read model writes ni runtime.
+
+Proximo paso: `PROMPT 3.9 — Auditoría de operational readiness gate`.

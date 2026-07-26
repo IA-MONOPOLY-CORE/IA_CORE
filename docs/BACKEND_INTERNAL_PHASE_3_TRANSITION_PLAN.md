@@ -362,3 +362,21 @@ Resultado esperado:
 - no hay runtime.
 
 Proximo paso: `PROMPT 3.8.1 — Checkpoint E2E de projection result/history/read model`.
+
+## 26. PROMPT 3.8.1 - Checkpoint E2E de projection result/history/read model
+
+Estado esperado: `EXECUTION_RESULT_PROJECTION_E2E_PASSED`.
+
+Veredicto esperado: `EXECUTION_RESULT_PROJECTION_READY_FOR_OPERATIONAL_READINESS_GATE_AUDIT`.
+
+Readiness esperada: `ready_for_operational_readiness_gate_audit`.
+
+Resultado esperado:
+
+- cadena `ExecutionIntent -> ExecutionAttempt -> ExecutionResult -> execution_result_projection` validada;
+- history projection y read model projection confirmadas como read-only;
+- raw outputs, `output_ref`, `error_ref`, metadata completa, payloads grandes y refs sensibles excluidos;
+- suite larga validable por bloques equivalentes ante timeout operativo;
+- no se activan writes ni runtime.
+
+Proximo paso: `PROMPT 3.9 — Auditoría de operational readiness gate`.
