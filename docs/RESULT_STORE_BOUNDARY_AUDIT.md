@@ -182,6 +182,25 @@ Market Catalog permanece planned_not_active.
 - No puede generar ExecutionResult.
 - No puede escribir result store.
 - No puede activar runtime.
+
+## 12. PROMPT 3.6 result
+
+La auditoria fue consumida por el contrato read-only de `ExecutionResult`.
+
+Resultado:
+
+- `EXECUTION_RESULT_CONTRACT_READY`;
+- `ready_for_result_history_read_model_integration_audit`;
+- sin result store operativo;
+- sin ExecutionResult persistence;
+- sin result_id generator operativo;
+- sin store writes;
+- sin lifecycle writes;
+- sin runtime execution.
+
+Proximo paso:
+
+`PROMPT 3.7 — Auditoría de integración result/history/read model`
 - No puede participar en Business Composition Layer runtime.
 
 ## 11. Business Composition Layer
@@ -191,4 +210,3 @@ Business Composition Layer permanece futura/no operativa.
 - No puede generar ExecutionResult.
 - No puede escribir result store.
 - No puede activar runtime.
-

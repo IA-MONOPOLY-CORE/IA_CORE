@@ -4004,3 +4004,46 @@ Resultado:
 Proximo paso:
 
 `PROMPT 3.6 — Contrato de result store operativo read-only`
+
+## 108. PROMPT 3.6 - Contrato de result store operativo read-only
+
+Estado:
+
+`EXECUTION_RESULT_CONTRACT_READY`
+
+E2E:
+
+`EXECUTION_RESULT_CONTRACT_E2E_PASSED`
+
+Readiness:
+
+`ready_for_result_history_read_model_integration_audit`
+
+Evidencia:
+
+- contrato: `core/execution_result.py`;
+- documentacion: `docs/EXECUTION_RESULT_CONTRACT.md`;
+- checkpoint E2E: `docs/EXECUTION_RESULT_CONTRACT_E2E_CHECKPOINT.md`;
+- tests: `tests/test_execution_result_contract.py`, `tests/test_execution_result_contract_e2e_checkpoint.py`.
+
+Decision:
+
+Se define `ExecutionResult` / Result Store como contrato read-only. El contrato valida estructura y constraints, permite derivacion pura desde `ExecutionAttempt`, pero no persiste resultados ni genera IDs automaticamente.
+
+Resultado:
+
+- status permitidos: `draft`, `schema_validated`, `blocked`, `rejected`;
+- result types permitidos: `audit_only`, `contract_validation`, `dry_run_placeholder`, `preflight_placeholder`, `error_placeholder`;
+- `output_ref=None`;
+- `error_ref=None`;
+- constraints operativas en false;
+- sin operational result store;
+- sin ExecutionResult persistence;
+- sin result_id generator;
+- sin store writes;
+- sin lifecycle writes;
+- sin runtime execution.
+
+Proximo paso:
+
+`PROMPT 3.7 — Auditoría de integración result/history/read model`

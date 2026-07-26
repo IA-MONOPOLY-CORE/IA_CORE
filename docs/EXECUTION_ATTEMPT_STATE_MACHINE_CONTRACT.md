@@ -162,3 +162,21 @@ Resultado:
 Proximo paso:
 
 `PROMPT 3.6 — Contrato de result store operativo read-only`
+
+## 18. PROMPT 3.6 result
+
+La state machine ya tiene un contrato de resultado futuro asociado.
+
+Resultado:
+
+- `EXECUTION_RESULT_CONTRACT_READY`;
+- `ready_for_result_history_read_model_integration_audit`;
+- sin persistencia real de ExecutionResult;
+- sin result store operativo;
+- sin result_id generator;
+- sin store writes;
+- sin lifecycle writes.
+
+Proximo paso:
+
+`PROMPT 3.7 — Auditoría de integración result/history/read model`

@@ -126,11 +126,31 @@ def test_market_catalog_and_business_composition_boundaries_are_preserved():
 def test_no_operational_result_store_modules_were_created():
     for relative in [
         "core/result_store.py",
-        "core/execution_result.py",
         "core/result_store_writer.py",
         "core/result_id_generator.py",
     ]:
         assert not (ROOT / relative).exists(), relative
+
+
+def test_execution_result_contract_is_read_only_when_present():
+    module_path = ROOT / "core" / "execution_result.py"
+    assert module_path.exists()
+
+    text = module_path.read_text(encoding="utf-8")
+    for required in [
+        'EXECUTION_RESULT_CONTRACT_STATUS = "read_only_contract"',
+        "EXECUTION_RESULT_STORE_ENABLED = False",
+        "EXECUTION_RESULT_STORE_WRITES_ENABLED = False",
+        "EXECUTION_RESULT_ID_GENERATOR_ENABLED = False",
+        "EXECUTION_RESULT_RUNTIME_ENABLED = False",
+        "EXECUTION_RESULT_EXECUTION_ENABLED = False",
+        "EXECUTION_RESULT_LIFECYCLE_WRITES_ENABLED = False",
+        "EXECUTION_RESULT_MODEL_INVOCATION_ENABLED = False",
+        "EXECUTION_RESULT_TOOL_EXECUTION_ENABLED = False",
+        "EXECUTION_RESULT_MEMORY_PERSISTENCE_ENABLED = False",
+        "EXECUTION_RESULT_EXTERNAL_ACCESS_ENABLED = False",
+    ]:
+        assert required in text
 
 
 def test_audit_has_no_contradictory_enabled_states():
@@ -150,4 +170,3 @@ def test_audit_has_no_contradictory_enabled_states():
         "business_composition_enabled = true",
     ]:
         assert forbidden not in text
-

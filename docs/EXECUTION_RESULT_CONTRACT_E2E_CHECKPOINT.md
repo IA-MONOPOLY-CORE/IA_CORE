@@ -1,8 +1,8 @@
-# Result Store Boundary Audit - Checkpoint E2E
+# Execution Result Contract - Checkpoint E2E
 
 ## 1. Estado
 
-`RESULT_STORE_BOUNDARY_AUDIT_E2E_PASSED`
+`EXECUTION_RESULT_CONTRACT_E2E_PASSED`
 
 ## 2. Cadena Validada
 
@@ -14,6 +14,7 @@ PROMPT 3.2.1 — Checkpoint E2E de execution_attempt_id operativo
 PROMPT 3.3 — Schema de execution attempt operativo
 PROMPT 3.4 — State machine operacional contract-only
 PROMPT 3.5 — Auditoría de result store boundary
+PROMPT 3.6 — Contrato de result store operativo read-only
 ```
 
 ## 3. Veredictos Validados
@@ -28,6 +29,8 @@ EXECUTION_ATTEMPT_SCHEMA_E2E_PASSED
 EXECUTION_ATTEMPT_STATE_MACHINE_CONTRACT_READY
 EXECUTION_ATTEMPT_STATE_MACHINE_E2E_PASSED
 RESULT_STORE_BOUNDARY_READY_FOR_CONTRACT_DESIGN
+RESULT_STORE_BOUNDARY_AUDIT_E2E_PASSED
+EXECUTION_RESULT_CONTRACT_READY
 ```
 
 ## 4. Readiness Validada
@@ -39,11 +42,12 @@ ready_for_execution_attempt_schema
 ready_for_operational_state_machine_contract
 ready_for_result_store_boundary_audit
 ready_for_result_store_contract
+ready_for_result_history_read_model_integration_audit
 ```
 
 ## 5. Boundaries Validadas
 
-No se activo result store, ExecutionResult operativo, result_id generator, runtime, store writes, lifecycle writes, scheduler, worker, queue, model invocation, tool execution, memory persistence, external access, API ni UI.
+No se activo result store operativo, ExecutionResult persistence, result_id generator, runtime, store writes, lifecycle writes, scheduler, worker, queue, model invocation, tool execution, memory persistence, external access, API ni UI.
 
 Market Catalog sigue `planned_not_active`.
 
@@ -51,20 +55,5 @@ Business Composition Layer sigue futura/no operativa.
 
 ## 6. Proximo Paso
 
-`PROMPT 3.6 — Contrato de result store operativo read-only`
-
-## 7. PROMPT 3.6 result
-
-PROMPT 3.6 consume `ready_for_result_store_contract` y define el contrato read-only de `ExecutionResult` / Result Store.
-
-Estado resultante:
-
-`EXECUTION_RESULT_CONTRACT_READY`
-
-Readiness resultante:
-
-`ready_for_result_history_read_model_integration_audit`
-
-Proximo paso:
-
 `PROMPT 3.7 — Auditoría de integración result/history/read model`
+

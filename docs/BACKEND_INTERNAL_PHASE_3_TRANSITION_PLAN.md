@@ -284,3 +284,24 @@ Resultado:
 - sin runtime execution.
 
 Proximo paso: `PROMPT 3.6 — Contrato de result store operativo read-only`.
+
+## 22. PROMPT 3.6 - Contrato de result store operativo read-only
+
+Estado esperado: `EXECUTION_RESULT_CONTRACT_READY`.
+
+E2E esperado: `EXECUTION_RESULT_CONTRACT_E2E_PASSED`.
+
+Readiness esperada: `ready_for_result_history_read_model_integration_audit`.
+
+Resultado:
+
+- contrato read-only de `ExecutionResult` creado;
+- schema de result validable y serializable;
+- derivacion pura desde `ExecutionAttempt` validado;
+- no se crea result store operativo;
+- no se persisten resultados;
+- no se genera result_id automaticamente;
+- no se escriben stores;
+- no se activa runtime.
+
+Proximo paso: `PROMPT 3.7 — Auditoría de integración result/history/read model`.
