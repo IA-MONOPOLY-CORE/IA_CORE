@@ -4231,3 +4231,42 @@ Resultado:
 Proximo paso:
 
 `PROMPT 3.10 — Contrato de operational readiness gate`
+
+## 114. PROMPT 3.10 - Contrato de operational readiness gate
+
+Estado:
+
+`OPERATIONAL_READINESS_GATE_CONTRACT_READY`
+
+E2E:
+
+`OPERATIONAL_READINESS_GATE_CONTRACT_E2E_PASSED`
+
+Readiness:
+
+`ready_for_pre_operational_e2e_checkpoint`
+
+Evidencia:
+
+- modulo: `core/operational_readiness_gate.py`;
+- contrato: `docs/OPERATIONAL_READINESS_GATE_CONTRACT.md`;
+- checkpoint E2E: `docs/OPERATIONAL_READINESS_GATE_CONTRACT_E2E_CHECKPOINT.md`;
+- tests: `tests/test_operational_readiness_gate_contract.py`, `tests/test_operational_readiness_gate_contract_e2e_checkpoint.py`.
+
+Decision:
+
+Se define el contrato del operational readiness gate como evaluador puro/read-only. Devuelve decision segura y no abre operacion real.
+
+Resultado:
+
+- decision actual: `ready_for_next_contract`;
+- readiness actual: `ready_for_pre_operational_e2e_checkpoint`;
+- contratos minimos verificados;
+- capacidades peligrosas exigidas como deshabilitadas;
+- Market Catalog permanece `planned_not_active`;
+- Business Composition Layer permanece futura/no operativa;
+- gate real, runtime, attempt factory, store writes, lifecycle writes, Result Store operativo, history/read model writes, projection writes, scheduler, worker, queue, modelos, tools, memoria, external access, API y UI siguen bloqueados.
+
+Proximo paso:
+
+`PROMPT 3.11 — Checkpoint E2E pre-operational`

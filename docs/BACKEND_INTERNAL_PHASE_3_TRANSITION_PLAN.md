@@ -400,3 +400,22 @@ Resultado esperado:
 - no se implementa gate real ni runtime.
 
 Proximo paso: `PROMPT 3.10 — Contrato de operational readiness gate`.
+
+## 28. PROMPT 3.10 - Contrato de operational readiness gate
+
+Estado esperado: `OPERATIONAL_READINESS_GATE_CONTRACT_READY`.
+
+E2E esperado: `OPERATIONAL_READINESS_GATE_CONTRACT_E2E_PASSED`.
+
+Readiness esperada: `ready_for_pre_operational_e2e_checkpoint`.
+
+Resultado esperado:
+
+- modulo `core/operational_readiness_gate.py` creado como contract-only/read-only;
+- decision segura `ready_for_next_contract`;
+- readiness `ready_for_pre_operational_e2e_checkpoint`;
+- todos los contratos minimos verificados a nivel read-only;
+- capacidades peligrosas requeridas como deshabilitadas;
+- no se activa gate real, runtime ni writes.
+
+Proximo paso: `PROMPT 3.11 — Checkpoint E2E pre-operational`.

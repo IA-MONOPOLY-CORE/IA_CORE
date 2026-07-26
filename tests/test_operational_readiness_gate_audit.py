@@ -166,7 +166,6 @@ def test_market_catalog_and_business_composition_remain_inactive():
 
 def test_no_operational_gate_modules_were_created():
     for relative in [
-        "core/operational_readiness_gate.py",
         "core/runtime_runner.py",
         "core/attempt_factory.py",
         "core/result_store_writer.py",
@@ -174,6 +173,26 @@ def test_no_operational_gate_modules_were_created():
         "core/read_model_writer.py",
     ]:
         assert not (ROOT / relative).exists(), relative
+
+
+def test_operational_readiness_gate_contract_is_non_operational_when_present():
+    module_path = ROOT / "core" / "operational_readiness_gate.py"
+    assert module_path.exists()
+
+    text = module_path.read_text(encoding="utf-8")
+    for required in [
+        'OPERATIONAL_READINESS_GATE_CONTRACT_STATUS = "contract_only"',
+        "OPERATIONAL_READINESS_GATE_ENABLED = False",
+        "OPERATIONAL_READINESS_GATE_RUNTIME_ENABLED = False",
+        "OPERATIONAL_READINESS_GATE_ATTEMPT_FACTORY_ENABLED = False",
+        "OPERATIONAL_READINESS_GATE_ATTEMPT_STORE_WRITES_ENABLED = False",
+        "OPERATIONAL_READINESS_GATE_LIFECYCLE_WRITES_ENABLED = False",
+        "OPERATIONAL_READINESS_GATE_RESULT_STORE_ENABLED = False",
+        "OPERATIONAL_READINESS_GATE_HISTORY_WRITES_ENABLED = False",
+        "OPERATIONAL_READINESS_GATE_READ_MODEL_WRITES_ENABLED = False",
+        "OPERATIONAL_READINESS_GATE_PROJECTION_WRITES_ENABLED = False",
+    ]:
+        assert required in text
 
 
 def test_audit_has_no_contradictory_enabled_states():

@@ -1,8 +1,8 @@
-# Operational Readiness Gate Audit - E2E Checkpoint
+# Operational Readiness Gate Contract - E2E Checkpoint
 
 ## 1. Estado
 
-`OPERATIONAL_READINESS_GATE_AUDIT_E2E_PASSED`
+`OPERATIONAL_READINESS_GATE_CONTRACT_E2E_PASSED`
 
 ## 2. Cadena Validada
 
@@ -32,6 +32,8 @@ PROMPT 3.8 — Contrato de integración result/history/read model read-only
 PROMPT 3.8.1 — Checkpoint E2E de projection result/history/read model
 →
 PROMPT 3.9 — Auditoría de operational readiness gate
+→
+PROMPT 3.10 — Contrato de operational readiness gate
 ```
 
 ## 3. Veredictos Validados
@@ -56,7 +58,10 @@ RESULT_HISTORY_READ_MODEL_INTEGRATION_READY_FOR_CONTRACT_DESIGN
 EXECUTION_RESULT_PROJECTION_CONTRACT_READY
 EXECUTION_RESULT_PROJECTION_E2E_PASSED
 EXECUTION_RESULT_PROJECTION_READY_FOR_OPERATIONAL_READINESS_GATE_AUDIT
+OPERATIONAL_READINESS_GATE_AUDIT_COMPLETED
+OPERATIONAL_READINESS_GATE_AUDIT_E2E_PASSED
 OPERATIONAL_READINESS_GATE_READY_FOR_CONTRACT_DESIGN
+OPERATIONAL_READINESS_GATE_CONTRACT_READY
 ```
 
 ## 4. Readiness Validada
@@ -73,11 +78,12 @@ ready_for_result_history_read_model_contract
 ready_for_result_projection_e2e_checkpoint
 ready_for_operational_readiness_gate_audit
 ready_for_operational_readiness_gate_contract
+ready_for_pre_operational_e2e_checkpoint
 ```
 
 ## 5. Boundaries Validadas
 
-No se activo operational readiness gate real, runtime, attempt factory, store writes, lifecycle writes, result store, history writes, read model writes, projection writes, scheduler, worker, queue, model invocation, tool execution, memory persistence, external access, API ni UI.
+No se activo gate real, runtime, attempt factory, store writes, lifecycle writes, result store, history writes, read model writes, projection writes, scheduler, worker, queue, model invocation, tool execution, memory persistence, external access, API ni UI.
 
 Market Catalog sigue `planned_not_active`.
 
@@ -85,10 +91,4 @@ Business Composition Layer sigue futura/no operativa.
 
 ## 6. Proximo Paso
 
-`PROMPT 3.10 — Contrato de operational readiness gate`
-
-## PROMPT 3.10 reference
-
-`PROMPT 3.10 — Contrato de operational readiness gate` consume `ready_for_operational_readiness_gate_contract` y produce `ready_for_pre_operational_e2e_checkpoint`.
-
-No activa gate real, runtime ni writes.
+`PROMPT 3.11 — Checkpoint E2E pre-operational`
