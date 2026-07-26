@@ -305,3 +305,24 @@ Resultado:
 - no se activa runtime.
 
 Proximo paso: `PROMPT 3.7 — Auditoría de integración result/history/read model`.
+
+## 23. PROMPT 3.6.1 - Normalizacion de suite filtrada por bloques
+
+Estado esperado: `LONG_TEST_SUITE_VALIDATION_POLICY_READY`.
+
+Funcion:
+
+Formalizar validacion equivalente por bloques para suites largas cuando la ejecucion monolitica corta por timeout operativo sin fallo visible.
+
+Resultado esperado:
+
+- politica documentada para suites largas;
+- suite monolitica filtrada conserva preferencia cuando el entorno la permite;
+- validacion por bloques aceptada si cubre el mismo universo filtrado;
+- todos los bloques deben pasar;
+- se reporta total agregado;
+- se ejecuta `git diff --check`;
+- el working tree final queda limpio;
+- no se modifica logica funcional.
+
+Proximo paso: `PROMPT 3.7 - Auditoria de integracion result/history/read model`.

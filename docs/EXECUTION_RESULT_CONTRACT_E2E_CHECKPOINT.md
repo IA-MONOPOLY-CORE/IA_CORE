@@ -57,3 +57,9 @@ Business Composition Layer sigue futura/no operativa.
 
 `PROMPT 3.7 — Auditoría de integración result/history/read model`
 
+
+## Nota 3.6.1 - Validacion de Suite Larga
+
+La validacion de 3.6 fue aceptada por bloques equivalentes debido a timeout operativo de la suite monolitica, sin fallo visible y con bloques completos verdes.
+
+Esta nota no cambia el estado funcional de 3.6.

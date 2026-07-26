@@ -4047,3 +4047,33 @@ Resultado:
 Proximo paso:
 
 `PROMPT 3.7 — Auditoría de integración result/history/read model`
+
+## 109. PROMPT 3.6.1 - Normalizacion de suite filtrada por bloques
+
+Estado:
+
+`LONG_TEST_SUITE_VALIDATION_POLICY_READY`
+
+Evidencia:
+
+- politica: `docs/LONG_TEST_SUITE_VALIDATION_POLICY.md`;
+- test: `tests/test_long_test_suite_validation_policy.py`.
+
+Decision:
+
+Este prompt no modifica logica funcional. Formaliza una politica de validacion para suites largas y evita que un timeout operativo del runner sea confundido con fallo de tests.
+
+Resultado:
+
+- suite monolitica filtrada sigue siendo preferida cuando el entorno la permite;
+- validacion equivalente por bloques aceptada ante timeout operativo sin fallo visible;
+- los bloques deben cubrir el mismo universo filtrado;
+- todos los bloques deben pasar;
+- se exige total agregado;
+- se mantiene `git diff --check`;
+- se exige working tree limpio;
+- no se activan runtime, stores, lifecycle writes, result store, scheduler, worker, queue, modelos, tools, memoria, external access, API, UI, Market Catalog runtime ni Business Composition Layer runtime.
+
+Proximo paso:
+
+`PROMPT 3.7 - Auditoria de integracion result/history/read model`
