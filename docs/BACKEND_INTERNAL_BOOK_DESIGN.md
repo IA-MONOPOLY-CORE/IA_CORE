@@ -4116,3 +4116,40 @@ Resultado:
 Proximo paso:
 
 `PROMPT 3.8 — Contrato de integración result/history/read model read-only`
+
+## 111. PROMPT 3.8 - Contrato de integracion result/history/read model read-only
+
+Estado:
+
+`EXECUTION_RESULT_PROJECTION_CONTRACT_READY`
+
+Readiness:
+
+`ready_for_result_projection_e2e_checkpoint`
+
+Evidencia:
+
+- modulo: `core/execution_result_projection.py`;
+- contrato: `docs/EXECUTION_RESULT_PROJECTION_CONTRACT.md`;
+- test: `tests/test_execution_result_projection_contract.py`.
+
+Decision:
+
+Se define un traductor puro/read-only desde `ExecutionResult` validado hacia proyecciones seguras para history y read model. No se implementa integracion real ni writes.
+
+Resultado:
+
+- `project_execution_result_for_history(result)`;
+- `project_execution_result_for_read_model(result)`;
+- `validate_execution_result_projection(projection)`;
+- `serialize_execution_result_projection(projection)`;
+- `get_execution_result_projection_contract()`;
+- campos seguros reducidos;
+- raw outputs, refs sensibles, metadata completa y payloads grandes excluidos;
+- Market Catalog permanece `planned_not_active`;
+- Business Composition Layer permanece futura/no operativa;
+- sin Result Store operativo, ExecutionResult persistence, result_id generator, history writes, read model writes, store writes, lifecycle writes, runtime, scheduler, worker, queue, modelos, tools, memoria, external access, API ni UI.
+
+Proximo paso:
+
+`PROMPT 3.8.1 — Checkpoint E2E de projection result/history/read model`

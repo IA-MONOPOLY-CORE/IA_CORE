@@ -345,3 +345,20 @@ Resultado esperado:
 - no se activa integracion real, Result Store, writes ni runtime.
 
 Proximo paso: `PROMPT 3.8 — Contrato de integración result/history/read model read-only`.
+
+## 25. PROMPT 3.8 - Contrato de integracion result/history/read model read-only
+
+Estado esperado: `EXECUTION_RESULT_PROJECTION_CONTRACT_READY`.
+
+Readiness esperada: `ready_for_result_projection_e2e_checkpoint`.
+
+Resultado esperado:
+
+- modulo `core/execution_result_projection.py` creado como read-only contract;
+- `ExecutionResult` validado puede proyectarse a history projection segura;
+- `ExecutionResult` validado puede proyectarse a read model projection segura;
+- no hay writes de history/read model/store;
+- no hay Result Store operativo;
+- no hay runtime.
+
+Proximo paso: `PROMPT 3.8.1 — Checkpoint E2E de projection result/history/read model`.

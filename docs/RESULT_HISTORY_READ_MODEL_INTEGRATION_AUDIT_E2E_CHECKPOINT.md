@@ -71,3 +71,9 @@ Business Composition Layer sigue futura/no operativa.
 ## 6. Proximo Paso
 
 `PROMPT 3.8 — Contrato de integración result/history/read model read-only`
+
+## PROMPT 3.8 reference
+
+`PROMPT 3.8 — Contrato de integración result/history/read model read-only` consume `ready_for_result_history_read_model_contract` y produce `ready_for_result_projection_e2e_checkpoint`.
+
+No activa integracion real ni writes.

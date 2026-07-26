@@ -252,3 +252,15 @@ Antes de implementar integracion real deben existir:
 ## 14. Proximo Paso
 
 `PROMPT 3.8 — Contrato de integración result/history/read model read-only`
+
+## PROMPT 3.8 result
+
+La auditoria fue consumida por un contrato de proyeccion read-only en `core/execution_result_projection.py`.
+
+Resultado: `EXECUTION_RESULT_PROJECTION_CONTRACT_READY`.
+
+Readiness: `ready_for_result_projection_e2e_checkpoint`.
+
+El contrato permite transformar `ExecutionResult` validado en history projection y read model projection seguras, sin integracion real, sin writes, sin Result Store operativo y sin runtime.
+
+Proximo paso: `PROMPT 3.8.1 — Checkpoint E2E de projection result/history/read model`.

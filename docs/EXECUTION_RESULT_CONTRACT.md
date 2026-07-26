@@ -181,3 +181,11 @@ Readiness: `ready_for_result_history_read_model_contract`.
 La auditoria deja lista la etapa para disenar un contrato read-only de integracion, sin activar Result Store operativo, history writes, read model writes ni runtime.
 
 Proximo paso: `PROMPT 3.8 — Contrato de integración result/history/read model read-only`.
+
+## PROMPT 3.8 projection result
+
+`ExecutionResult` ya tiene contrato de proyeccion read-only hacia history/read model en `core/execution_result_projection.py`.
+
+El contrato define proyecciones seguras para `execution_history_view` e `internal_backend_read_model`, sin persistencia real, sin Result Store operativo, sin history writes, sin read model writes y sin runtime.
+
+Readiness: `ready_for_result_projection_e2e_checkpoint`.
