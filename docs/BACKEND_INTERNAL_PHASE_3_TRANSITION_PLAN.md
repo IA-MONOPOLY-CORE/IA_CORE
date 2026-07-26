@@ -438,3 +438,23 @@ Resultado esperado:
 - sistema listo para planificar el proximo bloque, no para ejecucion real.
 
 Proximo paso: `PROMPT 3.12 — Planificación del próximo bloque operacional`.
+
+## 30. PROMPT 3.12 - Planificacion del proximo bloque operacional
+
+Estado esperado: `NEXT_OPERATIONAL_BLOCK_PLAN_READY`.
+
+Veredicto esperado: `PHASE_3_READY_FOR_NEXT_OPERATIONAL_BLOCK`.
+
+Readiness esperada: `ready_for_next_operational_block_first_audit`.
+
+Resultado esperado:
+
+- documento `docs/NEXT_OPERATIONAL_BLOCK_PLAN.md` creado;
+- cadena pre-operational consumida para planificar el proximo bloque;
+- recomendacion: attempt factory boundary;
+- Fase 3.x continua antes de abrir Fase 4;
+- Market Catalog permanece `planned_not_active`;
+- Business Composition Layer permanece futura/no operativa;
+- no se activa runtime, factory activa, writes, lifecycle writes, result store operativo, scheduler, worker, queue, modelos, tools, memoria, external access, API ni UI.
+
+Proximo paso: `PROMPT 3.13 — Auditoría de attempt factory boundary`.

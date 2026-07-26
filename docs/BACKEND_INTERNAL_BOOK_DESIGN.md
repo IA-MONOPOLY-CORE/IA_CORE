@@ -4307,3 +4307,42 @@ Resultado:
 Proximo paso:
 
 `PROMPT 3.12 — Planificación del próximo bloque operacional`
+
+## 116. PROMPT 3.12 - Planificacion del proximo bloque operacional
+
+Estado:
+
+`NEXT_OPERATIONAL_BLOCK_PLAN_READY`
+
+Veredicto:
+
+`PHASE_3_READY_FOR_NEXT_OPERATIONAL_BLOCK`
+
+Readiness:
+
+`ready_for_next_operational_block_first_audit`
+
+Evidencia:
+
+- plan: `docs/NEXT_OPERATIONAL_BLOCK_PLAN.md`;
+- test: `tests/test_next_operational_block_plan.py`;
+- checkpoint consumido: `docs/PRE_OPERATIONAL_E2E_CHECKPOINT.md`.
+
+Decision:
+
+Se mantiene Fase 3.x y se define el proximo bloque como auditoria de frontera de attempt factory. No se abre Fase 4 todavia porque faltan factory auditada, store write-safe, lifecycle writer, permission model operativo, rollback de writes y apertura controlada del gate.
+
+Resultado:
+
+- cadena pre-operational resumida y consumida;
+- inventario de piezas contract-only/read-only documentado;
+- riesgos y huecos abiertos documentados;
+- opciones evaluadas: attempt factory boundary, result store write-safe boundary, lifecycle writer boundary y scheduler/worker/queue boundary;
+- recomendacion: `Attempt factory boundary`;
+- Market Catalog permanece `planned_not_active`;
+- Business Composition Layer permanece futura/no operativa;
+- runtime execution, factory activa, writes, scheduler, worker, queue, modelos, tools, memoria, external access, API y UI siguen bloqueados.
+
+Proximo paso:
+
+`PROMPT 3.13 — Auditoría de attempt factory boundary`
