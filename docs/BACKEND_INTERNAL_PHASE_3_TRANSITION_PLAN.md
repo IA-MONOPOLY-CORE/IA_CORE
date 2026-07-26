@@ -380,3 +380,23 @@ Resultado esperado:
 - no se activan writes ni runtime.
 
 Proximo paso: `PROMPT 3.9 — Auditoría de operational readiness gate`.
+
+## 27. PROMPT 3.9 - Auditoria de operational readiness gate
+
+Estado esperado: `OPERATIONAL_READINESS_GATE_AUDIT_COMPLETED`.
+
+Veredicto esperado: `OPERATIONAL_READINESS_GATE_READY_FOR_CONTRACT_DESIGN`.
+
+Readiness esperada: `ready_for_operational_readiness_gate_contract`.
+
+Resultado esperado:
+
+- cadena contract-only/read-only de Fase 3 auditada;
+- inventario de piezas existentes formalizado;
+- condiciones candidatas para futuro gate documentadas;
+- riesgos de activar runtime/writes antes del gate documentados;
+- Market Catalog permanece `planned_not_active`;
+- Business Composition Layer permanece futura/no operativa;
+- no se implementa gate real ni runtime.
+
+Proximo paso: `PROMPT 3.10 — Contrato de operational readiness gate`.
