@@ -143,3 +143,22 @@ El result store queda para auditoria posterior. La state machine no crea `Execut
 
 `PROMPT 3.5 — Auditoría de result store boundary`
 
+## 17. PROMPT 3.5 result
+
+La frontera del result store fue auditada y queda lista para contrato read-only.
+
+Resultado:
+
+- `RESULT_STORE_BOUNDARY_AUDIT_COMPLETED`;
+- `RESULT_STORE_BOUNDARY_READY_FOR_CONTRACT_DESIGN`;
+- `ready_for_result_store_contract`;
+- sin result store operativo;
+- sin ExecutionResult operativo;
+- sin result_id generator operativo;
+- sin store writes;
+- sin lifecycle writes;
+- sin runtime execution.
+
+Proximo paso:
+
+`PROMPT 3.6 — Contrato de result store operativo read-only`

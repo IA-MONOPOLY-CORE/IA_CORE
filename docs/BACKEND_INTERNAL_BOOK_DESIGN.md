@@ -3962,3 +3962,45 @@ Resultado:
 Proximo paso:
 
 `PROMPT 3.5 — Auditoría de result store boundary`
+
+## 107. PROMPT 3.5 - Auditoria de result store boundary
+
+Estado:
+
+`RESULT_STORE_BOUNDARY_AUDIT_COMPLETED`
+
+Veredicto:
+
+`RESULT_STORE_BOUNDARY_READY_FOR_CONTRACT_DESIGN`
+
+Readiness:
+
+`ready_for_result_store_contract`
+
+Evidencia:
+
+- auditoria: `docs/RESULT_STORE_BOUNDARY_AUDIT.md`;
+- checkpoint E2E: `docs/RESULT_STORE_BOUNDARY_AUDIT_E2E_CHECKPOINT.md`;
+- tests: `tests/test_result_store_boundary_audit.py`, `tests/test_result_store_boundary_audit_e2e_checkpoint.py`.
+
+Decision:
+
+Se audita la frontera del futuro `ExecutionResult` / result store. No se crea result store operativo, no se escribe ningun resultado y no se activa runtime.
+
+Resultado:
+
+- definicion de resultado y no-resultado;
+- diferencia Attempt vs Result documentada;
+- diferencia lifecycle event vs result documentada;
+- diferencia dry_run output vs result documentada;
+- campos candidatos propuestos;
+- riesgos principales documentados;
+- Market Catalog permanece `planned_not_active`;
+- Business Composition Layer permanece futura/no operativa;
+- sin store writes;
+- sin lifecycle writes;
+- sin runtime execution.
+
+Proximo paso:
+
+`PROMPT 3.6 — Contrato de result store operativo read-only`

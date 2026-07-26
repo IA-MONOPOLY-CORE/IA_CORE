@@ -262,3 +262,25 @@ Resultado:
 - no se activa runtime.
 
 Proximo paso: `PROMPT 3.5 — Auditoría de result store boundary`.
+
+## 21. PROMPT 3.5 - Auditoria de result store boundary
+
+Estado esperado: `RESULT_STORE_BOUNDARY_AUDIT_COMPLETED`.
+
+Veredicto esperado: `RESULT_STORE_BOUNDARY_READY_FOR_CONTRACT_DESIGN`.
+
+Readiness esperada: `ready_for_result_store_contract`.
+
+Resultado:
+
+- frontera de `ExecutionResult` y result store auditada;
+- campos candidatos documentados;
+- riesgos de activacion temprana documentados;
+- sin result store operativo;
+- sin ExecutionResult operativo;
+- sin result_id generator operativo;
+- sin store writes;
+- sin lifecycle writes;
+- sin runtime execution.
+
+Proximo paso: `PROMPT 3.6 — Contrato de result store operativo read-only`.
