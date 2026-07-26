@@ -92,3 +92,9 @@ Business Composition Layer sigue futura/no operativa.
 ## 6. Proximo Paso
 
 `PROMPT 3.11 — Checkpoint E2E pre-operational`
+
+## PROMPT 3.11 reference
+
+`PROMPT 3.11 — Checkpoint E2E pre-operational` consume `ready_for_pre_operational_e2e_checkpoint` y produce `ready_for_next_phase_planning`.
+
+No abre el gate operacional, no activa runtime y no habilita writes.

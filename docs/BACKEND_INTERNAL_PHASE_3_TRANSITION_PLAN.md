@@ -419,3 +419,22 @@ Resultado esperado:
 - no se activa gate real, runtime ni writes.
 
 Proximo paso: `PROMPT 3.11 — Checkpoint E2E pre-operational`.
+
+## 29. PROMPT 3.11 - Checkpoint E2E pre-operational
+
+Estado esperado: `PRE_OPERATIONAL_E2E_CHECKPOINT_PASSED`.
+
+Veredicto esperado: `PHASE_3_PRE_OPERATIONAL_CHAIN_READY`.
+
+Readiness esperada: `ready_for_next_phase_planning`.
+
+Resultado esperado:
+
+- cadena Fase 3 contract-only/read-only validada de punta a punta;
+- gate existe como contrato y sigue cerrado;
+- runtime y writes operativos siguen apagados;
+- Market Catalog permanece `planned_not_active`;
+- Business Composition Layer permanece futura/no operativa;
+- sistema listo para planificar el proximo bloque, no para ejecucion real.
+
+Proximo paso: `PROMPT 3.12 — Planificación del próximo bloque operacional`.
