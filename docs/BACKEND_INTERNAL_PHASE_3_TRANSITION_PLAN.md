@@ -720,3 +720,23 @@ Resultado esperado:
 - UI-TARS, Hermes, n8n y Home Assistant siguen future_only/not_active;
 - OBLITERATUS sigue fuera de IA_CORE como integración, dependency, adapter, capability y roadmap operativo;
 - runtime, scheduler, worker, queue, model invocation, tool execution, memory persistence, external access, API/UI, writes reales, Market Catalog runtime y Business Composition Layer runtime siguen bloqueados.
+
+## 44. PROMPT 3.22.1 — Checkpoint E2E de permisos por agente
+
+Estado esperado: `AGENT_PERMISSION_FULL_E2E_PASSED`.
+
+Veredicto esperado: `AGENT_PERMISSION_CHAIN_READY`.
+
+Readiness esperada: `ready_for_secrets_policy_planning`.
+
+Próximo paso: `PROMPT 3.23 — Política de secretos y datos sensibles`.
+
+Resultado esperado:
+
+- documento `docs/AGENT_PERMISSION_FULL_E2E_CHECKPOINT.md` creado;
+- cadena Security Layer Plan → Security Surface Audit → Agent Permission Contract validada;
+- permission profile, permission decision, serialización y validación confirmadas;
+- capabilities seguras permiten `allowed` sin ejecución;
+- capabilities peligrosas y blocked surfaces no pueden devolver `allowed=True`;
+- OBLITERATUS sigue fuera de IA_CORE como integración, dependency, adapter, capability y roadmap operativo;
+- runtime, scheduler, worker, queue, model invocation, tool execution, memory persistence, external access, API/UI, writes reales, Market Catalog runtime y Business Composition Layer runtime siguen bloqueados.

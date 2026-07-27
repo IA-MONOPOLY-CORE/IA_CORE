@@ -57,3 +57,15 @@ OBLITERATUS is not an IA_CORE integration
 ## Proximo paso
 
 `PROMPT 3.22.1 — Checkpoint E2E de permisos por agente`
+
+## PROMPT 3.22.1 result
+
+`PROMPT 3.22.1 — Checkpoint E2E de permisos por agente` consume `ready_for_agent_permission_e2e_checkpoint` y valida el contrato en cadena full E2E.
+
+Resultado: `AGENT_PERMISSION_FULL_E2E_PASSED`.
+
+Veredicto: `AGENT_PERMISSION_CHAIN_READY`.
+
+Readiness: `ready_for_secrets_policy_planning`.
+
+Próximo paso: `PROMPT 3.23 — Política de secretos y datos sensibles`.

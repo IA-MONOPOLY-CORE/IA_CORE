@@ -4863,3 +4863,39 @@ Resultado:
 - capabilities peligrosas y blocked surfaces devuelven `denied` o `approval_required`, siempre con `allowed=False`;
 - OBLITERATUS no es integración, dependency, adapter, capability ni roadmap operativo;
 - no se activa runtime, scheduler, worker, queue, model invocation, tool execution, memory persistence, external access, API/UI ni writes reales.
+
+## 130. PROMPT 3.22.1 — Checkpoint E2E de permisos por agente
+
+Estado:
+
+`AGENT_PERMISSION_FULL_E2E_PASSED`
+
+Veredicto:
+
+`AGENT_PERMISSION_CHAIN_READY`
+
+Readiness:
+
+`ready_for_secrets_policy_planning`
+
+Próximo paso:
+
+`PROMPT 3.23 — Política de secretos y datos sensibles`
+
+Artefactos:
+
+- checkpoint full E2E: `docs/AGENT_PERMISSION_FULL_E2E_CHECKPOINT.md`;
+- test E2E: `tests/test_agent_permission_full_e2e_checkpoint.py`.
+
+Resultado:
+
+- cadena `IA_CORE Security Layer Plan -> Security Surface Audit -> Agent Permission Contract -> Permission Profile -> Permission Decision` validada;
+- `allowed`, `denied`, `approval_required` e `invalid` confirmados como decisiones contractuales sin ejecución;
+- capabilities seguras/pre-operativas pueden devolver `allowed`;
+- capabilities peligrosas no pueden devolver `allowed=True`;
+- blocked surfaces no pueden devolver `allowed=True`;
+- runtime execution, tool execution, model invocation, memory persistence, external access, API/UI, writes reales y stores operativos siguen bloqueados;
+- UI-TARS, Hermes, n8n y Home Assistant siguen no activos;
+- Market Catalog remains planned_not_active;
+- Business Composition Layer remains future/non-operational;
+- OBLITERATUS is not an IA_CORE integration.
