@@ -4713,3 +4713,33 @@ Boundaries preservadas:
 - no model/tool/memory/external access;
 - Market Catalog permanece `planned_not_active`;
 - Business Composition Layer permanece futura/no operativa.
+## 126. PROMPT 3.19 - Checkpoint E2E operational-block foundation
+
+Estado:
+
+`OPERATIONAL_BLOCK_FOUNDATION_E2E_PASSED`
+
+Veredicto:
+
+`OPERATIONAL_BLOCK_FOUNDATION_CHAIN_READY`
+
+Readiness:
+
+`ready_for_security_layer_planning`
+
+Proximo paso:
+
+`PROMPT 3.20 — Planificación de IA_CORE Security Layer`
+
+Artefactos:
+
+- checkpoint foundation: `docs/OPERATIONAL_BLOCK_FOUNDATION_E2E_CHECKPOINT.md`;
+- test E2E: `tests/test_operational_block_foundation_e2e_checkpoint.py`.
+
+Se valida la foundation pre-operational completa: `ExecutionIntent -> attempt factory contract -> ExecutionAttempt en memoria -> attempt store write-safe contract -> lifecycle writer contract -> operational readiness gate contract-only`.
+
+Decisión estratégica:
+
+IA_CORE no activa runtime real sin Security Layer previa.
+
+La Security Layer queda como siguiente bloque antes de runtime, scheduler, worker, queue, model invocation, tool execution, memory persistence, external access, API/UI operativa o writes reales.
