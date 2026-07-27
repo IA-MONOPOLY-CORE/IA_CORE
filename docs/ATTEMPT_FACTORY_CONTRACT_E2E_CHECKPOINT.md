@@ -73,3 +73,15 @@ El checkpoint no habilita:
 - habilitacion de queued/running
 - Market Catalog runtime
 - Business Composition Layer runtime
+
+## 6. PROMPT 3.14.1 result
+
+`PROMPT 3.14.1 — Checkpoint E2E de attempt factory contract` consume `ready_for_attempt_factory_e2e_checkpoint`.
+
+Resultado esperado validado: `ATTEMPT_FACTORY_CONTRACT_FULL_E2E_PASSED`.
+
+Veredicto esperado validado: `ATTEMPT_FACTORY_CONTRACT_CHAIN_READY`.
+
+Readiness siguiente: `ready_for_attempt_store_write_safe_boundary_audit`.
+
+Proximo paso: `PROMPT 3.15 — Auditoría de attempt store write-safe boundary`.

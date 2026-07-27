@@ -4428,3 +4428,44 @@ Resultado:
 Proximo paso:
 
 `PROMPT 3.14.1 — Checkpoint E2E de attempt factory contract`
+
+## 119. PROMPT 3.14.1 - Checkpoint E2E de attempt factory contract
+
+Estado:
+
+`ATTEMPT_FACTORY_CONTRACT_FULL_E2E_PASSED`
+
+Veredicto:
+
+`ATTEMPT_FACTORY_CONTRACT_CHAIN_READY`
+
+Readiness:
+
+`ready_for_attempt_store_write_safe_boundary_audit`
+
+Evidencia:
+
+- checkpoint full E2E: `docs/ATTEMPT_FACTORY_CONTRACT_FULL_E2E_CHECKPOINT.md`;
+- test: `tests/test_attempt_factory_contract_full_e2e_checkpoint.py`;
+- contrato validado: `core/attempt_factory.py`.
+
+Decision:
+
+La cadena de attempt factory queda validada de punta a punta como contrato in-memory. Puede tomar un `ExecutionIntent`, producir decision contractual, construir `ExecutionAttempt` en memoria, conservar lineage y respetar el gate contract-only, sin persistencia ni runtime.
+
+Resultado:
+
+- decision segura: `created_contractually`;
+- initial state seguro: `draft` o `schema_validated`;
+- attempt persistido: no;
+- store writes: no;
+- lifecycle events: no;
+- runtime execution: no;
+- scheduler/worker/queue: no;
+- modelos/tools/external access: no;
+- Market Catalog permanece `planned_not_active`;
+- Business Composition Layer permanece futura/no operativa.
+
+Proximo paso:
+
+`PROMPT 3.15 — Auditoría de attempt store write-safe boundary`

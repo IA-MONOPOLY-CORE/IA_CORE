@@ -500,3 +500,24 @@ Resultado esperado:
 - no se activa factory real, runtime, store writes, lifecycle writes, result store operativo, scheduler, worker, queue, modelos, tools, memoria, external access, API ni UI.
 
 Proximo paso: `PROMPT 3.14.1 — Checkpoint E2E de attempt factory contract`.
+
+## 33. PROMPT 3.14.1 - Checkpoint E2E de attempt factory contract
+
+Estado esperado: `ATTEMPT_FACTORY_CONTRACT_FULL_E2E_PASSED`.
+
+Veredicto esperado: `ATTEMPT_FACTORY_CONTRACT_CHAIN_READY`.
+
+Readiness esperada: `ready_for_attempt_store_write_safe_boundary_audit`.
+
+Resultado esperado:
+
+- documento `docs/ATTEMPT_FACTORY_CONTRACT_FULL_E2E_CHECKPOINT.md` creado;
+- cadena `ExecutionIntent -> attempt factory contract -> execution_attempt_id -> ExecutionAttempt en memoria -> gate contract-only` validada;
+- decision segura: `created_contractually`;
+- estado inicial seguro: `draft` o `schema_validated`;
+- lineage minimo validado;
+- no persistence, no lifecycle events, no runtime, no scheduler/worker/queue;
+- Market Catalog permanece `planned_not_active`;
+- Business Composition Layer permanece futura/no operativa.
+
+Proximo paso: `PROMPT 3.15 — Auditoría de attempt store write-safe boundary`.
