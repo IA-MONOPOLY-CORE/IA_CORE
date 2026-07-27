@@ -185,3 +185,17 @@ Security Layer required before runtime
 La foundation pre-operational queda validada end-to-end como cadena contractual. IA_CORE no activa runtime real sin Security Layer previa.
 
 El siguiente bloque recomendado es `PROMPT 3.20 — Planificación de IA_CORE Security Layer`.
+
+## PROMPT 3.20 result
+
+El checkpoint foundation fue consumido por la planificacion de Security Layer.
+
+Resultado: `IA_CORE_SECURITY_LAYER_PLAN_READY`.
+
+Veredicto: `SECURITY_LAYER_REQUIRED_BEFORE_RUNTIME`.
+
+Readiness: `ready_for_security_surface_audit`.
+
+Proximo paso: `PROMPT 3.21 — Auditoría de superficie de ataque de IA_CORE`.
+
+La decision se mantiene: IA_CORE no activa runtime real sin Security Layer previa.

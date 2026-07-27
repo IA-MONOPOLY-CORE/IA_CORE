@@ -303,3 +303,17 @@ E2E: `ATTEMPT_STORE_WRITE_SAFE_CONTRACT_E2E_PASSED`.
 Readiness: `ready_for_attempt_store_write_safe_e2e_checkpoint`.
 
 Proximo paso: `PROMPT 3.16.1 — Checkpoint E2E de attempt store write-safe`.
+
+## PROMPT 3.20 result
+
+El bloque foundation 3.19 fue consumido y el proximo bloque obligatorio antes de runtime es Security Layer.
+
+Resultado: `IA_CORE_SECURITY_LAYER_PLAN_READY`.
+
+Veredicto: `SECURITY_LAYER_REQUIRED_BEFORE_RUNTIME`.
+
+Readiness: `ready_for_security_surface_audit`.
+
+Proximo paso: `PROMPT 3.21 — Auditoría de superficie de ataque de IA_CORE`.
+
+IA_CORE no activa runtime real, tools, memoria persistente, external access, API/UI operativa, writes reales ni stores operativos sin Security Layer previa.

@@ -4743,3 +4743,43 @@ Decisión estratégica:
 IA_CORE no activa runtime real sin Security Layer previa.
 
 La Security Layer queda como siguiente bloque antes de runtime, scheduler, worker, queue, model invocation, tool execution, memory persistence, external access, API/UI operativa o writes reales.
+
+## 127. PROMPT 3.20 — Planificación de IA_CORE Security Layer
+
+Estado:
+
+`IA_CORE_SECURITY_LAYER_PLAN_READY`
+
+Veredicto:
+
+`SECURITY_LAYER_REQUIRED_BEFORE_RUNTIME`
+
+Readiness:
+
+`ready_for_security_surface_audit`
+
+Proximo paso:
+
+`PROMPT 3.21 — Auditoría de superficie de ataque de IA_CORE`
+
+Artefactos:
+
+- plan: `docs/IA_CORE_SECURITY_LAYER_PLAN.md`;
+- test: `tests/test_ia_core_security_layer_plan.py`.
+
+Decisión estratégica:
+
+IA_CORE no activa runtime real sin Security Layer previa.
+
+La Security Layer queda definida como capa obligatoria de gobierno, permisos, validación, límites, auditoría y respuesta ante riesgo antes de habilitar runtime, tools, memoria persistente, external access, API/UI operativa, writes reales, stores operativos, UI-TARS, Hermes, n8n, Home Assistant o conectores externos.
+
+Resultado:
+
+- 10 bloques de seguridad definidos;
+- secuencia futura 3.21 a 3.30 documentada;
+- threat model inicial documentado;
+- principios default deny, least privilege, sandbox-first, audit trail inmutable y kill switch establecidos;
+- UI-TARS, Hermes, n8n y Home Assistant documentados como integraciones futuras bajo Security Layer;
+- OBLITERATUS documentado como no integración, no dependencia y no roadmap operativo de IA_CORE;
+- Defensive Red Team / Adversarial Lab documentado solo para hardening defensivo en sandbox;
+- runtime, scheduler, worker, queue, model invocation, tool execution, memory persistence, external access, API/UI, writes reales, Market Catalog runtime y Business Composition Layer runtime siguen bloqueados.

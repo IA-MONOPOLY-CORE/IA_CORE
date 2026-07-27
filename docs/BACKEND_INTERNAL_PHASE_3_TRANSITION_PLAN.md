@@ -661,3 +661,22 @@ Resultado esperado:
 - no se activa runtime, scheduler, worker, queue, modelos, tools, memoria, external access, API/UI ni writes reales.
 
 Proximo paso: `PROMPT 3.20 — Planificación de IA_CORE Security Layer`.
+
+## 41. PROMPT 3.20 — Planificación de IA_CORE Security Layer
+
+Estado esperado: `IA_CORE_SECURITY_LAYER_PLAN_READY`.
+
+Veredicto esperado: `SECURITY_LAYER_REQUIRED_BEFORE_RUNTIME`.
+
+Readiness esperada: `ready_for_security_surface_audit`.
+
+Próximo paso: `PROMPT 3.21 — Auditoría de superficie de ataque de IA_CORE`.
+
+Resultado esperado:
+
+- documento `docs/IA_CORE_SECURITY_LAYER_PLAN.md` creado;
+- Security Layer definida como bloque obligatorio antes de runtime;
+- superficie futura de permisos, secretos, prompt injection, sandbox, audit trail, kill switch, simulaciones y reportes documentada;
+- UI-TARS, Hermes, n8n y Home Assistant documentados como integraciones futuras bajo Security Layer;
+- OBLITERATUS documentado como no integracion, no dependencia y no roadmap operativo de IA_CORE;
+- runtime, scheduler, worker, queue, model invocation, tool execution, memory persistence, external access, API/UI, writes reales, Market Catalog runtime y Business Composition Layer runtime siguen bloqueados.
