@@ -331,3 +331,17 @@ Readiness: `ready_for_agent_permission_contract`.
 Próximo paso: `PROMPT 3.22 — Contrato de permisos por agente`.
 
 La auditoría justifica el contrato de permisos por agente como próximo paso porque todo runtime futuro depende de saber quién puede hacer qué, con qué capabilities, límites y approvals.
+
+## PROMPT 3.22 result
+
+`PROMPT 3.22 — Contrato de permisos por agente` define la base de seguridad previa a secretos, prompt injection, sandbox, tools y runtime.
+
+Resultado: `AGENT_PERMISSION_CONTRACT_READY`.
+
+E2E: `AGENT_PERMISSION_CONTRACT_E2E_PASSED`.
+
+Readiness: `ready_for_agent_permission_e2e_checkpoint`.
+
+Próximo paso: `PROMPT 3.22.1 — Checkpoint E2E de permisos por agente`.
+
+El contrato permite solo capabilities seguras/pre-operativas y bloquea runtime execution, tools, modelos, memoria persistente, external access, API/UI, writes, stores e integraciones futuras.

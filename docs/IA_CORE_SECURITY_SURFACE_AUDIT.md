@@ -303,3 +303,17 @@ Business Composition Layer runtime
 ## Non-activation statement
 
 Esta auditoría no crea módulos operativos nuevos. No se crea Security Layer ejecutable, permission contract ejecutable, runtime runner, scheduler, worker, queue, tool executor, model invoker, adaptador UI-TARS, adaptador Hermes, adaptador n8n ni adaptador Home Assistant.
+
+## PROMPT 3.22 result
+
+La auditoría de superficie fue consumida por el contrato de permisos por agente.
+
+Resultado: `AGENT_PERMISSION_CONTRACT_READY`.
+
+E2E: `AGENT_PERMISSION_CONTRACT_E2E_PASSED`.
+
+Readiness: `ready_for_agent_permission_e2e_checkpoint`.
+
+Próximo paso: `PROMPT 3.22.1 — Checkpoint E2E de permisos por agente`.
+
+El contrato de permisos por agente queda como primer control no-operativo de Security Layer para declarar quién puede hacer qué, bajo qué rol, con qué capability y qué surfaces siguen bloqueadas por default.

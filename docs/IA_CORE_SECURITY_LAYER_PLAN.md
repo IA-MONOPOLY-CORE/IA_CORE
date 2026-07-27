@@ -227,3 +227,17 @@ Readiness: `ready_for_agent_permission_contract`.
 Próximo paso: `PROMPT 3.22 — Contrato de permisos por agente`.
 
 La auditoría confirma que IA_CORE necesita definir primero permisos por agente antes de secretos, prompt injection, tools, sandbox, runtime o integraciones externas.
+
+## PROMPT 3.22 result
+
+`PROMPT 3.22 — Contrato de permisos por agente` crea el primer contrato no-operativo de Security Layer.
+
+Resultado: `AGENT_PERMISSION_CONTRACT_READY`.
+
+E2E: `AGENT_PERMISSION_CONTRACT_E2E_PASSED`.
+
+Readiness: `ready_for_agent_permission_e2e_checkpoint`.
+
+Próximo paso: `PROMPT 3.22.1 — Checkpoint E2E de permisos por agente`.
+
+El contrato mantiene default deny, least privilege y todas las boundaries de runtime bloqueadas.

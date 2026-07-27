@@ -4822,3 +4822,44 @@ Resultado:
 - Defensive Red Team / Adversarial Lab documentado solo para agentes propios, sandbox y hardening;
 - OBLITERATUS confirmado fuera de IA_CORE como integración, dependencia o roadmap operativo;
 - runtime, scheduler, worker, queue, model invocation, tool execution, memory persistence, external access, API/UI, writes reales, Market Catalog runtime y Business Composition Layer runtime siguen bloqueados.
+
+## 129. PROMPT 3.22 — Contrato de permisos por agente
+
+Estado:
+
+`AGENT_PERMISSION_CONTRACT_READY`
+
+E2E:
+
+`AGENT_PERMISSION_CONTRACT_E2E_PASSED`
+
+Readiness:
+
+`ready_for_agent_permission_e2e_checkpoint`
+
+Próximo paso:
+
+`PROMPT 3.22.1 — Checkpoint E2E de permisos por agente`
+
+Artefactos:
+
+- módulo: `core/agent_permission_contract.py`;
+- contrato: `docs/AGENT_PERMISSION_CONTRACT.md`;
+- checkpoint E2E: `docs/AGENT_PERMISSION_CONTRACT_E2E_CHECKPOINT.md`;
+- tests: `tests/test_agent_permission_contract.py`, `tests/test_agent_permission_contract_e2e_checkpoint.py`.
+
+Decisión:
+
+Se define el primer contrato no-operativo de Security Layer: default deny, least privilege, capabilities seguras explícitas y capabilities peligrosas bloqueadas.
+
+Resultado:
+
+- `AGENT_PERMISSION_CONTRACT_STATUS = "contract_only"`;
+- `AGENT_PERMISSION_CONTRACT_READY = True`;
+- runtime, tools, modelos, memoria persistente, external access, API/UI, writes y stores siguen en `False`;
+- UI-TARS, Hermes, n8n y Home Assistant siguen en `False`;
+- Market Catalog runtime y Business Composition Layer runtime siguen en `False`;
+- solo capabilities seguras/pre-operativas pueden devolver `allowed`;
+- capabilities peligrosas y blocked surfaces devuelven `denied` o `approval_required`, siempre con `allowed=False`;
+- OBLITERATUS no es integración, dependency, adapter, capability ni roadmap operativo;
+- no se activa runtime, scheduler, worker, queue, model invocation, tool execution, memory persistence, external access, API/UI ni writes reales.

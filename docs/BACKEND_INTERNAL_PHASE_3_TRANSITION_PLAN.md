@@ -699,3 +699,24 @@ Resultado esperado:
 - integraciones futuras documentadas como riesgos bajo Security Layer, no activas;
 - el contrato de permisos por agente queda justificado como primer contrato de Security Layer;
 - runtime, scheduler, worker, queue, model invocation, tool execution, memory persistence, external access, API/UI, writes reales, Market Catalog runtime y Business Composition Layer runtime siguen bloqueados.
+
+## 43. PROMPT 3.22 — Contrato de permisos por agente
+
+Estado esperado: `AGENT_PERMISSION_CONTRACT_READY`.
+
+E2E esperado: `AGENT_PERMISSION_CONTRACT_E2E_PASSED`.
+
+Readiness esperada: `ready_for_agent_permission_e2e_checkpoint`.
+
+Próximo paso: `PROMPT 3.22.1 — Checkpoint E2E de permisos por agente`.
+
+Resultado esperado:
+
+- módulo `core/agent_permission_contract.py` creado como contract-only/security-simulated/non-operational/default-deny;
+- documento `docs/AGENT_PERMISSION_CONTRACT.md` creado;
+- checkpoint `docs/AGENT_PERMISSION_CONTRACT_E2E_CHECKPOINT.md` creado;
+- capabilities seguras/pre-operativas permitibles documentadas;
+- capabilities peligrosas y blocked surfaces denegadas por default;
+- UI-TARS, Hermes, n8n y Home Assistant siguen future_only/not_active;
+- OBLITERATUS sigue fuera de IA_CORE como integración, dependency, adapter, capability y roadmap operativo;
+- runtime, scheduler, worker, queue, model invocation, tool execution, memory persistence, external access, API/UI, writes reales, Market Catalog runtime y Business Composition Layer runtime siguen bloqueados.
