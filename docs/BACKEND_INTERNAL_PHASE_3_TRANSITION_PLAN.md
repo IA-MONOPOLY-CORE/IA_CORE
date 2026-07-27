@@ -562,3 +562,25 @@ Resultado esperado:
 - no se activa store operativo, writes reales, persistence real, lifecycle events, result store, runtime, scheduler, worker, queue, modelos, tools, memoria, external access, API ni UI.
 
 Proximo paso: `PROMPT 3.16.1 — Checkpoint E2E de attempt store write-safe`.
+## 36. PROMPT 3.16.1 - Checkpoint E2E de attempt store write-safe
+
+Estado esperado: `ATTEMPT_STORE_WRITE_SAFE_FULL_E2E_PASSED`.
+
+Veredicto esperado: `ATTEMPT_STORE_WRITE_SAFE_CHAIN_READY`.
+
+Readiness esperada: `ready_for_lifecycle_writer_boundary_audit`.
+
+Resultado esperado:
+
+- documento `docs/ATTEMPT_STORE_WRITE_SAFE_FULL_E2E_CHECKPOINT.md` creado;
+- cadena `ExecutionIntent -> attempt factory contract -> ExecutionAttempt en memoria -> attempt store write-safe contract` validada;
+- store decision segura `would_write/blocked/duplicate/invalid`;
+- `persisted` siempre `false`;
+- idempotencia simulada `new/not_checked/duplicate/conflict`;
+- estados `draft`, `schema_validated` y `blocked` permitidos;
+- estados `preflight_ready`, `queued`, `running` y estados de resultado rechazados;
+- Market Catalog permanece `planned_not_active`;
+- Business Composition Layer permanece futura/no operativa;
+- no se activa attempt store operativo, writes reales, persistence real, lifecycle events, result store, history/read model, projections, runtime, scheduler, worker, queue, modelos, tools, memoria, external access, API ni UI.
+
+Proximo paso: `PROMPT 3.17 — Auditoría de lifecycle writer boundary`.

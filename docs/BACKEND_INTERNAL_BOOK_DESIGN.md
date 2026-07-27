@@ -4548,3 +4548,42 @@ Resultado:
 Proximo paso:
 
 `PROMPT 3.16.1 — Checkpoint E2E de attempt store write-safe`
+## 122. PROMPT 3.16.1 - Checkpoint E2E de attempt store write-safe
+
+Estado:
+
+`ATTEMPT_STORE_WRITE_SAFE_FULL_E2E_PASSED`
+
+Veredicto:
+
+`ATTEMPT_STORE_WRITE_SAFE_CHAIN_READY`
+
+Readiness:
+
+`ready_for_lifecycle_writer_boundary_audit`
+
+Proximo paso:
+
+`PROMPT 3.17 — Auditoría de lifecycle writer boundary`
+
+Artefactos:
+
+- checkpoint full E2E: `docs/ATTEMPT_STORE_WRITE_SAFE_FULL_E2E_CHECKPOINT.md`;
+- test E2E: `tests/test_attempt_store_write_safe_full_e2e_checkpoint.py`.
+
+Se valida la cadena `ExecutionIntent -> attempt factory contract -> ExecutionAttempt en memoria -> attempt store write-safe contract`. La decision puede ser `would_write`, `blocked`, `duplicate` o `invalid`, pero `persisted` sigue siempre `false`.
+
+Boundaries preservadas:
+
+- no attempt store operativo;
+- no real writes;
+- no real persistence;
+- no lifecycle writes/events;
+- no result store writes;
+- no history/read model writes;
+- no projection writes;
+- no runtime;
+- no scheduler/worker/queue;
+- no model/tool/memory/external access;
+- Market Catalog permanece `planned_not_active`;
+- Business Composition Layer permanece futura/no operativa.
