@@ -273,3 +273,23 @@ No activa runtime.
 La auditoria concluye que IA_CORE esta listo para diseñar un contrato de attempt factory no-operativa.
 
 El contrato siguiente debe seguir cerrado, en memoria, read-only respecto de stores y bloqueado frente a runtime/writes.
+
+## 14. PROMPT 3.14 result
+
+La auditoria fue consumida por el contrato no-operativo de attempt factory.
+
+Resultado: `ATTEMPT_FACTORY_CONTRACT_READY`.
+
+E2E: `ATTEMPT_FACTORY_CONTRACT_E2E_PASSED`.
+
+Readiness: `ready_for_attempt_factory_e2e_checkpoint`.
+
+Modulo: `core/attempt_factory.py`.
+
+Contrato: `docs/ATTEMPT_FACTORY_CONTRACT.md`.
+
+Checkpoint E2E: `docs/ATTEMPT_FACTORY_CONTRACT_E2E_CHECKPOINT.md`.
+
+Proximo paso: `PROMPT 3.14.1 — Checkpoint E2E de attempt factory contract`.
+
+La factory queda como contrato `contract-only`, `non-operational`, `in-memory only`, con `ATTEMPT_FACTORY_ENABLED = False` y sin runtime/writes.

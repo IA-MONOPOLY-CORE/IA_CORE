@@ -167,12 +167,23 @@ def test_market_catalog_and_business_composition_remain_inactive():
 def test_no_operational_gate_modules_were_created():
     for relative in [
         "core/runtime_runner.py",
-        "core/attempt_factory.py",
         "core/result_store_writer.py",
         "core/history_writer.py",
         "core/read_model_writer.py",
     ]:
         assert not (ROOT / relative).exists(), relative
+
+
+def test_attempt_factory_when_present_does_not_open_gate_or_runtime():
+    module_path = ROOT / "core" / "attempt_factory.py"
+    if not module_path.exists():
+        return
+
+    text = module_path.read_text(encoding="utf-8")
+    assert 'ATTEMPT_FACTORY_CONTRACT_STATUS = "contract_only"' in text
+    assert "ATTEMPT_FACTORY_ENABLED = False" in text
+    assert "ATTEMPT_FACTORY_RUNTIME_ENABLED = False" in text
+    assert "ATTEMPT_FACTORY_STORE_WRITES_ENABLED = False" in text
 
 
 def test_operational_readiness_gate_contract_is_non_operational_when_present():

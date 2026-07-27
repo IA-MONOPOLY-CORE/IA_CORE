@@ -478,3 +478,25 @@ Resultado esperado:
 - no se activa factory activa, attempt creation runtime, writes, lifecycle writes, result store operativo, scheduler, worker, queue, modelos, tools, memoria, external access, API ni UI.
 
 Proximo paso: `PROMPT 3.14 — Contrato de attempt factory no-operativa`.
+
+## 32. PROMPT 3.14 - Contrato de attempt factory no-operativa
+
+Estado esperado: `ATTEMPT_FACTORY_CONTRACT_READY`.
+
+E2E esperado: `ATTEMPT_FACTORY_CONTRACT_E2E_PASSED`.
+
+Readiness esperada: `ready_for_attempt_factory_e2e_checkpoint`.
+
+Resultado esperado:
+
+- modulo `core/attempt_factory.py` creado como contract-only/non-operational/in-memory only;
+- documento `docs/ATTEMPT_FACTORY_CONTRACT.md` creado;
+- checkpoint `docs/ATTEMPT_FACTORY_CONTRACT_E2E_CHECKPOINT.md` creado;
+- decision actual segura: `created_contractually`;
+- estado inicial seguro: `draft` o `schema_validated`;
+- attempts solo en memoria, sin persistencia;
+- Market Catalog permanece `planned_not_active`;
+- Business Composition Layer permanece futura/no operativa;
+- no se activa factory real, runtime, store writes, lifecycle writes, result store operativo, scheduler, worker, queue, modelos, tools, memoria, external access, API ni UI.
+
+Proximo paso: `PROMPT 3.14.1 — Checkpoint E2E de attempt factory contract`.

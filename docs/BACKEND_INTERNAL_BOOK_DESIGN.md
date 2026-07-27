@@ -4386,3 +4386,45 @@ Resultado:
 Proximo paso:
 
 `PROMPT 3.14 — Contrato de attempt factory no-operativa`
+
+## 118. PROMPT 3.14 - Contrato de attempt factory no-operativa
+
+Estado:
+
+`ATTEMPT_FACTORY_CONTRACT_READY`
+
+E2E:
+
+`ATTEMPT_FACTORY_CONTRACT_E2E_PASSED`
+
+Readiness:
+
+`ready_for_attempt_factory_e2e_checkpoint`
+
+Evidencia:
+
+- modulo: `core/attempt_factory.py`;
+- contrato: `docs/ATTEMPT_FACTORY_CONTRACT.md`;
+- checkpoint E2E: `docs/ATTEMPT_FACTORY_CONTRACT_E2E_CHECKPOINT.md`;
+- tests: `tests/test_attempt_factory_contract.py`, `tests/test_attempt_factory_contract_e2e_checkpoint.py`.
+
+Decision:
+
+Se define attempt factory como contrato no-operativo. Puede construir una decision contractual y un `ExecutionAttempt` en memoria desde un `ExecutionIntent` valido, pero no puede persistir attempts, escribir stores, crear lifecycle events ni ejecutar runtime.
+
+Resultado:
+
+- `ATTEMPT_FACTORY_CONTRACT_STATUS = "contract_only"`;
+- `ATTEMPT_FACTORY_ENABLED = False`;
+- decision actual: `created_contractually`;
+- readiness: `ready_for_attempt_factory_e2e_checkpoint`;
+- estados iniciales seguros: `draft` o `schema_validated`;
+- `queued/running` rechazados;
+- lineage minimo conservado;
+- Market Catalog permanece `planned_not_active`;
+- Business Composition Layer permanece futura/no operativa;
+- runtime, writes, lifecycle writes, result store, history/read model/projection writes, scheduler, worker, queue, modelos, tools, memoria, external access, API y UI siguen bloqueados.
+
+Proximo paso:
+
+`PROMPT 3.14.1 — Checkpoint E2E de attempt factory contract`

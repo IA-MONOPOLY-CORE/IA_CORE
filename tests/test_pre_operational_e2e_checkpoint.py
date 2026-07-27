@@ -191,7 +191,6 @@ def test_market_catalog_and_business_composition_remain_inactive():
 def test_no_operational_modules_were_created():
     for relative in [
         "core/runtime_runner.py",
-        "core/attempt_factory.py",
         "core/result_store_writer.py",
         "core/history_writer.py",
         "core/read_model_writer.py",
@@ -200,6 +199,26 @@ def test_no_operational_modules_were_created():
         "core/queue.py",
     ]:
         assert not (ROOT / relative).exists(), relative
+
+
+def test_attempt_factory_when_present_is_non_operational_contract():
+    module_path = ROOT / "core" / "attempt_factory.py"
+    if not module_path.exists():
+        return
+
+    text = module_path.read_text(encoding="utf-8")
+    for required in [
+        'ATTEMPT_FACTORY_CONTRACT_STATUS = "contract_only"',
+        "ATTEMPT_FACTORY_ENABLED = False",
+        "ATTEMPT_FACTORY_RUNTIME_ENABLED = False",
+        "ATTEMPT_FACTORY_STORE_WRITES_ENABLED = False",
+        "ATTEMPT_FACTORY_LIFECYCLE_WRITES_ENABLED = False",
+        "ATTEMPT_FACTORY_RESULT_STORE_ENABLED = False",
+        "ATTEMPT_FACTORY_SCHEDULER_ENABLED = False",
+        "ATTEMPT_FACTORY_WORKER_ENABLED = False",
+        "ATTEMPT_FACTORY_QUEUE_ENABLED = False",
+    ]:
+        assert required in text
 
 
 def test_checkpoint_has_no_contradictory_enabled_states():

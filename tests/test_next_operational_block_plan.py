@@ -154,7 +154,6 @@ def test_market_catalog_and_business_composition_remain_inactive():
 
 def test_no_operational_modules_were_created():
     for relative in [
-        "core/attempt_factory.py",
         "core/runtime_runner.py",
         "core/result_store_writer.py",
         "core/lifecycle_writer.py",
@@ -163,6 +162,18 @@ def test_no_operational_modules_were_created():
         "core/queue.py",
     ]:
         assert not (ROOT / relative).exists(), relative
+
+
+def test_attempt_factory_contract_can_exist_only_disabled():
+    module_path = ROOT / "core" / "attempt_factory.py"
+    if not module_path.exists():
+        return
+
+    text = module_path.read_text(encoding="utf-8")
+    assert 'ATTEMPT_FACTORY_CONTRACT_STATUS = "contract_only"' in text
+    assert "ATTEMPT_FACTORY_ENABLED = False" in text
+    assert "ATTEMPT_FACTORY_RUNTIME_ENABLED = False" in text
+    assert "ATTEMPT_FACTORY_STORE_WRITES_ENABLED = False" in text
 
 
 def test_plan_has_no_contradictory_states():
