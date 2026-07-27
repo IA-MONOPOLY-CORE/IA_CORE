@@ -4587,3 +4587,51 @@ Boundaries preservadas:
 - no model/tool/memory/external access;
 - Market Catalog permanece `planned_not_active`;
 - Business Composition Layer permanece futura/no operativa.
+## 123. PROMPT 3.17 - Auditoria de lifecycle writer boundary
+
+Estado:
+
+`LIFECYCLE_WRITER_BOUNDARY_AUDIT_COMPLETED`
+
+Veredicto:
+
+`LIFECYCLE_WRITER_BOUNDARY_READY_FOR_CONTRACT_DESIGN`
+
+Readiness:
+
+`ready_for_lifecycle_writer_contract`
+
+Proximo paso:
+
+`PROMPT 3.18 — Contrato de lifecycle writer no-operativo`
+
+Artefactos:
+
+- auditoria: `docs/LIFECYCLE_WRITER_BOUNDARY_AUDIT.md`;
+- test: `tests/test_lifecycle_writer_boundary_audit.py`.
+
+Se audita la frontera futura `lifecycle writer boundary` despues de `attempt store write-safe contract`. El objetivo es definir como registrar decisiones de vida del attempt sin emitir lifecycle events reales.
+
+Eventos candidatos seguros:
+
+- `attempt_contract_created`;
+- `attempt_store_would_write`;
+- `attempt_schema_validated`;
+- `attempt_blocked`;
+- `attempt_cancelled_contractually`.
+
+Boundaries preservadas:
+
+- no lifecycle writer operativo;
+- no lifecycle writes reales;
+- no lifecycle events reales;
+- no lifecycle_store writes;
+- no attempt store operativo/writes;
+- no result store writes;
+- no history/read model writes;
+- no projection writes;
+- no runtime;
+- no scheduler/worker/queue;
+- no model/tool/memory/external access;
+- Market Catalog permanece `planned_not_active`;
+- Business Composition Layer permanece futura/no operativa.

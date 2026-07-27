@@ -584,3 +584,22 @@ Resultado esperado:
 - no se activa attempt store operativo, writes reales, persistence real, lifecycle events, result store, history/read model, projections, runtime, scheduler, worker, queue, modelos, tools, memoria, external access, API ni UI.
 
 Proximo paso: `PROMPT 3.17 — Auditoría de lifecycle writer boundary`.
+## 37. PROMPT 3.17 - Auditoria de lifecycle writer boundary
+
+Estado esperado: `LIFECYCLE_WRITER_BOUNDARY_AUDIT_COMPLETED`.
+
+Veredicto esperado: `LIFECYCLE_WRITER_BOUNDARY_READY_FOR_CONTRACT_DESIGN`.
+
+Readiness esperada: `ready_for_lifecycle_writer_contract`.
+
+Resultado esperado:
+
+- documento `docs/LIFECYCLE_WRITER_BOUNDARY_AUDIT.md` creado;
+- frontera `attempt store write-safe contract -> lifecycle writer boundary -> ExecutionAttempt state machine -> OperationalReadinessGate` auditada;
+- eventos candidatos contractuales y pre-runtime definidos;
+- eventos queued/running, eventos de resultado, history/read model, projections y runtime rechazados;
+- Market Catalog permanece `planned_not_active`;
+- Business Composition Layer permanece futura/no operativa;
+- no se activa lifecycle writer operativo, lifecycle writes reales, lifecycle events reales, lifecycle_store writes, attempt store operativo, result store, history/read model, runtime, scheduler, worker, queue, modelos, tools, memoria, external access, API ni UI.
+
+Proximo paso: `PROMPT 3.18 — Contrato de lifecycle writer no-operativo`.

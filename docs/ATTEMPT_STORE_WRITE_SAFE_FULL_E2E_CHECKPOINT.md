@@ -152,3 +152,19 @@ La cadena `ExecutionIntent -> attempt factory contract -> ExecutionAttempt en me
 La decision segura puede ser `would_write`, `blocked`, `duplicate` o `invalid`, pero todas mantienen `persisted = False`.
 
 El siguiente trabajo permitido es auditar la frontera del lifecycle writer. No queda permiso para activar attempt store operativo, runtime, scheduler, worker, queue, modelos, tools, memoria, external access, Market Catalog runtime ni Business Composition Layer runtime.
+
+## 6. PROMPT 3.17 result
+
+El E2E de attempt store write-safe fue consumido por la auditoria de lifecycle writer boundary.
+
+Resultado: `LIFECYCLE_WRITER_BOUNDARY_AUDIT_COMPLETED`.
+
+Veredicto: `LIFECYCLE_WRITER_BOUNDARY_READY_FOR_CONTRACT_DESIGN`.
+
+Readiness: `ready_for_lifecycle_writer_contract`.
+
+Documento: `docs/LIFECYCLE_WRITER_BOUNDARY_AUDIT.md`.
+
+Proximo paso: `PROMPT 3.18 — Contrato de lifecycle writer no-operativo`.
+
+Sigue sin lifecycle writer operativo, sin lifecycle writes reales, sin lifecycle events reales y sin lifecycle_store writes.
