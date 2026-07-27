@@ -252,3 +252,14 @@ Readiness: `ready_for_attempt_store_write_safe_contract`.
 Proximo paso: `PROMPT 3.16 — Contrato de attempt store write-safe`.
 
 Attempt store operativo, attempt store writes y attempt persistence real siguen bloqueados.
+## 16. PROMPT 3.16 result
+
+`PROMPT 3.16 — Contrato de attempt store write-safe` implementa el contrato write-safe del sub-bloque attempt store, todavia sin writes operativos.
+
+Resultado: `ATTEMPT_STORE_WRITE_SAFE_CONTRACT_READY`.
+
+E2E: `ATTEMPT_STORE_WRITE_SAFE_CONTRACT_E2E_PASSED`.
+
+Readiness: `ready_for_attempt_store_write_safe_e2e_checkpoint`.
+
+Proximo paso: `PROMPT 3.16.1 — Checkpoint E2E de attempt store write-safe`.

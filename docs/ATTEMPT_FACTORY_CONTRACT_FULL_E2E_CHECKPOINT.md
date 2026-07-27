@@ -140,3 +140,14 @@ Documento de auditoria: `docs/ATTEMPT_STORE_WRITE_SAFE_BOUNDARY_AUDIT.md`.
 Proximo paso: `PROMPT 3.16 — Contrato de attempt store write-safe`.
 
 La auditoria inicia el sub-bloque de persistencia segura de attempts sin activar writes reales.
+## 8. PROMPT 3.16 result
+
+`PROMPT 3.16 — Contrato de attempt store write-safe` define la capa contractual posterior a la factory sin activar persistencia real.
+
+Resultado: `ATTEMPT_STORE_WRITE_SAFE_CONTRACT_READY`.
+
+E2E: `ATTEMPT_STORE_WRITE_SAFE_CONTRACT_E2E_PASSED`.
+
+Readiness: `ready_for_attempt_store_write_safe_e2e_checkpoint`.
+
+Proximo paso: `PROMPT 3.16.1 — Checkpoint E2E de attempt store write-safe`.

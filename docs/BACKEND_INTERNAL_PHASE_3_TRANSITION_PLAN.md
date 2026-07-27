@@ -541,3 +541,24 @@ Resultado esperado:
 - no se activa attempt store operativo, writes reales, persistence real, lifecycle events, result store, runtime, scheduler, worker, queue, modelos, tools, memoria, external access, API ni UI.
 
 Proximo paso: `PROMPT 3.16 — Contrato de attempt store write-safe`.
+## 35. PROMPT 3.16 - Contrato de attempt store write-safe
+
+Estado esperado: `ATTEMPT_STORE_WRITE_SAFE_CONTRACT_READY`.
+
+E2E esperado: `ATTEMPT_STORE_WRITE_SAFE_CONTRACT_E2E_PASSED`.
+
+Readiness esperada: `ready_for_attempt_store_write_safe_e2e_checkpoint`.
+
+Resultado esperado:
+
+- modulo `core/attempt_store_write_safe.py` creado como contract-only/write-safe simulated/non-operational;
+- documento `docs/ATTEMPT_STORE_WRITE_SAFE_CONTRACT.md` creado;
+- checkpoint `docs/ATTEMPT_STORE_WRITE_SAFE_CONTRACT_E2E_CHECKPOINT.md` creado;
+- decision actual segura: `would_write`;
+- `persisted` siempre `false`;
+- idempotencia simulada in-memory;
+- Market Catalog permanece `planned_not_active`;
+- Business Composition Layer permanece futura/no operativa;
+- no se activa store operativo, writes reales, persistence real, lifecycle events, result store, runtime, scheduler, worker, queue, modelos, tools, memoria, external access, API ni UI.
+
+Proximo paso: `PROMPT 3.16.1 — Checkpoint E2E de attempt store write-safe`.

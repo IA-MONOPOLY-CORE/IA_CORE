@@ -4508,3 +4508,43 @@ Resultado:
 Proximo paso:
 
 `PROMPT 3.16 — Contrato de attempt store write-safe`
+## 121. PROMPT 3.16 - Contrato de attempt store write-safe
+
+Estado:
+
+`ATTEMPT_STORE_WRITE_SAFE_CONTRACT_READY`
+
+E2E:
+
+`ATTEMPT_STORE_WRITE_SAFE_CONTRACT_E2E_PASSED`
+
+Readiness:
+
+`ready_for_attempt_store_write_safe_e2e_checkpoint`
+
+Evidencia:
+
+- modulo: `core/attempt_store_write_safe.py`;
+- contrato: `docs/ATTEMPT_STORE_WRITE_SAFE_CONTRACT.md`;
+- checkpoint E2E: `docs/ATTEMPT_STORE_WRITE_SAFE_CONTRACT_E2E_CHECKPOINT.md`;
+- tests: `tests/test_attempt_store_write_safe_contract.py`, `tests/test_attempt_store_write_safe_contract_e2e_checkpoint.py`.
+
+Decision:
+
+Se define attempt store write-safe como contrato simulado. Puede devolver `would_write`, `blocked`, `duplicate` o `invalid`, validar schema, estado, lineage e idempotencia, pero no persiste attempts ni escribe stores.
+
+Resultado:
+
+- `ATTEMPT_STORE_WRITE_SAFE_CONTRACT_STATUS = "contract_only"`;
+- `ATTEMPT_STORE_WRITE_SAFE_ENABLED = False`;
+- decision actual: `would_write`;
+- persisted: `false`;
+- idempotency result: `new`, `duplicate`, `conflict` o `not_checked`;
+- write_ref/rollback_ref: conceptual o null;
+- Market Catalog permanece `planned_not_active`;
+- Business Composition Layer permanece futura/no operativa;
+- writes reales, persistence, lifecycle events, result store, history/read model/projection writes, runtime, scheduler, worker, queue, modelos, tools, memoria, external access, API y UI siguen bloqueados.
+
+Proximo paso:
+
+`PROMPT 3.16.1 — Checkpoint E2E de attempt store write-safe`
