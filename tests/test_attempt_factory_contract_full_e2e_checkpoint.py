@@ -249,10 +249,17 @@ def test_full_e2e_scenarios_are_contractually_blocked_or_safe():
 
 
 def test_no_operational_modules_were_created():
+    lifecycle_writer = ROOT / "core" / "lifecycle_writer.py"
+    if lifecycle_writer.exists():
+        text = lifecycle_writer.read_text(encoding="utf-8")
+        assert 'LIFECYCLE_WRITER_CONTRACT_STATUS = "contract_only"' in text
+        assert "LIFECYCLE_WRITER_ENABLED = False" in text
+        assert "LIFECYCLE_WRITER_REAL_WRITES_ENABLED = False" in text
+        assert "LIFECYCLE_WRITER_STORE_WRITES_ENABLED = False" in text
+
     for relative in [
         "core/runtime_runner.py",
         "core/result_store_writer.py",
-        "core/lifecycle_writer.py",
         "core/scheduler.py",
         "core/worker.py",
         "core/queue.py",

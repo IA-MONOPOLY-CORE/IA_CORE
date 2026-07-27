@@ -153,10 +153,17 @@ def test_market_catalog_and_business_composition_remain_inactive():
 
 
 def test_no_operational_modules_were_created():
+    lifecycle_writer = ROOT / "core" / "lifecycle_writer.py"
+    if lifecycle_writer.exists():
+        text = lifecycle_writer.read_text(encoding="utf-8")
+        assert 'LIFECYCLE_WRITER_CONTRACT_STATUS = "contract_only"' in text
+        assert "LIFECYCLE_WRITER_ENABLED = False" in text
+        assert "LIFECYCLE_WRITER_REAL_WRITES_ENABLED = False" in text
+        assert "LIFECYCLE_WRITER_STORE_WRITES_ENABLED = False" in text
+
     for relative in [
         "core/runtime_runner.py",
         "core/result_store_writer.py",
-        "core/lifecycle_writer.py",
         "core/scheduler.py",
         "core/worker.py",
         "core/queue.py",

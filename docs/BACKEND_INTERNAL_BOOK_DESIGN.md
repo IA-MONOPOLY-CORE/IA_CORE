@@ -4635,3 +4635,41 @@ Boundaries preservadas:
 - no model/tool/memory/external access;
 - Market Catalog permanece `planned_not_active`;
 - Business Composition Layer permanece futura/no operativa.
+## 124. PROMPT 3.18 - Contrato de lifecycle writer no-operativo
+
+Estado:
+
+`LIFECYCLE_WRITER_CONTRACT_READY`
+
+E2E:
+
+`LIFECYCLE_WRITER_CONTRACT_E2E_PASSED`
+
+Readiness:
+
+`ready_for_lifecycle_writer_e2e_checkpoint`
+
+Proximo paso:
+
+`PROMPT 3.18.1 — Checkpoint E2E de lifecycle writer`
+
+Artefactos:
+
+- modulo: `core/lifecycle_writer.py`;
+- contrato: `docs/LIFECYCLE_WRITER_CONTRACT.md`;
+- checkpoint E2E: `docs/LIFECYCLE_WRITER_CONTRACT_E2E_CHECKPOINT.md`;
+- tests: `tests/test_lifecycle_writer_contract.py`, `tests/test_lifecycle_writer_contract_e2e_checkpoint.py`.
+
+Se define lifecycle writer como contrato simulado. Puede devolver `would_emit`, `blocked`, `duplicate` o `invalid`, validar event_id, attempt_id, event_type, estados, transicion, lineage e idempotencia, pero no emite lifecycle events reales ni escribe stores.
+
+Resultado:
+
+- `LIFECYCLE_WRITER_CONTRACT_STATUS = "contract_only"`;
+- `LIFECYCLE_WRITER_ENABLED = False`;
+- decision actual: `would_emit`;
+- emitted: `false`;
+- idempotency result: `new`, `duplicate`, `conflict` o `not_checked`;
+- write_ref/rollback_ref: conceptual o null;
+- Market Catalog permanece `planned_not_active`;
+- Business Composition Layer permanece futura/no operativa;
+- lifecycle writes reales, lifecycle events reales, lifecycle_store writes, attempt store, result store, history/read model/projection writes, runtime, scheduler, worker, queue, modelos, tools, memoria, external access, API y UI siguen bloqueados.

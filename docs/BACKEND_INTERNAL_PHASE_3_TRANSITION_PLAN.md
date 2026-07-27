@@ -603,3 +603,24 @@ Resultado esperado:
 - no se activa lifecycle writer operativo, lifecycle writes reales, lifecycle events reales, lifecycle_store writes, attempt store operativo, result store, history/read model, runtime, scheduler, worker, queue, modelos, tools, memoria, external access, API ni UI.
 
 Proximo paso: `PROMPT 3.18 — Contrato de lifecycle writer no-operativo`.
+## 38. PROMPT 3.18 - Contrato de lifecycle writer no-operativo
+
+Estado esperado: `LIFECYCLE_WRITER_CONTRACT_READY`.
+
+E2E esperado: `LIFECYCLE_WRITER_CONTRACT_E2E_PASSED`.
+
+Readiness esperada: `ready_for_lifecycle_writer_e2e_checkpoint`.
+
+Resultado esperado:
+
+- modulo `core/lifecycle_writer.py` creado como contract-only/lifecycle-simulated/non-operational;
+- documento `docs/LIFECYCLE_WRITER_CONTRACT.md` creado;
+- checkpoint `docs/LIFECYCLE_WRITER_CONTRACT_E2E_CHECKPOINT.md` creado;
+- decision actual segura: `would_emit`;
+- `emitted` siempre `false`;
+- idempotencia simulada in-memory;
+- Market Catalog permanece `planned_not_active`;
+- Business Composition Layer permanece futura/no operativa;
+- no se activa lifecycle writer operativo, lifecycle writes reales, lifecycle events reales, lifecycle_store writes, attempt store, result store, runtime, scheduler, worker, queue, modelos, tools, memoria, external access, API ni UI.
+
+Proximo paso: `PROMPT 3.18.1 — Checkpoint E2E de lifecycle writer`.
