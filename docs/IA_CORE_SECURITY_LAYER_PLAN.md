@@ -213,3 +213,17 @@ Business Composition Layer runtime
 ## Non-activation statement
 
 Este documento no crea `core/security_layer.py`, `core/runtime_runner.py`, `core/scheduler.py`, `core/worker.py`, `core/queue.py`, `core/tool_executor.py`, `core/model_invoker.py`, `core/ui_tars_adapter.py`, `core/hermes_adapter.py`, `core/n8n_adapter.py` ni `core/home_assistant_adapter.py`.
+
+## PROMPT 3.21 result
+
+La planificación de Security Layer fue consumida por la auditoría de superficie de ataque.
+
+Resultado: `IA_CORE_SECURITY_SURFACE_AUDIT_COMPLETED`.
+
+Veredicto: `SECURITY_SURFACE_REQUIRES_PERMISSION_CONTRACT`.
+
+Readiness: `ready_for_agent_permission_contract`.
+
+Próximo paso: `PROMPT 3.22 — Contrato de permisos por agente`.
+
+La auditoría confirma que IA_CORE necesita definir primero permisos por agente antes de secretos, prompt injection, tools, sandbox, runtime o integraciones externas.

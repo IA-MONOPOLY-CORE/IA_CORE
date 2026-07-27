@@ -680,3 +680,22 @@ Resultado esperado:
 - UI-TARS, Hermes, n8n y Home Assistant documentados como integraciones futuras bajo Security Layer;
 - OBLITERATUS documentado como no integracion, no dependencia y no roadmap operativo de IA_CORE;
 - runtime, scheduler, worker, queue, model invocation, tool execution, memory persistence, external access, API/UI, writes reales, Market Catalog runtime y Business Composition Layer runtime siguen bloqueados.
+
+## 42. PROMPT 3.21 — Auditoría de superficie de ataque de IA_CORE
+
+Estado esperado: `IA_CORE_SECURITY_SURFACE_AUDIT_COMPLETED`.
+
+Veredicto esperado: `SECURITY_SURFACE_REQUIRES_PERMISSION_CONTRACT`.
+
+Readiness esperada: `ready_for_agent_permission_contract`.
+
+Próximo paso: `PROMPT 3.22 — Contrato de permisos por agente`.
+
+Resultado esperado:
+
+- documento `docs/IA_CORE_SECURITY_SURFACE_AUDIT.md` creado;
+- superficie actual y futura auditada defensivamente;
+- threat categories, matriz de riesgo, controles mínimos e invariantes documentados;
+- integraciones futuras documentadas como riesgos bajo Security Layer, no activas;
+- el contrato de permisos por agente queda justificado como primer contrato de Security Layer;
+- runtime, scheduler, worker, queue, model invocation, tool execution, memory persistence, external access, API/UI, writes reales, Market Catalog runtime y Business Composition Layer runtime siguen bloqueados.

@@ -317,3 +317,17 @@ Readiness: `ready_for_security_surface_audit`.
 Proximo paso: `PROMPT 3.21 — Auditoría de superficie de ataque de IA_CORE`.
 
 IA_CORE no activa runtime real, tools, memoria persistente, external access, API/UI operativa, writes reales ni stores operativos sin Security Layer previa.
+
+## PROMPT 3.21 result
+
+`PROMPT 3.21 — Auditoría de superficie de ataque de IA_CORE` audita la superficie actual y futura de Security Layer sin activar runtime.
+
+Resultado: `IA_CORE_SECURITY_SURFACE_AUDIT_COMPLETED`.
+
+Veredicto: `SECURITY_SURFACE_REQUIRES_PERMISSION_CONTRACT`.
+
+Readiness: `ready_for_agent_permission_contract`.
+
+Próximo paso: `PROMPT 3.22 — Contrato de permisos por agente`.
+
+La auditoría justifica el contrato de permisos por agente como próximo paso porque todo runtime futuro depende de saber quién puede hacer qué, con qué capabilities, límites y approvals.

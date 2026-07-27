@@ -4783,3 +4783,42 @@ Resultado:
 - OBLITERATUS documentado como no integración, no dependencia y no roadmap operativo de IA_CORE;
 - Defensive Red Team / Adversarial Lab documentado solo para hardening defensivo en sandbox;
 - runtime, scheduler, worker, queue, model invocation, tool execution, memory persistence, external access, API/UI, writes reales, Market Catalog runtime y Business Composition Layer runtime siguen bloqueados.
+
+## 128. PROMPT 3.21 — Auditoría de superficie de ataque de IA_CORE
+
+Estado:
+
+`IA_CORE_SECURITY_SURFACE_AUDIT_COMPLETED`
+
+Veredicto:
+
+`SECURITY_SURFACE_REQUIRES_PERMISSION_CONTRACT`
+
+Readiness:
+
+`ready_for_agent_permission_contract`
+
+Próximo paso:
+
+`PROMPT 3.22 — Contrato de permisos por agente`
+
+Artefactos:
+
+- auditoría: `docs/IA_CORE_SECURITY_SURFACE_AUDIT.md`;
+- test: `tests/test_ia_core_security_surface_audit.py`.
+
+Decisión:
+
+La auditoría de superficie confirma que IA_CORE no debe avanzar hacia secretos, prompt injection, tools, sandbox, runtime ni integraciones externas sin declarar primero un contrato formal de permisos por agente.
+
+Resultado:
+
+- superficie actual auditada: contratos, stores ausentes/no operativos, read models y Market Catalog planned_not_active;
+- superficie futura auditada: runtime, scheduler, worker, queue, modelos, tools, memoria, external access, API/UI, UI-TARS, Hermes, n8n, Home Assistant, documentos, web, screenshots, secrets, logs, rollback y kill switch;
+- threat categories documentadas;
+- matriz de riesgo creada;
+- controles mínimos definidos;
+- Future integrations risk map creado;
+- Defensive Red Team / Adversarial Lab documentado solo para agentes propios, sandbox y hardening;
+- OBLITERATUS confirmado fuera de IA_CORE como integración, dependencia o roadmap operativo;
+- runtime, scheduler, worker, queue, model invocation, tool execution, memory persistence, external access, API/UI, writes reales, Market Catalog runtime y Business Composition Layer runtime siguen bloqueados.
