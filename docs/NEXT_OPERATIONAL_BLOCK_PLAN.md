@@ -238,3 +238,17 @@ Readiness: `ready_for_attempt_factory_e2e_checkpoint`.
 No activa factory real, attempts persistidos, runtime, stores, lifecycle writes, result store, scheduler, worker, queue, modelos, tools, memoria, external access, API ni UI.
 
 Proximo paso: `PROMPT 3.14.1 — Checkpoint E2E de attempt factory contract`.
+
+## 15. PROMPT 3.15 result
+
+`PROMPT 3.15 — Auditoría de attempt store write-safe boundary` inicia el sub-bloque de persistencia segura de attempts sin activar writes reales.
+
+Resultado: `ATTEMPT_STORE_WRITE_SAFE_BOUNDARY_AUDIT_COMPLETED`.
+
+Veredicto: `ATTEMPT_STORE_WRITE_SAFE_BOUNDARY_READY_FOR_CONTRACT_DESIGN`.
+
+Readiness: `ready_for_attempt_store_write_safe_contract`.
+
+Proximo paso: `PROMPT 3.16 — Contrato de attempt store write-safe`.
+
+Attempt store operativo, attempt store writes y attempt persistence real siguen bloqueados.

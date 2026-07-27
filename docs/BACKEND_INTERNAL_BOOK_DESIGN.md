@@ -4469,3 +4469,42 @@ Resultado:
 Proximo paso:
 
 `PROMPT 3.15 — Auditoría de attempt store write-safe boundary`
+
+## 120. PROMPT 3.15 - Auditoria de attempt store write-safe boundary
+
+Estado:
+
+`ATTEMPT_STORE_WRITE_SAFE_BOUNDARY_AUDIT_COMPLETED`
+
+Veredicto:
+
+`ATTEMPT_STORE_WRITE_SAFE_BOUNDARY_READY_FOR_CONTRACT_DESIGN`
+
+Readiness:
+
+`ready_for_attempt_store_write_safe_contract`
+
+Evidencia:
+
+- auditoria: `docs/ATTEMPT_STORE_WRITE_SAFE_BOUNDARY_AUDIT.md`;
+- test: `tests/test_attempt_store_write_safe_boundary_audit.py`;
+- checkpoint consumido: `docs/ATTEMPT_FACTORY_CONTRACT_FULL_E2E_CHECKPOINT.md`.
+
+Decision:
+
+Se audita la frontera de persistencia segura de attempts sin implementar store operativo. El futuro contrato debera decidir si un `ExecutionAttempt` en memoria podria persistirse bajo reglas de idempotencia, atomicidad, rollback, duplicate policy y side effects bloqueados.
+
+Resultado:
+
+- estados seguros candidatos: `draft`, `schema_validated`, `blocked`;
+- estados prohibidos: `preflight_ready`, `queued`, `running`, `succeeded`, `failed`, `partially_succeeded`, `retrying`, `expired`;
+- lifecycle events siguen bloqueados;
+- result store sigue separado y no operativo;
+- history/read model writes siguen bloqueados;
+- Market Catalog permanece `planned_not_active`;
+- Business Composition Layer permanece futura/no operativa;
+- attempt store operativo, writes reales, persistence real, runtime, scheduler, worker, queue, modelos, tools, memoria, external access, API y UI siguen bloqueados.
+
+Proximo paso:
+
+`PROMPT 3.16 — Contrato de attempt store write-safe`

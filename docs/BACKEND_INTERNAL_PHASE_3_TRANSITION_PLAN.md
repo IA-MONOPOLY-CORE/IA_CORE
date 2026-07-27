@@ -521,3 +521,23 @@ Resultado esperado:
 - Business Composition Layer permanece futura/no operativa.
 
 Proximo paso: `PROMPT 3.15 — Auditoría de attempt store write-safe boundary`.
+
+## 34. PROMPT 3.15 - Auditoria de attempt store write-safe boundary
+
+Estado esperado: `ATTEMPT_STORE_WRITE_SAFE_BOUNDARY_AUDIT_COMPLETED`.
+
+Veredicto esperado: `ATTEMPT_STORE_WRITE_SAFE_BOUNDARY_READY_FOR_CONTRACT_DESIGN`.
+
+Readiness esperada: `ready_for_attempt_store_write_safe_contract`.
+
+Resultado esperado:
+
+- documento `docs/ATTEMPT_STORE_WRITE_SAFE_BOUNDARY_AUDIT.md` creado;
+- frontera `ExecutionAttempt en memoria -> attempt store write-safe boundary` auditada;
+- invariantes de attempt_id, schema, lineage, idempotencia, duplicados, atomicidad, rollback y partial write documentadas;
+- relacion con lifecycle, result store, history/read model y gate documentada;
+- Market Catalog permanece `planned_not_active`;
+- Business Composition Layer permanece futura/no operativa;
+- no se activa attempt store operativo, writes reales, persistence real, lifecycle events, result store, runtime, scheduler, worker, queue, modelos, tools, memoria, external access, API ni UI.
+
+Proximo paso: `PROMPT 3.16 — Contrato de attempt store write-safe`.
