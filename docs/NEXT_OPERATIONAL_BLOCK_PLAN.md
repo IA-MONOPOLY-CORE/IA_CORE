@@ -208,3 +208,19 @@ No activa runtime.
 `PROMPT 3.12 — Planificación del próximo bloque operacional` cierra como planificacion, no como implementacion operativa.
 
 El proximo movimiento seguro es una auditoria de frontera de attempt factory.
+
+## 13. PROMPT 3.13 result
+
+El primer bloque recomendado fue consumido por la auditoria de attempt factory boundary.
+
+Resultado: `ATTEMPT_FACTORY_BOUNDARY_AUDIT_COMPLETED`.
+
+Veredicto: `ATTEMPT_FACTORY_BOUNDARY_READY_FOR_CONTRACT_DESIGN`.
+
+Readiness: `ready_for_attempt_factory_contract`.
+
+Documento de auditoria: `docs/ATTEMPT_FACTORY_BOUNDARY_AUDIT.md`.
+
+Proximo paso: `PROMPT 3.14 — Contrato de attempt factory no-operativa`.
+
+La auditoria confirma que la factory futura debe empezar como contrato no-operativo, read-only respecto de stores, con attempts en memoria y estado inicial `draft` o `schema_validated`, sin producir `queued/running`.

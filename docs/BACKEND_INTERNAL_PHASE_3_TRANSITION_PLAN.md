@@ -458,3 +458,23 @@ Resultado esperado:
 - no se activa runtime, factory activa, writes, lifecycle writes, result store operativo, scheduler, worker, queue, modelos, tools, memoria, external access, API ni UI.
 
 Proximo paso: `PROMPT 3.13 — Auditoría de attempt factory boundary`.
+
+## 31. PROMPT 3.13 - Auditoria de attempt factory boundary
+
+Estado esperado: `ATTEMPT_FACTORY_BOUNDARY_AUDIT_COMPLETED`.
+
+Veredicto esperado: `ATTEMPT_FACTORY_BOUNDARY_READY_FOR_CONTRACT_DESIGN`.
+
+Readiness esperada: `ready_for_attempt_factory_contract`.
+
+Resultado esperado:
+
+- documento `docs/ATTEMPT_FACTORY_BOUNDARY_AUDIT.md` creado;
+- frontera `ExecutionIntent -> attempt factory boundary -> execution_attempt_id -> ExecutionAttempt schema -> ExecutionAttempt state machine -> Operational readiness gate` auditada;
+- estado inicial recomendado para contrato futuro: `draft` o `schema_validated`;
+- `queued/running` permanecen bloqueados hasta scheduler/worker/runtime futuro;
+- Market Catalog permanece `planned_not_active`;
+- Business Composition Layer permanece futura/no operativa;
+- no se activa factory activa, attempt creation runtime, writes, lifecycle writes, result store operativo, scheduler, worker, queue, modelos, tools, memoria, external access, API ni UI.
+
+Proximo paso: `PROMPT 3.14 — Contrato de attempt factory no-operativa`.

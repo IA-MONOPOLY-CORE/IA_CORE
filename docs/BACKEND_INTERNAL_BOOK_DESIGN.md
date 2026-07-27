@@ -4346,3 +4346,43 @@ Resultado:
 Proximo paso:
 
 `PROMPT 3.13 — Auditoría de attempt factory boundary`
+
+## 117. PROMPT 3.13 - Auditoria de attempt factory boundary
+
+Estado:
+
+`ATTEMPT_FACTORY_BOUNDARY_AUDIT_COMPLETED`
+
+Veredicto:
+
+`ATTEMPT_FACTORY_BOUNDARY_READY_FOR_CONTRACT_DESIGN`
+
+Readiness:
+
+`ready_for_attempt_factory_contract`
+
+Evidencia:
+
+- auditoria: `docs/ATTEMPT_FACTORY_BOUNDARY_AUDIT.md`;
+- test: `tests/test_attempt_factory_boundary_audit.py`;
+- plan consumido: `docs/NEXT_OPERATIONAL_BLOCK_PLAN.md`.
+
+Decision:
+
+La attempt factory se mantiene como frontera auditada, no como factory activa. El contrato siguiente debera construir solo objetos en memoria o decisiones contractuales, validar `ExecutionIntent`, `execution_attempt_id`, `ExecutionAttempt schema`, state machine y gate contract-only, y rechazar runtime/writes.
+
+Resultado:
+
+- cadena auditada: `ExecutionIntent -> attempt factory boundary -> execution_attempt_id -> ExecutionAttempt schema -> ExecutionAttempt state machine -> Operational readiness gate`;
+- estado inicial recomendado: `draft` o `schema_validated`;
+- `queued/running` quedan reservados para fases futuras con scheduler/worker/runtime controlado;
+- inputs y outputs candidatos documentados sin implementacion;
+- riesgos principales documentados;
+- condiciones minimas de `PROMPT 3.14` documentadas;
+- Market Catalog permanece `planned_not_active`;
+- Business Composition Layer permanece futura/no operativa;
+- attempt factory activa, attempt creation runtime, writes, lifecycle writes, result store operativo, scheduler, worker, queue, modelos, tools, memoria, external access, API y UI siguen bloqueados.
+
+Proximo paso:
+
+`PROMPT 3.14 — Contrato de attempt factory no-operativa`
