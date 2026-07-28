@@ -293,3 +293,17 @@ Veredicto: `PROMPT_INJECTION_DEFENSE_CHAIN_READY`.
 Readiness: `ready_for_sandbox_boundary_planning`.
 
 Proximo paso: `PROMPT 3.25 - Sandbox boundary y aislamiento pre-runtime`.
+
+## PROMPT 3.25 result
+
+`PROMPT 3.25 - Sandbox boundary y aislamiento pre-runtime` crea el contrato pre-runtime de sandbox boundary.
+
+Resultado: `SANDBOX_BOUNDARY_READY`.
+
+E2E: `SANDBOX_BOUNDARY_E2E_PASSED`.
+
+Readiness: `ready_for_sandbox_boundary_e2e_checkpoint`.
+
+Proximo paso: `PROMPT 3.25.1 - Checkpoint E2E de sandbox boundary`.
+
+Runtime, command execution, shell, process spawn, filesystem real, env/secrets, network/browser, tools, model invocation, memory persistence, external access, API/UI, host/device/clipboard, writes reales, stores operativos e integraciones futuras siguen bloqueados.

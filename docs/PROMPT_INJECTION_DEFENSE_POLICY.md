@@ -177,3 +177,15 @@ Readiness: `ready_for_sandbox_boundary_planning`.
 Proximo paso: `PROMPT 3.25 - Sandbox boundary y aislamiento pre-runtime`.
 
 La defensa queda lista para sandbox boundary y aislamiento pre-runtime sin activar runtime, tools, modelos, memoria persistente, external access, API/UI, writes reales, stores operativos ni integraciones futuras.
+
+## PROMPT 3.25 result
+
+`PROMPT 3.25 - Sandbox boundary y aislamiento pre-runtime` impide que contenido aislado o sanitizado derive en ejecucion real.
+
+Resultado: `SANDBOX_BOUNDARY_READY`.
+
+E2E: `SANDBOX_BOUNDARY_E2E_PASSED`.
+
+Readiness: `ready_for_sandbox_boundary_e2e_checkpoint`.
+
+Proximo paso: `PROMPT 3.25.1 - Checkpoint E2E de sandbox boundary`.

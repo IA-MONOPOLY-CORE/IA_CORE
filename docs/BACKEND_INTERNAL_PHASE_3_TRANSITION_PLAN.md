@@ -824,3 +824,21 @@ Resultado esperado:
 - classification, decision, input isolation, instruction hierarchy y clean/isolated/sanitized/blocked/invalid validados;
 - no untrusted instruction execution, no tool result/document/screen/web instruction execution, no secret leak, no tool calls, no memory persistence y no runtime;
 - sandbox boundary queda como proximo bloque antes de cualquier runtime.
+
+## 49. PROMPT 3.25 - Sandbox boundary y aislamiento pre-runtime
+
+Estado esperado: `SANDBOX_BOUNDARY_READY`.
+
+E2E esperado: `SANDBOX_BOUNDARY_E2E_PASSED`.
+
+Readiness esperada: `ready_for_sandbox_boundary_e2e_checkpoint`.
+
+Proximo paso: `PROMPT 3.25.1 - Checkpoint E2E de sandbox boundary`.
+
+Resultado esperado:
+
+- modulo `core/sandbox_boundary.py` creado como contract-only/security-simulated/non-operational/pre-runtime/isolation-first/deny-by-default;
+- documento `docs/SANDBOX_BOUNDARY_POLICY.md` creado;
+- checkpoint `docs/SANDBOX_BOUNDARY_E2E_CHECKPOINT.md` creado;
+- tests `tests/test_sandbox_boundary.py` y `tests/test_sandbox_boundary_e2e_checkpoint.py` creados;
+- command execution, shell, process spawn, real filesystem, env/secrets, network/browser, tools, models, memory persistence, external access, API/UI, host/device/clipboard, writes reales y stores operativos siguen bloqueados.

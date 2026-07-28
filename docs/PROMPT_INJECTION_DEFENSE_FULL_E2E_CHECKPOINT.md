@@ -231,3 +231,15 @@ clean solo para contenido confiable.
 serialización no contiene instrucciones promovidas a ejecución.
 serialización no contiene secretos fake sin redactar.
 docs no contienen payloads ofensivos extensos.
+
+## PROMPT 3.25 result
+
+El checkpoint full de prompt injection fue consumido por sandbox boundary.
+
+Resultado: `SANDBOX_BOUNDARY_READY`.
+
+E2E: `SANDBOX_BOUNDARY_E2E_PASSED`.
+
+Readiness: `ready_for_sandbox_boundary_e2e_checkpoint`.
+
+Proximo paso: `PROMPT 3.25.1 - Checkpoint E2E de sandbox boundary`.

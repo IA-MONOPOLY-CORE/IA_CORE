@@ -5051,3 +5051,37 @@ Resultado:
 - sandbox boundary queda como proximo bloque pre-runtime;
 - UI-TARS, Hermes, n8n, Home Assistant, Market Catalog runtime y Business Composition Layer runtime siguen bloqueados;
 - OBLITERATUS no es integration, dependency, adapter, capability, injection source ni roadmap operativo.
+
+## 135. PROMPT 3.25 - Sandbox boundary y aislamiento pre-runtime
+
+Estado:
+
+`SANDBOX_BOUNDARY_READY`
+
+E2E:
+
+`SANDBOX_BOUNDARY_E2E_PASSED`
+
+Readiness:
+
+`ready_for_sandbox_boundary_e2e_checkpoint`
+
+Proximo paso:
+
+`PROMPT 3.25.1 - Checkpoint E2E de sandbox boundary`
+
+Artefactos:
+
+- modulo: `core/sandbox_boundary.py`;
+- politica: `docs/SANDBOX_BOUNDARY_POLICY.md`;
+- checkpoint E2E: `docs/SANDBOX_BOUNDARY_E2E_CHECKPOINT.md`;
+- tests: `tests/test_sandbox_boundary.py`, `tests/test_sandbox_boundary_e2e_checkpoint.py`.
+
+Resultado:
+
+- superficies de aislamiento y modos sandbox contractuales definidos;
+- decisiones `allowed_contractually`, `isolated`, `blocked` e `invalid` cubiertas;
+- Agent Permission, Secrets Policy, Prompt Injection Defense y Operational Readiness Gate quedan como boundaries activas;
+- runtime, commands, shell, processes, filesystem real, env/secrets, network/browser, tools, models, memory persistence, external access, API/UI, host/device/clipboard, writes reales y stores operativos siguen bloqueados;
+- UI-TARS, Hermes, n8n, Home Assistant, Market Catalog runtime y Business Composition Layer runtime siguen bloqueados;
+- OBLITERATUS no es sandbox provider, integration, dependency, adapter, capability ni roadmap operativo.

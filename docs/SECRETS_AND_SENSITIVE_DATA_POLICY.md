@@ -190,3 +190,15 @@ E2E: `PROMPT_INJECTION_DEFENSE_E2E_PASSED`.
 Readiness: `ready_for_prompt_injection_defense_e2e_checkpoint`.
 
 Proximo paso: `PROMPT 3.24.1 - Checkpoint E2E de defensa contra prompt injection`.
+
+## PROMPT 3.25 result
+
+Sandbox boundary no habilita lectura de secretos reales ni acceso a env, host, filesystem, network, tools o stores.
+
+Resultado: `SANDBOX_BOUNDARY_READY`.
+
+E2E: `SANDBOX_BOUNDARY_E2E_PASSED`.
+
+Readiness: `ready_for_sandbox_boundary_e2e_checkpoint`.
+
+Proximo paso: `PROMPT 3.25.1 - Checkpoint E2E de sandbox boundary`.
