@@ -178,3 +178,15 @@ Readiness: `ready_for_prompt_injection_defense_planning`.
 Proximo paso: `PROMPT 3.24 - Defensa contra prompt injection`.
 
 La validacion confirma classification, redaction, policy decisions y serializacion sin exponer raw secret values, sin secret reads reales, sin secret writes reales, sin env scan con valores, sin secret manager runtime, sin memory persistence, sin external access, sin API/UI, sin writes/stores operativos y sin integraciones futuras activas.
+
+## PROMPT 3.24 result
+
+`PROMPT 3.24 - Defensa contra prompt injection` impide que contenido no confiable use secretos, fuerce exposicion, pida exfiltracion o convierta valores sensibles en instrucciones ejecutables.
+
+Resultado: `PROMPT_INJECTION_DEFENSE_READY`.
+
+E2E: `PROMPT_INJECTION_DEFENSE_E2E_PASSED`.
+
+Readiness: `ready_for_prompt_injection_defense_e2e_checkpoint`.
+
+Proximo paso: `PROMPT 3.24.1 - Checkpoint E2E de defensa contra prompt injection`.

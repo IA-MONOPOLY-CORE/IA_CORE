@@ -206,3 +206,17 @@ OBLITERATUS is not an IA_CORE integration
 ## Resultado
 
 La cadena Agent Permission → Secrets Policy queda validada de punta a punta. La politica de secretos no otorga permisos nuevos: limita cualquier capability segura para que no exponga, persista, loguee, inyecte, lea ni escriba secretos. El sistema queda listo para planificar defensa contra prompt injection sin activar runtime ni conectores.
+
+## PROMPT 3.24 result
+
+El checkpoint full de secretos fue consumido por la defensa contra prompt injection.
+
+Resultado: `PROMPT_INJECTION_DEFENSE_READY`.
+
+E2E: `PROMPT_INJECTION_DEFENSE_E2E_PASSED`.
+
+Readiness: `ready_for_prompt_injection_defense_e2e_checkpoint`.
+
+Proximo paso: `PROMPT 3.24.1 - Checkpoint E2E de defensa contra prompt injection`.
+
+La defensa conserva Secrets Policy como boundary contractual: contenido no confiable no puede usar secretos, forzar exposicion, pedir exfiltracion, revelar prompts ocultos, persistir memoria, ejecutar tools, activar runtime, abrir API/UI, escribir stores ni activar integraciones futuras.

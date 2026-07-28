@@ -4975,3 +4975,45 @@ Resultado:
 - Market Catalog remains planned_not_active;
 - Business Composition Layer remains future/non-operational;
 - OBLITERATUS no es secret source, integracion, dependency, adapter, capability ni roadmap operativo.
+
+## 133. PROMPT 3.24 - Defensa contra prompt injection
+
+Estado:
+
+`PROMPT_INJECTION_DEFENSE_READY`
+
+E2E:
+
+`PROMPT_INJECTION_DEFENSE_E2E_PASSED`
+
+Readiness:
+
+`ready_for_prompt_injection_defense_e2e_checkpoint`
+
+Proximo paso:
+
+`PROMPT 3.24.1 - Checkpoint E2E de defensa contra prompt injection`
+
+Artefactos:
+
+- modulo: `core/prompt_injection_defense.py`;
+- politica: `docs/PROMPT_INJECTION_DEFENSE_POLICY.md`;
+- checkpoint E2E: `docs/PROMPT_INJECTION_DEFENSE_E2E_CHECKPOINT.md`;
+- tests: `tests/test_prompt_injection_defense.py`, `tests/test_prompt_injection_defense_e2e_checkpoint.py`.
+
+Decision:
+
+Se define una defensa contractual contra prompt injection: input-isolation-first, instruction-hierarchy-aware y no operativa.
+
+Resultado:
+
+- fuentes no confiables tratadas como datos, no como instrucciones;
+- categorias de ataque modeladas defensivamente;
+- decisiones `clean`, `isolated`, `sanitized`, `blocked` e `invalid` cubiertas;
+- instrucciones no confiables no pueden ejecutar, llamar tools, persistir memoria ni afectar system/developer prompt;
+- Secrets Policy y Agent Permission Contract quedan como boundaries contractuales activas;
+- runtime, tools, modelos, memoria persistente, external access, API/UI, writes reales y stores operativos siguen bloqueados;
+- UI-TARS, Hermes, n8n y Home Assistant siguen no activos;
+- Market Catalog remains planned_not_active;
+- Business Composition Layer remains future/non-operational;
+- OBLITERATUS no es integration, dependency, adapter, capability, injection source ni roadmap operativo.

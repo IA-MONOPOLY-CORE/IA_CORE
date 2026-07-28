@@ -267,3 +267,17 @@ Veredicto: `SECRETS_POLICY_CHAIN_READY`.
 Readiness: `ready_for_prompt_injection_defense_planning`.
 
 Proximo paso: `PROMPT 3.24 - Defensa contra prompt injection`.
+
+## PROMPT 3.24 result
+
+`PROMPT 3.24 - Defensa contra prompt injection` crea la defensa contractual, input-isolation-first e instruction-hierarchy-aware contra instrucciones no confiables.
+
+Resultado: `PROMPT_INJECTION_DEFENSE_READY`.
+
+E2E: `PROMPT_INJECTION_DEFENSE_E2E_PASSED`.
+
+Readiness: `ready_for_prompt_injection_defense_e2e_checkpoint`.
+
+Proximo paso: `PROMPT 3.24.1 - Checkpoint E2E de defensa contra prompt injection`.
+
+Runtime, tools, modelos, memoria persistente, external access, API/UI, untrusted instruction execution, tool result instruction execution, document/screen/web instruction execution, writes reales, stores operativos e integraciones futuras siguen bloqueados.

@@ -198,3 +198,15 @@ Readiness: `ready_for_secrets_policy_e2e_checkpoint`.
 Proximo paso: `PROMPT 3.23.1 - Checkpoint E2E de politica de secretos`.
 
 La politica mantiene `contract-only`, `security-simulated`, `non-operational`, `redaction-first`, sin secret reads, sin secret writes, sin environment scanning con valores, sin raw secret logging, sin prompt secret injection, sin output secret leaks, sin memory persistence, sin external access, sin API, sin UI y sin integraciones futuras activas.
+
+## PROMPT 3.24 result
+
+La defensa contra prompt injection confirma que los permisos por agente no autorizan instrucciones no confiables dentro de documentos, tool results, pantallas, webs, outputs o contexto recuperado.
+
+Resultado: `PROMPT_INJECTION_DEFENSE_READY`.
+
+E2E: `PROMPT_INJECTION_DEFENSE_E2E_PASSED`.
+
+Readiness: `ready_for_prompt_injection_defense_e2e_checkpoint`.
+
+Proximo paso: `PROMPT 3.24.1 - Checkpoint E2E de defensa contra prompt injection`.

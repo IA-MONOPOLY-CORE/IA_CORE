@@ -359,3 +359,17 @@ Readiness: `ready_for_secrets_policy_e2e_checkpoint`.
 Proximo paso: `PROMPT 3.23.1 - Checkpoint E2E de politica de secretos`.
 
 El bloque operacional sigue cerrado: runtime execution sigue bloqueado, tool execution sigue bloqueado, model invocation sigue bloqueado, memory persistence sigue bloqueado, external access sigue bloqueado, API/UI siguen bloqueadas, stores operativos siguen bloqueados, Market Catalog permanece planned_not_active y Business Composition Layer permanece futura/no operativa.
+
+## PROMPT 3.24 result
+
+`PROMPT 3.24 - Defensa contra prompt injection` queda como prerequisito obligatorio antes de sandbox, tools, runtime, navegación, integraciones externas o apertura controlada del gate.
+
+Resultado: `PROMPT_INJECTION_DEFENSE_READY`.
+
+E2E: `PROMPT_INJECTION_DEFENSE_E2E_PASSED`.
+
+Readiness: `ready_for_prompt_injection_defense_e2e_checkpoint`.
+
+Proximo paso: `PROMPT 3.24.1 - Checkpoint E2E de defensa contra prompt injection`.
+
+El bloque operacional sigue cerrado: no runtime execution, no tool execution, no model invocation, no memory persistence, no external access, no API/UI, no untrusted instruction execution, no writes reales y no stores operativos.

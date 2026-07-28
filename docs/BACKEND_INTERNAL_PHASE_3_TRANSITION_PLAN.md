@@ -785,3 +785,23 @@ Resultado esperado:
 - UI-TARS, Hermes, n8n y Home Assistant siguen future_only/not_active;
 - Market Catalog runtime y Business Composition Layer runtime siguen bloqueados;
 - OBLITERATUS sigue fuera de IA_CORE como secret source, integracion, dependency, adapter, capability y roadmap operativo.
+
+## 47. PROMPT 3.24 - Defensa contra prompt injection
+
+Estado esperado: `PROMPT_INJECTION_DEFENSE_READY`.
+
+E2E esperado: `PROMPT_INJECTION_DEFENSE_E2E_PASSED`.
+
+Readiness esperada: `ready_for_prompt_injection_defense_e2e_checkpoint`.
+
+Proximo paso: `PROMPT 3.24.1 - Checkpoint E2E de defensa contra prompt injection`.
+
+Resultado esperado:
+
+- modulo `core/prompt_injection_defense.py` creado como contract-only/security-simulated/non-operational/input-isolation-first/instruction-hierarchy-aware;
+- documento `docs/PROMPT_INJECTION_DEFENSE_POLICY.md` creado;
+- checkpoint `docs/PROMPT_INJECTION_DEFENSE_E2E_CHECKPOINT.md` creado;
+- tests `tests/test_prompt_injection_defense.py` y `tests/test_prompt_injection_defense_e2e_checkpoint.py` creados;
+- fuentes no confiables, categorias de ataque, acciones permitidas/prohibidas y decision schema documentados;
+- clean/isolated/sanitized/blocked/invalid definidos sin ejecutar instrucciones no confiables;
+- runtime, tools, modelos, memoria persistente, external access, API/UI, writes reales, stores operativos e integraciones futuras siguen bloqueados.
