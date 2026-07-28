@@ -873,3 +873,15 @@ Readiness esperada: `ready_for_tool_boundary_e2e_checkpoint`.
 Proximo paso: `PROMPT 3.26.1 — Checkpoint E2E de tool boundary`.
 
 Tool boundary define reglas pre-runtime para tools conceptuales. Es prerrequisito de adapters, workers, queues y runtime, pero no ejecuta tools, no llama adapters, no abre API/network/browser/UI, no lee host/env/secrets y no escribe stores.
+
+## 52. PROMPT 3.26.1 — Checkpoint E2E de tool boundary
+
+Estado esperado: `TOOL_BOUNDARY_FULL_E2E_PASSED`.
+
+Veredicto esperado: `TOOL_BOUNDARY_CHAIN_READY`.
+
+Readiness esperada: `ready_for_model_invocation_boundary_planning`.
+
+Proximo paso: `PROMPT 3.27 — Model invocation boundary pre-runtime`.
+
+El checkpoint confirma que tool boundary queda cerrado como frontera pre-runtime. No activa runtime execution, real tool execution, tool adapters, tool registry runtime, tool calls, API/network/browser, command/shell/process, filesystem/env/secrets, host/device/clipboard, memory persistence, writes/stores ni integraciones futuras.

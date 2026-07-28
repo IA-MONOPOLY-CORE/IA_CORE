@@ -328,3 +328,12 @@ Estado: `TOOL_BOUNDARY_READY`.
 E2E: `TOOL_BOUNDARY_E2E_PASSED`.
 Readiness: `ready_for_tool_boundary_e2e_checkpoint`.
 Proximo paso: `PROMPT 3.26.1 — Checkpoint E2E de tool boundary`.
+
+## PROMPT 3.26.1 result
+
+Se cierra el checkpoint full de tool boundary. La cadena queda lista para planificar model invocation boundary pre-runtime, manteniendo bloqueados runtime, tool execution, adapters, API/network/browser, secrets, writes/stores e integraciones futuras.
+
+Resultado: `TOOL_BOUNDARY_FULL_E2E_PASSED`.
+Veredicto: `TOOL_BOUNDARY_CHAIN_READY`.
+Readiness: `ready_for_model_invocation_boundary_planning`.
+Proximo paso: `PROMPT 3.27 — Model invocation boundary pre-runtime`.

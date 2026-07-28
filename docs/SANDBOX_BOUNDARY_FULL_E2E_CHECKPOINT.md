@@ -275,3 +275,10 @@ Resultado consumido: `SANDBOX_BOUNDARY_FULL_E2E_PASSED`.
 Nueva frontera: `TOOL_BOUNDARY_READY`.
 Readiness nueva: `ready_for_tool_boundary_e2e_checkpoint`.
 Proximo paso: `PROMPT 3.26.1 — Checkpoint E2E de tool boundary`.
+
+## PROMPT 3.26.1 result
+
+El checkpoint full de tool boundary confirma la cadena Sandbox Boundary → Tool Boundary. Sandbox Boundary sigue siendo contractual y ninguna decision `sandbox_required` habilita tool execution real.
+
+Resultado: `TOOL_BOUNDARY_FULL_E2E_PASSED`.
+Readiness: `ready_for_model_invocation_boundary_planning`.
