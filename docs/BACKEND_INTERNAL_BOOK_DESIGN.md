@@ -5017,3 +5017,37 @@ Resultado:
 - Market Catalog remains planned_not_active;
 - Business Composition Layer remains future/non-operational;
 - OBLITERATUS no es integration, dependency, adapter, capability, injection source ni roadmap operativo.
+
+## 134. PROMPT 3.24.1 - Checkpoint E2E de defensa contra prompt injection
+
+Estado:
+
+`PROMPT_INJECTION_DEFENSE_FULL_E2E_PASSED`
+
+Veredicto:
+
+`PROMPT_INJECTION_DEFENSE_CHAIN_READY`
+
+Readiness:
+
+`ready_for_sandbox_boundary_planning`
+
+Proximo paso:
+
+`PROMPT 3.25 - Sandbox boundary y aislamiento pre-runtime`
+
+Artefactos:
+
+- checkpoint full E2E: `docs/PROMPT_INJECTION_DEFENSE_FULL_E2E_CHECKPOINT.md`;
+- test full E2E: `tests/test_prompt_injection_defense_full_e2e_checkpoint.py`.
+
+Resultado:
+
+- cadena Security Surface Audit -> Agent Permission Contract -> Secrets Policy -> Prompt Injection Defense validada;
+- prompt injection classification y decision validadas;
+- decisiones `clean`, `isolated`, `sanitized`, `blocked` e `invalid` cubiertas;
+- input isolation e instruction hierarchy confirmadas;
+- instrucciones no confiables no pueden ejecutar, llamar tools, persistir memoria, filtrar secretos ni activar runtime;
+- sandbox boundary queda como proximo bloque pre-runtime;
+- UI-TARS, Hermes, n8n, Home Assistant, Market Catalog runtime y Business Composition Layer runtime siguen bloqueados;
+- OBLITERATUS no es integration, dependency, adapter, capability, injection source ni roadmap operativo.

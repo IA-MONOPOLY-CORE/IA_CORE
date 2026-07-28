@@ -281,3 +281,15 @@ Readiness: `ready_for_prompt_injection_defense_e2e_checkpoint`.
 Proximo paso: `PROMPT 3.24.1 - Checkpoint E2E de defensa contra prompt injection`.
 
 Runtime, tools, modelos, memoria persistente, external access, API/UI, untrusted instruction execution, tool result instruction execution, document/screen/web instruction execution, writes reales, stores operativos e integraciones futuras siguen bloqueados.
+
+## PROMPT 3.24.1 result
+
+`PROMPT 3.24.1 - Checkpoint E2E de defensa contra prompt injection` cierra el checkpoint full de prompt injection y habilita planificacion de sandbox boundary.
+
+Resultado: `PROMPT_INJECTION_DEFENSE_FULL_E2E_PASSED`.
+
+Veredicto: `PROMPT_INJECTION_DEFENSE_CHAIN_READY`.
+
+Readiness: `ready_for_sandbox_boundary_planning`.
+
+Proximo paso: `PROMPT 3.25 - Sandbox boundary y aislamiento pre-runtime`.

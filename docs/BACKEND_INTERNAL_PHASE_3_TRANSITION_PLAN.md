@@ -805,3 +805,22 @@ Resultado esperado:
 - fuentes no confiables, categorias de ataque, acciones permitidas/prohibidas y decision schema documentados;
 - clean/isolated/sanitized/blocked/invalid definidos sin ejecutar instrucciones no confiables;
 - runtime, tools, modelos, memoria persistente, external access, API/UI, writes reales, stores operativos e integraciones futuras siguen bloqueados.
+
+## 48. PROMPT 3.24.1 - Checkpoint E2E de defensa contra prompt injection
+
+Estado esperado: `PROMPT_INJECTION_DEFENSE_FULL_E2E_PASSED`.
+
+Veredicto esperado: `PROMPT_INJECTION_DEFENSE_CHAIN_READY`.
+
+Readiness esperada: `ready_for_sandbox_boundary_planning`.
+
+Proximo paso: `PROMPT 3.25 - Sandbox boundary y aislamiento pre-runtime`.
+
+Resultado esperado:
+
+- documento `docs/PROMPT_INJECTION_DEFENSE_FULL_E2E_CHECKPOINT.md` creado;
+- test `tests/test_prompt_injection_defense_full_e2e_checkpoint.py` creado;
+- cadena Security Surface Audit -> Agent Permission Contract -> Secrets Policy -> Prompt Injection Defense validada;
+- classification, decision, input isolation, instruction hierarchy y clean/isolated/sanitized/blocked/invalid validados;
+- no untrusted instruction execution, no tool result/document/screen/web instruction execution, no secret leak, no tool calls, no memory persistence y no runtime;
+- sandbox boundary queda como proximo bloque antes de cualquier runtime.

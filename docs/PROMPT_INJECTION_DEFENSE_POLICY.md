@@ -163,3 +163,17 @@ Market Catalog remains planned_not_active
 Business Composition Layer remains future/non-operational
 OBLITERATUS is not an IA_CORE integration
 ```
+
+## PROMPT 3.24.1 result
+
+La defensa contra prompt injection fue validada por checkpoint E2E full.
+
+Resultado: `PROMPT_INJECTION_DEFENSE_FULL_E2E_PASSED`.
+
+Veredicto: `PROMPT_INJECTION_DEFENSE_CHAIN_READY`.
+
+Readiness: `ready_for_sandbox_boundary_planning`.
+
+Proximo paso: `PROMPT 3.25 - Sandbox boundary y aislamiento pre-runtime`.
+
+La defensa queda lista para sandbox boundary y aislamiento pre-runtime sin activar runtime, tools, modelos, memoria persistente, external access, API/UI, writes reales, stores operativos ni integraciones futuras.
