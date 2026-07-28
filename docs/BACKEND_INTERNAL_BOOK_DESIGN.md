@@ -4899,3 +4899,43 @@ Resultado:
 - Market Catalog remains planned_not_active;
 - Business Composition Layer remains future/non-operational;
 - OBLITERATUS is not an IA_CORE integration.
+
+## 131. PROMPT 3.23 - Politica de secretos y datos sensibles
+
+Estado:
+
+`SECRETS_POLICY_READY`
+
+E2E:
+
+`SECRETS_POLICY_E2E_PASSED`
+
+Readiness:
+
+`ready_for_secrets_policy_e2e_checkpoint`
+
+Proximo paso:
+
+`PROMPT 3.23.1 - Checkpoint E2E de politica de secretos`
+
+Artefactos:
+
+- modulo: `core/secrets_policy.py`;
+- politica: `docs/SECRETS_AND_SENSITIVE_DATA_POLICY.md`;
+- checkpoint E2E: `docs/SECRETS_POLICY_E2E_CHECKPOINT.md`;
+- tests: `tests/test_secrets_policy.py`, `tests/test_secrets_policy_e2e_checkpoint.py`.
+
+Decision:
+
+Se define una politica redaction-first, contract-only y no-operativa para secretos y datos sensibles antes de habilitar defensas de prompt injection, sandbox de tools, runtime o integraciones externas.
+
+Resultado:
+
+- `SECRETS_POLICY_STATUS = "contract_only"`;
+- `SECRETS_POLICY_READY = True`;
+- secret manager runtime, secret reads, secret writes, env scanning con valores, value exposure, raw secret logging, prompt secret injection, output secret leaks, memory persistence, external access, API/UI, writes y stores siguen en `False`;
+- UI-TARS, Hermes, n8n y Home Assistant siguen en `False`;
+- Market Catalog runtime y Business Composition Layer runtime siguen en `False`;
+- datos sensibles raw se redacted o blocked;
+- tests usan solamente valores fake y validan que esos valores no aparezcan en salidas serializadas;
+- OBLITERATUS no es secret source, integracion, dependency, adapter, capability ni roadmap operativo.

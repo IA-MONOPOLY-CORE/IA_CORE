@@ -681,6 +681,7 @@ Resultado esperado:
 - OBLITERATUS documentado como no integracion, no dependencia y no roadmap operativo de IA_CORE;
 - runtime, scheduler, worker, queue, model invocation, tool execution, memory persistence, external access, API/UI, writes reales, Market Catalog runtime y Business Composition Layer runtime siguen bloqueados.
 
+
 ## 42. PROMPT 3.21 — Auditoría de superficie de ataque de IA_CORE
 
 Estado esperado: `IA_CORE_SECURITY_SURFACE_AUDIT_COMPLETED`.
@@ -740,3 +741,26 @@ Resultado esperado:
 - capabilities peligrosas y blocked surfaces no pueden devolver `allowed=True`;
 - OBLITERATUS sigue fuera de IA_CORE como integración, dependency, adapter, capability y roadmap operativo;
 - runtime, scheduler, worker, queue, model invocation, tool execution, memory persistence, external access, API/UI, writes reales, Market Catalog runtime y Business Composition Layer runtime siguen bloqueados.
+
+## 45. PROMPT 3.23 - Politica de secretos y datos sensibles
+
+Estado esperado: `SECRETS_POLICY_READY`.
+
+E2E esperado: `SECRETS_POLICY_E2E_PASSED`.
+
+Readiness esperada: `ready_for_secrets_policy_e2e_checkpoint`.
+
+Proximo paso: `PROMPT 3.23.1 - Checkpoint E2E de politica de secretos`.
+
+Resultado esperado:
+
+- modulo `core/secrets_policy.py` creado como contract-only/security-simulated/non-operational/redaction-first;
+- documento `docs/SECRETS_AND_SENSITIVE_DATA_POLICY.md` creado;
+- checkpoint `docs/SECRETS_POLICY_E2E_CHECKPOINT.md` creado;
+- tests `tests/test_secrets_policy.py` y `tests/test_secrets_policy_e2e_checkpoint.py` creados;
+- secretos, credenciales, tokens, claves, datos personales, datos medicos, datos financieros, datos legales y datos empresariales sensibles clasificados;
+- valores sensibles raw deben redacted o blocked;
+- no secret manager runtime, no secret reads, no secret writes, no environment scanning with values, no raw secret logging, no prompt secret injection, no output secret leaks, no memory persistence, no external access, no API y no UI;
+- UI-TARS, Hermes, n8n y Home Assistant siguen future_only/not_active;
+- Market Catalog runtime y Business Composition Layer runtime siguen bloqueados;
+- OBLITERATUS sigue fuera de IA_CORE como integracion, dependency, adapter, capability, secret source y roadmap operativo.

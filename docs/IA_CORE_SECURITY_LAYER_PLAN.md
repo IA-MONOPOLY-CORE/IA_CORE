@@ -241,3 +241,17 @@ Readiness: `ready_for_agent_permission_e2e_checkpoint`.
 Próximo paso: `PROMPT 3.22.1 — Checkpoint E2E de permisos por agente`.
 
 El contrato mantiene default deny, least privilege y todas las boundaries de runtime bloqueadas.
+
+## PROMPT 3.23 result
+
+`PROMPT 3.23 - Politica de secretos y datos sensibles` define el segundo contrato no-operativo de Security Layer.
+
+Resultado: `SECRETS_POLICY_READY`.
+
+E2E: `SECRETS_POLICY_E2E_PASSED`.
+
+Readiness: `ready_for_secrets_policy_e2e_checkpoint`.
+
+Proximo paso: `PROMPT 3.23.1 - Checkpoint E2E de politica de secretos`.
+
+La politica agrega redaction-first sobre secretos, credenciales, tokens, claves, datos personales, datos medicos, datos financieros, datos legales y datos empresariales sensibles. No lee secretos reales, no escanea `.env` con valores, no conecta secret managers, no persiste memoria, no imprime valores raw, no inyecta secretos en prompts, no habilita runtime ni cambia el estado future_only de UI-TARS, Hermes, n8n o Home Assistant.
