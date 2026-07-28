@@ -842,3 +842,22 @@ Resultado esperado:
 - checkpoint `docs/SANDBOX_BOUNDARY_E2E_CHECKPOINT.md` creado;
 - tests `tests/test_sandbox_boundary.py` y `tests/test_sandbox_boundary_e2e_checkpoint.py` creados;
 - command execution, shell, process spawn, real filesystem, env/secrets, network/browser, tools, models, memory persistence, external access, API/UI, host/device/clipboard, writes reales y stores operativos siguen bloqueados.
+
+## 50. PROMPT 3.25.1 - Checkpoint E2E de sandbox boundary
+
+Estado esperado: `SANDBOX_BOUNDARY_FULL_E2E_PASSED`.
+
+Veredicto esperado: `SANDBOX_BOUNDARY_CHAIN_READY`.
+
+Readiness esperada: `ready_for_tool_boundary_planning`.
+
+Proximo paso: `PROMPT 3.26 - Tool boundary y politica de herramientas pre-runtime`.
+
+Resultado esperado:
+
+- documento `docs/SANDBOX_BOUNDARY_FULL_E2E_CHECKPOINT.md` creado;
+- test `tests/test_sandbox_boundary_full_e2e_checkpoint.py` creado;
+- cadena Security Surface Audit -> Agent Permission Contract -> Secrets Policy -> Prompt Injection Defense -> Sandbox Boundary validada;
+- surface classification, operation classification, decision y allowed_contractually/isolated/blocked/invalid validados;
+- command execution, shell, process spawn, filesystem real, env/secrets, network/browser, tools, models, memory persistence, runtime, API/UI, host/device/clipboard, writes reales y stores operativos siguen bloqueados;
+- tool boundary queda como proximo bloque pre-runtime.

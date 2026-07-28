@@ -307,3 +307,15 @@ Readiness: `ready_for_sandbox_boundary_e2e_checkpoint`.
 Proximo paso: `PROMPT 3.25.1 - Checkpoint E2E de sandbox boundary`.
 
 Runtime, command execution, shell, process spawn, filesystem real, env/secrets, network/browser, tools, model invocation, memory persistence, external access, API/UI, host/device/clipboard, writes reales, stores operativos e integraciones futuras siguen bloqueados.
+
+## PROMPT 3.25.1 result
+
+`PROMPT 3.25.1 - Checkpoint E2E de sandbox boundary` cierra el checkpoint full de sandbox boundary y habilita planificacion de tool boundary.
+
+Resultado: `SANDBOX_BOUNDARY_FULL_E2E_PASSED`.
+
+Veredicto: `SANDBOX_BOUNDARY_CHAIN_READY`.
+
+Readiness: `ready_for_tool_boundary_planning`.
+
+Proximo paso: `PROMPT 3.26 - Tool boundary y politica de herramientas pre-runtime`.

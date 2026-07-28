@@ -5085,3 +5085,35 @@ Resultado:
 - runtime, commands, shell, processes, filesystem real, env/secrets, network/browser, tools, models, memory persistence, external access, API/UI, host/device/clipboard, writes reales y stores operativos siguen bloqueados;
 - UI-TARS, Hermes, n8n, Home Assistant, Market Catalog runtime y Business Composition Layer runtime siguen bloqueados;
 - OBLITERATUS no es sandbox provider, integration, dependency, adapter, capability ni roadmap operativo.
+
+## 136. PROMPT 3.25.1 - Checkpoint E2E de sandbox boundary
+
+Estado:
+
+`SANDBOX_BOUNDARY_FULL_E2E_PASSED`
+
+Veredicto:
+
+`SANDBOX_BOUNDARY_CHAIN_READY`
+
+Readiness:
+
+`ready_for_tool_boundary_planning`
+
+Proximo paso:
+
+`PROMPT 3.26 - Tool boundary y politica de herramientas pre-runtime`
+
+Artefactos:
+
+- checkpoint full E2E: `docs/SANDBOX_BOUNDARY_FULL_E2E_CHECKPOINT.md`;
+- test full E2E: `tests/test_sandbox_boundary_full_e2e_checkpoint.py`.
+
+Resultado:
+
+- cadena Security Surface Audit -> Agent Permission Contract -> Secrets Policy -> Prompt Injection Defense -> Sandbox Boundary validada;
+- sandbox surface classification, operation classification y boundary decision validadas;
+- decisiones `allowed_contractually`, `isolated`, `blocked` e `invalid` cubiertas;
+- command execution, shell, process spawn, filesystem real, env/secrets, network/browser, tools, models, memory persistence, runtime, API/UI, host/device/clipboard, writes reales y stores operativos siguen bloqueados;
+- tool boundary queda como proximo bloque pre-runtime;
+- OBLITERATUS no es sandbox provider, integration, dependency, adapter, capability ni roadmap operativo.

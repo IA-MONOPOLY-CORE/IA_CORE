@@ -71,3 +71,15 @@ Market Catalog remains planned_not_active
 Business Composition Layer remains future/non-operational
 OBLITERATUS is not an IA_CORE integration
 ```
+
+## PROMPT 3.25.1 result
+
+`PROMPT 3.25.1 - Checkpoint E2E de sandbox boundary` consume `ready_for_sandbox_boundary_e2e_checkpoint`.
+
+Resultado: `SANDBOX_BOUNDARY_FULL_E2E_PASSED`.
+
+Veredicto: `SANDBOX_BOUNDARY_CHAIN_READY`.
+
+Readiness: `ready_for_tool_boundary_planning`.
+
+Proximo paso: `PROMPT 3.26 - Tool boundary y politica de herramientas pre-runtime`.

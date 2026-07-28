@@ -243,3 +243,15 @@ E2E: `SANDBOX_BOUNDARY_E2E_PASSED`.
 Readiness: `ready_for_sandbox_boundary_e2e_checkpoint`.
 
 Proximo paso: `PROMPT 3.25.1 - Checkpoint E2E de sandbox boundary`.
+
+## PROMPT 3.25.1 result
+
+El checkpoint full de sandbox boundary confirma la cadena Prompt Injection Defense -> Sandbox Boundary.
+
+Resultado: `SANDBOX_BOUNDARY_FULL_E2E_PASSED`.
+
+Veredicto: `SANDBOX_BOUNDARY_CHAIN_READY`.
+
+Readiness: `ready_for_tool_boundary_planning`.
+
+Proximo paso: `PROMPT 3.26 - Tool boundary y politica de herramientas pre-runtime`.
