@@ -150,3 +150,10 @@ Veredicto: `SANDBOX_BOUNDARY_CHAIN_READY`.
 Readiness: `ready_for_tool_boundary_planning`.
 
 Proximo paso: `PROMPT 3.26 - Tool boundary y politica de herramientas pre-runtime`.
+
+## PROMPT 3.26 result
+
+Tool Boundary Policy impide que el sandbox conceptual derive en tool execution real. `sandbox_required` solo declara necesidad contractual futura; no crea sandbox real, no llama adapters y no ejecuta herramientas.
+
+Estado: `TOOL_BOUNDARY_READY`.
+Readiness: `ready_for_tool_boundary_e2e_checkpoint`.

@@ -385,3 +385,10 @@ E2E: `SANDBOX_BOUNDARY_E2E_PASSED`.
 Readiness: `ready_for_sandbox_boundary_e2e_checkpoint`.
 
 Proximo paso: `PROMPT 3.25.1 - Checkpoint E2E de sandbox boundary`.
+
+## PROMPT 3.26 result
+
+Tool boundary queda como prerrequisito defensivo de adapters, workers, queues, scheduler y runtime. Ninguno de esos componentes queda activo por este prompt.
+
+Estado: `TOOL_BOUNDARY_READY`.
+Readiness: `ready_for_tool_boundary_e2e_checkpoint`.

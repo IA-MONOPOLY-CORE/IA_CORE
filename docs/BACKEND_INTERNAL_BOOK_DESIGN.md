@@ -5117,3 +5117,15 @@ Resultado:
 - command execution, shell, process spawn, filesystem real, env/secrets, network/browser, tools, models, memory persistence, runtime, API/UI, host/device/clipboard, writes reales y stores operativos siguen bloqueados;
 - tool boundary queda como proximo bloque pre-runtime;
 - OBLITERATUS no es sandbox provider, integration, dependency, adapter, capability ni roadmap operativo.
+
+## 137. PROMPT 3.26 — Tool boundary y politica de herramientas pre-runtime
+
+Estado: `TOOL_BOUNDARY_READY`
+
+E2E: `TOOL_BOUNDARY_E2E_PASSED`
+
+Readiness: `ready_for_tool_boundary_e2e_checkpoint`
+
+Proximo paso: `PROMPT 3.26.1 — Checkpoint E2E de tool boundary`
+
+Se incorpora la frontera de herramientas pre-runtime. El sistema puede clasificar tipos de herramientas, surfaces, riesgos y decisiones contractuales, pero mantiene bloqueados runtime execution, real tool execution, adapters, tool calls, API/network/browser, command/shell/process, filesystem/env/secrets, host/device/clipboard, memory persistence, writes/stores, UI-TARS, Hermes, n8n, Home Assistant, Market Catalog runtime, Business Composition Layer runtime y OBLITERATUS como integracion.

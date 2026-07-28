@@ -222,3 +222,10 @@ E2E: `SANDBOX_BOUNDARY_E2E_PASSED`.
 Readiness: `ready_for_sandbox_boundary_e2e_checkpoint`.
 
 Proximo paso: `PROMPT 3.25.1 - Checkpoint E2E de sandbox boundary`.
+
+## PROMPT 3.26 result
+
+Tool Boundary Policy confirma que permisos por agente no ejecutan herramientas reales. Un permiso contractual puede habilitar evaluacion o solicitud futura, pero tool execution, adapters y calls siguen bloqueados.
+
+Estado: `TOOL_BOUNDARY_READY`.
+Readiness: `ready_for_tool_boundary_e2e_checkpoint`.

@@ -266,3 +266,12 @@ OBLITERATUS is not an IA_CORE integration
 ## Resultado
 
 Sandbox boundary queda validado de punta a punta como contrato pre-runtime. IA_CORE puede clasificar superficies y operaciones, construir decisiones contractuales y rechazar cualquier habilitacion operativa sin ejecutar comandos, leer host, usar red, tocar secretos, llamar tools, persistir memoria ni activar runtime. El siguiente bloque es tool boundary y politica de herramientas pre-runtime.
+
+## PROMPT 3.26 result
+
+El checkpoint full de sandbox boundary fue consumido por Tool Boundary Policy. La jaula contractual queda ahora conectada a una politica de herramientas pre-runtime: las tools pueden describirse, clasificarse y evaluarse, pero no ejecutarse.
+
+Resultado consumido: `SANDBOX_BOUNDARY_FULL_E2E_PASSED`.
+Nueva frontera: `TOOL_BOUNDARY_READY`.
+Readiness nueva: `ready_for_tool_boundary_e2e_checkpoint`.
+Proximo paso: `PROMPT 3.26.1 — Checkpoint E2E de tool boundary`.

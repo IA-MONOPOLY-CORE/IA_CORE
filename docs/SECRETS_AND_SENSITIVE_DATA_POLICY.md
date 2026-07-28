@@ -202,3 +202,10 @@ E2E: `SANDBOX_BOUNDARY_E2E_PASSED`.
 Readiness: `ready_for_sandbox_boundary_e2e_checkpoint`.
 
 Proximo paso: `PROMPT 3.25.1 - Checkpoint E2E de sandbox boundary`.
+
+## PROMPT 3.26 result
+
+Tool Boundary Policy impide secret tools reales y acceso a secretos por herramientas. Una redaccion o clasificacion de secreto no habilita lectura de env, secret manager, archivos reales ni adapters.
+
+Estado: `TOOL_BOUNDARY_READY`.
+Readiness: `ready_for_tool_boundary_e2e_checkpoint`.

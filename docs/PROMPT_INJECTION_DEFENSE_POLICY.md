@@ -189,3 +189,10 @@ E2E: `SANDBOX_BOUNDARY_E2E_PASSED`.
 Readiness: `ready_for_sandbox_boundary_e2e_checkpoint`.
 
 Proximo paso: `PROMPT 3.25.1 - Checkpoint E2E de sandbox boundary`.
+
+## PROMPT 3.26 result
+
+Tool Boundary Policy agrega una frontera contra tool hijacking: ningun contenido no confiable, documento, pantalla, output o tool result puede inducir ejecucion de herramientas reales. Prompt Injection Defense sigue siendo contractual y no habilita tool execution.
+
+Estado: `TOOL_BOUNDARY_READY`.
+Readiness: `ready_for_tool_boundary_e2e_checkpoint`.

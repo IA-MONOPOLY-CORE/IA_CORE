@@ -861,3 +861,15 @@ Resultado esperado:
 - surface classification, operation classification, decision y allowed_contractually/isolated/blocked/invalid validados;
 - command execution, shell, process spawn, filesystem real, env/secrets, network/browser, tools, models, memory persistence, runtime, API/UI, host/device/clipboard, writes reales y stores operativos siguen bloqueados;
 - tool boundary queda como proximo bloque pre-runtime.
+
+## 51. PROMPT 3.26 — Tool boundary y politica de herramientas pre-runtime
+
+Estado esperado: `TOOL_BOUNDARY_READY`.
+
+E2E esperado: `TOOL_BOUNDARY_E2E_PASSED`.
+
+Readiness esperada: `ready_for_tool_boundary_e2e_checkpoint`.
+
+Proximo paso: `PROMPT 3.26.1 — Checkpoint E2E de tool boundary`.
+
+Tool boundary define reglas pre-runtime para tools conceptuales. Es prerrequisito de adapters, workers, queues y runtime, pero no ejecuta tools, no llama adapters, no abre API/network/browser/UI, no lee host/env/secrets y no escribe stores.

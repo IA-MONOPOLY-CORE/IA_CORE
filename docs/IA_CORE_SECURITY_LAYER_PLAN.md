@@ -319,3 +319,12 @@ Veredicto: `SANDBOX_BOUNDARY_CHAIN_READY`.
 Readiness: `ready_for_tool_boundary_planning`.
 
 Proximo paso: `PROMPT 3.26 - Tool boundary y politica de herramientas pre-runtime`.
+
+## PROMPT 3.26 result
+
+Se crea el contrato de tool boundary pre-runtime. La politica es contract-only, tool-request-only, deny-by-default, permission-aware, sandbox-aware, secrets-aware y prompt-injection-aware. Es prerrequisito de adapters/runtime, no runtime.
+
+Estado: `TOOL_BOUNDARY_READY`.
+E2E: `TOOL_BOUNDARY_E2E_PASSED`.
+Readiness: `ready_for_tool_boundary_e2e_checkpoint`.
+Proximo paso: `PROMPT 3.26.1 — Checkpoint E2E de tool boundary`.
