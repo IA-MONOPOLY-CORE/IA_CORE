@@ -4939,3 +4939,39 @@ Resultado:
 - datos sensibles raw se redacted o blocked;
 - tests usan solamente valores fake y validan que esos valores no aparezcan en salidas serializadas;
 - OBLITERATUS no es secret source, integracion, dependency, adapter, capability ni roadmap operativo.
+
+## 132. PROMPT 3.23.1 - Checkpoint E2E de politica de secretos
+
+Estado:
+
+`SECRETS_POLICY_FULL_E2E_PASSED`
+
+Veredicto:
+
+`SECRETS_POLICY_CHAIN_READY`
+
+Readiness:
+
+`ready_for_prompt_injection_defense_planning`
+
+Proximo paso:
+
+`PROMPT 3.24 - Defensa contra prompt injection`
+
+Artefactos:
+
+- checkpoint full E2E: `docs/SECRETS_POLICY_FULL_E2E_CHECKPOINT.md`;
+- test full E2E: `tests/test_secrets_policy_full_e2e_checkpoint.py`.
+
+Resultado:
+
+- cadena Security Surface Audit -> Agent Permission Contract -> Agent Permission Full E2E -> Secrets Policy validada;
+- secret classification, secret redaction y secret policy decision validadas;
+- decisiones `allowed`, `redacted`, `blocked` e `invalid` cubiertas;
+- serializacion sin raw secret values;
+- solo valores fake usados en tests;
+- runtime, secret manager runtime, secret reads, secret writes, env scan con valores, raw secret logging, prompt secret injection, output secret leaks, memory persistence, external access, API/UI, writes reales y stores operativos siguen bloqueados;
+- UI-TARS, Hermes, n8n y Home Assistant siguen no activos;
+- Market Catalog remains planned_not_active;
+- Business Composition Layer remains future/non-operational;
+- OBLITERATUS no es secret source, integracion, dependency, adapter, capability ni roadmap operativo.

@@ -764,3 +764,24 @@ Resultado esperado:
 - UI-TARS, Hermes, n8n y Home Assistant siguen future_only/not_active;
 - Market Catalog runtime y Business Composition Layer runtime siguen bloqueados;
 - OBLITERATUS sigue fuera de IA_CORE como integracion, dependency, adapter, capability, secret source y roadmap operativo.
+
+## 46. PROMPT 3.23.1 - Checkpoint E2E de politica de secretos
+
+Estado esperado: `SECRETS_POLICY_FULL_E2E_PASSED`.
+
+Veredicto esperado: `SECRETS_POLICY_CHAIN_READY`.
+
+Readiness esperada: `ready_for_prompt_injection_defense_planning`.
+
+Proximo paso: `PROMPT 3.24 - Defensa contra prompt injection`.
+
+Resultado esperado:
+
+- documento `docs/SECRETS_POLICY_FULL_E2E_CHECKPOINT.md` creado;
+- test `tests/test_secrets_policy_full_e2e_checkpoint.py` creado;
+- cadena Security Surface Audit -> Agent Permission Contract -> Agent Permission Full E2E -> Secrets and Sensitive Data Policy validada;
+- classification, redaction, policy decision, allowed/redacted/blocked/invalid y serializacion validadas sin raw secret exposure;
+- secret manager runtime, secret reads reales, secret writes reales, env scan con valores, raw secret logging, prompt secret injection, output secret leaks, memory persistence, external access, API/UI, writes reales y stores operativos siguen bloqueados;
+- UI-TARS, Hermes, n8n y Home Assistant siguen future_only/not_active;
+- Market Catalog runtime y Business Composition Layer runtime siguen bloqueados;
+- OBLITERATUS sigue fuera de IA_CORE como secret source, integracion, dependency, adapter, capability y roadmap operativo.
