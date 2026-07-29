@@ -5177,3 +5177,15 @@ Readiness: `ready_for_context_boundary_e2e_checkpoint`
 Proximo paso: `PROMPT 3.28.1 - Checkpoint E2E de context boundary`
 
 Este bloque agrega la frontera de contexto pre-runtime. Todo contexto se clasifica y valida en modo contract-only; no se construye contexto runtime, no se inyecta en prompts reales, no se recupera informacion activa, no se ejecutan instrucciones embebidas y no se activa runtime.
+
+## 142. PROMPT 3.28.1 - Checkpoint E2E de context boundary
+
+Estado esperado: `CONTEXT_BOUNDARY_FULL_E2E_PASSED`
+
+Veredicto esperado: `CONTEXT_BOUNDARY_CHAIN_READY`
+
+Readiness esperada: `ready_for_output_boundary_planning`
+
+Proximo paso: `PROMPT 3.29 - Output boundary y politica de salidas pre-runtime`
+
+Este bloque consume `ready_for_context_boundary_e2e_checkpoint` y confirma que la cadena completa de contexto queda lista para planificar output boundary sin activar runtime ni salidas reales.

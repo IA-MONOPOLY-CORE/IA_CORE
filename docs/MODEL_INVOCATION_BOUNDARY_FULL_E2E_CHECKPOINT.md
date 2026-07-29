@@ -385,3 +385,7 @@ La cadena queda lista para planificar `context boundary` antes de cualquier runt
 ## PROMPT 3.28 result
 
 El checkpoint full de model invocation boundary queda consumido por context boundary pre-runtime. Resultado nuevo: `CONTEXT_BOUNDARY_READY`, checkpoint documental: `CONTEXT_BOUNDARY_E2E_PASSED`, readiness: `ready_for_context_boundary_e2e_checkpoint`.
+
+## PROMPT 3.28.1 result
+
+PROMPT 3.28.1 confirma la cadena Model Invocation Boundary -> Context Boundary. El contexto conceptual no se envia a modelos/proveedores y model invocation permanece contract-only, sin runtime.

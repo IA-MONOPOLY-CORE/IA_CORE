@@ -367,3 +367,15 @@ Readiness: `ready_for_context_boundary_e2e_checkpoint`
 Proximo paso: `PROMPT 3.28.1 - Checkpoint E2E de context boundary`
 
 El Security Layer suma una frontera de contexto pre-runtime: contract-only, deny-by-default, permission-aware, secrets-aware, prompt-injection-aware, sandbox-aware, tool-boundary-aware y model-invocation-aware. No hay context builder, context injection, prompt assembly, retrieval, RAG, expansion real, raw context logging ni envio real a modelo/proveedor.
+
+## PROMPT 3.28.1 - Checkpoint E2E de context boundary
+
+Estado: `CONTEXT_BOUNDARY_FULL_E2E_PASSED`
+
+Veredicto: `CONTEXT_BOUNDARY_CHAIN_READY`
+
+Readiness: `ready_for_output_boundary_planning`
+
+Proximo paso: `PROMPT 3.29 - Output boundary y politica de salidas pre-runtime`
+
+El checkpoint full de context boundary cierra la cadena Security Surface Audit -> Agent Permission -> Secrets -> Prompt Injection -> Sandbox -> Tool Boundary -> Model Invocation -> Context Boundary. Habilita solo planificacion de output boundary pre-runtime; no habilita runtime.

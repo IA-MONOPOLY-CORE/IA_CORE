@@ -921,3 +921,15 @@ Readiness: `ready_for_context_boundary_e2e_checkpoint`
 Proximo paso: `PROMPT 3.28.1 - Checkpoint E2E de context boundary`
 
 El contrato define contexto conceptual sin runtime: no context builder, no prompt assembly, no retrieval/RAG, no memory/filesystem/web/tool/model/screen expansion, no secrets, no raw context logging, no tool calls, no model invocation y no writes reales.
+
+## 56. PROMPT 3.28.1 - Checkpoint E2E de context boundary
+
+Estado esperado: `CONTEXT_BOUNDARY_FULL_E2E_PASSED`
+
+Veredicto esperado: `CONTEXT_BOUNDARY_CHAIN_READY`
+
+Readiness esperada: `ready_for_output_boundary_planning`
+
+Proximo paso: `PROMPT 3.29 - Output boundary y politica de salidas pre-runtime`
+
+El checkpoint valida end-to-end que context boundary sigue contract-only, pre-runtime, context-request-only y deny-by-default. No activa context builder, context injection, prompt assembly, retrieval/RAG, expansion real, secrets, tool calls, model invocation, network, writes ni stores operativos.

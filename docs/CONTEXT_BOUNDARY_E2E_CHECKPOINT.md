@@ -95,3 +95,7 @@ CONTEXT_BOUNDARY_READY
 ## Resultado E2E
 
 Context boundary queda validado como frontera pre-runtime para solicitudes conceptuales de contexto. Puede describir, clasificar, evaluar, serializar y validar decisiones, pero no construye contexto runtime, no inyecta contexto, no arma prompts reales, no hace retrieval/RAG, no expande desde fuentes reales, no incluye secretos, no ejecuta instrucciones embebidas, no envia contexto a modelos/proveedores y no activa runtime.
+
+## PROMPT 3.28.1 result
+
+PROMPT 3.28.1 consume `ready_for_context_boundary_e2e_checkpoint` y confirma la cadena full de context boundary sin activar runtime, context injection, prompt assembly, retrieval/RAG ni expansion real.
