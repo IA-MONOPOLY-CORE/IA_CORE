@@ -399,3 +399,7 @@ Model invocation boundary queda como prerrequisito defensivo de runtime, workers
 
 Estado: `MODEL_INVOCATION_BOUNDARY_READY`.
 Readiness: `ready_for_model_invocation_boundary_e2e_checkpoint`.
+
+## PROMPT 3.28 result
+
+Context Boundary queda como prerrequisito de runtime, real model invocation, adapters, workers, queues y operational execution. El siguiente paso es `PROMPT 3.28.1 - Checkpoint E2E de context boundary`.

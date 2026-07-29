@@ -164,3 +164,7 @@ Model Invocation Boundary confirma que sandbox boundary no habilita model runtim
 
 Estado: `MODEL_INVOCATION_BOUNDARY_READY`.
 Readiness: `ready_for_model_invocation_boundary_e2e_checkpoint`.
+
+## PROMPT 3.28 result
+
+Sandbox Boundary no habilita expansion real de contexto. Context Boundary puede marcar `requires_sandbox`, pero no crea sandbox runtime ni lee filesystem, network, browser, memory stores o external services.

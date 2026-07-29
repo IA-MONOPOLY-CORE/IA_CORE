@@ -381,3 +381,7 @@ OBLITERATUS is not an IA_CORE integration
 Model Invocation Boundary queda validado de punta a punta como frontera pre-runtime. El sistema puede clasificar model types, surfaces, riesgos y decisiones posibles, pero no invoca modelos reales, no llama proveedores, no llama Ollama, no llama OpenAI, no hace streaming, no expande contexto real, no incluye secretos, no loguea prompts/outputs crudos, no ejecuta sugerencias, no llama tools, no persiste memoria, no escribe stores y no activa runtime.
 
 La cadena queda lista para planificar `context boundary` antes de cualquier runtime.
+
+## PROMPT 3.28 result
+
+El checkpoint full de model invocation boundary queda consumido por context boundary pre-runtime. Resultado nuevo: `CONTEXT_BOUNDARY_READY`, checkpoint documental: `CONTEXT_BOUNDARY_E2E_PASSED`, readiness: `ready_for_context_boundary_e2e_checkpoint`.

@@ -203,3 +203,7 @@ Model Invocation Boundary usa Prompt Injection Defense como frontera previa para
 
 Estado: `MODEL_INVOCATION_BOUNDARY_READY`.
 Readiness: `ready_for_model_invocation_boundary_e2e_checkpoint`.
+
+## PROMPT 3.28 result
+
+Prompt Injection Defense queda aplicado al contexto: documentos, retrieved context, tool results, model outputs, screen content y UI state no pueden convertirse en instrucciones confiables ni ejecutarse como contexto operativo.

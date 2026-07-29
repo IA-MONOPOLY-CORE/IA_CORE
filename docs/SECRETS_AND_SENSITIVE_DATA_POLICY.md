@@ -216,3 +216,7 @@ Model Invocation Boundary impide incluir secretos en prompts o model context. Un
 
 Estado: `MODEL_INVOCATION_BOUNDARY_READY`.
 Readiness: `ready_for_model_invocation_boundary_e2e_checkpoint`.
+
+## PROMPT 3.28 result
+
+Secrets Policy queda reforzada por Context Boundary: `secret_context`, `secrets`, `environment` y env access permanecen bloqueados. No se permite incluir secretos en contexto, prompts, logs ni provider payloads.

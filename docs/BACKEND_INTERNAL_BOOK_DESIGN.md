@@ -5165,3 +5165,15 @@ Readiness: `ready_for_context_boundary_planning`
 Proximo paso: `PROMPT 3.28 — Context boundary y política de contexto pre-runtime`
 
 El libro registra el cierre E2E de model invocation boundary: model type classification, model surface classification, model invocation risk classification y model invocation boundary decision quedan validados sin invocar modelos, routers, executors, inference runners, provider calls, streaming, context expansion, raw prompt/output logging, secrets en prompts, tool calls, memoria persistente, writes/stores, UI-TARS, Hermes, n8n, Home Assistant, Market Catalog runtime, Business Composition Layer runtime ni OBLITERATUS como integracion.
+
+## 141. PROMPT 3.28 - Context boundary y politica de contexto pre-runtime
+
+Estado esperado: `CONTEXT_BOUNDARY_READY`
+
+E2E esperado: `CONTEXT_BOUNDARY_E2E_PASSED`
+
+Readiness: `ready_for_context_boundary_e2e_checkpoint`
+
+Proximo paso: `PROMPT 3.28.1 - Checkpoint E2E de context boundary`
+
+Este bloque agrega la frontera de contexto pre-runtime. Todo contexto se clasifica y valida en modo contract-only; no se construye contexto runtime, no se inyecta en prompts reales, no se recupera informacion activa, no se ejecutan instrucciones embebidas y no se activa runtime.

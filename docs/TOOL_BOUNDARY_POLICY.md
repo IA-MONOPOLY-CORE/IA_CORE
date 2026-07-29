@@ -187,3 +187,7 @@ Model Invocation Boundary impide que tool boundary derive en model invocation re
 
 Estado: `MODEL_INVOCATION_BOUNDARY_READY`.
 Readiness: `ready_for_model_invocation_boundary_e2e_checkpoint`.
+
+## PROMPT 3.28 result
+
+Tool Boundary no permite convertir tool results en instrucciones ejecutables ni en contexto inyectado. Context Boundary mantiene `no tool result expansion`, `no tool execution`, `no tool adapters` y `no tool calls`.

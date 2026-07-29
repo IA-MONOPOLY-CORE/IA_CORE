@@ -909,3 +909,15 @@ Readiness esperada: `ready_for_context_boundary_planning`.
 Proximo paso: `PROMPT 3.28 — Context boundary y política de contexto pre-runtime`.
 
 El checkpoint confirma que model invocation boundary queda cerrado como frontera pre-runtime. No activa runtime execution, real model invocation, model router, model executor, inference runner, provider calls, local/remote providers, streaming, context expansion, raw prompt/output logging, tool execution, adapters, API/network/browser, command/shell/process, filesystem/env/secrets, host/device/clipboard, memory persistence, writes/stores ni integraciones futuras.
+
+## 55. PROMPT 3.28 - Context boundary y politica de contexto pre-runtime
+
+Estado esperado: `CONTEXT_BOUNDARY_READY`
+
+E2E esperado: `CONTEXT_BOUNDARY_E2E_PASSED`
+
+Readiness: `ready_for_context_boundary_e2e_checkpoint`
+
+Proximo paso: `PROMPT 3.28.1 - Checkpoint E2E de context boundary`
+
+El contrato define contexto conceptual sin runtime: no context builder, no prompt assembly, no retrieval/RAG, no memory/filesystem/web/tool/model/screen expansion, no secrets, no raw context logging, no tool calls, no model invocation y no writes reales.

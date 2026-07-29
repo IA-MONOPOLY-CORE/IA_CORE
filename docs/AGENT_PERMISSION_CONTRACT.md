@@ -236,3 +236,7 @@ Model Invocation Boundary confirma que permisos por agente no invocan modelos re
 
 Estado: `MODEL_INVOCATION_BOUNDARY_READY`.
 Readiness: `ready_for_model_invocation_boundary_e2e_checkpoint`.
+
+## PROMPT 3.28 result
+
+Agent Permission Contract no habilita inyeccion real de contexto. Context Boundary exige permisos contractuales para clasificar solicitudes, pero mantiene todos los flags operativos en False.
