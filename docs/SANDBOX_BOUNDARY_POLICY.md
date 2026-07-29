@@ -157,3 +157,10 @@ Tool Boundary Policy impide que el sandbox conceptual derive en tool execution r
 
 Estado: `TOOL_BOUNDARY_READY`.
 Readiness: `ready_for_tool_boundary_e2e_checkpoint`.
+
+## PROMPT 3.27 result
+
+Model Invocation Boundary confirma que sandbox boundary no habilita model runtime ni inferencia real. `sandbox_required` solo marca una necesidad contractual futura.
+
+Estado: `MODEL_INVOCATION_BOUNDARY_READY`.
+Readiness: `ready_for_model_invocation_boundary_e2e_checkpoint`.

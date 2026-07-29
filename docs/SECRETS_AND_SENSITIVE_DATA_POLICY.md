@@ -209,3 +209,10 @@ Tool Boundary Policy impide secret tools reales y acceso a secretos por herramie
 
 Estado: `TOOL_BOUNDARY_READY`.
 Readiness: `ready_for_tool_boundary_e2e_checkpoint`.
+
+## PROMPT 3.27 result
+
+Model Invocation Boundary impide incluir secretos en prompts o model context. Una redaccion o clasificacion de secreto no habilita provider calls, prompt injection de secretos ni logging crudo.
+
+Estado: `MODEL_INVOCATION_BOUNDARY_READY`.
+Readiness: `ready_for_model_invocation_boundary_e2e_checkpoint`.

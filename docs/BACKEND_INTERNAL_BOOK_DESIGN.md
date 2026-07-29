@@ -5141,3 +5141,15 @@ Readiness: `ready_for_model_invocation_boundary_planning`
 Proximo paso: `PROMPT 3.27 — Model invocation boundary pre-runtime`
 
 El libro registra el cierre E2E de tool boundary: tool type classification, tool surface classification, tool risk classification y tool boundary decision quedan validados sin ejecutar tools, adapters, tool calls, API, network, browser, comandos, shell, procesos, filesystem real, env, secretos, host, dispositivos, clipboard, memoria persistente, writes/stores, UI-TARS, Hermes, n8n, Home Assistant, Market Catalog runtime, Business Composition Layer runtime ni OBLITERATUS como integracion.
+
+## 139. PROMPT 3.27 — Model invocation boundary pre-runtime
+
+Estado: `MODEL_INVOCATION_BOUNDARY_READY`
+
+E2E: `MODEL_INVOCATION_BOUNDARY_E2E_PASSED`
+
+Readiness: `ready_for_model_invocation_boundary_e2e_checkpoint`
+
+Proximo paso: `PROMPT 3.27.1 — Checkpoint E2E de model invocation boundary`
+
+Se incorpora la frontera de invocacion de modelos pre-runtime. El sistema puede clasificar tipos de modelos, surfaces, riesgos y decisiones contractuales, pero mantiene bloqueados runtime execution, real model invocation, model router, model executor, inference runner, provider calls, local/remote providers, streaming, context expansion, raw prompt/output logging, tool execution, adapters, API/network/browser, command/shell/process, filesystem/env/secrets, host/device/clipboard, memory persistence, writes/stores, UI-TARS, Hermes, n8n, Home Assistant, Market Catalog runtime, Business Composition Layer runtime y OBLITERATUS como integracion.

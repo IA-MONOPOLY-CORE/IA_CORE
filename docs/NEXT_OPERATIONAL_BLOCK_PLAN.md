@@ -392,3 +392,10 @@ Tool boundary queda como prerrequisito defensivo de adapters, workers, queues, s
 
 Estado: `TOOL_BOUNDARY_READY`.
 Readiness: `ready_for_tool_boundary_e2e_checkpoint`.
+
+## PROMPT 3.27 result
+
+Model invocation boundary queda como prerrequisito defensivo de runtime, workers, queues, adapters y ejecucion operativa. Ninguno de esos componentes queda activo por este prompt.
+
+Estado: `MODEL_INVOCATION_BOUNDARY_READY`.
+Readiness: `ready_for_model_invocation_boundary_e2e_checkpoint`.

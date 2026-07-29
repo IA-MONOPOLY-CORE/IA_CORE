@@ -196,3 +196,10 @@ Tool Boundary Policy agrega una frontera contra tool hijacking: ningun contenido
 
 Estado: `TOOL_BOUNDARY_READY`.
 Readiness: `ready_for_tool_boundary_e2e_checkpoint`.
+
+## PROMPT 3.27 result
+
+Model Invocation Boundary usa Prompt Injection Defense como frontera previa para proteger contexto, documentos, pantallas, outputs y tool results antes de cualquier model invocation futura. Contenido limpio no habilita invocacion real.
+
+Estado: `MODEL_INVOCATION_BOUNDARY_READY`.
+Readiness: `ready_for_model_invocation_boundary_e2e_checkpoint`.

@@ -311,3 +311,10 @@ OBLITERATUS is not an IA_CORE integration
 Tool Boundary queda validado de punta a punta como frontera pre-runtime. El sistema puede clasificar tool types, surfaces, riesgos y decisiones posibles, pero no ejecuta herramientas reales, no llama adapters, no llama APIs, no usa network/browser, no lee secretos, no lee/escribe host, no persiste memoria, no escribe stores y no activa runtime.
 
 La cadena queda lista para planificar `model invocation boundary` antes de cualquier runtime.
+
+## PROMPT 3.27 result
+
+El checkpoint full de tool boundary fue consumido por Model Invocation Boundary Policy. Tool Boundary sigue siendo contractual y no deriva en model invocation real, provider calls ni runtime.
+
+Resultado: `MODEL_INVOCATION_BOUNDARY_READY`.
+Readiness: `ready_for_model_invocation_boundary_e2e_checkpoint`.

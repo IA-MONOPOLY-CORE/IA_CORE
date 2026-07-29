@@ -229,3 +229,10 @@ Tool Boundary Policy confirma que permisos por agente no ejecutan herramientas r
 
 Estado: `TOOL_BOUNDARY_READY`.
 Readiness: `ready_for_tool_boundary_e2e_checkpoint`.
+
+## PROMPT 3.27 result
+
+Model Invocation Boundary confirma que permisos por agente no invocan modelos reales. Un permiso contractual puede habilitar evaluacion futura, pero no provider calls ni inference runner.
+
+Estado: `MODEL_INVOCATION_BOUNDARY_READY`.
+Readiness: `ready_for_model_invocation_boundary_e2e_checkpoint`.

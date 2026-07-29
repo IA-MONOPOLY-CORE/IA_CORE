@@ -180,3 +180,10 @@ Resultado: `TOOL_BOUNDARY_FULL_E2E_PASSED`.
 Veredicto: `TOOL_BOUNDARY_CHAIN_READY`.
 Readiness: `ready_for_model_invocation_boundary_planning`.
 Proximo paso: `PROMPT 3.27 — Model invocation boundary pre-runtime`.
+
+## PROMPT 3.27 result
+
+Model Invocation Boundary impide que tool boundary derive en model invocation real. Ninguna tool conceptual puede llamar modelos, providers, routers, executors o inference runners.
+
+Estado: `MODEL_INVOCATION_BOUNDARY_READY`.
+Readiness: `ready_for_model_invocation_boundary_e2e_checkpoint`.

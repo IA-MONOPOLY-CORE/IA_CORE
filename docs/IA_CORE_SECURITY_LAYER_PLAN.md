@@ -337,3 +337,12 @@ Resultado: `TOOL_BOUNDARY_FULL_E2E_PASSED`.
 Veredicto: `TOOL_BOUNDARY_CHAIN_READY`.
 Readiness: `ready_for_model_invocation_boundary_planning`.
 Proximo paso: `PROMPT 3.27 — Model invocation boundary pre-runtime`.
+
+## PROMPT 3.27 result
+
+Se crea el contrato de model invocation boundary pre-runtime. La politica es contract-only, model-request-only, deny-by-default, permission-aware, secrets-aware, prompt-injection-aware, sandbox-aware y tool-boundary-aware. Es prerrequisito de runtime, no runtime.
+
+Estado: `MODEL_INVOCATION_BOUNDARY_READY`.
+E2E: `MODEL_INVOCATION_BOUNDARY_E2E_PASSED`.
+Readiness: `ready_for_model_invocation_boundary_e2e_checkpoint`.
+Proximo paso: `PROMPT 3.27.1 — Checkpoint E2E de model invocation boundary`.

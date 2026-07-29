@@ -885,3 +885,15 @@ Readiness esperada: `ready_for_model_invocation_boundary_planning`.
 Proximo paso: `PROMPT 3.27 — Model invocation boundary pre-runtime`.
 
 El checkpoint confirma que tool boundary queda cerrado como frontera pre-runtime. No activa runtime execution, real tool execution, tool adapters, tool registry runtime, tool calls, API/network/browser, command/shell/process, filesystem/env/secrets, host/device/clipboard, memory persistence, writes/stores ni integraciones futuras.
+
+## 53. PROMPT 3.27 — Model invocation boundary pre-runtime
+
+Estado esperado: `MODEL_INVOCATION_BOUNDARY_READY`.
+
+E2E esperado: `MODEL_INVOCATION_BOUNDARY_E2E_PASSED`.
+
+Readiness esperada: `ready_for_model_invocation_boundary_e2e_checkpoint`.
+
+Proximo paso: `PROMPT 3.27.1 — Checkpoint E2E de model invocation boundary`.
+
+Model invocation boundary define reglas pre-runtime para modelos conceptuales. Es prerrequisito de runtime, workers, queues, adapters y ejecucion operativa, pero no invoca modelos, no llama providers, no hace streaming, no expande contexto real, no incluye secretos y no escribe stores.
