@@ -5153,3 +5153,15 @@ Readiness: `ready_for_model_invocation_boundary_e2e_checkpoint`
 Proximo paso: `PROMPT 3.27.1 — Checkpoint E2E de model invocation boundary`
 
 Se incorpora la frontera de invocacion de modelos pre-runtime. El sistema puede clasificar tipos de modelos, surfaces, riesgos y decisiones contractuales, pero mantiene bloqueados runtime execution, real model invocation, model router, model executor, inference runner, provider calls, local/remote providers, streaming, context expansion, raw prompt/output logging, tool execution, adapters, API/network/browser, command/shell/process, filesystem/env/secrets, host/device/clipboard, memory persistence, writes/stores, UI-TARS, Hermes, n8n, Home Assistant, Market Catalog runtime, Business Composition Layer runtime y OBLITERATUS como integracion.
+
+## 140. PROMPT 3.27.1 — Checkpoint E2E de model invocation boundary
+
+Estado: `MODEL_INVOCATION_BOUNDARY_FULL_E2E_PASSED`
+
+Veredicto: `MODEL_INVOCATION_BOUNDARY_CHAIN_READY`
+
+Readiness: `ready_for_context_boundary_planning`
+
+Proximo paso: `PROMPT 3.28 — Context boundary y política de contexto pre-runtime`
+
+El libro registra el cierre E2E de model invocation boundary: model type classification, model surface classification, model invocation risk classification y model invocation boundary decision quedan validados sin invocar modelos, routers, executors, inference runners, provider calls, streaming, context expansion, raw prompt/output logging, secrets en prompts, tool calls, memoria persistente, writes/stores, UI-TARS, Hermes, n8n, Home Assistant, Market Catalog runtime, Business Composition Layer runtime ni OBLITERATUS como integracion.

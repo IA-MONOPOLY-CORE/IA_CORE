@@ -318,3 +318,10 @@ El checkpoint full de tool boundary fue consumido por Model Invocation Boundary 
 
 Resultado: `MODEL_INVOCATION_BOUNDARY_READY`.
 Readiness: `ready_for_model_invocation_boundary_e2e_checkpoint`.
+
+## PROMPT 3.27.1 result
+
+El checkpoint full de model invocation boundary confirma la cadena Tool Boundary → Model Invocation Boundary. Tool Boundary sigue siendo contractual y no habilita invocacion real de modelos ni provider calls.
+
+Resultado: `MODEL_INVOCATION_BOUNDARY_FULL_E2E_PASSED`.
+Readiness: `ready_for_context_boundary_planning`.

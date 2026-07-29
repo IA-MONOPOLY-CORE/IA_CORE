@@ -86,3 +86,11 @@ MODEL_INVOCATION_BOUNDARY_READY
 ## Resultado E2E
 
 Model invocation boundary queda validado como frontera pre-runtime para solicitudes conceptuales de modelos. Puede describir, clasificar, evaluar, serializar y validar decisiones, pero no invoca modelos, no llama proveedores, no hace streaming, no expande contexto real, no incluye secretos, no ejecuta tools, no persiste memoria y no activa runtime.
+
+## PROMPT 3.27.1 result
+
+El checkpoint full de model invocation boundary consume `ready_for_model_invocation_boundary_e2e_checkpoint` y confirma la cadena completa de modelo conceptual, clasificacion, decision y bloqueo de invocacion real.
+
+Resultado: `MODEL_INVOCATION_BOUNDARY_FULL_E2E_PASSED`.
+Veredicto: `MODEL_INVOCATION_BOUNDARY_CHAIN_READY`.
+Readiness: `ready_for_context_boundary_planning`.

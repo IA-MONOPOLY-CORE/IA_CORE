@@ -346,3 +346,12 @@ Estado: `MODEL_INVOCATION_BOUNDARY_READY`.
 E2E: `MODEL_INVOCATION_BOUNDARY_E2E_PASSED`.
 Readiness: `ready_for_model_invocation_boundary_e2e_checkpoint`.
 Proximo paso: `PROMPT 3.27.1 — Checkpoint E2E de model invocation boundary`.
+
+## PROMPT 3.27.1 result
+
+Se cierra el checkpoint full de model invocation boundary. La cadena queda lista para planificar context boundary pre-runtime, manteniendo bloqueados runtime, real model invocation, provider calls, context expansion, raw prompt/output logging, secrets, tool calls, memory persistence y stores.
+
+Resultado: `MODEL_INVOCATION_BOUNDARY_FULL_E2E_PASSED`.
+Veredicto: `MODEL_INVOCATION_BOUNDARY_CHAIN_READY`.
+Readiness: `ready_for_context_boundary_planning`.
+Proximo paso: `PROMPT 3.28 — Context boundary y política de contexto pre-runtime`.
