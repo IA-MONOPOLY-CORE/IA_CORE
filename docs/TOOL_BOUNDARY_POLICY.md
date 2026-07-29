@@ -191,3 +191,7 @@ Readiness: `ready_for_model_invocation_boundary_e2e_checkpoint`.
 ## PROMPT 3.28 result
 
 Tool Boundary no permite convertir tool results en instrucciones ejecutables ni en contexto inyectado. Context Boundary mantiene `no tool result expansion`, `no tool execution`, `no tool adapters` y `no tool calls`.
+
+## PROMPT 3.29 result
+
+Las salidas de tools no pueden enviarse, publicarse ni usarse como delivery real. Output boundary mantiene `no tool execution`, `no tool adapters`, `no tool calls` y `no external delivery`.

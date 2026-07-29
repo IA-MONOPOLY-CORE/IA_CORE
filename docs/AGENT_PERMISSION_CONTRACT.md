@@ -240,3 +240,7 @@ Readiness: `ready_for_model_invocation_boundary_e2e_checkpoint`.
 ## PROMPT 3.28 result
 
 Agent Permission Contract no habilita inyeccion real de contexto. Context Boundary exige permisos contractuales para clasificar solicitudes, pero mantiene todos los flags operativos en False.
+
+## PROMPT 3.29 result
+
+Los permisos por agente no publican ni envian salidas reales. Output boundary exige permiso contractual, pero mantiene publishing, messaging, delivery, writes y stores en False.

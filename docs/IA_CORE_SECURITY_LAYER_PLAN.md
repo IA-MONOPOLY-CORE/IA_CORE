@@ -379,3 +379,15 @@ Readiness: `ready_for_output_boundary_planning`
 Proximo paso: `PROMPT 3.29 - Output boundary y politica de salidas pre-runtime`
 
 El checkpoint full de context boundary cierra la cadena Security Surface Audit -> Agent Permission -> Secrets -> Prompt Injection -> Sandbox -> Tool Boundary -> Model Invocation -> Context Boundary. Habilita solo planificacion de output boundary pre-runtime; no habilita runtime.
+
+## PROMPT 3.29 - Output boundary y politica de salidas pre-runtime
+
+Estado: `OUTPUT_BOUNDARY_READY`
+
+E2E documental: `OUTPUT_BOUNDARY_E2E_PASSED`
+
+Readiness: `ready_for_output_boundary_e2e_checkpoint`
+
+Proximo paso: `PROMPT 3.29.1 - Checkpoint E2E de output boundary`
+
+El Security Layer suma una frontera de salidas pre-runtime: contract-only, deny-by-default, permission-aware, secrets-aware, prompt-injection-aware, sandbox-aware, tool-boundary-aware, model-invocation-aware y context-boundary-aware. No hay output writer, publisher, notifier, delivery, messaging, email, webhook, writes, stores, memoria, raw output logging, secret leakage ni acciones irreversibles.

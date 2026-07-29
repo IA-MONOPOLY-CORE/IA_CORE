@@ -933,3 +933,15 @@ Readiness esperada: `ready_for_output_boundary_planning`
 Proximo paso: `PROMPT 3.29 - Output boundary y politica de salidas pre-runtime`
 
 El checkpoint valida end-to-end que context boundary sigue contract-only, pre-runtime, context-request-only y deny-by-default. No activa context builder, context injection, prompt assembly, retrieval/RAG, expansion real, secrets, tool calls, model invocation, network, writes ni stores operativos.
+
+## 57. PROMPT 3.29 - Output boundary y politica de salidas pre-runtime
+
+Estado esperado: `OUTPUT_BOUNDARY_READY`
+
+E2E esperado: `OUTPUT_BOUNDARY_E2E_PASSED`
+
+Readiness esperada: `ready_for_output_boundary_e2e_checkpoint`
+
+Proximo paso: `PROMPT 3.29.1 - Checkpoint E2E de output boundary`
+
+El contrato define salidas conceptuales sin runtime: no output writer, no publishing, no delivery, no messaging/email/webhook, no file/store writes, no memory updates, no raw output logging, no secret leakage, no unredacted sensitive data y no irreversible actions.

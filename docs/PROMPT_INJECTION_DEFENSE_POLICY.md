@@ -207,3 +207,7 @@ Readiness: `ready_for_model_invocation_boundary_e2e_checkpoint`.
 ## PROMPT 3.28 result
 
 Prompt Injection Defense queda aplicado al contexto: documentos, retrieved context, tool results, model outputs, screen content y UI state no pueden convertirse en instrucciones confiables ni ejecutarse como contexto operativo.
+
+## PROMPT 3.29 result
+
+Output boundary impide que instrucciones inyectadas produzcan salidas reales, publicaciones, mensajes, webhooks, emails, notificaciones o acciones irreversibles.

@@ -220,3 +220,7 @@ Readiness: `ready_for_model_invocation_boundary_e2e_checkpoint`.
 ## PROMPT 3.28 result
 
 Secrets Policy queda reforzada por Context Boundary: `secret_context`, `secrets`, `environment` y env access permanecen bloqueados. No se permite incluir secretos en contexto, prompts, logs ni provider payloads.
+
+## PROMPT 3.29 result
+
+Output boundary impide fuga de secretos y emision de datos sensibles sin redaccion. `secret_bearing_output`, `secrets` y `sensitive_data` nunca habilitan delivery real.

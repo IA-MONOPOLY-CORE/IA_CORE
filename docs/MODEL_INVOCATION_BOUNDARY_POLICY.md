@@ -198,3 +198,7 @@ Proximo paso: `PROMPT 3.28 — Context boundary y política de contexto pre-runt
 ## PROMPT 3.28 result
 
 Model Invocation Boundary no deriva en context injection real. Context Boundary clasifica contexto antes del runtime y mantiene `no real model invocation`, `no prompt assembly`, `no raw prompt logging` y `no context injection`.
+
+## PROMPT 3.29 result
+
+Las salidas de modelos no pueden publicarse, persistirse ni convertirse en acciones reales. Output boundary mantiene `no real model invocation`, `no delivery`, `no raw output logging` y `no irreversible actions`.
