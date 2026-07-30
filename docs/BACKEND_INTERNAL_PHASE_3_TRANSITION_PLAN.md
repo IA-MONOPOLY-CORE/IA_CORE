@@ -969,3 +969,15 @@ Readiness esperada: `ready_for_runtime_activation_gate_e2e_checkpoint`
 Proximo paso: `PROMPT 3.30.1 - Checkpoint E2E de runtime activation gate`
 
 El contrato define el candado final pre-runtime: no runtime activation, no execution, no runner, scheduler, worker, queue, orchestrator, executor, dispatcher, background jobs, autonomy, continuous loop, tool execution, model invocation, context injection, output delivery, writes, stores ni memory persistence.
+
+## 60. PROMPT 3.30.1 - Checkpoint E2E de runtime activation gate
+
+Estado esperado: `RUNTIME_ACTIVATION_GATE_FULL_E2E_PASSED`
+
+Veredicto esperado: `RUNTIME_ACTIVATION_GATE_CHAIN_READY`
+
+Readiness esperada: `ready_for_security_layer_final_checkpoint`
+
+Proximo paso: `PROMPT 3.31 — Security Layer final checkpoint pre-runtime`
+
+El checkpoint consolida la frontera pre-runtime: runtime activation gate puede clasificar senales y riesgos, pero no activa runtime, no ejecuta, no inicia runners, no despacha jobs, no llama tools/modelos, no inyecta contexto, no entrega salidas, no persiste y no abre integraciones.

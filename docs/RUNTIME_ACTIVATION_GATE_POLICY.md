@@ -159,3 +159,15 @@ Todas siguen en False: future_runtime_contract_exists, future_runtime_e2e_exists
 Agent Permission no abre runtime. Secrets Policy no abre runtime. Prompt Injection Defense no abre runtime. Sandbox Boundary no abre runtime. Tool Boundary no abre tool execution. Model Invocation Boundary no abre model invocation. Context Boundary no abre context injection. Output Boundary no abre output delivery. Operational Readiness Gate no equivale a runtime activation. E2E passed, Full E2E passed y Chain ready no equivalen a runtime activation.
 
 Este gate es prerrequisito de una fase futura de runtime, no runtime en si mismo.
+
+## PROMPT 3.30.1 - Checkpoint E2E de runtime activation gate
+
+Estado full E2E: `RUNTIME_ACTIVATION_GATE_FULL_E2E_PASSED`
+
+Veredicto: `RUNTIME_ACTIVATION_GATE_CHAIN_READY`
+
+Readiness: `ready_for_security_layer_final_checkpoint`
+
+Proximo paso: `PROMPT 3.31 — Security Layer final checkpoint pre-runtime`
+
+El checkpoint full valida que runtime activation gate permanece contract-only, non-operational, pre-runtime, activation-gate-only y deny-by-default. Chain ready no abre runtime, no inicia runner, no scheduler, no worker, no queue, no executor, no dispatcher, no tool execution, no model invocation, no context injection, no output delivery, no writes, no stores, no red, no secretos ni integraciones futuras.
