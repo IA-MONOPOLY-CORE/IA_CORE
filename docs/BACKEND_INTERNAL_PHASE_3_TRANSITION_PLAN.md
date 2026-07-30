@@ -945,3 +945,15 @@ Readiness esperada: `ready_for_output_boundary_e2e_checkpoint`
 Proximo paso: `PROMPT 3.29.1 - Checkpoint E2E de output boundary`
 
 El contrato define salidas conceptuales sin runtime: no output writer, no publishing, no delivery, no messaging/email/webhook, no file/store writes, no memory updates, no raw output logging, no secret leakage, no unredacted sensitive data y no irreversible actions.
+
+## 58. PROMPT 3.29.1 - Checkpoint E2E de output boundary
+
+Estado esperado: `OUTPUT_BOUNDARY_FULL_E2E_PASSED`
+
+Veredicto esperado: `OUTPUT_BOUNDARY_CHAIN_READY`
+
+Readiness esperada: `ready_for_runtime_activation_gate_planning`
+
+Proximo paso: `PROMPT 3.30 - Runtime activation gate pre-runtime`
+
+El checkpoint valida end-to-end que output boundary sigue contract-only, pre-runtime, output-request-only y deny-by-default. No activa output writer, publisher, notifier, delivery, messaging, email, webhook, writes, stores, memory updates, raw output logging, secret leakage, unredacted sensitive data, irreversible actions ni runtime.

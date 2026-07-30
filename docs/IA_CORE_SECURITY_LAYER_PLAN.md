@@ -391,3 +391,15 @@ Readiness: `ready_for_output_boundary_e2e_checkpoint`
 Proximo paso: `PROMPT 3.29.1 - Checkpoint E2E de output boundary`
 
 El Security Layer suma una frontera de salidas pre-runtime: contract-only, deny-by-default, permission-aware, secrets-aware, prompt-injection-aware, sandbox-aware, tool-boundary-aware, model-invocation-aware y context-boundary-aware. No hay output writer, publisher, notifier, delivery, messaging, email, webhook, writes, stores, memoria, raw output logging, secret leakage ni acciones irreversibles.
+
+## PROMPT 3.29.1 - Checkpoint E2E de output boundary
+
+Estado: `OUTPUT_BOUNDARY_FULL_E2E_PASSED`
+
+Veredicto: `OUTPUT_BOUNDARY_CHAIN_READY`
+
+Readiness: `ready_for_runtime_activation_gate_planning`
+
+Proximo paso: `PROMPT 3.30 - Runtime activation gate pre-runtime`
+
+El checkpoint full de output boundary cierra la cadena Security Surface Audit -> Agent Permission -> Secrets -> Prompt Injection -> Sandbox -> Tool Boundary -> Model Invocation -> Context Boundary -> Output Boundary. Habilita solo planificacion de runtime activation gate; no habilita runtime ni delivery real.

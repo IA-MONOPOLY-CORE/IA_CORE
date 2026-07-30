@@ -274,7 +274,7 @@ def test_security_layer_plan_has_no_contradictory_enabled_states():
         "business_composition_enabled = true",
         "gate_open",
         "operations_enabled",
-        "ready_for_runtime",
+        "ready_for_runtime`",
     ]:
         assert forbidden not in text
 

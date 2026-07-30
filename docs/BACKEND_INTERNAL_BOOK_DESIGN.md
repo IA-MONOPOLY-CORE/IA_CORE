@@ -5201,3 +5201,15 @@ Readiness esperada: `ready_for_output_boundary_e2e_checkpoint`
 Proximo paso: `PROMPT 3.29.1 - Checkpoint E2E de output boundary`
 
 Este bloque agrega la frontera de salidas pre-runtime. Toda salida se clasifica y valida en modo contract-only; no se publica, envia, persiste, entrega, notifica, escribe ni convierte en accion real.
+
+## 144. PROMPT 3.29.1 - Checkpoint E2E de output boundary
+
+Estado esperado: `OUTPUT_BOUNDARY_FULL_E2E_PASSED`
+
+Veredicto esperado: `OUTPUT_BOUNDARY_CHAIN_READY`
+
+Readiness esperada: `ready_for_runtime_activation_gate_planning`
+
+Proximo paso: `PROMPT 3.30 - Runtime activation gate pre-runtime`
+
+Este bloque consume `ready_for_output_boundary_e2e_checkpoint` y confirma que la cadena completa de salidas queda lista para planificar runtime activation gate sin activar runtime, delivery ni publicaciones reales.

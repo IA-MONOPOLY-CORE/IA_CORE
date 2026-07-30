@@ -312,3 +312,7 @@ El siguiente paso recomendado es `PROMPT 3.29 - Output boundary y politica de sa
 ## PROMPT 3.29 result
 
 El checkpoint full de context boundary fue consumido por output boundary. Context boundary sigue contract-only y no deriva en salida runtime real, publishing, delivery, writes ni stores operativos.
+
+## PROMPT 3.29.1 result
+
+PROMPT 3.29.1 confirma la cadena Context Boundary -> Output Boundary. Context boundary sigue contract-only y output boundary bloquea publishing, delivery, writes, stores, raw output logging, secret leakage y acciones irreversibles.
