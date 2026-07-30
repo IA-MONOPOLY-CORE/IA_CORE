@@ -427,3 +427,15 @@ Readiness: `ready_for_security_layer_final_checkpoint`
 Proximo paso: `PROMPT 3.31 — Security Layer final checkpoint pre-runtime`
 
 El Security Layer ya tiene validada la cadena full E2E hasta runtime activation gate. El cierre confirma que ready, E2E passed, full E2E passed, chain ready y approval conceptual no equivalen a runtime abierto.
+
+## PROMPT 3.31 — Security Layer final checkpoint pre-runtime
+
+Estado esperado: SECURITY_LAYER_FINAL_CHECKPOINT_PASSED
+
+Veredicto esperado: SECURITY_LAYER_PRE_RUNTIME_CHAIN_READY
+
+Readiness esperada: ready_for_post_security_layer_planning
+
+Próximo paso: PROMPT 3.32 — Planificación del bloque post-Security Layer
+
+Security Layer queda cerrada en modo pre-runtime. El siguiente bloque debe planificarse sin activar runtime ni execution, sin abrir gates operativos y sin crear runners, schedulers, workers, queues ni integraciones activas.

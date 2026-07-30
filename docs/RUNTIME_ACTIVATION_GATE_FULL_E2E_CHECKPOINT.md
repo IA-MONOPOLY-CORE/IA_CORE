@@ -477,3 +477,15 @@ OBLITERATUS is not an IA_CORE integration
 
 requires_future_contracts no inicia runner
 requires_human_approval no despacha jobs
+
+## PROMPT 3.31 - Security Layer final checkpoint pre-runtime
+
+Consumido por: `SECURITY_LAYER_FINAL_CHECKPOINT_PASSED`
+
+Veredicto final: `SECURITY_LAYER_PRE_RUNTIME_CHAIN_READY`
+
+Readiness final: `ready_for_post_security_layer_planning`
+
+Proximo paso: `PROMPT 3.32 — Planificación del bloque post-Security Layer`
+
+El checkpoint full de runtime activation gate fue consumido por el Security Layer final checkpoint. La cadena queda cerrada en modo pre-runtime, contract-only, non-operational y deny-by-default, sin runtime activation, execution, runner, scheduler, worker, queue, executor, dispatcher, tool execution, model invocation, context injection, output delivery, writes, stores, network, secrets ni integraciones activas.

@@ -981,3 +981,15 @@ Readiness esperada: `ready_for_security_layer_final_checkpoint`
 Proximo paso: `PROMPT 3.31 — Security Layer final checkpoint pre-runtime`
 
 El checkpoint consolida la frontera pre-runtime: runtime activation gate puede clasificar senales y riesgos, pero no activa runtime, no ejecuta, no inicia runners, no despacha jobs, no llama tools/modelos, no inyecta contexto, no entrega salidas, no persiste y no abre integraciones.
+
+## 61. PROMPT 3.31 — Security Layer final checkpoint pre-runtime
+
+Estado esperado: SECURITY_LAYER_FINAL_CHECKPOINT_PASSED
+
+Veredicto esperado: SECURITY_LAYER_PRE_RUNTIME_CHAIN_READY
+
+Readiness esperada: ready_for_post_security_layer_planning
+
+Próximo paso: PROMPT 3.32 — Planificación del bloque post-Security Layer
+
+El checkpoint final consume toda la cadena de Security Layer desde Security Surface Audit hasta Runtime Activation Gate Full E2E. La fase queda lista para planificacion post-Security Layer sin activar runtime, execution, runners, schedulers, workers, queues, tools, modelos, contexto, outputs, writes, stores, red, secretos ni integraciones futuras.
