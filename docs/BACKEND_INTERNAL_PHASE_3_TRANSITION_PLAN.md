@@ -1003,3 +1003,15 @@ Readiness esperada: ready_for_post_security_layer_first_audit
 Próximo paso: PROMPT 3.33 — Auditoría de arquitectura post-Security Layer pre-runtime
 
 La planificacion consume `SECURITY_LAYER_FINAL_CHECKPOINT_PASSED` como baseline y recomienda auditar la arquitectura post-Security Layer antes de construir Runtime Foundation, dry-run execution, observability, kill switch, approval gates o integraciones futuras.
+
+## 63. PROMPT 3.33 — Auditoría de arquitectura post-Security Layer pre-runtime
+
+Estado esperado: POST_SECURITY_LAYER_ARCHITECTURE_AUDIT_COMPLETED
+
+Veredicto esperado: POST_SECURITY_LAYER_ARCHITECTURE_BASELINE_VERIFIED
+
+Readiness esperada: ready_for_runtime_foundation_plan
+
+Próximo paso: PROMPT 3.34 — Plan de Runtime Foundation sin activación
+
+La auditoria consume el plan post-Security Layer y verifica baseline, modulos existentes, riesgos, readiness, documentos gobernantes y ausencia de modulos operativos prohibidos. No implementa runtime ni dry-run.

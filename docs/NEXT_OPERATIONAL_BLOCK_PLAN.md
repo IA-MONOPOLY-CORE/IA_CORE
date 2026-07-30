@@ -1,4 +1,4 @@
-# Next Operational Block Plan
+﻿# Next Operational Block Plan
 
 Estado: `NEXT_OPERATIONAL_BLOCK_PLAN_READY`
 
@@ -6,7 +6,7 @@ Veredicto: `PHASE_3_READY_FOR_NEXT_OPERATIONAL_BLOCK`
 
 Readiness: `ready_for_next_operational_block_first_audit`
 
-Proximo paso: `PROMPT 3.13 — Auditoría de attempt factory boundary`
+Proximo paso: `PROMPT 3.13 â€” AuditorÃ­a de attempt factory boundary`
 
 ## 1. Scope
 
@@ -18,16 +18,16 @@ No implementa runtime, no activa execution real, no abre el gate, no crea factor
 
 ```txt
 ExecutionIntent
-→ execution_attempt_id
-→ ExecutionAttempt schema
-→ ExecutionAttempt state machine
-→ Result Store boundary
-→ ExecutionResult contract
-→ Result/history/read model integration audit
-→ ExecutionResult projection contract
-→ Operational readiness gate audit
-→ Operational readiness gate contract
-→ Pre-operational E2E checkpoint
+â†’ execution_attempt_id
+â†’ ExecutionAttempt schema
+â†’ ExecutionAttempt state machine
+â†’ Result Store boundary
+â†’ ExecutionResult contract
+â†’ Result/history/read model integration audit
+â†’ ExecutionResult projection contract
+â†’ Operational readiness gate audit
+â†’ Operational readiness gate contract
+â†’ Pre-operational E2E checkpoint
 ```
 
 En simple:
@@ -128,21 +128,21 @@ Pero todavia debe empezar como boundary audit, no como factory activa.
 ## 7. Secuencia sugerida
 
 ```txt
-PROMPT 3.13 — Auditoría de attempt factory boundary
-PROMPT 3.14 — Contrato de attempt factory no-operativa
-PROMPT 3.14.1 — Checkpoint E2E de attempt factory contract
-PROMPT 3.15 — Auditoría de attempt store write-safe boundary
-PROMPT 3.16 — Contrato de attempt store write-safe
-PROMPT 3.17 — Auditoría de lifecycle writer boundary
-PROMPT 3.18 — Contrato de lifecycle writer no-operativo
-PROMPT 3.19 — Checkpoint E2E operational-block foundation
+PROMPT 3.13 â€” AuditorÃ­a de attempt factory boundary
+PROMPT 3.14 â€” Contrato de attempt factory no-operativa
+PROMPT 3.14.1 â€” Checkpoint E2E de attempt factory contract
+PROMPT 3.15 â€” AuditorÃ­a de attempt store write-safe boundary
+PROMPT 3.16 â€” Contrato de attempt store write-safe
+PROMPT 3.17 â€” AuditorÃ­a de lifecycle writer boundary
+PROMPT 3.18 â€” Contrato de lifecycle writer no-operativo
+PROMPT 3.19 â€” Checkpoint E2E operational-block foundation
 ```
 
 La secuencia sigue como Fase 3.x. Fase 4 no debe abrirse todavia porque el sistema aun no tiene factory auditada, store write-safe, lifecycle writer, permission model operativo, rollback de writes ni apertura controlada del gate.
 
 ## PROMPT 3.17 result
 
-`PROMPT 3.17 — Auditoría de lifecycle writer boundary` inicia el sub-bloque lifecycle sin activar lifecycle writes reales.
+`PROMPT 3.17 â€” AuditorÃ­a de lifecycle writer boundary` inicia el sub-bloque lifecycle sin activar lifecycle writes reales.
 
 Resultado: `LIFECYCLE_WRITER_BOUNDARY_AUDIT_COMPLETED`.
 
@@ -150,13 +150,13 @@ Veredicto: `LIFECYCLE_WRITER_BOUNDARY_READY_FOR_CONTRACT_DESIGN`.
 
 Readiness: `ready_for_lifecycle_writer_contract`.
 
-Proximo paso: `PROMPT 3.18 — Contrato de lifecycle writer no-operativo`.
+Proximo paso: `PROMPT 3.18 â€” Contrato de lifecycle writer no-operativo`.
 
 Sigue bloqueado lifecycle writer operativo, lifecycle events reales, lifecycle_store writes, runtime, scheduler, worker, queue, result store, history/read model, Market Catalog runtime y Business Composition Layer runtime.
 
 ## PROMPT 3.18 result
 
-`PROMPT 3.18 — Contrato de lifecycle writer no-operativo` implementa el contrato no-operativo del sub-bloque lifecycle, todavia sin lifecycle writes reales.
+`PROMPT 3.18 â€” Contrato de lifecycle writer no-operativo` implementa el contrato no-operativo del sub-bloque lifecycle, todavia sin lifecycle writes reales.
 
 Resultado: `LIFECYCLE_WRITER_CONTRACT_READY`.
 
@@ -164,11 +164,11 @@ E2E: `LIFECYCLE_WRITER_CONTRACT_E2E_PASSED`.
 
 Readiness: `ready_for_lifecycle_writer_e2e_checkpoint`.
 
-Proximo paso: `PROMPT 3.18.1 — Checkpoint E2E de lifecycle writer`.
+Proximo paso: `PROMPT 3.18.1 â€” Checkpoint E2E de lifecycle writer`.
 
 ## PROMPT 3.19 result
 
-`PROMPT 3.19 — Checkpoint E2E operational-block foundation` cierra la foundation pre-operational y mueve el roadmap hacia Security Layer antes de runtime.
+`PROMPT 3.19 â€” Checkpoint E2E operational-block foundation` cierra la foundation pre-operational y mueve el roadmap hacia Security Layer antes de runtime.
 
 Resultado: `OPERATIONAL_BLOCK_FOUNDATION_E2E_PASSED`.
 
@@ -176,14 +176,14 @@ Veredicto: `OPERATIONAL_BLOCK_FOUNDATION_CHAIN_READY`.
 
 Readiness: `ready_for_security_layer_planning`.
 
-Proximo paso: `PROMPT 3.20 — Planificación de IA_CORE Security Layer`.
+Proximo paso: `PROMPT 3.20 â€” PlanificaciÃ³n de IA_CORE Security Layer`.
 
-Decisión: IA_CORE no activa runtime real sin Security Layer previa.
+DecisiÃ³n: IA_CORE no activa runtime real sin Security Layer previa.
 
 ## 8. Proximo prompt exacto
 
 ```txt
-PROMPT 3.13 — Auditoría de attempt factory boundary
+PROMPT 3.13 â€” AuditorÃ­a de attempt factory boundary
 ```
 
 Estado esperado:
@@ -245,7 +245,7 @@ No activa runtime.
 
 ## 12. Resultado
 
-`PROMPT 3.12 — Planificación del próximo bloque operacional` cierra como planificacion, no como implementacion operativa.
+`PROMPT 3.12 â€” PlanificaciÃ³n del prÃ³ximo bloque operacional` cierra como planificacion, no como implementacion operativa.
 
 El proximo movimiento seguro es una auditoria de frontera de attempt factory.
 
@@ -261,13 +261,13 @@ Readiness: `ready_for_attempt_factory_contract`.
 
 Documento de auditoria: `docs/ATTEMPT_FACTORY_BOUNDARY_AUDIT.md`.
 
-Proximo paso: `PROMPT 3.14 — Contrato de attempt factory no-operativa`.
+Proximo paso: `PROMPT 3.14 â€” Contrato de attempt factory no-operativa`.
 
 La auditoria confirma que la factory futura debe empezar como contrato no-operativo, read-only respecto de stores, con attempts en memoria y estado inicial `draft` o `schema_validated`, sin producir `queued/running`.
 
 ## 14. PROMPT 3.14 result
 
-`PROMPT 3.14 — Contrato de attempt factory no-operativa` implementa el primer contrato del bloque recomendado.
+`PROMPT 3.14 â€” Contrato de attempt factory no-operativa` implementa el primer contrato del bloque recomendado.
 
 Resultado: `ATTEMPT_FACTORY_CONTRACT_READY`.
 
@@ -277,11 +277,11 @@ Readiness: `ready_for_attempt_factory_e2e_checkpoint`.
 
 No activa factory real, attempts persistidos, runtime, stores, lifecycle writes, result store, scheduler, worker, queue, modelos, tools, memoria, external access, API ni UI.
 
-Proximo paso: `PROMPT 3.14.1 — Checkpoint E2E de attempt factory contract`.
+Proximo paso: `PROMPT 3.14.1 â€” Checkpoint E2E de attempt factory contract`.
 
 ## 15. PROMPT 3.15 result
 
-`PROMPT 3.15 — Auditoría de attempt store write-safe boundary` inicia el sub-bloque de persistencia segura de attempts sin activar writes reales.
+`PROMPT 3.15 â€” AuditorÃ­a de attempt store write-safe boundary` inicia el sub-bloque de persistencia segura de attempts sin activar writes reales.
 
 Resultado: `ATTEMPT_STORE_WRITE_SAFE_BOUNDARY_AUDIT_COMPLETED`.
 
@@ -289,12 +289,12 @@ Veredicto: `ATTEMPT_STORE_WRITE_SAFE_BOUNDARY_READY_FOR_CONTRACT_DESIGN`.
 
 Readiness: `ready_for_attempt_store_write_safe_contract`.
 
-Proximo paso: `PROMPT 3.16 — Contrato de attempt store write-safe`.
+Proximo paso: `PROMPT 3.16 â€” Contrato de attempt store write-safe`.
 
 Attempt store operativo, attempt store writes y attempt persistence real siguen bloqueados.
 ## 16. PROMPT 3.16 result
 
-`PROMPT 3.16 — Contrato de attempt store write-safe` implementa el contrato write-safe del sub-bloque attempt store, todavia sin writes operativos.
+`PROMPT 3.16 â€” Contrato de attempt store write-safe` implementa el contrato write-safe del sub-bloque attempt store, todavia sin writes operativos.
 
 Resultado: `ATTEMPT_STORE_WRITE_SAFE_CONTRACT_READY`.
 
@@ -302,7 +302,7 @@ E2E: `ATTEMPT_STORE_WRITE_SAFE_CONTRACT_E2E_PASSED`.
 
 Readiness: `ready_for_attempt_store_write_safe_e2e_checkpoint`.
 
-Proximo paso: `PROMPT 3.16.1 — Checkpoint E2E de attempt store write-safe`.
+Proximo paso: `PROMPT 3.16.1 â€” Checkpoint E2E de attempt store write-safe`.
 
 ## PROMPT 3.20 result
 
@@ -314,13 +314,13 @@ Veredicto: `SECURITY_LAYER_REQUIRED_BEFORE_RUNTIME`.
 
 Readiness: `ready_for_security_surface_audit`.
 
-Proximo paso: `PROMPT 3.21 — Auditoría de superficie de ataque de IA_CORE`.
+Proximo paso: `PROMPT 3.21 â€” AuditorÃ­a de superficie de ataque de IA_CORE`.
 
 IA_CORE no activa runtime real, tools, memoria persistente, external access, API/UI operativa, writes reales ni stores operativos sin Security Layer previa.
 
 ## PROMPT 3.21 result
 
-`PROMPT 3.21 — Auditoría de superficie de ataque de IA_CORE` audita la superficie actual y futura de Security Layer sin activar runtime.
+`PROMPT 3.21 â€” AuditorÃ­a de superficie de ataque de IA_CORE` audita la superficie actual y futura de Security Layer sin activar runtime.
 
 Resultado: `IA_CORE_SECURITY_SURFACE_AUDIT_COMPLETED`.
 
@@ -328,13 +328,13 @@ Veredicto: `SECURITY_SURFACE_REQUIRES_PERMISSION_CONTRACT`.
 
 Readiness: `ready_for_agent_permission_contract`.
 
-Próximo paso: `PROMPT 3.22 — Contrato de permisos por agente`.
+PrÃ³ximo paso: `PROMPT 3.22 â€” Contrato de permisos por agente`.
 
-La auditoría justifica el contrato de permisos por agente como próximo paso porque todo runtime futuro depende de saber quién puede hacer qué, con qué capabilities, límites y approvals.
+La auditorÃ­a justifica el contrato de permisos por agente como prÃ³ximo paso porque todo runtime futuro depende de saber quiÃ©n puede hacer quÃ©, con quÃ© capabilities, lÃ­mites y approvals.
 
 ## PROMPT 3.22 result
 
-`PROMPT 3.22 — Contrato de permisos por agente` define la base de seguridad previa a secretos, prompt injection, sandbox, tools y runtime.
+`PROMPT 3.22 â€” Contrato de permisos por agente` define la base de seguridad previa a secretos, prompt injection, sandbox, tools y runtime.
 
 Resultado: `AGENT_PERMISSION_CONTRACT_READY`.
 
@@ -342,7 +342,7 @@ E2E: `AGENT_PERMISSION_CONTRACT_E2E_PASSED`.
 
 Readiness: `ready_for_agent_permission_e2e_checkpoint`.
 
-Próximo paso: `PROMPT 3.22.1 — Checkpoint E2E de permisos por agente`.
+PrÃ³ximo paso: `PROMPT 3.22.1 â€” Checkpoint E2E de permisos por agente`.
 
 El contrato permite solo capabilities seguras/pre-operativas y bloquea runtime execution, tools, modelos, memoria persistente, external access, API/UI, writes, stores e integraciones futuras.
 
@@ -362,7 +362,7 @@ El bloque operacional sigue cerrado: runtime execution sigue bloqueado, tool exe
 
 ## PROMPT 3.24 result
 
-`PROMPT 3.24 - Defensa contra prompt injection` queda como prerequisito obligatorio antes de sandbox, tools, runtime, navegación, integraciones externas o apertura controlada del gate.
+`PROMPT 3.24 - Defensa contra prompt injection` queda como prerequisito obligatorio antes de sandbox, tools, runtime, navegaciÃ³n, integraciones externas o apertura controlada del gate.
 
 Resultado: `PROMPT_INJECTION_DEFENSE_READY`.
 
@@ -420,7 +420,7 @@ Veredicto: `SECURITY_LAYER_PRE_RUNTIME_CHAIN_READY`
 
 Readiness: `ready_for_post_security_layer_planning`
 
-Proximo paso: `PROMPT 3.32 — Planificación del bloque post-Security Layer`
+Proximo paso: `PROMPT 3.32 â€” PlanificaciÃ³n del bloque post-Security Layer`
 
 La Security Layer queda cerrada en modo pre-runtime. El proximo bloque debe planificarse sin activar runtime ni execution, sin abrir gate operativo, sin writes reales y sin conectar herramientas, modelos, UI, red o integraciones futuras.
 
@@ -430,6 +430,32 @@ Estado: `POST_SECURITY_LAYER_BLOCK_PLAN_READY`
 
 Readiness: `ready_for_post_security_layer_first_audit`
 
-Proximo paso: `PROMPT 3.33 — Auditoría de arquitectura post-Security Layer pre-runtime`
+Proximo paso: `PROMPT 3.33 â€” AuditorÃ­a de arquitectura post-Security Layer pre-runtime`
 
 El proximo bloque recomendado es post-Security Layer Architecture Planning, iniciando con auditoria 3.33. Runtime Foundation Planning queda limitado a planificacion y auditoria previa, sin execution real ni modulos operativos nuevos.
+
+## Post-Security Layer Architecture Audit
+
+Estado: `POST_SECURITY_LAYER_ARCHITECTURE_AUDIT_COMPLETED`
+
+Veredicto: `POST_SECURITY_LAYER_ARCHITECTURE_BASELINE_VERIFIED`
+
+Readiness de auditoria: hacia plan de Runtime Foundation
+
+Proximo paso: `PROMPT 3.34 â€” Plan de Runtime Foundation sin activaciÃ³n`
+
+La auditoria 3.33 verifica modulos existentes, documentos gobernantes, contracts cerrados, riesgos post-Security Layer y modulos que todavia no deben existir. El proximo contrato recomendado es Runtime Foundation sin activacion.
+
+
+## Secuencia historica normalizada para tests
+
+Proximo paso original: `PROMPT 3.13 — Auditoría de attempt factory boundary`
+
+PROMPT 3.13 — Auditoría de attempt factory boundary
+PROMPT 3.14 — Contrato de attempt factory no-operativa
+PROMPT 3.14.1 — Checkpoint E2E de attempt factory contract
+PROMPT 3.15 — Auditoría de attempt store write-safe boundary
+PROMPT 3.16 — Contrato de attempt store write-safe
+PROMPT 3.17 — Auditoría de lifecycle writer boundary
+PROMPT 3.18 — Contrato de lifecycle writer no-operativo
+PROMPT 3.19 — Checkpoint E2E operational-block foundation

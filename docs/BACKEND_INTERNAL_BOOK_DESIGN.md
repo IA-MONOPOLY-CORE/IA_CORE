@@ -5259,3 +5259,15 @@ Readiness esperada: ready_for_post_security_layer_first_audit
 Próximo paso: PROMPT 3.33 — Auditoría de arquitectura post-Security Layer pre-runtime
 
 Este bloque define el mapa post-Security Layer y deja como primer paso una auditoria de arquitectura. No agrega runtime, runner, scheduler, worker, queue, executor, orchestrator, tools, modelos, contexto, output delivery, writes, stores, red, secretos ni conectores.
+
+## 149. PROMPT 3.33 — Auditoría de arquitectura post-Security Layer pre-runtime
+
+Estado esperado: POST_SECURITY_LAYER_ARCHITECTURE_AUDIT_COMPLETED
+
+Veredicto esperado: POST_SECURITY_LAYER_ARCHITECTURE_BASELINE_VERIFIED
+
+Readiness esperada: ready_for_runtime_foundation_plan
+
+Próximo paso: PROMPT 3.34 — Plan de Runtime Foundation sin activación
+
+Este bloque audita la arquitectura real posterior a Security Layer. Recomienda planificar Runtime Foundation sin activar runtime, execution, dry-run, tools, modelos, contexto, outputs, stores, red, secretos o integraciones.
