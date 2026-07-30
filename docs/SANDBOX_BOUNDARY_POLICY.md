@@ -172,3 +172,7 @@ Sandbox Boundary no habilita expansion real de contexto. Context Boundary puede 
 ## PROMPT 3.29 result
 
 Sandbox Boundary no habilita writes ni output delivery real. Output boundary puede marcar `requires_sandbox`, pero no escribe archivos, stores, memoria ni canales externos.
+
+## PROMPT 3.30 result
+
+Runtime activation gate confirma que sandbox boundary no abre runtime. Requires sandbox es condicion contractual futura, no runner ni executor real.

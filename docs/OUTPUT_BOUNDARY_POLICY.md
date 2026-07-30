@@ -225,3 +225,7 @@ OBLITERATUS no es output provider, dependency, adapter, capability, roadmap oper
 ## PROMPT 3.29.1 result
 
 Output boundary fue validado por checkpoint E2E full con `OUTPUT_BOUNDARY_FULL_E2E_PASSED` y veredicto `OUTPUT_BOUNDARY_CHAIN_READY`. Queda listo para runtime activation gate pre-runtime con readiness `ready_for_runtime_activation_gate_planning`.
+
+## PROMPT 3.30 result
+
+Runtime activation gate impide que output boundary derive en delivery/runtime real. Output boundary clasifica salidas conceptuales, pero no abre publishing, notifiers, delivery, writes ni workers.

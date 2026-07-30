@@ -5213,3 +5213,15 @@ Readiness esperada: `ready_for_runtime_activation_gate_planning`
 Proximo paso: `PROMPT 3.30 - Runtime activation gate pre-runtime`
 
 Este bloque consume `ready_for_output_boundary_e2e_checkpoint` y confirma que la cadena completa de salidas queda lista para planificar runtime activation gate sin activar runtime, delivery ni publicaciones reales.
+
+## 145. PROMPT 3.30 - Runtime activation gate pre-runtime
+
+Estado esperado: `RUNTIME_ACTIVATION_GATE_READY`
+
+E2E esperado: `RUNTIME_ACTIVATION_GATE_E2E_PASSED`
+
+Readiness esperada: `ready_for_runtime_activation_gate_e2e_checkpoint`
+
+Proximo paso: `PROMPT 3.30.1 - Checkpoint E2E de runtime activation gate`
+
+Este bloque agrega el candado de activacion runtime pre-runtime. Las senales pueden clasificarse, pero ninguna abre runtime; faltan todos los contratos futuros de activacion real.

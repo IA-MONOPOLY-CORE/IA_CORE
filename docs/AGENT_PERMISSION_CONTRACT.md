@@ -244,3 +244,7 @@ Agent Permission Contract no habilita inyeccion real de contexto. Context Bounda
 ## PROMPT 3.29 result
 
 Los permisos por agente no publican ni envian salidas reales. Output boundary exige permiso contractual, pero mantiene publishing, messaging, delivery, writes y stores en False.
+
+## PROMPT 3.30 result
+
+Runtime activation gate confirma que permisos por agente no abren runtime. Approval conceptual no equivale a runner, worker, queue, dispatch ni ejecucion.

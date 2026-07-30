@@ -403,3 +403,15 @@ Readiness: `ready_for_runtime_activation_gate_planning`
 Proximo paso: `PROMPT 3.30 - Runtime activation gate pre-runtime`
 
 El checkpoint full de output boundary cierra la cadena Security Surface Audit -> Agent Permission -> Secrets -> Prompt Injection -> Sandbox -> Tool Boundary -> Model Invocation -> Context Boundary -> Output Boundary. Habilita solo planificacion de runtime activation gate; no habilita runtime ni delivery real.
+
+## PROMPT 3.30 - Runtime activation gate pre-runtime
+
+Estado: `RUNTIME_ACTIVATION_GATE_READY`
+
+E2E documental: `RUNTIME_ACTIVATION_GATE_E2E_PASSED`
+
+Readiness: `ready_for_runtime_activation_gate_e2e_checkpoint`
+
+Proximo paso: `PROMPT 3.30.1 - Checkpoint E2E de runtime activation gate`
+
+El Security Layer suma el candado formal de activacion runtime pre-runtime. Ninguna senal previa, E2E passed, full E2E passed, chain ready ni approval conceptual abre runtime; cualquier runtime futuro requerira fase nueva explicita, contrato nuevo, pruebas nuevas, autorizacion humana explicita y commit dedicado.

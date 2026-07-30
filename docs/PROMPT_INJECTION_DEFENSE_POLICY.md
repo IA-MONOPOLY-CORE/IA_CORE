@@ -211,3 +211,7 @@ Prompt Injection Defense queda aplicado al contexto: documentos, retrieved conte
 ## PROMPT 3.29 result
 
 Output boundary impide que instrucciones inyectadas produzcan salidas reales, publicaciones, mensajes, webhooks, emails, notificaciones o acciones irreversibles.
+
+## PROMPT 3.30 result
+
+Runtime activation gate confirma que prompt injection defense no habilita ejecucion real. Contenido limpio o bloqueado no abre runtime.

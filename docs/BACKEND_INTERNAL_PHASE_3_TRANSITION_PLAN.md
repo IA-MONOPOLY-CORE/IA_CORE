@@ -957,3 +957,15 @@ Readiness esperada: `ready_for_runtime_activation_gate_planning`
 Proximo paso: `PROMPT 3.30 - Runtime activation gate pre-runtime`
 
 El checkpoint valida end-to-end que output boundary sigue contract-only, pre-runtime, output-request-only y deny-by-default. No activa output writer, publisher, notifier, delivery, messaging, email, webhook, writes, stores, memory updates, raw output logging, secret leakage, unredacted sensitive data, irreversible actions ni runtime.
+
+## 59. PROMPT 3.30 - Runtime activation gate pre-runtime
+
+Estado esperado: `RUNTIME_ACTIVATION_GATE_READY`
+
+E2E esperado: `RUNTIME_ACTIVATION_GATE_E2E_PASSED`
+
+Readiness esperada: `ready_for_runtime_activation_gate_e2e_checkpoint`
+
+Proximo paso: `PROMPT 3.30.1 - Checkpoint E2E de runtime activation gate`
+
+El contrato define el candado final pre-runtime: no runtime activation, no execution, no runner, scheduler, worker, queue, orchestrator, executor, dispatcher, background jobs, autonomy, continuous loop, tool execution, model invocation, context injection, output delivery, writes, stores ni memory persistence.
