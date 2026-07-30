@@ -439,3 +439,13 @@ Readiness esperada: ready_for_post_security_layer_planning
 Próximo paso: PROMPT 3.32 — Planificación del bloque post-Security Layer
 
 Security Layer queda cerrada en modo pre-runtime. El siguiente bloque debe planificarse sin activar runtime ni execution, sin abrir gates operativos y sin crear runners, schedulers, workers, queues ni integraciones activas.
+
+## PROMPT 3.32 — Planificación del bloque post-Security Layer
+
+Estado esperado: POST_SECURITY_LAYER_BLOCK_PLAN_READY
+
+Readiness esperada: ready_for_post_security_layer_first_audit
+
+Próximo paso: PROMPT 3.33 — Auditoría de arquitectura post-Security Layer pre-runtime
+
+El bloque post-Security Layer queda definido como Architecture Planning / Runtime Foundation Planning sin activacion. Su primera accion debe ser auditoria, manteniendo Security Layer como baseline obligatoria.

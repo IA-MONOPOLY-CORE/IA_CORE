@@ -993,3 +993,13 @@ Readiness esperada: ready_for_post_security_layer_planning
 Próximo paso: PROMPT 3.32 — Planificación del bloque post-Security Layer
 
 El checkpoint final consume toda la cadena de Security Layer desde Security Surface Audit hasta Runtime Activation Gate Full E2E. La fase queda lista para planificacion post-Security Layer sin activar runtime, execution, runners, schedulers, workers, queues, tools, modelos, contexto, outputs, writes, stores, red, secretos ni integraciones futuras.
+
+## 62. PROMPT 3.32 — Planificación del bloque post-Security Layer
+
+Estado esperado: POST_SECURITY_LAYER_BLOCK_PLAN_READY
+
+Readiness esperada: ready_for_post_security_layer_first_audit
+
+Próximo paso: PROMPT 3.33 — Auditoría de arquitectura post-Security Layer pre-runtime
+
+La planificacion consume `SECURITY_LAYER_FINAL_CHECKPOINT_PASSED` como baseline y recomienda auditar la arquitectura post-Security Layer antes de construir Runtime Foundation, dry-run execution, observability, kill switch, approval gates o integraciones futuras.
