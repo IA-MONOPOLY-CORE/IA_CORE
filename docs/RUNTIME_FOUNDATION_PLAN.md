@@ -296,3 +296,17 @@ Readiness: `ready_for_dry_run_execution_contract_e2e`
 Proximo paso: `PROMPT 3.36.1 — Checkpoint E2E de dry-run execution contract`
 
 Runtime Foundation sigue sin activacion: no dry-run execution real, no runtime, no executor/runner/dispatcher/scheduler/worker/queue, no tools/modelos/context/output, no writes/stores/memory, no API/network/browser, no filesystem/env/secrets y no integraciones.
+
+## PROMPT 3.36.1 result
+
+Dry-run contract E2E paso sin activar Runtime Foundation.
+
+Estado: `DRY_RUN_EXECUTION_CONTRACT_FULL_E2E_PASSED`
+
+Veredicto: `DRY_RUN_EXECUTION_CONTRACT_CHAIN_READY`
+
+Readiness: `ready_for_observability_audit_trail_planning`
+
+Proximo paso: `PROMPT 3.37 — Auditoría de observability/audit trail post-security`
+
+Runtime Foundation sigue en modo planificacion/contract-only: no runtime, no dry-run execution activation, no workers, queues, tools, modelos, contexto, outputs, stores, memoria, red, secretos ni integraciones.

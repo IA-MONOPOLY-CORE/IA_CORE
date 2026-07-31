@@ -5307,3 +5307,15 @@ Readiness: `ready_for_dry_run_execution_contract_e2e`
 Proximo paso: `PROMPT 3.36.1 — Checkpoint E2E de dry-run execution contract`
 
 Este bloque crea el contrato dry-run no-operativo con `DryRunExecutionRequest`, `DryRunExecutionDecision`, `DryRunExecutionContractResult` y serializacion deterministica. Mantiene bloqueados dry-run execution activation, runtime activation, execution real, executors, runners, dispatchers, schedulers, workers, queues, tools, modelos, contexto, outputs, writes, stores, memoria, red, browser, filesystem/env/secrets, integraciones futuras, Market Catalog runtime, Business Composition Layer runtime y OBLITERATUS.
+
+## 153. PROMPT 3.36.1 — Checkpoint E2E de dry-run execution contract
+
+Estado: `DRY_RUN_EXECUTION_CONTRACT_FULL_E2E_PASSED`
+
+Veredicto: `DRY_RUN_EXECUTION_CONTRACT_CHAIN_READY`
+
+Readiness: `ready_for_observability_audit_trail_planning`
+
+Proximo paso: `PROMPT 3.37 — Auditoría de observability/audit trail post-security`
+
+Este bloque cierra el E2E del contrato dry-run execution: happy path, metadata peligrosa bloqueada, estados operativos rechazados, serialization JSON-safe, determinismo, no side effects, Runtime Activation Gate cerrado y modulos operativos ausentes. No activa runtime ni dry-run execution real.

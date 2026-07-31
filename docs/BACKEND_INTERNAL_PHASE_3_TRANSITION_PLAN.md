@@ -1051,3 +1051,15 @@ Readiness esperada: ready_for_dry_run_execution_contract_e2e
 Próximo paso: PROMPT 3.36.1 — Checkpoint E2E de dry-run execution contract
 
 El contrato agrega dataclasses y funciones puras para request, decision, resultado y serializacion dry-run. No ejecuta runtime, no activa dry-run execution, no crea executor, runner, dispatcher, scheduler, worker, queue, tools, modelos, contexto, outputs, writes, stores, memoria, red, filesystem/env/secrets ni integraciones.
+
+## 67. PROMPT 3.36.1 — Checkpoint E2E de dry-run execution contract
+
+Estado esperado: DRY_RUN_EXECUTION_CONTRACT_FULL_E2E_PASSED
+
+Veredicto esperado: DRY_RUN_EXECUTION_CONTRACT_CHAIN_READY
+
+Readiness esperada: ready_for_observability_audit_trail_planning
+
+Próximo paso: PROMPT 3.37 — Auditoría de observability/audit trail post-security
+
+El checkpoint valida request -> decision -> result -> serialization, metadata bloqueada, estados operativos prohibidos, determinismo, no side effects, Runtime Activation Gate cerrado y ausencia de modulos operativos.
