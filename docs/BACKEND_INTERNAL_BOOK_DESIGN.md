@@ -5391,3 +5391,15 @@ Readiness: `ready_for_runtime_governance_contract`
 Proximo paso: `PROMPT 3.43 — Contrato de Runtime Governance no-operativo`
 
 Este bloque audita la base de Runtime Governance antes de contrato: Security Layer, post-Security checkpoint, Runtime Foundation, dry-run, observability/audit, kill switch/rollback, human approval, runtime gate, attempts, lifecycle, results, projections, read models, permissions, secrets y boundaries. No crea runtime governance operativo, runtime activation, execution, controller, manager, runner, scheduler, worker, queue, executor, tools, modelos, contexto, outputs, writes, stores, memoria, red, secretos, integraciones, Market Catalog runtime, Business Composition Layer runtime ni OBLITERATUS.
+
+## 160. PROMPT 3.43 — Contrato de Runtime Governance no-operativo
+
+Estado: `RUNTIME_GOVERNANCE_CONTRACT_READY`
+
+Veredicto: `RUNTIME_GOVERNANCE_NO_OPERATIONAL_CONFIRMED`
+
+Readiness: `ready_for_runtime_governance_contract_e2e`
+
+Proximo paso: `PROMPT 3.43.1 — Checkpoint E2E de Runtime Governance contract`
+
+Este bloque crea `core/runtime_governance_contract.py` como contrato puro, determinista, JSON-safe y no-operativo. Agrega enums, dataclasses frozen, policy default-deny, validación de metadata, evaluation de requests, snapshot y listas de módulos/capacidades bloqueadas. No activa runtime governance operativo, runtime activation, execution, state mutation, controller, manager, runners, queues, tools, modelos, contexto, outputs, writes, stores, memoria, red, secrets, integraciones, Market Catalog runtime, Business Composition Layer runtime ni OBLITERATUS.

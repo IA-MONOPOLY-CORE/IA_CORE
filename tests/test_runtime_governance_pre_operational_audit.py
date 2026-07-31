@@ -376,6 +376,7 @@ def test_no_operational_modules_were_created_unless_preexisting_non_operational(
     allowed = {
         "core/approval_workflow.py": "Helpers no mutantes",
         "core/runtime_executor.py": "prepare-only",
+        "core/runtime_governance_contract.py": "Non-operational Runtime Governance contract",
     }
     for path in [
         "core/runtime_governance.py",
