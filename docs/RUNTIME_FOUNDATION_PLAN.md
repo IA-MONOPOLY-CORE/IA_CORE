@@ -282,3 +282,17 @@ Readiness: `ready_for_dry_run_execution_contract`
 Proximo paso: `PROMPT 3.36 — Contrato de dry-run execution no-operativo`
 
 La auditoria confirma que dry-run execution debe seguir como arquitectura auditada y no-operativa. No activa dry-run execution, runtime, runner, scheduler, worker, queue, executor, dispatcher, tools, modelos, contexto, outputs, writes, stores, memoria, red, secretos, integraciones futuras, Market Catalog runtime, Business Composition Layer runtime ni OBLITERATUS.
+
+## PROMPT 3.36 result
+
+`PROMPT 3.36 — Contrato de dry-run execution no-operativo` crea el contrato dry-run contract-only sin activar runtime.
+
+Estado: `DRY_RUN_EXECUTION_CONTRACT_READY`
+
+Veredicto: `DRY_RUN_EXECUTION_NO_OPERATIONAL_CONFIRMED`
+
+Readiness: `ready_for_dry_run_execution_contract_e2e`
+
+Proximo paso: `PROMPT 3.36.1 — Checkpoint E2E de dry-run execution contract`
+
+Runtime Foundation sigue sin activacion: no dry-run execution real, no runtime, no executor/runner/dispatcher/scheduler/worker/queue, no tools/modelos/context/output, no writes/stores/memory, no API/network/browser, no filesystem/env/secrets y no integraciones.

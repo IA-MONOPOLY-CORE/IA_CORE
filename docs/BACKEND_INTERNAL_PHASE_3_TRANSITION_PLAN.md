@@ -1039,3 +1039,15 @@ Readiness esperada: ready_for_dry_run_execution_contract
 Próximo paso: PROMPT 3.36 — Contrato de dry-run execution no-operativo
 
 La auditoria revisa execution intent, attempts, stores, lifecycle, results, projections, read models, dry_run_store, gates y Security Layer antes de disenar el contrato dry-run. No crea dry_run_executor, runner, dispatcher, scheduler, worker, queue, executor, tools, modelos, contexto, outputs, writes, stores, memoria, red, secretos ni integraciones.
+
+## 66. PROMPT 3.36 — Contrato de dry-run execution no-operativo
+
+Estado esperado: DRY_RUN_EXECUTION_CONTRACT_READY
+
+Veredicto esperado: DRY_RUN_EXECUTION_NO_OPERATIONAL_CONFIRMED
+
+Readiness esperada: ready_for_dry_run_execution_contract_e2e
+
+Próximo paso: PROMPT 3.36.1 — Checkpoint E2E de dry-run execution contract
+
+El contrato agrega dataclasses y funciones puras para request, decision, resultado y serializacion dry-run. No ejecuta runtime, no activa dry-run execution, no crea executor, runner, dispatcher, scheduler, worker, queue, tools, modelos, contexto, outputs, writes, stores, memoria, red, filesystem/env/secrets ni integraciones.

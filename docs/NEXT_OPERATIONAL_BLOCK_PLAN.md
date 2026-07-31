@@ -485,3 +485,17 @@ Readiness: `ready_for_dry_run_execution_contract`.
 Proximo paso recomendado: `PROMPT 3.36 — Contrato de dry-run execution no-operativo`.
 
 Dry-run sigue sin activation, runtime, queued/running reales, tools, modelos, contexto, outputs, writes, stores, memoria, red, secretos o integraciones.
+
+## PROMPT 3.36 result
+
+`PROMPT 3.36 — Contrato de dry-run execution no-operativo` deja como proximo paso recomendado el checkpoint E2E de dry-run execution contract.
+
+Estado: `DRY_RUN_EXECUTION_CONTRACT_READY`.
+
+Veredicto: `DRY_RUN_EXECUTION_NO_OPERATIONAL_CONFIRMED`.
+
+Readiness: `ready_for_dry_run_execution_contract_e2e`.
+
+Proximo paso recomendado: `PROMPT 3.36.1 — Checkpoint E2E de dry-run execution contract`.
+
+El contrato es no-operativo y mantiene bloqueados dry-run execution activation, runtime, queued/running reales, tools, modelos, contexto, outputs, writes, stores, memoria, red, secretos e integraciones.

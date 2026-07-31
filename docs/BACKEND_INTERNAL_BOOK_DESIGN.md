@@ -5295,3 +5295,15 @@ Readiness: `ready_for_dry_run_execution_contract`
 Proximo paso: `PROMPT 3.36 — Contrato de dry-run execution no-operativo`
 
 Este bloque audita la arquitectura dry-run como preparacion del contrato no-operativo. Dry-run queda definido como simulacion contractual futura, sin runtime, sin dry-run execution activation, sin queued/running reales, sin tools/modelos/context/output, sin writes/stores/memory, sin API/network/browser/filesystem/env/secrets, sin integraciones futuras y sin OBLITERATUS.
+
+## 152. PROMPT 3.36 — Contrato de dry-run execution no-operativo
+
+Estado: `DRY_RUN_EXECUTION_CONTRACT_READY`
+
+Veredicto: `DRY_RUN_EXECUTION_NO_OPERATIONAL_CONFIRMED`
+
+Readiness: `ready_for_dry_run_execution_contract_e2e`
+
+Proximo paso: `PROMPT 3.36.1 — Checkpoint E2E de dry-run execution contract`
+
+Este bloque crea el contrato dry-run no-operativo con `DryRunExecutionRequest`, `DryRunExecutionDecision`, `DryRunExecutionContractResult` y serializacion deterministica. Mantiene bloqueados dry-run execution activation, runtime activation, execution real, executors, runners, dispatchers, schedulers, workers, queues, tools, modelos, contexto, outputs, writes, stores, memoria, red, browser, filesystem/env/secrets, integraciones futuras, Market Catalog runtime, Business Composition Layer runtime y OBLITERATUS.
