@@ -175,3 +175,15 @@ Readiness: `ready_for_observability_audit_trail_planning`
 Proximo paso: `PROMPT 3.37 — Auditoría de observability/audit trail post-security`
 
 El checkpoint confirma que request, decision, result y serialization funcionan end-to-end como contrato puro y no-operativo. Dry-run execution activation, runtime, executors, runners, dispatchers, schedulers, workers, queues, tools, modelos, contexto, outputs, writes, stores, memoria, red, filesystem/env/secrets e integraciones siguen bloqueados.
+
+## PROMPT 3.37 result
+
+`PROMPT 3.37 — Auditoría de observability/audit trail post-security` valida necesidades de trazabilidad futura sin cambiar el contrato dry-run.
+
+Estado: `OBSERVABILITY_AUDIT_TRAIL_AUDIT_COMPLETED`
+
+Veredicto: `OBSERVABILITY_AUDIT_TRAIL_BASELINE_VERIFIED`
+
+Readiness: `ready_for_kill_switch_rollback_contract_planning`
+
+Proximo paso: `PROMPT 3.38 — Contrato de kill switch y rollback futuro`

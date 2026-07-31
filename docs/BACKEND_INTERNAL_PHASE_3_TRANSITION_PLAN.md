@@ -1063,3 +1063,15 @@ Readiness esperada: ready_for_observability_audit_trail_planning
 Próximo paso: PROMPT 3.37 — Auditoría de observability/audit trail post-security
 
 El checkpoint valida request -> decision -> result -> serialization, metadata bloqueada, estados operativos prohibidos, determinismo, no side effects, Runtime Activation Gate cerrado y ausencia de modulos operativos.
+
+## 68. PROMPT 3.37 — Auditoría de observability/audit trail post-security
+
+Estado esperado: OBSERVABILITY_AUDIT_TRAIL_AUDIT_COMPLETED
+
+Veredicto esperado: OBSERVABILITY_AUDIT_TRAIL_BASELINE_VERIFIED
+
+Readiness esperada: ready_for_kill_switch_rollback_contract_planning
+
+Próximo paso: PROMPT 3.38 — Contrato de kill switch y rollback futuro
+
+La auditoria revisa fuentes de trazabilidad, matriz de cobertura, gaps y riesgos de observability/audit trail antes de kill switch/rollback. No crea observability runtime, audit trail operativo, event bus, telemetry, metrics, tracing, dashboard ni stores operativos.

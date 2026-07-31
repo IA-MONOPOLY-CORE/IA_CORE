@@ -5319,3 +5319,15 @@ Readiness: `ready_for_observability_audit_trail_planning`
 Proximo paso: `PROMPT 3.37 — Auditoría de observability/audit trail post-security`
 
 Este bloque cierra el E2E del contrato dry-run execution: happy path, metadata peligrosa bloqueada, estados operativos rechazados, serialization JSON-safe, determinismo, no side effects, Runtime Activation Gate cerrado y modulos operativos ausentes. No activa runtime ni dry-run execution real.
+
+## 154. PROMPT 3.37 — Auditoría de observability/audit trail post-security
+
+Estado: `OBSERVABILITY_AUDIT_TRAIL_AUDIT_COMPLETED`
+
+Veredicto: `OBSERVABILITY_AUDIT_TRAIL_BASELINE_VERIFIED`
+
+Readiness: `ready_for_kill_switch_rollback_contract_planning`
+
+Proximo paso: `PROMPT 3.38 — Contrato de kill switch y rollback futuro`
+
+Este bloque audita observability/audit trail post-security como preparacion para kill switch y rollback futuro. Identifica fuentes, cobertura, gaps y riesgos sin activar logger operativo, event bus, telemetry, metrics, tracing, dashboard, stores, runtime, dry-run execution, tools, modelos, contexto, outputs, red, secretos ni integraciones.

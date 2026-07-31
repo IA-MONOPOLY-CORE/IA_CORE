@@ -511,3 +511,15 @@ Veredicto: `DRY_RUN_EXECUTION_CONTRACT_CHAIN_READY`.
 Readiness: `ready_for_observability_audit_trail_planning`.
 
 Proximo paso recomendado: `PROMPT 3.37 — Auditoría de observability/audit trail post-security`.
+
+## PROMPT 3.37 result
+
+`PROMPT 3.37 — Auditoría de observability/audit trail post-security` deja como proximo paso recomendado el contrato futuro de kill switch/rollback.
+
+Estado: `OBSERVABILITY_AUDIT_TRAIL_AUDIT_COMPLETED`.
+
+Veredicto: `OBSERVABILITY_AUDIT_TRAIL_BASELINE_VERIFIED`.
+
+Readiness: `ready_for_kill_switch_rollback_contract_planning`.
+
+Proximo paso recomendado: `PROMPT 3.38 — Contrato de kill switch y rollback futuro`.
