@@ -1087,3 +1087,15 @@ Readiness esperada: ready_for_human_approval_gate_planning
 Próximo paso: PROMPT 3.39 — Human approval gate planning
 
 El contrato modela solicitudes futuras de kill switch/rollback, decision contractual, audit requirements y rollback manifest projection sin detener procesos, cancelar jobs, drenar queues, ejecutar git, revertir archivos, mutar stores/manifests, activar runtime ni dry-run execution.
+
+## 70. PROMPT 3.39 — Human approval gate planning
+
+Estado esperado: HUMAN_APPROVAL_GATE_PLAN_READY
+
+Veredicto esperado: HUMAN_APPROVAL_GATE_NO_OPERATIONAL_CONFIRMED
+
+Readiness esperada: ready_for_post_security_block_checkpoint
+
+Próximo paso: PROMPT 3.40 — Checkpoint integral post-security block
+
+El plan define aprobacion humana futura verificable y auditable antes de acciones sensibles. No crea approval operativo, UI, API, endpoints, botones, workflow, approval store, automatic approval, permission escalation, runtime approval real, execution approval real, tool/model/context/output approval real, writes/stores/integration approval real, kill switch operativo ni rollback operativo.
