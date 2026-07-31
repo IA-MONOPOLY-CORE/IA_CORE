@@ -247,3 +247,17 @@ Readiness: `ready_for_post_security_block_checkpoint`
 Proximo paso: `PROMPT 3.40 — Checkpoint integral post-security block`
 
 Human Approval Gate queda definido solo como plan future-only, verificable y auditable. No activa approval operativo, approval UI/API/workflow/store, automatic approval, runtime approval real, execution approval real, tools, modelos, contexto, output, writes, stores, integraciones, kill switch operativo ni rollback operativo.
+
+## PROMPT 3.40 result
+
+`PROMPT 3.40 — Checkpoint integral post-security block` cierra el bloque post-Security y conserva kill switch/rollback como future-only.
+
+Estado: `POST_SECURITY_BLOCK_INTEGRAL_CHECKPOINT_PASSED`
+
+Veredicto: `POST_SECURITY_BLOCK_CHAIN_READY`
+
+Readiness: `ready_for_next_architecture_block_planning`
+
+Proximo paso: `PROMPT 3.41 — Planificación del siguiente bloque arquitectónico`
+
+Kill switch y rollback siguen sin activacion operativa: no process termination, job cancellation, queue drain, worker/scheduler/runner/executor stop, filesystem/git/store/manifest/database/memory rollback, runtime, dry-run execution ni integraciones.

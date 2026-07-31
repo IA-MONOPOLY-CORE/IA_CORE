@@ -547,3 +547,15 @@ Veredicto: `HUMAN_APPROVAL_GATE_NO_OPERATIONAL_CONFIRMED`.
 Readiness: `ready_for_post_security_block_checkpoint`.
 
 Proximo paso recomendado: `PROMPT 3.40 — Checkpoint integral post-security block`.
+
+## PROMPT 3.40 result
+
+`PROMPT 3.40 — Checkpoint integral post-security block` deja cerrado el bloque post-Security.
+
+Estado: `POST_SECURITY_BLOCK_INTEGRAL_CHECKPOINT_PASSED`.
+
+Veredicto: `POST_SECURITY_BLOCK_CHAIN_READY`.
+
+Readiness: `ready_for_next_architecture_block_planning`.
+
+Proximo paso recomendado: `PROMPT 3.41 — Planificación del siguiente bloque arquitectónico`.

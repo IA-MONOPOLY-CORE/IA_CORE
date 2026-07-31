@@ -1099,3 +1099,15 @@ Readiness esperada: ready_for_post_security_block_checkpoint
 Próximo paso: PROMPT 3.40 — Checkpoint integral post-security block
 
 El plan define aprobacion humana futura verificable y auditable antes de acciones sensibles. No crea approval operativo, UI, API, endpoints, botones, workflow, approval store, automatic approval, permission escalation, runtime approval real, execution approval real, tool/model/context/output approval real, writes/stores/integration approval real, kill switch operativo ni rollback operativo.
+
+## 71. PROMPT 3.40 — Checkpoint integral post-security block
+
+Estado esperado: POST_SECURITY_BLOCK_INTEGRAL_CHECKPOINT_PASSED
+
+Veredicto esperado: POST_SECURITY_BLOCK_CHAIN_READY
+
+Readiness esperada: ready_for_next_architecture_block_planning
+
+Próximo paso: PROMPT 3.41 — Planificación del siguiente bloque arquitectónico
+
+El checkpoint valida la cadena desde Security Layer final checkpoint hasta Human Approval Gate Planning y cierra el bloque post-Security como pre-runtime, no-operational, security-layer-dependent, sin runtime activation, dry-run activation, approval operativo, kill switch/rollback operativo, observability runtime, tools, modelos, contexto, outputs, writes, stores, memoria, red, secretos, integraciones, Market Catalog runtime, Business Composition Layer runtime ni OBLITERATUS.
