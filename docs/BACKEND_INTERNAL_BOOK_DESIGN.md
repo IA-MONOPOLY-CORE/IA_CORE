@@ -5331,3 +5331,15 @@ Readiness: `ready_for_kill_switch_rollback_contract_planning`
 Proximo paso: `PROMPT 3.38 — Contrato de kill switch y rollback futuro`
 
 Este bloque audita observability/audit trail post-security como preparacion para kill switch y rollback futuro. Identifica fuentes, cobertura, gaps y riesgos sin activar logger operativo, event bus, telemetry, metrics, tracing, dashboard, stores, runtime, dry-run execution, tools, modelos, contexto, outputs, red, secretos ni integraciones.
+
+## 155. PROMPT 3.38 — Contrato de kill switch y rollback futuro
+
+Estado: `KILL_SWITCH_ROLLBACK_CONTRACT_READY`
+
+Veredicto: `KILL_SWITCH_ROLLBACK_NO_OPERATIONAL_CONFIRMED`
+
+Readiness: `ready_for_human_approval_gate_planning`
+
+Proximo paso: `PROMPT 3.39 — Human approval gate planning`
+
+Este bloque crea el contrato future-only de kill switch/rollback con request, decision, result y serializacion. Declara dependencia futura de audit trail y human approval, sin activar kill switch, rollback, procesos, jobs, queues, workers, schedulers, runners, executors, filesystem/git/store/manifest/database/memory rollback, runtime, dry-run execution, tools, modelos, contexto, outputs, red, secretos ni integraciones.

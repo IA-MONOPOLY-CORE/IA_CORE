@@ -1075,3 +1075,15 @@ Readiness esperada: ready_for_kill_switch_rollback_contract_planning
 Próximo paso: PROMPT 3.38 — Contrato de kill switch y rollback futuro
 
 La auditoria revisa fuentes de trazabilidad, matriz de cobertura, gaps y riesgos de observability/audit trail antes de kill switch/rollback. No crea observability runtime, audit trail operativo, event bus, telemetry, metrics, tracing, dashboard ni stores operativos.
+
+## 69. PROMPT 3.38 — Contrato de kill switch y rollback futuro
+
+Estado esperado: KILL_SWITCH_ROLLBACK_CONTRACT_READY
+
+Veredicto esperado: KILL_SWITCH_ROLLBACK_NO_OPERATIONAL_CONFIRMED
+
+Readiness esperada: ready_for_human_approval_gate_planning
+
+Próximo paso: PROMPT 3.39 — Human approval gate planning
+
+El contrato modela solicitudes futuras de kill switch/rollback, decision contractual, audit requirements y rollback manifest projection sin detener procesos, cancelar jobs, drenar queues, ejecutar git, revertir archivos, mutar stores/manifests, activar runtime ni dry-run execution.
