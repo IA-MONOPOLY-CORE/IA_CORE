@@ -1123,3 +1123,15 @@ Readiness esperada: ready_for_runtime_governance_audit
 Próximo paso: PROMPT 3.42 — Auditoría de Runtime Governance pre-operational
 
 El plan consume el checkpoint integral post-Security y decide que el siguiente bloque correcto es Runtime Governance Block — Pre-operational. No significa runtime, activación, ejecución, runner, scheduler, worker, queue, executor, tool execution, model invocation, context injection ni output delivery.
+
+## 73. PROMPT 3.42 — Auditoría de Runtime Governance pre-operational
+
+Estado esperado: RUNTIME_GOVERNANCE_AUDIT_COMPLETED
+
+Veredicto esperado: RUNTIME_GOVERNANCE_BASELINE_VERIFIED
+
+Readiness esperada: ready_for_runtime_governance_contract
+
+Próximo paso: PROMPT 3.43 — Contrato de Runtime Governance no-operativo
+
+La auditoría verifica fuentes de gobierno, matriz runtime futura, readiness, gaps, riesgos, módulos prohibidos y flags críticos antes de crear el contrato de Runtime Governance. No implementa runtime governance operativo, runtime state, controller, manager, runner, scheduler, worker, queue, executor, event bus, approval operativo, observability runtime ni integraciones.
