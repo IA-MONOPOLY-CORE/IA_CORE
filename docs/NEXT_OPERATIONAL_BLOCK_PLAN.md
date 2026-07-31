@@ -471,3 +471,17 @@ Veredicto: `RUNTIME_FOUNDATION_NO_ACTIVATION_CONFIRMED`.
 Readiness: `ready_for_dry_run_execution_architecture_audit`.
 
 Proximo paso recomendado: `PROMPT 3.35 — Auditoría de dry-run execution architecture`.
+
+## PROMPT 3.35 result
+
+`PROMPT 3.35 — Auditoría de dry-run execution architecture` recomienda el contrato dry-run execution no-operativo como siguiente paso.
+
+Estado: `DRY_RUN_EXECUTION_ARCHITECTURE_AUDIT_COMPLETED`.
+
+Veredicto: `DRY_RUN_EXECUTION_ARCHITECTURE_BASELINE_VERIFIED`.
+
+Readiness: `ready_for_dry_run_execution_contract`.
+
+Proximo paso recomendado: `PROMPT 3.36 — Contrato de dry-run execution no-operativo`.
+
+Dry-run sigue sin activation, runtime, queued/running reales, tools, modelos, contexto, outputs, writes, stores, memoria, red, secretos o integraciones.

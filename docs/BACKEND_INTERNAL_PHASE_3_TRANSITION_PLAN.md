@@ -1027,3 +1027,15 @@ Readiness esperada: ready_for_dry_run_execution_architecture_audit
 Próximo paso: PROMPT 3.35 — Auditoría de dry-run execution architecture
 
 El plan ordena piezas futuras de Runtime Foundation sin activar runtime, execution, dry-run execution, runner, scheduler, worker, queue, executor, dispatcher, tools, modelos, contexto, outputs, writes, stores, memoria, red, secretos, Market Catalog runtime, Business Composition Layer runtime ni integraciones.
+
+## 65. PROMPT 3.35 — Auditoría de dry-run execution architecture
+
+Estado esperado: DRY_RUN_EXECUTION_ARCHITECTURE_AUDIT_COMPLETED
+
+Veredicto esperado: DRY_RUN_EXECUTION_ARCHITECTURE_BASELINE_VERIFIED
+
+Readiness esperada: ready_for_dry_run_execution_contract
+
+Próximo paso: PROMPT 3.36 — Contrato de dry-run execution no-operativo
+
+La auditoria revisa execution intent, attempts, stores, lifecycle, results, projections, read models, dry_run_store, gates y Security Layer antes de disenar el contrato dry-run. No crea dry_run_executor, runner, dispatcher, scheduler, worker, queue, executor, tools, modelos, contexto, outputs, writes, stores, memoria, red, secretos ni integraciones.
