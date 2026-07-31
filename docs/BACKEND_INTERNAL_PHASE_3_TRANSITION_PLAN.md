@@ -1111,3 +1111,15 @@ Readiness esperada: ready_for_next_architecture_block_planning
 Próximo paso: PROMPT 3.41 — Planificación del siguiente bloque arquitectónico
 
 El checkpoint valida la cadena desde Security Layer final checkpoint hasta Human Approval Gate Planning y cierra el bloque post-Security como pre-runtime, no-operational, security-layer-dependent, sin runtime activation, dry-run activation, approval operativo, kill switch/rollback operativo, observability runtime, tools, modelos, contexto, outputs, writes, stores, memoria, red, secretos, integraciones, Market Catalog runtime, Business Composition Layer runtime ni OBLITERATUS.
+
+## 72. PROMPT 3.41 — Planificación del siguiente bloque arquitectónico
+
+Estado esperado: NEXT_ARCHITECTURE_BLOCK_PLAN_READY
+
+Veredicto esperado: POST_SECURITY_BLOCK_CONSUMED_AS_BASELINE
+
+Readiness esperada: ready_for_runtime_governance_audit
+
+Próximo paso: PROMPT 3.42 — Auditoría de Runtime Governance pre-operational
+
+El plan consume el checkpoint integral post-Security y decide que el siguiente bloque correcto es Runtime Governance Block — Pre-operational. No significa runtime, activación, ejecución, runner, scheduler, worker, queue, executor, tool execution, model invocation, context injection ni output delivery.

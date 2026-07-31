@@ -5367,3 +5367,15 @@ Readiness: `ready_for_next_architecture_block_planning`
 Proximo paso: `PROMPT 3.41 — Planificación del siguiente bloque arquitectónico`
 
 Este bloque cierra integralmente el tramo post-Security: Security Layer final baseline, post-Security plan, arquitectura auditada, Runtime Foundation plan, dry-run architecture, dry-run contract, dry-run E2E, observability/audit trail audit, kill switch/rollback future-only contract y Human Approval Gate future-only plan. No activa runtime, dry-run, approval real, kill switch, rollback, observability runtime, tools, modelos, contexto, outputs, writes, stores, memoria, red, secretos, integraciones futuras, Market Catalog runtime, Business Composition Layer runtime ni OBLITERATUS.
+
+## 158. PROMPT 3.41 — Planificación del siguiente bloque arquitectónico
+
+Estado: `NEXT_ARCHITECTURE_BLOCK_PLAN_READY`
+
+Veredicto: `POST_SECURITY_BLOCK_CONSUMED_AS_BASELINE`
+
+Readiness: `ready_for_runtime_governance_audit`
+
+Proximo paso: `PROMPT 3.42 — Auditoría de Runtime Governance pre-operational`
+
+Este bloque planifica el siguiente tramo arquitectónico y recomienda Runtime Governance Block — Pre-operational. Define bloques posibles, orden tentativo, baseline consumida, readiness permitida/prohibida, módulos prohibidos y riesgos. No activa runtime, dry-run, approvals reales, kill switch, rollback, observability runtime, tools, modelos, contexto, outputs, writes, stores, memoria, red, filesystem/env/secrets, integraciones futuras, Market Catalog runtime, Business Composition Layer runtime ni OBLITERATUS.
