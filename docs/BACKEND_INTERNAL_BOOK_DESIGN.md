@@ -5499,3 +5499,17 @@ Readiness esperada: ready_for_next_architecture_block_planning
 Próximo paso: PROMPT 3.49 — Planificación siguiente bloque arquitectónico
 
 Este cierre integral valida Runtime Governance, Runtime State y Observability como bloque no-operativo, default-deny, JSON-safe, determinista y sin efectos reales. Mantiene bloqueados runtime activation/execution, dry-run activation, human approval operativo, kill switch/rollback operativo, observability runtime, logs/event bus/telemetry, tools/model/context/output, writes/stores/memory, API/network/browser, filesystem/env/secrets, integraciones, Market Catalog runtime, Business Composition Layer runtime y OBLITERATUS.
+
+## 169. PROMPT 3.49 — Planificación siguiente bloque arquitectónico
+
+Estado esperado: NEXT_ARCHITECTURE_BLOCK_PLANNING_COMPLETED
+
+Veredicto esperado: NEXT_ARCHITECTURE_BLOCK_SELECTED
+
+Decision esperada: PHASE_4_RUNTIME_EXECUTION_PREPARATION_SELECTED
+
+Readiness esperada: ready_for_phase_4_0
+
+Próximo paso: PROMPT 4.0 — Auditoría de Runtime Execution Preparation
+
+Este prompt decide abrir Phase 4 como Runtime Execution Preparation Block, empezando con auditoria. No abre runtime real ni dry-run real; mantiene bloqueados runner, scheduler, worker, queue, executor, tools, modelos, contexto, outputs, writes/stores/memory, network/API/browser, filesystem/env/secrets, human approval operativo, kill switch/rollback operativo, observability runtime, integraciones, Market Catalog runtime, Business Composition Layer runtime y OBLITERATUS.
