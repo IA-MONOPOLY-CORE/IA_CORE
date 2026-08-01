@@ -1195,3 +1195,15 @@ Readiness esperada: ready_for_observability_contract_audit
 Próximo paso: PROMPT 3.46 — Auditoría de Observability Contract
 
 El checkpoint valida de punta a punta `core/runtime_state_contract.py`: import seguro, constantes no-operativas, policy default-deny, estados/transiciones permitidos y prohibidos, metadata sanitization, serialization JSON-safe, determinismo, no side effects, modulos prohibidos y flags externos. No activa runtime state operativo, runtime activation, execution, dry-run activation, approvals reales, kill switch/rollback operativo, observability runtime, tools, modelos, contexto, outputs, writes, stores, memoria, red, secrets, integraciones, Market Catalog runtime, Business Composition Layer runtime ni OBLITERATUS.
+
+## 79. PROMPT 3.46 — Auditoría de Observability Contract
+
+Estado esperado: OBSERVABILITY_CONTRACT_AUDIT_COMPLETED
+
+Veredicto esperado: OBSERVABILITY_CONTRACT_BASELINE_VERIFIED
+
+Readiness esperada: ready_for_observability_contract
+
+Próximo paso: PROMPT 3.47 — Contrato de Observability no-operativo
+
+La auditoria consume Runtime Governance, Runtime State, Security Layer, dry-run, attempts, lifecycle, results, projections, read models, human approval, kill switch/rollback y boundaries para preparar Observability Contract no-operativo. No crea `core/observability_contract.py`, observability runtime, audit trail operativo, logger, event bus, telemetry, metrics, tracing, dashboard, immutable audit log, correlation ledger runtime, side-effect ledger operativo, writes, stores, runtime activation, execution, tools, modelos, contexto, outputs, integraciones, Market Catalog runtime, Business Composition Layer runtime ni OBLITERATUS.
