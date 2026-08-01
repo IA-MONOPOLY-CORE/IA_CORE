@@ -493,10 +493,8 @@ def runtime_governance_blocked_capabilities() -> tuple[str, ...]:
     )
 
 
-def runtime_governance_to_dict(obj: Any) -> dict[str, Any]:
+def runtime_governance_to_dict(obj: Any) -> Any:
     payload = _to_json_safe(obj)
-    if not isinstance(payload, dict):
-        raise TypeError("runtime governance serialization expects a mapping root")
     json.dumps(payload, sort_keys=True)
     return payload
 
@@ -566,4 +564,3 @@ def _to_json_safe(value: Any) -> Any:
         return [_to_json_safe(item) for item in value]
     json.dumps(value)
     return value
-

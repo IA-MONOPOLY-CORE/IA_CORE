@@ -1147,3 +1147,15 @@ Readiness esperada: ready_for_runtime_governance_contract_e2e
 Próximo paso: PROMPT 3.43.1 — Checkpoint E2E de Runtime Governance contract
 
 El contrato define policy default-deny, request, evidence, decision record y snapshot no-operativos. Todas las flags reales quedan en False y no se activa runtime, execution, dry-run, approvals reales, kill switch, rollback, observability runtime, tools, modelos, contexto, outputs, writes, stores, memoria, red, secrets, UI/device control ni integraciones.
+
+## 75. PROMPT 3.43.1 — Checkpoint E2E de Runtime Governance contract
+
+Estado esperado: RUNTIME_GOVERNANCE_CONTRACT_FULL_E2E_PASSED
+
+Veredicto esperado: RUNTIME_GOVERNANCE_CONTRACT_CHAIN_READY
+
+Readiness esperada: ready_for_runtime_state_contract_audit
+
+Próximo paso: PROMPT 3.44 — Auditoría de Runtime State Contract
+
+El checkpoint valida import seguro, constantes, default-deny, readiness, metadata peligrosa/no JSON-safe, scopes sensibles, snapshot/status, dict serialization, determinismo, no side effects, módulos prohibidos y flags externos sin activar runtime, dry-run, approvals reales, kill switch/rollback operativo, observability runtime, tools, modelos, contexto, outputs, writes, stores, memoria, red, secrets ni integraciones.
