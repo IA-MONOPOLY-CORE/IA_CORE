@@ -100,13 +100,14 @@ def test_metadata_forbidden_data_gaps_risks_and_recommendation_are_documented():
     assert "no tener side effects" in text
 
 
-def test_forbidden_modules_blockers_and_no_contract_yet():
+def test_forbidden_modules_blockers_and_contract_remains_non_operational():
     text = _text()
     for path in FORBIDDEN_MODULES:
         assert path in text
     for blocker in BLOCKERS:
         assert blocker in text
     allowed_preexisting = {
+        "core/runtime_execution_preparation_contract.py": "contract-only",
         "core/runtime_executor.py": "prepare-only",
         "core/approval_workflow.py": "Helpers no mutantes",
     }
@@ -116,7 +117,11 @@ def test_forbidden_modules_blockers_and_no_contract_yet():
             assert allowed_preexisting[path].lower() in candidate.read_text(encoding="utf-8").lower()
             continue
         assert not candidate.exists(), path
-    assert not (ROOT / "core" / "runtime_execution_preparation_contract.py").exists()
+    contract_path = ROOT / "core" / "runtime_execution_preparation_contract.py"
+    assert contract_path.exists()
+    contract_text = contract_path.read_text(encoding="utf-8").lower()
+    assert "contract-only" in contract_text
+    assert "non-operational" in contract_text
 
 
 def test_core_contracts_and_boundaries_remain_blocked():
