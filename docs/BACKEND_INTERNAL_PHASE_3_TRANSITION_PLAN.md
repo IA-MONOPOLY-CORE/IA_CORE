@@ -1159,3 +1159,15 @@ Readiness esperada: ready_for_runtime_state_contract_audit
 Próximo paso: PROMPT 3.44 — Auditoría de Runtime State Contract
 
 El checkpoint valida import seguro, constantes, default-deny, readiness, metadata peligrosa/no JSON-safe, scopes sensibles, snapshot/status, dict serialization, determinismo, no side effects, módulos prohibidos y flags externos sin activar runtime, dry-run, approvals reales, kill switch/rollback operativo, observability runtime, tools, modelos, contexto, outputs, writes, stores, memoria, red, secrets ni integraciones.
+
+## 76. PROMPT 3.44 — Auditoría de Runtime State Contract
+
+Estado esperado: RUNTIME_STATE_CONTRACT_AUDIT_COMPLETED
+
+Veredicto esperado: RUNTIME_STATE_BASELINE_VERIFIED
+
+Readiness esperada: ready_for_runtime_state_contract
+
+Próximo paso: PROMPT 3.45 — Contrato de Runtime State no-operativo
+
+La auditoría consume Runtime Governance Contract, Runtime Activation Gate, dry-run, attempts, lifecycle, results, projections, read models, observability/audit, human approval, kill switch/rollback y Security Layer para preparar un contrato no-operativo de Runtime State. No crea `core/runtime_state_contract.py`, no activa runtime state operativo, no crea state machine operativa, no muta stores, no activa runtime, runners, schedulers, workers, queues, executors, tools, modelos, contexto, outputs, writes, memoria, red, secrets, integraciones, Market Catalog runtime, Business Composition Layer runtime ni OBLITERATUS.
