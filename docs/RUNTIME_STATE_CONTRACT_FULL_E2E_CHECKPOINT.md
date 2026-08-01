@@ -104,3 +104,15 @@ Veredicto esperado: `OBSERVABILITY_NO_OPERATIONAL_CONFIRMED`.
 Readiness esperada: `ready_for_observability_contract_e2e`.
 
 Proximo paso recomendado: `PROMPT 3.47.1 — Checkpoint E2E de Observability Contract`.
+
+## PROMPT 3.47.1 result
+
+`PROMPT 3.47.1 — Checkpoint E2E de Observability Contract` cierra la cadena Observability como consumidor posterior de Runtime Governance y Runtime State.
+
+Estado esperado: `OBSERVABILITY_CONTRACT_FULL_E2E_PASSED`.
+
+Veredicto esperado: `OBSERVABILITY_CONTRACT_CHAIN_READY`.
+
+Readiness esperada: `ready_for_runtime_governance_block_integral_checkpoint`.
+
+Proximo paso recomendado: `PROMPT 3.48 — Checkpoint integral Runtime Governance block`.
