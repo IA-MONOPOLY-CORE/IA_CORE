@@ -5513,3 +5513,15 @@ Readiness esperada: ready_for_phase_4_0
 Próximo paso: PROMPT 4.0 — Auditoría de Runtime Execution Preparation
 
 Este prompt decide abrir Phase 4 como Runtime Execution Preparation Block, empezando con auditoria. No abre runtime real ni dry-run real; mantiene bloqueados runner, scheduler, worker, queue, executor, tools, modelos, contexto, outputs, writes/stores/memory, network/API/browser, filesystem/env/secrets, human approval operativo, kill switch/rollback operativo, observability runtime, integraciones, Market Catalog runtime, Business Composition Layer runtime y OBLITERATUS.
+
+## 170. PROMPT 4.0 — Auditoría de Runtime Execution Preparation
+
+Estado esperado: RUNTIME_EXECUTION_PREPARATION_AUDIT_COMPLETED
+
+Veredicto esperado: RUNTIME_EXECUTION_PREPARATION_BASELINE_VERIFIED
+
+Readiness esperada: ready_for_runtime_execution_preparation_contract
+
+Próximo paso: PROMPT 4.1 — Contrato de Runtime Execution Preparation no-operativo
+
+Este prompt inicia Phase 4 como auditoria pre-contract. No crea `core/runtime_execution_preparation_contract.py`, no activa runtime execution preparation operativo, no crea package/snapshot/store/handoff operativo y mantiene bloqueados runtime activation/execution, dry-run, runner/scheduler/worker/queue/executor, tools/model/context/output, writes/stores/memory, network/API/browser, filesystem/env/secrets, integraciones, Market Catalog runtime, Business Composition Layer runtime y OBLITERATUS.
