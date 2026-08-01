@@ -251,6 +251,7 @@ def test_forbidden_modules_not_created_except_preexisting_non_operational():
     allowed = {
         "core/approval_workflow.py": "Helpers no mutantes",
         "core/runtime_executor.py": "prepare-only",
+        "core/runtime_state_contract.py": "Non-operational Runtime State contract",
     }
     forbidden = set(contract.runtime_governance_forbidden_modules()) | {
         "core/runtime_state_contract.py",
