@@ -657,3 +657,15 @@ Veredicto: `OBSERVABILITY_CONTRACT_BASELINE_VERIFIED`.
 Readiness: registrada en `docs/OBSERVABILITY_CONTRACT_AUDIT.md`.
 
 Proximo paso recomendado: `PROMPT 3.47 — Contrato de Observability no-operativo`.
+
+## PROMPT 3.47 result
+
+`PROMPT 3.47 — Contrato de Observability no-operativo` deja como proximo paso recomendado el checkpoint E2E del contrato Observability.
+
+Estado: `OBSERVABILITY_CONTRACT_READY`.
+
+Veredicto: `OBSERVABILITY_NO_OPERATIONAL_CONFIRMED`.
+
+Readiness: registrada en `docs/OBSERVABILITY_CONTRACT.md`.
+
+Proximo paso recomendado: `PROMPT 3.47.1 — Checkpoint E2E de Observability Contract`.

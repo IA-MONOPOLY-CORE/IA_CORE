@@ -468,3 +468,17 @@ Readiness: `ready_for_observability_contract`
 Proximo paso: `PROMPT 3.47 — Contrato de Observability no-operativo`
 
 El siguiente paso recomendado es contrato de Observability no-operativo. Siguen bloqueados logger/event log/event bus, telemetry, metrics, tracing, dashboard, audit trail operativo, correlation ledger runtime, side-effect ledger operativo, Runtime State operativo, Runtime Governance operativo, runtime activation/execution, tools, modelos, contexto, outputs, writes, stores, integraciones, Market Catalog runtime, Business Composition Layer runtime y OBLITERATUS.
+
+## PROMPT 3.47 result
+
+`PROMPT 3.47 — Contrato de Observability no-operativo` crea `core/observability_contract.py` como modulo puro, determinista, JSON-safe y no-operativo.
+
+Estado: `OBSERVABILITY_CONTRACT_READY`
+
+Veredicto: `OBSERVABILITY_NO_OPERATIONAL_CONFIRMED`
+
+Readiness: `ready_for_observability_contract_e2e`
+
+Proximo paso: `PROMPT 3.47.1 — Checkpoint E2E de Observability Contract`
+
+El contrato define eventos conceptuales, eventos prohibidos, metadata sanitizada, event records, decision records, snapshots, contract snapshot, datos prohibidos, modulos prohibidos y capacidades bloqueadas. No activa observability runtime, audit trail operativo, logger/event bus, telemetry/metrics/tracing/dashboard, ledgers operativos, writes, stores, runtime, tools, modelos, contexto, outputs, integraciones, Market Catalog runtime, Business Composition Layer runtime ni OBLITERATUS.

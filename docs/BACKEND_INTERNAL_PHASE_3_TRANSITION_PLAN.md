@@ -1207,3 +1207,15 @@ Readiness esperada: ready_for_observability_contract
 Próximo paso: PROMPT 3.47 — Contrato de Observability no-operativo
 
 La auditoria consume Runtime Governance, Runtime State, Security Layer, dry-run, attempts, lifecycle, results, projections, read models, human approval, kill switch/rollback y boundaries para preparar Observability Contract no-operativo. No crea `core/observability_contract.py`, observability runtime, audit trail operativo, logger, event bus, telemetry, metrics, tracing, dashboard, immutable audit log, correlation ledger runtime, side-effect ledger operativo, writes, stores, runtime activation, execution, tools, modelos, contexto, outputs, integraciones, Market Catalog runtime, Business Composition Layer runtime ni OBLITERATUS.
+
+## 80. PROMPT 3.47 — Contrato de Observability no-operativo
+
+Estado esperado: OBSERVABILITY_CONTRACT_READY
+
+Veredicto esperado: OBSERVABILITY_NO_OPERATIONAL_CONFIRMED
+
+Readiness esperada: ready_for_observability_contract_e2e
+
+Próximo paso: PROMPT 3.47.1 — Checkpoint E2E de Observability Contract
+
+El contrato crea `core/observability_contract.py` como modulo puro, determinista, JSON-safe y no-operativo. Define policy default-deny, eventos conceptuales permitidos, eventos prohibidos, metadata sanitizada, event records, decision records, snapshots, contract snapshot, modulos prohibidos y capacidades bloqueadas. No activa observability runtime, audit trail operativo, logger/event log/event bus, telemetry, metrics, tracing, dashboard, immutable audit log, correlation ledger runtime, side-effect ledger operativo, redaction engine operativo, writes, stores, runtime, tools, modelos, contexto, outputs, integraciones, Market Catalog runtime, Business Composition Layer runtime ni OBLITERATUS.

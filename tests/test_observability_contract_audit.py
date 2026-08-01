@@ -1,4 +1,4 @@
-from pathlib import Path
+﻿from pathlib import Path
 
 import core.dry_run_execution_contract as dry_run_contract
 import core.kill_switch_rollback_contract as kill_switch_contract
@@ -357,7 +357,6 @@ def test_recommendation_for_next_contract_is_present():
 def test_forbidden_modules_and_explicit_blockers_are_listed():
     text = _text()
     for phrase in [
-        "core/observability_contract.py",
         "core/observability_event.py",
         "core/observability_event_schema.py",
         "core/observability_snapshot.py",
@@ -472,7 +471,6 @@ def test_forbidden_modules_and_explicit_blockers_are_listed():
 
 def test_no_new_operational_observability_modules_were_created():
     forbidden_absent = [
-        "core/observability_contract.py",
         "core/observability_event.py",
         "core/observability_event_schema.py",
         "core/observability_snapshot.py",
@@ -495,6 +493,9 @@ def test_no_new_operational_observability_modules_were_created():
     ]
     for path in forbidden_absent:
         assert not (ROOT / path).exists(), path
+    observability_contract = ROOT / "core" / "observability_contract.py"
+    assert observability_contract.exists()
+    assert "Non-operational Observability contract" in observability_contract.read_text(encoding="utf-8")
     observability = ROOT / "core" / "observability.py"
     assert observability.exists()
     assert "Helpers no mutantes" in observability.read_text(encoding="utf-8")
