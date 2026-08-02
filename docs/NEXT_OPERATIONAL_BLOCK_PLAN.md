@@ -780,3 +780,11 @@ Runtime remains blocked.
 Dry-run real execution remains blocked.
 
 Projection audit is next and remains non-operational/read-only.
+
+## Runtime Execution Preparation Projection Audit
+
+Runtime Execution Preparation Projection audit is completed.
+Runtime Execution Preparation Projection contract does not exist yet.
+Runtime remains blocked.
+Dry-run real execution remains blocked.
+Projection contract is next and remains read-only/non-operational.

@@ -620,3 +620,11 @@ Runtime Execution Preparation Read Model Contract exists but is read-only and no
 ## Next
 
 `PROMPT 4.6 - Auditoria de Runtime Execution Preparation Projection`
+
+## Current completed
+
+`PROMPT 4.6 - Auditoria de Runtime Execution Preparation Projection`
+
+## Next
+
+`PROMPT 4.7 - Contrato de Runtime Execution Preparation Projection no-operativo`
