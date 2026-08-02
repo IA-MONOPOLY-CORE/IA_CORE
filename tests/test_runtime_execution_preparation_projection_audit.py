@@ -228,7 +228,10 @@ def test_projection_audit_document_contains_gaps_risks_and_obliteratus_exclusion
 
 
 def test_projection_and_other_forbidden_operational_modules_are_not_created():
-    allowed_preexisting = {"core/runtime_executor.py": "prepare-only"}
+    allowed_preexisting = {
+        "core/runtime_execution_preparation_projection.py": "contract-only",
+        "core/runtime_executor.py": "prepare-only",
+    }
     for relative in [
         "core/runtime_execution_preparation_projection.py",
         "core/runtime_execution_preparation_store.py",

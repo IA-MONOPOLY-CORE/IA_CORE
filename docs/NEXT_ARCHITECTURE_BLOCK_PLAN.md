@@ -628,3 +628,10 @@ Runtime Execution Preparation Read Model Contract exists but is read-only and no
 ## Next
 
 `PROMPT 4.7 - Contrato de Runtime Execution Preparation Projection no-operativo`
+## Current completed
+
+`PROMPT 4.7 - Contrato de Runtime Execution Preparation Projection no-operativo`
+
+## Next
+
+`PROMPT 4.7.1 - Checkpoint E2E Runtime Execution Preparation Projection Contract`

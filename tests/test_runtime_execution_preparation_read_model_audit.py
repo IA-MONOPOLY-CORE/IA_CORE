@@ -305,6 +305,7 @@ def test_document_contains_states_readiness_matrix_metadata_gaps_risks_and_oblit
 def test_no_read_model_module_or_forbidden_operational_modules_created():
     allowed_preexisting = {
         "core/runtime_execution_preparation_read_model.py": "contract-only",
+        "core/runtime_execution_preparation_projection.py": "contract-only",
         "core/runtime_executor.py": "prepare-only",
     }
     for relative in [

@@ -606,7 +606,10 @@ def test_previous_contracts_and_boundaries_remain_blocked():
 
 
 def test_no_forbidden_operational_modules_created():
-    allowed_preexisting = {"core/runtime_executor.py": "prepare-only"}
+    allowed_preexisting = {
+        "core/runtime_execution_preparation_projection.py": "contract-only",
+        "core/runtime_executor.py": "prepare-only",
+    }
     for relative in [
         "core/runtime_execution_preparation_projection.py",
         "core/runtime_execution_preparation_store.py",

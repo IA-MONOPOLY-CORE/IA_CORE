@@ -788,3 +788,10 @@ Runtime Execution Preparation Projection contract does not exist yet.
 Runtime remains blocked.
 Dry-run real execution remains blocked.
 Projection contract is next and remains read-only/non-operational.
+## Runtime Execution Preparation Projection Contract
+
+Runtime Execution Preparation Projection Contract exists but is read-only/non-operational.
+Runtime remains blocked.
+Dry-run real execution remains blocked.
+No store/writer/reader/API/UI exists yet.
+Projection E2E is next.
