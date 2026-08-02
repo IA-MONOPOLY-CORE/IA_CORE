@@ -795,3 +795,9 @@ Runtime remains blocked.
 Dry-run real execution remains blocked.
 No store/writer/reader/API/UI exists yet.
 Projection E2E is next.
+## Runtime Execution Preparation Projection Contract E2E
+
+Runtime Execution Preparation Projection Contract passed full E2E as read-only/non-operational.
+Runtime remains blocked.
+Dry-run real execution remains blocked.
+Block integral checkpoint is next.
