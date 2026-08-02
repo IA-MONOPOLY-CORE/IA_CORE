@@ -331,12 +331,18 @@ def test_document_contains_metadata_ui_panel_gaps_risks_and_obliteratus():
         assert phrase in text
 
 
-def test_no_package_module_or_operational_modules_created():
-    assert not (ROOT / "core" / "runtime_execution_preparation_package.py").exists()
+def test_package_module_exists_only_as_non_operational_contract_and_no_operational_modules_created():
+    package_module = ROOT / "core" / "runtime_execution_preparation_package.py"
+    assert package_module.exists()
+    package_text = package_module.read_text(encoding="utf-8").lower()
+    assert "contract-only" in package_text
+    assert "non-operational" in package_text
     allowed_preexisting = {
+        "core/runtime_execution_preparation_package.py": "contract-only",
         "core/runtime_executor.py": "prepare-only",
     }
     for relative in [
+        "core/runtime_execution_preparation_package.py",
         "core/runtime_execution_preparation_store.py",
         "core/runtime_execution_preparation_writer.py",
         "core/runtime_execution_preparation_reader.py",

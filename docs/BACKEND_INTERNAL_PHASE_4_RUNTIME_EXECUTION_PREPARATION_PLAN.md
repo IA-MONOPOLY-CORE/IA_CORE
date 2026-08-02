@@ -67,3 +67,12 @@ Next: `PROMPT 4.3 — Contrato de Runtime Execution Preparation Package no-opera
 
 Baseline historica 4.1.1: `ready_for_runtime_execution_preparation_package_audit`.
 Baseline historica 4.1.1 next: `PROMPT 4.2 — Auditoría de Runtime Execution Preparation Package`.
+
+## PROMPT 4.3 completed
+
+Runtime Execution Preparation Package Contract created.
+Package remains non-operational.
+Runtime remains blocked.
+Dry-run real execution remains blocked.
+Tools/models/context/output/writes/stores/memory/network/browser/filesystem/env/secrets/UI/device/integrations remain blocked.
+Next: `PROMPT 4.3.1 — Checkpoint E2E Runtime Execution Preparation Package Contract`
