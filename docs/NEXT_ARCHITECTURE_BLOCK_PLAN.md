@@ -649,3 +649,70 @@ Runtime Execution Preparation Read Model Contract exists but is read-only and no
 ## Next
 
 `PROMPT 4.9 — Planificación del siguiente bloque arquitectónico`
+## PROMPT 4.9 — Planificación del siguiente bloque arquitectónico
+
+Estado: `NEXT_ARCHITECTURE_BLOCK_PLANNING_COMPLETED`
+
+Veredicto: `NEXT_ARCHITECTURE_BLOCK_SELECTED`
+
+Readiness: `ready_for_phase_5_team_sandbox_schema`
+
+Fuente de verdad:
+- PROMPT 4.8 cerrado.
+- Commit cerrado: `61c4b15b`.
+- Estado 4.8: `RUNTIME_EXECUTION_PREPARATION_BLOCK_INTEGRAL_CHECKPOINT_PASSED`.
+- Veredicto 4.8: `RUNTIME_EXECUTION_PREPARATION_BLOCK_CHAIN_READY`.
+- Readiness 4.8: `ready_for_next_architecture_block_planning`.
+
+Último prompt cerrado: `PROMPT 4.8 — Checkpoint integral Runtime Execution Preparation Block`.
+
+Bloque arquitectónico recomendado: `Fase 5 — Equipos reales sandbox`.
+
+Justificación: Runtime Execution Preparation dejó cerrada la cadena no-operativa de audit, contract, package, read model, projection y checkpoint integral. El libro Backend Interno ya define Fase 5 como composición de agentes sandbox en equipos reales sandbox, con manifest, roles, dependencias, objetivo y criterios. Existen piezas históricas de equipo sandbox y generación de `team_template`, pero `catalogs/team_templates.json` no existe actualmente y no debe inventarse en este prompt.
+
+Dependencias previas:
+- Runtime Execution Preparation Block cerrado.
+- Contratos preparation, package, read model y projection cerrados.
+- `docs/SANDBOX_TEAM_CONTRACT.md`, `docs/SANDBOX_TEAM_MATERIALIZATION.md`, `docs/SANDBOX_TEAM_CHAIN_CHECKPOINT.md` como antecedentes.
+- `core/sandbox_team_schema.py`, `core/sandbox_team_materializer.py` y `core/professional_team_template_generator.py` como referencias solo de lectura para planificación.
+
+Alcance del bloque siguiente:
+- Definir schema de equipo real sandbox.
+- Mantener trazabilidad con agentes sandbox existentes y `team_template` derivado.
+- Definir manifest, estados, validaciones, límites y criterios de cierre.
+
+Fuera de alcance:
+- No implementar Fase 5 en este prompt.
+- No crear equipos sandbox en este prompt.
+- No materializar equipos.
+- No crear agentes nuevos.
+- No abrir UI/UX ni integraciones.
+
+Restricciones operativas:
+- runtime: bloqueado
+- execution: bloqueada
+- dry-run real: bloqueado
+- tools/models/context/output: bloqueados
+- writes/stores/memory: bloqueados
+- network/browser/filesystem/env/secrets: bloqueados
+- API/UI/UI-device: bloqueados
+- UI/UX: fuera de alcance
+- integraciones: bloqueadas
+- OBLITERATUS: excluido
+- Market Catalog runtime: bloqueado
+- Business Composition Layer runtime: bloqueado
+- raw Package directo a User Panel: bloqueado
+
+Relación con Backend Interno: esta planificación continúa el libro Backend Interno después del bloque Runtime Execution Preparation y prepara el inicio de Fase 5 sin saltar a runtime, UI o integraciones.
+
+Relación con Fase 5: Fase 5 queda seleccionada como bloque siguiente y debe permanecer sandbox/no-operativa.
+
+Prompts sugeridos del bloque siguiente:
+1. `PROMPT 5.0 — Schema de equipo real sandbox`
+2. `PROMPT 5.1 — Materializar equipo real desde team_template`
+3. `PROMPT 5.2 — Auditoría de equipo sandbox`
+4. `PROMPT 5.3 — Biblioteca interna/listado de equipos sandbox para futura UI`
+
+Criterio de cierre del bloque siguiente: Fase 5 debe cerrar con schema, materialización declarativa validada, auditoría, listado interno y pruebas que demuestren que no se habilitó ejecución multiagente real.
+
+Próximo prompt exacto: `PROMPT 5.0 — Schema de equipo real sandbox`.
