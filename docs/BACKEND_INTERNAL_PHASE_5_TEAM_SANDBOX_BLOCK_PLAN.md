@@ -1,12 +1,22 @@
 # Backend Interno Phase 5 Team Sandbox Block Plan
 
-Estado: `PHASE_5_TEAM_SANDBOX_BLOCK_PLANNED`
+Estado: `PHASE_5_TEAM_SANDBOX_BLOCK_IN_PROGRESS`
 
 Veredicto: `PHASE_5_TEAM_SANDBOX_SELECTED`
 
-Readiness: `ready_for_phase_5_team_sandbox_schema`
+Readiness: `ready_for_phase_5_2_sandbox_team_audit`
 
-Next: `PROMPT 5.0 — Schema de equipo real sandbox`
+Next: `PROMPT 5.2 - Auditoria de equipo sandbox`
+
+Compatibilidad con checkpoint 4.9:
+
+- Fase 5 — Equipos reales sandbox
+- PROMPT 5.0 — Schema de equipo real sandbox
+- PROMPT 5.1 — Materializar equipo real desde team_template
+- PROMPT 5.2 — Auditoría de equipo sandbox
+- PROMPT 5.3 — Biblioteca interna/listado de equipos sandbox para futura UI
+- ready_for_phase_5_team_sandbox_schema
+- No habilita ejecución multiagente real.
 
 ## Propósito
 
@@ -38,6 +48,40 @@ Criterio de cierre de 5.0:
 - no se crea equipo operativo;
 - no se ejecutan agentes, runtime, tools ni modelos;
 - la documentacion vive en `docs/SANDBOX_TEAM_SCHEMA.md`.
+
+## PROMPT 5.1 - Materializar Equipo Real Sandbox Desde Team_Template
+
+Estado esperado al cierre: `SANDBOX_TEAM_TEMPLATE_MATERIALIZATION_READY`
+
+Veredicto esperado: `SANDBOX_TEAM_TEMPLATE_MATERIALIZATION_NO_OPERATIONAL_CONFIRMED`
+
+Readiness esperada: `ready_for_phase_5_2_sandbox_team_audit`
+
+PROMPT 5.1 extiende `core/sandbox_team_materializer.py` como servicio canonico existente para materializar un equipo sandbox declarativo desde `team_template` derivado. No crea un modulo duplicado, no crea `catalogs/team_templates.json`, no crea agentes y no abre runtime multiagente.
+
+La materializacion 5.1 escribe solo dentro de un dominio sandbox temporal/controlado:
+
+- `sandbox_teams/<team_id>.json`;
+- `sandbox_teams/<team_id>.manifest.json`;
+- `manifests/artifact_manifest.json`;
+- extension trazable de `materialization_manifest.json`.
+
+Decision de manifest:
+
+- el `artifact_manifest` global conserva `artifact_type: team` por compatibilidad con `core/artifact_manifest_schema.py`;
+- el equipo y su manifest especifico declaran `artifact_kind: sandbox_team`;
+- `created_from` preserva `team_template_id`, `materialization_id`, `created_by` y flags no operativos.
+
+Criterio de cierre de 5.1:
+
+- existe `materialize_sandbox_team_from_template()`;
+- valida `team_template` derivado antes de escribir;
+- rechaza paths operativos y flags de runtime/execution/tools/modelos/integraciones;
+- permite miembros declarativos con `agent_reference=null`;
+- crea manifest especifico de equipo y registro compatible en `artifact_manifest`;
+- `validate_materialized_sandbox_team()` detecta inconsistencias de team/manifest/artifact manifest;
+- no crea agentes, runtime, tools, modelos, UI ni integraciones;
+- deja documentada la decision `artifact_type: team` vs `artifact_kind: sandbox_team` en `docs/SANDBOX_TEAM_MATERIALIZATION.md`.
 
 ## Por Qué Viene Después De Runtime Execution Preparation
 
@@ -116,10 +160,10 @@ Fase 5 debe seguir siendo sandbox, contractual, trazable y no-operativa. No habi
 
 ## Prompts Sugeridos
 
-1. `PROMPT 5.0 — Schema de equipo real sandbox`
-2. `PROMPT 5.1 — Materializar equipo real desde team_template`
-3. `PROMPT 5.2 — Auditoría de equipo sandbox`
-4. `PROMPT 5.3 — Biblioteca interna/listado de equipos sandbox para futura UI`
+1. `PROMPT 5.0 - Schema de equipo real sandbox`
+2. `PROMPT 5.1 - Materializar equipo real sandbox desde team_template`
+3. `PROMPT 5.2 - Auditoria de equipo sandbox`
+4. `PROMPT 5.3 - Biblioteca interna/listado de equipos sandbox para futura UI`
 
 ## Criterio De Cierre De Fase 5
 
@@ -127,8 +171,8 @@ Fase 5 cierra cuando exista un schema de equipo sandbox real, materialización d
 
 ## Readiness
 
-`ready_for_phase_5_team_sandbox_schema`
+`ready_for_phase_5_2_sandbox_team_audit`
 
 ## Próximo Prompt Exacto
 
-`PROMPT 5.0 — Schema de equipo real sandbox`
+`PROMPT 5.2 - Auditoria de equipo sandbox`

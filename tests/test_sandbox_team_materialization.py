@@ -12,6 +12,7 @@ from core.profile_catalog_materializer import materialize_profile_catalog
 from core.sandbox_agent_materializer import materialize_sandbox_agent
 from core.sandbox_agent_tool_contract import build_tool_contract
 from core.sandbox_team_materializer import (
+    materialize_sandbox_team_from_template,
     materialize_sandbox_team,
     regenerate_sandbox_team,
     rollback_sandbox_team,
@@ -81,6 +82,54 @@ def _domain_with_agents(tmp_path) -> tuple[dict, list[dict]]:
         for preset in presets_payload["presets"]
     ]
     return domain, agents
+
+
+def _domain_only(tmp_path) -> dict:
+    preview = _preview()
+    return materialize_sandbox_domain(
+        _schema_from_preview(preview),
+        sandbox_root=tmp_path / "sandboxes",
+    )
+
+
+def _team_template(**overrides):
+    payload = {
+        "schema_version": "1.0",
+        "artifact_type": "derived_professional_team_template",
+        "team_template": {
+            "team_template_id": "sandbox_marketing_crm_automation_equipo_growth_ventas",
+            "nombre": "Equipo de growth y ventas",
+            "descripcion": "Plantilla derivada para aumentar ventas y conversion.",
+            "objetivo": "Aumentar ventas sin ejecutar agentes.",
+            "recommended_domain_profile_ids": [
+                "perfil_estratega_growth",
+                "perfil_especialista_conversion",
+            ],
+            "recommended_profile_ids": [
+                "estratega_growth",
+                "especialista_conversion",
+            ],
+            "recommended_preset_ids": [
+                "preset_estratega_growth",
+                "preset_especialista_conversion",
+            ],
+            "required_team_roles": ["estratega", "especialista"],
+            "optional_team_roles": ["validador"],
+            "expected_outputs": ["Plan comercial declarativo."],
+            "source": "derived_profile_catalog_and_agent_presets",
+            "generated_from": {
+                "generator": "core.professional_team_template_generator",
+                "profile_catalog": "derived_profile_catalog",
+                "agent_presets": "derived_domain_agent_presets",
+            },
+            "status": "derived",
+            "activo": True,
+            "warnings": [],
+            "risks": ["No ejecutar sin aprobacion futura."],
+        },
+    }
+    payload["team_template"].update(overrides)
+    return payload
 
 
 def _coordination(agent_ids: list[str], **overrides):
@@ -299,3 +348,145 @@ def test_team_materialization_does_not_touch_legacy_or_global_files(tmp_path):
     assert _tree_hash(DOMAINS) == before_domains
     assert _tree_hash(CATALOGS) == before_catalogs
     assert _papers_hash() == before_papers
+
+
+def test_materializes_declarative_team_from_team_template(tmp_path):
+    domain = _domain_only(tmp_path)
+
+    result = materialize_sandbox_team_from_template(
+        domain["domain_dir"],
+        team_template=_team_template(),
+    )
+
+    team_path = Path(result["team_path"])
+    manifest_path = Path(result["team_manifest_path"])
+    assert team_path.is_file()
+    assert manifest_path.is_file()
+    assert result["team"]["team_type"] == "sandbox"
+    assert result["team"]["status"] == "materialized"
+    assert result["team"]["artifact_state"] == "materialized"
+    assert result["team"]["source_team_template"]["team_template_id"] == (
+        "sandbox_marketing_crm_automation_equipo_growth_ventas"
+    )
+    assert result["team"]["created_from"]["source_type"] == "team_template"
+    assert [member["agent_reference"] for member in result["team"]["members"]] == [None, None]
+    assert result["team"]["execution_policy"]["execution_enabled"] is False
+    assert result["team"]["execution_policy"]["runtime_enabled"] is False
+    assert result["team"]["execution_policy"]["tool_execution_enabled"] is False
+    assert result["team"]["execution_policy"]["model_invocation_enabled"] is False
+    assert result["team"]["execution_policy"]["external_integrations_enabled"] is False
+    assert result["team"]["permissions"]["can_execute"] is False
+    assert result["team_manifest"]["team_id"] == result["team"]["team_id"]
+    assert result["team_manifest"]["domain_id"] == result["team"]["domain_id"]
+    assert result["team_manifest"]["artifact_id"] == result["team"]["artifact_id"]
+    assert result["team_manifest"]["materialization_id"] == result["team"]["materialization_id"]
+    assert result["artifact"]["artifact_type"] == "team"
+    assert result["artifact"]["created_from"]["artifact_kind"] == "sandbox_team"
+    assert result["artifact"]["dependencies"] == []
+    assert result["validation"]["team"]["team_id"] == result["team_id"]
+
+
+def test_template_materialization_uses_tmp_sandbox_and_does_not_create_agents_or_runtime(tmp_path):
+    before_agents = _tree_hash(AGENTS)
+    before_domains = _tree_hash(DOMAINS)
+    domain = _domain_only(tmp_path)
+
+    result = materialize_sandbox_team_from_template(domain["domain_dir"], team_template=_team_template())
+    domain_dir = Path(domain["domain_dir"])
+
+    assert not (domain_dir / "sandbox_agents").exists()
+    assert not (domain_dir / "runtime").exists()
+    assert result["artifact"]["operational"] is False
+    assert result["artifact"]["passed"] is False
+    assert result["team"]["metadata"]["active"] is False
+    assert _tree_hash(AGENTS) == before_agents
+    assert _tree_hash(DOMAINS) == before_domains
+    assert str(Path(result["team_path"]).resolve()).startswith(str(tmp_path.resolve()))
+
+
+def test_template_materialization_blocks_operational_template_flags(tmp_path):
+    domain = _domain_only(tmp_path)
+
+    for field in [
+        "execution_enabled",
+        "runtime_enabled",
+        "tool_execution_enabled",
+        "model_invocation_enabled",
+        "external_integrations_enabled",
+        "can_execute",
+        "can_call_tools",
+        "can_call_models",
+    ]:
+        with pytest.raises(ValueError, match=field):
+            materialize_sandbox_team_from_template(
+                domain["domain_dir"],
+                team_template=_team_template(**{field: True}),
+                team_id=f"bad_{field}",
+            )
+
+
+def test_template_materialization_requires_lineage_and_ids(tmp_path):
+    domain = _domain_only(tmp_path)
+
+    for field in ["team_template_id", "descripcion"]:
+        template = _team_template()
+        template["team_template"].pop(field)
+        with pytest.raises(ValueError, match="team_template"):
+            materialize_sandbox_team_from_template(domain["domain_dir"], team_template=template)
+
+    bad_template = _team_template()
+    bad_template["artifact_type"] = "sandbox_team"
+    with pytest.raises(ValueError, match="derivado"):
+        materialize_sandbox_team_from_template(domain["domain_dir"], team_template=bad_template)
+
+
+def test_template_materialization_blocks_operational_and_invalid_paths(tmp_path):
+    domain = _domain_only(tmp_path)
+
+    with pytest.raises(ValueError, match="domains/ operativo"):
+        materialize_sandbox_team_from_template(DOMAINS, team_template=_team_template())
+
+    with pytest.raises(FileNotFoundError):
+        materialize_sandbox_team_from_template(
+            tmp_path / "not_a_materialized_sandbox",
+            team_template=_team_template(),
+        )
+
+    materialize_sandbox_team_from_template(domain["domain_dir"], team_template=_team_template())
+    with pytest.raises(FileExistsError, match="team_id ya existe"):
+        materialize_sandbox_team_from_template(domain["domain_dir"], team_template=_team_template())
+
+
+def test_template_materialization_preserves_artifact_type_decision(tmp_path):
+    domain = _domain_only(tmp_path)
+
+    result = materialize_sandbox_team_from_template(domain["domain_dir"], team_template=_team_template())
+
+    assert result["artifact"]["artifact_type"] == "team"
+    assert result["team_manifest"]["artifact_type"] == "team"
+    assert result["artifact"]["created_from"]["artifact_kind"] == "sandbox_team"
+    assert result["team_manifest"]["artifact_kind"] == "sandbox_team"
+
+
+def test_validate_materialized_team_detects_inconsistent_team_manifest(tmp_path):
+    domain = _domain_only(tmp_path)
+    result = materialize_sandbox_team_from_template(domain["domain_dir"], team_template=_team_template())
+    manifest_path = Path(result["team_manifest_path"])
+    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    manifest["team_id"] = "wrong_team"
+    manifest_path.write_text(json.dumps(manifest, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+
+    with pytest.raises(ValueError, match="team_id"):
+        validate_materialized_sandbox_team(domain["domain_dir"], team_id=result["team_id"])
+
+
+def test_validate_materialized_team_detects_invalid_team_json(tmp_path):
+    domain = _domain_only(tmp_path)
+    result = materialize_sandbox_team_from_template(domain["domain_dir"], team_template=_team_template())
+    team_path = Path(result["team_path"])
+    team = json.loads(team_path.read_text(encoding="utf-8"))
+    team["execution_policy"]["runtime_enabled"] = True
+    team_path.write_text(json.dumps(team, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+
+    with pytest.raises(ValueError, match="runtime_enabled"):
+        validate_materialized_sandbox_team(domain["domain_dir"], team_id=result["team_id"])

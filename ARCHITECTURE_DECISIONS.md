@@ -1113,3 +1113,27 @@ Fase 5 inicia la representacion de equipos reales sandbox. IA_CORE ya tenia piez
 - La futura materializacion de equipos podra validar identidad, miembros, roles, permisos, dependencies y lineage antes de cualquier ejecucion.
 - Runtime y ejecucion real siguen bloqueados hasta una fase posterior explicita.
 - La UI futura no debe tratar `team_template` ni equipo sandbox `materialized` como equipo operativo activo.
+
+---
+
+## ADR-044 - La materializacion de equipos sandbox desde team_template es declarativa
+
+**Estado**: Aceptado
+
+**Prompt**: 5.1 - Materializar equipo real sandbox desde team_template
+
+**Contexto**:
+Fase 5 ya definio el schema de equipo sandbox real. El siguiente paso necesitaba convertir un `team_template` derivado en artefactos sandbox trazables sin confundir plantilla derivada, equipo sandbox materializado y equipo operativo ejecutable.
+
+**Decision**:
+- La materializacion desde `team_template` usa `core/sandbox_team_materializer.py`; no se crea un materializador paralelo.
+- El flujo crea `sandbox_teams/<team_id>.json`, `sandbox_teams/<team_id>.manifest.json`, registro en `manifests/artifact_manifest.json` y extension de `materialization_manifest.json`.
+- El `artifact_manifest` mantiene `artifact_type: team` por compatibilidad con `core/artifact_manifest_schema.py`.
+- La semantica especifica se declara con `artifact_kind: sandbox_team`, `source_team_template`, `created_from`, `materialization_id` y flags no operativos.
+- Los miembros pueden quedar como referencias declarativas con `agent_reference=null`; esto no crea agentes ni habilita ejecucion.
+- La validacion rechaza paths operativos, flags de runtime/execution/tools/modelos/integraciones y permisos sensibles en `true`.
+
+**Consecuencias**:
+- PROMPT 5.1 permite auditar equipos sandbox materializados sin activar runtime multiagente.
+- La futura auditoria 5.2 debe revisar team, manifest, artifact manifest, lineage y frontera no-operativa.
+- Cualquier cambio futuro para aceptar `artifact_type: sandbox_team` en el manifest global requiere subprompt explicito de compatibilidad.

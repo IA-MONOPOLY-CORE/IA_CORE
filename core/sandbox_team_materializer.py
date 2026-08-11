@@ -13,7 +13,11 @@ from typing import Any
 
 import config
 from core.agent_preset_materializer import AGENT_PRESETS_ARTIFACT_ID
-from core.artifact_manifest_schema import validate_artifact_manifest, validate_artifact_manifest_file
+from core.artifact_manifest_schema import (
+    empty_artifact_manifest,
+    validate_artifact_manifest,
+    validate_artifact_manifest_file,
+)
 from core.artifact_state import ArtifactState
 from core.domain_materializer import validate_materialized_sandbox_domain
 from core.paper_seed_materializer import PAPER_SEED_ARTIFACT_ID, validate_materialized_paper_seed
@@ -31,11 +35,170 @@ from core.sandbox_team_schema import (
 
 SANDBOX_TEAMS_DIR = Path("sandbox_teams")
 CREATED_BY = "core.sandbox_team_materializer.materialize_sandbox_team"
+TEMPLATE_CREATED_BY = "core.sandbox_team_materializer.materialize_sandbox_team_from_template"
+TEAM_MATERIALIZATION_MANIFEST_SCHEMA_VERSION = "1.0"
 BASE_DEPENDENCIES = [
     PROFILE_CATALOG_ARTIFACT_ID,
     AGENT_PRESETS_ARTIFACT_ID,
     PAPER_SEED_ARTIFACT_ID,
 ]
+
+
+def materialize_sandbox_team_from_template(
+    domain_dir: str | Path,
+    *,
+    team_template: dict[str, Any],
+    team_id: str | None = None,
+    regenerate: bool = False,
+    execution_metadata: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    """Materializa un equipo sandbox declarativo desde un team_template derivado."""
+    target = Path(domain_dir).resolve()
+    _reject_operational_paths(target)
+
+    domain_validation = validate_materialized_sandbox_domain(target)
+    domain = domain_validation["domain"]
+    domain_id = domain["domain_id"]
+    template = _validate_team_template_payload(team_template)
+    normalized_team_id = _normalize_id(team_id or template["team_template_id"])
+    artifact_id = f"team_{normalized_team_id}"
+    now = _now()
+    version = "1.0.0"
+
+    team_path = _safe_child(target, SANDBOX_TEAMS_DIR / f"{normalized_team_id}.json")
+    team_manifest_path = _safe_child(target, SANDBOX_TEAMS_DIR / f"{normalized_team_id}.manifest.json")
+    artifact_manifest_path = _safe_child(target, ARTIFACT_MANIFEST_RELATIVE_PATH)
+    artifact_manifest = _load_or_create_artifact_manifest(artifact_manifest_path, domain_id)
+    existing_index = _find_team_artifact_index(artifact_manifest, artifact_id)
+    if existing_index is not None and not regenerate:
+        raise FileExistsError(
+            f"team_id ya existe en este sandbox: {normalized_team_id}; use regenerate=True"
+        )
+    if (team_path.exists() or team_manifest_path.exists()) and existing_index is None:
+        raise FileExistsError("equipo sandbox existe sin artifact_manifest coherente")
+
+    previous_artifact = artifact_manifest["artifacts"][existing_index] if existing_index is not None else None
+    previous_team = None
+    previous_manifest = None
+    history_entry = {
+        "event": "materialized_from_template",
+        "version": version,
+        "at": now,
+        "details": "Equipo sandbox materializado declarativamente desde team_template.",
+    }
+    created_paths = [
+        str(team_path.parent),
+        str(team_path),
+        str(team_manifest_path),
+        str(artifact_manifest_path.parent),
+        str(artifact_manifest_path),
+    ]
+    if existing_index is not None:
+        previous_version = previous_artifact["version"]
+        version = _next_patch_version(previous_version)
+        previous_team = json.loads(team_path.read_text(encoding="utf-8"))
+        previous_manifest = json.loads(team_manifest_path.read_text(encoding="utf-8"))
+        history_path = _archive_current_team(target, team_path, previous_version=previous_version)
+        history_manifest_path = _archive_current_team_manifest(
+            target,
+            team_manifest_path,
+            previous_version=previous_version,
+        )
+        created_paths.extend([str(history_path.parent), str(history_path), str(history_manifest_path)])
+        history_entry = {
+            "event": "regenerated_from_template",
+            "version": version,
+            "at": now,
+            "details": "Equipo sandbox regenerado declarativamente desde team_template.",
+            "previous_version": previous_version,
+            "archived_team_path": str(history_path),
+            "archived_team_manifest_path": str(history_manifest_path),
+        }
+
+    team = _build_team_payload_from_template(
+        domain=domain,
+        team_template=template,
+        team_id=normalized_team_id,
+        artifact_id=artifact_id,
+        version=version,
+        created_at=previous_team.get("created_at", now) if previous_team else now,
+        updated_at=now,
+        history_entry=history_entry,
+        previous_team=previous_team,
+        execution_metadata=execution_metadata or {},
+    )
+    team["rollback_info"]["created_paths"] = list(created_paths)
+    team = validate_sandbox_team_schema(team)
+
+    team_manifest = _build_team_materialization_manifest(
+        domain=domain,
+        team=team,
+        team_template=template,
+        created_paths=created_paths,
+        created_at=now,
+        execution_metadata=execution_metadata or {},
+        previous_manifest=previous_manifest,
+        history_entry=history_entry,
+    )
+
+    team_path.parent.mkdir(parents=True, exist_ok=True)
+    artifact_manifest_path.parent.mkdir(parents=True, exist_ok=True)
+    team_path.write_text(json.dumps(team, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+    team_manifest_path.write_text(
+        json.dumps(team_manifest, indent=2, ensure_ascii=False) + "\n",
+        encoding="utf-8",
+    )
+
+    artifact = sandbox_team_to_artifact_record(team)
+    artifact["created_by"] = TEMPLATE_CREATED_BY
+    artifact["created_from"]["execution_metadata"] = deepcopy(execution_metadata or {})
+    artifact["created_from"]["materialization_id"] = team["materialization_id"]
+    artifact["rollback_info"]["created_paths"] = _dedupe(
+        [*(previous_artifact or {}).get("rollback_info", {}).get("created_paths", []), *created_paths]
+    )
+    artifact["rollback_info"]["depends_on"] = list(team["dependencies"])
+    artifact["status"] = ArtifactState.MATERIALIZED.value
+    artifact["history"] = list(previous_artifact.get("history", [])) if previous_artifact else []
+    artifact["history"].append(history_entry)
+    artifact["operational"] = False
+    artifact["passed"] = False
+
+    if existing_index is None:
+        artifact_manifest["artifacts"].append(artifact)
+    else:
+        artifact_manifest["artifacts"][existing_index] = artifact
+    artifact_manifest = validate_artifact_manifest(artifact_manifest)
+    artifact_manifest_path.write_text(
+        json.dumps(artifact_manifest, indent=2, ensure_ascii=False) + "\n",
+        encoding="utf-8",
+    )
+
+    updated_materialization_manifest = _extend_materialization_manifest(
+        domain_validation["manifest_path"],
+        domain_validation["manifest"],
+        created_paths,
+    )
+    validation = validate_materialized_sandbox_team(target, team_id=normalized_team_id)
+    return {
+        "success": True,
+        "domain_id": domain_id,
+        "team_id": normalized_team_id,
+        "artifact_id": artifact_id,
+        "artifact_type": "team",
+        "artifact_kind": "sandbox_team",
+        "version": version,
+        "status": ArtifactState.MATERIALIZED.value,
+        "regenerated": existing_index is not None,
+        "team_path": str(team_path),
+        "team_manifest_path": str(team_manifest_path),
+        "artifact_manifest_path": str(artifact_manifest_path),
+        "team": team,
+        "team_manifest": team_manifest,
+        "artifact": artifact,
+        "artifact_manifest": artifact_manifest,
+        "materialization_manifest": updated_materialization_manifest,
+        "validation": validation,
+    }
 
 
 def materialize_sandbox_team(
@@ -183,7 +346,7 @@ def validate_materialized_sandbox_team(
     """Valida un equipo sandbox materializado y no operativo."""
     target = Path(domain_dir).resolve()
     _reject_operational_paths(target)
-    validate_materialized_paper_seed(target)
+    domain_validation = validate_materialized_sandbox_domain(target)
     normalized_team_id = _normalize_id(team_id)
     team_path = _safe_child(target, SANDBOX_TEAMS_DIR / f"{normalized_team_id}.json")
     if not team_path.is_file():
@@ -192,6 +355,17 @@ def validate_materialized_sandbox_team(
     validate_sandbox_team_schema(team)
     if team.get("status") == ArtifactState.ACTIVE.value or team.get("active") is True:
         raise ValueError("equipo sandbox no puede estar active")
+    _validate_team_runtime_boundary(team)
+    team_manifest = None
+    team_manifest_path = _safe_child(target, SANDBOX_TEAMS_DIR / f"{normalized_team_id}.manifest.json")
+    if team_manifest_path.is_file():
+        team_manifest = _validate_team_materialization_manifest_file(
+            team_manifest_path,
+            team=team,
+            domain_id=team["domain_id"],
+        )
+    else:
+        validate_materialized_paper_seed(target)
     manifest_path = _safe_child(target, ARTIFACT_MANIFEST_RELATIVE_PATH)
     artifact_manifest = validate_artifact_manifest_file(manifest_path)
     artifact_id = f"team_{normalized_team_id}"
@@ -199,15 +373,24 @@ def validate_materialized_sandbox_team(
     if index is None:
         raise FileNotFoundError("artifact_manifest sin equipo sandbox")
     artifact = artifact_manifest["artifacts"][index]
-    expected_dependencies = [*BASE_DEPENDENCIES, *team["dependencies"]]
+    expected_dependencies = (
+        list(team["dependencies"])
+        if team_manifest is not None
+        else [*BASE_DEPENDENCIES, *team["dependencies"]]
+    )
     if artifact["dependencies"] != expected_dependencies:
         raise ValueError("equipo sandbox con dependencias invalidas")
+    if artifact.get("operational") is True or artifact.get("passed") is True:
+        raise ValueError("equipo sandbox no puede registrarse como operativo")
     return {
         "success": True,
         "team": team,
+        "team_manifest": team_manifest,
         "artifact": artifact,
         "artifact_manifest": artifact_manifest,
+        "domain": domain_validation["domain"],
         "team_path": str(team_path),
+        "team_manifest_path": str(team_manifest_path) if team_manifest_path.is_file() else None,
     }
 
 
@@ -334,6 +517,127 @@ def _build_team_payload(
     return validate_sandbox_team_schema(team)
 
 
+def _build_team_payload_from_template(
+    *,
+    domain: dict[str, Any],
+    team_template: dict[str, Any],
+    team_id: str,
+    artifact_id: str,
+    version: str,
+    created_at: str,
+    updated_at: str,
+    history_entry: dict[str, Any],
+    previous_team: dict[str, Any] | None,
+    execution_metadata: dict[str, Any],
+) -> dict[str, Any]:
+    members = _members_from_template(team_template)
+    team = build_sandbox_team_schema(
+        team_id=team_id,
+        domain_id=domain["domain_id"],
+        name=team_template["name"],
+        purpose=team_template["description"],
+        description=team_template["description"],
+        member_agents=_legacy_members_from_members(members),
+        members=members,
+        coordination_model=_default_template_coordination_model(members),
+        capabilities={"memory": [], "tools": [], "policies": []},
+        version=version,
+        status=ArtifactState.MATERIALIZED.value,
+        source_team_template={
+            "source_type": "derived_team_template",
+            "team_template_id": team_template["team_template_id"],
+            "artifact_type": team_template["artifact_type"],
+            "status": team_template.get("status"),
+            "operational": False,
+        },
+        created_from={
+            "source_type": "team_template",
+            "domain_id": domain["domain_id"],
+            "team_template_id": team_template["team_template_id"],
+            "generator": team_template.get("generated_from", {}).get("generator"),
+            "materializer": TEMPLATE_CREATED_BY,
+        },
+        materialization_id=_team_materialization_id(domain, team_template, team_id),
+        artifact_id=artifact_id,
+        validation={
+            "schema_validated": True,
+            "post_materialization_validation": "pending",
+            "validator": "core.sandbox_team_schema.validate_sandbox_team_schema",
+            "writes_files": True,
+            "registers_operational_team": False,
+        },
+        warnings=list(team_template.get("warnings", [])),
+        metadata={
+            "created_by": TEMPLATE_CREATED_BY,
+            "source": "sandbox_team_template_materialization",
+            "operational": False,
+            "active": False,
+            "runtime_enabled": False,
+            "execution_enabled": False,
+            "template_derived": True,
+            "execution_metadata": deepcopy(execution_metadata),
+        },
+        created_at=created_at,
+        updated_at=updated_at,
+    )
+    previous_history = list(previous_team.get("history", [])) if previous_team else []
+    team["history"] = [*previous_history, history_entry]
+    team["materialization"] = {
+        "created_by": TEMPLATE_CREATED_BY,
+        "source": "team_template",
+        "team_template_id": team_template["team_template_id"],
+        "creates_runtime_team": False,
+        "creates_agents": False,
+        "execution_metadata": deepcopy(execution_metadata),
+    }
+    return validate_sandbox_team_schema(team)
+
+
+def _build_team_materialization_manifest(
+    *,
+    domain: dict[str, Any],
+    team: dict[str, Any],
+    team_template: dict[str, Any],
+    created_paths: list[str],
+    created_at: str,
+    execution_metadata: dict[str, Any],
+    previous_manifest: dict[str, Any] | None,
+    history_entry: dict[str, Any],
+) -> dict[str, Any]:
+    history = list(previous_manifest.get("history", [])) if previous_manifest else []
+    history.append(history_entry)
+    manifest = {
+        "schema_version": TEAM_MATERIALIZATION_MANIFEST_SCHEMA_VERSION,
+        "materialization_id": team["materialization_id"],
+        "artifact_id": team["artifact_id"],
+        "artifact_type": "team",
+        "artifact_kind": "sandbox_team",
+        "domain_id": domain["domain_id"],
+        "team_id": team["team_id"],
+        "source_template_id": team_template["team_template_id"],
+        "source_team_template": deepcopy(team["source_team_template"]),
+        "created_from": deepcopy(team["created_from"]),
+        "created_paths": list(created_paths),
+        "dependencies": list(team["dependencies"]),
+        "rollback_prepared": True,
+        "execution_enabled": False,
+        "runtime_enabled": False,
+        "tool_execution_enabled": False,
+        "model_invocation_enabled": False,
+        "external_integrations_enabled": False,
+        "created_at": created_at,
+        "validation": {
+            "team_schema_valid": True,
+            "manifest_matches_team": True,
+            "operational": False,
+            "execution_metadata": deepcopy(execution_metadata),
+        },
+        "history": history,
+    }
+    _validate_team_materialization_manifest(manifest, team=team, domain_id=domain["domain_id"])
+    return manifest
+
+
 def _select_agents(target: Path, *, agent_ids: list[str] | None) -> list[dict[str, Any]]:
     available = _load_sandbox_agents(target)
     if agent_ids is None:
@@ -382,6 +686,364 @@ def _validate_agent_runtime_boundary(agent: dict[str, Any]) -> None:
         raise ValueError("miembro de equipo requiere runtime_enabled=false")
     if sandbox_config.get("operational") is True:
         raise ValueError("miembro de equipo no puede ser operativo")
+
+
+def _validate_team_template_payload(payload: dict[str, Any]) -> dict[str, Any]:
+    if not isinstance(payload, dict):
+        raise ValueError("team_template debe ser un objeto")
+    raw_template = payload.get("team_template") if "team_template" in payload else payload
+    if not isinstance(raw_template, dict):
+        raise ValueError("team_template debe contener un objeto")
+    template = deepcopy(raw_template)
+    wrapper_artifact_type = payload.get("artifact_type") if isinstance(payload, dict) else None
+    template.setdefault("artifact_type", wrapper_artifact_type or "derived_professional_team_template")
+    name = template.get("nombre") or template.get("name")
+    description = template.get("descripcion") or template.get("description")
+    template["name"] = name
+    template["description"] = description
+
+    required = {"team_template_id", "name", "description"}
+    missing = [field for field in sorted(required) if not template.get(field)]
+    if missing:
+        raise ValueError(f"team_template incompleto: {', '.join(missing)}")
+    _validate_id(template["team_template_id"], "team_template_id")
+    if template["artifact_type"] != "derived_professional_team_template":
+        raise ValueError("team_template debe ser artefacto derivado")
+    if template.get("status") not in {None, "derived", "ready_to_materialize"}:
+        raise ValueError("team_template status debe ser derived/ready_to_materialize")
+    if template.get("team_type") == "sandbox" or template.get("artifact_kind") == "sandbox_team":
+        raise ValueError("team_template no debe ser equipo sandbox ya materializado")
+    _reject_template_operational_flags(template)
+    if not _template_has_member_source(template):
+        raise ValueError("team_template sin miembros/roles suficientes")
+    return template
+
+
+def _template_has_member_source(template: dict[str, Any]) -> bool:
+    return bool(
+        template.get("members")
+        or template.get("recommended_domain_profile_ids")
+        or template.get("recommended_profile_ids")
+        or template.get("required_team_roles")
+    )
+
+
+def _reject_template_operational_flags(payload: Any) -> None:
+    blocked_true = {
+        "active",
+        "operational",
+        "execution_enabled",
+        "runtime_enabled",
+        "tool_execution_enabled",
+        "model_invocation_enabled",
+        "external_integrations_enabled",
+        "can_execute",
+        "can_call_tools",
+        "can_call_models",
+        "can_write_outputs",
+        "can_access_network",
+        "can_use_integrations",
+        "external_access",
+        "execution_allowed",
+        "creates_agents",
+        "creates_runtime_team",
+        "invokes_models",
+        "calls_tools",
+    }
+    if isinstance(payload, dict):
+        for key, value in payload.items():
+            if key in blocked_true and value is True:
+                raise ValueError(f"team_template no puede declarar {key}=true")
+            _reject_template_operational_flags(value)
+    elif isinstance(payload, list):
+        for item in payload:
+            _reject_template_operational_flags(item)
+
+
+def _members_from_template(template: dict[str, Any]) -> list[dict[str, Any]]:
+    if isinstance(template.get("members"), list) and template["members"]:
+        members = []
+        for index, member in enumerate(template["members"], start=1):
+            if not isinstance(member, dict):
+                raise ValueError("team_template.members debe contener objetos")
+            member_id = _normalize_id(
+                member.get("member_id")
+                or member.get("profile_id")
+                or member.get("role_id")
+                or f"{template['team_template_id']}_member_{index}"
+            )
+            role_id = _normalize_id(member.get("role_id") or member.get("role") or f"member_{index}")
+            responsibilities = member.get("responsibilities") or member.get("responsabilidades")
+            if not responsibilities and member.get("responsibility"):
+                responsibilities = [member["responsibility"]]
+            members.append(
+                _template_member(
+                    member_id=member_id,
+                    role_id=role_id,
+                    role_name=member.get("role_name") or _humanize_id(role_id),
+                    specialization_id=member.get("specialization_id"),
+                    specialization_name=member.get("specialization_name"),
+                    responsibilities=responsibilities
+                    or [f"Participa en {template['description']} sin ejecucion."],
+                    inputs=member.get("inputs") or [],
+                    outputs=member.get("outputs") or [],
+                    agent_reference=member.get("agent_reference"),
+                )
+            )
+        return members
+
+    profile_ids = list(
+        template.get("recommended_domain_profile_ids")
+        or template.get("recommended_profile_ids")
+        or []
+    )
+    roles = list(template.get("required_team_roles") or template.get("optional_team_roles") or [])
+    if not profile_ids:
+        profile_ids = [f"{template['team_template_id']}_{role}" for role in roles]
+    if not profile_ids and roles:
+        profile_ids = roles
+    if not profile_ids:
+        raise ValueError("team_template sin miembros/roles suficientes")
+    if not roles:
+        roles = ["member"]
+
+    members = []
+    for index, profile_id in enumerate(profile_ids, start=1):
+        role_id = _normalize_id(roles[(index - 1) % len(roles)])
+        member_id = _normalize_id(str(profile_id))
+        members.append(
+            _template_member(
+                member_id=member_id,
+                role_id=role_id,
+                role_name=_humanize_id(role_id),
+                specialization_id=None,
+                specialization_name=None,
+                responsibilities=[
+                    f"Representa el rol {role_id} derivado del team_template sin agente ejecutable."
+                ],
+                inputs=[],
+                outputs=list(template.get("expected_outputs", [])),
+                agent_reference=None,
+            )
+        )
+    return members
+
+
+def _template_member(
+    *,
+    member_id: str,
+    role_id: str,
+    role_name: str,
+    specialization_id: str | None,
+    specialization_name: str | None,
+    responsibilities: list[Any],
+    inputs: list[Any],
+    outputs: list[Any],
+    agent_reference: Any,
+) -> dict[str, Any]:
+    return {
+        "member_id": member_id,
+        "role_id": role_id,
+        "role_name": role_name,
+        "specialization_id": _normalize_id(specialization_id) if specialization_id else None,
+        "specialization_name": specialization_name,
+        "agent_reference": deepcopy(agent_reference),
+        "responsibilities": [str(item) for item in responsibilities if str(item).strip()],
+        "inputs": list(inputs),
+        "outputs": list(outputs),
+        "status": ArtifactState.MATERIALIZED.value,
+        "artifact_state": ArtifactState.MATERIALIZED.value,
+    }
+
+
+def _legacy_members_from_members(members: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    legacy = []
+    for member in members:
+        reference = member.get("agent_reference")
+        artifact_id = (
+            reference.get("artifact_id")
+            if isinstance(reference, dict) and reference.get("artifact_id")
+            else f"agent_{member['member_id']}"
+        )
+        legacy.append(
+            {
+                "agent_id": member["member_id"],
+                "role": member["role_id"],
+                "specialization": member.get("specialization_id") or "general",
+                "responsibility": member["responsibilities"][0],
+                "required": True,
+                "source_reference": {
+                    "artifact_id": artifact_id,
+                    "artifact_type": "agent",
+                    "declarative_reference_only": reference is None,
+                },
+                "status": member["status"],
+            }
+        )
+    return legacy
+
+
+def _default_template_coordination_model(members: list[dict[str, Any]]) -> dict[str, Any]:
+    order = [member["member_id"] for member in members]
+    return {
+        "coordination_type": "parallel_review" if len(order) > 1 else "none",
+        "coordinator_agent_id": order[0] if len(order) > 1 else None,
+        "declared_only": True,
+        "runtime_enabled": False,
+        "execution_enabled": False,
+        "rules": ["La coordinacion desde team_template es declarativa; no ejecuta agentes."],
+        "suggested_order": order,
+        "restrictions": [
+            "Sin runtime multiagente.",
+            "Sin tools.",
+            "Sin modelos.",
+            "Sin integraciones.",
+        ],
+    }
+
+
+def _validate_team_runtime_boundary(team: dict[str, Any]) -> None:
+    policy = team.get("execution_policy", {})
+    permissions = team.get("permissions", {})
+    for field in [
+        "execution_enabled",
+        "runtime_enabled",
+        "tool_execution_enabled",
+        "model_invocation_enabled",
+        "external_integrations_enabled",
+    ]:
+        if policy.get(field) is not False:
+            raise ValueError(f"equipo sandbox requiere {field}=false")
+    for field in [
+        "can_execute",
+        "can_call_tools",
+        "can_call_models",
+        "can_write_outputs",
+        "can_access_network",
+        "can_use_integrations",
+    ]:
+        if permissions.get(field) is not False:
+            raise ValueError(f"equipo sandbox requiere permissions.{field}=false")
+
+
+def _validate_team_materialization_manifest_file(
+    path: Path,
+    *,
+    team: dict[str, Any],
+    domain_id: str,
+) -> dict[str, Any]:
+    try:
+        manifest = json.loads(path.read_text(encoding="utf-8"))
+    except json.JSONDecodeError as exc:
+        raise ValueError(f"team manifest no es JSON valido: {exc}") from exc
+    return _validate_team_materialization_manifest(manifest, team=team, domain_id=domain_id)
+
+
+def _validate_team_materialization_manifest(
+    manifest: dict[str, Any],
+    *,
+    team: dict[str, Any],
+    domain_id: str,
+) -> dict[str, Any]:
+    if not isinstance(manifest, dict):
+        raise ValueError("team manifest debe ser un objeto")
+    required = {
+        "schema_version",
+        "materialization_id",
+        "artifact_id",
+        "artifact_type",
+        "artifact_kind",
+        "domain_id",
+        "team_id",
+        "source_team_template",
+        "created_from",
+        "created_paths",
+        "dependencies",
+        "rollback_prepared",
+        "execution_enabled",
+        "runtime_enabled",
+        "tool_execution_enabled",
+        "model_invocation_enabled",
+        "external_integrations_enabled",
+        "created_at",
+        "validation",
+    }
+    missing = required - set(manifest)
+    if missing:
+        raise ValueError(f"team manifest incompleto: {', '.join(sorted(missing))}")
+    if manifest["schema_version"] != TEAM_MATERIALIZATION_MANIFEST_SCHEMA_VERSION:
+        raise ValueError("team manifest con schema_version invalida")
+    if manifest["materialization_id"] != team["materialization_id"]:
+        raise ValueError("team manifest no coincide con materialization_id")
+    if manifest["artifact_id"] != team["artifact_id"]:
+        raise ValueError("team manifest no coincide con artifact_id")
+    if manifest["domain_id"] != domain_id or manifest["domain_id"] != team["domain_id"]:
+        raise ValueError("team manifest no coincide con domain_id")
+    if manifest["team_id"] != team["team_id"]:
+        raise ValueError("team manifest no coincide con team_id")
+    if manifest["artifact_type"] != "team":
+        raise ValueError("team manifest mantiene artifact_type=team por compatibilidad")
+    if manifest["artifact_kind"] != "sandbox_team":
+        raise ValueError("team manifest requiere artifact_kind=sandbox_team")
+    if manifest["dependencies"] != team["dependencies"]:
+        raise ValueError("team manifest no coincide con dependencies")
+    if manifest["rollback_prepared"] is not True:
+        raise ValueError("team manifest requiere rollback_prepared=true")
+    for field in [
+        "execution_enabled",
+        "runtime_enabled",
+        "tool_execution_enabled",
+        "model_invocation_enabled",
+        "external_integrations_enabled",
+    ]:
+        if manifest.get(field) is not False:
+            raise ValueError(f"team manifest requiere {field}=false")
+    if not isinstance(manifest.get("created_paths"), list) or not manifest["created_paths"]:
+        raise ValueError("team manifest requiere created_paths")
+    if not isinstance(manifest.get("source_team_template"), dict) or not manifest["source_team_template"]:
+        raise ValueError("team manifest requiere source_team_template")
+    if not isinstance(manifest.get("created_from"), dict) or not manifest["created_from"]:
+        raise ValueError("team manifest requiere created_from")
+    if not isinstance(manifest.get("validation"), dict) or not manifest["validation"]:
+        raise ValueError("team manifest requiere validation")
+    return deepcopy(manifest)
+
+
+def _load_or_create_artifact_manifest(path: Path, domain_id: str) -> dict[str, Any]:
+    if path.exists():
+        return validate_artifact_manifest_file(path)
+    return empty_artifact_manifest(domain_id)
+
+
+def _team_materialization_id(
+    domain: dict[str, Any],
+    team_template: dict[str, Any],
+    team_id: str,
+) -> str:
+    raw = f"{domain['domain_id']}:{team_template['team_template_id']}:{team_id}"
+    return _normalize_id(f"mat_{raw}")
+
+
+def _archive_current_team_manifest(
+    domain_dir: Path,
+    manifest_path: Path,
+    *,
+    previous_version: str,
+) -> Path:
+    if not manifest_path.is_file():
+        raise FileNotFoundError("No se puede regenerar: falta manifest de equipo actual")
+    history_dir = _safe_child(domain_dir, SANDBOX_TEAMS_DIR / "history")
+    history_dir.mkdir(parents=True, exist_ok=True)
+    history_path = _safe_child(
+        domain_dir,
+        SANDBOX_TEAMS_DIR
+        / "history"
+        / f"{manifest_path.stem}_{previous_version.replace('.', '_')}.manifest.json",
+    )
+    if history_path.exists():
+        raise FileExistsError(f"Historial de manifest de equipo ya existe: {history_path.name}")
+    shutil.copy2(manifest_path, history_path)
+    return history_path
 
 
 def _responsibility_from_agent(agent: dict[str, Any]) -> str:
@@ -528,6 +1190,19 @@ def _normalize_id(value: str) -> str:
     if not slug:
         raise ValueError("id de equipo vacio")
     return slug
+
+
+def _validate_id(value: Any, field: str) -> None:
+    if not isinstance(value, str) or not value.strip():
+        raise ValueError(f"{field} debe ser texto no vacio")
+    if not re.fullmatch(r"[a-z0-9]+(?:_[a-z0-9]+)*", value):
+        raise ValueError(f"{field} invalido: debe estar en snake_case")
+
+
+def _humanize_id(value: Any) -> str:
+    if not isinstance(value, str) or not value.strip():
+        return "General"
+    return value.replace("_", " ").strip().title()
 
 
 def _dedupe(paths: list[str]) -> list[str]:

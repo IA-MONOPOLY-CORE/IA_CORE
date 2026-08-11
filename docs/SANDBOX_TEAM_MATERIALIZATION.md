@@ -1,153 +1,197 @@
-# Materializacion de equipos sandbox
+# Materializacion De Equipo Sandbox
 
-## 1. Que se materializa
+Estado: `SANDBOX_TEAM_TEMPLATE_MATERIALIZATION_READY`
 
-`core/sandbox_team_materializer.py` materializa un equipo sandbox como artefacto declarativo dentro de un dominio sandbox existente.
+Veredicto: `SANDBOX_TEAM_TEMPLATE_MATERIALIZATION_NO_OPERATIONAL_CONFIRMED`
 
-El archivo se escribe en:
+Readiness: `ready_for_phase_5_2_sandbox_team_audit`
+
+## 1. Proposito
+
+`core/sandbox_team_materializer.py` materializa equipos sandbox como artefactos declarativos dentro de un dominio sandbox controlado.
+
+PROMPT 5.1 agrega la ruta desde `team_template` derivado mediante `materialize_sandbox_team_from_template()`. Esta ruta no ejecuta equipos, agentes, modelos, tools ni integraciones.
+
+## 2. Relacion Con Fase 5
+
+Fase 5 - Equipos reales sandbox avanza en dos pasos seguros:
+
+1. PROMPT 5.0 definio el schema de equipo sandbox real.
+2. PROMPT 5.1 materializa declarativamente un equipo desde `team_template`.
+
+El siguiente paso es auditoria, no runtime: `PROMPT 5.2 - Auditoria de equipo sandbox`.
+
+## 3. Entrada Desde Team Template
+
+La entrada puede ser el wrapper generado por `core.professional_team_template_generator`:
+
+```txt
+artifact_type: derived_professional_team_template
+team_template: {...}
+```
+
+o el payload interno `team_template` equivalente.
+
+El materializador valida:
+
+- identidad `team_template_id`;
+- nombre y descripcion;
+- roles o perfiles recomendados suficientes;
+- estado derivado/no operativo;
+- ausencia de runtime, execution, tools, modelos, integraciones y permisos reales.
+
+No se crea `catalogs/team_templates.json` y no se inventan catalogos.
+
+## 4. Team Template Vs Equipo Materializado Sandbox
+
+`team_template` es una plantilla derivada y reusable. No pertenece por si sola a un sandbox materializado, no tiene `artifact_id` de equipo real y no ejecuta.
+
+El equipo materializado sandbox:
+
+- pertenece a `domain_id`;
+- tiene `team_id`, `artifact_id` y `materialization_id`;
+- se escribe en sandbox controlado;
+- conserva `source_team_template` y `created_from`;
+- registra members declarativos;
+- queda preparado para manifest y rollback;
+- no es operativo ni `active`.
+
+## 5. Estructura Creada
+
+La ruta 5.1 crea dentro del sandbox temporal/controlado:
 
 ```txt
 <sandbox>/<domain_id>/sandbox_teams/<team_id>.json
+<sandbox>/<domain_id>/sandbox_teams/<team_id>.manifest.json
+<sandbox>/<domain_id>/manifests/artifact_manifest.json
 ```
 
-El equipo contiene:
+Tambien extiende `materialization_manifest.json` del dominio sandbox con los paths creados.
 
-- `team_id`;
+## 6. Manifest Del Equipo
+
+El manifest especifico del equipo incluye:
+
+- `schema_version`;
+- `materialization_id`;
+- `artifact_id`;
+- `artifact_type`;
+- `artifact_kind`;
 - `domain_id`;
-- `name`;
-- `purpose`;
-- `status`;
-- `version`;
-- `member_agents`;
-- `coordination_model`;
-- `capabilities`;
+- `team_id`;
+- `source_template_id`;
+- `source_team_template`;
+- `created_from`;
+- `created_paths`;
 - `dependencies`;
-- `rollback_info`;
+- `rollback_prepared`;
+- flags de ejecucion/runtime/tools/modelos/integraciones en `false`;
+- `created_at`;
+- `validation`;
 - `history`.
 
-## 2. Diferencia con runtime
+## 7. Lineage Y Dependencies
+
+Lineage:
 
 ```txt
-team materialized != team active != team runtime
+team_template derivado
+-> materialize_sandbox_team_from_template
+-> sandbox_team schema 5.0
+-> team manifest
+-> artifact_manifest
 ```
 
-`team materialized` significa que existe un artefacto trazable dentro del sandbox.
+Si los miembros tienen `agent_reference=null`, `dependencies` puede quedar vacio. Si en una fase futura existen agentes sandbox trazados, las dependencies podran salir de `agent_reference.artifact_id`.
 
-No significa:
+## 8. Decision Artifact Type: Team Vs Sandbox Team
 
-- ejecucion;
-- coordinacion real;
-- debate real;
-- pipeline real;
-- activacion de agentes;
-- llamadas externas;
-- memoria real;
-- herramientas reales.
+Auditoria 5.1:
 
-## 3. Miembros
+- `artifact_type: team` es una convencion generica valida del `artifact_manifest_schema.py` actual.
+- `created_from.artifact_kind: sandbox_team` y `team_manifest.artifact_kind: sandbox_team` desambiguan que se trata de un equipo sandbox real.
+- Normalizar ahora a `artifact_type: sandbox_team` romperia compatibilidad con `artifact_manifest_schema.py`, tests existentes y manifiestos historicos que esperan `team`.
+- No hay ambiguedad real porque el lineage declara `artifact_kind`, `source_team_template`, `materialization_id`, `created_by` y flags no operativos.
 
-Relacion:
+Decision: mantener `artifact_type: team` por compatibilidad y declarar `artifact_kind: sandbox_team` para semantica especifica. Una normalizacion futura requeriria subprompt quirurgico si el manifest global decide aceptar `sandbox_team` como tipo propio.
 
-```txt
-sandbox_agents
-  -> sandbox_team
-```
+## 9. Politica De No Ejecucion
 
-El materializador requiere agentes sandbox existentes en:
+La materializacion exige:
 
-```txt
-<sandbox>/<domain_id>/sandbox_agents/
-```
-
-Cada miembro conserva:
-
-- `agent_id`;
-- rol;
-- especializacion;
-- responsabilidad;
-- referencia al artefacto `agent_<agent_id>`;
-- estado `materialized`.
-
-El equipo no puede referenciar agentes inexistentes, duplicados, `active` o con `runtime_enabled=true`.
-
-## 4. Coordinacion declarativa
-
-La coordinacion permitida es declarativa.
-
-Tipos:
-
-- `none`;
-- `single_coordinator`;
-- `parallel_review`;
-- `sequential_pipeline`;
-- `debate_future`;
-- `approval_future`.
-
-Bloqueos:
-
-- no `execute=true`;
-- no `runtime_enabled=true`;
-- no `execution_enabled=true`;
-- no `pipeline_enabled=true`;
-- no `debate_enabled=true`.
-
-## 5. Capabilities
-
-El equipo puede declarar:
-
-- memoria futura;
-- herramientas futuras;
-- policies futuras.
-
-Todas las capacidades siguen siendo declarativas:
-
-- `declared_only=true`;
+- `execution_enabled=false`;
 - `runtime_enabled=false`;
-- `execution_allowed=false`;
-- `external_access=false`.
+- `tool_execution_enabled=false`;
+- `model_invocation_enabled=false`;
+- `external_integrations_enabled=false`;
+- `human_approval_required=true`.
 
-No se implementa `capability_policy` en este prompt.
+El materializador no ejecuta agentes, no invoca modelos, no llama tools, no abre runtime y no produce outputs operativos.
 
-## 6. Rollback y regeneracion
+## 10. Permisos Bloqueados
 
-`rollback_sandbox_team()` elimina solo el equipo sandbox materializado.
+Permisos sensibles deben permanecer en `false`:
 
-Conserva:
+- `can_execute`;
+- `can_call_tools`;
+- `can_call_models`;
+- `can_write_outputs`;
+- `can_access_network`;
+- `can_use_integrations`.
 
-- sandbox agents;
-- paper_seed;
-- agent_presets;
-- profile_catalog;
-- dominio sandbox.
+Templates que intenten declarar permisos o flags operativos en `true` fallan antes de escribir.
 
-`regenerate_sandbox_team()` mantiene `team_id`, incrementa version patch, archiva la version anterior en `sandbox_teams/history/` y conserva miembros/dependencias.
+## 11. Relacion Con Artifact Manifest
 
-## 7. Seguridad
-
-El materializador:
-
-- registra `artifact_type: team`;
-- mantiene `status: materialized`;
-- bloquea runtime;
-- bloquea ejecucion;
-- bloquea external access;
-- no escribe en `agents/`;
-- no escribe en `domains/` operativo;
-- no modifica catalogos globales;
-- no modifica papers globales.
-
-## 8. Artifact manifest
-
-El equipo se registra como:
+El equipo se registra en `manifests/artifact_manifest.json` como:
 
 ```txt
 artifact_type: team
 artifact_id: team_<team_id>
-dependencies:
-  - profile_catalog_main
-  - agent_presets_main
-  - paper_seed_main
-  - agent_<agent_id>
+created_from.artifact_kind: sandbox_team
+operational: false
+passed: false
 ```
 
-El manifest conserva rollback y versionado, pero no ejecuta coordinacion.
+El registro se valida con `core/artifact_manifest_schema.py`. No existen writer/read model de artifact manifest en este prompt; no se inventan.
+
+## 12. Relacion Futura Con Agentes Sandbox
+
+La materializacion desde template permite miembros con:
+
+```txt
+agent_reference: null
+```
+
+Esto preserva roles y responsabilidades sin exigir agentes reales. Las referencias contra agentes sandbox materializados se validaran en fases posteriores.
+
+## 13. Que NO Hace Esta Materializacion
+
+- No crea agentes.
+- No ejecuta agentes.
+- No activa runtime multiagente.
+- No crea scheduler, worker, queue, orchestrator, dispatcher ni event bus.
+- No invoca modelos.
+- No llama tools.
+- No abre red, UI ni integraciones.
+- No escribe en `domains/` operativo.
+- No habilita Market Catalog runtime.
+- No habilita Business Composition Layer runtime.
+- No incorpora OBLITERATUS.
+
+## 14. Criterios Para Avanzar A Auditoria 5.2
+
+- `materialize_sandbox_team_from_template()` existe y pasa tests.
+- `validate_materialized_sandbox_team()` detecta inconsistencias entre team, manifest y artifact manifest.
+- `artifact_type: team` vs `sandbox_team` queda auditado y documentado.
+- No se crean agentes ni runtime.
+- No se escribe en `domains/` operativo.
+- Tests focales y checkpoints previos siguen verdes.
+
+Marcas:
+
+`SANDBOX_TEAM_TEMPLATE_MATERIALIZATION_READY`
+
+`SANDBOX_TEAM_TEMPLATE_MATERIALIZATION_NO_OPERATIONAL_CONFIRMED`
+
+`ready_for_phase_5_2_sandbox_team_audit`

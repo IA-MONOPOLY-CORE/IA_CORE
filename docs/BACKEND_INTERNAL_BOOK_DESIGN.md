@@ -5689,3 +5689,15 @@ Readiness: `ready_for_phase_5_1_team_template_materialization`
 Proximo paso: `PROMPT 5.1 — Materializar equipo real desde team_template`
 
 Este bloque inicia Fase 5 reconciliando `core/sandbox_team_schema.py` como contrato canonico de equipo real sandbox. El schema diferencia `team_template` derivado de equipo sandbox real, exige identidad propia, dominio sandbox, `artifact_id`, `materialization_id`, `source_team_template`, `created_from`, miembros declarativos, `execution_policy` default-deny, permisos sensibles bloqueados y compatibilidad futura con `artifact_manifest`. Mantiene compatibilidad con `artifact_type: team` en el manifest historico, pero registra `sandbox_team` como tipo conceptual del contrato. No materializa equipos, no crea agentes, no ejecuta agentes, no activa runtime multiagente, no invoca modelos, no llama tools, no toca UI ni integraciones, no habilita Market Catalog runtime, Business Composition Layer runtime ni OBLITERATUS.
+
+## 185. PROMPT 5.1 - Materializar equipo real sandbox desde team_template
+
+Estado: `SANDBOX_TEAM_TEMPLATE_MATERIALIZATION_READY`
+
+Veredicto: `SANDBOX_TEAM_TEMPLATE_MATERIALIZATION_NO_OPERATIONAL_CONFIRMED`
+
+Readiness: `ready_for_phase_5_2_sandbox_team_audit`
+
+Proximo paso: `PROMPT 5.2 - Auditoria de equipo sandbox`
+
+Este bloque extiende `core/sandbox_team_materializer.py` como materializador canonico de equipos sandbox desde `team_template` derivado. Crea `sandbox_teams/<team_id>.json`, `sandbox_teams/<team_id>.manifest.json`, registro compatible en `manifests/artifact_manifest.json` y extension de `materialization_manifest.json`, todo dentro de un dominio sandbox temporal/controlado. Conserva `artifact_type: team` en el manifest global por compatibilidad y usa `artifact_kind: sandbox_team` para semantica especifica. No crea catalogos, no crea agentes, no materializa runtime, no ejecuta equipos, no invoca modelos, no llama tools, no abre UI ni integraciones, no habilita Market Catalog runtime, Business Composition Layer runtime ni OBLITERATUS.
