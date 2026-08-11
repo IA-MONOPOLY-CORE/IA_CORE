@@ -1090,3 +1090,26 @@ La auditoria de preparacion sandbox detecto que el dominio y su ciclo estan list
 - Fase 2 no debe materializar `profile_catalog` ni `agent_presets` como archivos sueltos.
 - Rollback parcial queda preparado por contrato, aunque no se implemente todavia.
 - Papers, agentes, equipos y memoria deberan entrar al sandbox con la misma disciplina de manifest.
+
+---
+
+## ADR-043 - Los equipos sandbox son estructuras declarativas no ejecutables
+
+**Estado**: Aceptado
+
+**Prompt**: 5.0 - Schema de equipo real sandbox
+
+**Contexto**:
+Fase 5 inicia la representacion de equipos reales sandbox. IA_CORE ya tenia piezas historicas de `sandbox_team` y generadores de `team_template`, pero faltaba separar formalmente una plantilla derivada de un equipo sandbox real asociado a dominio, miembros, lineage, permisos y politica de no ejecucion.
+
+**Decision**:
+- IA_CORE representa equipos reales sandbox como artefactos declarativos trazables, asociados a un dominio sandbox.
+- Un equipo sandbox puede derivar de `team_template`, pero `team_template` no es equipo real sandbox.
+- `core/sandbox_team_schema.py` es el contrato canonico para validar identidad, `artifact_id`, `materialization_id`, `source_team_template`, `created_from`, miembros, `execution_policy`, `permissions`, estados y compatibilidad futura con manifest.
+- El `artifact_manifest` vigente conserva `artifact_type: team` por compatibilidad, mientras el contrato declara `sandbox_team` como tipo conceptual.
+- Un equipo sandbox no habilita ejecucion multiagente real, invocacion de modelos, tools, runtime, outputs operativos ni integraciones.
+
+**Consecuencias**:
+- La futura materializacion de equipos podra validar identidad, miembros, roles, permisos, dependencies y lineage antes de cualquier ejecucion.
+- Runtime y ejecucion real siguen bloqueados hasta una fase posterior explicita.
+- La UI futura no debe tratar `team_template` ni equipo sandbox `materialized` como equipo operativo activo.

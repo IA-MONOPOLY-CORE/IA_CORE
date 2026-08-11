@@ -16,6 +16,29 @@ Fase 5 — Equipos reales sandbox define el próximo bloque arquitectónico desp
 
 Definir primero el schema de equipo real sandbox y luego, en prompts posteriores, materializar equipos declarativos desde `team_template` sin abrir ejecución multiagente real.
 
+## PROMPT 5.0 - Schema De Equipo Real Sandbox
+
+Estado esperado al cierre: `SANDBOX_TEAM_SCHEMA_READY`
+
+Veredicto esperado: `SANDBOX_TEAM_SCHEMA_NO_OPERATIONAL_CONFIRMED`
+
+Readiness esperada: `ready_for_phase_5_1_team_template_materialization`
+
+PROMPT 5.0 reconcilia `core/sandbox_team_schema.py` como contrato canonico de equipo real sandbox. El contrato diferencia `team_template` derivado de equipo sandbox real, exige identidad propia, `domain_id`, `artifact_id`, `materialization_id`, `source_team_template`, `created_from`, `members`, `execution_policy`, `permissions`, estados no activos y compatibilidad futura con `artifact_manifest`.
+
+El schema mantiene aliases historicos (`purpose`, `member_agents`, `artifact_type: team` en manifest) para no romper la cadena previa de equipos sandbox, pero la forma canonica de Fase 5 queda en `members`, `team_type=sandbox`, `artifact_state`, `execution_policy` y `permissions`.
+
+Criterio de cierre de 5.0:
+
+- existe validador claro para equipo sandbox real;
+- `team_template` derivado no pasa como equipo real sandbox;
+- `execution_policy` bloquea runtime, ejecucion, tools, modelos e integraciones;
+- `permissions` mantiene permisos sensibles en false;
+- `agent_reference` puede ser `null` sin ejecutar nada;
+- no se crea equipo operativo;
+- no se ejecutan agentes, runtime, tools ni modelos;
+- la documentacion vive en `docs/SANDBOX_TEAM_SCHEMA.md`.
+
 ## Por Qué Viene Después De Runtime Execution Preparation
 
 Runtime Execution Preparation cerró con `RUNTIME_EXECUTION_PREPARATION_BLOCK_INTEGRAL_CHECKPOINT_PASSED`, `RUNTIME_EXECUTION_PREPARATION_BLOCK_CHAIN_READY` y `ready_for_next_architecture_block_planning`. El libro Backend Interno ya identifica Fase 5 como “Equipos reales sandbox” después de agentes reales sandbox, y existen piezas históricas no-operativas relacionadas con equipos sandbox (`core/sandbox_team_schema.py`, `core/sandbox_team_materializer.py`) y plantillas derivadas (`core/professional_team_template_generator.py`).

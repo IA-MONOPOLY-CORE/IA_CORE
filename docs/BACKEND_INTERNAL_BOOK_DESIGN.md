@@ -5677,3 +5677,15 @@ Bloque seleccionado: `Fase 5 — Equipos reales sandbox`
 Próximo paso: `PROMPT 5.0 — Schema de equipo real sandbox`
 
 Este bloque confirma que `PROMPT 4.8` está cerrado en commit `61c4b15b` y selecciona formalmente Fase 5 como siguiente bloque del libro Backend Interno. No reabre Runtime Execution Preparation, no implementa Fase 5, no crea equipos sandbox, no activa runtime, execution, dry-run real, UI/UX, integraciones, Market Catalog runtime, Business Composition Layer runtime ni OBLITERATUS.
+
+## 184. PROMPT 5.0 — Schema de equipo real sandbox
+
+Estado: `SANDBOX_TEAM_SCHEMA_READY`
+
+Veredicto: `SANDBOX_TEAM_SCHEMA_NO_OPERATIONAL_CONFIRMED`
+
+Readiness: `ready_for_phase_5_1_team_template_materialization`
+
+Proximo paso: `PROMPT 5.1 — Materializar equipo real desde team_template`
+
+Este bloque inicia Fase 5 reconciliando `core/sandbox_team_schema.py` como contrato canonico de equipo real sandbox. El schema diferencia `team_template` derivado de equipo sandbox real, exige identidad propia, dominio sandbox, `artifact_id`, `materialization_id`, `source_team_template`, `created_from`, miembros declarativos, `execution_policy` default-deny, permisos sensibles bloqueados y compatibilidad futura con `artifact_manifest`. Mantiene compatibilidad con `artifact_type: team` en el manifest historico, pero registra `sandbox_team` como tipo conceptual del contrato. No materializa equipos, no crea agentes, no ejecuta agentes, no activa runtime multiagente, no invoca modelos, no llama tools, no toca UI ni integraciones, no habilita Market Catalog runtime, Business Composition Layer runtime ni OBLITERATUS.
