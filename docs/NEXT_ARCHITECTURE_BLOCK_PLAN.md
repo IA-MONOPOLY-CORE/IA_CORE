@@ -730,3 +730,21 @@ Readiness: `ready_for_next_architecture_block_after_phase_5`.
 Proximo paso recomendado: `PROMPT 5.4 - Planificacion del siguiente bloque arquitectonico`.
 
 El siguiente prompt debe planificar el proximo bloque, no activar runtime. Siguen bloqueados runtime, execution, dry-run real, tools, modelos, contexto, outputs, writes, stores, memoria operativa, API runtime, UI runtime, UI-device control, integraciones, Market Catalog runtime, Business Composition Layer runtime y OBLITERATUS.
+
+## PROMPT 5.4 - Planificacion Del Siguiente Bloque Arquitectonico Despues De Fase 5
+
+Estado: `NEXT_ARCHITECTURE_BLOCK_PLANNING_COMPLETED`
+
+Veredicto: `NEXT_ARCHITECTURE_BLOCK_SELECTED`
+
+Readiness: `ready_for_phase_6_sandbox_e2e_checkpoint`
+
+Bloque seleccionado: `Fase 6 - End-to-end operativo sandbox, rollback y regeneracion`.
+
+Proximo prompt exacto: `PROMPT 6.0 - Validacion end-to-end sandbox completa`.
+
+Compatibilidad de nombre: `PROMPT 6.0 — Validación end-to-end sandbox completa`.
+
+Justificacion: Fase 5 minima quedo cerrada con schema, materializacion declarativa, auditoria y read model de equipos sandbox. El libro Backend Interno define despues de Fase 5 una Fase 6 orientada a end-to-end sandbox, rollback y regeneracion. Existen piezas reutilizables (`sandbox_lifecycle_validation`, `domain_materialization_rollback`, `test_sandbox_chain_with_team_checkpoint`) que deben auditarse y extenderse en lugar de duplicarse.
+
+Fase 6 sigue siendo sandbox/no-operativa. Runtime, execution, dry-run real, tools/modelos/context/output, writes/stores/memory operativos, API/UI, integraciones, Market Catalog runtime, Business Composition Layer runtime, OBLITERATUS y raw Package directo a User Panel permanecen bloqueados.

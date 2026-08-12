@@ -870,3 +870,17 @@ Readiness: `ready_for_next_architecture_block_after_phase_5`.
 Proximo paso recomendado: `PROMPT 5.4 - Planificacion del siguiente bloque arquitectonico`.
 
 El read model/listado interno no activa runtime, execution, dry-run real, tools, modelos, contexto, outputs, writes, stores, memoria operativa, API runtime, UI runtime, UI-device control, integraciones, Market Catalog runtime, Business Composition Layer runtime ni OBLITERATUS.
+
+## PROMPT 5.4 - Planificacion Del Siguiente Bloque Arquitectonico
+
+Fase 5 minima quedo cerrada con `SANDBOX_TEAM_READ_MODEL_READY`.
+
+`PROMPT 5.4` selecciona el siguiente bloque: `Fase 6 - End-to-end operativo sandbox, rollback y regeneracion`.
+
+Readiness: `ready_for_phase_6_sandbox_e2e_checkpoint`.
+
+Proximo prompt exacto: `PROMPT 6.0 - Validacion end-to-end sandbox completa`.
+
+Fase 6 debe reutilizar las piezas existentes de lifecycle, rollback y sandbox chain. No debe crear runtime, execution, dry-run real, agents/equipos nuevos persistentes, UI, endpoints publicos ni integraciones.
+
+Siguen bloqueados runtime, execution, dry-run real, tools, modelos, contexto, outputs, writes, stores, memoria operativa, API runtime, UI runtime, UI-device control, integraciones, Market Catalog runtime, Business Composition Layer runtime, OBLITERATUS y raw Package directo a User Panel.

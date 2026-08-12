@@ -1160,3 +1160,25 @@ Fase 5 ya cuenta con schema, materializacion declarativa y auditoria de equipos 
 - La UI futura puede listar e inspeccionar equipos sandbox sin inferir reglas criticas ni activar operacion real.
 - Toda mutacion, materializacion, correccion, activacion o ejecucion seguira perteneciendo a backend interno y fases posteriores explicitas.
 - Fase 5 minima puede cerrarse con readiness hacia planificacion del siguiente bloque arquitectonico.
+
+---
+
+## ADR-046 - Fase 6 debe reutilizar la cadena sandbox existente antes de crear nuevos flujos E2E
+
+**Estado**: Aceptado
+
+**Prompt**: 5.4 - Planificacion del siguiente bloque arquitectonico despues de Fase 5
+
+**Contexto**:
+Fase 5 minima quedo cerrada con schema, materializacion, auditoria y read model de equipos sandbox. El libro Backend Interno define la fase siguiente como end-to-end sandbox, rollback y regeneracion. El repo ya contiene piezas vigentes e historicas de lifecycle, rollback y sandbox chain, incluyendo `tests/test_sandbox_chain_with_team_checkpoint.py`.
+
+**Decision**:
+- El siguiente bloque arquitectonico es `Fase 6 - End-to-end operativo sandbox, rollback y regeneracion`.
+- El proximo prompt exacto es `PROMPT 6.0 - Validacion end-to-end sandbox completa`.
+- Fase 6 debe reutilizar o extender las piezas existentes antes de crear cualquier flujo E2E nuevo.
+- Fase 6 permanece sandbox/no-operativa: runtime, execution, dry-run real, tools, modelos, UI, integraciones, Market Catalog runtime, Business Composition Layer runtime y OBLITERATUS siguen bloqueados.
+
+**Consecuencias**:
+- Se reduce riesgo de duplicar `sandbox_chain`.
+- `PROMPT 6.0` debe empezar por validacion/reconciliacion, no por runtime ni UI.
+- La futura Fase 7 de contrato backend/UI recibira evidencia de Fase 6, no logica inferida desde frontend.
