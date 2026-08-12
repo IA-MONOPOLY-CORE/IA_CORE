@@ -368,6 +368,8 @@ def validate_materialized_sandbox_team(
         validate_materialized_paper_seed(target)
     manifest_path = _safe_child(target, ARTIFACT_MANIFEST_RELATIVE_PATH)
     artifact_manifest = validate_artifact_manifest_file(manifest_path)
+    if artifact_manifest["domain_id"] != team["domain_id"]:
+        raise ValueError("artifact_manifest no coincide con domain_id del equipo sandbox")
     artifact_id = f"team_{normalized_team_id}"
     index = _find_team_artifact_index(artifact_manifest, artifact_id)
     if index is None:
@@ -380,8 +382,11 @@ def validate_materialized_sandbox_team(
     )
     if artifact["dependencies"] != expected_dependencies:
         raise ValueError("equipo sandbox con dependencias invalidas")
-    if artifact.get("operational") is True or artifact.get("passed") is True:
-        raise ValueError("equipo sandbox no puede registrarse como operativo")
+    _validate_team_artifact_record(
+        artifact,
+        team=team,
+        team_manifest_present=team_manifest is not None,
+    )
     return {
         "success": True,
         "team": team,
@@ -924,6 +929,35 @@ def _validate_team_runtime_boundary(team: dict[str, Any]) -> None:
     ]:
         if permissions.get(field) is not False:
             raise ValueError(f"equipo sandbox requiere permissions.{field}=false")
+
+
+def _validate_team_artifact_record(
+    artifact: dict[str, Any],
+    *,
+    team: dict[str, Any],
+    team_manifest_present: bool,
+) -> None:
+    if artifact.get("artifact_id") != team["artifact_id"]:
+        raise ValueError("artifact_manifest no coincide con artifact_id del equipo sandbox")
+    if artifact.get("artifact_type") != "team":
+        raise ValueError("artifact_manifest mantiene artifact_type=team por compatibilidad")
+    if artifact.get("status") == ArtifactState.ACTIVE.value:
+        raise ValueError("equipo sandbox no puede registrarse como active")
+    if artifact.get("operational") is True or artifact.get("passed") is True:
+        raise ValueError("equipo sandbox no puede registrarse como operativo")
+    created_from = artifact.get("created_from")
+    if not isinstance(created_from, dict) or not created_from:
+        raise ValueError("artifact_manifest requiere created_from trazable")
+    if created_from.get("artifact_kind") != "sandbox_team":
+        raise ValueError("artifact_manifest requiere artifact_kind=sandbox_team")
+    if created_from.get("domain_id") != team["domain_id"]:
+        raise ValueError("artifact_manifest no coincide con domain_id del equipo sandbox")
+    if created_from.get("team_id") != team["team_id"]:
+        raise ValueError("artifact_manifest no coincide con team_id del equipo sandbox")
+    if not isinstance(created_from.get("source_team_template"), dict) or not created_from["source_team_template"]:
+        raise ValueError("artifact_manifest requiere source_team_template")
+    if team_manifest_present and created_from.get("materialization_id") != team["materialization_id"]:
+        raise ValueError("artifact_manifest no coincide con materialization_id del equipo sandbox")
 
 
 def _validate_team_materialization_manifest_file(

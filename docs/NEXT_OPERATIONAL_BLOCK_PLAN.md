@@ -834,3 +834,25 @@ Sigue bloqueado:
 - Market Catalog runtime;
 - Business Composition Layer runtime;
 - OBLITERATUS.
+
+## PROMPT 5.0 / 5.1 / 5.2 - Continuidad Fase 5 Equipos Reales Sandbox
+
+Fase 5 fue iniciada como bloque sandbox/no-operativo de equipos reales.
+
+Estado actual:
+
+- `PROMPT 5.0 - Schema de equipo real sandbox` cerrado con `SANDBOX_TEAM_SCHEMA_READY`.
+- `PROMPT 5.1 - Materializar equipo real sandbox desde team_template` cerrado con `SANDBOX_TEAM_TEMPLATE_MATERIALIZATION_READY`.
+- `PROMPT 5.2 - Auditoria de equipo sandbox` cerrado con `SANDBOX_TEAM_AUDIT_PASSED`.
+
+Readiness actual:
+
+`ready_for_phase_5_3_internal_team_listing`
+
+Proximo paso operacional/documental:
+
+`PROMPT 5.3 - Biblioteca interna/listado de equipos sandbox para futura UI`
+
+Fase 5 sigue sin activar runtime, execution, dry-run real, tools, modelos, contexto, outputs, writes, stores, memoria operativa, API runtime, UI runtime, UI-device control, integraciones, Market Catalog runtime, Business Composition Layer runtime ni OBLITERATUS.
+
+`PROMPT 5.3` debe seguir siendo listado interno/read-only/no-operativo, no UI real.

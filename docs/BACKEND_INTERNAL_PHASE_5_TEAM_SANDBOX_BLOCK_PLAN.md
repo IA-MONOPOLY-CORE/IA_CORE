@@ -4,9 +4,9 @@ Estado: `PHASE_5_TEAM_SANDBOX_BLOCK_IN_PROGRESS`
 
 Veredicto: `PHASE_5_TEAM_SANDBOX_SELECTED`
 
-Readiness: `ready_for_phase_5_2_sandbox_team_audit`
+Readiness: `ready_for_phase_5_3_internal_team_listing`
 
-Next: `PROMPT 5.2 - Auditoria de equipo sandbox`
+Next: `PROMPT 5.3 - Biblioteca interna/listado de equipos sandbox para futura UI`
 
 Compatibilidad con checkpoint 4.9:
 
@@ -82,6 +82,25 @@ Criterio de cierre de 5.1:
 - `validate_materialized_sandbox_team()` detecta inconsistencias de team/manifest/artifact manifest;
 - no crea agentes, runtime, tools, modelos, UI ni integraciones;
 - deja documentada la decision `artifact_type: team` vs `artifact_kind: sandbox_team` en `docs/SANDBOX_TEAM_MATERIALIZATION.md`.
+
+## PROMPT 5.2 - Auditoria De Equipo Sandbox
+
+Estado esperado al cierre: `SANDBOX_TEAM_AUDIT_PASSED`
+
+Veredicto esperado: `SANDBOX_TEAM_DECLARATIVE_NO_OPERATIONAL_CONFIRMED`
+
+Readiness esperada: `ready_for_phase_5_3_internal_team_listing`
+
+PROMPT 5.2 audita el equipo sandbox materializado por 5.1. Verifica que el equipo no sea decorativo, que el schema y materializador esten alineados, que `artifact_manifest` sea coherente, que `artifact_type: team` + `artifact_kind: sandbox_team` no sea ambiguo, que los miembros sean declarativos y que `permissions` y `execution_policy` bloqueen operacion real.
+
+Criterio de cierre de 5.2:
+
+- existe `docs/SANDBOX_TEAM_AUDIT.md`;
+- existe `tests/test_sandbox_team_audit.py`;
+- `validate_materialized_sandbox_team()` detecta inconsistencias de `team.json`, manifest de equipo y `artifact_manifest`;
+- no se crean agentes ni runtime;
+- no se abre UI ni integraciones;
+- queda readiness para `PROMPT 5.3 - Biblioteca interna/listado de equipos sandbox para futura UI`.
 
 ## Por Qué Viene Después De Runtime Execution Preparation
 
@@ -171,8 +190,8 @@ Fase 5 cierra cuando exista un schema de equipo sandbox real, materialización d
 
 ## Readiness
 
-`ready_for_phase_5_2_sandbox_team_audit`
+`ready_for_phase_5_3_internal_team_listing`
 
 ## Próximo Prompt Exacto
 
-`PROMPT 5.2 - Auditoria de equipo sandbox`
+`PROMPT 5.3 - Biblioteca interna/listado de equipos sandbox para futura UI`

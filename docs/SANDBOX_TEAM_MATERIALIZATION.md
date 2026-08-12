@@ -195,3 +195,17 @@ Marcas:
 `SANDBOX_TEAM_TEMPLATE_MATERIALIZATION_NO_OPERATIONAL_CONFIRMED`
 
 `ready_for_phase_5_2_sandbox_team_audit`
+
+## 15. Auditoria 5.2
+
+PROMPT 5.2 confirma que la materializacion 5.1 queda coherente y no-operativa.
+
+Resultado:
+
+`SANDBOX_TEAM_AUDIT_PASSED`
+
+`SANDBOX_TEAM_DECLARATIVE_NO_OPERATIONAL_CONFIRMED`
+
+`ready_for_phase_5_3_internal_team_listing`
+
+La auditoria endurece la validacion de `artifact_manifest` contra el equipo materializado: `domain_id`, `artifact_id`, `artifact_kind`, `team_id`, `source_team_template`, `materialization_id` en la ruta desde template y flags `operational/passed=false`.
