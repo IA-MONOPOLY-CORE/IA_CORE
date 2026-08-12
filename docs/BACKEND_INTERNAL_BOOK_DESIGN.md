@@ -5713,3 +5713,15 @@ Readiness: `ready_for_phase_5_3_internal_team_listing`
 Proximo paso: `PROMPT 5.3 - Biblioteca interna/listado de equipos sandbox para futura UI`
 
 Este bloque audita el equipo sandbox materializado en 5.1. Confirma coherencia entre schema, materializador, team manifest y artifact_manifest; mantiene `artifact_type: team` por compatibilidad y `artifact_kind: sandbox_team` como semantica especifica; valida members declarativos, permissions bloqueadas, execution_policy default-deny, lineage/dependencies y no-operatividad real. Endurece la validacion post-materializacion del `artifact_manifest`. No crea agentes, no ejecuta equipos, no activa runtime, no invoca modelos, no llama tools, no toca UI ni integraciones, no habilita Market Catalog runtime, Business Composition Layer runtime ni OBLITERATUS.
+
+## 187. PROMPT 5.3 - Biblioteca interna/listado de equipos sandbox para futura UI
+
+Estado: `SANDBOX_TEAM_READ_MODEL_READY`
+
+Veredicto: `SANDBOX_TEAM_INTERNAL_LISTING_NO_OPERATIONAL_CONFIRMED`
+
+Readiness: `ready_for_next_architecture_block_after_phase_5`
+
+Proximo paso: `PROMPT 5.4 - Planificacion del siguiente bloque arquitectonico`
+
+Este bloque crea `core/sandbox_team_read_model.py` como listado interno read-only y JSON-safe para equipos sandbox materializados. El payload resume identidad, dominio, `team_template`, `artifact_id`, `materialization_id`, members declarativos, permissions bloqueadas, execution_policy bloqueada, warnings, validation y readiness. Prepara futura UI sin crear UI real ni endpoints publicos. No crea equipos, no crea agentes, no ejecuta runtime, no invoca modelos, no llama tools, no toca integraciones, no habilita Market Catalog runtime, Business Composition Layer runtime ni OBLITERATUS.

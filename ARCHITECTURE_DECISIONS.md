@@ -1137,3 +1137,26 @@ Fase 5 ya definio el schema de equipo sandbox real. El siguiente paso necesitaba
 - PROMPT 5.1 permite auditar equipos sandbox materializados sin activar runtime multiagente.
 - La futura auditoria 5.2 debe revisar team, manifest, artifact manifest, lineage y frontera no-operativa.
 - Cualquier cambio futuro para aceptar `artifact_type: sandbox_team` en el manifest global requiere subprompt explicito de compatibilidad.
+
+---
+
+## ADR-045 - Los equipos sandbox se exponen internamente mediante read model no operativo
+
+**Estado**: Aceptado
+
+**Prompt**: 5.3 - Biblioteca interna/listado de equipos sandbox para futura UI
+
+**Contexto**:
+Fase 5 ya cuenta con schema, materializacion declarativa y auditoria de equipos sandbox. Antes de cualquier UI futura, IA_CORE necesita una forma interna, segura y legible de listar equipos materializados sin abrir operacion real.
+
+**Decision**:
+- IA_CORE expone equipos sandbox materializados solo mediante `core/sandbox_team_read_model.py` como read model interno, read-only y JSON-safe.
+- El read model resume identidad, dominio, origen `team_template`, `artifact_id`, `materialization_id`, members declarativos, permissions, execution policy, warnings, validation y readiness.
+- El read model conserva `artifact_type: team` y `artifact_kind: sandbox_team` sin ambiguedad.
+- El read model no crea UI, endpoints publicos, equipos, agentes, runtime, tools, modelos, outputs, stores ni integraciones.
+- Payloads con permisos sensibles, execution/runtime/tools/modelos/integraciones en `true`, secrets/env/runtime handles o configs sensibles deben fallar con error controlado.
+
+**Consecuencias**:
+- La UI futura puede listar e inspeccionar equipos sandbox sin inferir reglas criticas ni activar operacion real.
+- Toda mutacion, materializacion, correccion, activacion o ejecucion seguira perteneciendo a backend interno y fases posteriores explicitas.
+- Fase 5 minima puede cerrarse con readiness hacia planificacion del siguiente bloque arquitectonico.

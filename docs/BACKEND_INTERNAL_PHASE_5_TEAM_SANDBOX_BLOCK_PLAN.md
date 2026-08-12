@@ -4,9 +4,9 @@ Estado: `PHASE_5_TEAM_SANDBOX_BLOCK_IN_PROGRESS`
 
 Veredicto: `PHASE_5_TEAM_SANDBOX_SELECTED`
 
-Readiness: `ready_for_phase_5_3_internal_team_listing`
+Readiness: `ready_for_next_architecture_block_after_phase_5`
 
-Next: `PROMPT 5.3 - Biblioteca interna/listado de equipos sandbox para futura UI`
+Next: `PROMPT 5.4 - Planificacion del siguiente bloque arquitectonico`
 
 Compatibilidad con checkpoint 4.9:
 
@@ -102,6 +102,27 @@ Criterio de cierre de 5.2:
 - no se abre UI ni integraciones;
 - queda readiness para `PROMPT 5.3 - Biblioteca interna/listado de equipos sandbox para futura UI`.
 
+## PROMPT 5.3 - Biblioteca Interna/Listado De Equipos Sandbox Para Futura UI
+
+Estado esperado al cierre: `SANDBOX_TEAM_READ_MODEL_READY`
+
+Veredicto esperado: `SANDBOX_TEAM_INTERNAL_LISTING_NO_OPERATIONAL_CONFIRMED`
+
+Readiness esperada: `ready_for_next_architecture_block_after_phase_5`
+
+PROMPT 5.3 crea `core/sandbox_team_read_model.py` como read model interno, read-only y JSON-safe para listar equipos sandbox materializados. El listado prepara futura UI, pero no crea UI, endpoints publicos, runtime, execution, agentes, tools, modelos ni integraciones.
+
+Criterio de cierre de 5.3:
+
+- existe `docs/SANDBOX_TEAM_READ_MODEL.md`;
+- existe `tests/test_sandbox_team_read_model.py`;
+- `list_sandbox_teams()` lista equipos sandbox desde sandbox controlado;
+- `validate_sandbox_team_read_model()` bloquea payload roto o operativo;
+- `members_summary` es declarativo y compacto;
+- `permissions_summary` y `execution_policy_summary` mantienen default-deny;
+- `artifact_type: team` + `artifact_kind: sandbox_team` queda representado sin ambiguedad;
+- no hay writes, stores, runtime, UI ni integraciones.
+
 ## Por Qué Viene Después De Runtime Execution Preparation
 
 Runtime Execution Preparation cerró con `RUNTIME_EXECUTION_PREPARATION_BLOCK_INTEGRAL_CHECKPOINT_PASSED`, `RUNTIME_EXECUTION_PREPARATION_BLOCK_CHAIN_READY` y `ready_for_next_architecture_block_planning`. El libro Backend Interno ya identifica Fase 5 como “Equipos reales sandbox” después de agentes reales sandbox, y existen piezas históricas no-operativas relacionadas con equipos sandbox (`core/sandbox_team_schema.py`, `core/sandbox_team_materializer.py`) y plantillas derivadas (`core/professional_team_template_generator.py`).
@@ -190,8 +211,8 @@ Fase 5 cierra cuando exista un schema de equipo sandbox real, materialización d
 
 ## Readiness
 
-`ready_for_phase_5_3_internal_team_listing`
+`ready_for_next_architecture_block_after_phase_5`
 
 ## Próximo Prompt Exacto
 
-`PROMPT 5.3 - Biblioteca interna/listado de equipos sandbox para futura UI`
+`PROMPT 5.4 - Planificacion del siguiente bloque arquitectonico`
