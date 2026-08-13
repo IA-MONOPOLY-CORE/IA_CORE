@@ -1182,3 +1182,27 @@ Fase 5 minima quedo cerrada con schema, materializacion, auditoria y read model 
 - Se reduce riesgo de duplicar `sandbox_chain`.
 - `PROMPT 6.0` debe empezar por validacion/reconciliacion, no por runtime ni UI.
 - La futura Fase 7 de contrato backend/UI recibira evidencia de Fase 6, no logica inferida desde frontend.
+
+---
+
+## ADR-047 - Rollback integral sandbox basado en manifests y paths declarados
+
+**Estado**: Aceptado
+
+**Prompt**: 6.1 - Rollback integral de dominio sandbox completo
+
+**Contexto**:
+Fase 6 ya valido la cadena sandbox completa con dominio, artifact manifest, profile catalog, agent presets, paper seed, agentes sandbox, equipo sandbox y read model. El rollback base de Fase 1 era seguro para la materializacion del dominio, pero la cadena completa necesita una regla integral que combine `materialization_manifest.json`, `artifact_manifest.json` y `created_paths` declarados para evitar borrados amplios o ambiguos.
+
+**Decision**:
+- IA_CORE permite rollback integral de dominios sandbox unicamente sobre paths declarados por manifests y contenidos bajo `sandbox_root` validado.
+- El contrato integral vive en `core/domain_materialization_rollback.py`; no se crea un modulo paralelo.
+- El rollback plan debe derivarse de `artifact_manifest`, `rollback_info.created_paths` y `materialization_manifest.created_paths`.
+- Cualquier path fuera del sandbox, hacia `domains/` operativo, repo root, `.git/`, `core/`, `docs/`, `tests/`, `agents/`, path traversal, glob destructivo o symlink escape queda bloqueado.
+- El rollback integral debe ser idempotente y conservar trazabilidad en `_rollback_records`.
+- Runtime, execution, tools, modelos, UI e integraciones permanecen bloqueados.
+
+**Consecuencias**:
+- La cadena sandbox completa puede revertirse sin riesgo de borrar activos operativos o codigo del repo.
+- La regeneracion segura futura debe partir de esta garantia de rollback integral.
+- Cualquier ampliacion futura de artefactos sandbox debe declarar `created_paths` coherentes si espera participar del rollback integral.

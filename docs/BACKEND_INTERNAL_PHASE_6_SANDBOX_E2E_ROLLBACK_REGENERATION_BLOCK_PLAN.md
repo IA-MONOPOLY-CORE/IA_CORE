@@ -18,6 +18,22 @@ No valida rollback integral como producto arquitectonico todavia. Ese alcance qu
 
 Siguen bloqueados runtime, execution, dry-run real, tools, modelos, contexto operativo, output delivery, writes/stores/memory operativos, network, browser, filesystem runtime, env, secrets, API runtime, UI runtime, UI-device control, integraciones, Market Catalog runtime, Business Composition Layer runtime, OBLITERATUS y raw Package directo a User Panel.
 
+## PROMPT 6.1 - Rollback Integral De Dominio Sandbox Completo
+
+Estado: `SANDBOX_INTEGRAL_ROLLBACK_PASSED`
+
+Veredicto: `SANDBOX_ROLLBACK_IDEMPOTENT_CONFIRMED`
+
+Readiness: `ready_for_phase_6_2_safe_regeneration`
+
+Proximo prompt exacto: `PROMPT 6.2 - Regeneracion segura sandbox completa`
+
+`PROMPT 6.1` valida e implementa rollback integral sandbox dentro de `core/domain_materialization_rollback.py`, reutilizando el rollback vigente y agregando plan/result contract sobre `artifact_manifest` y `created_paths` declarados. El rollback integral elimina solo paths bajo `sandbox_root`, preserva lo no declarado, bloquea paths fuera del sandbox, repo root, `domains/` operativo, `.git/`, `core/`, `docs/`, `tests/`, `agents/`, path traversal, globs y symlink escapes.
+
+El rollback es idempotente: la primera ejecucion revierte la cadena sandbox completa y la segunda reporta `already_rolled_back_integral` sin borrar nada nuevo.
+
+Siguen bloqueados runtime, execution, dry-run real, tools, modelos, contexto operativo, output delivery, writes/stores/memory operativos, network, browser, filesystem runtime, env, secrets, API runtime, UI runtime, UI-device control, integraciones, Market Catalog runtime, Business Composition Layer runtime, OBLITERATUS y raw Package directo a User Panel.
+
 Estado: `NEXT_ARCHITECTURE_BLOCK_PLANNING_COMPLETED`
 
 Veredicto: `NEXT_ARCHITECTURE_BLOCK_SELECTED`

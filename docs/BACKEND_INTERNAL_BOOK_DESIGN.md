@@ -5749,3 +5749,15 @@ Readiness: `ready_for_phase_6_1_integral_rollback`
 Proximo paso: `PROMPT 6.1 - Rollback integral de dominio sandbox completo`
 
 Este bloque valida la cadena sandbox completa despues de Fase 5: `domain sandbox -> artifact_manifest -> profile_catalog -> agent_presets -> paper_seed -> sandbox agents -> sandbox team -> team read model`. Reutiliza materializadores y checkpoints existentes, valida artifact manifest, lineage, dependencies, read model interno, flags default-deny, limpieza temporal y rollback final bajo `tmp_path`. No activa runtime, execution, dry-run real, tools/modelos/contexto/output, writes/stores/memory operativos, UI, integraciones, Market Catalog runtime, Business Composition Layer runtime, OBLITERATUS ni raw Package directo a User Panel.
+
+## 190. PROMPT 6.1 - Rollback integral de dominio sandbox completo
+
+Estado: `SANDBOX_INTEGRAL_ROLLBACK_PASSED`
+
+Veredicto: `SANDBOX_ROLLBACK_IDEMPOTENT_CONFIRMED`
+
+Readiness: `ready_for_phase_6_2_safe_regeneration`
+
+Proximo paso: `PROMPT 6.2 - Regeneracion segura sandbox completa`
+
+Este bloque extiende `core/domain_materialization_rollback.py` con contrato integral de plan, validacion, ejecucion y resultado de rollback sandbox. El rollback usa `artifact_manifest`, `created_paths` y `sandbox_root`, elimina solo paths declarados, preserva lo no declarado, bloquea repo root, `domains/` operativo, `.git/`, `core/`, `docs/`, `tests/`, path traversal, globs y symlink escapes, y confirma idempotencia. No activa runtime, execution, dry-run real, tools/modelos/contexto/output, writes/stores/memory operativos, UI, integraciones, Market Catalog runtime, Business Composition Layer runtime, OBLITERATUS ni raw Package directo a User Panel.
