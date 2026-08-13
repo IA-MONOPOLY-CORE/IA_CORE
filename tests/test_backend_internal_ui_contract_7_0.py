@@ -51,7 +51,6 @@ PLANNED_SERVICES = {
     "get_domain_detail",
     "get_sandbox_team_listing",
     "get_materialization_audit_pack",
-    "preview_materialization",
     "validate_domain",
     "materialize_sandbox",
     "rollback_sandbox",
@@ -130,6 +129,7 @@ def test_services_are_declared_without_overstating_availability():
         "get_backend_internal_ui_contract",
         "validate_backend_internal_ui_contract",
         "list_domains_status",
+        "preview_materialization",
     }
     assert PLANNED_SERVICES <= set(planned)
     for service in planned.values():

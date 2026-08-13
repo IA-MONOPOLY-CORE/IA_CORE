@@ -1004,3 +1004,25 @@ El servicio lista dominios sandbox desde `sandbox_root` explicito/controlado y d
 No se crea UI visual, no se crean endpoints publicos, no se implementa 7.2, no se materializa, no se hace rollback/archive/delete/reset, no se regenera, no se ejecutan agentes, no se invocan modelos/tools, no se toca `domains/` operativo y no se abren integraciones.
 
 Runtime, execution, dry-run real, context injection, output delivery, writes/stores/memory operativos, network/browser/filesystem runtime/env/secrets, API runtime, UI runtime, UI-device control, Market Catalog runtime, Business Composition Layer runtime, OBLITERATUS y raw Package directo al User Panel permanecen bloqueados.
+
+## PROMPT 7.2 - Servicio Interno preview_materialization
+
+`PROMPT 7.2 - Servicio interno preview_materialization` implementa el servicio interno preview/no-write de Fase 7.
+
+Estado: `BACKEND_INTERNAL_PREVIEW_MATERIALIZATION_SERVICE_READY`.
+
+Veredicto: `BACKEND_INTERNAL_PREVIEW_MATERIALIZATION_NO_WRITE_CONFIRMED`.
+
+Veredicto no-operativo: `BACKEND_INTERNAL_PREVIEW_MATERIALIZATION_NO_OPERATIONAL_CONFIRMED`.
+
+Readiness: `ready_for_phase_7_3_materialize_sandbox_service`.
+
+Proximo paso operacional/documental: `PROMPT 7.3 - Servicio interno materialize_sandbox`.
+
+El servicio calcula preview declarativo de materializacion: domain preview, planned artifacts, planned paths, planned manifests, lineage, dependencies, read models, audit pack, warnings, errors, allowed_actions, forbidden_actions y next_actions. No escribe nada.
+
+`preview_materialization` queda `available_now=true`; `list_domains_status` sigue `available_now=true`; servicios 7.3+ quedan `planned/available_now=false`.
+
+No crea archivos/directorios, no persiste artifact_manifest, no materializa, no hace rollback/archive/delete/reset, no regenera, no ejecuta agentes, no invoca modelos/tools, no toca `domains/` operativo, no crea UI visual y no crea endpoints publicos.
+
+Runtime, execution, dry-run real, context injection, output delivery, writes/stores/memory operativos, network/browser/filesystem runtime/env/secrets, API runtime, UI runtime, UI-device control, integraciones, Market Catalog runtime, Business Composition Layer runtime, OBLITERATUS y raw Package directo al User Panel permanecen bloqueados.

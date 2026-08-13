@@ -110,3 +110,21 @@ Proximo prompt exacto: `PROMPT 7.2 - Servicio interno preview_materialization`.
 `list_domains_status` queda `available_now=true`, tipo `read-only`, `side_effects=false`, `public_endpoint=false`, `ui_visual=false`, `runtime_enabled=false`, `execution_enabled=false`, `requires_human_confirmation=false` y `destructive=false`.
 
 Los servicios 7.2+ siguen planeados con `available_now=false`. No se crea UI visual, no se crean endpoints publicos, no se implementa preview materialization, no se materializa, no se hace rollback, no se regenera, no se ejecutan agentes, no se invocan modelos/tools y no se toca `domains/` operativo.
+
+## 18. Estado De 7.2
+
+`PROMPT 7.2 - Servicio interno preview_materialization` crea `core/backend_internal_preview_materialization_service.py` como servicio interno preview/no-write para futura UI.
+
+Estado: `BACKEND_INTERNAL_PREVIEW_MATERIALIZATION_SERVICE_READY`.
+
+Veredicto: `BACKEND_INTERNAL_PREVIEW_MATERIALIZATION_NO_WRITE_CONFIRMED`.
+
+Veredicto no-operativo: `BACKEND_INTERNAL_PREVIEW_MATERIALIZATION_NO_OPERATIONAL_CONFIRMED`.
+
+Readiness: `ready_for_phase_7_3_materialize_sandbox_service`.
+
+Proximo prompt exacto: `PROMPT 7.3 - Servicio interno materialize_sandbox`.
+
+`preview_materialization` queda `available_now=true`, tipo `read-only-preview`, `side_effects=false`, `public_endpoint=false`, `ui_visual=false`, `runtime_enabled=false`, `execution_enabled=false`, `writes_performed=false`, `materialization_performed=false`, `requires_human_confirmation=false` y `destructive=false`.
+
+`list_domains_status` sigue `available_now=true`. Los servicios 7.3+ siguen planeados con `available_now=false`. No se crean archivos, no se crean directorios, no se persiste artifact_manifest, no se materializa, no se hace rollback, no se regenera, no se ejecutan agentes, no se invocan modelos/tools, no se crea UI visual, no se crean endpoints publicos y no se toca `domains/` operativo.

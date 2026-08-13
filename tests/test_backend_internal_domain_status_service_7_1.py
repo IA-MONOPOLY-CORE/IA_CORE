@@ -371,8 +371,8 @@ def test_contract_7_0_marks_list_domains_status_available_and_future_services_pl
     assert available["list_domains_status"]["touches_visual_ui"] is False
     assert available["list_domains_status"]["runtime_enabled"] is False
     assert available["list_domains_status"]["execution_enabled"] is False
+    assert available["preview_materialization"]["available_now"] is True
     for future in (
-        "preview_materialization",
         "materialize_sandbox",
         "rollback_sandbox",
         "archive_domain",

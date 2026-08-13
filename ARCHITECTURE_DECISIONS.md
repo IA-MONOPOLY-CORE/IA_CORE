@@ -1325,3 +1325,28 @@ Despues del contrato backend interno para UI, IA_CORE necesita un primer servici
 - La UI futura podra listar estados de dominios sin inferir logica critica ni activar operacion real.
 - Los servicios con mutacion o acciones destructivas quedan en prompts posteriores con confirmacion y contratos especificos.
 - La frontera de lectura queda separada de preview, materializacion, rollback, regeneracion y UI visual.
+
+---
+
+## ADR-053 - preview_materialization como simulacion no-write previa a materializacion
+
+**Estado**: Aceptado
+
+**Prompt**: 7.2 - Servicio interno preview_materialization
+
+**Contexto**:
+IA_CORE ya cuenta con `core/domain_materialization_preview.py` como preview no operativo previo a materializacion de dominios. Fase 7 necesita exponer esa capacidad como servicio interno para futura UI sin permitir que preview cree archivos, manifests, dominios o runtime.
+
+**Decision**:
+- IA_CORE expone `preview_materialization` como servicio interno no-write para calcular artefactos, paths, manifests, lineage, warnings y readiness antes de cualquier materializacion real.
+- El servicio vive en `core/backend_internal_preview_materialization_service.py`.
+- El servicio exige `domain_request` y `sandbox_root` explicito/controlado.
+- Planned paths se devuelven como rutas relativas con `operation=would_create`.
+- `preview_materialization` queda `available_now=true` en el contrato backend interno para UI.
+- `list_domains_status` sigue disponible y los servicios 7.3+ siguen planned/available_now=false.
+- El preview no crea archivos, no muta manifests, no toca domains operativo, no activa runtime y no habilita ejecucion.
+
+**Consecuencias**:
+- La futura UI y el backend interno podran mostrar una vista previa segura antes de pedir materializacion controlada.
+- La escritura real queda separada en `PROMPT 7.3 - Servicio interno materialize_sandbox` con contrato propio.
+- La frontera preview evita confundir simulacion declarativa con materializacion real.

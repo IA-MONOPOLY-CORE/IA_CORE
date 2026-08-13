@@ -103,6 +103,15 @@ ERROR_CODES = (
     "INVALID_AUDIT_PACK",
     "READ_MODEL_UNAVAILABLE",
     "DOMAIN_STATUS_NOT_LISTABLE",
+    "DOMAIN_REQUEST_REQUIRED",
+    "INVALID_DOMAIN_REQUEST",
+    "INVALID_DOMAIN_ID",
+    "UNSAFE_PLANNED_PATH",
+    "PATH_TRAVERSAL_BLOCKED",
+    "DOMAINS_OPERATIVE_PATH_BLOCKED",
+    "PREVIEW_NOT_JSON_SAFE",
+    "MATERIALIZATION_NOT_PERFORMED",
+    "WRITE_OPERATION_BLOCKED",
 )
 
 SENSITIVE_KEY_FRAGMENTS = (
@@ -435,6 +444,29 @@ def _available_internal_services() -> list[dict[str, Any]]:
                 "PAYLOAD_NOT_JSON_SAFE",
             ],
         ),
+        _service(
+            name="preview_materialization",
+            phase="7.2",
+            service_type="read-only-preview",
+            available_now=True,
+            payload_expected="preview_materialization_payload",
+            expected_errors=[
+                "DOMAIN_REQUEST_REQUIRED",
+                "INVALID_DOMAIN_REQUEST",
+                "INVALID_DOMAIN_ID",
+                "SANDBOX_ROOT_REQUIRED",
+                "SANDBOX_ROOT_NOT_FOUND",
+                "UNSAFE_SANDBOX_ROOT",
+                "UNSAFE_PLANNED_PATH",
+                "PATH_TRAVERSAL_BLOCKED",
+                "DOMAINS_OPERATIVE_PATH_BLOCKED",
+                "PREVIEW_NOT_JSON_SAFE",
+                "SECRET_LIKE_FIELD_BLOCKED",
+                "MATERIALIZATION_NOT_PERFORMED",
+                "WRITE_OPERATION_BLOCKED",
+                "READINESS_NOT_MET",
+            ],
+        ),
     ]
 
 
@@ -443,7 +475,6 @@ def _planned_internal_services() -> list[dict[str, Any]]:
         _service("get_domain_detail", "7.1", "read-only", False, "sandbox_domain_detail", ["INVALID_DOMAIN_PAYLOAD"]),
         _service("get_sandbox_team_listing", "7.1", "read-only", False, "sandbox_team_listing", ["MISSING_ARTIFACT_MANIFEST"]),
         _service("get_materialization_audit_pack", "7.1", "read-only", False, "materialization_audit_pack_summary", ["READINESS_NOT_MET"]),
-        _service("preview_materialization", "7.2", "read-only", False, "preview_materialization_payload", ["INVALID_SANDBOX_SCHEMA"]),
         _service("validate_domain", "7.4", "read-only", False, "domain_validation_payload", ["INVALID_DOMAIN_PAYLOAD"]),
         _service(
             "materialize_sandbox",
@@ -523,6 +554,9 @@ def _service(
         "ui_action_implemented": False,
         "runtime_enabled": False,
         "execution_enabled": False,
+        "side_effects": False,
+        "writes_performed": False,
+        "materialization_performed": False,
         "payload_expected": payload_expected,
         "expected_errors": expected_errors,
     }
@@ -672,7 +706,12 @@ def _validate_services(contract: dict[str, Any]) -> None:
             raise ValueError(f"{service['name']} destructivo requiere confirmacion humana")
 
     available_names = {service["name"] for service in available}
-    allowed_now = {"get_backend_internal_ui_contract", "validate_backend_internal_ui_contract", "list_domains_status"}
+    allowed_now = {
+        "get_backend_internal_ui_contract",
+        "validate_backend_internal_ui_contract",
+        "list_domains_status",
+        "preview_materialization",
+    }
     if not available_names <= allowed_now:
         raise ValueError("7.0 declara como disponible un servicio no implementado")
 

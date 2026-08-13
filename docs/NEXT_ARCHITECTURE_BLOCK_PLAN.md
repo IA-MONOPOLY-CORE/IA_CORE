@@ -864,3 +864,23 @@ Proximo prompt exacto: `PROMPT 7.2 - Servicio interno preview_materialization`.
 `list_domains_status` queda `available_now=true` en el contrato backend interno para UI. Los servicios 7.2+ siguen `planned/available_now=false`.
 
 No crea UI visual, no crea frontend, no crea endpoints publicos, no implementa preview materialization, no materializa, no hace rollback, no regenera, no ejecuta agentes, no invoca modelos/tools y no toca integraciones. Runtime, execution, dry-run real, writes/stores/memory operativos, network/browser/filesystem runtime/env/secrets, Market Catalog runtime, Business Composition Layer runtime, OBLITERATUS y raw Package directo a User Panel permanecen bloqueados.
+
+## PROMPT 7.2 - Servicio Interno preview_materialization
+
+Estado: `BACKEND_INTERNAL_PREVIEW_MATERIALIZATION_SERVICE_READY`
+
+Veredicto: `BACKEND_INTERNAL_PREVIEW_MATERIALIZATION_NO_WRITE_CONFIRMED`
+
+Veredicto no-operativo: `BACKEND_INTERNAL_PREVIEW_MATERIALIZATION_NO_OPERATIONAL_CONFIRMED`
+
+Readiness: `ready_for_phase_7_3_materialize_sandbox_service`
+
+Bloque actual: `Fase 7 - Contrato backend interno para UI`.
+
+Proximo prompt exacto: `PROMPT 7.3 - Servicio interno materialize_sandbox`.
+
+`PROMPT 7.2` crea `core/backend_internal_preview_materialization_service.py` como servicio interno preview/no-write. Reutiliza el preview canonico existente, exige `domain_request` y `sandbox_root` explicito/controlado, calcula `planned_artifacts`, `planned_paths`, `planned_manifests`, lineage, dependencies, read models y audit pack futuros sin escribirlos.
+
+`preview_materialization` queda `available_now=true`. `list_domains_status` sigue `available_now=true`. Los servicios 7.3+ siguen `planned/available_now=false`.
+
+No crea archivos, no crea directorios, no persiste artifact_manifest, no materializa, no hace rollback, no regenera, no ejecuta agentes, no invoca modelos/tools, no crea UI visual, no crea frontend, no crea endpoints publicos y no toca `domains/` operativo. Runtime, execution, dry-run real, writes/stores/memory operativos, network/browser/filesystem runtime/env/secrets, integraciones, Market Catalog runtime, Business Composition Layer runtime, OBLITERATUS y raw Package directo a User Panel permanecen bloqueados.
