@@ -112,7 +112,7 @@ def test_backend_internal_ui_contract_builds_and_is_json_safe():
     assert contract["non_operational_verdict"] == CONTRACT_NO_OPERATIONAL_VERDICT
     assert contract["readiness"] == CONTRACT_READINESS
     assert encoded
-    assert len(encoded.encode("utf-8")) <= 64_000
+    assert len(encoded.encode("utf-8")) <= 96_000
 
 
 def test_services_are_declared_without_overstating_availability():
@@ -135,6 +135,8 @@ def test_services_are_declared_without_overstating_availability():
         "internal_exposure_registry",
         "internal_request_envelope",
         "internal_request_validation",
+        "internal_dispatcher_no_runtime",
+        "internal_dispatch_policy",
     }
     assert PLANNED_SERVICES <= set(planned)
     for service in planned.values():
@@ -189,6 +191,14 @@ def test_services_are_declared_without_overstating_availability():
         assert available[name]["destructive"] is False
         assert available[name]["dispatcher_created"] is False
         assert available[name]["request_handling_enabled"] is False
+    assert available["internal_dispatcher_no_runtime"]["type"] == "contract/internal-dispatcher-no-runtime"
+    assert available["internal_dispatcher_no_runtime"]["dispatcher_created"] is True
+    assert available["internal_dispatcher_no_runtime"]["contractual_request_handling_enabled"] is True
+    assert available["internal_dispatcher_no_runtime"]["request_handling_enabled"] is False
+    assert available["internal_dispatcher_no_runtime"]["side_effects_performed"] is False
+    assert available["internal_dispatch_policy"]["type"] == "contract/dispatch-policy"
+    assert available["internal_dispatch_policy"]["dispatch_policy_defined"] is True
+    assert available["internal_dispatch_policy"]["request_handling_enabled"] is False
 
 
 def test_entities_states_readiness_and_errors_are_explicit():

@@ -96,6 +96,7 @@ SENSITIVE_KEY_FRAGMENTS = (
 ALLOWED_SENSITIVE_DECLARATION_KEYS = {
     "no_env_fields",
     "no_secret_like_fields",
+    "request_envelope",
     "SECRET_LIKE_FIELD_BLOCKED",
 }
 

@@ -31,6 +31,8 @@ EXPECTED_EXPOSABLE_SERVICES = (
     "delete_sandbox_domain",
     "reset_sandbox_domain",
     "stable_ui_payloads",
+    "internal_exposure_registry",
+    "internal_request_validation",
 )
 
 EXPECTED_BLOCKED_SERVICES = (
@@ -280,6 +282,50 @@ SERVICE_DEFINITIONS: dict[str, dict[str, Any]] = {
         "allowed_actions_policy": {"may_normalize": ["backend_internal_ui_payload.v1"], "backend_decides": True},
         "security_notes": ["JSON-safe", "sanitiza paths absolutos sensibles"],
     },
+    "internal_exposure_registry": {
+        "service_name": "internal_exposure_registry",
+        "service_kind": "contract_internal_exposure_registry",
+        "source_prompt": "PROMPT 8.1 - Internal exposure registry / service map",
+        "source_module": "core.backend_internal_exposure_registry",
+        "source_doc": "docs/BACKEND_INTERNAL_EXPOSURE_REGISTRY_8_1.md",
+        "source_tests": ["tests/test_backend_internal_exposure_registry_8_1.py"],
+        "input_contract": {
+            "required": [],
+            "optional": ["include_blocked_services"],
+            "requires_preview_payload": False,
+            "requires_allow_delete": False,
+            "requires_allow_reset": False,
+        },
+        "requires_confirmation": False,
+        "requires_validation_payload": False,
+        "requires_safe_sandbox_root": False,
+        "side_effects": False,
+        "destructive": False,
+        "allowed_actions_policy": {"may_show": ["view_service_map"], "backend_decides": True},
+        "security_notes": ["service map contractual", "no ejecuta servicios"],
+    },
+    "internal_request_validation": {
+        "service_name": "internal_request_validation",
+        "service_kind": "contract_request_validation",
+        "source_prompt": "PROMPT 8.2 - Internal request envelope y request validation",
+        "source_module": "core.backend_internal_request_envelope",
+        "source_doc": "docs/BACKEND_INTERNAL_REQUEST_ENVELOPE_8_2.md",
+        "source_tests": ["tests/test_backend_internal_request_envelope_8_2.py"],
+        "input_contract": {
+            "required": ["request_envelope"],
+            "optional": [],
+            "requires_preview_payload": False,
+            "requires_allow_delete": False,
+            "requires_allow_reset": False,
+        },
+        "requires_confirmation": False,
+        "requires_validation_payload": False,
+        "requires_safe_sandbox_root": False,
+        "side_effects": False,
+        "destructive": False,
+        "allowed_actions_policy": {"may_validate": ["backend_internal_ui_request.v1"], "backend_decides": True},
+        "security_notes": ["request validation contractual", "no enruta ni ejecuta"],
+    },
 }
 
 
@@ -301,6 +347,7 @@ def build_internal_exposure_registry() -> dict[str, Any]:
         "blocked_services": blocked,
         "service_groups": {
             "read_only": ["list_domains_status", "preview_materialization", "validate_domain", "stable_ui_payloads"],
+            "contract": ["internal_exposure_registry", "internal_request_validation"],
             "controlled_write": ["materialize_sandbox"],
             "controlled_lifecycle": [
                 "rollback_sandbox",

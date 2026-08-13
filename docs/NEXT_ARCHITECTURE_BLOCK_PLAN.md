@@ -981,6 +981,24 @@ Readiness: `ready_for_phase_8_3_internal_dispatcher_no_runtime`
 
 Proximo prompt exacto: `PROMPT 8.3 - Internal dispatcher no-runtime/no-side-effect por defecto`.
 
+## PROMPT 8.3 - Internal Dispatcher No-Runtime/No-Side-Effect Por Defecto
+
+Estado: `BACKEND_INTERNAL_DISPATCHER_NO_RUNTIME_READY`
+
+Veredicto no-side-effects: `BACKEND_INTERNAL_DISPATCHER_NO_SIDE_EFFECTS_CONFIRMED`
+
+Veredicto no-operativo: `BACKEND_INTERNAL_DISPATCHER_NO_OPERATIONAL_CONFIRMED`
+
+Readiness: `ready_for_phase_8_4_confirmation_gate`
+
+`PROMPT 8.3 - Internal dispatcher no-runtime/no-side-effect por defecto` crea `internal_dispatcher_no_runtime` e `internal_dispatch_policy` como contratos disponibles ahora. El dispatcher valida request envelope 8.2, consulta registry 8.1, aplica policy deny-by-default y devuelve `backend_internal_dispatch_result.v1` con `stable_ui_payload` compatible con `backend_internal_ui_payload.v1`.
+
+Solo son dispatchables ahora `stable_ui_payloads`, `internal_exposure_registry` e `internal_request_validation`. Los servicios read-only con adapters pendientes quedan bloqueados por policy. controlled-write/lifecycle bloqueados hasta confirmation gate.
+
+8.3 mantiene no endpoints publicos, no UI visual, no API real, no router HTTP, no runtime/execution/tools/models/integrations y no toca `domains/` operativo. Market Catalog runtime, Business Composition Layer runtime, OBLITERATUS y raw Package directo al User Panel siguen bloqueados.
+
+Proximo prompt exacto: `PROMPT 8.4 - Confirmation gate para controlled-write/lifecycle`.
+
 ## PROMPT 7.6 - Payloads Estables Para Futura UI
 
 Estado: `BACKEND_INTERNAL_STABLE_UI_PAYLOADS_READY`

@@ -1131,6 +1131,24 @@ Readiness: `ready_for_phase_8_3_internal_dispatcher_no_runtime`.
 
 Proximo paso operacional/documental: `PROMPT 8.3 - Internal dispatcher no-runtime/no-side-effect por defecto`.
 
+## PROMPT 8.3 - Internal Dispatcher No-Runtime/No-Side-Effect Por Defecto
+
+`PROMPT 8.3 - Internal dispatcher no-runtime/no-side-effect por defecto` implementa un dispatcher contractual interno, no operativo.
+
+Estado: `BACKEND_INTERNAL_DISPATCHER_NO_RUNTIME_READY`.
+
+Veredicto no-side-effects: `BACKEND_INTERNAL_DISPATCHER_NO_SIDE_EFFECTS_CONFIRMED`.
+
+Veredicto no-operativo: `BACKEND_INTERNAL_DISPATCHER_NO_OPERATIONAL_CONFIRMED`.
+
+Readiness: `ready_for_phase_8_4_confirmation_gate`.
+
+`internal_dispatcher_no_runtime` e `internal_dispatch_policy` quedan disponibles ahora. La policy permite solo contractuales seguros y mantiene controlled-write/lifecycle bloqueados hasta confirmation gate.
+
+8.3 no endpoints publicos, no UI visual, no API/router HTTP, no runtime/execution/tools/models/integrations, no agentes, no side effects, no materialize_sandbox, no lifecycle y no toca `domains/` operativo.
+
+Proximo paso operacional/documental: `PROMPT 8.4 - Confirmation gate para controlled-write/lifecycle`.
+
 ## PROMPT 7.4 - Servicio Interno validate_domain
 
 `PROMPT 7.4 - Servicio interno validate_domain` implementa el servicio interno read-only-validation de Fase 7.

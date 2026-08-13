@@ -19,7 +19,7 @@ CONTRACT_STATUS = "ready"
 CONTRACT_READY_VERDICT = "BACKEND_INTERNAL_UI_CONTRACT_READY"
 CONTRACT_NO_OPERATIONAL_VERDICT = "BACKEND_INTERNAL_UI_CONTRACT_NO_OPERATIONAL_CONFIRMED"
 CONTRACT_READINESS = "ready_for_phase_7_1_list_domains_status_service"
-MAX_CONTRACT_JSON_BYTES = 64_000
+MAX_CONTRACT_JSON_BYTES = 96_000
 
 VISIBLE_ENTITIES = (
     "sandbox_domain",
@@ -74,6 +74,7 @@ READINESS_VALUES = (
     "ready_for_phase_8_1_internal_exposure_registry",
     "ready_for_phase_8_2_internal_request_envelope",
     "ready_for_phase_8_3_internal_dispatcher_no_runtime",
+    "ready_for_phase_8_4_confirmation_gate",
     "ready_for_rollback",
     "ready_for_regeneration",
     "ready_for_audit_pack",
@@ -188,6 +189,17 @@ ERROR_CODES = (
     "FORBIDDEN_ACTION_REQUESTED",
     "DISPATCHER_NOT_AVAILABLE",
     "REQUEST_HANDLING_NOT_ENABLED",
+    "DISPATCH_REQUEST_REQUIRED",
+    "INVALID_DISPATCH_REQUEST",
+    "REQUEST_VALIDATION_FAILED",
+    "DISPATCH_POLICY_BLOCKED",
+    "SIDE_EFFECTS_BLOCKED",
+    "CONTROLLED_WRITE_BLOCKED",
+    "CONTROLLED_LIFECYCLE_BLOCKED",
+    "PUBLIC_ENDPOINT_BLOCKED",
+    "UI_RUNTIME_BLOCKED",
+    "OPERATIONAL_DOMAINS_BLOCKED",
+    "DISPATCHER_NO_RUNTIME_CONFIRMED",
 )
 
 SENSITIVE_KEY_FRAGMENTS = (
@@ -883,6 +895,62 @@ def _available_internal_services() -> list[dict[str, Any]]:
                 "REQUEST_HANDLING_NOT_ENABLED",
             ],
         ),
+        _service(
+            name="internal_dispatcher_no_runtime",
+            phase="8.3",
+            service_type="contract/internal-dispatcher-no-runtime",
+            available_now=True,
+            payload_expected="backend_internal_dispatch_result.v1",
+            expected_errors=[
+                "DISPATCH_REQUEST_REQUIRED",
+                "INVALID_DISPATCH_REQUEST",
+                "REQUEST_VALIDATION_FAILED",
+                "SERVICE_NOT_FOUND",
+                "SERVICE_NOT_EXPOSABLE",
+                "SERVICE_BLOCKED",
+                "DISPATCH_POLICY_BLOCKED",
+                "SIDE_EFFECTS_BLOCKED",
+                "CONTROLLED_WRITE_BLOCKED",
+                "CONTROLLED_LIFECYCLE_BLOCKED",
+                "CONFIRMATION_REQUIRED",
+                "RUNTIME_BLOCKED",
+                "EXECUTION_BLOCKED",
+                "TOOLS_BLOCKED",
+                "MODELS_BLOCKED",
+                "INTEGRATIONS_BLOCKED",
+                "PUBLIC_ENDPOINT_BLOCKED",
+                "UI_RUNTIME_BLOCKED",
+                "OPERATIONAL_DOMAINS_BLOCKED",
+                "DISPATCHER_NO_RUNTIME_CONFIRMED",
+                "PAYLOAD_NOT_JSON_SAFE",
+                "SECRET_LIKE_FIELD_BLOCKED",
+            ],
+            dispatcher_created=True,
+            contractual_request_handling_enabled=True,
+            dispatch_policy_defined=True,
+        ),
+        _service(
+            name="internal_dispatch_policy",
+            phase="8.3",
+            service_type="contract/dispatch-policy",
+            available_now=True,
+            payload_expected="backend_internal_dispatch_policy.v1",
+            expected_errors=[
+                "DISPATCH_POLICY_BLOCKED",
+                "SIDE_EFFECTS_BLOCKED",
+                "CONTROLLED_WRITE_BLOCKED",
+                "CONTROLLED_LIFECYCLE_BLOCKED",
+                "RUNTIME_BLOCKED",
+                "EXECUTION_BLOCKED",
+                "TOOLS_BLOCKED",
+                "MODELS_BLOCKED",
+                "INTEGRATIONS_BLOCKED",
+                "PUBLIC_ENDPOINT_BLOCKED",
+                "UI_RUNTIME_BLOCKED",
+                "OPERATIONAL_DOMAINS_BLOCKED",
+            ],
+            dispatch_policy_defined=True,
+        ),
     ]
 
 
@@ -898,14 +966,6 @@ def _planned_internal_services() -> list[dict[str, Any]]:
             False,
             "backend_internal_ui_contract_checkpoint",
             ["READINESS_NOT_MET", "PAYLOAD_NOT_JSON_SAFE"],
-        ),
-        _service(
-            "internal_dispatcher_no_runtime",
-            "8.3",
-            "contract/internal-routing",
-            False,
-            "internal_dispatcher_contract",
-            ["READINESS_NOT_MET", "RUNTIME_BLOCKED", "EXECUTION_BLOCKED"],
         ),
         _service(
             "confirmation_gate",
@@ -941,6 +1001,9 @@ def _service(
     prepares_rollback: bool = False,
     requires_validation_payload: bool = False,
     requires_safe_sandbox_root: bool = False,
+    dispatcher_created: bool = False,
+    contractual_request_handling_enabled: bool = False,
+    dispatch_policy_defined: bool = False,
 ) -> dict[str, Any]:
     return {
         "name": name,
@@ -958,9 +1021,12 @@ def _service(
         "ui_action_implemented": False,
         "runtime_enabled": False,
         "execution_enabled": False,
-        "dispatcher_created": False,
+        "dispatcher_created": dispatcher_created,
         "request_handling_enabled": False,
+        "contractual_request_handling_enabled": contractual_request_handling_enabled,
+        "dispatch_policy_defined": dispatch_policy_defined,
         "side_effects": side_effects,
+        "side_effects_performed": False,
         "writes_performed": False,
         "materialization_performed": False,
         "requires_valid_preview": requires_valid_preview,
@@ -1112,7 +1178,8 @@ def _validate_services(contract: dict[str, Any]) -> None:
             raise ValueError(f"{service['name']} habilita runtime")
         if service.get("execution_enabled") is not False:
             raise ValueError(f"{service['name']} habilita execution")
-        if service.get("dispatcher_created") is not False:
+        dispatcher_allowed = service.get("name") == "internal_dispatcher_no_runtime"
+        if service.get("dispatcher_created") is not False and not dispatcher_allowed:
             raise ValueError(f"{service['name']} crea dispatcher")
         if service.get("request_handling_enabled") is not False:
             raise ValueError(f"{service['name']} habilita request handling")
@@ -1201,6 +1268,42 @@ def _validate_services(contract: dict[str, Any]) -> None:
                 raise ValueError(f"{service['name']} no requiere sandbox_root a nivel contrato")
             if service.get("dispatcher_created") is True or service.get("request_handling_enabled") is True:
                 raise ValueError(f"{service['name']} no puede crear dispatcher/request handling")
+        if service.get("name") == "internal_dispatcher_no_runtime":
+            if service.get("available_now") is not True:
+                raise ValueError("internal_dispatcher_no_runtime debe estar disponible despues de 8.3")
+            if service.get("phase") != "8.3":
+                raise ValueError("internal_dispatcher_no_runtime debe pertenecer a fase 8.3")
+            if service.get("type") != "contract/internal-dispatcher-no-runtime":
+                raise ValueError("internal_dispatcher_no_runtime debe ser contract/internal-dispatcher-no-runtime")
+            if service.get("dispatcher_created") is not True:
+                raise ValueError("internal_dispatcher_no_runtime debe declarar dispatcher_created=true")
+            if service.get("contractual_request_handling_enabled") is not True:
+                raise ValueError("internal_dispatcher_no_runtime debe declarar contractual_request_handling_enabled=true")
+            if service.get("request_handling_enabled") is not False:
+                raise ValueError("internal_dispatcher_no_runtime no habilita request handling operativo")
+            if service.get("dispatch_policy_defined") is not True:
+                raise ValueError("internal_dispatcher_no_runtime debe declarar dispatch_policy_defined=true")
+            if service.get("side_effects") is not False or service.get("side_effects_performed") is not False:
+                raise ValueError("internal_dispatcher_no_runtime no debe tener side_effects")
+            if service.get("requires_human_confirmation") is not False:
+                raise ValueError("internal_dispatcher_no_runtime no requiere confirmacion humana a nivel dispatcher")
+            if service.get("destructive") is not False:
+                raise ValueError("internal_dispatcher_no_runtime no debe ser destructivo")
+        if service.get("name") == "internal_dispatch_policy":
+            if service.get("available_now") is not True:
+                raise ValueError("internal_dispatch_policy debe estar disponible despues de 8.3")
+            if service.get("phase") != "8.3":
+                raise ValueError("internal_dispatch_policy debe pertenecer a fase 8.3")
+            if service.get("type") != "contract/dispatch-policy":
+                raise ValueError("internal_dispatch_policy debe ser contract/dispatch-policy")
+            if service.get("dispatch_policy_defined") is not True:
+                raise ValueError("internal_dispatch_policy debe declarar dispatch_policy_defined=true")
+            if service.get("dispatcher_created") is not False:
+                raise ValueError("internal_dispatch_policy no crea dispatcher")
+            if service.get("request_handling_enabled") is not False:
+                raise ValueError("internal_dispatch_policy no habilita request handling")
+            if service.get("side_effects") is not False or service.get("side_effects_performed") is not False:
+                raise ValueError("internal_dispatch_policy no debe tener side_effects")
         if service.get("name") in {"rollback_sandbox", "archive_sandbox_domain", "delete_sandbox_domain", "reset_sandbox_domain"}:
             if service.get("available_now") is not True:
                 raise ValueError(f"{service['name']} debe estar disponible despues de 7.5")
@@ -1245,6 +1348,8 @@ def _validate_services(contract: dict[str, Any]) -> None:
         "internal_exposure_registry",
         "internal_request_envelope",
         "internal_request_validation",
+        "internal_dispatcher_no_runtime",
+        "internal_dispatch_policy",
     }
     if not available_names <= allowed_now:
         raise ValueError("7.0 declara como disponible un servicio no implementado")

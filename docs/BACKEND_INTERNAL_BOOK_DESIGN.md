@@ -5985,3 +5985,21 @@ Este bloque crea `core/backend_internal_request_envelope.py` como contrato de en
 8.2 no dispatcher, no request handling, no routing, no ejecucion de servicios, no confirmation gate, no response adapter nuevo, no API real, no UI visual, no endpoints publicos, no toca `domains/` operativo, no activa runtime, execution, dry-run real, agentes, modelos, tools, integraciones, Market Catalog runtime, Business Composition Layer runtime, OBLITERATUS ni raw Package directo al User Panel.
 
 Proximo prompt exacto: `PROMPT 8.3 - Internal dispatcher no-runtime/no-side-effect por defecto`.
+
+## 205. PROMPT 8.3 - Internal dispatcher no-runtime/no-side-effect por defecto
+
+Estado: `BACKEND_INTERNAL_DISPATCHER_NO_RUNTIME_READY`
+
+Veredicto no-side-effects: `BACKEND_INTERNAL_DISPATCHER_NO_SIDE_EFFECTS_CONFIRMED`
+
+Veredicto no-operativo: `BACKEND_INTERNAL_DISPATCHER_NO_OPERATIONAL_CONFIRMED`
+
+Readiness: `ready_for_phase_8_4_confirmation_gate`
+
+Este bloque crea `core/backend_internal_dispatcher.py` como dispatcher interno contractual. El dispatcher valida `backend_internal_ui_request.v1`, consulta `internal_exposure_registry`, aplica dispatch policy deny-by-default y devuelve `backend_internal_dispatch_result.v1` con `stable_ui_payload`.
+
+`internal_dispatcher_no_runtime` e `internal_dispatch_policy` quedan `available_now=true` en el contrato backend interno. El dispatcher contractual puede despachar `stable_ui_payloads`, `internal_exposure_registry` e `internal_request_validation`; controlled-write/lifecycle bloqueados hasta confirmation gate.
+
+8.3 no endpoints publicos, no API real, no router HTTP, no UI visual, no frontend, no runtime/execution/tools/models/integrations, no agentes, no side effects, no materialize_sandbox, no lifecycle, no toca `domains/` operativo, no Market Catalog runtime, no Business Composition Layer runtime, no OBLITERATUS ni raw Package directo al User Panel.
+
+Proximo prompt exacto: `PROMPT 8.4 - Confirmation gate para controlled-write/lifecycle`.

@@ -337,7 +337,11 @@ def test_ui_contract_marks_8_2_available_and_keeps_8_3_plus_planned():
 
     assert available["internal_request_envelope"]["type"] == "contract/request-envelope"
     assert available["internal_request_validation"]["type"] == "contract/request-validation"
-    for name in ("internal_dispatcher_no_runtime", "confirmation_gate", "internal_response_adapter"):
+    assert available["internal_dispatcher_no_runtime"]["available_now"] is True
+    assert available["internal_dispatcher_no_runtime"]["dispatcher_created"] is True
+    assert available["internal_dispatcher_no_runtime"]["request_handling_enabled"] is False
+
+    for name in ("confirmation_gate", "internal_response_adapter"):
         assert planned[name]["available_now"] is False
         assert planned[name]["dispatcher_created"] is False
         assert planned[name]["request_handling_enabled"] is False

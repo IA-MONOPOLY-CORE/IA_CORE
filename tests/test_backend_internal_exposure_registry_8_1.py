@@ -40,6 +40,8 @@ EXPECTED_EXPOSABLE = {
     "delete_sandbox_domain": "controlled_lifecycle",
     "reset_sandbox_domain": "controlled_lifecycle",
     "stable_ui_payloads": "contract_payload_normalization",
+    "internal_exposure_registry": "contract_internal_exposure_registry",
+    "internal_request_validation": "contract_request_validation",
 }
 
 EXPECTED_BLOCKED = {
@@ -238,7 +240,11 @@ def test_ui_contract_marks_registry_available_and_keeps_future_8_x_planned():
     assert available["internal_request_envelope"]["dispatcher_created"] is False
     assert available["internal_request_validation"]["request_handling_enabled"] is False
 
-    for future in ("internal_dispatcher_no_runtime", "confirmation_gate", "internal_response_adapter"):
+    assert available["internal_dispatcher_no_runtime"]["available_now"] is True
+    assert available["internal_dispatcher_no_runtime"]["dispatcher_created"] is True
+    assert available["internal_dispatcher_no_runtime"]["request_handling_enabled"] is False
+
+    for future in ("confirmation_gate", "internal_response_adapter"):
         assert planned[future]["available_now"] is False
         assert planned[future]["dispatcher_created"] is False
         assert planned[future]["request_handling_enabled"] is False

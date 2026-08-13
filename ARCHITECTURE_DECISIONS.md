@@ -1550,3 +1550,27 @@ Despues del registry 8.1, IA_CORE necesita una forma estable de recibir solicitu
 - La futura capa 8.3 podra recibir requests ya validados por contrato.
 - Backend conserva autoridad sobre permisos, confirmaciones, blocked capabilities y service exposure.
 - Runtime, execution, dry-run real, tools, modelos, integraciones, Market Catalog runtime, Business Composition Layer runtime, OBLITERATUS y raw Package directo al User Panel permanecen bloqueados.
+
+---
+
+## ADR-062 - Internal dispatcher no-runtime y no-side-effect por defecto
+
+**Estado**: Aceptado
+
+**Prompt**: 8.3 - Internal dispatcher no-runtime/no-side-effect por defecto
+
+**Contexto**:
+Despues del request envelope 8.2, IA_CORE necesita decidir si un request validado puede despacharse internamente sin convertir el sistema en runtime executor ni abrir endpoints publicos. La decision debe conservar la autoridad backend y bloquear side effects prematuros.
+
+**Decision**:
+- IA_CORE introduce `core/backend_internal_dispatcher.py` como dispatcher interno contractual.
+- El dispatcher valida request envelope 8.2, consulta registry 8.1 y aplica dispatch policy no-runtime/no-side-effect.
+- Solo despacha servicios contractuales seguros: `stable_ui_payloads`, `internal_exposure_registry` e `internal_request_validation`.
+- `materialize_sandbox` y lifecycle quedan bloqueados por `CONFIRMATION_GATE_REQUIRED` hasta 8.4.
+- `internal_dispatcher_no_runtime` e `internal_dispatch_policy` quedan disponibles ahora en el contrato backend interno.
+- No endpoints publicos, no API/router HTTP, no UI visual, no runtime, no execution, no agentes, no modelos/tools, no integraciones y no `domains/` operativo.
+
+**Consecuencias**:
+- Fase 8 puede avanzar a confirmation gate con una frontera de dispatch ya controlada.
+- La exposicion interna puede decidir requests sin ejecutar side effects ni habilitar runtime.
+- Market Catalog runtime, Business Composition Layer runtime, OBLITERATUS y raw Package directo al User Panel permanecen bloqueados.
