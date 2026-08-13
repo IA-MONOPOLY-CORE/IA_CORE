@@ -67,6 +67,7 @@ READINESS_VALUES = (
     "ready_for_preview",
     "ready_for_materialization",
     "ready_for_validation",
+    "ready_for_phase_7_4_validate_domain_service",
     "ready_for_rollback",
     "ready_for_regeneration",
     "ready_for_audit_pack",
@@ -112,6 +113,16 @@ ERROR_CODES = (
     "PREVIEW_NOT_JSON_SAFE",
     "MATERIALIZATION_NOT_PERFORMED",
     "WRITE_OPERATION_BLOCKED",
+    "PREVIEW_REQUIRED",
+    "INVALID_PREVIEW_PAYLOAD",
+    "PREVIEW_HAS_BLOCKING_ERRORS",
+    "PREVIEW_ALREADY_MATERIALIZED",
+    "CONFIRMATION_REQUIRED",
+    "INVALID_CONFIRMATION_SCOPE",
+    "OVERWRITE_BLOCKED",
+    "ARTIFACT_MANIFEST_WRITE_FAILED",
+    "MATERIALIZATION_FAILED",
+    "ROLLBACK_PREPARATION_FAILED",
 )
 
 SENSITIVE_KEY_FRAGMENTS = (
@@ -467,6 +478,42 @@ def _available_internal_services() -> list[dict[str, Any]]:
                 "READINESS_NOT_MET",
             ],
         ),
+        _service(
+            name="materialize_sandbox",
+            phase="7.3",
+            service_type="controlled-write",
+            available_now=True,
+            payload_expected="materialize_sandbox_request",
+            expected_errors=[
+                "PREVIEW_REQUIRED",
+                "INVALID_PREVIEW_PAYLOAD",
+                "PREVIEW_HAS_BLOCKING_ERRORS",
+                "PREVIEW_ALREADY_MATERIALIZED",
+                "CONFIRMATION_REQUIRED",
+                "INVALID_CONFIRMATION_SCOPE",
+                "SANDBOX_ROOT_REQUIRED",
+                "SANDBOX_ROOT_NOT_FOUND",
+                "UNSAFE_SANDBOX_ROOT",
+                "UNSAFE_PLANNED_PATH",
+                "PATH_TRAVERSAL_BLOCKED",
+                "DOMAINS_OPERATIVE_PATH_BLOCKED",
+                "OVERWRITE_BLOCKED",
+                "ARTIFACT_MANIFEST_WRITE_FAILED",
+                "MATERIALIZATION_FAILED",
+                "ROLLBACK_PREPARATION_FAILED",
+                "PAYLOAD_NOT_JSON_SAFE",
+                "SECRET_LIKE_FIELD_BLOCKED",
+                "RUNTIME_BLOCKED",
+                "EXECUTION_BLOCKED",
+                "TOOLS_BLOCKED",
+                "MODELS_BLOCKED",
+                "INTEGRATIONS_BLOCKED",
+            ],
+            requires_human_confirmation=True,
+            side_effects=True,
+            requires_valid_preview=True,
+            prepares_rollback=True,
+        ),
     ]
 
 
@@ -476,15 +523,6 @@ def _planned_internal_services() -> list[dict[str, Any]]:
         _service("get_sandbox_team_listing", "7.1", "read-only", False, "sandbox_team_listing", ["MISSING_ARTIFACT_MANIFEST"]),
         _service("get_materialization_audit_pack", "7.1", "read-only", False, "materialization_audit_pack_summary", ["READINESS_NOT_MET"]),
         _service("validate_domain", "7.4", "read-only", False, "domain_validation_payload", ["INVALID_DOMAIN_PAYLOAD"]),
-        _service(
-            "materialize_sandbox",
-            "7.3",
-            "controlled-write",
-            False,
-            "materialization_request",
-            ["READINESS_NOT_MET", "OPERATIONAL_WRITE_BLOCKED"],
-            requires_human_confirmation=True,
-        ),
         _service(
             "rollback_sandbox",
             "7.5",
@@ -538,6 +576,9 @@ def _service(
     *,
     destructive: bool = False,
     requires_human_confirmation: bool = False,
+    side_effects: bool = False,
+    requires_valid_preview: bool = False,
+    prepares_rollback: bool = False,
 ) -> dict[str, Any]:
     return {
         "name": name,
@@ -549,14 +590,17 @@ def _service(
         "touches_runtime": False,
         "touches_visual_ui": False,
         "touches_integrations": False,
+        "touches_operational_domains": False,
         "can_touch_operational_domains": False,
         "public_endpoint": False,
         "ui_action_implemented": False,
         "runtime_enabled": False,
         "execution_enabled": False,
-        "side_effects": False,
+        "side_effects": side_effects,
         "writes_performed": False,
         "materialization_performed": False,
+        "requires_valid_preview": requires_valid_preview,
+        "prepares_rollback": prepares_rollback,
         "payload_expected": payload_expected,
         "expected_errors": expected_errors,
     }
@@ -690,6 +734,8 @@ def _validate_services(contract: dict[str, Any]) -> None:
             raise ValueError(f"{service['name']} toca UI visual")
         if service.get("touches_integrations") is not False:
             raise ValueError(f"{service['name']} toca integraciones")
+        if service.get("touches_operational_domains") is not False:
+            raise ValueError(f"{service['name']} toca domains operativo")
         if service.get("can_touch_operational_domains") is not False:
             raise ValueError(f"{service['name']} toca domains operativo")
         if service.get("public_endpoint") is not False:
@@ -700,8 +746,25 @@ def _validate_services(contract: dict[str, Any]) -> None:
             raise ValueError(f"{service['name']} habilita runtime")
         if service.get("execution_enabled") is not False:
             raise ValueError(f"{service['name']} habilita execution")
-        if service.get("type") in {"controlled-write", "destructive-controlled"} and service.get("available_now") is True:
+        if (
+            service.get("type") in {"controlled-write", "destructive-controlled"}
+            and service.get("available_now") is True
+            and service.get("name") != "materialize_sandbox"
+        ):
             raise ValueError(f"{service['name']} no puede estar disponible en 7.0")
+        if service.get("name") == "materialize_sandbox" and service.get("available_now") is True:
+            if service.get("type") != "controlled-write":
+                raise ValueError("materialize_sandbox debe ser controlled-write")
+            if service.get("requires_human_confirmation") is not True:
+                raise ValueError("materialize_sandbox requiere confirmacion humana")
+            if service.get("requires_valid_preview") is not True:
+                raise ValueError("materialize_sandbox requiere preview valido")
+            if service.get("prepares_rollback") is not True:
+                raise ValueError("materialize_sandbox requiere rollback preparado")
+            if service.get("side_effects") is not True:
+                raise ValueError("materialize_sandbox debe declarar side_effects=true")
+            if service.get("destructive") is not False:
+                raise ValueError("materialize_sandbox no debe ser destructivo")
         if service.get("destructive") is True and service.get("requires_human_confirmation") is not True:
             raise ValueError(f"{service['name']} destructivo requiere confirmacion humana")
 
@@ -711,6 +774,7 @@ def _validate_services(contract: dict[str, Any]) -> None:
         "validate_backend_internal_ui_contract",
         "list_domains_status",
         "preview_materialization",
+        "materialize_sandbox",
     }
     if not available_names <= allowed_now:
         raise ValueError("7.0 declara como disponible un servicio no implementado")

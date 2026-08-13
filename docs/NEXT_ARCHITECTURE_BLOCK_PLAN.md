@@ -884,3 +884,23 @@ Proximo prompt exacto: `PROMPT 7.3 - Servicio interno materialize_sandbox`.
 `preview_materialization` queda `available_now=true`. `list_domains_status` sigue `available_now=true`. Los servicios 7.3+ siguen `planned/available_now=false`.
 
 No crea archivos, no crea directorios, no persiste artifact_manifest, no materializa, no hace rollback, no regenera, no ejecuta agentes, no invoca modelos/tools, no crea UI visual, no crea frontend, no crea endpoints publicos y no toca `domains/` operativo. Runtime, execution, dry-run real, writes/stores/memory operativos, network/browser/filesystem runtime/env/secrets, integraciones, Market Catalog runtime, Business Composition Layer runtime, OBLITERATUS y raw Package directo a User Panel permanecen bloqueados.
+
+## PROMPT 7.3 - Servicio Interno materialize_sandbox
+
+Estado: `BACKEND_INTERNAL_MATERIALIZE_SANDBOX_SERVICE_READY`
+
+Veredicto: `BACKEND_INTERNAL_MATERIALIZE_SANDBOX_CONTROLLED_WRITE_CONFIRMED`
+
+Veredicto no-operativo: `BACKEND_INTERNAL_MATERIALIZE_SANDBOX_NO_OPERATIONAL_CONFIRMED`
+
+Readiness: `ready_for_phase_7_4_validate_domain_service`
+
+Bloque actual: `Fase 7 - Contrato backend interno para UI`.
+
+Proximo prompt exacto: `PROMPT 7.4 - Servicio interno validate_domain`.
+
+`PROMPT 7.3 - Servicio interno materialize_sandbox` crea el primer servicio controlled-write del backend interno para futura UI. El servicio exige `preview_materialization` valido, `sandbox_root` explicito/controlado, confirmacion explicita, paths seguros, `requires_valid_preview=true`, `prepares_rollback=true` y `available_now=true` en el contrato.
+
+La escritura queda limitada a sandbox controlado: `domain sandbox -> artifact_manifest -> profile_catalog -> agent_presets -> paper_seed -> sandbox agents -> sandbox team -> team read model`. Prepara rollback integral y devuelve payload JSON-safe con `created_paths`, `artifact_summary`, `lineage_summary`, `dependencies_summary`, `read_models_summary` y `rollback_prepared=true`.
+
+Sigue bloqueado runtime, execution, dry-run real, tools, modelos, context injection, output delivery, writes/stores/memory operativos, network/browser/filesystem runtime/env/secrets, API runtime, UI runtime, UI visual, UI-device control, endpoints publicos, integraciones, Market Catalog runtime, Business Composition Layer runtime, OBLITERATUS y raw Package directo al User Panel.

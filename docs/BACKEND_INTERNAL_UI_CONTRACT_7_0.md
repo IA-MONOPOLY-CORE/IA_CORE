@@ -270,3 +270,29 @@ Fuera de alcance: UI visual, frontend, endpoints publicos, runtime, execution, d
 ## 24. Proximo Prompt Recomendado
 
 `PROMPT 7.1 - Servicio interno list_domains/status`
+
+## 25. Actualizacion PROMPT 7.1
+
+`list_domains_status` queda `available_now=true`, tipo `read-only`, `side_effects=false`, `public_endpoint=false`, `ui_visual=false`, `runtime_enabled=false`, `execution_enabled=false`, `requires_human_confirmation=false` y `destructive=false`.
+
+## 26. Actualizacion PROMPT 7.2
+
+`preview_materialization` queda `available_now=true`, tipo `read-only-preview`, `side_effects=false`, `public_endpoint=false`, `ui_visual=false`, `runtime_enabled=false`, `execution_enabled=false`, `writes_performed=false`, `materialization_performed=false`, `requires_human_confirmation=false` y `destructive=false`.
+
+## 27. Actualizacion PROMPT 7.3
+
+`PROMPT 7.3 - Servicio interno materialize_sandbox` deja `materialize_sandbox` disponible ahora como `controlled-write`.
+
+Estado: `BACKEND_INTERNAL_MATERIALIZE_SANDBOX_SERVICE_READY`.
+
+Veredicto: `BACKEND_INTERNAL_MATERIALIZE_SANDBOX_CONTROLLED_WRITE_CONFIRMED`.
+
+Veredicto no-operativo: `BACKEND_INTERNAL_MATERIALIZE_SANDBOX_NO_OPERATIONAL_CONFIRMED`.
+
+Readiness: `ready_for_phase_7_4_validate_domain_service`.
+
+`materialize_sandbox` queda `available_now=true`, tipo `controlled-write`, `side_effects=true`, `public_endpoint=false`, `ui_visual=false`, `runtime_enabled=false`, `execution_enabled=false`, `requires_human_confirmation=true`, `destructive=false`, `touches_operational_domains=false`, `requires_valid_preview=true` y `prepares_rollback=true`.
+
+El servicio exige `preview_materialization` valido, `sandbox_root` explicito/controlado, confirmacion humana explicita y paths seguros. Escribe solo en sandbox controlado, prepara rollback integral y mantiene bloqueados runtime, execution, dry-run real, tools, modelos, UI visual, endpoints publicos, integraciones, Market Catalog runtime, Business Composition Layer runtime y OBLITERATUS.
+
+Proximo prompt recomendado: `PROMPT 7.4 - Servicio interno validate_domain`.

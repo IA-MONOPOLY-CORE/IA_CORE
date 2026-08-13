@@ -125,6 +125,8 @@ def test_preview_materialization_payload_is_json_safe_and_no_operational(tmp_pat
     assert payload["service_version"] == SERVICE_VERSION
     assert payload["status"] == "ready"
     assert payload["readiness"] == SERVICE_READINESS
+    assert payload["sandbox_root"] == str(root.resolve())
+    assert payload["domain_request"]["domain_id"] == "preview_marketing_contenidos"
     assert payload["domain_preview"]
     assert payload["planned_artifacts"]
     assert payload["planned_paths"]
@@ -377,8 +379,10 @@ def test_contract_marks_preview_available_and_future_services_planned():
     assert available["preview_materialization"]["touches_visual_ui"] is False
     assert available["preview_materialization"]["runtime_enabled"] is False
     assert available["preview_materialization"]["execution_enabled"] is False
+    assert available["materialize_sandbox"]["available_now"] is True
+    assert available["materialize_sandbox"]["type"] == "controlled-write"
+    assert available["materialize_sandbox"]["requires_human_confirmation"] is True
     for future in (
-        "materialize_sandbox",
         "rollback_sandbox",
         "archive_domain",
         "delete_sandbox_domain",

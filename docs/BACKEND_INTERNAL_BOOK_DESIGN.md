@@ -5837,3 +5837,21 @@ Readiness: `ready_for_phase_7_3_materialize_sandbox_service`
 Proximo paso: `PROMPT 7.3 - Servicio interno materialize_sandbox`
 
 Este bloque crea `core/backend_internal_preview_materialization_service.py` como servicio interno preview/no-write. Requiere `domain_request` y `sandbox_root` explicito/controlado, reutiliza `core/domain_materialization_preview.py` y devuelve payload JSON-safe con domain preview, planned_artifacts, planned_paths, planned_manifests, lineage, dependencies, read models, audit pack, warnings, errores, allowed_actions, forbidden_actions y next_actions. Actualiza `core/backend_internal_ui_contract.py` para marcar `preview_materialization` como `available_now=true`; `list_domains_status` sigue disponible y servicios 7.3+ siguen planned/available_now=false. No crea archivos ni directorios, no persiste artifact_manifest, no materializa, no hace rollback/archive/delete/reset, no regenera, no ejecuta agentes, no invoca modelos/tools, no crea UI visual, no crea endpoints publicos, no toca `domains/` operativo, no activa runtime, execution, dry-run real, Market Catalog runtime, Business Composition Layer runtime, OBLITERATUS ni raw Package directo a User Panel.
+
+## 197. PROMPT 7.3 - Servicio interno materialize_sandbox
+
+Estado: `BACKEND_INTERNAL_MATERIALIZE_SANDBOX_SERVICE_READY`
+
+Veredicto: `BACKEND_INTERNAL_MATERIALIZE_SANDBOX_CONTROLLED_WRITE_CONFIRMED`
+
+Veredicto no-operativo: `BACKEND_INTERNAL_MATERIALIZE_SANDBOX_NO_OPERATIONAL_CONFIRMED`
+
+Readiness: `ready_for_phase_7_4_validate_domain_service`
+
+Proximo paso: `PROMPT 7.4 - Servicio interno validate_domain`
+
+Este bloque crea `core/backend_internal_materialize_sandbox_service.py` como servicio interno `controlled-write`. Exige preview 7.2 valido, `sandbox_root` explicito/controlado, confirmacion humana explicita, paths seguros, `allow_overwrite=false` y rollback integral preparado. Reutiliza los materializadores vigentes de Fase 6 para crear `domain sandbox -> artifact_manifest -> profile_catalog -> agent_presets -> paper_seed -> sandbox agents -> sandbox team -> team read model` dentro de sandbox controlado.
+
+El contrato backend interno marca `materialize_sandbox` como `available_now=true`, `side_effects=true`, `requires_valid_preview=true`, `prepares_rollback=true`, `requires_human_confirmation=true`, `public_endpoint=false`, `touches_operational_domains=false`, `runtime_enabled=false` y `execution_enabled=false`.
+
+La materializacion de 7.3 no equivale a operacion real: `operational=false`, `passed=false`, runtime bloqueado, execution bloqueada, dry-run real bloqueado, tools/modelos bloqueados, UI visual/endpoints publicos bloqueados, integraciones bloqueadas, Market Catalog runtime bloqueado, Business Composition Layer runtime bloqueado, OBLITERATUS excluido y raw Package directo a User Panel bloqueado.

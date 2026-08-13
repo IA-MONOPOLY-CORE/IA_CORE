@@ -1026,3 +1026,27 @@ El servicio calcula preview declarativo de materializacion: domain preview, plan
 No crea archivos/directorios, no persiste artifact_manifest, no materializa, no hace rollback/archive/delete/reset, no regenera, no ejecuta agentes, no invoca modelos/tools, no toca `domains/` operativo, no crea UI visual y no crea endpoints publicos.
 
 Runtime, execution, dry-run real, context injection, output delivery, writes/stores/memory operativos, network/browser/filesystem runtime/env/secrets, API runtime, UI runtime, UI-device control, integraciones, Market Catalog runtime, Business Composition Layer runtime, OBLITERATUS y raw Package directo al User Panel permanecen bloqueados.
+
+## PROMPT 7.3 - Servicio Interno materialize_sandbox
+
+`PROMPT 7.3 - Servicio interno materialize_sandbox` implementa el servicio controlled-write de Fase 7.
+
+Estado: `BACKEND_INTERNAL_MATERIALIZE_SANDBOX_SERVICE_READY`.
+
+Veredicto: `BACKEND_INTERNAL_MATERIALIZE_SANDBOX_CONTROLLED_WRITE_CONFIRMED`.
+
+Veredicto no-operativo: `BACKEND_INTERNAL_MATERIALIZE_SANDBOX_NO_OPERATIONAL_CONFIRMED`.
+
+Readiness: `ready_for_phase_7_4_validate_domain_service`.
+
+Proximo paso operacional/documental: `PROMPT 7.4 - Servicio interno validate_domain`.
+
+El servicio materializa una cadena sandbox completa solo con `preview_materialization` valido, `sandbox_root` explicito/controlado, confirmacion explicita, `allow_overwrite=false`, paths seguros y rollback integral preparado.
+
+`materialize_sandbox` queda `available_now=true`, `controlled-write`, `side_effects=true`, `requires_valid_preview=true`, `prepares_rollback=true` y `requires_human_confirmation=true`.
+
+`list_domains_status` y `preview_materialization` siguen disponibles. Los servicios 7.4+ permanecen `planned/available_now=false`.
+
+No crea UI visual, no crea frontend, no crea endpoints publicos, no implementa `validate_domain`, no hace rollback/archive/delete/reset, no regenera, no ejecuta agentes, no invoca modelos/tools, no toca integraciones y no toca `domains/` operativo.
+
+Runtime, execution, dry-run real, context injection, output delivery, writes/stores/memory operativos, network/browser/filesystem runtime/env/secrets, API runtime, UI runtime, UI-device control, Market Catalog runtime, Business Composition Layer runtime, OBLITERATUS y raw Package directo al User Panel permanecen bloqueados.

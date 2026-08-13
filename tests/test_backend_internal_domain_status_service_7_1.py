@@ -372,8 +372,10 @@ def test_contract_7_0_marks_list_domains_status_available_and_future_services_pl
     assert available["list_domains_status"]["runtime_enabled"] is False
     assert available["list_domains_status"]["execution_enabled"] is False
     assert available["preview_materialization"]["available_now"] is True
+    assert available["materialize_sandbox"]["available_now"] is True
+    assert available["materialize_sandbox"]["type"] == "controlled-write"
+    assert available["materialize_sandbox"]["requires_human_confirmation"] is True
     for future in (
-        "materialize_sandbox",
         "rollback_sandbox",
         "archive_domain",
         "delete_sandbox_domain",

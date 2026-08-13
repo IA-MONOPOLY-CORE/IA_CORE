@@ -128,3 +128,23 @@ Proximo prompt exacto: `PROMPT 7.3 - Servicio interno materialize_sandbox`.
 `preview_materialization` queda `available_now=true`, tipo `read-only-preview`, `side_effects=false`, `public_endpoint=false`, `ui_visual=false`, `runtime_enabled=false`, `execution_enabled=false`, `writes_performed=false`, `materialization_performed=false`, `requires_human_confirmation=false` y `destructive=false`.
 
 `list_domains_status` sigue `available_now=true`. Los servicios 7.3+ siguen planeados con `available_now=false`. No se crean archivos, no se crean directorios, no se persiste artifact_manifest, no se materializa, no se hace rollback, no se regenera, no se ejecutan agentes, no se invocan modelos/tools, no se crea UI visual, no se crean endpoints publicos y no se toca `domains/` operativo.
+
+## 19. Estado De 7.3
+
+`PROMPT 7.3 - Servicio interno materialize_sandbox` crea `core/backend_internal_materialize_sandbox_service.py` como servicio interno controlled-write para futura UI.
+
+Estado: `BACKEND_INTERNAL_MATERIALIZE_SANDBOX_SERVICE_READY`.
+
+Veredicto: `BACKEND_INTERNAL_MATERIALIZE_SANDBOX_CONTROLLED_WRITE_CONFIRMED`.
+
+Veredicto no-operativo: `BACKEND_INTERNAL_MATERIALIZE_SANDBOX_NO_OPERATIONAL_CONFIRMED`.
+
+Readiness: `ready_for_phase_7_4_validate_domain_service`.
+
+Proximo prompt exacto: `PROMPT 7.4 - Servicio interno validate_domain`.
+
+`materialize_sandbox` queda `available_now=true`, tipo `controlled-write`, `side_effects=true`, `requires_human_confirmation=true`, `requires_valid_preview=true`, `prepares_rollback=true`, `public_endpoint=false`, `ui_visual=false`, `runtime_enabled=false`, `execution_enabled=false`, `destructive=false` y `touches_operational_domains=false`.
+
+El servicio exige `preview_materialization` valido, `sandbox_root` explicito/controlado, confirmacion explicita y validacion de paths. Reutiliza la cadena validada en Fase 6 para materializar `domain sandbox -> artifact_manifest -> profile_catalog -> agent_presets -> paper_seed -> sandbox agents -> sandbox team -> team read model` bajo sandbox controlado y prepara rollback integral.
+
+`list_domains_status` y `preview_materialization` siguen `available_now=true`. Los servicios 7.4+ siguen planeados con `available_now=false`. No crea UI visual, no crea frontend, no crea endpoints publicos, no toca `domains/` operativo, no ejecuta agentes, no invoca modelos/tools, no abre integraciones, no activa runtime, no activa execution ni abre dry-run real. Market Catalog runtime, Business Composition Layer runtime, OBLITERATUS y raw Package directo al User Panel siguen bloqueados.

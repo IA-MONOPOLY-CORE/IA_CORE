@@ -1350,3 +1350,26 @@ IA_CORE ya cuenta con `core/domain_materialization_preview.py` como preview no o
 - La futura UI y el backend interno podran mostrar una vista previa segura antes de pedir materializacion controlada.
 - La escritura real queda separada en `PROMPT 7.3 - Servicio interno materialize_sandbox` con contrato propio.
 - La frontera preview evita confundir simulacion declarativa con materializacion real.
+
+---
+
+## ADR-054 - materialize_sandbox como escritura controlada posterior a preview
+
+**Estado**: Aceptado
+
+**Prompt**: 7.3 - Servicio interno materialize_sandbox
+
+**Contexto**:
+Despues de `preview_materialization`, IA_CORE necesita permitir una escritura sandbox real para que la futura UI pueda solicitar materializacion sin tocar `domains/` operativo ni abrir runtime. La decision debia separar escritura sandbox controlada de ejecucion operativa.
+
+**Decision**:
+- IA_CORE permite materializacion sandbox desde el contrato backend interno solo mediante `materialize_sandbox`.
+- `materialize_sandbox` es `controlled-write`, exige preview valido, `sandbox_root` seguro, confirmacion explicita, paths seguros, `allow_overwrite=false` y rollback preparado.
+- La cadena materializada reutiliza Fase 6: `domain sandbox -> artifact_manifest -> profile_catalog -> agent_presets -> paper_seed -> sandbox agents -> sandbox team -> team read model`.
+- El servicio vive en `core/backend_internal_materialize_sandbox_service.py` y queda `available_now=true` en `core/backend_internal_ui_contract.py`.
+- La materializacion escribe unicamente en sandbox controlado y mantiene runtime, execution, dry-run real, modelos, tools, UI visual, endpoints publicos e integraciones bloqueados.
+
+**Consecuencias**:
+- La futura UI podra pedir materializacion sandbox de manera segura sin inferir reglas criticas.
+- Toda escritura queda trazada, validada y reversible mediante rollback plan integral.
+- `domains/` operativo, Market Catalog runtime, Business Composition Layer runtime, OBLITERATUS y raw Package directo al User Panel siguen fuera de alcance.
