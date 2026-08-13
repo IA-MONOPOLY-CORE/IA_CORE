@@ -66,6 +66,22 @@ La evidencia incluida es JSON-safe y resumida. Excluye secrets/env, runtime hand
 
 Siguen bloqueados runtime, execution, dry-run real, tools, modelos, contexto operativo, output delivery, writes/stores/memory operativos, network, browser, filesystem runtime, env, secrets, API runtime, UI runtime, UI-device control, integraciones, Market Catalog runtime, Business Composition Layer runtime, OBLITERATUS y raw Package directo a User Panel.
 
+## PROMPT 6.4 - Checkpoint Integral Fase 6
+
+Estado: `BACKEND_INTERNAL_PHASE_6_INTEGRAL_CHECKPOINT_PASSED`
+
+Veredicto: `SANDBOX_E2E_ROLLBACK_REGENERATION_AUDIT_PACK_CONFIRMED`
+
+Readiness: `ready_for_phase_7_backend_internal_ui_contract`
+
+Bloque siguiente seleccionado: `Fase 7 - Contrato backend interno para UI`
+
+Proximo prompt exacto: `PROMPT 7.0 - Contrato backend interno para UI`
+
+`PROMPT 6.4` cierra Fase 6 como cadena coherente: E2E sandbox completo, rollback integral, regeneracion segura, audit pack interno y no-operatividad integral. No implementa Fase 7, no crea UI, no crea endpoints publicos, no activa runtime, no ejecuta agentes y no toca integraciones.
+
+Siguen bloqueados runtime, execution, dry-run real, tools, modelos, contexto operativo, output delivery, writes/stores/memory operativos, network, browser, filesystem runtime, env, secrets, API runtime, UI runtime, UI-device control, integraciones, Market Catalog runtime, Business Composition Layer runtime, OBLITERATUS y raw Package directo a User Panel.
+
 Estado: `NEXT_ARCHITECTURE_BLOCK_PLANNING_COMPLETED`
 
 Veredicto: `NEXT_ARCHITECTURE_BLOCK_SELECTED`
@@ -187,6 +203,7 @@ Fase 6 cierra cuando exista evidencia de:
 - errores legibles para casos negativos;
 - no modificacion de `domains/`, `agents/`, `catalogs/` ni papers globales;
 - runtime, execution, dry-run real, tools, modelos, UI e integraciones bloqueados.
+- checkpoint integral 6.4 aprobado y readiness hacia contrato backend interno para UI.
 
 ## Restricciones De No-Operatividad
 
@@ -217,9 +234,17 @@ Fase 6 prepara evidencia para Fase 7. La UI futura no debe inferir rollback, reg
 
 `ready_for_phase_6_sandbox_e2e_checkpoint`
 
+`BACKEND_INTERNAL_PHASE_6_INTEGRAL_CHECKPOINT_PASSED`
+
+`SANDBOX_E2E_ROLLBACK_REGENERATION_AUDIT_PACK_CONFIRMED`
+
+`ready_for_phase_7_backend_internal_ui_contract`
+
 ## Proximo Prompt Exacto
 
 `PROMPT 6.0 - Validacion end-to-end sandbox completa`
+
+Despues del cierre integral 6.4, el siguiente prompt exacto seleccionado es `PROMPT 7.0 - Contrato backend interno para UI`.
 
 Compatibilidad de nombre esperado:
 

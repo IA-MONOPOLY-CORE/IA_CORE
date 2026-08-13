@@ -810,3 +810,19 @@ Proximo prompt exacto: `PROMPT 6.4 - Checkpoint integral Fase 6`.
 El audit pack excluye secrets/env, runtime handles, model/tool configs operativos, network/output delivery handles, raw prompts, data productiva y dumps excesivos. No abre runtime, execution, dry-run real, tools, modelos, contexto operativo, outputs, writes/stores/memory operativos, UI, integraciones, Market Catalog runtime, Business Composition Layer runtime, OBLITERATUS ni raw Package directo a User Panel.
 
 No abre runtime, execution, dry-run real, tools, modelos, contexto operativo, output delivery, writes/stores/memory operativos, API runtime, UI runtime, UI-device control, integraciones, Market Catalog runtime, Business Composition Layer runtime, OBLITERATUS ni raw Package directo a User Panel.
+
+## PROMPT 6.4 - Checkpoint Integral Fase 6
+
+Estado: `BACKEND_INTERNAL_PHASE_6_INTEGRAL_CHECKPOINT_PASSED`
+
+Veredicto: `SANDBOX_E2E_ROLLBACK_REGENERATION_AUDIT_PACK_CONFIRMED`
+
+Readiness: `ready_for_phase_7_backend_internal_ui_contract`
+
+Bloque siguiente seleccionado: `Fase 7 - Contrato backend interno para UI`.
+
+Proximo prompt exacto: `PROMPT 7.0 - Contrato backend interno para UI`.
+
+Justificacion: Fase 6 deja evidencia suficiente para que el siguiente bloque defina un contrato backend interno consumible por futura UI: E2E sandbox, rollback integral, regeneracion segura, audit pack, `artifact_manifest`, lineage, `created_paths`, read models y blocked capabilities. El libro Backend Interno ya define `Fase 7 - Contrato backend para UI`; 6.4 selecciona su variante interna/no-operativa como siguiente bloque.
+
+Fase 7 no queda implementada por este prompt. Siguen bloqueados runtime, execution, dry-run real, tools, modelos, contexto operativo, output delivery, writes/stores/memory operativos, API runtime, UI runtime, UI visual real, UI-device control, integraciones, Market Catalog runtime, Business Composition Layer runtime, OBLITERATUS y raw Package directo a User Panel.

@@ -948,3 +948,21 @@ Runtime, execution, dry-run real, tools, modelos, contexto operativo, output del
 El rollback integral usa `artifact_manifest`, `created_paths`, lineage y `sandbox_root` controlado. Elimina solo paths declarados, preserva paths no declarados, bloquea repo root, `domains/` operativo, `.git/`, `core/`, `docs/`, `tests/`, path traversal y symlink escape, y confirma idempotencia.
 
 Siguen bloqueados runtime, execution, dry-run real, tools, modelos, contexto operativo, output delivery, writes/stores/memory operativos, network/browser/filesystem runtime/env/secrets, API runtime, UI runtime, UI-device control, integraciones, Market Catalog runtime, Business Composition Layer runtime, OBLITERATUS y raw Package directo a User Panel.
+
+## PROMPT 6.4 - Checkpoint Integral Fase 6
+
+`PROMPT 6.4` cierra Fase 6 sin abrir etapa operacional.
+
+Estado: `BACKEND_INTERNAL_PHASE_6_INTEGRAL_CHECKPOINT_PASSED`.
+
+Veredicto: `SANDBOX_E2E_ROLLBACK_REGENERATION_AUDIT_PACK_CONFIRMED`.
+
+Readiness: `ready_for_phase_7_backend_internal_ui_contract`.
+
+Bloque siguiente seleccionado: `Fase 7 - Contrato backend interno para UI`.
+
+Proximo paso operacional/documental: `PROMPT 7.0 - Contrato backend interno para UI`.
+
+Fase 7 futura debe preparar contrato backend interno para UI, no UI visual real todavia, no endpoints publicos y no integraciones.
+
+Runtime, execution, dry-run real, tools, modelos, contexto operativo, output delivery, writes/stores/memory operativos, network/browser/filesystem runtime/env/secrets, API runtime, UI runtime, UI-device control, integraciones, Market Catalog runtime, Business Composition Layer runtime, OBLITERATUS y raw Package directo a User Panel permanecen bloqueados.

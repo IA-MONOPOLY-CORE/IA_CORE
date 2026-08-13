@@ -1254,3 +1254,26 @@ Fase 6 ya valido la cadena sandbox completa, rollback integral, regeneracion seg
 - Backend interno y futura UI podran inspeccionar evidencia probatoria sin activar runtime ni inferir reglas criticas.
 - La auditoria de Fase 6 queda desacoplada de cualquier ejecucion real.
 - El checkpoint integral 6.4 puede consumir evidencia resumida y trazable sin abrir runtime, execution, tools, modelos, UI ni integraciones.
+
+---
+
+## ADR-050 - Fase 6 cierra el ciclo sandbox E2E rollback regeneracion auditoria sin operacion real
+
+**Estado**: Aceptado
+
+**Prompt**: 6.4 - Checkpoint integral Fase 6
+
+**Contexto**:
+Fase 6 ya valido E2E sandbox completo, rollback integral, regeneracion segura y audit pack interno. El libro Backend Interno necesita un cierre integral antes de avanzar al contrato backend interno para futura UI.
+
+**Decision**:
+- IA_CORE considera cerrada Fase 6 cuando la cadena sandbox completa fue validada E2E, revertida mediante rollback integral, regenerada de forma segura y empaquetada en un audit pack JSON-safe.
+- El cierre integral se documenta en `docs/BACKEND_INTERNAL_PHASE_6_INTEGRAL_CHECKPOINT.md`.
+- El siguiente bloque seleccionado es `Fase 7 - Contrato backend interno para UI`.
+- Fase 7 no queda implementada por el checkpoint 6.4.
+- Runtime, execution, dry-run real, modelos, tools, UI visual real, endpoints publicos, integraciones, Market Catalog runtime, Business Composition Layer runtime y OBLITERATUS permanecen bloqueados.
+
+**Consecuencias**:
+- El sistema puede avanzar al contrato backend interno para futura UI con evidencia suficiente de que la cadena sandbox es trazable, reversible, regenerable y auditable sin ser operativa.
+- La futura UI debe consumir contrato backend interno y no inferir reglas criticas desde manifests, audit pack o archivos crudos.
+- Cualquier apertura operativa futura requiere prompts posteriores explicitos.
