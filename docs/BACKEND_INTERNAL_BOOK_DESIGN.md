@@ -5855,3 +5855,21 @@ Este bloque crea `core/backend_internal_materialize_sandbox_service.py` como ser
 El contrato backend interno marca `materialize_sandbox` como `available_now=true`, `side_effects=true`, `requires_valid_preview=true`, `prepares_rollback=true`, `requires_human_confirmation=true`, `public_endpoint=false`, `touches_operational_domains=false`, `runtime_enabled=false` y `execution_enabled=false`.
 
 La materializacion de 7.3 no equivale a operacion real: `operational=false`, `passed=false`, runtime bloqueado, execution bloqueada, dry-run real bloqueado, tools/modelos bloqueados, UI visual/endpoints publicos bloqueados, integraciones bloqueadas, Market Catalog runtime bloqueado, Business Composition Layer runtime bloqueado, OBLITERATUS excluido y raw Package directo a User Panel bloqueado.
+
+## 198. PROMPT 7.4 - Servicio interno validate_domain
+
+Estado: `BACKEND_INTERNAL_VALIDATE_DOMAIN_SERVICE_READY`
+
+Veredicto: `BACKEND_INTERNAL_VALIDATE_DOMAIN_READ_ONLY_CONFIRMED`
+
+Veredicto no-operativo: `BACKEND_INTERNAL_VALIDATE_DOMAIN_NO_OPERATIONAL_CONFIRMED`
+
+Readiness: `ready_for_phase_7_5_rollback_archive_delete_reset_service`
+
+Proximo paso: `PROMPT 7.5 - Servicio interno rollback/archive/delete/reset`
+
+Este bloque crea `core/backend_internal_validate_domain_service.py` como servicio interno `read-only-validation`. Requiere `sandbox_root` explicito/controlado y `domain_id`; valida una materializacion sandbox existente sin escribir, materializar, reparar, regenerar ni ejecutar rollback. La validacion cubre dominio, `materialization_manifest`, `artifact_manifest`, `created_paths`, lineage/dependencies, profile catalog, agent presets, paper seed, sandbox agents, sandbox team, team read model y rollback readiness.
+
+El contrato backend interno marca `validate_domain` como `available_now=true`, `side_effects=false`, `requires_human_confirmation=false`, `destructive=false`, `public_endpoint=false`, `touches_operational_domains=false`, `runtime_enabled=false`, `execution_enabled=false`, `writes_performed=false`, `materialization_performed=false`, `rollback_performed=false` y `regeneration_performed=false`.
+
+La validacion de 7.4 no equivale a operacion real: `operational=false`, `passed=false`, runtime bloqueado, execution bloqueada, dry-run real bloqueado, tools/modelos bloqueados, UI visual/endpoints publicos bloqueados, integraciones bloqueadas, Market Catalog runtime bloqueado, Business Composition Layer runtime bloqueado, OBLITERATUS excluido y raw Package directo a User Panel bloqueado.

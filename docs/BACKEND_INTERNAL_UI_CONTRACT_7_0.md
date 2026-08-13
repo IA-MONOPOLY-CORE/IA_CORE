@@ -296,3 +296,21 @@ Readiness: `ready_for_phase_7_4_validate_domain_service`.
 El servicio exige `preview_materialization` valido, `sandbox_root` explicito/controlado, confirmacion humana explicita y paths seguros. Escribe solo en sandbox controlado, prepara rollback integral y mantiene bloqueados runtime, execution, dry-run real, tools, modelos, UI visual, endpoints publicos, integraciones, Market Catalog runtime, Business Composition Layer runtime y OBLITERATUS.
 
 Proximo prompt recomendado: `PROMPT 7.4 - Servicio interno validate_domain`.
+
+## 28. Actualizacion PROMPT 7.4
+
+`PROMPT 7.4 - Servicio interno validate_domain` deja `validate_domain` disponible ahora como `read-only-validation`.
+
+Estado: `BACKEND_INTERNAL_VALIDATE_DOMAIN_SERVICE_READY`.
+
+Veredicto: `BACKEND_INTERNAL_VALIDATE_DOMAIN_READ_ONLY_CONFIRMED`.
+
+Veredicto no-operativo: `BACKEND_INTERNAL_VALIDATE_DOMAIN_NO_OPERATIONAL_CONFIRMED`.
+
+Readiness: `ready_for_phase_7_5_rollback_archive_delete_reset_service`.
+
+`validate_domain` queda `available_now=true`, tipo `read-only-validation`, `side_effects=false`, `public_endpoint=false`, `ui_visual=false`, `runtime_enabled=false`, `execution_enabled=false`, `requires_human_confirmation=false`, `destructive=false`, `touches_operational_domains=false`, `writes_performed=false`, `materialization_performed=false`, `rollback_performed=false` y `regeneration_performed=false`.
+
+El servicio requiere `sandbox_root` explicito/controlado y `domain_id`, valida una materializacion sandbox existente y produce payload JSON-safe con validacion de dominio, artifact_manifest, created_paths, lineage/dependencies, artefactos, read models y rollback readiness. No escribe, no materializa, no repara, no regenera, no ejecuta rollback y mantiene bloqueados runtime, execution, dry-run real, tools, modelos, UI visual, endpoints publicos, integraciones, Market Catalog runtime, Business Composition Layer runtime y OBLITERATUS.
+
+Proximo prompt recomendado: `PROMPT 7.5 - Servicio interno rollback/archive/delete/reset`.

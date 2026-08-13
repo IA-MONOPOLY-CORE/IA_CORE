@@ -51,7 +51,6 @@ PLANNED_SERVICES = {
     "get_domain_detail",
     "get_sandbox_team_listing",
     "get_materialization_audit_pack",
-    "validate_domain",
     "rollback_sandbox",
     "archive_domain",
     "delete_sandbox_domain",
@@ -130,6 +129,7 @@ def test_services_are_declared_without_overstating_availability():
         "list_domains_status",
         "preview_materialization",
         "materialize_sandbox",
+        "validate_domain",
     }
     assert PLANNED_SERVICES <= set(planned)
     for service in planned.values():
@@ -150,6 +150,10 @@ def test_services_are_declared_without_overstating_availability():
     assert available["materialize_sandbox"]["requires_human_confirmation"] is True
     assert available["materialize_sandbox"]["requires_valid_preview"] is True
     assert available["materialize_sandbox"]["prepares_rollback"] is True
+    assert available["validate_domain"]["type"] == "read-only-validation"
+    assert available["validate_domain"]["side_effects"] is False
+    assert available["validate_domain"]["requires_human_confirmation"] is False
+    assert available["validate_domain"]["destructive"] is False
 
 
 def test_entities_states_readiness_and_errors_are_explicit():

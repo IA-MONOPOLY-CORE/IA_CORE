@@ -68,6 +68,7 @@ READINESS_VALUES = (
     "ready_for_materialization",
     "ready_for_validation",
     "ready_for_phase_7_4_validate_domain_service",
+    "ready_for_phase_7_5_rollback_archive_delete_reset_service",
     "ready_for_rollback",
     "ready_for_regeneration",
     "ready_for_audit_pack",
@@ -123,6 +124,19 @@ ERROR_CODES = (
     "ARTIFACT_MANIFEST_WRITE_FAILED",
     "MATERIALIZATION_FAILED",
     "ROLLBACK_PREPARATION_FAILED",
+    "VALIDATION_REQUEST_REQUIRED",
+    "INVALID_VALIDATE_DOMAIN_REQUEST",
+    "DOMAIN_ID_REQUIRED",
+    "DOMAIN_NOT_FOUND",
+    "DOMAIN_ID_MISMATCH",
+    "INVALID_DOMAIN_SCHEMA",
+    "MISSING_CREATED_PATHS",
+    "UNSAFE_CREATED_PATH",
+    "MISSING_EXPECTED_ARTIFACT",
+    "INVALID_READ_MODEL",
+    "ROLLBACK_NOT_READY",
+    "ROLLBACK_NOT_PERFORMED",
+    "REGENERATION_NOT_PERFORMED",
 )
 
 SENSITIVE_KEY_FRAGMENTS = (
@@ -514,6 +528,43 @@ def _available_internal_services() -> list[dict[str, Any]]:
             requires_valid_preview=True,
             prepares_rollback=True,
         ),
+        _service(
+            name="validate_domain",
+            phase="7.4",
+            service_type="read-only-validation",
+            available_now=True,
+            payload_expected="domain_validation_payload",
+            expected_errors=[
+                "VALIDATION_REQUEST_REQUIRED",
+                "INVALID_VALIDATE_DOMAIN_REQUEST",
+                "SANDBOX_ROOT_REQUIRED",
+                "SANDBOX_ROOT_NOT_FOUND",
+                "UNSAFE_SANDBOX_ROOT",
+                "DOMAIN_ID_REQUIRED",
+                "DOMAIN_NOT_FOUND",
+                "DOMAIN_ID_MISMATCH",
+                "INVALID_DOMAIN_SCHEMA",
+                "MISSING_ARTIFACT_MANIFEST",
+                "INCONSISTENT_ARTIFACT_MANIFEST",
+                "MISSING_CREATED_PATHS",
+                "UNSAFE_CREATED_PATH",
+                "MISSING_EXPECTED_ARTIFACT",
+                "INVALID_READ_MODEL",
+                "INVALID_AUDIT_PACK",
+                "ROLLBACK_NOT_READY",
+                "PAYLOAD_NOT_JSON_SAFE",
+                "SECRET_LIKE_FIELD_BLOCKED",
+                "RUNTIME_BLOCKED",
+                "EXECUTION_BLOCKED",
+                "TOOLS_BLOCKED",
+                "MODELS_BLOCKED",
+                "INTEGRATIONS_BLOCKED",
+                "WRITE_OPERATION_BLOCKED",
+                "MATERIALIZATION_NOT_PERFORMED",
+                "ROLLBACK_NOT_PERFORMED",
+                "REGENERATION_NOT_PERFORMED",
+            ],
+        ),
     ]
 
 
@@ -522,7 +573,6 @@ def _planned_internal_services() -> list[dict[str, Any]]:
         _service("get_domain_detail", "7.1", "read-only", False, "sandbox_domain_detail", ["INVALID_DOMAIN_PAYLOAD"]),
         _service("get_sandbox_team_listing", "7.1", "read-only", False, "sandbox_team_listing", ["MISSING_ARTIFACT_MANIFEST"]),
         _service("get_materialization_audit_pack", "7.1", "read-only", False, "materialization_audit_pack_summary", ["READINESS_NOT_MET"]),
-        _service("validate_domain", "7.4", "read-only", False, "domain_validation_payload", ["INVALID_DOMAIN_PAYLOAD"]),
         _service(
             "rollback_sandbox",
             "7.5",
@@ -772,10 +822,11 @@ def _validate_services(contract: dict[str, Any]) -> None:
     allowed_now = {
         "get_backend_internal_ui_contract",
         "validate_backend_internal_ui_contract",
-        "list_domains_status",
-        "preview_materialization",
-        "materialize_sandbox",
-    }
+            "list_domains_status",
+            "preview_materialization",
+            "materialize_sandbox",
+            "validate_domain",
+        }
     if not available_names <= allowed_now:
         raise ValueError("7.0 declara como disponible un servicio no implementado")
 

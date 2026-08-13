@@ -364,8 +364,11 @@ def test_contract_marks_materialize_available_and_future_services_planned():
     assert available["materialize_sandbox"]["runtime_enabled"] is False
     assert available["materialize_sandbox"]["execution_enabled"] is False
     assert available["materialize_sandbox"]["touches_operational_domains"] is False
+    assert available["validate_domain"]["available_now"] is True
+    assert available["validate_domain"]["type"] == "read-only-validation"
+    assert available["validate_domain"]["side_effects"] is False
 
-    for future in ("validate_domain", "rollback_sandbox", "archive_domain", "delete_sandbox_domain", "reset_sandbox_domain"):
+    for future in ("rollback_sandbox", "archive_domain", "delete_sandbox_domain", "reset_sandbox_domain"):
         assert planned[future]["available_now"] is False
 
 

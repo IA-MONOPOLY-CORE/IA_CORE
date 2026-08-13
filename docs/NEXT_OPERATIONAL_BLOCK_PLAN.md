@@ -1005,6 +1005,30 @@ No se crea UI visual, no se crean endpoints publicos, no se implementa 7.2, no s
 
 Runtime, execution, dry-run real, context injection, output delivery, writes/stores/memory operativos, network/browser/filesystem runtime/env/secrets, API runtime, UI runtime, UI-device control, Market Catalog runtime, Business Composition Layer runtime, OBLITERATUS y raw Package directo al User Panel permanecen bloqueados.
 
+## PROMPT 7.4 - Servicio Interno validate_domain
+
+`PROMPT 7.4 - Servicio interno validate_domain` implementa el servicio interno read-only-validation de Fase 7.
+
+Estado: `BACKEND_INTERNAL_VALIDATE_DOMAIN_SERVICE_READY`.
+
+Veredicto: `BACKEND_INTERNAL_VALIDATE_DOMAIN_READ_ONLY_CONFIRMED`.
+
+Veredicto no-operativo: `BACKEND_INTERNAL_VALIDATE_DOMAIN_NO_OPERATIONAL_CONFIRMED`.
+
+Readiness: `ready_for_phase_7_5_rollback_archive_delete_reset_service`.
+
+Proximo paso operacional/documental: `PROMPT 7.5 - Servicio interno rollback/archive/delete/reset`.
+
+El servicio valida una materializacion sandbox existente: dominio, materialization manifest, artifact_manifest, created_paths, lineage/dependencies, artefactos esperados, read models y rollback readiness. No escribe, no materializa, no repara, no regenera y no ejecuta rollback.
+
+`validate_domain` queda `available_now=true`, tipo `read-only-validation`, `side_effects=false`, `requires_human_confirmation=false`, `destructive=false`, `public_endpoint=false`, `ui_visual=false`, `runtime_enabled=false`, `execution_enabled=false`, `writes_performed=false` y `materialization_performed=false`.
+
+`list_domains_status`, `preview_materialization` y `materialize_sandbox` siguen disponibles. Los servicios 7.5+ permanecen `planned/available_now=false`.
+
+No crea UI visual, no crea frontend, no crea endpoints publicos, no implementa rollback/archive/delete/reset, no regenera, no ejecuta agentes, no invoca modelos/tools, no toca integraciones y no toca `domains/` operativo.
+
+Runtime, execution, dry-run real, context injection, output delivery, writes/stores/memory operativos, network/browser/filesystem runtime/env/secrets, API runtime, UI runtime, UI-device control, Market Catalog runtime, Business Composition Layer runtime, OBLITERATUS y raw Package directo al User Panel permanecen bloqueados.
+
 ## PROMPT 7.2 - Servicio Interno preview_materialization
 
 `PROMPT 7.2 - Servicio interno preview_materialization` implementa el servicio interno preview/no-write de Fase 7.

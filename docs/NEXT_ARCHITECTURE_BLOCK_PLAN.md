@@ -904,3 +904,23 @@ Proximo prompt exacto: `PROMPT 7.4 - Servicio interno validate_domain`.
 La escritura queda limitada a sandbox controlado: `domain sandbox -> artifact_manifest -> profile_catalog -> agent_presets -> paper_seed -> sandbox agents -> sandbox team -> team read model`. Prepara rollback integral y devuelve payload JSON-safe con `created_paths`, `artifact_summary`, `lineage_summary`, `dependencies_summary`, `read_models_summary` y `rollback_prepared=true`.
 
 Sigue bloqueado runtime, execution, dry-run real, tools, modelos, context injection, output delivery, writes/stores/memory operativos, network/browser/filesystem runtime/env/secrets, API runtime, UI runtime, UI visual, UI-device control, endpoints publicos, integraciones, Market Catalog runtime, Business Composition Layer runtime, OBLITERATUS y raw Package directo al User Panel.
+
+## PROMPT 7.4 - Servicio Interno validate_domain
+
+Estado: `BACKEND_INTERNAL_VALIDATE_DOMAIN_SERVICE_READY`
+
+Veredicto: `BACKEND_INTERNAL_VALIDATE_DOMAIN_READ_ONLY_CONFIRMED`
+
+Veredicto no-operativo: `BACKEND_INTERNAL_VALIDATE_DOMAIN_NO_OPERATIONAL_CONFIRMED`
+
+Readiness: `ready_for_phase_7_5_rollback_archive_delete_reset_service`
+
+Bloque actual: `Fase 7 - Contrato backend interno para UI`.
+
+Proximo prompt exacto: `PROMPT 7.5 - Servicio interno rollback/archive/delete/reset`.
+
+`PROMPT 7.4 - Servicio interno validate_domain` crea el servicio interno read-only-validation para validar una materializacion sandbox existente. Requiere `sandbox_root` explicito/controlado y `domain_id`, lee manifests y artefactos, valida schemas, created_paths, lineage, dependencies, read models y rollback readiness, y devuelve un reporte JSON-safe para futura UI.
+
+`validate_domain` queda `available_now=true`, `read-only-validation`, `side_effects=false`, `requires_human_confirmation=false`, `public_endpoint=false`, `ui_visual=false`, `runtime_enabled=false`, `execution_enabled=false`, `writes_performed=false` y `materialization_performed=false`.
+
+Sigue bloqueado runtime, execution, dry-run real, tools, modelos, context injection, output delivery, writes/stores/memory operativos, network/browser/filesystem runtime/env/secrets, API runtime, UI runtime, UI visual, UI-device control, endpoints publicos, integraciones, Market Catalog runtime, Business Composition Layer runtime, OBLITERATUS y raw Package directo al User Panel.

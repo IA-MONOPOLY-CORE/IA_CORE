@@ -1373,3 +1373,27 @@ Despues de `preview_materialization`, IA_CORE necesita permitir una escritura sa
 - La futura UI podra pedir materializacion sandbox de manera segura sin inferir reglas criticas.
 - Toda escritura queda trazada, validada y reversible mediante rollback plan integral.
 - `domains/` operativo, Market Catalog runtime, Business Composition Layer runtime, OBLITERATUS y raw Package directo al User Panel siguen fuera de alcance.
+
+---
+
+## ADR-055 - validate_domain como validacion interna read-only para futura UI
+
+**Estado**: Aceptado
+
+**Prompt**: 7.4 - Servicio interno validate_domain
+
+**Contexto**:
+Despues de `materialize_sandbox`, IA_CORE necesita validar dominios sandbox materializados antes de exponer readiness a servicios correctivos futuros. La futura UI debe recibir diagnosticos confiables sin reparar, escribir ni inferir logica critica.
+
+**Decision**:
+- IA_CORE expone `validate_domain` como servicio interno read-only-validation.
+- El servicio vive en `core/backend_internal_validate_domain_service.py`.
+- El servicio requiere `sandbox_root` explicito/controlado y `domain_id`.
+- Valida dominio, materialization manifest, artifact_manifest, created_paths, lineage/dependencies, artefactos esperados, read models y rollback readiness.
+- `validate_domain` queda `available_now=true` en `core/backend_internal_ui_contract.py`.
+- El servicio no escribe, no materializa, no repara, no regenera, no ejecuta rollback, no activa runtime, no ejecuta agentes, no invoca modelos/tools y no toca integraciones.
+
+**Consecuencias**:
+- La futura UI podra mostrar diagnosticos y readiness sin modificar estado.
+- Rollback/archive/delete/reset quedan separados en `PROMPT 7.5 - Servicio interno rollback/archive/delete/reset`.
+- Runtime, execution, dry-run real, Market Catalog runtime, Business Composition Layer runtime, OBLITERATUS y raw Package directo al User Panel siguen bloqueados.
