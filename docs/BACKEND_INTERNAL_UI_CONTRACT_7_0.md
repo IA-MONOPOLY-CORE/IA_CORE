@@ -334,3 +334,21 @@ Los cuatro servicios requieren `sandbox_root` explicito/controlado, `validation_
 Ningun servicio crea UI visual, frontend o endpoints publicos. Ningun servicio toca `domains/` operativo. Runtime, execution, dry-run real, modelos/tools, integraciones, Market Catalog runtime, Business Composition Layer runtime y OBLITERATUS siguen bloqueados.
 
 Proximo prompt recomendado: `PROMPT 7.6 - Payloads estables para futura UI`.
+
+## 30. Actualizacion PROMPT 7.6
+
+`PROMPT 7.6 - Payloads estables para futura UI` deja `stable_ui_payloads` disponible ahora como `contract/payload-normalization`.
+
+Estado: `BACKEND_INTERNAL_STABLE_UI_PAYLOADS_READY`.
+
+Veredicto JSON-safe: `BACKEND_INTERNAL_STABLE_UI_PAYLOADS_JSON_SAFE_CONFIRMED`.
+
+Veredicto no-operativo: `BACKEND_INTERNAL_STABLE_UI_PAYLOADS_NO_OPERATIONAL_CONFIRMED`.
+
+Readiness: `ready_for_phase_7_7_backend_internal_ui_contract_checkpoint`.
+
+`stable_ui_payloads` queda `available_now=true`, `side_effects=false`, `public_endpoint=false`, `ui_visual=false`, `runtime_enabled=false`, `execution_enabled=false`, `requires_human_confirmation=false`, `destructive=false` y `touches_operational_domains=false`.
+
+El envelope `backend_internal_ui_payload.v1` normaliza payloads 7.1-7.5 y documenta `blocked_capabilities` con semantica `true = blocked`. No crea UI visual, frontend ni endpoints publicos; no toca `domains/` operativo; no activa runtime, execution, modelos/tools ni integraciones.
+
+Proximo prompt recomendado: `PROMPT 7.7 - Checkpoint integral contrato backend interno para UI`.

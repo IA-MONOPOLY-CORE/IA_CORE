@@ -51,7 +51,7 @@ PLANNED_SERVICES = {
     "get_domain_detail",
     "get_sandbox_team_listing",
     "get_materialization_audit_pack",
-    "stable_ui_payloads",
+    "backend_internal_ui_contract_checkpoint",
 }
 
 EXPECTED_ERRORS = {
@@ -131,6 +131,7 @@ def test_services_are_declared_without_overstating_availability():
         "archive_sandbox_domain",
         "delete_sandbox_domain",
         "reset_sandbox_domain",
+        "stable_ui_payloads",
     }
     assert PLANNED_SERVICES <= set(planned)
     for service in planned.values():
@@ -167,6 +168,10 @@ def test_services_are_declared_without_overstating_availability():
         assert available[lifecycle]["requires_safe_sandbox_root"] is True
         assert available[lifecycle]["destructive"] is True
         assert available[lifecycle]["touches_operational_domains"] is False
+    assert available["stable_ui_payloads"]["type"] == "contract/payload-normalization"
+    assert available["stable_ui_payloads"]["side_effects"] is False
+    assert available["stable_ui_payloads"]["requires_human_confirmation"] is False
+    assert available["stable_ui_payloads"]["destructive"] is False
 
 
 def test_entities_states_readiness_and_errors_are_explicit():

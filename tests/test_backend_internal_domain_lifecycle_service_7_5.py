@@ -474,7 +474,8 @@ def test_contract_marks_7_5_available_and_7_6_planned():
         assert available[service_name]["requires_validation_payload"] is True
         assert available[service_name]["requires_safe_sandbox_root"] is True
         assert available[service_name]["side_effects"] is True
-    assert planned["stable_ui_payloads"]["available_now"] is False
+    assert available["stable_ui_payloads"]["available_now"] is True
+    assert planned["backend_internal_ui_contract_checkpoint"]["available_now"] is False
 
 
 def test_service_source_has_no_runtime_model_tool_ui_env_or_network_access():

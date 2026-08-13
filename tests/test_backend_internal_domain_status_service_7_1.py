@@ -385,7 +385,8 @@ def test_contract_7_0_marks_list_domains_status_available_and_future_services_pl
         assert available[lifecycle]["requires_human_confirmation"] is True
         assert available[lifecycle]["requires_validation_payload"] is True
         assert available[lifecycle]["requires_safe_sandbox_root"] is True
-    assert planned["stable_ui_payloads"]["available_now"] is False
+    assert available["stable_ui_payloads"]["available_now"] is True
+    assert planned["backend_internal_ui_contract_checkpoint"]["available_now"] is False
 
 
 def test_service_does_not_access_env_network_models_tools_or_ui_runtime():

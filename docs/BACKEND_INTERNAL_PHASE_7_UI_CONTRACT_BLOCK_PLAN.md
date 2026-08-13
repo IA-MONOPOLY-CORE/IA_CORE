@@ -188,3 +188,23 @@ Proximo prompt exacto: `PROMPT 7.6 - Payloads estables para futura UI`.
 `archive_sandbox_domain` queda como `controlled-write` no destructivo. `rollback_sandbox`, `delete_sandbox_domain` y `reset_sandbox_domain` quedan como `destructive-controlled`.
 
 El servicio exige `validate_domain` previo, confirmacion explicita, `sandbox_root` seguro y paths declarados por manifest/created_paths. No crea UI visual, no crea frontend, no crea endpoints publicos, no toca `domains/` operativo, no ejecuta agentes, no invoca modelos/tools, no abre integraciones, no activa runtime, no activa execution ni abre dry-run real. Market Catalog runtime, Business Composition Layer runtime, OBLITERATUS y raw Package directo al User Panel siguen bloqueados.
+
+## 22. Estado De 7.6
+
+`PROMPT 7.6 - Payloads estables para futura UI` crea `core/backend_internal_ui_payloads.py` como capa comun de envelope estable para servicios 7.1-7.5.
+
+Estado: `BACKEND_INTERNAL_STABLE_UI_PAYLOADS_READY`.
+
+Veredicto JSON-safe: `BACKEND_INTERNAL_STABLE_UI_PAYLOADS_JSON_SAFE_CONFIRMED`.
+
+Veredicto no-operativo: `BACKEND_INTERNAL_STABLE_UI_PAYLOADS_NO_OPERATIONAL_CONFIRMED`.
+
+Readiness: `ready_for_phase_7_7_backend_internal_ui_contract_checkpoint`.
+
+Proximo prompt exacto: `PROMPT 7.7 - Checkpoint integral contrato backend interno para UI`.
+
+`stable_ui_payloads` queda `available_now=true`, tipo `contract/payload-normalization`, `side_effects=false`, `public_endpoint=false`, `ui_visual=false`, `runtime_enabled=false`, `execution_enabled=false`, `requires_human_confirmation=false`, `destructive=false` y `touches_operational_domains=false`.
+
+El envelope `backend_internal_ui_payload.v1` normaliza service metadata, status, readiness, domain/materialization, summary, data sanitizada, warnings, errors, validation, allowed_actions, forbidden_actions, blocked_capabilities con semantica `true = blocked`, meta y flags no-operativas.
+
+No crea UI visual, no crea frontend, no crea endpoints publicos, no toca `domains/` operativo, no ejecuta agentes, no invoca modelos/tools, no abre integraciones, no activa runtime, no activa execution ni abre dry-run real. Market Catalog runtime, Business Composition Layer runtime, OBLITERATUS y raw Package directo al User Panel siguen bloqueados.

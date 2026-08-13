@@ -70,6 +70,7 @@ READINESS_VALUES = (
     "ready_for_phase_7_4_validate_domain_service",
     "ready_for_phase_7_5_rollback_archive_delete_reset_service",
     "ready_for_phase_7_6_stable_ui_payloads",
+    "ready_for_phase_7_7_backend_internal_ui_contract_checkpoint",
     "ready_for_rollback",
     "ready_for_regeneration",
     "ready_for_audit_pack",
@@ -153,6 +154,11 @@ ERROR_CODES = (
     "DELETE_FAILED",
     "RESET_NOT_ALLOWED",
     "RESET_FAILED",
+    "INVALID_STABLE_UI_PAYLOAD",
+    "INVALID_SERVICE_KIND",
+    "INVALID_UI_PAYLOAD_STATUS",
+    "TRACEBACK_BLOCKED",
+    "ABSOLUTE_PATH_BLOCKED",
 )
 
 SENSITIVE_KEY_FRAGMENTS = (
@@ -749,6 +755,27 @@ def _available_internal_services() -> list[dict[str, Any]]:
             requires_validation_payload=True,
             requires_safe_sandbox_root=True,
         ),
+        _service(
+            name="stable_ui_payloads",
+            phase="7.6",
+            service_type="contract/payload-normalization",
+            available_now=True,
+            payload_expected="backend_internal_ui_payload.v1",
+            expected_errors=[
+                "INVALID_STABLE_UI_PAYLOAD",
+                "INVALID_SERVICE_KIND",
+                "INVALID_UI_PAYLOAD_STATUS",
+                "PAYLOAD_NOT_JSON_SAFE",
+                "SECRET_LIKE_FIELD_BLOCKED",
+                "TRACEBACK_BLOCKED",
+                "ABSOLUTE_PATH_BLOCKED",
+                "RUNTIME_BLOCKED",
+                "EXECUTION_BLOCKED",
+                "TOOLS_BLOCKED",
+                "MODELS_BLOCKED",
+                "INTEGRATIONS_BLOCKED",
+            ],
+        ),
     ]
 
 
@@ -758,11 +785,11 @@ def _planned_internal_services() -> list[dict[str, Any]]:
         _service("get_sandbox_team_listing", "7.1", "read-only", False, "sandbox_team_listing", ["MISSING_ARTIFACT_MANIFEST"]),
         _service("get_materialization_audit_pack", "7.1", "read-only", False, "materialization_audit_pack_summary", ["READINESS_NOT_MET"]),
         _service(
-            "stable_ui_payloads",
-            "7.6",
-            "read-only-contract",
+            "backend_internal_ui_contract_checkpoint",
+            "7.7",
+            "read-only-checkpoint",
             False,
-            "stable_ui_payload_contract",
+            "backend_internal_ui_contract_checkpoint",
             ["READINESS_NOT_MET", "PAYLOAD_NOT_JSON_SAFE"],
         ),
     ]
@@ -980,6 +1007,23 @@ def _validate_services(contract: dict[str, Any]) -> None:
                 raise ValueError("materialize_sandbox no debe ser destructivo")
         if service.get("destructive") is True and service.get("requires_human_confirmation") is not True:
             raise ValueError(f"{service['name']} destructivo requiere confirmacion humana")
+        if service.get("name") == "stable_ui_payloads":
+            if service.get("available_now") is not True:
+                raise ValueError("stable_ui_payloads debe estar disponible despues de 7.6")
+            if service.get("phase") != "7.6":
+                raise ValueError("stable_ui_payloads debe pertenecer a fase 7.6")
+            if service.get("type") != "contract/payload-normalization":
+                raise ValueError("stable_ui_payloads debe ser contract/payload-normalization")
+            if service.get("side_effects") is not False:
+                raise ValueError("stable_ui_payloads no debe tener side_effects")
+            if service.get("requires_human_confirmation") is not False:
+                raise ValueError("stable_ui_payloads no requiere confirmacion humana")
+            if service.get("destructive") is not False:
+                raise ValueError("stable_ui_payloads no debe ser destructivo")
+            if service.get("requires_validation_payload") is not False:
+                raise ValueError("stable_ui_payloads no requiere validation_payload")
+            if service.get("requires_safe_sandbox_root") is not False:
+                raise ValueError("stable_ui_payloads no requiere sandbox_root")
         if service.get("name") in {"rollback_sandbox", "archive_sandbox_domain", "delete_sandbox_domain", "reset_sandbox_domain"}:
             if service.get("available_now") is not True:
                 raise ValueError(f"{service['name']} debe estar disponible despues de 7.5")
@@ -1020,6 +1064,7 @@ def _validate_services(contract: dict[str, Any]) -> None:
         "archive_sandbox_domain",
         "delete_sandbox_domain",
         "reset_sandbox_domain",
+        "stable_ui_payloads",
     }
     if not available_names <= allowed_now:
         raise ValueError("7.0 declara como disponible un servicio no implementado")

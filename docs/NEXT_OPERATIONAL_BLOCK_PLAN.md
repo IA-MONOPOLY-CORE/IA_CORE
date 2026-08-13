@@ -1005,6 +1005,26 @@ No se crea UI visual, no se crean endpoints publicos, no se implementa 7.2, no s
 
 Runtime, execution, dry-run real, context injection, output delivery, writes/stores/memory operativos, network/browser/filesystem runtime/env/secrets, API runtime, UI runtime, UI-device control, Market Catalog runtime, Business Composition Layer runtime, OBLITERATUS y raw Package directo al User Panel permanecen bloqueados.
 
+## PROMPT 7.6 - Payloads Estables Para Futura UI
+
+`PROMPT 7.6 - Payloads estables para futura UI` implementa la capa de payload estable de Fase 7.
+
+Estado: `BACKEND_INTERNAL_STABLE_UI_PAYLOADS_READY`.
+
+Veredicto JSON-safe: `BACKEND_INTERNAL_STABLE_UI_PAYLOADS_JSON_SAFE_CONFIRMED`.
+
+Veredicto no-operativo: `BACKEND_INTERNAL_STABLE_UI_PAYLOADS_NO_OPERATIONAL_CONFIRMED`.
+
+Readiness: `ready_for_phase_7_7_backend_internal_ui_contract_checkpoint`.
+
+Proximo paso operacional/documental: `PROMPT 7.7 - Checkpoint integral contrato backend interno para UI`.
+
+El bloque crea `backend_internal_ui_payload.v1` y adaptadores para `list_domains_status`, `preview_materialization`, `materialize_sandbox`, `validate_domain` y acciones lifecycle 7.5. La semantica `true = blocked` queda documentada para `blocked_capabilities`.
+
+No crea UI visual, no crea frontend, no crea endpoints publicos, no materializa, no hace rollback/archive/delete/reset, no regenera, no ejecuta agentes, no invoca modelos/tools, no toca integraciones y no toca `domains/` operativo.
+
+Runtime, execution, dry-run real, context injection, output delivery, writes/stores/memory operativos, network/browser/filesystem runtime/env/secrets, API runtime, UI runtime, UI-device control, Market Catalog runtime, Business Composition Layer runtime, OBLITERATUS y raw Package directo al User Panel permanecen bloqueados.
+
 ## PROMPT 7.5 - Servicio Interno rollback/archive/delete/reset
 
 `PROMPT 7.5 - Servicio interno rollback/archive/delete/reset` implementa el servicio interno lifecycle de Fase 7.

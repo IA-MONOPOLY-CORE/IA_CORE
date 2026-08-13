@@ -357,7 +357,8 @@ def test_contract_marks_validate_available_and_future_services_planned():
         assert available[lifecycle]["requires_human_confirmation"] is True
         assert available[lifecycle]["requires_validation_payload"] is True
         assert available[lifecycle]["requires_safe_sandbox_root"] is True
-    assert planned["stable_ui_payloads"]["available_now"] is False
+    assert available["stable_ui_payloads"]["available_now"] is True
+    assert planned["backend_internal_ui_contract_checkpoint"]["available_now"] is False
 
 
 def test_service_source_has_no_runtime_model_tool_ui_env_or_write_calls():

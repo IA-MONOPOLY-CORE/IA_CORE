@@ -5893,3 +5893,21 @@ Cada accion exige `sandbox_root` explicito/controlado, `validation_payload` vige
 El contrato backend interno marca los cuatro servicios 7.5 como `available_now=true`, `requires_human_confirmation=true`, `requires_validation_payload=true`, `requires_safe_sandbox_root=true`, `public_endpoint=false`, `ui_visual=false`, `runtime_enabled=false`, `execution_enabled=false` y `touches_operational_domains=false`.
 
 7.5 no crea UI visual, no crea frontend, no crea endpoints publicos, no implementa payloads estables 7.6 todavia, no toca `domains/` operativo, no activa runtime, execution, dry-run real, modelos/tools, integraciones, Market Catalog runtime, Business Composition Layer runtime, OBLITERATUS ni raw Package directo a User Panel.
+
+## 200. PROMPT 7.6 - Payloads estables para futura UI
+
+Estado: `BACKEND_INTERNAL_STABLE_UI_PAYLOADS_READY`
+
+Veredicto JSON-safe: `BACKEND_INTERNAL_STABLE_UI_PAYLOADS_JSON_SAFE_CONFIRMED`
+
+Veredicto no-operativo: `BACKEND_INTERNAL_STABLE_UI_PAYLOADS_NO_OPERATIONAL_CONFIRMED`
+
+Readiness: `ready_for_phase_7_7_backend_internal_ui_contract_checkpoint`
+
+Proximo paso: `PROMPT 7.7 - Checkpoint integral contrato backend interno para UI`
+
+Este bloque crea `core/backend_internal_ui_payloads.py` como contrato comun de payload estable `backend_internal_ui_payload.v1`. El envelope normaliza service metadata, service_kind, status, readiness, domain, materialization, summary, data, warnings, errors, validation, allowed_actions, forbidden_actions, blocked_capabilities, meta y flags no-operativas.
+
+Los adaptadores cubren `list_domains_status`, `preview_materialization`, `materialize_sandbox`, `validate_domain` y lifecycle 7.5. `data.raw_payload` preserva compatibilidad hacia atras con payload sanitizado. `blocked_capabilities` adopta semantica `true = blocked` dentro del envelope estable.
+
+7.6 no crea UI visual, no crea frontend, no crea endpoints publicos, no modifica semantica 7.1-7.5, no materializa, no ejecuta rollback/archive/delete/reset, no toca `domains/` operativo, no activa runtime, execution, dry-run real, modelos/tools, integraciones, Market Catalog runtime, Business Composition Layer runtime, OBLITERATUS ni raw Package directo a User Panel.

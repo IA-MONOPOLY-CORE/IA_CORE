@@ -1424,3 +1424,28 @@ Despues de `validate_domain`, IA_CORE necesita exponer acciones lifecycle intern
 - Las operaciones quedan trazadas, JSON-safe e idempotentes cuando corresponde.
 - `domains/` operativo, repo root, `.git/`, `core/`, `docs/` y `tests/` quedan fuera del alcance de las acciones lifecycle.
 - `PROMPT 7.6 - Payloads estables para futura UI` puede enfocarse en estabilizar forma de payload sin implementar UI visual ni runtime.
+
+---
+
+## ADR-057 - Payload envelope estable para futura UI backend interna
+
+**Estado**: Aceptado
+
+**Prompt**: 7.6 - Payloads estables para futura UI
+
+**Contexto**:
+Los servicios 7.1-7.5 ya devuelven payloads JSON-safe, pero cada uno usa estructura propia. Una futura UI necesita consumirlos sin inferir logica critica desde texto libre, sin interpretar flags de forma invertida y sin recibir rutas absolutas sensibles.
+
+**Decision**:
+- IA_CORE normaliza los resultados de servicios backend internos mediante `backend_internal_ui_payload.v1`.
+- El envelope vive en `core/backend_internal_ui_payloads.py`.
+- El envelope unifica service metadata, service_kind, status, readiness, domain/materialization, summary, data, warnings, errors, actions, blocked capabilities, meta y flags no-operativas.
+- `blocked_capabilities` usa semantica `true = blocked`.
+- Los payloads originales de 7.1-7.5 se preservan como `data.raw_payload` sanitizado.
+- `stable_ui_payloads` queda `available_now=true` como `contract/payload-normalization`.
+- Runtime, execution, dry-run real, agentes, modelos, tools, integraciones, UI visual, endpoints publicos, Market Catalog runtime, Business Composition Layer runtime, OBLITERATUS y raw Package directo al User Panel permanecen bloqueados.
+
+**Consecuencias**:
+- La UI futura puede renderizar estados, errores y acciones disponibles de forma consistente.
+- El backend conserva autoridad sobre permisos, seguridad, readiness y no-operatividad.
+- 7.7 puede cerrar Fase 7 con checkpoint integral sin crear UI visual ni endpoints publicos.

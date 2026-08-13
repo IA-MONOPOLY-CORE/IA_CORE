@@ -905,6 +905,26 @@ La escritura queda limitada a sandbox controlado: `domain sandbox -> artifact_ma
 
 Sigue bloqueado runtime, execution, dry-run real, tools, modelos, context injection, output delivery, writes/stores/memory operativos, network/browser/filesystem runtime/env/secrets, API runtime, UI runtime, UI visual, UI-device control, endpoints publicos, integraciones, Market Catalog runtime, Business Composition Layer runtime, OBLITERATUS y raw Package directo al User Panel.
 
+## PROMPT 7.6 - Payloads Estables Para Futura UI
+
+Estado: `BACKEND_INTERNAL_STABLE_UI_PAYLOADS_READY`
+
+Veredicto JSON-safe: `BACKEND_INTERNAL_STABLE_UI_PAYLOADS_JSON_SAFE_CONFIRMED`
+
+Veredicto no-operativo: `BACKEND_INTERNAL_STABLE_UI_PAYLOADS_NO_OPERATIONAL_CONFIRMED`
+
+Readiness: `ready_for_phase_7_7_backend_internal_ui_contract_checkpoint`
+
+Bloque actual: `Fase 7 - Contrato backend interno para UI`.
+
+Proximo prompt exacto: `PROMPT 7.7 - Checkpoint integral contrato backend interno para UI`.
+
+`PROMPT 7.6 - Payloads estables para futura UI` estabiliza el contrato de consumo con `backend_internal_ui_payload.v1` y adaptadores para servicios 7.1-7.5. La normalizacion conserva compatibilidad con payloads previos mediante `data.raw_payload` sanitizado y no cambia la semantica de servicios existentes.
+
+`stable_ui_payloads` queda `available_now=true` como `contract/payload-normalization`. El siguiente bloque correcto es 7.7, checkpoint integral del contrato backend interno para UI.
+
+Sigue bloqueado runtime, execution, dry-run real, tools, modelos, context injection, output delivery, writes/stores/memory operativos, network/browser/filesystem runtime/env/secrets, API runtime, UI runtime, UI visual, UI-device control, endpoints publicos, integraciones, Market Catalog runtime, Business Composition Layer runtime, OBLITERATUS y raw Package directo al User Panel.
+
 ## PROMPT 7.5 - Servicio Interno rollback/archive/delete/reset
 
 Estado: `BACKEND_INTERNAL_DOMAIN_LIFECYCLE_SERVICE_READY`
