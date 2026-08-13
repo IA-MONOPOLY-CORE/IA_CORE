@@ -765,6 +765,22 @@ Proximo prompt exacto: `PROMPT 6.1 - Rollback integral de dominio sandbox comple
 
 No abre runtime, execution, dry-run real, tools, modelos, contexto operativo, output delivery, writes/stores/memory operativos, API runtime, UI runtime, UI-device control, integraciones, Market Catalog runtime, Business Composition Layer runtime, OBLITERATUS ni raw Package directo a User Panel.
 
+## PROMPT 6.2 - Regeneracion Segura Sandbox Completa
+
+Estado: `SANDBOX_SAFE_REGENERATION_PASSED`
+
+Veredicto: `SANDBOX_REGENERATION_NO_OPERATIONAL_CONFIRMED`
+
+Readiness: `ready_for_phase_6_3_materialization_audit_pack`
+
+Bloque actual: `Fase 6 - End-to-end operativo sandbox, rollback y regeneracion`.
+
+Proximo prompt exacto: `PROMPT 6.3 - Audit pack y trazabilidad de materializacion sandbox`.
+
+`PROMPT 6.2` confirma que IA_CORE puede ejecutar `materializar -> rollback integral -> regenerar` sobre una cadena sandbox completa, con comparacion estructural, lineage preservado, nuevo `materialization_id`, read model valido, sin residuos ni duplicados.
+
+No abre runtime, execution, dry-run real, tools, modelos, contexto operativo, output delivery, writes/stores/memory operativos, API runtime, UI runtime, UI-device control, integraciones, Market Catalog runtime, Business Composition Layer runtime, OBLITERATUS ni raw Package directo a User Panel.
+
 ## PROMPT 6.1 - Rollback Integral De Dominio Sandbox Completo
 
 Estado: `SANDBOX_INTEGRAL_ROLLBACK_PASSED`

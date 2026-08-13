@@ -1206,3 +1206,28 @@ Fase 6 ya valido la cadena sandbox completa con dominio, artifact manifest, prof
 - La cadena sandbox completa puede revertirse sin riesgo de borrar activos operativos o codigo del repo.
 - La regeneracion segura futura debe partir de esta garantia de rollback integral.
 - Cualquier ampliacion futura de artefactos sandbox debe declarar `created_paths` coherentes si espera participar del rollback integral.
+
+---
+
+## ADR-048 - Regeneracion sandbox segura posterior a rollback integral
+
+**Estado**: Aceptado
+
+**Prompt**: 6.2 - Regeneracion segura sandbox completa
+
+**Contexto**:
+Despues de validar la cadena sandbox completa y el rollback integral basado en manifests, IA_CORE necesita reconstruir esa cadena sin asumir continuidad operativa ni reutilizar residuos. La regeneracion debe validar equivalencia estructural, no igualdad bit a bit, porque `materialization_id`, timestamps y registros de rollback pueden cambiar por diseno.
+
+**Decision**:
+- IA_CORE permite regenerar cadenas sandbox completas unicamente despues de rollback integral validado.
+- La regeneracion usa `sandbox_root` controlado, `materialization_manifest`, `artifact_manifest`, `created_paths` y comparacion estructural no-operativa.
+- La regeneracion preserva identidad logica del dominio y lineage mediante `previous_materialization_id`.
+- La regeneracion debe crear un nuevo `materialization_id` cuando corresponde.
+- Cualquier residuo no declarado dentro del dominio sandbox previo bloquea la regeneracion con error controlado.
+- La comparacion estructural valida familia de artefactos, tipos, `artifact_kind`, dependencies, read model shape, flags no-operativas y ausencia de duplicados.
+- Regenerar no implica continuidad de ejecucion, activacion runtime, invocacion de modelos, tools, UI ni integraciones.
+
+**Consecuencias**:
+- El sistema puede reconstruir cadenas sandbox de forma trazable y repetible sin residuos ni duplicados.
+- Fase 6.3 puede construir audit pack sobre evidencia de materializacion, rollback y regeneracion.
+- La futura activacion operacional no puede inferirse de una regeneracion sandbox exitosa.

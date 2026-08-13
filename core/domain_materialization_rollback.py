@@ -4,18 +4,25 @@ from __future__ import annotations
 
 import json
 import shutil
+from copy import deepcopy
 from datetime import datetime
 from pathlib import Path
 from typing import Any
 
 import config
 from core.artifact_manifest_schema import validate_artifact_manifest_file
-from core.domain_materializer import MATERIALIZATION_MANIFEST, MATERIALIZATION_SCHEMA_VERSION
+from core.domain_materializer import (
+    MATERIALIZATION_MANIFEST,
+    MATERIALIZATION_SCHEMA_VERSION,
+    materialize_sandbox_domain,
+)
+from core.sandbox_domain_schema import validate_sandbox_domain_schema
 
 
 ROLLBACK_RECORDS_DIR = "_rollback_records"
 ROLLBACK_SCHEMA_VERSION = "1.0"
 INTEGRAL_ROLLBACK_SCOPE = "sandbox_domain_integral"
+SAFE_REGENERATION_SCOPE = "sandbox_domain_full_chain"
 ARTIFACT_MANIFEST_RELATIVE_PATH = Path("manifests") / "artifact_manifest.json"
 FORBIDDEN_INTEGRAL_PATH_PARTS = {
     ".git",
@@ -320,6 +327,197 @@ def validate_sandbox_domain_integral_rollback_result(result: dict[str, Any]) -> 
     return dict(result)
 
 
+def regenerate_sandbox_domain_after_integral_rollback(
+    domain_schema: dict[str, Any],
+    *,
+    manifest_path: str | Path,
+    sandbox_root: str | Path | None = None,
+    execution_metadata: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    """Regenera dominio sandbox solo despues de rollback integral validado."""
+    manifest_file = Path(manifest_path).resolve()
+    root = _safe_sandbox_root(sandbox_root or manifest_file.parent.parent)
+    validated_schema = validate_sandbox_domain_schema(domain_schema)
+    if not manifest_file.exists():
+        raise FileNotFoundError(f"Manifest de materializacion no encontrado: {manifest_file}")
+    first_manifest = _load_manifest(manifest_file)
+    _validate_manifest(first_manifest, manifest_file=manifest_file, root=root)
+    if first_manifest["domain_id"] != validated_schema["domain_id"]:
+        raise ValueError("domain_schema no coincide con manifest de regeneracion")
+
+    plan = build_sandbox_domain_integral_rollback_plan(
+        manifest_path=manifest_file,
+        sandbox_root=root,
+    )
+    residual_paths = _residual_paths_before_regeneration(root=root, plan=plan)
+    if residual_paths:
+        raise ValueError(f"residual_paths_detected antes de regeneracion: {', '.join(residual_paths)}")
+
+    rollback_result = rollback_sandbox_domain_integral(
+        manifest_path=manifest_file,
+        sandbox_root=root,
+    )
+    post_rollback_residuals = [
+        path for path in plan["planned_paths"]
+        if Path(path).resolve().exists()
+    ]
+    if post_rollback_residuals:
+        raise ValueError("rollback integral incompleto antes de regeneracion")
+
+    generation_number = int(first_manifest.get("generation_number", 1)) + 1
+    history = _safe_regeneration_history(first_manifest, rollback_result)
+    regenerated = materialize_sandbox_domain(
+        validated_schema,
+        sandbox_root=root,
+        execution_metadata={
+            "safe_regeneration": True,
+            "integral_rollback_id": rollback_result["rollback_id"],
+            **(execution_metadata or {}),
+        },
+        previous_materialization_id=first_manifest["materialization_id"],
+        generation_number=generation_number,
+        lifecycle_history=history,
+    )
+    result = {
+        "domain_id": regenerated["domain_id"],
+        "first_materialization_id": first_manifest["materialization_id"],
+        "rollback_id": rollback_result["rollback_id"],
+        "regenerated_materialization_id": regenerated["materialization_id"],
+        "regeneration_id": _regeneration_id(first_manifest["materialization_id"], regenerated["materialization_id"]),
+        "regeneration_scope": SAFE_REGENERATION_SCOPE,
+        "structural_match": True,
+        "lineage_preserved": True,
+        "new_materialization_created": regenerated["materialization_id"] != first_manifest["materialization_id"],
+        "residual_paths_detected": [],
+        "duplicate_artifacts_detected": [],
+        "validation": {
+            "rollback_integral_executed": True,
+            "post_rollback_clean": True,
+            "domain_schema_valid": True,
+            "regenerated_domain_materialized": True,
+            "generation_number": generation_number,
+            "previous_materialization_id_preserved": True,
+        },
+        "rollback": rollback_result,
+        "materialization": regenerated,
+        "operational": False,
+        "runtime_enabled": False,
+        "execution_enabled": False,
+        "warnings": [],
+    }
+    return validate_sandbox_domain_safe_regeneration_result(result)
+
+
+def compare_sandbox_domain_materializations(
+    first_snapshot: dict[str, Any],
+    regenerated_snapshot: dict[str, Any],
+    *,
+    regeneration_result: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    """Compara dos materializaciones sandbox por estructura, no por bytes."""
+    _validate_materialization_snapshot(first_snapshot, "first_snapshot")
+    _validate_materialization_snapshot(regenerated_snapshot, "regenerated_snapshot")
+    artifact_types_match = first_snapshot["artifact_types"] == regenerated_snapshot["artifact_types"]
+    artifact_kinds_match = first_snapshot["artifact_kinds"] == regenerated_snapshot["artifact_kinds"]
+    dependencies_match = first_snapshot["dependencies"] == regenerated_snapshot["dependencies"]
+    read_model_shape_match = first_snapshot["read_model_shape"] == regenerated_snapshot["read_model_shape"]
+    non_operational_match = (
+        first_snapshot["non_operational_flags"] == regenerated_snapshot["non_operational_flags"]
+    )
+    duplicate_artifacts = _duplicate_artifacts(regenerated_snapshot)
+    structural_match = all(
+        [
+            first_snapshot["domain_id"] == regenerated_snapshot["domain_id"],
+            first_snapshot["artifact_count"] == regenerated_snapshot["artifact_count"],
+            artifact_types_match,
+            artifact_kinds_match,
+            dependencies_match,
+            read_model_shape_match,
+            non_operational_match,
+            not duplicate_artifacts,
+        ]
+    )
+    base = deepcopy(regeneration_result or {})
+    result = {
+        "domain_id": regenerated_snapshot["domain_id"],
+        "first_materialization_id": first_snapshot["materialization_id"],
+        "rollback_id": base.get("rollback_id", ""),
+        "regenerated_materialization_id": regenerated_snapshot["materialization_id"],
+        "regeneration_id": base.get(
+            "regeneration_id",
+            _regeneration_id(first_snapshot["materialization_id"], regenerated_snapshot["materialization_id"]),
+        ),
+        "regeneration_scope": SAFE_REGENERATION_SCOPE,
+        "structural_match": structural_match,
+        "lineage_preserved": (
+            regenerated_snapshot.get("previous_materialization_id") == first_snapshot["materialization_id"]
+        ),
+        "new_materialization_created": (
+            regenerated_snapshot["materialization_id"] != first_snapshot["materialization_id"]
+        ),
+        "residual_paths_detected": list(base.get("residual_paths_detected", [])),
+        "duplicate_artifacts_detected": duplicate_artifacts,
+        "validation": {
+            "domain_id_match": first_snapshot["domain_id"] == regenerated_snapshot["domain_id"],
+            "artifact_count_match": first_snapshot["artifact_count"] == regenerated_snapshot["artifact_count"],
+            "artifact_types_match": artifact_types_match,
+            "artifact_kinds_match": artifact_kinds_match,
+            "dependencies_match": dependencies_match,
+            "read_model_shape_match": read_model_shape_match,
+            "non_operational_flags_match": non_operational_match,
+            "no_duplicate_artifacts": not duplicate_artifacts,
+        },
+        "operational": False,
+        "runtime_enabled": False,
+        "execution_enabled": False,
+        "warnings": list(base.get("warnings", [])),
+    }
+    return validate_sandbox_domain_safe_regeneration_result(result)
+
+
+def validate_sandbox_domain_safe_regeneration_result(result: dict[str, Any]) -> dict[str, Any]:
+    """Valida reporte de regeneracion segura full-chain sin activar operacion."""
+    if not isinstance(result, dict):
+        raise ValueError("safe regeneration result debe ser un objeto")
+    required = {
+        "domain_id",
+        "first_materialization_id",
+        "rollback_id",
+        "regenerated_materialization_id",
+        "regeneration_id",
+        "regeneration_scope",
+        "structural_match",
+        "lineage_preserved",
+        "new_materialization_created",
+        "residual_paths_detected",
+        "duplicate_artifacts_detected",
+        "validation",
+        "operational",
+        "runtime_enabled",
+        "execution_enabled",
+        "warnings",
+    }
+    missing = required - set(result)
+    if missing:
+        raise ValueError(f"safe regeneration result incompleto: {', '.join(sorted(missing))}")
+    if result.get("regeneration_scope") != SAFE_REGENERATION_SCOPE:
+        raise ValueError("regeneration_scope invalido")
+    for field in ("operational", "runtime_enabled", "execution_enabled"):
+        if result.get(field) is not False:
+            raise ValueError(f"{field} debe ser false")
+    if result.get("residual_paths_detected"):
+        raise ValueError("safe regeneration result contiene residual_paths_detected")
+    if result.get("duplicate_artifacts_detected"):
+        raise ValueError("safe regeneration result contiene duplicate_artifacts_detected")
+    for field in ("structural_match", "lineage_preserved", "new_materialization_created"):
+        if result.get(field) is not True:
+            raise ValueError(f"{field} debe ser true")
+    if not isinstance(result.get("validation"), dict) or not result["validation"]:
+        raise ValueError("safe regeneration result requiere validation")
+    _ensure_json_serializable(result, "safe regeneration result")
+    return dict(result)
+
+
 def _resolve_manifest_path(
     *,
     manifest_path: str | Path | None,
@@ -559,3 +757,68 @@ def _ensure_json_serializable(payload: dict[str, Any], label: str) -> None:
         json.dumps(payload, ensure_ascii=False, sort_keys=True)
     except (TypeError, ValueError) as exc:
         raise ValueError(f"{label} debe ser JSON-safe") from exc
+
+
+def _safe_regeneration_history(
+    first_manifest: dict[str, Any],
+    rollback_result: dict[str, Any],
+) -> list[dict[str, Any]]:
+    history = deepcopy(first_manifest.get("lifecycle_history", []))
+    history.append(
+        {
+            "event": "rolled_back_integral",
+            "materialization_id": rollback_result.get("materialization_id"),
+            "domain_id": rollback_result.get("domain_id"),
+            "rollback_id": rollback_result.get("rollback_id"),
+            "status": rollback_result.get("status"),
+        }
+    )
+    return history
+
+
+def _residual_paths_before_regeneration(*, root: Path, plan: dict[str, Any]) -> list[str]:
+    domain_dir = Path(_load_manifest(Path(plan["manifest_path"]))["target_path"]).resolve()
+    if not domain_dir.exists():
+        return []
+    declared = {str(Path(path).resolve()) for path in plan["planned_paths"]}
+    residuals = []
+    for path in sorted(item for item in domain_dir.rglob("*") if item.is_file()):
+        resolved = str(path.resolve())
+        if resolved not in declared:
+            _safe_integral_path(path, root)
+            residuals.append(resolved)
+    return residuals
+
+
+def _validate_materialization_snapshot(snapshot: dict[str, Any], label: str) -> None:
+    required = {
+        "domain_id",
+        "materialization_id",
+        "previous_materialization_id",
+        "artifact_count",
+        "artifact_types",
+        "artifact_kinds",
+        "dependencies",
+        "read_model_shape",
+        "non_operational_flags",
+        "artifact_ids",
+    }
+    if not isinstance(snapshot, dict):
+        raise ValueError(f"{label} debe ser objeto")
+    missing = required - set(snapshot)
+    if missing:
+        raise ValueError(f"{label} incompleto: {', '.join(sorted(missing))}")
+
+
+def _duplicate_artifacts(snapshot: dict[str, Any]) -> list[str]:
+    seen: set[str] = set()
+    duplicates: list[str] = []
+    for artifact_id in snapshot.get("artifact_ids", []):
+        if artifact_id in seen:
+            duplicates.append(artifact_id)
+        seen.add(artifact_id)
+    return duplicates
+
+
+def _regeneration_id(first_materialization_id: str, regenerated_materialization_id: str) -> str:
+    return f"regen_{first_materialization_id}_to_{regenerated_materialization_id}"

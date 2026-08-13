@@ -34,6 +34,22 @@ El rollback es idempotente: la primera ejecucion revierte la cadena sandbox comp
 
 Siguen bloqueados runtime, execution, dry-run real, tools, modelos, contexto operativo, output delivery, writes/stores/memory operativos, network, browser, filesystem runtime, env, secrets, API runtime, UI runtime, UI-device control, integraciones, Market Catalog runtime, Business Composition Layer runtime, OBLITERATUS y raw Package directo a User Panel.
 
+## PROMPT 6.2 - Regeneracion Segura Sandbox Completa
+
+Estado: `SANDBOX_SAFE_REGENERATION_PASSED`
+
+Veredicto: `SANDBOX_REGENERATION_NO_OPERATIONAL_CONFIRMED`
+
+Readiness: `ready_for_phase_6_3_materialization_audit_pack`
+
+Proximo prompt exacto: `PROMPT 6.3 - Audit pack y trazabilidad de materializacion sandbox`
+
+`PROMPT 6.2` valida el ciclo `materializar -> rollback integral -> regenerar -> reconstruir cadena sandbox -> comparar estructura`. Reutiliza el checkpoint E2E 6.0 y el rollback integral 6.1, agrega contrato de regeneracion segura y comparacion estructural sin exigir igualdad bit a bit.
+
+La regeneracion crea una nueva materializacion, preserva identidad logica del dominio, conserva lineage con `previous_materialization_id`, reconstruye artifacts y read model, bloquea duplicados y residuos no declarados, y confirma `structural_match=true`.
+
+Siguen bloqueados runtime, execution, dry-run real, tools, modelos, contexto operativo, output delivery, writes/stores/memory operativos, network, browser, filesystem runtime, env, secrets, API runtime, UI runtime, UI-device control, integraciones, Market Catalog runtime, Business Composition Layer runtime, OBLITERATUS y raw Package directo a User Panel.
+
 Estado: `NEXT_ARCHITECTURE_BLOCK_PLANNING_COMPLETED`
 
 Veredicto: `NEXT_ARCHITECTURE_BLOCK_SELECTED`

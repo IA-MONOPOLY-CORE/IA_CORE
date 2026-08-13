@@ -5761,3 +5761,15 @@ Readiness: `ready_for_phase_6_2_safe_regeneration`
 Proximo paso: `PROMPT 6.2 - Regeneracion segura sandbox completa`
 
 Este bloque extiende `core/domain_materialization_rollback.py` con contrato integral de plan, validacion, ejecucion y resultado de rollback sandbox. El rollback usa `artifact_manifest`, `created_paths` y `sandbox_root`, elimina solo paths declarados, preserva lo no declarado, bloquea repo root, `domains/` operativo, `.git/`, `core/`, `docs/`, `tests/`, path traversal, globs y symlink escapes, y confirma idempotencia. No activa runtime, execution, dry-run real, tools/modelos/contexto/output, writes/stores/memory operativos, UI, integraciones, Market Catalog runtime, Business Composition Layer runtime, OBLITERATUS ni raw Package directo a User Panel.
+
+## 191. PROMPT 6.2 - Regeneracion segura sandbox completa
+
+Estado: `SANDBOX_SAFE_REGENERATION_PASSED`
+
+Veredicto: `SANDBOX_REGENERATION_NO_OPERATIONAL_CONFIRMED`
+
+Readiness: `ready_for_phase_6_3_materialization_audit_pack`
+
+Proximo paso: `PROMPT 6.3 - Audit pack y trazabilidad de materializacion sandbox`
+
+Este bloque agrega contrato de regeneracion segura posterior a rollback integral. Valida `materializar -> rollback integral -> regenerar -> reconstruir cadena sandbox -> comparar estructura`, preserva identidad logica, genera nuevo `materialization_id`, conserva lineage con `previous_materialization_id`, reconstruye artifact manifest/read model, bloquea duplicados y residuos no declarados, y confirma no-operatividad. No activa runtime, execution, dry-run real, tools/modelos/contexto/output, writes/stores/memory operativos, UI, integraciones, Market Catalog runtime, Business Composition Layer runtime, OBLITERATUS ni raw Package directo a User Panel.

@@ -901,6 +901,22 @@ La cadena validada cubre `domain sandbox -> artifact_manifest -> profile_catalog
 
 Siguen bloqueados runtime, execution, dry-run real, tools, modelos, contexto operativo, output delivery, writes/stores/memory operativos, network/browser/filesystem runtime/env/secrets, API runtime, UI runtime, UI-device control, integraciones, Market Catalog runtime, Business Composition Layer runtime, OBLITERATUS y raw Package directo a User Panel.
 
+## PROMPT 6.2 - Regeneracion Segura Sandbox Completa
+
+`PROMPT 6.2` deja validada la regeneracion segura sandbox completa despues de rollback integral.
+
+Estado: `SANDBOX_SAFE_REGENERATION_PASSED`.
+
+Veredicto: `SANDBOX_REGENERATION_NO_OPERATIONAL_CONFIRMED`.
+
+Readiness: `ready_for_phase_6_3_materialization_audit_pack`.
+
+Proximo paso operacional/documental: `PROMPT 6.3 - Audit pack y trazabilidad de materializacion sandbox`.
+
+La regeneracion valida `materializar -> rollback integral -> regenerar`, compara estructura sin exigir igualdad bit a bit, preserva identidad logica y lineage, confirma nuevo `materialization_id`, bloquea duplicados/residuos no declarados y mantiene read model no-operativo.
+
+Siguen bloqueados runtime, execution, dry-run real, tools, modelos, contexto operativo, output delivery, writes/stores/memory operativos, network/browser/filesystem runtime/env/secrets, API runtime, UI runtime, UI-device control, integraciones, Market Catalog runtime, Business Composition Layer runtime, OBLITERATUS y raw Package directo a User Panel.
+
 ## PROMPT 6.1 - Rollback Integral De Dominio Sandbox Completo
 
 `PROMPT 6.1` deja validado el rollback integral de dominio sandbox completo sin abrir etapa operacional.
