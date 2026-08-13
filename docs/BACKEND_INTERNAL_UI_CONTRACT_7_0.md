@@ -1,0 +1,264 @@
+# Backend Internal UI Contract 7.0
+
+Estado: `BACKEND_INTERNAL_UI_CONTRACT_READY`
+
+Veredicto: `BACKEND_INTERNAL_UI_CONTRACT_NO_OPERATIONAL_CONFIRMED`
+
+Readiness: `ready_for_phase_7_1_list_domains_status_service`
+
+Proximo prompt recomendado: `PROMPT 7.1 - Servicio interno list_domains/status`
+
+## 1. Proposito
+
+Este documento abre Fase 7 del libro Backend Interno definiendo la frontera contractual que una futura UI podra consumir para inspeccionar el estado sandbox de IA_CORE.
+
+El contrato es interno, JSON-safe, no-operativo y sin side effects. Su fuente canonica de implementacion es `core/backend_internal_ui_contract.py`.
+
+## 2. Relacion Con Fase 6 Cerrada
+
+Fase 6 quedo cerrada en `PROMPT 6.4 - Checkpoint integral Fase 6` con:
+
+- `BACKEND_INTERNAL_PHASE_6_INTEGRAL_CHECKPOINT_PASSED`;
+- `SANDBOX_E2E_ROLLBACK_REGENERATION_AUDIT_PACK_CONFIRMED`;
+- `ready_for_phase_7_backend_internal_ui_contract`.
+
+La cadena validada incluye E2E sandbox completo, rollback integral, regeneracion segura, audit pack, `artifact_manifest`, lineage, `created_paths` y read models internos.
+
+## 3. Que Es
+
+Contrato backend interno para UI significa:
+
+- payloads estables y serializables;
+- entidades visibles acotadas;
+- estados y readiness definidos por backend;
+- errores legibles para futura UI;
+- permisos default-deny;
+- limites de accion;
+- garantias de no-operatividad.
+
+La UI futura consume este contrato. No inventa estados, no infiere readiness y no decide permisos.
+
+## 4. Que NO Es
+
+Este prompt no crea UI visual, no crea frontend, no crea endpoints publicos, no implementa `PROMPT 7.1`, no activa runtime, no activa execution, no abre dry-run real, no ejecuta agentes, no invoca modelos, no llama tools y no toca integraciones.
+
+## 5. Entidades Visibles
+
+Entidades inspeccionables por futura UI:
+
+- `sandbox_domain`;
+- `artifact_manifest`;
+- `profile_catalog`;
+- `agent_presets`;
+- `paper_seed`;
+- `sandbox_agents`;
+- `sandbox_team`;
+- `sandbox_team_read_model`;
+- `materialization_audit_pack`;
+- `rollback_report`;
+- `regeneration_report`;
+- `readiness`;
+- `validation_error`.
+
+No se exponen entidades runtime reales como operativas.
+
+## 6. Servicios Internos Previstos
+
+Servicios previstos por Fase 7:
+
+- `list_domains_status`;
+- `get_domain_detail`;
+- `get_sandbox_team_listing`;
+- `get_materialization_audit_pack`;
+- `preview_materialization`;
+- `validate_domain`;
+- `materialize_sandbox`;
+- `rollback_sandbox`;
+- `archive_domain`;
+- `delete_sandbox_domain`;
+- `reset_sandbox_domain`.
+
+Cada servicio declara fase prevista, tipo, disponibilidad, confirmacion humana, limites de runtime/UI/integraciones/domains operativo, payload esperado y errores esperados.
+
+## 7. Servicios Disponibles Ahora
+
+En 7.0 solo quedan disponibles servicios de contrato puro:
+
+- `get_backend_internal_ui_contract`;
+- `validate_backend_internal_ui_contract`.
+
+Ambos son read-only, internos, in-memory y sin side effects.
+
+## 8. Servicios Planeados
+
+Los servicios de negocio quedan planeados para 7.1 a 7.5. En 7.0 todos aparecen con `available_now=false`.
+
+Los servicios `materialize_sandbox`, `rollback_sandbox`, `archive_domain`, `delete_sandbox_domain` y `reset_sandbox_domain` requieren confirmacion humana futura y no estan disponibles ahora.
+
+## 9. Estados Permitidos
+
+Estados permitidos para payloads sandbox UI:
+
+- `draft`;
+- `preview_ready`;
+- `sandbox_materialized`;
+- `sandbox_validated`;
+- `sandbox_audited`;
+- `rollback_ready`;
+- `rolled_back`;
+- `regeneration_ready`;
+- `regenerated`;
+- `audit_pack_ready`;
+- `invalid`;
+- `blocked`;
+- `pending`.
+
+## 10. Estados Prohibidos
+
+Estados prohibidos como estado sandbox UI operativo:
+
+- `active`;
+- `running`;
+- `live`;
+- `operational`;
+- `executing`;
+- `production_ready`.
+
+Si alguno aparece, debe estar documentado como bloqueado, nunca como etapa actual.
+
+## 11. Readiness
+
+Readiness definidos:
+
+- `ready_for_internal_listing`;
+- `ready_for_preview`;
+- `ready_for_materialization`;
+- `ready_for_validation`;
+- `ready_for_rollback`;
+- `ready_for_regeneration`;
+- `ready_for_audit_pack`;
+- `ready_for_ui_contract`;
+- `ready_for_phase_7_1_list_domains_status_service`;
+- `not_ready`;
+- `blocked_by_validation`;
+- `blocked_by_permissions`;
+- `blocked_by_runtime_boundary`.
+
+## 12. Error Contract
+
+Shape de error:
+
+```json
+{
+  "error_code": "",
+  "message": "",
+  "severity": "info|warning|error|critical",
+  "field": "",
+  "recoverable": true,
+  "user_action": "",
+  "developer_hint": "",
+  "blocked": true
+}
+```
+
+Errores esperados:
+
+- `DIRTY_WORKING_TREE`;
+- `UNEXPECTED_HEAD`;
+- `INVALID_DOMAIN_PAYLOAD`;
+- `INVALID_SANDBOX_SCHEMA`;
+- `MISSING_ARTIFACT_MANIFEST`;
+- `INCONSISTENT_ARTIFACT_MANIFEST`;
+- `UNSAFE_PATH`;
+- `RUNTIME_BLOCKED`;
+- `EXECUTION_BLOCKED`;
+- `TOOLS_BLOCKED`;
+- `MODELS_BLOCKED`;
+- `INTEGRATIONS_BLOCKED`;
+- `UI_ACTION_NOT_IMPLEMENTED`;
+- `OPERATIONAL_WRITE_BLOCKED`;
+- `SECRET_LIKE_FIELD_BLOCKED`;
+- `PAYLOAD_NOT_JSON_SAFE`;
+- `READINESS_NOT_MET`.
+
+## 13. Permisos
+
+La UI futura puede leer contrato, summaries JSON-safe y errores legibles.
+
+La UI futura no puede inferir logica critica, inventar estados, resolver permisos, mutar manifests, activar runtime, ejecutar agentes, invocar modelos, llamar tools, tocar integraciones, escribir en `domains/` operativo ni usar raw Package directo al User Panel.
+
+## 14. Blocked Capabilities
+
+Permanecen bloqueados:
+
+- runtime;
+- execution;
+- dry-run real;
+- tools;
+- modelos;
+- context injection;
+- output delivery;
+- writes;
+- stores;
+- memory;
+- network;
+- browser;
+- filesystem runtime;
+- env;
+- secrets;
+- API runtime;
+- UI runtime;
+- UI visual;
+- UI-device control;
+- endpoints publicos;
+- integraciones;
+- Market Catalog runtime;
+- Business Composition Layer runtime;
+- OBLITERATUS;
+- raw Package directo al User Panel.
+
+## 15. JSON-Safe Payloads
+
+El contrato exige serializacion JSON, ausencia de sets, bytes, funciones y objetos Path crudos, limite de tamano y payloads resumidos.
+
+## 16. Seguridad Contra Secrets/Env/Runtime Handles
+
+Quedan prohibidos campos sensibles, secrets, env, API keys, tokens, credentials, runtime handles, network handles, output delivery handles, model/tool invocation configs operativos, raw prompts, data productiva y dumps excesivos.
+
+## 17. Relacion Con Audit Pack
+
+`materialization_audit_pack` se consume como summary interno. No se expone como dump completo ni como fuente para que la UI infiera rollback, regeneracion o readiness.
+
+## 18. Relacion Con Rollback/Regeneracion
+
+Rollback y regeneracion permanecen controlados por backend. La UI futura solo podra mostrar estado, errores y solicitudes planeadas cuando existan servicios posteriores con confirmacion humana.
+
+## 19. Relacion Con Futura UI Visual
+
+La futura UI visual queda diferida. Esta fase solo estabiliza contrato backend interno para que la UI no nazca inventando logica critica.
+
+## 20. Fuera De Alcance
+
+Fuera de alcance: UI visual, frontend, endpoints publicos, runtime, execution, dry-run real, agentes operativos, modelos, tools, context injection, output delivery, writes/stores/memory operativos, network/browser/env/secrets, integraciones, Market Catalog runtime, Business Composition Layer runtime, OBLITERATUS y raw Package directo al User Panel.
+
+## 21. Riesgos
+
+- Sobrestimar disponibilidad de servicios planeados.
+- Convertir el contrato en endpoint publico.
+- Permitir que la UI infiera readiness o permisos.
+- Exponer manifests crudos, prompts, secrets o dumps grandes.
+- Confundir materializacion sandbox con operacion real.
+
+## 22. Veredicto
+
+`BACKEND_INTERNAL_UI_CONTRACT_READY`
+
+`BACKEND_INTERNAL_UI_CONTRACT_NO_OPERATIONAL_CONFIRMED`
+
+## 23. Readiness
+
+`ready_for_phase_7_1_list_domains_status_service`
+
+## 24. Proximo Prompt Recomendado
+
+`PROMPT 7.1 - Servicio interno list_domains/status`

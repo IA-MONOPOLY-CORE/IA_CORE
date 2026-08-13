@@ -1277,3 +1277,26 @@ Fase 6 ya valido E2E sandbox completo, rollback integral, regeneracion segura y 
 - El sistema puede avanzar al contrato backend interno para futura UI con evidencia suficiente de que la cadena sandbox es trazable, reversible, regenerable y auditable sin ser operativa.
 - La futura UI debe consumir contrato backend interno y no inferir reglas criticas desde manifests, audit pack o archivos crudos.
 - Cualquier apertura operativa futura requiere prompts posteriores explicitos.
+
+---
+
+## ADR-051 - Contrato backend interno como frontera segura para futura UI
+
+**Estado**: Aceptado
+
+**Prompt**: 7.0 - Contrato backend interno para UI
+
+**Contexto**:
+Fase 6 cerro la cadena sandbox completa con E2E, rollback integral, regeneracion segura y audit pack JSON-safe. El siguiente bloque necesita preparar una futura UI sin permitir que la UI invente estados, readiness, permisos o acciones criticas desde manifests crudos.
+
+**Decision**:
+- IA_CORE define `core/backend_internal_ui_contract.py` como frontera backend interna para futura UI.
+- La UI futura debe consumir payloads JSON-safe, estados, readiness, errores y limites definidos por backend.
+- En 7.0 solo quedan disponibles servicios de contrato puro: `get_backend_internal_ui_contract` y `validate_backend_internal_ui_contract`.
+- Servicios como `list_domains_status`, `preview_materialization`, `materialize_sandbox`, `rollback_sandbox`, `archive_domain`, `delete_sandbox_domain` y `reset_sandbox_domain` quedan planeados, no disponibles.
+- Runtime, execution, dry-run real, agentes, modelos, tools, integraciones, UI visual, endpoints publicos, Market Catalog runtime, Business Composition Layer runtime y OBLITERATUS permanecen bloqueados.
+
+**Consecuencias**:
+- El sistema podra construir UI futura sobre una base estable y segura.
+- La UI no sera fuente de verdad arquitectonica ni podra convertir artefactos sandbox en operacion real por si misma.
+- Cualquier servicio con write controlado o accion destructiva requiere fase posterior explicita y confirmacion humana cuando corresponda.

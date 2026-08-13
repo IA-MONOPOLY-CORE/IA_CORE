@@ -826,3 +826,23 @@ Proximo prompt exacto: `PROMPT 7.0 - Contrato backend interno para UI`.
 Justificacion: Fase 6 deja evidencia suficiente para que el siguiente bloque defina un contrato backend interno consumible por futura UI: E2E sandbox, rollback integral, regeneracion segura, audit pack, `artifact_manifest`, lineage, `created_paths`, read models y blocked capabilities. El libro Backend Interno ya define `Fase 7 - Contrato backend para UI`; 6.4 selecciona su variante interna/no-operativa como siguiente bloque.
 
 Fase 7 no queda implementada por este prompt. Siguen bloqueados runtime, execution, dry-run real, tools, modelos, contexto operativo, output delivery, writes/stores/memory operativos, API runtime, UI runtime, UI visual real, UI-device control, integraciones, Market Catalog runtime, Business Composition Layer runtime, OBLITERATUS y raw Package directo a User Panel.
+
+## PROMPT 7.0 - Contrato Backend Interno Para UI
+
+Estado: `BACKEND_INTERNAL_UI_CONTRACT_READY`
+
+Veredicto: `BACKEND_INTERNAL_UI_CONTRACT_NO_OPERATIONAL_CONFIRMED`
+
+Readiness: `ready_for_phase_7_1_list_domains_status_service`
+
+Bloque actual: `Fase 7 - Contrato backend interno para UI`.
+
+Proximo prompt exacto: `PROMPT 7.1 - Servicio interno list_domains/status`.
+
+`PROMPT 7.0` inicia Fase 7 creando una frontera backend interna JSON-safe y no-operativa para futura UI. Define entidades visibles, payloads minimos, estados permitidos/prohibidos, readiness, error contract, permisos default-deny, blocked capabilities, servicios disponibles ahora y servicios planeados sin sobrestimar disponibilidad.
+
+Servicios disponibles ahora: `get_backend_internal_ui_contract` y `validate_backend_internal_ui_contract`, ambos read-only, internos, in-memory y sin side effects.
+
+Servicios planeados: `list_domains_status`, `get_domain_detail`, `get_sandbox_team_listing`, `get_materialization_audit_pack`, `preview_materialization`, `validate_domain`, `materialize_sandbox`, `rollback_sandbox`, `archive_domain`, `delete_sandbox_domain` y `reset_sandbox_domain`.
+
+Fase 7 no crea UI visual, no crea frontend, no crea endpoints publicos y no implementa `PROMPT 7.1`. Runtime, execution, dry-run real, tools/modelos/context/output, writes/stores/memory operativos, network/browser/filesystem runtime/env/secrets, API runtime, UI runtime, UI-device control, integraciones, Market Catalog runtime, Business Composition Layer runtime, OBLITERATUS y raw Package directo a User Panel permanecen bloqueados.

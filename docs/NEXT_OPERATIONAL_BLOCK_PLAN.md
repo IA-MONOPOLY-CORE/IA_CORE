@@ -966,3 +966,21 @@ Proximo paso operacional/documental: `PROMPT 7.0 - Contrato backend interno para
 Fase 7 futura debe preparar contrato backend interno para UI, no UI visual real todavia, no endpoints publicos y no integraciones.
 
 Runtime, execution, dry-run real, tools, modelos, contexto operativo, output delivery, writes/stores/memory operativos, network/browser/filesystem runtime/env/secrets, API runtime, UI runtime, UI-device control, integraciones, Market Catalog runtime, Business Composition Layer runtime, OBLITERATUS y raw Package directo a User Panel permanecen bloqueados.
+
+## PROMPT 7.0 - Contrato Backend Interno Para UI
+
+`PROMPT 7.0 - Contrato backend interno para UI` inicia Fase 7 como contrato interno, JSON-safe y no-operativo para futura UI.
+
+Estado: `BACKEND_INTERNAL_UI_CONTRACT_READY`.
+
+Veredicto: `BACKEND_INTERNAL_UI_CONTRACT_NO_OPERATIONAL_CONFIRMED`.
+
+Readiness: `ready_for_phase_7_1_list_domains_status_service`.
+
+Proximo paso operacional/documental: `PROMPT 7.1 - Servicio interno list_domains/status`.
+
+El contrato define entidades visibles, servicios internos previstos, payloads minimos, estados, readiness, errores, permisos, blocked capabilities y limites para que una futura UI consuma datos sin inferir logica critica.
+
+En 7.0 solo quedan disponibles servicios de contrato puro: `get_backend_internal_ui_contract` y `validate_backend_internal_ui_contract`.
+
+No se implementa `list_domains/status` todavia. Runtime, execution, dry-run real, tools, modelos, contexto operativo, output delivery, writes/stores/memory operativos, network/browser/filesystem runtime/env/secrets, API runtime, UI runtime, UI visual, UI-device control, endpoints publicos, integraciones, Market Catalog runtime, Business Composition Layer runtime, OBLITERATUS y raw Package directo al User Panel permanecen bloqueados.

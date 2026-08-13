@@ -5799,3 +5799,15 @@ Bloque siguiente: `Fase 7 - Contrato backend interno para UI`
 Proximo paso: `PROMPT 7.0 - Contrato backend interno para UI`
 
 Este bloque cierra integralmente Fase 6: E2E sandbox completo, rollback integral, regeneracion segura, audit pack interno, artifact manifest, lineage, created_paths, read models, no-operatividad y seguridad de paths. Selecciona Fase 7 como contrato backend interno para futura UI, sin implementarla. No crea UI visual real, no crea endpoints publicos, no activa runtime, execution, dry-run real, tools/modelos/contexto/output, writes/stores/memory operativos, integraciones, Market Catalog runtime, Business Composition Layer runtime, OBLITERATUS ni raw Package directo a User Panel.
+
+## 194. PROMPT 7.0 - Contrato backend interno para UI
+
+Estado: `BACKEND_INTERNAL_UI_CONTRACT_READY`
+
+Veredicto: `BACKEND_INTERNAL_UI_CONTRACT_NO_OPERATIONAL_CONFIRMED`
+
+Readiness: `ready_for_phase_7_1_list_domains_status_service`
+
+Proximo paso: `PROMPT 7.1 - Servicio interno list_domains/status`
+
+Este bloque inicia Fase 7 creando `core/backend_internal_ui_contract.py` como frontera backend interna, JSON-safe, no-operativa y sin side effects para futura UI. Define entidades visibles, servicios disponibles y planeados, estados permitidos/prohibidos, readiness, error contract, permisos default-deny, blocked capabilities, payload safety y limites de accion. No implementa `list_domains/status`, no crea UI visual ni frontend, no crea endpoints publicos, no activa runtime, execution, dry-run real, tools/modelos/contexto/output, writes/stores/memory operativos, integraciones, Market Catalog runtime, Business Composition Layer runtime, OBLITERATUS ni raw Package directo a User Panel.
