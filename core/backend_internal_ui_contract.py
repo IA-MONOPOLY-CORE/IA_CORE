@@ -71,6 +71,8 @@ READINESS_VALUES = (
     "ready_for_phase_7_5_rollback_archive_delete_reset_service",
     "ready_for_phase_7_6_stable_ui_payloads",
     "ready_for_phase_7_7_backend_internal_ui_contract_checkpoint",
+    "ready_for_phase_8_1_internal_exposure_registry",
+    "ready_for_phase_8_2_internal_request_envelope",
     "ready_for_rollback",
     "ready_for_regeneration",
     "ready_for_audit_pack",
@@ -95,6 +97,7 @@ ERROR_CODES = (
     "TOOLS_BLOCKED",
     "MODELS_BLOCKED",
     "INTEGRATIONS_BLOCKED",
+    "PUBLIC_ENDPOINTS_BLOCKED",
     "UI_ACTION_NOT_IMPLEMENTED",
     "OPERATIONAL_WRITE_BLOCKED",
     "SECRET_LIKE_FIELD_BLOCKED",
@@ -776,6 +779,24 @@ def _available_internal_services() -> list[dict[str, Any]]:
                 "INTEGRATIONS_BLOCKED",
             ],
         ),
+        _service(
+            name="internal_exposure_registry",
+            phase="8.1",
+            service_type="contract/internal-exposure-registry",
+            available_now=True,
+            payload_expected="backend_internal_exposure_registry.v1",
+            expected_errors=[
+                "PAYLOAD_NOT_JSON_SAFE",
+                "SECRET_LIKE_FIELD_BLOCKED",
+                "RUNTIME_BLOCKED",
+                "EXECUTION_BLOCKED",
+                "TOOLS_BLOCKED",
+                "MODELS_BLOCKED",
+                "INTEGRATIONS_BLOCKED",
+                "PUBLIC_ENDPOINTS_BLOCKED",
+                "UI_ACTION_NOT_IMPLEMENTED",
+            ],
+        ),
     ]
 
 
@@ -791,6 +812,38 @@ def _planned_internal_services() -> list[dict[str, Any]]:
             False,
             "backend_internal_ui_contract_checkpoint",
             ["READINESS_NOT_MET", "PAYLOAD_NOT_JSON_SAFE"],
+        ),
+        _service(
+            "internal_request_envelope",
+            "8.2",
+            "contract/request-envelope",
+            False,
+            "backend_internal_ui_request.v1",
+            ["READINESS_NOT_MET", "PAYLOAD_NOT_JSON_SAFE"],
+        ),
+        _service(
+            "internal_request_validation",
+            "8.2",
+            "contract/request-validation",
+            False,
+            "backend_internal_ui_request_validation",
+            ["READINESS_NOT_MET", "PAYLOAD_NOT_JSON_SAFE"],
+        ),
+        _service(
+            "internal_dispatcher_no_runtime",
+            "8.3",
+            "contract/internal-routing",
+            False,
+            "internal_dispatcher_contract",
+            ["READINESS_NOT_MET", "RUNTIME_BLOCKED", "EXECUTION_BLOCKED"],
+        ),
+        _service(
+            "confirmation_gate",
+            "8.4",
+            "contract/confirmation-gate",
+            False,
+            "internal_confirmation_gate_contract",
+            ["CONFIRMATION_REQUIRED", "READINESS_NOT_MET"],
         ),
     ]
 
@@ -827,6 +880,8 @@ def _service(
         "ui_action_implemented": False,
         "runtime_enabled": False,
         "execution_enabled": False,
+        "dispatcher_created": False,
+        "request_handling_enabled": False,
         "side_effects": side_effects,
         "writes_performed": False,
         "materialization_performed": False,
@@ -979,6 +1034,10 @@ def _validate_services(contract: dict[str, Any]) -> None:
             raise ValueError(f"{service['name']} habilita runtime")
         if service.get("execution_enabled") is not False:
             raise ValueError(f"{service['name']} habilita execution")
+        if service.get("dispatcher_created") is not False:
+            raise ValueError(f"{service['name']} crea dispatcher")
+        if service.get("request_handling_enabled") is not False:
+            raise ValueError(f"{service['name']} habilita request handling")
         controlled_available_now = {
             "materialize_sandbox",
             "rollback_sandbox",
@@ -1024,6 +1083,25 @@ def _validate_services(contract: dict[str, Any]) -> None:
                 raise ValueError("stable_ui_payloads no requiere validation_payload")
             if service.get("requires_safe_sandbox_root") is not False:
                 raise ValueError("stable_ui_payloads no requiere sandbox_root")
+        if service.get("name") == "internal_exposure_registry":
+            if service.get("available_now") is not True:
+                raise ValueError("internal_exposure_registry debe estar disponible despues de 8.1")
+            if service.get("phase") != "8.1":
+                raise ValueError("internal_exposure_registry debe pertenecer a fase 8.1")
+            if service.get("type") != "contract/internal-exposure-registry":
+                raise ValueError("internal_exposure_registry debe ser contract/internal-exposure-registry")
+            if service.get("side_effects") is not False:
+                raise ValueError("internal_exposure_registry no debe tener side_effects")
+            if service.get("requires_human_confirmation") is not False:
+                raise ValueError("internal_exposure_registry no requiere confirmacion humana")
+            if service.get("destructive") is not False:
+                raise ValueError("internal_exposure_registry no debe ser destructivo")
+            if service.get("requires_validation_payload") is not False:
+                raise ValueError("internal_exposure_registry no requiere validation_payload")
+            if service.get("requires_safe_sandbox_root") is not False:
+                raise ValueError("internal_exposure_registry no requiere sandbox_root")
+            if service.get("dispatcher_created") is True or service.get("request_handling_enabled") is True:
+                raise ValueError("internal_exposure_registry no puede crear dispatcher/request handling")
         if service.get("name") in {"rollback_sandbox", "archive_sandbox_domain", "delete_sandbox_domain", "reset_sandbox_domain"}:
             if service.get("available_now") is not True:
                 raise ValueError(f"{service['name']} debe estar disponible despues de 7.5")
@@ -1065,6 +1143,7 @@ def _validate_services(contract: dict[str, Any]) -> None:
         "delete_sandbox_domain",
         "reset_sandbox_domain",
         "stable_ui_payloads",
+        "internal_exposure_registry",
     }
     if not available_names <= allowed_now:
         raise ValueError("7.0 declara como disponible un servicio no implementado")

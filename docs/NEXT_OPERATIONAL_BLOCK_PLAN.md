@@ -1091,6 +1091,26 @@ No crea UI visual, no crea frontend, no crea endpoints publicos, no implementa 7
 
 Runtime, execution, dry-run real, context injection, output delivery, writes/stores/memory operativos, network/browser/filesystem runtime/env/secrets, API runtime, UI runtime, UI-device control, Market Catalog runtime, Business Composition Layer runtime, OBLITERATUS y raw Package directo al User Panel permanecen bloqueados.
 
+## PROMPT 8.1 - Internal Exposure Registry / Service Map
+
+`PROMPT 8.1 - Internal exposure registry / service map` implementa un service map interno no-operativo para futura exposicion controlada.
+
+Estado: `BACKEND_INTERNAL_EXPOSURE_REGISTRY_READY`.
+
+Veredicto no-dispatcher: `BACKEND_INTERNAL_EXPOSURE_REGISTRY_NO_DISPATCHER_CONFIRMED`.
+
+Veredicto no-operativo: `BACKEND_INTERNAL_EXPOSURE_REGISTRY_NO_OPERATIONAL_CONFIRMED`.
+
+Readiness: `ready_for_phase_8_2_internal_request_envelope`.
+
+El servicio contractual `internal_exposure_registry` queda disponible como `contract/internal-exposure-registry`. Declara servicios exponibles, requisitos minimos, response schema `backend_internal_ui_payload.v1`, confirmaciones, side effects, destructive flags, blocked capabilities y forbidden actions.
+
+8.1 no dispatcher, no request handling, no UI visual, no endpoints publicos, no API real, no router HTTP, no frontend, no runtime, no execution, no dry-run real, no tools/modelos, no integraciones y no toca `domains/` operativo.
+
+Runtime, execution, dry-run real, context injection, output delivery, writes/stores/memory operativos, network/browser/filesystem runtime/env/secrets, API runtime, UI runtime, UI-device control, Market Catalog runtime, Business Composition Layer runtime, OBLITERATUS y raw Package directo al User Panel permanecen bloqueados.
+
+Proximo paso operacional/documental: `PROMPT 8.2 - Internal request envelope y request validation`.
+
 ## PROMPT 7.4 - Servicio Interno validate_domain
 
 `PROMPT 7.4 - Servicio interno validate_domain` implementa el servicio interno read-only-validation de Fase 7.

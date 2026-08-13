@@ -1501,3 +1501,28 @@ Fase 7 cerro el contrato backend interno para futura UI con servicios 7.1-7.6 y 
 - La futura UI podra apoyarse en una frontera interna estable sin recibir autoridad critica.
 - La implementacion se realizara por etapas: registry, request validation, routing contractual, confirmation gate, response adapter y checkpoint.
 - Runtime, execution, dry-run real, tools, modelos, integraciones, endpoints publicos, UI visual, Market Catalog runtime, Business Composition Layer runtime, OBLITERATUS y raw Package directo al User Panel permanecen bloqueados.
+
+---
+
+## ADR-060 - Internal exposure registry como service map no-operativo
+
+**Estado**: Aceptado
+
+**Prompt**: 8.1 - Internal exposure registry / service map
+
+**Contexto**:
+Fase 8 fue planificada como exposicion interna controlada para futura UI, despues del cierre de Fase 7 y antes de cualquier request envelope, dispatcher, API o UI visual. IA_CORE necesita declarar que servicios backend internos pueden exponerse contractualmente sin habilitar ejecucion ni mover permisos al frontend.
+
+**Decision**:
+- IA_CORE crea `core/backend_internal_exposure_registry.py` como `internal_exposure_registry`.
+- El registry es un service map read-only/contractual con schema `backend_internal_exposure_registry.v1`.
+- El registry declara servicios exponibles, service kinds, input minimo, response schema `backend_internal_ui_payload.v1`, confirmaciones, side effects, destructive flags, blocked capabilities, forbidden actions, docs y tests fuente.
+- `internal_exposure_registry` queda `available_now=true` en el contrato backend interno como `contract/internal-exposure-registry`.
+- Backend conserva autoridad sobre permisos, readiness, confirmaciones, path safety, errores, allowed_actions, forbidden_actions y blocked capabilities.
+- La futura UI no infiere permisos y no muta el registry.
+- 8.1 confirma no dispatcher, no request handling, no UI visual, no endpoints publicos y no toca `domains/` operativo.
+
+**Consecuencias**:
+- Fase 8 puede avanzar a `PROMPT 8.2 - Internal request envelope y request validation` con un mapa estable de servicios.
+- El registry no ejecuta servicios 7.x, no importa modulos operativos, no crea API real, no crea router HTTP, no activa runtime, no abre execution, no ejecuta dry-run real, no invoca modelos/tools y no toca integraciones.
+- Market Catalog runtime, Business Composition Layer runtime, OBLITERATUS y raw Package directo al User Panel permanecen bloqueados.

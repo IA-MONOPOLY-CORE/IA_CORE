@@ -5947,3 +5947,21 @@ Este bloque inicia la Fase 8 vigente como planificacion de exposicion interna co
 8.0 no implementa registry, request envelope, dispatcher, confirmation gate, response adapter, UI visual, frontend, endpoint publico, API real ni router HTTP. No cambia semantica de servicios 7.1-7.6, no toca `domains/` operativo, no materializa, no ejecuta lifecycle, no activa runtime, execution, dry-run real, agentes, modelos, tools, integraciones, Market Catalog runtime, Business Composition Layer runtime, OBLITERATUS ni raw Package directo al User Panel.
 
 Proximo prompt exacto: `PROMPT 8.1 - Internal exposure registry / service map`.
+
+## 203. PROMPT 8.1 - Internal exposure registry / service map
+
+Estado: `BACKEND_INTERNAL_EXPOSURE_REGISTRY_READY`
+
+Veredicto no-dispatcher: `BACKEND_INTERNAL_EXPOSURE_REGISTRY_NO_DISPATCHER_CONFIRMED`
+
+Veredicto no-operativo: `BACKEND_INTERNAL_EXPOSURE_REGISTRY_NO_OPERATIONAL_CONFIRMED`
+
+Readiness: `ready_for_phase_8_2_internal_request_envelope`
+
+Este bloque crea `core/backend_internal_exposure_registry.py` como `internal_exposure_registry`, un service map backend interno read-only/contractual para Fase 8. Declara que servicios 7.1-7.6 son exponibles a futura UI, su `service_kind`, input minimo, response schema `backend_internal_ui_payload.v1`, confirmaciones, side effects, destructive flag, blocked capabilities, forbidden actions, docs y tests fuente.
+
+El registry no importa ni ejecuta servicios 7.x. No dispatcher, no request handling, no UI visual, no endpoints publicos, no API real, no router HTTP, no frontend y no mutacion desde UI. La UI futura no infiere permisos; backend conserva autoridad sobre availability, readiness, permisos, confirmaciones, seguridad de paths, errores y actions.
+
+8.1 no toca `domains/` operativo, no materializa, no ejecuta lifecycle, no activa runtime, execution, dry-run real, agentes, modelos, tools, integraciones, Market Catalog runtime, Business Composition Layer runtime, OBLITERATUS ni raw Package directo al User Panel.
+
+Proximo prompt exacto: `PROMPT 8.2 - Internal request envelope y request validation`.

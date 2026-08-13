@@ -945,6 +945,24 @@ Proximo prompt exacto: `PROMPT 8.1 - Internal exposure registry / service map`.
 
 Fase 8 mantiene bloqueados runtime, execution, dry-run real, tools, modelos, integraciones, network/browser automation, public endpoints, UI device control, Market Catalog runtime, Business Composition Layer runtime, OBLITERATUS, raw Package directo al User Panel y `domains/` operativo.
 
+## PROMPT 8.1 - Internal Exposure Registry / Service Map
+
+Estado: `BACKEND_INTERNAL_EXPOSURE_REGISTRY_READY`
+
+Veredicto no-dispatcher: `BACKEND_INTERNAL_EXPOSURE_REGISTRY_NO_DISPATCHER_CONFIRMED`
+
+Veredicto no-operativo: `BACKEND_INTERNAL_EXPOSURE_REGISTRY_NO_OPERATIONAL_CONFIRMED`
+
+Readiness: `ready_for_phase_8_2_internal_request_envelope`
+
+`PROMPT 8.1 - Internal exposure registry / service map` crea `internal_exposure_registry` como service map backend interno, read-only/contractual, para declarar que servicios 7.1-7.6 son exponibles a una futura UI y bajo que requisitos. La autoridad sigue en backend: permisos, readiness, confirmaciones, path safety, errores, allowed_actions, forbidden_actions y blocked capabilities.
+
+Servicios exponibles declarados: `list_domains_status`, `preview_materialization`, `materialize_sandbox`, `validate_domain`, `rollback_sandbox`, `archive_sandbox_domain`, `delete_sandbox_domain`, `reset_sandbox_domain` y `stable_ui_payloads`.
+
+8.1 mantiene no dispatcher, no request handling, no UI visual, no endpoints publicos y no toca `domains/` operativo. Tampoco crea request envelope, request validation, confirmation gate, API real, router HTTP, frontend, runtime, execution, dry-run real, tools/modelos, integraciones, Market Catalog runtime, Business Composition Layer runtime, OBLITERATUS ni raw Package directo al User Panel.
+
+Proximo prompt exacto: `PROMPT 8.2 - Internal request envelope y request validation`.
+
 ## PROMPT 7.6 - Payloads Estables Para Futura UI
 
 Estado: `BACKEND_INTERNAL_STABLE_UI_PAYLOADS_READY`
