@@ -5933,3 +5933,17 @@ El cierre no crea servicios nuevos, no crea UI visual, no crea frontend, no crea
 Proximo bloque arquitectonico: `Fase 8 - Exposicion interna controlada para futura UI`.
 
 Proximo prompt exacto: `PROMPT 8.0 - Planificacion del bloque de exposicion interna controlada para futura UI`.
+
+## 202. PROMPT 8.0 - Planificacion del bloque de exposicion interna controlada para futura UI
+
+Estado: `BACKEND_INTERNAL_PHASE_8_CONTROLLED_EXPOSURE_PLAN_READY`
+
+Veredicto no-operativo: `BACKEND_INTERNAL_PHASE_8_NO_OPERATIONAL_CONFIRMED`
+
+Readiness: `ready_for_phase_8_1_internal_exposure_registry`
+
+Este bloque inicia la Fase 8 vigente como planificacion de exposicion interna controlada para futura UI. Consume el cierre de Fase 7 y define una capa backend interna futura para consultar o solicitar servicios 7.1-7.6 mediante contratos estables, preservando backend como autoridad sobre permisos, readiness, confirmaciones, path safety, errors, actions y blocked capabilities.
+
+8.0 no implementa registry, request envelope, dispatcher, confirmation gate, response adapter, UI visual, frontend, endpoint publico, API real ni router HTTP. No cambia semantica de servicios 7.1-7.6, no toca `domains/` operativo, no materializa, no ejecuta lifecycle, no activa runtime, execution, dry-run real, agentes, modelos, tools, integraciones, Market Catalog runtime, Business Composition Layer runtime, OBLITERATUS ni raw Package directo al User Panel.
+
+Proximo prompt exacto: `PROMPT 8.1 - Internal exposure registry / service map`.

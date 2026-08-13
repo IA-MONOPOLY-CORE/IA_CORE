@@ -1475,3 +1475,29 @@ Fase 7 ya cuenta con contrato 7.0, servicios internos 7.1-7.5 y payload estable 
 - IA_CORE puede planificar una exposicion interna controlada para futura UI sin mover logica critica al frontend.
 - Runtime, execution, dry-run real, tools, modelos, integraciones, Market Catalog runtime, Business Composition Layer runtime, OBLITERATUS y raw Package directo al User Panel permanecen bloqueados.
 - Fase 8 debera empezar como planificacion/control boundary, no como implementacion de UI visual ni endpoints publicos.
+
+---
+
+## ADR-059 - Fase 8 como exposicion interna controlada previa a UI visual
+
+**Estado**: Aceptado
+
+**Prompt**: 8.0 - Planificacion del bloque de exposicion interna controlada para futura UI
+
+**Contexto**:
+Fase 7 cerro el contrato backend interno para futura UI con servicios 7.1-7.6 y response envelope estable `backend_internal_ui_payload.v1`. Antes de construir UI visual o endpoints publicos, IA_CORE necesita planificar una capa intermedia que permita exponer internamente esos servicios sin convertirlos en runtime, API publica o logica frontend.
+
+**Decision**:
+- IA_CORE inicia Fase 8 como `Fase 8 - Exposicion interna controlada para futura UI`.
+- Exposicion interna controlada significa capa backend interna para consultar o solicitar servicios internos contratados mediante payloads estables.
+- Fase 8 no es UI visual, no es endpoint publico, no es router HTTP, no es runtime, no ejecuta agentes, no invoca modelos/tools, no toca integraciones y no toca `domains/` operativo.
+- El backend conserva autoridad sobre permisos, readiness, confirmaciones, seguridad de paths, actions, errors y blocked capabilities.
+- La futura UI solo podra consumir summaries, status, warnings/errors, readiness y actions declaradas por backend; no inferira permisos ni disponibilidad.
+- El request envelope futuro queda planificado como `backend_internal_ui_request.v1`.
+- La response envelope heredada sigue siendo `backend_internal_ui_payload.v1`.
+- El proximo prompt exacto es `PROMPT 8.1 - Internal exposure registry / service map`.
+
+**Consecuencias**:
+- La futura UI podra apoyarse en una frontera interna estable sin recibir autoridad critica.
+- La implementacion se realizara por etapas: registry, request validation, routing contractual, confirmation gate, response adapter y checkpoint.
+- Runtime, execution, dry-run real, tools, modelos, integraciones, endpoints publicos, UI visual, Market Catalog runtime, Business Composition Layer runtime, OBLITERATUS y raw Package directo al User Panel permanecen bloqueados.

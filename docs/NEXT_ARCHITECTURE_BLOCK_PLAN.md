@@ -929,6 +929,22 @@ Proximo prompt exacto: `PROMPT 8.0 - Planificacion del bloque de exposicion inte
 
 Fase 8 queda solo seleccionada. No se implementa en 7.7. Siguen bloqueados runtime, execution, dry-run real, tools, modelos, context injection, output delivery, writes/stores/memory operativos, network/browser/filesystem runtime/env/secrets, API runtime, UI runtime, UI visual, UI-device control, endpoints publicos, integraciones, Market Catalog runtime, Business Composition Layer runtime, OBLITERATUS y raw Package directo al User Panel.
 
+## PROMPT 8.0 - Planificacion Del Bloque De Exposicion Interna Controlada Para Futura UI
+
+Estado: `BACKEND_INTERNAL_PHASE_8_CONTROLLED_EXPOSURE_PLAN_READY`
+
+Veredicto no-operativo: `BACKEND_INTERNAL_PHASE_8_NO_OPERATIONAL_CONFIRMED`
+
+Readiness: `ready_for_phase_8_1_internal_exposure_registry`
+
+Fase 7 cerrada se toma como fuente de verdad. Fase 8 - Exposicion interna controlada para futura UI queda planificada como capa backend interna entre los servicios 7.1-7.6 y una futura UI, sin implementar registry, dispatcher, request envelope, confirmation gate, UI visual ni endpoint publico.
+
+Definicion operativa: exposicion interna controlada es una capa backend interna que permite consultar o solicitar servicios internos contratados mediante payloads estables, sin endpoints publicos, sin UI visual, sin runtime, sin execution, sin tools/modelos/integraciones y sin mover autoridad critica al frontend.
+
+Proximo prompt exacto: `PROMPT 8.1 - Internal exposure registry / service map`.
+
+Fase 8 mantiene bloqueados runtime, execution, dry-run real, tools, modelos, integraciones, network/browser automation, public endpoints, UI device control, Market Catalog runtime, Business Composition Layer runtime, OBLITERATUS, raw Package directo al User Panel y `domains/` operativo.
+
 ## PROMPT 7.6 - Payloads Estables Para Futura UI
 
 Estado: `BACKEND_INTERNAL_STABLE_UI_PAYLOADS_READY`
