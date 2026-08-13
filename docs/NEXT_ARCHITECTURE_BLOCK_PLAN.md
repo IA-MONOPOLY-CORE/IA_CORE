@@ -905,6 +905,30 @@ La escritura queda limitada a sandbox controlado: `domain sandbox -> artifact_ma
 
 Sigue bloqueado runtime, execution, dry-run real, tools, modelos, context injection, output delivery, writes/stores/memory operativos, network/browser/filesystem runtime/env/secrets, API runtime, UI runtime, UI visual, UI-device control, endpoints publicos, integraciones, Market Catalog runtime, Business Composition Layer runtime, OBLITERATUS y raw Package directo al User Panel.
 
+## PROMPT 7.7 - Checkpoint Integral Contrato Backend Interno Para UI
+
+Estado: `BACKEND_INTERNAL_UI_CONTRACT_PHASE_7_CHECKPOINT_PASSED`
+
+Veredicto servicios: `BACKEND_INTERNAL_UI_CONTRACT_SERVICES_CONFIRMED`
+
+Veredicto no-operativo: `BACKEND_INTERNAL_UI_CONTRACT_NO_OPERATIONAL_CONFIRMED`
+
+Veredicto de continuidad: `BACKEND_INTERNAL_UI_CONTRACT_READY_FOR_NEXT_BLOCK`
+
+Readiness: `ready_for_next_backend_internal_architecture_block`
+
+Fase 7 cerrada.
+
+`PROMPT 7.7 - Checkpoint integral contrato backend interno para UI` confirma que los servicios internos 7.1-7.6 quedan disponibles y coherentes con el contrato 7.0: `list_domains_status`, `preview_materialization`, `materialize_sandbox`, `validate_domain`, `rollback_sandbox`, `archive_sandbox_domain`, `delete_sandbox_domain`, `reset_sandbox_domain` y `stable_ui_payloads`.
+
+El checkpoint confirma `backend_internal_ui_payload.v1`, error contract, allowed_actions, forbidden_actions, `blocked_capabilities` con semantica `true = blocked` en el envelope estable, confirmaciones humanas, path safety y autoridad backend sobre permisos/readiness.
+
+Bloque siguiente seleccionado: `Fase 8 - Exposicion interna controlada para futura UI`.
+
+Proximo prompt exacto: `PROMPT 8.0 - Planificacion del bloque de exposicion interna controlada para futura UI`.
+
+Fase 8 queda solo seleccionada. No se implementa en 7.7. Siguen bloqueados runtime, execution, dry-run real, tools, modelos, context injection, output delivery, writes/stores/memory operativos, network/browser/filesystem runtime/env/secrets, API runtime, UI runtime, UI visual, UI-device control, endpoints publicos, integraciones, Market Catalog runtime, Business Composition Layer runtime, OBLITERATUS y raw Package directo al User Panel.
+
 ## PROMPT 7.6 - Payloads Estables Para Futura UI
 
 Estado: `BACKEND_INTERNAL_STABLE_UI_PAYLOADS_READY`

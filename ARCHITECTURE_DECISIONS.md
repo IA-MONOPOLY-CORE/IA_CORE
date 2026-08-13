@@ -1449,3 +1449,29 @@ Los servicios 7.1-7.5 ya devuelven payloads JSON-safe, pero cada uno usa estruct
 - La UI futura puede renderizar estados, errores y acciones disponibles de forma consistente.
 - El backend conserva autoridad sobre permisos, seguridad, readiness y no-operatividad.
 - 7.7 puede cerrar Fase 7 con checkpoint integral sin crear UI visual ni endpoints publicos.
+
+---
+
+## ADR-058 - Cierre de Fase 7 como contrato backend interno estable para futura UI
+
+**Estado**: Aceptado
+
+**Prompt**: 7.7 - Checkpoint integral contrato backend interno para UI
+
+**Contexto**:
+Fase 7 ya cuenta con contrato 7.0, servicios internos 7.1-7.5 y payload estable 7.6. Antes de avanzar a cualquier puente o exposicion interna para futura UI, IA_CORE necesita declarar que la frontera backend esta cerrada y que no se habilitaron runtime, execution, UI visual ni endpoints publicos.
+
+**Decision**:
+- IA_CORE considera Fase 7 cerrada cuando el contrato backend interno confirma servicios para status, preview, materializacion sandbox controlada, validacion, lifecycle y payloads estables.
+- El cierre queda registrado por `BACKEND_INTERNAL_UI_CONTRACT_PHASE_7_CHECKPOINT_PASSED`.
+- Los servicios confirmados son `list_domains_status`, `preview_materialization`, `materialize_sandbox`, `validate_domain`, `rollback_sandbox`, `archive_sandbox_domain`, `delete_sandbox_domain`, `reset_sandbox_domain` y `stable_ui_payloads`.
+- El envelope estable sigue siendo `backend_internal_ui_payload.v1`, con `blocked_capabilities` usando semantica `true = blocked`.
+- El backend conserva autoridad sobre permisos, readiness, acciones disponibles, acciones prohibidas, error contract, confirmaciones humanas y path safety.
+- Fase 8 queda seleccionada como `Fase 8 - Exposicion interna controlada para futura UI`.
+- El proximo prompt exacto es `PROMPT 8.0 - Planificacion del bloque de exposicion interna controlada para futura UI`.
+- Fase 7 no crea UI visual, no crea endpoints publicos, no activa runtime, no ejecuta agentes, no invoca modelos/tools, no toca integraciones y no toca `domains/` operativo.
+
+**Consecuencias**:
+- IA_CORE puede planificar una exposicion interna controlada para futura UI sin mover logica critica al frontend.
+- Runtime, execution, dry-run real, tools, modelos, integraciones, Market Catalog runtime, Business Composition Layer runtime, OBLITERATUS y raw Package directo al User Panel permanecen bloqueados.
+- Fase 8 debera empezar como planificacion/control boundary, no como implementacion de UI visual ni endpoints publicos.
