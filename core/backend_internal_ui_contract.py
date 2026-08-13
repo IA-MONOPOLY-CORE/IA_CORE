@@ -96,6 +96,13 @@ ERROR_CODES = (
     "SECRET_LIKE_FIELD_BLOCKED",
     "PAYLOAD_NOT_JSON_SAFE",
     "READINESS_NOT_MET",
+    "SANDBOX_ROOT_REQUIRED",
+    "SANDBOX_ROOT_NOT_FOUND",
+    "UNSAFE_SANDBOX_ROOT",
+    "INVALID_DOMAIN_STATUS_PAYLOAD",
+    "INVALID_AUDIT_PACK",
+    "READ_MODEL_UNAVAILABLE",
+    "DOMAIN_STATUS_NOT_LISTABLE",
 )
 
 SENSITIVE_KEY_FRAGMENTS = (
@@ -409,12 +416,30 @@ def _available_internal_services() -> list[dict[str, Any]]:
                 "INTEGRATIONS_BLOCKED",
             ],
         ),
+        _service(
+            name="list_domains_status",
+            phase="7.1",
+            service_type="read-only",
+            available_now=True,
+            payload_expected="domain_status_listing",
+            expected_errors=[
+                "SANDBOX_ROOT_REQUIRED",
+                "SANDBOX_ROOT_NOT_FOUND",
+                "UNSAFE_SANDBOX_ROOT",
+                "INVALID_DOMAIN_STATUS_PAYLOAD",
+                "MISSING_ARTIFACT_MANIFEST",
+                "INCONSISTENT_ARTIFACT_MANIFEST",
+                "INVALID_AUDIT_PACK",
+                "READ_MODEL_UNAVAILABLE",
+                "DOMAIN_STATUS_NOT_LISTABLE",
+                "PAYLOAD_NOT_JSON_SAFE",
+            ],
+        ),
     ]
 
 
 def _planned_internal_services() -> list[dict[str, Any]]:
     return [
-        _service("list_domains_status", "7.1", "read-only", False, "domain_status_listing", ["READINESS_NOT_MET"]),
         _service("get_domain_detail", "7.1", "read-only", False, "sandbox_domain_detail", ["INVALID_DOMAIN_PAYLOAD"]),
         _service("get_sandbox_team_listing", "7.1", "read-only", False, "sandbox_team_listing", ["MISSING_ARTIFACT_MANIFEST"]),
         _service("get_materialization_audit_pack", "7.1", "read-only", False, "materialization_audit_pack_summary", ["READINESS_NOT_MET"]),
@@ -647,7 +672,7 @@ def _validate_services(contract: dict[str, Any]) -> None:
             raise ValueError(f"{service['name']} destructivo requiere confirmacion humana")
 
     available_names = {service["name"] for service in available}
-    allowed_now = {"get_backend_internal_ui_contract", "validate_backend_internal_ui_contract"}
+    allowed_now = {"get_backend_internal_ui_contract", "validate_backend_internal_ui_contract", "list_domains_status"}
     if not available_names <= allowed_now:
         raise ValueError("7.0 declara como disponible un servicio no implementado")
 

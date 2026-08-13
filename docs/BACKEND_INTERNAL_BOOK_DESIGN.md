@@ -5811,3 +5811,15 @@ Readiness: `ready_for_phase_7_1_list_domains_status_service`
 Proximo paso: `PROMPT 7.1 - Servicio interno list_domains/status`
 
 Este bloque inicia Fase 7 creando `core/backend_internal_ui_contract.py` como frontera backend interna, JSON-safe, no-operativa y sin side effects para futura UI. Define entidades visibles, servicios disponibles y planeados, estados permitidos/prohibidos, readiness, error contract, permisos default-deny, blocked capabilities, payload safety y limites de accion. No implementa `list_domains/status`, no crea UI visual ni frontend, no crea endpoints publicos, no activa runtime, execution, dry-run real, tools/modelos/contexto/output, writes/stores/memory operativos, integraciones, Market Catalog runtime, Business Composition Layer runtime, OBLITERATUS ni raw Package directo a User Panel.
+
+## 195. PROMPT 7.1 - Servicio interno list_domains/status
+
+Estado: `BACKEND_INTERNAL_DOMAIN_STATUS_SERVICE_READY`
+
+Veredicto: `BACKEND_INTERNAL_DOMAIN_STATUS_NO_OPERATIONAL_CONFIRMED`
+
+Readiness: `ready_for_phase_7_2_preview_materialization_service`
+
+Proximo paso: `PROMPT 7.2 - Servicio interno preview_materialization`
+
+Este bloque crea `core/backend_internal_domain_status_service.py` como servicio interno read-only `list_domains/status` para futura UI. Requiere `sandbox_root` explicito/controlado y no lee `domains/` operativo por defecto. Devuelve payload JSON-safe con dominios sandbox, status, readiness, artifact summary, audit pack, equipo sandbox/read model, rollback/regeneration, warnings, errores, allowed_actions, forbidden_actions y next_actions definidos por backend. Actualiza `core/backend_internal_ui_contract.py` para marcar `list_domains_status` como `available_now=true` y conserva servicios 7.2+ como planned/available_now=false. No crea UI visual, no crea frontend, no crea endpoints publicos, no implementa preview materialization, no materializa, no hace rollback/archive/delete/reset, no regenera, no ejecuta agentes, no invoca modelos/tools, no toca integraciones, no activa runtime, execution, dry-run real, Market Catalog runtime, Business Composition Layer runtime, OBLITERATUS ni raw Package directo a User Panel.

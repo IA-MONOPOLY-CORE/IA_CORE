@@ -1300,3 +1300,28 @@ Fase 6 cerro la cadena sandbox completa con E2E, rollback integral, regeneracion
 - El sistema podra construir UI futura sobre una base estable y segura.
 - La UI no sera fuente de verdad arquitectonica ni podra convertir artefactos sandbox en operacion real por si misma.
 - Cualquier servicio con write controlado o accion destructiva requiere fase posterior explicita y confirmacion humana cuando corresponda.
+
+---
+
+## ADR-052 - list_domains/status como primer servicio interno read-only para futura UI
+
+**Estado**: Aceptado
+
+**Prompt**: 7.1 - Servicio interno list_domains/status
+
+**Contexto**:
+Despues del contrato backend interno para UI, IA_CORE necesita un primer servicio real de lectura para que una futura UI pueda listar dominios sandbox sin tocar el sistema operativo del repo ni convertir el contrato en endpoint publico.
+
+**Decision**:
+- IA_CORE expone el estado de dominios sandbox a futura UI mediante el servicio interno read-only `list_domains/status`.
+- El servicio vive en `core/backend_internal_domain_status_service.py`.
+- El servicio requiere `sandbox_root` explicito/controlado y no lee `domains/` operativo por defecto.
+- El payload es JSON-safe e incluye estado, readiness, artefactos, audit pack, equipo sandbox/read model, rollback/regeneration, allowed_actions, forbidden_actions, next_actions, warnings y errores.
+- `list_domains_status` queda `available_now=true` en el contrato backend interno.
+- Los servicios 7.2+ siguen planned/available_now=false.
+- Runtime, execution, dry-run real, modelos, tools, UI visual, endpoints publicos, integraciones, Market Catalog runtime, Business Composition Layer runtime y OBLITERATUS permanecen bloqueados.
+
+**Consecuencias**:
+- La UI futura podra listar estados de dominios sin inferir logica critica ni activar operacion real.
+- Los servicios con mutacion o acciones destructivas quedan en prompts posteriores con confirmacion y contratos especificos.
+- La frontera de lectura queda separada de preview, materializacion, rollback, regeneracion y UI visual.

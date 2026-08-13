@@ -846,3 +846,21 @@ Servicios disponibles ahora: `get_backend_internal_ui_contract` y `validate_back
 Servicios planeados: `list_domains_status`, `get_domain_detail`, `get_sandbox_team_listing`, `get_materialization_audit_pack`, `preview_materialization`, `validate_domain`, `materialize_sandbox`, `rollback_sandbox`, `archive_domain`, `delete_sandbox_domain` y `reset_sandbox_domain`.
 
 Fase 7 no crea UI visual, no crea frontend, no crea endpoints publicos y no implementa `PROMPT 7.1`. Runtime, execution, dry-run real, tools/modelos/context/output, writes/stores/memory operativos, network/browser/filesystem runtime/env/secrets, API runtime, UI runtime, UI-device control, integraciones, Market Catalog runtime, Business Composition Layer runtime, OBLITERATUS y raw Package directo a User Panel permanecen bloqueados.
+
+## PROMPT 7.1 - Servicio Interno list_domains/status
+
+Estado: `BACKEND_INTERNAL_DOMAIN_STATUS_SERVICE_READY`
+
+Veredicto: `BACKEND_INTERNAL_DOMAIN_STATUS_NO_OPERATIONAL_CONFIRMED`
+
+Readiness: `ready_for_phase_7_2_preview_materialization_service`
+
+Bloque actual: `Fase 7 - Contrato backend interno para UI`.
+
+Proximo prompt exacto: `PROMPT 7.2 - Servicio interno preview_materialization`.
+
+`PROMPT 7.1` crea `core/backend_internal_domain_status_service.py` como servicio interno read-only `list_domains/status` para futura UI. El servicio requiere `sandbox_root` explicito/controlado, no lee `domains/` operativo por defecto, lista dominios sandbox, resume estados, artefactos, audit pack, equipo/read model, rollback/regeneration y expone `allowed_actions`, `forbidden_actions`, `next_actions`, warnings y errores JSON-safe.
+
+`list_domains_status` queda `available_now=true` en el contrato backend interno para UI. Los servicios 7.2+ siguen `planned/available_now=false`.
+
+No crea UI visual, no crea frontend, no crea endpoints publicos, no implementa preview materialization, no materializa, no hace rollback, no regenera, no ejecuta agentes, no invoca modelos/tools y no toca integraciones. Runtime, execution, dry-run real, writes/stores/memory operativos, network/browser/filesystem runtime/env/secrets, Market Catalog runtime, Business Composition Layer runtime, OBLITERATUS y raw Package directo a User Panel permanecen bloqueados.

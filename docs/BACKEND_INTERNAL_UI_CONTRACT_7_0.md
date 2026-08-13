@@ -89,9 +89,13 @@ En 7.0 solo quedan disponibles servicios de contrato puro:
 
 Ambos son read-only, internos, in-memory y sin side effects.
 
+Actualizacion por `PROMPT 7.1 - Servicio interno list_domains/status`: `list_domains_status` queda `available_now=true`, tipo `read-only`, `side_effects=false`, `public_endpoint=false`, `ui_visual=false`, `runtime_enabled=false`, `execution_enabled=false`, `requires_human_confirmation=false` y `destructive=false`.
+
 ## 8. Servicios Planeados
 
 Los servicios de negocio quedan planeados para 7.1 a 7.5. En 7.0 todos aparecen con `available_now=false`.
+
+Despues de `PROMPT 7.1`, `list_domains_status` deja de estar planeado y pasa a disponible. Los servicios 7.2+ siguen planeados con `available_now=false`.
 
 Los servicios `materialize_sandbox`, `rollback_sandbox`, `archive_domain`, `delete_sandbox_domain` y `reset_sandbox_domain` requieren confirmacion humana futura y no estan disponibles ahora.
 

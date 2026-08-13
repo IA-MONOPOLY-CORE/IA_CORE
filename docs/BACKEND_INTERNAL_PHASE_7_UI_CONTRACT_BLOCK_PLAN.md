@@ -94,3 +94,19 @@ Resultado esperado: `BACKEND_INTERNAL_UI_CONTRACT_READY`.
 Veredicto esperado: `BACKEND_INTERNAL_UI_CONTRACT_NO_OPERATIONAL_CONFIRMED`.
 
 Readiness esperada: `ready_for_phase_7_1_list_domains_status_service`.
+
+## 17. Estado De 7.1
+
+`PROMPT 7.1 - Servicio interno list_domains/status` crea `core/backend_internal_domain_status_service.py` como primer servicio interno read-only para futura UI.
+
+Estado: `BACKEND_INTERNAL_DOMAIN_STATUS_SERVICE_READY`.
+
+Veredicto: `BACKEND_INTERNAL_DOMAIN_STATUS_NO_OPERATIONAL_CONFIRMED`.
+
+Readiness: `ready_for_phase_7_2_preview_materialization_service`.
+
+Proximo prompt exacto: `PROMPT 7.2 - Servicio interno preview_materialization`.
+
+`list_domains_status` queda `available_now=true`, tipo `read-only`, `side_effects=false`, `public_endpoint=false`, `ui_visual=false`, `runtime_enabled=false`, `execution_enabled=false`, `requires_human_confirmation=false` y `destructive=false`.
+
+Los servicios 7.2+ siguen planeados con `available_now=false`. No se crea UI visual, no se crean endpoints publicos, no se implementa preview materialization, no se materializa, no se hace rollback, no se regenera, no se ejecutan agentes, no se invocan modelos/tools y no se toca `domains/` operativo.

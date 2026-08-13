@@ -984,3 +984,23 @@ El contrato define entidades visibles, servicios internos previstos, payloads mi
 En 7.0 solo quedan disponibles servicios de contrato puro: `get_backend_internal_ui_contract` y `validate_backend_internal_ui_contract`.
 
 No se implementa `list_domains/status` todavia. Runtime, execution, dry-run real, tools, modelos, contexto operativo, output delivery, writes/stores/memory operativos, network/browser/filesystem runtime/env/secrets, API runtime, UI runtime, UI visual, UI-device control, endpoints publicos, integraciones, Market Catalog runtime, Business Composition Layer runtime, OBLITERATUS y raw Package directo al User Panel permanecen bloqueados.
+
+## PROMPT 7.1 - Servicio Interno list_domains/status
+
+`PROMPT 7.1 - Servicio interno list_domains/status` implementa el primer servicio interno read-only de Fase 7.
+
+Estado: `BACKEND_INTERNAL_DOMAIN_STATUS_SERVICE_READY`.
+
+Veredicto: `BACKEND_INTERNAL_DOMAIN_STATUS_NO_OPERATIONAL_CONFIRMED`.
+
+Readiness: `ready_for_phase_7_2_preview_materialization_service`.
+
+Proximo paso operacional/documental: `PROMPT 7.2 - Servicio interno preview_materialization`.
+
+El servicio lista dominios sandbox desde `sandbox_root` explicito/controlado y devuelve payload JSON-safe para futura UI: estado, readiness, artefactos, audit pack, equipo sandbox/read model, rollback/regeneration, allowed_actions, forbidden_actions, next_actions, warnings y errores.
+
+`list_domains_status` queda `available_now=true`. Los servicios 7.2+ permanecen `planned/available_now=false`.
+
+No se crea UI visual, no se crean endpoints publicos, no se implementa 7.2, no se materializa, no se hace rollback/archive/delete/reset, no se regenera, no se ejecutan agentes, no se invocan modelos/tools, no se toca `domains/` operativo y no se abren integraciones.
+
+Runtime, execution, dry-run real, context injection, output delivery, writes/stores/memory operativos, network/browser/filesystem runtime/env/secrets, API runtime, UI runtime, UI-device control, Market Catalog runtime, Business Composition Layer runtime, OBLITERATUS y raw Package directo al User Panel permanecen bloqueados.
