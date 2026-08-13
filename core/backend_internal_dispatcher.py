@@ -16,6 +16,7 @@ from core.backend_internal_exposure_registry import (
     GLOBAL_FORBIDDEN_ACTIONS,
     build_internal_exposure_registry,
 )
+from core.backend_internal_confirmation_gate import validate_confirmation_gate
 from core.backend_internal_request_envelope import (
     SCHEMA_VERSION as REQUEST_SCHEMA_VERSION,
     validate_internal_request_envelope,
@@ -100,6 +101,7 @@ DISPATCH_ERROR_CODES = (
     "DISPATCHER_NO_RUNTIME_CONFIRMED",
     "PAYLOAD_NOT_JSON_SAFE",
     "SECRET_LIKE_FIELD_BLOCKED",
+    "CONFIRMATION_GATE_BLOCKED",
 )
 
 
@@ -140,6 +142,51 @@ def dispatch_internal_request(dispatch_request: dict[str, Any] | None) -> dict[s
                 )
             ]
             + validation_errors,
+            warnings=[],
+            validation=request_validation,
+            dispatch_options=dispatch_options,
+        )
+
+    if _is_controlled_service(request_validation.get("service_id"), target_service):
+        confirmation_gate_result = validate_confirmation_gate(
+            {
+                "request_envelope": request_envelope,
+                "service_entry": target_service or {},
+                "gate_options": dispatch_options,
+            }
+        )
+        confirmation_gate_passed = bool(confirmation_gate_result.get("confirmation_gate_passed"))
+        if confirmation_gate_passed:
+            return build_internal_dispatch_result(
+                request_envelope=request_envelope,
+                target_service=target_service or {},
+                status="gate_passed",
+                dispatch_allowed=True,
+                dispatch_executed=False,
+                blocked_by_policy=False,
+                requires_confirmation_gate=False,
+                confirmation_gate_passed=True,
+                confirmation_gate_result=confirmation_gate_result,
+                ready_for_controlled_execution_adapter=False,
+                response_payload={},
+                errors=[],
+                warnings=[],
+                validation=request_validation,
+                dispatch_options=dispatch_options,
+            )
+
+        return build_internal_dispatch_result(
+            request_envelope=request_envelope,
+            target_service=target_service or {},
+            status="blocked",
+            dispatch_allowed=False,
+            dispatch_executed=False,
+            blocked_by_policy=True,
+            requires_confirmation_gate=True,
+            confirmation_gate_passed=False,
+            confirmation_gate_result=confirmation_gate_result,
+            ready_for_controlled_execution_adapter=False,
+            errors=_dispatch_errors_from_confirmation_gate(confirmation_gate_result),
             warnings=[],
             validation=request_validation,
             dispatch_options=dispatch_options,
@@ -230,6 +277,9 @@ def build_internal_dispatch_result(
     dispatch_executed: bool,
     blocked_by_policy: bool,
     requires_confirmation_gate: bool = False,
+    confirmation_gate_passed: bool = False,
+    confirmation_gate_result: dict[str, Any] | None = None,
+    ready_for_controlled_execution_adapter: bool = False,
     response_payload: dict[str, Any] | None = None,
     errors: list[dict[str, Any]] | None = None,
     warnings: list[dict[str, Any]] | None = None,
@@ -256,6 +306,9 @@ def build_internal_dispatch_result(
         "dispatch_executed": dispatch_executed,
         "blocked_by_policy": blocked_by_policy,
         "requires_confirmation_gate": requires_confirmation_gate,
+        "confirmation_gate_passed": confirmation_gate_passed,
+        "confirmation_gate_result": deepcopy(confirmation_gate_result or {}),
+        "ready_for_controlled_execution_adapter": ready_for_controlled_execution_adapter,
         "response_payload": deepcopy(response_payload or {}),
         "errors": normalized_errors,
         "warnings": normalized_warnings,
@@ -275,6 +328,8 @@ def build_internal_dispatch_result(
                 "target_service_kind": service_kind,
                 "blocked_by_policy": blocked_by_policy,
                 "requires_confirmation_gate": requires_confirmation_gate,
+                "confirmation_gate_passed": confirmation_gate_passed,
+                "ready_for_controlled_execution_adapter": ready_for_controlled_execution_adapter,
             },
         ),
         "flags": _dispatch_flags(),
@@ -329,6 +384,28 @@ def normalize_dispatch_error(error: Any) -> dict[str, Any]:
             field=str(error.get("field") or ""),
         )
     return build_internal_dispatch_error("INVALID_DISPATCH_REQUEST", str(error or "dispatch invalido"))
+
+
+def _dispatch_errors_from_confirmation_gate(
+    confirmation_gate_result: dict[str, Any]
+) -> list[dict[str, Any]]:
+    gate_errors = confirmation_gate_result.get("errors", [])
+    errors = [
+        build_internal_dispatch_error(
+            "CONFIRMATION_GATE_REQUIRED",
+            "confirmation gate requerido o no aprobado",
+            field="confirmation_gate",
+        )
+    ]
+    if gate_errors:
+        errors.append(
+            build_internal_dispatch_error(
+                "CONFIRMATION_GATE_BLOCKED",
+                "confirmation gate bloqueo el dispatch controlled",
+                field="confirmation_gate",
+            )
+        )
+    return errors
 
 
 def _dispatch_error_from_request_error(error: dict[str, Any]) -> dict[str, Any]:
@@ -389,7 +466,7 @@ def _stable_dispatch_payload(
     warnings: list[dict[str, Any]],
     data: dict[str, Any],
 ) -> dict[str, Any]:
-    stable_status = "ready" if status == "dispatched" else "blocked" if status == "blocked" else "invalid"
+    stable_status = "ready" if status in {"dispatched", "gate_passed"} else "blocked" if status == "blocked" else "invalid"
     return build_backend_internal_ui_payload(
         service=DISPATCHER_SERVICE,
         service_kind="contract",
@@ -447,6 +524,16 @@ def _blocked_service_by_id(service_id: str) -> dict[str, Any] | None:
         if service["service_id"] == target:
             return deepcopy(service)
     return None
+
+
+def _is_controlled_service(service_id: str, service: dict[str, Any] | None) -> bool:
+    target = str(service_id or "")
+    service_kind = str((service or {}).get("service_kind") or "")
+    return (
+        target in CONTROLLED_WRITE_SERVICE_IDS
+        or target in CONTROLLED_LIFECYCLE_SERVICE_IDS
+        or service_kind in {"controlled_write", "controlled_lifecycle"}
+    )
 
 
 def _dispatch_flags() -> dict[str, bool]:

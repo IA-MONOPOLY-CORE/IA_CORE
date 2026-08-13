@@ -42,6 +42,7 @@ EXPECTED_EXPOSABLE = {
     "stable_ui_payloads": "contract_payload_normalization",
     "internal_exposure_registry": "contract_internal_exposure_registry",
     "internal_request_validation": "contract_request_validation",
+    "internal_dispatcher_no_runtime": "contract_internal_dispatcher",
 }
 
 EXPECTED_BLOCKED = {
@@ -66,7 +67,6 @@ EXPECTED_BLOCKED = {
 FORBIDDEN_FILES = (
     "core/backend_internal_ui_dispatcher.py",
     "core/backend_internal_ui_request.py",
-    "core/backend_internal_confirmation_gate.py",
     "core/backend_internal_response_adapter.py",
     "core/backend_internal_ui_router.py",
     "core/backend_internal_ui_api.py",
@@ -244,10 +244,13 @@ def test_ui_contract_marks_registry_available_and_keeps_future_8_x_planned():
     assert available["internal_dispatcher_no_runtime"]["dispatcher_created"] is True
     assert available["internal_dispatcher_no_runtime"]["request_handling_enabled"] is False
 
-    for future in ("confirmation_gate", "internal_response_adapter"):
-        assert planned[future]["available_now"] is False
-        assert planned[future]["dispatcher_created"] is False
-        assert planned[future]["request_handling_enabled"] is False
+    assert available["internal_confirmation_gate"]["available_now"] is True
+    assert available["internal_confirmation_gate"]["phase"] == "8.4"
+    assert available["internal_confirmation_gate"]["service_execution_enabled"] is False
+
+    assert planned["internal_response_adapter"]["available_now"] is False
+    assert planned["internal_response_adapter"]["dispatcher_created"] is False
+    assert planned["internal_response_adapter"]["request_handling_enabled"] is False
 
 
 def test_docs_plans_book_and_adr_record_prompt_8_1():

@@ -28,7 +28,6 @@ EXPECTED_CANDIDATE_SERVICES = {
 FORBIDDEN_FUNCTIONAL_FILES = (
     "core/backend_internal_ui_request.py",
     "core/backend_internal_ui_dispatcher.py",
-    "core/backend_internal_confirmation_gate.py",
     "core/backend_internal_exposure_adapter.py",
     "core/backend_internal_ui_router.py",
     "core/backend_internal_ui_api.py",

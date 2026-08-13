@@ -19,7 +19,7 @@ CONTRACT_STATUS = "ready"
 CONTRACT_READY_VERDICT = "BACKEND_INTERNAL_UI_CONTRACT_READY"
 CONTRACT_NO_OPERATIONAL_VERDICT = "BACKEND_INTERNAL_UI_CONTRACT_NO_OPERATIONAL_CONFIRMED"
 CONTRACT_READINESS = "ready_for_phase_7_1_list_domains_status_service"
-MAX_CONTRACT_JSON_BYTES = 96_000
+MAX_CONTRACT_JSON_BYTES = 128_000
 
 VISIBLE_ENTITIES = (
     "sandbox_domain",
@@ -75,6 +75,7 @@ READINESS_VALUES = (
     "ready_for_phase_8_2_internal_request_envelope",
     "ready_for_phase_8_3_internal_dispatcher_no_runtime",
     "ready_for_phase_8_4_confirmation_gate",
+    "ready_for_phase_8_5_internal_response_adapter",
     "ready_for_rollback",
     "ready_for_regeneration",
     "ready_for_audit_pack",
@@ -200,6 +201,22 @@ ERROR_CODES = (
     "UI_RUNTIME_BLOCKED",
     "OPERATIONAL_DOMAINS_BLOCKED",
     "DISPATCHER_NO_RUNTIME_CONFIRMED",
+    "CONFIRMATION_GATE_REQUEST_REQUIRED",
+    "INVALID_CONFIRMATION_GATE_REQUEST",
+    "UNKNOWN_SERVICE",
+    "CONFIRMATION_SCOPE_REQUIRED",
+    "CONFIRMATION_MISSING",
+    "CONFIRMATION_NOT_CONFIRMED",
+    "HUMAN_CONFIRMATION_REQUIRED",
+    "CONFIRMED_BY_REQUIRED",
+    "CONFIRMATION_ID_REQUIRED",
+    "CONTROLLED_WRITE_NOT_ALLOWED",
+    "CONTROLLED_LIFECYCLE_NOT_ALLOWED",
+    "DELETE_CONFIRMATION_FLAG_REQUIRED",
+    "RESET_CONFIRMATION_FLAG_REQUIRED",
+    "CONFIRMATION_GATE_BLOCKED",
+    "SERVICE_EXECUTION_BLOCKED_IN_CONFIRMATION_GATE",
+    "SECRET_OR_ENV_REFERENCE_BLOCKED",
 )
 
 SENSITIVE_KEY_FRAGMENTS = (
@@ -951,6 +968,70 @@ def _available_internal_services() -> list[dict[str, Any]]:
             ],
             dispatch_policy_defined=True,
         ),
+        _service(
+            name="internal_confirmation_gate",
+            phase="8.4",
+            service_type="contract/confirmation-gate",
+            available_now=True,
+            payload_expected="backend_internal_confirmation_gate_result.v1",
+            expected_errors=[
+                "CONFIRMATION_GATE_REQUEST_REQUIRED",
+                "INVALID_CONFIRMATION_GATE_REQUEST",
+                "CONFIRMATION_REQUIRED",
+                "CONFIRMATION_MISSING",
+                "CONFIRMATION_NOT_CONFIRMED",
+                "HUMAN_CONFIRMATION_REQUIRED",
+                "CONFIRMATION_SCOPE_REQUIRED",
+                "INVALID_CONFIRMATION_SCOPE",
+                "CONFIRMED_BY_REQUIRED",
+                "CONFIRMATION_ID_REQUIRED",
+                "CONTROLLED_WRITE_NOT_ALLOWED",
+                "CONTROLLED_LIFECYCLE_NOT_ALLOWED",
+                "SAFE_SANDBOX_ROOT_REQUIRED",
+                "PREVIEW_PAYLOAD_REQUIRED",
+                "VALIDATION_PAYLOAD_REQUIRED",
+                "ALLOW_DELETE_REQUIRED",
+                "ALLOW_RESET_REQUIRED",
+                "DELETE_CONFIRMATION_FLAG_REQUIRED",
+                "RESET_CONFIRMATION_FLAG_REQUIRED",
+                "RUNTIME_BLOCKED",
+                "EXECUTION_BLOCKED",
+                "TOOLS_BLOCKED",
+                "MODELS_BLOCKED",
+                "INTEGRATIONS_BLOCKED",
+                "PUBLIC_ENDPOINT_BLOCKED",
+                "UI_RUNTIME_BLOCKED",
+                "OPERATIONAL_DOMAINS_BLOCKED",
+                "SERVICE_EXECUTION_BLOCKED_IN_CONFIRMATION_GATE",
+                "PAYLOAD_NOT_JSON_SAFE",
+                "SECRET_LIKE_FIELD_BLOCKED",
+                "TRACEBACK_BLOCKED",
+                "ABSOLUTE_PATH_BLOCKED",
+            ],
+            confirmation_gate_validation=True,
+        ),
+        _service(
+            name="confirmation_gate_validation",
+            phase="8.4",
+            service_type="contract/confirmation-gate-validation",
+            available_now=True,
+            payload_expected="backend_internal_confirmation_gate_result.v1",
+            expected_errors=[
+                "CONFIRMATION_GATE_REQUEST_REQUIRED",
+                "INVALID_CONFIRMATION_GATE_REQUEST",
+                "CONFIRMATION_GATE_BLOCKED",
+                "RUNTIME_BLOCKED",
+                "EXECUTION_BLOCKED",
+                "TOOLS_BLOCKED",
+                "MODELS_BLOCKED",
+                "INTEGRATIONS_BLOCKED",
+                "PUBLIC_ENDPOINT_BLOCKED",
+                "UI_RUNTIME_BLOCKED",
+                "OPERATIONAL_DOMAINS_BLOCKED",
+                "SERVICE_EXECUTION_BLOCKED_IN_CONFIRMATION_GATE",
+            ],
+            confirmation_gate_validation=True,
+        ),
     ]
 
 
@@ -966,14 +1047,6 @@ def _planned_internal_services() -> list[dict[str, Any]]:
             False,
             "backend_internal_ui_contract_checkpoint",
             ["READINESS_NOT_MET", "PAYLOAD_NOT_JSON_SAFE"],
-        ),
-        _service(
-            "confirmation_gate",
-            "8.4",
-            "contract/confirmation-gate",
-            False,
-            "internal_confirmation_gate_contract",
-            ["CONFIRMATION_REQUIRED", "READINESS_NOT_MET"],
         ),
         _service(
             "internal_response_adapter",
@@ -1004,6 +1077,8 @@ def _service(
     dispatcher_created: bool = False,
     contractual_request_handling_enabled: bool = False,
     dispatch_policy_defined: bool = False,
+    confirmation_gate_validation: bool = False,
+    service_execution_enabled: bool = False,
 ) -> dict[str, Any]:
     return {
         "name": name,
@@ -1025,6 +1100,8 @@ def _service(
         "request_handling_enabled": False,
         "contractual_request_handling_enabled": contractual_request_handling_enabled,
         "dispatch_policy_defined": dispatch_policy_defined,
+        "confirmation_gate_validation": confirmation_gate_validation,
+        "service_execution_enabled": service_execution_enabled,
         "side_effects": side_effects,
         "side_effects_performed": False,
         "writes_performed": False,
@@ -1178,6 +1255,8 @@ def _validate_services(contract: dict[str, Any]) -> None:
             raise ValueError(f"{service['name']} habilita runtime")
         if service.get("execution_enabled") is not False:
             raise ValueError(f"{service['name']} habilita execution")
+        if service.get("service_execution_enabled") is not False:
+            raise ValueError(f"{service['name']} habilita service execution")
         dispatcher_allowed = service.get("name") == "internal_dispatcher_no_runtime"
         if service.get("dispatcher_created") is not False and not dispatcher_allowed:
             raise ValueError(f"{service['name']} crea dispatcher")
@@ -1304,6 +1383,36 @@ def _validate_services(contract: dict[str, Any]) -> None:
                 raise ValueError("internal_dispatch_policy no habilita request handling")
             if service.get("side_effects") is not False or service.get("side_effects_performed") is not False:
                 raise ValueError("internal_dispatch_policy no debe tener side_effects")
+        if service.get("name") in {"internal_confirmation_gate", "confirmation_gate_validation"}:
+            if service.get("available_now") is not True:
+                raise ValueError(f"{service['name']} debe estar disponible despues de 8.4")
+            if service.get("phase") != "8.4":
+                raise ValueError(f"{service['name']} debe pertenecer a fase 8.4")
+            expected_type = (
+                "contract/confirmation-gate"
+                if service.get("name") == "internal_confirmation_gate"
+                else "contract/confirmation-gate-validation"
+            )
+            if service.get("type") != expected_type:
+                raise ValueError(f"{service['name']} debe ser {expected_type}")
+            if service.get("confirmation_gate_validation") is not True:
+                raise ValueError(f"{service['name']} debe declarar confirmation_gate_validation=true")
+            if service.get("dispatcher_created") is not False:
+                raise ValueError(f"{service['name']} no crea dispatcher")
+            if service.get("request_handling_enabled") is not False:
+                raise ValueError(f"{service['name']} no habilita request handling operativo")
+            if service.get("contractual_request_handling_enabled") is not False:
+                raise ValueError(f"{service['name']} no habilita request handling contractual")
+            if service.get("dispatch_policy_defined") is not False:
+                raise ValueError(f"{service['name']} no define dispatch policy")
+            if service.get("service_execution_enabled") is not False:
+                raise ValueError(f"{service['name']} no habilita service execution")
+            if service.get("side_effects") is not False or service.get("side_effects_performed") is not False:
+                raise ValueError(f"{service['name']} no debe tener side_effects")
+            if service.get("requires_human_confirmation") is not False:
+                raise ValueError(f"{service['name']} no requiere confirmacion humana a nivel gate")
+            if service.get("destructive") is not False:
+                raise ValueError(f"{service['name']} no debe ser destructivo")
         if service.get("name") in {"rollback_sandbox", "archive_sandbox_domain", "delete_sandbox_domain", "reset_sandbox_domain"}:
             if service.get("available_now") is not True:
                 raise ValueError(f"{service['name']} debe estar disponible despues de 7.5")
@@ -1347,10 +1456,12 @@ def _validate_services(contract: dict[str, Any]) -> None:
         "stable_ui_payloads",
         "internal_exposure_registry",
         "internal_request_envelope",
-        "internal_request_validation",
-        "internal_dispatcher_no_runtime",
-        "internal_dispatch_policy",
-    }
+            "internal_request_validation",
+            "internal_dispatcher_no_runtime",
+            "internal_dispatch_policy",
+            "internal_confirmation_gate",
+            "confirmation_gate_validation",
+        }
     if not available_names <= allowed_now:
         raise ValueError("7.0 declara como disponible un servicio no implementado")
 

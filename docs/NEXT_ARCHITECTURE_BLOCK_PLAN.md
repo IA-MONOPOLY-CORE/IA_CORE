@@ -905,6 +905,38 @@ La escritura queda limitada a sandbox controlado: `domain sandbox -> artifact_ma
 
 Sigue bloqueado runtime, execution, dry-run real, tools, modelos, context injection, output delivery, writes/stores/memory operativos, network/browser/filesystem runtime/env/secrets, API runtime, UI runtime, UI visual, UI-device control, endpoints publicos, integraciones, Market Catalog runtime, Business Composition Layer runtime, OBLITERATUS y raw Package directo al User Panel.
 
+## PROMPT 8.4 - Confirmation Gate Para Controlled-Write/Lifecycle
+
+Estado: `BACKEND_INTERNAL_CONFIRMATION_GATE_READY`
+
+Veredicto no-execution: `BACKEND_INTERNAL_CONFIRMATION_GATE_NO_EXECUTION_CONFIRMED`
+
+Veredicto no-operativo: `BACKEND_INTERNAL_CONFIRMATION_GATE_NO_OPERATIONAL_CONFIRMED`
+
+Readiness: `ready_for_phase_8_5_internal_response_adapter`
+
+Bloque actual: `Fase 8 - Exposicion interna controlada para futura UI`.
+
+PROMPT 8.4 crea `core/backend_internal_confirmation_gate.py` como contrato interno
+para validar confirmacion humana, scope, payload seguro y opciones explicitas de
+controlled-write/lifecycle. El gate produce
+`backend_internal_confirmation_gate_result.v1`, se integra con
+`internal_dispatcher_no_runtime` y permite que el dispatcher declare
+`confirmation_gate_passed=true` sin ejecutar el servicio controlled.
+
+El siguiente bloque arquitectonico correcto es `PROMPT 8.5 - Internal response
+adapter usando stable_ui_payloads`, porque 8.4 ya deja una decision contractual
+estable y falta adaptar esa decision al formato de respuesta interno sin crear
+endpoint, UI ni runtime.
+
+Sigue bloqueado runtime, execution, dry-run real, tools, modelos, context
+injection, output delivery, writes/stores/memory, network/browser/filesystem
+runtime/env/secrets, API runtime, UI runtime, UI visual, UI-device control,
+integraciones, Market Catalog runtime, Business Composition Layer runtime,
+OBLITERATUS y raw Package directo al User Panel.
+
+Proximo prompt exacto: `PROMPT 8.5 - Internal response adapter usando stable_ui_payloads`.
+
 ## PROMPT 7.7 - Checkpoint Integral Contrato Backend Interno Para UI
 
 Estado: `BACKEND_INTERNAL_UI_CONTRACT_PHASE_7_CHECKPOINT_PASSED`

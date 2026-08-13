@@ -30,7 +30,6 @@ BOOK = ROOT / "docs" / "BACKEND_INTERNAL_BOOK_DESIGN.md"
 ADR = ROOT / "ARCHITECTURE_DECISIONS.md"
 
 FORBIDDEN_FILES = (
-    "core/backend_internal_confirmation_gate.py",
     "core/backend_internal_response_adapter.py",
     "core/backend_internal_ui_router.py",
     "core/backend_internal_ui_api.py",
@@ -237,11 +236,14 @@ def test_controlled_write_and_lifecycle_require_confirmation_gate_and_are_not_ex
         assert result["dispatch_executed"] is False
         assert result["blocked_by_policy"] is True
         assert result["requires_confirmation_gate"] is True
+        assert result["confirmation_gate_passed"] is False
         assert "CONFIRMATION_GATE_REQUIRED" in _codes(result)
+        assert "CONFIRMATION_GATE_BLOCKED" in _codes(result)
+        gate_codes = {error["code"] for error in result["confirmation_gate_result"]["errors"]}
         if service_id in CONTROLLED_WRITE_SERVICE_IDS:
-            assert "CONTROLLED_WRITE_BLOCKED" in _codes(result)
+            assert "CONTROLLED_WRITE_NOT_ALLOWED" in gate_codes
         else:
-            assert "CONTROLLED_LIFECYCLE_BLOCKED" in _codes(result)
+            assert "CONTROLLED_LIFECYCLE_NOT_ALLOWED" in gate_codes
         assert result["flags"]["side_effects_performed"] is False
         assert result["response_payload"] == {}
 
@@ -292,10 +294,13 @@ def test_ui_contract_marks_dispatcher_and_policy_available_and_keeps_8_4_plus_pl
     assert policy["dispatcher_created"] is False
     assert policy["request_handling_enabled"] is False
 
-    for name in ("confirmation_gate", "internal_response_adapter"):
-        assert planned[name]["available_now"] is False
-        assert planned[name]["dispatcher_created"] is False
-        assert planned[name]["request_handling_enabled"] is False
+    assert available["internal_confirmation_gate"]["available_now"] is True
+    assert available["internal_confirmation_gate"]["phase"] == "8.4"
+    assert available["internal_confirmation_gate"]["service_execution_enabled"] is False
+
+    assert planned["internal_response_adapter"]["available_now"] is False
+    assert planned["internal_response_adapter"]["dispatcher_created"] is False
+    assert planned["internal_response_adapter"]["request_handling_enabled"] is False
 
 
 def test_docs_plans_book_and_adr_record_prompt_8_3():

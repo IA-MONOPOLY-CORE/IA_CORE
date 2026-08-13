@@ -352,3 +352,27 @@ Readiness: `ready_for_phase_7_7_backend_internal_ui_contract_checkpoint`.
 El envelope `backend_internal_ui_payload.v1` normaliza payloads 7.1-7.5 y documenta `blocked_capabilities` con semantica `true = blocked`. No crea UI visual, frontend ni endpoints publicos; no toca `domains/` operativo; no activa runtime, execution, modelos/tools ni integraciones.
 
 Proximo prompt recomendado: `PROMPT 7.7 - Checkpoint integral contrato backend interno para UI`.
+
+## 31. Actualizacion PROMPT 8.4
+
+`PROMPT 8.4 - Confirmation gate para controlled-write/lifecycle` deja
+`internal_confirmation_gate` y `confirmation_gate_validation` disponibles ahora
+como contratos internos.
+
+Estado: `BACKEND_INTERNAL_CONFIRMATION_GATE_READY`.
+
+Veredicto no-execution: `BACKEND_INTERNAL_CONFIRMATION_GATE_NO_EXECUTION_CONFIRMED`.
+
+Veredicto no-operativo: `BACKEND_INTERNAL_CONFIRMATION_GATE_NO_OPERATIONAL_CONFIRMED`.
+
+Readiness: `ready_for_phase_8_5_internal_response_adapter`.
+
+Ambos servicios quedan `available_now=true`, `side_effects=false`,
+`public_endpoint=false`, `touches_visual_ui=false`, `runtime_enabled=false`,
+`execution_enabled=false`, `service_execution_enabled=false`,
+`requires_human_confirmation=false` a nivel gate, `destructive=false` y
+`touches_operational_domains=false`.
+
+`internal_response_adapter` permanece planned para 8.5. No se crea UI visual,
+frontend, endpoint publico, API real, runtime, execution, integraciones ni
+controlled execution.

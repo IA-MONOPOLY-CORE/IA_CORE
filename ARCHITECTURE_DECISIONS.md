@@ -1574,3 +1574,38 @@ Despues del request envelope 8.2, IA_CORE necesita decidir si un request validad
 - Fase 8 puede avanzar a confirmation gate con una frontera de dispatch ya controlada.
 - La exposicion interna puede decidir requests sin ejecutar side effects ni habilitar runtime.
 - Market Catalog runtime, Business Composition Layer runtime, OBLITERATUS y raw Package directo al User Panel permanecen bloqueados.
+
+---
+
+## ADR-063 - Confirmation gate contractual para controlled-write/lifecycle
+
+**Estado**: Aceptado
+
+**Prompt**: 8.4 - Confirmation gate para controlled-write/lifecycle
+
+**Contexto**:
+Despues del dispatcher 8.3, los servicios `controlled_write` y
+`controlled_lifecycle` necesitan una puerta de confirmacion humana antes de
+cualquier adaptador futuro. Esta puerta debe validar intencion, scope y payload
+sin ejecutar servicios ni abrir runtime.
+
+**Decision**:
+- IA_CORE introduce `core/backend_internal_confirmation_gate.py`.
+- El gate devuelve `backend_internal_confirmation_gate_result.v1`.
+- Valida `confirmed=true`, `human_confirmation_required=true`,
+  `confirmation_scope`, `confirmed_by`, `confirmation_id`, sandbox root seguro,
+  `preview_payload`, `validation_payload`, `allow_delete`, `allow_reset` y
+  `gate_options` controladas.
+- El dispatcher 8.3 integra el gate y puede devolver
+  `confirmation_gate_passed=true` con `dispatch_allowed=true`, pero conserva
+  `dispatch_executed=false`.
+- `internal_confirmation_gate` y `confirmation_gate_validation` quedan
+  disponibles como contratos 8.4.
+- `internal_response_adapter` permanece planned para 8.5.
+
+**Consecuencias**:
+- Fase 8 avanza a `PROMPT 8.5 - Internal response adapter usando stable_ui_payloads`.
+- La confirmacion humana queda validada antes de cualquier controlled execution adapter futuro.
+- Runtime, execution, dry-run real, tools, modelos, integraciones, endpoints,
+  UI runtime, Market Catalog runtime, Business Composition Layer runtime,
+  OBLITERATUS y raw Package directo al User Panel permanecen bloqueados.

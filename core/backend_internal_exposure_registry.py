@@ -33,6 +33,7 @@ EXPECTED_EXPOSABLE_SERVICES = (
     "stable_ui_payloads",
     "internal_exposure_registry",
     "internal_request_validation",
+    "internal_dispatcher_no_runtime",
 )
 
 EXPECTED_BLOCKED_SERVICES = (
@@ -326,6 +327,28 @@ SERVICE_DEFINITIONS: dict[str, dict[str, Any]] = {
         "allowed_actions_policy": {"may_validate": ["backend_internal_ui_request.v1"], "backend_decides": True},
         "security_notes": ["request validation contractual", "no enruta ni ejecuta"],
     },
+    "internal_dispatcher_no_runtime": {
+        "service_name": "internal_dispatcher_no_runtime",
+        "service_kind": "contract_internal_dispatcher",
+        "source_prompt": "PROMPT 8.3 - Internal dispatcher no-runtime/no-side-effect por defecto",
+        "source_module": "core.backend_internal_dispatcher",
+        "source_doc": "docs/BACKEND_INTERNAL_DISPATCHER_8_3.md",
+        "source_tests": ["tests/test_backend_internal_dispatcher_8_3.py"],
+        "input_contract": {
+            "required": ["request_envelope"],
+            "optional": ["dispatch_options"],
+            "requires_preview_payload": False,
+            "requires_allow_delete": False,
+            "requires_allow_reset": False,
+        },
+        "requires_confirmation": False,
+        "requires_validation_payload": False,
+        "requires_safe_sandbox_root": False,
+        "side_effects": False,
+        "destructive": False,
+        "allowed_actions_policy": {"may_dispatch_contract_only": ["safe_contract_services"], "backend_decides": True},
+        "security_notes": ["dispatcher contractual", "no runtime", "no side effects"],
+    },
 }
 
 
@@ -347,7 +370,11 @@ def build_internal_exposure_registry() -> dict[str, Any]:
         "blocked_services": blocked,
         "service_groups": {
             "read_only": ["list_domains_status", "preview_materialization", "validate_domain", "stable_ui_payloads"],
-            "contract": ["internal_exposure_registry", "internal_request_validation"],
+            "contract": [
+                "internal_exposure_registry",
+                "internal_request_validation",
+                "internal_dispatcher_no_runtime",
+            ],
             "controlled_write": ["materialize_sandbox"],
             "controlled_lifecycle": [
                 "rollback_sandbox",

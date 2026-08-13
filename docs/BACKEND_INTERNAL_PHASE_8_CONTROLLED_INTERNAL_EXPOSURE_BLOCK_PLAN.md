@@ -166,3 +166,25 @@ Fase 8 podra cerrarse cuando exista registry interno, request envelope validado,
 ## 25. Proximo Prompt Exacto
 
 `PROMPT 8.1 - Internal exposure registry / service map`
+
+## 26. Estado Posterior A PROMPT 8.4
+
+`PROMPT 8.4 - Confirmation gate para controlled-write/lifecycle` queda
+representado por `core/backend_internal_confirmation_gate.py` y
+`backend_internal_confirmation_gate_result.v1`.
+
+El confirmation gate valida solicitudes controlled con confirmacion humana y se
+integra al dispatcher 8.3 sin ejecutar servicios. El estado resultante es:
+
+- `BACKEND_INTERNAL_CONFIRMATION_GATE_READY`
+- `BACKEND_INTERNAL_CONFIRMATION_GATE_NO_EXECUTION_CONFIRMED`
+- `BACKEND_INTERNAL_CONFIRMATION_GATE_NO_OPERATIONAL_CONFIRMED`
+- `ready_for_phase_8_5_internal_response_adapter`
+
+`internal_response_adapter` sigue siendo el proximo bloque exacto y permanece
+planned. No se habilita runtime, execution, dry-run real, UI, endpoint,
+integraciones ni controlled execution.
+
+Proximo prompt exacto:
+
+`PROMPT 8.5 - Internal response adapter usando stable_ui_payloads`

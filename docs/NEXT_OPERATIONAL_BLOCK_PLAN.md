@@ -1005,6 +1005,38 @@ No se crea UI visual, no se crean endpoints publicos, no se implementa 7.2, no s
 
 Runtime, execution, dry-run real, context injection, output delivery, writes/stores/memory operativos, network/browser/filesystem runtime/env/secrets, API runtime, UI runtime, UI-device control, Market Catalog runtime, Business Composition Layer runtime, OBLITERATUS y raw Package directo al User Panel permanecen bloqueados.
 
+## PROMPT 8.4 - Confirmation Gate Para Controlled-Write/Lifecycle
+
+Estado: `BACKEND_INTERNAL_CONFIRMATION_GATE_READY`.
+
+Veredicto no-execution: `BACKEND_INTERNAL_CONFIRMATION_GATE_NO_EXECUTION_CONFIRMED`.
+
+Veredicto no-operativo: `BACKEND_INTERNAL_CONFIRMATION_GATE_NO_OPERATIONAL_CONFIRMED`.
+
+Readiness: `ready_for_phase_8_5_internal_response_adapter`.
+
+Proximo paso operacional/documental: `PROMPT 8.5 - Internal response adapter usando stable_ui_payloads`.
+
+`PROMPT 8.4 - Confirmation gate para controlled-write/lifecycle` agrega una
+puerta contractual que valida confirmacion humana, scope, payload seguro y
+opciones explicitamente controladas para `materialize_sandbox` y lifecycle.
+
+La integracion con `internal_dispatcher_no_runtime` permite devolver
+`confirmation_gate_passed=true` para requests controlled validos, pero conserva
+`dispatch_executed=false`, `side_effects_performed=false`,
+`service_execution_enabled=false` y
+`ready_for_controlled_execution_adapter=false`.
+
+No abre runtime, no abre execution, no abre dry-run real, no crea response
+adapter, no crea UI/UX, no crea endpoints, no crea integraciones, no ejecuta
+servicios controlled y no toca `domains/` operativo.
+
+Runtime, execution, dry-run real, tools/modelos/context/output,
+writes/stores/memory, network/browser/filesystem runtime/env/secrets, API/UI,
+UI-device control, integraciones, Market Catalog runtime, Business Composition
+Layer runtime, OBLITERATUS y raw Package directo al User Panel permanecen
+bloqueados.
+
 ## PROMPT 7.7 - Checkpoint Integral Contrato Backend Interno Para UI
 
 `PROMPT 7.7 - Checkpoint integral contrato backend interno para UI` cierra Fase 7 como bloque backend interno estable para futura UI.

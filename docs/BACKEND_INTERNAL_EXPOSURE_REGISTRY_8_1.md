@@ -159,3 +159,17 @@ Riesgo: que una futura capa use el registry como dispatcher. Mitigacion: el regi
 ## 31. Proximo Prompt Exacto
 
 `PROMPT 8.2 - Internal request envelope y request validation`
+
+## 32. Actualizacion De Continuidad Hasta PROMPT 8.4
+
+El registry mantiene su origen en 8.1, pero la cadena 8.x lo extendio para
+incluir servicios contractuales internos necesarios para validacion posterior:
+
+- `internal_exposure_registry` como `contract_internal_exposure_registry`.
+- `internal_request_validation` como `contract_request_validation`.
+- `internal_dispatcher_no_runtime` como `contract_internal_dispatcher`.
+
+Estos servicios no crean endpoints, no abren UI, no ejecutan runtime y no tocan
+`domains/` operativo. Su inclusion permite que
+`core/backend_internal_confirmation_gate.py` valide requests controlled contra
+un service map consistente.

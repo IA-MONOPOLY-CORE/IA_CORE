@@ -29,7 +29,6 @@ ADR = ROOT / "ARCHITECTURE_DECISIONS.md"
 
 FORBIDDEN_FILES = (
     "core/backend_internal_ui_dispatcher.py",
-    "core/backend_internal_confirmation_gate.py",
     "core/backend_internal_response_adapter.py",
     "core/backend_internal_ui_router.py",
     "core/backend_internal_ui_api.py",
@@ -341,10 +340,13 @@ def test_ui_contract_marks_8_2_available_and_keeps_8_3_plus_planned():
     assert available["internal_dispatcher_no_runtime"]["dispatcher_created"] is True
     assert available["internal_dispatcher_no_runtime"]["request_handling_enabled"] is False
 
-    for name in ("confirmation_gate", "internal_response_adapter"):
-        assert planned[name]["available_now"] is False
-        assert planned[name]["dispatcher_created"] is False
-        assert planned[name]["request_handling_enabled"] is False
+    assert available["internal_confirmation_gate"]["available_now"] is True
+    assert available["internal_confirmation_gate"]["phase"] == "8.4"
+    assert available["internal_confirmation_gate"]["service_execution_enabled"] is False
+
+    assert planned["internal_response_adapter"]["available_now"] is False
+    assert planned["internal_response_adapter"]["dispatcher_created"] is False
+    assert planned["internal_response_adapter"]["request_handling_enabled"] is False
 
 
 def test_docs_plans_book_and_adr_record_prompt_8_2():

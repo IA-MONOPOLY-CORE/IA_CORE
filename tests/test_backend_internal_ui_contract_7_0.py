@@ -72,6 +72,9 @@ EXPECTED_ERRORS = {
     "SECRET_LIKE_FIELD_BLOCKED",
     "PAYLOAD_NOT_JSON_SAFE",
     "READINESS_NOT_MET",
+    "CONFIRMATION_GATE_REQUEST_REQUIRED",
+    "CONTROLLED_WRITE_NOT_ALLOWED",
+    "CONTROLLED_LIFECYCLE_NOT_ALLOWED",
 }
 
 FORBIDDEN_OPERATIONAL_MODULES = (
@@ -112,7 +115,7 @@ def test_backend_internal_ui_contract_builds_and_is_json_safe():
     assert contract["non_operational_verdict"] == CONTRACT_NO_OPERATIONAL_VERDICT
     assert contract["readiness"] == CONTRACT_READINESS
     assert encoded
-    assert len(encoded.encode("utf-8")) <= 96_000
+    assert len(encoded.encode("utf-8")) <= 128_000
 
 
 def test_services_are_declared_without_overstating_availability():
@@ -137,6 +140,8 @@ def test_services_are_declared_without_overstating_availability():
         "internal_request_validation",
         "internal_dispatcher_no_runtime",
         "internal_dispatch_policy",
+        "internal_confirmation_gate",
+        "confirmation_gate_validation",
     }
     assert PLANNED_SERVICES <= set(planned)
     for service in planned.values():
@@ -199,6 +204,16 @@ def test_services_are_declared_without_overstating_availability():
     assert available["internal_dispatch_policy"]["type"] == "contract/dispatch-policy"
     assert available["internal_dispatch_policy"]["dispatch_policy_defined"] is True
     assert available["internal_dispatch_policy"]["request_handling_enabled"] is False
+    assert available["internal_confirmation_gate"]["type"] == "contract/confirmation-gate"
+    assert available["internal_confirmation_gate"]["available_now"] is True
+    assert available["internal_confirmation_gate"]["phase"] == "8.4"
+    assert available["internal_confirmation_gate"]["confirmation_gate_validation"] is True
+    assert available["internal_confirmation_gate"]["service_execution_enabled"] is False
+    assert available["internal_confirmation_gate"]["requires_human_confirmation"] is False
+    assert available["internal_confirmation_gate"]["side_effects"] is False
+    assert available["confirmation_gate_validation"]["type"] == "contract/confirmation-gate-validation"
+    assert available["confirmation_gate_validation"]["available_now"] is True
+    assert available["confirmation_gate_validation"]["service_execution_enabled"] is False
 
 
 def test_entities_states_readiness_and_errors_are_explicit():

@@ -137,3 +137,19 @@ Riesgo: confundir dispatcher contractual con runtime executor. Mitigacion: `disp
 ## 31. Proximo Prompt Exacto
 
 `PROMPT 8.4 - Confirmation gate para controlled-write/lifecycle`
+
+## 32. Actualizacion Por PROMPT 8.4
+
+PROMPT 8.4 integra `internal_dispatcher_no_runtime` con
+`core/backend_internal_confirmation_gate.py`. Para servicios
+controlled-write/lifecycle, el dispatcher ahora consulta el gate:
+
+- si el gate falta o bloquea, mantiene `requires_confirmation_gate=true`,
+  `confirmation_gate_passed=false`, `dispatch_allowed=false` y
+  `dispatch_executed=false`;
+- si el gate pasa, devuelve `confirmation_gate_passed=true`,
+  `dispatch_allowed=true`, `dispatch_executed=false` y
+  `ready_for_controlled_execution_adapter=false`.
+
+Esta actualizacion no convierte el dispatcher en runtime executor y no ejecuta
+servicios controlled.

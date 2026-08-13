@@ -6003,3 +6003,33 @@ Este bloque crea `core/backend_internal_dispatcher.py` como dispatcher interno c
 8.3 no endpoints publicos, no API real, no router HTTP, no UI visual, no frontend, no runtime/execution/tools/models/integrations, no agentes, no side effects, no materialize_sandbox, no lifecycle, no toca `domains/` operativo, no Market Catalog runtime, no Business Composition Layer runtime, no OBLITERATUS ni raw Package directo al User Panel.
 
 Proximo prompt exacto: `PROMPT 8.4 - Confirmation gate para controlled-write/lifecycle`.
+
+## 206. PROMPT 8.4 - Confirmation gate para controlled-write/lifecycle
+
+Estado: `BACKEND_INTERNAL_CONFIRMATION_GATE_READY`
+
+Veredicto no-execution: `BACKEND_INTERNAL_CONFIRMATION_GATE_NO_EXECUTION_CONFIRMED`
+
+Veredicto no-operativo: `BACKEND_INTERNAL_CONFIRMATION_GATE_NO_OPERATIONAL_CONFIRMED`
+
+Readiness: `ready_for_phase_8_5_internal_response_adapter`
+
+Este bloque crea `core/backend_internal_confirmation_gate.py` como puerta
+contractual para controlled-write/lifecycle. Valida confirmacion humana, scope,
+`confirmed_by`, `confirmation_id`, sandbox root seguro, `preview_payload`,
+`validation_payload`, `allow_delete`, `allow_reset` y opciones controladas de
+gate.
+
+`internal_confirmation_gate` y `confirmation_gate_validation` quedan
+`available_now=true` en el contrato backend interno. El dispatcher 8.3 invoca el
+gate para servicios controlled, pero conserva `dispatch_executed=false`,
+`side_effects_performed=false`, `service_execution_enabled=false` y
+`ready_for_controlled_execution_adapter=false`.
+
+8.4 no endpoints publicos, no API real, no router HTTP, no UI visual, no
+frontend, no runtime/execution/tools/models/integrations, no agentes, no side
+effects, no materialize_sandbox, no lifecycle, no toca `domains/` operativo, no
+Market Catalog runtime, no Business Composition Layer runtime, no OBLITERATUS ni
+raw Package directo al User Panel.
+
+Proximo prompt exacto: `PROMPT 8.5 - Internal response adapter usando stable_ui_payloads`.
