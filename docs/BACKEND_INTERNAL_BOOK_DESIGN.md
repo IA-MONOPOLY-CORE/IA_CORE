@@ -5773,3 +5773,15 @@ Readiness: `ready_for_phase_6_3_materialization_audit_pack`
 Proximo paso: `PROMPT 6.3 - Audit pack y trazabilidad de materializacion sandbox`
 
 Este bloque agrega contrato de regeneracion segura posterior a rollback integral. Valida `materializar -> rollback integral -> regenerar -> reconstruir cadena sandbox -> comparar estructura`, preserva identidad logica, genera nuevo `materialization_id`, conserva lineage con `previous_materialization_id`, reconstruye artifact manifest/read model, bloquea duplicados y residuos no declarados, y confirma no-operatividad. No activa runtime, execution, dry-run real, tools/modelos/contexto/output, writes/stores/memory operativos, UI, integraciones, Market Catalog runtime, Business Composition Layer runtime, OBLITERATUS ni raw Package directo a User Panel.
+
+## 192. PROMPT 6.3 - Audit pack y trazabilidad de materializacion sandbox
+
+Estado: `SANDBOX_MATERIALIZATION_AUDIT_PACK_READY`
+
+Veredicto: `SANDBOX_AUDIT_PACK_NO_OPERATIONAL_CONFIRMED`
+
+Readiness: `ready_for_phase_6_4_integral_checkpoint`
+
+Proximo paso: `PROMPT 6.4 - Checkpoint integral Fase 6`
+
+Este bloque crea `core/sandbox_materialization_audit_pack.py` como contrato interno, JSON-safe, resumido y no-operativo para empaquetar evidencia del ciclo completo de Fase 6. El audit pack incluye first materialization, end-to-end checkpoint, rollback, regeneration, structural comparison, artifact_manifest_summary, lineage_summary, created_paths_summary, read_models_summary, non_operational_summary y blocked_capabilities. Excluye secrets/env, runtime handles, model/tool configs, data productiva, raw prompts, dumps excesivos y rutas absolutas completas. No activa runtime, execution, dry-run real, tools/modelos/contexto/output, writes/stores/memory operativos, UI, integraciones, Market Catalog runtime, Business Composition Layer runtime, OBLITERATUS ni raw Package directo a User Panel.

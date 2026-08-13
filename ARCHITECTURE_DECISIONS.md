@@ -1231,3 +1231,26 @@ Despues de validar la cadena sandbox completa y el rollback integral basado en m
 - El sistema puede reconstruir cadenas sandbox de forma trazable y repetible sin residuos ni duplicados.
 - Fase 6.3 puede construir audit pack sobre evidencia de materializacion, rollback y regeneracion.
 - La futura activacion operacional no puede inferirse de una regeneracion sandbox exitosa.
+
+---
+
+## ADR-049 - Audit pack sandbox como evidencia interna no operativa
+
+**Estado**: Aceptado
+
+**Prompt**: 6.3 - Audit pack y trazabilidad de materializacion sandbox
+
+**Contexto**:
+Fase 6 ya valido la cadena sandbox completa, rollback integral, regeneracion segura y comparacion estructural. Faltaba empaquetar esa evidencia de forma consumible por backend interno, auditoria futura y futura UI sin convertirla en ejecucion ni exponer datos sensibles.
+
+**Decision**:
+- IA_CORE empaqueta la evidencia de materializacion, rollback y regeneracion sandbox en un audit pack interno JSON-safe, no operativo y sin side effects.
+- El contrato vive en `core/sandbox_materialization_audit_pack.py`.
+- El audit pack resume manifests, lineage, dependencies, `created_paths`, reports, comparacion estructural, bloqueos y readiness.
+- El audit pack excluye secrets/env, runtime handles, API keys, access tokens, model/tool configs operativos, network/output delivery handles, data productiva, raw prompts, dumps excesivos y rutas absolutas completas.
+- El audit pack declara `operational=false`, `passed=false`, `runtime_enabled=false`, `execution_enabled=false`, `tool_execution_enabled=false`, `model_invocation_enabled=false` y `external_integrations_enabled=false`.
+
+**Consecuencias**:
+- Backend interno y futura UI podran inspeccionar evidencia probatoria sin activar runtime ni inferir reglas criticas.
+- La auditoria de Fase 6 queda desacoplada de cualquier ejecucion real.
+- El checkpoint integral 6.4 puede consumir evidencia resumida y trazable sin abrir runtime, execution, tools, modelos, UI ni integraciones.

@@ -50,6 +50,22 @@ La regeneracion crea una nueva materializacion, preserva identidad logica del do
 
 Siguen bloqueados runtime, execution, dry-run real, tools, modelos, contexto operativo, output delivery, writes/stores/memory operativos, network, browser, filesystem runtime, env, secrets, API runtime, UI runtime, UI-device control, integraciones, Market Catalog runtime, Business Composition Layer runtime, OBLITERATUS y raw Package directo a User Panel.
 
+## PROMPT 6.3 - Audit Pack Y Trazabilidad De Materializacion Sandbox
+
+Estado: `SANDBOX_MATERIALIZATION_AUDIT_PACK_READY`
+
+Veredicto: `SANDBOX_AUDIT_PACK_NO_OPERATIONAL_CONFIRMED`
+
+Readiness: `ready_for_phase_6_4_integral_checkpoint`
+
+Proximo prompt exacto: `PROMPT 6.4 - Checkpoint integral Fase 6`
+
+`PROMPT 6.3` crea `core/sandbox_materialization_audit_pack.py` como contrato interno para empaquetar evidencia resumida del ciclo completo de Fase 6. El audit pack consume snapshots de materializacion, checkpoint E2E, rollback integral, regeneracion segura, comparacion estructural, resumen de `artifact_manifest`, lineage, dependencies, `created_paths`, read models, bloqueos y readiness.
+
+La evidencia incluida es JSON-safe y resumida. Excluye secrets/env, runtime handles, API keys, access tokens, model/tool configs operativos, network/output delivery handles, data productiva, raw prompts, dumps completos y rutas absolutas completas.
+
+Siguen bloqueados runtime, execution, dry-run real, tools, modelos, contexto operativo, output delivery, writes/stores/memory operativos, network, browser, filesystem runtime, env, secrets, API runtime, UI runtime, UI-device control, integraciones, Market Catalog runtime, Business Composition Layer runtime, OBLITERATUS y raw Package directo a User Panel.
+
 Estado: `NEXT_ARCHITECTURE_BLOCK_PLANNING_COMPLETED`
 
 Veredicto: `NEXT_ARCHITECTURE_BLOCK_SELECTED`
@@ -165,6 +181,7 @@ Fase 6 cierra cuando exista evidencia de:
 - rollback selectivo validado por dependencias;
 - rollback total validado sin residuos;
 - regeneracion segura validada;
+- audit pack interno de materializacion sandbox validado;
 - manifest y lineage coherentes;
 - read model de equipo consumible en la cadena;
 - errores legibles para casos negativos;

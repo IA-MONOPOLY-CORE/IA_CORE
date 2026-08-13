@@ -795,4 +795,18 @@ Proximo prompt exacto: `PROMPT 6.2 - Regeneracion segura sandbox completa`.
 
 `PROMPT 6.1` confirma que la cadena sandbox completa validada en 6.0 puede revertirse por plan integral basado en `artifact_manifest`, `created_paths` y `sandbox_root` controlado. El rollback preserva paths no declarados, bloquea repo root y rutas operativas, y es idempotente.
 
+## PROMPT 6.3 - Audit Pack Y Trazabilidad De Materializacion Sandbox
+
+Estado: `SANDBOX_MATERIALIZATION_AUDIT_PACK_READY`
+
+Veredicto: `SANDBOX_AUDIT_PACK_NO_OPERATIONAL_CONFIRMED`
+
+Readiness: `ready_for_phase_6_4_integral_checkpoint`
+
+Proximo prompt exacto: `PROMPT 6.4 - Checkpoint integral Fase 6`.
+
+`PROMPT 6.3` confirma que IA_CORE puede empaquetar evidencia interna, resumida y JSON-safe del ciclo de Fase 6: materializacion E2E, rollback integral, regeneracion segura, comparacion estructural, `artifact_manifest`, lineage/dependencies, `created_paths`, read models, blocked capabilities y readiness.
+
+El audit pack excluye secrets/env, runtime handles, model/tool configs operativos, network/output delivery handles, raw prompts, data productiva y dumps excesivos. No abre runtime, execution, dry-run real, tools, modelos, contexto operativo, outputs, writes/stores/memory operativos, UI, integraciones, Market Catalog runtime, Business Composition Layer runtime, OBLITERATUS ni raw Package directo a User Panel.
+
 No abre runtime, execution, dry-run real, tools, modelos, contexto operativo, output delivery, writes/stores/memory operativos, API runtime, UI runtime, UI-device control, integraciones, Market Catalog runtime, Business Composition Layer runtime, OBLITERATUS ni raw Package directo a User Panel.

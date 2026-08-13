@@ -929,6 +929,22 @@ Readiness: `ready_for_phase_6_2_safe_regeneration`.
 
 Proximo paso operacional/documental: `PROMPT 6.2 - Regeneracion segura sandbox completa`.
 
+## PROMPT 6.3 - Audit Pack Y Trazabilidad De Materializacion Sandbox
+
+`PROMPT 6.3` deja creado y validado el audit pack interno de materializacion sandbox sin abrir etapa operacional.
+
+Estado: `SANDBOX_MATERIALIZATION_AUDIT_PACK_READY`.
+
+Veredicto: `SANDBOX_AUDIT_PACK_NO_OPERATIONAL_CONFIRMED`.
+
+Readiness: `ready_for_phase_6_4_integral_checkpoint`.
+
+Proximo paso operacional/documental: `PROMPT 6.4 - Checkpoint integral Fase 6`.
+
+El audit pack resume materializacion E2E, rollback integral, regeneracion segura, comparacion estructural, `artifact_manifest`, lineage, dependencies, `created_paths`, read models y blocked capabilities. Excluye secrets/env, runtime handles, configs operativas, data productiva, raw prompts y dumps excesivos.
+
+Runtime, execution, dry-run real, tools, modelos, contexto operativo, output delivery, writes/stores/memory operativos, API, UI, integraciones, Market Catalog runtime, Business Composition Layer runtime, OBLITERATUS y raw Package directo a User Panel permanecen bloqueados.
+
 El rollback integral usa `artifact_manifest`, `created_paths`, lineage y `sandbox_root` controlado. Elimina solo paths declarados, preserva paths no declarados, bloquea repo root, `domains/` operativo, `.git/`, `core/`, `docs/`, `tests/`, path traversal y symlink escape, y confirma idempotencia.
 
 Siguen bloqueados runtime, execution, dry-run real, tools, modelos, contexto operativo, output delivery, writes/stores/memory operativos, network/browser/filesystem runtime/env/secrets, API runtime, UI runtime, UI-device control, integraciones, Market Catalog runtime, Business Composition Layer runtime, OBLITERATUS y raw Package directo a User Panel.
