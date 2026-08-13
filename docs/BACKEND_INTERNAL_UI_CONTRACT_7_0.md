@@ -74,7 +74,7 @@ Servicios previstos por Fase 7:
 - `validate_domain`;
 - `materialize_sandbox`;
 - `rollback_sandbox`;
-- `archive_domain`;
+- `archive_sandbox_domain`;
 - `delete_sandbox_domain`;
 - `reset_sandbox_domain`.
 
@@ -101,7 +101,7 @@ Despues de `PROMPT 7.1`, `list_domains_status` deja de estar planeado y pasa a d
 
 Despues de `PROMPT 7.2`, `preview_materialization` deja de estar planeado y pasa a disponible. Los servicios 7.3+ siguen planeados con `available_now=false`.
 
-Los servicios `materialize_sandbox`, `rollback_sandbox`, `archive_domain`, `delete_sandbox_domain` y `reset_sandbox_domain` requieren confirmacion humana futura y no estan disponibles ahora.
+Al cierre de 7.0, los servicios `materialize_sandbox`, `rollback_sandbox`, `archive_sandbox_domain`, `delete_sandbox_domain` y `reset_sandbox_domain` requieren confirmacion humana futura y no estan disponibles todavia. Despues de 7.5, las acciones lifecycle sandbox quedan disponibles bajo validacion y confirmacion explicita.
 
 ## 9. Estados Permitidos
 
@@ -314,3 +314,23 @@ Readiness: `ready_for_phase_7_5_rollback_archive_delete_reset_service`.
 El servicio requiere `sandbox_root` explicito/controlado y `domain_id`, valida una materializacion sandbox existente y produce payload JSON-safe con validacion de dominio, artifact_manifest, created_paths, lineage/dependencies, artefactos, read models y rollback readiness. No escribe, no materializa, no repara, no regenera, no ejecuta rollback y mantiene bloqueados runtime, execution, dry-run real, tools, modelos, UI visual, endpoints publicos, integraciones, Market Catalog runtime, Business Composition Layer runtime y OBLITERATUS.
 
 Proximo prompt recomendado: `PROMPT 7.5 - Servicio interno rollback/archive/delete/reset`.
+
+## 29. Actualizacion PROMPT 7.5
+
+`PROMPT 7.5 - Servicio interno rollback/archive/delete/reset` deja `rollback_sandbox`, `archive_sandbox_domain`, `delete_sandbox_domain` y `reset_sandbox_domain` disponibles ahora dentro del contrato backend interno.
+
+Estado: `BACKEND_INTERNAL_DOMAIN_LIFECYCLE_SERVICE_READY`.
+
+Veredicto: `BACKEND_INTERNAL_DOMAIN_LIFECYCLE_CONTROLLED_ACTIONS_CONFIRMED`.
+
+Veredicto no-operativo: `BACKEND_INTERNAL_DOMAIN_LIFECYCLE_NO_OPERATIONAL_CONFIRMED`.
+
+Readiness: `ready_for_phase_7_6_stable_ui_payloads`.
+
+Los cuatro servicios requieren `sandbox_root` explicito/controlado, `validation_payload` de `validate_domain`, confirmacion humana explicita, `requires_safe_sandbox_root=true` y `requires_validation_payload=true`.
+
+`rollback_sandbox`, `delete_sandbox_domain` y `reset_sandbox_domain` son `destructive-controlled`. `archive_sandbox_domain` es `controlled-write` no destructivo.
+
+Ningun servicio crea UI visual, frontend o endpoints publicos. Ningun servicio toca `domains/` operativo. Runtime, execution, dry-run real, modelos/tools, integraciones, Market Catalog runtime, Business Composition Layer runtime y OBLITERATUS siguen bloqueados.
+
+Proximo prompt recomendado: `PROMPT 7.6 - Payloads estables para futura UI`.

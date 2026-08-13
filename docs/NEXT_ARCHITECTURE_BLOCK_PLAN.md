@@ -843,7 +843,7 @@ Proximo prompt exacto: `PROMPT 7.1 - Servicio interno list_domains/status`.
 
 Servicios disponibles ahora: `get_backend_internal_ui_contract` y `validate_backend_internal_ui_contract`, ambos read-only, internos, in-memory y sin side effects.
 
-Servicios planeados: `list_domains_status`, `get_domain_detail`, `get_sandbox_team_listing`, `get_materialization_audit_pack`, `preview_materialization`, `validate_domain`, `materialize_sandbox`, `rollback_sandbox`, `archive_domain`, `delete_sandbox_domain` y `reset_sandbox_domain`.
+Servicios planeados en 7.0: `list_domains_status`, `get_domain_detail`, `get_sandbox_team_listing`, `get_materialization_audit_pack`, `preview_materialization`, `validate_domain`, `materialize_sandbox`, `rollback_sandbox`, `archive_sandbox_domain`, `delete_sandbox_domain` y `reset_sandbox_domain`.
 
 Fase 7 no crea UI visual, no crea frontend, no crea endpoints publicos y no implementa `PROMPT 7.1`. Runtime, execution, dry-run real, tools/modelos/context/output, writes/stores/memory operativos, network/browser/filesystem runtime/env/secrets, API runtime, UI runtime, UI-device control, integraciones, Market Catalog runtime, Business Composition Layer runtime, OBLITERATUS y raw Package directo a User Panel permanecen bloqueados.
 
@@ -902,6 +902,26 @@ Proximo prompt exacto: `PROMPT 7.4 - Servicio interno validate_domain`.
 `PROMPT 7.3 - Servicio interno materialize_sandbox` crea el primer servicio controlled-write del backend interno para futura UI. El servicio exige `preview_materialization` valido, `sandbox_root` explicito/controlado, confirmacion explicita, paths seguros, `requires_valid_preview=true`, `prepares_rollback=true` y `available_now=true` en el contrato.
 
 La escritura queda limitada a sandbox controlado: `domain sandbox -> artifact_manifest -> profile_catalog -> agent_presets -> paper_seed -> sandbox agents -> sandbox team -> team read model`. Prepara rollback integral y devuelve payload JSON-safe con `created_paths`, `artifact_summary`, `lineage_summary`, `dependencies_summary`, `read_models_summary` y `rollback_prepared=true`.
+
+Sigue bloqueado runtime, execution, dry-run real, tools, modelos, context injection, output delivery, writes/stores/memory operativos, network/browser/filesystem runtime/env/secrets, API runtime, UI runtime, UI visual, UI-device control, endpoints publicos, integraciones, Market Catalog runtime, Business Composition Layer runtime, OBLITERATUS y raw Package directo al User Panel.
+
+## PROMPT 7.5 - Servicio Interno rollback/archive/delete/reset
+
+Estado: `BACKEND_INTERNAL_DOMAIN_LIFECYCLE_SERVICE_READY`
+
+Veredicto: `BACKEND_INTERNAL_DOMAIN_LIFECYCLE_CONTROLLED_ACTIONS_CONFIRMED`
+
+Veredicto no-operativo: `BACKEND_INTERNAL_DOMAIN_LIFECYCLE_NO_OPERATIONAL_CONFIRMED`
+
+Readiness: `ready_for_phase_7_6_stable_ui_payloads`
+
+Bloque actual: `Fase 7 - Contrato backend interno para UI`.
+
+Proximo prompt exacto: `PROMPT 7.6 - Payloads estables para futura UI`.
+
+`PROMPT 7.5 - Servicio interno rollback/archive/delete/reset` selecciona y completa la frontera lifecycle interna previa a payloads estables. El bloque deja disponibles `rollback_sandbox`, `archive_sandbox_domain`, `delete_sandbox_domain` y `reset_sandbox_domain` como acciones separadas, con `validation_payload` obligatorio desde `validate_domain`, confirmacion humana explicita, `sandbox_root` seguro y control de paths declarados por manifest/created_paths.
+
+`archive_sandbox_domain` no borra definitivamente; mueve a `_archives` dentro del sandbox controlado. `rollback_sandbox` reutiliza rollback integral 6.1. `delete_sandbox_domain` exige `allow_delete=true`. `reset_sandbox_domain` exige `allow_reset=true` y no regenera automaticamente.
 
 Sigue bloqueado runtime, execution, dry-run real, tools, modelos, context injection, output delivery, writes/stores/memory operativos, network/browser/filesystem runtime/env/secrets, API runtime, UI runtime, UI visual, UI-device control, endpoints publicos, integraciones, Market Catalog runtime, Business Composition Layer runtime, OBLITERATUS y raw Package directo al User Panel.
 

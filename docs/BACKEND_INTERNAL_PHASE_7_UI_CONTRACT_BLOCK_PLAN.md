@@ -167,4 +167,24 @@ Proximo prompt exacto: `PROMPT 7.5 - Servicio interno rollback/archive/delete/re
 
 El servicio requiere `sandbox_root` explicito/controlado y `domain_id`; valida dominio sandbox materializado, artifact_manifest, created_paths, lineage/dependencies, artefactos esperados, read models y rollback readiness sin escribir, materializar, reparar, regenerar ni ejecutar rollback.
 
-`list_domains_status`, `preview_materialization` y `materialize_sandbox` siguen `available_now=true`. Los servicios 7.5+ siguen planeados con `available_now=false`. No crea UI visual, no crea frontend, no crea endpoints publicos, no toca `domains/` operativo, no ejecuta agentes, no invoca modelos/tools, no abre integraciones, no activa runtime, no activa execution ni abre dry-run real. Market Catalog runtime, Business Composition Layer runtime, OBLITERATUS y raw Package directo al User Panel siguen bloqueados.
+Al cierre de 7.4, `list_domains_status`, `preview_materialization` y `materialize_sandbox` siguen `available_now=true`; los servicios 7.5+ siguen planeados con `available_now=false` hasta ejecutar 7.5. No crea UI visual, no crea frontend, no crea endpoints publicos, no toca `domains/` operativo, no ejecuta agentes, no invoca modelos/tools, no abre integraciones, no activa runtime, no activa execution ni abre dry-run real. Market Catalog runtime, Business Composition Layer runtime, OBLITERATUS y raw Package directo al User Panel siguen bloqueados.
+
+## 21. Estado De 7.5
+
+`PROMPT 7.5 - Servicio interno rollback/archive/delete/reset` crea `core/backend_internal_domain_lifecycle_service.py` como servicio interno controlled lifecycle para futura UI.
+
+Estado: `BACKEND_INTERNAL_DOMAIN_LIFECYCLE_SERVICE_READY`.
+
+Veredicto: `BACKEND_INTERNAL_DOMAIN_LIFECYCLE_CONTROLLED_ACTIONS_CONFIRMED`.
+
+Veredicto no-operativo: `BACKEND_INTERNAL_DOMAIN_LIFECYCLE_NO_OPERATIONAL_CONFIRMED`.
+
+Readiness: `ready_for_phase_7_6_stable_ui_payloads`.
+
+Proximo prompt exacto: `PROMPT 7.6 - Payloads estables para futura UI`.
+
+`rollback_sandbox`, `archive_sandbox_domain`, `delete_sandbox_domain` y `reset_sandbox_domain` quedan `available_now=true` en el contrato backend interno, con `requires_human_confirmation=true`, `requires_validation_payload=true`, `requires_safe_sandbox_root=true`, `public_endpoint=false`, `ui_visual=false`, `runtime_enabled=false`, `execution_enabled=false` y `touches_operational_domains=false`.
+
+`archive_sandbox_domain` queda como `controlled-write` no destructivo. `rollback_sandbox`, `delete_sandbox_domain` y `reset_sandbox_domain` quedan como `destructive-controlled`.
+
+El servicio exige `validate_domain` previo, confirmacion explicita, `sandbox_root` seguro y paths declarados por manifest/created_paths. No crea UI visual, no crea frontend, no crea endpoints publicos, no toca `domains/` operativo, no ejecuta agentes, no invoca modelos/tools, no abre integraciones, no activa runtime, no activa execution ni abre dry-run real. Market Catalog runtime, Business Composition Layer runtime, OBLITERATUS y raw Package directo al User Panel siguen bloqueados.

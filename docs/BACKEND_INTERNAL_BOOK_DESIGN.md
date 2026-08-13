@@ -5873,3 +5873,23 @@ Este bloque crea `core/backend_internal_validate_domain_service.py` como servici
 El contrato backend interno marca `validate_domain` como `available_now=true`, `side_effects=false`, `requires_human_confirmation=false`, `destructive=false`, `public_endpoint=false`, `touches_operational_domains=false`, `runtime_enabled=false`, `execution_enabled=false`, `writes_performed=false`, `materialization_performed=false`, `rollback_performed=false` y `regeneration_performed=false`.
 
 La validacion de 7.4 no equivale a operacion real: `operational=false`, `passed=false`, runtime bloqueado, execution bloqueada, dry-run real bloqueado, tools/modelos bloqueados, UI visual/endpoints publicos bloqueados, integraciones bloqueadas, Market Catalog runtime bloqueado, Business Composition Layer runtime bloqueado, OBLITERATUS excluido y raw Package directo a User Panel bloqueado.
+
+## 199. PROMPT 7.5 - Servicio interno rollback/archive/delete/reset
+
+Estado: `BACKEND_INTERNAL_DOMAIN_LIFECYCLE_SERVICE_READY`
+
+Veredicto: `BACKEND_INTERNAL_DOMAIN_LIFECYCLE_CONTROLLED_ACTIONS_CONFIRMED`
+
+Veredicto no-operativo: `BACKEND_INTERNAL_DOMAIN_LIFECYCLE_NO_OPERATIONAL_CONFIRMED`
+
+Readiness: `ready_for_phase_7_6_stable_ui_payloads`
+
+Proximo paso: `PROMPT 7.6 - Payloads estables para futura UI`
+
+Este bloque crea `core/backend_internal_domain_lifecycle_service.py` como servicio interno para acciones lifecycle sobre sandbox: `rollback_sandbox`, `archive_sandbox_domain`, `delete_sandbox_domain` y `reset_sandbox_domain`.
+
+Cada accion exige `sandbox_root` explicito/controlado, `validation_payload` vigente de `validate_domain`, confirmacion humana explicita y paths declarados por manifest/created_paths. `archive_sandbox_domain` mueve a `_archives` sin borrar definitivamente; `rollback_sandbox` reutiliza rollback integral; `delete_sandbox_domain` exige `allow_delete=true`; `reset_sandbox_domain` exige `allow_reset=true` y no regenera automaticamente.
+
+El contrato backend interno marca los cuatro servicios 7.5 como `available_now=true`, `requires_human_confirmation=true`, `requires_validation_payload=true`, `requires_safe_sandbox_root=true`, `public_endpoint=false`, `ui_visual=false`, `runtime_enabled=false`, `execution_enabled=false` y `touches_operational_domains=false`.
+
+7.5 no crea UI visual, no crea frontend, no crea endpoints publicos, no implementa payloads estables 7.6 todavia, no toca `domains/` operativo, no activa runtime, execution, dry-run real, modelos/tools, integraciones, Market Catalog runtime, Business Composition Layer runtime, OBLITERATUS ni raw Package directo a User Panel.

@@ -69,6 +69,7 @@ READINESS_VALUES = (
     "ready_for_validation",
     "ready_for_phase_7_4_validate_domain_service",
     "ready_for_phase_7_5_rollback_archive_delete_reset_service",
+    "ready_for_phase_7_6_stable_ui_payloads",
     "ready_for_rollback",
     "ready_for_regeneration",
     "ready_for_audit_pack",
@@ -137,6 +138,21 @@ ERROR_CODES = (
     "ROLLBACK_NOT_READY",
     "ROLLBACK_NOT_PERFORMED",
     "REGENERATION_NOT_PERFORMED",
+    "LIFECYCLE_ACTION_REQUIRED",
+    "INVALID_LIFECYCLE_ACTION",
+    "VALIDATION_PAYLOAD_REQUIRED",
+    "INVALID_VALIDATION_PAYLOAD",
+    "VALIDATION_NOT_PASSED",
+    "MATERIALIZATION_ID_MISMATCH",
+    "UNDECLARED_PATH_BLOCKED",
+    "REPO_ROOT_PATH_BLOCKED",
+    "ROLLBACK_FAILED",
+    "ARCHIVE_NOT_SUPPORTED",
+    "ARCHIVE_FAILED",
+    "DELETE_NOT_ALLOWED",
+    "DELETE_FAILED",
+    "RESET_NOT_ALLOWED",
+    "RESET_FAILED",
 )
 
 SENSITIVE_KEY_FRAGMENTS = (
@@ -565,6 +581,174 @@ def _available_internal_services() -> list[dict[str, Any]]:
                 "REGENERATION_NOT_PERFORMED",
             ],
         ),
+        _service(
+            name="rollback_sandbox",
+            phase="7.5",
+            service_type="destructive-controlled",
+            available_now=True,
+            payload_expected="domain_lifecycle_request",
+            expected_errors=[
+                "LIFECYCLE_ACTION_REQUIRED",
+                "INVALID_LIFECYCLE_ACTION",
+                "VALIDATION_PAYLOAD_REQUIRED",
+                "INVALID_VALIDATION_PAYLOAD",
+                "VALIDATION_NOT_PASSED",
+                "CONFIRMATION_REQUIRED",
+                "INVALID_CONFIRMATION_SCOPE",
+                "SANDBOX_ROOT_REQUIRED",
+                "SANDBOX_ROOT_NOT_FOUND",
+                "UNSAFE_SANDBOX_ROOT",
+                "DOMAIN_ID_REQUIRED",
+                "DOMAIN_NOT_FOUND",
+                "MATERIALIZATION_ID_MISMATCH",
+                "MISSING_ARTIFACT_MANIFEST",
+                "INCONSISTENT_ARTIFACT_MANIFEST",
+                "MISSING_CREATED_PATHS",
+                "UNSAFE_CREATED_PATH",
+                "UNDECLARED_PATH_BLOCKED",
+                "DOMAINS_OPERATIVE_PATH_BLOCKED",
+                "REPO_ROOT_PATH_BLOCKED",
+                "ROLLBACK_NOT_READY",
+                "ROLLBACK_FAILED",
+                "PAYLOAD_NOT_JSON_SAFE",
+                "SECRET_LIKE_FIELD_BLOCKED",
+                "RUNTIME_BLOCKED",
+                "EXECUTION_BLOCKED",
+                "TOOLS_BLOCKED",
+                "MODELS_BLOCKED",
+                "INTEGRATIONS_BLOCKED",
+            ],
+            destructive=True,
+            requires_human_confirmation=True,
+            side_effects=True,
+            requires_validation_payload=True,
+            requires_safe_sandbox_root=True,
+        ),
+        _service(
+            name="archive_sandbox_domain",
+            phase="7.5",
+            service_type="controlled-write",
+            available_now=True,
+            payload_expected="domain_lifecycle_request",
+            expected_errors=[
+                "LIFECYCLE_ACTION_REQUIRED",
+                "INVALID_LIFECYCLE_ACTION",
+                "VALIDATION_PAYLOAD_REQUIRED",
+                "INVALID_VALIDATION_PAYLOAD",
+                "VALIDATION_NOT_PASSED",
+                "CONFIRMATION_REQUIRED",
+                "INVALID_CONFIRMATION_SCOPE",
+                "SANDBOX_ROOT_REQUIRED",
+                "SANDBOX_ROOT_NOT_FOUND",
+                "UNSAFE_SANDBOX_ROOT",
+                "DOMAIN_ID_REQUIRED",
+                "DOMAIN_NOT_FOUND",
+                "MATERIALIZATION_ID_MISMATCH",
+                "MISSING_ARTIFACT_MANIFEST",
+                "MISSING_CREATED_PATHS",
+                "UNDECLARED_PATH_BLOCKED",
+                "DOMAINS_OPERATIVE_PATH_BLOCKED",
+                "REPO_ROOT_PATH_BLOCKED",
+                "OVERWRITE_BLOCKED",
+                "ARCHIVE_FAILED",
+                "PAYLOAD_NOT_JSON_SAFE",
+                "SECRET_LIKE_FIELD_BLOCKED",
+                "RUNTIME_BLOCKED",
+                "EXECUTION_BLOCKED",
+                "TOOLS_BLOCKED",
+                "MODELS_BLOCKED",
+                "INTEGRATIONS_BLOCKED",
+            ],
+            destructive=False,
+            requires_human_confirmation=True,
+            side_effects=True,
+            requires_validation_payload=True,
+            requires_safe_sandbox_root=True,
+        ),
+        _service(
+            name="delete_sandbox_domain",
+            phase="7.5",
+            service_type="destructive-controlled",
+            available_now=True,
+            payload_expected="domain_lifecycle_request",
+            expected_errors=[
+                "LIFECYCLE_ACTION_REQUIRED",
+                "INVALID_LIFECYCLE_ACTION",
+                "VALIDATION_PAYLOAD_REQUIRED",
+                "INVALID_VALIDATION_PAYLOAD",
+                "VALIDATION_NOT_PASSED",
+                "CONFIRMATION_REQUIRED",
+                "INVALID_CONFIRMATION_SCOPE",
+                "SANDBOX_ROOT_REQUIRED",
+                "SANDBOX_ROOT_NOT_FOUND",
+                "UNSAFE_SANDBOX_ROOT",
+                "DOMAIN_ID_REQUIRED",
+                "DOMAIN_NOT_FOUND",
+                "MATERIALIZATION_ID_MISMATCH",
+                "MISSING_ARTIFACT_MANIFEST",
+                "MISSING_CREATED_PATHS",
+                "UNSAFE_CREATED_PATH",
+                "UNDECLARED_PATH_BLOCKED",
+                "DOMAINS_OPERATIVE_PATH_BLOCKED",
+                "REPO_ROOT_PATH_BLOCKED",
+                "DELETE_NOT_ALLOWED",
+                "DELETE_FAILED",
+                "PAYLOAD_NOT_JSON_SAFE",
+                "SECRET_LIKE_FIELD_BLOCKED",
+                "RUNTIME_BLOCKED",
+                "EXECUTION_BLOCKED",
+                "TOOLS_BLOCKED",
+                "MODELS_BLOCKED",
+                "INTEGRATIONS_BLOCKED",
+            ],
+            destructive=True,
+            requires_human_confirmation=True,
+            side_effects=True,
+            requires_validation_payload=True,
+            requires_safe_sandbox_root=True,
+        ),
+        _service(
+            name="reset_sandbox_domain",
+            phase="7.5",
+            service_type="destructive-controlled",
+            available_now=True,
+            payload_expected="domain_lifecycle_request",
+            expected_errors=[
+                "LIFECYCLE_ACTION_REQUIRED",
+                "INVALID_LIFECYCLE_ACTION",
+                "VALIDATION_PAYLOAD_REQUIRED",
+                "INVALID_VALIDATION_PAYLOAD",
+                "VALIDATION_NOT_PASSED",
+                "CONFIRMATION_REQUIRED",
+                "INVALID_CONFIRMATION_SCOPE",
+                "SANDBOX_ROOT_REQUIRED",
+                "SANDBOX_ROOT_NOT_FOUND",
+                "UNSAFE_SANDBOX_ROOT",
+                "DOMAIN_ID_REQUIRED",
+                "DOMAIN_NOT_FOUND",
+                "MATERIALIZATION_ID_MISMATCH",
+                "MISSING_ARTIFACT_MANIFEST",
+                "MISSING_CREATED_PATHS",
+                "UNSAFE_CREATED_PATH",
+                "UNDECLARED_PATH_BLOCKED",
+                "DOMAINS_OPERATIVE_PATH_BLOCKED",
+                "REPO_ROOT_PATH_BLOCKED",
+                "RESET_NOT_ALLOWED",
+                "RESET_FAILED",
+                "PAYLOAD_NOT_JSON_SAFE",
+                "SECRET_LIKE_FIELD_BLOCKED",
+                "RUNTIME_BLOCKED",
+                "EXECUTION_BLOCKED",
+                "TOOLS_BLOCKED",
+                "MODELS_BLOCKED",
+                "INTEGRATIONS_BLOCKED",
+            ],
+            destructive=True,
+            requires_human_confirmation=True,
+            side_effects=True,
+            requires_validation_payload=True,
+            requires_safe_sandbox_root=True,
+        ),
     ]
 
 
@@ -574,44 +758,12 @@ def _planned_internal_services() -> list[dict[str, Any]]:
         _service("get_sandbox_team_listing", "7.1", "read-only", False, "sandbox_team_listing", ["MISSING_ARTIFACT_MANIFEST"]),
         _service("get_materialization_audit_pack", "7.1", "read-only", False, "materialization_audit_pack_summary", ["READINESS_NOT_MET"]),
         _service(
-            "rollback_sandbox",
-            "7.5",
-            "destructive-controlled",
+            "stable_ui_payloads",
+            "7.6",
+            "read-only-contract",
             False,
-            "rollback_request",
-            ["UNSAFE_PATH", "READINESS_NOT_MET"],
-            destructive=True,
-            requires_human_confirmation=True,
-        ),
-        _service(
-            "archive_domain",
-            "7.5",
-            "destructive-controlled",
-            False,
-            "archive_request",
-            ["READINESS_NOT_MET"],
-            destructive=True,
-            requires_human_confirmation=True,
-        ),
-        _service(
-            "delete_sandbox_domain",
-            "7.5",
-            "destructive-controlled",
-            False,
-            "delete_request",
-            ["UNSAFE_PATH", "READINESS_NOT_MET"],
-            destructive=True,
-            requires_human_confirmation=True,
-        ),
-        _service(
-            "reset_sandbox_domain",
-            "7.5",
-            "destructive-controlled",
-            False,
-            "reset_request",
-            ["UNSAFE_PATH", "READINESS_NOT_MET"],
-            destructive=True,
-            requires_human_confirmation=True,
+            "stable_ui_payload_contract",
+            ["READINESS_NOT_MET", "PAYLOAD_NOT_JSON_SAFE"],
         ),
     ]
 
@@ -629,6 +781,8 @@ def _service(
     side_effects: bool = False,
     requires_valid_preview: bool = False,
     prepares_rollback: bool = False,
+    requires_validation_payload: bool = False,
+    requires_safe_sandbox_root: bool = False,
 ) -> dict[str, Any]:
     return {
         "name": name,
@@ -651,6 +805,8 @@ def _service(
         "materialization_performed": False,
         "requires_valid_preview": requires_valid_preview,
         "prepares_rollback": prepares_rollback,
+        "requires_validation_payload": requires_validation_payload,
+        "requires_safe_sandbox_root": requires_safe_sandbox_root,
         "payload_expected": payload_expected,
         "expected_errors": expected_errors,
     }
@@ -796,10 +952,17 @@ def _validate_services(contract: dict[str, Any]) -> None:
             raise ValueError(f"{service['name']} habilita runtime")
         if service.get("execution_enabled") is not False:
             raise ValueError(f"{service['name']} habilita execution")
+        controlled_available_now = {
+            "materialize_sandbox",
+            "rollback_sandbox",
+            "archive_sandbox_domain",
+            "delete_sandbox_domain",
+            "reset_sandbox_domain",
+        }
         if (
             service.get("type") in {"controlled-write", "destructive-controlled"}
             and service.get("available_now") is True
-            and service.get("name") != "materialize_sandbox"
+            and service.get("name") not in controlled_available_now
         ):
             raise ValueError(f"{service['name']} no puede estar disponible en 7.0")
         if service.get("name") == "materialize_sandbox" and service.get("available_now") is True:
@@ -817,16 +980,47 @@ def _validate_services(contract: dict[str, Any]) -> None:
                 raise ValueError("materialize_sandbox no debe ser destructivo")
         if service.get("destructive") is True and service.get("requires_human_confirmation") is not True:
             raise ValueError(f"{service['name']} destructivo requiere confirmacion humana")
+        if service.get("name") in {"rollback_sandbox", "archive_sandbox_domain", "delete_sandbox_domain", "reset_sandbox_domain"}:
+            if service.get("available_now") is not True:
+                raise ValueError(f"{service['name']} debe estar disponible despues de 7.5")
+            if service.get("phase") != "7.5":
+                raise ValueError(f"{service['name']} debe pertenecer a fase 7.5")
+            if service.get("requires_human_confirmation") is not True:
+                raise ValueError(f"{service['name']} requiere confirmacion humana")
+            if service.get("requires_validation_payload") is not True:
+                raise ValueError(f"{service['name']} requiere validation_payload")
+            if service.get("requires_safe_sandbox_root") is not True:
+                raise ValueError(f"{service['name']} requiere sandbox_root seguro")
+            if service.get("side_effects") is not True:
+                raise ValueError(f"{service['name']} debe declarar side_effects=true")
+            if service.get("touches_operational_domains") is not False:
+                raise ValueError(f"{service['name']} no debe tocar domains operativo")
+            if service.get("writes_performed") is not False:
+                raise ValueError(f"{service['name']} no debe predeclarar writes_performed")
+            if service.get("name") == "archive_sandbox_domain":
+                if service.get("type") != "controlled-write":
+                    raise ValueError("archive_sandbox_domain debe ser controlled-write")
+                if service.get("destructive") is not False:
+                    raise ValueError("archive_sandbox_domain no debe ser destructivo")
+            else:
+                if service.get("type") != "destructive-controlled":
+                    raise ValueError(f"{service['name']} debe ser destructive-controlled")
+                if service.get("destructive") is not True:
+                    raise ValueError(f"{service['name']} debe ser destructivo")
 
     available_names = {service["name"] for service in available}
     allowed_now = {
         "get_backend_internal_ui_contract",
         "validate_backend_internal_ui_contract",
-            "list_domains_status",
-            "preview_materialization",
-            "materialize_sandbox",
-            "validate_domain",
-        }
+        "list_domains_status",
+        "preview_materialization",
+        "materialize_sandbox",
+        "validate_domain",
+        "rollback_sandbox",
+        "archive_sandbox_domain",
+        "delete_sandbox_domain",
+        "reset_sandbox_domain",
+    }
     if not available_names <= allowed_now:
         raise ValueError("7.0 declara como disponible un servicio no implementado")
 

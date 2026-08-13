@@ -51,10 +51,7 @@ PLANNED_SERVICES = {
     "get_domain_detail",
     "get_sandbox_team_listing",
     "get_materialization_audit_pack",
-    "rollback_sandbox",
-    "archive_domain",
-    "delete_sandbox_domain",
-    "reset_sandbox_domain",
+    "stable_ui_payloads",
 }
 
 EXPECTED_ERRORS = {
@@ -130,6 +127,10 @@ def test_services_are_declared_without_overstating_availability():
         "preview_materialization",
         "materialize_sandbox",
         "validate_domain",
+        "rollback_sandbox",
+        "archive_sandbox_domain",
+        "delete_sandbox_domain",
+        "reset_sandbox_domain",
     }
     assert PLANNED_SERVICES <= set(planned)
     for service in planned.values():
@@ -154,6 +155,18 @@ def test_services_are_declared_without_overstating_availability():
     assert available["validate_domain"]["side_effects"] is False
     assert available["validate_domain"]["requires_human_confirmation"] is False
     assert available["validate_domain"]["destructive"] is False
+    assert available["archive_sandbox_domain"]["type"] == "controlled-write"
+    assert available["archive_sandbox_domain"]["requires_human_confirmation"] is True
+    assert available["archive_sandbox_domain"]["requires_validation_payload"] is True
+    assert available["archive_sandbox_domain"]["requires_safe_sandbox_root"] is True
+    assert available["archive_sandbox_domain"]["destructive"] is False
+    for lifecycle in ("rollback_sandbox", "delete_sandbox_domain", "reset_sandbox_domain"):
+        assert available[lifecycle]["type"] == "destructive-controlled"
+        assert available[lifecycle]["requires_human_confirmation"] is True
+        assert available[lifecycle]["requires_validation_payload"] is True
+        assert available[lifecycle]["requires_safe_sandbox_root"] is True
+        assert available[lifecycle]["destructive"] is True
+        assert available[lifecycle]["touches_operational_domains"] is False
 
 
 def test_entities_states_readiness_and_errors_are_explicit():
@@ -272,7 +285,7 @@ def test_destructive_service_available_without_human_confirmation_fails():
     service = deepcopy(contract["planned_internal_services"][0])
     service.update(
         {
-            "name": "delete_sandbox_domain",
+            "name": "future_destructive_review",
             "type": "destructive-controlled",
             "available_now": False,
             "destructive": True,

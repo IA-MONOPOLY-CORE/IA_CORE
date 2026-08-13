@@ -1293,7 +1293,7 @@ Fase 6 cerro la cadena sandbox completa con E2E, rollback integral, regeneracion
 - IA_CORE define `core/backend_internal_ui_contract.py` como frontera backend interna para futura UI.
 - La UI futura debe consumir payloads JSON-safe, estados, readiness, errores y limites definidos por backend.
 - En 7.0 solo quedan disponibles servicios de contrato puro: `get_backend_internal_ui_contract` y `validate_backend_internal_ui_contract`.
-- Servicios como `list_domains_status`, `preview_materialization`, `materialize_sandbox`, `rollback_sandbox`, `archive_domain`, `delete_sandbox_domain` y `reset_sandbox_domain` quedan planeados, no disponibles.
+- Servicios como `list_domains_status`, `preview_materialization`, `materialize_sandbox`, `rollback_sandbox`, `archive_sandbox_domain`, `delete_sandbox_domain` y `reset_sandbox_domain` quedan planeados, no disponibles al cierre de 7.0.
 - Runtime, execution, dry-run real, agentes, modelos, tools, integraciones, UI visual, endpoints publicos, Market Catalog runtime, Business Composition Layer runtime y OBLITERATUS permanecen bloqueados.
 
 **Consecuencias**:
@@ -1397,3 +1397,30 @@ Despues de `materialize_sandbox`, IA_CORE necesita validar dominios sandbox mate
 - La futura UI podra mostrar diagnosticos y readiness sin modificar estado.
 - Rollback/archive/delete/reset quedan separados en `PROMPT 7.5 - Servicio interno rollback/archive/delete/reset`.
 - Runtime, execution, dry-run real, Market Catalog runtime, Business Composition Layer runtime, OBLITERATUS y raw Package directo al User Panel siguen bloqueados.
+
+---
+
+## ADR-056 - Acciones lifecycle sandbox controladas por validacion, confirmacion y manifest
+
+**Estado**: Aceptado
+
+**Prompt**: 7.5 - Servicio interno rollback/archive/delete/reset
+
+**Contexto**:
+Despues de `validate_domain`, IA_CORE necesita exponer acciones lifecycle internas para futura UI sin convertir rollback/archive/delete/reset en una operacion ambigua o peligrosa. La accion debe quedar limitada al sandbox controlado, con evidencia previa y confirmacion humana explicita.
+
+**Decision**:
+- IA_CORE expone `rollback_sandbox`, `archive_sandbox_domain`, `delete_sandbox_domain` y `reset_sandbox_domain` mediante `core/backend_internal_domain_lifecycle_service.py`.
+- Cada accion exige `sandbox_root` seguro, `validation_payload` de `validate_domain`, confirmacion humana explicita y paths declarados por manifest/created_paths.
+- `rollback_sandbox` reutiliza rollback integral 6.1.
+- `archive_sandbox_domain` mueve a `_archives` dentro del sandbox y no borra definitivamente.
+- `delete_sandbox_domain` requiere `allow_delete=true`.
+- `reset_sandbox_domain` requiere `allow_reset=true` y no regenera automaticamente.
+- `rollback_sandbox`, `archive_sandbox_domain`, `delete_sandbox_domain` y `reset_sandbox_domain` quedan `available_now=true` en el contrato backend interno.
+- Runtime, execution, dry-run real, agentes, modelos, tools, integraciones, UI visual, endpoints publicos, Market Catalog runtime, Business Composition Layer runtime, OBLITERATUS y raw Package directo al User Panel permanecen bloqueados.
+
+**Consecuencias**:
+- La futura UI podra solicitar acciones lifecycle sin inferir logica critica ni saltarse confirmaciones.
+- Las operaciones quedan trazadas, JSON-safe e idempotentes cuando corresponde.
+- `domains/` operativo, repo root, `.git/`, `core/`, `docs/` y `tests/` quedan fuera del alcance de las acciones lifecycle.
+- `PROMPT 7.6 - Payloads estables para futura UI` puede enfocarse en estabilizar forma de payload sin implementar UI visual ni runtime.

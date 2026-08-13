@@ -1005,6 +1005,28 @@ No se crea UI visual, no se crean endpoints publicos, no se implementa 7.2, no s
 
 Runtime, execution, dry-run real, context injection, output delivery, writes/stores/memory operativos, network/browser/filesystem runtime/env/secrets, API runtime, UI runtime, UI-device control, Market Catalog runtime, Business Composition Layer runtime, OBLITERATUS y raw Package directo al User Panel permanecen bloqueados.
 
+## PROMPT 7.5 - Servicio Interno rollback/archive/delete/reset
+
+`PROMPT 7.5 - Servicio interno rollback/archive/delete/reset` implementa el servicio interno lifecycle de Fase 7.
+
+Estado: `BACKEND_INTERNAL_DOMAIN_LIFECYCLE_SERVICE_READY`.
+
+Veredicto: `BACKEND_INTERNAL_DOMAIN_LIFECYCLE_CONTROLLED_ACTIONS_CONFIRMED`.
+
+Veredicto no-operativo: `BACKEND_INTERNAL_DOMAIN_LIFECYCLE_NO_OPERATIONAL_CONFIRMED`.
+
+Readiness: `ready_for_phase_7_6_stable_ui_payloads`.
+
+Proximo paso operacional/documental: `PROMPT 7.6 - Payloads estables para futura UI`.
+
+El servicio deja disponibles `rollback_sandbox`, `archive_sandbox_domain`, `delete_sandbox_domain` y `reset_sandbox_domain`. Cada accion exige `sandbox_root` explicito/controlado, `validation_payload` de `validate_domain`, confirmacion humana explicita y paths seguros. Delete exige `allow_delete=true`; reset exige `allow_reset=true`.
+
+`rollback_sandbox`, `delete_sandbox_domain` y `reset_sandbox_domain` son `destructive-controlled`; `archive_sandbox_domain` es `controlled-write` no destructivo. Ninguna accion toca `domains/` operativo ni repo root/core/docs/tests/.git.
+
+No crea UI visual, no crea frontend, no crea endpoints publicos, no implementa 7.6 todavia, no regenera automaticamente, no ejecuta agentes, no invoca modelos/tools, no toca integraciones y no activa runtime, execution ni dry-run real.
+
+Runtime, execution, dry-run real, context injection, output delivery, writes/stores/memory operativos, network/browser/filesystem runtime/env/secrets, API runtime, UI runtime, UI-device control, Market Catalog runtime, Business Composition Layer runtime, OBLITERATUS y raw Package directo al User Panel permanecen bloqueados.
+
 ## PROMPT 7.4 - Servicio Interno validate_domain
 
 `PROMPT 7.4 - Servicio interno validate_domain` implementa el servicio interno read-only-validation de Fase 7.
@@ -1023,7 +1045,7 @@ El servicio valida una materializacion sandbox existente: dominio, materializati
 
 `validate_domain` queda `available_now=true`, tipo `read-only-validation`, `side_effects=false`, `requires_human_confirmation=false`, `destructive=false`, `public_endpoint=false`, `ui_visual=false`, `runtime_enabled=false`, `execution_enabled=false`, `writes_performed=false` y `materialization_performed=false`.
 
-`list_domains_status`, `preview_materialization` y `materialize_sandbox` siguen disponibles. Los servicios 7.5+ permanecen `planned/available_now=false`.
+Al cierre de 7.4, `list_domains_status`, `preview_materialization` y `materialize_sandbox` siguen disponibles; los servicios 7.5+ permanecen `planned/available_now=false` hasta ejecutar 7.5.
 
 No crea UI visual, no crea frontend, no crea endpoints publicos, no implementa rollback/archive/delete/reset, no regenera, no ejecuta agentes, no invoca modelos/tools, no toca integraciones y no toca `domains/` operativo.
 
