@@ -884,3 +884,19 @@ Proximo prompt exacto: `PROMPT 6.0 - Validacion end-to-end sandbox completa`.
 Fase 6 debe reutilizar las piezas existentes de lifecycle, rollback y sandbox chain. No debe crear runtime, execution, dry-run real, agents/equipos nuevos persistentes, UI, endpoints publicos ni integraciones.
 
 Siguen bloqueados runtime, execution, dry-run real, tools, modelos, contexto, outputs, writes, stores, memoria operativa, API runtime, UI runtime, UI-device control, integraciones, Market Catalog runtime, Business Composition Layer runtime, OBLITERATUS y raw Package directo a User Panel.
+
+## PROMPT 6.0 - Validacion End-To-End Sandbox Completa
+
+`PROMPT 6.0` deja validada la cadena sandbox completa sin abrir etapa operacional.
+
+Estado: `SANDBOX_END_TO_END_FULL_CHECKPOINT_PASSED`.
+
+Veredicto: `SANDBOX_CHAIN_NO_OPERATIONAL_CONFIRMED`.
+
+Readiness: `ready_for_phase_6_1_integral_rollback`.
+
+Proximo paso operacional/documental: `PROMPT 6.1 - Rollback integral de dominio sandbox completo`.
+
+La cadena validada cubre `domain sandbox -> artifact_manifest -> profile_catalog -> agent_presets -> paper_seed -> sandbox agents -> sandbox team -> team read model`, con rollback final dentro de `tmp_path` y sin mutar `domains/` operativo.
+
+Siguen bloqueados runtime, execution, dry-run real, tools, modelos, contexto operativo, output delivery, writes/stores/memory operativos, network/browser/filesystem runtime/env/secrets, API runtime, UI runtime, UI-device control, integraciones, Market Catalog runtime, Business Composition Layer runtime, OBLITERATUS y raw Package directo a User Panel.

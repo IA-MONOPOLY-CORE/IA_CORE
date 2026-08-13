@@ -1,5 +1,23 @@
 # Backend Interno Phase 6 Sandbox E2E Rollback Regeneration Block Plan
 
+## PROMPT 6.0 - Validacion End-To-End Sandbox Completa
+
+Estado: `SANDBOX_END_TO_END_FULL_CHECKPOINT_PASSED`
+
+Veredicto: `SANDBOX_CHAIN_NO_OPERATIONAL_CONFIRMED`
+
+Readiness: `ready_for_phase_6_1_integral_rollback`
+
+Proximo prompt exacto: `PROMPT 6.1 - Rollback integral de dominio sandbox completo`
+
+`PROMPT 6.0` valida la cadena sandbox completa reutilizando piezas existentes, sin crear una segunda arquitectura `sandbox_chain`: `domain sandbox -> artifact_manifest -> profile_catalog -> agent_presets -> paper_seed -> sandbox agents -> sandbox team -> team read model`.
+
+La validacion cubre fixture controlada, `tmp_path`, schema de dominio sandbox, materializacion temporal, artifact manifest, lineage, dependencies, read model interno de equipo, flags no-operativas y rollback final de los artefactos creados durante la prueba.
+
+No valida rollback integral como producto arquitectonico todavia. Ese alcance queda reservado para `PROMPT 6.1`.
+
+Siguen bloqueados runtime, execution, dry-run real, tools, modelos, contexto operativo, output delivery, writes/stores/memory operativos, network, browser, filesystem runtime, env, secrets, API runtime, UI runtime, UI-device control, integraciones, Market Catalog runtime, Business Composition Layer runtime, OBLITERATUS y raw Package directo a User Panel.
+
 Estado: `NEXT_ARCHITECTURE_BLOCK_PLANNING_COMPLETED`
 
 Veredicto: `NEXT_ARCHITECTURE_BLOCK_SELECTED`

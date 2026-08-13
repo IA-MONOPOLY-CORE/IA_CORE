@@ -748,3 +748,19 @@ Compatibilidad de nombre: `PROMPT 6.0 — Validación end-to-end sandbox complet
 Justificacion: Fase 5 minima quedo cerrada con schema, materializacion declarativa, auditoria y read model de equipos sandbox. El libro Backend Interno define despues de Fase 5 una Fase 6 orientada a end-to-end sandbox, rollback y regeneracion. Existen piezas reutilizables (`sandbox_lifecycle_validation`, `domain_materialization_rollback`, `test_sandbox_chain_with_team_checkpoint`) que deben auditarse y extenderse en lugar de duplicarse.
 
 Fase 6 sigue siendo sandbox/no-operativa. Runtime, execution, dry-run real, tools/modelos/context/output, writes/stores/memory operativos, API/UI, integraciones, Market Catalog runtime, Business Composition Layer runtime, OBLITERATUS y raw Package directo a User Panel permanecen bloqueados.
+
+## PROMPT 6.0 - Validacion End-To-End Sandbox Completa
+
+Estado: `SANDBOX_END_TO_END_FULL_CHECKPOINT_PASSED`
+
+Veredicto: `SANDBOX_CHAIN_NO_OPERATIONAL_CONFIRMED`
+
+Readiness: `ready_for_phase_6_1_integral_rollback`
+
+Bloque actual: `Fase 6 - End-to-end operativo sandbox, rollback y regeneracion`.
+
+Proximo prompt exacto: `PROMPT 6.1 - Rollback integral de dominio sandbox completo`.
+
+`PROMPT 6.0` confirma documentalmente y por test que la cadena `domain sandbox -> artifact_manifest -> profile_catalog -> agent_presets -> paper_seed -> sandbox agents -> sandbox team -> team read model` es coherente, reversible en la raiz temporal y no-operativa.
+
+No abre runtime, execution, dry-run real, tools, modelos, contexto operativo, output delivery, writes/stores/memory operativos, API runtime, UI runtime, UI-device control, integraciones, Market Catalog runtime, Business Composition Layer runtime, OBLITERATUS ni raw Package directo a User Panel.

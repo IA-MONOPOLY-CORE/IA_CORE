@@ -5737,3 +5737,15 @@ Readiness: `ready_for_phase_6_sandbox_e2e_checkpoint`
 Proximo paso: `PROMPT 6.0 - Validacion end-to-end sandbox completa`
 
 Este bloque confirma documentalmente que Fase 5 minima quedo cerrada y selecciona `Fase 6 - End-to-end operativo sandbox, rollback y regeneracion` como siguiente bloque arquitectonico. La planificacion clasifica piezas existentes: `core/sandbox_lifecycle_validation.py`, `core/domain_materialization_rollback.py`, `tests/test_sandbox_lifecycle.py`, `tests/test_domain_materialization_rollback.py`, `tests/test_sandbox_chain_checkpoint.py`, `tests/test_sandbox_chain_maximum_checkpoint.py` y `tests/test_sandbox_chain_with_team_checkpoint.py`. La decision clave es reutilizar o extender esos antecedentes en 6.0, no duplicar `sandbox_chain`. No implementa Fase 6, no activa runtime, no ejecuta agentes/equipos, no toca UI ni integraciones, no habilita Market Catalog runtime, Business Composition Layer runtime ni OBLITERATUS.
+
+## 189. PROMPT 6.0 - Validacion end-to-end sandbox completa
+
+Estado: `SANDBOX_END_TO_END_FULL_CHECKPOINT_PASSED`
+
+Veredicto: `SANDBOX_CHAIN_NO_OPERATIONAL_CONFIRMED`
+
+Readiness: `ready_for_phase_6_1_integral_rollback`
+
+Proximo paso: `PROMPT 6.1 - Rollback integral de dominio sandbox completo`
+
+Este bloque valida la cadena sandbox completa despues de Fase 5: `domain sandbox -> artifact_manifest -> profile_catalog -> agent_presets -> paper_seed -> sandbox agents -> sandbox team -> team read model`. Reutiliza materializadores y checkpoints existentes, valida artifact manifest, lineage, dependencies, read model interno, flags default-deny, limpieza temporal y rollback final bajo `tmp_path`. No activa runtime, execution, dry-run real, tools/modelos/contexto/output, writes/stores/memory operativos, UI, integraciones, Market Catalog runtime, Business Composition Layer runtime, OBLITERATUS ni raw Package directo a User Panel.
