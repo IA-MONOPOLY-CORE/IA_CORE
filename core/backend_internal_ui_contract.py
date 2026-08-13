@@ -73,6 +73,7 @@ READINESS_VALUES = (
     "ready_for_phase_7_7_backend_internal_ui_contract_checkpoint",
     "ready_for_phase_8_1_internal_exposure_registry",
     "ready_for_phase_8_2_internal_request_envelope",
+    "ready_for_phase_8_3_internal_dispatcher_no_runtime",
     "ready_for_rollback",
     "ready_for_regeneration",
     "ready_for_audit_pack",
@@ -162,6 +163,31 @@ ERROR_CODES = (
     "INVALID_UI_PAYLOAD_STATUS",
     "TRACEBACK_BLOCKED",
     "ABSOLUTE_PATH_BLOCKED",
+    "REQUEST_ENVELOPE_REQUIRED",
+    "INVALID_REQUEST_ENVELOPE",
+    "INVALID_REQUEST_SCHEMA_VERSION",
+    "REQUEST_ID_REQUIRED",
+    "SERVICE_ID_REQUIRED",
+    "SERVICE_NOT_FOUND",
+    "SERVICE_NOT_EXPOSABLE",
+    "SERVICE_BLOCKED",
+    "INVALID_CALLER_KIND",
+    "UNTRUSTED_CALLER",
+    "RUNTIME_REQUEST_BLOCKED",
+    "EXECUTION_REQUEST_BLOCKED",
+    "TOOLS_REQUEST_BLOCKED",
+    "MODELS_REQUEST_BLOCKED",
+    "INTEGRATIONS_REQUEST_BLOCKED",
+    "PUBLIC_ENDPOINT_REQUEST_BLOCKED",
+    "UI_RUNTIME_REQUEST_BLOCKED",
+    "OPERATIONAL_DOMAINS_REQUEST_BLOCKED",
+    "SAFE_SANDBOX_ROOT_REQUIRED",
+    "PREVIEW_PAYLOAD_REQUIRED",
+    "ALLOW_DELETE_REQUIRED",
+    "ALLOW_RESET_REQUIRED",
+    "FORBIDDEN_ACTION_REQUESTED",
+    "DISPATCHER_NOT_AVAILABLE",
+    "REQUEST_HANDLING_NOT_ENABLED",
 )
 
 SENSITIVE_KEY_FRAGMENTS = (
@@ -797,6 +823,66 @@ def _available_internal_services() -> list[dict[str, Any]]:
                 "UI_ACTION_NOT_IMPLEMENTED",
             ],
         ),
+        _service(
+            name="internal_request_envelope",
+            phase="8.2",
+            service_type="contract/request-envelope",
+            available_now=True,
+            payload_expected="backend_internal_ui_request.v1",
+            expected_errors=[
+                "REQUEST_ENVELOPE_REQUIRED",
+                "INVALID_REQUEST_ENVELOPE",
+                "INVALID_REQUEST_SCHEMA_VERSION",
+                "REQUEST_ID_REQUIRED",
+                "SERVICE_ID_REQUIRED",
+                "PAYLOAD_NOT_JSON_SAFE",
+                "SECRET_LIKE_FIELD_BLOCKED",
+                "TRACEBACK_BLOCKED",
+                "ABSOLUTE_PATH_BLOCKED",
+                "RUNTIME_REQUEST_BLOCKED",
+                "EXECUTION_REQUEST_BLOCKED",
+                "TOOLS_REQUEST_BLOCKED",
+                "MODELS_REQUEST_BLOCKED",
+                "INTEGRATIONS_REQUEST_BLOCKED",
+                "PUBLIC_ENDPOINT_REQUEST_BLOCKED",
+                "UI_RUNTIME_REQUEST_BLOCKED",
+                "OPERATIONAL_DOMAINS_REQUEST_BLOCKED",
+                "DISPATCHER_NOT_AVAILABLE",
+                "REQUEST_HANDLING_NOT_ENABLED",
+            ],
+        ),
+        _service(
+            name="internal_request_validation",
+            phase="8.2",
+            service_type="contract/request-validation",
+            available_now=True,
+            payload_expected="backend_internal_ui_request_validation.v1",
+            expected_errors=[
+                "SERVICE_NOT_FOUND",
+                "SERVICE_NOT_EXPOSABLE",
+                "SERVICE_BLOCKED",
+                "INVALID_CALLER_KIND",
+                "UNTRUSTED_CALLER",
+                "SAFE_SANDBOX_ROOT_REQUIRED",
+                "CONFIRMATION_REQUIRED",
+                "INVALID_CONFIRMATION_SCOPE",
+                "VALIDATION_PAYLOAD_REQUIRED",
+                "PREVIEW_PAYLOAD_REQUIRED",
+                "ALLOW_DELETE_REQUIRED",
+                "ALLOW_RESET_REQUIRED",
+                "FORBIDDEN_ACTION_REQUESTED",
+                "RUNTIME_REQUEST_BLOCKED",
+                "EXECUTION_REQUEST_BLOCKED",
+                "TOOLS_REQUEST_BLOCKED",
+                "MODELS_REQUEST_BLOCKED",
+                "INTEGRATIONS_REQUEST_BLOCKED",
+                "PUBLIC_ENDPOINT_REQUEST_BLOCKED",
+                "UI_RUNTIME_REQUEST_BLOCKED",
+                "OPERATIONAL_DOMAINS_REQUEST_BLOCKED",
+                "DISPATCHER_NOT_AVAILABLE",
+                "REQUEST_HANDLING_NOT_ENABLED",
+            ],
+        ),
     ]
 
 
@@ -814,22 +900,6 @@ def _planned_internal_services() -> list[dict[str, Any]]:
             ["READINESS_NOT_MET", "PAYLOAD_NOT_JSON_SAFE"],
         ),
         _service(
-            "internal_request_envelope",
-            "8.2",
-            "contract/request-envelope",
-            False,
-            "backend_internal_ui_request.v1",
-            ["READINESS_NOT_MET", "PAYLOAD_NOT_JSON_SAFE"],
-        ),
-        _service(
-            "internal_request_validation",
-            "8.2",
-            "contract/request-validation",
-            False,
-            "backend_internal_ui_request_validation",
-            ["READINESS_NOT_MET", "PAYLOAD_NOT_JSON_SAFE"],
-        ),
-        _service(
             "internal_dispatcher_no_runtime",
             "8.3",
             "contract/internal-routing",
@@ -844,6 +914,14 @@ def _planned_internal_services() -> list[dict[str, Any]]:
             False,
             "internal_confirmation_gate_contract",
             ["CONFIRMATION_REQUIRED", "READINESS_NOT_MET"],
+        ),
+        _service(
+            "internal_response_adapter",
+            "8.5",
+            "contract/response-adapter",
+            False,
+            "backend_internal_ui_payload.v1",
+            ["READINESS_NOT_MET", "PAYLOAD_NOT_JSON_SAFE"],
         ),
     ]
 
@@ -1102,6 +1180,27 @@ def _validate_services(contract: dict[str, Any]) -> None:
                 raise ValueError("internal_exposure_registry no requiere sandbox_root")
             if service.get("dispatcher_created") is True or service.get("request_handling_enabled") is True:
                 raise ValueError("internal_exposure_registry no puede crear dispatcher/request handling")
+        if service.get("name") in {"internal_request_envelope", "internal_request_validation"}:
+            if service.get("available_now") is not True:
+                raise ValueError(f"{service['name']} debe estar disponible despues de 8.2")
+            if service.get("phase") != "8.2":
+                raise ValueError(f"{service['name']} debe pertenecer a fase 8.2")
+            if service.get("name") == "internal_request_envelope" and service.get("type") != "contract/request-envelope":
+                raise ValueError("internal_request_envelope debe ser contract/request-envelope")
+            if service.get("name") == "internal_request_validation" and service.get("type") != "contract/request-validation":
+                raise ValueError("internal_request_validation debe ser contract/request-validation")
+            if service.get("side_effects") is not False:
+                raise ValueError(f"{service['name']} no debe tener side_effects")
+            if service.get("requires_human_confirmation") is not False:
+                raise ValueError(f"{service['name']} no requiere confirmacion humana")
+            if service.get("destructive") is not False:
+                raise ValueError(f"{service['name']} no debe ser destructivo")
+            if service.get("requires_validation_payload") is not False:
+                raise ValueError(f"{service['name']} no requiere validation_payload a nivel contrato")
+            if service.get("requires_safe_sandbox_root") is not False:
+                raise ValueError(f"{service['name']} no requiere sandbox_root a nivel contrato")
+            if service.get("dispatcher_created") is True or service.get("request_handling_enabled") is True:
+                raise ValueError(f"{service['name']} no puede crear dispatcher/request handling")
         if service.get("name") in {"rollback_sandbox", "archive_sandbox_domain", "delete_sandbox_domain", "reset_sandbox_domain"}:
             if service.get("available_now") is not True:
                 raise ValueError(f"{service['name']} debe estar disponible despues de 7.5")
@@ -1144,6 +1243,8 @@ def _validate_services(contract: dict[str, Any]) -> None:
         "reset_sandbox_domain",
         "stable_ui_payloads",
         "internal_exposure_registry",
+        "internal_request_envelope",
+        "internal_request_validation",
     }
     if not available_names <= allowed_now:
         raise ValueError("7.0 declara como disponible un servicio no implementado")

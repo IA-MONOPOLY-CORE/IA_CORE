@@ -1526,3 +1526,27 @@ Fase 8 fue planificada como exposicion interna controlada para futura UI, despue
 - Fase 8 puede avanzar a `PROMPT 8.2 - Internal request envelope y request validation` con un mapa estable de servicios.
 - El registry no ejecuta servicios 7.x, no importa modulos operativos, no crea API real, no crea router HTTP, no activa runtime, no abre execution, no ejecuta dry-run real, no invoca modelos/tools y no toca integraciones.
 - Market Catalog runtime, Business Composition Layer runtime, OBLITERATUS y raw Package directo al User Panel permanecen bloqueados.
+
+---
+
+## ADR-061 - Internal request envelope previo a dispatcher
+
+**Estado**: Aceptado
+
+**Prompt**: 8.2 - Internal request envelope y request validation
+
+**Contexto**:
+Despues del registry 8.1, IA_CORE necesita una forma estable de recibir solicitudes futuras desde UI/capa interna antes de cualquier dispatcher. La entrada debe validar service_id, caller, payload, confirmation y safety sin ejecutar servicios ni convertir la frontera en API publica.
+
+**Decision**:
+- IA_CORE introduce `backend_internal_ui_request.v1` como internal request envelope.
+- El modulo vive en `core/backend_internal_request_envelope.py`.
+- `internal_request_envelope` e `internal_request_validation` quedan disponibles ahora como contratos 8.2.
+- El validador compara el request contra `internal_exposure_registry`, exige caller_kind permitido, payload JSON-safe, safety deny-by-default y requisitos de confirmation, validation_payload, preview_payload, allow_delete y allow_reset cuando correspondan.
+- El resultado de validacion usa `backend_internal_ui_request_validation.v1` y mantiene `dispatcher_created=false`, `request_handling_enabled=false`, `operational=false`, `runtime_enabled=false` y `execution_enabled=false`.
+- 8.2 confirma no dispatcher, no request handling, no routing, no ejecucion de servicios, no UI visual, no endpoints publicos y no toca `domains/` operativo.
+
+**Consecuencias**:
+- La futura capa 8.3 podra recibir requests ya validados por contrato.
+- Backend conserva autoridad sobre permisos, confirmaciones, blocked capabilities y service exposure.
+- Runtime, execution, dry-run real, tools, modelos, integraciones, Market Catalog runtime, Business Composition Layer runtime, OBLITERATUS y raw Package directo al User Panel permanecen bloqueados.

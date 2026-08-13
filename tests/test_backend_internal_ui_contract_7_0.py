@@ -133,6 +133,8 @@ def test_services_are_declared_without_overstating_availability():
         "reset_sandbox_domain",
         "stable_ui_payloads",
         "internal_exposure_registry",
+        "internal_request_envelope",
+        "internal_request_validation",
     }
     assert PLANNED_SERVICES <= set(planned)
     for service in planned.values():
@@ -179,6 +181,14 @@ def test_services_are_declared_without_overstating_availability():
     assert available["internal_exposure_registry"]["destructive"] is False
     assert available["internal_exposure_registry"]["dispatcher_created"] is False
     assert available["internal_exposure_registry"]["request_handling_enabled"] is False
+    assert available["internal_request_envelope"]["type"] == "contract/request-envelope"
+    assert available["internal_request_validation"]["type"] == "contract/request-validation"
+    for name in ("internal_request_envelope", "internal_request_validation"):
+        assert available[name]["side_effects"] is False
+        assert available[name]["requires_human_confirmation"] is False
+        assert available[name]["destructive"] is False
+        assert available[name]["dispatcher_created"] is False
+        assert available[name]["request_handling_enabled"] is False
 
 
 def test_entities_states_readiness_and_errors_are_explicit():

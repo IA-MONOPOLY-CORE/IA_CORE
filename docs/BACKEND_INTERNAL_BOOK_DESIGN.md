@@ -5965,3 +5965,23 @@ El registry no importa ni ejecuta servicios 7.x. No dispatcher, no request handl
 8.1 no toca `domains/` operativo, no materializa, no ejecuta lifecycle, no activa runtime, execution, dry-run real, agentes, modelos, tools, integraciones, Market Catalog runtime, Business Composition Layer runtime, OBLITERATUS ni raw Package directo al User Panel.
 
 Proximo prompt exacto: `PROMPT 8.2 - Internal request envelope y request validation`.
+
+## 204. PROMPT 8.2 - Internal request envelope y request validation
+
+Estado: `BACKEND_INTERNAL_REQUEST_ENVELOPE_READY`
+
+Veredicto validation: `BACKEND_INTERNAL_REQUEST_VALIDATION_READY`
+
+Veredicto no-dispatcher: `BACKEND_INTERNAL_REQUEST_VALIDATION_NO_DISPATCHER_CONFIRMED`
+
+Veredicto no-operativo: `BACKEND_INTERNAL_REQUEST_VALIDATION_NO_OPERATIONAL_CONFIRMED`
+
+Readiness: `ready_for_phase_8_3_internal_dispatcher_no_runtime`
+
+Este bloque crea `core/backend_internal_request_envelope.py` como contrato de entrada `backend_internal_ui_request.v1` y validacion `backend_internal_ui_request_validation.v1`. Valida caller_kind, request_id, service_id/action, payload, confirmation, safety, meta y requisitos contra `internal_exposure_registry`.
+
+`internal_request_envelope` e `internal_request_validation` quedan `available_now=true` en el contrato backend interno. El resultado es JSON-safe y declara siempre `dispatcher_created=false`, `request_handling_enabled=false`, `operational=false`, `runtime_enabled=false` y `execution_enabled=false`.
+
+8.2 no dispatcher, no request handling, no routing, no ejecucion de servicios, no confirmation gate, no response adapter nuevo, no API real, no UI visual, no endpoints publicos, no toca `domains/` operativo, no activa runtime, execution, dry-run real, agentes, modelos, tools, integraciones, Market Catalog runtime, Business Composition Layer runtime, OBLITERATUS ni raw Package directo al User Panel.
+
+Proximo prompt exacto: `PROMPT 8.3 - Internal dispatcher no-runtime/no-side-effect por defecto`.

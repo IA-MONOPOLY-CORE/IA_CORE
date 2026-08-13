@@ -963,6 +963,24 @@ Servicios exponibles declarados: `list_domains_status`, `preview_materialization
 
 Proximo prompt exacto: `PROMPT 8.2 - Internal request envelope y request validation`.
 
+## PROMPT 8.2 - Internal Request Envelope Y Request Validation
+
+Estado: `BACKEND_INTERNAL_REQUEST_ENVELOPE_READY`
+
+Veredicto validation: `BACKEND_INTERNAL_REQUEST_VALIDATION_READY`
+
+Veredicto no-dispatcher: `BACKEND_INTERNAL_REQUEST_VALIDATION_NO_DISPATCHER_CONFIRMED`
+
+Veredicto no-operativo: `BACKEND_INTERNAL_REQUEST_VALIDATION_NO_OPERATIONAL_CONFIRMED`
+
+Readiness: `ready_for_phase_8_3_internal_dispatcher_no_runtime`
+
+`PROMPT 8.2 - Internal request envelope y request validation` crea `internal_request_envelope` y `internal_request_validation` como contratos disponibles ahora. Define `backend_internal_ui_request.v1`, caller/caller_kind, service_id/action, payload, confirmation, safety, meta, error contract y validacion contra `internal_exposure_registry`.
+
+8.2 no dispatcher, no request handling, no routing, no ejecucion de servicios, no UI visual, no endpoints publicos, no API real, no router HTTP, no frontend y no toca `domains/` operativo. Runtime, execution, dry-run real, tools/modelos, integraciones, Market Catalog runtime, Business Composition Layer runtime, OBLITERATUS y raw Package directo al User Panel siguen bloqueados.
+
+Proximo prompt exacto: `PROMPT 8.3 - Internal dispatcher no-runtime/no-side-effect por defecto`.
+
 ## PROMPT 7.6 - Payloads Estables Para Futura UI
 
 Estado: `BACKEND_INTERNAL_STABLE_UI_PAYLOADS_READY`

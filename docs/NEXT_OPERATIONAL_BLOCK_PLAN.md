@@ -1111,6 +1111,26 @@ Runtime, execution, dry-run real, context injection, output delivery, writes/sto
 
 Proximo paso operacional/documental: `PROMPT 8.2 - Internal request envelope y request validation`.
 
+## PROMPT 8.2 - Internal Request Envelope Y Request Validation
+
+`PROMPT 8.2 - Internal request envelope y request validation` implementa el contrato de entrada y su validador, sin ejecutar requests.
+
+Estado: `BACKEND_INTERNAL_REQUEST_ENVELOPE_READY`.
+
+Veredicto validation: `BACKEND_INTERNAL_REQUEST_VALIDATION_READY`.
+
+Veredicto no-dispatcher: `BACKEND_INTERNAL_REQUEST_VALIDATION_NO_DISPATCHER_CONFIRMED`.
+
+Veredicto no-operativo: `BACKEND_INTERNAL_REQUEST_VALIDATION_NO_OPERATIONAL_CONFIRMED`.
+
+Readiness: `ready_for_phase_8_3_internal_dispatcher_no_runtime`.
+
+`internal_request_envelope` e `internal_request_validation` quedan disponibles ahora como contratos 8.2. El validador exige schema `backend_internal_ui_request.v1`, service_id exponible, caller permitido, payload JSON-safe, confirmation cuando corresponde, safety deny-by-default y response esperado `backend_internal_ui_payload.v1`.
+
+8.2 no dispatcher, no request handling, no routing, no ejecucion de servicios, no UI visual, no endpoints publicos, no runtime, no execution, no tools/modelos, no integraciones y no toca `domains/` operativo.
+
+Proximo paso operacional/documental: `PROMPT 8.3 - Internal dispatcher no-runtime/no-side-effect por defecto`.
+
 ## PROMPT 7.4 - Servicio Interno validate_domain
 
 `PROMPT 7.4 - Servicio interno validate_domain` implementa el servicio interno read-only-validation de Fase 7.

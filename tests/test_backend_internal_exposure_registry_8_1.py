@@ -233,7 +233,12 @@ def test_ui_contract_marks_registry_available_and_keeps_future_8_x_planned():
     assert available["internal_exposure_registry"]["dispatcher_created"] is False
     assert available["internal_exposure_registry"]["request_handling_enabled"] is False
 
-    for future in ("internal_request_envelope", "internal_request_validation", "internal_dispatcher_no_runtime", "confirmation_gate"):
+    assert available["internal_request_envelope"]["available_now"] is True
+    assert available["internal_request_validation"]["available_now"] is True
+    assert available["internal_request_envelope"]["dispatcher_created"] is False
+    assert available["internal_request_validation"]["request_handling_enabled"] is False
+
+    for future in ("internal_dispatcher_no_runtime", "confirmation_gate", "internal_response_adapter"):
         assert planned[future]["available_now"] is False
         assert planned[future]["dispatcher_created"] is False
         assert planned[future]["request_handling_enabled"] is False
