@@ -373,6 +373,31 @@ Ambos servicios quedan `available_now=true`, `side_effects=false`,
 `requires_human_confirmation=false` a nivel gate, `destructive=false` y
 `touches_operational_domains=false`.
 
-`internal_response_adapter` permanece planned para 8.5. No se crea UI visual,
+No se crea UI visual, frontend, endpoint publico, API real, runtime, execution,
+integraciones ni controlled execution.
+
+## 32. Actualizacion PROMPT 8.5
+
+`PROMPT 8.5 - Internal response adapter usando stable_ui_payloads` deja
+`internal_response_adapter` y `stable_response_adapter` disponibles ahora como
+`contract/response-adapter`.
+
+Estado: `BACKEND_INTERNAL_RESPONSE_ADAPTER_READY`.
+
+Veredicto stable payload: `BACKEND_INTERNAL_RESPONSE_ADAPTER_STABLE_PAYLOAD_CONFIRMED`.
+
+Veredicto no-execution: `BACKEND_INTERNAL_RESPONSE_ADAPTER_NO_EXECUTION_CONFIRMED`.
+
+Veredicto no-operativo: `BACKEND_INTERNAL_RESPONSE_ADAPTER_NO_OPERATIONAL_CONFIRMED`.
+
+Readiness: `ready_for_phase_8_6_exposure_audit_checkpoint`.
+
+Ambos servicios quedan `available_now=true`, `side_effects=false`,
+`public_endpoint=false`, `touches_visual_ui=false`, `runtime_enabled=false`,
+`execution_enabled=false`, `service_execution_enabled=false`,
+`requires_human_confirmation=false`, `destructive=false` y
+`touches_operational_domains=false`.
+
+`exposure_audit_checkpoint` queda planned para 8.6. No se crea UI visual,
 frontend, endpoint publico, API real, runtime, execution, integraciones ni
 controlled execution.

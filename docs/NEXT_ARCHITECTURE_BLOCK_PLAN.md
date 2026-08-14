@@ -937,6 +937,39 @@ OBLITERATUS y raw Package directo al User Panel.
 
 Proximo prompt exacto: `PROMPT 8.5 - Internal response adapter usando stable_ui_payloads`.
 
+## PROMPT 8.5 - Internal Response Adapter Usando stable_ui_payloads
+
+Estado: `BACKEND_INTERNAL_RESPONSE_ADAPTER_READY`
+
+Veredicto stable payload: `BACKEND_INTERNAL_RESPONSE_ADAPTER_STABLE_PAYLOAD_CONFIRMED`
+
+Veredicto no-execution: `BACKEND_INTERNAL_RESPONSE_ADAPTER_NO_EXECUTION_CONFIRMED`
+
+Veredicto no-operativo: `BACKEND_INTERNAL_RESPONSE_ADAPTER_NO_OPERATIONAL_CONFIRMED`
+
+Readiness: `ready_for_phase_8_6_exposure_audit_checkpoint`
+
+`PROMPT 8.5 - Internal response adapter usando stable_ui_payloads` crea
+`core/backend_internal_response_adapter.py` como adapter contractual de
+respuestas internas. Normaliza resultados de `internal_exposure_registry`,
+`internal_request_validation`, `internal_dispatcher_no_runtime`,
+`internal_dispatch_policy`, `internal_confirmation_gate` y
+`confirmation_gate_validation` hacia `backend_internal_ui_payload.v1`.
+
+`internal_response_adapter` y `stable_response_adapter` quedan disponibles
+ahora como `contract/response-adapter`, con `side_effects=false`,
+`public_endpoint=false`, `ui_visual=false`, `runtime_enabled=false`,
+`execution_enabled=false`, `service_execution_enabled=false` y
+`touches_operational_domains=false`.
+
+8.5 no endpoints publicos, no UI visual, no API/router HTTP, no controlled
+execution adapter, no runtime/execution/tools/models/integrations, no agentes,
+no materialize_sandbox, no lifecycle y no toca `domains/` operativo. Market
+Catalog runtime, Business Composition Layer runtime, OBLITERATUS y raw Package
+directo al User Panel siguen bloqueados.
+
+Proximo prompt exacto: `PROMPT 8.6 - Exposure audit checkpoint`.
+
 ## PROMPT 7.7 - Checkpoint Integral Contrato Backend Interno Para UI
 
 Estado: `BACKEND_INTERNAL_UI_CONTRACT_PHASE_7_CHECKPOINT_PASSED`
@@ -1090,3 +1123,22 @@ Proximo prompt exacto: `PROMPT 7.5 - Servicio interno rollback/archive/delete/re
 `validate_domain` queda `available_now=true`, `read-only-validation`, `side_effects=false`, `requires_human_confirmation=false`, `public_endpoint=false`, `ui_visual=false`, `runtime_enabled=false`, `execution_enabled=false`, `writes_performed=false` y `materialization_performed=false`.
 
 Sigue bloqueado runtime, execution, dry-run real, tools, modelos, context injection, output delivery, writes/stores/memory operativos, network/browser/filesystem runtime/env/secrets, API runtime, UI runtime, UI visual, UI-device control, endpoints publicos, integraciones, Market Catalog runtime, Business Composition Layer runtime, OBLITERATUS y raw Package directo al User Panel.
+
+## Estado Actual Despues De PROMPT 8.5
+
+Estado: `BACKEND_INTERNAL_RESPONSE_ADAPTER_READY`
+
+Readiness: `ready_for_phase_8_6_exposure_audit_checkpoint`
+
+Bloque arquitectonico vigente: `Fase 8 - Exposicion interna controlada para futura UI`.
+
+`internal_response_adapter` y `stable_response_adapter` estan disponibles ahora
+como `contract/response-adapter`. La salida comun sigue siendo
+`backend_internal_ui_payload.v1`.
+
+Sigue bloqueado runtime, execution, dry-run real, controlled execution adapter,
+tools/modelos/integraciones, UI visual, frontend, endpoint publico, API/router
+HTTP, `domains/` operativo, Market Catalog runtime, Business Composition Layer
+runtime, OBLITERATUS y raw Package directo al User Panel.
+
+Proximo prompt exacto: `PROMPT 8.6 - Exposure audit checkpoint`.

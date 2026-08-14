@@ -24,7 +24,6 @@ BOOK = ROOT / "docs" / "BACKEND_INTERNAL_BOOK_DESIGN.md"
 ADR = ROOT / "ARCHITECTURE_DECISIONS.md"
 
 FORBIDDEN_RUNTIME_FILES = (
-    "core/backend_internal_response_adapter.py",
     "core/backend_internal_controlled_execution_adapter.py",
     "core/backend_internal_ui_router.py",
     "core/backend_internal_ui_api.py",
@@ -412,7 +411,7 @@ def test_dispatcher_invokes_confirmation_gate_without_executing_controlled_servi
     assert lifecycle["flags"]["tools_called"] is False
 
 
-def test_ui_contract_marks_confirmation_gate_available_and_response_adapter_planned():
+def test_ui_contract_marks_confirmation_gate_and_response_adapter_available():
     contract = build_backend_internal_ui_contract()
     assert validate_backend_internal_ui_contract(contract) == contract
     available = {service["name"]: service for service in contract["available_internal_services"]}
@@ -430,8 +429,14 @@ def test_ui_contract_marks_confirmation_gate_available_and_response_adapter_plan
     assert gate["execution_enabled"] is False
     assert gate["requires_human_confirmation"] is False
     assert available["confirmation_gate_validation"]["type"] == "contract/confirmation-gate-validation"
-    assert planned["internal_response_adapter"]["phase"] == "8.5"
-    assert planned["internal_response_adapter"]["available_now"] is False
+    assert available["internal_response_adapter"]["phase"] == "8.5"
+    assert available["internal_response_adapter"]["available_now"] is True
+    assert available["internal_response_adapter"]["type"] == "contract/response-adapter"
+    assert available["internal_response_adapter"]["service_execution_enabled"] is False
+    assert available["stable_response_adapter"]["phase"] == "8.5"
+    assert available["stable_response_adapter"]["available_now"] is True
+    assert planned["exposure_audit_checkpoint"]["phase"] == "8.6"
+    assert planned["exposure_audit_checkpoint"]["available_now"] is False
 
 
 def test_docs_plans_book_and_adr_record_prompt_8_4():
@@ -463,7 +468,7 @@ def test_docs_plans_book_and_adr_record_prompt_8_4():
         assert token in combined
 
 
-def test_prompt_8_4_does_not_create_runtime_ui_or_adapter_modules():
+def test_prompt_8_4_does_not_create_runtime_ui_or_endpoint_modules():
     for relative in FORBIDDEN_RUNTIME_FILES:
         assert not (ROOT / relative).exists(), relative
     assert not (ROOT / ".tmp").exists()

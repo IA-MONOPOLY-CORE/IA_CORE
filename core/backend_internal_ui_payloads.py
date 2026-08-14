@@ -43,6 +43,14 @@ SERVICE_KIND_BY_SERVICE = {
     "reset_sandbox_domain": "controlled_lifecycle",
     "stable_ui_payloads": "contract",
     "backend_internal_ui_contract_7_0": "contract",
+    "internal_exposure_registry": "contract",
+    "internal_request_validation": "contract",
+    "internal_dispatcher_no_runtime": "contract",
+    "internal_dispatch_policy": "contract",
+    "internal_confirmation_gate": "contract",
+    "confirmation_gate_validation": "contract",
+    "internal_response_adapter": "contract",
+    "stable_response_adapter": "contract",
 }
 ALLOWED_STATUS = (
     "ready",

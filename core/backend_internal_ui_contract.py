@@ -76,6 +76,7 @@ READINESS_VALUES = (
     "ready_for_phase_8_3_internal_dispatcher_no_runtime",
     "ready_for_phase_8_4_confirmation_gate",
     "ready_for_phase_8_5_internal_response_adapter",
+    "ready_for_phase_8_6_exposure_audit_checkpoint",
     "ready_for_rollback",
     "ready_for_regeneration",
     "ready_for_audit_pack",
@@ -217,6 +218,14 @@ ERROR_CODES = (
     "CONFIRMATION_GATE_BLOCKED",
     "SERVICE_EXECUTION_BLOCKED_IN_CONFIRMATION_GATE",
     "SECRET_OR_ENV_REFERENCE_BLOCKED",
+    "RESPONSE_ADAPTER_SOURCE_REQUIRED",
+    "INVALID_RESPONSE_ADAPTER_SOURCE",
+    "UNKNOWN_SOURCE_SCHEMA",
+    "SOURCE_PAYLOAD_NOT_JSON_SAFE",
+    "ADAPTED_PAYLOAD_NOT_JSON_SAFE",
+    "RESPONSE_SANITIZATION_FAILED",
+    "SENSITIVE_PATH_BLOCKED",
+    "SERVICE_EXECUTION_NOT_PERFORMED",
 )
 
 SENSITIVE_KEY_FRAGMENTS = (
@@ -1032,6 +1041,60 @@ def _available_internal_services() -> list[dict[str, Any]]:
             ],
             confirmation_gate_validation=True,
         ),
+        _service(
+            name="internal_response_adapter",
+            phase="8.5",
+            service_type="contract/response-adapter",
+            available_now=True,
+            payload_expected="backend_internal_ui_payload.v1",
+            expected_errors=[
+                "RESPONSE_ADAPTER_SOURCE_REQUIRED",
+                "INVALID_RESPONSE_ADAPTER_SOURCE",
+                "UNKNOWN_SOURCE_SCHEMA",
+                "SOURCE_PAYLOAD_NOT_JSON_SAFE",
+                "ADAPTED_PAYLOAD_NOT_JSON_SAFE",
+                "RESPONSE_SANITIZATION_FAILED",
+                "SECRET_LIKE_FIELD_BLOCKED",
+                "TRACEBACK_BLOCKED",
+                "SENSITIVE_PATH_BLOCKED",
+                "RUNTIME_BLOCKED",
+                "EXECUTION_BLOCKED",
+                "TOOLS_BLOCKED",
+                "MODELS_BLOCKED",
+                "INTEGRATIONS_BLOCKED",
+                "PUBLIC_ENDPOINT_BLOCKED",
+                "UI_RUNTIME_BLOCKED",
+                "OPERATIONAL_DOMAINS_BLOCKED",
+                "SERVICE_EXECUTION_NOT_PERFORMED",
+            ],
+        ),
+        _service(
+            name="stable_response_adapter",
+            phase="8.5",
+            service_type="contract/response-adapter",
+            available_now=True,
+            payload_expected="backend_internal_ui_payload.v1",
+            expected_errors=[
+                "RESPONSE_ADAPTER_SOURCE_REQUIRED",
+                "INVALID_RESPONSE_ADAPTER_SOURCE",
+                "UNKNOWN_SOURCE_SCHEMA",
+                "SOURCE_PAYLOAD_NOT_JSON_SAFE",
+                "ADAPTED_PAYLOAD_NOT_JSON_SAFE",
+                "RESPONSE_SANITIZATION_FAILED",
+                "SECRET_LIKE_FIELD_BLOCKED",
+                "TRACEBACK_BLOCKED",
+                "SENSITIVE_PATH_BLOCKED",
+                "RUNTIME_BLOCKED",
+                "EXECUTION_BLOCKED",
+                "TOOLS_BLOCKED",
+                "MODELS_BLOCKED",
+                "INTEGRATIONS_BLOCKED",
+                "PUBLIC_ENDPOINT_BLOCKED",
+                "UI_RUNTIME_BLOCKED",
+                "OPERATIONAL_DOMAINS_BLOCKED",
+                "SERVICE_EXECUTION_NOT_PERFORMED",
+            ],
+        ),
     ]
 
 
@@ -1049,11 +1112,11 @@ def _planned_internal_services() -> list[dict[str, Any]]:
             ["READINESS_NOT_MET", "PAYLOAD_NOT_JSON_SAFE"],
         ),
         _service(
-            "internal_response_adapter",
-            "8.5",
-            "contract/response-adapter",
+            "exposure_audit_checkpoint",
+            "8.6",
+            "read-only-checkpoint",
             False,
-            "backend_internal_ui_payload.v1",
+            "backend_internal_exposure_audit_checkpoint",
             ["READINESS_NOT_MET", "PAYLOAD_NOT_JSON_SAFE"],
         ),
     ]
@@ -1413,6 +1476,31 @@ def _validate_services(contract: dict[str, Any]) -> None:
                 raise ValueError(f"{service['name']} no requiere confirmacion humana a nivel gate")
             if service.get("destructive") is not False:
                 raise ValueError(f"{service['name']} no debe ser destructivo")
+        if service.get("name") in {"internal_response_adapter", "stable_response_adapter"}:
+            if service.get("available_now") is not True:
+                raise ValueError(f"{service['name']} debe estar disponible despues de 8.5")
+            if service.get("phase") != "8.5":
+                raise ValueError(f"{service['name']} debe pertenecer a fase 8.5")
+            if service.get("type") != "contract/response-adapter":
+                raise ValueError(f"{service['name']} debe ser contract/response-adapter")
+            if service.get("dispatcher_created") is not False:
+                raise ValueError(f"{service['name']} no crea dispatcher")
+            if service.get("request_handling_enabled") is not False:
+                raise ValueError(f"{service['name']} no habilita request handling operativo")
+            if service.get("contractual_request_handling_enabled") is not False:
+                raise ValueError(f"{service['name']} no habilita request handling contractual")
+            if service.get("dispatch_policy_defined") is not False:
+                raise ValueError(f"{service['name']} no define dispatch policy")
+            if service.get("confirmation_gate_validation") is not False:
+                raise ValueError(f"{service['name']} no valida confirmation gate como ejecucion")
+            if service.get("service_execution_enabled") is not False:
+                raise ValueError(f"{service['name']} no habilita service execution")
+            if service.get("side_effects") is not False or service.get("side_effects_performed") is not False:
+                raise ValueError(f"{service['name']} no debe tener side_effects")
+            if service.get("requires_human_confirmation") is not False:
+                raise ValueError(f"{service['name']} no requiere confirmacion humana")
+            if service.get("destructive") is not False:
+                raise ValueError(f"{service['name']} no debe ser destructivo")
         if service.get("name") in {"rollback_sandbox", "archive_sandbox_domain", "delete_sandbox_domain", "reset_sandbox_domain"}:
             if service.get("available_now") is not True:
                 raise ValueError(f"{service['name']} debe estar disponible despues de 7.5")
@@ -1461,6 +1549,8 @@ def _validate_services(contract: dict[str, Any]) -> None:
             "internal_dispatch_policy",
             "internal_confirmation_gate",
             "confirmation_gate_validation",
+            "internal_response_adapter",
+            "stable_response_adapter",
         }
     if not available_names <= allowed_now:
         raise ValueError("7.0 declara como disponible un servicio no implementado")

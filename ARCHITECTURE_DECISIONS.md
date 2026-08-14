@@ -1601,11 +1601,46 @@ sin ejecutar servicios ni abrir runtime.
   `dispatch_executed=false`.
 - `internal_confirmation_gate` y `confirmation_gate_validation` quedan
   disponibles como contratos 8.4.
-- `internal_response_adapter` permanece planned para 8.5.
+- En el cierre de 8.4, `internal_response_adapter` quedaba como siguiente
+  bloque para 8.5; ADR-064 registra su implementacion.
 
 **Consecuencias**:
 - Fase 8 avanza a `PROMPT 8.5 - Internal response adapter usando stable_ui_payloads`.
 - La confirmacion humana queda validada antes de cualquier controlled execution adapter futuro.
+- Runtime, execution, dry-run real, tools, modelos, integraciones, endpoints,
+  UI runtime, Market Catalog runtime, Business Composition Layer runtime,
+  OBLITERATUS y raw Package directo al User Panel permanecen bloqueados.
+
+---
+
+## ADR-064 - Internal response adapter basado en stable_ui_payloads
+
+**Estado**: Aceptado
+
+**Prompt**: 8.5 - Internal response adapter usando stable_ui_payloads
+
+**Contexto**:
+Despues del registry 8.1, request envelope 8.2, dispatcher 8.3 y confirmation
+gate 8.4, IA_CORE necesita una salida comun para futura UI sin obligar a la UI
+a interpretar schemas internos distintos ni inferir permisos.
+
+**Decision**:
+- IA_CORE introduce `core/backend_internal_response_adapter.py`.
+- El adapter normaliza resultados del exposure registry, request validation,
+  dispatcher, dispatch policy y confirmation gate al envelope
+  `backend_internal_ui_payload.v1`.
+- `internal_response_adapter` y `stable_response_adapter` quedan disponibles
+  ahora como `contract/response-adapter`.
+- El adapter bloquea schemas desconocidos, payloads no JSON-safe, secrets,
+  tracebacks crudos y paths absolutos sensibles.
+- El adapter no ejecuta servicios, no despacha requests, no invoca confirmation
+  gate como ejecucion, no abre endpoints, no crea UI, no activa runtime y no
+  toca `domains/` operativo.
+
+**Consecuencias**:
+- La futura UI podra consumir respuestas internas homogeneas sin mover logica
+  critica al frontend.
+- Fase 8 avanza a `PROMPT 8.6 - Exposure audit checkpoint`.
 - Runtime, execution, dry-run real, tools, modelos, integraciones, endpoints,
   UI runtime, Market Catalog runtime, Business Composition Layer runtime,
   OBLITERATUS y raw Package directo al User Panel permanecen bloqueados.

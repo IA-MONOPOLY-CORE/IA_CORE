@@ -52,6 +52,7 @@ PLANNED_SERVICES = {
     "get_sandbox_team_listing",
     "get_materialization_audit_pack",
     "backend_internal_ui_contract_checkpoint",
+    "exposure_audit_checkpoint",
 }
 
 EXPECTED_ERRORS = {
@@ -142,6 +143,8 @@ def test_services_are_declared_without_overstating_availability():
         "internal_dispatch_policy",
         "internal_confirmation_gate",
         "confirmation_gate_validation",
+        "internal_response_adapter",
+        "stable_response_adapter",
     }
     assert PLANNED_SERVICES <= set(planned)
     for service in planned.values():
@@ -214,6 +217,14 @@ def test_services_are_declared_without_overstating_availability():
     assert available["confirmation_gate_validation"]["type"] == "contract/confirmation-gate-validation"
     assert available["confirmation_gate_validation"]["available_now"] is True
     assert available["confirmation_gate_validation"]["service_execution_enabled"] is False
+    for name in ("internal_response_adapter", "stable_response_adapter"):
+        assert available[name]["type"] == "contract/response-adapter"
+        assert available[name]["available_now"] is True
+        assert available[name]["phase"] == "8.5"
+        assert available[name]["side_effects"] is False
+        assert available[name]["service_execution_enabled"] is False
+        assert available[name]["dispatcher_created"] is False
+        assert available[name]["request_handling_enabled"] is False
 
 
 def test_entities_states_readiness_and_errors_are_explicit():

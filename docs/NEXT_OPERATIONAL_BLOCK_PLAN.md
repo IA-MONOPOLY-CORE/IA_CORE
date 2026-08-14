@@ -1181,6 +1181,32 @@ Readiness: `ready_for_phase_8_4_confirmation_gate`.
 
 Proximo paso operacional/documental: `PROMPT 8.4 - Confirmation gate para controlled-write/lifecycle`.
 
+## PROMPT 8.5 - Internal Response Adapter Usando stable_ui_payloads
+
+`PROMPT 8.5 - Internal response adapter usando stable_ui_payloads` implementa
+un adapter interno contractual para normalizar respuestas de Fase 8 a
+`backend_internal_ui_payload.v1`.
+
+Estado: `BACKEND_INTERNAL_RESPONSE_ADAPTER_READY`.
+
+Veredicto stable payload: `BACKEND_INTERNAL_RESPONSE_ADAPTER_STABLE_PAYLOAD_CONFIRMED`.
+
+Veredicto no-execution: `BACKEND_INTERNAL_RESPONSE_ADAPTER_NO_EXECUTION_CONFIRMED`.
+
+Veredicto no-operativo: `BACKEND_INTERNAL_RESPONSE_ADAPTER_NO_OPERATIONAL_CONFIRMED`.
+
+Readiness: `ready_for_phase_8_6_exposure_audit_checkpoint`.
+
+`internal_response_adapter` y `stable_response_adapter` quedan disponibles
+ahora. Pueden adaptar registry 8.1, request validation 8.2, dispatcher/policy
+8.3, confirmation gate 8.4 y payloads estables 7.6 sin ejecutar servicios.
+
+8.5 no endpoints publicos, no UI visual, no API/router HTTP, no controlled
+execution, no runtime/execution/tools/models/integrations, no agentes, no
+materialize_sandbox, no lifecycle y no toca `domains/` operativo.
+
+Proximo paso operacional/documental: `PROMPT 8.6 - Exposure audit checkpoint`.
+
 ## PROMPT 7.4 - Servicio Interno validate_domain
 
 `PROMPT 7.4 - Servicio interno validate_domain` implementa el servicio interno read-only-validation de Fase 7.
@@ -1250,3 +1276,20 @@ El servicio materializa una cadena sandbox completa solo con `preview_materializ
 No crea UI visual, no crea frontend, no crea endpoints publicos, no implementa `validate_domain`, no hace rollback/archive/delete/reset, no regenera, no ejecuta agentes, no invoca modelos/tools, no toca integraciones y no toca `domains/` operativo.
 
 Runtime, execution, dry-run real, context injection, output delivery, writes/stores/memory operativos, network/browser/filesystem runtime/env/secrets, API runtime, UI runtime, UI-device control, Market Catalog runtime, Business Composition Layer runtime, OBLITERATUS y raw Package directo al User Panel permanecen bloqueados.
+
+## Estado Actual Despues De PROMPT 8.5
+
+Estado: `BACKEND_INTERNAL_RESPONSE_ADAPTER_READY`.
+
+Readiness: `ready_for_phase_8_6_exposure_audit_checkpoint`.
+
+`internal_response_adapter` y `stable_response_adapter` estan disponibles
+ahora como adapters contractuales de respuesta hacia
+`backend_internal_ui_payload.v1`.
+
+No se abre runtime, no se abre execution, no se abre dry-run real, no se crea
+controlled execution adapter, no se crea UI visual, no se crea frontend, no se
+crean endpoints publicos, no se crea API/router HTTP, no se abren
+integraciones y no se toca `domains/` operativo.
+
+Proximo paso operacional/documental: `PROMPT 8.6 - Exposure audit checkpoint`.

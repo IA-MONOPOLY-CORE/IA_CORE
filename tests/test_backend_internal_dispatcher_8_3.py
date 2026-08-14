@@ -30,7 +30,6 @@ BOOK = ROOT / "docs" / "BACKEND_INTERNAL_BOOK_DESIGN.md"
 ADR = ROOT / "ARCHITECTURE_DECISIONS.md"
 
 FORBIDDEN_FILES = (
-    "core/backend_internal_response_adapter.py",
     "core/backend_internal_ui_router.py",
     "core/backend_internal_ui_api.py",
     "core/backend_internal_public_endpoint.py",
@@ -267,7 +266,7 @@ def test_read_only_domain_services_are_blocked_until_safe_adapters_are_defined()
         assert result["flags"]["side_effects_performed"] is False
 
 
-def test_ui_contract_marks_dispatcher_and_policy_available_and_keeps_8_4_plus_planned():
+def test_ui_contract_marks_dispatcher_policy_gate_and_response_adapter_available():
     contract = build_backend_internal_ui_contract()
     assert validate_backend_internal_ui_contract(contract) == contract
     available = {service["name"]: service for service in contract["available_internal_services"]}
@@ -298,9 +297,12 @@ def test_ui_contract_marks_dispatcher_and_policy_available_and_keeps_8_4_plus_pl
     assert available["internal_confirmation_gate"]["phase"] == "8.4"
     assert available["internal_confirmation_gate"]["service_execution_enabled"] is False
 
-    assert planned["internal_response_adapter"]["available_now"] is False
-    assert planned["internal_response_adapter"]["dispatcher_created"] is False
-    assert planned["internal_response_adapter"]["request_handling_enabled"] is False
+    assert available["internal_response_adapter"]["available_now"] is True
+    assert available["internal_response_adapter"]["phase"] == "8.5"
+    assert available["internal_response_adapter"]["dispatcher_created"] is False
+    assert available["internal_response_adapter"]["request_handling_enabled"] is False
+    assert available["stable_response_adapter"]["available_now"] is True
+    assert planned["exposure_audit_checkpoint"]["available_now"] is False
 
 
 def test_docs_plans_book_and_adr_record_prompt_8_3():

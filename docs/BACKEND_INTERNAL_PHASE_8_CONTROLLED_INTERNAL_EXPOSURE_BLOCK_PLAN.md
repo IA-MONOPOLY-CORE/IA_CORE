@@ -181,10 +181,33 @@ integra al dispatcher 8.3 sin ejecutar servicios. El estado resultante es:
 - `BACKEND_INTERNAL_CONFIRMATION_GATE_NO_OPERATIONAL_CONFIRMED`
 - `ready_for_phase_8_5_internal_response_adapter`
 
-`internal_response_adapter` sigue siendo el proximo bloque exacto y permanece
-planned. No se habilita runtime, execution, dry-run real, UI, endpoint,
-integraciones ni controlled execution.
+En el cierre de 8.4, `internal_response_adapter` era el proximo bloque exacto y
+permanecia planned. No se habilita runtime, execution, dry-run real, UI,
+endpoint, integraciones ni controlled execution.
 
 Proximo prompt exacto:
 
 `PROMPT 8.5 - Internal response adapter usando stable_ui_payloads`
+
+## 27. Estado Posterior A PROMPT 8.5
+
+`PROMPT 8.5 - Internal response adapter usando stable_ui_payloads` queda
+representado por `core/backend_internal_response_adapter.py`.
+
+El response adapter normaliza registry, request validation, dispatcher/policy,
+confirmation gate y stable payloads hacia `backend_internal_ui_payload.v1`. El
+estado resultante es:
+
+- `BACKEND_INTERNAL_RESPONSE_ADAPTER_READY`
+- `BACKEND_INTERNAL_RESPONSE_ADAPTER_STABLE_PAYLOAD_CONFIRMED`
+- `BACKEND_INTERNAL_RESPONSE_ADAPTER_NO_EXECUTION_CONFIRMED`
+- `BACKEND_INTERNAL_RESPONSE_ADAPTER_NO_OPERATIONAL_CONFIRMED`
+- `ready_for_phase_8_6_exposure_audit_checkpoint`
+
+`internal_response_adapter` y `stable_response_adapter` quedan disponibles
+ahora como `contract/response-adapter`. No se habilita runtime, execution,
+dry-run real, UI, endpoint, integraciones ni controlled execution.
+
+Proximo prompt exacto:
+
+`PROMPT 8.6 - Exposure audit checkpoint`

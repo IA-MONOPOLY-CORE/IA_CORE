@@ -67,7 +67,6 @@ EXPECTED_BLOCKED = {
 FORBIDDEN_FILES = (
     "core/backend_internal_ui_dispatcher.py",
     "core/backend_internal_ui_request.py",
-    "core/backend_internal_response_adapter.py",
     "core/backend_internal_ui_router.py",
     "core/backend_internal_ui_api.py",
     "core/backend_internal_public_endpoint.py",
@@ -220,7 +219,7 @@ def test_validator_rejects_duplicates_operational_flags_dispatcher_and_bad_lifec
         validate_internal_exposure_registry(lifecycle)
 
 
-def test_ui_contract_marks_registry_available_and_keeps_future_8_x_planned():
+def test_ui_contract_marks_registry_to_response_adapter_available_and_keeps_8_6_planned():
     contract = build_backend_internal_ui_contract()
     available = {service["name"]: service for service in contract["available_internal_services"]}
     planned = {service["name"]: service for service in contract["planned_internal_services"]}
@@ -248,9 +247,12 @@ def test_ui_contract_marks_registry_available_and_keeps_future_8_x_planned():
     assert available["internal_confirmation_gate"]["phase"] == "8.4"
     assert available["internal_confirmation_gate"]["service_execution_enabled"] is False
 
-    assert planned["internal_response_adapter"]["available_now"] is False
-    assert planned["internal_response_adapter"]["dispatcher_created"] is False
-    assert planned["internal_response_adapter"]["request_handling_enabled"] is False
+    assert available["internal_response_adapter"]["available_now"] is True
+    assert available["internal_response_adapter"]["phase"] == "8.5"
+    assert available["internal_response_adapter"]["dispatcher_created"] is False
+    assert available["internal_response_adapter"]["request_handling_enabled"] is False
+    assert available["stable_response_adapter"]["available_now"] is True
+    assert planned["exposure_audit_checkpoint"]["available_now"] is False
 
 
 def test_docs_plans_book_and_adr_record_prompt_8_1():

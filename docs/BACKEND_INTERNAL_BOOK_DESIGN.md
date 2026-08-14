@@ -6033,3 +6033,36 @@ Market Catalog runtime, no Business Composition Layer runtime, no OBLITERATUS ni
 raw Package directo al User Panel.
 
 Proximo prompt exacto: `PROMPT 8.5 - Internal response adapter usando stable_ui_payloads`.
+
+## 207. PROMPT 8.5 - Internal response adapter usando stable_ui_payloads
+
+Estado: `BACKEND_INTERNAL_RESPONSE_ADAPTER_READY`
+
+Veredicto stable payload: `BACKEND_INTERNAL_RESPONSE_ADAPTER_STABLE_PAYLOAD_CONFIRMED`
+
+Veredicto no-execution: `BACKEND_INTERNAL_RESPONSE_ADAPTER_NO_EXECUTION_CONFIRMED`
+
+Veredicto no-operativo: `BACKEND_INTERNAL_RESPONSE_ADAPTER_NO_OPERATIONAL_CONFIRMED`
+
+Readiness: `ready_for_phase_8_6_exposure_audit_checkpoint`
+
+Este bloque crea `core/backend_internal_response_adapter.py` como adapter
+interno puro. Normaliza resultados `backend_internal_exposure_registry.v1`,
+`backend_internal_ui_request_validation.v1`,
+`backend_internal_dispatch_result.v1`,
+`backend_internal_dispatch_policy.v1`,
+`backend_internal_confirmation_gate_result.v1` y
+`backend_internal_ui_payload.v1` hacia `backend_internal_ui_payload.v1`.
+
+`internal_response_adapter` y `stable_response_adapter` quedan
+`available_now=true` como `contract/response-adapter` en el contrato backend
+interno. El adapter no ejecuta servicios, no despacha requests, no invoca el
+confirmation gate como ejecucion, no materializa, no ejecuta lifecycle y no
+toca `domains/` operativo.
+
+8.5 no endpoints publicos, no API real, no router HTTP, no UI visual, no
+frontend, no runtime/execution/tools/models/integrations, no agentes, no Market
+Catalog runtime, no Business Composition Layer runtime, no OBLITERATUS ni raw
+Package directo al User Panel.
+
+Proximo prompt exacto: `PROMPT 8.6 - Exposure audit checkpoint`.
