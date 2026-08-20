@@ -1111,6 +1111,12 @@
         .debate-panel.collapsed > *:not(.debate-toggle) {
             display: none !important;
         }
+        .debate-panel.collapsed .debate-toggle {
+            left: 0;
+            border-left: none;
+            border-right: 1px solid var(--border-color);
+            border-radius: 0;
+        }
         @media (max-width: 760px) {
             .debate-panel {
                 width: min(340px, calc(100vw - 44px));
@@ -1668,7 +1674,7 @@
 
     <!-- PANEL DEBATE -->
     <div class="debate-panel" id="debate-panel" aria-label="Contract request draft">
-        <div class="debate-toggle" id="debate-toggle" role="button" tabindex="0" data-component="ia-readonly-control" data-interaction-control="collapse" data-interaction-mode="read-only" aria-controls="debate-panel" aria-expanded="true" aria-label="Mostrar u ocultar request contract" title="Mostrar u ocultar request contract">▶</div>
+        <button class="debate-toggle" id="debate-toggle" type="button" data-component="ia-readonly-control" data-interaction-control="collapse" data-interaction-mode="read-only" aria-controls="debate-panel" aria-expanded="true" aria-label="Mostrar u ocultar request contract" title="Mostrar u ocultar request contract">▶</button>
         <div><span style="font-weight:bold;">REQUEST CONTRACT DRAFT</span> <span id="exec-badge" class="visual-state blocked" data-component="ia-status-badge ia-blocker" style="float:right;">blocked</span></div>
         <textarea class="debate-input" id="task-input" placeholder="Draft local; no dispatch without backend_internal_ui_request.v1 + allowed_actions."></textarea>
         <button class="btn-debate" id="start-btn" disabled data-interaction-mode="read-only" data-interaction-state="blocked_interaction disabled_by_contract" data-component="ia-readonly-control ia-blocker">BLOQUEADO POR CONTRATO</button>
@@ -3155,12 +3161,6 @@
                 debatePanel.classList.toggle('collapsed');
                 syncDebateToggleState();
             };
-            debateToggle.addEventListener('keydown', (event) => {
-                if (event.key === 'Enter' || event.key === ' ') {
-                    event.preventDefault();
-                    debateToggle.click();
-                }
-            });
             document.getElementById('brand-input').oninput = (e) => { localStorage.setItem('brand_input', e.target.value); };
             
             document.getElementById('opacity-slider').oninput = (e) => { document.querySelectorAll('.hud-panel, .agent-panel, .debate-panel').forEach(el => el.style.opacity = e.target.value); };

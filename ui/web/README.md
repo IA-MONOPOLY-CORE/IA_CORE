@@ -234,6 +234,20 @@ endpoints, no runtime, no execution y sin dependencias. Proximo prompt exacto
 sugerido: `PROMPT UI/UX 1.14 - Checkpoint responsive/accesibilidad IA_CORE
 contract-aware sin runtime/no-execution`.
 
+## Checkpoint responsive/accesibilidad 1.14
+
+`docs/UI_UX_RESPONSIVE_ACCESSIBILITY_CHECKPOINT_1_14.md` cierra el bloque
+1.11 -> 1.13 como checkpoint documental, visual y de pruebas. Confirma que la
+consola mantiene IA_CORE, marcas 1.6 -> 1.9 y hardening 1.13 en viewports
+1440x1000, 1280x800, 1024x768, 768x1024, 430x932, 390x844 y 360x740.
+
+El checkpoint mantiene `forbidden_actions`, `blocked_capabilities`,
+warnings/errors y raw-safe read-only visibles, no endpoints, no runtime, no
+execution y sin dependencias. Veredicto:
+`UI_READY_FOR_NEXT_UI_UX_BLOCK_PLANNING`. Proximo prompt exacto sugerido:
+`PROMPT UI/UX 1.15 - Consolidar siguiente bloque UI/UX IA_CORE contract-aware
+sin runtime/no-execution`.
+
 ## Widgets backend contract
 
 `backend-contract-widgets.js` no crea ni consulta endpoints. Renderiza payloads
