@@ -6066,3 +6066,35 @@ Catalog runtime, no Business Composition Layer runtime, no OBLITERATUS ni raw
 Package directo al User Panel.
 
 Proximo prompt exacto: `PROMPT 8.6 - Exposure audit checkpoint`.
+
+## 208. PROMPT 8.6 - Exposure audit checkpoint
+
+Estado: `BACKEND_INTERNAL_EXPOSURE_AUDIT_CHECKPOINT_PASSED`
+
+Veredicto de cadena: `BACKEND_INTERNAL_EXPOSURE_CHAIN_CONFIRMED`
+
+Veredicto no-operativo: `BACKEND_INTERNAL_EXPOSURE_NO_OPERATIONAL_CONFIRMED`
+
+Veredicto de continuidad: `BACKEND_INTERNAL_EXPOSURE_READY_FOR_NEXT_BLOCK`
+
+Readiness: `ready_for_phase_8_7_future_ui_contract_plan`
+
+`PROMPT 8.6 - Exposure audit checkpoint` audita y cierra la cadena 8.0-8.5
+sin expandir capacidad operativa. Quedan confirmados registry, request
+envelope, request validation, dispatcher no-runtime, confirmation gate,
+response adapter y compatibilidad con `backend_internal_ui_payload.v1`.
+
+El checkpoint confirma que el contrato 7.0, stable payloads 7.6 y checkpoint
+7.7 siguen coherentes con Fase 8. `exposure_audit_checkpoint` permanece como
+checkpoint documental/test y no se marca como servicio ejecutable.
+
+No se implementa 8.7, no se crea UI visual, no se crea endpoint publico, no se
+crea API/router HTTP, no se implementa controlled execution adapter, no se
+activa runtime, no se activa execution, no se ejecutan agentes, no se invocan
+modelos/tools, no se abren integraciones, no se ejecuta `materialize_sandbox`,
+no se ejecuta lifecycle y no se toca `domains/` operativo.
+
+Market Catalog runtime, Business Composition Layer runtime, OBLITERATUS y raw
+Package directo al User Panel siguen bloqueados.
+
+Proximo prompt exacto: `PROMPT 8.7 - Plan de futura UI visual sobre contrato estable`.

@@ -1207,6 +1207,40 @@ materialize_sandbox, no lifecycle y no toca `domains/` operativo.
 
 Proximo paso operacional/documental: `PROMPT 8.6 - Exposure audit checkpoint`.
 
+## PROMPT 8.6 - Exposure Audit Checkpoint
+
+`PROMPT 8.6 - Exposure audit checkpoint` cierra el checkpoint integral del
+bloque de exposicion interna controlada.
+
+Estado: `BACKEND_INTERNAL_EXPOSURE_AUDIT_CHECKPOINT_PASSED`.
+
+Veredicto de cadena: `BACKEND_INTERNAL_EXPOSURE_CHAIN_CONFIRMED`.
+
+Veredicto no-operativo: `BACKEND_INTERNAL_EXPOSURE_NO_OPERATIONAL_CONFIRMED`.
+
+Veredicto de continuidad: `BACKEND_INTERNAL_EXPOSURE_READY_FOR_NEXT_BLOCK`.
+
+Readiness: `ready_for_phase_8_7_future_ui_contract_plan`.
+
+La cadena confirmada es registry -> request envelope -> request validation ->
+dispatcher no-runtime -> confirmation gate -> response adapter ->
+`backend_internal_ui_payload.v1`.
+
+Controlled-write/lifecycle siguen sin ejecucion directa: no se ejecuto
+`materialize_sandbox`, rollback, archive, delete ni reset. El dispatcher sigue
+bloqueando side effects por defecto y confirmation gate solo valida
+elegibilidad.
+
+No se abre runtime, no se abre execution, no se abre dry-run real, no se crea
+controlled execution adapter, no se crea UI visual/frontend, no se crean
+endpoints publicos, no se crea API/router HTTP, no se abren tools/modelos/
+integraciones, no se ejecutan agentes y no se toca `domains/` operativo.
+
+Market Catalog runtime, Business Composition Layer runtime, OBLITERATUS y raw
+Package directo al User Panel siguen bloqueados.
+
+Proximo paso operacional/documental: `PROMPT 8.7 - Plan de futura UI visual sobre contrato estable`.
+
 ## PROMPT 7.4 - Servicio Interno validate_domain
 
 `PROMPT 7.4 - Servicio interno validate_domain` implementa el servicio interno read-only-validation de Fase 7.
