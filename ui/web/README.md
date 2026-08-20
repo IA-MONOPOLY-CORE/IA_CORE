@@ -18,6 +18,18 @@ estático y toda operación contra el sistema pasa por `/api/*`.
 controles de dispatch visibles quedan bloqueados si no hay contrato backend
 que los declare en `allowed_actions`.
 
+## Layout superior 0.8
+
+La superficie activa incorpora una shell `data-layout-contract-aware="superior-0.8"`
+para ordenar la UI alrededor de identidad IA_CORE, readiness global,
+contrato/payload, servicios internos, acciones permitidas/prohibidas,
+blocked capabilities, evidencia y próximos pasos.
+
+Esta capa no agrega endpoints, no ejecuta requests operativos y no cambia el
+contrato backend. Solo organiza visualmente el estado pre-runtime/no-execution
+ya confirmado en `docs/UI_UX_CONTRACT_AWARE_CHECKPOINT_0_6.md` y
+`docs/UI_UX_VISUAL_ARCHITECTURE_0_7.md`.
+
 ## Widgets backend contract
 
 `backend-contract-widgets.js` no crea ni consulta endpoints. Renderiza payloads

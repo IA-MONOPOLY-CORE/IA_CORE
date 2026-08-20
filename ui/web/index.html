@@ -231,6 +231,122 @@
             gap: 6px;
         }
 
+        /* LAYOUT SUPERIOR CONTRACT-AWARE */
+        .ia-core-shell {
+            width: min(100%, 1520px);
+            margin: 0 auto;
+            padding-right: 360px;
+        }
+        .layout-section {
+            margin-bottom: 18px;
+        }
+        .layout-section-title {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 14px;
+            margin-bottom: 10px;
+            color: var(--text-muted);
+            font-size: 0.68rem;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+        }
+        .layout-section-title strong {
+            color: var(--text-primary);
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 0.92rem;
+            letter-spacing: 0.08em;
+        }
+        .readiness-band {
+            display: grid;
+            grid-template-columns: minmax(220px, 1.1fr) repeat(3, minmax(180px, 1fr));
+            gap: 10px;
+        }
+        .readiness-card,
+        .evidence-card {
+            padding: 14px;
+            min-height: 112px;
+        }
+        .readiness-card.primary {
+            border-color: rgba(0,212,255,0.45);
+            box-shadow: inset 3px 0 0 var(--cyan), var(--panel-glow);
+        }
+        .layout-label {
+            color: var(--text-muted);
+            font-size: 0.66rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+        }
+        .layout-value {
+            margin-top: 8px;
+            color: var(--text-primary);
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 1rem;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+        .layout-copy {
+            margin-top: 7px;
+            color: rgba(226,232,240,0.76);
+            font-size: 0.72rem;
+            line-height: 1.45;
+        }
+        .contract-layout-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 12px;
+        }
+        .contract-layout-zone {
+            padding: 16px;
+            min-height: 146px;
+        }
+        .contract-layout-zone h2 {
+            margin-bottom: 8px;
+            color: var(--cyan);
+            font-size: 1rem;
+        }
+        .contract-layout-zone ul {
+            margin-top: 10px;
+            list-style: none;
+            display: grid;
+            gap: 6px;
+            color: var(--text-muted);
+            font-size: 0.72rem;
+        }
+        .contract-layout-zone li::before {
+            content: "";
+            display: inline-block;
+            width: 5px;
+            height: 5px;
+            margin-right: 8px;
+            border: 1px solid var(--cyan);
+            vertical-align: middle;
+        }
+        .layout-evidence-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 10px;
+        }
+        .layout-token-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-top: 10px;
+        }
+        .layout-token {
+            border: 1px solid rgba(255,255,255,0.12);
+            color: var(--text-muted);
+            padding: 4px 7px;
+            font-size: 0.64rem;
+            text-transform: uppercase;
+        }
+        @media (max-width: 1180px) {
+            .ia-core-shell { padding-right: 54px; }
+            .readiness-band,
+            .contract-layout-grid,
+            .layout-evidence-grid { grid-template-columns: 1fr; }
+        }
+
         /* WIDGETS FUNCIONALES */
         .widgets-grid {
             display: grid;
@@ -593,6 +709,7 @@
 </head>
 <body data-skin="contract">
 
+    <main class="ia-core-shell" data-layout-contract-aware="superior-0.8">
     <!-- BANNER PARA LOGOS -->
     <div class="logo-banner" id="logo-banner">
         <div class="logo-banner-inner" id="logo-banner-inner"></div>
@@ -611,19 +728,100 @@
         </div>
     </header>
 
+    <section class="layout-section" aria-label="Global contract readiness">
+        <div class="layout-section-title"><strong>READINESS GLOBAL</strong><span>pre-runtime / no-execution</span></div>
+        <div class="readiness-band">
+            <article class="hud-panel readiness-card primary">
+                <div class="layout-label">Estado principal</div>
+                <div class="layout-value">Contrato primero</div>
+                <p class="layout-copy">La UI lee estado declarado; no decide permisos ni infiere capacidades.</p>
+            </article>
+            <article class="hud-panel readiness-card">
+                <div class="layout-label">Schema/payload</div>
+                <div class="layout-value">backend_internal_ui_payload.v1</div>
+                <p class="layout-copy">Los widgets quedan en no_payload hasta recibir envelope estable.</p>
+            </article>
+            <article class="hud-panel readiness-card">
+                <div class="layout-label">Request draft</div>
+                <div class="layout-value">backend_internal_ui_request.v1</div>
+                <p class="layout-copy">Sin allowed_actions backend, request/dispatch permanecen bloqueados.</p>
+            </article>
+            <article class="hud-panel readiness-card">
+                <div class="layout-label">Bloqueos visibles</div>
+                <div class="layout-value">true = blocked</div>
+                <p class="layout-copy">forbidden_actions y blocked_capabilities tienen prioridad visual.</p>
+            </article>
+        </div>
+    </section>
+
+    <section class="layout-section" aria-label="Contract-aware layout zones">
+        <div class="layout-section-title"><strong>CAPAS IA_CORE</strong><span>servicios internos / evidencia / proximos pasos</span></div>
+        <div class="contract-layout-grid">
+            <article class="hud-panel contract-layout-zone" data-layout-zone="contract-services">
+                <h2>Contrato y servicios internos</h2>
+                <p class="layout-copy">Mapa de lectura para fuentes, señales, read models y exposicion controlada.</p>
+                <ul>
+                    <li>internal_exposure_registry</li>
+                    <li>internal_request_validation</li>
+                    <li>internal_response_adapter</li>
+                </ul>
+            </article>
+            <article class="hud-panel contract-layout-zone" data-layout-zone="actions-blocks">
+                <h2>Acciones y bloqueos</h2>
+                <p class="layout-copy">Las acciones solo existen cuando backend las declara; lo prohibido no se oculta.</p>
+                <ul>
+                    <li>allowed_actions</li>
+                    <li>forbidden_actions</li>
+                    <li>blocked_capabilities</li>
+                </ul>
+            </article>
+            <article class="hud-panel contract-layout-zone" data-layout-zone="evidence-checkpoint">
+                <h2>Evidencia y continuidad</h2>
+                <p class="layout-copy">Checkpoint visual sobre contrato estable; no simula datos ni ejecucion.</p>
+                <div class="layout-token-row">
+                    <span class="layout-token">0.6 passed</span>
+                    <span class="layout-token">0.7 defined</span>
+                    <span class="layout-token">0.8 structured</span>
+                </div>
+            </article>
+        </div>
+    </section>
+
+    <section class="layout-section" aria-label="Checkpoint evidence">
+        <div class="layout-section-title"><strong>EVIDENCIA CONTRACT-AWARE</strong><span>sin endpoints nuevos</span></div>
+        <div class="layout-evidence-grid">
+            <article class="hud-panel evidence-card">
+                <div class="layout-label">Identidad</div>
+                <div class="layout-value">IA_CORE</div>
+                <p class="layout-copy">Framework general, sin branding legacy activo.</p>
+            </article>
+            <article class="hud-panel evidence-card">
+                <div class="layout-label">Estado visual</div>
+                <div class="layout-value">no_payload / blocked</div>
+                <p class="layout-copy">Empty states honestos hasta recibir contrato backend estable.</p>
+            </article>
+            <article class="hud-panel evidence-card">
+                <div class="layout-label">Proximo paso</div>
+                <div class="layout-value">checkpoint visual base</div>
+                <p class="layout-copy">Solo continuidad documental y visual; sin runtime ni execution.</p>
+            </article>
+        </div>
+    </section>
+
     <!-- MÉTRICAS -->
     <div class="metrics-bar" id="metrics-bar" style="display:none">
         <div class="hud-panel metric-card"><div class="metric-title">ACUERDO</div><div class="metric-value" id="val-acuerdo">-</div></div>
         <div class="hud-panel metric-card"><div class="metric-title">CONTRADICCIÓN</div><div class="metric-value" id="val-contradiccion">-</div></div>
         <div class="hud-panel metric-card glow-cyan"><div class="metric-title">DURACIÓN</div><div class="metric-value" id="val-duracion">-</div></div>
         <div class="hud-panel metric-card glow-cyan"><div class="metric-title">PUNTAJE DE CONSENSO</div><div class="metric-value" id="val-consensus-score">-</div></div>
-        <div class="hud-panel metric-card glow-cyan"><div class="metric-title">EXEC ID</div><div class="metric-value" id="val-execid" style="font-size:0.7rem;">-</div></div>
+        <div class="hud-panel metric-card glow-cyan"><div class="metric-title">REGISTRO ID</div><div class="metric-value" id="val-execid" style="font-size:0.7rem;">-</div></div>
     </div>
 
     <!-- AGENTES GRID -->
     <div class="agents-grid" id="agents-grid"></div>
 
     <footer>IA_CORE // Contract-Aware HUD</footer>
+    </main>
 
     <!-- PANEL DEBATE -->
     <div class="debate-panel" id="debate-panel" aria-label="Contract request draft">
@@ -805,12 +1003,12 @@
                     <div style="margin-bottom:12px;">Tamaño Fuente: <input type="range" id="font-slider" min="11" max="18" step="1" value="14"></div>
                     <div style="margin-bottom:12px;">Brillo Neon: <input type="range" id="glow-slider" min="0" max="15" step="1" value="4"></div>
                     <div style="margin-top:15px; border-top:1px dashed var(--border-color); padding-top:12px;">
-                        <label>🎨 Fondo personalizado:</label>
+                        <label>Fondo personalizado:</label>
                         <input type="file" id="wallpaper-upload" accept="image/*" style="display:block; margin-top:6px;">
                         <button id="reset-bg-btn" class="btn-primary" style="margin-top:8px;">RESTABLECER FONDO</button>
                     </div>
                     <div style="margin-top:15px;">
-                        <label>🏷️ Logo / Banner de marca:</label>
+                        <label>Logo / Banner de marca:</label>
                         <input type="file" id="logo-upload" accept="image/*" style="display:block; margin-top:6px;">
                         <button id="clear-logo-btn" class="btn-primary" style="margin-top:8px;">QUITAR LOGO</button>
                         <div style="font-size:0.7rem; color:var(--text-muted); margin-top:6px;">Arrastrable dentro del banner. Clic derecho para eliminar.</div>
