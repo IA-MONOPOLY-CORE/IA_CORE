@@ -201,6 +201,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            gap: 18px;
             padding: 12px 20px;
             margin-bottom: 20px;
         }
@@ -236,6 +237,31 @@
             width: min(100%, 1520px);
             margin: 0 auto;
             padding-right: 360px;
+        }
+        .main-console-header {
+            min-height: 86px;
+        }
+        .console-mode {
+            margin-left: auto;
+            padding-left: 18px;
+            border-left: 1px solid var(--border-color);
+            text-align: right;
+        }
+        .console-mode span,
+        .console-mode strong {
+            display: block;
+        }
+        .console-mode span {
+            color: var(--text-muted);
+            font-size: 0.62rem;
+            text-transform: uppercase;
+        }
+        .console-mode strong {
+            margin-top: 5px;
+            color: var(--amber);
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 0.82rem;
+            letter-spacing: 0.06em;
         }
         .layout-section {
             margin-bottom: 18px;
@@ -293,7 +319,7 @@
         }
         .contract-layout-grid {
             display: grid;
-            grid-template-columns: repeat(3, minmax(0, 1fr));
+            grid-template-columns: repeat(2, minmax(0, 1fr));
             gap: 12px;
         }
         .contract-layout-zone {
@@ -340,11 +366,41 @@
             font-size: 0.64rem;
             text-transform: uppercase;
         }
+        .contract-core-rail {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 1px;
+            margin-bottom: 12px;
+            border: 1px solid var(--border-color);
+            background: var(--border-color);
+        }
+        .contract-core-item {
+            min-width: 0;
+            padding: 12px 14px;
+            background: var(--bg-panel);
+        }
+        .contract-core-item .layout-value {
+            overflow-wrap: anywhere;
+            text-transform: none;
+        }
         @media (max-width: 1180px) {
             .ia-core-shell { padding-right: 54px; }
             .readiness-band,
             .contract-layout-grid,
-            .layout-evidence-grid { grid-template-columns: 1fr; }
+            .layout-evidence-grid,
+            .contract-core-rail { grid-template-columns: 1fr; }
+        }
+        @media (max-width: 760px) {
+            header { align-items: flex-start; flex-direction: column; }
+            .console-mode {
+                width: 100%;
+                margin-left: 0;
+                padding: 10px 0 0;
+                border-left: 0;
+                border-top: 1px solid var(--border-color);
+                text-align: left;
+            }
+            .badges-container { flex-wrap: wrap; }
         }
 
         /* WIDGETS FUNCIONALES */
@@ -561,6 +617,9 @@
             display: flex; flex-direction: column; padding: 20px; gap: 15px;
         }
         .debate-panel.collapsed { transform: translateX(calc(100% - 35px)); }
+        @media (max-width: 760px) {
+            .debate-panel.collapsed { transform: translateX(100%); }
+        }
         .debate-toggle {
             position: absolute; left: -35px; top: 50%; transform: translateY(-50%);
             width: 35px; height: 70px; background: var(--bg-panel);
@@ -709,17 +768,21 @@
 </head>
 <body data-skin="contract">
 
-    <main class="ia-core-shell" data-layout-contract-aware="superior-0.8">
+    <main class="ia-core-shell" data-layout-contract-aware="superior-0.8" data-main-console="contract-aware-1.0">
     <!-- BANNER PARA LOGOS -->
     <div class="logo-banner" id="logo-banner">
         <div class="logo-banner-inner" id="logo-banner-inner"></div>
     </div>
 
-    <header class="hud-panel">
+    <header class="hud-panel main-console-header" data-main-console-zone="identity">
         <div class="logo-area">
             <h1 id="brand-title">IA_CORE</h1>
             <span id="brand-subtitle">CONTRACT-AWARE FRAMEWORK CONSOLE</span>
             <div class="brand-badge-rect"></div>
+        </div>
+        <div class="console-mode">
+            <span>Modo de consola</span>
+            <strong>PRE-RUNTIME / NO-EXECUTION</strong>
         </div>
         <div class="badges-container">
             <div class="badge" id="ventaja-badge">READINESS: no_payload</div>
@@ -728,13 +791,13 @@
         </div>
     </header>
 
-    <section class="layout-section" aria-label="Global contract readiness">
+    <section class="layout-section" data-main-console-zone="readiness" aria-label="Global contract readiness">
         <div class="layout-section-title"><strong>READINESS GLOBAL</strong><span>pre-runtime / no-execution</span></div>
         <div class="readiness-band">
             <article class="hud-panel readiness-card primary">
-                <div class="layout-label">Estado principal</div>
-                <div class="layout-value">Contrato primero</div>
-                <p class="layout-copy">La UI lee estado declarado; no decide permisos ni infiere capacidades.</p>
+                <div class="layout-label">Readiness / status</div>
+                <div class="layout-value">no_payload</div>
+                <p class="layout-copy">La UI espera estado declarado; no decide permisos ni infiere capacidades.</p>
             </article>
             <article class="hud-panel readiness-card">
                 <div class="layout-label">Schema/payload</div>
@@ -747,64 +810,144 @@
                 <p class="layout-copy">Sin allowed_actions backend, request/dispatch permanecen bloqueados.</p>
             </article>
             <article class="hud-panel readiness-card">
-                <div class="layout-label">Bloqueos visibles</div>
-                <div class="layout-value">true = blocked</div>
-                <p class="layout-copy">forbidden_actions y blocked_capabilities tienen prioridad visual.</p>
+                <div class="layout-label">Validation / diagnostics</div>
+                <div class="layout-value">pending / blocked</div>
+                <p class="layout-copy">Warnings, errors, forbidden_actions y blocked_capabilities permanecen visibles.</p>
             </article>
         </div>
     </section>
 
-    <section class="layout-section" aria-label="Contract-aware layout zones">
-        <div class="layout-section-title"><strong>CAPAS IA_CORE</strong><span>servicios internos / evidencia / proximos pasos</span></div>
+    <section class="layout-section" data-main-console-zone="contract-core" aria-label="Contract core and payload">
+        <div class="layout-section-title"><strong>CONTRACT CORE / PAYLOAD</strong><span>fuente declarada / deny-by-default</span></div>
+        <div class="contract-core-rail">
+            <div class="contract-core-item">
+                <div class="layout-label">schema_version</div>
+                <div class="layout-value">backend_internal_ui_payload.v1</div>
+            </div>
+            <div class="contract-core-item">
+                <div class="layout-label">service_kind</div>
+                <div class="layout-value">not_available</div>
+            </div>
+            <div class="contract-core-item">
+                <div class="layout-label">Payload source</div>
+                <div class="layout-value">injected / contract_fixture</div>
+            </div>
+            <div class="contract-core-item">
+                <div class="layout-label">flags / validation</div>
+                <div class="layout-value">pending</div>
+            </div>
+        </div>
+        <div class="admin-toolbar">
+            <button class="btn-primary" id="widgets-refresh-btn">RELEER PAYLOAD</button>
+            <span class="admin-status" id="widgets-last-refresh">Sin actualizar.</span>
+        </div>
+        <div class="widgets-grid" id="functional-widgets">
+            <section class="data-widget" id="widget-contract-status">
+                <div class="data-widget-header">
+                    <div>
+                        <div class="data-widget-title">Estado backend estable</div>
+                        <div class="data-widget-source">Fuente: backend_internal_ui_payload.v1</div>
+                    </div>
+                    <button class="widget-refresh-btn" type="button" data-widget-refresh title="Releer payload" aria-label="Releer payload">↻</button>
+                </div>
+                <div class="data-widget-value" id="contract-status-value">Sin payload</div>
+                <div class="data-widget-meta" id="contract-status-meta">Esperando envelope estable inyectado.</div>
+                <div class="data-widget-detail" id="contract-status-detail">La UI no infiere readiness ni estado operativo.</div>
+            </section>
+            <section class="data-widget" id="widget-contract-actions">
+                <div class="data-widget-header">
+                    <div>
+                        <div class="data-widget-title">Acciones declaradas</div>
+                        <div class="data-widget-source">allowed_actions + forbidden_actions</div>
+                    </div>
+                    <button class="widget-refresh-btn" type="button" data-widget-refresh title="Releer payload" aria-label="Releer payload">↻</button>
+                </div>
+                <div class="data-widget-value" id="contract-actions-value">Sin acciones activas</div>
+                <div class="data-widget-meta" id="contract-actions-meta">Solo se muestran acciones presentes en allowed_actions.</div>
+                <div class="data-widget-list" id="contract-allowed-actions"></div>
+                <div class="data-widget-detail" id="contract-forbidden-actions">forbidden_actions pendiente de payload.</div>
+            </section>
+            <section class="data-widget" id="widget-contract-blocked">
+                <div class="data-widget-header">
+                    <div>
+                        <div class="data-widget-title">Capabilities bloqueadas</div>
+                        <div class="data-widget-source">blocked_capabilities · true = blocked</div>
+                    </div>
+                    <button class="widget-refresh-btn" type="button" data-widget-refresh title="Releer payload" aria-label="Releer payload">↻</button>
+                </div>
+                <div class="data-widget-value" id="contract-blocked-value">Sin payload</div>
+                <div class="data-widget-meta" id="contract-blocked-meta">Los bloqueos no se ocultan ni se invierten.</div>
+                <div class="data-widget-list" id="contract-blocked-list"></div>
+                <div class="data-widget-detail" id="contract-blocked-detail">runtime/execution/tools/models/integrations permanecen bloqueados.</div>
+            </section>
+            <section class="data-widget" id="widget-contract-diagnostics">
+                <div class="data-widget-header">
+                    <div>
+                        <div class="data-widget-title">Warnings y errores</div>
+                        <div class="data-widget-source">errors + warnings + flags + validation</div>
+                    </div>
+                    <button class="widget-refresh-btn" type="button" data-widget-refresh title="Releer payload" aria-label="Releer payload">↻</button>
+                </div>
+                <div class="data-widget-value" id="contract-diagnostics-value">Sin payload</div>
+                <div class="data-widget-meta" id="contract-diagnostics-meta">Flags no-operativas requeridas en false.</div>
+                <div class="data-widget-list" id="contract-diagnostics-list"></div>
+                <div class="data-widget-detail" id="contract-diagnostics-detail">No se muestran tracebacks, env, secrets ni endpoints nuevos.</div>
+            </section>
+        </div>
+    </section>
+
+    <section class="layout-section" aria-label="Internal service signals and boundaries">
+        <div class="layout-section-title"><strong>CAPAS IA_CORE</strong><span>señales internas / limites contractuales</span></div>
         <div class="contract-layout-grid">
-            <article class="hud-panel contract-layout-zone" data-layout-zone="contract-services">
-                <h2>Contrato y servicios internos</h2>
-                <p class="layout-copy">Mapa de lectura para fuentes, señales, read models y exposicion controlada.</p>
+            <article class="hud-panel contract-layout-zone" data-layout-zone="contract-services" data-main-console-zone="internal-services">
+                <div class="layout-label">Contrato y servicios internos</div>
+                <h2>Internal Services / Signals</h2>
+                <p class="layout-copy">Mapa de señales contract-aware; estos servicios no representan ejecución.</p>
                 <ul>
                     <li>internal_exposure_registry</li>
                     <li>internal_request_validation</li>
+                    <li>internal_dispatcher_no_runtime</li>
+                    <li>internal_confirmation_gate</li>
                     <li>internal_response_adapter</li>
                 </ul>
             </article>
-            <article class="hud-panel contract-layout-zone" data-layout-zone="actions-blocks">
-                <h2>Acciones y bloqueos</h2>
-                <p class="layout-copy">Las acciones solo existen cuando backend las declara; lo prohibido no se oculta.</p>
+            <article class="hud-panel contract-layout-zone" data-layout-zone="actions-blocks" data-main-console-zone="actions-boundaries">
+                <div class="layout-label">Acciones y bloqueos</div>
+                <h2>Actions &amp; Boundaries</h2>
+                <p class="layout-copy">Las acciones solo existen cuando backend las declara; lo prohibido y bloqueado no se oculta.</p>
                 <ul>
                     <li>allowed_actions</li>
                     <li>forbidden_actions</li>
                     <li>blocked_capabilities</li>
                 </ul>
             </article>
-            <article class="hud-panel contract-layout-zone" data-layout-zone="evidence-checkpoint">
-                <h2>Evidencia y continuidad</h2>
-                <p class="layout-copy">Checkpoint visual sobre contrato estable; no simula datos ni ejecucion.</p>
-                <div class="layout-token-row">
-                    <span class="layout-token">0.6 passed</span>
-                    <span class="layout-token">0.7 defined</span>
-                    <span class="layout-token">0.8 structured</span>
-                </div>
-            </article>
         </div>
     </section>
 
-    <section class="layout-section" aria-label="Checkpoint evidence">
-        <div class="layout-section-title"><strong>EVIDENCIA CONTRACT-AWARE</strong><span>sin endpoints nuevos</span></div>
+    <section class="layout-section" data-layout-zone="evidence-checkpoint" data-main-console-zone="evidence-checkpoint" aria-label="Checkpoint evidence">
+        <div class="layout-section-title"><strong>EVIDENCIA CONTRACT-AWARE / CHECKPOINT</strong><span>base visual validada / sin endpoints nuevos</span></div>
         <div class="layout-evidence-grid">
             <article class="hud-panel evidence-card">
-                <div class="layout-label">Identidad</div>
-                <div class="layout-value">IA_CORE</div>
-                <p class="layout-copy">Framework general, sin branding legacy activo.</p>
+                <div class="layout-label">Evidencia y continuidad</div>
+                <div class="layout-value">0.6 + 0.9 passed</div>
+                <p class="layout-copy">Contrato estable y checkpoint visual base respaldan esta consola principal.</p>
             </article>
             <article class="hud-panel evidence-card">
-                <div class="layout-label">Estado visual</div>
-                <div class="layout-value">no_payload / blocked</div>
-                <p class="layout-copy">Empty states honestos hasta recibir contrato backend estable.</p>
+                <div class="layout-label">Estado consola 1.0</div>
+                <div class="layout-value">contract-aware</div>
+                <p class="layout-copy">IA_CORE activo; no_payload y blocked permanecen como estados honestos.</p>
             </article>
             <article class="hud-panel evidence-card">
                 <div class="layout-label">Proximo paso</div>
-                <div class="layout-value">checkpoint visual base</div>
-                <p class="layout-copy">Solo continuidad documental y visual; sin runtime ni execution.</p>
+                <div class="layout-value">main console refinement</div>
+                <p class="layout-copy">Continuidad visual posterior; este bloque no activa runtime ni execution.</p>
             </article>
+        </div>
+        <div class="layout-token-row">
+            <span class="layout-token">0.6 contract passed</span>
+            <span class="layout-token">0.7 architecture defined</span>
+            <span class="layout-token">0.8 layout structured</span>
+            <span class="layout-token">0.9 visual base passed</span>
         </div>
     </section>
 
@@ -939,63 +1082,7 @@
                 </div>
                 <div id="config-widgets" class="config-section">
                     <h3>WIDGETS BACKEND CONTRACT</h3>
-                    <div class="admin-toolbar">
-                        <button class="btn-primary" id="widgets-refresh-btn">RELEER PAYLOAD</button>
-                        <span class="admin-status" id="widgets-last-refresh">Sin actualizar.</span>
-                    </div>
-                    <div class="widgets-grid" id="functional-widgets">
-                        <section class="data-widget" id="widget-contract-status">
-                            <div class="data-widget-header">
-                                <div>
-                                    <div class="data-widget-title">Estado backend estable</div>
-                                    <div class="data-widget-source">Fuente: backend_internal_ui_payload.v1</div>
-                                </div>
-                                <button class="widget-refresh-btn" type="button" data-widget-refresh>↻</button>
-                            </div>
-                            <div class="data-widget-value" id="contract-status-value">Sin payload</div>
-                            <div class="data-widget-meta" id="contract-status-meta">Esperando envelope estable inyectado.</div>
-                            <div class="data-widget-detail" id="contract-status-detail">La UI no infiere readiness ni estado operativo.</div>
-                        </section>
-                        <section class="data-widget" id="widget-contract-actions">
-                            <div class="data-widget-header">
-                                <div>
-                                    <div class="data-widget-title">Acciones declaradas</div>
-                                    <div class="data-widget-source">allowed_actions + forbidden_actions</div>
-                                </div>
-                                <button class="widget-refresh-btn" type="button" data-widget-refresh>↻</button>
-                            </div>
-                            <div class="data-widget-value" id="contract-actions-value">Sin acciones activas</div>
-                            <div class="data-widget-meta" id="contract-actions-meta">Solo se muestran acciones presentes en allowed_actions.</div>
-                            <div class="data-widget-list" id="contract-allowed-actions"></div>
-                            <div class="data-widget-detail" id="contract-forbidden-actions">forbidden_actions pendiente de payload.</div>
-                        </section>
-                        <section class="data-widget" id="widget-contract-blocked">
-                            <div class="data-widget-header">
-                                <div>
-                                    <div class="data-widget-title">Capabilities bloqueadas</div>
-                                    <div class="data-widget-source">blocked_capabilities · true = blocked</div>
-                                </div>
-                                <button class="widget-refresh-btn" type="button" data-widget-refresh>↻</button>
-                            </div>
-                            <div class="data-widget-value" id="contract-blocked-value">Sin payload</div>
-                            <div class="data-widget-meta" id="contract-blocked-meta">Los bloqueos no se ocultan ni se invierten.</div>
-                            <div class="data-widget-list" id="contract-blocked-list"></div>
-                            <div class="data-widget-detail" id="contract-blocked-detail">runtime/execution/tools/models/integrations permanecen bloqueados.</div>
-                        </section>
-                        <section class="data-widget" id="widget-contract-diagnostics">
-                            <div class="data-widget-header">
-                                <div>
-                                    <div class="data-widget-title">Warnings y errores</div>
-                                    <div class="data-widget-source">errors + warnings + flags</div>
-                                </div>
-                                <button class="widget-refresh-btn" type="button" data-widget-refresh>↻</button>
-                            </div>
-                            <div class="data-widget-value" id="contract-diagnostics-value">Sin payload</div>
-                            <div class="data-widget-meta" id="contract-diagnostics-meta">Flags no-operativas requeridas en false.</div>
-                            <div class="data-widget-list" id="contract-diagnostics-list"></div>
-                            <div class="data-widget-detail" id="contract-diagnostics-detail">No se muestran tracebacks, env, secrets ni endpoints nuevos.</div>
-                        </section>
-                    </div>
+                    <div class="admin-status">Los widgets contract-aware forman parte de Contract Core / Payload en la consola principal IA_CORE.</div>
                 </div>
                 <div id="config-gadgets" class="config-section">
                     <h3>DISPLAY</h3>
@@ -2362,7 +2449,9 @@
             document.getElementById('accept-config-btn').onclick = () => aplicarConfiguracion(true);
             document.getElementById('close-config-modal').onclick = () => document.getElementById('config-modal').style.display = 'none';
             document.getElementById('close-response').onclick = () => document.getElementById('response-modal').style.display = 'none';
-            document.getElementById('debate-toggle').onclick = () => document.getElementById('debate-panel').classList.toggle('collapsed');
+            const debatePanel = document.getElementById('debate-panel');
+            if (window.matchMedia('(max-width: 760px)').matches) debatePanel.classList.add('collapsed');
+            document.getElementById('debate-toggle').onclick = () => debatePanel.classList.toggle('collapsed');
             document.getElementById('brand-input').oninput = (e) => { localStorage.setItem('brand_input', e.target.value); };
             
             document.getElementById('opacity-slider').oninput = (e) => { document.querySelectorAll('.hud-panel, .agent-panel, .debate-panel').forEach(el => el.style.opacity = e.target.value); };

@@ -3,7 +3,7 @@
   "version": 1,
   "app": {
     "default_name": "IA_CORE",
-    "subtitle": "Consola de framework contract-aware",
+    "subtitle": "Consola principal de framework contract-aware",
     "footer": "IA_CORE // Contract-Aware HUD"
   },
   "common": {
@@ -195,10 +195,10 @@
     "select_theme": "Seleccionar tema",
     "contract_theme": "Contrato",
     "corporate_theme": "Corporativo",
-    "night_theme": "Operaciones nocturnas",
+    "night_theme": "Alto contraste",
     "branding": "Identidad visual",
     "system_name": "Nombre del sistema",
-    "functional_widgets": "Componentes contract-aware del HUD",
+    "functional_widgets": "Componentes contract-aware de la consola principal",
     "status_widget": "Estado backend estable",
     "actions_widget": "Acciones declaradas",
     "blocked_capabilities_widget": "Capabilities bloqueadas",

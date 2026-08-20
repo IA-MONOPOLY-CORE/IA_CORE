@@ -1,7 +1,8 @@
-# HUD web principal
+# Consola web principal
 
-`ui/web/` es la interfaz principal de IA_CORE. FastAPI la sirve como contenido
-estático y toda operación contra el sistema pasa por `/api/*`.
+`ui/web/` es la consola principal de IA_CORE. FastAPI la sirve como contenido
+estático; la superficie 1.0 mantiene sus lecturas preexistentes separadas de
+la autoridad contractual que decide acciones y bloqueos.
 
 ## Paneles internos migrados
 
@@ -29,6 +30,22 @@ Esta capa no agrega endpoints, no ejecuta requests operativos y no cambia el
 contrato backend. Solo organiza visualmente el estado pre-runtime/no-execution
 ya confirmado en `docs/UI_UX_CONTRACT_AWARE_CHECKPOINT_0_6.md` y
 `docs/UI_UX_VISUAL_ARCHITECTURE_0_7.md`.
+
+## Consola principal 1.0
+
+La shell conserva `data-layout-contract-aware="superior-0.8"` y agrega
+`data-main-console="contract-aware-1.0"`. La pantalla principal se organiza en
+identidad IA_CORE, readiness global, Contract Core / Payload, señales de
+servicios internos, Actions & Boundaries y Evidence / Checkpoint.
+
+Los widgets de `backend_internal_ui_payload.v1` viven ahora en Contract Core /
+Payload de la consola principal. El cambio reutiliza los mismos IDs y el mismo
+renderer, sin agregar fetches ni fuentes de permiso. La sección de configuración
+solo conserva una referencia de navegación a su ubicación principal.
+
+La consola declara `pre-runtime / no-execution`, mantiene deny-by-default ante
+`no_payload`, muestra `forbidden_actions` y `blocked_capabilities`, y no habilita
+acciones fuera de `allowed_actions`.
 
 ## Widgets backend contract
 
