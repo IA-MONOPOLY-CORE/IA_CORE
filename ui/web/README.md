@@ -187,6 +187,22 @@ runtime, execution, dispatch ni controlled execution, y deja el veredicto
 `UI_READY_FOR_NEXT_UI_UX_BLOCK`. El bloque 1.11 queda como continuidad de
 planificacion; 1.10 no implementa el siguiente bloque.
 
+## Planificacion siguiente bloque UI/UX 1.11
+
+`docs/UI_UX_NEXT_BLOCK_PLAN_1_11.md` audita el estado post-1.10, compara las
+opciones candidatas y selecciona `Responsive / Accessibility Hardening` como
+siguiente bloque UI/UX. La decision prioriza reducir riesgo responsive,
+accesibilidad, foco, teclado, contraste, legibilidad movil y densidad antes de
+crear pantallas secundarias, polish premium, benchmarks externos o separacion
+Panel Maestro vs Panel Usuario.
+
+La planificacion deja el veredicto `UI_READY_FOR_SELECTED_NEXT_UI_UX_BLOCK` y
+el proximo prompt exacto sugerido:
+`PROMPT UI/UX 1.12 - Auditar responsive/accesibilidad de consola IA_CORE contract-aware sin runtime/no-execution`.
+1.11 no implementa el bloque elegido, no crea endpoints, no agrega
+dependencias, no activa runtime, no activa execution y conserva 21st.dev, UI UX
+Pro Max Skill y Framer Motion / Motion como benchmarks futuros solamente.
+
 ## Widgets backend contract
 
 `backend-contract-widgets.js` no crea ni consulta endpoints. Renderiza payloads
