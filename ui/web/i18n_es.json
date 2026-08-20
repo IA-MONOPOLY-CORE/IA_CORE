@@ -60,6 +60,18 @@
     "evidence_checkpoint": "Evidence: checkpoints respaldados",
     "next_step": "Next Step: continuidad planned"
   },
+  "interaction_model": {
+    "mode": "Interaction mode: read-only",
+    "inspect_contract": "Inspeccionar resumen contractual",
+    "inspect_notice": "Inspeccionar no significa ejecutar ni activar.",
+    "view_detail": "Ver detalle",
+    "hide_detail": "Ocultar detalle",
+    "local_refresh": "Releer payload local",
+    "local_refresh_notice": "Releer actualiza la vista local; no ejecuta ni cambia permisos.",
+    "backend_permission": "Permitido solo si allowed_actions lo declara.",
+    "contract_block": "Bloqueado es un límite contractual.",
+    "next_step": "Continuidad documentada, no botón runtime."
+  },
   "metrics": {
     "agreement": "Acuerdo",
     "contradiction": "Contradicción",

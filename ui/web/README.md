@@ -79,6 +79,24 @@ siendo backend only y `forbidden_actions`/`blocked_capabilities` permanecen
 visibles. El siguiente bloque se presenta como continuidad `planned`, no como
 CTA operativo.
 
+## Modelo de interacción 1.3
+
+La shell agrega `data-console-interaction="contract-aware-1.3"` y declara
+`data-interaction-mode="read-only"`. La ruta 1.2 permite enfocar cada zona de
+forma local, sin inferir permisos ni persistir selección.
+
+Contract Core incorpora un `<details>` read-only que replica valores ya
+renderizados de schema, servicio, source, validation, flags, diagnósticos,
+acciones y bloqueos. `console-interactions.js` sincroniza ese inspector desde
+el DOM mediante `MutationObserver`; no usa fetch, no muta payloads y no activa
+runtime/execution.
+
+Los controles de relectura se marcan como inspección local, los botones de
+request/dispatch conservan `disabled_by_contract` y las utilidades de gestión
+preexistentes quedan fuera del modelo contract-aware 1.3. Los bloques críticos
+de `forbidden_actions` y `blocked_capabilities` siguen visibles aunque el
+inspector esté colapsado.
+
 ## Widgets backend contract
 
 `backend-contract-widgets.js` no crea ni consulta endpoints. Renderiza payloads
