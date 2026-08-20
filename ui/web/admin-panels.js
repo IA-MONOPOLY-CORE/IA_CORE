@@ -168,7 +168,7 @@
                 ['Providers', overview.provider_count ?? 0],
                 ['Herramientas', overview.tool_count ?? 0],
                 ['Registros declarados', overview.orchestrations ?? 0],
-                ['Despachos', overview.agent_dispatches ?? 0],
+                ['Despachos declarados', overview.agent_dispatches ?? 0],
                 ['Última latencia', `${Number(overview.last_orchestration_ms || 0).toFixed(1)} ms`],
             ]);
             byId('overview-tools').textContent = (overview.tools || []).join('\n') || 'Sin herramientas cargadas.';

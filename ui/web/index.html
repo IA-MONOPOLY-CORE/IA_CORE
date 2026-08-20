@@ -11,17 +11,17 @@
         * { margin: 0; padding: 0; box-sizing: border-box; }
         
         :root {
-            --bg-deep: #06070d;
-            --bg-panel: rgba(10, 15, 30, 0.85);
-            --border-color: rgba(0, 212, 255, 0.3);
-            --cyan: #00d4ff;
-            --amber: #f59e0b;
+            --bg-deep: #0a0c10;
+            --bg-panel: rgba(18, 21, 27, 0.94);
+            --border-color: rgba(148, 163, 184, 0.24);
+            --cyan: #38bdf8;
+            --amber: #fbbf24;
             --green: #22c55e;
             --red: #ef4444;
-            --text-muted: #6b7280;
-            --text-primary: #e2e8f0;
-            --border-radius: 0px;
-            --panel-glow: 0 0 10px rgba(0,212,255,0.1);
+            --text-muted: #94a3b8;
+            --text-primary: #f1f5f9;
+            --border-radius: 4px;
+            --panel-glow: 0 8px 24px rgba(0,0,0,0.2);
         }
 
         /* SKINS COMPLETAS */
@@ -66,25 +66,14 @@
             color: var(--text-primary);
             font-family: 'Share Tech Mono', monospace;
             font-size: 14px;
-            background-image: linear-gradient(rgba(0,212,255,0.03) 1px, transparent 1px),
-                              linear-gradient(90deg, rgba(0,212,255,0.03) 1px, transparent 1px);
-            background-size: 20px 20px;
+            background-image: none;
             padding: 20px;
             min-height: 100vh;
             position: relative;
         }
 
-        /* Efecto CRT/Scanlines */
         body::after {
-            content: "";
-            display: block;
-            position: fixed;
-            top: 0; left: 0; bottom: 0; right: 0;
-            background: linear-gradient(rgba(18,16,16,0) 50%, rgba(0,0,0,0.1) 50%),
-                        linear-gradient(90deg, rgba(255,0,0,0.02), rgba(0,255,0,0.01), rgba(0,0,255,0.02));
-            background-size: 100% 4px, 6px 100%;
-            pointer-events: none;
-            z-index: 99999;
+            content: none;
         }
 
         body.has-custom-bg {
@@ -122,6 +111,9 @@
             justify-content: flex-start;
             min-height: 70px;
         }
+        .logo-banner:not(:has(.banner-logo)) {
+            display: none;
+        }
         .logo-banner-inner {
             position: relative;
             width: 100%;
@@ -154,7 +146,7 @@
         }
         .banner-logo:hover { transform: scale(1.02); background: rgba(0,212,255,0.05); }
 
-        /* PANELES HUD */
+        /* PANELES DE CONSOLA */
         .hud-panel {
             background: var(--bg-panel);
             border: 1px solid var(--border-color);
@@ -164,20 +156,10 @@
             box-shadow: var(--panel-glow);
         }
         .hud-panel::before {
-            content: "";
-            position: absolute;
-            top: -1px; left: -1px;
-            width: 10px; height: 10px;
-            border-top: 2px solid var(--cyan);
-            border-left: 2px solid var(--cyan);
+            content: none;
         }
         .hud-panel::after {
-            content: "";
-            position: absolute;
-            bottom: -1px; right: -1px;
-            width: 10px; height: 10px;
-            border-bottom: 2px solid var(--cyan);
-            border-right: 2px solid var(--cyan);
+            content: none;
         }
 
         /* ANIMACIONES */
@@ -186,8 +168,8 @@
             background-color: var(--green);
             border-radius: 50%;
             display: inline-block;
-            box-shadow: 0 0 6px var(--green);
-            animation: pulse 2s infinite;
+            box-shadow: none;
+            animation: none;
         }
         .pulse-dot.disconnected { background-color: var(--red); box-shadow: 0 0 6px var(--red); }
         .pulse-dot.processing { background-color: var(--amber); box-shadow: 0 0 6px var(--amber); }
@@ -208,7 +190,7 @@
         .logo-area h1 {
             font-size: 1.8rem;
             color: var(--cyan);
-            text-shadow: 0 0 10px rgba(0,212,255,0.5);
+            text-shadow: none;
         }
         .logo-area span {
             font-size: 0.7rem;
@@ -240,6 +222,7 @@
         }
         .main-console-header {
             min-height: 86px;
+            border-top: 3px solid var(--cyan);
         }
         .console-mode {
             margin-left: auto;
@@ -274,7 +257,7 @@
             margin-bottom: 10px;
             color: var(--text-muted);
             font-size: 0.68rem;
-            letter-spacing: 0.16em;
+            letter-spacing: 0.08em;
             text-transform: uppercase;
         }
         .layout-section-title strong {
@@ -290,12 +273,25 @@
         }
         .readiness-card,
         .evidence-card {
-            padding: 14px;
-            min-height: 112px;
+            padding: 16px;
+            min-height: 118px;
         }
         .readiness-card.primary {
             border-color: rgba(0,212,255,0.45);
             box-shadow: inset 3px 0 0 var(--cyan), var(--panel-glow);
+        }
+        .readiness-card[data-state="no_payload"],
+        .readiness-card[data-state="pending"] {
+            border-left: 3px solid var(--amber);
+        }
+        .readiness-card[data-state="blocked"],
+        .readiness-card[data-state="invalid"],
+        .readiness-card[data-state="failed"] {
+            border-left: 3px solid var(--red);
+        }
+        .readiness-card[data-state="ready"],
+        .readiness-card[data-state="passed"] {
+            border-left: 3px solid var(--green);
         }
         .layout-label {
             color: var(--text-muted);
@@ -314,8 +310,8 @@
         .layout-copy {
             margin-top: 7px;
             color: rgba(226,232,240,0.76);
-            font-size: 0.72rem;
-            line-height: 1.45;
+            font-size: 0.76rem;
+            line-height: 1.55;
         }
         .contract-layout-grid {
             display: grid;
@@ -340,13 +336,48 @@
             font-size: 0.72rem;
         }
         .contract-layout-zone li::before {
-            content: "";
-            display: inline-block;
-            width: 5px;
-            height: 5px;
-            margin-right: 8px;
-            border: 1px solid var(--cyan);
-            vertical-align: middle;
+            content: none;
+        }
+        .signal-row,
+        .boundary-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            padding: 8px 0;
+            border-top: 1px solid rgba(148,163,184,0.14);
+        }
+        .signal-name,
+        .boundary-name {
+            min-width: 0;
+            color: var(--text-primary);
+            font-family: 'Share Tech Mono', monospace;
+            overflow-wrap: anywhere;
+        }
+        .signal-kind,
+        .boundary-state {
+            flex: 0 0 auto;
+            border: 1px solid var(--border-color);
+            border-radius: var(--border-radius);
+            padding: 3px 7px;
+            color: var(--text-muted);
+            font-size: 0.62rem;
+            text-transform: uppercase;
+        }
+        .signal-kind.blocked,
+        .boundary-state.blocked {
+            border-color: rgba(239,68,68,0.5);
+            color: var(--red);
+        }
+        .boundary-state.declared {
+            border-color: rgba(56,189,248,0.45);
+            color: var(--cyan);
+        }
+        .boundary-detail {
+            display: block;
+            margin-top: 3px;
+            color: var(--text-muted);
+            font-size: 0.68rem;
         }
         .layout-evidence-grid {
             display: grid;
@@ -365,6 +396,9 @@
             padding: 4px 7px;
             font-size: 0.64rem;
             text-transform: uppercase;
+        }
+        .evidence-state {
+            margin-top: 10px;
         }
         .contract-core-rail {
             display: grid;
@@ -391,6 +425,8 @@
             .contract-core-rail { grid-template-columns: 1fr; }
         }
         @media (max-width: 760px) {
+            body { padding: 12px 12px 84px; }
+            .ia-core-shell { padding-right: 44px; }
             header { align-items: flex-start; flex-direction: column; }
             .console-mode {
                 width: 100%;
@@ -400,7 +436,16 @@
                 border-top: 1px solid var(--border-color);
                 text-align: left;
             }
-            .badges-container { flex-wrap: wrap; }
+            .badges-container {
+                display: grid;
+                grid-template-columns: 1fr;
+                width: 100%;
+            }
+            .badge { width: 100%; overflow-wrap: anywhere; }
+            .layout-section-title { align-items: flex-start; flex-wrap: wrap; line-height: 1.45; }
+            .signal-row,
+            .boundary-row { align-items: flex-start; flex-direction: column; gap: 6px; }
+            .console-utilities { flex-wrap: wrap; }
         }
 
         /* WIDGETS FUNCIONALES */
@@ -711,27 +756,33 @@
             }
         .skin-option { display: inline-block; padding: 6px 14px; background: rgba(0,0,0,0.3); border: 1px solid var(--border-color); cursor: pointer; margin-right: 10px; border-radius: var(--border-radius); transition: all 0.2s; }
         .skin-option.active { border-color: var(--cyan); background: rgba(0,212,255,0.15); color: var(--cyan); }
-        .floating-settings {
-            position: fixed; bottom: 20px; left: 20px; width: 45px; height: 45px;
-            background: var(--bg-panel); border: 1px solid var(--border-color); border-radius: 50%;
-            display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 90;
-            font-size: 1.2rem; transition: all 0.2s;
+        .console-utilities {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 18px;
+            padding-top: 12px;
+            border-top: 1px solid rgba(148,163,184,0.14);
         }
-        .floating-settings:hover { background: var(--cyan); color: #000; transform: scale(1.05); }
-        .floating-add {
-            position: fixed; bottom: 20px; left: 75px; width: 45px; height: 45px;
-            background: var(--bg-panel); border: 1px solid var(--border-color); border-radius: 50%;
-            display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 90;
-            font-size: 1.5rem; font-weight: bold; transition: all 0.2s;
-        }
-        .floating-add:hover { background: var(--green); color: #000; transform: scale(1.05); }
+        .floating-settings,
+        .floating-add,
         .floating-domain {
-            position: fixed; bottom: 20px; left: 130px; min-width: 45px; height: 45px;
-            padding: 0 12px; background: var(--bg-panel); border: 1px solid var(--border-color);
-            border-radius: 22px; color: var(--text-primary); cursor: pointer; z-index: 90;
-            font-family: inherit; font-weight: bold; transition: all 0.2s;
+            position: static;
+            min-width: 42px;
+            height: 36px;
+            padding: 0 11px;
+            background: var(--bg-panel);
+            border: 1px solid var(--border-color);
+            border-radius: var(--border-radius);
+            color: var(--text-primary);
+            cursor: pointer;
+            font-family: inherit;
+            font-weight: 700;
+            transition: border-color 0.2s ease, color 0.2s ease;
         }
-        .floating-domain:hover { background: var(--amber); color: #000; transform: scale(1.03); }
+        .floating-settings:hover,
+        .floating-add:hover,
+        .floating-domain:hover { border-color: var(--cyan); color: var(--cyan); }
         .floating-add.requires-domain { border-color: var(--amber); color: var(--amber); }
         .domain-modal {
             display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.94);
@@ -768,7 +819,7 @@
 </head>
 <body data-skin="contract">
 
-    <main class="ia-core-shell" data-layout-contract-aware="superior-0.8" data-main-console="contract-aware-1.0">
+    <main class="ia-core-shell" data-layout-contract-aware="superior-0.8" data-main-console="contract-aware-1.0" data-console-refinement="1.1">
     <!-- BANNER PARA LOGOS -->
     <div class="logo-banner" id="logo-banner">
         <div class="logo-banner-inner" id="logo-banner-inner"></div>
@@ -781,23 +832,23 @@
             <div class="brand-badge-rect"></div>
         </div>
         <div class="console-mode">
-            <span>Modo de consola</span>
+            <span>Límite operativo</span>
             <strong>PRE-RUNTIME / NO-EXECUTION</strong>
         </div>
         <div class="badges-container">
             <div class="badge" id="ventaja-badge">READINESS: no_payload</div>
             <div class="badge" id="ft-badge">SCHEMA: backend_internal_ui_payload.v1</div>
-            <div class="badge" id="conn-badge"><span id="conn-dot" class="pulse-dot disconnected"></span><span id="conn-text">DESCONECTADO</span></div>
+            <div class="badge" id="conn-badge"><span id="conn-dot" class="pulse-dot disconnected"></span><span>READ SOURCE:</span><span id="conn-text">not_available</span></div>
         </div>
     </header>
 
     <section class="layout-section" data-main-console-zone="readiness" aria-label="Global contract readiness">
         <div class="layout-section-title"><strong>READINESS GLOBAL</strong><span>pre-runtime / no-execution</span></div>
         <div class="readiness-band">
-            <article class="hud-panel readiness-card primary">
+            <article class="hud-panel readiness-card primary" id="console-readiness-card" data-state="no_payload">
                 <div class="layout-label">Readiness / status</div>
-                <div class="layout-value">no_payload</div>
-                <p class="layout-copy">La UI espera estado declarado; no decide permisos ni infiere capacidades.</p>
+                <div class="layout-value" id="console-readiness-value">no_payload</div>
+                <p class="layout-copy">Estado declarado por payload; la UI no decide permisos ni infiere capacidades.</p>
             </article>
             <article class="hud-panel readiness-card">
                 <div class="layout-label">Schema/payload</div>
@@ -809,9 +860,9 @@
                 <div class="layout-value">backend_internal_ui_request.v1</div>
                 <p class="layout-copy">Sin allowed_actions backend, request/dispatch permanecen bloqueados.</p>
             </article>
-            <article class="hud-panel readiness-card">
+            <article class="hud-panel readiness-card" id="console-validation-card" data-state="pending">
                 <div class="layout-label">Validation / diagnostics</div>
-                <div class="layout-value">pending / blocked</div>
+                <div class="layout-value" id="console-validation-summary">pending</div>
                 <p class="layout-copy">Warnings, errors, forbidden_actions y blocked_capabilities permanecen visibles.</p>
             </article>
         </div>
@@ -822,19 +873,19 @@
         <div class="contract-core-rail">
             <div class="contract-core-item">
                 <div class="layout-label">schema_version</div>
-                <div class="layout-value">backend_internal_ui_payload.v1</div>
+                <div class="layout-value" id="console-schema-value">backend_internal_ui_payload.v1</div>
             </div>
             <div class="contract-core-item">
                 <div class="layout-label">service_kind</div>
-                <div class="layout-value">not_available</div>
+                <div class="layout-value" id="console-service-kind-value">not_available</div>
             </div>
             <div class="contract-core-item">
                 <div class="layout-label">Payload source</div>
-                <div class="layout-value">injected / contract_fixture</div>
+                <div class="layout-value" id="console-payload-source-value">no_payload</div>
             </div>
             <div class="contract-core-item">
                 <div class="layout-label">flags / validation</div>
-                <div class="layout-value">pending</div>
+                <div class="layout-value" id="console-contract-validation-value">pending</div>
             </div>
         </div>
         <div class="admin-toolbar">
@@ -902,23 +953,33 @@
             <article class="hud-panel contract-layout-zone" data-layout-zone="contract-services" data-main-console-zone="internal-services">
                 <div class="layout-label">Contrato y servicios internos</div>
                 <h2>Internal Services / Signals</h2>
-                <p class="layout-copy">Mapa de señales contract-aware; estos servicios no representan ejecución.</p>
+                <p class="layout-copy">Mapa de señales declaradas. Ninguna fila representa ejecución o disponibilidad operativa.</p>
                 <ul>
-                    <li>internal_exposure_registry</li>
-                    <li>internal_request_validation</li>
-                    <li>internal_dispatcher_no_runtime</li>
-                    <li>internal_confirmation_gate</li>
-                    <li>internal_response_adapter</li>
+                    <li class="signal-row"><span class="signal-name">internal_exposure_registry</span><span class="signal-kind">registry</span></li>
+                    <li class="signal-row"><span class="signal-name">internal_request_validation</span><span class="signal-kind">validation</span></li>
+                    <li class="signal-row"><span class="signal-name">internal_dispatcher_no_runtime</span><span class="signal-kind blocked">no-runtime</span></li>
+                    <li class="signal-row"><span class="signal-name">internal_confirmation_gate</span><span class="signal-kind">confirmation gate</span></li>
+                    <li class="signal-row"><span class="signal-name">internal_response_adapter</span><span class="signal-kind">response adapter</span></li>
+                    <li class="signal-row"><span class="signal-name">stable_payloads</span><span class="signal-kind">contract source</span></li>
                 </ul>
             </article>
             <article class="hud-panel contract-layout-zone" data-layout-zone="actions-blocks" data-main-console-zone="actions-boundaries">
                 <div class="layout-label">Acciones y bloqueos</div>
                 <h2>Actions &amp; Boundaries</h2>
-                <p class="layout-copy">Las acciones solo existen cuando backend las declara; lo prohibido y bloqueado no se oculta.</p>
+                <p class="layout-copy">Separación explícita entre permiso backend, prohibición contractual y capacidad bloqueada.</p>
                 <ul>
-                    <li>allowed_actions</li>
-                    <li>forbidden_actions</li>
-                    <li>blocked_capabilities</li>
+                    <li class="boundary-row">
+                        <span><span class="boundary-name">allowed_actions</span><span class="boundary-detail">Solo acciones declaradas por backend.</span></span>
+                        <span class="boundary-state declared">backend only</span>
+                    </li>
+                    <li class="boundary-row">
+                        <span><span class="boundary-name">forbidden_actions</span><span class="boundary-detail">Visible y no ejecutable.</span></span>
+                        <span class="boundary-state blocked">forbidden</span>
+                    </li>
+                    <li class="boundary-row">
+                        <span><span class="boundary-name">blocked_capabilities</span><span class="boundary-detail">Semántica preservada: true = blocked.</span></span>
+                        <span class="boundary-state blocked">blocked</span>
+                    </li>
                 </ul>
             </article>
         </div>
@@ -931,16 +992,19 @@
                 <div class="layout-label">Evidencia y continuidad</div>
                 <div class="layout-value">0.6 + 0.9 passed</div>
                 <p class="layout-copy">Contrato estable y checkpoint visual base respaldan esta consola principal.</p>
+                <span class="visual-state passed evidence-state">passed</span>
             </article>
             <article class="hud-panel evidence-card">
-                <div class="layout-label">Estado consola 1.0</div>
-                <div class="layout-value">contract-aware</div>
-                <p class="layout-copy">IA_CORE activo; no_payload y blocked permanecen como estados honestos.</p>
+                <div class="layout-label">Estado documentado</div>
+                <div class="layout-value">refinement 1.1</div>
+                <p class="layout-copy">IA_CORE contract-aware; no_payload y blocked permanecen como estados honestos.</p>
+                <span class="visual-state passed evidence-state">passed</span>
             </article>
             <article class="hud-panel evidence-card">
                 <div class="layout-label">Proximo paso</div>
-                <div class="layout-value">main console refinement</div>
-                <p class="layout-copy">Continuidad visual posterior; este bloque no activa runtime ni execution.</p>
+                <div class="layout-value">main console flow</div>
+                <p class="layout-copy">Próximo bloque documentado; sin runtime, execution ni dispatch.</p>
+                <span class="visual-state planned evidence-state">planned</span>
             </article>
         </div>
         <div class="layout-token-row">
@@ -948,6 +1012,7 @@
             <span class="layout-token">0.7 architecture defined</span>
             <span class="layout-token">0.8 layout structured</span>
             <span class="layout-token">0.9 visual base passed</span>
+            <span class="layout-token">1.0 console structured</span>
         </div>
     </section>
 
@@ -963,12 +1028,18 @@
     <!-- AGENTES GRID -->
     <div class="agents-grid" id="agents-grid"></div>
 
+    <nav class="console-utilities" aria-label="Utilidades de consola">
+        <button class="floating-settings" id="settings-fab" type="button" aria-label="Abrir configuración" title="Abrir configuración">CFG</button>
+        <button class="floating-add" id="add-fab" type="button" aria-label="Crear agente" title="Crear agente">+</button>
+        <button class="floating-domain" id="domain-fab" type="button" aria-label="Gestionar dominio" title="Gestionar dominio">DOMAIN</button>
+    </nav>
+
     <footer>IA_CORE // Contract-Aware HUD</footer>
     </main>
 
     <!-- PANEL DEBATE -->
     <div class="debate-panel" id="debate-panel" aria-label="Contract request draft">
-        <div class="debate-toggle" id="debate-toggle">▶</div>
+        <div class="debate-toggle" id="debate-toggle" role="button" tabindex="0" aria-label="Mostrar u ocultar request contract" title="Mostrar u ocultar request contract">▶</div>
         <div><span style="font-weight:bold;">REQUEST CONTRACT DRAFT</span> <span id="exec-badge" class="visual-state blocked" style="float:right;">blocked</span></div>
         <textarea class="debate-input" id="task-input" placeholder="Draft local; no dispatch without backend_internal_ui_request.v1 + allowed_actions."></textarea>
         <button class="btn-debate" id="start-btn" disabled>BLOQUEADO POR CONTRATO</button>
@@ -982,11 +1053,6 @@
             <div class="synthesis-content" id="synthesis-text"></div>
         </div>
     </div>
-
-    <!-- BOTONES FLOTANTES -->
-    <div class="floating-settings" id="settings-fab">CFG</div>
-    <div class="floating-add" id="add-fab">+</div>
-    <button class="floating-domain" id="domain-fab" type="button">DOMAIN</button>
 
     <!-- MODAL CONFIGURACIÓN -->
     <div id="config-modal" class="config-modal">
@@ -1073,7 +1139,7 @@
                     <div>
                         <span class="skin-option" data-skin="contract">CONTRACT</span>
                         <span class="skin-option" data-skin="corporate">CORPORATE</span>
-                        <span class="skin-option" data-skin="nightops">NIGHT OPS</span>
+                        <span class="skin-option" data-skin="nightops">HIGH CONTRAST</span>
                     </div>
                 </div>
                 <div id="config-branding" class="config-section">
@@ -1088,7 +1154,7 @@
                     <h3>DISPLAY</h3>
                     <div style="margin-bottom:12px;">Opacidad Paneles: <input type="range" id="opacity-slider" min="0.5" max="1" step="0.01" value="0.85"></div>
                     <div style="margin-bottom:12px;">Tamaño Fuente: <input type="range" id="font-slider" min="11" max="18" step="1" value="14"></div>
-                    <div style="margin-bottom:12px;">Brillo Neon: <input type="range" id="glow-slider" min="0" max="15" step="1" value="4"></div>
+                    <div style="margin-bottom:12px;">Intensidad de acento: <input type="range" id="glow-slider" min="0" max="15" step="1" value="4"></div>
                     <div style="margin-top:15px; border-top:1px dashed var(--border-color); padding-top:12px;">
                         <label>Fondo personalizado:</label>
                         <input type="file" id="wallpaper-upload" accept="image/*" style="display:block; margin-top:6px;">
@@ -2395,11 +2461,11 @@
                 const res = await fetch(`${API_BASE}/api/status`);
                 if (res.ok) {
                     document.getElementById('conn-dot').classList.remove('disconnected');
-                    document.getElementById('conn-text').innerText = 'CONECTADO';
+                    document.getElementById('conn-text').innerText = 'lectura_disponible';
                 } else throw new Error();
             } catch(e) {
                 document.getElementById('conn-dot').classList.add('disconnected');
-                document.getElementById('conn-text').innerText = 'OFFLINE';
+                document.getElementById('conn-text').innerText = 'not_available';
             }
         }
 

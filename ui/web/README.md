@@ -47,6 +47,24 @@ La consola declara `pre-runtime / no-execution`, mantiene deny-by-default ante
 `no_payload`, muestra `forbidden_actions` y `blocked_capabilities`, y no habilita
 acciones fuera de `allowed_actions`.
 
+## Refinamiento de consola 1.1
+
+La marca `data-console-refinement="1.1"` identifica el refinamiento visual de
+la consola principal sin crear una pantalla nueva. Readiness y Contract Core
+reflejan el mismo payload inyectado que consumen los widgets; ante ausencia o
+invalidez mantienen `no_payload`, `pending`, `invalid` o `failed` sin inferir
+capacidades.
+
+Internal Services / Signals usa filas de lectura para distinguir registry,
+validation, dispatcher no-runtime, confirmation gate, response adapter y
+stable payloads. Actions & Boundaries separa permiso declarado, prohibicion y
+capacidad bloqueada sin agregar CTAs.
+
+La capa visual reduce efectos ornamentales, mejora contraste y espaciado, y
+mantiene responsive a 1440 px y 390 px. En movil el request contract inicia
+colapsado, no hay overflow horizontal y los controles bloqueados conservan su
+estado.
+
 ## Widgets backend contract
 
 `backend-contract-widgets.js` no crea ni consulta endpoints. Renderiza payloads
@@ -64,6 +82,6 @@ error contractual y no se renderizan acciones activas.
 ## Catálogo de textos
 
 `i18n_es.json` es la fuente de referencia en español para toda pantalla o flujo
-nuevo del HUD. Las incorporaciones deben reutilizar sus claves o ampliarlo antes
-de agregar nuevos textos visibles; la migración del HUD existente puede hacerse
+nuevo de la consola. Las incorporaciones deben reutilizar sus claves o ampliarlo antes
+de agregar nuevos textos visibles; la migración de la superficie existente puede hacerse
 de forma incremental sin duplicar un segundo catálogo.

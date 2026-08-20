@@ -74,15 +74,15 @@
     "display": "Display"
   },
   "debate": {
-    "debate_title": "Debate",
-    "task_placeholder": "Ingresá los datos y la consigna del debate...",
+    "debate_title": "Request contract draft",
+    "task_placeholder": "Draft local; requiere backend_internal_ui_request.v1 y allowed_actions.",
     "execute": "Bloqueado por contrato",
     "executing": "blocked",
-    "final_synthesis": "Síntesis final",
-    "synthesis_unavailable": "Síntesis no disponible",
-    "task_required": "Ingresá una tarea.",
-    "agent_required": "Seleccioná al menos un agente.",
-    "start_error": "No se pudo iniciar el debate.",
+    "final_synthesis": "Resultado declarado",
+    "synthesis_unavailable": "Resultado no disponible",
+    "task_required": "Ingresá un draft.",
+    "agent_required": "Seleccioná al menos una source declarada.",
+    "start_error": "El draft no pudo validarse.",
     "execution_error": "El request quedó bloqueado por contrato."
   },
   "agents": {
@@ -186,7 +186,7 @@
     "providers": "Proveedores",
     "tools": "Herramientas",
     "executions": "Registros declarados",
-    "dispatches": "Despachos",
+    "dispatches": "Despachos declarados",
     "last_latency": "Última latencia",
     "memory_summary": "Resumen de memoria",
     "no_tools": "Sin herramientas cargadas."
@@ -205,7 +205,7 @@
     "current": "Actual",
     "panel_opacity": "Opacidad de paneles",
     "font_size": "Tamaño de fuente",
-    "neon_brightness": "Brillo de neón",
+    "neon_brightness": "Intensidad de acento",
     "custom_background": "Fondo personalizado",
     "reset_background": "Restablecer fondo",
     "brand_logo": "Logo o banner de marca",

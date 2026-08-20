@@ -55,12 +55,17 @@
         const element = byId(id);
         if (element) element.textContent = String(value ?? '');
     };
+    const normalizeVisualState = (state) => VISUAL_STATES.has(String(state)) ? String(state) : 'blocked';
     const setVisualState = (id, state) => {
         const element = byId(id);
         if (!element) return;
-        const normalized = VISUAL_STATES.has(String(state)) ? String(state) : 'blocked';
+        const normalized = normalizeVisualState(state);
         element.className = `data-widget-value visual-state ${normalized}`;
         element.textContent = normalized;
+    };
+    const setStateAttribute = (id, state) => {
+        const element = byId(id);
+        if (element) element.dataset.state = normalizeVisualState(state);
     };
     const safeArray = (value) => Array.isArray(value) ? value : [];
     const safeObject = (value) => value && typeof value === 'object' && !Array.isArray(value) ? value : {};
@@ -90,6 +95,30 @@
             const widget = byId(widgetId);
             if (widget) widget.classList.toggle('is-updating', isUpdating);
         });
+    }
+
+    function updateConsoleSummary({
+        readiness,
+        status,
+        schemaVersion,
+        serviceKind,
+        source,
+        validation,
+    }) {
+        const normalizedReadiness = normalizeVisualState(readiness);
+        const normalizedStatus = normalizeVisualState(status);
+        const readinessLabel = normalizedReadiness === normalizedStatus
+            ? normalizedStatus
+            : `${normalizedReadiness} / ${normalizedStatus}`;
+
+        setText('console-readiness-value', readinessLabel);
+        setStateAttribute('console-readiness-card', normalizedReadiness);
+        setText('console-validation-summary', normalizeVisualState(validation));
+        setStateAttribute('console-validation-card', validation);
+        setText('console-schema-value', schemaVersion || SCHEMA_VERSION);
+        setText('console-service-kind-value', serviceKind || 'not_available');
+        setText('console-payload-source-value', source || 'no_payload');
+        setText('console-contract-validation-value', normalizeVisualState(validation));
     }
 
     function getInjectedPayloads() {
@@ -148,6 +177,14 @@
     }
 
     function renderNoPayload() {
+        updateConsoleSummary({
+            readiness: 'no_payload',
+            status: 'no_payload',
+            schemaVersion: SCHEMA_VERSION,
+            serviceKind: 'not_available',
+            source: 'no_payload',
+            validation: 'pending',
+        });
         setVisualState('contract-status-value', 'no_payload');
         setText('contract-status-meta', 'No hay backend_internal_ui_payload.v1 inyectado.');
         setText('contract-status-detail', 'Estado, readiness y acciones quedan bloqueados para la UI.');
@@ -173,7 +210,16 @@
         setText('contract-diagnostics-detail', 'No hay fetch ni endpoint nuevo para este panel.');
     }
 
-    function renderContractError(errors) {
+    function renderContractError(errors, payload) {
+        const value = safeObject(payload);
+        updateConsoleSummary({
+            readiness: 'invalid',
+            status: 'invalid',
+            schemaVersion: value.schema_version || 'invalid',
+            serviceKind: value.service_kind || 'not_available',
+            source: safeObject(value.meta).contract_fixture === true ? 'contract_fixture' : 'injected_payload',
+            validation: 'failed',
+        });
         setVisualState('contract-status-value', 'invalid');
         setText('contract-status-meta', 'El payload recibido no puede renderizarse como operativo.');
         setText('contract-status-detail', errors.join(' | '));
@@ -189,7 +235,7 @@
     function renderPayload(payload) {
         const validationErrors = validateStablePayload(payload);
         if (validationErrors.length > 0) {
-            renderContractError(validationErrors);
+            renderContractError(validationErrors, payload);
             return;
         }
 
@@ -208,6 +254,18 @@
         const visualStatus = safeObject(payload.meta).contract_fixture === true
             ? 'contract_fixture'
             : String(payload.status || 'pending');
+        const readinessState = VISUAL_STATES.has(String(payload.readiness))
+            ? String(payload.readiness)
+            : normalizeVisualState(visualStatus);
+        const validationState = errors.length ? 'failed' : warnings.length ? 'pending' : 'passed';
+        updateConsoleSummary({
+            readiness: readinessState,
+            status: visualStatus,
+            schemaVersion: payload.schema_version,
+            serviceKind: payload.service_kind || 'not_available',
+            source: safeObject(payload.meta).contract_fixture === true ? 'contract_fixture' : 'injected_payload',
+            validation: validationState,
+        });
         setVisualState('contract-status-value', visualStatus);
         setText('contract-status-meta', `readiness: ${payload.readiness || 'sin readiness'} · service: ${payload.service || '-'}`);
         setText('contract-status-detail', `request_id: ${payload.request_id || '-'} · operation_id: ${payload.operation_id || '-'}`);
