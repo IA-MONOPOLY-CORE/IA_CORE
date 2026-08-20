@@ -774,6 +774,50 @@
             gap: 6px;
             margin-top: 8px;
         }
+        /* Vocabulario minimo de componentes IA_CORE 1.9. */
+        [data-component~="ia-panel"],
+        [data-component~="ia-detail-panel"],
+        [data-component~="ia-evidence"] {
+            min-width: 0;
+        }
+        .ia-status-badge,
+        [data-component~="ia-status-badge"] {
+            max-width: 100%;
+            overflow-wrap: anywhere;
+        }
+        .ia-chip,
+        [data-component~="ia-chip"] {
+            max-width: 100%;
+            overflow-wrap: anywhere;
+        }
+        .ia-empty-state,
+        [data-component~="ia-empty-state"] {
+            border-width: 1px;
+            border-style: dashed;
+            color: var(--amber);
+        }
+        .ia-warning,
+        [data-component~="ia-warning"] {
+            border-color: rgba(245,158,11,0.58);
+            color: var(--amber);
+        }
+        .ia-error,
+        [data-component~="ia-error"] {
+            border-color: rgba(239,68,68,0.68);
+            color: var(--red);
+        }
+        .ia-blocker,
+        [data-component~="ia-blocker"] {
+            border-color: rgba(239,68,68,0.58);
+        }
+        [data-component~="ia-nav-button"],
+        [data-component~="ia-readonly-control"] {
+            touch-action: manipulation;
+        }
+        [data-component~="ia-readonly-control"]:focus-visible {
+            outline: 1px solid var(--cyan);
+            outline-offset: 2px;
+        }
         @media (max-width: 1180px) {
             .ia-core-shell { padding-right: 54px; }
             .console-flow-map { grid-template-columns: 1fr; }
@@ -1186,7 +1230,7 @@
 </head>
 <body data-skin="contract">
 
-    <main class="ia-core-shell" data-layout-contract-aware="superior-0.8" data-main-console="contract-aware-1.0" data-console-refinement="1.1" data-console-flow="contract-aware-1.2" data-console-interaction="contract-aware-1.3" data-payload-reading-model="contract-aware-1.6" data-contract-detail-panels="contract-aware-1.7" data-internal-navigation="contract-aware-1.8" data-interaction-mode="read-only">
+    <main class="ia-core-shell" data-layout-contract-aware="superior-0.8" data-main-console="contract-aware-1.0" data-console-refinement="1.1" data-console-flow="contract-aware-1.2" data-console-interaction="contract-aware-1.3" data-payload-reading-model="contract-aware-1.6" data-contract-detail-panels="contract-aware-1.7" data-internal-navigation="contract-aware-1.8" data-component-system="ia-core-contract-aware-1.9" data-interaction-mode="read-only">
     <!-- BANNER PARA LOGOS -->
     <div class="logo-banner" id="logo-banner">
         <div class="logo-banner-inner" id="logo-banner-inner"></div>
@@ -1204,9 +1248,9 @@
             <span class="console-orientation-copy">Lectura de contrato y señales declaradas. Esta consola no ejecuta operaciones.</span>
         </div>
         <div class="badges-container">
-            <div class="badge" id="ventaja-badge">READINESS: no_payload</div>
-            <div class="badge" id="ft-badge">SCHEMA: backend_internal_ui_payload.v1</div>
-            <div class="badge" id="conn-badge"><span id="conn-dot" class="pulse-dot disconnected"></span><span>READ SOURCE:</span><span id="conn-text">not_available</span></div>
+            <div class="badge" id="ventaja-badge" data-component="ia-status-badge ia-empty-state">READINESS: no_payload</div>
+            <div class="badge" id="ft-badge" data-component="ia-chip">SCHEMA: backend_internal_ui_payload.v1</div>
+            <div class="badge" id="conn-badge" data-component="ia-status-badge ia-empty-state"><span id="conn-dot" class="pulse-dot disconnected"></span><span>READ SOURCE:</span><span id="conn-text">not_available</span></div>
         </div>
     </header>
 
@@ -1217,12 +1261,12 @@
             <span class="interaction-mode-badge">Interaction mode: read-only</span>
         </div>
         <ol class="console-flow-steps">
-            <li data-flow-target="readiness"><button class="flow-focus-control" type="button" data-interaction-control="focus" data-interaction-mode="read-only" data-focus-step="readiness" aria-pressed="true"><strong>Readiness</strong><small>enfocar estado declarado</small></button></li>
-            <li data-flow-target="contract-core"><button class="flow-focus-control" type="button" data-interaction-control="focus" data-interaction-mode="read-only" data-focus-step="contract-core" aria-pressed="false"><strong>Contract Core</strong><small>inspeccionar payload</small></button></li>
-            <li data-flow-target="service-signals"><button class="flow-focus-control" type="button" data-interaction-control="focus" data-interaction-mode="read-only" data-focus-step="service-signals" aria-pressed="false"><strong>Internal Signals</strong><small>enfocar señales, no ejecución</small></button></li>
-            <li data-flow-target="actions-boundaries"><button class="flow-focus-control" type="button" data-interaction-control="focus" data-interaction-mode="read-only" data-focus-step="actions-boundaries" aria-pressed="false"><strong>Actions &amp; Limits</strong><small>inspeccionar autoridad backend</small></button></li>
-            <li data-flow-target="evidence-checkpoint"><button class="flow-focus-control" type="button" data-interaction-control="focus" data-interaction-mode="read-only" data-focus-step="evidence-checkpoint" aria-pressed="false"><strong>Evidence</strong><small>enfocar checkpoints</small></button></li>
-            <li data-flow-target="next-step"><button class="flow-focus-control" type="button" data-interaction-control="focus" data-interaction-mode="read-only" data-focus-step="next-step" aria-pressed="false"><strong>Next Step</strong><small>ver continuidad planned</small></button></li>
+            <li data-flow-target="readiness"><button class="flow-focus-control" type="button" data-component="ia-readonly-control" data-interaction-control="focus" data-interaction-mode="read-only" data-focus-step="readiness" aria-pressed="true"><strong>Readiness</strong><small>enfocar estado declarado</small></button></li>
+            <li data-flow-target="contract-core"><button class="flow-focus-control" type="button" data-component="ia-readonly-control" data-interaction-control="focus" data-interaction-mode="read-only" data-focus-step="contract-core" aria-pressed="false"><strong>Contract Core</strong><small>inspeccionar payload</small></button></li>
+            <li data-flow-target="service-signals"><button class="flow-focus-control" type="button" data-component="ia-readonly-control" data-interaction-control="focus" data-interaction-mode="read-only" data-focus-step="service-signals" aria-pressed="false"><strong>Internal Signals</strong><small>enfocar señales, no ejecución</small></button></li>
+            <li data-flow-target="actions-boundaries"><button class="flow-focus-control" type="button" data-component="ia-readonly-control" data-interaction-control="focus" data-interaction-mode="read-only" data-focus-step="actions-boundaries" aria-pressed="false"><strong>Actions &amp; Limits</strong><small>inspeccionar autoridad backend</small></button></li>
+            <li data-flow-target="evidence-checkpoint"><button class="flow-focus-control" type="button" data-component="ia-readonly-control" data-interaction-control="focus" data-interaction-mode="read-only" data-focus-step="evidence-checkpoint" aria-pressed="false"><strong>Evidence</strong><small>enfocar checkpoints</small></button></li>
+            <li data-flow-target="next-step"><button class="flow-focus-control" type="button" data-component="ia-readonly-control" data-interaction-control="focus" data-interaction-mode="read-only" data-focus-step="next-step" aria-pressed="false"><strong>Next Step</strong><small>ver continuidad planned</small></button></li>
         </ol>
     </section>
 
@@ -1232,17 +1276,17 @@
             <p>Navegar mueve el foco dentro de la lectura. Foco no significa seleccion operativa y cada zona sigue sin ejecutar.</p>
         </div>
         <ol class="internal-nav-list">
-            <li><button class="internal-nav-control" type="button" data-internal-nav-control="focus" data-nav-target="readiness" data-nav-state="read_only current_section" aria-current="true">Readiness</button></li>
-            <li><button class="internal-nav-control" type="button" data-internal-nav-control="focus" data-nav-target="contract-core" data-nav-state="read_only" aria-current="false">Contract Core</button></li>
-            <li><button class="internal-nav-control" type="button" data-internal-nav-control="focus" data-nav-target="payload-reading" data-nav-state="read_only" aria-current="false">Payload Reading</button></li>
-            <li><button class="internal-nav-control" type="button" data-internal-nav-control="focus" data-nav-target="detail-panels" data-nav-state="read_only" aria-current="false">Detail Panels</button></li>
-            <li><button class="internal-nav-control" type="button" data-internal-nav-control="focus" data-nav-target="actions-boundaries" data-nav-state="read_only" aria-current="false">Actions &amp; Boundaries</button></li>
-            <li><button class="internal-nav-control" type="button" data-internal-nav-control="focus" data-nav-target="evidence" data-nav-state="read_only" aria-current="false">Evidence</button></li>
-            <li><button class="internal-nav-control" type="button" data-internal-nav-control="focus" data-nav-target="next-step" data-nav-state="read_only" aria-current="false">Next Step / planned</button></li>
+            <li><button class="internal-nav-control" type="button" data-component="ia-nav-button ia-readonly-control" data-internal-nav-control="focus" data-nav-target="readiness" data-nav-state="read_only current_section" aria-current="true">Readiness</button></li>
+            <li><button class="internal-nav-control" type="button" data-component="ia-nav-button ia-readonly-control" data-internal-nav-control="focus" data-nav-target="contract-core" data-nav-state="read_only" aria-current="false">Contract Core</button></li>
+            <li><button class="internal-nav-control" type="button" data-component="ia-nav-button ia-readonly-control" data-internal-nav-control="focus" data-nav-target="payload-reading" data-nav-state="read_only" aria-current="false">Payload Reading</button></li>
+            <li><button class="internal-nav-control" type="button" data-component="ia-nav-button ia-readonly-control" data-internal-nav-control="focus" data-nav-target="detail-panels" data-nav-state="read_only" aria-current="false">Detail Panels</button></li>
+            <li><button class="internal-nav-control" type="button" data-component="ia-nav-button ia-readonly-control" data-internal-nav-control="focus" data-nav-target="actions-boundaries" data-nav-state="read_only" aria-current="false">Actions &amp; Boundaries</button></li>
+            <li><button class="internal-nav-control" type="button" data-component="ia-nav-button ia-readonly-control" data-internal-nav-control="focus" data-nav-target="evidence" data-nav-state="read_only" aria-current="false">Evidence</button></li>
+            <li><button class="internal-nav-control" type="button" data-component="ia-nav-button ia-readonly-control" data-internal-nav-control="focus" data-nav-target="next-step" data-nav-state="read_only" aria-current="false">Next Step / planned</button></li>
         </ol>
     </nav>
 
-    <section class="layout-section" data-main-console-zone="readiness" data-flow-step="readiness" data-nav-section="readiness" data-nav-state="read_only inspectable current_section" data-interaction-mode="read-only" data-interaction-state="inspectable selected" aria-label="Global contract readiness">
+    <section class="layout-section" data-component="ia-panel" data-main-console-zone="readiness" data-flow-step="readiness" data-nav-section="readiness" data-nav-state="read_only inspectable current_section" data-interaction-mode="read-only" data-interaction-state="inspectable selected" aria-label="Global contract readiness">
         <div class="layout-section-title"><strong><span class="flow-step-index">01</span>READINESS GLOBAL</strong><span>leer estado declarado / pre-runtime</span></div>
         <div class="readiness-band">
             <article class="hud-panel readiness-card primary" id="console-readiness-card" data-state="no_payload">
@@ -1268,7 +1312,7 @@
         </div>
     </section>
 
-    <section class="layout-section" data-main-console-zone="contract-core" data-flow-step="contract-core" data-nav-section="contract-core" data-nav-state="read_only inspectable" data-interaction-mode="read-only" data-interaction-state="inspectable" aria-label="Contract core and payload">
+    <section class="layout-section" data-component="ia-panel" data-main-console-zone="contract-core" data-flow-step="contract-core" data-nav-section="contract-core" data-nav-state="read_only inspectable" data-interaction-mode="read-only" data-interaction-state="inspectable" aria-label="Contract core and payload">
         <div class="layout-section-title"><strong><span class="flow-step-index">02</span>CONTRACT CORE / PAYLOAD</strong><span>leer fuente declarada / deny-by-default</span></div>
         <div class="contract-core-rail">
             <div class="contract-core-item">
@@ -1303,11 +1347,11 @@
                 <div class="layout-label">raw-safe</div>
                 <h3>Inspeccion segura</h3>
                 <p>Proyeccion local read-only, sin secretos, sin edicion, sin submit y sin modo operativo.</p>
-                <code class="raw-safe-output" id="contract-raw-safe-value">not_available</code>
+                <code class="raw-safe-output ia-empty-state" id="contract-raw-safe-value" data-component="ia-empty-state">not_available</code>
             </article>
         </div>
         <section class="contract-detail-panels" data-nav-section="detail-panels" data-nav-state="read_only inspectable" aria-label="Paneles de detalle contractual read-only">
-            <article class="contract-detail-panel" data-detail-panel="readiness" data-detail-state="read_only" data-reading-layer-ref="summary detail">
+            <article class="contract-detail-panel" data-detail-panel="readiness" data-component="ia-detail-panel" data-detail-state="read_only" data-reading-layer-ref="summary detail">
                 <div class="layout-label">Readiness detail</div>
                 <h3>Estado declarado y procedencia</h3>
                 <div class="detail-panel-source">summary + detail / backend_internal_ui_payload.v1</div>
@@ -1319,7 +1363,7 @@
                 <p class="detail-panel-note">Readiness orienta al operador; no significa runtime, execution ni permiso operativo.</p>
             </article>
 
-            <article class="contract-detail-panel" data-detail-panel="payload-contract" data-detail-state="read_only" data-reading-layer-ref="detail raw-safe">
+            <article class="contract-detail-panel" data-detail-panel="payload-contract" data-component="ia-detail-panel" data-detail-state="read_only" data-reading-layer-ref="detail raw-safe">
                 <div class="layout-label">Payload / contract detail</div>
                 <h3>Fuente contractual leida</h3>
                 <div class="detail-panel-source">detail + raw-safe / payload inyectado o fixture contractual</div>
@@ -1332,7 +1376,7 @@
                 <p class="detail-panel-note">La UI lee el payload; no crea el contrato ni decide permisos. Raw-safe sigue siendo inspeccion local, no modo operativo.</p>
             </article>
 
-            <article class="contract-detail-panel" data-detail-panel="validation" data-detail-state="read_only" data-reading-layer-ref="detail raw-safe">
+            <article class="contract-detail-panel" data-detail-panel="validation" data-component="ia-detail-panel" data-detail-state="read_only" data-reading-layer-ref="detail raw-safe">
                 <div class="layout-label">Validation detail</div>
                 <h3>Validez, flags y ausencia honesta</h3>
                 <div class="detail-panel-source">detail + raw-safe / validation + flags</div>
@@ -1344,7 +1388,7 @@
                 <p class="detail-panel-note">PASSED solo refleja validacion declarada. Validacion visual no equivale a ejecucion y ningun warning/error se oculta.</p>
             </article>
 
-            <article class="contract-detail-panel" data-detail-panel="actions" data-detail-state="read_only" data-reading-layer-ref="summary detail">
+            <article class="contract-detail-panel" data-detail-panel="actions" data-component="ia-detail-panel" data-detail-state="read_only" data-reading-layer-ref="summary detail">
                 <div class="layout-label">Actions detail</div>
                 <h3>Autoridad backend, sin controles operativos</h3>
                 <div class="detail-panel-source">summary + detail / allowed_actions + forbidden_actions</div>
@@ -1356,7 +1400,7 @@
                 <p class="detail-panel-note">Permitido solo existe si backend lo declara. Forbidden nunca se convierte en boton activo y este panel no ejecuta acciones.</p>
             </article>
 
-            <article class="contract-detail-panel" data-detail-panel="blocked-capabilities" data-detail-state="read_only" data-reading-layer-ref="summary detail raw-safe">
+            <article class="contract-detail-panel" data-detail-panel="blocked-capabilities" data-component="ia-detail-panel ia-blocker" data-detail-state="read_only" data-reading-layer-ref="summary detail raw-safe">
                 <div class="layout-label">Blocked capabilities detail</div>
                 <h3>Frontera contractual visible</h3>
                 <div class="detail-panel-source">summary + detail + raw-safe / blocked_capabilities</div>
@@ -1368,7 +1412,7 @@
                 <p class="detail-panel-note">true = blocked. Runtime, execution, dispatch, tools, models, integrations, public endpoints, ui runtime y operational domains son fronteras contractuales, no fallas esteticas.</p>
             </article>
 
-            <article class="contract-detail-panel" data-detail-panel="warnings-errors" data-detail-state="read_only" data-reading-layer-ref="summary detail raw-safe">
+            <article class="contract-detail-panel" data-detail-panel="warnings-errors" data-component="ia-detail-panel" data-detail-state="read_only" data-reading-layer-ref="summary detail raw-safe">
                 <div class="layout-label">Warnings / errors detail</div>
                 <h3>Diagnostico visible y sanitizado</h3>
                 <div class="detail-panel-source">summary + detail + raw-safe / warnings + errors</div>
@@ -1380,7 +1424,7 @@
                 <p class="detail-panel-note">No se inventa causa ni se suaviza un error critico. Los tracebacks crudos no son UX principal; la severidad y el origen declarado permanecen visibles.</p>
             </article>
 
-            <article class="contract-detail-panel" data-detail-panel="evidence" data-detail-state="read_only" data-reading-layer-ref="summary detail">
+            <article class="contract-detail-panel" data-detail-panel="evidence" data-component="ia-detail-panel ia-evidence" data-detail-state="read_only" data-reading-layer-ref="summary detail">
                 <div class="layout-label">Evidence detail</div>
                 <h3>Trazabilidad 1.0 -&gt; 1.6 y continuidad</h3>
                 <div class="detail-panel-source">summary + detail / documentos, veredictos y commits cerrados</div>
@@ -1393,12 +1437,13 @@
                     <span class="layout-token">1.5 plan · 17bbb608</span>
                     <span class="layout-token">1.6 reading model · 1b04f7a8</span>
                     <span class="layout-token">1.8 internal navigation · defined</span>
-                    <span class="visual-state planned">planned: component system 1.9</span>
+                    <span class="layout-token">1.9 component system · defined</span>
+                    <span class="visual-state planned">planned: checkpoint 1.10</span>
                 </div>
                 <p class="detail-panel-note">Evidencia no es accion. Next Step es continuidad de desarrollo y no inicia runtime, execution ni dispatch.</p>
             </article>
         </section>
-        <details class="contract-inspector" id="contract-read-only-inspector" data-interaction-control="inspect" data-interaction-mode="read-only" data-interaction-state="read_only inspectable collapsed">
+        <details class="contract-inspector" id="contract-read-only-inspector" data-component="ia-readonly-control" data-interaction-control="inspect" data-interaction-mode="read-only" data-interaction-state="read_only inspectable collapsed">
             <summary>
                 <span><span class="layout-label">Inspector read-only</span><strong>INSPECCIONAR RESUMEN CONTRACTUAL</strong></span>
                 <span class="inspector-disclosure">Ver detalle</span>
@@ -1419,12 +1464,12 @@
             </div>
         </details>
         <div class="admin-toolbar">
-            <button class="btn-primary" id="widgets-refresh-btn" type="button" data-interaction-control="inspect" data-interaction-mode="read-only">RELEER PAYLOAD LOCAL</button>
+            <button class="btn-primary" id="widgets-refresh-btn" type="button" data-component="ia-readonly-control" data-interaction-control="inspect" data-interaction-mode="read-only">RELEER PAYLOAD LOCAL</button>
             <span class="admin-status" id="widgets-last-refresh">Sin actualizar.</span>
             <span class="read-only-guidance">Releer actualiza la vista local; no ejecuta ni cambia permisos.</span>
         </div>
         <div class="widgets-grid" id="functional-widgets">
-            <section class="data-widget" id="widget-contract-status">
+            <section class="data-widget" id="widget-contract-status" data-component="ia-panel">
                 <div class="data-widget-header">
                     <div>
                         <div class="data-widget-title">Estado backend estable</div>
@@ -1436,7 +1481,7 @@
                 <div class="data-widget-meta" id="contract-status-meta">Esperando envelope estable inyectado.</div>
                 <div class="data-widget-detail" id="contract-status-detail">La UI no infiere readiness ni estado operativo.</div>
             </section>
-            <section class="data-widget" id="widget-contract-actions">
+            <section class="data-widget" id="widget-contract-actions" data-component="ia-panel">
                 <div class="data-widget-header">
                     <div>
                         <div class="data-widget-title">Acciones declaradas</div>
@@ -1449,7 +1494,7 @@
                 <div class="data-widget-list" id="contract-allowed-actions"></div>
                 <div class="data-widget-detail" id="contract-forbidden-actions">forbidden_actions pendiente de payload.</div>
             </section>
-            <section class="data-widget" id="widget-contract-blocked">
+            <section class="data-widget" id="widget-contract-blocked" data-component="ia-panel ia-blocker">
                 <div class="data-widget-header">
                     <div>
                         <div class="data-widget-title">Capabilities bloqueadas</div>
@@ -1462,7 +1507,7 @@
                 <div class="data-widget-list" id="contract-blocked-list"></div>
                 <div class="data-widget-detail" id="contract-blocked-detail">runtime/execution/tools/models/integrations permanecen bloqueados.</div>
             </section>
-            <section class="data-widget" id="widget-contract-diagnostics">
+            <section class="data-widget" id="widget-contract-diagnostics" data-component="ia-panel">
                 <div class="data-widget-header">
                     <div>
                         <div class="data-widget-title">Warnings y errores</div>
@@ -1494,7 +1539,7 @@
                     <li class="signal-row"><span class="signal-name">stable_payloads</span><span class="signal-kind">contract source</span></li>
                 </ul>
             </article>
-            <article class="hud-panel contract-layout-zone" data-layout-zone="actions-blocks" data-main-console-zone="actions-boundaries" data-flow-step="actions-boundaries" data-nav-section="actions-boundaries" data-nav-state="read_only inspectable" data-interaction-mode="read-only" data-interaction-state="inspectable">
+            <article class="hud-panel contract-layout-zone" data-component="ia-panel ia-blocker" data-layout-zone="actions-blocks" data-main-console-zone="actions-boundaries" data-flow-step="actions-boundaries" data-nav-section="actions-boundaries" data-nav-state="read_only inspectable" data-interaction-mode="read-only" data-interaction-state="inspectable">
                 <div class="layout-label">Acciones y bloqueos</div>
                 <h2>Actions &amp; Boundaries</h2>
                 <p class="layout-copy"><span class="flow-step-index">04</span>Contrastá permiso backend, prohibición no ejecutable y capacidad bloqueada.</p>
@@ -1505,37 +1550,37 @@
                     </li>
                     <li class="boundary-row">
                         <span><span class="boundary-name">forbidden_actions</span><span class="boundary-detail">Visible y no ejecutable.</span></span>
-                        <span class="boundary-state blocked">forbidden</span>
+                        <span class="boundary-state blocked" data-component="ia-status-badge ia-blocker">forbidden</span>
                     </li>
                     <li class="boundary-row">
                         <span><span class="boundary-name">blocked_capabilities</span><span class="boundary-detail">Semántica preservada: true = blocked.</span></span>
-                        <span class="boundary-state blocked">blocked</span>
+                        <span class="boundary-state blocked" data-component="ia-status-badge ia-blocker">blocked</span>
                     </li>
                 </ul>
             </article>
         </div>
     </section>
 
-    <section class="layout-section" data-layout-zone="evidence-checkpoint" data-main-console-zone="evidence-checkpoint" data-flow-step="evidence-checkpoint" data-nav-section="evidence" data-nav-state="read_only inspectable" data-interaction-mode="read-only" data-interaction-state="inspectable" aria-label="Checkpoint evidence">
+    <section class="layout-section" data-component="ia-panel ia-evidence" data-layout-zone="evidence-checkpoint" data-main-console-zone="evidence-checkpoint" data-flow-step="evidence-checkpoint" data-nav-section="evidence" data-nav-state="read_only inspectable" data-interaction-mode="read-only" data-interaction-state="inspectable" aria-label="Checkpoint evidence">
         <div class="layout-section-title"><strong><span class="flow-step-index">05</span>EVIDENCIA CONTRACT-AWARE / CHECKPOINT</strong><span>respaldo documentado / sin endpoints nuevos</span></div>
         <div class="layout-evidence-grid">
-            <article class="hud-panel evidence-card">
+            <article class="hud-panel evidence-card" data-component="ia-evidence">
                 <div class="layout-label">Evidencia y continuidad</div>
                 <div class="layout-value">0.6 + 0.9 passed</div>
                 <p class="layout-copy">Contrato estable y checkpoint visual base respaldan esta consola principal.</p>
-                <span class="visual-state passed evidence-state">passed</span>
+                <span class="visual-state passed evidence-state" data-component="ia-status-badge">passed</span>
             </article>
-            <article class="hud-panel evidence-card">
+            <article class="hud-panel evidence-card" data-component="ia-evidence">
                 <div class="layout-label">Estado documentado</div>
                 <div class="layout-value">1.0 + 1.1 passed</div>
                 <p class="layout-copy">Estructura y refinamiento respaldan el orden actual; no_payload y blocked permanecen honestos.</p>
-                <span class="visual-state passed evidence-state">passed</span>
+                <span class="visual-state passed evidence-state" data-component="ia-status-badge">passed</span>
             </article>
-            <article class="hud-panel evidence-card flow-next-step" data-flow-step="next-step" data-nav-section="next-step" data-nav-state="read_only inspectable" data-interaction-mode="read-only" data-interaction-state="inspectable">
+            <article class="hud-panel evidence-card flow-next-step" data-component="ia-panel ia-evidence" data-flow-step="next-step" data-nav-section="next-step" data-nav-state="read_only inspectable" data-interaction-mode="read-only" data-interaction-state="inspectable">
                 <div class="layout-label"><span class="flow-step-index">06</span>Próximo paso documentado</div>
-                <div class="layout-value">component system block</div>
-                <p class="layout-copy">Continuidad planned posterior a 1.8; no es boton runtime ni inicia execution o dispatch.</p>
-                <span class="visual-state planned evidence-state">planned</span>
+                <div class="layout-value">console block checkpoint</div>
+                <p class="layout-copy">Continuidad planned posterior a 1.9; no es boton runtime ni inicia execution o dispatch.</p>
+                <span class="visual-state planned evidence-state" data-component="ia-status-badge ia-empty-state">planned</span>
             </article>
         </div>
         <div class="layout-token-row">
@@ -1573,10 +1618,10 @@
 
     <!-- PANEL DEBATE -->
     <div class="debate-panel" id="debate-panel" aria-label="Contract request draft">
-        <div class="debate-toggle" id="debate-toggle" role="button" tabindex="0" data-interaction-control="collapse" data-interaction-mode="read-only" aria-controls="debate-panel" aria-expanded="true" aria-label="Mostrar u ocultar request contract" title="Mostrar u ocultar request contract">▶</div>
-        <div><span style="font-weight:bold;">REQUEST CONTRACT DRAFT</span> <span id="exec-badge" class="visual-state blocked" style="float:right;">blocked</span></div>
+        <div class="debate-toggle" id="debate-toggle" role="button" tabindex="0" data-component="ia-readonly-control" data-interaction-control="collapse" data-interaction-mode="read-only" aria-controls="debate-panel" aria-expanded="true" aria-label="Mostrar u ocultar request contract" title="Mostrar u ocultar request contract">▶</div>
+        <div><span style="font-weight:bold;">REQUEST CONTRACT DRAFT</span> <span id="exec-badge" class="visual-state blocked" data-component="ia-status-badge ia-blocker" style="float:right;">blocked</span></div>
         <textarea class="debate-input" id="task-input" placeholder="Draft local; no dispatch without backend_internal_ui_request.v1 + allowed_actions."></textarea>
-        <button class="btn-debate" id="start-btn" disabled data-interaction-mode="read-only" data-interaction-state="blocked_interaction disabled_by_contract">BLOQUEADO POR CONTRATO</button>
+        <button class="btn-debate" id="start-btn" disabled data-interaction-mode="read-only" data-interaction-state="blocked_interaction disabled_by_contract" data-component="ia-readonly-control ia-blocker">BLOQUEADO POR CONTRATO</button>
         <div class="debate-metrics" id="debate-metrics" style="display:none">
             <div><div class="metric-title">ACUERDO</div><div id="debate-acuerdo">-</div></div>
             <div><div class="metric-title">CONTRADICCIÓN</div><div id="debate-contradiccion">-</div></div>

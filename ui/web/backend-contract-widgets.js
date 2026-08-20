@@ -43,6 +43,15 @@
         'no_payload',
         'contract_fixture',
     ]);
+    const EMPTY_STATES = new Set([
+        'not_available',
+        'no_payload',
+        'no_warnings',
+        'no_errors',
+        'planned',
+        'blocked',
+        'contract_fixture',
+    ]);
     const widgetIds = [
         'widget-contract-status',
         'widget-contract-actions',
@@ -60,7 +69,15 @@
         const element = byId(id);
         if (!element) return;
         const normalized = normalizeVisualState(state);
-        element.className = `data-widget-value visual-state ${normalized}`;
+        const componentClasses = [
+            'data-widget-value',
+            'ia-status-badge',
+            'visual-state',
+            normalized,
+            normalized === 'blocked' ? 'ia-blocker' : '',
+            EMPTY_STATES.has(normalized) ? 'ia-empty-state' : '',
+        ].filter(Boolean);
+        element.className = componentClasses.join(' ');
         element.textContent = normalized;
     };
     const setStateAttribute = (id, state) => {
@@ -106,9 +123,19 @@
     function renderChips(containerId, values, className = '') {
         const container = byId(containerId);
         if (!container) return;
-        container.innerHTML = values.map((value) => (
-            `<span class="contract-chip ${escapeHtml(className)}">${escapeHtml(value)}</span>`
-        )).join('');
+        container.innerHTML = values.map((value) => {
+            const normalized = String(value);
+            const classes = [
+                'contract-chip',
+                'ia-chip',
+                className,
+                className === 'warning' ? 'ia-warning' : '',
+                className === 'forbidden' ? 'ia-error' : '',
+                className === 'blocked' ? 'ia-blocker' : '',
+                EMPTY_STATES.has(normalized) ? 'ia-empty-state' : '',
+            ].filter(Boolean).map(escapeHtml).join(' ');
+            return `<span class="${classes}">${escapeHtml(value)}</span>`;
+        }).join('');
     }
 
     function safeRawProjection(payload) {
@@ -140,8 +167,10 @@
     }
 
     function setRawSafe(value, state = 'not_available') {
+        const element = byId('contract-raw-safe-value');
         setText('contract-raw-safe-value', value);
         setInteractionState('contract-raw-safe-value', `read_only ${state}`);
+        if (element) element.classList.toggle('ia-empty-state', EMPTY_STATES.has(state));
     }
 
     function setValidationDetail(payload, state = 'not_available') {

@@ -159,6 +159,20 @@ paneles 1.7, y no modifica payloads, permisos ni bloqueos. No agrega endpoints,
 no runtime, no execution y no dispatch. El bloque 1.9 queda `planned`; 1.8 no
 implementa el sistema global de componentes.
 
+## Sistema de componentes IA_CORE 1.9
+
+La shell agrega `data-component-system="ia-core-contract-aware-1.9"` y un
+vocabulario minimo para panels, detail panels, status badges, chips, empty
+states, warnings, errors, blockers, evidence, nav buttons y controles
+read-only. La implementacion conserva las clases existentes y suma marcas
+canonicas; no reescribe el layout ni crea un paquete de componentes.
+
+Los renderers dinamicos aplican las marcas segun estado contractual y mantienen
+`allowed_actions`, `forbidden_actions` y `blocked_capabilities` como autoridad
+backend. No hay dependencias nuevas, endpoints, runtime, execution ni dispatch.
+21st.dev, UI UX Pro Max Skill y Framer Motion / Motion siguen como benchmarks futuros
+solamente. El bloque 1.10 queda `planned`; 1.9 no cierra el checkpoint.
+
 ## Widgets backend contract
 
 `backend-contract-widgets.js` no crea ni consulta endpoints. Renderiza payloads
