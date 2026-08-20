@@ -361,6 +361,17 @@ def test_spanish_catalog_is_valid_and_dashboard_legacy_is_removed():
     catalog_text = json.dumps(catalog, ensure_ascii=False)
     for legacy in ("SAAOP", "S.A.A.O.P.", "Tactical HUD", "U-Score"):
         assert legacy not in catalog_text
+    for active_runtime_label in (
+        "ID de ejecución",
+        "Última ejecución",
+        "Sin ejecuciones registradas.",
+        "Ejecuciones",
+        "Consola de orquestación",
+        "Ingresá una tarea para ejecutar...",
+        "Ejecutar",
+        "La ejecución falló.",
+    ):
+        assert active_runtime_label not in catalog_text
 
 
 def test_agents_endpoint_and_hud_keep_generic_baseline_agents(monkeypatch, tmp_path):

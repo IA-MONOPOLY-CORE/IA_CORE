@@ -50,7 +50,7 @@
                 ['Estado', status.running ? 'ready' : 'not_available'],
                 ['Ruta', status.path || '-'],
                 ['Claves', status.key_count ?? 0],
-                ['Ejecuciones', status.history_count ?? 0],
+                ['Registros declarados', status.history_count ?? 0],
             ]);
 
             const select = byId('memory-key-select');
@@ -167,7 +167,7 @@
                 ['Agentes', overview.agent_count ?? 0],
                 ['Providers', overview.provider_count ?? 0],
                 ['Herramientas', overview.tool_count ?? 0],
-                ['Ejecuciones', overview.orchestrations ?? 0],
+                ['Registros declarados', overview.orchestrations ?? 0],
                 ['Despachos', overview.agent_dispatches ?? 0],
                 ['Última latencia', `${Number(overview.last_orchestration_ms || 0).toFixed(1)} ms`],
             ]);

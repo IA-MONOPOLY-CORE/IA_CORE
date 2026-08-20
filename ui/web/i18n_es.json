@@ -56,7 +56,7 @@
     "duration": "Duración",
     "consensus_score": "Puntaje de consenso",
     "contract_score": "Puntaje contractual",
-    "execution_id": "ID de ejecución",
+    "execution_id": "ID de registro",
     "score": "Puntaje",
     "points": "Puntos"
   },
@@ -83,7 +83,7 @@
     "task_required": "Ingresá una tarea.",
     "agent_required": "Seleccioná al menos un agente.",
     "start_error": "No se pudo iniciar el debate.",
-    "execution_error": "El debate finalizó con un error."
+    "execution_error": "El request quedó bloqueado por contrato."
   },
   "agents": {
     "select_title": "Seleccionar agentes",
@@ -125,22 +125,22 @@
     "title": "Inspector de memoria",
     "select_key": "Seleccionar clave",
     "selected_value": "Valor seleccionado",
-    "orchestration_history": "Historial de orquestación",
-    "latest_execution": "Última ejecución",
+    "orchestration_history": "Historial declarado",
+    "latest_execution": "Último registro",
     "select_key_prompt": "Seleccioná una clave.",
     "no_history": "Sin historial.",
-    "no_executions": "Sin ejecuciones registradas.",
+    "no_executions": "Sin registros declarados.",
     "state": "Estado",
     "path": "Ruta",
     "keys": "Claves",
-    "executions": "Ejecuciones"
+    "executions": "Registros declarados"
   },
   "logs": {
     "title": "Registros de sesión",
     "lines": "Líneas",
     "warnings": "Advertencias",
     "errors": "Errores",
-    "runtime": "Ejecución",
+    "runtime": "Registros sanitizados",
     "session_events": "Eventos de sesión",
     "no_logs": "Sin registros.",
     "no_warnings": "Sin advertencias.",
@@ -150,7 +150,7 @@
   "hybrid": {
     "title": "Enrutamiento híbrido",
     "full_diagnostic": "Diagnóstico completo",
-    "running_diagnostic": "Ejecutando diagnóstico...",
+    "running_diagnostic": "Releyendo diagnóstico...",
     "routing_reason": "Motivo del enrutamiento",
     "connectivity": "Conectividad",
     "metrics": "Métricas",
@@ -164,19 +164,19 @@
     "no_decision": "Sin decisión registrada."
   },
   "orchestration": {
-    "title": "Consola de orquestación",
-    "task_placeholder": "Ingresá una tarea para ejecutar...",
+    "title": "Request contract",
+    "task_placeholder": "Draft local; no dispatch sin allowed_actions.",
     "mode": "Modo",
     "sequential_mode": "Secuencial",
     "debate_mode": "Debate",
-    "execute": "Ejecutar",
-    "enqueuing": "Agregando a la cola...",
-    "waiting_results": "Esperando resultados...",
+    "execute": "Bloqueado por contrato",
+    "enqueuing": "blocked",
+    "waiting_results": "Sin payload estable.",
     "scores_summary": "Resumen de puntajes",
     "steps_and_errors": "Pasos y errores",
     "no_steps": "Sin pasos.",
     "loading_agents": "Cargando agentes...",
-    "execution_failed": "La ejecución falló."
+    "execution_failed": "Dispatch bloqueado por contrato."
   },
   "overview": {
     "title": "Resumen del sistema",
@@ -185,7 +185,7 @@
     "agents": "Agentes",
     "providers": "Proveedores",
     "tools": "Herramientas",
-    "executions": "Ejecuciones",
+    "executions": "Registros declarados",
     "dispatches": "Despachos",
     "last_latency": "Última latencia",
     "memory_summary": "Resumen de memoria",
