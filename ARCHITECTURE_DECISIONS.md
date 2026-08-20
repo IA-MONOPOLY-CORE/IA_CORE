@@ -1613,6 +1613,44 @@ sin ejecutar servicios ni abrir runtime.
 
 ---
 
+## ADR-065 - Futura UI visual gobernada por contrato backend estable
+
+**Estado**: Aceptado
+
+**Prompt**: 8.7 - Plan de futura UI visual sobre contrato estable
+
+**Contexto**:
+Despues del checkpoint 8.6, IA_CORE tiene registry, request envelope,
+dispatcher no-runtime, confirmation gate y response adapter auditados. El
+siguiente riesgo arquitectonico es que una UI visual futura infiera permisos,
+acciones o disponibilidad desde componentes, texto, nombres de servicio o
+botones.
+
+**Decision**:
+- La futura UI visual solo podra renderizar estados, acciones, errores,
+  warnings, confirmations, readiness y blocked capabilities declaradas por
+  backend.
+- Las fuentes de contrato son `backend_internal_ui_payload.v1`,
+  `backend_internal_ui_request.v1` y la cadena de exposicion interna
+  controlada.
+- Action rendering depende de `allowed_actions`.
+- `forbidden_actions` tiene prioridad sobre cualquier accion visual.
+- `blocked_capabilities` conserva la semantica `true = blocked`.
+- La UI no puede inferir permisos, disponibilidad, capabilities, readiness,
+  confirmation scope, path safety ni lifecycle safety.
+- No se implementa UI visual, frontend, endpoints publicos, API/router HTTP,
+  runtime, execution, agents, models, tools, integrations ni `domains/`
+  operativo en 8.7.
+
+**Consecuencias**:
+- El libro UI/UX puede continuar desde `PROMPT UI/UX 0.5.3 - Reconstruir Widgets con datos reales sobre contrato backend estable`.
+- Se evitan botones fantasma, acciones no autorizadas, drift visual y ejecucion
+  operativa accidental.
+- Market Catalog runtime, Business Composition Layer runtime, OBLITERATUS y raw
+  Package directo al User Panel permanecen bloqueados.
+
+---
+
 ## ADR-064 - Internal response adapter basado en stable_ui_payloads
 
 **Estado**: Aceptado

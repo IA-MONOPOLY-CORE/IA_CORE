@@ -6098,3 +6098,35 @@ Market Catalog runtime, Business Composition Layer runtime, OBLITERATUS y raw
 Package directo al User Panel siguen bloqueados.
 
 Proximo prompt exacto: `PROMPT 8.7 - Plan de futura UI visual sobre contrato estable`.
+
+## 209. PROMPT 8.7 - Plan de futura UI visual sobre contrato estable
+
+Estado: `BACKEND_INTERNAL_FUTURE_UI_CONTRACT_PLAN_READY`
+
+Veredicto boundary: `BACKEND_INTERNAL_UI_BOUNDARY_CONFIRMED`
+
+Veredicto no-inference: `BACKEND_INTERNAL_UI_NO_INFERENCE_CONFIRMED`
+
+Veredicto de continuidad: `BACKEND_INTERNAL_PHASE_8_READY_FOR_UI_UX_CONTINUATION`
+
+Readiness: `ready_for_ui_ux_book_continuation`
+
+`PROMPT 8.7 - Plan de futura UI visual sobre contrato estable` define la
+frontera final para que una futura UI visual consuma Fase 8 sin inferir
+permisos, disponibilidad, acciones, readiness, confirmaciones, path safety,
+lifecycle safety ni capabilities.
+
+La futura UI queda limitada a renderizar lo declarado por backend en
+`backend_internal_ui_payload.v1`, `backend_internal_ui_request.v1`,
+`allowed_actions`, `forbidden_actions`, `blocked_capabilities`, readiness,
+errors, warnings, validation, flags y meta.
+
+No se implementa Prompt UI/UX 0.5.3, no se crean widgets, no se crea UI visual,
+no se crea frontend, no se crean componentes ni paginas, no se crea endpoint
+publico, no se crea API/router HTTP, no se activa runtime, no se abre
+execution, no se ejecutan agentes, no se invocan tools/modelos/integraciones y
+no se toca `domains/` operativo.
+
+Fase 8 queda lista para continuidad UI/UX.
+
+Proximo prompt exacto: `PROMPT UI/UX 0.5.3 - Reconstruir Widgets con datos reales sobre contrato backend estable`.

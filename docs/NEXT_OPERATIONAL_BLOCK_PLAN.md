@@ -1241,6 +1241,40 @@ Package directo al User Panel siguen bloqueados.
 
 Proximo paso operacional/documental: `PROMPT 8.7 - Plan de futura UI visual sobre contrato estable`.
 
+## PROMPT 8.7 - Plan De Futura UI Visual Sobre Contrato Estable
+
+`PROMPT 8.7 - Plan de futura UI visual sobre contrato estable` cierra la
+planificacion conceptual de Fase 8 para que una futura UI visual consuma el
+contrato backend sin inferir permisos.
+
+Estado: `BACKEND_INTERNAL_FUTURE_UI_CONTRACT_PLAN_READY`.
+
+Veredicto boundary: `BACKEND_INTERNAL_UI_BOUNDARY_CONFIRMED`.
+
+Veredicto no-inference: `BACKEND_INTERNAL_UI_NO_INFERENCE_CONFIRMED`.
+
+Veredicto de continuidad: `BACKEND_INTERNAL_PHASE_8_READY_FOR_UI_UX_CONTINUATION`.
+
+Readiness: `ready_for_ui_ux_book_continuation`.
+
+La futura UI queda gobernada por backend authority: solo renderiza estados,
+acciones, errors, warnings, confirmations, readiness y blocked capabilities
+declaradas por backend mediante `backend_internal_ui_payload.v1` y
+`backend_internal_ui_request.v1`.
+
+Action rendering depende de `allowed_actions`; `forbidden_actions` siempre
+bloquea; `blocked_capabilities` mantiene `true = blocked`; controlled-write y
+lifecycle requieren request envelope y confirmation gate.
+
+No se implementa UI visual, no se crea frontend, no se crean componentes ni
+paginas, no se crea endpoint publico, no se crea API/router HTTP, no se activa
+runtime, no se abre execution, no se ejecutan agentes, no se invocan
+tools/modelos/integraciones, no se toca `domains/` operativo, no se habilita
+Market Catalog runtime, Business Composition Layer runtime, OBLITERATUS ni raw
+Package directo al User Panel.
+
+Proximo paso operacional/documental: `PROMPT UI/UX 0.5.3 - Reconstruir Widgets con datos reales sobre contrato backend estable`.
+
 ## PROMPT 7.4 - Servicio Interno validate_domain
 
 `PROMPT 7.4 - Servicio interno validate_domain` implementa el servicio interno read-only-validation de Fase 7.
