@@ -5,6 +5,14 @@
     const FOCUSED = 'focused';
     const EXPANDED = 'expanded';
     const COLLAPSED = 'collapsed';
+    const CURRENT_SECTION = 'current_section';
+    const FLOW_NAV_TARGETS = Object.freeze({
+        readiness: 'readiness',
+        'contract-core': 'contract-core',
+        'actions-boundaries': 'actions-boundaries',
+        'evidence-checkpoint': 'evidence',
+        'next-step': 'next-step',
+    });
 
     function stateTokens(element) {
         return new Set((element.dataset.interactionState || '').split(/\s+/).filter(Boolean));
@@ -18,6 +26,29 @@
         element.dataset.interactionState = Array.from(states).join(' ');
     }
 
+    function navStateTokens(element) {
+        return new Set((element.dataset.navState || '').split(/\s+/).filter(Boolean));
+    }
+
+    function setNavState(element, state, enabled) {
+        if (!element) return;
+        const states = navStateTokens(element);
+        if (enabled) states.add(state);
+        else states.delete(state);
+        element.dataset.navState = Array.from(states).join(' ');
+    }
+
+    function markNavigationCurrent(section) {
+        document.querySelectorAll('[data-nav-section]').forEach((panel) => {
+            setNavState(panel, CURRENT_SECTION, panel.dataset.navSection === section);
+        });
+        document.querySelectorAll('[data-nav-target]').forEach((control) => {
+            const isCurrent = control.dataset.navTarget === section;
+            control.setAttribute('aria-current', String(isCurrent));
+            setNavState(control, CURRENT_SECTION, isCurrent);
+        });
+    }
+
     function selectFlowStep(step, moveFocus) {
         const target = document.querySelector(`[data-flow-step="${step}"]`);
         if (!target) return;
@@ -29,9 +60,33 @@
         document.querySelectorAll('[data-focus-step]').forEach((control) => {
             control.setAttribute('aria-pressed', String(control.dataset.focusStep === step));
         });
+        markNavigationCurrent(FLOW_NAV_TARGETS[step] || '');
 
         if (!moveFocus) return;
         setState(target, FOCUSED, true);
+        target.setAttribute('tabindex', '-1');
+        target.scrollIntoView({
+            behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth',
+            block: 'start',
+        });
+        target.focus({ preventScroll: true });
+    }
+
+    function selectNavigationTarget(section, moveFocus) {
+        const target = document.querySelector(`[data-nav-section="${section}"]`);
+        if (!target) return;
+
+        document.querySelectorAll('[data-nav-section]').forEach((panel) => {
+            setNavState(panel, FOCUSED, false);
+        });
+        const flowStep = section === 'payload-reading' || section === 'detail-panels'
+            ? 'contract-core'
+            : Object.keys(FLOW_NAV_TARGETS).find((step) => FLOW_NAV_TARGETS[step] === section);
+        if (flowStep) selectFlowStep(flowStep, false);
+        markNavigationCurrent(section);
+
+        if (!moveFocus) return;
+        setNavState(target, FOCUSED, true);
         target.setAttribute('tabindex', '-1');
         target.scrollIntoView({
             behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth',
@@ -68,6 +123,16 @@
             panel.addEventListener('blur', () => setState(panel, FOCUSED, false));
         });
         selectFlowStep('readiness', false);
+    }
+
+    function bindInternalNavigation() {
+        document.querySelectorAll('[data-nav-target]').forEach((control) => {
+            control.addEventListener('click', () => selectNavigationTarget(control.dataset.navTarget, true));
+        });
+        document.querySelectorAll('[data-nav-section]').forEach((panel) => {
+            panel.addEventListener('blur', () => setNavState(panel, FOCUSED, false));
+        });
+        selectNavigationTarget('readiness', false);
     }
 
     function bindInspector() {
@@ -116,6 +181,7 @@
 
     function init() {
         bindFlowFocus();
+        bindInternalNavigation();
         bindInspector();
         bindRequestDisclosure();
     }
@@ -123,6 +189,7 @@
     window.iaCoreConsoleInteractions = Object.freeze({
         init,
         selectFlowStep,
+        selectNavigationTarget,
         syncInspector,
     });
 

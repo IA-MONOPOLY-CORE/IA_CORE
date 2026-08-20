@@ -146,6 +146,19 @@ mantienen visibles `forbidden_actions` y `blocked_capabilities`, y no convierten
 runtime, no execution, no dispatch y no implementa navegacion interna. El
 bloque 1.8 queda solamente como continuidad `planned`.
 
+## Navegacion interna de consola 1.8
+
+La shell agrega `data-internal-navigation="contract-aware-1.8"` y un indice interno
+read-only para Readiness, Contract Core, Payload Reading, Detail
+Panels, Actions & Boundaries, Evidence y Next Step. Los botones mueven foco y
+scroll dentro de la misma consola; no crean rutas, hashes ni una app
+multi-pantalla.
+
+La navegacion reutiliza flow 1.2 e interaccion 1.3, apunta al modelo 1.6 y a los
+paneles 1.7, y no modifica payloads, permisos ni bloqueos. No agrega endpoints,
+no runtime, no execution y no dispatch. El bloque 1.9 queda `planned`; 1.8 no
+implementa el sistema global de componentes.
+
 ## Widgets backend contract
 
 `backend-contract-widgets.js` no crea ni consulta endpoints. Renderiza payloads
