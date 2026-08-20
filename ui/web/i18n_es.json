@@ -2,9 +2,9 @@
   "locale": "es-AR",
   "version": 1,
   "app": {
-    "default_name": "Sistema Santeac",
-    "subtitle": "Marco de estrategia táctica",
-    "footer": "Núcleo SAAOP // HUD táctico v36"
+    "default_name": "IA_CORE",
+    "subtitle": "Consola de framework contract-aware",
+    "footer": "IA_CORE // Contract-Aware HUD"
   },
   "common": {
     "accept": "Aceptar",
@@ -45,8 +45,8 @@
     "completed_with_errors": "Finalizado con errores"
   },
   "header": {
-    "advantage": "Ventaja",
-    "forward_test": "Prueba prospectiva",
+    "readiness": "Readiness",
+    "schema": "Schema",
     "connection": "Conexión"
   },
   "metrics": {
@@ -54,7 +54,7 @@
     "contradiction": "Contradicción",
     "duration": "Duración",
     "consensus_score": "Puntaje de consenso",
-    "lottery_u_score": "U-Score",
+    "contract_score": "Puntaje contractual",
     "execution_id": "ID de ejecución",
     "score": "Puntaje",
     "points": "Puntos"
@@ -73,7 +73,7 @@
     "gadgets": "Ajustes visuales"
   },
   "debate": {
-    "tactical_title": "Debate táctico",
+    "debate_title": "Debate",
     "task_placeholder": "Ingresá los datos y la consigna del debate...",
     "execute": "Ejecutar debate",
     "executing": "Ejecutando...",
@@ -87,7 +87,7 @@
   "agents": {
     "select_title": "Seleccionar agentes",
     "generic_group": "Agentes base (demostración)",
-    "real_group": "Agentes S.A.A.O.P.",
+    "real_group": "Agentes de dominio",
     "demo_badge": "Demostración",
     "no_agents": "No hay agentes disponibles.",
     "no_selected_agents": "No hay agentes seleccionados.",
@@ -192,15 +192,15 @@
   },
   "appearance": {
     "select_theme": "Seleccionar tema",
-    "tactical_theme": "Táctico",
+    "contract_theme": "Contrato",
     "corporate_theme": "Corporativo",
     "night_theme": "Operaciones nocturnas",
     "branding": "Identidad visual",
     "system_name": "Nombre del sistema",
-    "functional_widgets": "Componentes funcionales del HUD",
-    "last_debate_widget": "Estado del último debate",
-    "primary_action_widget": "Próxima acción del dominio",
-    "provider_health_widget": "Salud de proveedores",
+    "functional_widgets": "Componentes contract-aware del HUD",
+    "status_widget": "Estado backend estable",
+    "actions_widget": "Acciones declaradas",
+    "blocked_capabilities_widget": "Capabilities bloqueadas",
     "current": "Actual",
     "panel_opacity": "Opacidad de paneles",
     "font_size": "Tamaño de fuente",

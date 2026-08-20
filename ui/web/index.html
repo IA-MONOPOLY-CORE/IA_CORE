@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>SAAOP // TACTICAL HUD v36</title>
+    <title>IA_CORE // Contract-Aware HUD</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
@@ -286,6 +286,34 @@
             margin-top: 8px;
             color: rgba(255,255,255,0.76);
         }
+        .data-widget-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-top: 10px;
+        }
+        .contract-chip {
+            border: 1px solid var(--border-color);
+            background: rgba(0,0,0,0.24);
+            color: var(--text-primary);
+            border-radius: var(--border-radius);
+            padding: 4px 7px;
+            font-size: 0.66rem;
+            line-height: 1.2;
+        }
+        .contract-chip.allowed {
+            border-color: rgba(34,197,94,0.55);
+            color: var(--green);
+        }
+        .contract-chip.forbidden,
+        .contract-chip.blocked {
+            border-color: rgba(239,68,68,0.55);
+            color: var(--red);
+        }
+        .contract-chip.warning {
+            border-color: rgba(245,158,11,0.65);
+            color: var(--amber);
+        }
         .widget-refresh-btn {
             border: 1px solid var(--border-color);
             background: rgba(0,0,0,0.3);
@@ -542,7 +570,7 @@
         footer { text-align: center; color: var(--text-muted); font-size: 0.65rem; margin-top: 30px; padding-top: 12px; border-top: 1px solid rgba(255,255,255,0.05); opacity: 0.6; }
     </style>
 </head>
-<body data-skin="tactical">
+<body data-skin="contract">
 
     <!-- BANNER PARA LOGOS -->
     <div class="logo-banner" id="logo-banner">
@@ -551,13 +579,13 @@
 
     <header class="hud-panel">
         <div class="logo-area">
-            <h1 id="brand-title">SANTEAC SYSTEM</h1>
-            <span id="brand-subtitle">TACTICAL STRATEGY FRAMEWORK</span>
+            <h1 id="brand-title">IA_CORE</h1>
+            <span id="brand-subtitle">CONTRACT-AWARE FRAMEWORK CONSOLE</span>
             <div class="brand-badge-rect"></div>
         </div>
         <div class="badges-container">
-            <div class="badge" id="ventaja-badge">VENTAJA ×--</div>
-            <div class="badge" id="ft-badge">FT: 0/50</div>
+            <div class="badge" id="ventaja-badge">READINESS --</div>
+            <div class="badge" id="ft-badge">SCHEMA: v1</div>
             <div class="badge" id="conn-badge"><span id="conn-dot" class="pulse-dot disconnected"></span><span id="conn-text">DESCONECTADO</span></div>
         </div>
     </header>
@@ -574,12 +602,12 @@
     <!-- AGENTES GRID -->
     <div class="agents-grid" id="agents-grid"></div>
 
-    <footer>SAAOP CORE // TACTICAL HUD v36</footer>
+    <footer>IA_CORE // Contract-Aware HUD</footer>
 
     <!-- PANEL DEBATE -->
     <div class="debate-panel" id="debate-panel">
         <div class="debate-toggle" id="debate-toggle">▶</div>
-        <div><span style="font-weight:bold;">⚡ DEBATE TÁCTICO</span> <span id="exec-badge" style="float:right; font-size:0.7rem;">IDLE</span></div>
+        <div><span style="font-weight:bold;">DEBATE</span> <span id="exec-badge" style="float:right; font-size:0.7rem;">IDLE</span></div>
         <textarea class="debate-input" id="task-input" placeholder="INGRESE LOS VECTORES DE DATOS..."></textarea>
         <button class="btn-debate" id="start-btn">EJECUTAR DEBATE</button>
         <div class="debate-metrics" id="debate-metrics" style="display:none">
@@ -681,7 +709,7 @@
                 <div id="config-skins" class="config-section">
                     <h3>SELECCIONAR SKIN</h3>
                     <div>
-                        <span class="skin-option" data-skin="tactical">TÁCTICO</span>
+                        <span class="skin-option" data-skin="contract">CONTRACT</span>
                         <span class="skin-option" data-skin="corporate">CORPORATE</span>
                         <span class="skin-option" data-skin="nightops">NIGHT OPS</span>
                     </div>
@@ -691,50 +719,62 @@
                     <input type="text" id="brand-input" placeholder="Nombre del sistema" style="width:100%; background:rgba(0,0,0,0.4); border:1px solid var(--border-color); color:#fff; padding:8px; font-family:inherit; border-radius:var(--border-radius);">
                 </div>
                 <div id="config-widgets" class="config-section">
-                    <h3>WIDGETS FUNCIONALES</h3>
+                    <h3>WIDGETS BACKEND CONTRACT</h3>
                     <div class="admin-toolbar">
-                        <button class="btn-primary" id="widgets-refresh-btn">ACTUALIZAR DATOS</button>
+                        <button class="btn-primary" id="widgets-refresh-btn">RELEER PAYLOAD</button>
                         <span class="admin-status" id="widgets-last-refresh">Sin actualizar.</span>
                     </div>
                     <div class="widgets-grid" id="functional-widgets">
-                        <section class="data-widget" id="widget-last-debate">
+                        <section class="data-widget" id="widget-contract-status">
                             <div class="data-widget-header">
                                 <div>
-                                    <div class="data-widget-title">Estado del último debate</div>
-                                    <div class="data-widget-source">Fuente: /api/debates + /api/debate/{id}</div>
+                                    <div class="data-widget-title">Estado backend estable</div>
+                                    <div class="data-widget-source">Fuente: backend_internal_ui_payload.v1</div>
                                 </div>
                                 <button class="widget-refresh-btn" type="button" data-widget-refresh>↻</button>
                             </div>
-                            <div class="data-widget-value" id="last-debate-status">Cargando...</div>
-                            <div class="data-widget-meta" id="last-debate-meta">Buscando debates registrados.</div>
-                            <div class="data-widget-detail" id="last-debate-detail">Sin resultado todavía.</div>
+                            <div class="data-widget-value" id="contract-status-value">Sin payload</div>
+                            <div class="data-widget-meta" id="contract-status-meta">Esperando envelope estable inyectado.</div>
+                            <div class="data-widget-detail" id="contract-status-detail">La UI no infiere readiness ni estado operativo.</div>
                         </section>
-                        <section class="data-widget" id="widget-primary-action">
+                        <section class="data-widget" id="widget-contract-actions">
                             <div class="data-widget-header">
                                 <div>
-                                    <div class="data-widget-title" id="primary-action-title">Próxima acción del dominio</div>
-                                    <div class="data-widget-source" id="primary-action-source">Fuente: metadata del dominio activo</div>
+                                    <div class="data-widget-title">Acciones declaradas</div>
+                                    <div class="data-widget-source">allowed_actions + forbidden_actions</div>
                                 </div>
                                 <button class="widget-refresh-btn" type="button" data-widget-refresh>↻</button>
                             </div>
-                            <div class="data-widget-value" id="primary-action-value">Cargando...</div>
-                            <div class="data-widget-meta" id="primary-action-meta">Leyendo dominio activo.</div>
-                            <div class="data-widget-detail" id="primary-action-detail">Buscando acción pendiente configurada.</div>
+                            <div class="data-widget-value" id="contract-actions-value">Sin acciones activas</div>
+                            <div class="data-widget-meta" id="contract-actions-meta">Solo se muestran acciones presentes en allowed_actions.</div>
+                            <div class="data-widget-list" id="contract-allowed-actions"></div>
+                            <div class="data-widget-detail" id="contract-forbidden-actions">forbidden_actions pendiente de payload.</div>
                         </section>
-                        <section class="data-widget" id="widget-provider-health">
+                        <section class="data-widget" id="widget-contract-blocked">
                             <div class="data-widget-header">
                                 <div>
-                                    <div class="data-widget-title">Salud de proveedores</div>
-                                    <div class="data-widget-source">Fuente: /api/status</div>
+                                    <div class="data-widget-title">Capabilities bloqueadas</div>
+                                    <div class="data-widget-source">blocked_capabilities · true = blocked</div>
                                 </div>
                                 <button class="widget-refresh-btn" type="button" data-widget-refresh>↻</button>
                             </div>
-                            <div class="provider-health-row">
-                                <span class="provider-health-light" id="provider-health-light"></span>
-                                <span class="data-widget-value" id="provider-health-status" style="margin-bottom:0;">Cargando...</span>
+                            <div class="data-widget-value" id="contract-blocked-value">Sin payload</div>
+                            <div class="data-widget-meta" id="contract-blocked-meta">Los bloqueos no se ocultan ni se invierten.</div>
+                            <div class="data-widget-list" id="contract-blocked-list"></div>
+                            <div class="data-widget-detail" id="contract-blocked-detail">runtime/execution/tools/models/integrations permanecen bloqueados.</div>
+                        </section>
+                        <section class="data-widget" id="widget-contract-diagnostics">
+                            <div class="data-widget-header">
+                                <div>
+                                    <div class="data-widget-title">Warnings y errores</div>
+                                    <div class="data-widget-source">errors + warnings + flags</div>
+                                </div>
+                                <button class="widget-refresh-btn" type="button" data-widget-refresh>↻</button>
                             </div>
-                            <div class="data-widget-meta" id="provider-health-meta">Revisando proveedores reales.</div>
-                            <div class="data-widget-detail" id="provider-health-detail">Los proveedores placeholder no cuentan para el semáforo.</div>
+                            <div class="data-widget-value" id="contract-diagnostics-value">Sin payload</div>
+                            <div class="data-widget-meta" id="contract-diagnostics-meta">Flags no-operativas requeridas en false.</div>
+                            <div class="data-widget-list" id="contract-diagnostics-list"></div>
+                            <div class="data-widget-detail" id="contract-diagnostics-detail">No se muestran tracebacks, env, secrets ni endpoints nuevos.</div>
                         </section>
                     </div>
                 </div>
@@ -1611,7 +1651,7 @@
                             model: a.model || 'meta/llama-3.1-8b-instruct'
                         }));
                 }
-                const saved = localStorage.getItem('saaop_selected');
+                const saved = localStorage.getItem('ia_core_selected');
                 if (saved) {
                     selectedAgents = JSON.parse(saved).filter(id => agentes.some(a => a.id === id));
                 } else {
@@ -1678,11 +1718,11 @@
                 });
             }
 
-            // Sección de agentes reales S.A.A.O.P.
+            // Sección de agentes de dominio
             if (realAgents.length > 0) {
                 const realHeader = document.createElement('div');
                 realHeader.style.cssText = 'color: var(--cyan); font-size: 0.75rem; font-weight: bold; margin: 15px 0 8px 0; text-transform: uppercase; letter-spacing: 1px; border-bottom: 1px solid rgba(0, 212, 255, 0.3); padding-bottom: 4px;';
-                realHeader.textContent = `🎯 Agentes S.A.A.O.P. [${realAgents.length}]`;
+                realHeader.textContent = `Agentes de dominio [${realAgents.length}]`;
                 container.appendChild(realHeader);
 
                 realAgents.forEach(ag => {
@@ -1795,7 +1835,7 @@
                     const data = await res.json();
                     if (data.success) {
                         selectedAgents = selectedAgents.filter(sid => sid !== id);
-                        localStorage.setItem('saaop_selected', JSON.stringify(selectedAgents));
+                        localStorage.setItem('ia_core_selected', JSON.stringify(selectedAgents));
                         await cargarAgentes();
                     } else alert('Error: ' + data.error);
                 } catch(e) { alert('Error de red'); }
@@ -1936,215 +1976,19 @@
             }
         }
 
-        // ========== WIDGETS FUNCIONALES ==========
-        function setWidgetUpdating(widgetId, isUpdating) {
-            const widget = document.getElementById(widgetId);
-            if (widget) widget.classList.toggle('is-updating', isUpdating);
-        }
-
-        function setText(id, value) {
-            const element = document.getElementById(id);
-            if (element) element.innerText = value;
-        }
-
-        function formatWidgetDate(value) {
-            if (!value) return 'Fecha no informada por el endpoint.';
-            const normalized = typeof value === 'number' && value < 1000000000000 ? value * 1000 : value;
-            const parsed = new Date(normalized);
-            if (Number.isNaN(parsed.getTime())) return String(value);
-            return parsed.toLocaleString('es-AR', { dateStyle: 'short', timeStyle: 'short' });
-        }
-
-        function summarizeDebateResult(detail) {
-            const result = detail?.result || {};
-            const synthesis = result.debate?.synthesis;
-            if (synthesis) return synthesis.length > 150 ? `${synthesis.slice(0, 147)}...` : synthesis;
-            const average = result.scores_summary?.average_total;
-            if (typeof average === 'number') return `Score de Consenso: ${average.toFixed(2)}`;
-            if (detail?.error) return detail.error;
-            return 'Sin síntesis disponible.';
-        }
-
-        async function actualizarWidgetUltimoDebate() {
-            setWidgetUpdating('widget-last-debate', true);
-            try {
-                const res = await fetch(`${API_BASE}/api/debates`, { cache: 'no-store' });
-                if (!res.ok) throw new Error(`HTTP ${res.status}`);
-                const data = await res.json();
-                const debates = Array.isArray(data.debates) ? data.debates : [];
-                if (debates.length === 0) {
-                    setText('last-debate-status', 'Sin debates registrados');
-                    setText('last-debate-meta', 'Todavía no se ejecutó ningún debate en esta sesión.');
-                    setText('last-debate-detail', 'Ejecutá un debate para ver acá su estado y resultado resumido.');
-                    return;
-                }
-
-                const last = debates[debates.length - 1];
-                const detailRes = await fetch(`${API_BASE}/api/debate/${encodeURIComponent(last.debate_id)}`, { cache: 'no-store' });
-                const detail = detailRes.ok ? await detailRes.json() : last;
-                const status = detail.status || last.status || 'desconocido';
-                const result = detail.result || {};
-                const when = formatWidgetDate(result.started_at || detail.started_at || last.started_at);
-                const duration = result.duration_ms ? ` · duración ${(result.duration_ms / 1000).toFixed(2)}s` : '';
-
-                setText('last-debate-status', status === 'complete' ? 'Terminado' : status.toUpperCase());
-                setText('last-debate-meta', `ID ${last.debate_id} · ${when}${duration}`);
-                setText('last-debate-detail', summarizeDebateResult(detail));
-            } catch (error) {
-                setText('last-debate-status', 'No disponible');
-                setText('last-debate-meta', `Error leyendo debates: ${error.message}`);
-                setText('last-debate-detail', 'Reintentá cuando el backend esté conectado.');
-            } finally {
-                setWidgetUpdating('widget-last-debate', false);
-            }
-        }
-
-        function renderPrimaryActionEmpty(domain) {
-            setText('primary-action-title', 'Próxima acción del dominio');
-            setText('primary-action-source', domain ? `Dominio activo: ${domain.nombre || domain.id}` : 'Sin dominio activo');
-            setText('primary-action-value', 'No disponible para este dominio');
-            setText('primary-action-meta', 'Este dominio no tiene acción pendiente configurada.');
-            setText('primary-action-detail', 'Definí primary_action_widget en domain.json para mostrar una acción acá.');
-        }
-
-        function renderPrimaryActionNoData(action, domain) {
-            setText('primary-action-title', action.title || 'Próxima acción del dominio');
-            setText('primary-action-source', `Dominio activo: ${domain.nombre || domain.id} · ${action.endpoint}`);
-            setText('primary-action-value', 'Sin datos disponibles');
-            setText('primary-action-meta', 'La acción está configurada, pero el endpoint no devolvió datos útiles.');
-            setText('primary-action-detail', 'Revisá el endpoint del dominio o reintentá más tarde.');
-        }
-
-        function renderPrimaryActionGeneric(action, domain, data) {
-            const value = data.titulo || data.title || data.estado || data.status || data.message || 'Acción configurada';
-            const meta = data.fecha || data.fecha_programada || data.updated_at || data.timestamp || `Dominio activo: ${domain.nombre || domain.id}`;
-            const detail = data.detalle || data.detail || data.descripcion || data.description || data.summary || JSON.stringify(data, null, 2);
-            setText('primary-action-title', action.title || 'Próxima acción del dominio');
-            setText('primary-action-source', `Fuente: ${action.endpoint}`);
-            setText('primary-action-value', String(value));
-            setText('primary-action-meta', formatWidgetDate(meta));
-            setText('primary-action-detail', typeof detail === 'string' ? detail : JSON.stringify(detail));
-        }
-
-        function renderLotteryValidationAction(action, domain, data) {
-            const sorteo = data.sorteo_actual ?? data.sorteo ?? 'sin sorteo';
-            const fecha = data.fecha || data.fecha_sorteo || data.fecha_programada || data.next_draw_date;
-            const fase = data.fase_actual || data.fase || 'fase no informada';
-            const progreso = data.progreso || {};
-            const avance = progreso.total_fase
-                ? `${progreso.completados ?? 0}/${progreso.total_fase} completados · ${progreso.restantes ?? 0} restantes`
-                : 'Progreso de fase no informado.';
-
-            setText('primary-action-title', action.title || 'Próxima validación');
-            setText('primary-action-source', `Dominio activo: ${domain.nombre || domain.id} · ${action.endpoint}`);
-            setText('primary-action-value', `Sorteo ${sorteo}`);
-            setText('primary-action-meta', formatWidgetDate(fecha));
-            setText('primary-action-detail', `Fase: ${fase}. ${avance}`);
-        }
-
-        async function actualizarWidgetAccionDominio() {
-            setWidgetUpdating('widget-primary-action', true);
-            setText('primary-action-value', 'Cargando...');
-            setText('primary-action-meta', 'Leyendo metadata del dominio activo.');
-            setText('primary-action-detail', 'Buscando acción pendiente configurada.');
-            try {
-                const domain = window.domainUI?.getActiveDomain?.() || null;
-                const action = domain?.primary_action_widget;
-                if (!domain || !action || !action.endpoint) {
-                    renderPrimaryActionEmpty(domain);
-                    return;
-                }
-
-                if (!String(action.endpoint).startsWith('/api/')) {
-                    throw new Error('Endpoint de acción no permitido');
-                }
-
-                const res = await fetch(`${API_BASE}${action.endpoint}`, { cache: 'no-store' });
-                if (!res.ok) throw new Error(`HTTP ${res.status}`);
-                const data = await res.json();
-                const hasData = data && typeof data === 'object' && Object.keys(data).length > 0;
-                if (!hasData) {
-                    renderPrimaryActionNoData(action, domain);
-                    return;
-                }
-
-                if (action.id === 'proxima_validacion') {
-                    renderLotteryValidationAction(action, domain, data);
-                } else {
-                    renderPrimaryActionGeneric(action, domain, data);
-                }
-            } catch (error) {
-                setText('primary-action-title', 'Próxima acción del dominio');
-                setText('primary-action-source', 'Error leyendo acción del dominio');
-                setText('primary-action-value', 'No disponible');
-                setText('primary-action-meta', `Error: ${error.message}`);
-                setText('primary-action-detail', 'Reintentá cuando el backend o el endpoint del dominio estén disponibles.');
-            } finally {
-                setWidgetUpdating('widget-primary-action', false);
-            }
-        }
-
-        async function actualizarWidgetSaludProveedores() {
-            setWidgetUpdating('widget-provider-health', true);
-            try {
-                const res = await fetch(`${API_BASE}/api/status`, { cache: 'no-store' });
-                if (!res.ok) throw new Error(`HTTP ${res.status}`);
-                const data = await res.json();
-                const providers = Array.isArray(data.providers) ? data.providers : [];
-                const realProviders = providers.filter(provider => provider.is_placeholder !== true);
-                const healthyProviders = realProviders.filter(provider => provider.healthy === true);
-                const light = document.getElementById('provider-health-light');
-                const color = realProviders.length === 0
-                    ? 'red'
-                    : healthyProviders.length === realProviders.length
-                        ? 'green'
-                        : healthyProviders.length > 0
-                            ? 'yellow'
-                            : 'red';
-                if (light) light.className = `provider-health-light ${color}`;
-
-                const label = color === 'green' ? 'Verde' : color === 'yellow' ? 'Amarillo' : 'Rojo';
-                const placeholders = providers.length - realProviders.length;
-                setText('provider-health-status', `${label}: ${healthyProviders.length}/${realProviders.length} reales healthy`);
-                setText('provider-health-meta', `${providers.length} proveedores registrados · ${placeholders} placeholder/demo.`);
-                setText('provider-health-detail', realProviders.length
-                    ? realProviders.map(provider => `${provider.name}: ${provider.healthy ? 'OK' : 'falló'}`).join(' · ')
-                    : 'No hay proveedores reales registrados para evaluar.');
-            } catch (error) {
-                const light = document.getElementById('provider-health-light');
-                if (light) light.className = 'provider-health-light red';
-                setText('provider-health-status', 'No disponible');
-                setText('provider-health-meta', `Error leyendo estado: ${error.message}`);
-                setText('provider-health-detail', 'Reintentá cuando el backend esté conectado.');
-            } finally {
-                setWidgetUpdating('widget-provider-health', false);
-            }
-        }
-
+        // ========== WIDGETS BACKEND CONTRACT ==========
         async function actualizarWidgetsFuncionales() {
-            await Promise.allSettled([
-                actualizarWidgetUltimoDebate(),
-                actualizarWidgetAccionDominio(),
-                actualizarWidgetSaludProveedores(),
-            ]);
-            setText('widgets-last-refresh', `Última actualización: ${new Date().toLocaleTimeString('es-AR')}`);
+            window.iaCoreBackendContractWidgets?.refresh();
         }
 
         function initFunctionalWidgets() {
-            document.querySelectorAll('[data-widget-refresh]').forEach(button => {
-                button.addEventListener('click', actualizarWidgetsFuncionales);
-            });
-            const refresh = document.getElementById('widgets-refresh-btn');
-            if (refresh) refresh.addEventListener('click', actualizarWidgetsFuncionales);
-            window.addEventListener('ia-core-active-domain-changed', actualizarWidgetsFuncionales);
-            actualizarWidgetsFuncionales();
-            setInterval(actualizarWidgetsFuncionales, 60000);
+            window.iaCoreBackendContractWidgets?.init();
         }
 
         // ========== BANNER LOGOS ==========
         function initLogoBanner() {
             const container = document.getElementById('logo-banner-inner');
-            const savedLogos = JSON.parse(localStorage.getItem('saaop_logos') || '[]');
+            const savedLogos = JSON.parse(localStorage.getItem('ia_core_logos') || '[]');
             
             function makeDraggable(logoDiv, parent) {
                 let drag = false, sx, sy, ol, ot;
@@ -2172,16 +2016,16 @@
                 div.appendChild(img);
                 container.appendChild(div);
                 makeDraggable(div, container);
-                div.addEventListener('contextmenu', (e) => { e.preventDefault(); div.remove(); localStorage.setItem('saaop_logos', JSON.stringify([...savedLogos.filter(s => s !== src)])); });
+                div.addEventListener('contextmenu', (e) => { e.preventDefault(); div.remove(); localStorage.setItem('ia_core_logos', JSON.stringify([...savedLogos.filter(s => s !== src)])); });
             });
             
             document.getElementById('logo-upload').onchange = (e) => {
                 const file = e.target.files[0];
                 if (file) {
                     const url = URL.createObjectURL(file);
-                    const logos = JSON.parse(localStorage.getItem('saaop_logos') || '[]');
+                    const logos = JSON.parse(localStorage.getItem('ia_core_logos') || '[]');
                     logos.push(url);
-                    localStorage.setItem('saaop_logos', JSON.stringify(logos));
+                    localStorage.setItem('ia_core_logos', JSON.stringify(logos));
                     const div = document.createElement('div');
                     div.className = 'banner-logo';
                     const img = document.createElement('img');
@@ -2189,12 +2033,12 @@
                     div.appendChild(img);
                     container.appendChild(div);
                     makeDraggable(div, container);
-                    div.addEventListener('contextmenu', (e) => { e.preventDefault(); div.remove(); localStorage.setItem('saaop_logos', JSON.stringify(logos.filter(l => l !== url))); });
+                    div.addEventListener('contextmenu', (e) => { e.preventDefault(); div.remove(); localStorage.setItem('ia_core_logos', JSON.stringify(logos.filter(l => l !== url))); });
                 }
             };
             document.getElementById('clear-logo-btn').onclick = () => {
                 container.innerHTML = '';
-                localStorage.removeItem('saaop_logos');
+                localStorage.removeItem('ia_core_logos');
             };
         }
 
@@ -2204,13 +2048,13 @@
             selectedAgents = [];
             checks.forEach(c => { if (c.checked) selectedAgents.push(c.value); });
             renderAgentes();
-            localStorage.setItem('saaop_selected', JSON.stringify(selectedAgents));
+            localStorage.setItem('ia_core_selected', JSON.stringify(selectedAgents));
             
             const skin = document.querySelector('.skin-option.active')?.getAttribute('data-skin');
-            if (skin) { document.body.setAttribute('data-skin', skin); localStorage.setItem('saaop_skin', skin); }
+            if (skin) { document.body.setAttribute('data-skin', skin); localStorage.setItem('ia_core_skin', skin); }
             
             const brand = document.getElementById('brand-input').value.trim();
-            if (brand) { document.getElementById('brand-title').innerText = brand.toUpperCase(); localStorage.setItem('saaop_brand', brand); }
+            if (brand) { document.getElementById('brand-title').innerText = brand.toUpperCase(); localStorage.setItem('ia_core_brand', brand); }
             
             const opacity = document.getElementById('opacity-slider').value;
             document.querySelectorAll('.hud-panel, .agent-panel, .debate-panel').forEach(el => el.style.opacity = opacity);
@@ -2333,7 +2177,7 @@
             // Inicializar el select de modelos con el proveedor por defecto
             actualizarSelectModelos();
             
-            const savedSkin = localStorage.getItem('saaop_skin') || 'tactical';
+            const savedSkin = localStorage.getItem('ia_core_skin') || 'contract';
             document.body.setAttribute('data-skin', savedSkin);
             document.querySelectorAll('.skin-option').forEach(opt => {
                 if (opt.getAttribute('data-skin') === savedSkin) opt.classList.add('active');
@@ -2341,11 +2185,11 @@
                     document.querySelectorAll('.skin-option').forEach(o => o.classList.remove('active'));
                     opt.classList.add('active');
                     document.body.setAttribute('data-skin', opt.getAttribute('data-skin'));
-                    localStorage.setItem('saaop_skin', opt.getAttribute('data-skin'));
+                    localStorage.setItem('ia_core_skin', opt.getAttribute('data-skin'));
                 };
             });
             
-            const savedBrand = localStorage.getItem('saaop_brand');
+            const savedBrand = localStorage.getItem('ia_core_brand');
             if (savedBrand) document.getElementById('brand-title').innerText = savedBrand;
             if (localStorage.getItem('brand_input')) document.getElementById('brand-input').value = localStorage.getItem('brand_input');
             
@@ -2370,13 +2214,13 @@
                     const url = URL.createObjectURL(file);
                     document.body.style.setProperty('--custom-bg', `url(${url})`);
                     document.body.classList.add('has-custom-bg');
-                    localStorage.setItem('saaop_wallpaper', url);
+                    localStorage.setItem('ia_core_wallpaper', url);
                 }
             };
             document.getElementById('reset-bg-btn').onclick = () => {
                 document.body.classList.remove('has-custom-bg');
                 document.body.style.removeProperty('--custom-bg');
-                localStorage.removeItem('saaop_wallpaper');
+                localStorage.removeItem('ia_core_wallpaper');
             };
             
             document.querySelectorAll('.config-sidebar-item').forEach(item => {
@@ -2423,6 +2267,7 @@
             setInterval(checkConnection, 5000);
         };
     </script>
+    <script src="/backend-contract-widgets.js"></script>
     <script src="/admin-panels.js"></script>
 </body>
 </html>

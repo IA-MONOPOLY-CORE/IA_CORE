@@ -241,9 +241,62 @@ def test_hud_contains_all_migrated_sections_and_script():
     assert '<script src="/admin-panels.js"></script>' in html
 
 
-def test_hud_reserves_u_score_label_for_lottery_metric():
+def test_backend_contract_widgets_are_contract_first_without_new_endpoints():
+    html = Path("ui/web/index.html").read_text(encoding="utf-8")
+    script = Path("ui/web/backend-contract-widgets.js").read_text(encoding="utf-8")
+
+    assert '<script src="/backend-contract-widgets.js"></script>' in html
+    assert "backend_internal_ui_payload.v1" in html
+    assert "allowed_actions + forbidden_actions" in html
+    assert "blocked_capabilities · true = blocked" in html
+    assert "widget-last-debate" not in html
+    assert "widget-primary-action" not in html
+    assert "widget-provider-health" not in html
+    assert "/api/debates" not in script
+    assert "/api/debate/" not in script
+    assert "/api/status" not in script
+    assert "fetch(" not in script
+
+
+def test_backend_contract_widgets_do_not_infer_permissions_or_hide_blocks():
+    script = Path("ui/web/backend-contract-widgets.js").read_text(encoding="utf-8")
+
+    for token in (
+        "SCHEMA_VERSION = 'backend_internal_ui_payload.v1'",
+        "PROHIBITED_ACTIVE_STATUSES",
+        "allowed_actions",
+        "forbidden_actions",
+        "blocked_capabilities",
+        "isBlocked !== true",
+        "aparece en allowed_actions y forbidden_actions",
+        "Sin payload estable, la UI no puede habilitar capabilities.",
+        "deny-by-default",
+    ):
+        assert token in script
+
+    assert "activate_runtime" in script
+    assert "runtime_enabled" in script
+    assert "execution_enabled" in script
+    assert "tools_enabled" in script
+    assert "models_enabled" in script
+    assert "integrations_enabled" in script
+
+
+def test_hud_active_identity_is_ia_core_without_legacy_product_branding():
     html = Path("ui/web/index.html").read_text(encoding="utf-8")
 
+    assert "IA_CORE // Contract-Aware HUD" in html
+    assert '<h1 id="brand-title">IA_CORE</h1>' in html
+    assert "CONTRACT-AWARE FRAMEWORK CONSOLE" in html
+    assert "SAAOP" not in html
+    assert "S.A.A.O.P." not in html
+    assert "TACTICAL HUD" not in html
+    assert "DEBATE TÁCTICO" not in html
+    assert "saaop_" not in html
+    assert "U-Score" not in html
+    assert "CAZADOR" not in html
+    assert "ESPEJO" not in html
+    assert "combinatoria" not in html.lower()
     assert "PUNTAJE DE CONSENSO" in html
     assert "val-consensus-score" in html
     assert "debate-consensus-score" in html
@@ -259,8 +312,14 @@ def test_spanish_catalog_is_valid_and_dashboard_legacy_is_removed():
     assert not Path("ui/web/dashboard.js").exists()
     assert "dashboard.js" not in html
     assert catalog["locale"] == "es-AR"
+    assert catalog["app"]["default_name"] == "IA_CORE"
+    assert catalog["app"]["footer"] == "IA_CORE // Contract-Aware HUD"
     assert catalog["metrics"]["consensus_score"] == "Puntaje de consenso"
-    assert catalog["metrics"]["lottery_u_score"] == "U-Score"
+    assert catalog["metrics"]["contract_score"] == "Puntaje contractual"
+    assert "lottery_u_score" not in catalog["metrics"]
+    catalog_text = json.dumps(catalog, ensure_ascii=False)
+    for legacy in ("SAAOP", "S.A.A.O.P.", "Tactical HUD", "U-Score"):
+        assert legacy not in catalog_text
 
 
 def test_agents_endpoint_and_hud_keep_generic_baseline_agents(monkeypatch, tmp_path):
@@ -268,11 +327,11 @@ def test_agents_endpoint_and_hud_keep_generic_baseline_agents(monkeypatch, tmp_p
         "estadistico_integral",
         "gemini_cuantico",
         "gpt_auditor",
-        "nuevo_deepseek_saaop",
+        "nuevo_deepseek_framework",
         "viejo_deepseek",
         "viejo_lobo_rey",
         "auditor_hostil",
-        "cazador_anomalias",
+        "explorador_anomalias",
         "simulador_escenarios",
         "gestor_exposicion",
         "integrador_central",
