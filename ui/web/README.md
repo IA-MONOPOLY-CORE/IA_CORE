@@ -97,6 +97,18 @@ preexistentes quedan fuera del modelo contract-aware 1.3. Los bloques críticos
 de `forbidden_actions` y `blocked_capabilities` siguen visibles aunque el
 inspector esté colapsado.
 
+## Checkpoint de interaccion 1.4
+
+`docs/UI_UX_MAIN_CONSOLE_INTERACTION_CHECKPOINT_1_4.md` cierra el bloque
+1.0 -> 1.3 como auditoria documental y de pruebas. Confirma que la consola
+principal, el refinamiento, el flujo y el modelo de interaccion read-only
+siguen contract-aware, locales y no operativos.
+
+El checkpoint preserva IA_CORE como identidad visual activa, bloquea legacy
+visual como UI activa, mantiene visibles
+`forbidden_actions` y `blocked_capabilities`, y confirma ausencia de endpoints,
+runtime, execution, dispatch real y controlled execution.
+
 ## Widgets backend contract
 
 `backend-contract-widgets.js` no crea ni consulta endpoints. Renderiza payloads
