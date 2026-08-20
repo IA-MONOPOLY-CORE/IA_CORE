@@ -109,6 +109,17 @@ visual como UI activa, mantiene visibles
 `forbidden_actions` y `blocked_capabilities`, y confirma ausencia de endpoints,
 runtime, execution, dispatch real y controlled execution.
 
+## Plan de siguiente bloque 1.5
+
+`docs/UI_UX_NEXT_CONSOLE_BLOCK_PLAN_1_5.md` define como siguiente bloque el
+modelo de lectura de payload/contract. El plan no construye UI nueva: ordena
+summary/detail/raw-safe para reducir permisos inferidos antes de crear paneles,
+navegacion adicional o sistema de componentes.
+
+21st.dev, UI UX Pro Max Skill y Framer Motion / Motion quedan registrados como
+benchmarks futuros; no se instalan ahora, no se copian, no agregan
+dependencias y no reemplazan IA_CORE.
+
 ## Widgets backend contract
 
 `backend-contract-widgets.js` no crea ni consulta endpoints. Renderiza payloads
