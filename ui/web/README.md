@@ -203,6 +203,21 @@ el proximo prompt exacto sugerido:
 dependencias, no activa runtime, no activa execution y conserva 21st.dev, UI UX
 Pro Max Skill y Framer Motion / Motion como benchmarks futuros solamente.
 
+## Auditoria responsive/accesibilidad 1.12
+
+`docs/UI_UX_RESPONSIVE_ACCESSIBILITY_AUDIT_1_12.md` registra la auditoria de
+viewports 1440 x 1000, 1280 x 800, 1024 x 768, 768 x 1024, 430 x 932,
+390 x 844 y 360 x 740. Confirma la consola IA_CORE contract-aware, las marcas
+1.6 -> 1.9, raw-safe read-only, `forbidden_actions` y
+`blocked_capabilities` visibles, no endpoints, sin dependencias, runtime ni
+execution.
+
+La matriz P0/P1/P2/P3 deja hallazgos responsive/accesibilidad priorizados y no
+implementa hardening en 1.12. Veredicto:
+`UI_READY_FOR_RESPONSIVE_ACCESSIBILITY_HARDENING`. Proximo prompt exacto
+sugerido: `PROMPT UI/UX 1.13 - Endurecer responsive, foco y lectura movil de
+consola IA_CORE contract-aware sin runtime/no-execution`.
+
 ## Widgets backend contract
 
 `backend-contract-widgets.js` no crea ni consulta endpoints. Renderiza payloads
