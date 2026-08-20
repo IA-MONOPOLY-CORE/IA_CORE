@@ -120,6 +120,18 @@ navegacion adicional o sistema de componentes.
 benchmarks futuros; no se instalan ahora, no se copian, no agregan
 dependencias y no reemplazan IA_CORE.
 
+## Modelo de lectura payload/contract 1.6
+
+La consola agrega `data-payload-reading-model="contract-aware-1.6"` y separa
+la lectura en `summary/detail/raw-safe`. Summary orienta al operador, detail
+expone contrato tecnico legible y raw-safe muestra una proyeccion local
+read-only del payload seguro disponible.
+
+Raw-safe no edita, no envia, no ejecuta, no copia como accion operativa y no
+activa modo de desarrollo. Si no hay fuente local segura muestra
+`not_available` o `no_payload`. Este bloque no crea paneles 1.7, no runtime,
+no execution y no dispatch.
+
 ## Widgets backend contract
 
 `backend-contract-widgets.js` no crea ni consulta endpoints. Renderiza payloads

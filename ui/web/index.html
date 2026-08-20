@@ -613,6 +613,40 @@
             line-height: 1.45;
             overflow-wrap: anywhere;
         }
+        .payload-reading-model {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 8px;
+            margin: 12px 0;
+        }
+        .reading-layer {
+            min-width: 0;
+            padding: 12px;
+            border: 1px solid rgba(148,163,184,0.2);
+            background: rgba(15,23,42,0.42);
+        }
+        .reading-layer h3 {
+            margin: 5px 0 7px;
+            color: var(--text-primary);
+            font-size: 0.82rem;
+        }
+        .reading-layer p {
+            color: var(--text-muted);
+            font-size: 0.68rem;
+            line-height: 1.45;
+        }
+        .raw-safe-output {
+            display: block;
+            min-height: 56px;
+            max-height: 132px;
+            overflow: auto;
+            white-space: pre-wrap;
+            overflow-wrap: anywhere;
+            color: var(--text-primary);
+            font-size: 0.66rem;
+            line-height: 1.45;
+            user-select: text;
+        }
         .read-only-guidance {
             color: var(--text-muted);
             font-size: 0.66rem;
@@ -624,6 +658,7 @@
             .readiness-band,
             .contract-layout-grid,
             .layout-evidence-grid,
+            .payload-reading-model,
             .contract-inspector-grid,
             .contract-core-rail { grid-template-columns: 1fr; }
         }
@@ -1023,7 +1058,7 @@
 </head>
 <body data-skin="contract">
 
-    <main class="ia-core-shell" data-layout-contract-aware="superior-0.8" data-main-console="contract-aware-1.0" data-console-refinement="1.1" data-console-flow="contract-aware-1.2" data-console-interaction="contract-aware-1.3" data-interaction-mode="read-only">
+    <main class="ia-core-shell" data-layout-contract-aware="superior-0.8" data-main-console="contract-aware-1.0" data-console-refinement="1.1" data-console-flow="contract-aware-1.2" data-console-interaction="contract-aware-1.3" data-payload-reading-model="contract-aware-1.6" data-interaction-mode="read-only">
     <!-- BANNER PARA LOGOS -->
     <div class="logo-banner" id="logo-banner">
         <div class="logo-banner-inner" id="logo-banner-inner"></div>
@@ -1108,6 +1143,24 @@
                 <div class="layout-label">flags / validation</div>
                 <div class="layout-value" id="console-contract-validation-value">pending</div>
             </div>
+        </div>
+        <div class="payload-reading-model" aria-label="Modelo de lectura summary detail raw-safe">
+            <article class="reading-layer" data-reading-layer="summary" data-interaction-mode="read-only" data-interaction-state="read_only inspectable">
+                <div class="layout-label">summary</div>
+                <h3>Resumen contractual</h3>
+                <p>Lectura humana de estado, fuente, permisos backend, prohibiciones, bloqueos y diagnostico visible. No suaviza bloqueos criticos.</p>
+            </article>
+            <article class="reading-layer" data-reading-layer="detail" data-interaction-mode="read-only" data-interaction-state="read_only inspectable">
+                <div class="layout-label">detail</div>
+                <h3>Detalle tecnico</h3>
+                <p>Lectura tecnica de schema, service_kind, source, validation, flags, warnings/errors y limites. No crea autoridad nueva.</p>
+            </article>
+            <article class="reading-layer" data-reading-layer="raw-safe" data-interaction-mode="read-only" data-interaction-state="read_only not_available">
+                <div class="layout-label">raw-safe</div>
+                <h3>Inspeccion segura</h3>
+                <p>Proyeccion local read-only, sin secretos, sin edicion, sin submit y sin modo operativo.</p>
+                <code class="raw-safe-output" id="contract-raw-safe-value">not_available</code>
+            </article>
         </div>
         <details class="contract-inspector" id="contract-read-only-inspector" data-interaction-control="inspect" data-interaction-mode="read-only" data-interaction-state="read_only inspectable collapsed">
             <summary>

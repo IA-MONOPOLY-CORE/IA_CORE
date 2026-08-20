@@ -67,6 +67,10 @@
         const element = byId(id);
         if (element) element.dataset.state = normalizeVisualState(state);
     };
+    const setInteractionState = (id, state) => {
+        const element = byId(id);
+        if (element) element.dataset.interactionState = state;
+    };
     const safeArray = (value) => Array.isArray(value) ? value : [];
     const safeObject = (value) => value && typeof value === 'object' && !Array.isArray(value) ? value : {};
     const actionName = (action) => typeof action === 'string'
@@ -88,6 +92,39 @@
         container.innerHTML = values.map((value) => (
             `<span class="contract-chip ${escapeHtml(className)}">${escapeHtml(value)}</span>`
         )).join('');
+    }
+
+    function safeRawProjection(payload) {
+        const value = safeObject(payload);
+        return {
+            schema_version: value.schema_version || 'not_available',
+            service_kind: value.service_kind || 'not_available',
+            source: safeObject(value.meta).contract_fixture === true ? 'contract_fixture' : 'injected_payload',
+            readiness: value.readiness || 'not_available',
+            status: value.status || 'not_available',
+            validation: {
+                flags: safeObject(value.flags),
+                warnings: safeArray(value.warnings).map((warning) => ({
+                    code: safeObject(warning).code || 'warning',
+                    message: safeObject(warning).message || '',
+                })),
+                errors: safeArray(value.errors).map((error) => ({
+                    code: safeObject(error).code || 'error',
+                    message: safeObject(error).message || '',
+                })),
+            },
+            allowed_actions: safeArray(value.allowed_actions).map((action) => ({
+                action: actionName(action),
+                available_now: safeObject(action).available_now === true,
+            })),
+            forbidden_actions: safeArray(value.forbidden_actions).map(actionName).filter(Boolean),
+            blocked_capabilities: safeObject(value.blocked_capabilities),
+        };
+    }
+
+    function setRawSafe(value, state = 'not_available') {
+        setText('contract-raw-safe-value', value);
+        setInteractionState('contract-raw-safe-value', `read_only ${state}`);
     }
 
     function setWidgetsUpdating(isUpdating) {
@@ -208,6 +245,7 @@
         setText('contract-diagnostics-meta', 'Esperando schema backend_internal_ui_payload.v1.');
         renderChips('contract-diagnostics-list', ['deny-by-default'], 'warning');
         setText('contract-diagnostics-detail', 'No hay fetch ni endpoint nuevo para este panel.');
+        setRawSafe('not_available', 'not_available');
     }
 
     function renderContractError(errors, payload) {
@@ -230,6 +268,7 @@
         setVisualState('contract-diagnostics-value', 'failed');
         setText('contract-diagnostics-meta', 'La UI no corrige ni interpreta permisos.');
         renderChips('contract-diagnostics-list', errors.slice(0, 8), 'forbidden');
+        setRawSafe(JSON.stringify(safeRawProjection(value), null, 2), 'read_only');
     }
 
     function renderPayload(payload) {
@@ -285,6 +324,7 @@
         setText('contract-diagnostics-meta', flagsOk ? 'Flags no-operativas confirmadas.' : 'Flags no-operativas incompletas.');
         renderChips('contract-diagnostics-list', errors.concat(warnings).slice(0, 8), errors.length ? 'forbidden' : 'warning');
         setText('contract-diagnostics-detail', `schema: ${payload.schema_version} · kind: ${payload.service_kind || '-'}`);
+        setRawSafe(JSON.stringify(safeRawProjection(payload), null, 2), safeObject(payload.meta).contract_fixture === true ? 'contract_fixture' : 'read_only');
     }
 
     function refresh(payloads = getInjectedPayloads()) {
