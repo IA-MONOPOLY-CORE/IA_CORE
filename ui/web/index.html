@@ -246,6 +246,77 @@
             font-size: 0.82rem;
             letter-spacing: 0.06em;
         }
+        .console-orientation-copy {
+            max-width: 32ch;
+            margin-top: 7px;
+            color: rgba(226,232,240,0.72) !important;
+            font-size: 0.68rem !important;
+            line-height: 1.45;
+            text-transform: none !important;
+        }
+        .console-flow-map {
+            display: grid;
+            grid-template-columns: minmax(180px, 0.7fr) minmax(0, 2.3fr);
+            gap: 18px;
+            align-items: center;
+            margin: 0 0 18px;
+            padding: 12px 0;
+            border-top: 1px solid rgba(148,163,184,0.16);
+            border-bottom: 1px solid rgba(148,163,184,0.16);
+        }
+        .console-flow-intro p {
+            margin-top: 5px;
+            color: var(--text-muted);
+            font-size: 0.7rem;
+            line-height: 1.45;
+        }
+        .console-flow-steps {
+            display: grid;
+            grid-template-columns: repeat(6, minmax(0, 1fr));
+            gap: 6px;
+            margin: 0;
+            padding: 0;
+            list-style: none;
+            counter-reset: console-flow;
+        }
+        .console-flow-steps li {
+            min-width: 0;
+            padding: 7px 8px;
+            border-left: 2px solid rgba(56,189,248,0.4);
+            background: rgba(15,23,42,0.48);
+            counter-increment: console-flow;
+        }
+        .console-flow-steps li::before {
+            content: "0" counter(console-flow);
+            display: block;
+            margin-bottom: 3px;
+            color: var(--cyan);
+            font-size: 0.6rem;
+        }
+        .console-flow-steps strong,
+        .console-flow-steps small {
+            display: block;
+            overflow-wrap: anywhere;
+        }
+        .console-flow-steps strong {
+            color: var(--text-primary);
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 0.72rem;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+        }
+        .console-flow-steps small {
+            margin-top: 2px;
+            color: var(--text-muted);
+            font-size: 0.6rem;
+            line-height: 1.35;
+        }
+        .flow-step-index {
+            margin-right: 7px;
+            color: var(--cyan);
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 0.66rem;
+        }
         .layout-section {
             margin-bottom: 18px;
         }
@@ -400,6 +471,9 @@
         .evidence-state {
             margin-top: 10px;
         }
+        .evidence-card.flow-next-step {
+            border-left: 3px solid var(--amber);
+        }
         .contract-core-rail {
             display: grid;
             grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -419,6 +493,8 @@
         }
         @media (max-width: 1180px) {
             .ia-core-shell { padding-right: 54px; }
+            .console-flow-map { grid-template-columns: 1fr; }
+            .console-flow-steps { grid-template-columns: repeat(3, minmax(0, 1fr)); }
             .readiness-band,
             .contract-layout-grid,
             .layout-evidence-grid,
@@ -442,6 +518,7 @@
                 width: 100%;
             }
             .badge { width: 100%; overflow-wrap: anywhere; }
+            .console-flow-steps { grid-template-columns: 1fr; }
             .layout-section-title { align-items: flex-start; flex-wrap: wrap; line-height: 1.45; }
             .signal-row,
             .boundary-row { align-items: flex-start; flex-direction: column; gap: 6px; }
@@ -819,13 +896,13 @@
 </head>
 <body data-skin="contract">
 
-    <main class="ia-core-shell" data-layout-contract-aware="superior-0.8" data-main-console="contract-aware-1.0" data-console-refinement="1.1">
+    <main class="ia-core-shell" data-layout-contract-aware="superior-0.8" data-main-console="contract-aware-1.0" data-console-refinement="1.1" data-console-flow="contract-aware-1.2">
     <!-- BANNER PARA LOGOS -->
     <div class="logo-banner" id="logo-banner">
         <div class="logo-banner-inner" id="logo-banner-inner"></div>
     </div>
 
-    <header class="hud-panel main-console-header" data-main-console-zone="identity">
+    <header class="hud-panel main-console-header" data-main-console-zone="identity" data-flow-step="orientation">
         <div class="logo-area">
             <h1 id="brand-title">IA_CORE</h1>
             <span id="brand-subtitle">CONTRACT-AWARE FRAMEWORK CONSOLE</span>
@@ -834,6 +911,7 @@
         <div class="console-mode">
             <span>Límite operativo</span>
             <strong>PRE-RUNTIME / NO-EXECUTION</strong>
+            <span class="console-orientation-copy">Lectura de contrato y señales declaradas. Esta consola no ejecuta operaciones.</span>
         </div>
         <div class="badges-container">
             <div class="badge" id="ventaja-badge">READINESS: no_payload</div>
@@ -842,8 +920,23 @@
         </div>
     </header>
 
-    <section class="layout-section" data-main-console-zone="readiness" aria-label="Global contract readiness">
-        <div class="layout-section-title"><strong>READINESS GLOBAL</strong><span>pre-runtime / no-execution</span></div>
+    <section class="console-flow-map" aria-label="Ruta de lectura contract-aware">
+        <div class="console-flow-intro">
+            <div class="layout-label">Ruta de lectura</div>
+            <p>Seguí el estado declarado desde readiness hasta la continuidad documentada.</p>
+        </div>
+        <ol class="console-flow-steps">
+            <li data-flow-target="readiness"><strong>Readiness</strong><small>estado declarado</small></li>
+            <li data-flow-target="contract-core"><strong>Contract Core</strong><small>payload y validación</small></li>
+            <li data-flow-target="service-signals"><strong>Internal Signals</strong><small>señales, no ejecución</small></li>
+            <li data-flow-target="actions-boundaries"><strong>Actions &amp; Limits</strong><small>autoridad backend</small></li>
+            <li data-flow-target="evidence-checkpoint"><strong>Evidence</strong><small>checkpoints respaldados</small></li>
+            <li data-flow-target="next-step"><strong>Next Step</strong><small>continuidad planned</small></li>
+        </ol>
+    </section>
+
+    <section class="layout-section" data-main-console-zone="readiness" data-flow-step="readiness" aria-label="Global contract readiness">
+        <div class="layout-section-title"><strong><span class="flow-step-index">01</span>READINESS GLOBAL</strong><span>leer estado declarado / pre-runtime</span></div>
         <div class="readiness-band">
             <article class="hud-panel readiness-card primary" id="console-readiness-card" data-state="no_payload">
                 <div class="layout-label">Readiness / status</div>
@@ -868,8 +961,8 @@
         </div>
     </section>
 
-    <section class="layout-section" data-main-console-zone="contract-core" aria-label="Contract core and payload">
-        <div class="layout-section-title"><strong>CONTRACT CORE / PAYLOAD</strong><span>fuente declarada / deny-by-default</span></div>
+    <section class="layout-section" data-main-console-zone="contract-core" data-flow-step="contract-core" aria-label="Contract core and payload">
+        <div class="layout-section-title"><strong><span class="flow-step-index">02</span>CONTRACT CORE / PAYLOAD</strong><span>leer fuente declarada / deny-by-default</span></div>
         <div class="contract-core-rail">
             <div class="contract-core-item">
                 <div class="layout-label">schema_version</div>
@@ -950,10 +1043,10 @@
     <section class="layout-section" aria-label="Internal service signals and boundaries">
         <div class="layout-section-title"><strong>CAPAS IA_CORE</strong><span>señales internas / limites contractuales</span></div>
         <div class="contract-layout-grid">
-            <article class="hud-panel contract-layout-zone" data-layout-zone="contract-services" data-main-console-zone="internal-services">
+            <article class="hud-panel contract-layout-zone" data-layout-zone="contract-services" data-main-console-zone="internal-services" data-flow-step="service-signals">
                 <div class="layout-label">Contrato y servicios internos</div>
                 <h2>Internal Services / Signals</h2>
-                <p class="layout-copy">Mapa de señales declaradas. Ninguna fila representa ejecución o disponibilidad operativa.</p>
+                <p class="layout-copy"><span class="flow-step-index">03</span>Leé cada fila como señal interna declarada; ninguna representa ejecución o disponibilidad operativa.</p>
                 <ul>
                     <li class="signal-row"><span class="signal-name">internal_exposure_registry</span><span class="signal-kind">registry</span></li>
                     <li class="signal-row"><span class="signal-name">internal_request_validation</span><span class="signal-kind">validation</span></li>
@@ -963,10 +1056,10 @@
                     <li class="signal-row"><span class="signal-name">stable_payloads</span><span class="signal-kind">contract source</span></li>
                 </ul>
             </article>
-            <article class="hud-panel contract-layout-zone" data-layout-zone="actions-blocks" data-main-console-zone="actions-boundaries">
+            <article class="hud-panel contract-layout-zone" data-layout-zone="actions-blocks" data-main-console-zone="actions-boundaries" data-flow-step="actions-boundaries">
                 <div class="layout-label">Acciones y bloqueos</div>
                 <h2>Actions &amp; Boundaries</h2>
-                <p class="layout-copy">Separación explícita entre permiso backend, prohibición contractual y capacidad bloqueada.</p>
+                <p class="layout-copy"><span class="flow-step-index">04</span>Contrastá permiso backend, prohibición no ejecutable y capacidad bloqueada.</p>
                 <ul>
                     <li class="boundary-row">
                         <span><span class="boundary-name">allowed_actions</span><span class="boundary-detail">Solo acciones declaradas por backend.</span></span>
@@ -985,8 +1078,8 @@
         </div>
     </section>
 
-    <section class="layout-section" data-layout-zone="evidence-checkpoint" data-main-console-zone="evidence-checkpoint" aria-label="Checkpoint evidence">
-        <div class="layout-section-title"><strong>EVIDENCIA CONTRACT-AWARE / CHECKPOINT</strong><span>base visual validada / sin endpoints nuevos</span></div>
+    <section class="layout-section" data-layout-zone="evidence-checkpoint" data-main-console-zone="evidence-checkpoint" data-flow-step="evidence-checkpoint" aria-label="Checkpoint evidence">
+        <div class="layout-section-title"><strong><span class="flow-step-index">05</span>EVIDENCIA CONTRACT-AWARE / CHECKPOINT</strong><span>respaldo documentado / sin endpoints nuevos</span></div>
         <div class="layout-evidence-grid">
             <article class="hud-panel evidence-card">
                 <div class="layout-label">Evidencia y continuidad</div>
@@ -996,14 +1089,14 @@
             </article>
             <article class="hud-panel evidence-card">
                 <div class="layout-label">Estado documentado</div>
-                <div class="layout-value">refinement 1.1</div>
-                <p class="layout-copy">IA_CORE contract-aware; no_payload y blocked permanecen como estados honestos.</p>
+                <div class="layout-value">1.0 + 1.1 passed</div>
+                <p class="layout-copy">Estructura y refinamiento respaldan el orden actual; no_payload y blocked permanecen honestos.</p>
                 <span class="visual-state passed evidence-state">passed</span>
             </article>
-            <article class="hud-panel evidence-card">
-                <div class="layout-label">Proximo paso</div>
-                <div class="layout-value">main console flow</div>
-                <p class="layout-copy">Próximo bloque documentado; sin runtime, execution ni dispatch.</p>
+            <article class="hud-panel evidence-card flow-next-step" data-flow-step="next-step">
+                <div class="layout-label"><span class="flow-step-index">06</span>Próximo paso documentado</div>
+                <div class="layout-value">interaction model</div>
+                <p class="layout-copy">Continuidad posterior a 1.2; no inicia runtime, execution ni dispatch.</p>
                 <span class="visual-state planned evidence-state">planned</span>
             </article>
         </div>
@@ -1013,6 +1106,7 @@
             <span class="layout-token">0.8 layout structured</span>
             <span class="layout-token">0.9 visual base passed</span>
             <span class="layout-token">1.0 console structured</span>
+            <span class="layout-token">1.1 refinement passed</span>
         </div>
     </section>
 

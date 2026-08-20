@@ -50,6 +50,16 @@
     "schema": "Schema",
     "connection": "Conexión"
   },
+  "console_flow": {
+    "orientation": "Lectura de contrato y señales declaradas. Esta consola no ejecuta operaciones.",
+    "route_label": "Ruta de lectura",
+    "readiness": "Readiness: estado declarado",
+    "contract_core": "Contract Core: payload y validación",
+    "service_signals": "Internal Signals: señales, no ejecución",
+    "actions_boundaries": "Actions & Limits: autoridad backend",
+    "evidence_checkpoint": "Evidence: checkpoints respaldados",
+    "next_step": "Next Step: continuidad planned"
+  },
   "metrics": {
     "agreement": "Acuerdo",
     "contradiction": "Contradicción",

@@ -65,6 +65,20 @@ mantiene responsive a 1440 px y 390 px. En movil el request contract inicia
 colapsado, no hay overflow horizontal y los controles bloqueados conservan su
 estado.
 
+## Flujo principal de consola 1.2
+
+La marca `data-console-flow="contract-aware-1.2"` identifica el recorrido de
+lectura de la consola: orientación IA_CORE y límite pre-runtime, readiness,
+Contract Core / Payload, Internal Services / Signals, Actions & Boundaries,
+Evidence / Checkpoint y siguiente paso documentado.
+
+Los pasos usan marcas `data-flow-step` testeables y una ruta visual no
+interactiva. La secuencia no agrega permisos, endpoints ni acciones: los
+widgets conservan el payload inyectado como autoridad, `allowed_actions` sigue
+siendo backend only y `forbidden_actions`/`blocked_capabilities` permanecen
+visibles. El siguiente bloque se presenta como continuidad `planned`, no como
+CTA operativo.
+
 ## Widgets backend contract
 
 `backend-contract-widgets.js` no crea ni consulta endpoints. Renderiza payloads
