@@ -651,6 +651,71 @@
             color: var(--text-muted);
             font-size: 0.66rem;
         }
+        .contract-detail-panels {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 8px;
+            margin: 12px 0;
+        }
+        .contract-detail-panel {
+            min-width: 0;
+            padding: 13px;
+            border: 1px solid rgba(148,163,184,0.22);
+            background: rgba(15,23,42,0.34);
+        }
+        .contract-detail-panel[data-detail-panel="evidence"] {
+            grid-column: 1 / -1;
+        }
+        .contract-detail-panel h3 {
+            margin: 6px 0 9px;
+            color: var(--text-primary);
+            font-size: 0.84rem;
+        }
+        .detail-panel-source {
+            color: var(--cyan);
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 0.62rem;
+            overflow-wrap: anywhere;
+        }
+        .detail-panel-fields {
+            display: grid;
+            gap: 1px;
+            margin: 0;
+            background: rgba(148,163,184,0.13);
+        }
+        .detail-panel-fields > div {
+            min-width: 0;
+            padding: 8px 9px;
+            background: var(--bg-panel);
+        }
+        .detail-panel-fields dt {
+            color: var(--text-muted);
+            font-size: 0.6rem;
+            text-transform: uppercase;
+        }
+        .detail-panel-fields dd {
+            margin-top: 4px;
+            color: var(--text-primary);
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 0.66rem;
+            line-height: 1.45;
+            overflow-wrap: anywhere;
+        }
+        .detail-panel-fields .data-widget-list {
+            margin-top: 4px;
+        }
+        .detail-panel-note {
+            margin-top: 9px;
+            color: var(--text-muted);
+            font-size: 0.66rem;
+            line-height: 1.5;
+        }
+        .detail-evidence-line {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-top: 8px;
+        }
         @media (max-width: 1180px) {
             .ia-core-shell { padding-right: 54px; }
             .console-flow-map { grid-template-columns: 1fr; }
@@ -681,6 +746,8 @@
             }
             .badge { width: 100%; overflow-wrap: anywhere; }
             .console-flow-steps { grid-template-columns: 1fr; }
+            .contract-detail-panels { grid-template-columns: 1fr; }
+            .contract-detail-panel[data-detail-panel="evidence"] { grid-column: auto; }
             .layout-section-title { align-items: flex-start; flex-wrap: wrap; line-height: 1.45; }
             .signal-row,
             .boundary-row { align-items: flex-start; flex-direction: column; gap: 6px; }
@@ -1058,7 +1125,7 @@
 </head>
 <body data-skin="contract">
 
-    <main class="ia-core-shell" data-layout-contract-aware="superior-0.8" data-main-console="contract-aware-1.0" data-console-refinement="1.1" data-console-flow="contract-aware-1.2" data-console-interaction="contract-aware-1.3" data-payload-reading-model="contract-aware-1.6" data-interaction-mode="read-only">
+    <main class="ia-core-shell" data-layout-contract-aware="superior-0.8" data-main-console="contract-aware-1.0" data-console-refinement="1.1" data-console-flow="contract-aware-1.2" data-console-interaction="contract-aware-1.3" data-payload-reading-model="contract-aware-1.6" data-contract-detail-panels="contract-aware-1.7" data-interaction-mode="read-only">
     <!-- BANNER PARA LOGOS -->
     <div class="logo-banner" id="logo-banner">
         <div class="logo-banner-inner" id="logo-banner-inner"></div>
@@ -1162,6 +1229,97 @@
                 <code class="raw-safe-output" id="contract-raw-safe-value">not_available</code>
             </article>
         </div>
+        <section class="contract-detail-panels" aria-label="Paneles de detalle contractual read-only">
+            <article class="contract-detail-panel" data-detail-panel="readiness" data-detail-state="read_only" data-reading-layer-ref="summary detail">
+                <div class="layout-label">Readiness detail</div>
+                <h3>Estado declarado y procedencia</h3>
+                <div class="detail-panel-source">summary + detail / backend_internal_ui_payload.v1</div>
+                <dl class="detail-panel-fields">
+                    <div><dt>readiness / status</dt><dd data-detail-source="console-readiness-value">no_payload</dd></div>
+                    <div><dt>procedencia</dt><dd data-detail-source="console-payload-source-value">no_payload</dd></div>
+                    <div><dt>diagnostico asociado</dt><dd data-detail-source="contract-diagnostics-list">not_available</dd></div>
+                </dl>
+                <p class="detail-panel-note">Readiness orienta al operador; no significa runtime, execution ni permiso operativo.</p>
+            </article>
+
+            <article class="contract-detail-panel" data-detail-panel="payload-contract" data-detail-state="read_only" data-reading-layer-ref="detail raw-safe">
+                <div class="layout-label">Payload / contract detail</div>
+                <h3>Fuente contractual leida</h3>
+                <div class="detail-panel-source">detail + raw-safe / payload inyectado o fixture contractual</div>
+                <dl class="detail-panel-fields">
+                    <div><dt>schema_version</dt><dd data-detail-source="console-schema-value">backend_internal_ui_payload.v1</dd></div>
+                    <div><dt>service_kind</dt><dd data-detail-source="console-service-kind-value">not_available</dd></div>
+                    <div><dt>source / payload state</dt><dd data-detail-source="console-payload-source-value">no_payload</dd></div>
+                    <div><dt>validation summary</dt><dd data-detail-source="console-contract-validation-value">pending</dd></div>
+                </dl>
+                <p class="detail-panel-note">La UI lee el payload; no crea el contrato ni decide permisos. Raw-safe sigue siendo inspeccion local, no modo operativo.</p>
+            </article>
+
+            <article class="contract-detail-panel" data-detail-panel="validation" data-detail-state="read_only" data-reading-layer-ref="detail raw-safe">
+                <div class="layout-label">Validation detail</div>
+                <h3>Validez, flags y ausencia honesta</h3>
+                <div class="detail-panel-source">detail + raw-safe / validation + flags</div>
+                <dl class="detail-panel-fields">
+                    <div><dt>validation.valid</dt><dd id="contract-validation-valid-detail">not_available</dd></div>
+                    <div><dt>flags principales</dt><dd class="data-widget-list" id="contract-validation-flags-detail">not_available</dd></div>
+                    <div><dt>estado visual</dt><dd data-detail-source="console-contract-validation-value">pending</dd></div>
+                </dl>
+                <p class="detail-panel-note">PASSED solo refleja validacion declarada. Validacion visual no equivale a ejecucion y ningun warning/error se oculta.</p>
+            </article>
+
+            <article class="contract-detail-panel" data-detail-panel="actions" data-detail-state="read_only" data-reading-layer-ref="summary detail">
+                <div class="layout-label">Actions detail</div>
+                <h3>Autoridad backend, sin controles operativos</h3>
+                <div class="detail-panel-source">summary + detail / allowed_actions + forbidden_actions</div>
+                <dl class="detail-panel-fields">
+                    <div><dt>allowed_actions</dt><dd class="data-widget-list" data-detail-source="contract-allowed-actions">not_available</dd></div>
+                    <div><dt>allowed state</dt><dd data-detail-source="contract-actions-meta">no_payload</dd></div>
+                    <div><dt>forbidden_actions / reason</dt><dd data-detail-source="contract-forbidden-actions">not_available</dd></div>
+                </dl>
+                <p class="detail-panel-note">Permitido solo existe si backend lo declara. Forbidden nunca se convierte en boton activo y este panel no ejecuta acciones.</p>
+            </article>
+
+            <article class="contract-detail-panel" data-detail-panel="blocked-capabilities" data-detail-state="read_only" data-reading-layer-ref="summary detail raw-safe">
+                <div class="layout-label">Blocked capabilities detail</div>
+                <h3>Frontera contractual visible</h3>
+                <div class="detail-panel-source">summary + detail + raw-safe / blocked_capabilities</div>
+                <dl class="detail-panel-fields">
+                    <div><dt>estado</dt><dd data-detail-source="contract-blocked-value">blocked</dd></div>
+                    <div><dt>capabilities declaradas</dt><dd class="data-widget-list" data-detail-source="contract-blocked-list">not_available</dd></div>
+                    <div><dt>lectura</dt><dd data-detail-source="contract-blocked-detail">deny-by-default</dd></div>
+                </dl>
+                <p class="detail-panel-note">true = blocked. Runtime, execution, dispatch, tools, models, integrations, public endpoints, ui runtime y operational domains son fronteras contractuales, no fallas esteticas.</p>
+            </article>
+
+            <article class="contract-detail-panel" data-detail-panel="warnings-errors" data-detail-state="read_only" data-reading-layer-ref="summary detail raw-safe">
+                <div class="layout-label">Warnings / errors detail</div>
+                <h3>Diagnostico visible y sanitizado</h3>
+                <div class="detail-panel-source">summary + detail + raw-safe / warnings + errors</div>
+                <dl class="detail-panel-fields">
+                    <div><dt>warnings</dt><dd class="data-widget-list" id="contract-warnings-detail">no_payload</dd></div>
+                    <div><dt>errors</dt><dd class="data-widget-list" id="contract-errors-detail">no_payload</dd></div>
+                    <div><dt>distincion</dt><dd>warning orienta; error invalida o falla; blocked fija frontera; planned indica continuidad</dd></div>
+                </dl>
+                <p class="detail-panel-note">No se inventa causa ni se suaviza un error critico. Los tracebacks crudos no son UX principal; la severidad y el origen declarado permanecen visibles.</p>
+            </article>
+
+            <article class="contract-detail-panel" data-detail-panel="evidence" data-detail-state="read_only" data-reading-layer-ref="summary detail">
+                <div class="layout-label">Evidence detail</div>
+                <h3>Trazabilidad 1.0 -&gt; 1.6 y continuidad</h3>
+                <div class="detail-panel-source">summary + detail / documentos, veredictos y commits cerrados</div>
+                <div class="detail-evidence-line" aria-label="Evidencia vigente">
+                    <span class="layout-token">1.0 structure · a08fa636</span>
+                    <span class="layout-token">1.1 refinement · bd133fe1</span>
+                    <span class="layout-token">1.2 flow · aafbe87b</span>
+                    <span class="layout-token">1.3 interaction · e716645b</span>
+                    <span class="layout-token">1.4 checkpoint · ee7323d5</span>
+                    <span class="layout-token">1.5 plan · 17bbb608</span>
+                    <span class="layout-token">1.6 reading model · 1b04f7a8</span>
+                    <span class="visual-state planned">planned: internal navigation 1.8</span>
+                </div>
+                <p class="detail-panel-note">Evidencia no es accion. Next Step es continuidad de desarrollo y no inicia runtime, execution ni dispatch.</p>
+            </article>
+        </section>
         <details class="contract-inspector" id="contract-read-only-inspector" data-interaction-control="inspect" data-interaction-mode="read-only" data-interaction-state="read_only inspectable collapsed">
             <summary>
                 <span><span class="layout-label">Inspector read-only</span><strong>INSPECCIONAR RESUMEN CONTRACTUAL</strong></span>

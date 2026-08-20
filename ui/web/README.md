@@ -132,6 +132,20 @@ activa modo de desarrollo. Si no hay fuente local segura muestra
 `not_available` o `no_payload`. Este bloque no crea paneles 1.7, no runtime,
 no execution y no dispatch.
 
+## Paneles de detalle contract-aware 1.7
+
+La shell agrega `data-contract-detail-panels="contract-aware-1.7"` y siete
+paneles compactos read-only para readiness, payload/contract, validation,
+actions, blocked capabilities, warnings/errors y evidence. Cada panel declara
+su relacion con `summary/detail/raw-safe` y reutiliza lecturas ya renderizadas;
+no crea una fuente paralela de autoridad.
+
+Los paneles preservan empty states honestos, separan warnings de errors,
+mantienen visibles `forbidden_actions` y `blocked_capabilities`, y no convierten
+`allowed_actions` en permiso propio de UI. Este bloque no crea endpoints, no
+runtime, no execution, no dispatch y no implementa navegacion interna. El
+bloque 1.8 queda solamente como continuidad `planned`.
+
 ## Widgets backend contract
 
 `backend-contract-widgets.js` no crea ni consulta endpoints. Renderiza payloads

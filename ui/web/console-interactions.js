@@ -55,6 +55,9 @@
         document.querySelectorAll('[data-inspector-source]').forEach((field) => {
             field.textContent = sourceText(field.dataset.inspectorSource);
         });
+        document.querySelectorAll('[data-detail-source]').forEach((field) => {
+            field.textContent = sourceText(field.dataset.detailSource);
+        });
     }
 
     function bindFlowFocus() {

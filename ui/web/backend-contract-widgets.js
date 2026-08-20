@@ -76,6 +76,23 @@
     const actionName = (action) => typeof action === 'string'
         ? action
         : String(safeObject(action).action || safeObject(action).name || '');
+    const actionDetail = (action) => {
+        const value = safeObject(action);
+        const name = actionName(action);
+        const reason = value.reason || value.message || value.ui_hint || '';
+        return reason ? `${name}: ${reason}` : name;
+    };
+
+    function diagnosticDetail(entry, fallback) {
+        const value = safeObject(entry);
+        const code = value.code || fallback;
+        const rawMessage = String(value.message || '').trim();
+        const message = /traceback/i.test(rawMessage)
+            ? 'detalle tecnico omitido; revisar evidencia backend'
+            : rawMessage;
+        const origin = value.service || value.source || '';
+        return [code, message, origin ? `source: ${origin}` : ''].filter(Boolean).join(' · ');
+    }
 
     function escapeHtml(value) {
         return String(value ?? '')
@@ -125,6 +142,24 @@
     function setRawSafe(value, state = 'not_available') {
         setText('contract-raw-safe-value', value);
         setInteractionState('contract-raw-safe-value', `read_only ${state}`);
+    }
+
+    function setValidationDetail(payload, state = 'not_available') {
+        const value = safeObject(payload);
+        const validation = safeObject(value.validation);
+        const valid = typeof validation.valid === 'boolean'
+            ? String(validation.valid)
+            : state;
+        const flags = Object.entries(safeObject(value.flags)).map(([key, flagValue]) => `${key}=${flagValue}`);
+        setText('contract-validation-valid-detail', valid);
+        renderChips('contract-validation-flags-detail', flags.length ? flags : [state], flags.length ? '' : 'warning');
+    }
+
+    function setDiagnosticsDetail(warnings, errors, emptyState = 'not_available') {
+        const warningValues = safeArray(warnings).map((warning) => diagnosticDetail(warning, 'warning'));
+        const errorValues = safeArray(errors).map((error) => diagnosticDetail(error, 'error'));
+        renderChips('contract-warnings-detail', warningValues.length ? warningValues : [emptyState === 'read_only' ? 'no_warnings' : emptyState], warningValues.length ? 'warning' : '');
+        renderChips('contract-errors-detail', errorValues.length ? errorValues : [emptyState === 'read_only' ? 'no_errors' : emptyState], errorValues.length ? 'forbidden' : '');
     }
 
     function setWidgetsUpdating(isUpdating) {
@@ -234,10 +269,12 @@
         renderChips('contract-blocked-list', [
             'runtime',
             'execution',
+            'dispatch',
             'tools',
             'models',
             'integrations',
             'public_endpoints',
+            'ui_runtime',
             'operational_domains',
         ], 'blocked');
         setText('contract-blocked-detail', 'Sin payload estable, la UI no puede habilitar capabilities.');
@@ -245,11 +282,18 @@
         setText('contract-diagnostics-meta', 'Esperando schema backend_internal_ui_payload.v1.');
         renderChips('contract-diagnostics-list', ['deny-by-default'], 'warning');
         setText('contract-diagnostics-detail', 'No hay fetch ni endpoint nuevo para este panel.');
+        setValidationDetail({}, 'no_payload');
+        setDiagnosticsDetail([], [], 'no_payload');
         setRawSafe('not_available', 'not_available');
     }
 
     function renderContractError(errors, payload) {
         const value = safeObject(payload);
+        const blocked = Object.entries(safeObject(value.blocked_capabilities))
+            .filter(([, isBlocked]) => isBlocked === true)
+            .map(([capability]) => capability);
+        const payloadWarnings = safeArray(value.warnings);
+        const payloadErrors = safeArray(value.errors);
         updateConsoleSummary({
             readiness: 'invalid',
             status: 'invalid',
@@ -265,9 +309,18 @@
         setText('contract-actions-meta', 'allowed_actions bloqueado por error contractual.');
         renderChips('contract-allowed-actions', []);
         setText('contract-forbidden-actions', 'forbidden_actions conservado; acciones activas no renderizadas.');
+        setVisualState('contract-blocked-value', 'blocked');
+        setText('contract-blocked-meta', 'El error contractual no elimina blocked_capabilities.');
+        renderChips('contract-blocked-list', blocked.length ? blocked : [
+            'runtime', 'execution', 'dispatch', 'tools', 'models', 'integrations',
+            'public_endpoints', 'ui_runtime', 'operational_domains',
+        ], 'blocked');
+        setText('contract-blocked-detail', 'Payload invalido: deny-by-default y bloqueos criticos visibles.');
         setVisualState('contract-diagnostics-value', 'failed');
         setText('contract-diagnostics-meta', 'La UI no corrige ni interpreta permisos.');
         renderChips('contract-diagnostics-list', errors.slice(0, 8), 'forbidden');
+        setValidationDetail(value, 'false');
+        setDiagnosticsDetail(payloadWarnings, payloadErrors.concat(errors.map((message) => ({ code: 'contract_validation', message }))), 'failed');
         setRawSafe(JSON.stringify(safeRawProjection(value), null, 2), 'read_only');
     }
 
@@ -282,12 +335,14 @@
             .filter((action) => safeObject(action).available_now !== false)
             .map(actionName)
             .filter(Boolean);
-        const forbidden = safeArray(payload.forbidden_actions).map(actionName).filter(Boolean);
+        const forbidden = safeArray(payload.forbidden_actions).map(actionDetail).filter(Boolean);
         const blocked = Object.entries(safeObject(payload.blocked_capabilities))
             .filter(([, isBlocked]) => isBlocked === true)
             .map(([capability]) => capability);
-        const warnings = safeArray(payload.warnings).map((warning) => safeObject(warning).code || safeObject(warning).message || 'warning');
-        const errors = safeArray(payload.errors).map((error) => safeObject(error).code || safeObject(error).message || 'error');
+        const warningEntries = safeArray(payload.warnings);
+        const errorEntries = safeArray(payload.errors);
+        const warnings = warningEntries.map((warning) => safeObject(warning).code || safeObject(warning).message || 'warning');
+        const errors = errorEntries.map((error) => safeObject(error).code || safeObject(error).message || 'error');
         const flagsOk = REQUIRED_FALSE_FLAGS.every((flag) => safeObject(payload.flags)[flag] === false);
 
         const visualStatus = safeObject(payload.meta).contract_fixture === true
@@ -324,6 +379,8 @@
         setText('contract-diagnostics-meta', flagsOk ? 'Flags no-operativas confirmadas.' : 'Flags no-operativas incompletas.');
         renderChips('contract-diagnostics-list', errors.concat(warnings).slice(0, 8), errors.length ? 'forbidden' : 'warning');
         setText('contract-diagnostics-detail', `schema: ${payload.schema_version} · kind: ${payload.service_kind || '-'}`);
+        setValidationDetail(payload, 'not_available');
+        setDiagnosticsDetail(warningEntries, errorEntries, 'read_only');
         setRawSafe(JSON.stringify(safeRawProjection(payload), null, 2), safeObject(payload.meta).contract_fixture === true ? 'contract_fixture' : 'read_only');
     }
 
