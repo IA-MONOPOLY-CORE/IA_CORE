@@ -1,9 +1,8 @@
-// Capacidades operativas del HUD web.
+// Paneles de lectura UI: no deciden permisos ni ejecutan acciones por contrato.
 (() => {
     'use strict';
 
     const API = window.location.origin;
-    let orchestrationPollTimer = null;
 
     const byId = (id) => document.getElementById(id);
     const pretty = (value) => JSON.stringify(value ?? null, null, 2);
@@ -48,7 +47,7 @@
             const data = await fetchJson(`/api/memory?${query}`);
             const status = data.status || {};
             renderCards('memory-status', [
-                ['Estado', status.running ? 'RUNNING' : 'STOPPED'],
+                ['Estado', status.running ? 'ready' : 'not_available'],
                 ['Ruta', status.path || '-'],
                 ['Claves', status.key_count ?? 0],
                 ['Ejecuciones', status.history_count ?? 0],
@@ -66,12 +65,12 @@
             if ((data.keys || []).includes(previous)) select.value = previous;
 
             byId('memory-value').textContent = selectedKey ? pretty(data.value) : 'Seleccioná una clave.';
-            byId('memory-latest').textContent = data.latest ? pretty(data.latest) : 'Sin ejecuciones registradas.';
+            byId('memory-latest').textContent = data.latest ? pretty(data.latest) : 'Sin registro declarado.';
 
             const history = data.history || [];
             byId('memory-history').innerHTML = history.length ? `
                 <table class="admin-table">
-                    <thead><tr><th>ID</th><th>Modo</th><th>Estado</th><th>Agentes</th><th>Duración</th></tr></thead>
+                    <thead><tr><th>ID</th><th>Modo</th><th>Estado</th><th>Sources</th><th>Duración</th></tr></thead>
                     <tbody>${history.map((row) => `
                         <tr>
                             <td>${escapeHtml((row.execution_id || '-').slice(0, 8))}</td>
@@ -80,7 +79,7 @@
                             <td>${escapeHtml((row.agents || []).join(', '))}</td>
                             <td>${escapeHtml(Number(row.duration_ms || 0).toFixed(1))} ms</td>
                         </tr>`).join('')}</tbody>
-                </table>` : '<div class="admin-status">Sin historial.</div>';
+                </table>` : '<div class="admin-status">Sin historial declarado.</div>';
         } catch (error) {
             byId('memory-value').textContent = `Error: ${error.message}`;
         }
@@ -93,7 +92,7 @@
         try {
             const data = await fetchJson(`/api/logs?lines=${lines}`);
             byId('logs-path').textContent = data.path || '';
-            byId('logs-runtime').textContent = (data.lines || []).join('\n') || 'Sin logs.';
+            byId('logs-runtime').textContent = (data.lines || []).join('\n') || 'Sin registros sanitizados.';
             byId('logs-warnings').textContent = (data.warnings || []).join('\n') || 'Sin warnings.';
             byId('logs-errors').textContent = (data.errors || []).join('\n') || 'Sin errores.';
             const events = data.events || [];
@@ -109,7 +108,7 @@
 
     // HYBRID — GET /api/status?full=true
     async function loadHybrid() {
-        setLoading('hybrid-reason', 'Ejecutando diagnóstico...');
+        setLoading('hybrid-reason', 'Releyendo estado declarado...');
         try {
             const data = await fetchJson('/api/status?full=true');
             const hybrid = data.hybrid || {};
@@ -131,87 +130,30 @@
         }
     }
 
-    // ORCHESTRATION — POST /api/debate/start + GET /api/debate/{id}
+    // REQUEST CONTRACT — lectura sin dispatch desde UI.
     async function loadOrchestrationAgents() {
         const container = byId('orchestration-agents');
-        container.textContent = 'Cargando agentes...';
+        container.textContent = 'Cargando sources declaradas...';
         try {
             const data = await fetchJson('/api/agents/list');
             const agents = data.agents || [];
             container.innerHTML = agents.map((agent) => `
                 <label class="admin-agent-option">
-                    <input type="checkbox" value="${escapeHtml(agent.id)}" checked>
+                    <input type="checkbox" value="${escapeHtml(agent.id)}" disabled>
                     ${escapeHtml(agent.id)} <span class="admin-label">[${escapeHtml(agent.role || '-')}]</span>
                 </label>
-            `).join('') || '<div class="admin-status">No hay agentes.</div>';
+            `).join('') || '<div class="admin-status">Sin sources declaradas.</div>';
+            byId('orchestration-status').textContent = 'blocked · dispatch no disponible desde UI';
+            byId('orchestration-scores').textContent = 'Sin backend_internal_ui_request.v1 aceptado.';
+            byId('orchestration-steps').innerHTML = '<div class="admin-status">No se renderizan acciones sin allowed_actions.</div>';
         } catch (error) {
             container.textContent = `Error: ${error.message}`;
         }
     }
 
-    function renderOrchestrationResult(result) {
-        byId('orchestration-status').textContent = `${result.success ? 'COMPLETADO' : 'FINALIZADO CON ERRORES'} · ${Number(result.duration_ms || 0).toFixed(1)} ms · ${result.execution_id || '-'}`;
-        byId('orchestration-scores').textContent = pretty(result.scores_summary || {});
-        const steps = result.steps || [];
-        byId('orchestration-steps').innerHTML = steps.map((step) => `
-            <details class="admin-step ${step.success ? '' : 'error'}">
-                <summary>${escapeHtml(step.agent_name || 'unknown')} · ${step.success ? 'OK' : 'ERROR'} · ${Number(step.duration_ms || 0).toFixed(1)} ms · score=${escapeHtml(step.score ?? '-')}</summary>
-                ${step.error ? `<pre class="admin-pre">${escapeHtml(step.error)}</pre>` : ''}
-                ${step.output ? `<pre class="admin-pre">${escapeHtml(step.output)}</pre>` : ''}
-            </details>
-        `).join('') || '<div class="admin-status">Sin pasos.</div>';
-    }
-
-    async function pollOrchestration(id) {
-        try {
-            const data = await fetchJson(`/api/debate/${encodeURIComponent(id)}`);
-            byId('orchestration-status').textContent = `${String(data.status || '').toUpperCase()} · ${id}`;
-            if (data.status === 'complete') {
-                clearTimeout(orchestrationPollTimer);
-                orchestrationPollTimer = null;
-                renderOrchestrationResult(data.result || {});
-                byId('orchestration-run-btn').disabled = false;
-                return;
-            }
-            if (data.status === 'error') {
-                throw new Error(data.error || 'La ejecución falló');
-            }
-            orchestrationPollTimer = setTimeout(() => pollOrchestration(id), 1500);
-        } catch (error) {
-            byId('orchestration-status').textContent = `ERROR · ${error.message}`;
-            byId('orchestration-run-btn').disabled = false;
-            orchestrationPollTimer = null;
-        }
-    }
-
     async function runOrchestration() {
-        const task = byId('orchestration-task').value.trim();
-        const mode = byId('orchestration-mode').value;
-        const agents = [...document.querySelectorAll('#orchestration-agents input:checked')].map((input) => input.value);
-        if (!task) {
-            byId('orchestration-status').textContent = 'Ingresá una tarea.';
-            return;
-        }
-        if (!agents.length) {
-            byId('orchestration-status').textContent = 'Seleccioná al menos un agente.';
-            return;
-        }
-
-        byId('orchestration-run-btn').disabled = true;
-        byId('orchestration-status').textContent = 'ENCOLANDO...';
-        byId('orchestration-scores').textContent = 'Esperando resultados...';
-        byId('orchestration-steps').innerHTML = '';
-        try {
-            const data = await fetchJson('/api/debate/start', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ task, mode, agents }),
-            });
-            pollOrchestration(data.debate_id);
-        } catch (error) {
-            byId('orchestration-status').textContent = `ERROR · ${error.message}`;
-            byId('orchestration-run-btn').disabled = false;
-        }
+        byId('orchestration-status').textContent = 'blocked · accion no declarada en allowed_actions';
+        byId('orchestration-steps').innerHTML = '<div class="admin-status">forbidden_actions y blocked_capabilities conservan prioridad.</div>';
     }
 
     // OVERVIEW — GET /api/status
@@ -220,7 +162,7 @@
             const data = await fetchJson('/api/status');
             const overview = data.overview || {};
             renderCards('overview-status', [
-                ['Supervisor', data.running ? 'ONLINE' : 'OFFLINE'],
+                ['Supervisor', data.running ? 'ready' : 'not_available'],
                 ['Uptime', `${Number(overview.uptime_s || 0).toFixed(1)} s`],
                 ['Agentes', overview.agent_count ?? 0],
                 ['Providers', overview.provider_count ?? 0],

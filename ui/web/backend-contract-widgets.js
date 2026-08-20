@@ -31,6 +31,18 @@
         'open_ui_runtime',
         'touch_operational_domains',
     ]);
+    const VISUAL_STATES = new Set([
+        'ready',
+        'passed',
+        'blocked',
+        'planned',
+        'pending',
+        'invalid',
+        'failed',
+        'not_available',
+        'no_payload',
+        'contract_fixture',
+    ]);
     const widgetIds = [
         'widget-contract-status',
         'widget-contract-actions',
@@ -42,6 +54,13 @@
     const setText = (id, value) => {
         const element = byId(id);
         if (element) element.textContent = String(value ?? '');
+    };
+    const setVisualState = (id, state) => {
+        const element = byId(id);
+        if (!element) return;
+        const normalized = VISUAL_STATES.has(String(state)) ? String(state) : 'blocked';
+        element.className = `data-widget-value visual-state ${normalized}`;
+        element.textContent = normalized;
     };
     const safeArray = (value) => Array.isArray(value) ? value : [];
     const safeObject = (value) => value && typeof value === 'object' && !Array.isArray(value) ? value : {};
@@ -129,14 +148,14 @@
     }
 
     function renderNoPayload() {
-        setText('contract-status-value', 'Sin payload estable');
+        setVisualState('contract-status-value', 'no_payload');
         setText('contract-status-meta', 'No hay backend_internal_ui_payload.v1 inyectado.');
         setText('contract-status-detail', 'Estado, readiness y acciones quedan bloqueados para la UI.');
         setText('contract-actions-value', '0 acciones activas');
         setText('contract-actions-meta', 'No se muestran acciones sin allowed_actions backend.');
         renderChips('contract-allowed-actions', []);
         setText('contract-forbidden-actions', 'forbidden_actions no disponible: la UI mantiene deny-by-default.');
-        setText('contract-blocked-value', 'Bloqueado por defecto');
+        setVisualState('contract-blocked-value', 'blocked');
         setText('contract-blocked-meta', 'blocked_capabilities no disponible; no se asume ningun desbloqueo.');
         renderChips('contract-blocked-list', [
             'runtime',
@@ -148,21 +167,21 @@
             'operational_domains',
         ], 'blocked');
         setText('contract-blocked-detail', 'Sin payload estable, la UI no puede habilitar capabilities.');
-        setText('contract-diagnostics-value', 'Contrato pendiente');
+        setVisualState('contract-diagnostics-value', 'pending');
         setText('contract-diagnostics-meta', 'Esperando schema backend_internal_ui_payload.v1.');
         renderChips('contract-diagnostics-list', ['deny-by-default'], 'warning');
         setText('contract-diagnostics-detail', 'No hay fetch ni endpoint nuevo para este panel.');
     }
 
     function renderContractError(errors) {
-        setText('contract-status-value', 'Error contractual');
+        setVisualState('contract-status-value', 'invalid');
         setText('contract-status-meta', 'El payload recibido no puede renderizarse como operativo.');
         setText('contract-status-detail', errors.join(' | '));
         setText('contract-actions-value', '0 acciones activas');
         setText('contract-actions-meta', 'allowed_actions bloqueado por error contractual.');
         renderChips('contract-allowed-actions', []);
         setText('contract-forbidden-actions', 'forbidden_actions conservado; acciones activas no renderizadas.');
-        setText('contract-diagnostics-value', `${errors.length} errores`);
+        setVisualState('contract-diagnostics-value', 'failed');
         setText('contract-diagnostics-meta', 'La UI no corrige ni interpreta permisos.');
         renderChips('contract-diagnostics-list', errors.slice(0, 8), 'forbidden');
     }
@@ -186,22 +205,25 @@
         const errors = safeArray(payload.errors).map((error) => safeObject(error).code || safeObject(error).message || 'error');
         const flagsOk = REQUIRED_FALSE_FLAGS.every((flag) => safeObject(payload.flags)[flag] === false);
 
-        setText('contract-status-value', String(payload.status || 'pending').toUpperCase());
+        const visualStatus = safeObject(payload.meta).contract_fixture === true
+            ? 'contract_fixture'
+            : String(payload.status || 'pending');
+        setVisualState('contract-status-value', visualStatus);
         setText('contract-status-meta', `readiness: ${payload.readiness || 'sin readiness'} · service: ${payload.service || '-'}`);
         setText('contract-status-detail', `request_id: ${payload.request_id || '-'} · operation_id: ${payload.operation_id || '-'}`);
-        setText('contract-actions-value', `${allowed.length} acciones activas`);
+        setText('contract-actions-value', `${allowed.length} acciones disponibles`);
         setText('contract-actions-meta', allowed.length ? 'Renderizadas solo desde allowed_actions.' : 'No hay allowed_actions available_now.');
         renderChips('contract-allowed-actions', allowed, 'allowed');
         setText('contract-forbidden-actions', forbidden.length
             ? `forbidden_actions: ${forbidden.join(', ')}`
             : 'forbidden_actions vacio o no informado por backend.');
-        setText('contract-blocked-value', `${blocked.length} capabilities bloqueadas`);
+        setVisualState('contract-blocked-value', blocked.length ? 'blocked' : 'not_available');
         setText('contract-blocked-meta', 'Semantica aplicada: true = blocked.');
         renderChips('contract-blocked-list', blocked, 'blocked');
         setText('contract-blocked-detail', blocked.length
             ? blocked.join(', ')
             : 'Sin bloqueos declarados; no se infieren capabilities.');
-        setText('contract-diagnostics-value', `${errors.length} errores · ${warnings.length} warnings`);
+        setVisualState('contract-diagnostics-value', errors.length ? 'failed' : warnings.length ? 'pending' : 'ready');
         setText('contract-diagnostics-meta', flagsOk ? 'Flags no-operativas confirmadas.' : 'Flags no-operativas incompletas.');
         renderChips('contract-diagnostics-list', errors.concat(warnings).slice(0, 8), errors.length ? 'forbidden' : 'warning');
         setText('contract-diagnostics-detail', `schema: ${payload.schema_version} · kind: ${payload.service_kind || '-'}`);
@@ -245,5 +267,6 @@
         refresh,
         update,
         validateStablePayload,
+        VISUAL_STATES,
     };
 })();

@@ -314,6 +314,27 @@
             border-color: rgba(245,158,11,0.65);
             color: var(--amber);
         }
+        .visual-state {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            border: 1px solid var(--border-color);
+            border-radius: var(--border-radius);
+            padding: 3px 7px;
+            font-size: 0.66rem;
+            text-transform: uppercase;
+            color: var(--text-muted);
+        }
+        .visual-state.ready,
+        .visual-state.passed { color: var(--green); border-color: rgba(34,197,94,0.55); }
+        .visual-state.blocked,
+        .visual-state.invalid,
+        .visual-state.failed { color: var(--red); border-color: rgba(239,68,68,0.55); }
+        .visual-state.planned,
+        .visual-state.pending,
+        .visual-state.no_payload,
+        .visual-state.contract_fixture,
+        .visual-state.not_available { color: var(--amber); border-color: rgba(245,158,11,0.65); }
         .widget-refresh-btn {
             border: 1px solid var(--border-color);
             background: rgba(0,0,0,0.3);
@@ -584,8 +605,8 @@
             <div class="brand-badge-rect"></div>
         </div>
         <div class="badges-container">
-            <div class="badge" id="ventaja-badge">READINESS --</div>
-            <div class="badge" id="ft-badge">SCHEMA: v1</div>
+            <div class="badge" id="ventaja-badge">READINESS: no_payload</div>
+            <div class="badge" id="ft-badge">SCHEMA: backend_internal_ui_payload.v1</div>
             <div class="badge" id="conn-badge"><span id="conn-dot" class="pulse-dot disconnected"></span><span id="conn-text">DESCONECTADO</span></div>
         </div>
     </header>
@@ -605,109 +626,109 @@
     <footer>IA_CORE // Contract-Aware HUD</footer>
 
     <!-- PANEL DEBATE -->
-    <div class="debate-panel" id="debate-panel">
+    <div class="debate-panel" id="debate-panel" aria-label="Contract request draft">
         <div class="debate-toggle" id="debate-toggle">▶</div>
-        <div><span style="font-weight:bold;">DEBATE</span> <span id="exec-badge" style="float:right; font-size:0.7rem;">IDLE</span></div>
-        <textarea class="debate-input" id="task-input" placeholder="INGRESE LOS VECTORES DE DATOS..."></textarea>
-        <button class="btn-debate" id="start-btn">EJECUTAR DEBATE</button>
+        <div><span style="font-weight:bold;">REQUEST CONTRACT DRAFT</span> <span id="exec-badge" class="visual-state blocked" style="float:right;">blocked</span></div>
+        <textarea class="debate-input" id="task-input" placeholder="Draft local; no dispatch without backend_internal_ui_request.v1 + allowed_actions."></textarea>
+        <button class="btn-debate" id="start-btn" disabled>BLOQUEADO POR CONTRATO</button>
         <div class="debate-metrics" id="debate-metrics" style="display:none">
             <div><div class="metric-title">ACUERDO</div><div id="debate-acuerdo">-</div></div>
             <div><div class="metric-title">CONTRADICCIÓN</div><div id="debate-contradiccion">-</div></div>
             <div><div class="metric-title">PUNTAJE DE CONSENSO</div><div id="debate-consensus-score">-</div></div>
         </div>
         <div class="debate-synthesis" id="synthesis-panel" style="display:none">
-            <div style="font-size:0.7rem; color:var(--green); margin-bottom:6px;">📋 SÍNTESIS FINAL</div>
+            <div style="font-size:0.7rem; color:var(--green); margin-bottom:6px;">RESULTADO DECLARADO</div>
             <div class="synthesis-content" id="synthesis-text"></div>
         </div>
     </div>
 
     <!-- BOTONES FLOTANTES -->
-    <div class="floating-settings" id="settings-fab">⚙️</div>
+    <div class="floating-settings" id="settings-fab">CFG</div>
     <div class="floating-add" id="add-fab">+</div>
-    <button class="floating-domain" id="domain-fab" type="button">◇ DOMINIO</button>
+    <button class="floating-domain" id="domain-fab" type="button">DOMAIN</button>
 
     <!-- MODAL CONFIGURACIÓN -->
     <div id="config-modal" class="config-modal">
         <div class="config-modal-content">
             <span class="close-modal" id="close-config-modal">&times;</span>
             <div class="config-sidebar">
-                <div class="config-sidebar-item active" data-section="agents">🎯 AGENTES</div>
-                <div class="config-sidebar-item" data-section="providers">🔌 PROVEEDORES</div>
-                <div class="config-sidebar-item" data-section="memory">🧠 MEMORY</div>
-                <div class="config-sidebar-item" data-section="logs">📜 LOGS</div>
-                <div class="config-sidebar-item" data-section="hybrid">🛰️ HYBRID</div>
-                <div class="config-sidebar-item" data-section="orchestration">⚡ ORCHESTRATION</div>
-                <div class="config-sidebar-item" data-section="overview">📊 OVERVIEW</div>
-                <div class="config-sidebar-item" data-section="skins">🎨 SKINS</div>
-                <div class="config-sidebar-item" data-section="branding">🏷️ BRANDING</div>
-                <div class="config-sidebar-item" data-section="widgets">📡 WIDGETS</div>
-                <div class="config-sidebar-item" data-section="gadgets">🔧 GADGETS</div>
+                <div class="config-sidebar-item active" data-section="agents">CONTRACT SOURCES</div>
+                <div class="config-sidebar-item" data-section="providers">SERVICE SIGNALS</div>
+                <div class="config-sidebar-item" data-section="memory">READ MODELS</div>
+                <div class="config-sidebar-item" data-section="logs">WARNINGS / ERRORS</div>
+                <div class="config-sidebar-item" data-section="hybrid">EXPOSURE STATUS</div>
+                <div class="config-sidebar-item" data-section="orchestration">REQUEST CONTRACT</div>
+                <div class="config-sidebar-item" data-section="overview">SERVICE MAP</div>
+                <div class="config-sidebar-item" data-section="skins">THEME</div>
+                <div class="config-sidebar-item" data-section="branding">IDENTITY</div>
+                <div class="config-sidebar-item" data-section="widgets">CONTRACT WIDGETS</div>
+                <div class="config-sidebar-item" data-section="gadgets">DISPLAY</div>
             </div>
             <div class="config-main">
                 <div id="config-agents" class="config-section active">
-                    <h3>SELECCIONAR AGENTES</h3>
+                    <h3>CONTRACT SOURCES</h3>
                     <div id="agents-checklist"></div>
                 </div>
                 <div id="config-providers" class="config-section">
-                    <h3>PROVEEDORES DISPONIBLES</h3>
+                    <h3>SERVICE SIGNALS</h3>
                     <div id="providers-list"></div>
                 </div>
                 <div id="config-memory" class="config-section">
-                    <h3>MEMORY INSPECTOR</h3>
+                    <h3>READ MODELS</h3>
                     <div class="admin-toolbar">
-                        <button class="btn-primary" id="memory-refresh-btn">ACTUALIZAR</button>
+                        <button class="btn-primary" id="memory-refresh-btn">RELEER</button>
                         <select id="memory-key-select" class="admin-field"><option value="">-- Seleccionar clave --</option></select>
                     </div>
                     <div id="memory-status" class="admin-grid"></div>
                     <div class="admin-block"><h4>VALOR SELECCIONADO</h4><pre id="memory-value" class="admin-pre">Seleccioná una clave.</pre></div>
-                    <div class="admin-block"><h4>HISTORIAL DE ORQUESTACIÓN</h4><div id="memory-history"></div></div>
-                    <div class="admin-block"><h4>ÚLTIMA EJECUCIÓN</h4><pre id="memory-latest" class="admin-pre">Sin datos.</pre></div>
+                    <div class="admin-block"><h4>HISTORIAL DECLARADO</h4><div id="memory-history"></div></div>
+                    <div class="admin-block"><h4>ÚLTIMO REGISTRO</h4><pre id="memory-latest" class="admin-pre">Sin payload estable.</pre></div>
                 </div>
                 <div id="config-logs" class="config-section">
-                    <h3>LOGS DE SESIÓN</h3>
+                    <h3>WARNINGS / ERRORS</h3>
                     <div class="admin-toolbar">
                         <label>Líneas <input id="logs-lines" type="number" min="20" max="500" step="10" value="80" style="width:85px;"></label>
-                        <button class="btn-primary" id="logs-refresh-btn">ACTUALIZAR</button>
+                        <button class="btn-primary" id="logs-refresh-btn">RELEER</button>
                         <span id="logs-path" class="admin-status"></span>
                     </div>
                     <div class="admin-grid">
                         <div class="admin-block"><h4>WARNINGS</h4><pre id="logs-warnings" class="admin-pre">Sin datos.</pre></div>
                         <div class="admin-block"><h4>ERRORS</h4><pre id="logs-errors" class="admin-pre">Sin datos.</pre></div>
                     </div>
-                    <div class="admin-block"><h4>RUNTIME</h4><pre id="logs-runtime" class="admin-pre">Sin datos.</pre></div>
-                    <div class="admin-block"><h4>EVENTOS DE SESIÓN</h4><div id="logs-events"></div></div>
+                    <div class="admin-block"><h4>REGISTROS SANITIZADOS</h4><pre id="logs-runtime" class="admin-pre">Sin datos.</pre></div>
+                    <div class="admin-block"><h4>EVENTOS DECLARADOS</h4><div id="logs-events"></div></div>
                 </div>
                 <div id="config-hybrid" class="config-section">
-                    <h3>HYBRID ROUTING</h3>
-                    <div class="admin-toolbar"><button class="btn-primary" id="hybrid-refresh-btn">DIAGNÓSTICO COMPLETO</button></div>
+                    <h3>EXPOSURE STATUS</h3>
+                    <div class="admin-toolbar"><button class="btn-primary" id="hybrid-refresh-btn">RELEER ESTADO</button></div>
                     <div id="hybrid-status" class="admin-grid"></div>
-                    <div class="admin-block"><h4>MOTIVO DE ROUTING</h4><pre id="hybrid-reason" class="admin-pre">Sin datos.</pre></div>
+                    <div class="admin-block"><h4>MOTIVO DECLARADO</h4><pre id="hybrid-reason" class="admin-pre">Sin datos.</pre></div>
                     <div class="admin-grid">
                         <div class="admin-block"><h4>CONECTIVIDAD</h4><pre id="hybrid-connectivity" class="admin-pre">Sin datos.</pre></div>
                         <div class="admin-block"><h4>MÉTRICAS</h4><pre id="hybrid-metrics" class="admin-pre">Sin datos.</pre></div>
                     </div>
                 </div>
                 <div id="config-orchestration" class="config-section">
-                    <h3>ORCHESTRATION CONSOLE</h3>
-                    <textarea id="orchestration-task" class="admin-field" rows="4" style="width:100%; resize:vertical;" placeholder="Ingresá una tarea para ejecutar..."></textarea>
+                    <h3>REQUEST CONTRACT</h3>
+                    <textarea id="orchestration-task" class="admin-field" rows="4" style="width:100%; resize:vertical;" placeholder="Draft local; no dispatch without allowed_actions and backend validation."></textarea>
                     <div class="admin-toolbar" style="margin-top:10px;">
-                        <label>Modo <select id="orchestration-mode"><option value="sequential">SEQUENTIAL</option><option value="debate">DEBATE</option></select></label>
-                        <button class="btn-primary" id="orchestration-run-btn">EJECUTAR</button>
+                        <label>Estado <select id="orchestration-mode" disabled><option value="blocked">blocked</option><option value="planned">planned</option></select></label>
+                        <button class="btn-primary" id="orchestration-run-btn" disabled>BLOQUEADO POR CONTRATO</button>
                     </div>
                     <div id="orchestration-agents" class="admin-agent-list"></div>
-                    <div id="orchestration-status" class="admin-status">IDLE</div>
-                    <div class="admin-block"><h4>SCORES SUMMARY</h4><pre id="orchestration-scores" class="admin-pre">Sin datos.</pre></div>
-                    <div class="admin-block"><h4>PASOS Y ERRORES</h4><div id="orchestration-steps"></div></div>
+                    <div id="orchestration-status" class="admin-status">blocked · requiere allowed_actions</div>
+                    <div class="admin-block"><h4>SUMMARY</h4><pre id="orchestration-scores" class="admin-pre">Sin payload estable.</pre></div>
+                    <div class="admin-block"><h4>VALIDATION / ERRORS</h4><div id="orchestration-steps"></div></div>
                 </div>
                 <div id="config-overview" class="config-section">
-                    <h3>SYSTEM OVERVIEW</h3>
-                    <div class="admin-toolbar"><button class="btn-primary" id="overview-refresh-btn">ACTUALIZAR</button></div>
+                    <h3>SERVICE MAP</h3>
+                    <div class="admin-toolbar"><button class="btn-primary" id="overview-refresh-btn">RELEER</button></div>
                     <div id="overview-status" class="admin-grid"></div>
                     <div class="admin-block"><h4>HERRAMIENTAS</h4><pre id="overview-tools" class="admin-pre">Sin datos.</pre></div>
                     <div class="admin-block"><h4>RESUMEN DE MEMORIA</h4><pre id="overview-memory" class="admin-pre">Sin datos.</pre></div>
                 </div>
                 <div id="config-skins" class="config-section">
-                    <h3>SELECCIONAR SKIN</h3>
+                    <h3>SELECCIONAR TEMA</h3>
                     <div>
                         <span class="skin-option" data-skin="contract">CONTRACT</span>
                         <span class="skin-option" data-skin="corporate">CORPORATE</span>
@@ -715,7 +736,7 @@
                     </div>
                 </div>
                 <div id="config-branding" class="config-section">
-                    <h3>BRANDING</h3>
+                    <h3>IDENTITY</h3>
                     <input type="text" id="brand-input" placeholder="Nombre del sistema" style="width:100%; background:rgba(0,0,0,0.4); border:1px solid var(--border-color); color:#fff; padding:8px; font-family:inherit; border-radius:var(--border-radius);">
                 </div>
                 <div id="config-widgets" class="config-section">
@@ -779,7 +800,7 @@
                     </div>
                 </div>
                 <div id="config-gadgets" class="config-section">
-                    <h3>GADGETS</h3>
+                    <h3>DISPLAY</h3>
                     <div style="margin-bottom:12px;">Opacidad Paneles: <input type="range" id="opacity-slider" min="0.5" max="1" step="0.01" value="0.85"></div>
                     <div style="margin-bottom:12px;">Tamaño Fuente: <input type="range" id="font-slider" min="11" max="18" step="1" value="14"></div>
                     <div style="margin-bottom:12px;">Brillo Neon: <input type="range" id="glow-slider" min="0" max="15" step="1" value="4"></div>
@@ -2066,82 +2087,21 @@
 
         // ========== DEBATE ==========
         async function startDebate() {
-            if (isRunning) return;
-            const task = document.getElementById('task-input').value.trim();
-            if (!task) { alert('Ingrese una tarea'); return; }
-            if (selectedAgents.length === 0) { alert('Seleccione al menos un agente'); return; }
-            
-            isRunning = true;
-            const btn = document.getElementById('start-btn');
-            btn.disabled = true; btn.innerText = 'EJECUTANDO...';
-            document.getElementById('exec-badge').innerText = 'RUNNING';
-            
-            try {
-                const res = await fetch(`${API_BASE}/api/debate/start`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ task, agents: selectedAgents })
-                });
-                const data = await res.json();
-                if (data.debate_id) {
-                    actualizarWidgetsFuncionales();
-                    if (activePolling) clearInterval(activePolling);
-                    activePolling = setInterval(() => pollDebate(data.debate_id), 2500);
-                } else throw new Error();
-            } catch(e) { alert('Error iniciando debate'); resetDebateUI(); }
+            document.getElementById('exec-badge').innerText = 'blocked';
+            document.getElementById('synthesis-text').innerText = 'Accion no declarada en allowed_actions.';
+            document.getElementById('synthesis-panel').style.display = 'block';
         }
 
         async function pollDebate(id) {
-            try {
-                const res = await fetch(`${API_BASE}/api/debate/${id}`);
-                const data = await res.json();
-                if (data.status === 'complete') {
-                    clearInterval(activePolling);
-                    const result = data.result;
-                    const steps = result.steps || [];
-                    steps.forEach(step => {
-                        const agent = agentes.find(a => a.id === step.agent_name);
-                        if (agent) {
-                            const dot = document.getElementById(`dot-${agent.id}`);
-                            const status = document.getElementById(`status-${agent.id}`);
-                            const output = document.getElementById(`output-${agent.id}`);
-                            const scoreSpan = document.getElementById(`score-${agent.id}`);
-                            const timeSpan = document.getElementById(`time-${agent.id}`);
-                            if (dot) dot.style.backgroundColor = 'var(--green)';
-                            if (status) status.innerText = 'DONE';
-                            // CAMBIO: elimino substring(0,500) para que no se corte
-                            if (output) output.innerText = step.output || '';
-                            if (scoreSpan) scoreSpan.innerText = `${step.score || 0} PTS`;
-                            if (timeSpan) timeSpan.innerText = `${((step.duration_ms || 0) / 1000).toFixed(2)}s`;
-                        }
-                    });
-                    const agreement = result.debate?.agreement_score || 0;
-                    const contradiction = result.debate?.contradiction_score || 0;
-                    const consensusScore = result.scores_summary?.average_total || 0;
-                    const synthesis = result.debate?.synthesis || 'Síntesis no disponible';
-                    document.getElementById('val-acuerdo').innerText = `${agreement}%`;
-                    document.getElementById('val-contradiccion').innerText = `${contradiction}%`;
-                    document.getElementById('val-duracion').innerText = `${(result.duration_ms / 1000).toFixed(2)}s`;
-                    document.getElementById('val-consensus-score').innerText = consensusScore.toFixed(2);
-                    document.getElementById('debate-acuerdo').innerText = `${agreement}%`;
-                    document.getElementById('debate-contradiccion').innerText = `${contradiction}%`;
-                    document.getElementById('debate-consensus-score').innerText = consensusScore.toFixed(2);
-                    document.getElementById('synthesis-text').innerText = synthesis;
-                    document.getElementById('metrics-bar').style.display = 'grid';
-                    document.getElementById('debate-metrics').style.display = 'grid';
-                    document.getElementById('synthesis-panel').style.display = 'block';
-                    actualizarWidgetsFuncionales();
-                    resetDebateUI();
-                } else if (data.status === 'error') { clearInterval(activePolling); resetDebateUI(); alert('Error en debate'); }
-            } catch(e) {}
+            document.getElementById('exec-badge').innerText = 'blocked';
         }
 
         function resetDebateUI() {
             isRunning = false;
             if (activePolling) clearInterval(activePolling);
-            document.getElementById('start-btn').disabled = false;
-            document.getElementById('start-btn').innerText = 'EJECUTAR DEBATE';
-            document.getElementById('exec-badge').innerText = 'IDLE';
+            document.getElementById('start-btn').disabled = true;
+            document.getElementById('start-btn').innerText = 'BLOQUEADO POR CONTRATO';
+            document.getElementById('exec-badge').innerText = 'blocked';
         }
 
         // ========== CONEXIÓN ==========
@@ -2193,7 +2153,9 @@
             if (savedBrand) document.getElementById('brand-title').innerText = savedBrand;
             if (localStorage.getItem('brand_input')) document.getElementById('brand-input').value = localStorage.getItem('brand_input');
             
-            document.getElementById('start-btn').onclick = startDebate;
+            document.getElementById('start-btn').onclick = () => {
+                document.getElementById('exec-badge').innerText = 'blocked';
+            };
             document.getElementById('settings-fab').onclick = () => { cargarChecklist(); document.getElementById('config-modal').style.display = 'flex'; };
             document.getElementById('add-fab').onclick = () => window.domainUI.requireDomain(abrirCrearAgente);
             document.getElementById('save-agent-btn').onclick = guardarAgente;

@@ -10,12 +10,13 @@ estático y toda operación contra el sistema pasa por `/api/*`.
 | Memory | `GET /api/memory` |
 | Logs | `GET /api/logs` |
 | Hybrid | `GET /api/status?full=true` |
-| Orchestration | `GET /api/agents/list`, `POST /api/debate/start`, `GET /api/debate/{id}` |
+| Request contract | lectura de sources declaradas; dispatch bloqueado sin `allowed_actions` |
 | Overview | `GET /api/status` |
 | Backend contract widgets | payload inyectado `backend_internal_ui_payload.v1` |
 
-`admin-panels.js` implementa estas cinco secciones del modal de configuración.
-Los controles operativos existentes del HUD permanecen en `index.html`.
+`admin-panels.js` implementa estas secciones del modal de configuración. Los
+controles de dispatch visibles quedan bloqueados si no hay contrato backend
+que los declare en `allowed_actions`.
 
 ## Widgets backend contract
 

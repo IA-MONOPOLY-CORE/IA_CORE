@@ -282,6 +282,47 @@ def test_backend_contract_widgets_do_not_infer_permissions_or_hide_blocks():
     assert "integrations_enabled" in script
 
 
+def test_navigation_and_visual_states_are_contract_aware():
+    html = Path("ui/web/index.html").read_text(encoding="utf-8")
+    widgets = Path("ui/web/backend-contract-widgets.js").read_text(encoding="utf-8")
+    admin = Path("ui/web/admin-panels.js").read_text(encoding="utf-8")
+
+    for label in (
+        "CONTRACT SOURCES",
+        "SERVICE SIGNALS",
+        "READ MODELS",
+        "WARNINGS / ERRORS",
+        "EXPOSURE STATUS",
+        "REQUEST CONTRACT",
+        "SERVICE MAP",
+        "CONTRACT WIDGETS",
+    ):
+        assert label in html
+
+    for state in (
+        "ready",
+        "passed",
+        "blocked",
+        "planned",
+        "pending",
+        "invalid",
+        "failed",
+        "not_available",
+        "no_payload",
+        "contract_fixture",
+    ):
+        assert f"'{state}'" in widgets
+        assert f".visual-state.{state}" in html
+
+    assert 'id="start-btn" disabled' in html
+    assert 'id="orchestration-run-btn" disabled' in html
+    assert "BLOQUEADO POR CONTRATO" in html
+    assert "/api/debate/start" not in html
+    assert "/api/debate/start" not in admin
+    assert "blocked · accion no declarada en allowed_actions" in admin
+    assert "forbidden_actions y blocked_capabilities conservan prioridad" in admin
+
+
 def test_hud_active_identity_is_ia_core_without_legacy_product_branding():
     html = Path("ui/web/index.html").read_text(encoding="utf-8")
 
