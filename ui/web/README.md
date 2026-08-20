@@ -171,7 +171,21 @@ Los renderers dinamicos aplican las marcas segun estado contractual y mantienen
 `allowed_actions`, `forbidden_actions` y `blocked_capabilities` como autoridad
 backend. No hay dependencias nuevas, endpoints, runtime, execution ni dispatch.
 21st.dev, UI UX Pro Max Skill y Framer Motion / Motion siguen como benchmarks futuros
-solamente. El bloque 1.10 queda `planned`; 1.9 no cierra el checkpoint.
+solamente. 1.9 no cierra el checkpoint.
+
+## Checkpoint segundo bloque de consola 1.10
+
+`docs/UI_UX_SECOND_CONSOLE_BLOCK_CHECKPOINT_1_10.md` cierra el bloque
+`1.6 -> 1.9` como checkpoint documental y de pruebas. Confirma que el modelo
+summary/detail/raw-safe, los siete paneles de detalle, la navegacion interna y
+el sistema minimo de componentes siguen coherentes, contract-aware, read-only y
+sin permisos inferidos.
+
+El checkpoint preserva IA_CORE como identidad visual activa, mantiene visibles
+`forbidden_actions` y `blocked_capabilities`, no agrega dependencias, endpoints,
+runtime, execution, dispatch ni controlled execution, y deja el veredicto
+`UI_READY_FOR_NEXT_UI_UX_BLOCK`. El bloque 1.11 queda como continuidad de
+planificacion; 1.10 no implementa el siguiente bloque.
 
 ## Widgets backend contract
 
