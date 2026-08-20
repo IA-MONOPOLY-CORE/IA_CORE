@@ -218,6 +218,22 @@ implementa hardening en 1.12. Veredicto:
 sugerido: `PROMPT UI/UX 1.13 - Endurecer responsive, foco y lectura movil de
 consola IA_CORE contract-aware sin runtime/no-execution`.
 
+## Hardening responsive/accesibilidad 1.13
+
+`docs/UI_UX_RESPONSIVE_ACCESSIBILITY_HARDENING_1_13.md` aplica hardening
+quirurgico sobre el commit base `a7c03874`, consumiendo la auditoria 1.12 sin
+redisenar la consola. La shell conserva marcas 1.6 -> 1.9 y agrega
+`data-responsive-hardening="contract-aware-1.13"` como trazabilidad del
+ajuste.
+
+El hardening verifica 1440x1000, 1280x800, 1024x768, 768x1024, 430x932,
+390x844 y 360x740; refuerza lectura movil, foco visible, areas tactiles,
+raw-safe read-only, chips/badges, paneles y request draft colapsado. Mantiene
+`forbidden_actions`, `blocked_capabilities`, warnings y errors visibles, no
+endpoints, no runtime, no execution y sin dependencias. Proximo prompt exacto
+sugerido: `PROMPT UI/UX 1.14 - Checkpoint responsive/accesibilidad IA_CORE
+contract-aware sin runtime/no-execution`.
+
 ## Widgets backend contract
 
 `backend-contract-widgets.js` no crea ni consulta endpoints. Renderiza payloads
