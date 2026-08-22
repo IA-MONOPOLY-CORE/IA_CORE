@@ -321,6 +321,23 @@ estados prohibidos, `block: 'start'` como opcion de scroll, campos backend
 docs/tests. No crea endpoints, dependencias, runtime, execution, dispatch ni
 controlled execution. Proximo prompt exacto sugerido: `PROMPT UI/UX 1.22 - Checkpoint Frontend Incongruence IA_CORE contract-aware sin runtime/no-execution`.
 
+## Checkpoint frontend incongruence 1.22
+
+`docs/UI_UX_FRONTEND_INCONGRUENCE_CHECKPOINT_1_22.md` cierra el bloque
+`1.19 -> 1.21 Frontend Incongruence` como checkpoint documental y de pruebas.
+Confirma que los P1 tratados en 1.21 (`request-draft-*`, `request-contract-*`,
+`logs-sanitized` y `.status-dot.ready`) quedan estabilizados, que los falsos
+positivos permanecen preservados, y que IA_CORE sigue sin legacy visual activo,
+sin endpoints, sin dependencias, sin runtime, sin execution y sin dispatch.
+
+El checkpoint registra evidencia visual humana post-1.21: el operador reviso
+`localhost:8000`, compartio capturas y confirmo mejora perceptible en paleta,
+orden de lectura, estilizacion, descanso visual e identidad IA_CORE. Esta
+evidencia no reemplaza runner visual automatizado; la limitacion queda
+registrada porque no hay `package.json`, configuracion Playwright/Vite ni
+runner visual local detectable. UI/UX cerrado hasta 1.22.
+
+Proximo prompt exacto sugerido: `PROMPT UI/UX 1.23 - Consolidar siguiente bloque UI/UX post Frontend Incongruence IA_CORE contract-aware sin runtime/no-execution`.
 ## Widgets backend contract
 
 `backend-contract-widgets.js` no crea ni consulta endpoints. Renderiza payloads
