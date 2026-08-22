@@ -92,8 +92,8 @@ def test_layout_keeps_contract_actions_and_blocks_visible():
     assert "No hay backend_internal_ui_payload.v1 inyectado." in widgets
     assert "forbidden_actions conservado; acciones activas no renderizadas." in widgets
     assert "Semantica aplicada: true = blocked." in widgets
-    assert 'id="start-btn" disabled' in html
-    assert 'id="orchestration-run-btn" disabled' in html
+    assert 'id="request-draft-blocked-control" disabled' in html
+    assert 'id="request-contract-readonly-control" disabled' in html
 
 
 def test_layout_does_not_add_endpoint_sources_or_runtime_states():

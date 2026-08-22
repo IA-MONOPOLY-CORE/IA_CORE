@@ -207,8 +207,8 @@ def test_no_invented_endpoint_runtime_or_execution_is_enabled():
 
     assert "fetch(" not in interactions
     assert "fetch(" not in widgets
-    assert 'id="start-btn" disabled' in html
-    assert 'id="orchestration-run-btn" disabled' in html
+    assert 'id="request-draft-blocked-control" disabled' in html
+    assert 'id="request-contract-readonly-control" disabled' in html
     assert "controlled execution" in _read(DOC)
 
 

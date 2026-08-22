@@ -101,9 +101,9 @@ def test_widgets_actions_and_blocks_remain_contract_aware():
     ):
         assert token in html
 
-    assert 'id="start-btn" disabled' in html
-    assert 'id="orchestration-run-btn" disabled' in html
-    assert "No se renderizan acciones sin allowed_actions." in admin
+    assert 'id="request-draft-blocked-control" disabled' in html
+    assert 'id="request-contract-readonly-control" disabled' in html
+    assert "No se renderizan controles operativos sin allowed_actions backend-declared." in admin
     assert "forbidden_actions y blocked_capabilities conservan prioridad" in admin
 
 

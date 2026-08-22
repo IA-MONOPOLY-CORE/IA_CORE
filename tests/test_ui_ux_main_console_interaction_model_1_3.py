@@ -143,12 +143,12 @@ def test_interactions_do_not_infer_permissions_or_enable_execution():
     widgets = _read(WIDGETS)
     admin = _read(ADMIN)
 
-    assert 'id="start-btn" disabled data-interaction-mode="read-only"' in html
-    assert 'id="orchestration-run-btn" disabled data-interaction-mode="read-only"' in html
+    assert 'id="request-draft-blocked-control" disabled data-interaction-mode="read-only"' in html
+    assert 'id="request-contract-readonly-control" disabled data-interaction-mode="read-only"' in html
     assert "Solo acciones declaradas por backend." in html
     assert "Visible y no ejecutable." in html
     assert "true = blocked" in html
-    assert "No se renderizan acciones sin allowed_actions." in admin
+    assert "No se renderizan controles operativos sin allowed_actions backend-declared." in admin
     assert "fetch(" not in interactions
     assert "fetch(" not in widgets
 

@@ -143,16 +143,16 @@
                     ${escapeHtml(agent.id)} <span class="admin-label">[${escapeHtml(agent.role || '-')}]</span>
                 </label>
             `).join('') || '<div class="admin-status">Sin sources declaradas.</div>';
-            byId('orchestration-status').textContent = 'blocked · dispatch no disponible desde UI';
-            byId('orchestration-scores').textContent = 'Sin backend_internal_ui_request.v1 aceptado.';
-            byId('orchestration-steps').innerHTML = '<div class="admin-status">No se renderizan acciones sin allowed_actions.</div>';
+            byId('orchestration-status').textContent = 'blocked · lectura interna; no dispatch desde UI';
+            byId('orchestration-scores').textContent = 'Sin backend_internal_ui_request.v1 aceptado; draft permanece read-only.';
+            byId('orchestration-steps').innerHTML = '<div class="admin-status">No se renderizan controles operativos sin allowed_actions backend-declared.</div>';
         } catch (error) {
             container.textContent = `Error: ${error.message}`;
         }
     }
 
-    async function runOrchestration() {
-        byId('orchestration-status').textContent = 'blocked · accion no declarada en allowed_actions';
+    async function inspectRequestContractBoundary() {
+        byId('orchestration-status').textContent = 'blocked · inspeccion local; accion no declarada en allowed_actions';
         byId('orchestration-steps').innerHTML = '<div class="admin-status">forbidden_actions y blocked_capabilities conservan prioridad.</div>';
     }
 
@@ -191,7 +191,7 @@
         byId('memory-key-select')?.addEventListener('change', (event) => loadMemory(event.target.value));
         byId('logs-refresh-btn')?.addEventListener('click', loadLogs);
         byId('hybrid-refresh-btn')?.addEventListener('click', loadHybrid);
-        byId('orchestration-run-btn')?.addEventListener('click', runOrchestration);
+        byId('request-contract-readonly-control')?.addEventListener('click', inspectRequestContractBoundary);
         byId('overview-refresh-btn')?.addEventListener('click', loadOverview);
 
         document.querySelectorAll('.config-sidebar-item').forEach((item) => {

@@ -314,12 +314,12 @@ def test_navigation_and_visual_states_are_contract_aware():
         assert f"'{state}'" in widgets
         assert f".visual-state.{state}" in html
 
-    assert 'id="start-btn" disabled' in html
-    assert 'id="orchestration-run-btn" disabled' in html
+    assert 'id="request-draft-blocked-control" disabled' in html
+    assert 'id="request-contract-readonly-control" disabled' in html
     assert "BLOQUEADO POR CONTRATO" in html
     assert "/api/debate/start" not in html
     assert "/api/debate/start" not in admin
-    assert "blocked · accion no declarada en allowed_actions" in admin
+    assert "blocked · inspeccion local; accion no declarada en allowed_actions" in admin
     assert "forbidden_actions y blocked_capabilities conservan prioridad" in admin
 
 

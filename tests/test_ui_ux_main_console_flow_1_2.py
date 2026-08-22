@@ -107,11 +107,11 @@ def test_flow_does_not_infer_permissions_or_enable_operations():
     widgets = _read(WIDGETS)
     admin = _read(ADMIN)
 
-    assert 'id="start-btn" disabled' in html
-    assert 'id="orchestration-run-btn" disabled' in html
+    assert 'id="request-draft-blocked-control" disabled' in html
+    assert 'id="request-contract-readonly-control" disabled' in html
     assert "Solo acciones declaradas por backend." in html
     assert "Visible y no ejecutable." in html
-    assert "No se renderizan acciones sin allowed_actions." in admin
+    assert "No se renderizan controles operativos sin allowed_actions backend-declared." in admin
 
     for forbidden_route in (
         "/api/debates",

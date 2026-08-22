@@ -81,7 +81,7 @@ def test_actions_blocks_and_pre_runtime_state_are_visible():
     active_ui = "\n".join(_read(path) for path in (INDEX, WIDGETS, ADMIN, I18N, README))
 
     assert "BLOQUEADO POR CONTRATO" in active_ui
-    assert "No se renderizan acciones sin allowed_actions." in active_ui
+    assert "No se renderizan controles operativos sin allowed_actions backend-declared." in active_ui
     assert "forbidden_actions y blocked_capabilities conservan prioridad" in active_ui
     assert "runtime/execution/tools/models/integrations permanecen bloqueados" in active_ui
 

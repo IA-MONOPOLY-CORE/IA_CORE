@@ -118,7 +118,7 @@ def test_mobile_request_draft_is_contained_without_enabling_actions():
     assert "syncDebateToggleState" in html
     assert "aria-expanded" in html
     assert '<button class="debate-toggle" id="debate-toggle" type="button"' in html
-    assert 'id="start-btn" disabled' in html
+    assert 'id="request-draft-blocked-control" disabled' in html
     assert 'data-interaction-state="blocked_interaction disabled_by_contract"' in html
 
 

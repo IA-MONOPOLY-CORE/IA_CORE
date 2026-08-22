@@ -278,6 +278,18 @@ activa, conserva `forbidden_actions` y `blocked_capabilities` visibles, no
 activa runtime, no activa execution, no crea dispatch real, sin endpoints y
 sin dependencias. Proximo prompt exacto sugerido: `PROMPT UI/UX 1.17 - Endurecer boundaries administrativos y exposicion interna de consola IA_CORE contract-aware sin runtime/no-execution`.
 
+## Hardening admin boundary/exposure 1.17
+
+`docs/UI_UX_ADMIN_BOUNDARY_EXPOSURE_HARDENING_1_17.md` cierra los hallazgos de auditoria 1.16 en la superficie activa de consola sin agregar runtime, endpoints, tools, modelos ni integraciones.
+
+Cambios contract-aware aplicados:
+- controles de request/admin renombrados a IDs read-only (`request-draft-blocked-control`, `request-contract-readonly-control`);
+- microcopy de `allowed_actions`, request draft y exposicion interna endurecido para aclarar que la UI lee declaraciones backend y no concede permisos;
+- continuidad planned movida a checkpoint 1.18 como evidencia, no workflow activo;
+- clases `.active` documentadas como estado visual legacy aislado, no como estado contractual.
+
+Veredicto: `UI_READY_FOR_ADMIN_BOUNDARY_CHECKPOINT`.
+Proximo prompt exacto: `PROMPT UI/UX 1.18 - Checkpoint Admin Boundary / Exposure Review IA_CORE contract-aware sin runtime/no-execution`.
 ## Widgets backend contract
 
 `backend-contract-widgets.js` no crea ni consulta endpoints. Renderiza payloads

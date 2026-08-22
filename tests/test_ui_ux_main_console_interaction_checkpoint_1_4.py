@@ -147,7 +147,7 @@ def test_actions_permissions_and_blockers_remain_visible_and_backend_only():
     assert 'id="contract-forbidden-actions"' in html
     assert 'id="contract-blocked-list"' in html
     assert "true = blocked" in html
-    assert "No se renderizan acciones sin allowed_actions." in admin
+    assert "No se renderizan controles operativos sin allowed_actions backend-declared." in admin
     assert "forbidden_actions y blocked_capabilities conservan prioridad" in admin
     assert "metadata de dominio como permiso" in doc
     assert "Ningun foco, inspector, disclosure" in doc
@@ -171,8 +171,8 @@ def test_no_invented_endpoints_runtime_dispatch_or_controlled_execution_enabled(
         assert forbidden_route not in admin
 
     assert "fetch(" not in widgets
-    assert 'id="start-btn" disabled data-interaction-mode="read-only"' in html
-    assert 'id="orchestration-run-btn" disabled data-interaction-mode="read-only"' in html
+    assert 'id="request-draft-blocked-control" disabled data-interaction-mode="read-only"' in html
+    assert 'id="request-contract-readonly-control" disabled data-interaction-mode="read-only"' in html
     assert "controlled execution" in _read(DOC)
 
     for invalid_label in (

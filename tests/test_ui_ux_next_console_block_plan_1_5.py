@@ -138,7 +138,7 @@ def test_active_ui_and_contract_files_remain_unmodified_by_plan():
     assert 'data-console-interaction="contract-aware-1.3"' in html
     assert "fetch(" not in widgets
     assert "fetch(" not in interactions
-    assert "No se renderizan acciones sin allowed_actions." in admin
+    assert "No se renderizan controles operativos sin allowed_actions backend-declared." in admin
 
     for forbidden_route in (
         "/api/debate/start",

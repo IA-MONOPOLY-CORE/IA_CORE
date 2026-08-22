@@ -289,8 +289,8 @@
         setVisualState('contract-status-value', 'no_payload');
         setText('contract-status-meta', 'No hay backend_internal_ui_payload.v1 inyectado.');
         setText('contract-status-detail', 'Estado, readiness y acciones quedan bloqueados para la UI.');
-        setText('contract-actions-value', '0 acciones activas');
-        setText('contract-actions-meta', 'No se muestran acciones sin allowed_actions backend.');
+        setText('contract-actions-value', '0 acciones declaradas backend-only');
+        setText('contract-actions-meta', 'No hay allowed_actions backend-declared; deny-by-default.');
         renderChips('contract-allowed-actions', []);
         setText('contract-forbidden-actions', 'forbidden_actions no disponible: la UI mantiene deny-by-default.');
         setVisualState('contract-blocked-value', 'blocked');
@@ -334,8 +334,8 @@
         setVisualState('contract-status-value', 'invalid');
         setText('contract-status-meta', 'El payload recibido no puede renderizarse como operativo.');
         setText('contract-status-detail', errors.join(' | '));
-        setText('contract-actions-value', '0 acciones activas');
-        setText('contract-actions-meta', 'allowed_actions bloqueado por error contractual.');
+        setText('contract-actions-value', '0 acciones declaradas backend-only');
+        setText('contract-actions-meta', 'allowed_actions conservado como lectura backend-declared; sin permisos UI.');
         renderChips('contract-allowed-actions', []);
         setText('contract-forbidden-actions', 'forbidden_actions conservado; acciones activas no renderizadas.');
         setVisualState('contract-blocked-value', 'blocked');
@@ -392,8 +392,8 @@
         setVisualState('contract-status-value', visualStatus);
         setText('contract-status-meta', `readiness: ${payload.readiness || 'sin readiness'} · service: ${payload.service || '-'}`);
         setText('contract-status-detail', `request_id: ${payload.request_id || '-'} · operation_id: ${payload.operation_id || '-'}`);
-        setText('contract-actions-value', `${allowed.length} acciones disponibles`);
-        setText('contract-actions-meta', allowed.length ? 'Renderizadas solo desde allowed_actions.' : 'No hay allowed_actions available_now.');
+        setText('contract-actions-value', `${allowed.length} acciones declaradas backend-only`);
+        setText('contract-actions-meta', allowed.length ? 'Lectura backend-declared; la UI no concede permisos.' : 'No hay allowed_actions backend-declared; deny-by-default.');
         renderChips('contract-allowed-actions', allowed, 'allowed');
         setText('contract-forbidden-actions', forbidden.length
             ? `forbidden_actions: ${forbidden.join(', ')}`

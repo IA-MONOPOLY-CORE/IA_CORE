@@ -1322,7 +1322,7 @@
             <li data-flow-target="service-signals"><button class="flow-focus-control" type="button" data-component="ia-readonly-control" data-interaction-control="focus" data-interaction-mode="read-only" data-focus-step="service-signals" aria-pressed="false"><strong>Internal Signals</strong><small>enfocar señales, no ejecución</small></button></li>
             <li data-flow-target="actions-boundaries"><button class="flow-focus-control" type="button" data-component="ia-readonly-control" data-interaction-control="focus" data-interaction-mode="read-only" data-focus-step="actions-boundaries" aria-pressed="false"><strong>Actions &amp; Limits</strong><small>inspeccionar autoridad backend</small></button></li>
             <li data-flow-target="evidence-checkpoint"><button class="flow-focus-control" type="button" data-component="ia-readonly-control" data-interaction-control="focus" data-interaction-mode="read-only" data-focus-step="evidence-checkpoint" aria-pressed="false"><strong>Evidence</strong><small>enfocar checkpoints</small></button></li>
-            <li data-flow-target="next-step"><button class="flow-focus-control" type="button" data-component="ia-readonly-control" data-interaction-control="focus" data-interaction-mode="read-only" data-focus-step="next-step" aria-pressed="false"><strong>Next Step</strong><small>ver continuidad planned</small></button></li>
+            <li data-flow-target="next-step"><button class="flow-focus-control" type="button" data-component="ia-readonly-control" data-interaction-control="focus" data-interaction-mode="read-only" data-focus-step="next-step" aria-pressed="false"><strong>Next Step</strong><small>leer continuidad planned</small></button></li>
         </ol>
     </section>
 
@@ -1494,7 +1494,7 @@
                     <span class="layout-token">1.6 reading model · 1b04f7a8</span>
                     <span class="layout-token">1.8 internal navigation · defined</span>
                     <span class="layout-token">1.9 component system · defined</span>
-                    <span class="visual-state planned">planned: checkpoint 1.10</span>
+                    <span class="visual-state planned">planned: checkpoint 1.18</span>
                 </div>
                 <p class="detail-panel-note">Evidencia no es accion. Next Step es continuidad de desarrollo y no inicia runtime, execution ni dispatch.</p>
             </article>
@@ -1546,7 +1546,7 @@
                     <button class="widget-refresh-btn" type="button" data-widget-refresh data-interaction-control="inspect" data-interaction-mode="read-only" title="Releer payload local" aria-label="Releer payload local">↻</button>
                 </div>
                 <div class="data-widget-value" id="contract-actions-value">Sin acciones activas</div>
-                <div class="data-widget-meta" id="contract-actions-meta">Solo se muestran acciones presentes en allowed_actions.</div>
+                <div class="data-widget-meta" id="contract-actions-meta">Lectura backend-declared; la UI no concede permisos.</div>
                 <div class="data-widget-list" id="contract-allowed-actions"></div>
                 <div class="data-widget-detail" id="contract-forbidden-actions">forbidden_actions pendiente de payload.</div>
             </section>
@@ -1585,13 +1585,13 @@
             <article class="hud-panel contract-layout-zone" data-layout-zone="contract-services" data-main-console-zone="internal-services" data-flow-step="service-signals" data-interaction-mode="read-only" data-interaction-state="inspectable">
                 <div class="layout-label">Contrato y servicios internos</div>
                 <h2>Internal Services / Signals</h2>
-                <p class="layout-copy"><span class="flow-step-index">03</span>Leé cada fila como señal interna declarada; ninguna representa ejecución o disponibilidad operativa.</p>
+                <p class="layout-copy"><span class="flow-step-index">03</span>Lee cada fila como exposicion interna read-only; visible no significa endpoint publico, activacion ni control operativo.</p>
                 <ul>
-                    <li class="signal-row"><span class="signal-name">internal_exposure_registry</span><span class="signal-kind">registry</span></li>
-                    <li class="signal-row"><span class="signal-name">internal_request_validation</span><span class="signal-kind">validation</span></li>
-                    <li class="signal-row"><span class="signal-name">internal_dispatcher_no_runtime</span><span class="signal-kind blocked">no-runtime</span></li>
-                    <li class="signal-row"><span class="signal-name">internal_confirmation_gate</span><span class="signal-kind">confirmation gate</span></li>
-                    <li class="signal-row"><span class="signal-name">internal_response_adapter</span><span class="signal-kind">response adapter</span></li>
+                    <li class="signal-row"><span class="signal-name">internal_exposure_registry</span><span class="signal-kind">internal read map</span></li>
+                    <li class="signal-row"><span class="signal-name">internal_request_validation</span><span class="signal-kind">contract validation</span></li>
+                    <li class="signal-row"><span class="signal-name">internal_dispatcher_no_runtime</span><span class="signal-kind blocked">no-runtime read</span></li>
+                    <li class="signal-row"><span class="signal-name">internal_confirmation_gate</span><span class="signal-kind">gate read-only</span></li>
+                    <li class="signal-row"><span class="signal-name">internal_response_adapter</span><span class="signal-kind">adapter read-only</span></li>
                     <li class="signal-row"><span class="signal-name">stable_payloads</span><span class="signal-kind">contract source</span></li>
                 </ul>
             </article>
@@ -1634,8 +1634,8 @@
             </article>
             <article class="hud-panel evidence-card flow-next-step" data-component="ia-panel ia-evidence" data-flow-step="next-step" data-nav-section="next-step" data-nav-state="read_only inspectable" data-interaction-mode="read-only" data-interaction-state="inspectable">
                 <div class="layout-label"><span class="flow-step-index">06</span>Próximo paso documentado</div>
-                <div class="layout-value">console block checkpoint</div>
-                <p class="layout-copy">Continuidad planned posterior a 1.9; no es boton runtime ni inicia execution o dispatch.</p>
+                <div class="layout-value">admin boundary checkpoint planned</div>
+                <p class="layout-copy">Continuidad planned hacia checkpoint 1.18; no es workflow activo, boton runtime, execution ni dispatch.</p>
                 <span class="visual-state planned evidence-state" data-component="ia-status-badge ia-empty-state">planned</span>
             </article>
         </div>
@@ -1674,10 +1674,10 @@
 
     <!-- PANEL DEBATE -->
     <div class="debate-panel" id="debate-panel" aria-label="Contract request draft">
-        <button class="debate-toggle" id="debate-toggle" type="button" data-component="ia-readonly-control" data-interaction-control="collapse" data-interaction-mode="read-only" aria-controls="debate-panel" aria-expanded="true" aria-label="Mostrar u ocultar request contract" title="Mostrar u ocultar request contract">▶</button>
+        <button class="debate-toggle" id="debate-toggle" type="button" data-component="ia-readonly-control" data-interaction-control="collapse" data-interaction-mode="read-only" aria-controls="debate-panel" aria-expanded="true" aria-label="Inspeccionar draft bloqueado sin enviar" title="Inspeccionar draft bloqueado sin enviar">▶</button>
         <div><span style="font-weight:bold;">REQUEST CONTRACT DRAFT</span> <span id="exec-badge" class="visual-state blocked" data-component="ia-status-badge ia-blocker" style="float:right;">blocked</span></div>
-        <textarea class="debate-input" id="task-input" placeholder="Draft local; no dispatch without backend_internal_ui_request.v1 + allowed_actions."></textarea>
-        <button class="btn-debate" id="start-btn" disabled data-interaction-mode="read-only" data-interaction-state="blocked_interaction disabled_by_contract" data-component="ia-readonly-control ia-blocker">BLOQUEADO POR CONTRATO</button>
+        <textarea class="debate-input" id="task-input" placeholder="Draft local read-only; no submit, no dispatch, no execution, no contract mutation."></textarea>
+        <button class="btn-debate" id="request-draft-blocked-control" disabled data-interaction-mode="read-only" data-boundary-hardening="read-only-no-submit" aria-label="Control bloqueado por contrato; no envia draft" data-interaction-state="blocked_interaction disabled_by_contract" data-component="ia-readonly-control ia-blocker">BLOQUEADO POR CONTRATO</button>
         <div class="debate-metrics" id="debate-metrics" style="display:none">
             <div><div class="metric-title">ACUERDO</div><div id="debate-acuerdo">-</div></div>
             <div><div class="metric-title">CONTRADICCIÓN</div><div id="debate-contradiccion">-</div></div>
@@ -1752,10 +1752,10 @@
                 </div>
                 <div id="config-orchestration" class="config-section">
                     <h3>REQUEST CONTRACT</h3>
-                    <textarea id="orchestration-task" class="admin-field" rows="4" style="width:100%; resize:vertical;" placeholder="Draft local; no dispatch without allowed_actions and backend validation."></textarea>
+                    <textarea id="orchestration-task" class="admin-field" rows="4" style="width:100%; resize:vertical;" placeholder="Draft local read-only; no submit, no dispatch, no execution, no backend mutation."></textarea>
                     <div class="admin-toolbar" style="margin-top:10px;">
                         <label>Estado <select id="orchestration-mode" disabled><option value="blocked">blocked</option><option value="planned">planned</option></select></label>
-                        <button class="btn-primary" id="orchestration-run-btn" disabled data-interaction-mode="read-only" data-interaction-state="blocked_interaction disabled_by_contract">BLOQUEADO POR CONTRATO</button>
+                        <button class="btn-primary" id="request-contract-readonly-control" disabled data-interaction-mode="read-only" data-boundary-hardening="read-only-no-dispatch" aria-label="Control bloqueado por contrato; no envia dispatch" data-interaction-state="blocked_interaction disabled_by_contract">BLOQUEADO POR CONTRATO</button>
                     </div>
                     <div id="orchestration-agents" class="admin-agent-list"></div>
                     <div id="orchestration-status" class="admin-status">blocked · requiere allowed_actions</div>
@@ -1977,8 +1977,8 @@
         const API_BASE = window.location.origin;
         let agentes = [];
         let selectedAgents = [];
-        let activePolling = null;
-        let isRunning = false;
+        let requestDraftPollingHandle = null;
+        let requestDraftInspectionOpen = false;
         let currentEditId = null;
         let providersLoadPromise = null;
 
@@ -3072,21 +3072,21 @@
         }
 
         // ========== DEBATE ==========
-        async function startDebate() {
+        async function inspectRequestDraftBoundary() {
             document.getElementById('exec-badge').innerText = 'blocked';
             document.getElementById('synthesis-text').innerText = 'Accion no declarada en allowed_actions.';
             document.getElementById('synthesis-panel').style.display = 'block';
         }
 
-        async function pollDebate(id) {
+        async function syncRequestDraftBlockedStatus(id) {
             document.getElementById('exec-badge').innerText = 'blocked';
         }
 
-        function resetDebateUI() {
-            isRunning = false;
-            if (activePolling) clearInterval(activePolling);
-            document.getElementById('start-btn').disabled = true;
-            document.getElementById('start-btn').innerText = 'BLOQUEADO POR CONTRATO';
+        function resetRequestDraftBoundaryUI() {
+            requestDraftInspectionOpen = false;
+            if (requestDraftPollingHandle) clearInterval(requestDraftPollingHandle);
+            document.getElementById('request-draft-blocked-control').disabled = true;
+            document.getElementById('request-draft-blocked-control').innerText = 'BLOQUEADO POR CONTRATO';
             document.getElementById('exec-badge').innerText = 'blocked';
         }
 
@@ -3139,9 +3139,7 @@
             if (savedBrand) document.getElementById('brand-title').innerText = savedBrand;
             if (localStorage.getItem('brand_input')) document.getElementById('brand-input').value = localStorage.getItem('brand_input');
             
-            document.getElementById('start-btn').onclick = () => {
-                document.getElementById('exec-badge').innerText = 'blocked';
-            };
+            document.getElementById('request-draft-blocked-control').onclick = inspectRequestDraftBoundary;
             document.getElementById('settings-fab').onclick = () => { cargarChecklist(); document.getElementById('config-modal').style.display = 'flex'; };
             document.getElementById('add-fab').onclick = () => window.domainUI.requireDomain(abrirCrearAgente);
             document.getElementById('save-agent-btn').onclick = guardarAgente;

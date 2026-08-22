@@ -107,9 +107,9 @@ def test_refinement_preserves_actions_blocks_and_no_execution():
         assert token in html
         assert token in widgets
 
-    assert 'id="start-btn" disabled' in html
-    assert 'id="orchestration-run-btn" disabled' in html
-    assert "No se renderizan acciones sin allowed_actions." in admin
+    assert 'id="request-draft-blocked-control" disabled' in html
+    assert 'id="request-contract-readonly-control" disabled' in html
+    assert "No se renderizan controles operativos sin allowed_actions backend-declared." in admin
     assert "forbidden_actions y blocked_capabilities conservan prioridad" in admin
 
     for forbidden_route in (

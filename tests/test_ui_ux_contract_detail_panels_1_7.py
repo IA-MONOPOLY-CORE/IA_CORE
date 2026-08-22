@@ -198,7 +198,7 @@ def test_no_invented_endpoints_or_operational_capabilities():
         assert forbidden_route not in admin
 
     assert "controlled execution" in _read(DOC)
-    assert 'id="orchestration-run-btn" disabled' in html
+    assert 'id="request-contract-readonly-control" disabled' in html
 
 
 def test_identity_is_ia_core_without_active_legacy_visuals():
