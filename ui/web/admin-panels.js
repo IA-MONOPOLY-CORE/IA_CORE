@@ -88,11 +88,11 @@
     // LOGS — GET /api/logs
     async function loadLogs() {
         const lines = Math.max(20, Math.min(500, Number(byId('logs-lines').value) || 80));
-        ['logs-runtime', 'logs-warnings', 'logs-errors'].forEach((id) => setLoading(id));
+        ['logs-sanitized', 'logs-warnings', 'logs-errors'].forEach((id) => setLoading(id));
         try {
             const data = await fetchJson(`/api/logs?lines=${lines}`);
             byId('logs-path').textContent = data.path || '';
-            byId('logs-runtime').textContent = (data.lines || []).join('\n') || 'Sin registros sanitizados.';
+            byId('logs-sanitized').textContent = (data.lines || []).join('\n') || 'Sin registros sanitizados.';
             byId('logs-warnings').textContent = (data.warnings || []).join('\n') || 'Sin warnings.';
             byId('logs-errors').textContent = (data.errors || []).join('\n') || 'Sin errores.';
             const events = data.events || [];
@@ -102,7 +102,7 @@
                     <tr><td>${escapeHtml(event.timestamp || '-')}</td><td>${escapeHtml(event.kind || '-')}</td><td>${escapeHtml(event.message || '')}</td></tr>
                 `).join('')}</tbody></table>` : '<div class="admin-status">Sin eventos.</div>';
         } catch (error) {
-            byId('logs-runtime').textContent = `Error: ${error.message}`;
+            byId('logs-sanitized').textContent = `Error: ${error.message}`;
         }
     }
 
@@ -131,8 +131,8 @@
     }
 
     // REQUEST CONTRACT — lectura sin dispatch desde UI.
-    async function loadOrchestrationAgents() {
-        const container = byId('orchestration-agents');
+    async function loadRequestContractSources() {
+        const container = byId('request-contract-sources');
         container.textContent = 'Cargando sources declaradas...';
         try {
             const data = await fetchJson('/api/agents/list');
@@ -143,17 +143,17 @@
                     ${escapeHtml(agent.id)} <span class="admin-label">[${escapeHtml(agent.role || '-')}]</span>
                 </label>
             `).join('') || '<div class="admin-status">Sin sources declaradas.</div>';
-            byId('orchestration-status').textContent = 'blocked · lectura interna; no dispatch desde UI';
-            byId('orchestration-scores').textContent = 'Sin backend_internal_ui_request.v1 aceptado; draft permanece read-only.';
-            byId('orchestration-steps').innerHTML = '<div class="admin-status">No se renderizan controles operativos sin allowed_actions backend-declared.</div>';
+            byId('request-contract-status').textContent = 'blocked · lectura interna; no dispatch desde UI';
+            byId('request-contract-summary').textContent = 'Sin backend_internal_ui_request.v1 aceptado; draft permanece read-only.';
+            byId('request-contract-validation').innerHTML = '<div class="admin-status">No se renderizan controles operativos sin allowed_actions backend-declared.</div>';
         } catch (error) {
             container.textContent = `Error: ${error.message}`;
         }
     }
 
     async function inspectRequestContractBoundary() {
-        byId('orchestration-status').textContent = 'blocked · inspeccion local; accion no declarada en allowed_actions';
-        byId('orchestration-steps').innerHTML = '<div class="admin-status">forbidden_actions y blocked_capabilities conservan prioridad.</div>';
+        byId('request-contract-status').textContent = 'blocked · inspeccion local; accion no declarada en allowed_actions';
+        byId('request-contract-validation').innerHTML = '<div class="admin-status">forbidden_actions y blocked_capabilities conservan prioridad.</div>';
     }
 
     // OVERVIEW — GET /api/status
@@ -182,7 +182,7 @@
         memory: () => loadMemory(byId('memory-key-select').value),
         logs: loadLogs,
         hybrid: loadHybrid,
-        orchestration: loadOrchestrationAgents,
+        "request-contract": loadRequestContractSources,
         overview: loadOverview,
     };
 

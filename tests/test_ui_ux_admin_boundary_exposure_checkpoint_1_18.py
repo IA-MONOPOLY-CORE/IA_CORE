@@ -190,7 +190,7 @@ def test_responsive_boundary_minimum_is_documented_and_supported_by_css():
         "translateX(calc(100% - 44px))",
         "overflow-x: hidden",
         "raw-safe-output",
-        "debate-panel.collapsed",
+        "request-draft-panel.collapsed",
     ]:
         assert marker in responsive_source
 

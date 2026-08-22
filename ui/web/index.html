@@ -1094,8 +1094,8 @@
         }
         .delete-agent-btn:hover { color: #fff; text-shadow: 0 0 4px var(--red); }
 
-        /* PANEL DEBATE */
-        .debate-panel {
+        /* REQUEST DRAFT PANEL */
+        .request-draft-panel {
             position: fixed;
             right: 0; top: 0; width: 340px; height: 100vh;
             background: var(--bg-panel);
@@ -1107,23 +1107,23 @@
             display: flex; flex-direction: column; padding: 20px; gap: 15px;
             overflow-x: hidden;
         }
-        .debate-panel.collapsed { transform: translateX(calc(100% - 35px)); }
-        .debate-panel.collapsed > *:not(.debate-toggle) {
+        .request-draft-panel.collapsed { transform: translateX(calc(100% - 35px)); }
+        .request-draft-panel.collapsed > *:not(.request-draft-toggle) {
             display: none !important;
         }
-        .debate-panel.collapsed .debate-toggle {
+        .request-draft-panel.collapsed .request-draft-toggle {
             left: 0;
             border-left: none;
             border-right: 1px solid var(--border-color);
             border-radius: 0;
         }
         @media (max-width: 760px) {
-            .debate-panel {
+            .request-draft-panel {
                 width: min(340px, calc(100vw - 44px));
             }
-            .debate-panel.collapsed { transform: translateX(calc(100% - 44px)); }
+            .request-draft-panel.collapsed { transform: translateX(calc(100% - 44px)); }
         }
-        .debate-toggle {
+        .request-draft-toggle {
             position: absolute; left: -44px; top: 50%; transform: translateY(-50%);
             width: 44px; min-height: 76px; background: var(--bg-panel);
             border: 1px solid var(--border-color); border-right: none;
@@ -1131,31 +1131,31 @@
             cursor: pointer; font-size: 1rem; color: var(--cyan);
             border-radius: 8px 0 0 8px;
         }
-        .debate-toggle:focus-visible {
+        .request-draft-toggle:focus-visible {
             outline: 2px solid var(--cyan);
             outline-offset: 2px;
             box-shadow: 0 0 0 4px rgba(56,189,248,0.16);
         }
-        .debate-input {
+        .request-draft-input {
             width: 100%; height: 100px; background: rgba(0,0,0,0.4);
             border: 1px solid var(--border-color); color: var(--text-primary);
             font-family: 'Share Tech Mono', monospace; padding: 10px;
             font-size: 0.8rem; resize: none; border-radius: var(--border-radius);
         }
-        .debate-input:focus {
+        .request-draft-input:focus {
             outline: 2px solid var(--cyan);
             outline-offset: 2px;
             border-color: var(--cyan);
         }
-        .btn-debate {
+        .request-draft-control {
             background: rgba(0,212,255,0.1); border: 1px solid var(--cyan);
             color: var(--cyan); font-family: 'Rajdhani', sans-serif;
             font-weight: bold; padding: 10px; cursor: pointer;
             text-transform: uppercase; border-radius: var(--border-radius);
         }
-        .btn-debate:hover:not(:disabled) { background: var(--cyan); color: #000; }
-        .debate-metrics { display: grid; grid-template-columns: repeat(3,1fr); gap: 8px; text-align: center; padding: 8px; background: rgba(0,0,0,0.2); border-radius: var(--border-radius); }
-        .debate-synthesis { background: rgba(0,0,0,0.2); padding: 10px; border-left: 2px solid var(--green); flex-grow: 1; overflow-y: auto; border-radius: var(--border-radius); }
+        .request-draft-control:hover:not(:disabled) { background: var(--cyan); color: #000; }
+        .request-draft-metrics { display: grid; grid-template-columns: repeat(3,1fr); gap: 8px; text-align: center; padding: 8px; background: rgba(0,0,0,0.2); border-radius: var(--border-radius); }
+        .request-draft-synthesis { background: rgba(0,0,0,0.2); padding: 10px; border-left: 2px solid var(--green); flex-grow: 1; overflow-y: auto; border-radius: var(--border-radius); }
         .synthesis-content { font-size: 0.75rem; line-height: 1.3; white-space: pre-wrap; }
 
         /* MODALES */
@@ -1172,10 +1172,10 @@
         .config-sidebar { width: 180px; background: rgba(0,0,0,0.3); border-right: 1px solid var(--border-color); padding-top: 15px; overflow-y: auto; }
         .config-sidebar-item { padding: 12px 18px; color: var(--text-muted); cursor: pointer; font-size: 0.8rem; text-transform: uppercase; transition: all 0.2s; }
         .config-sidebar-item:hover { color: var(--cyan); background: rgba(0,212,255,0.05); }
-        .config-sidebar-item.active { color: var(--cyan); background: rgba(0,212,255,0.08); border-left: 2px solid var(--cyan); }
+        .config-sidebar-item.is-selected { color: var(--cyan); background: rgba(0,212,255,0.08); border-left: 2px solid var(--cyan); }
         .config-main { flex: 1; padding: 20px; overflow-y: auto; display: flex; flex-direction: column; }
         .config-section { display: none; }
-        .config-section.active { display: block; }
+        .config-section.is-visible { display: block; }
         .config-section h3 { font-size: 1rem; color: var(--cyan); margin-bottom: 15px; letter-spacing: 1px; }
         .config-buttons { margin-top: auto; display: flex; gap: 12px; justify-content: flex-end; padding-top: 20px; }
         .btn-primary {
@@ -1222,7 +1222,7 @@
                 font-weight: bold;
             }
         .skin-option { display: inline-block; padding: 6px 14px; background: rgba(0,0,0,0.3); border: 1px solid var(--border-color); cursor: pointer; margin-right: 10px; border-radius: var(--border-radius); transition: all 0.2s; }
-        .skin-option.active { border-color: var(--cyan); background: rgba(0,212,255,0.15); color: var(--cyan); }
+        .skin-option.is-selected { border-color: var(--cyan); background: rgba(0,212,255,0.15); color: var(--cyan); }
         .console-utilities {
             display: flex;
             align-items: center;
@@ -1672,20 +1672,20 @@
     <footer>IA_CORE // Contract-Aware HUD</footer>
     </main>
 
-    <!-- PANEL DEBATE -->
-    <div class="debate-panel" id="debate-panel" aria-label="Contract request draft">
-        <button class="debate-toggle" id="debate-toggle" type="button" data-component="ia-readonly-control" data-interaction-control="collapse" data-interaction-mode="read-only" aria-controls="debate-panel" aria-expanded="true" aria-label="Inspeccionar draft bloqueado sin enviar" title="Inspeccionar draft bloqueado sin enviar">▶</button>
-        <div><span style="font-weight:bold;">REQUEST CONTRACT DRAFT</span> <span id="exec-badge" class="visual-state blocked" data-component="ia-status-badge ia-blocker" style="float:right;">blocked</span></div>
-        <textarea class="debate-input" id="task-input" placeholder="Draft local read-only; no submit, no dispatch, no execution, no contract mutation."></textarea>
-        <button class="btn-debate" id="request-draft-blocked-control" disabled data-interaction-mode="read-only" data-boundary-hardening="read-only-no-submit" aria-label="Control bloqueado por contrato; no envia draft" data-interaction-state="blocked_interaction disabled_by_contract" data-component="ia-readonly-control ia-blocker">BLOQUEADO POR CONTRATO</button>
-        <div class="debate-metrics" id="debate-metrics" style="display:none">
-            <div><div class="metric-title">ACUERDO</div><div id="debate-acuerdo">-</div></div>
-            <div><div class="metric-title">CONTRADICCIÓN</div><div id="debate-contradiccion">-</div></div>
-            <div><div class="metric-title">PUNTAJE DE CONSENSO</div><div id="debate-consensus-score">-</div></div>
+    <!-- REQUEST DRAFT PANEL -->
+    <div class="request-draft-panel" id="request-draft-panel" aria-label="Contract request draft">
+        <button class="request-draft-toggle" id="request-draft-toggle" type="button" data-component="ia-readonly-control" data-interaction-control="collapse" data-interaction-mode="read-only" aria-controls="request-draft-panel" aria-expanded="true" aria-label="Inspeccionar draft bloqueado sin enviar" title="Inspeccionar draft bloqueado sin enviar">▶</button>
+        <div><span style="font-weight:bold;">REQUEST CONTRACT DRAFT</span> <span id="request-draft-status-badge" class="visual-state blocked" data-component="ia-status-badge ia-blocker" style="float:right;">blocked</span></div>
+        <textarea class="request-draft-input" id="task-input" placeholder="Draft local read-only; no submit, no dispatch, no execution, no contract mutation."></textarea>
+        <button class="request-draft-control" id="request-draft-blocked-control" disabled data-interaction-mode="read-only" data-boundary-hardening="read-only-no-submit" aria-label="Control bloqueado por contrato; no envia draft" data-interaction-state="blocked_interaction disabled_by_contract" data-component="ia-readonly-control ia-blocker">BLOQUEADO POR CONTRATO</button>
+        <div class="request-draft-metrics" id="request-draft-metrics" style="display:none">
+            <div><div class="metric-title">ACUERDO</div><div id="request-draft-agreement">-</div></div>
+            <div><div class="metric-title">CONTRADICCIÓN</div><div id="request-draft-contradiction">-</div></div>
+            <div><div class="metric-title">PUNTAJE DE CONSENSO</div><div id="request-draft-consensus-score">-</div></div>
         </div>
-        <div class="debate-synthesis" id="synthesis-panel" style="display:none">
+        <div class="request-draft-synthesis" id="request-draft-synthesis-panel" style="display:none">
             <div style="font-size:0.7rem; color:var(--green); margin-bottom:6px;">RESULTADO DECLARADO</div>
-            <div class="synthesis-content" id="synthesis-text"></div>
+            <div class="synthesis-content" id="request-draft-synthesis-text"></div>
         </div>
     </div>
 
@@ -1694,12 +1694,12 @@
         <div class="config-modal-content">
             <span class="close-modal" id="close-config-modal">&times;</span>
             <div class="config-sidebar">
-                <div class="config-sidebar-item active" data-section="agents">CONTRACT SOURCES</div>
+                <div class="config-sidebar-item is-selected" data-section="agents">CONTRACT SOURCES</div>
                 <div class="config-sidebar-item" data-section="providers">SERVICE SIGNALS</div>
                 <div class="config-sidebar-item" data-section="memory">READ MODELS</div>
                 <div class="config-sidebar-item" data-section="logs">WARNINGS / ERRORS</div>
                 <div class="config-sidebar-item" data-section="hybrid">EXPOSURE STATUS</div>
-                <div class="config-sidebar-item" data-section="orchestration">REQUEST CONTRACT</div>
+                <div class="config-sidebar-item" data-section="request-contract">REQUEST CONTRACT</div>
                 <div class="config-sidebar-item" data-section="overview">SERVICE MAP</div>
                 <div class="config-sidebar-item" data-section="skins">THEME</div>
                 <div class="config-sidebar-item" data-section="branding">IDENTITY</div>
@@ -1707,7 +1707,7 @@
                 <div class="config-sidebar-item" data-section="gadgets">DISPLAY</div>
             </div>
             <div class="config-main">
-                <div id="config-agents" class="config-section active">
+                <div id="config-agents" class="config-section is-visible">
                     <h3>CONTRACT SOURCES</h3>
                     <div id="agents-checklist"></div>
                 </div>
@@ -1737,7 +1737,7 @@
                         <div class="admin-block"><h4>WARNINGS</h4><pre id="logs-warnings" class="admin-pre">Sin datos.</pre></div>
                         <div class="admin-block"><h4>ERRORS</h4><pre id="logs-errors" class="admin-pre">Sin datos.</pre></div>
                     </div>
-                    <div class="admin-block"><h4>REGISTROS SANITIZADOS</h4><pre id="logs-runtime" class="admin-pre">Sin datos.</pre></div>
+                    <div class="admin-block"><h4>REGISTROS SANITIZADOS</h4><pre id="logs-sanitized" class="admin-pre">Sin datos.</pre></div>
                     <div class="admin-block"><h4>EVENTOS DECLARADOS</h4><div id="logs-events"></div></div>
                 </div>
                 <div id="config-hybrid" class="config-section">
@@ -1750,17 +1750,17 @@
                         <div class="admin-block"><h4>MÉTRICAS</h4><pre id="hybrid-metrics" class="admin-pre">Sin datos.</pre></div>
                     </div>
                 </div>
-                <div id="config-orchestration" class="config-section">
+                <div id="config-request-contract" class="config-section">
                     <h3>REQUEST CONTRACT</h3>
-                    <textarea id="orchestration-task" class="admin-field" rows="4" style="width:100%; resize:vertical;" placeholder="Draft local read-only; no submit, no dispatch, no execution, no backend mutation."></textarea>
+                    <textarea id="request-contract-draft" class="admin-field" rows="4" style="width:100%; resize:vertical;" placeholder="Draft local read-only; no submit, no dispatch, no execution, no backend mutation."></textarea>
                     <div class="admin-toolbar" style="margin-top:10px;">
-                        <label>Estado <select id="orchestration-mode" disabled><option value="blocked">blocked</option><option value="planned">planned</option></select></label>
+                        <label>Estado <select id="request-contract-mode" disabled><option value="blocked">blocked</option><option value="planned">planned</option></select></label>
                         <button class="btn-primary" id="request-contract-readonly-control" disabled data-interaction-mode="read-only" data-boundary-hardening="read-only-no-dispatch" aria-label="Control bloqueado por contrato; no envia dispatch" data-interaction-state="blocked_interaction disabled_by_contract">BLOQUEADO POR CONTRATO</button>
                     </div>
-                    <div id="orchestration-agents" class="admin-agent-list"></div>
-                    <div id="orchestration-status" class="admin-status">blocked · requiere allowed_actions</div>
-                    <div class="admin-block"><h4>SUMMARY</h4><pre id="orchestration-scores" class="admin-pre">Sin payload estable.</pre></div>
-                    <div class="admin-block"><h4>VALIDATION / ERRORS</h4><div id="orchestration-steps"></div></div>
+                    <div id="request-contract-sources" class="admin-agent-list"></div>
+                    <div id="request-contract-status" class="admin-status">blocked · requiere allowed_actions</div>
+                    <div class="admin-block"><h4>SUMMARY</h4><pre id="request-contract-summary" class="admin-pre">Sin payload estable.</pre></div>
+                    <div class="admin-block"><h4>VALIDATION / ERRORS</h4><div id="request-contract-validation"></div></div>
                 </div>
                 <div id="config-overview" class="config-section">
                     <h3>SERVICE MAP</h3>
@@ -2107,7 +2107,7 @@
 
         let legacyRoleOptions = null;
         const agentProfileCatalogCache = {};
-        let activeAgentProfileCatalog = { mode: 'legacy', roles: [] };
+        let currentAgentProfileCatalog = { mode: 'legacy', roles: [] };
         let currentAgentPreset = null;
         let currentPresetTemperature = null;
         let agentPresetRequestSeq = 0;
@@ -2536,10 +2536,10 @@
 
         function populateRoleSelect(selectedRole = '') {
             const roleSelect = document.getElementById('agent-role');
-            const roles = [...(activeAgentProfileCatalog.roles || [])]
+            const roles = [...(currentAgentProfileCatalog.roles || [])]
                 .sort((a, b) => (a.orden || 0) - (b.orden || 0) || a.nombre_visible.localeCompare(b.nombre_visible));
             roleSelect.replaceChildren(makeOption('', roles.length ? 'Seleccioná un rol...' : 'Sin roles configurados para este dominio'));
-            const groups = [...(activeAgentProfileCatalog.role_groups || [])]
+            const groups = [...(currentAgentProfileCatalog.role_groups || [])]
                 .sort((a, b) => (a.orden || 0) - (b.orden || 0) || a.nombre.localeCompare(b.nombre));
             if (groups.length > 0) {
                 const renderedRoleIds = new Set();
@@ -2575,7 +2575,7 @@
         function actualizarEspecializaciones(selectedSpecialization = '') {
             const roleSelect = document.getElementById('agent-role');
             const specSelect = document.getElementById('agent-specialization');
-            const roleEntry = (activeAgentProfileCatalog.roles || []).find(role => role.role_id === roleSelect.value);
+            const roleEntry = (currentAgentProfileCatalog.roles || []).find(role => role.role_id === roleSelect.value);
             const specializations = [...(roleEntry?.specializations || [])]
                 .sort((a, b) => (a.orden || 0) - (b.orden || 0) || a.nombre_visible.localeCompare(b.nombre_visible));
 
@@ -2602,7 +2602,7 @@
             setAgentProfileStatus('Cargando catálogo de perfiles del dominio...');
 
             if (!domainId) {
-                activeAgentProfileCatalog = { mode: 'empty', roles: [] };
+                currentAgentProfileCatalog = { mode: 'empty', roles: [] };
                 populateRoleSelect();
                 actualizarEspecializaciones();
                 setAgentProfileStatus('Seleccioná un dominio para cargar roles y especializaciones.', true);
@@ -2614,18 +2614,18 @@
                     const data = await fetchJson(`/api/domains/${encodeURIComponent(domainId)}/profile-catalog`);
                     agentProfileCatalogCache[domainId] = normalizeDomainProfileCatalog(data);
                 }
-                activeAgentProfileCatalog = agentProfileCatalogCache[domainId];
+                currentAgentProfileCatalog = agentProfileCatalogCache[domainId];
                 populateRoleSelect(selectedRole);
                 actualizarEspecializaciones(selectedSpecialization);
                 setAgentProfileStatus('');
             } catch (error) {
                 try {
-                    activeAgentProfileCatalog = await buildGlobalFallbackProfileCatalog();
+                    currentAgentProfileCatalog = await buildGlobalFallbackProfileCatalog();
                     populateRoleSelect(selectedRole);
                     actualizarEspecializaciones(selectedSpecialization);
                     setAgentProfileStatus('Este dominio todavía no tiene catálogo de perfiles. Se usará selección básica temporal.', true);
                 } catch (fallbackError) {
-                    activeAgentProfileCatalog = buildLegacyProfileCatalog();
+                    currentAgentProfileCatalog = buildLegacyProfileCatalog();
                     populateRoleSelect(selectedRole);
                     actualizarEspecializaciones(selectedSpecialization);
                     setAgentProfileStatus('Catálogos no disponibles. Se usará selección legacy temporal.', true);
@@ -3057,14 +3057,14 @@
             renderAgentes();
             localStorage.setItem('ia_core_selected', JSON.stringify(selectedAgents));
             
-            const skin = document.querySelector('.skin-option.active')?.getAttribute('data-skin');
+            const skin = document.querySelector('.skin-option.is-selected')?.getAttribute('data-skin');
             if (skin) { document.body.setAttribute('data-skin', skin); localStorage.setItem('ia_core_skin', skin); }
             
             const brand = document.getElementById('brand-input').value.trim();
             if (brand) { document.getElementById('brand-title').innerText = brand.toUpperCase(); localStorage.setItem('ia_core_brand', brand); }
             
             const opacity = document.getElementById('opacity-slider').value;
-            document.querySelectorAll('.hud-panel, .agent-panel, .debate-panel').forEach(el => el.style.opacity = opacity);
+            document.querySelectorAll('.hud-panel, .agent-panel, .request-draft-panel').forEach(el => el.style.opacity = opacity);
             const fontSize = document.getElementById('font-slider').value;
             document.body.style.fontSize = fontSize + 'px';
             
@@ -3073,13 +3073,13 @@
 
         // ========== DEBATE ==========
         async function inspectRequestDraftBoundary() {
-            document.getElementById('exec-badge').innerText = 'blocked';
-            document.getElementById('synthesis-text').innerText = 'Accion no declarada en allowed_actions.';
-            document.getElementById('synthesis-panel').style.display = 'block';
+            document.getElementById('request-draft-status-badge').innerText = 'blocked';
+            document.getElementById('request-draft-synthesis-text').innerText = 'Accion no declarada en allowed_actions.';
+            document.getElementById('request-draft-synthesis-panel').style.display = 'block';
         }
 
         async function syncRequestDraftBlockedStatus(id) {
-            document.getElementById('exec-badge').innerText = 'blocked';
+            document.getElementById('request-draft-status-badge').innerText = 'blocked';
         }
 
         function resetRequestDraftBoundaryUI() {
@@ -3087,7 +3087,7 @@
             if (requestDraftPollingHandle) clearInterval(requestDraftPollingHandle);
             document.getElementById('request-draft-blocked-control').disabled = true;
             document.getElementById('request-draft-blocked-control').innerText = 'BLOQUEADO POR CONTRATO';
-            document.getElementById('exec-badge').innerText = 'blocked';
+            document.getElementById('request-draft-status-badge').innerText = 'blocked';
         }
 
         // ========== CONEXIÓN ==========
@@ -3126,10 +3126,10 @@
             const savedSkin = localStorage.getItem('ia_core_skin') || 'contract';
             document.body.setAttribute('data-skin', savedSkin);
             document.querySelectorAll('.skin-option').forEach(opt => {
-                if (opt.getAttribute('data-skin') === savedSkin) opt.classList.add('active');
+                if (opt.getAttribute('data-skin') === savedSkin) opt.classList.add('is-selected');
                 opt.onclick = () => {
-                    document.querySelectorAll('.skin-option').forEach(o => o.classList.remove('active'));
-                    opt.classList.add('active');
+                    document.querySelectorAll('.skin-option').forEach(o => o.classList.remove('is-selected'));
+                    opt.classList.add('is-selected');
                     document.body.setAttribute('data-skin', opt.getAttribute('data-skin'));
                     localStorage.setItem('ia_core_skin', opt.getAttribute('data-skin'));
                 };
@@ -3148,20 +3148,20 @@
             document.getElementById('accept-config-btn').onclick = () => aplicarConfiguracion(true);
             document.getElementById('close-config-modal').onclick = () => document.getElementById('config-modal').style.display = 'none';
             document.getElementById('close-response').onclick = () => document.getElementById('response-modal').style.display = 'none';
-            const debatePanel = document.getElementById('debate-panel');
-            const debateToggle = document.getElementById('debate-toggle');
-            const syncDebateToggleState = () => {
-                debateToggle.setAttribute('aria-expanded', String(!debatePanel.classList.contains('collapsed')));
+            const requestDraftPanel = document.getElementById('request-draft-panel');
+            const requestDraftToggle = document.getElementById('request-draft-toggle');
+            const syncRequestDraftToggleState = () => {
+                requestDraftToggle.setAttribute('aria-expanded', String(!requestDraftPanel.classList.contains('collapsed')));
             };
-            if (window.matchMedia('(max-width: 760px)').matches) debatePanel.classList.add('collapsed');
-            syncDebateToggleState();
-            debateToggle.onclick = () => {
-                debatePanel.classList.toggle('collapsed');
-                syncDebateToggleState();
+            if (window.matchMedia('(max-width: 760px)').matches) requestDraftPanel.classList.add('collapsed');
+            syncRequestDraftToggleState();
+            requestDraftToggle.onclick = () => {
+                requestDraftPanel.classList.toggle('collapsed');
+                syncRequestDraftToggleState();
             };
             document.getElementById('brand-input').oninput = (e) => { localStorage.setItem('brand_input', e.target.value); };
             
-            document.getElementById('opacity-slider').oninput = (e) => { document.querySelectorAll('.hud-panel, .agent-panel, .debate-panel').forEach(el => el.style.opacity = e.target.value); };
+            document.getElementById('opacity-slider').oninput = (e) => { document.querySelectorAll('.hud-panel, .agent-panel, .request-draft-panel').forEach(el => el.style.opacity = e.target.value); };
             document.getElementById('font-slider').oninput = (e) => { document.body.style.fontSize = e.target.value + 'px'; };
             
             document.getElementById('wallpaper-upload').onchange = (e) => {
@@ -3181,11 +3181,11 @@
             
             document.querySelectorAll('.config-sidebar-item').forEach(item => {
                 item.onclick = () => {
-                    document.querySelectorAll('.config-sidebar-item').forEach(i => i.classList.remove('active'));
-                    document.querySelectorAll('.config-section').forEach(s => s.classList.remove('active'));
-                    item.classList.add('active');
+                    document.querySelectorAll('.config-sidebar-item').forEach(i => i.classList.remove('is-selected'));
+                    document.querySelectorAll('.config-section').forEach(s => s.classList.remove('is-visible'));
+                    item.classList.add('is-selected');
                     const section = item.getAttribute('data-section');
-                    document.getElementById(`config-${section}`).classList.add('active');
+                    document.getElementById(`config-${section}`).classList.add('is-visible');
                     if (section === 'providers') {
                         cargarProveedores();
                     }

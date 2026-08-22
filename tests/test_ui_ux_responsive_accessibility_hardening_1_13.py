@@ -112,12 +112,12 @@ def test_active_ui_preserves_1_6_1_7_1_8_1_9_and_adds_1_13_marker():
 def test_mobile_request_draft_is_contained_without_enabling_actions():
     html = _read(INDEX)
 
-    assert ".debate-panel.collapsed > *:not(.debate-toggle)" in html
+    assert ".request-draft-panel.collapsed > *:not(.request-draft-toggle)" in html
     assert "display: none !important" in html
     assert "width: min(340px, calc(100vw - 44px))" in html
-    assert "syncDebateToggleState" in html
+    assert "syncRequestDraftToggleState" in html
     assert "aria-expanded" in html
-    assert '<button class="debate-toggle" id="debate-toggle" type="button"' in html
+    assert '<button class="request-draft-toggle" id="request-draft-toggle" type="button"' in html
     assert 'id="request-draft-blocked-control" disabled' in html
     assert 'data-interaction-state="blocked_interaction disabled_by_contract"' in html
 
@@ -138,7 +138,7 @@ def test_focus_touch_targets_raw_safe_and_density_are_hardened_in_css():
         assert css in html
 
     assert ".widget-refresh-btn:focus-visible" in html
-    assert ".debate-toggle:focus-visible" in html
+    assert ".request-draft-toggle:focus-visible" in html
 
 
 def test_contract_boundaries_remain_visible_and_read_only():

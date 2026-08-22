@@ -305,6 +305,22 @@ La planificacion no implementa el bloque elegido, no crea endpoints, no agrega d
 `docs/UI_UX_FRONTEND_INCONGRUENCE_AUDIT_1_20.md` inventaria el frontend hecho a mano despues del plan 1.19. El documento clasifica HTML, CSS, JavaScript, microcopy/naming, fetches/rutas/endpoints, storage, tests y docs para separar superficie viva contract-aware, legacy vivo, duplicados, falsos positivos y deuda pospuesta.
 
 1.20 no corrige ni aplica hardening: solo audita, prioriza y deja un plan quirurgico para 1.21. Mantiene no-runtime/no-execution, sin endpoints ni dependencias nuevas, sin router/hash routing operativo y sin tocar `core/`, `api.py`, `domains/`, `tools/`, modelos ni integraciones. Proximo prompt exacto sugerido: `PROMPT UI/UX 1.21 - Endurecer o documentar incongruencias frontend segun auditoria IA_CORE contract-aware sin runtime/no-execution`.
+
+## Hardening frontend incongruence 1.21
+
+`docs/UI_UX_FRONTEND_INCONGRUENCE_HARDENING_1_21.md` consume la auditoria
+1.20 y endurece las incongruencias P1/P2 que seguian vivas en el frontend.
+El request draft usa nombres `request-draft-*`, el panel Request Contract usa
+`request-contract-*`, los registros sanitizados usan `logs-sanitized`, y los
+estados visuales de configuracion usan `is-selected` / `is-visible` en vez de
+`.active` vivo.
+
+El cambio preserva los falsos positivos contract-aware: listas defensivas de
+estados prohibidos, `block: 'start'` como opcion de scroll, campos backend
+`active_provider`, `active_model` y `status.running`, y menciones historicas en
+docs/tests. No crea endpoints, dependencias, runtime, execution, dispatch ni
+controlled execution. Proximo prompt exacto sugerido: `PROMPT UI/UX 1.22 - Checkpoint Frontend Incongruence IA_CORE contract-aware sin runtime/no-execution`.
+
 ## Widgets backend contract
 
 `backend-contract-widgets.js` no crea ni consulta endpoints. Renderiza payloads

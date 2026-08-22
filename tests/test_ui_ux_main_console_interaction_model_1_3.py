@@ -71,7 +71,7 @@ def test_flow_focus_controls_are_local_read_only_and_accessible():
     assert "selectFlowStep" in script
     assert "scrollIntoView" in script
     assert "bindRequestDisclosure" in script
-    assert 'aria-controls="debate-panel"' in html
+    assert 'aria-controls="request-draft-panel"' in html
     assert "localStorage" not in script
     assert "sessionStorage" not in script
     assert "fetch(" not in script
@@ -174,7 +174,7 @@ def test_interaction_model_documents_responsive_and_scope_boundaries():
     assert 'data-interaction-scope="existing-management"' in html
     assert "request draft inició colapsado" in doc
     assert "@media (max-width: 760px)" in html
-    assert "debatePanel.classList.add('collapsed')" in html
+    assert "requestDraftPanel.classList.add('collapsed')" in html
 
 
 def test_interaction_model_keeps_legacy_identity_out_of_active_ui():

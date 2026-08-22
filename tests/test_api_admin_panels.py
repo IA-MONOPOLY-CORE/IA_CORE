@@ -235,7 +235,7 @@ def test_status_reuses_existing_endpoint_for_hybrid_and_overview(monkeypatch):
 def test_hud_contains_all_migrated_sections_and_script():
     html = Path("ui/web/index.html").read_text(encoding="utf-8")
 
-    for section in ("memory", "logs", "hybrid", "orchestration", "overview"):
+    for section in ("memory", "logs", "hybrid", "request-contract", "overview"):
         assert f'data-section="{section}"' in html
         assert f'id="config-{section}"' in html
     assert '<script src="/admin-panels.js"></script>' in html
@@ -340,7 +340,7 @@ def test_hud_active_identity_is_ia_core_without_legacy_product_branding():
     assert "combinatoria" not in html.lower()
     assert "PUNTAJE DE CONSENSO" in html
     assert "val-consensus-score" in html
-    assert "debate-consensus-score" in html
+    assert "request-draft-consensus-score" in html
     assert "val-uscore" not in html
     assert "debate-uscore" not in html
     assert ">uSCORE<" not in html
@@ -670,7 +670,7 @@ def test_hud_create_agent_consumes_domain_profile_catalog_and_persists_specializ
     assert "/api/catalogs/roles" in html
     assert "/api/catalogs/specializations" in html
     assert "agentProfileCatalogCache" in html
-    assert "activeAgentProfileCatalog" in html
+    assert "currentAgentProfileCatalog" in html
     assert "currentAgentPreset" in html
     assert "agentFieldTouched" in html
     assert "setFieldIfAllowed" in html

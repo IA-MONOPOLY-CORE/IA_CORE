@@ -157,8 +157,8 @@
     }
 
     function bindRequestDisclosure() {
-        const panel = document.getElementById('debate-panel');
-        const control = document.getElementById('debate-toggle');
+        const panel = document.getElementById('request-draft-panel');
+        const control = document.getElementById('request-draft-toggle');
         if (!panel || !control) return;
 
         const syncDisclosure = () => {

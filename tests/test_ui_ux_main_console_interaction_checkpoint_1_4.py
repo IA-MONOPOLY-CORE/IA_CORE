@@ -208,7 +208,7 @@ def test_responsive_accessibility_checkpoint_is_documented_and_structurally_test
     assert "disclosure usable con click/Enter/Espacio" in doc
     assert "inspector read-only usable en movil" in doc
     assert "@media (max-width: 760px)" in html
-    assert 'aria-controls="debate-panel"' in html
+    assert 'aria-controls="request-draft-panel"' in html
     assert 'aria-expanded="true"' in html
     ids = [value for value in re.findall(r'id="([^"]+)"', html) if "$" not in value]
     assert len(ids) == len(set(ids))

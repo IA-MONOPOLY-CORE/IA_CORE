@@ -99,10 +99,10 @@ def test_keyboard_toggle_and_aria_semantics_are_preserved():
     html = _read(INDEX)
     text = _read(DOC)
 
-    assert '<button class="debate-toggle" id="debate-toggle" type="button"' in html
-    assert "syncDebateToggleState" in html
+    assert '<button class="request-draft-toggle" id="request-draft-toggle" type="button"' in html
+    assert "syncRequestDraftToggleState" in html
     assert "aria-expanded" in html
-    assert ".debate-panel.collapsed .debate-toggle" in html
+    assert ".request-draft-panel.collapsed .request-draft-toggle" in html
     assert "toggle del request draft responde con Enter/Espacio" in text
     assert "aria-current" in text
     assert "aria-expanded" in text
