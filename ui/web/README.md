@@ -264,6 +264,20 @@ dependencias, no activa runtime, no activa execution y conserva 21st.dev, UI UX
 Pro Max Skill y Framer Motion / Motion como benchmarks futuros solamente.
 Proximo prompt exacto sugerido: `PROMPT UI/UX 1.16 - Auditar boundaries administrativos y exposicion interna de consola IA_CORE contract-aware sin runtime/no-execution`.
 
+## Auditoria admin boundary/exposure 1.16
+
+`docs/UI_UX_ADMIN_BOUNDARY_EXPOSURE_AUDIT_1_16.md` audita boundaries
+administrativos y exposicion interna despues del plan 1.15. Revisa Contract
+Reading, Request Draft, Actions, Blocked Capabilities, Internal Exposure,
+Evidence, Navigation/Focus, Component, Responsive y Language/Microcopy sin
+implementar hardening ni crear UI nueva.
+
+La auditoria deja el veredicto `UI_READY_FOR_ADMIN_BOUNDARY_HARDENING` y
+clasifica hallazgos P0/P1/P2/P3 para 1.17. Mantiene IA_CORE como identidad
+activa, conserva `forbidden_actions` y `blocked_capabilities` visibles, no
+activa runtime, no activa execution, no crea dispatch real, sin endpoints y
+sin dependencias. Proximo prompt exacto sugerido: `PROMPT UI/UX 1.17 - Endurecer boundaries administrativos y exposicion interna de consola IA_CORE contract-aware sin runtime/no-execution`.
+
 ## Widgets backend contract
 
 `backend-contract-widgets.js` no crea ni consulta endpoints. Renderiza payloads
