@@ -411,7 +411,15 @@ docs/UI_UX_DENSITY_INFORMATION_ARCHITECTURE_AUDIT_1_28.md audita la densidad pos
 
 La auditoria confirma que forbidden_actions, blocked_capabilities, warnings/errors, ausencia de payload, no-runtime/no-execution, request draft read-only e identidad IA_CORE no deben ocultarse. No crea endpoints, rutas, fetches, pantallas, dependencias, runtime, execution, dispatch ni controlled execution.
 
-Proximo prompt exacto sugerido: PROMPT UI/UX 1.29 - Endurecer densidad y arquitectura de informacion IA_CORE contract-aware sin runtime/no-execution.
+Bloque siguiente ejecutado en 1.29 desde PROMPT UI/UX 1.29 - Endurecer densidad y arquitectura de informacion IA_CORE contract-aware sin runtime/no-execution; ver hardening Density Reduction / Information Architecture abajo.
+
+## Hardening Density Reduction / Information Architecture 1.29
+
+docs/UI_UX_DENSITY_INFORMATION_ARCHITECTURE_HARDENING_1_29.md aplica hardening acotado sobre la consola IA_CORE activa. Agrega escala P0/P1/P2, mantiene critical always visible, usa secondary readable para detalle no critico y aplica disclosure seguro a glosario, raw-safe y evidencia extendida.
+
+El hardening preserva forbidden_actions, blocked_capabilities, no_payload, no-runtime/no-execution y request draft read-only/no-submit/no-dispatch/no-execution como informacion visible. No crea pantallas, rutas, endpoints, fetches, dependencias, runtime, execution, dispatch ni controlled execution.
+
+Proximo prompt exacto sugerido: PROMPT UI/UX 1.30 - Checkpoint Density Reduction / Information Architecture IA_CORE contract-aware sin runtime/no-execution.
 
 ## Widgets backend contract
 

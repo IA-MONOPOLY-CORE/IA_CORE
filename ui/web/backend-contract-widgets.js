@@ -70,11 +70,17 @@
         const element = byId(id);
         if (!element) return;
         const normalized = normalizeVisualState(state);
+        const priorityClass = ['blocked', 'invalid', 'failed'].includes(normalized)
+            ? 'density-critical'
+            : ['no_payload', 'pending', 'not_available'].includes(normalized)
+                ? 'density-primary'
+                : 'density-secondary';
         const componentClasses = [
             'data-widget-value',
             'ia-status-badge',
             'visual-state',
             normalized,
+            priorityClass,
             normalized === 'blocked' ? 'ia-blocker' : '',
             EMPTY_STATES.has(normalized) ? 'ia-empty-state' : '',
         ].filter(Boolean);
@@ -135,6 +141,7 @@
                 'contract-chip',
                 'ia-chip',
                 className,
+                ['forbidden', 'blocked'].includes(className) ? 'density-critical' : 'density-secondary',
                 className === 'warning' ? 'ia-warning' : '',
                 className === 'forbidden' ? 'ia-error' : '',
                 className === 'blocked' ? 'ia-blocker' : '',

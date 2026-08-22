@@ -15,7 +15,8 @@ Current GitHub backup target: `https://github.com/IA-MONOPOLY-CORE/IA_CORE`
 - UI/UX cerrado hasta 1.26; `PROMPT UI/UX 1.26 - Checkpoint Operator Guidance / Empty-State Intelligence IA_CORE contract-aware sin runtime/no-execution` cierra Operator Guidance / Empty-State Intelligence como checkpoint documental/test y prepara restore point GitHub.
 - UI/UX planificado hasta 1.27; `PROMPT UI/UX 1.27 - Consolidar siguiente bloque UI/UX post Operator Guidance IA_CORE contract-aware sin runtime/no-execution` selecciona Density Reduction / Information Architecture como proximo bloque.
 - UI/UX auditado hasta 1.28; `PROMPT UI/UX 1.28 - Auditar Density Reduction / Information Architecture IA_CORE contract-aware sin runtime/no-execution` identifica gaps de densidad, critical always visible, secondary readable y disclosure seguro sin implementar cambios activos.
-- Next pending step: `PROMPT UI/UX 1.29 - Endurecer densidad y arquitectura de informacion IA_CORE contract-aware sin runtime/no-execution`.
+- UI/UX endurecido hasta 1.29; `PROMPT UI/UX 1.29 - Endurecer densidad y arquitectura de informacion IA_CORE contract-aware sin runtime/no-execution` aplica hardening acotado de densidad, escala P0/P1/P2, secondary readable y disclosure seguro sin runtime/execution.
+- Next pending step: `PROMPT UI/UX 1.30 - Checkpoint Density Reduction / Information Architecture IA_CORE contract-aware sin runtime/no-execution`.
 - The internal backend is prepared for UI/UX exposure through stable contracts, but runtime remains non-operative.
 - IA_CORE is the active identity.
 - SAAOP/Loteria remain only as historical/internal legacy material where present; they are not active UI identity.
@@ -60,7 +61,7 @@ Key project documentation includes:
 - Backend internal book and phases: `docs/BACKEND_INTERNAL_BOOK_DESIGN.md`, `docs/BACKEND_INTERNAL_PHASE_3_TRANSITION_PLAN.md`, `docs/BACKEND_INTERNAL_PHASE_4_RUNTIME_EXECUTION_PREPARATION_PLAN.md`, `docs/BACKEND_INTERNAL_PHASE_5_TEAM_SANDBOX_BLOCK_PLAN.md`, `docs/BACKEND_INTERNAL_PHASE_6_SANDBOX_E2E_ROLLBACK_REGENERATION_BLOCK_PLAN.md`, `docs/BACKEND_INTERNAL_PHASE_7_UI_CONTRACT_BLOCK_PLAN.md`, `docs/BACKEND_INTERNAL_PHASE_8_CONTROLLED_INTERNAL_EXPOSURE_BLOCK_PLAN.md`.
 - Backend UI contract: `docs/BACKEND_INTERNAL_UI_CONTRACT_7_0.md`, `docs/BACKEND_INTERNAL_STABLE_UI_PAYLOADS_7_6.md`, `docs/BACKEND_INTERNAL_UI_CONTRACT_CHECKPOINT_7_7.md`, `docs/BACKEND_INTERNAL_EXPOSURE_REGISTRY_8_1.md`, `docs/BACKEND_INTERNAL_REQUEST_ENVELOPE_8_2.md`, `docs/BACKEND_INTERNAL_DISPATCHER_8_3.md`, `docs/BACKEND_INTERNAL_CONFIRMATION_GATE_8_4.md`, `docs/BACKEND_INTERNAL_RESPONSE_ADAPTER_8_5.md`, `docs/BACKEND_INTERNAL_EXPOSURE_AUDIT_CHECKPOINT_8_6.md`, `docs/BACKEND_INTERNAL_FUTURE_UI_CONTRACT_PLAN_8_7.md`.
 - UI/UX book and checkpoints from 0.5.3 onward: `docs/UI_UX_CONTRACT_AWARE_CHECKPOINT_0_6.md`, `docs/UI_UX_VISUAL_ARCHITECTURE_0_7.md`, `docs/UI_UX_SUPERIOR_LAYOUT_0_8.md`, `docs/UI_UX_VISUAL_BASE_CHECKPOINT_0_9.md`, `docs/UI_UX_MAIN_CONSOLE_STRUCTURE_1_0.md`, `docs/UI_UX_MAIN_CONSOLE_REFINEMENT_1_1.md`, `docs/UI_UX_MAIN_CONSOLE_FLOW_1_2.md`, `docs/UI_UX_MAIN_CONSOLE_INTERACTION_MODEL_1_3.md`, `docs/UI_UX_MAIN_CONSOLE_INTERACTION_CHECKPOINT_1_4.md`.
-- Current UI/UX chain: `docs/UI_UX_NEXT_BLOCK_PLAN_1_19.md`, `docs/UI_UX_FRONTEND_INCONGRUENCE_AUDIT_1_20.md`, `docs/UI_UX_FRONTEND_INCONGRUENCE_HARDENING_1_21.md`, `docs/UI_UX_FRONTEND_INCONGRUENCE_CHECKPOINT_1_22.md`, `docs/UI_UX_NEXT_BLOCK_PLAN_1_23.md`, `docs/UI_UX_OPERATOR_GUIDANCE_EMPTY_STATE_AUDIT_1_24.md`, `docs/UI_UX_OPERATOR_GUIDANCE_EMPTY_STATE_HARDENING_1_25.md`, `docs/UI_UX_OPERATOR_GUIDANCE_EMPTY_STATE_CHECKPOINT_1_26.md`, `docs/UI_UX_NEXT_BLOCK_PLAN_1_27.md`, `docs/UI_UX_DENSITY_INFORMATION_ARCHITECTURE_AUDIT_1_28.md`.
+- Current UI/UX chain: `docs/UI_UX_NEXT_BLOCK_PLAN_1_19.md`, `docs/UI_UX_FRONTEND_INCONGRUENCE_AUDIT_1_20.md`, `docs/UI_UX_FRONTEND_INCONGRUENCE_HARDENING_1_21.md`, `docs/UI_UX_FRONTEND_INCONGRUENCE_CHECKPOINT_1_22.md`, `docs/UI_UX_NEXT_BLOCK_PLAN_1_23.md`, `docs/UI_UX_OPERATOR_GUIDANCE_EMPTY_STATE_AUDIT_1_24.md`, `docs/UI_UX_OPERATOR_GUIDANCE_EMPTY_STATE_HARDENING_1_25.md`, `docs/UI_UX_OPERATOR_GUIDANCE_EMPTY_STATE_CHECKPOINT_1_26.md`, `docs/UI_UX_NEXT_BLOCK_PLAN_1_27.md`, `docs/UI_UX_DENSITY_INFORMATION_ARCHITECTURE_AUDIT_1_28.md`, `docs/UI_UX_DENSITY_INFORMATION_ARCHITECTURE_HARDENING_1_29.md`.
 - GitHub backup readiness: `docs/IA_CORE_GITHUB_BACKUP_READY.md`.
 
 ## Current UI/UX State
@@ -87,6 +88,7 @@ The active UI is the IA_CORE console in `ui/web/`. It includes:
 - checkpoint 1.26 closes Operator Guidance / Empty-State Intelligence and prepares the GitHub restore point update after tests;
 - plan 1.27 selects Density Reduction / Information Architecture as the next no-runtime/no-execution UI/UX block.
 - audit 1.28 maps density and information architecture gaps, defines critical always visible, secondary readable and safe disclosure, and prepares hardening 1.29 without touching active UI.
+- hardening 1.29 applies Density Reduction / Information Architecture with critical always visible, secondary readable, disclosure seguro, request draft read-only, and P0 visual priority for forbidden_actions and blocked_capabilities.
 
 The UI does not grant permissions. `allowed_actions` is backend-declared only; `forbidden_actions` and `blocked_capabilities` remain visible and non-executable.
 
@@ -134,6 +136,7 @@ python -m pytest tests/test_ui_ux_operator_guidance_empty_state_hardening_1_25.p
 python -m pytest tests/test_ui_ux_operator_guidance_empty_state_checkpoint_1_26.py -q
 python -m pytest tests/test_ui_ux_next_block_plan_1_27.py -q
 python -m pytest tests/test_ui_ux_density_information_architecture_audit_1_28.py -q
+python -m pytest tests/test_ui_ux_density_information_architecture_hardening_1_29.py -q
 python -m pytest tests/test_backend_internal_future_ui_contract_plan_8_7.py tests/test_backend_internal_ui_payloads_7_6.py -q
 python -m pytest tests/test_ia_core_github_backup_readiness.py -q
 ```
@@ -144,8 +147,8 @@ When using this Codex workspace, pytest may need `PYTHONPATH` pointing to `.test
 
 1. Run `git status --short` and confirm the tree is clean.
 2. Run `git rev-parse --short HEAD` and compare it with the documented latest commit.
-3. Read the latest docs: `docs/UI_UX_NEXT_BLOCK_PLAN_1_23.md`, `docs/UI_UX_OPERATOR_GUIDANCE_EMPTY_STATE_AUDIT_1_24.md` including subprompt 1.24.1 language criteria, `docs/UI_UX_OPERATOR_GUIDANCE_EMPTY_STATE_HARDENING_1_25.md`, `docs/UI_UX_OPERATOR_GUIDANCE_EMPTY_STATE_CHECKPOINT_1_26.md`, `docs/UI_UX_NEXT_BLOCK_PLAN_1_27.md`, `docs/UI_UX_DENSITY_INFORMATION_ARCHITECTURE_AUDIT_1_28.md`, then this README.
-4. Continue only with the exact next prompt: `PROMPT UI/UX 1.29 - Endurecer densidad y arquitectura de informacion IA_CORE contract-aware sin runtime/no-execution`.
+3. Read the latest docs: `docs/UI_UX_NEXT_BLOCK_PLAN_1_23.md`, `docs/UI_UX_OPERATOR_GUIDANCE_EMPTY_STATE_AUDIT_1_24.md` including subprompt 1.24.1 language criteria, `docs/UI_UX_OPERATOR_GUIDANCE_EMPTY_STATE_HARDENING_1_25.md`, `docs/UI_UX_OPERATOR_GUIDANCE_EMPTY_STATE_CHECKPOINT_1_26.md`, `docs/UI_UX_NEXT_BLOCK_PLAN_1_27.md`, `docs/UI_UX_DENSITY_INFORMATION_ARCHITECTURE_AUDIT_1_28.md`, `docs/UI_UX_DENSITY_INFORMATION_ARCHITECTURE_HARDENING_1_29.md`, then this README.
+4. Continue only with the exact next prompt: `PROMPT UI/UX 1.30 - Checkpoint Density Reduction / Information Architecture IA_CORE contract-aware sin runtime/no-execution`.
 5. Run the relevant tests.
 6. Commit the completed block.
 7. Confirm `git status --short` is clean again.
@@ -176,7 +179,7 @@ No `package.json` is currently detected; the active UI appears to be static file
 - Use clean commits.
 - Push after important block/checkpoint closures; routine planning/documentation and pre-checkpoint implementation commits, including 1.24.1 and 1.25, may remain local until the next restore point unless the operator asks for an update.
 - Checkpoint 1.26 closes Operator Guidance / Empty-State Intelligence and is the current GitHub restore point.
-- Plan 1.27 and audit 1.28 are local by default; the next recommended restore point is after the Density Reduction / Information Architecture checkpoint 1.30, unless a critical change or explicit operator decision requires earlier push.
+- Plan 1.27, audit 1.28 and hardening 1.29 are local by default; the next recommended restore point is after the Density Reduction / Information Architecture checkpoint 1.30, unless a critical change or explicit operator decision requires earlier push.
 - Verify `git remote -v` before pushing.
 - Use normal push only, for example `git push -u origin main`.
 - Do not force push.
