@@ -1,123 +1,158 @@
 # IA_CORE
 
-Sistema cognitivo local modular: motor de debate multiagente genérico con arquitectura separada por dominios.
+IA_CORE is a local, contract-aware multi-agent framework in construction. Its current focus is a stable internal backend, a global professional library, and a non-operative UI/UX console that reads contracts without runtime or execution authority.
 
-## Arquitectura
+Current GitHub backup target: `https://github.com/IA-MONOPOLY-CORE/IA_CORE`
 
-IA_CORE es un **motor de debate multiagente genérico** que puede usarse en cualquier dominio. El proyecto incluye un caso de uso específico implementado en domains/loteria/:
+## Current State
 
-- core/: Motor genérico de debate multiagente (Supervisor, orquestación, memoria persistente, gestión de proveedores LLM)
-- domains/loteria/: Caso de uso específico para análisis de Lotería con el framework S.A.A.O.P. (Sistema de Análisis y Arbitraje de Oportunidades Probabilísticas)
+- Last reference commit before this backup: `8d889369`.
+- UI/UX is closed through `PROMPT UI/UX 1.21`.
+- Next pending step: `PROMPT UI/UX 1.22 - Checkpoint Frontend Incongruence IA_CORE contract-aware sin runtime/no-execution`.
+- The internal backend is prepared for UI/UX exposure through stable contracts, but runtime remains non-operative.
+- IA_CORE is the active identity.
+- SAAOP/Loteria remain only as historical/internal legacy material where present; they are not active UI identity.
+- No new public endpoints, no runtime, no execution, no real dispatch, no new dependencies, and no backend operative changes were introduced by the latest UI/UX block.
 
-Esta separación permite reutilizar el motor genérico en otros dominios sin contaminar el código base con lógica específica.
+## Project Principles
 
-## Caso de uso: S.A.A.O.P. (Lotería)
+- One prompt at a time.
+- Real tests before closing a block.
+- One commit per closed block.
+- Clean working tree after each closure.
+- no-runtime/no-execution until formally enabled by contract.
+- No phantom actions.
+- No unauthorized endpoints.
+- No impulse dependencies.
+- Contract before interface.
+- First truth, then beauty, then level.
 
-El sistema incluye 6 agentes especializados para análisis de Lotería:
+## Project Map
 
-1. gpt_auditor (Critic) - Escéptico que destruye hipótesis
-2. gemini_cuantico (Analyst Zones) - Explorador de zonas y densidad energética
-3. viejo_lobo_rey (Analyst Human) - Integrador con perspectiva humana
-4. estadistico_integral (Analyst) - Defensor de la hipótesis V19
-5. viejo_deepseek (Optimizer) - Árbitro matemático
-6. nuevo_deepseek_saaop (Orchestrator) - Cierre metodológico
+- `api.py`: FastAPI app serving API routes and `ui/web/` static assets.
+- `core/`: contract, boundary, backend-internal, runtime-preparation, sandbox, memory, permission, response, and security logic.
+- `agents/`: generic agent definitions, roles, loaders, lightweight runners, and runtime JSON agent support.
+- `catalogs/`: professional roles, specializations, archetypes, areas, niches, and model policy catalogs.
+- `domains/`: domain definitions and legacy domain material. `domains/loteria/` is historical/internal legacy context, not active UI identity.
+- `providers/`: provider abstractions and provider implementations.
+- `tools/`: tool boundary/catalog support.
+- `ui/web/`: current web console served statically by FastAPI; there is no detected `package.json` or Node frontend runner.
+- `docs/`: architecture, backend-internal, security, UI/UX, checkpoint, audit, and legacy documentation.
+- `tests/`: pytest regression suite covering contracts, boundaries, backend-internal payloads, UI/UX checkpoints, and backup readiness.
+- `scripts/`: generation, audit, and benchmark helper scripts.
+- `data/`: generated market catalog data.
+- `memory/`, `memoria_agentes/`: local memory/state artifacts; selected volatile state is ignored by Git.
 
-Estos agentes participan en debates estructurados para evaluar combinaciones de lotería usando métricas específicas (U-Score v2.1, zonas Z1-Z9, pesos zonales, etc.).
+## Documentation Map
 
-## Requisitos
+Key project documentation includes:
 
-- Python 3.11+
-- Ollama (para inferencia local con phi3:mini)
-- Una clave NVIDIA NIM en .env:
+- Initial/security audits: `docs/IA_CORE_SECURITY_SURFACE_AUDIT.md`, `docs/IA_CORE_SECURITY_LAYER_PLAN.md`, `docs/SECURITY_LAYER_FINAL_CHECKPOINT.md`.
+- Prompt/unification and architecture history: `ARCHITECTURE_DECISIONS.md`, `docs/NEXT_ARCHITECTURE_BLOCK_PLAN.md`, `docs/POST_SECURITY_LAYER_ARCHITECTURE_AUDIT.md`.
+- Reverse-engineering and boundary manuals: `docs/CONTEXT_BOUNDARY_POLICY.md`, `docs/OUTPUT_BOUNDARY_POLICY.md`, `docs/MODEL_INVOCATION_BOUNDARY_POLICY.md`, `docs/TOOL_BOUNDARY_POLICY.md`, `docs/SANDBOX_BOUNDARY_POLICY.md`, `docs/RUNTIME_ACTIVATION_GATE_POLICY.md`.
+- Backend internal book and phases: `docs/BACKEND_INTERNAL_BOOK_DESIGN.md`, `docs/BACKEND_INTERNAL_PHASE_3_TRANSITION_PLAN.md`, `docs/BACKEND_INTERNAL_PHASE_4_RUNTIME_EXECUTION_PREPARATION_PLAN.md`, `docs/BACKEND_INTERNAL_PHASE_5_TEAM_SANDBOX_BLOCK_PLAN.md`, `docs/BACKEND_INTERNAL_PHASE_6_SANDBOX_E2E_ROLLBACK_REGENERATION_BLOCK_PLAN.md`, `docs/BACKEND_INTERNAL_PHASE_7_UI_CONTRACT_BLOCK_PLAN.md`, `docs/BACKEND_INTERNAL_PHASE_8_CONTROLLED_INTERNAL_EXPOSURE_BLOCK_PLAN.md`.
+- Backend UI contract: `docs/BACKEND_INTERNAL_UI_CONTRACT_7_0.md`, `docs/BACKEND_INTERNAL_STABLE_UI_PAYLOADS_7_6.md`, `docs/BACKEND_INTERNAL_UI_CONTRACT_CHECKPOINT_7_7.md`, `docs/BACKEND_INTERNAL_EXPOSURE_REGISTRY_8_1.md`, `docs/BACKEND_INTERNAL_REQUEST_ENVELOPE_8_2.md`, `docs/BACKEND_INTERNAL_DISPATCHER_8_3.md`, `docs/BACKEND_INTERNAL_CONFIRMATION_GATE_8_4.md`, `docs/BACKEND_INTERNAL_RESPONSE_ADAPTER_8_5.md`, `docs/BACKEND_INTERNAL_EXPOSURE_AUDIT_CHECKPOINT_8_6.md`, `docs/BACKEND_INTERNAL_FUTURE_UI_CONTRACT_PLAN_8_7.md`.
+- UI/UX book and checkpoints from 0.5.3 onward: `docs/UI_UX_CONTRACT_AWARE_CHECKPOINT_0_6.md`, `docs/UI_UX_VISUAL_ARCHITECTURE_0_7.md`, `docs/UI_UX_SUPERIOR_LAYOUT_0_8.md`, `docs/UI_UX_VISUAL_BASE_CHECKPOINT_0_9.md`, `docs/UI_UX_MAIN_CONSOLE_STRUCTURE_1_0.md`, `docs/UI_UX_MAIN_CONSOLE_REFINEMENT_1_1.md`, `docs/UI_UX_MAIN_CONSOLE_FLOW_1_2.md`, `docs/UI_UX_MAIN_CONSOLE_INTERACTION_MODEL_1_3.md`, `docs/UI_UX_MAIN_CONSOLE_INTERACTION_CHECKPOINT_1_4.md`.
+- Current UI/UX chain: `docs/UI_UX_NEXT_BLOCK_PLAN_1_19.md`, `docs/UI_UX_FRONTEND_INCONGRUENCE_AUDIT_1_20.md`, `docs/UI_UX_FRONTEND_INCONGRUENCE_HARDENING_1_21.md`.
+- GitHub backup readiness: `docs/IA_CORE_GITHUB_BACKUP_READY.md`.
 
-NVIDIA_API_KEY=nvapi-...
+## Current UI/UX State
 
-Los comandos asumen que python apunta a Python 3.11+ (python --version). Si Windows no lo tiene en PATH, usa la ruta completa a tu python.exe para crear el entorno virtual.
+The active UI is the IA_CORE console in `ui/web/`. It includes:
 
-## Instalación limpia
+- backend contract widgets over `backend_internal_ui_payload.v1`;
+- cleaned IA_CORE active identity;
+- visual architecture and superior layout;
+- main console flow and read-only interaction model;
+- payload reading model with summary/detail/raw-safe layers;
+- contract detail panels;
+- internal navigation without hash routing;
+- minimal IA_CORE component system;
+- responsive/accessibility hardening;
+- admin boundary/exposure hardening;
+- frontend incongruence audit 1.20;
+- hardening 1.21 for `request-draft-*`, `request-contract-*`, `logs-sanitized`, and non-operative visual state naming.
 
-cd c:\IA_CORE
-python -m venv venv
-.\venv\Scripts\activate
-.\venv\Scripts\python.exe -m pip install --upgrade pip
-.\venv\Scripts\python.exe -m pip install -r requirements-api.txt
+The UI does not grant permissions. `allowed_actions` is backend-declared only; `forbidden_actions` and `blocked_capabilities` remain visible and non-executable.
 
-## API local
+## Current Backend State
 
-.\venv\Scripts\python.exe api.py
+At a high level, the backend contains:
 
-La API queda disponible por defecto en http://localhost:8000.
+- global professional library and catalogs for roles, specializations, archetypes, areas, niches, and generated professional profiles;
+- domain profile catalogs and agent presets where applicable;
+- `backend_internal_ui_payload.v1` and stable UI payload projections;
+- internal exposure registry;
+- request envelope `backend_internal_ui_request.v1`;
+- dispatcher no-runtime boundary;
+- confirmation gate;
+- response adapter;
+- read-only internal backend read models;
+- security and boundary policies for secrets, context, output, tools, model invocation, sandbox, and runtime activation.
 
-## Arranque por consola
+Runtime/execution preparation exists as contract and read-model work, but no operative runtime/execution is active.
 
-Este modo ejecuta una orquestación local y espera que Ollama esté instalado, con el modelo phi3:mini disponible.
+## Current Limits
 
-ollama pull phi3:mini
-.\venv\Scripts\python.exe main.py
+- No runtime.
+- No execution.
+- No real dispatch.
+- No new public endpoints for runtime or execution.
+- No tool or model invocation from the UI.
+- No active integrations for production operation.
+- No production deployment yet.
+- No Git history rewrite or force push for backup.
 
-## Interfaz visual
+## Tests Principales
 
-El **HUD web de `ui/web/` es la única interfaz del proyecto**. FastAPI lo sirve en
-http://localhost:8000 y el frontend consume el backend mediante `/api/*`.
+Known quick checks:
 
-## Enrutamiento híbrido
+```powershell
+node --check ui/web/backend-contract-widgets.js
+node --check ui/web/admin-panels.js
+node --check ui/web/console-interactions.js
+python -m pytest tests/test_api_admin_panels.py -q
+python -m pytest tests/test_ui_ux_frontend_incongruence_hardening_1_21.py -q
+python -m pytest tests/test_backend_internal_future_ui_contract_plan_8_7.py tests/test_backend_internal_ui_payloads_7_6.py -q
+python -m pytest tests/test_ia_core_github_backup_readiness.py -q
+```
 
-core/hybrid/ selecciona proveedor local (Ollama/phi3) u online según conectividad, política de recursos y config.HYBRID_MODE. Panel Híbrido en la UI.
+When using this Codex workspace, pytest may need `PYTHONPATH` pointing to `.testdeps` if project dependencies are already staged there.
 
-## Estructura
+## Continuation Workflow
 
-core/                  Motor genérico de debate multiagente
-  base.py              Contrato ABC para componentes del sistema
-  debate.py            Motor de debate multi-ronda
-  evolution_base.py    Clase base genérica para sistemas evolutivos
-  herramientas.py      Sistema de herramientas compartidas
-  memoria_perpetua.py  Sistema de memoria con ChromaDB
-  orchestration.py     Modelos de datos para orquestación
-  supervisor.py        Orquestador principal de debates
-  hybrid/              Enrutamiento híbrido local/online
+1. Run `git status --short` and confirm the tree is clean.
+2. Run `git rev-parse --short HEAD` and compare it with the documented latest commit.
+3. Read the latest docs: `docs/UI_UX_FRONTEND_INCONGRUENCE_HARDENING_1_21.md`, then this README.
+4. Continue only with the exact next prompt: `PROMPT UI/UX 1.22 - Checkpoint Frontend Incongruence IA_CORE contract-aware sin runtime/no-execution`.
+5. Run the relevant tests.
+6. Commit the completed block.
+7. Confirm `git status --short` is clean again.
 
-agents/                Gestión genérica de agentes
-  base.py              Contrato ABC para agentes
-  manager.py           Registro y carga dinámica de agentes
-  prompts.py           Construcción de prompts por rol
-  roles.py             Enum de roles genéricos
-  runtime_json_agent.py Implementación de agente desde JSON
-  loader.py            Descubrimiento de módulos de agentes
+## Restoration And Continuidad
 
-providers/             Proveedores LLM
-  base.py              Contrato ABC para proveedores
-  registry.py          Registro de proveedores
-  claude_provider.py   Implementación Claude
-  deepseek_provider.py Implementación DeepSeek
-  gemini_provider.py   Implementación Gemini
-  groq_provider.py     Implementación Groq
-  nvidia_provider.py   Implementación NVIDIA NIM
-  ollama_provider.py   Implementación Ollama
-  openai_provider.py   Implementación OpenAI
-  openrouter_provider.py Implementación OpenRouter
+General restoration steps for another PC:
 
-tools/                 Gestión de herramientas
-  manager.py           Catálogo de herramientas
-  loader.py            Descubrimiento de módulos de herramientas
+1. Clone `https://github.com/IA-MONOPOLY-CORE/IA_CORE`.
+2. Read this `README.md` and `docs/IA_CORE_GITHUB_BACKUP_READY.md`.
+3. Create a Python environment if needed.
+4. Install dependencies from the existing dependency files, for example `requirements-api.txt` or `requirements.txt` according to the task being resumed.
+5. Run the principal tests listed above.
+6. Start the local API/UI with the existing project method, for example `python api.py` from an activated Python environment if dependencies are installed.
+7. Open the UI served by FastAPI at the local server URL.
+8. Continue from the next prompt documented above.
 
-domains/loteria/       Caso de uso específico: Lotería/S.A.A.O.P.
-  config_loteria.py    Configuración específica (agentes, límites, mapeos)
-  debate_loteria.py    Patrones de contradicción específicos
-  prompts_loteria.py   Prompts específicos de los 6 agentes
-  evolution_loteria.py Gestión evolutiva específica de Lotería
-  scoring.py           U-Score v2.1 (100% específico)
-  uscore_calculator.py Calculadora U-Score v2.1
-  backtest_ciego.py    Backtesting ciego específico
-  cargar_sorteos.py    Carga de sorteos específica
-  lotoplus_completo_3511_3885.json Datos históricos
-  agents/config/       Configuraciones JSON de los 6 agentes
+No `package.json` is currently detected; the active UI appears to be static files served by FastAPI rather than a Node/Vite app.
 
-memoria_agentes/       Memoria persistente por agente (JSON)
-memoria_vectorial/     Memoria vectorial por agente (ChromaDB)
-ui/web/                HUD web servido por FastAPI
-config.py              Configuración global del proyecto
-api.py                 API REST FastAPI
+## Backup And GitHub Safety
 
-## Tests
-
-.\venv\Scripts\python.exe -m pytest tests\ -q --ignore=tests/test_ollama_integration.py
+- GitHub target: `https://github.com/IA-MONOPOLY-CORE/IA_CORE`.
+- Prefer a private repository while the project contains internal architecture, historical domain material, and local development context.
+- No subir secretos; do not commit secrets.
+- Do not commit `.env` or `.env.*`.
+- Review `.gitignore` before every backup.
+- Keep local caches, virtual environments, logs, and build outputs out of Git.
+- Use clean commits.
+- Verify `git remote -v` before pushing.
+- Use normal push only, for example `git push -u origin main`.
+- Do not force push.
