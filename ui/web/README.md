@@ -483,6 +483,18 @@ La planificacion confirma que la consola activa sigue siendo Panel Maestro / ope
 La politica de backup queda registrada: IA_CORE ya tiene restore point remoto hasta `533d0c33`; no hace falta push despues de cada prompt. El proximo restore point recomendado queda para el checkpoint de separacion Panel Maestro / User Panel, estimado 1.38, salvo cambio critico o decision explicita del operador.
 
 Proximo prompt exacto sugerido: PROMPT UI/UX 1.36 - Auditar separacion Panel Maestro / User Panel IA_CORE contract-aware sin runtime/no-execution.
+
+Bloque siguiente ejecutado en 1.36 desde PROMPT UI/UX 1.36 - Auditar separacion Panel Maestro / User Panel IA_CORE contract-aware sin runtime/no-execution; ver auditoria Panel Maestro vs User Panel abajo.
+
+## Auditoria Panel Maestro vs User Panel 1.36
+
+docs/UI_UX_PANEL_MAESTRO_USER_PANEL_SEPARATION_AUDIT_1_36.md audita la separacion futura Panel Maestro / User Panel sin implementar User Panel. Confirma que la consola activa sigue siendo Panel Maestro / operador interno y que User Panel no implementado permanece como estado del bloque.
+
+La auditoria clasifica hallazgos P0/P1/P2/P3, inicializa matriz de exposicion con Panel Maestro only, User Panel translated, Shared safe, Prohibited for User Panel, Future contract required y Fixture/test only, y define reglas de lenguaje, estados, acciones/permisos y evidence/logs por superficie.
+
+No modifica UI activa, no cambia microcopy visible, no crea pantallas, rutas, endpoints ni fetches, no instala dependencias, no activa runtime, execution, dispatch ni controlled execution. Push sigue pospuesto; el proximo restore point recomendado queda para el checkpoint 1.38 salvo cambio critico o decision explicita.
+
+Proximo prompt exacto sugerido: PROMPT UI/UX 1.37 - Documentar boundaries Panel Maestro / User Panel IA_CORE contract-aware sin runtime/no-execution.
 ## Widgets backend contract
 
 `backend-contract-widgets.js` no crea ni consulta endpoints. Renderiza payloads
