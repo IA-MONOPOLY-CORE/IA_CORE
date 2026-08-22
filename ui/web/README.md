@@ -290,6 +290,11 @@ Cambios contract-aware aplicados:
 
 Veredicto: `UI_READY_FOR_ADMIN_BOUNDARY_CHECKPOINT`.
 Proximo prompt exacto: `PROMPT UI/UX 1.18 - Checkpoint Admin Boundary / Exposure Review IA_CORE contract-aware sin runtime/no-execution`.
+## Checkpoint admin boundary/exposure 1.18
+
+`docs/UI_UX_ADMIN_BOUNDARY_EXPOSURE_CHECKPOINT_1_18.md` cierra el bloque Admin Boundary / Exposure Review `1.15 -> 1.17` como checkpoint documental y de pruebas. Confirma naming read-only, request draft bloqueado/no-submit/no-dispatch/no-execution, `allowed_actions` backend-declared, `forbidden_actions` y `blocked_capabilities` visibles, exposicion interna como lectura no activable, evidence/next step planned y navegacion/foco/componentes sin permisos inferidos.
+
+El bloque Admin Boundary / Exposure Review queda cerrado con no runtime, no execution, no dispatch, sin endpoints y sin dependencias. IA_CORE permanece como identidad activa y no se reintroduce legacy visual activo. Proximo prompt exacto sugerido: `PROMPT UI/UX 1.19 - Consolidar siguiente bloque UI/UX IA_CORE contract-aware sin runtime/no-execution`.
 ## Widgets backend contract
 
 `backend-contract-widgets.js` no crea ni consulta endpoints. Renderiza payloads
