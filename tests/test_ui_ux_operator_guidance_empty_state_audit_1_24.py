@@ -217,3 +217,35 @@ def test_audit_1_24_verdicts_are_recorded():
         "UI_READY_FOR_OPERATOR_GUIDANCE_HARDENING",
     ]:
         assert verdict in text
+
+def test_audit_1_24_records_dual_language_guidance_criterion():
+    text = read(DOC)
+
+    for marker in [
+        "Criterio de lenguaje dual",
+        "Panel Maestro",
+        "Panel Usuario",
+        "Información recibida (payload)",
+        "Todavía no hay información cargada (no_payload)",
+        "Pendiente / todavía no disponible (planned)",
+        "Bloqueado por seguridad (blocked)",
+        "Solo lectura (read-only)",
+        "Acciones disponibles declaradas por el sistema (allowed_actions)",
+        "Acciones no permitidas (forbidden_actions)",
+        "Funciones bloqueadas (blocked_capabilities)",
+        "El Panel Maestro puede enseñar el término técnico",
+        "El Panel Usuario debe ocultar la complejidad técnica",
+        "no inventar permisos",
+        "no ocultar bloqueos",
+        "sin runtime",
+        "sin execution",
+        "PROMPT UI/UX 1.25 - Endurecer guidance y empty states de operador IA_CORE contract-aware sin runtime/no-execution",
+    ]:
+        assert marker in text
+
+    for verdict in [
+        "DUAL_LANGUAGE_GUIDANCE_CRITERION_RECORDED",
+        "MASTER_PANEL_TECHNICAL_TERMS_CAN_BE_TAUGHT_WITH_PARENTHESES",
+        "USER_PANEL_TECHNICAL_JARGON_MUST_BE_TRANSLATED",
+    ]:
+        assert verdict in text

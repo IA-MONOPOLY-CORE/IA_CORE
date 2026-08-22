@@ -199,6 +199,75 @@ Hallazgos:
 - Textos excesivos potenciales: detail panels y request draft mobile si 1.25 agrega parrafos largos.
 - Consistencia IA_CORE: buena; identidad activa IA_CORE preservada y sin legacy visual activo.
 
+## Criterio de lenguaje dual Panel Maestro / Panel Usuario
+
+Veredicto: `DUAL_LANGUAGE_GUIDANCE_CRITERION_RECORDED`
+
+Este criterio queda incorporado a la auditoria 1.24 para que el hardening 1.25 mejore comprension sin reducir verdad contractual.
+
+### Panel Maestro / operador interno
+
+El Panel Maestro debe priorizar lenguaje claro, simple y humano. Puede conservar el término técnico entre parentesis cuando ayude a trazabilidad, aprendizaje, depuracion, continuidad con contratos, comunicacion con agentes IDE y lectura tecnica futura.
+
+Formato recomendado:
+
+`Texto claro para humanos (término técnico)`
+
+Ejemplos de traduccion para Panel Maestro:
+
+- Información recibida (payload)
+- Todavía no hay información cargada (no_payload)
+- Pendiente / todavía no disponible (planned)
+- Bloqueado por seguridad (blocked)
+- Solo lectura (read-only)
+- Definido por el sistema interno (backend-only)
+- Acciones disponibles declaradas por el sistema (allowed_actions)
+- Acciones no permitidas (forbidden_actions)
+- Funciones bloqueadas (blocked_capabilities)
+- Vista segura de datos (raw-safe)
+- Ejemplo técnico / dato de prueba (contract_fixture)
+- Validación del sistema (validation)
+- Registro interno de exposición (registry)
+- Adaptador de respuesta (response adapter)
+- Despachador sin ejecución real (dispatcher no-runtime)
+
+Veredicto: `MASTER_PANEL_TECHNICAL_TERMS_CAN_BE_TAUGHT_WITH_PARENTHESES`
+
+### Panel Usuario / experiencia final
+
+El Panel Usuario debe usar lenguaje simple, humano y directo. Debe ocultar jerga tecnica innecesaria cuando exista una forma clara y honesta de decir lo mismo. No deberia mostrar términos como `payload`, `schema`, `raw-safe`, `dispatcher`, `adapter`, `registry`, `allowed_actions`, `forbidden_actions`, `blocked_capabilities`, `contract_fixture`, `backend-only`, `no_payload` o `planned` si puede traducirlos sin perder exactitud contractual.
+
+Ejemplos de traduccion para Panel Usuario:
+
+- `payload` -> informacion recibida.
+- `no_payload` -> todavia no hay informacion cargada.
+- `planned` -> pendiente / todavia no disponible.
+- `blocked` -> bloqueado por seguridad.
+- `read-only` -> solo lectura.
+- `allowed_actions` -> acciones disponibles declaradas por el sistema.
+- `forbidden_actions` -> acciones no permitidas.
+- `blocked_capabilities` -> funciones bloqueadas.
+
+Veredicto: `USER_PANEL_TECHNICAL_JARGON_MUST_BE_TRANSLATED`
+
+### Reglas de seguridad del lenguaje dual
+
+- El Panel Maestro puede enseñar el término técnico.
+- El Panel Usuario debe ocultar la complejidad técnica.
+- La mejora de lenguaje debe aumentar comprension sin reducir verdad contractual.
+- El lenguaje dual debe no ocultar bloqueos.
+- El lenguaje dual debe no inventar permisos.
+- El lenguaje dual debe no convertir estados en acciones.
+- El lenguaje dual debe no suavizar limites de seguridad.
+- El criterio se aplica sin runtime, sin execution, sin dispatch y sin endpoints nuevos.
+
+### Relacion futura con Panel Maestro vs User Panel
+
+Este criterio no crea separacion de pantallas. Solo prepara la regla de lenguaje para una futura separacion Panel Maestro / Panel Usuario: el operador interno puede ver trazabilidad tecnica entre parentesis; la experiencia final debe traducir la jerga a lectura humana directa. Cualquier separacion futura debe mantener `forbidden_actions` y `blocked_capabilities` visibles como limites, no como capacidades disponibles.
+
+### Recomendacion para 1.25
+
+1.25 debe aplicar lenguaje claro + término técnico entre parentesis en Panel Maestro cuando corresponda. Tambien debe traducir lenguaje tecnico a lenguaje simple en futuras pantallas de usuario, evitar jerga innecesaria, mantener exactitud contractual, no ocultar forbidden/blocked, no crear acciones y no crear pantallas nuevas.
 ## Riesgo De Saturacion
 
 Donde guidance ayuda:
@@ -301,16 +370,19 @@ Tests recomendados para 1.25:
 ## Plan Recomendado Para 1.25
 
 1. Endurecer guidance sin crear pantallas: agregar microcopy corta donde ya existen header/readiness/widgets/detail/request/evidence.
-2. Crear diccionario o disclosure compacto de estados permitidos: `ready`, `passed`, `blocked`, `planned`, `pending`, `invalid`, `failed`, `not_available`, `no_payload`, `contract_fixture`, `read_only`, `backend_only`, `forbidden`, `warning`, `error`.
-3. Convertir empty states principales en mensajes con causa, consecuencia, limite y proximo paso no-operativo.
-4. Actualizar Next Step planned hacia continuidad del bloque guidance 1.25/1.26 sin CTA.
-5. Reforzar actions/boundaries: `allowed_actions` backend-declared no concede permiso UI; `forbidden_actions` visible; `blocked_capabilities true = blocked`.
-6. Mantener mobile corto: no agregar manual gigante, no tapar blockers, usar disclosure si hace falta.
-7. Agregar tests 1.25 para guidance/empty states/no CTAs/no endpoints/no dependencies.
+2. Aplicar lenguaje claro + término técnico entre parentesis en Panel Maestro cuando corresponda, por ejemplo `Información recibida (payload)`.
+3. Traducir lenguaje tecnico a lenguaje simple en futuras pantallas de usuario, evitando jerga innecesaria sin perder exactitud contractual.
+4. Crear diccionario o disclosure compacto de estados permitidos: `ready`, `passed`, `blocked`, `planned`, `pending`, `invalid`, `failed`, `not_available`, `no_payload`, `contract_fixture`, `read_only`, `backend_only`, `forbidden`, `warning`, `error`.
+5. Convertir empty states principales en mensajes con causa, consecuencia, limite y proximo paso no-operativo.
+6. Actualizar Next Step planned hacia continuidad del bloque guidance 1.25/1.26 sin CTA.
+7. Reforzar actions/boundaries: `allowed_actions` backend-declared no concede permiso UI; `forbidden_actions` visible; `blocked_capabilities true = blocked`.
+8. Mantener mobile corto: no agregar manual gigante, no tapar blockers, usar disclosure si hace falta.
+9. Agregar tests 1.25 para guidance/empty states/lenguaje dual/no CTAs/no endpoints/no dependencies.
 
 Que no debe hacer 1.25:
 
 - no crear pantallas nuevas;
+- no ignorar el criterio de lenguaje dual Panel Maestro / Panel Usuario;
 - no crear rutas;
 - no crear endpoints;
 - no instalar dependencias;
@@ -354,6 +426,9 @@ Veredicto: `GUIDANCE_NO_ENDPOINTS_NO_DEPENDENCIES_CONFIRMED`
 - `EMPTY_STATE_INTELLIGENCE_GAPS_IDENTIFIED`
 - `GUIDANCE_NO_RUNTIME_NO_EXECUTION_CONFIRMED`
 - `GUIDANCE_NO_ENDPOINTS_NO_DEPENDENCIES_CONFIRMED`
+- `DUAL_LANGUAGE_GUIDANCE_CRITERION_RECORDED`
+- `MASTER_PANEL_TECHNICAL_TERMS_CAN_BE_TAUGHT_WITH_PARENTHESES`
+- `USER_PANEL_TECHNICAL_JARGON_MUST_BE_TRANSLATED`
 - `UI_READY_FOR_OPERATOR_GUIDANCE_HARDENING`
 
 ## Continuidad
