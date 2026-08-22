@@ -471,6 +471,18 @@ El checkpoint registra evidencia visual humana: el operador reviso localhost y c
 El cierre confirma narrative step no-operativo, evidence/logs como trazabilidad, Next Step como guidance documental, REQUEST CONTRACT PREVIEW read-only/no-submit/no-dispatch/no-execution, blocked/forbidden/no-runtime en historia principal, IA_CORE como identidad activa, sin legacy visual activo, sin endpoints, sin dependencias, sin runtime, sin execution, sin dispatch y sin controlled execution.
 
 El checkpoint prepara nuevo restore point GitHub tras commit, tests y push normal. Proximo prompt exacto sugerido: PROMPT UI/UX 1.35 - Consolidar siguiente bloque UI/UX post Contract Storytelling IA_CORE contract-aware sin runtime/no-execution.
+
+Bloque siguiente ejecutado en 1.35 desde PROMPT UI/UX 1.35 - Consolidar siguiente bloque UI/UX post Contract Storytelling IA_CORE contract-aware sin runtime/no-execution; ver planificacion Panel Maestro vs User Panel abajo.
+
+## Planificacion Panel Maestro vs User Panel 1.35
+
+docs/UI_UX_NEXT_BLOCK_PLAN_1_35.md selecciona Panel Maestro vs User Panel Separation Planning como siguiente bloque UI/UX post Contract Storytelling / Operator Narrative.
+
+La planificacion confirma que la consola activa sigue siendo Panel Maestro / operador interno y que Panel Usuario permanece futuro, sin implementacion. El bloque 1.35 no modifica UI activa, no cambia microcopy visible, no crea pantallas, no crea rutas, no crea endpoints, no agrega fetches, no instala dependencias, no activa runtime, no activa execution, no activa dispatch y no implementa controlled execution.
+
+La politica de backup queda registrada: IA_CORE ya tiene restore point remoto hasta `533d0c33`; no hace falta push despues de cada prompt. El proximo restore point recomendado queda para el checkpoint de separacion Panel Maestro / User Panel, estimado 1.38, salvo cambio critico o decision explicita del operador.
+
+Proximo prompt exacto sugerido: PROMPT UI/UX 1.36 - Auditar separacion Panel Maestro / User Panel IA_CORE contract-aware sin runtime/no-execution.
 ## Widgets backend contract
 
 `backend-contract-widgets.js` no crea ni consulta endpoints. Renderiza payloads
