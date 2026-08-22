@@ -439,7 +439,17 @@ La planificacion no implementa storytelling, no crea pantallas, no crea rutas, n
 
 GitHub ya tiene restore point remoto hasta el checkpoint 1.30; no hace falta push despues de cada prompt. El proximo restore point recomendado queda para el checkpoint 1.34, salvo cambio critico o decision explicita del operador.
 
-Proximo prompt exacto sugerido: PROMPT UI/UX 1.32 - Auditar Contract Storytelling / Operator Narrative IA_CORE contract-aware sin runtime/no-execution.
+Bloque siguiente ejecutado en 1.32 desde PROMPT UI/UX 1.32 - Auditar Contract Storytelling / Operator Narrative IA_CORE contract-aware sin runtime/no-execution; ver auditoria Contract Storytelling / Operator Narrative abajo.
+
+## Auditoria Contract Storytelling / Operator Narrative 1.32
+
+docs/UI_UX_CONTRACT_STORYTELLING_OPERATOR_NARRATIVE_AUDIT_1_32.md audita como la consola IA_CORE cuenta el recorrido estado -> payload -> contrato -> lectura -> limites -> evidencia -> proximo paso documental. La auditoria no modifica UI activa y prepara hardening narrativo acotado para 1.33.
+
+El diagnostico no detecta P0 directos. Registra P1 sobre Next Step desactualizado, narrative step no-operativo, evidence/logs como trazabilidad y limites integrados a la historia; registra P2 sobre payload -> contrato, story before raw detail, request draft como contract preview, prompts/checkpoints como evidencia, lenguaje dual y mobile narrative.
+
+La auditoria define reglas contract-aware: narrative step is not execution step, evidence is traceability not live log, next step is documentary guidance not queued task, request draft is contract preview not submit form, and blocked/forbidden must be narrated not hidden. No crea pantallas, rutas, endpoints, fetches, dependencias, runtime, execution, dispatch ni controlled execution.
+
+Proximo prompt exacto sugerido: PROMPT UI/UX 1.33 - Endurecer narrativa de operador IA_CORE contract-aware sin runtime/no-execution.
 
 ## Widgets backend contract
 
