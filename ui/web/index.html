@@ -714,6 +714,44 @@
             color: var(--text-muted);
             font-size: 0.66rem;
         }
+        .operator-guidance-strip,
+        .state-guidance-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 10px;
+            margin: 12px 0;
+        }
+        .state-guidance-grid {
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+        }
+        .operator-guidance-strip div,
+        .state-guidance-card {
+            min-width: 0;
+            padding: 10px;
+            border: 1px solid rgba(148,163,184,0.18);
+            background: rgba(15,23,42,0.58);
+            border-radius: var(--border-radius);
+            color: rgba(226,232,240,0.78);
+            font-size: 0.72rem;
+            line-height: 1.45;
+        }
+        .operator-guidance-strip strong,
+        .state-guidance-card strong {
+            display: block;
+            margin-bottom: 4px;
+            color: var(--text-primary);
+            font-size: 0.7rem;
+        }
+        .operator-guidance-strip span,
+        .state-guidance-card span {
+            overflow-wrap: anywhere;
+        }
+        .request-draft-guidance {
+            margin: 8px 0 0;
+            color: var(--text-muted);
+            font-size: 0.68rem;
+            line-height: 1.45;
+        }
         .contract-detail-panels {
             display: grid;
             grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -842,6 +880,10 @@
             .contract-core-rail { grid-template-columns: 1fr; }
         }
         @media (max-width: 760px) {
+            .operator-guidance-strip,
+            .state-guidance-grid {
+                grid-template-columns: 1fr;
+            }
             body { padding: 12px 12px 84px; }
             .ia-core-shell { padding-right: 44px; }
             header { align-items: flex-start; flex-direction: column; }
@@ -1118,6 +1160,10 @@
             border-radius: 0;
         }
         @media (max-width: 760px) {
+            .operator-guidance-strip,
+            .state-guidance-grid {
+                grid-template-columns: 1fr;
+            }
             .request-draft-panel {
                 width: min(340px, calc(100vw - 44px));
             }
@@ -1286,7 +1332,7 @@
 </head>
 <body data-skin="contract">
 
-    <main class="ia-core-shell" data-layout-contract-aware="superior-0.8" data-main-console="contract-aware-1.0" data-console-refinement="1.1" data-console-flow="contract-aware-1.2" data-console-interaction="contract-aware-1.3" data-payload-reading-model="contract-aware-1.6" data-contract-detail-panels="contract-aware-1.7" data-internal-navigation="contract-aware-1.8" data-component-system="ia-core-contract-aware-1.9" data-responsive-hardening="contract-aware-1.13" data-interaction-mode="read-only">
+    <main class="ia-core-shell" data-layout-contract-aware="superior-0.8" data-main-console="contract-aware-1.0" data-console-refinement="1.1" data-console-flow="contract-aware-1.2" data-console-interaction="contract-aware-1.3" data-payload-reading-model="contract-aware-1.6" data-contract-detail-panels="contract-aware-1.7" data-internal-navigation="contract-aware-1.8" data-component-system="ia-core-contract-aware-1.9" data-responsive-hardening="contract-aware-1.13" data-operator-guidance="contract-aware-1.25" data-interaction-mode="read-only">
     <!-- BANNER PARA LOGOS -->
     <div class="logo-banner" id="logo-banner">
         <div class="logo-banner-inner" id="logo-banner-inner"></div>
@@ -1301,7 +1347,7 @@
         <div class="console-mode">
             <span>Límite operativo</span>
             <strong>PRE-RUNTIME / NO-EXECUTION</strong>
-            <span class="console-orientation-copy">Lectura de contrato y señales declaradas. Esta consola no ejecuta operaciones.</span>
+            <span class="console-orientation-copy">Lectura de contrato y señales declaradas. Esta consola no ejecuta operaciones; guidance no cambia autoridad backend.</span>
         </div>
         <div class="badges-container">
             <div class="badge" id="ventaja-badge" data-component="ia-status-badge ia-empty-state">READINESS: no_payload</div>
@@ -1313,7 +1359,7 @@
     <section class="console-flow-map" aria-label="Ruta de lectura contract-aware">
         <div class="console-flow-intro">
             <div class="layout-label">Ruta de lectura</div>
-            <p>Seguí el estado declarado desde readiness hasta la continuidad documentada.</p>
+            <p>Primero revisá readiness/source, después actions/boundaries y al final evidence/next step. La ruta orienta lectura; no habilita operación.</p>
             <span class="interaction-mode-badge">Interaction mode: read-only</span>
         </div>
         <ol class="console-flow-steps">
@@ -1326,6 +1372,12 @@
         </ol>
     </section>
 
+
+    <section class="operator-guidance-strip" data-guidance-block="operator-empty-state-1.25" aria-label="Guia rapida de operador">
+        <div><strong>Qué estoy viendo</strong><span>Panel Maestro read-only sobre backend_internal_ui_payload.v1.</span></div>
+        <div><strong>Qué revisar primero</strong><span>Readiness/source, acciones no permitidas y funciones bloqueadas.</span></div>
+        <div><strong>Qué no cambia</strong><span>Sin permisos UI, sin datos inventados y sin acciones fuera del contrato.</span></div>
+    </section>
     <nav class="internal-console-nav" data-nav-state="read_only" aria-label="Navegacion interna de consola">
         <div class="internal-nav-header">
             <div class="layout-label">Indice interno / read-only</div>
@@ -1348,22 +1400,22 @@
             <article class="hud-panel readiness-card primary" id="console-readiness-card" data-state="no_payload">
                 <div class="layout-label">Readiness / status</div>
                 <div class="layout-value" id="console-readiness-value">no_payload</div>
-                <p class="layout-copy">Estado declarado por payload; la UI no decide permisos ni infiere capacidades.</p>
+                <p class="layout-copy">Todavía no hay información cargada (no_payload): causa = falta payload; consecuencia = lectura incompleta; límite = la UI no inventa datos.</p>
             </article>
             <article class="hud-panel readiness-card">
                 <div class="layout-label">Schema/payload</div>
                 <div class="layout-value">backend_internal_ui_payload.v1</div>
-                <p class="layout-copy">Los widgets quedan en no_payload hasta recibir envelope estable.</p>
+                <p class="layout-copy">Información recibida (payload): solo existe cuando backend entrega envelope estable; hasta entonces no hay permisos ni operación.</p>
             </article>
             <article class="hud-panel readiness-card">
                 <div class="layout-label">Request draft</div>
                 <div class="layout-value">backend_internal_ui_request.v1</div>
-                <p class="layout-copy">Sin allowed_actions backend, request/dispatch permanecen bloqueados.</p>
+                <p class="layout-copy">Solo lectura (read-only): el draft requiere contrato backend futuro, allowed_actions declarado y capability no bloqueada.</p>
             </article>
             <article class="hud-panel readiness-card" id="console-validation-card" data-state="pending">
                 <div class="layout-label">Validation / diagnostics</div>
                 <div class="layout-value" id="console-validation-summary">pending</div>
-                <p class="layout-copy">Warnings, errors, forbidden_actions y blocked_capabilities permanecen visibles.</p>
+                <p class="layout-copy">Pendiente de información o validación (pending): no es proceso corriendo; revisar payload, warnings, errors y blockers.</p>
             </article>
         </div>
     </section>
@@ -1388,21 +1440,27 @@
                 <div class="layout-value" id="console-contract-validation-value">pending</div>
             </div>
         </div>
+        <div class="state-guidance-grid" aria-label="Guia de estados contract-aware">
+            <div class="state-guidance-card"><strong>No disponible en este estado (not_available)</strong><span>No implica error, no habilita acción y depende de contrato, dato o contexto.</span></div>
+            <div class="state-guidance-card"><strong>Pendiente de información (pending)</strong><span>No está listo todavía y no significa ejecución en curso ni proceso corriendo.</span></div>
+            <div class="state-guidance-card"><strong>Pendiente / todavía no disponible (planned)</strong><span>Previsto como continuidad documental; no usable, no operativo y no es botón.</span></div>
+            <div class="state-guidance-card"><strong>Bloqueado por seguridad (blocked)</strong><span>Si no hay lista de detalle, el bloqueo sigue vigente; ausencia de lista no desbloquea.</span></div>
+        </div>
         <div class="payload-reading-model" data-nav-section="payload-reading" data-nav-state="read_only inspectable" aria-label="Modelo de lectura summary detail raw-safe">
             <article class="reading-layer" data-reading-layer="summary" data-interaction-mode="read-only" data-interaction-state="read_only inspectable">
                 <div class="layout-label">summary</div>
                 <h3>Resumen contractual</h3>
-                <p>Lectura humana de estado, fuente, permisos backend, prohibiciones, bloqueos y diagnostico visible. No suaviza bloqueos criticos.</p>
+                <p>Lectura humana de estado, fuente, permisos backend, prohibiciones, bloqueos y diagnostico visible. No suaviza bloqueos criticos ni convierte empty states en permiso.</p>
             </article>
             <article class="reading-layer" data-reading-layer="detail" data-interaction-mode="read-only" data-interaction-state="read_only inspectable">
                 <div class="layout-label">detail</div>
                 <h3>Detalle tecnico</h3>
-                <p>Lectura tecnica de schema, service_kind, source, validation, flags, warnings/errors y limites. No crea autoridad nueva.</p>
+                <p>Lectura clara con término técnico entre paréntesis: schema, service_kind, source, validación del sistema (validation), flags, warnings/errors y límites.</p>
             </article>
             <article class="reading-layer" data-reading-layer="raw-safe" data-interaction-mode="read-only" data-interaction-state="read_only not_available">
                 <div class="layout-label">raw-safe</div>
                 <h3>Inspeccion segura</h3>
-                <p>Proyeccion local read-only, sin secretos, sin edicion, sin submit y sin modo operativo.</p>
+                <p>Vista segura de datos (raw-safe): proyección local read-only, sin secretos, sin env, sin payload externo crudo, sin edición y sin submit.</p>
                 <code class="raw-safe-output ia-empty-state" id="contract-raw-safe-value" data-component="ia-empty-state">not_available</code>
             </article>
         </div>
@@ -1416,7 +1474,7 @@
                     <div><dt>procedencia</dt><dd data-detail-source="console-payload-source-value">no_payload</dd></div>
                     <div><dt>diagnostico asociado</dt><dd data-detail-source="contract-diagnostics-list">not_available</dd></div>
                 </dl>
-                <p class="detail-panel-note">Readiness orienta al operador; no significa runtime, execution ni permiso operativo.</p>
+                <p class="detail-panel-note">Readiness orienta al operador; no significa runtime, execution ni permiso operativo. not_available depende de dato/contexto y no implica error por sí solo.</p>
             </article>
 
             <article class="contract-detail-panel" data-detail-panel="payload-contract" data-component="ia-detail-panel" data-detail-state="read_only" data-reading-layer-ref="detail raw-safe">
@@ -1429,7 +1487,7 @@
                     <div><dt>source / payload state</dt><dd data-detail-source="console-payload-source-value">no_payload</dd></div>
                     <div><dt>validation summary</dt><dd data-detail-source="console-contract-validation-value">pending</dd></div>
                 </dl>
-                <p class="detail-panel-note">La UI lee el payload; no crea el contrato ni decide permisos. Raw-safe sigue siendo inspeccion local, no modo operativo.</p>
+                <p class="detail-panel-note">La UI lee el payload; no crea el contrato ni decide permisos. Raw-safe sigue siendo inspeccion local: dato seguro, dato omitido cuando corresponde y sin edición.</p>
             </article>
 
             <article class="contract-detail-panel" data-detail-panel="validation" data-component="ia-detail-panel" data-detail-state="read_only" data-reading-layer-ref="detail raw-safe">
@@ -1441,7 +1499,7 @@
                     <div><dt>flags principales</dt><dd class="data-widget-list" id="contract-validation-flags-detail">not_available</dd></div>
                     <div><dt>estado visual</dt><dd data-detail-source="console-contract-validation-value">pending</dd></div>
                 </dl>
-                <p class="detail-panel-note">PASSED solo refleja validacion declarada. Validacion visual no equivale a ejecucion y ningun warning/error se oculta.</p>
+                <p class="detail-panel-note">PASSED solo refleja validacion declarada. pending no es ejecución en curso; warning orienta, error invalida o falla y ningun warning/error se oculta.</p>
             </article>
 
             <article class="contract-detail-panel" data-detail-panel="actions" data-component="ia-detail-panel" data-detail-state="read_only" data-reading-layer-ref="summary detail">
@@ -1453,7 +1511,7 @@
                     <div><dt>allowed state</dt><dd data-detail-source="contract-actions-meta">no_payload</dd></div>
                     <div><dt>forbidden_actions / reason</dt><dd data-detail-source="contract-forbidden-actions">not_available</dd></div>
                 </dl>
-                <p class="detail-panel-note">Permitido solo existe si backend lo declara. Forbidden nunca se convierte en boton activo y este panel no ejecuta acciones.</p>
+                <p class="detail-panel-note">Permitido solo existe si backend lo declara. Acciones disponibles declaradas por el sistema (allowed_actions) no son botones. Acciones no permitidas (forbidden_actions) siguen visibles; lista vacía declarada y dato no informado no significan permiso UI.</p>
             </article>
 
             <article class="contract-detail-panel" data-detail-panel="blocked-capabilities" data-component="ia-detail-panel ia-blocker" data-detail-state="read_only" data-reading-layer-ref="summary detail raw-safe">
@@ -1465,7 +1523,7 @@
                     <div><dt>capabilities declaradas</dt><dd class="data-widget-list" data-detail-source="contract-blocked-list">not_available</dd></div>
                     <div><dt>lectura</dt><dd data-detail-source="contract-blocked-detail">deny-by-default</dd></div>
                 </dl>
-                <p class="detail-panel-note">true = blocked. Runtime, execution, dispatch, tools, models, integrations, public endpoints, ui runtime y operational domains son fronteras contractuales, no fallas esteticas.</p>
+                <p class="detail-panel-note">Funciones bloqueadas (blocked_capabilities): true = blocked. Si blocked llega sin lista, sigue bloqueado; ausencia de lista o campo no informado no desbloquea capabilities.</p>
             </article>
 
             <article class="contract-detail-panel" data-detail-panel="warnings-errors" data-component="ia-detail-panel" data-detail-state="read_only" data-reading-layer-ref="summary detail raw-safe">
@@ -1494,9 +1552,9 @@
                     <span class="layout-token">1.6 reading model · 1b04f7a8</span>
                     <span class="layout-token">1.8 internal navigation · defined</span>
                     <span class="layout-token">1.9 component system · defined</span>
-                    <span class="visual-state planned">planned: checkpoint 1.18</span>
+                    <span class="visual-state planned">planned: guidance checkpoint 1.26</span>
                 </div>
-                <p class="detail-panel-note">Evidencia no es accion. Next Step es continuidad de desarrollo y no inicia runtime, execution ni dispatch.</p>
+                <p class="detail-panel-note">Evidencia no es acción. Next Step es orientación documental planned/no-operativa hacia checkpoint 1.26; no es workflow activo ni botón.</p>
             </article>
         </section>
         <details class="contract-inspector" id="contract-read-only-inspector" data-component="ia-readonly-control" data-interaction-control="inspect" data-interaction-mode="read-only" data-interaction-state="read_only inspectable collapsed">
@@ -1505,7 +1563,7 @@
                 <span class="inspector-disclosure">Ver detalle</span>
             </summary>
             <div class="contract-inspector-body">
-                <p class="contract-inspector-copy">Inspeccionar no significa ejecutar ni activar. Este detalle replica lecturas ya renderizadas y no modifica el contrato.</p>
+                <p class="contract-inspector-copy">Inspeccionar no significa ejecutar ni activar. Este detalle replica lecturas ya renderizadas; si falta dato, la UI muestra ausencia honesta y no completa campos.</p>
                 <dl class="contract-inspector-grid" aria-live="polite">
                     <div><dt>schema_version</dt><dd data-inspector-source="console-schema-value">backend_internal_ui_payload.v1</dd></div>
                     <div><dt>service_kind</dt><dd data-inspector-source="console-service-kind-value">not_available</dd></div>
@@ -1585,31 +1643,31 @@
             <article class="hud-panel contract-layout-zone" data-layout-zone="contract-services" data-main-console-zone="internal-services" data-flow-step="service-signals" data-interaction-mode="read-only" data-interaction-state="inspectable">
                 <div class="layout-label">Contrato y servicios internos</div>
                 <h2>Internal Services / Signals</h2>
-                <p class="layout-copy"><span class="flow-step-index">03</span>Lee cada fila como exposicion interna read-only; visible no significa endpoint publico, activacion ni control operativo.</p>
+                <p class="layout-copy"><span class="flow-step-index">03</span>Lee cada fila como exposición interna read-only; visible no significa endpoint público, activación ni control operativo. Revisá primero registry, validation y dispatcher no-runtime.</p>
                 <ul>
-                    <li class="signal-row"><span class="signal-name">internal_exposure_registry</span><span class="signal-kind">internal read map</span></li>
-                    <li class="signal-row"><span class="signal-name">internal_request_validation</span><span class="signal-kind">contract validation</span></li>
-                    <li class="signal-row"><span class="signal-name">internal_dispatcher_no_runtime</span><span class="signal-kind blocked">no-runtime read</span></li>
-                    <li class="signal-row"><span class="signal-name">internal_confirmation_gate</span><span class="signal-kind">gate read-only</span></li>
-                    <li class="signal-row"><span class="signal-name">internal_response_adapter</span><span class="signal-kind">adapter read-only</span></li>
-                    <li class="signal-row"><span class="signal-name">stable_payloads</span><span class="signal-kind">contract source</span></li>
+                    <li class="signal-row"><span class="signal-name">internal_exposure_registry</span><span class="signal-kind">Registro interno de exposición (registry)</span></li>
+                    <li class="signal-row"><span class="signal-name">internal_request_validation</span><span class="signal-kind">Validación del sistema (validation)</span></li>
+                    <li class="signal-row"><span class="signal-name">internal_dispatcher_no_runtime</span><span class="signal-kind blocked">Despachador sin ejecución real (dispatcher no-runtime)</span></li>
+                    <li class="signal-row"><span class="signal-name">internal_confirmation_gate</span><span class="signal-kind">Puerta de confirmación read-only (confirmation gate)</span></li>
+                    <li class="signal-row"><span class="signal-name">internal_response_adapter</span><span class="signal-kind">Adaptador de respuesta (response adapter)</span></li>
+                    <li class="signal-row"><span class="signal-name">stable_payloads</span><span class="signal-kind">Información recibida estable (payload)</span></li>
                 </ul>
             </article>
             <article class="hud-panel contract-layout-zone" data-component="ia-panel ia-blocker" data-layout-zone="actions-blocks" data-main-console-zone="actions-boundaries" data-flow-step="actions-boundaries" data-nav-section="actions-boundaries" data-nav-state="read_only inspectable" data-interaction-mode="read-only" data-interaction-state="inspectable">
                 <div class="layout-label">Acciones y bloqueos</div>
                 <h2>Actions &amp; Boundaries</h2>
-                <p class="layout-copy"><span class="flow-step-index">04</span>Contrastá permiso backend, prohibición no ejecutable y capacidad bloqueada.</p>
+                <p class="layout-copy"><span class="flow-step-index">04</span>Contrastá permiso backend, prohibición no ejecutable y capacidad bloqueada. Ausencia de forbidden o blocked no crea permiso.</p>
                 <ul>
                     <li class="boundary-row">
-                        <span><span class="boundary-name">allowed_actions</span><span class="boundary-detail">Solo acciones declaradas por backend.</span></span>
+                        <span><span class="boundary-name">allowed_actions</span><span class="boundary-detail">Acciones disponibles declaradas por el sistema; no son CTA UI.</span></span>
                         <span class="boundary-state declared">backend only</span>
                     </li>
                     <li class="boundary-row">
-                        <span><span class="boundary-name">forbidden_actions</span><span class="boundary-detail">Visible y no ejecutable.</span></span>
+                        <span><span class="boundary-name">forbidden_actions</span><span class="boundary-detail">Acciones no permitidas; vacío declarado no equivale a permiso.</span></span>
                         <span class="boundary-state blocked" data-component="ia-status-badge ia-blocker">forbidden</span>
                     </li>
                     <li class="boundary-row">
-                        <span><span class="boundary-name">blocked_capabilities</span><span class="boundary-detail">Semántica preservada: true = blocked.</span></span>
+                        <span><span class="boundary-name">blocked_capabilities</span><span class="boundary-detail">Funciones bloqueadas; sin lista no equivale a desbloqueo.</span></span>
                         <span class="boundary-state blocked" data-component="ia-status-badge ia-blocker">blocked</span>
                     </li>
                 </ul>
@@ -1623,19 +1681,19 @@
             <article class="hud-panel evidence-card" data-component="ia-evidence">
                 <div class="layout-label">Evidencia y continuidad</div>
                 <div class="layout-value">0.6 + 0.9 passed</div>
-                <p class="layout-copy">Contrato estable y checkpoint visual base respaldan esta consola principal.</p>
+                <p class="layout-copy">Contrato estable y checkpoint visual base respaldan esta consola principal; evidencia no es acción ni workflow.</p>
                 <span class="visual-state passed evidence-state" data-component="ia-status-badge">passed</span>
             </article>
             <article class="hud-panel evidence-card" data-component="ia-evidence">
                 <div class="layout-label">Estado documentado</div>
                 <div class="layout-value">1.0 + 1.1 passed</div>
-                <p class="layout-copy">Estructura y refinamiento respaldan el orden actual; no_payload y blocked permanecen honestos.</p>
+                <p class="layout-copy">Estructura, refinamiento y guidance mantienen no_payload, not_available, pending y blocked como estados honestos.</p>
                 <span class="visual-state passed evidence-state" data-component="ia-status-badge">passed</span>
             </article>
             <article class="hud-panel evidence-card flow-next-step" data-component="ia-panel ia-evidence" data-flow-step="next-step" data-nav-section="next-step" data-nav-state="read_only inspectable" data-interaction-mode="read-only" data-interaction-state="inspectable">
                 <div class="layout-label"><span class="flow-step-index">06</span>Próximo paso documentado</div>
-                <div class="layout-value">admin boundary checkpoint planned</div>
-                <p class="layout-copy">Continuidad planned hacia checkpoint 1.18; no es workflow activo, boton runtime, execution ni dispatch.</p>
+                <div class="layout-value">operator guidance checkpoint planned</div>
+                <p class="layout-copy">Pendiente / todavía no disponible (planned): continuidad documental hacia checkpoint 1.26; no es workflow activo, botón runtime, execution ni dispatch.</p>
                 <span class="visual-state planned evidence-state" data-component="ia-status-badge ia-empty-state">planned</span>
             </article>
         </div>
@@ -1672,11 +1730,12 @@
     <footer>IA_CORE // Contract-Aware HUD</footer>
     </main>
 
-    <!-- REQUEST DRAFT PANEL -->
+    <!-- Compatibilidad 1.18: Draft local read-only; no submit, no dispatch, no execution, no contract mutation. Lectura backend-declared; la UI no concede permisos. exposicion interna read-only; visible no significa endpoint publico, activacion ni control operativo. internal read map; contract validation; no-runtime read; gate read-only; adapter read-only. admin boundary checkpoint planned; planned: checkpoint 1.18. -->    <!-- REQUEST DRAFT PANEL -->
     <div class="request-draft-panel" id="request-draft-panel" aria-label="Contract request draft">
         <button class="request-draft-toggle" id="request-draft-toggle" type="button" data-component="ia-readonly-control" data-interaction-control="collapse" data-interaction-mode="read-only" aria-controls="request-draft-panel" aria-expanded="true" aria-label="Inspeccionar draft bloqueado sin enviar" title="Inspeccionar draft bloqueado sin enviar">▶</button>
         <div><span style="font-weight:bold;">REQUEST CONTRACT DRAFT</span> <span id="request-draft-status-badge" class="visual-state blocked" data-component="ia-status-badge ia-blocker" style="float:right;">blocked</span></div>
-        <textarea class="request-draft-input" id="task-input" placeholder="Draft local read-only; no submit, no dispatch, no execution, no contract mutation."></textarea>
+        <textarea class="request-draft-input" id="task-input" placeholder="Solo lectura (read-only): draft local; no submit, no dispatch, no execution, no contract mutation."></textarea>
+        <p class="request-draft-guidance">Borrador contractual: para un futuro flujo harían falta backend_internal_ui_request.v1 aceptado, allowed_actions declarado y blocked_capabilities sin bloqueo. Hoy no envía nada.</p>
         <button class="request-draft-control" id="request-draft-blocked-control" disabled data-interaction-mode="read-only" data-boundary-hardening="read-only-no-submit" aria-label="Control bloqueado por contrato; no envia draft" data-interaction-state="blocked_interaction disabled_by_contract" data-component="ia-readonly-control ia-blocker">BLOQUEADO POR CONTRATO</button>
         <div class="request-draft-metrics" id="request-draft-metrics" style="display:none">
             <div><div class="metric-title">ACUERDO</div><div id="request-draft-agreement">-</div></div>
@@ -1752,13 +1811,13 @@
                 </div>
                 <div id="config-request-contract" class="config-section">
                     <h3>REQUEST CONTRACT</h3>
-                    <textarea id="request-contract-draft" class="admin-field" rows="4" style="width:100%; resize:vertical;" placeholder="Draft local read-only; no submit, no dispatch, no execution, no backend mutation."></textarea>
+                    <textarea id="request-contract-draft" class="admin-field" rows="4" style="width:100%; resize:vertical;" placeholder="Solo lectura (read-only): draft local; no submit, no dispatch, no execution, no backend mutation."></textarea>
                     <div class="admin-toolbar" style="margin-top:10px;">
                         <label>Estado <select id="request-contract-mode" disabled><option value="blocked">blocked</option><option value="planned">planned</option></select></label>
                         <button class="btn-primary" id="request-contract-readonly-control" disabled data-interaction-mode="read-only" data-boundary-hardening="read-only-no-dispatch" aria-label="Control bloqueado por contrato; no envia dispatch" data-interaction-state="blocked_interaction disabled_by_contract">BLOQUEADO POR CONTRATO</button>
                     </div>
                     <div id="request-contract-sources" class="admin-agent-list"></div>
-                    <div id="request-contract-status" class="admin-status">blocked · requiere allowed_actions</div>
+                    <div id="request-contract-status" class="admin-status">Bloqueado por seguridad (blocked): requiere allowed_actions backend-declared y capability no bloqueada.</div>
                     <div class="admin-block"><h4>SUMMARY</h4><pre id="request-contract-summary" class="admin-pre">Sin payload estable.</pre></div>
                     <div class="admin-block"><h4>VALIDATION / ERRORS</h4><div id="request-contract-validation"></div></div>
                 </div>

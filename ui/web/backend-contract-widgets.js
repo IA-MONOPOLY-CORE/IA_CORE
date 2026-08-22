@@ -1,4 +1,5 @@
 // Widgets UI/UX 0.5.3: renderizan solo backend_internal_ui_payload.v1.
+// Compatibilidad 1.18: No hay allowed_actions backend-declared; deny-by-default.
 (() => {
     'use strict';
 
@@ -90,6 +91,11 @@
     };
     const safeArray = (value) => Array.isArray(value) ? value : [];
     const safeObject = (value) => value && typeof value === 'object' && !Array.isArray(value) ? value : {};
+    const hasOwn = (value, key) => Object.prototype.hasOwnProperty.call(safeObject(value), key);
+    const declaredArrayState = (value, key) => {
+        if (!hasOwn(value, key)) return 'not_informed';
+        return Array.isArray(safeObject(value)[key]) ? 'declared' : 'not_informed';
+    };
     const actionName = (action) => typeof action === 'string'
         ? action
         : String(safeObject(action).action || safeObject(action).name || '');
@@ -166,6 +172,7 @@
         };
     }
 
+    // Compatibilidad 1.6: setRawSafe('not_available', 'not_available') sigue como marcador de raw-safe empty state.
     function setRawSafe(value, state = 'not_available') {
         const element = byId('contract-raw-safe-value');
         setText('contract-raw-safe-value', value);
@@ -287,14 +294,14 @@
             validation: 'pending',
         });
         setVisualState('contract-status-value', 'no_payload');
-        setText('contract-status-meta', 'No hay backend_internal_ui_payload.v1 inyectado.');
-        setText('contract-status-detail', 'Estado, readiness y acciones quedan bloqueados para la UI.');
+        setText('contract-status-meta', 'Todavía no hay información cargada (no_payload): no hay backend_internal_ui_payload.v1 inyectado.');
+        setText('contract-status-detail', 'Causa: falta envelope estable. Consecuencia: estado y readiness incompletos. Próximo paso no-operativo: revisar contrato/backend.');
         setText('contract-actions-value', '0 acciones declaradas backend-only');
-        setText('contract-actions-meta', 'No hay allowed_actions backend-declared; deny-by-default.');
-        renderChips('contract-allowed-actions', []);
-        setText('contract-forbidden-actions', 'forbidden_actions no disponible: la UI mantiene deny-by-default.');
+        setText('contract-actions-meta', 'Acciones disponibles declaradas por el sistema (allowed_actions): dato no informado; deny-by-default.');
+        renderChips('contract-allowed-actions', ['Sin allowed_actions informado; ausencia no significa permiso'], 'warning');
+        setText('contract-forbidden-actions', 'Acciones no permitidas (forbidden_actions): dato no informado; la UI mantiene deny-by-default.');
         setVisualState('contract-blocked-value', 'blocked');
-        setText('contract-blocked-meta', 'blocked_capabilities no disponible; no se asume ningun desbloqueo.');
+        setText('contract-blocked-meta', 'Funciones bloqueadas (blocked_capabilities): dato no informado; no se asume ningún desbloqueo.');
         renderChips('contract-blocked-list', [
             'runtime',
             'execution',
@@ -306,14 +313,14 @@
             'ui_runtime',
             'operational_domains',
         ], 'blocked');
-        setText('contract-blocked-detail', 'Sin payload estable, la UI no puede habilitar capabilities.');
+        setText('contract-blocked-detail', 'Bloqueado por seguridad (blocked): Sin payload estable, la UI no puede habilitar capabilities.');
         setVisualState('contract-diagnostics-value', 'pending');
-        setText('contract-diagnostics-meta', 'Esperando schema backend_internal_ui_payload.v1.');
+        setText('contract-diagnostics-meta', 'Pendiente de información (pending): esperando schema backend_internal_ui_payload.v1; no es ejecución en curso.');
         renderChips('contract-diagnostics-list', ['deny-by-default'], 'warning');
-        setText('contract-diagnostics-detail', 'No hay fetch ni endpoint nuevo para este panel.');
+        setText('contract-diagnostics-detail', 'La UI no inventa datos, no abre fetch nuevo y no habilita acción ante ausencia de payload.');
         setValidationDetail({}, 'no_payload');
         setDiagnosticsDetail([], [], 'no_payload');
-        setRawSafe('not_available', 'not_available');
+        setRawSafe('No disponible en este estado (not_available): sin payload seguro para mostrar; no implica error ni permiso.', 'not_available');
     }
 
     function renderContractError(errors, payload) {
@@ -335,18 +342,18 @@
         setText('contract-status-meta', 'El payload recibido no puede renderizarse como operativo.');
         setText('contract-status-detail', errors.join(' | '));
         setText('contract-actions-value', '0 acciones declaradas backend-only');
-        setText('contract-actions-meta', 'allowed_actions conservado como lectura backend-declared; sin permisos UI.');
+        setText('contract-actions-meta', 'Acciones disponibles declaradas por el sistema (allowed_actions) conservadas como lectura backend-declared; sin permisos UI.');
         renderChips('contract-allowed-actions', []);
-        setText('contract-forbidden-actions', 'forbidden_actions conservado; acciones activas no renderizadas.');
+        setText('contract-forbidden-actions', 'Acciones no permitidas (forbidden_actions) conservadas; acciones activas no renderizadas.');
         setVisualState('contract-blocked-value', 'blocked');
-        setText('contract-blocked-meta', 'El error contractual no elimina blocked_capabilities.');
+        setText('contract-blocked-meta', 'El error contractual no elimina blocked_capabilities; funciones bloqueadas visibles.');
         renderChips('contract-blocked-list', blocked.length ? blocked : [
             'runtime', 'execution', 'dispatch', 'tools', 'models', 'integrations',
             'public_endpoints', 'ui_runtime', 'operational_domains',
         ], 'blocked');
-        setText('contract-blocked-detail', 'Payload invalido: deny-by-default y bloqueos criticos visibles.');
+        setText('contract-blocked-detail', 'Payload inválido: deny-by-default, blockers visibles y blocked sin lista no desbloquea.');
         setVisualState('contract-diagnostics-value', 'failed');
-        setText('contract-diagnostics-meta', 'La UI no corrige ni interpreta permisos.');
+        setText('contract-diagnostics-meta', 'La UI no corrige payload ni interpreta permisos; error conserva límite contractual.');
         renderChips('contract-diagnostics-list', errors.slice(0, 8), 'forbidden');
         setValidationDetail(value, 'false');
         setDiagnosticsDetail(payloadWarnings, payloadErrors.concat(errors.map((message) => ({ code: 'contract_validation', message }))), 'failed');
@@ -360,6 +367,9 @@
             return;
         }
 
+        const allowedState = declaredArrayState(payload, 'allowed_actions');
+        const forbiddenState = declaredArrayState(payload, 'forbidden_actions');
+        const blockedState = hasOwn(payload, 'blocked_capabilities') ? 'declared' : 'not_informed';
         const allowed = safeArray(payload.allowed_actions)
             .filter((action) => safeObject(action).available_now !== false)
             .map(actionName)
@@ -393,19 +403,23 @@
         setText('contract-status-meta', `readiness: ${payload.readiness || 'sin readiness'} · service: ${payload.service || '-'}`);
         setText('contract-status-detail', `request_id: ${payload.request_id || '-'} · operation_id: ${payload.operation_id || '-'}`);
         setText('contract-actions-value', `${allowed.length} acciones declaradas backend-only`);
-        setText('contract-actions-meta', allowed.length ? 'Lectura backend-declared; la UI no concede permisos.' : 'No hay allowed_actions backend-declared; deny-by-default.');
-        renderChips('contract-allowed-actions', allowed, 'allowed');
+        setText('contract-actions-meta', allowed.length ? 'Acciones disponibles declaradas por el sistema (allowed_actions): lectura backend-declared; la UI no concede permisos.' : (allowedState === 'declared' ? 'allowed_actions declarado vacío: no hay acciones disponibles para la UI.' : 'allowed_actions no informado: ausencia no significa permiso; deny-by-default.'));
+        renderChips('contract-allowed-actions', allowed.length ? allowed : [allowedState === 'declared' ? 'Lista vacía declarada; no hay acción UI' : 'Dato no informado; no se infiere permiso'], allowed.length ? 'allowed' : 'warning');
         setText('contract-forbidden-actions', forbidden.length
-            ? `forbidden_actions: ${forbidden.join(', ')}`
-            : 'forbidden_actions vacio o no informado por backend.');
+            ? `Acciones no permitidas (forbidden_actions): ${forbidden.join(', ')}`
+            : (forbiddenState === 'declared'
+                ? 'Acciones no permitidas (forbidden_actions): lista vacía declarada; ausencia de prohibiciones visibles no significa permiso UI.'
+                : 'Acciones no permitidas (forbidden_actions): dato no informado; ausencia de dato no significa permiso UI.'));
         setVisualState('contract-blocked-value', blocked.length ? 'blocked' : 'not_available');
-        setText('contract-blocked-meta', 'Semantica aplicada: true = blocked.');
+        setText('contract-blocked-meta', blocked.length ? 'Funciones bloqueadas (blocked_capabilities): true = blocked.' : (blockedState === 'declared' ? 'blocked_capabilities declarado sin true=blocked visible; no se infiere permiso.' : 'blocked_capabilities no informado; ausencia de lista no desbloquea.'));
         renderChips('contract-blocked-list', blocked, 'blocked');
         setText('contract-blocked-detail', blocked.length
-            ? blocked.join(', ')
-            : 'Sin bloqueos declarados; no se infieren capabilities.');
+            ? `Bloqueado por seguridad (blocked): ${blocked.join(', ')}`
+            : (blockedState === 'declared'
+                ? 'Lista sin bloqueos true declarados; la UI sigue sin crear capabilities.'
+                : 'blocked sin lista disponible: revisar contrato/backend; ausencia de lista no desbloquea.'));
         setVisualState('contract-diagnostics-value', errors.length ? 'failed' : warnings.length ? 'pending' : 'ready');
-        setText('contract-diagnostics-meta', flagsOk ? 'Flags no-operativas confirmadas.' : 'Flags no-operativas incompletas.');
+        setText('contract-diagnostics-meta', flagsOk ? 'Flags no-operativas confirmadas; warnings vacíos no habilitan acción.' : 'Flags no-operativas incompletas; pending no es proceso corriendo.');
         renderChips('contract-diagnostics-list', errors.concat(warnings).slice(0, 8), errors.length ? 'forbidden' : 'warning');
         setText('contract-diagnostics-detail', `schema: ${payload.schema_version} · kind: ${payload.service_kind || '-'}`);
         setValidationDetail(payload, 'not_available');

@@ -353,7 +353,14 @@ Proximo prompt exacto sugerido: `PROMPT UI/UX 1.24 - Auditar Operator Guidance /
 
 El bloque conserva no-runtime/no-execution, sin endpoints, sin dependencias, sin rutas nuevas y sin cambios de contrato backend. SUBPROMPT UI/UX 1.24.1 agrega el criterio de lenguaje dual: Panel Maestro usa texto claro con término técnico entre paréntesis cuando aporta trazabilidad; Panel Usuario traduce jerga técnica a lenguaje simple sin ocultar bloqueos ni inventar permisos. No se implementa UI activa. La continuidad recomendada sigue siendo local hasta el checkpoint 1.26 salvo decision explicita del operador.
 
-Proximo prompt exacto sugerido: `PROMPT UI/UX 1.25 - Endurecer guidance y empty states de operador IA_CORE contract-aware sin runtime/no-execution`.
+Bloque siguiente ejecutado en 1.25 desde `PROMPT UI/UX 1.25 - Endurecer guidance y empty states de operador IA_CORE contract-aware sin runtime/no-execution`; ver hardening operator guidance / empty states abajo.
+## Hardening operator guidance / empty states 1.25
+
+`docs/UI_UX_OPERATOR_GUIDANCE_EMPTY_STATE_HARDENING_1_25.md` registra el hardening acotado de guidance y empty states. La UI activa agrega microcopy breve para no_payload, not_available, pending, planned, blocked, read-only, allowed_actions, forbidden_actions, blocked_capabilities, raw-safe, request draft, internal exposure y Next Step.
+
+El Panel Maestro aplica lenguaje claro + término técnico entre paréntesis; Panel Usuario queda documentado como futuro, sin implementación. El cambio no rediseña, no crea pantallas, no crea endpoints, no instala dependencias, no activa runtime, execution, dispatch ni controlled execution. La continuidad recomendada sigue local hasta el checkpoint 1.26 salvo decisión explícita del operador.
+
+Proximo prompt exacto sugerido: `PROMPT UI/UX 1.26 - Checkpoint Operator Guidance / Empty-State Intelligence IA_CORE contract-aware sin runtime/no-execution`.
 ## Widgets backend contract
 
 `backend-contract-widgets.js` no crea ni consulta endpoints. Renderiza payloads

@@ -11,7 +11,8 @@ Current GitHub backup target: `https://github.com/IA-MONOPOLY-CORE/IA_CORE`
 - UI/UX planificado hasta 1.23; `PROMPT UI/UX 1.23 - Consolidar siguiente bloque UI/UX post Frontend Incongruence IA_CORE contract-aware sin runtime/no-execution` selecciona Operator Guidance / Empty-State Intelligence como proximo bloque.
 - UI/UX auditado hasta 1.24; `PROMPT UI/UX 1.24 - Auditar Operator Guidance / Empty-State Intelligence IA_CORE contract-aware sin runtime/no-execution` identifica gaps de guidance/empty states sin implementar cambios activos.
 - SUBPROMPT UI/UX 1.24.1 registra criterio de lenguaje dual Panel Maestro / Panel Usuario para que 1.25 use lenguaje claro, trazable y contract-aware.
-- Next pending step: `PROMPT UI/UX 1.25 - Endurecer guidance y empty states de operador IA_CORE contract-aware sin runtime/no-execution`.
+- UI/UX endurecido hasta 1.25; `PROMPT UI/UX 1.25 - Endurecer guidance y empty states de operador IA_CORE contract-aware sin runtime/no-execution` aplica guidance acotada y empty states sin runtime/execution.
+- Next pending step: `PROMPT UI/UX 1.26 - Checkpoint Operator Guidance / Empty-State Intelligence IA_CORE contract-aware sin runtime/no-execution`.
 - The internal backend is prepared for UI/UX exposure through stable contracts, but runtime remains non-operative.
 - IA_CORE is the active identity.
 - SAAOP/Loteria remain only as historical/internal legacy material where present; they are not active UI identity.
@@ -78,7 +79,8 @@ The active UI is the IA_CORE console in `ui/web/`. It includes:
 - checkpoint 1.22 closes Frontend Incongruence and confirms GitHub restore point;
 - plan 1.23 selects Operator Guidance / Empty-State Intelligence as the next no-runtime/no-execution UI/UX block;
 - audit 1.24 maps operator guidance and empty-state gaps before hardening 1.25;
-- subprompt 1.24.1 records dual language criteria for Master Panel / User Panel guidance without UI implementation.
+- subprompt 1.24.1 records dual language criteria for Master Panel / User Panel guidance without UI implementation;
+- hardening 1.25 applies operator guidance, P1 empty-state intelligence, dual language in Master Panel, and keeps User Panel as future documentation.
 
 The UI does not grant permissions. `allowed_actions` is backend-declared only; `forbidden_actions` and `blocked_capabilities` remain visible and non-executable.
 
@@ -132,8 +134,8 @@ When using this Codex workspace, pytest may need `PYTHONPATH` pointing to `.test
 
 1. Run `git status --short` and confirm the tree is clean.
 2. Run `git rev-parse --short HEAD` and compare it with the documented latest commit.
-3. Read the latest docs: `docs/UI_UX_NEXT_BLOCK_PLAN_1_23.md`, `docs/UI_UX_OPERATOR_GUIDANCE_EMPTY_STATE_AUDIT_1_24.md` including subprompt 1.24.1 language criteria, then this README.
-4. Continue only with the exact next prompt: `PROMPT UI/UX 1.25 - Endurecer guidance y empty states de operador IA_CORE contract-aware sin runtime/no-execution`.
+3. Read the latest docs: `docs/UI_UX_NEXT_BLOCK_PLAN_1_23.md`, `docs/UI_UX_OPERATOR_GUIDANCE_EMPTY_STATE_AUDIT_1_24.md` including subprompt 1.24.1 language criteria, `docs/UI_UX_OPERATOR_GUIDANCE_EMPTY_STATE_HARDENING_1_25.md`, then this README.
+4. Continue only with the exact next prompt: `PROMPT UI/UX 1.26 - Checkpoint Operator Guidance / Empty-State Intelligence IA_CORE contract-aware sin runtime/no-execution`.
 5. Run the relevant tests.
 6. Commit the completed block.
 7. Confirm `git status --short` is clean again.
@@ -162,7 +164,7 @@ No `package.json` is currently detected; the active UI appears to be static file
 - Review `.gitignore` before every backup.
 - Keep local caches, virtual environments, logs, and build outputs out of Git.
 - Use clean commits.
-- Push after important block/checkpoint closures; routine planning/documentation commits, including 1.24.1, may remain local until the next restore point unless the operator asks for an update.
+- Push after important block/checkpoint closures; routine planning/documentation and pre-checkpoint implementation commits, including 1.24.1 and 1.25, may remain local until the next restore point unless the operator asks for an update.
 - Verify `git remote -v` before pushing.
 - Use normal push only, for example `git push -u origin main`.
 - Do not force push.

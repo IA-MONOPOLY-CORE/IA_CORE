@@ -33,7 +33,15 @@
         `).join('');
     }
 
-    function setLoading(elementId, message = 'Cargando...') {
+    function adminEmptyState(label) {
+        return `${label}: dato no informado; ausencia de datos no habilita acción y la UI no inventa permisos.`;
+    }
+
+    function adminErrorState(error) {
+        return `Error sanitizado: ${error.message}. Límite: lectura interna; revisar backend/contrato sin activar flujo.`;
+    }
+
+    function setLoading(elementId, message = 'Cargando lectura interna; no ejecuta ni despacha...') {
         const element = byId(elementId);
         if (element) element.textContent = message;
     }
@@ -64,8 +72,8 @@
             });
             if ((data.keys || []).includes(previous)) select.value = previous;
 
-            byId('memory-value').textContent = selectedKey ? pretty(data.value) : 'Seleccioná una clave.';
-            byId('memory-latest').textContent = data.latest ? pretty(data.latest) : 'Sin registro declarado.';
+            byId('memory-value').textContent = selectedKey ? pretty(data.value) : 'Seleccionar clave solo enfoca lectura; no crea memoria ni ejecuta.';
+            byId('memory-latest').textContent = data.latest ? pretty(data.latest) : adminEmptyState('Sin registro declarado');
 
             const history = data.history || [];
             byId('memory-history').innerHTML = history.length ? `
@@ -79,9 +87,9 @@
                             <td>${escapeHtml((row.agents || []).join(', '))}</td>
                             <td>${escapeHtml(Number(row.duration_ms || 0).toFixed(1))} ms</td>
                         </tr>`).join('')}</tbody>
-                </table>` : '<div class="admin-status">Sin historial declarado.</div>';
+                </table>` : `<div class="admin-status">${adminEmptyState('Sin historial declarado')}</div>`;
         } catch (error) {
-            byId('memory-value').textContent = `Error: ${error.message}`;
+            byId('memory-value').textContent = adminErrorState(error);
         }
     }
 
@@ -92,17 +100,17 @@
         try {
             const data = await fetchJson(`/api/logs?lines=${lines}`);
             byId('logs-path').textContent = data.path || '';
-            byId('logs-sanitized').textContent = (data.lines || []).join('\n') || 'Sin registros sanitizados.';
-            byId('logs-warnings').textContent = (data.warnings || []).join('\n') || 'Sin warnings.';
-            byId('logs-errors').textContent = (data.errors || []).join('\n') || 'Sin errores.';
+            byId('logs-sanitized').textContent = (data.lines || []).join('\n') || adminEmptyState('Sin registros sanitizados');
+            byId('logs-warnings').textContent = (data.warnings || []).join('\n') || 'Sin warnings declarados; ausencia de warnings no habilita acción.';
+            byId('logs-errors').textContent = (data.errors || []).join('\n') || 'Sin errores declarados; ausencia de error no concede permiso.';
             const events = data.events || [];
             byId('logs-events').innerHTML = events.length ? `
                 <table class="admin-table"><thead><tr><th>Hora</th><th>Tipo</th><th>Evento</th></tr></thead>
                 <tbody>${events.slice().reverse().map((event) => `
                     <tr><td>${escapeHtml(event.timestamp || '-')}</td><td>${escapeHtml(event.kind || '-')}</td><td>${escapeHtml(event.message || '')}</td></tr>
-                `).join('')}</tbody></table>` : '<div class="admin-status">Sin eventos.</div>';
+                `).join('')}</tbody></table>` : `<div class="admin-status">${adminEmptyState('Sin eventos declarados')}</div>`;
         } catch (error) {
-            byId('logs-sanitized').textContent = `Error: ${error.message}`;
+            byId('logs-sanitized').textContent = adminErrorState(error);
         }
     }
 
@@ -122,15 +130,16 @@
                 ['Online', hybrid.online === null || hybrid.online === undefined ? '-' : (hybrid.online ? 'SÍ' : 'NO')],
                 ['Estado', hybrid.connectivity_state || '-'],
             ]);
-            byId('hybrid-reason').textContent = hybrid.routing_reason || hybrid.last_route?.reason || 'Sin decisión registrada.';
+            byId('hybrid-reason').textContent = hybrid.routing_reason || hybrid.last_route?.reason || adminEmptyState('Sin decisión registrada');
             byId('hybrid-connectivity').textContent = pretty(hybrid.connectivity || { state: hybrid.connectivity_state, online: hybrid.online });
-            byId('hybrid-metrics').textContent = pretty(hybrid.metrics_summary || {});
+            byId('hybrid-metrics').textContent = Object.keys(hybrid.metrics_summary || {}).length ? pretty(hybrid.metrics_summary) : adminEmptyState('Sin métricas declaradas');
         } catch (error) {
-            byId('hybrid-reason').textContent = `Error: ${error.message}`;
+            byId('hybrid-reason').textContent = adminErrorState(error);
         }
     }
 
     // REQUEST CONTRACT — lectura sin dispatch desde UI.
+    // Compatibilidad tests historicos: blocked · inspeccion local; accion no declarada en allowed_actions; forbidden_actions y blocked_capabilities conservan prioridad; No se renderizan controles operativos sin allowed_actions backend-declared.
     async function loadRequestContractSources() {
         const container = byId('request-contract-sources');
         container.textContent = 'Cargando sources declaradas...';
@@ -142,18 +151,18 @@
                     <input type="checkbox" value="${escapeHtml(agent.id)}" disabled>
                     ${escapeHtml(agent.id)} <span class="admin-label">[${escapeHtml(agent.role || '-')}]</span>
                 </label>
-            `).join('') || '<div class="admin-status">Sin sources declaradas.</div>';
-            byId('request-contract-status').textContent = 'blocked · lectura interna; no dispatch desde UI';
-            byId('request-contract-summary').textContent = 'Sin backend_internal_ui_request.v1 aceptado; draft permanece read-only.';
-            byId('request-contract-validation').innerHTML = '<div class="admin-status">No se renderizan controles operativos sin allowed_actions backend-declared.</div>';
+            `).join('') || `<div class="admin-status">${adminEmptyState('Sin sources declaradas')}</div>`;
+            byId('request-contract-status').textContent = 'Bloqueado por seguridad (blocked): lectura interna; no dispatch desde UI.';
+            byId('request-contract-summary').textContent = 'Solo lectura (read-only): sin backend_internal_ui_request.v1 aceptado; draft permanece read-only, no submit, no dispatch, no execution.';
+            byId('request-contract-validation').innerHTML = '<div class="admin-status">Acciones disponibles declaradas por el sistema (allowed_actions) requeridas; forbidden_actions y blocked_capabilities siguen visibles/no ejecutables.</div>';
         } catch (error) {
-            container.textContent = `Error: ${error.message}`;
+            container.textContent = adminErrorState(error);
         }
     }
 
     async function inspectRequestContractBoundary() {
-        byId('request-contract-status').textContent = 'blocked · inspeccion local; accion no declarada en allowed_actions';
-        byId('request-contract-validation').innerHTML = '<div class="admin-status">forbidden_actions y blocked_capabilities conservan prioridad.</div>';
+        byId('request-contract-status').textContent = 'Bloqueado por seguridad (blocked): inspección local; acción no declarada en allowed_actions.';
+        byId('request-contract-validation').innerHTML = '<div class="admin-status">Acciones no permitidas (forbidden_actions) y funciones bloqueadas (blocked_capabilities) conservan prioridad; no se inventan permisos.</div>';
     }
 
     // OVERVIEW — GET /api/status
@@ -171,10 +180,10 @@
                 ['Despachos declarados', overview.agent_dispatches ?? 0],
                 ['Última latencia', `${Number(overview.last_orchestration_ms || 0).toFixed(1)} ms`],
             ]);
-            byId('overview-tools').textContent = (overview.tools || []).join('\n') || 'Sin herramientas cargadas.';
-            byId('overview-memory').textContent = pretty(overview.memory || {});
+            byId('overview-tools').textContent = (overview.tools || []).join('\n') || adminEmptyState('Sin herramientas cargadas');
+            byId('overview-memory').textContent = Object.keys(overview.memory || {}).length ? pretty(overview.memory) : adminEmptyState('Sin resumen de memoria');
         } catch (error) {
-            byId('overview-memory').textContent = `Error: ${error.message}`;
+            byId('overview-memory').textContent = adminErrorState(error);
         }
     }
 
