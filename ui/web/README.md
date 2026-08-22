@@ -346,6 +346,14 @@ Proximo prompt exacto sugerido: `PROMPT UI/UX 1.23 - Consolidar siguiente bloque
 La planificacion no implementa el bloque elegido, no crea endpoints, no agrega dependencias, no activa runtime, no activa execution y conserva IA_CORE como identidad activa sin legacy visual activo. La politica de backup queda registrada: IA_CORE ya tiene restore point remoto hasta `63813010`; el proximo backup recomendado ocurre despues del checkpoint 1.26 salvo cambio critico o decision explicita del operador.
 
 Proximo prompt exacto sugerido: `PROMPT UI/UX 1.24 - Auditar Operator Guidance / Empty-State Intelligence IA_CORE contract-aware sin runtime/no-execution`.
+
+## Auditoria Operator Guidance / Empty-State Intelligence 1.24
+
+`docs/UI_UX_OPERATOR_GUIDANCE_EMPTY_STATE_AUDIT_1_24.md` audita guidance global, estados, empty states, request draft, actions/boundaries, internal exposure, evidence/next step, raw-safe/detail panels, navegacion/foco/responsive, microcopy, saturacion y cobertura de tests. La auditoria no implementa cambios activos y deja listo el hardening 1.25.
+
+El bloque conserva no-runtime/no-execution, sin endpoints, sin dependencias, sin rutas nuevas y sin cambios de contrato backend. La continuidad recomendada sigue siendo local hasta el checkpoint 1.26 salvo decision explicita del operador.
+
+Proximo prompt exacto sugerido: `PROMPT UI/UX 1.25 - Endurecer guidance y empty states de operador IA_CORE contract-aware sin runtime/no-execution`.
 ## Widgets backend contract
 
 `backend-contract-widgets.js` no crea ni consulta endpoints. Renderiza payloads
