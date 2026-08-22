@@ -248,6 +248,22 @@ execution y sin dependencias. Veredicto:
 `PROMPT UI/UX 1.15 - Consolidar siguiente bloque UI/UX IA_CORE contract-aware
 sin runtime/no-execution`.
 
+## Planificacion siguiente bloque UI/UX 1.15
+
+`docs/UI_UX_NEXT_BLOCK_PLAN_1_15.md` revisa el estado post-1.14 y selecciona
+`Admin Boundary / Exposure Review` como siguiente bloque UI/UX. La decision
+prioriza auditar limites entre consola visible, contratos internos, request
+draft, controles bloqueados, acciones permitidas/prohibidas, blocked
+capabilities, paneles administrativos y exposicion interna antes de abrir
+pantallas secundarias, guidance, polish premium, benchmarks externos o
+separacion Panel Maestro vs Panel Usuario.
+
+La planificacion deja el veredicto `UI_READY_FOR_SELECTED_NEXT_UI_UX_BLOCK`.
+1.15 no implementa el bloque elegido, no crea endpoints, no agrega
+dependencias, no activa runtime, no activa execution y conserva 21st.dev, UI UX
+Pro Max Skill y Framer Motion / Motion como benchmarks futuros solamente.
+Proximo prompt exacto sugerido: `PROMPT UI/UX 1.16 - Auditar boundaries administrativos y exposicion interna de consola IA_CORE contract-aware sin runtime/no-execution`.
+
 ## Widgets backend contract
 
 `backend-contract-widgets.js` no crea ni consulta endpoints. Renderiza payloads
