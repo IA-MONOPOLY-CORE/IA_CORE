@@ -429,7 +429,17 @@ El checkpoint registra evidencia visual humana posterior a 1.29: el operador rev
 
 El cierre confirma critical always visible, secondary readable, disclosure seguro, no ocultar forbidden_actions ni blocked_capabilities, request draft read-only/no-submit/no-dispatch/no-execution, IA_CORE como identidad activa, sin legacy visual activo, sin rutas, endpoints, fetches, dependencias, runtime, execution, dispatch ni controlled execution. GitHub queda como restore point a actualizar tras el push normal del checkpoint.
 
-Proximo prompt exacto sugerido: PROMPT UI/UX 1.31 - Consolidar siguiente bloque UI/UX post Density IA_CORE contract-aware sin runtime/no-execution.
+Bloque siguiente ejecutado en 1.31 desde PROMPT UI/UX 1.31 - Consolidar siguiente bloque UI/UX post Density IA_CORE contract-aware sin runtime/no-execution; ver planificacion Contract Storytelling / Operator Narrative abajo.
+
+## Planificacion siguiente bloque UI/UX 1.31
+
+docs/UI_UX_NEXT_BLOCK_PLAN_1_31.md revisa el estado post Density Reduction / Information Architecture 1.30 y selecciona Contract Storytelling / Operator Narrative como siguiente bloque UI/UX. La decision usa la evidencia humana de localhost como bitacora visual/resumen/capa de comprension y prioriza contar mejor el recorrido del sistema antes de crear pantallas secundarias.
+
+La planificacion no implementa storytelling, no crea pantallas, no crea rutas, no cambia microcopy visible, no crea endpoints, no instala dependencias, no activa runtime, execution, dispatch ni controlled execution. Panel Maestro vs User Panel, readiness for future screens, secondary views, component docs, polish premium y benchmarks externos quedan pospuestos.
+
+GitHub ya tiene restore point remoto hasta el checkpoint 1.30; no hace falta push despues de cada prompt. El proximo restore point recomendado queda para el checkpoint 1.34, salvo cambio critico o decision explicita del operador.
+
+Proximo prompt exacto sugerido: PROMPT UI/UX 1.32 - Auditar Contract Storytelling / Operator Narrative IA_CORE contract-aware sin runtime/no-execution.
 
 ## Widgets backend contract
 
