@@ -1,4 +1,4 @@
-# Consola web principal
+﻿# Consola web principal
 
 `ui/web/` es la consola principal de IA_CORE. FastAPI la sirve como contenido
 estático; la superficie 1.0 mantiene sus lecturas preexistentes separadas de
@@ -419,7 +419,17 @@ docs/UI_UX_DENSITY_INFORMATION_ARCHITECTURE_HARDENING_1_29.md aplica hardening a
 
 El hardening preserva forbidden_actions, blocked_capabilities, no_payload, no-runtime/no-execution y request draft read-only/no-submit/no-dispatch/no-execution como informacion visible. No crea pantallas, rutas, endpoints, fetches, dependencias, runtime, execution, dispatch ni controlled execution.
 
-Proximo prompt exacto sugerido: PROMPT UI/UX 1.30 - Checkpoint Density Reduction / Information Architecture IA_CORE contract-aware sin runtime/no-execution.
+Bloque siguiente ejecutado en 1.30 desde PROMPT UI/UX 1.30 - Checkpoint Density Reduction / Information Architecture IA_CORE contract-aware sin runtime/no-execution; ver checkpoint Density Reduction / Information Architecture abajo.
+
+## Checkpoint Density Reduction / Information Architecture 1.30
+
+docs/UI_UX_DENSITY_INFORMATION_ARCHITECTURE_CHECKPOINT_1_30.md cierra el bloque 1.27 -> 1.29 como checkpoint documental y de pruebas. Confirma plan, auditoria y hardening de Density Reduction / Information Architecture sin implementar cambios adicionales en la UI activa.
+
+El checkpoint registra evidencia visual humana posterior a 1.29: el operador reviso localhost, confirmo Lo veo muy bien y describio que en pocas palabras ve graficamente los prompts enviados. La UI queda documentada como bitacora visual, resumen y capa de comprension del camino de prompts/checkpoints.
+
+El cierre confirma critical always visible, secondary readable, disclosure seguro, no ocultar forbidden_actions ni blocked_capabilities, request draft read-only/no-submit/no-dispatch/no-execution, IA_CORE como identidad activa, sin legacy visual activo, sin rutas, endpoints, fetches, dependencias, runtime, execution, dispatch ni controlled execution. GitHub queda como restore point a actualizar tras el push normal del checkpoint.
+
+Proximo prompt exacto sugerido: PROMPT UI/UX 1.31 - Consolidar siguiente bloque UI/UX post Density IA_CORE contract-aware sin runtime/no-execution.
 
 ## Widgets backend contract
 
