@@ -338,6 +338,14 @@ registrada porque no hay `package.json`, configuracion Playwright/Vite ni
 runner visual local detectable. UI/UX cerrado hasta 1.22.
 
 Proximo prompt exacto sugerido: `PROMPT UI/UX 1.23 - Consolidar siguiente bloque UI/UX post Frontend Incongruence IA_CORE contract-aware sin runtime/no-execution`.
+
+## Planificacion siguiente bloque UI/UX 1.23
+
+`docs/UI_UX_NEXT_BLOCK_PLAN_1_23.md` revisa el estado post-1.22 y selecciona `Operator Guidance / Empty-State Intelligence` como siguiente bloque UI/UX. La decision prioriza explicar estados honestos, empty states, blockers, lecturas backend-only y continuidad planned antes de reducir densidad, abrir pantallas secundarias o aplicar polish.
+
+La planificacion no implementa el bloque elegido, no crea endpoints, no agrega dependencias, no activa runtime, no activa execution y conserva IA_CORE como identidad activa sin legacy visual activo. La politica de backup queda registrada: IA_CORE ya tiene restore point remoto hasta `63813010`; el proximo backup recomendado ocurre despues del checkpoint 1.26 salvo cambio critico o decision explicita del operador.
+
+Proximo prompt exacto sugerido: `PROMPT UI/UX 1.24 - Auditar Operator Guidance / Empty-State Intelligence IA_CORE contract-aware sin runtime/no-execution`.
 ## Widgets backend contract
 
 `backend-contract-widgets.js` no crea ni consulta endpoints. Renderiza payloads
