@@ -300,6 +300,11 @@ El bloque Admin Boundary / Exposure Review queda cerrado con no runtime, no exec
 `docs/UI_UX_NEXT_BLOCK_PLAN_1_19.md` revisa el estado post-1.18 y selecciona `Frontend Incongruence Audit` como siguiente bloque UI/UX. La decision prioriza auditar nombres heredados, clases ambiguas, microcopy vieja, patrones duplicados, estilos muertos y JS legacy no-operativo antes de crear guidance, reducir densidad, abrir pantallas secundarias o aplicar polish.
 
 La planificacion no implementa el bloque elegido, no crea endpoints, no agrega dependencias, no activa runtime, no activa execution y conserva IA_CORE como identidad activa. 21st.dev, UI UX Pro Max Skill y Framer Motion / Motion siguen como benchmarks futuros solamente. Proximo prompt exacto sugerido: `PROMPT UI/UX 1.20 - Auditar incongruencias restantes del frontend IA_CORE contract-aware sin runtime/no-execution`.
+## Auditoria frontend incongruence 1.20
+
+`docs/UI_UX_FRONTEND_INCONGRUENCE_AUDIT_1_20.md` inventaria el frontend hecho a mano despues del plan 1.19. El documento clasifica HTML, CSS, JavaScript, microcopy/naming, fetches/rutas/endpoints, storage, tests y docs para separar superficie viva contract-aware, legacy vivo, duplicados, falsos positivos y deuda pospuesta.
+
+1.20 no corrige ni aplica hardening: solo audita, prioriza y deja un plan quirurgico para 1.21. Mantiene no-runtime/no-execution, sin endpoints ni dependencias nuevas, sin router/hash routing operativo y sin tocar `core/`, `api.py`, `domains/`, `tools/`, modelos ni integraciones. Proximo prompt exacto sugerido: `PROMPT UI/UX 1.21 - Endurecer o documentar incongruencias frontend segun auditoria IA_CORE contract-aware sin runtime/no-execution`.
 ## Widgets backend contract
 
 `backend-contract-widgets.js` no crea ni consulta endpoints. Renderiza payloads
