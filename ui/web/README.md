@@ -405,6 +405,14 @@ de cada prompt. El proximo restore point recomendado queda para el checkpoint
 1.30, salvo cambio critico o decision explicita del operador.
 
 Proximo prompt exacto sugerido: `PROMPT UI/UX 1.28 - Auditar Density Reduction / Information Architecture IA_CORE contract-aware sin runtime/no-execution`.
+## Auditoria Density Reduction / Information Architecture 1.28
+
+docs/UI_UX_DENSITY_INFORMATION_ARCHITECTURE_AUDIT_1_28.md audita la densidad post-guidance de la consola IA_CORE sin implementar cambios activos. Define critical always visible, secondary readable, disclosure seguro, criterios de no ocultamiento y compactacion segura para preparar el hardening 1.29.
+
+La auditoria confirma que forbidden_actions, blocked_capabilities, warnings/errors, ausencia de payload, no-runtime/no-execution, request draft read-only e identidad IA_CORE no deben ocultarse. No crea endpoints, rutas, fetches, pantallas, dependencias, runtime, execution, dispatch ni controlled execution.
+
+Proximo prompt exacto sugerido: PROMPT UI/UX 1.29 - Endurecer densidad y arquitectura de informacion IA_CORE contract-aware sin runtime/no-execution.
+
 ## Widgets backend contract
 
 `backend-contract-widgets.js` no crea ni consulta endpoints. Renderiza payloads
