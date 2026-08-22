@@ -1,4 +1,4 @@
-﻿# Consola web principal
+# Consola web principal
 
 `ui/web/` es la consola principal de IA_CORE. FastAPI la sirve como contenido
 estático; la superficie 1.0 mantiene sus lecturas preexistentes separadas de
@@ -449,8 +449,18 @@ El diagnostico no detecta P0 directos. Registra P1 sobre Next Step desactualizad
 
 La auditoria define reglas contract-aware: narrative step is not execution step, evidence is traceability not live log, next step is documentary guidance not queued task, request draft is contract preview not submit form, and blocked/forbidden must be narrated not hidden. No crea pantallas, rutas, endpoints, fetches, dependencias, runtime, execution, dispatch ni controlled execution.
 
-Proximo prompt exacto sugerido: PROMPT UI/UX 1.33 - Endurecer narrativa de operador IA_CORE contract-aware sin runtime/no-execution.
+Bloque siguiente ejecutado en 1.33 desde PROMPT UI/UX 1.33 - Endurecer narrativa de operador IA_CORE contract-aware sin runtime/no-execution; ver hardening Contract Storytelling / Operator Narrative abajo.
 
+
+## Hardening Contract Storytelling / Operator Narrative 1.33
+
+docs/UI_UX_CONTRACT_STORYTELLING_OPERATOR_NARRATIVE_HARDENING_1_33.md registra el hardening narrativo acotado de la consola IA_CORE activa. La pantalla declara Panel Maestro / operador interno, narrative step no-operativo, story before raw detail, evidence as traceability, logs-sanitized como trazabilidad y Next Step como documentary guidance hacia el checkpoint 1.34.
+
+Request draft queda como REQUEST CONTRACT PREVIEW: vista previa contractual read-only, no submit, no dispatch, no execution y sin mutation de contrato. blocked/forbidden/no-runtime/no-execution quedan integrados a la historia principal; no se ocultan en disclosure ni se traducen como capacidad disponible.
+
+Este bloque no crea pantalla nueva, ruta, endpoint, fetch, dependencia, runtime, execution, dispatch ni controlled execution. Panel Usuario real, pantallas secundarias, polish premium, microinteracciones y benchmarks externos siguen pospuestos.
+
+Proximo prompt exacto sugerido: PROMPT UI/UX 1.34 - Checkpoint Contract Storytelling / Operator Narrative IA_CORE contract-aware sin runtime/no-execution.
 ## Widgets backend contract
 
 `backend-contract-widgets.js` no crea ni consulta endpoints. Renderiza payloads

@@ -76,14 +76,14 @@ def test_request_draft_and_next_step_remain_non_operational():
     text = active_ui_text()
 
     for marker in [
-        "REQUEST CONTRACT DRAFT",
-        "Solo lectura (read-only): draft local; no submit, no dispatch, no execution",
+        "REQUEST CONTRACT PREVIEW",
+        "Vista previa contractual read-only; no submit, no dispatch, no execution, no contract mutation.",
         "backend_internal_ui_request.v1 aceptado",
         "allowed_actions declarado",
         "blocked_capabilities sin bloqueo",
-        "Hoy no envía nada",
-        "operator guidance checkpoint planned",
-        "continuidad documental hacia checkpoint 1.26",
+        "Hoy no envia nada",
+        "storytelling checkpoint 1.34 planned",
+        "Proximo paso documental: PROMPT UI/UX 1.34 - Checkpoint Contract Storytelling / Operator Narrative",
         "no es workflow activo",
         "no es workflow activo ni botón",
     ]:
@@ -98,7 +98,7 @@ def test_internal_exposure_and_raw_safe_use_dual_language():
 
     for marker in [
         "Panel Maestro read-only",
-        "Información recibida (payload)",
+        "Informacion recibida (payload)",
         "Vista segura de datos (raw-safe)",
         "Validación del sistema (validation)",
         "Registro interno de exposición (registry)",

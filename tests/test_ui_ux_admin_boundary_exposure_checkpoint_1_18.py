@@ -127,16 +127,16 @@ def test_request_draft_actions_and_internal_exposure_are_read_only():
     for marker in [
         'data-boundary-hardening="read-only-no-submit"',
         'data-boundary-hardening="read-only-no-dispatch"',
-        "Draft local read-only; no submit, no dispatch, no execution, no contract mutation.",
+        "Vista previa contractual read-only; no submit, no dispatch, no execution, no contract mutation.",
         "Inspeccionar draft bloqueado sin enviar",
         "Lectura backend-declared; la UI no concede permisos.",
-        "exposicion interna read-only",
-        "visible no significa endpoint publico, activacion ni control operativo",
-        "internal read map",
-        "contract validation",
-        "no-runtime read",
-        "gate read-only",
-        "adapter read-only",
+        "read-only; visible no significa endpoint",
+        "visible no significa endpoint",
+        "internal_exposure_registry",
+        "internal_request_validation",
+        "internal_dispatcher_no_runtime",
+        "internal_confirmation_gate",
+        "internal_response_adapter",
     ]:
         assert marker in html
 
@@ -171,8 +171,8 @@ def test_language_states_are_allowed_only_as_blocks_or_legacy_visual_context():
     assert "`.active` queda documentado como estado visual legacy aislado" in doc
     assert 'data-interaction-mode="read-only"' in html
     assert "BLOQUEADO POR CONTRATO" in html
-    assert "admin boundary checkpoint planned" in html
-    assert "planned: checkpoint 1.18" in html
+    assert "storytelling checkpoint 1.34 planned" in html
+    assert "planned no es tarea en cola, workflow, runtime, execution ni dispatch" in html
 
 
 def test_responsive_boundary_minimum_is_documented_and_supported_by_css():

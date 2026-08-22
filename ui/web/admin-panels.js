@@ -100,7 +100,7 @@
         try {
             const data = await fetchJson(`/api/logs?lines=${lines}`);
             byId('logs-path').textContent = data.path || '';
-            byId('logs-sanitized').textContent = (data.lines || []).join('\n') || adminEmptyState('Sin registros sanitizados');
+            byId('logs-sanitized').textContent = (data.lines || []).join('\n') || adminEmptyState('Sin registros sanitizados declarados; trazabilidad, no live log');
             byId('logs-warnings').textContent = (data.warnings || []).join('\n') || 'Sin warnings declarados; ausencia de warnings no habilita acción.';
             byId('logs-errors').textContent = (data.errors || []).join('\n') || 'Sin errores declarados; ausencia de error no concede permiso.';
             const events = data.events || [];

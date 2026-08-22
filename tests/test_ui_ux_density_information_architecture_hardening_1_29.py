@@ -55,7 +55,7 @@ def test_active_ui_declares_density_architecture_and_priority_scale():
 
 def test_active_ui_keeps_critical_information_always_visible():
     html = read(INDEX)
-    for marker in ['<h1 id="brand-title">IA_CORE</h1>', 'PRE-RUNTIME / NO-EXECUTION', 'READINESS: no_payload', 'READ SOURCE:', 'forbidden_actions pendiente de payload', 'blocked_capabilities · true = blocked', 'No submit / no dispatch / no execution', 'REQUEST CONTRACT DRAFT', 'blocked']:
+    for marker in ['<h1 id="brand-title">IA_CORE</h1>', 'PRE-RUNTIME / NO-EXECUTION', 'READINESS: no_payload', 'READ SOURCE:', 'forbidden_actions pendiente de payload', 'blocked_capabilities · true = blocked', 'No submit / no dispatch / no execution', 'REQUEST CONTRACT PREVIEW', 'blocked']:
         assert marker in html
     assert html.index('P0 visible') < html.index('Glosario secundario de estados')
     assert html.index('Capabilities bloqueadas') < html.index('Evidencia extendida')
@@ -63,7 +63,7 @@ def test_active_ui_keeps_critical_information_always_visible():
 
 def test_active_ui_applies_safe_disclosure_only_to_secondary_detail():
     html = read(INDEX)
-    for marker in ['safe-disclosure state-guidance-disclosure', 'Glosario secundario de estados', 'no ocultan no_payload, forbidden_actions ni blocked_capabilities', 'Ver raw-safe read-only', 'Detalle secundario; ausencia de payload y bloqueos ya permanecen visibles arriba.', 'safe-disclosure evidence-disclosure', 'Evidencia extendida', 'no son timeline activo ni operación', 'data-disclosure-safety="safe"']:
+    for marker in ['safe-disclosure state-guidance-disclosure', 'Glosario secundario de estados', 'no ocultan no_payload, forbidden_actions ni blocked_capabilities', 'Ver raw-safe read-only', 'Detalle secundario; ausencia de payload y bloqueos ya permanecen visibles arriba.', 'safe-disclosure evidence-disclosure', 'Evidencia extendida', 'no son live log, timeline activo ni operacion', 'data-disclosure-safety="safe"']:
         assert marker in html
     assert 'forbidden_actions' in html.split('Glosario secundario de estados')[0]
     assert 'blocked_capabilities' in html.split('Glosario secundario de estados')[0]
@@ -71,7 +71,7 @@ def test_active_ui_applies_safe_disclosure_only_to_secondary_detail():
 
 def test_request_draft_remains_readonly_disabled_and_non_operational():
     html = read(INDEX)
-    for marker in ['request-draft-panel density-critical', 'id="task-input" readonly aria-readonly="true"', 'Solo lectura (read-only): draft local; no submit, no dispatch, no execution', 'backend_internal_ui_request.v1 aceptado', 'allowed_actions declarado', 'blocked_capabilities sin bloqueo', 'Hoy no envia nada', 'request-draft-blocked-control" disabled', 'BLOQUEADO POR CONTRATO']:
+    for marker in ['request-draft-panel density-critical', 'id="task-input" readonly aria-readonly="true"', 'Vista previa contractual read-only; no submit, no dispatch, no execution, no contract mutation.', 'backend_internal_ui_request.v1 aceptado', 'allowed_actions declarado', 'blocked_capabilities sin bloqueo', 'Hoy no envia nada', 'request-draft-blocked-control" disabled', 'BLOQUEADO POR CONTRATO']:
         assert marker in html
 
 

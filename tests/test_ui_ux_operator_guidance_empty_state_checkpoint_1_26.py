@@ -121,12 +121,12 @@ def test_checkpoint_1_26_confirms_active_ui_boundaries_without_permission_infere
         "No disponible en este estado (not_available)",
         "Pendiente de información (pending)",
         "Pendiente / todavía no disponible (planned)",
-        "Todavía no hay información cargada (no_payload)",
+        "Payload ausente declarado (no_payload)",
         "Bloqueado por seguridad (blocked)",
         "Acciones disponibles declaradas por el sistema (allowed_actions)",
         "Acciones no permitidas (forbidden_actions)",
         "Funciones bloqueadas (blocked_capabilities)",
-        "operator guidance checkpoint planned",
+        "storytelling checkpoint 1.34 planned",
     ]:
         assert marker in ui
 
