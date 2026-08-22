@@ -361,6 +361,30 @@ Bloque siguiente ejecutado en 1.25 desde `PROMPT UI/UX 1.25 - Endurecer guidance
 El Panel Maestro aplica lenguaje claro + término técnico entre paréntesis; Panel Usuario queda documentado como futuro, sin implementación. El cambio no rediseña, no crea pantallas, no crea endpoints, no instala dependencias, no activa runtime, execution, dispatch ni controlled execution. La continuidad recomendada sigue local hasta el checkpoint 1.26 salvo decisión explícita del operador.
 
 Proximo prompt exacto sugerido: `PROMPT UI/UX 1.26 - Checkpoint Operator Guidance / Empty-State Intelligence IA_CORE contract-aware sin runtime/no-execution`.
+
+## Checkpoint operator guidance / empty states 1.26
+
+`docs/UI_UX_OPERATOR_GUIDANCE_EMPTY_STATE_CHECKPOINT_1_26.md` cierra el bloque
+`1.23 -> 1.25 Operator Guidance / Empty-State Intelligence` como checkpoint
+documental y de pruebas. Confirma que el plan 1.23, la auditoria 1.24, el
+criterio de lenguaje dual 1.24.1 y el hardening 1.25 quedan consolidados.
+
+El checkpoint verifica la UI activa sin implementar nuevas mejoras: `no_payload`,
+`not_available`, `pending`, `planned`, `blocked`, `allowed_actions`,
+`forbidden_actions`, `blocked_capabilities`, raw-safe, request draft, internal
+exposure y Next Step mantienen guidance honesta y no-operativa. Panel Maestro
+queda como superficie activa con lenguaje claro + termino tecnico; Panel Usuario
+queda registrado para futuro con lenguaje simple, sin ocultar bloqueos ni
+inventar permisos.
+
+No hay endpoints nuevos, dependencias, runtime, execution, dispatch ni
+controlled execution. No hay `package.json`, configuracion Playwright/Vite ni
+runner visual local detectable; queda registrada la observacion humana del
+operador de que el frontend en `localhost` empieza a funcionar como resumen/log
+visual y capa de comprension. UI/UX cerrado hasta 1.26 y GitHub queda como
+restore point a actualizar tras el checkpoint.
+
+Proximo prompt exacto sugerido: `PROMPT UI/UX 1.27 - Consolidar siguiente bloque UI/UX post Operator Guidance IA_CORE contract-aware sin runtime/no-execution`.
 ## Widgets backend contract
 
 `backend-contract-widgets.js` no crea ni consulta endpoints. Renderiza payloads
