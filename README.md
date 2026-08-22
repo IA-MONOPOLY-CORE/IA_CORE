@@ -23,7 +23,8 @@ Current GitHub backup target: `https://github.com/IA-MONOPOLY-CORE/IA_CORE`
 - UI/UX cerrado hasta 1.34; `PROMPT UI/UX 1.34 - Checkpoint Contract Storytelling / Operator Narrative IA_CORE contract-aware sin runtime/no-execution` cierra el bloque Contract Storytelling / Operator Narrative como checkpoint documental/test y prepara nuevo restore point GitHub.
 - UI/UX planificado hasta 1.35; `PROMPT UI/UX 1.35 - Consolidar siguiente bloque UI/UX post Contract Storytelling IA_CORE contract-aware sin runtime/no-execution` selecciona Panel Maestro vs User Panel Separation Planning como proximo bloque, sin modificar UI activa, sin endpoints y sin dependencias.
 - UI/UX auditado hasta 1.36; `PROMPT UI/UX 1.36 - Auditar separacion Panel Maestro / User Panel IA_CORE contract-aware sin runtime/no-execution` define gaps, matriz inicial de exposicion, reglas de lenguaje/estados/acciones/evidence y confirma no User Panel implementado.
-- Next pending step: `PROMPT UI/UX 1.37 - Documentar boundaries Panel Maestro / User Panel IA_CORE contract-aware sin runtime/no-execution`.
+- UI/UX documentado hasta 1.37; `PROMPT UI/UX 1.37 - Documentar boundaries Panel Maestro / User Panel IA_CORE contract-aware sin runtime/no-execution` formaliza boundaries Panel Maestro/User Panel, matriz de exposicion, traducciones, estados, acciones/permisos, evidence/logs, componentes/responsive, guardrails y confirma User Panel no implementado.
+- Next pending step: `PROMPT UI/UX 1.38 - Checkpoint boundaries Panel Maestro / User Panel IA_CORE contract-aware sin runtime/no-execution`.
 - The internal backend is prepared for UI/UX exposure through stable contracts, but runtime remains non-operative.
 - IA_CORE is the active identity.
 - SAAOP/Loteria remain only as historical/internal legacy material where present; they are not active UI identity.
@@ -68,7 +69,7 @@ Key project documentation includes:
 - Backend internal book and phases: `docs/BACKEND_INTERNAL_BOOK_DESIGN.md`, `docs/BACKEND_INTERNAL_PHASE_3_TRANSITION_PLAN.md`, `docs/BACKEND_INTERNAL_PHASE_4_RUNTIME_EXECUTION_PREPARATION_PLAN.md`, `docs/BACKEND_INTERNAL_PHASE_5_TEAM_SANDBOX_BLOCK_PLAN.md`, `docs/BACKEND_INTERNAL_PHASE_6_SANDBOX_E2E_ROLLBACK_REGENERATION_BLOCK_PLAN.md`, `docs/BACKEND_INTERNAL_PHASE_7_UI_CONTRACT_BLOCK_PLAN.md`, `docs/BACKEND_INTERNAL_PHASE_8_CONTROLLED_INTERNAL_EXPOSURE_BLOCK_PLAN.md`.
 - Backend UI contract: `docs/BACKEND_INTERNAL_UI_CONTRACT_7_0.md`, `docs/BACKEND_INTERNAL_STABLE_UI_PAYLOADS_7_6.md`, `docs/BACKEND_INTERNAL_UI_CONTRACT_CHECKPOINT_7_7.md`, `docs/BACKEND_INTERNAL_EXPOSURE_REGISTRY_8_1.md`, `docs/BACKEND_INTERNAL_REQUEST_ENVELOPE_8_2.md`, `docs/BACKEND_INTERNAL_DISPATCHER_8_3.md`, `docs/BACKEND_INTERNAL_CONFIRMATION_GATE_8_4.md`, `docs/BACKEND_INTERNAL_RESPONSE_ADAPTER_8_5.md`, `docs/BACKEND_INTERNAL_EXPOSURE_AUDIT_CHECKPOINT_8_6.md`, `docs/BACKEND_INTERNAL_FUTURE_UI_CONTRACT_PLAN_8_7.md`.
 - UI/UX book and checkpoints from 0.5.3 onward: `docs/UI_UX_CONTRACT_AWARE_CHECKPOINT_0_6.md`, `docs/UI_UX_VISUAL_ARCHITECTURE_0_7.md`, `docs/UI_UX_SUPERIOR_LAYOUT_0_8.md`, `docs/UI_UX_VISUAL_BASE_CHECKPOINT_0_9.md`, `docs/UI_UX_MAIN_CONSOLE_STRUCTURE_1_0.md`, `docs/UI_UX_MAIN_CONSOLE_REFINEMENT_1_1.md`, `docs/UI_UX_MAIN_CONSOLE_FLOW_1_2.md`, `docs/UI_UX_MAIN_CONSOLE_INTERACTION_MODEL_1_3.md`, `docs/UI_UX_MAIN_CONSOLE_INTERACTION_CHECKPOINT_1_4.md`.
-- Current UI/UX chain: `docs/UI_UX_NEXT_BLOCK_PLAN_1_19.md`, `docs/UI_UX_FRONTEND_INCONGRUENCE_AUDIT_1_20.md`, `docs/UI_UX_FRONTEND_INCONGRUENCE_HARDENING_1_21.md`, `docs/UI_UX_FRONTEND_INCONGRUENCE_CHECKPOINT_1_22.md`, `docs/UI_UX_NEXT_BLOCK_PLAN_1_23.md`, `docs/UI_UX_OPERATOR_GUIDANCE_EMPTY_STATE_AUDIT_1_24.md`, `docs/UI_UX_OPERATOR_GUIDANCE_EMPTY_STATE_HARDENING_1_25.md`, `docs/UI_UX_OPERATOR_GUIDANCE_EMPTY_STATE_CHECKPOINT_1_26.md`, `docs/UI_UX_NEXT_BLOCK_PLAN_1_27.md`, `docs/UI_UX_DENSITY_INFORMATION_ARCHITECTURE_AUDIT_1_28.md`, `docs/UI_UX_DENSITY_INFORMATION_ARCHITECTURE_HARDENING_1_29.md`, `docs/UI_UX_DENSITY_INFORMATION_ARCHITECTURE_CHECKPOINT_1_30.md`, `docs/UI_UX_NEXT_BLOCK_PLAN_1_31.md`, `docs/UI_UX_CONTRACT_STORYTELLING_OPERATOR_NARRATIVE_AUDIT_1_32.md`, `docs/UI_UX_CONTRACT_STORYTELLING_OPERATOR_NARRATIVE_HARDENING_1_33.md`, `docs/UI_UX_CONTRACT_STORYTELLING_OPERATOR_NARRATIVE_CHECKPOINT_1_34.md`, `docs/UI_UX_NEXT_BLOCK_PLAN_1_35.md`, `docs/UI_UX_PANEL_MAESTRO_USER_PANEL_SEPARATION_AUDIT_1_36.md`.
+- Current UI/UX chain: `docs/UI_UX_NEXT_BLOCK_PLAN_1_19.md`, `docs/UI_UX_FRONTEND_INCONGRUENCE_AUDIT_1_20.md`, `docs/UI_UX_FRONTEND_INCONGRUENCE_HARDENING_1_21.md`, `docs/UI_UX_FRONTEND_INCONGRUENCE_CHECKPOINT_1_22.md`, `docs/UI_UX_NEXT_BLOCK_PLAN_1_23.md`, `docs/UI_UX_OPERATOR_GUIDANCE_EMPTY_STATE_AUDIT_1_24.md`, `docs/UI_UX_OPERATOR_GUIDANCE_EMPTY_STATE_HARDENING_1_25.md`, `docs/UI_UX_OPERATOR_GUIDANCE_EMPTY_STATE_CHECKPOINT_1_26.md`, `docs/UI_UX_NEXT_BLOCK_PLAN_1_27.md`, `docs/UI_UX_DENSITY_INFORMATION_ARCHITECTURE_AUDIT_1_28.md`, `docs/UI_UX_DENSITY_INFORMATION_ARCHITECTURE_HARDENING_1_29.md`, `docs/UI_UX_DENSITY_INFORMATION_ARCHITECTURE_CHECKPOINT_1_30.md`, `docs/UI_UX_NEXT_BLOCK_PLAN_1_31.md`, `docs/UI_UX_CONTRACT_STORYTELLING_OPERATOR_NARRATIVE_AUDIT_1_32.md`, `docs/UI_UX_CONTRACT_STORYTELLING_OPERATOR_NARRATIVE_HARDENING_1_33.md`, `docs/UI_UX_CONTRACT_STORYTELLING_OPERATOR_NARRATIVE_CHECKPOINT_1_34.md`, `docs/UI_UX_NEXT_BLOCK_PLAN_1_35.md`, `docs/UI_UX_PANEL_MAESTRO_USER_PANEL_SEPARATION_AUDIT_1_36.md`, `docs/UI_UX_PANEL_MAESTRO_USER_PANEL_BOUNDARIES_1_37.md`.
 - GitHub backup readiness: `docs/IA_CORE_GITHUB_BACKUP_READY.md`.
 
 ## Current UI/UX State
@@ -103,6 +104,7 @@ The active UI is the IA_CORE console in `ui/web/`. It includes:
 - checkpoint 1.34 closes Contract Storytelling / Operator Narrative, records human localhost evidence, confirms no false operation, and prepares the GitHub restore point update after tests.
 - plan 1.35 selects Panel Maestro vs User Panel Separation Planning as the next no-runtime/no-execution UI/UX block, preserving the active console as Panel Maestro and postponing User Panel implementation, future screens, polish and benchmarks.
 - audit 1.36 reviews Panel Maestro / User Panel separation, defines exposure categories, language/state/action/evidence rules, and keeps User Panel unimplemented with no active UI changes.
+- boundaries 1.37 documents the formal Panel Maestro/User Panel exposure matrix, translation rules, state/action/log/component/mobile guardrails, backup policy, and keeps User Panel unimplemented with no active UI changes.
 
 The UI does not grant permissions. `allowed_actions` is backend-declared only; `forbidden_actions` and `blocked_capabilities` remain visible and non-executable.
 
@@ -158,6 +160,7 @@ python -m pytest tests/test_ui_ux_contract_storytelling_operator_narrative_harde
 python -m pytest tests/test_ui_ux_contract_storytelling_operator_narrative_checkpoint_1_34.py -q
 python -m pytest tests/test_ui_ux_next_block_plan_1_35.py -q
 python -m pytest tests/test_ui_ux_panel_maestro_user_panel_separation_audit_1_36.py -q
+python -m pytest tests/test_ui_ux_panel_maestro_user_panel_boundaries_1_37.py -q
 python -m pytest tests/test_backend_internal_future_ui_contract_plan_8_7.py tests/test_backend_internal_ui_payloads_7_6.py -q
 python -m pytest tests/test_ia_core_github_backup_readiness.py -q
 ```
@@ -168,8 +171,8 @@ When using this Codex workspace, pytest may need `PYTHONPATH` pointing to `.test
 
 1. Run `git status --short` and confirm the tree is clean.
 2. Run `git rev-parse --short HEAD` and compare it with the documented latest commit.
-3. Read the latest docs: `docs/UI_UX_NEXT_BLOCK_PLAN_1_23.md`, `docs/UI_UX_OPERATOR_GUIDANCE_EMPTY_STATE_AUDIT_1_24.md` including subprompt 1.24.1 language criteria, `docs/UI_UX_OPERATOR_GUIDANCE_EMPTY_STATE_HARDENING_1_25.md`, `docs/UI_UX_OPERATOR_GUIDANCE_EMPTY_STATE_CHECKPOINT_1_26.md`, `docs/UI_UX_NEXT_BLOCK_PLAN_1_27.md`, `docs/UI_UX_DENSITY_INFORMATION_ARCHITECTURE_AUDIT_1_28.md`, `docs/UI_UX_DENSITY_INFORMATION_ARCHITECTURE_HARDENING_1_29.md`, `docs/UI_UX_DENSITY_INFORMATION_ARCHITECTURE_CHECKPOINT_1_30.md`, `docs/UI_UX_NEXT_BLOCK_PLAN_1_31.md`, `docs/UI_UX_CONTRACT_STORYTELLING_OPERATOR_NARRATIVE_AUDIT_1_32.md`, `docs/UI_UX_CONTRACT_STORYTELLING_OPERATOR_NARRATIVE_HARDENING_1_33.md`, `docs/UI_UX_CONTRACT_STORYTELLING_OPERATOR_NARRATIVE_CHECKPOINT_1_34.md`, `docs/UI_UX_NEXT_BLOCK_PLAN_1_35.md`, `docs/UI_UX_PANEL_MAESTRO_USER_PANEL_SEPARATION_AUDIT_1_36.md`, then this README.
-4. Continue only with the exact next prompt: `PROMPT UI/UX 1.37 - Documentar boundaries Panel Maestro / User Panel IA_CORE contract-aware sin runtime/no-execution`.
+3. Read the latest docs: `docs/UI_UX_NEXT_BLOCK_PLAN_1_23.md`, `docs/UI_UX_OPERATOR_GUIDANCE_EMPTY_STATE_AUDIT_1_24.md` including subprompt 1.24.1 language criteria, `docs/UI_UX_OPERATOR_GUIDANCE_EMPTY_STATE_HARDENING_1_25.md`, `docs/UI_UX_OPERATOR_GUIDANCE_EMPTY_STATE_CHECKPOINT_1_26.md`, `docs/UI_UX_NEXT_BLOCK_PLAN_1_27.md`, `docs/UI_UX_DENSITY_INFORMATION_ARCHITECTURE_AUDIT_1_28.md`, `docs/UI_UX_DENSITY_INFORMATION_ARCHITECTURE_HARDENING_1_29.md`, `docs/UI_UX_DENSITY_INFORMATION_ARCHITECTURE_CHECKPOINT_1_30.md`, `docs/UI_UX_NEXT_BLOCK_PLAN_1_31.md`, `docs/UI_UX_CONTRACT_STORYTELLING_OPERATOR_NARRATIVE_AUDIT_1_32.md`, `docs/UI_UX_CONTRACT_STORYTELLING_OPERATOR_NARRATIVE_HARDENING_1_33.md`, `docs/UI_UX_CONTRACT_STORYTELLING_OPERATOR_NARRATIVE_CHECKPOINT_1_34.md`, `docs/UI_UX_NEXT_BLOCK_PLAN_1_35.md`, `docs/UI_UX_PANEL_MAESTRO_USER_PANEL_SEPARATION_AUDIT_1_36.md`, `docs/UI_UX_PANEL_MAESTRO_USER_PANEL_BOUNDARIES_1_37.md`, then this README.
+4. Continue only with the exact next prompt: `PROMPT UI/UX 1.38 - Checkpoint boundaries Panel Maestro / User Panel IA_CORE contract-aware sin runtime/no-execution`.
 5. Run the relevant tests.
 6. Commit the completed block.
 7. Confirm `git status --short` is clean again.
@@ -200,7 +203,7 @@ No `package.json` is currently detected; the active UI appears to be static file
 - Use clean commits.
 - Push after important block/checkpoint closures; routine planning/documentation and pre-checkpoint implementation commits, including 1.24.1 and 1.25, may remain local until the next restore point unless the operator asks for an update.
 - Checkpoint 1.34 closes Contract Storytelling / Operator Narrative and is the current GitHub restore point after normal push at `533d0c33`.
-- Plan 1.35 and audit 1.36 may remain local by default; the next recommended remote restore point is after the Panel Maestro / User Panel checkpoint, estimated 1.38, unless there is a critical change or explicit operator decision.
+- Plan 1.35, audit 1.36, and boundaries 1.37 may remain local by default; the next recommended remote restore point is after the Panel Maestro / User Panel checkpoint 1.38, unless there is a critical change or explicit operator decision.
 - Verify `git remote -v` before pushing.
 - Use normal push only, for example `git push -u origin main`.
 - Do not force push.

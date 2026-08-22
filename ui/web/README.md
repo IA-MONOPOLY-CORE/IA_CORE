@@ -495,6 +495,16 @@ La auditoria clasifica hallazgos P0/P1/P2/P3, inicializa matriz de exposicion co
 No modifica UI activa, no cambia microcopy visible, no crea pantallas, rutas, endpoints ni fetches, no instala dependencias, no activa runtime, execution, dispatch ni controlled execution. Push sigue pospuesto; el proximo restore point recomendado queda para el checkpoint 1.38 salvo cambio critico o decision explicita.
 
 Proximo prompt exacto sugerido: PROMPT UI/UX 1.37 - Documentar boundaries Panel Maestro / User Panel IA_CORE contract-aware sin runtime/no-execution.
+
+Bloque siguiente ejecutado en 1.37 desde PROMPT UI/UX 1.37 - Documentar boundaries Panel Maestro / User Panel IA_CORE contract-aware sin runtime/no-execution; ver boundaries Panel Maestro vs User Panel abajo.
+
+## Boundaries Panel Maestro vs User Panel 1.37
+
+docs/UI_UX_PANEL_MAESTRO_USER_PANEL_BOUNDARIES_1_37.md documenta boundaries formales entre Panel Maestro y User Panel sin implementar User Panel. Formaliza matriz de exposicion, reglas de lenguaje por superficie, tabla de traducciones, estados, acciones/permisos, evidence/logs, componentes/navegacion, responsive/mobile, guardrails futuros y riesgos residuales.
+
+La translation layer queda conceptual; User Panel no implementado permanece como frontera explicita. No modifica UI activa, no cambia microcopy visible, no crea pantallas, rutas, endpoints ni fetches, no instala dependencias, no activa runtime, execution, dispatch ni controlled execution. Push sigue pospuesto; el proximo restore point recomendado queda para el checkpoint 1.38 salvo cambio critico o decision explicita.
+
+Proximo prompt exacto sugerido: PROMPT UI/UX 1.38 - Checkpoint boundaries Panel Maestro / User Panel IA_CORE contract-aware sin runtime/no-execution.
 ## Widgets backend contract
 
 `backend-contract-widgets.js` no crea ni consulta endpoints. Renderiza payloads
