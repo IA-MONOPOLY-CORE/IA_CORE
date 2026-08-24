@@ -515,6 +515,18 @@ docs/UI_UX_PANEL_MAESTRO_USER_PANEL_BOUNDARIES_CHECKPOINT_1_38.md cierra el bloq
 User Panel no implementado y translation layer conceptual only quedan confirmados. La UI activa sigue siendo Panel Maestro / operador interno, sin pantallas nuevas, rutas, endpoints, fetches nuevos, dependencias, runtime, execution, dispatch ni controlled execution. El checkpoint prepara restore point GitHub tras push normal.
 
 Proximo prompt exacto sugerido: PROMPT UI/UX 1.39 - Consolidar siguiente bloque UI/UX post Panel Boundaries IA_CORE contract-aware sin runtime/no-execution.
+
+Bloque siguiente ejecutado en 1.39 desde PROMPT UI/UX 1.39 - Consolidar siguiente bloque UI/UX post Panel Boundaries IA_CORE contract-aware sin runtime/no-execution; ver planificacion Readiness for Future Screens abajo.
+
+## Planificacion Readiness for Future Screens 1.39
+
+docs/UI_UX_NEXT_BLOCK_PLAN_1_39.md revisa el estado post Panel Maestro/User Panel boundaries y selecciona Readiness for Future Screens como siguiente bloque UI/UX. La decision prioriza definir criterios minimos antes de abrir pantallas secundarias, User Panel real, component documentation o polish premium.
+
+La planificacion no implementa pantallas, no crea rutas, no modifica UI activa, no cambia microcopy visible, no crea endpoints ni fetches, no instala dependencias, no activa runtime, execution, dispatch ni controlled execution. User Panel sigue futuro/no implementado; referencias externas siguen como benchmarks futuros solamente.
+
+GitHub ya tiene restore point remoto hasta 1.38 en 6e474fd6. No hace falta push despues de cada prompt; el proximo restore point recomendado queda para el checkpoint del bloque Readiness for Future Screens, estimado 1.42 salvo cambio critico o decision explicita.
+
+Proximo prompt exacto sugerido: PROMPT UI/UX 1.40 - Auditar readiness para futuras pantallas IA_CORE contract-aware sin runtime/no-execution.
 ## Widgets backend contract
 
 `backend-contract-widgets.js` no crea ni consulta endpoints. Renderiza payloads

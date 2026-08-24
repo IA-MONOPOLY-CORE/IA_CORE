@@ -203,7 +203,7 @@ def test_readmes_reference_plan_1_35_and_next_prompt():
         assert "sin dependencias" in text or "no dependencies" in text.lower()
 
     assert NEXT_PROMPT in root
-    assert "Next pending step: `PROMPT UI/UX 1.39 - Consolidar siguiente bloque UI/UX post Panel Boundaries IA_CORE contract-aware sin runtime/no-execution`" in root
+    assert "Next pending step: `PROMPT UI/UX 1.40 - Auditar readiness para futuras pantallas IA_CORE contract-aware sin runtime/no-execution`" in root
 
 
 def test_active_ui_remains_ia_core_contract_aware_without_new_runtime_authority():
