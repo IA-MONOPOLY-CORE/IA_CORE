@@ -288,7 +288,7 @@ def test_readmes_reference_checkpoint_1_42_and_next_prompt_1_43():
         assert NEXT_PROMPT in text
 
     bt = chr(96)
-    assert f"Next pending step: {bt}PROMPT UI/UX 1.45 - Documentar Component Documentation / Style Reference IA_CORE contract-aware sin runtime/no-execution{bt}" in root
+    assert f"Next pending step: {bt}PROMPT UI/UX 1.46 - Checkpoint Component Documentation / Style Reference IA_CORE contract-aware sin runtime/no-execution{bt}" in root
 
 
 def test_expected_verdicts_are_documented():
