@@ -419,7 +419,14 @@ def test_readmes_reference_checkpoint_1_46_and_next_prompt_1_47():
         assert NEXT_PROMPT in text
 
     bt = chr(96)
-    assert f"Next pending step: {bt}{NEXT_PROMPT}{bt}" in root
+    current_after_1_47 = (
+        "PROMPT UI/UX 1.48 - Auditar Component Usage Enforcement / Static Guardrails "
+        "IA_CORE contract-aware sin runtime/no-execution"
+    )
+    assert (
+        f"Next pending step: {bt}{NEXT_PROMPT}{bt}" in root
+        or f"Next pending step: {bt}{current_after_1_47}{bt}" in root
+    )
 
 
 def test_expected_verdicts_and_next_prompt_are_documented():

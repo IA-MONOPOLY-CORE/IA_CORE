@@ -619,6 +619,19 @@ El checkpoint confirma design tokens / tokens visuales, excluye tokens IA/modelo
 Checkpoint 1.46 corresponde a restore point GitHub con push normal despues de commit y tests. no force push.
 
 Proximo prompt exacto sugerido: PROMPT UI/UX 1.47 - Consolidar siguiente bloque UI/UX post Component Style Reference IA_CORE contract-aware sin runtime/no-execution.
+Bloque siguiente ejecutado en 1.47 desde PROMPT UI/UX 1.47 - Consolidar siguiente bloque UI/UX post Component Style Reference IA_CORE contract-aware sin runtime/no-execution; ver plan formal abajo.
+
+## Planificacion Component Usage Enforcement / Static Guardrails 1.47
+
+docs/UI_UX_NEXT_BLOCK_PLAN_1_47.md revisa el estado post Component Style Reference y selecciona Component Usage Enforcement / Static Guardrails como siguiente bloque UI/UX.
+
+La decision prioriza convertir Style Reference, Component Safety Rules, State Semantics Table, Surface / Variant Matrix y Local Controls vs Operational Actions en guardrails verificables antes de abrir Screen Contract application, secondary views, User Panel readiness, polish premium o benchmarks externos.
+
+1.47 es planificacion: no implementa guardrails todavia, no modifica UI activa, no cambia microcopy visible, no crea future screens, no crea User Panel, no crea rutas, no crea endpoints, no agrega fetches, no instala dependencias, no activa runtime, no activa execution, no activa dispatch y no activa controlled execution.
+
+GitHub ya tiene restore point remoto hasta 1.46 en bcb92a3e. No hace falta push despues de este prompt de planificacion; el proximo restore point recomendado queda para el checkpoint del bloque Component Usage Enforcement / Static Guardrails, estimado 1.50, salvo cambio critico o decision explicita.
+
+Proximo prompt exacto sugerido: PROMPT UI/UX 1.48 - Auditar Component Usage Enforcement / Static Guardrails IA_CORE contract-aware sin runtime/no-execution.
 ## Widgets backend contract
 
 `backend-contract-widgets.js` no crea ni consulta endpoints. Renderiza payloads
