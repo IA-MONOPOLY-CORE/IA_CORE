@@ -682,6 +682,19 @@ La decision usa Future Screens Readiness, Screen Contract Template, Component Do
 Restore point remoto actual: e863464e. Push pospuesto por defecto hasta el checkpoint Screen Contract Application Planning estimado 1.54, salvo cambio critico o decision explicita del operador. No force push.
 
 Proximo prompt exacto sugerido: PROMPT UI/UX 1.52 - Auditar Screen Contract Application Planning IA_CORE contract-aware sin runtime/no-execution.
+Bloque siguiente ejecutado en 1.52 desde PROMPT UI/UX 1.52 - Auditar Screen Contract Application Planning IA_CORE contract-aware sin runtime/no-execution; ver auditoria formal abajo.
+
+## Auditoria Screen Contract Application Planning 1.52
+
+docs/UI_UX_SCREEN_CONTRACT_APPLICATION_PLANNING_AUDIT_1_52.md audita como aplicar Screen Contract Application Planning a futuras superficies IA_CORE antes de construirlas.
+
+La auditoria identifica screen candidates, tipos de contrato, matriz inicial de aplicacion, ranking contract-first, hallazgos P0/P1/P2/P3, riesgos residuales y estrategia preliminar de tests para 1.53.
+
+1.52 confirma: Screen Contract Template no aplicado todavia, screen contracts no creados todavia, future screens no implementadas, User Panel no implementado, no UI activa modificada, sin endpoints, sin dependencias, sin cambios CI, no-runtime/no-execution, sin dispatch y sin controlled execution.
+
+Push pospuesto por defecto. El restore point remoto sigue siendo e863464e y el proximo restore point recomendado queda para el checkpoint Screen Contract Application Planning estimado 1.54, salvo cambio critico o decision explicita.
+
+Proximo prompt exacto sugerido: PROMPT UI/UX 1.53 - Documentar Screen Contract Application Planning IA_CORE contract-aware sin runtime/no-execution.
 ## Widgets backend contract
 
 `backend-contract-widgets.js` no crea ni consulta endpoints. Renderiza payloads

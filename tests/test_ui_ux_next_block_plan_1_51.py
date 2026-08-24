@@ -175,7 +175,14 @@ def test_readmes_reference_plan_1_51_and_next_prompt_1_52():
         assert "User Panel no implementado" in text
         assert "e863464e" in text
 
-    assert f"Next pending step: {bt}{NEXT_PROMPT}{bt}" in root
+    current_after_1_52 = (
+        "PROMPT UI/UX 1.53 - Documentar Screen Contract Application Planning "
+        "IA_CORE contract-aware sin runtime/no-execution"
+    )
+    assert (
+        f"Next pending step: {bt}{NEXT_PROMPT}{bt}" in root
+        or f"Next pending step: {bt}{current_after_1_52}{bt}" in root
+    )
 
 
 def test_next_block_plan_1_51_expected_verdicts_are_present():
