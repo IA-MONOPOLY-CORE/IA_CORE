@@ -540,6 +540,19 @@ La auditoria identifica candidatos future screens, hallazgos P0/P1/P2/P3, readin
 Push GitHub pospuesto por defecto; el proximo restore point recomendado sigue siendo despues del checkpoint Readiness for Future Screens 1.42, salvo cambio critico o decision explicita.
 
 Proximo prompt exacto sugerido: PROMPT UI/UX 1.41 - Documentar readiness de futuras pantallas IA_CORE contract-aware sin runtime/no-execution.
+Bloque siguiente ejecutado en 1.41 desde PROMPT UI/UX 1.41 - Documentar readiness de futuras pantallas IA_CORE contract-aware sin runtime/no-execution; ver readiness formal abajo.
+
+## Readiness Future Screens 1.41
+
+docs/UI_UX_FUTURE_SCREENS_READINESS_1_41.md formaliza readiness gates, Screen Contract Template, Screen Candidate Matrix, navigation readiness, data/action/state readiness, extraction safety y component readiness para futuras pantallas IA_CORE.
+
+La readiness 1.41 es documental: future screens no implementadas, User Panel no implementado, UI activa no modificada, sin rutas, sin endpoints, sin fetches nuevos, sin dependencias, sin runtime, sin execution, sin dispatch y sin controlled execution.
+
+1.42 debe cerrar checkpoint, verificar gates, template, matriz, reglas y tests, y preparar push GitHub como restore point si todo pasa. 1.42 no debe implementar pantallas ni crear User Panel.
+
+Push GitHub sigue pospuesto por defecto hasta checkpoint 1.42 salvo cambio critico o decision explicita.
+
+Proximo prompt exacto sugerido: PROMPT UI/UX 1.42 - Checkpoint readiness futuras pantallas IA_CORE contract-aware sin runtime/no-execution.
 ## Widgets backend contract
 
 `backend-contract-widgets.js` no crea ni consulta endpoints. Renderiza payloads
