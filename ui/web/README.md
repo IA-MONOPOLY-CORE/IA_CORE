@@ -1,12 +1,12 @@
 # Consola web principal
 
 `ui/web/` es la consola principal de IA_CORE. FastAPI la sirve como contenido
-estático; la superficie 1.0 mantiene sus lecturas preexistentes separadas de
+estÃƒÂ¡tico; la superficie 1.0 mantiene sus lecturas preexistentes separadas de
 la autoridad contractual que decide acciones y bloqueos.
 
 ## Paneles internos migrados
 
-| Sección | API utilizada |
+| SecciÃƒÂ³n | API utilizada |
 |---|---|
 | Memory | `GET /api/memory` |
 | Logs | `GET /api/logs` |
@@ -15,7 +15,7 @@ la autoridad contractual que decide acciones y bloqueos.
 | Overview | `GET /api/status` |
 | Backend contract widgets | payload inyectado `backend_internal_ui_payload.v1` |
 
-`admin-panels.js` implementa estas secciones del modal de configuración. Los
+`admin-panels.js` implementa estas secciones del modal de configuraciÃƒÂ³n. Los
 controles de dispatch visibles quedan bloqueados si no hay contrato backend
 que los declare en `allowed_actions`.
 
@@ -24,7 +24,7 @@ que los declare en `allowed_actions`.
 La superficie activa incorpora una shell `data-layout-contract-aware="superior-0.8"`
 para ordenar la UI alrededor de identidad IA_CORE, readiness global,
 contrato/payload, servicios internos, acciones permitidas/prohibidas,
-blocked capabilities, evidencia y próximos pasos.
+blocked capabilities, evidencia y prÃƒÂ³ximos pasos.
 
 Esta capa no agrega endpoints, no ejecuta requests operativos y no cambia el
 contrato backend. Solo organiza visualmente el estado pre-runtime/no-execution
@@ -35,13 +35,13 @@ ya confirmado en `docs/UI_UX_CONTRACT_AWARE_CHECKPOINT_0_6.md` y
 
 La shell conserva `data-layout-contract-aware="superior-0.8"` y agrega
 `data-main-console="contract-aware-1.0"`. La pantalla principal se organiza en
-identidad IA_CORE, readiness global, Contract Core / Payload, señales de
+identidad IA_CORE, readiness global, Contract Core / Payload, seÃƒÂ±ales de
 servicios internos, Actions & Boundaries y Evidence / Checkpoint.
 
 Los widgets de `backend_internal_ui_payload.v1` viven ahora en Contract Core /
 Payload de la consola principal. El cambio reutiliza los mismos IDs y el mismo
-renderer, sin agregar fetches ni fuentes de permiso. La sección de configuración
-solo conserva una referencia de navegación a su ubicación principal.
+renderer, sin agregar fetches ni fuentes de permiso. La secciÃƒÂ³n de configuraciÃƒÂ³n
+solo conserva una referencia de navegaciÃƒÂ³n a su ubicaciÃƒÂ³n principal.
 
 La consola declara `pre-runtime / no-execution`, mantiene deny-by-default ante
 `no_payload`, muestra `forbidden_actions` y `blocked_capabilities`, y no habilita
@@ -68,7 +68,7 @@ estado.
 ## Flujo principal de consola 1.2
 
 La marca `data-console-flow="contract-aware-1.2"` identifica el recorrido de
-lectura de la consola: orientación IA_CORE y límite pre-runtime, readiness,
+lectura de la consola: orientaciÃƒÂ³n IA_CORE y lÃƒÂ­mite pre-runtime, readiness,
 Contract Core / Payload, Internal Services / Signals, Actions & Boundaries,
 Evidence / Checkpoint y siguiente paso documentado.
 
@@ -79,23 +79,23 @@ siendo backend only y `forbidden_actions`/`blocked_capabilities` permanecen
 visibles. El siguiente bloque se presenta como continuidad `planned`, no como
 CTA operativo.
 
-## Modelo de interacción 1.3
+## Modelo de interacciÃƒÂ³n 1.3
 
 La shell agrega `data-console-interaction="contract-aware-1.3"` y declara
 `data-interaction-mode="read-only"`. La ruta 1.2 permite enfocar cada zona de
-forma local, sin inferir permisos ni persistir selección.
+forma local, sin inferir permisos ni persistir selecciÃƒÂ³n.
 
 Contract Core incorpora un `<details>` read-only que replica valores ya
-renderizados de schema, servicio, source, validation, flags, diagnósticos,
+renderizados de schema, servicio, source, validation, flags, diagnÃƒÂ³sticos,
 acciones y bloqueos. `console-interactions.js` sincroniza ese inspector desde
 el DOM mediante `MutationObserver`; no usa fetch, no muta payloads y no activa
 runtime/execution.
 
-Los controles de relectura se marcan como inspección local, los botones de
-request/dispatch conservan `disabled_by_contract` y las utilidades de gestión
-preexistentes quedan fuera del modelo contract-aware 1.3. Los bloques críticos
+Los controles de relectura se marcan como inspecciÃƒÂ³n local, los botones de
+request/dispatch conservan `disabled_by_contract` y las utilidades de gestiÃƒÂ³n
+preexistentes quedan fuera del modelo contract-aware 1.3. Los bloques crÃƒÂ­ticos
 de `forbidden_actions` y `blocked_capabilities` siguen visibles aunque el
-inspector esté colapsado.
+inspector estÃƒÂ© colapsado.
 
 ## Checkpoint de interaccion 1.4
 
@@ -351,14 +351,14 @@ Proximo prompt exacto sugerido: `PROMPT UI/UX 1.24 - Auditar Operator Guidance /
 
 `docs/UI_UX_OPERATOR_GUIDANCE_EMPTY_STATE_AUDIT_1_24.md` audita guidance global, estados, empty states, request draft, actions/boundaries, internal exposure, evidence/next step, raw-safe/detail panels, navegacion/foco/responsive, microcopy, saturacion y cobertura de tests. La auditoria no implementa cambios activos y deja listo el hardening 1.25.
 
-El bloque conserva no-runtime/no-execution, sin endpoints, sin dependencias, sin rutas nuevas y sin cambios de contrato backend. SUBPROMPT UI/UX 1.24.1 agrega el criterio de lenguaje dual: Panel Maestro usa texto claro con término técnico entre paréntesis cuando aporta trazabilidad; Panel Usuario traduce jerga técnica a lenguaje simple sin ocultar bloqueos ni inventar permisos. No se implementa UI activa. La continuidad recomendada sigue siendo local hasta el checkpoint 1.26 salvo decision explicita del operador.
+El bloque conserva no-runtime/no-execution, sin endpoints, sin dependencias, sin rutas nuevas y sin cambios de contrato backend. SUBPROMPT UI/UX 1.24.1 agrega el criterio de lenguaje dual: Panel Maestro usa texto claro con tÃƒÂ©rmino tÃƒÂ©cnico entre parÃƒÂ©ntesis cuando aporta trazabilidad; Panel Usuario traduce jerga tÃƒÂ©cnica a lenguaje simple sin ocultar bloqueos ni inventar permisos. No se implementa UI activa. La continuidad recomendada sigue siendo local hasta el checkpoint 1.26 salvo decision explicita del operador.
 
 Bloque siguiente ejecutado en 1.25 desde `PROMPT UI/UX 1.25 - Endurecer guidance y empty states de operador IA_CORE contract-aware sin runtime/no-execution`; ver hardening operator guidance / empty states abajo.
 ## Hardening operator guidance / empty states 1.25
 
 `docs/UI_UX_OPERATOR_GUIDANCE_EMPTY_STATE_HARDENING_1_25.md` registra el hardening acotado de guidance y empty states. La UI activa agrega microcopy breve para no_payload, not_available, pending, planned, blocked, read-only, allowed_actions, forbidden_actions, blocked_capabilities, raw-safe, request draft, internal exposure y Next Step.
 
-El Panel Maestro aplica lenguaje claro + término técnico entre paréntesis; Panel Usuario queda documentado como futuro, sin implementación. El cambio no rediseña, no crea pantallas, no crea endpoints, no instala dependencias, no activa runtime, execution, dispatch ni controlled execution. La continuidad recomendada sigue local hasta el checkpoint 1.26 salvo decisión explícita del operador.
+El Panel Maestro aplica lenguaje claro + tÃƒÂ©rmino tÃƒÂ©cnico entre parÃƒÂ©ntesis; Panel Usuario queda documentado como futuro, sin implementaciÃƒÂ³n. El cambio no rediseÃƒÂ±a, no crea pantallas, no crea endpoints, no instala dependencias, no activa runtime, execution, dispatch ni controlled execution. La continuidad recomendada sigue local hasta el checkpoint 1.26 salvo decisiÃƒÂ³n explÃƒÂ­cita del operador.
 
 Proximo prompt exacto sugerido: `PROMPT UI/UX 1.26 - Checkpoint Operator Guidance / Empty-State Intelligence IA_CORE contract-aware sin runtime/no-execution`.
 
@@ -527,6 +527,19 @@ La planificacion no implementa pantallas, no crea rutas, no modifica UI activa, 
 GitHub ya tiene restore point remoto hasta 1.38 en 6e474fd6. No hace falta push despues de cada prompt; el proximo restore point recomendado queda para el checkpoint del bloque Readiness for Future Screens, estimado 1.42 salvo cambio critico o decision explicita.
 
 Proximo prompt exacto sugerido: PROMPT UI/UX 1.40 - Auditar readiness para futuras pantallas IA_CORE contract-aware sin runtime/no-execution.
+Bloque siguiente ejecutado en 1.40 desde PROMPT UI/UX 1.40 - Auditar readiness para futuras pantallas IA_CORE contract-aware sin runtime/no-execution; ver auditoria Readiness for Future Screens abajo.
+
+## Auditoria Future Screens Readiness 1.40
+
+docs/UI_UX_FUTURE_SCREENS_READINESS_AUDIT_1_40.md audita si IA_CORE esta listo para permitir futuras pantallas sin construirlas. La auditoria define Future Screen, Readiness Gate, Screen Contract, Surface Ownership, Navigation Readiness, Data Readiness, Action Readiness y Visual Readiness.
+
+La auditoria identifica candidatos future screens, hallazgos P0/P1/P2/P3, readiness gates iniciales, Screen Contract Template inicial y reglas de extraction safety. Future screens no implementadas, User Panel no implementado y UI activa no modificada quedan confirmados.
+
+1.41 debe documentar readiness gates, checklist, Screen Contract Template, matriz de candidatos, reglas de navegacion futura, data/action/state readiness, extraction safety, component readiness, READMEs y tests. 1.41 no debe implementar pantallas, rutas, User Panel, endpoints, fetches, dependencias, runtime, execution, dispatch ni controlled execution.
+
+Push GitHub pospuesto por defecto; el proximo restore point recomendado sigue siendo despues del checkpoint Readiness for Future Screens 1.42, salvo cambio critico o decision explicita.
+
+Proximo prompt exacto sugerido: PROMPT UI/UX 1.41 - Documentar readiness de futuras pantallas IA_CORE contract-aware sin runtime/no-execution.
 ## Widgets backend contract
 
 `backend-contract-widgets.js` no crea ni consulta endpoints. Renderiza payloads
@@ -541,9 +554,9 @@ no-operativas. Si no hay payload estable, quedan en deny-by-default. Si el
 payload viola `true = blocked`, flags false o status no operativo, se muestra
 error contractual y no se renderizan acciones activas.
 
-## Catálogo de textos
+## CatÃƒÂ¡logo de textos
 
-`i18n_es.json` es la fuente de referencia en español para toda pantalla o flujo
+`i18n_es.json` es la fuente de referencia en espaÃƒÂ±ol para toda pantalla o flujo
 nuevo de la consola. Las incorporaciones deben reutilizar sus claves o ampliarlo antes
-de agregar nuevos textos visibles; la migración de la superficie existente puede hacerse
-de forma incremental sin duplicar un segundo catálogo.
+de agregar nuevos textos visibles; la migraciÃƒÂ³n de la superficie existente puede hacerse
+de forma incremental sin duplicar un segundo catÃƒÂ¡logo.
