@@ -391,7 +391,7 @@ def test_readmes_reference_style_reference_1_45_and_next_prompt_1_46():
         assert NEXT_PROMPT in text
 
     bt = chr(96)
-    assert f"Next pending step: {bt}{NEXT_PROMPT}{bt}" in root
+    assert f"Next pending step: {bt}PROMPT UI/UX 1.47 - Consolidar siguiente bloque UI/UX post Component Style Reference IA_CORE contract-aware sin runtime/no-execution{bt}" in root
 
 
 def test_expected_verdicts_are_documented():
