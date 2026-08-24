@@ -104,4 +104,11 @@ def test_no_endpoint_dependency_runtime_and_readme_cursor_are_documented():
     assert "No endpoint/API/router/fetch nuevo confirmado" in text
     assert "No runtime/execution/dispatch/controlled execution confirmado" in text
     assert "sin cambios ci" in text.lower()
-    assert f"Next pending step: {bt}{NEXT_PROMPT}{bt}" in readme
+    current_after_1_54 = (
+        "PROMPT UI/UX 1.55 - Consolidar siguiente bloque UI/UX post Screen Contract "
+        "Application Planning IA_CORE contract-aware sin runtime/no-execution"
+    )
+    assert (
+        f"Next pending step: {bt}{NEXT_PROMPT}{bt}" in readme
+        or f"Next pending step: {bt}{current_after_1_54}{bt}" in readme
+    )

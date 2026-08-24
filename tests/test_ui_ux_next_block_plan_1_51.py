@@ -183,10 +183,15 @@ def test_readmes_reference_plan_1_51_and_next_prompt_1_52():
         "PROMPT UI/UX 1.54 - Checkpoint Screen Contract Application Planning "
         "IA_CORE contract-aware sin runtime/no-execution"
     )
+    current_after_1_54 = (
+        "PROMPT UI/UX 1.55 - Consolidar siguiente bloque UI/UX post Screen Contract "
+        "Application Planning IA_CORE contract-aware sin runtime/no-execution"
+    )
     assert (
         f"Next pending step: {bt}{NEXT_PROMPT}{bt}" in root
         or f"Next pending step: {bt}{current_after_1_52}{bt}" in root
         or f"Next pending step: {bt}{current_after_1_53}{bt}" in root
+        or f"Next pending step: {bt}{current_after_1_54}{bt}" in root
     )
 
 
