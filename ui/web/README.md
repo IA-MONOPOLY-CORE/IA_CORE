@@ -645,6 +645,19 @@ La auditoria define Static Guardrail, Enforcement, Forbidden String Check, CTA G
 Push GitHub pospuesto por defecto; el proximo restore point recomendado sigue siendo el checkpoint del bloque Component Usage Enforcement / Static Guardrails, estimado 1.50, salvo cambio critico o decision explicita.
 
 Proximo prompt exacto sugerido: PROMPT UI/UX 1.49 - Documentar Component Usage Enforcement / Static Guardrails IA_CORE contract-aware sin runtime/no-execution.
+Bloque siguiente ejecutado en 1.49 desde PROMPT UI/UX 1.49 - Documentar Component Usage Enforcement / Static Guardrails IA_CORE contract-aware sin runtime/no-execution; ver documentacion formal abajo.
+
+## Static Guardrails Component Usage 1.49
+
+docs/UI_UX_COMPONENT_USAGE_ENFORCEMENT_STATIC_GUARDRAILS_1_49.md formaliza Component Usage Enforcement / Static Guardrails como contrato documental y testeable sin modificar UI activa.
+
+La documentacion define Guardrail Matrix formal, Forbidden/Suspicious Strings Catalog, Allowed Context vs Forbidden UI Usage, Static Check Strategy, Identity/Runtime/Endpoint/CTA/State/Blocked/Surface/Evidence/Request Preview/Component/Local Controls/Documentation Cursor guardrails, Mandatory vs Optional Guardrails y Static Guardrails Test Plan.
+
+1.49 crea tests documentales y tests estaticos acotados: tests/test_ui_ux_component_usage_enforcement_static_guardrails_1_49.py y tests/test_ui_ux_static_guardrails_1_49.py. Los checks usan allowlists contextuales para evitar falsos positivos sobre docs, CSS .active, admin/domain fetch heredado y estados internos permitidos.
+
+1.49 no modifica UI activa, no cambia microcopy visible, no crea componentes, pantallas, rutas, endpoints ni fetches nuevos, no instala dependencias, sin cambios CI, no activa runtime, execution, dispatch ni controlled execution. Push GitHub pospuesto por defecto; el proximo restore point recomendado sigue siendo el checkpoint 1.50 salvo cambio critico o decision explicita.
+
+Proximo prompt exacto sugerido: PROMPT UI/UX 1.50 - Checkpoint Component Usage Enforcement / Static Guardrails IA_CORE contract-aware sin runtime/no-execution.
 ## Widgets backend contract
 
 `backend-contract-widgets.js` no crea ni consulta endpoints. Renderiza payloads

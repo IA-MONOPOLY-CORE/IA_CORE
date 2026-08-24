@@ -290,16 +290,22 @@ def test_readmes_reference_audit_1_48_and_next_prompt_1_49():
     for text in (root, ui):
         assert "docs/UI_UX_COMPONENT_USAGE_ENFORCEMENT_STATIC_GUARDRAILS_AUDIT_1_48.md" in text
         assert CURRENT_PROMPT in text
-        assert "Component Usage Enforcement / Static Guardrails" in text
-        assert "guardrails no implementados todavia" in text or "no implementa guardrails" in text
-        assert "no-runtime/no-execution" in text or "no runtime" in text.lower()
-        assert "sin endpoints" in text or "no endpoints" in text.lower()
+        assert "Static Guardrails" in text
+        assert "forbidden/suspicious" in text
+        assert "sin runtime" in text or "no runtime" in text
         assert "sin dependencias" in text or "no dependencias" in text.lower() or "no dependencies" in text.lower()
         assert "no UI activa" in text or "no modifica UI activa" in text
         assert NEXT_PROMPT in text
 
     bt = chr(96)
-    assert f"Next pending step: {bt}{NEXT_PROMPT}{bt}" in root
+    current_after_1_49 = (
+        "PROMPT UI/UX 1.50 - Checkpoint Component Usage Enforcement / Static Guardrails "
+        "IA_CORE contract-aware sin runtime/no-execution"
+    )
+    assert (
+        f"Next pending step: {bt}{NEXT_PROMPT}{bt}" in root
+        or f"Next pending step: {bt}{current_after_1_49}{bt}" in root
+    )
 
 
 def test_expected_verdicts_are_documented():

@@ -318,9 +318,14 @@ def test_readmes_reference_plan_1_47_and_next_prompt_1_48():
         "PROMPT UI/UX 1.49 - Documentar Component Usage Enforcement / Static Guardrails "
         "IA_CORE contract-aware sin runtime/no-execution"
     )
+    current_after_1_49 = (
+        "PROMPT UI/UX 1.50 - Checkpoint Component Usage Enforcement / Static Guardrails "
+        "IA_CORE contract-aware sin runtime/no-execution"
+    )
     assert (
         f"Next pending step: {bt}{NEXT_PROMPT}{bt}" in root
         or f"Next pending step: {bt}{current_after_1_48}{bt}" in root
+        or f"Next pending step: {bt}{current_after_1_49}{bt}" in root
     )
 
 
