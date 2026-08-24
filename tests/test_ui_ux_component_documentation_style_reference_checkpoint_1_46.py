@@ -435,12 +435,17 @@ def test_readmes_reference_checkpoint_1_46_and_next_prompt_1_47():
         "PROMPT UI/UX 1.51 - Consolidar siguiente bloque UI/UX post Static Guardrails "
         "IA_CORE contract-aware sin runtime/no-execution"
     )
+    current_after_1_51 = (
+        "PROMPT UI/UX 1.52 - Auditar Screen Contract Application Planning "
+        "IA_CORE contract-aware sin runtime/no-execution"
+    )
     assert (
         f"Next pending step: {bt}{NEXT_PROMPT}{bt}" in root
         or f"Next pending step: {bt}{current_after_1_47}{bt}" in root
         or f"Next pending step: {bt}{current_after_1_48}{bt}" in root
         or f"Next pending step: {bt}{current_after_1_49}{bt}" in root
         or f"Next pending step: {bt}{current_after_1_50}{bt}" in root
+        or f"Next pending step: {bt}{current_after_1_51}{bt}" in root
     )
 
 
