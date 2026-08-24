@@ -566,6 +566,19 @@ La UI activa permanece IA_CORE / Panel Maestro, sin rutas nuevas, sin endpoints 
 GitHub queda preparado como nuevo restore point del bloque tras commit, tests y push normal. No force push.
 
 Proximo prompt exacto sugerido: PROMPT UI/UX 1.43 - Consolidar siguiente bloque UI/UX post Future Screens Readiness IA_CORE contract-aware sin runtime/no-execution.
+Bloque siguiente ejecutado en 1.43 desde PROMPT UI/UX 1.43 - Consolidar siguiente bloque UI/UX post Future Screens Readiness IA_CORE contract-aware sin runtime/no-execution; ver plan formal abajo.
+
+## Planificacion Component Documentation / Style Reference 1.43
+
+docs/UI_UX_NEXT_BLOCK_PLAN_1_43.md selecciona Component Documentation / Style Reference como proximo bloque UI/UX post Future Screens Readiness.
+
+La planificacion confirma que conviene documentar tokens, layout, cards, chips, estados, density tiers, narrative steps, panels, disclosures, request preview, evidence/logs, blocked/forbidden y futuras user-safe variants antes de abrir secondary views, User Panel readiness o polish premium.
+
+1.43 no implementa componentes, no modifica UI activa, no crea future screens, no crea User Panel, no crea rutas, no crea endpoints, no agrega fetches, no instala dependencias, no activa runtime, no activa execution, no activa dispatch y no activa controlled execution.
+
+GitHub ya tiene restore point remoto hasta 1.42 en 44c451e4. No hace falta push despues de este prompt de planificacion; el proximo restore point recomendado queda para el checkpoint del bloque Component Documentation / Style Reference, estimado 1.46.
+
+Proximo prompt exacto sugerido: PROMPT UI/UX 1.44 - Auditar Component Documentation / Style Reference IA_CORE contract-aware sin runtime/no-execution.
 ## Widgets backend contract
 
 `backend-contract-widgets.js` no crea ni consulta endpoints. Renderiza payloads

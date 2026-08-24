@@ -290,7 +290,7 @@ def test_readmes_reference_readiness_1_41_and_next_prompt_1_42():
         assert NEXT_PROMPT in text
 
     bt = chr(96)
-    assert f"Next pending step: {bt}PROMPT UI/UX 1.43 - Consolidar siguiente bloque UI/UX post Future Screens Readiness IA_CORE contract-aware sin runtime/no-execution{bt}" in root
+    assert f"Next pending step: {bt}PROMPT UI/UX 1.44 - Auditar Component Documentation / Style Reference IA_CORE contract-aware sin runtime/no-execution{bt}" in root
 
 
 def test_active_ui_remains_ia_core_panel_maestro_without_new_future_screen_runtime():
