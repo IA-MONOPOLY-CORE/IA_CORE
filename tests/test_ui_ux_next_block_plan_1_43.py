@@ -16,7 +16,7 @@ CURRENT_PROMPT = (
 )
 
 NEXT_PROMPT = (
-    "PROMPT UI/UX 1.44 - Auditar Component Documentation / Style Reference "
+    "PROMPT UI/UX 1.45 - Documentar Component Documentation / Style Reference "
     "IA_CORE contract-aware sin runtime/no-execution"
 )
 
