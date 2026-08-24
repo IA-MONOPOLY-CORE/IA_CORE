@@ -505,6 +505,16 @@ docs/UI_UX_PANEL_MAESTRO_USER_PANEL_BOUNDARIES_1_37.md documenta boundaries form
 La translation layer queda conceptual; User Panel no implementado permanece como frontera explicita. No modifica UI activa, no cambia microcopy visible, no crea pantallas, rutas, endpoints ni fetches, no instala dependencias, no activa runtime, execution, dispatch ni controlled execution. Push sigue pospuesto; el proximo restore point recomendado queda para el checkpoint 1.38 salvo cambio critico o decision explicita.
 
 Proximo prompt exacto sugerido: PROMPT UI/UX 1.38 - Checkpoint boundaries Panel Maestro / User Panel IA_CORE contract-aware sin runtime/no-execution.
+
+Bloque siguiente ejecutado en 1.38 desde PROMPT UI/UX 1.38 - Checkpoint boundaries Panel Maestro / User Panel IA_CORE contract-aware sin runtime/no-execution; ver checkpoint Panel Maestro vs User Panel boundaries abajo.
+
+## Checkpoint Panel Maestro vs User Panel boundaries 1.38
+
+docs/UI_UX_PANEL_MAESTRO_USER_PANEL_BOUNDARIES_CHECKPOINT_1_38.md cierra el bloque 1.35 -> 1.37 Panel Maestro/User Panel boundaries como checkpoint documental y de pruebas. Confirma matriz formal de exposicion, categorias, elementos clasificados, traducciones, reglas de lenguaje/estados/acciones/evidence/componentes/responsive y guardrails futuro User Panel.
+
+User Panel no implementado y translation layer conceptual only quedan confirmados. La UI activa sigue siendo Panel Maestro / operador interno, sin pantallas nuevas, rutas, endpoints, fetches nuevos, dependencias, runtime, execution, dispatch ni controlled execution. El checkpoint prepara restore point GitHub tras push normal.
+
+Proximo prompt exacto sugerido: PROMPT UI/UX 1.39 - Consolidar siguiente bloque UI/UX post Panel Boundaries IA_CORE contract-aware sin runtime/no-execution.
 ## Widgets backend contract
 
 `backend-contract-widgets.js` no crea ni consulta endpoints. Renderiza payloads
