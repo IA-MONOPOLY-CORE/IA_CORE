@@ -128,6 +128,10 @@ def test_no_endpoint_dependency_runtime_and_readme_cursor_are_documented():
         "PROMPT UI/UX 1.60 - Auditar Final Screen Contract Readiness "
         "IA_CORE contract-aware sin runtime/no-execution"
     )
+    current_after_1_60 = (
+        "PROMPT UI/UX 1.61 - Documentar Final Screen Contract Readiness "
+        "IA_CORE contract-aware sin runtime/no-execution"
+    )
     assert (
         f"Next pending step: {bt}{NEXT_PROMPT}{bt}" in readme
         or f"Next pending step: {bt}{current_after_1_54}{bt}" in readme
@@ -136,4 +140,5 @@ def test_no_endpoint_dependency_runtime_and_readme_cursor_are_documented():
         or f"Next pending step: {bt}{current_after_1_57}{bt}" in readme
         or f"Next pending step: {bt}{current_after_1_58}{bt}" in readme
         or f"Next pending step: {bt}{current_after_1_59}{bt}" in readme
+        or f"Next pending step: {bt}{current_after_1_60}{bt}" in readme
     )

@@ -188,9 +188,14 @@ def test_readmes_register_checkpoint_and_next_cursor():
         "PROMPT UI/UX 1.60 - Auditar Final Screen Contract Readiness "
         "IA_CORE contract-aware sin runtime/no-execution"
     )
+    current_after_1_60 = (
+        "PROMPT UI/UX 1.61 - Documentar Final Screen Contract Readiness "
+        "IA_CORE contract-aware sin runtime/no-execution"
+    )
     assert (
         f"Next pending step: {bt}{NEXT_PROMPT}{bt}" in root
         or f"Next pending step: {bt}{current_after_1_59}{bt}" in root
+        or f"Next pending step: {bt}{current_after_1_60}{bt}" in root
     )
 
     for text in (root, web):
