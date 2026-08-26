@@ -258,7 +258,7 @@ def test_readmes_reference_1_57_and_next_1_58():
         assert "sin endpoints" in text
         assert "sin dependencias" in text
         assert "sin cambios CI" in text
-        assert NEXT_PROMPT in text
+        assert NEXT_PROMPT in text or current_after_1_63 in text
 
     current_after_1_58 = (
         "PROMPT UI/UX 1.59 - Consolidar siguiente bloque UI/UX post "
@@ -280,6 +280,10 @@ def test_readmes_reference_1_57_and_next_1_58():
         "PROMPT UI/UX 1.63 - Consolidar siguiente bloque UI/UX post "
         "Final Screen Contract Readiness IA_CORE contract-aware sin runtime/no-execution"
     )
+    current_after_1_63 = (
+        "PROMPT UI/UX 1.64 - Auditar Contract Overview Final Screen Contract "
+        "IA_CORE contract-aware sin runtime/no-execution"
+    )
     assert (
         f"Next pending step: {bt}{NEXT_PROMPT}{bt}" in root
         or f"Next pending step: {bt}{current_after_1_58}{bt}" in root
@@ -287,6 +291,7 @@ def test_readmes_reference_1_57_and_next_1_58():
         or f"Next pending step: {bt}{current_after_1_60}{bt}" in root
         or f"Next pending step: {bt}{current_after_1_61}{bt}" in root
         or f"Next pending step: {bt}{current_after_1_62}{bt}" in root
+        or f"Next pending step: {bt}{current_after_1_63}{bt}" in root
     )
 
 

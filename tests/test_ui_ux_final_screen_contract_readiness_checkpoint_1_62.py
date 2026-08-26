@@ -11,6 +11,11 @@ NEXT_PROMPT = (
     "Final Screen Contract Readiness IA_CORE contract-aware sin runtime/no-execution"
 )
 
+CURRENT_AFTER_1_63 = (
+    "PROMPT UI/UX 1.64 - Auditar Contract Overview Final Screen Contract "
+    "IA_CORE contract-aware sin runtime/no-execution"
+)
+
 CANDIDATES = [
     "Contract Overview Screen Draft",
     "Blocked & Forbidden Capabilities Screen Draft",
@@ -203,7 +208,10 @@ def test_readmes_register_checkpoint_and_cursor_1_63():
     web = read(WEB_README)
     bt = "`"
 
-    assert f"Next pending step: {bt}{NEXT_PROMPT}{bt}" in root
+    assert (
+        f"Next pending step: {bt}{NEXT_PROMPT}{bt}" in root
+        or f"Next pending step: {bt}{CURRENT_AFTER_1_63}{bt}" in root
+    )
 
     for text in (root, web):
         assert "1.62" in text
