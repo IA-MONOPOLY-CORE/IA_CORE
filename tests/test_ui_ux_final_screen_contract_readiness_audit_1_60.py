@@ -217,7 +217,14 @@ def test_readmes_register_audit_and_cursor():
     web = read(WEB_README)
     bt = "`"
 
-    assert f"Next pending step: {bt}{NEXT_PROMPT}{bt}" in root
+    current_after_1_61 = (
+        "PROMPT UI/UX 1.62 - Checkpoint Final Screen Contract Readiness "
+        "IA_CORE contract-aware sin runtime/no-execution"
+    )
+    assert (
+        f"Next pending step: {bt}{NEXT_PROMPT}{bt}" in root
+        or f"Next pending step: {bt}{current_after_1_61}{bt}" in root
+    )
 
     for text in (root, web):
         assert "auditoria 1.60" in text
