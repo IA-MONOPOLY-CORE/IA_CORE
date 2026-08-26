@@ -143,7 +143,14 @@ def test_readme_cursor_points_to_checkpoint_1_58():
     web = read(WEB_README)
     bt = "`"
 
-    assert f"Next pending step: {bt}{NEXT_PROMPT}{bt}" in root
+    current_after_1_58 = (
+        "PROMPT UI/UX 1.59 - Consolidar siguiente bloque UI/UX post "
+        "Contract-First Screen Contract Drafts IA_CORE contract-aware sin runtime/no-execution"
+    )
+    assert (
+        f"Next pending step: {bt}{NEXT_PROMPT}{bt}" in root
+        or f"Next pending step: {bt}{current_after_1_58}{bt}" in root
+    )
     for text in (root, web):
         assert "docs/UI_UX_CONTRACT_FIRST_SCREEN_CONTRACT_DRAFTS_1_57.md" in text
         assert "PROMPT UI/UX 1.58 - Checkpoint Contract-First Screen Contract Drafts IA_CORE contract-aware sin runtime/no-execution" in text

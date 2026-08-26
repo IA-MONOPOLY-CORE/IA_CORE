@@ -759,6 +759,18 @@ Backup: restore point remoto vigente 4a1fd17c; 1.55, 1.56 y 1.57 pueden permanec
 
 Proximo prompt exacto sugerido: PROMPT UI/UX 1.58 - Checkpoint Contract-First Screen Contract Drafts IA_CORE contract-aware sin runtime/no-execution.
 
+Bloque siguiente ejecutado en 1.58 desde PROMPT UI/UX 1.58 - Checkpoint Contract-First Screen Contract Drafts IA_CORE contract-aware sin runtime/no-execution; ver checkpoint formal abajo.
+
+## Contract-First Screen Contract Drafts Checkpoint 1.58
+
+docs/UI_UX_CONTRACT_FIRST_SCREEN_CONTRACT_DRAFTS_CHECKPOINT_1_58.md cierra el bloque Contract-First Screen Contract Drafts como checkpoint 1.58 y confirma que 1.55 planifico, 1.56 audito y 1.57 documento los cuatro draft contracts Priority 1: Contract Overview Screen Draft, Validation & Readiness Screen Draft, Blocked & Forbidden Capabilities Screen Draft y Request Contract Preview Screen Draft.
+
+El checkpoint confirma que los cuatro draft contracts son documentales/no finales, que Final Screen Contracts no creados, future screens no implementadas y User Panel no implementado. Tambien confirma sin UI activa modificada, sin endpoints, sin rutas, sin fetches, sin dependencias, sin cambios CI, backend operativo untouched y no-runtime/no-execution.
+
+Backup: este checkpoint realiza push normal despues del commit para dejar restore point GitHub actualizado en origin/main.
+
+Proximo prompt exacto sugerido: PROMPT UI/UX 1.59 - Consolidar siguiente bloque UI/UX post Contract-First Screen Contract Drafts IA_CORE contract-aware sin runtime/no-execution.
+
 ## Widgets backend contract
 
 `backend-contract-widgets.js` no crea ni consulta endpoints. Renderiza payloads
