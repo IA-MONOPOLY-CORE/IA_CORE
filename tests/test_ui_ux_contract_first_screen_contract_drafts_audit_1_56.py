@@ -320,12 +320,32 @@ def test_readmes_reference_audit_1_56_and_next_prompt_1_57():
         "PROMPT UI/UX 1.61 - Documentar Final Screen Contract Readiness "
         "IA_CORE contract-aware sin runtime/no-execution"
     )
+    current_after_1_61 = (
+        "PROMPT UI/UX 1.62 - Checkpoint Final Screen Contract Readiness "
+        "IA_CORE contract-aware sin runtime/no-execution"
+    )
+    current_after_1_62 = (
+        "PROMPT UI/UX 1.63 - Consolidar siguiente bloque UI/UX post "
+        "Final Screen Contract Readiness IA_CORE contract-aware sin runtime/no-execution"
+    )
+    current_after_1_63 = (
+        "PROMPT UI/UX 1.64 - Auditar Contract Overview Final Screen Contract "
+        "IA_CORE contract-aware sin runtime/no-execution"
+    )
+    current_after_1_64 = (
+        "PROMPT UI/UX 1.65 - Documentar Contract Overview Final Screen Contract "
+        "IA_CORE contract-aware sin runtime/no-execution"
+    )
     assert (
         f"Next pending step: {bt}{NEXT_PROMPT}{bt}" in root
         or f"Next pending step: {bt}{current_after_1_57}{bt}" in root
         or f"Next pending step: {bt}{current_after_1_58}{bt}" in root
         or f"Next pending step: {bt}{current_after_1_59}{bt}" in root
         or f"Next pending step: {bt}{current_after_1_60}{bt}" in root
+        or f"Next pending step: {bt}{current_after_1_61}{bt}" in root
+        or f"Next pending step: {bt}{current_after_1_62}{bt}" in root
+        or f"Next pending step: {bt}{current_after_1_63}{bt}" in root
+        or f"Next pending step: {bt}{current_after_1_64}{bt}" in root
     )
 
 
