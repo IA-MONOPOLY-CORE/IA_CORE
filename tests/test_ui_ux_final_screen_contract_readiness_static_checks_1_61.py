@@ -99,8 +99,15 @@ def test_readme_cursor_points_to_1_62():
     web = read(WEB_README)
     bt = "`"
 
-    assert f"Next pending step: {bt}{NEXT_PROMPT}{bt}" in root
-    assert NEXT_PROMPT in web
+    current_after_1_62 = (
+        "PROMPT UI/UX 1.63 - Consolidar siguiente bloque UI/UX post "
+        "Final Screen Contract Readiness IA_CORE contract-aware sin runtime/no-execution"
+    )
+    assert (
+        f"Next pending step: {bt}{NEXT_PROMPT}{bt}" in root
+        or f"Next pending step: {bt}{current_after_1_62}{bt}" in root
+    )
+    assert NEXT_PROMPT in web or current_after_1_62 in web
 
     for text in (root, web):
         assert "1.61" in text

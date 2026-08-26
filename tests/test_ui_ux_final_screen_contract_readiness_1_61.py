@@ -256,7 +256,14 @@ def test_readmes_register_1_61_and_cursor_1_62():
     web = read(WEB_README)
     bt = "`"
 
-    assert f"Next pending step: {bt}{NEXT_PROMPT}{bt}" in root
+    current_after_1_62 = (
+        "PROMPT UI/UX 1.63 - Consolidar siguiente bloque UI/UX post "
+        "Final Screen Contract Readiness IA_CORE contract-aware sin runtime/no-execution"
+    )
+    assert (
+        f"Next pending step: {bt}{NEXT_PROMPT}{bt}" in root
+        or f"Next pending step: {bt}{current_after_1_62}{bt}" in root
+    )
 
     for text in (root, web):
         assert "1.61" in text
