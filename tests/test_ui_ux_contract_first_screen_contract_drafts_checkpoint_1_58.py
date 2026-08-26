@@ -184,7 +184,14 @@ def test_readmes_register_checkpoint_and_next_cursor():
     web = read(WEB_README)
     bt = "`"
 
-    assert f"Next pending step: {bt}{NEXT_PROMPT}{bt}" in root
+    current_after_1_59 = (
+        "PROMPT UI/UX 1.60 - Auditar Final Screen Contract Readiness "
+        "IA_CORE contract-aware sin runtime/no-execution"
+    )
+    assert (
+        f"Next pending step: {bt}{NEXT_PROMPT}{bt}" in root
+        or f"Next pending step: {bt}{current_after_1_59}{bt}" in root
+    )
 
     for text in (root, web):
         assert "checkpoint 1.58" in text

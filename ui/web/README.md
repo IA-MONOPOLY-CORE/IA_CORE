@@ -771,6 +771,20 @@ Backup: este checkpoint realiza push normal despues del commit para dejar restor
 
 Proximo prompt exacto sugerido: PROMPT UI/UX 1.59 - Consolidar siguiente bloque UI/UX post Contract-First Screen Contract Drafts IA_CORE contract-aware sin runtime/no-execution.
 
+Bloque siguiente ejecutado en 1.59 desde PROMPT UI/UX 1.59 - Consolidar siguiente bloque UI/UX post Contract-First Screen Contract Drafts IA_CORE contract-aware sin runtime/no-execution; ver planificacion formal abajo.
+
+## Planificacion Post Contract-First Screen Contract Drafts 1.59
+
+docs/UI_UX_NEXT_BLOCK_PLAN_1_59.md consolida el estado post checkpoint 1.58 y confirma bloque 1.55 -> 1.58 cerrado con restore point remoto ec8975b7. Los cuatro draft contracts Priority 1 siguen como documentacion preliminar/no final y no se convierten en Final Screen Contracts.
+
+La planificacion 1.59 evalua opciones candidatas y selecciona un unico proximo bloque: Final Screen Contract Readiness / Audit. La decision prioriza auditar readiness antes de convertir cualquier draft, antes de elegir un candidato final y antes de abrir pantallas, User Panel, rutas, endpoints, fetches, dependencias o integracion activa.
+
+1.59 no modifica UI activa, no cambia HTML/CSS/JS operativo, no crea final screen contracts, no crea future screens, no crea User Panel, no crea rutas, no crea endpoints, no agrega fetches, no instala dependencias, sin cambios CI y no-runtime/no-execution.
+
+Backup: push pospuesto por defecto. El restore point remoto vigente sigue siendo ec8975b7; el proximo restore point recomendado queda para el checkpoint Final Screen Contract Readiness estimado en 1.62.
+
+Proximo prompt exacto sugerido: PROMPT UI/UX 1.60 - Auditar Final Screen Contract Readiness IA_CORE contract-aware sin runtime/no-execution.
+
 ## Widgets backend contract
 
 `backend-contract-widgets.js` no crea ni consulta endpoints. Renderiza payloads
