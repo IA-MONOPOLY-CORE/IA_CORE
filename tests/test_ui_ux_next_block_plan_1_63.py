@@ -19,6 +19,10 @@ CURRENT_AFTER_1_65 = (
     "PROMPT UI/UX 1.66 - Checkpoint Contract Overview Final Screen Contract "
     "IA_CORE contract-aware sin runtime/no-execution"
 )
+CURRENT_AFTER_1_66 = (
+    "PROMPT UI/UX 1.67 - Consolidar siguiente bloque UI/UX post Contract "
+    "Overview Final Screen Contract IA_CORE contract-aware sin runtime/no-execution"
+)
 
 SCORES = [
     "READY_FOR_FINAL_CONTRACT_AUDIT_NEXT",
@@ -218,6 +222,7 @@ def test_readmes_register_plan_and_cursor():
         f"Next pending step: {bt}{NEXT_PROMPT}{bt}" in root
         or f"Next pending step: {bt}{CURRENT_AFTER_1_64}{bt}" in root
         or f"Next pending step: {bt}{CURRENT_AFTER_1_65}{bt}" in root
+        or f"Next pending step: {bt}{CURRENT_AFTER_1_66}{bt}" in root
     )
 
     for text in (root, web):

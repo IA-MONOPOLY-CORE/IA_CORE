@@ -175,6 +175,10 @@ def test_readme_cursor_points_to_checkpoint_1_58():
         "PROMPT UI/UX 1.66 - Checkpoint Contract Overview Final Screen Contract "
         "IA_CORE contract-aware sin runtime/no-execution"
     )
+    current_after_1_66 = (
+        "PROMPT UI/UX 1.67 - Consolidar siguiente bloque UI/UX post Contract "
+        "Overview Final Screen Contract IA_CORE contract-aware sin runtime/no-execution"
+    )
     assert (
         f"Next pending step: {bt}{NEXT_PROMPT}{bt}" in root
         or f"Next pending step: {bt}{current_after_1_58}{bt}" in root
@@ -185,6 +189,7 @@ def test_readme_cursor_points_to_checkpoint_1_58():
         or f"Next pending step: {bt}{current_after_1_63}{bt}" in root
         or f"Next pending step: {bt}{current_after_1_64}{bt}" in root
         or f"Next pending step: {bt}{current_after_1_65}{bt}" in root
+        or f"Next pending step: {bt}{current_after_1_66}{bt}" in root
     )
     for text in (root, web):
         assert "docs/UI_UX_CONTRACT_FIRST_SCREEN_CONTRACT_DRAFTS_1_57.md" in text

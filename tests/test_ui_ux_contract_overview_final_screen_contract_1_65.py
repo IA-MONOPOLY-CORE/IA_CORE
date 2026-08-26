@@ -11,6 +11,10 @@ NEXT_PROMPT = (
     "IA_CORE contract-aware sin runtime/no-execution"
 )
 
+CURRENT_AFTER_1_66 = (
+    "PROMPT UI/UX 1.67 - Consolidar siguiente bloque UI/UX post Contract "
+    "Overview Final Screen Contract IA_CORE contract-aware sin runtime/no-execution"
+)
 VERDICTS = [
     "UI_UX_CONTRACT_OVERVIEW_FINAL_SCREEN_CONTRACT_DOCUMENTED",
     "CONTRACT_OVERVIEW_FINAL_SCREEN_CONTRACT_CREATED_AS_DOCUMENTATION",
@@ -261,7 +265,10 @@ def test_readmes_register_1_65_and_cursor_to_1_66():
     web = read(WEB_README)
     bt = "`"
 
-    assert f"Next pending step: {bt}{NEXT_PROMPT}{bt}" in root
+    assert (
+        f"Next pending step: {bt}{NEXT_PROMPT}{bt}" in root
+        or f"Next pending step: {bt}{CURRENT_AFTER_1_66}{bt}" in root
+    )
     for text in (root, web):
         assert "documentado hasta 1.65" in text or "Documentacion Contract Overview Final Screen Contract 1.65" in text
         assert "docs/UI_UX_CONTRACT_OVERVIEW_FINAL_SCREEN_CONTRACT_1_65.md" in text
