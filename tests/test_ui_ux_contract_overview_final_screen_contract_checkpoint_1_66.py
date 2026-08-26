@@ -199,7 +199,10 @@ def test_next_prompt_readmes_and_verdicts_are_documented():
     bt = "`"
 
     assert NEXT_PROMPT in text
-    assert f"Next pending step: {bt}{NEXT_PROMPT}{bt}" in root
+    assert (
+        f"Next pending step: {bt}{NEXT_PROMPT}{bt}" in root
+        or f"Next pending step: {bt}PROMPT UI/UX 1.68 - Auditar Blocked & Forbidden Final Screen Contract IA_CORE contract-aware sin runtime/no-execution{bt}" in root
+    )
     assert NEXT_PROMPT in web
     assert "docs/UI_UX_CONTRACT_OVERVIEW_FINAL_SCREEN_CONTRACT_CHECKPOINT_1_66.md" in root
     assert "docs/UI_UX_CONTRACT_OVERVIEW_FINAL_SCREEN_CONTRACT_CHECKPOINT_1_66.md" in web

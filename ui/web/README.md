@@ -875,6 +875,16 @@ docs/UI_UX_CONTRACT_OVERVIEW_FINAL_SCREEN_CONTRACT_CHECKPOINT_1_66.md cierra el 
 
 Proximo prompt exacto sugerido: PROMPT UI/UX 1.67 - Consolidar siguiente bloque UI/UX post Contract Overview Final Screen Contract IA_CORE contract-aware sin runtime/no-execution.
 
+## Planificacion Post Contract Overview Final Screen Contract 1.67
+
+docs/UI_UX_NEXT_BLOCK_PLAN_1_67.md completa la planificacion 1.67 post Contract Overview Final Screen Contract. Confirma bloque 1.63 -> 1.66 cerrado con restore point remoto c0391f74, primer final screen contract documental creado, Contract Overview Final Screen Contract existente como documento final, pantalla Contract Overview no implementada, sin UI activa modificada, User Panel no implementado, sin endpoints, sin rutas, sin fetches, sin dependencias, sin cambios CI y no-runtime/no-execution.
+
+La planificacion evalua opciones candidatas y selecciona un unico proximo bloque: Blocked & Forbidden Final Screen Contract Audit. La decision usa el readiness score READY_FOR_FINAL_CONTRACT_AUDIT_NEXT y order 2 para reforzar forbidden_actions, blocked_capabilities, no-unlock/no-override, hidden limits y seguridad contractual antes de cualquier implementacion visual.
+
+Backup: push pospuesto por defecto. El ultimo restore point remoto sigue siendo c0391f74; el proximo restore point recomendado queda para el checkpoint Blocked & Forbidden Final Screen Contract estimado en 1.70, salvo cambio critico o decision explicita.
+
+Proximo prompt exacto sugerido: PROMPT UI/UX 1.68 - Auditar Blocked & Forbidden Final Screen Contract IA_CORE contract-aware sin runtime/no-execution.
+
 ## Widgets backend contract
 
 `backend-contract-widgets.js` no crea ni consulta endpoints. Renderiza payloads

@@ -298,6 +298,7 @@ def test_readmes_register_1_64_and_cursor_1_65():
         f"Next pending step: {bt}{NEXT_PROMPT}{bt}" in root
         or f"Next pending step: {bt}{CURRENT_AFTER_1_65}{bt}" in root
         or f"Next pending step: {bt}{CURRENT_AFTER_1_66}{bt}" in root
+        or f"Next pending step: {bt}PROMPT UI/UX 1.68 - Auditar Blocked & Forbidden Final Screen Contract IA_CORE contract-aware sin runtime/no-execution{bt}" in root
     )
 
     for text in (root, web):
