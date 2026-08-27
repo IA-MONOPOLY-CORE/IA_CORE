@@ -16,6 +16,11 @@ CURRENT_AFTER_1_73 = (
     "Closure IA_CORE contract-aware sin runtime/no-execution"
 )
 
+CURRENT_AFTER_1_74 = (
+    "PROMPT UI/UX 1.75 - Consolidar siguiente bloque UI/UX post "
+    "Validation & Readiness Minor Gaps Closure IA_CORE contract-aware sin "
+    "runtime/no-execution"
+)
 VERDICTS = [
     "UI_UX_VALIDATION_READINESS_MINOR_GAPS_AUDIT_COMPLETED",
     "VALIDATION_READINESS_SCREEN_DRAFT_REVIEWED",
@@ -240,6 +245,7 @@ def test_readmes_register_audit_and_cursor_to_1_73():
     assert (
         f"Next pending step: {bt}{NEXT_PROMPT}{bt}" in root
         or f"Next pending step: {bt}{CURRENT_AFTER_1_73}{bt}" in root
+        or f"Next pending step: {bt}{CURRENT_AFTER_1_74}{bt}" in root
     )
     assert "docs/UI_UX_VALIDATION_READINESS_MINOR_GAPS_AUDIT_1_72.md" in root
 

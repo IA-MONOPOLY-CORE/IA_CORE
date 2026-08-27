@@ -21,6 +21,11 @@ CURRENT_AFTER_1_73 = (
     "Closure IA_CORE contract-aware sin runtime/no-execution"
 )
 
+CURRENT_AFTER_1_74 = (
+    "PROMPT UI/UX 1.75 - Consolidar siguiente bloque UI/UX post "
+    "Validation & Readiness Minor Gaps Closure IA_CORE contract-aware sin "
+    "runtime/no-execution"
+)
 VERDICTS = [
     "UI_UX_NEXT_BLOCK_PLAN_1_71_COMPLETED",
     "POST_BLOCKED_FORBIDDEN_FINAL_SCREEN_CONTRACT_STATE_REVIEWED",
@@ -233,6 +238,7 @@ def test_readmes_register_plan_and_cursor_to_1_72():
         f"Next pending step: {bt}{NEXT_PROMPT}{bt}" in root
         or f"Next pending step: {bt}{CURRENT_AFTER_1_72}{bt}" in root
         or f"Next pending step: {bt}{CURRENT_AFTER_1_73}{bt}" in root
+        or f"Next pending step: {bt}{CURRENT_AFTER_1_74}{bt}" in root
     )
     for text in (root, web):
         assert "planificacion 1.71" in text

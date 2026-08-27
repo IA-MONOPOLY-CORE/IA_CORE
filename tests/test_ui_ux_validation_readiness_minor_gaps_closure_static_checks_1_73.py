@@ -1,4 +1,4 @@
-﻿from pathlib import Path
+from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -9,6 +9,11 @@ WEB_README = ROOT / "ui" / "web" / "README.md"
 NEXT_PROMPT = (
     "PROMPT UI/UX 1.74 - Checkpoint Validation & Readiness Minor Gaps "
     "Closure IA_CORE contract-aware sin runtime/no-execution"
+)
+CURRENT_AFTER_1_74 = (
+    "PROMPT UI/UX 1.75 - Consolidar siguiente bloque UI/UX post "
+    "Validation & Readiness Minor Gaps Closure IA_CORE contract-aware sin "
+    "runtime/no-execution"
 )
 
 FINAL_CONTRACT_GLOB = "UI_UX_VALIDATION_READINESS_FINAL_SCREEN_CONTRACT_*.md"
@@ -113,7 +118,10 @@ def test_readme_cursors_point_to_1_74_checkpoint():
     web = read(WEB_README)
     bt = "`"
 
-    assert f"Next pending step: {bt}{NEXT_PROMPT}{bt}" in root
+    assert (
+        f"Next pending step: {bt}{NEXT_PROMPT}{bt}" in root
+        or f"Next pending step: {bt}{CURRENT_AFTER_1_74}{bt}" in root
+    )
     for text in (root, web):
         assert "UI/UX avanzado hasta 1.73" in text
         assert "gaps menores Validation & Readiness cerrados" in text

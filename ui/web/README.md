@@ -959,3 +959,8 @@ error contractual y no se renderizan acciones activas.
 nuevo de la consola. Las incorporaciones deben reutilizar sus claves o ampliarlo antes
 de agregar nuevos textos visibles; la migraciÃƒÂ³n de la superficie existente puede hacerse
 de forma incremental sin duplicar un segundo catÃƒÂ¡logo.
+## Checkpoint Validation & Readiness Minor Gaps Closure 1.74
+
+UI/UX avanzado hasta 1.74; `docs/UI_UX_VALIDATION_READINESS_MINOR_GAPS_CHECKPOINT_1_74.md` cierra el bloque `Validation & Readiness Minor Gaps Closure` 1.71 -> 1.74. Confirma el plan 1.71, la auditoria 1.72, el cierre 1.73, los 12 gaps `CLOSED`, `P0_BLOCKER: 0`, `P1_MINOR_GAP: 0 pendientes` y el estado `Validation & Readiness Screen Draft` como `READY_FOR_FINAL_CONTRACT_AUDIT_NEXT`.
+
+El checkpoint no crea final contract, no ejecuta final contract audit, no crea pantalla, no modifica UI activa, mantiene User Panel no implementado, sin endpoints/rutas/fetches/dependencias/CI y no-runtime/no-execution. El restore point remoto queda actualizado despues del push normal. Proximo prompt exacto: `PROMPT UI/UX 1.75 - Consolidar siguiente bloque UI/UX post Validation & Readiness Minor Gaps Closure IA_CORE contract-aware sin runtime/no-execution`.

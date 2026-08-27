@@ -1,4 +1,4 @@
-﻿from pathlib import Path
+from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -9,6 +9,11 @@ WEB_README = ROOT / "ui" / "web" / "README.md"
 NEXT_PROMPT = (
     "PROMPT UI/UX 1.74 - Checkpoint Validation & Readiness Minor Gaps "
     "Closure IA_CORE contract-aware sin runtime/no-execution"
+)
+CURRENT_AFTER_1_74 = (
+    "PROMPT UI/UX 1.75 - Consolidar siguiente bloque UI/UX post "
+    "Validation & Readiness Minor Gaps Closure IA_CORE contract-aware sin "
+    "runtime/no-execution"
 )
 
 GAPS = [f"VRG-172-{index:03d}" for index in range(1, 13)]
@@ -187,7 +192,10 @@ def test_updated_candidate_status_and_next_checkpoint_are_recorded():
     assert "Estado anterior: `NEEDS_MINOR_GAPS_BEFORE_FINAL_CONTRACT`" in text
     assert "Estado nuevo documental: `READY_FOR_FINAL_CONTRACT_AUDIT_NEXT`" in text
     assert NEXT_PROMPT in text
-    assert f"Next pending step: {bt}{NEXT_PROMPT}{bt}" in root
+    assert (
+        f"Next pending step: {bt}{NEXT_PROMPT}{bt}" in root
+        or f"Next pending step: {bt}{CURRENT_AFTER_1_74}{bt}" in root
+    )
     assert NEXT_PROMPT in web
 
 
