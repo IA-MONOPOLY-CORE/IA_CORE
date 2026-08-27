@@ -352,6 +352,10 @@ def test_readmes_reference_audit_1_56_and_next_prompt_1_57():
         "PROMPT UI/UX 1.69 - Documentar Blocked & Forbidden Final Screen Contract "
         "IA_CORE contract-aware sin runtime/no-execution"
     )
+    current_after_1_70 = (
+        "PROMPT UI/UX 1.70 - Checkpoint Blocked & Forbidden Final Screen Contract "
+        "IA_CORE contract-aware sin runtime/no-execution"
+    )
     assert (
         f"Next pending step: {bt}{NEXT_PROMPT}{bt}" in root
         or f"Next pending step: {bt}{current_after_1_57}{bt}" in root
@@ -366,6 +370,7 @@ def test_readmes_reference_audit_1_56_and_next_prompt_1_57():
         or f"Next pending step: {bt}{current_after_1_66}{bt}" in root
         or f"Next pending step: {bt}{current_after_1_68}{bt}" in root
         or f"Next pending step: {bt}{current_after_1_69}{bt}" in root
+        or f"Next pending step: {bt}{current_after_1_70}{bt}" in root
     )
 
 

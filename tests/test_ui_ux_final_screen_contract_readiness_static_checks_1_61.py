@@ -128,6 +128,7 @@ def test_readme_cursor_points_to_1_62():
         or f"Next pending step: {bt}{current_after_1_66}{bt}" in root
         or f"Next pending step: {bt}PROMPT UI/UX 1.68 - Auditar Blocked & Forbidden Final Screen Contract IA_CORE contract-aware sin runtime/no-execution{bt}" in root
         or f"Next pending step: {bt}PROMPT UI/UX 1.69 - Documentar Blocked & Forbidden Final Screen Contract IA_CORE contract-aware sin runtime/no-execution{bt}" in root
+        or f"Next pending step: {bt}PROMPT UI/UX 1.70 - Checkpoint Blocked & Forbidden Final Screen Contract IA_CORE contract-aware sin runtime/no-execution{bt}" in root
     )
     assert NEXT_PROMPT in web or current_after_1_62 in web or current_after_1_63 in web or current_after_1_64 in web or current_after_1_65 in web or current_after_1_66 in web
 

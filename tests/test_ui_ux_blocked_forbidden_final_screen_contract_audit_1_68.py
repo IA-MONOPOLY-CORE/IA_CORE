@@ -11,6 +11,10 @@ NEXT_PROMPT = (
     "IA_CORE contract-aware sin runtime/no-execution"
 )
 
+CURRENT_AFTER_1_69 = (
+    "PROMPT UI/UX 1.70 - Checkpoint Blocked & Forbidden Final Screen Contract "
+    "IA_CORE contract-aware sin runtime/no-execution"
+)
 VERDICTS = [
     "UI_UX_BLOCKED_FORBIDDEN_FINAL_SCREEN_CONTRACT_AUDIT_COMPLETED",
     "POST_CONTRACT_OVERVIEW_FINAL_SCREEN_CONTRACT_STATE_REVIEWED",
@@ -230,7 +234,10 @@ def test_readmes_register_audit_and_next_cursor():
     web = read(WEB_README)
     bt = "`"
 
-    assert f"Next pending step: {bt}{NEXT_PROMPT}{bt}" in root
+    assert (
+        f"Next pending step: {bt}{NEXT_PROMPT}{bt}" in root
+        or f"Next pending step: {bt}{CURRENT_AFTER_1_69}{bt}" in root
+    )
 
     for text in (root, web):
         assert "Auditoria Blocked & Forbidden Final Screen Contract 1.68" in text
@@ -244,6 +251,6 @@ def test_readmes_register_audit_and_next_cursor():
         assert "sin dependencias" in text
         assert "no-runtime/no-execution" in text
         assert "no-unlock/no-override/no-bypass" in text
-        assert NEXT_PROMPT in text
+        assert NEXT_PROMPT in text or CURRENT_AFTER_1_69 in text
         assert "push pospuesto" in text.lower()
         assert "c0391f74" in text
