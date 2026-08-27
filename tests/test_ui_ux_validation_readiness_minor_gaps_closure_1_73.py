@@ -39,6 +39,10 @@ DIMENSIONS = [
     "Finalization Gate",
 ]
 
+CURRENT_AFTER_1_75 = (
+    "PROMPT UI/UX 1.76 - Auditar Validation & Readiness Final Screen "
+    "Contract IA_CORE contract-aware sin runtime/no-execution"
+)
 VERDICTS = [
     "UI_UX_VALIDATION_READINESS_MINOR_GAPS_CLOSURE_COMPLETED",
     "VALIDATION_READINESS_12_GAPS_CLOSED",
@@ -195,6 +199,7 @@ def test_updated_candidate_status_and_next_checkpoint_are_recorded():
     assert (
         f"Next pending step: {bt}{NEXT_PROMPT}{bt}" in root
         or f"Next pending step: {bt}{CURRENT_AFTER_1_74}{bt}" in root
+        or f"Next pending step: {bt}{CURRENT_AFTER_1_75}{bt}" in root
     )
     assert NEXT_PROMPT in web
 

@@ -11,6 +11,10 @@ NEXT_PROMPT = (
     "Validation & Readiness Minor Gaps Closure IA_CORE contract-aware sin "
     "runtime/no-execution"
 )
+CURRENT_AFTER_1_75 = (
+    "PROMPT UI/UX 1.76 - Auditar Validation & Readiness Final Screen "
+    "Contract IA_CORE contract-aware sin runtime/no-execution"
+)
 
 GAPS = [f"VRG-172-{index:03d}" for index in range(1, 13)]
 
@@ -176,7 +180,10 @@ def test_validation_suite_next_prompt_and_readme_cursors_are_recorded():
         assert command in text
 
     assert NEXT_PROMPT in text
-    assert f"Next pending step: {bt}{NEXT_PROMPT}{bt}" in root
+    assert (
+        f"Next pending step: {bt}{NEXT_PROMPT}{bt}" in root
+        or f"Next pending step: {bt}{CURRENT_AFTER_1_75}{bt}" in root
+    )
     for content in (root, web):
         assert "UI/UX avanzado hasta 1.74" in content
         assert "Validation & Readiness Minor Gaps Closure" in content
