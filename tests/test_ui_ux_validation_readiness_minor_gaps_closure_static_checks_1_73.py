@@ -34,7 +34,7 @@ def read(path: Path) -> str:
 def test_no_validation_readiness_final_contract_document_was_created():
     final_contracts = [
         path for path in (ROOT / "docs").glob(FINAL_CONTRACT_GLOB)
-        if "_AUDIT_" not in path.name
+        if "_AUDIT_" not in path.name and path.name != "UI_UX_VALIDATION_READINESS_FINAL_SCREEN_CONTRACT_1_77.md"
     ]
     assert final_contracts == []
 
@@ -134,6 +134,7 @@ def test_readme_cursors_point_to_1_74_checkpoint():
         or f"Next pending step: {bt}{CURRENT_AFTER_1_74}{bt}" in root
         or f"Next pending step: {bt}{CURRENT_AFTER_1_75}{bt}" in root
         or f"Next pending step: {bt}{CURRENT_AFTER_1_76}{bt}" in root
+        or f"Next pending step: {bt}PROMPT UI/UX 1.78 - Checkpoint Validation & Readiness Final Screen Contract IA_CORE contract-aware sin runtime/no-execution{bt}" in root
     )
     for text in (root, web):
         assert "UI/UX avanzado hasta 1.73" in text

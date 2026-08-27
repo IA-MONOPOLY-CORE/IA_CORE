@@ -249,6 +249,7 @@ def test_readmes_register_plan_and_cursor_to_1_72():
         or f"Next pending step: {bt}{CURRENT_AFTER_1_74}{bt}" in root
         or f"Next pending step: {bt}{CURRENT_AFTER_1_75}{bt}" in root
         or f"Next pending step: {bt}{CURRENT_AFTER_1_76}{bt}" in root
+        or f"Next pending step: {bt}PROMPT UI/UX 1.78 - Checkpoint Validation & Readiness Final Screen Contract IA_CORE contract-aware sin runtime/no-execution{bt}" in root
     )
     for text in (root, web):
         assert "planificacion 1.71" in text

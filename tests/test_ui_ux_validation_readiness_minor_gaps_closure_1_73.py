@@ -205,6 +205,7 @@ def test_updated_candidate_status_and_next_checkpoint_are_recorded():
         or f"Next pending step: {bt}{CURRENT_AFTER_1_74}{bt}" in root
         or f"Next pending step: {bt}{CURRENT_AFTER_1_75}{bt}" in root
         or f"Next pending step: {bt}{CURRENT_AFTER_1_76}{bt}" in root
+        or f"Next pending step: {bt}PROMPT UI/UX 1.78 - Checkpoint Validation & Readiness Final Screen Contract IA_CORE contract-aware sin runtime/no-execution{bt}" in root
     )
     assert NEXT_PROMPT in web
 

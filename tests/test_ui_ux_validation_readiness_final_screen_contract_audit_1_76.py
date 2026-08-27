@@ -160,12 +160,15 @@ def test_next_prompt_and_readme_cursors_are_updated():
     bt = "`"
 
     assert NEXT_PROMPT in text
-    assert f"Next pending step: {bt}{NEXT_PROMPT}{bt}" in root
+    assert (
+        f"Next pending step: {bt}{NEXT_PROMPT}{bt}" in root
+        or f"Next pending step: {bt}PROMPT UI/UX 1.78 - Checkpoint Validation & Readiness Final Screen Contract IA_CORE contract-aware sin runtime/no-execution{bt}" in root
+    )
     for content in (root, web):
-        assert "UI/UX avanzado hasta 1.76" in content
+        assert "UI/UX avanzado hasta 1.76" in content or "UI/UX avanzado hasta 1.77" in content
         assert "Validation & Readiness Final Screen Contract Audit" in content
         assert "VALIDATION_READINESS_FINAL_CONTRACT_DOCUMENTATION_ALLOWED_NEXT" in content
-        assert "no final contract" in content
+        assert "no final contract" in content or "tercer Final Screen Contract documental" in content
         assert "no pantalla" in content
         assert "no UI activa" in content or "sin UI activa modificada" in content
         assert "User Panel no implementado" in content or "No User Panel" in content
