@@ -39,6 +39,10 @@ DIMENSIONS = [
     "Finalization Gate",
 ]
 
+CURRENT_AFTER_1_76 = (
+    "PROMPT UI/UX 1.77 - Documentar Validation & Readiness Final Screen "
+    "Contract IA_CORE contract-aware sin runtime/no-execution"
+)
 VERDICTS = [
     "UI_UX_VALIDATION_READINESS_MINOR_GAPS_CHECKPOINT_CLOSED",
     "VALIDATION_READINESS_MINOR_GAPS_BLOCK_CLOSED",
@@ -183,6 +187,7 @@ def test_validation_suite_next_prompt_and_readme_cursors_are_recorded():
     assert (
         f"Next pending step: {bt}{NEXT_PROMPT}{bt}" in root
         or f"Next pending step: {bt}{CURRENT_AFTER_1_75}{bt}" in root
+        or f"Next pending step: {bt}{CURRENT_AFTER_1_76}{bt}" in root
     )
     for content in (root, web):
         assert "UI/UX avanzado hasta 1.74" in content
@@ -197,7 +202,10 @@ def test_validation_suite_next_prompt_and_readme_cursors_are_recorded():
 
 
 def test_no_validation_readiness_final_contract_document_was_created():
-    final_contracts = list((ROOT / "docs").glob("UI_UX_VALIDATION_READINESS_FINAL_SCREEN_CONTRACT_*.md"))
+    final_contracts = [
+        path for path in (ROOT / "docs").glob("UI_UX_VALIDATION_READINESS_FINAL_SCREEN_CONTRACT_*.md")
+        if "_AUDIT_" not in path.name
+    ]
     assert final_contracts == []
 
 

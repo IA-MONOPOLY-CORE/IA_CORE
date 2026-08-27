@@ -19,6 +19,10 @@ CURRENT_AFTER_1_75 = (
     "PROMPT UI/UX 1.76 - Auditar Validation & Readiness Final Screen "
     "Contract IA_CORE contract-aware sin runtime/no-execution"
 )
+CURRENT_AFTER_1_76 = (
+    "PROMPT UI/UX 1.77 - Documentar Validation & Readiness Final Screen "
+    "Contract IA_CORE contract-aware sin runtime/no-execution"
+)
 
 FINAL_CONTRACT_GLOB = "UI_UX_VALIDATION_READINESS_FINAL_SCREEN_CONTRACT_*.md"
 
@@ -28,7 +32,10 @@ def read(path: Path) -> str:
 
 
 def test_no_validation_readiness_final_contract_document_was_created():
-    final_contracts = list((ROOT / "docs").glob(FINAL_CONTRACT_GLOB))
+    final_contracts = [
+        path for path in (ROOT / "docs").glob(FINAL_CONTRACT_GLOB)
+        if "_AUDIT_" not in path.name
+    ]
     assert final_contracts == []
 
 
@@ -126,6 +133,7 @@ def test_readme_cursors_point_to_1_74_checkpoint():
         f"Next pending step: {bt}{NEXT_PROMPT}{bt}" in root
         or f"Next pending step: {bt}{CURRENT_AFTER_1_74}{bt}" in root
         or f"Next pending step: {bt}{CURRENT_AFTER_1_75}{bt}" in root
+        or f"Next pending step: {bt}{CURRENT_AFTER_1_76}{bt}" in root
     )
     for text in (root, web):
         assert "UI/UX avanzado hasta 1.73" in text
