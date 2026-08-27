@@ -63,7 +63,10 @@ def test_readme_cursor_points_to_1_70():
     web = read(WEB_README)
     bt = "`"
 
-    assert f"Next pending step: {bt}{NEXT_PROMPT}{bt}" in root
+    assert (
+        f"Next pending step: {bt}{NEXT_PROMPT}{bt}" in root
+        or f"Next pending step: {bt}PROMPT UI/UX 1.71 - Consolidar siguiente bloque UI/UX post Blocked & Forbidden Final Screen Contract IA_CORE contract-aware sin runtime/no-execution{bt}" in root
+    )
     assert NEXT_PROMPT in web
     assert "Documentacion Blocked & Forbidden Final Screen Contract 1.69" in root
     assert "Documentacion Blocked & Forbidden Final Screen Contract 1.69" in web

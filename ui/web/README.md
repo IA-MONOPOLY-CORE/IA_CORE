@@ -903,6 +903,13 @@ Blocked & Forbidden Final Screen Contract creado como documentacion; draft conve
 Backup: push pospuesto por defecto. El restore point remoto vigente sigue siendo `c0391f74`; el proximo restore point recomendado queda para checkpoint 1.70 salvo cambio critico o decision explicita.
 
 Proximo prompt exacto sugerido: PROMPT UI/UX 1.70 - Checkpoint Blocked & Forbidden Final Screen Contract IA_CORE contract-aware sin runtime/no-execution.
+## Checkpoint Blocked & Forbidden Final Screen Contract 1.70
+
+docs/UI_UX_BLOCKED_FORBIDDEN_FINAL_SCREEN_CONTRACT_CHECKPOINT_1_70.md cierra el bloque Blocked & Forbidden Final Screen Contract 1.67 -> 1.70. Confirma que el segundo final screen contract documental fue creado: Blocked & Forbidden Final Screen Contract, con status final-documental / not implemented, Panel Maestro only, Contract Finalization Record, Final Screen Contract Identity, Source Contracts, Blocked Capabilities Policy, Forbidden Actions Policy, Allowed Explanatory Data, Forbidden Operational Data, Allowed Local / Read-Only Controls, Forbidden Controls, Allowed/Forbidden States, Evidence Policy, Navigation Policy, Component Policy, Guardrail Mapping, No-Unlock / No-Override Boundary, User-Safe / Internal-Only Boundary, Contract Acceptance Criteria, Risk Register e Implementation Boundary.
+
+1.70 confirma pantalla no creada, UI activa no modificada, User Panel no implementado, sin endpoints, sin rutas, sin fetches, sin dependencias, sin cambios CI, no-runtime/no-execution, sin dispatch/controlled execution y sin unlock/override/bypass/permission escalation. El checkpoint hace push normal a GitHub si las validaciones pasan y deja el commit 1.70 como nuevo restore point GitHub.
+
+Proximo prompt exacto sugerido: PROMPT UI/UX 1.71 - Consolidar siguiente bloque UI/UX post Blocked & Forbidden Final Screen Contract IA_CORE contract-aware sin runtime/no-execution.
 ## Widgets backend contract
 
 `backend-contract-widgets.js` no crea ni consulta endpoints. Renderiza payloads
