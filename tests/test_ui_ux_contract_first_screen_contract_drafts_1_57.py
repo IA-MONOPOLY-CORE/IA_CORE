@@ -297,7 +297,7 @@ def test_readmes_reference_1_57_and_next_1_58():
         "Overview Final Screen Contract IA_CORE contract-aware sin runtime/no-execution"
     )
     assert (
-        f"Next pending step: {bt}{NEXT_PROMPT}{bt}" in root
+        (f"Next pending step: {bt}{NEXT_PROMPT}{bt}" in root or f"Next pending step: {bt}PROMPT UI/UX 1.79 - Consolidar siguiente bloque UI/UX post Validation & Readiness Final Screen Contract IA_CORE contract-aware sin runtime/no-execution{bt}" in root)
         or f"Next pending step: {bt}{current_after_1_58}{bt}" in root
         or f"Next pending step: {bt}{current_after_1_59}{bt}" in root
         or f"Next pending step: {bt}{current_after_1_60}{bt}" in root
@@ -317,7 +317,7 @@ def test_readmes_reference_1_57_and_next_1_58():
         or f"Next pending step: {bt}PROMPT UI/UX 1.75 - Consolidar siguiente bloque UI/UX post Validation & Readiness Minor Gaps Closure IA_CORE contract-aware sin runtime/no-execution{bt}" in root
         or f"Next pending step: {bt}PROMPT UI/UX 1.76 - Auditar Validation & Readiness Final Screen Contract IA_CORE contract-aware sin runtime/no-execution{bt}" in root
         or f"Next pending step: {bt}PROMPT UI/UX 1.77 - Documentar Validation & Readiness Final Screen Contract IA_CORE contract-aware sin runtime/no-execution{bt}" in root
-        or f"Next pending step: {bt}PROMPT UI/UX 1.78 - Checkpoint Validation & Readiness Final Screen Contract IA_CORE contract-aware sin runtime/no-execution{bt}" in root
+        or (f"Next pending step: {bt}PROMPT UI/UX 1.78 - Checkpoint Validation & Readiness Final Screen Contract IA_CORE contract-aware sin runtime/no-execution{bt}" in root or f"Next pending step: {bt}PROMPT UI/UX 1.79 - Consolidar siguiente bloque UI/UX post Validation & Readiness Final Screen Contract IA_CORE contract-aware sin runtime/no-execution{bt}" in root)
     )
 
 

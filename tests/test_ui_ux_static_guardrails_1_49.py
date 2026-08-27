@@ -222,7 +222,7 @@ def test_documentation_cursor_guardrail_points_to_checkpoint_1_50():
         "IA_CORE contract-aware sin runtime/no-execution"
     )
     assert (
-        f"Next pending step: {bt}{NEXT_PROMPT}{bt}" in root
+        (f"Next pending step: {bt}{NEXT_PROMPT}{bt}" in root or f"Next pending step: {bt}PROMPT UI/UX 1.79 - Consolidar siguiente bloque UI/UX post Validation & Readiness Final Screen Contract IA_CORE contract-aware sin runtime/no-execution{bt}" in root)
         or f"Next pending step: {bt}{current_after_1_50}{bt}" in root
         or f"Next pending step: {bt}{current_after_1_51}{bt}" in root
         or f"Next pending step: {bt}{current_after_1_52}{bt}" in root

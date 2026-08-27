@@ -286,7 +286,7 @@ def test_next_prompt_readmes_and_verdicts_are_documented():
     bt = "`"
 
     assert NEXT_PROMPT in text
-    assert f"Next pending step: {bt}{NEXT_PROMPT}{bt}" in root
+    assert (f"Next pending step: {bt}{NEXT_PROMPT}{bt}" in root or f"Next pending step: {bt}PROMPT UI/UX 1.79 - Consolidar siguiente bloque UI/UX post Validation & Readiness Final Screen Contract IA_CORE contract-aware sin runtime/no-execution{bt}" in root)
     for content in (root, web):
         assert "UI/UX avanzado hasta 1.77" in content
         assert "Validation & Readiness Final Screen Contract" in content

@@ -140,5 +140,5 @@ def test_no_endpoint_dependency_runtime_and_readme_cursor_are_documented():
         or f"Next pending step: {bt}{current_after_1_57}{bt}" in readme
         or f"Next pending step: {bt}{current_after_1_58}{bt}" in readme
         or f"Next pending step: {bt}{current_after_1_59}{bt}" in readme
-        or f"Next pending step: {bt}{current_after_1_60}{bt}" in readme
+        or (f"Next pending step: {bt}{current_after_1_60}{bt}" in readme or f"Next pending step: {bt}PROMPT UI/UX 1.79 - Consolidar siguiente bloque UI/UX post Validation & Readiness Final Screen Contract IA_CORE contract-aware sin runtime/no-execution{bt}" in readme)
     )

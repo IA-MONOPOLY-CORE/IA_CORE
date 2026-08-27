@@ -179,9 +179,9 @@ def test_readmes_register_plan_and_cursor_to_1_76():
     bt = "`"
 
     assert (
-        f"Next pending step: {bt}{NEXT_PROMPT}{bt}" in root
+        (f"Next pending step: {bt}{NEXT_PROMPT}{bt}" in root or f"Next pending step: {bt}PROMPT UI/UX 1.79 - Consolidar siguiente bloque UI/UX post Validation & Readiness Final Screen Contract IA_CORE contract-aware sin runtime/no-execution{bt}" in root)
         or f"Next pending step: {bt}{CURRENT_AFTER_1_76}{bt}" in root
-        or f"Next pending step: {bt}PROMPT UI/UX 1.78 - Checkpoint Validation & Readiness Final Screen Contract IA_CORE contract-aware sin runtime/no-execution{bt}" in root
+        or (f"Next pending step: {bt}PROMPT UI/UX 1.78 - Checkpoint Validation & Readiness Final Screen Contract IA_CORE contract-aware sin runtime/no-execution{bt}" in root or f"Next pending step: {bt}PROMPT UI/UX 1.79 - Consolidar siguiente bloque UI/UX post Validation & Readiness Final Screen Contract IA_CORE contract-aware sin runtime/no-execution{bt}" in root)
     )
     for text in (root, web):
         assert "UI/UX avanzado hasta 1.75" in text
@@ -203,7 +203,7 @@ def test_readmes_register_plan_and_cursor_to_1_76():
 def test_no_validation_readiness_final_contract_document_was_created():
     final_contracts = [
         path for path in (ROOT / "docs").glob("UI_UX_VALIDATION_READINESS_FINAL_SCREEN_CONTRACT_*.md")
-        if "_AUDIT_" not in path.name and path.name != "UI_UX_VALIDATION_READINESS_FINAL_SCREEN_CONTRACT_1_77.md"
+        if "_AUDIT_" not in path.name and "_CHECKPOINT_" not in path.name and "_CHECKPOINT_" not in path.name and path.name != "UI_UX_VALIDATION_READINESS_FINAL_SCREEN_CONTRACT_1_77.md"
     ]
     assert final_contracts == []
 

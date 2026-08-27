@@ -201,11 +201,11 @@ def test_updated_candidate_status_and_next_checkpoint_are_recorded():
     assert "Estado nuevo documental: `READY_FOR_FINAL_CONTRACT_AUDIT_NEXT`" in text
     assert NEXT_PROMPT in text
     assert (
-        f"Next pending step: {bt}{NEXT_PROMPT}{bt}" in root
+        (f"Next pending step: {bt}{NEXT_PROMPT}{bt}" in root or f"Next pending step: {bt}PROMPT UI/UX 1.79 - Consolidar siguiente bloque UI/UX post Validation & Readiness Final Screen Contract IA_CORE contract-aware sin runtime/no-execution{bt}" in root)
         or f"Next pending step: {bt}{CURRENT_AFTER_1_74}{bt}" in root
         or f"Next pending step: {bt}{CURRENT_AFTER_1_75}{bt}" in root
         or f"Next pending step: {bt}{CURRENT_AFTER_1_76}{bt}" in root
-        or f"Next pending step: {bt}PROMPT UI/UX 1.78 - Checkpoint Validation & Readiness Final Screen Contract IA_CORE contract-aware sin runtime/no-execution{bt}" in root
+        or (f"Next pending step: {bt}PROMPT UI/UX 1.78 - Checkpoint Validation & Readiness Final Screen Contract IA_CORE contract-aware sin runtime/no-execution{bt}" in root or f"Next pending step: {bt}PROMPT UI/UX 1.79 - Consolidar siguiente bloque UI/UX post Validation & Readiness Final Screen Contract IA_CORE contract-aware sin runtime/no-execution{bt}" in root)
     )
     assert NEXT_PROMPT in web
 

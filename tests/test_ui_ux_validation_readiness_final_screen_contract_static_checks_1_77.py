@@ -29,7 +29,7 @@ def test_exact_final_contract_document_exists_once():
     final_contracts = [
         path.name
         for path in (ROOT / "docs").glob("UI_UX_VALIDATION_READINESS_FINAL_SCREEN_CONTRACT_*.md")
-        if "_AUDIT_" not in path.name
+        if "_AUDIT_" not in path.name and "_CHECKPOINT_" not in path.name
     ]
     assert final_contracts == ["UI_UX_VALIDATION_READINESS_FINAL_SCREEN_CONTRACT_1_77.md"]
 
@@ -124,4 +124,4 @@ def test_readme_cursor_points_to_1_78_checkpoint():
     root = read(README)
     bt = "`"
 
-    assert f"Next pending step: {bt}{NEXT_PROMPT}{bt}" in root
+    assert (f"Next pending step: {bt}{NEXT_PROMPT}{bt}" in root or f"Next pending step: {bt}PROMPT UI/UX 1.79 - Consolidar siguiente bloque UI/UX post Validation & Readiness Final Screen Contract IA_CORE contract-aware sin runtime/no-execution{bt}" in root)

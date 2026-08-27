@@ -448,7 +448,7 @@ def test_readmes_reference_checkpoint_1_46_and_next_prompt_1_47():
         "IA_CORE contract-aware sin runtime/no-execution"
     )
     assert (
-        f"Next pending step: {bt}{NEXT_PROMPT}{bt}" in root
+        (f"Next pending step: {bt}{NEXT_PROMPT}{bt}" in root or f"Next pending step: {bt}PROMPT UI/UX 1.79 - Consolidar siguiente bloque UI/UX post Validation & Readiness Final Screen Contract IA_CORE contract-aware sin runtime/no-execution{bt}" in root)
         or f"Next pending step: {bt}{current_after_1_47}{bt}" in root
         or f"Next pending step: {bt}{current_after_1_48}{bt}" in root
         or f"Next pending step: {bt}{current_after_1_49}{bt}" in root
