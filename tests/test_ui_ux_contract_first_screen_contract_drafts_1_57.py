@@ -308,6 +308,7 @@ def test_readmes_reference_1_57_and_next_1_58():
         or f"Next pending step: {bt}{current_after_1_65}{bt}" in root
         or f"Next pending step: {bt}{current_after_1_66}{bt}" in root
         or f"Next pending step: {bt}PROMPT UI/UX 1.68 - Auditar Blocked & Forbidden Final Screen Contract IA_CORE contract-aware sin runtime/no-execution{bt}" in root
+        or f"Next pending step: {bt}PROMPT UI/UX 1.69 - Documentar Blocked & Forbidden Final Screen Contract IA_CORE contract-aware sin runtime/no-execution{bt}" in root
     )
 
 
