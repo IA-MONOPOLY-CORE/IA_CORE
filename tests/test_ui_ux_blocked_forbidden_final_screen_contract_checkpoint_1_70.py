@@ -203,7 +203,10 @@ def test_readmes_point_to_1_71_and_reference_checkpoint():
     web = read(WEB_README)
     bt = "`"
 
-    assert f"Next pending step: {bt}{NEXT_PROMPT}{bt}" in root
+    assert (
+        f"Next pending step: {bt}{NEXT_PROMPT}{bt}" in root
+        or f"Next pending step: {bt}PROMPT UI/UX 1.72 - Auditar gaps menores Validation & Readiness Final Screen Contract IA_CORE contract-aware sin runtime/no-execution{bt}" in root
+    )
     assert NEXT_PROMPT in web
     assert "docs/UI_UX_BLOCKED_FORBIDDEN_FINAL_SCREEN_CONTRACT_CHECKPOINT_1_70.md" in root
     assert "docs/UI_UX_BLOCKED_FORBIDDEN_FINAL_SCREEN_CONTRACT_CHECKPOINT_1_70.md" in web

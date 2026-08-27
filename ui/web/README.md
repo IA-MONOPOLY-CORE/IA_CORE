@@ -910,6 +910,17 @@ docs/UI_UX_BLOCKED_FORBIDDEN_FINAL_SCREEN_CONTRACT_CHECKPOINT_1_70.md cierra el 
 1.70 confirma pantalla no creada, UI activa no modificada, User Panel no implementado, sin endpoints, sin rutas, sin fetches, sin dependencias, sin cambios CI, no-runtime/no-execution, sin dispatch/controlled execution y sin unlock/override/bypass/permission escalation. El checkpoint hace push normal a GitHub si las validaciones pasan y deja el commit 1.70 como nuevo restore point GitHub.
 
 Proximo prompt exacto sugerido: PROMPT UI/UX 1.71 - Consolidar siguiente bloque UI/UX post Blocked & Forbidden Final Screen Contract IA_CORE contract-aware sin runtime/no-execution.
+## Planificacion Post Blocked & Forbidden Final Screen Contract 1.71
+
+docs/UI_UX_NEXT_BLOCK_PLAN_1_71.md completa la planificacion 1.71 post Blocked & Forbidden Final Screen Contract. Confirma bloque 1.67 -> 1.70 cerrado con restore point remoto c3bcf264, segundo final screen contract documental creado, dos final screen contracts documentales disponibles: Contract Overview Final Screen Contract y Blocked & Forbidden Final Screen Contract.
+
+La planificacion evalua opciones candidatas y selecciona un unico proximo bloque: Validation & Readiness Minor Gaps Closure. La decision usa el estado NEEDS_MINOR_GAPS_BEFORE_FINAL_CONTRACT de Validation & Readiness Screen Draft para cerrar primero semantics, warnings/errors, evidence, states, gates y test strategy antes de cualquier audit final contract o pantalla.
+
+1.71 no crea final screen contracts, no crea pantalla, no modifica UI activa, User Panel no implementado, sin endpoints, sin rutas, sin fetches, sin dependencias, sin cambios CI, no-runtime/no-execution y sin unlock/override/bypass/permission escalation.
+
+Backup: push pospuesto por defecto. El ultimo restore point remoto sigue siendo c3bcf264; el proximo restore point recomendado queda para checkpoint 1.74 salvo cambio critico o decision explicita.
+
+Proximo prompt exacto sugerido: PROMPT UI/UX 1.72 - Auditar gaps menores Validation & Readiness Final Screen Contract IA_CORE contract-aware sin runtime/no-execution.
 ## Widgets backend contract
 
 `backend-contract-widgets.js` no crea ni consulta endpoints. Renderiza payloads
