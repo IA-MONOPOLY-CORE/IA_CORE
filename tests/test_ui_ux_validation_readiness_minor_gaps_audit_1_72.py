@@ -1,4 +1,4 @@
-﻿from pathlib import Path
+from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -9,6 +9,11 @@ WEB_README = ROOT / "ui" / "web" / "README.md"
 NEXT_PROMPT = (
     "PROMPT UI/UX 1.73 - Cerrar gaps menores Validation & Readiness Final "
     "Screen Contract IA_CORE contract-aware sin runtime/no-execution"
+)
+
+CURRENT_AFTER_1_73 = (
+    "PROMPT UI/UX 1.74 - Checkpoint Validation & Readiness Minor Gaps "
+    "Closure IA_CORE contract-aware sin runtime/no-execution"
 )
 
 VERDICTS = [
@@ -232,7 +237,10 @@ def test_readmes_register_audit_and_cursor_to_1_73():
     web = read(WEB_README)
     bt = "`"
 
-    assert f"Next pending step: {bt}{NEXT_PROMPT}{bt}" in root
+    assert (
+        f"Next pending step: {bt}{NEXT_PROMPT}{bt}" in root
+        or f"Next pending step: {bt}{CURRENT_AFTER_1_73}{bt}" in root
+    )
     assert "docs/UI_UX_VALIDATION_READINESS_MINOR_GAPS_AUDIT_1_72.md" in root
 
     for text in (root, web):

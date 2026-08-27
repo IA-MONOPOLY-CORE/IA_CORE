@@ -930,6 +930,15 @@ UI/UX auditado hasta 1.72; docs/UI_UX_VALIDATION_READINESS_MINOR_GAPS_AUDIT_1_72
 Backup: push pospuesto por defecto. El ultimo restore point remoto sigue siendo c3bcf264; el proximo restore point recomendado queda para checkpoint 1.74 salvo cambio critico o decision explicita.
 
 Proximo prompt exacto sugerido: PROMPT UI/UX 1.73 - Cerrar gaps menores Validation & Readiness Final Screen Contract IA_CORE contract-aware sin runtime/no-execution.
+## Cierre Validation & Readiness Minor Gaps 1.73
+
+UI/UX avanzado hasta 1.73; docs/UI_UX_VALIDATION_READINESS_MINOR_GAPS_CLOSURE_1_73.md cierra/hardenea los 12 gaps menores Validation & Readiness cerrados como CLOSED. `Validation & Readiness Screen Draft` pasa de `NEEDS_MINOR_GAPS_BEFORE_FINAL_CONTRACT` a `READY_FOR_FINAL_CONTRACT_AUDIT_NEXT`.
+
+1.73 no final contract creado; no crea final contract, no ejecuta final contract audit, no crea pantalla, no modifica UI activa, User Panel no implementado, sin endpoints, sin rutas, sin fetches, sin dependencias, sin cambios CI, no-runtime/no-execution y sin unlock/override/bypass/permission escalation. El siguiente paso es checkpoint 1.74, no audit final contract ni pantalla.
+
+Backup: push pospuesto por defecto. El ultimo restore point remoto sigue siendo c3bcf264; el proximo restore point recomendado queda para checkpoint 1.74 salvo cambio critico o decision explicita.
+
+Proximo prompt exacto sugerido: PROMPT UI/UX 1.74 - Checkpoint Validation & Readiness Minor Gaps Closure IA_CORE contract-aware sin runtime/no-execution.
 ## Widgets backend contract
 
 `backend-contract-widgets.js` no crea ni consulta endpoints. Renderiza payloads

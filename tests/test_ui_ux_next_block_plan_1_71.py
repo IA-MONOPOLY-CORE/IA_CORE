@@ -16,6 +16,11 @@ CURRENT_AFTER_1_72 = (
     "Screen Contract IA_CORE contract-aware sin runtime/no-execution"
 )
 
+CURRENT_AFTER_1_73 = (
+    "PROMPT UI/UX 1.74 - Checkpoint Validation & Readiness Minor Gaps "
+    "Closure IA_CORE contract-aware sin runtime/no-execution"
+)
+
 VERDICTS = [
     "UI_UX_NEXT_BLOCK_PLAN_1_71_COMPLETED",
     "POST_BLOCKED_FORBIDDEN_FINAL_SCREEN_CONTRACT_STATE_REVIEWED",
@@ -227,6 +232,7 @@ def test_readmes_register_plan_and_cursor_to_1_72():
     assert (
         f"Next pending step: {bt}{NEXT_PROMPT}{bt}" in root
         or f"Next pending step: {bt}{CURRENT_AFTER_1_72}{bt}" in root
+        or f"Next pending step: {bt}{CURRENT_AFTER_1_73}{bt}" in root
     )
     for text in (root, web):
         assert "planificacion 1.71" in text
