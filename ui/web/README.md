@@ -1087,3 +1087,10 @@ UI/UX cerrado hasta 1.82; sub-bloque 1.79-1.82 cerrado en `docs/UI_UX_FINAL_SCRE
 El orden futuro aprobado se mantiene como Contract Overview -> Blocked & Forbidden -> Validation & Readiness. Request Contract Preview sigue diferido. 1.82 no implementa pantalla, sin UI activa modificada, User Panel no implementado, sin rutas/hash, sin backend/runtime/endpoints/CI/dependencias, sin limpiar deuda residual y sin corregir pyflakes.
 
 Checkpoint GitHub: despues del commit y push normal de 1.82, el nuevo restore point remoto queda en el commit `docs(ui): cerrar checkpoint plan implementacion final screen contracts`. Proximo prompt exacto: `PROMPT UI/UX 1.83 - Preparar guardrails pre-implementacion de Contract Overview Screen IA_CORE contract-aware sin runtime/no-execution`.
+## Guardrails pre-implementacion Contract Overview 1.83
+
+UI/UX preparado hasta 1.83; `docs/UI_UX_CONTRACT_OVERVIEW_PRE_IMPLEMENTATION_GUARDRAILS_1_83.md` define guardrails pre-implementacion Contract Overview para convertir el plan 1.81/checkpoint 1.82 en criterios previos verificables. La decision final es `CONTRACT_OVERVIEW_PRE_IMPLEMENTATION_GUARDRAILS_READY`.
+
+1.83 no implementa pantalla, sin UI activa modificada, sin componente nuevo, User Panel no implementado, sin rutas/hash, sin backend/runtime/endpoints/CI/dependencias, sin limpiar deuda residual, sin corregir pyflakes y no push por defecto.
+
+Proximo prompt exacto: `PROMPT UI/UX 1.84 - Checkpoint guardrails pre-implementacion Contract Overview Screen IA_CORE contract-aware sin runtime/no-execution`.
