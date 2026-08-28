@@ -90,6 +90,12 @@ No se limpio, no se corrigieron pyflakes, no se modifico UI activa, no se toco b
 `docs/IA_CORE_GLOBAL_TECH_DEBT_SECOND_CLEANUP_1_78_F.md` ejecuta la segunda tanda segura definida por 1.78.E. Se limpiaron los 38 diagnosticos pyflakes test-only autorizados mediante cambios mecanicos en tests: 33 imports no usados y 5 variables locales no usadas. El diagnostico global bajo de 65 a 26; lo restante queda diferido en `api.py`, `core/`, `domains/`, providers y scripts.
 
 1.78.F no modifica UI activa, no toca backend operativo, no toca `api.py`, `core/`, `domains/`, providers, scripts, modelos, integraciones, runtime, endpoints, CI ni dependencias. `1.79` sigue diferido, no hay push por defecto y el proximo prompt exacto es `PROMPT IA_CORE 1.78.G - Checkpoint segunda limpieza deuda tecnica global IA_CORE contract-aware sin runtime/no-execution`.
+
+## Checkpoint segunda limpieza deuda tecnica global 1.78.G
+
+`docs/IA_CORE_GLOBAL_TECH_DEBT_SECOND_CLEANUP_CHECKPOINT_1_78_G.md` cierra el sub-bloque 1.78.E -> 1.78.G: planificacion de segunda tanda, limpieza test-only segura y checkpoint GitHub. La limpieza queda confirmada con pyflakes global reducido de `65 -> 26`, `33 unused imports`, `5 unused locals`, `pytest_plugins` como ajuste test-only seguro y `29 tests` tocados sin refactor ni cambio de comportamiento.
+
+Los 26 diagnosticos restantes quedan diferidos/protegidos fuera de tests en `api.py`, `core/`, `domains/`, providers y scripts. El checkpoint no modifica UI activa, no toca backend operativo, no crea endpoints/rutas/fetches, no activa runtime/execution/dispatch, no cambia CI ni dependencias y no avanza a 1.79. El push del checkpoint deja como nuevo restore point remoto el commit 1.78.G. Proximo prompt sugerido: `PROMPT IA_CORE 1.78.H - Planificar tercera tanda de limpieza deuda tecnica global IA_CORE contract-aware sin runtime/no-execution`.
 - The internal backend is prepared for UI/UX exposure through stable contracts, but runtime remains non-operative.
 - IA_CORE is the active identity.
 - SAAOP/Loteria remain only as historical/internal legacy material where present; they are not active UI identity.

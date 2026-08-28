@@ -1027,3 +1027,9 @@ No se limpio, no se corrigieron pyflakes, no se modifico UI activa, no se toco b
 IA_CORE ejecuta la limpieza segura test-only documentada en `docs/IA_CORE_GLOBAL_TECH_DEBT_SECOND_CLEANUP_1_78_F.md`. Se corrigieron los 38 pyflakes seguros definidos por 1.78.E, con 33 imports no usados y 5 variables locales no usadas en tests. Pyflakes global baja de 65 a 26 y los diagnosticos restantes quedan diferidos en archivos fuera de la consola web activa.
 
 1.78.F no modifica UI activa, no toca backend operativo, no crea endpoints/rutas/fetches, no activa runtime/execution, no cambia CI ni dependencias. `1.79` sigue diferido, no hay push por defecto y el proximo prompt exacto es `PROMPT IA_CORE 1.78.G - Checkpoint segunda limpieza deuda tecnica global IA_CORE contract-aware sin runtime/no-execution`.
+
+## Checkpoint segunda limpieza deuda tecnica global 1.78.G
+
+IA_CORE cierra el checkpoint 1.78.G en `docs/IA_CORE_GLOBAL_TECH_DEBT_SECOND_CLEANUP_CHECKPOINT_1_78_G.md`. La segunda limpieza test-only queda cerrada, pyflakes global queda reducido de `65 -> 26`, los 26 diagnosticos restantes quedan diferidos/protegidos fuera de tests y el push del checkpoint deja un nuevo restore point remoto.
+
+Este checkpoint no modifica UI activa, no toca backend operativo, no crea endpoints/rutas/fetches, no activa runtime/execution/dispatch, no cambia CI ni dependencias y no avanza a 1.79. `1.79` sigue diferido salvo decision humana explicita. Proximo prompt sugerido: `PROMPT IA_CORE 1.78.H - Planificar tercera tanda de limpieza deuda tecnica global IA_CORE contract-aware sin runtime/no-execution`.
