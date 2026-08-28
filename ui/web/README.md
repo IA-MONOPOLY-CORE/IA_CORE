@@ -1073,3 +1073,10 @@ UI/UX auditado hasta 1.80; `docs/UI_UX_EXISTING_FINAL_SCREEN_CONTRACTS_IMPLEMENT
 El orden futuro recomendado es Contract Overview -> Blocked & Forbidden -> Validation & Readiness. Request Contract Preview sigue diferido. 1.80 no crea pantalla, sin UI activa modificada, User Panel no implementado, sin backend/runtime/endpoints/CI/dependencias, sin limpiar deuda residual, sin corregir pyflakes y no push por defecto.
 
 Proximo prompt exacto: `PROMPT UI/UX 1.81 - Documentar plan de implementacion de Final Screen Contracts existentes IA_CORE contract-aware sin runtime/no-execution`.
+## Plan implementacion futura Final Screen Contracts 1.81
+
+UI/UX planificado hasta 1.81; `docs/UI_UX_FINAL_SCREEN_CONTRACTS_IMPLEMENTATION_PLAN_1_81.md` convierte la auditoria 1.80 en plan operativo futuro para los tres Final Screen Contracts existentes. La decision final es `FINAL_SCREEN_CONTRACTS_IMPLEMENTATION_PLAN_DOCUMENTED`.
+
+El orden recomendado se mantiene como Contract Overview -> Blocked & Forbidden -> Validation & Readiness. La secuencia futura queda: 1.82 checkpoint, 1.83 guardrails pre-implementacion si corresponde, 1.84 Contract Overview, 1.85 hardening y 1.86 checkpoint/push si el prompt lo autoriza.
+
+1.81 no implementa pantalla, sin UI activa modificada, User Panel no implementado, sin rutas/hash, sin backend/runtime/endpoints/CI/dependencias, sin limpiar deuda residual, sin corregir pyflakes y no push por defecto. Proximo prompt exacto: `PROMPT UI/UX 1.82 - Checkpoint plan de implementacion de Final Screen Contracts existentes IA_CORE contract-aware sin runtime/no-execution`.
