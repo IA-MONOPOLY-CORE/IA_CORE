@@ -45,7 +45,7 @@ def test_main_console_keeps_identity_and_marks_contract_aware_flow():
     assert 'data-console-flow="contract-aware-1.2"' in html
     assert '<h1 id="brand-title">IA_CORE</h1>' in html
     assert "PRE-RUNTIME / NO-EXECUTION" in html
-    assert "Esta consola no ejecuta operaciones." in html
+    assert "Esta consola no ejecuta operaciones" in html
 
 
 def test_flow_steps_exist_once_and_follow_the_document_order():
@@ -109,8 +109,8 @@ def test_flow_does_not_infer_permissions_or_enable_operations():
 
     assert 'id="request-draft-blocked-control" disabled' in html
     assert 'id="request-contract-readonly-control" disabled' in html
-    assert "Solo acciones declaradas por backend." in html
-    assert "Visible y no ejecutable." in html
+    assert "Acciones disponibles declaradas por el sistema" in html
+    assert "no son CTA UI" in html
     assert "No se renderizan controles operativos sin allowed_actions backend-declared." in admin
 
     for forbidden_route in (
@@ -135,7 +135,7 @@ def test_flow_documents_and_implements_responsive_reading_order():
     assert "repeat(6, minmax(0, 1fr))" in html
     assert "repeat(3, minmax(0, 1fr))" in html
     assert "@media (max-width: 760px)" in html
-    assert "debatePanel.classList.add('collapsed')" in html
+    assert "requestDraftPanel.classList.add('collapsed')" in html
     assert "continuidad `planned`" in doc
 
 

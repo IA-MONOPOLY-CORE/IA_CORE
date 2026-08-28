@@ -70,7 +70,7 @@ def test_refinement_reduces_ornament_and_improves_semantic_rows():
         "boundary-row",
         "stable_payloads",
         "backend only",
-        "Visible y no ejecutable",
+        "no son CTA UI",
         "true = blocked",
         "evidence-state",
     ):
@@ -133,7 +133,7 @@ def test_refinement_documents_and_implements_responsive_contract():
 
     assert "@media (max-width: 760px)" in html
     assert "padding: 12px 12px 84px" in html
-    assert "debatePanel.classList.add('collapsed')" in html
+    assert "requestDraftPanel.classList.add('collapsed')" in html
     assert "sin overflow horizontal" in doc
 
 

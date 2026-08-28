@@ -190,7 +190,7 @@ def test_widgets_remain_contract_aware_and_honest_without_payload():
     doc = _read(DOC)
 
     assert "backend_internal_ui_payload.v1" in widgets
-    assert "No hay backend_internal_ui_payload.v1 inyectado." in widgets
+    assert "no hay backend_internal_ui_payload.v1 inyectado." in widgets
     assert "deny-by-default" in widgets
     assert "contract_fixture" in widgets
     assert "no tienen fetch propio" in doc

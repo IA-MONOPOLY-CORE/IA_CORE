@@ -88,7 +88,7 @@ def test_widgets_actions_and_blocks_remain_contract_aware():
 
     assert "fetch(" not in widgets
     assert "backend_internal_ui_payload.v1" in widgets
-    assert "No hay backend_internal_ui_payload.v1 inyectado." in widgets
+    assert "no hay backend_internal_ui_payload.v1 inyectado." in widgets
     assert "deny-by-default" in widgets
 
     for token in (

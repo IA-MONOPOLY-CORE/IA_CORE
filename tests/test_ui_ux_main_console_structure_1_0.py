@@ -98,7 +98,7 @@ def test_main_console_keeps_contract_fields_actions_and_blocks_visible():
     assert html.index('data-main-console-zone="contract-core"') < html.index('id="functional-widgets"')
     assert html.index('id="functional-widgets"') < html.index('id="config-modal"')
     assert "window.matchMedia('(max-width: 760px)')" in html
-    assert "debatePanel.classList.add('collapsed')" in html
+    assert "requestDraftPanel.classList.add('collapsed')" in html
 
 
 def test_main_console_does_not_infer_permissions_or_enable_execution():

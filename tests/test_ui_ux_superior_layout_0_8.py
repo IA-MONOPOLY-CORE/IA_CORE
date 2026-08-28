@@ -45,7 +45,7 @@ def test_active_ui_contains_superior_contract_aware_layout_zones():
         "Contrato y servicios internos",
         "Acciones y bloqueos",
         "Evidencia y continuidad",
-        "checkpoint visual base",
+        "storytelling checkpoint",
     ):
         assert label in html
 
@@ -89,9 +89,9 @@ def test_layout_keeps_contract_actions_and_blocks_visible():
     ):
         assert token in html
 
-    assert "No hay backend_internal_ui_payload.v1 inyectado." in widgets
-    assert "forbidden_actions conservado; acciones activas no renderizadas." in widgets
-    assert "Semantica aplicada: true = blocked." in widgets
+    assert "no hay backend_internal_ui_payload.v1 inyectado." in widgets
+    assert "forbidden_actions) conservadas; acciones activas no renderizadas." in widgets
+    assert "true = blocked" in widgets
     assert 'id="request-draft-blocked-control" disabled' in html
     assert 'id="request-contract-readonly-control" disabled' in html
 

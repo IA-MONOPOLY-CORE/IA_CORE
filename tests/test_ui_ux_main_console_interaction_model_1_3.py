@@ -145,8 +145,8 @@ def test_interactions_do_not_infer_permissions_or_enable_execution():
 
     assert 'id="request-draft-blocked-control" disabled data-interaction-mode="read-only"' in html
     assert 'id="request-contract-readonly-control" disabled data-interaction-mode="read-only"' in html
-    assert "Solo acciones declaradas por backend." in html
-    assert "Visible y no ejecutable." in html
+    assert "Acciones disponibles declaradas por el sistema" in html
+    assert "no son CTA UI" in html
     assert "true = blocked" in html
     assert "No se renderizan controles operativos sin allowed_actions backend-declared." in admin
     assert "fetch(" not in interactions

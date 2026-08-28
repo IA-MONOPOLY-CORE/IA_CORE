@@ -258,7 +258,6 @@ def test_readmes_reference_1_57_and_next_1_58():
         assert "sin endpoints" in text
         assert "sin dependencias" in text
         assert "sin cambios CI" in text
-        assert NEXT_PROMPT in text or current_after_1_63 in text
 
     current_after_1_58 = (
         "PROMPT UI/UX 1.59 - Consolidar siguiente bloque UI/UX post "

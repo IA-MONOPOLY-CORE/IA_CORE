@@ -291,7 +291,14 @@ def test_readmes_reference_audit_1_44_and_next_prompt_1_45():
         assert NEXT_PROMPT in text
 
     bt = chr(96)
-    assert f"Next pending step: {bt}PROMPT UI/UX 1.47 - Consolidar siguiente bloque UI/UX post Component Style Reference IA_CORE contract-aware sin runtime/no-execution{bt}" in root
+    current_cleanup = (
+        "PROMPT IA_CORE 1.78.C - Limpiar primera tanda de deuda tecnica segura "
+        "IA_CORE contract-aware sin runtime/no-execution"
+    )
+    assert (
+        f"Next pending step: {bt}{current_cleanup}{bt}" in root
+        or f"Next pending step: {bt}PROMPT UI/UX 1.79 - Consolidar siguiente bloque UI/UX post Validation & Readiness Final Screen Contract IA_CORE contract-aware sin runtime/no-execution{bt}" in root
+    )
 
 
 def test_expected_verdicts_are_documented():

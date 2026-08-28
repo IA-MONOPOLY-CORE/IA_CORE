@@ -64,7 +64,7 @@ def test_widgets_are_contract_aware_without_endpoint_permission_sources():
     assert "allowed_actions" in widgets
     assert "forbidden_actions" in widgets
     assert "blocked_capabilities" in widgets
-    assert "No hay backend_internal_ui_payload.v1 inyectado." in widgets
+    assert "no hay backend_internal_ui_payload.v1 inyectado." in widgets
     assert "deny-by-default" in widgets
 
     for forbidden_source in (

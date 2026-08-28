@@ -388,23 +388,27 @@ def test_agent_form_memory_is_optional_and_labels_are_spanish():
 
 def test_widgets_are_functional_and_not_decorative():
     html = Path("ui/web/index.html").read_text(encoding="utf-8")
+    script = Path("ui/web/domains.js").read_text(encoding="utf-8")
     catalog = json.loads(Path("ui/web/i18n_es.json").read_text(encoding="utf-8"))
 
     assert "WIDGETS FUNCIONALES" in html
-    assert "Estado del último debate" in html
-    assert "Próxima acción del dominio" in html
-    assert "Salud de proveedores" in html
-    assert "primary_action_widget" in html
-    assert "window.domainUI?.getActiveDomain" in html
-    assert "action.endpoint" in html
-    assert "renderLotteryValidationAction" in html
-    assert "Este dominio no tiene acción pendiente configurada." in html
-    assert "La acción está configurada, pero el endpoint no devolvió datos útiles." in html
-    assert "/api/debates" in html
-    assert "/api/debate/${encodeURIComponent(last.debate_id)}" in html
+    assert "Estado backend estable" in html
+    assert "Acciones declaradas" in html
+    assert "Warnings y errores" in html
+    assert "Capabilities bloqueadas" in html
+    assert "window.domainUI?.initialize" in html
+    assert "window.domainUI.requireDomain" in html
+    assert "window.domainUI" in script
+    assert "getActiveDomain" in script
+    assert "backend_internal_ui_payload.v1" in html
+    assert "allowed_actions" in html
+    assert "forbidden_actions" in html
+    assert "blocked_capabilities" in html
     assert "/api/status" in html
-    assert "provider.is_placeholder !== true" in html
-    assert catalog["appearance"]["primary_action_widget"] == "Próxima acción del dominio"
+    assert "if (provider.is_placeholder)" in html
+    assert catalog["appearance"]["status_widget"] == "Estado backend estable"
+    assert catalog["appearance"]["actions_widget"] == "Acciones declaradas"
+    assert catalog["appearance"]["blocked_capabilities_widget"] == "Capabilities bloqueadas"
 
     decorative_artifacts = [
         "WIDGETS_LIBRARY",

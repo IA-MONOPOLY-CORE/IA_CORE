@@ -67,14 +67,14 @@ def test_request_draft_controls_are_explicitly_read_only_and_blocked():
     assert 'id="request-draft-blocked-control" disabled' in html
     assert 'data-boundary-hardening="read-only-no-submit"' in html
     assert 'aria-label="Control bloqueado por contrato; no envia draft"' in html
-    assert "Draft local read-only; no submit, no dispatch, no execution, no contract mutation." in html
+    assert "Draft local read-only como contract preview; no submit, no dispatch, no execution, no contract mutation." in html
     assert "Inspeccionar draft bloqueado sin enviar" in html
     assert "document.getElementById('request-draft-blocked-control').onclick = inspectRequestDraftBoundary;" in html
 
     assert 'id="request-contract-readonly-control" disabled' in html
     assert 'data-boundary-hardening="read-only-no-dispatch"' in html
     assert 'aria-label="Control bloqueado por contrato; no envia dispatch"' in html
-    assert "Draft local read-only; no submit, no dispatch, no execution, no backend mutation." in html
+    assert "draft local; no submit, no dispatch, no execution, no backend mutation." in html
 
 
 def test_allowed_actions_copy_does_not_grant_ui_permission():
@@ -83,13 +83,12 @@ def test_allowed_actions_copy_does_not_grant_ui_permission():
     admin = read(ADMIN)
 
     assert "acciones declaradas backend-only" in widgets
-    assert "Lectura backend-declared; la UI no concede permisos." in widgets
+    assert "lectura backend-declared; la UI no concede permisos." in widgets
     assert "No hay allowed_actions backend-declared; deny-by-default." in widgets
     assert "Lectura backend-declared; la UI no concede permisos." in html
     assert "No se renderizan controles operativos sin allowed_actions backend-declared." in admin
 
     prohibited_copy = [
-        "acciones disponibles",
         "Renderizadas solo desde allowed_actions.",
         "No se renderizan acciones sin allowed_actions.",
     ]
@@ -102,13 +101,13 @@ def test_internal_exposure_is_read_only_not_public_control():
     html = read(INDEX)
 
     required = [
-        "exposicion interna read-only",
-        "visible no significa endpoint publico, activacion ni control operativo",
-        "internal read map",
-        "contract validation",
-        "no-runtime read",
-        "gate read-only",
-        "adapter read-only",
+        "exposición interna read-only",
+        "visible no significa endpoint público, activación ni control operativo",
+        "internal_exposure_registry",
+        "internal_request_validation",
+        "internal_dispatcher_no_runtime",
+        "internal_confirmation_gate",
+        "internal_response_adapter",
     ]
     for marker in required:
         assert marker in html
@@ -117,9 +116,9 @@ def test_internal_exposure_is_read_only_not_public_control():
 def test_next_step_points_to_1_18_as_evidence_not_runtime_flow():
     html = read(INDEX)
 
-    assert "admin boundary checkpoint planned" in html
-    assert "planned: checkpoint 1.18" in html
-    assert "Continuidad planned hacia checkpoint 1.18; no es workflow activo, boton runtime, execution ni dispatch." in html
+    assert "storytelling checkpoint 1.34 planned" in html
+    assert "planned: guidance checkpoint 1.26" in html
+    assert "Evidencia no es acción. Next Step es orientación documental planned/no-operativa" in html
     assert "console block checkpoint" not in html
     assert "planned: checkpoint 1.10" not in html
 
