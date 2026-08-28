@@ -10,7 +10,6 @@ from core.execution_attempt_store_contract import (
     ALLOWED_CONTRACT_EVENTS,
     FORBIDDEN_CONTRACT_EVENTS,
     build_append_only_policy,
-    build_attempt_id_policy,
     build_checksum_policy,
     build_preflight_policy,
     validate_execution_attempt_store_contract,

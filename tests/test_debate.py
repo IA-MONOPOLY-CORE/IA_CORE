@@ -100,8 +100,6 @@ def test_debate_flow_four_rounds(tmp_path, monkeypatch):
     # Mock compute_consensus_scores to always return low agreement
     from core import supervisor as core_supervisor
 
-    original_compute = core_supervisor.compute_consensus_scores
-
     def mock_compute(steps, contradictions):
         return 40.0, 60.0  # Low agreement, so early stop won't trigger
 

@@ -17,7 +17,6 @@ from core.execution_lifecycle_contract import (
     build_execution_boundary_policy,
     build_external_access_policy,
     build_model_tool_memory_policy,
-    build_payload_boundary_policy,
     build_scheduler_worker_policy,
     validate_execution_lifecycle_contract,
 )

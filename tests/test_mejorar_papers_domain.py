@@ -269,7 +269,6 @@ class TestCompatibilidadLoteria:
         if real_domain_manifest.exists():
             shutil.copy(real_domain_manifest, tmp_path / "loteria" / "domain.json")
 
-        before = _json.loads(tmp_paper_path.read_text(encoding="utf-8"))
         legacy_before = _json.loads(legacy_paper_path.read_text(encoding="utf-8"))
 
         mejorar_papers.mejorar_paper(

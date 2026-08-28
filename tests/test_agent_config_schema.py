@@ -6,13 +6,10 @@ consistente con memory y metadata, y que la compatibilidad con
 agentes legacy se mantenga.
 """
 
-import json
 import pytest
-from datetime import datetime
 
 from core.agent_config_schema import build_agent_config, normalize_agent_config, validate_agent_config
-from core.agent_paper_schema import build_initial_paper_from_preset, write_initial_agent_paper
-from core.domain_registry import get_domain_agent_paths
+from core.agent_paper_schema import build_initial_paper_from_preset
 
 
 class TestAgentPaperSchema:

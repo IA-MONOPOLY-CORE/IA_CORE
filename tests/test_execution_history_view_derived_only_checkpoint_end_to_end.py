@@ -12,7 +12,6 @@ from core.execution_history_view import (
     build_execution_boundary_policy,
     build_execution_history_view,
     build_store_prohibition_policy,
-    validate_execution_history_view,
 )
 from tests.test_execution_history_view_derived_only import _codes
 from tests.test_execution_history_view_derived_only_end_to_end import _execution_history_view_chain

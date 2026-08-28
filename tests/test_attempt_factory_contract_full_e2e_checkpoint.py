@@ -1,6 +1,5 @@
 from pathlib import Path
 
-import core.attempt_factory as factory
 from core.attempt_factory import (
     ATTEMPT_FACTORY_CONTRACT_STATUS,
     ATTEMPT_FACTORY_ENABLED,

@@ -5,7 +5,7 @@ import pytest
 from core.execution_contract import evaluate_execution_contract
 from core.runtime_contract import evaluate_runtime_contract
 from tests.test_execution_contract_end_to_end import _kwargs, _prepared
-from tests.test_runtime_contract_end_to_end import _agent_path, _read_json, _team_path, _write_json
+from tests.test_runtime_contract_end_to_end import _agent_path, _read_json, _write_json
 
 
 ROOT = Path(__file__).parent.parent

@@ -184,7 +184,6 @@ def test_evidence_logs_safety_guardrail_uses_traceability_not_live_log():
 def test_surface_boundary_guardrail_user_panel_and_future_screens_not_implemented():
     index = read(INDEX)
     root = read(README)
-    ui = read(UI_README)
     doc = read(DOC_1_49)
 
     assert "no Panel Usuario final" in index

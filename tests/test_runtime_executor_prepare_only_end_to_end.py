@@ -5,10 +5,10 @@ from pathlib import Path
 import pytest
 
 from core.audit_store import read_audit_events, verify_audit_store
-from core.runtime_executor import abort_runtime_preparation, prepare_runtime, rollback_runtime_preparation
+from core.runtime_executor import abort_runtime_preparation, rollback_runtime_preparation
 from core.runtime_executor_contract import evaluate_runtime_executor_contract
 from tests.test_runtime_contract_end_to_end import _agent_path, _operational_snapshot, _read_json, _team_path, _tree_hash, _write_json
-from tests.test_runtime_executor_contract import _context, _valid_kwargs
+from tests.test_runtime_executor_contract import _valid_kwargs
 from tests.test_runtime_executor_prepare_only import FORBIDDEN_EXECUTION_EVENTS, _prepared_executor_inputs, _prepare
 
 

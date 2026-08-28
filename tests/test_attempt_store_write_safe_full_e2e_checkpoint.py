@@ -3,7 +3,6 @@ from pathlib import Path
 
 import pytest
 
-import core.attempt_store_write_safe as store
 from core.attempt_factory import build_attempt_contract_from_intent, serialize_attempt_factory_decision
 from core.attempt_store_write_safe import (
     ATTEMPT_STORE_WRITE_SAFE_CONTRACT_STATUS,

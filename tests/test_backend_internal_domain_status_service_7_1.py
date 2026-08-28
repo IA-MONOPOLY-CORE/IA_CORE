@@ -10,7 +10,6 @@ from core.backend_internal_domain_status_service import (
     DOMAIN_BLOCKED_READINESS,
     DOMAIN_LISTABLE_READINESS,
     ERROR_CODES,
-    FORBIDDEN_ACTIONS,
     SERVICE_NAME,
     SERVICE_READINESS,
     SERVICE_VERSION,

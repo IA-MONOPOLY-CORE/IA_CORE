@@ -1,11 +1,7 @@
 """Tests para el módulo de recomendación de modelos."""
 
-import pytest
-
 from core.model_recommendation import (
     HardwareProfile,
-    AgentWorkloadClassification,
-    ModelRecommendation,
     get_hardware_profile,
     get_default_hardware_profile,
     classify_agent_model_need,

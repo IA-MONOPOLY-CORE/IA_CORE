@@ -6,7 +6,6 @@ from pathlib import Path
 import pytest
 
 from core.backend_internal_preview_materialization_service import (
-    FORBIDDEN_ACTIONS,
     SERVICE_NAME,
     SERVICE_READINESS,
     SERVICE_VERSION,

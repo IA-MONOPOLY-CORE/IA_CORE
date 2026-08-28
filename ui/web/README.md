@@ -1021,3 +1021,9 @@ Proximo prompt exacto sugerido: `PROMPT IA_CORE 1.78.E - Planificar segunda tand
 IA_CORE planifica la segunda tanda sin limpiar todavia en `docs/IA_CORE_GLOBAL_TECH_DEBT_SECOND_CLEANUP_PLAN_1_78_E.md`. Se revisan los 65 diagnosticos pyflakes, con 38 candidatos estaticos solo en tests y 27 diagnosticos diferidos o riesgosos; los residuos post-suite quedan como politica candidata separada. Restore point vigente: `cfb74e6`. `1.79` sigue diferido y no hay push por defecto.
 
 No se limpio, no se corrigieron pyflakes, no se modifico UI activa, no se toco backend operativo, runtime, endpoints, CI ni dependencias. Proximo prompt exacto: `PROMPT IA_CORE 1.78.F - Limpiar segunda tanda de deuda tecnica global segura IA_CORE contract-aware sin runtime/no-execution`.
+
+## Limpieza segunda tanda deuda tecnica global 1.78.F
+
+IA_CORE ejecuta la limpieza segura test-only documentada en `docs/IA_CORE_GLOBAL_TECH_DEBT_SECOND_CLEANUP_1_78_F.md`. Se corrigieron los 38 pyflakes seguros definidos por 1.78.E, con 33 imports no usados y 5 variables locales no usadas en tests. Pyflakes global baja de 65 a 26 y los diagnosticos restantes quedan diferidos en archivos fuera de la consola web activa.
+
+1.78.F no modifica UI activa, no toca backend operativo, no crea endpoints/rutas/fetches, no activa runtime/execution, no cambia CI ni dependencias. `1.79` sigue diferido, no hay push por defecto y el proximo prompt exacto es `PROMPT IA_CORE 1.78.G - Checkpoint segunda limpieza deuda tecnica global IA_CORE contract-aware sin runtime/no-execution`.

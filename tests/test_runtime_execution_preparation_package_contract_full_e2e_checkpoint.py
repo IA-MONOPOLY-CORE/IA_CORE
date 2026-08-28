@@ -5,7 +5,6 @@ from pathlib import Path
 
 import pytest
 
-import core.runtime_execution_preparation_contract as parent_contract
 import core.runtime_execution_preparation_package as package_contract
 
 

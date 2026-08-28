@@ -1,5 +1,4 @@
 from pathlib import Path
-import re
 
 ROOT = Path(__file__).resolve().parents[1]
 DOC = ROOT / "docs" / "UI_UX_ADMIN_BOUNDARY_EXPOSURE_CHECKPOINT_1_18.md"

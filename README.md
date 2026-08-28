@@ -84,6 +84,12 @@ Proximo prompt exacto sugerido: `PROMPT IA_CORE 1.78.E - Planificar segunda tand
 `docs/IA_CORE_GLOBAL_TECH_DEBT_SECOND_CLEANUP_PLAN_1_78_E.md` planifica la segunda tanda sin limpiar todavia. Revisa los 65 diagnosticos pyflakes, separa 38 candidatos estaticos test-only de 27 diagnosticos diferidos o riesgosos y deja definida la politica candidata para residuos post-suite recurrentes. El restore point vigente es `cfb74e6`; `1.79` sigue diferido y no hay push por defecto.
 
 No se limpio, no se corrigieron pyflakes, no se modifico UI activa, no se toco backend operativo, runtime, endpoints, CI ni dependencias. Proximo prompt exacto: `PROMPT IA_CORE 1.78.F - Limpiar segunda tanda de deuda tecnica global segura IA_CORE contract-aware sin runtime/no-execution`.
+
+## Limpieza segunda tanda deuda tecnica global 1.78.F
+
+`docs/IA_CORE_GLOBAL_TECH_DEBT_SECOND_CLEANUP_1_78_F.md` ejecuta la segunda tanda segura definida por 1.78.E. Se limpiaron los 38 diagnosticos pyflakes test-only autorizados mediante cambios mecanicos en tests: 33 imports no usados y 5 variables locales no usadas. El diagnostico global bajo de 65 a 26; lo restante queda diferido en `api.py`, `core/`, `domains/`, providers y scripts.
+
+1.78.F no modifica UI activa, no toca backend operativo, no toca `api.py`, `core/`, `domains/`, providers, scripts, modelos, integraciones, runtime, endpoints, CI ni dependencias. `1.79` sigue diferido, no hay push por defecto y el proximo prompt exacto es `PROMPT IA_CORE 1.78.G - Checkpoint segunda limpieza deuda tecnica global IA_CORE contract-aware sin runtime/no-execution`.
 - The internal backend is prepared for UI/UX exposure through stable contracts, but runtime remains non-operative.
 - IA_CORE is the active identity.
 - SAAOP/Loteria remain only as historical/internal legacy material where present; they are not active UI identity.

@@ -12,7 +12,6 @@ from core.sandbox_team_read_model import (
     READ_MODEL_READINESS,
     READ_MODEL_VERDICT,
     TEAM_LISTABLE_READINESS,
-    build_sandbox_team_read_model,
     get_sandbox_team_summary,
     list_sandbox_teams,
     validate_sandbox_team_read_model,

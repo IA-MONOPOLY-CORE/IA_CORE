@@ -18,7 +18,10 @@ from core.internal_backend_read_model import (
 )
 from core.internal_backend_read_model_contract import FORBIDDEN_OUTPUTS, build_output_policy
 from core.internal_backend_read_model_schema import validate_internal_backend_read_model_snapshot_shape
-from tests.test_internal_backend_read_model_contract import _codes, contract_input
+from tests.test_internal_backend_read_model_contract import _codes
+
+
+pytest_plugins = ["tests.test_internal_backend_read_model_contract"]
 
 
 ROOT = Path(__file__).resolve().parents[1]

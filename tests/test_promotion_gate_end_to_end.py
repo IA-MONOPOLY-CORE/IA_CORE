@@ -73,7 +73,6 @@ def test_promotion_gate_evaluates_complete_chain_without_mutation(tmp_path):
     policy = _valid_policy()
     domain_dir = chain["domain_dir"]
     agent_id = chain["agent_ids"][0]
-    team_id = chain["team"]["team_id"]
     manifest_path = domain_dir / "manifests" / "artifact_manifest.json"
     agent_path = domain_dir / "sandbox_agents" / f"{agent_id}.json"
     team_path = Path(chain["team"]["team_path"])

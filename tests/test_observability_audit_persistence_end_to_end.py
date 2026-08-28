@@ -164,7 +164,6 @@ def test_observability_audit_persistence_e2e_correlates_chain_without_runtime(tm
     target_id = team_id
     before_sandbox = _tree_hash(chain["domain_dir"])
     before_manifest = deepcopy(_manifest(chain))
-    before_team = deepcopy(_read_json(_team_path(chain)))
     before_agent = deepcopy(_read_json(_agent_path(chain, agent_id)))
 
     runtime_result = _runtime(chain, target_type="team", target_id=team_id, active_execution=team_active)
