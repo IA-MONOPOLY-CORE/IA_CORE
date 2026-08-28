@@ -114,6 +114,12 @@ Quedan `18` diagnosticos diferidos/protegidos en `api.py`, `core/`, `providers/n
 `docs/IA_CORE_GLOBAL_TECH_DEBT_THIRD_CLEANUP_CHECKPOINT_1_78_J.md` cierra el sub-bloque 1.78.H -> 1.78.J: planificacion de tercera tanda, limpieza segura de 8 candidatos y checkpoint GitHub. La limpieza queda confirmada con pyflakes global reducido de `26 -> 18`, `4 unused imports`, `4 f-strings` sin placeholders y `18` diagnosticos restantes diferidos/protegidos.
 
 El checkpoint no modifica UI activa, no toca backend operativo fuera del alcance, no crea endpoints/rutas/fetches, no activa runtime/execution/dispatch, no cambia CI ni dependencias y no avanza a 1.79. El push del checkpoint deja como nuevo restore point remoto el commit 1.78.J. Proximo prompt sugerido: `PROMPT IA_CORE 1.78.K - Auditar deuda tecnica restante y readiness para retomar UI/UX 1.79 IA_CORE contract-aware sin runtime/no-execution`.
+
+## Auditoria residual/readiness deuda tecnica 1.78.K
+
+`docs/IA_CORE_TECH_DEBT_RESIDUAL_READINESS_AUDIT_1_78_K.md` audita los `18` pyflakes restantes desde el restore point vigente `bb4852e`, sin limpiar y sin corregir pyflakes. La decision final es `READY_TO_RESUME_UI_UX_1_79_WITH_DOCUMENTED_RESIDUAL_DEBT`: la deuda residual queda documentada, diferida/protegida y no bloquea un bloque UI/UX contract-aware sin runtime/no-execution.
+
+1.78.K no modifica UI activa, no toca backend/runtime/endpoints/CI/dependencias, no hace push por defecto y no avanza a 1.79 dentro de este prompt. Proximo prompt exacto: `PROMPT UI/UX 1.79 - Consolidar siguiente bloque UI/UX post limpieza deuda tecnica global IA_CORE contract-aware sin runtime/no-execution`.
 - The internal backend is prepared for UI/UX exposure through stable contracts, but runtime remains non-operative.
 - IA_CORE is the active identity.
 - SAAOP/Loteria remain only as historical/internal legacy material where present; they are not active UI identity.
