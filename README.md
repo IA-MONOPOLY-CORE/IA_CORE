@@ -108,6 +108,12 @@ Esta fase es solo planificacion: no se limpio, no se corrigieron pyflakes, no se
 `docs/IA_CORE_GLOBAL_TECH_DEBT_THIRD_CLEANUP_1_78_I.md` ejecuta la limpieza segura definida por 1.78.H desde el commit base local `b1642a5`, preservando el restore point remoto `c79ba6a`. La tanda corrige solo `8` candidatos `SAFE_STATIC_CANDIDATES_FOR_1_78_I`: `4` imports no usados y `4` f-strings sin placeholders, con pyflakes global reducido de `26 -> 18`.
 
 Quedan `18` diagnosticos diferidos/protegidos en `api.py`, `core/`, `providers/nvidia_provider.py` y `domains/loteria/*`. 1.78.I no modifica UI activa, no toca backend/runtime/endpoints/CI/dependencias fuera del alcance autorizado, no hace push por defecto y no avanza a 1.79. Proximo prompt exacto: `PROMPT IA_CORE 1.78.J - Checkpoint tercera limpieza deuda tecnica global IA_CORE contract-aware sin runtime/no-execution`.
+
+## Checkpoint tercera limpieza deuda tecnica global 1.78.J
+
+`docs/IA_CORE_GLOBAL_TECH_DEBT_THIRD_CLEANUP_CHECKPOINT_1_78_J.md` cierra el sub-bloque 1.78.H -> 1.78.J: planificacion de tercera tanda, limpieza segura de 8 candidatos y checkpoint GitHub. La limpieza queda confirmada con pyflakes global reducido de `26 -> 18`, `4 unused imports`, `4 f-strings` sin placeholders y `18` diagnosticos restantes diferidos/protegidos.
+
+El checkpoint no modifica UI activa, no toca backend operativo fuera del alcance, no crea endpoints/rutas/fetches, no activa runtime/execution/dispatch, no cambia CI ni dependencias y no avanza a 1.79. El push del checkpoint deja como nuevo restore point remoto el commit 1.78.J. Proximo prompt sugerido: `PROMPT IA_CORE 1.78.K - Auditar deuda tecnica restante y readiness para retomar UI/UX 1.79 IA_CORE contract-aware sin runtime/no-execution`.
 - The internal backend is prepared for UI/UX exposure through stable contracts, but runtime remains non-operative.
 - IA_CORE is the active identity.
 - SAAOP/Loteria remain only as historical/internal legacy material where present; they are not active UI identity.
