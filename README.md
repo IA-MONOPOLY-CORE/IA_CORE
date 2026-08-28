@@ -394,3 +394,10 @@ UI/UX planificado hasta 1.85; `docs/UI_UX_CONTRACT_OVERVIEW_CONTROLLED_IMPLEMENT
 1.85 no implementa pantalla, no modifica UI activa, no crea componente nuevo ni User Panel, no crea rutas/hash, endpoints o fetches, no toca backend/runtime/CI/dependencias, no limpia deuda residual, no corrige pyflakes y no hace push por defecto.
 
 Proximo prompt exacto: `PROMPT UI/UX 1.86 - Implementar Contract Overview Screen IA_CORE contract-aware sin runtime/no-execution`, solo con aprobacion humana explicita.
+## Implementacion Contract Overview Screen 1.86
+
+UI/UX implementado hasta 1.86; `docs/UI_UX_CONTRACT_OVERVIEW_SCREEN_IMPLEMENTATION_1_86.md` registra la primera implementacion controlada de `FSC-CO-01` dentro del Panel Maestro. La decision es `CONTRACT_OVERVIEW_SCREEN_IMPLEMENTED_NEEDS_HARDENING` y requiere revision visual humana antes del cierre final.
+
+Se modifico solo `ui/web/index.html` para la seccion Contract Overview y se agregaron tests/documentacion 1.86. No se creo User Panel, ruta/hash, endpoint, fetch, runtime ni CTA operativo; no se toco backend, CI, dependencias, deuda residual ni pyflakes. Push pospuesto.
+
+Proximo prompt exacto: `PROMPT UI/UX 1.87 - Hardening visual y contractual Contract Overview Screen IA_CORE contract-aware sin runtime/no-execution`.

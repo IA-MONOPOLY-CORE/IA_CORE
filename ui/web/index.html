@@ -420,6 +420,126 @@
         .layout-section {
             margin-bottom: 18px;
         }
+        .contract-overview-screen {
+            padding: 18px;
+            border: 1px solid rgba(56,189,248,0.42);
+            background: rgba(15,23,42,0.72);
+            box-shadow: inset 3px 0 0 var(--cyan), var(--panel-glow);
+        }
+        .contract-overview-heading {
+            display: grid;
+            grid-template-columns: minmax(0, 1.35fr) minmax(280px, 0.85fr);
+            gap: 18px;
+            align-items: start;
+        }
+        .contract-overview-title {
+            display: flex;
+            align-items: baseline;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        .contract-overview-title h2 {
+            margin-top: 7px;
+            color: var(--text-primary);
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 1.55rem;
+            letter-spacing: 0.03em;
+        }
+        .contract-overview-id {
+            color: var(--cyan);
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 0.72rem;
+        }
+        .contract-overview-lede {
+            max-width: 760px;
+            margin-top: 8px;
+            color: rgba(226,232,240,0.78);
+            font-size: 0.78rem;
+            line-height: 1.55;
+        }
+        .contract-overview-status {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: flex-end;
+            gap: 7px;
+            padding: 10px;
+            border: 1px solid rgba(148,163,184,0.2);
+            background: rgba(2,6,23,0.38);
+        }
+        .contract-overview-status .visual-state {
+            margin: 0;
+        }
+        .contract-overview-status .visual-state.ready-no-permission {
+            color: var(--amber);
+            border-color: rgba(245,158,11,0.65);
+        }
+        .contract-overview-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 10px;
+            margin-top: 14px;
+        }
+        .contract-overview-card {
+            min-width: 0;
+            min-height: 142px;
+            padding: 14px;
+            border: 1px solid rgba(148,163,184,0.2);
+            background: rgba(2,6,23,0.32);
+        }
+        .contract-overview-card h3 {
+            margin-top: 7px;
+            color: var(--text-primary);
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 1rem;
+        }
+        .contract-overview-card p,
+        .contract-overview-card li {
+            color: rgba(226,232,240,0.74);
+            font-size: 0.72rem;
+            line-height: 1.5;
+        }
+        .contract-overview-card p {
+            margin-top: 7px;
+        }
+        .contract-overview-card ul {
+            display: grid;
+            gap: 4px;
+            margin-top: 9px;
+            padding-left: 16px;
+        }
+        .contract-overview-card code {
+            color: var(--cyan);
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 0.68rem;
+        }
+        .contract-overview-value {
+            display: block;
+            margin-top: 9px;
+            color: var(--text-primary);
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 0.76rem;
+            overflow-wrap: anywhere;
+        }
+        .contract-overview-value[data-detail-source] {
+            color: var(--amber);
+        }
+        .contract-overview-note {
+            margin-top: 12px;
+            padding-top: 11px;
+            border-top: 1px solid rgba(148,163,184,0.16);
+            color: var(--text-muted);
+            font-size: 0.7rem;
+            line-height: 1.5;
+        }
+        @media (max-width: 760px) {
+            .contract-overview-heading,
+            .contract-overview-grid {
+                grid-template-columns: 1fr;
+            }
+            .contract-overview-status {
+                justify-content: flex-start;
+            }
+        }
         .layout-section-title {
             display: flex;
             align-items: center;
@@ -1468,6 +1588,91 @@
             <div class="badge" id="conn-badge" data-component="ia-status-badge ia-empty-state"><span id="conn-dot" class="pulse-dot disconnected"></span><span>READ SOURCE:</span><span id="conn-text">not_available</span></div>
         </div>
     </header>
+
+    <section class="contract-overview-screen layout-section" id="contract-overview-screen" data-main-console-zone="contract-overview" data-contract-screen="FSC-CO-01" data-interaction-mode="read-only" data-interaction-state="read_only inspectable" aria-labelledby="contract-overview-title">
+        <div class="contract-overview-heading">
+            <div>
+                <div class="layout-label">Panel Maestro / Contract-aware screen</div>
+                <div class="contract-overview-title">
+                    <h2 id="contract-overview-title">Contract Overview</h2>
+                    <span class="contract-overview-id">FSC-CO-01</span>
+                </div>
+                <p class="contract-overview-lede">Vista documental, final y de solo lectura para operador interno de IA_CORE. Resume contrato, readiness, limites y evidencia sin conceder permisos ni ejecutar operaciones.</p>
+            </div>
+            <div class="contract-overview-status" aria-label="Estado contractual Contract Overview">
+                <span class="visual-state passed evidence-state" data-component="ia-status-badge">documented</span>
+                <span class="visual-state ready-no-permission" data-component="ia-status-badge ia-blocker">ready-no-permission</span>
+                <span class="visual-state blocked" data-component="ia-status-badge ia-blocker">no-runtime</span>
+                <span class="visual-state blocked" data-component="ia-status-badge ia-blocker">no-execution</span>
+            </div>
+        </div>
+        <div class="contract-overview-grid">
+            <article class="contract-overview-card" data-contract-overview-block="identity">
+                <div class="layout-label">Contract identity</div>
+                <h3>Contrato y superficie</h3>
+                <span class="contract-overview-value">FSC-CO-01 / IA_CORE</span>
+                <p>Fuente: <code>backend_internal_ui_payload.v1</code>. Superficie: Panel Maestro. No User Panel y no pantalla publica.</p>
+            </article>
+            <article class="contract-overview-card" data-contract-overview-block="readiness">
+                <div class="layout-label">Readiness vs permission</div>
+                <h3>Lectura contractual</h3>
+                <span class="contract-overview-value" data-detail-source="console-readiness-value">no_payload</span>
+                <p>Readiness y validacion no equivalen a permiso de ejecucion. No hay run, dispatch ni submit desde esta vista.</p>
+            </article>
+            <article class="contract-overview-card" data-contract-overview-block="source">
+                <div class="layout-label">Data source</div>
+                <h3>Payload declarado</h3>
+                <span class="contract-overview-value" data-detail-source="console-payload-source-value">no_payload</span>
+                <p>Si falta payload seguro, se conserva un estado honesto sin inventar disponibilidad, resultados ni permisos.</p>
+            </article>
+            <article class="contract-overview-card" data-contract-overview-block="allowed-actions">
+                <div class="layout-label">Allowed actions / read-only</div>
+                <h3>Acciones declaradas</h3>
+                <span class="contract-overview-value" data-detail-source="contract-allowed-actions">not_available</span>
+                <p><code>allowed_actions</code> son datos contractuales y no son botones. Esta pantalla no agrega CTA operativo.</p>
+            </article>
+            <article class="contract-overview-card" data-contract-overview-block="forbidden-actions">
+                <div class="layout-label">Forbidden actions</div>
+                <h3>Acciones no ejecutables</h3>
+                <ul>
+                    <li><code>run</code>, <code>execute</code>, <code>dispatch</code> y <code>submit</code></li>
+                    <li><code>fetch</code>, endpoint y envio a User Panel</li>
+                </ul>
+                <p><code>forbidden_actions</code> permanece visible y no se convierte en control.</p>
+            </article>
+            <article class="contract-overview-card" data-contract-overview-block="blocked-capabilities">
+                <div class="layout-label">Blocked capabilities</div>
+                <h3>Limites visibles</h3>
+                <ul>
+                    <li>runtime / execution / dispatch</li>
+                    <li>endpoint / worker / queue / User Panel</li>
+                </ul>
+                <p><code>blocked_capabilities</code> usa deny-by-default; un dato ausente no desbloquea.</p>
+            </article>
+            <article class="contract-overview-card" data-contract-overview-block="evidence">
+                <div class="layout-label">Evidence snapshot</div>
+                <h3>Evidencia documental</h3>
+                <span class="contract-overview-value">snapshot documental</span>
+                <p>Referencia local a contrato y checkpoints. No log vivo, no timestamp vivo inventado y no resultado de ejecucion.</p>
+            </article>
+            <article class="contract-overview-card" data-contract-overview-block="states">
+                <div class="layout-label">Honest states</div>
+                <h3>Estado sin datos inventados</h3>
+                <span class="contract-overview-value">documented / empty / deferred</span>
+                <p>Tambien puede expresar blocked, forbidden, degraded, review required o not implemented.</p>
+            </article>
+            <article class="contract-overview-card" data-contract-overview-block="references">
+                <div class="layout-label">Documentation references</div>
+                <h3>Referencias internas</h3>
+                <ul>
+                    <li><code>FSC-CO-01</code></li>
+                    <li><code>backend_internal_ui_payload.v1</code></li>
+                    <li><code>Panel Maestro / read-only</code></li>
+                </ul>
+            </article>
+        </div>
+        <p class="contract-overview-note">No ejecuta, no envia, no conecta endpoints, no activa runtime y no crea User Panel. Esta implementacion es documental/read-only; una validacion correcta no es permiso operativo.</p>
+    </section>
 
     <section class="density-priority-strip" data-density-hardening="1.29" data-storytelling-hardening="1.33" aria-label="Prioridad de informacion contract-aware">
         <div class="density-priority-item density-critical" data-density-tier="critical"><strong>P0 visible</strong><span>IA_CORE, no-runtime/no-execution, no_payload, forbidden_actions, blocked_capabilities y request draft blocked/read-only forman la historia principal.</span></div>
