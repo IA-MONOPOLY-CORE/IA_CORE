@@ -380,3 +380,10 @@ UI/UX preparado hasta 1.83; `docs/UI_UX_CONTRACT_OVERVIEW_PRE_IMPLEMENTATION_GUA
 1.83 no implementa pantalla, sin UI activa modificada, sin componente nuevo, User Panel no implementado, sin rutas/hash, sin backend/runtime/endpoints/CI/dependencias, sin limpiar deuda residual, sin corregir pyflakes y no push por defecto.
 
 Proximo prompt exacto: `PROMPT UI/UX 1.84 - Checkpoint guardrails pre-implementacion Contract Overview Screen IA_CORE contract-aware sin runtime/no-execution`.
+## Checkpoint guardrails Contract Overview 1.84
+
+UI/UX cerrado hasta 1.84; `docs/UI_UX_CONTRACT_OVERVIEW_PRE_IMPLEMENTATION_GUARDRAILS_CHECKPOINT_1_84.md` cierra los guardrails pre-implementacion Contract Overview 1.83 y deja `FSC-CO-01` listo para planificacion de implementacion controlada. La decision confirmada es `CONTRACT_OVERVIEW_PRE_IMPLEMENTATION_GUARDRAILS_READY`.
+
+El checkpoint 1.84 no implementa pantalla, no modifica UI activa, no crea componente nuevo ni User Panel, no crea rutas/hash, endpoints o fetches, no toca backend/runtime/CI/dependencias, no limpia deuda residual y no corrige pyflakes. El push publica el nuevo restore point remoto despues de validar el commit `docs(ui): cerrar checkpoint guardrails contract overview`.
+
+Proximo prompt exacto: `PROMPT UI/UX 1.85 - Preparar plan de implementacion controlada de Contract Overview Screen IA_CORE contract-aware sin runtime/no-execution`.
