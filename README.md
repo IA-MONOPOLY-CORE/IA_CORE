@@ -96,6 +96,12 @@ No se limpio, no se corrigieron pyflakes, no se modifico UI activa, no se toco b
 `docs/IA_CORE_GLOBAL_TECH_DEBT_SECOND_CLEANUP_CHECKPOINT_1_78_G.md` cierra el sub-bloque 1.78.E -> 1.78.G: planificacion de segunda tanda, limpieza test-only segura y checkpoint GitHub. La limpieza queda confirmada con pyflakes global reducido de `65 -> 26`, `33 unused imports`, `5 unused locals`, `pytest_plugins` como ajuste test-only seguro y `29 tests` tocados sin refactor ni cambio de comportamiento.
 
 Los 26 diagnosticos restantes quedan diferidos/protegidos fuera de tests en `api.py`, `core/`, `domains/`, providers y scripts. El checkpoint no modifica UI activa, no toca backend operativo, no crea endpoints/rutas/fetches, no activa runtime/execution/dispatch, no cambia CI ni dependencias y no avanza a 1.79. El push del checkpoint deja como nuevo restore point remoto el commit 1.78.G. Proximo prompt sugerido: `PROMPT IA_CORE 1.78.H - Planificar tercera tanda de limpieza deuda tecnica global IA_CORE contract-aware sin runtime/no-execution`.
+
+## Plan tercera tanda deuda tecnica global 1.78.H
+
+`docs/IA_CORE_GLOBAL_TECH_DEBT_THIRD_CLEANUP_PLAN_1_78_H.md` planifica la tercera tanda desde el restore point `c79ba6a`, tomando como base `IA_CORE_GLOBAL_TECH_DEBT_SECOND_CLEANUP_CHECKPOINT_1_78_G`. La fase revisa los `26` diagnosticos pyflakes restantes despues de la reduccion `65 -> 26` y separa `SAFE_STATIC_CANDIDATES_FOR_1_78_I`, `RISKY_PRODUCTIVE_CODE`, `HUMAN_REVIEW_REQUIRED_CONFIRMED`, `ARCHITECTURE_REVIEW_REQUIRED`, `DEFERRED_AFTER_1_78_I`, `DO_NOT_TOUCH_CONFIRMED` y `NO_ACTION_NOW`.
+
+Esta fase es solo planificacion: no se limpio, no se corrigieron pyflakes, no se modifico UI activa, no se toco backend/runtime/endpoints/CI/dependencias, no se hizo push por defecto y no se avanzo a 1.79. `1.79` sigue diferido. Proximo prompt exacto: `PROMPT IA_CORE 1.78.I - Limpiar tercera tanda de deuda tecnica global segura IA_CORE contract-aware sin runtime/no-execution`.
 - The internal backend is prepared for UI/UX exposure through stable contracts, but runtime remains non-operative.
 - IA_CORE is the active identity.
 - SAAOP/Loteria remain only as historical/internal legacy material where present; they are not active UI identity.
