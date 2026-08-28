@@ -1057,3 +1057,12 @@ Este checkpoint no modifica UI activa, no toca backend operativo fuera del alcan
 IA_CORE audita en `docs/IA_CORE_TECH_DEBT_RESIDUAL_READINESS_AUDIT_1_78_K.md` los `18` pyflakes restantes desde el restore point vigente `bb4852e`. No se limpia ni se corrigen pyflakes; la decision final es `READY_TO_RESUME_UI_UX_1_79_WITH_DOCUMENTED_RESIDUAL_DEBT`.
 
 La deuda residual queda documentada y no bloquea retomar UI/UX 1.79 bajo contrato sin runtime/no-execution. 1.78.K no modifica UI activa, no toca backend/runtime/endpoints/CI/dependencias, no hace push por defecto y no avanza a 1.79 dentro de este prompt. Proximo prompt exacto: `PROMPT UI/UX 1.79 - Consolidar siguiente bloque UI/UX post limpieza deuda tecnica global IA_CORE contract-aware sin runtime/no-execution`.
+## Plan siguiente bloque UI/UX 1.79
+
+UI/UX planificado hasta 1.79; IA_CORE retoma la planificacion UI/UX en `docs/UI_UX_NEXT_BLOCK_PLAN_1_79.md` despues de la limpieza tecnica global. La base es `605bad2`, el restore point remoto vigente es `bb4852e` y 1.78.K queda confirmado con `READY_TO_RESUME_UI_UX_1_79_WITH_DOCUMENTED_RESIDUAL_DEBT`.
+
+La deuda residual no bloqueante queda documentada para este alcance: `18` pyflakes restantes, `0` bloquean 1.79. La matriz de candidatos elige `NEXT_BLOCK_EXISTING_FINAL_SCREEN_CONTRACTS_IMPLEMENTATION_READINESS` para preparar, sin implementar, el futuro paso desde tres Final Screen Contracts documentales hacia readiness de implementacion.
+
+Cursor historico 1.78 conservado: `PROMPT UI/UX 1.79 - Consolidar siguiente bloque UI/UX post Validation & Readiness Final Screen Contract IA_CORE contract-aware sin runtime/no-execution`.
+
+1.79 no crea pantalla, sin UI activa modificada, User Panel no implementado, sin runtime/no-execution, sin endpoints/rutas/fetches/backend operativo/CI/dependencias, sin limpiar deuda residual y no push por defecto. Proximo prompt exacto: `PROMPT UI/UX 1.80 - Auditar readiness de implementacion de Final Screen Contracts existentes IA_CORE contract-aware sin runtime/no-execution`.
