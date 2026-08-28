@@ -1007,3 +1007,11 @@ IA_CORE sigue pausado antes de 1.79 para limpiar solo la primera tanda segura. `
 Cursor UI/UX diferido desde el checkpoint 1.78, no actual hasta cerrar deuda tecnica: `PROMPT UI/UX 1.79 - Consolidar siguiente bloque UI/UX post Validation & Readiness Final Screen Contract IA_CORE contract-aware sin runtime/no-execution`.
 
 Proximo prompt exacto: `PROMPT IA_CORE 1.78.D - Checkpoint limpieza deuda tecnica global IA_CORE contract-aware sin runtime/no-execution`.
+
+## Checkpoint limpieza deuda tecnica global 1.78.D
+
+IA_CORE cierra el sub-bloque documental 1.78.A -> 1.78.D con auditoria global, clasificacion, primera limpieza segura, resolucion de residuos post-suite y checkpoint GitHub. La suite queda verde con `5465 passed`, `2 skipped` y `5 warnings`; los 22 fallos historicos fueron eliminados y el working tree queda limpio antes del commit/push.
+
+Este checkpoint no modifica UI activa, backend operativo, runtime, endpoints, rutas, fetches, CI ni dependencias. Los 65 diagnosticos pyflakes globales restantes siguen fuera de alcance; `ACTIONABLE_LATER`, `HUMAN_REVIEW_REQUIRED` y `DO_NOT_TOUCH_CONFIRMED` permanecen documentados. `1.79` sigue diferido y no se avanza sin decision humana explicita.
+
+Proximo prompt exacto sugerido: `PROMPT IA_CORE 1.78.E - Planificar segunda tanda de limpieza deuda tecnica global IA_CORE contract-aware sin runtime/no-execution`.

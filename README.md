@@ -70,6 +70,14 @@ Current GitHub backup target: `https://github.com/IA-MONOPOLY-CORE/IA_CORE`
 - Limpieza primera tanda segura 1.78.C iniciada antes de 1.79; `PROMPT IA_CORE 1.78.C - Limpiar primera tanda de deuda tecnica segura IA_CORE contract-aware sin runtime/no-execution` crea `docs/IA_CORE_GLOBAL_TECH_DEBT_CLEANUP_1_78_C.md`, actualiza tests historicos/cursor/guardrails autorizados por `ACTIONABLE_IN_1_78_C`, corrige el bug estatico de test `current_after_1_63`, reduce los 22 fallos historicos del subset autorizado y documenta deuda restante. No borra archivos, no toca `DO_NOT_TOUCH`, no toca `NEEDS_HUMAN_REVIEW`, no modifica UI activa funcional, no toca backend/runtime/endpoints/CI, no instala dependencias, no hace push por defecto y no avanza a 1.79.
 - Cursor UI/UX diferido desde el checkpoint 1.78, no actual hasta cerrar deuda tecnica: Next pending step: `PROMPT UI/UX 1.79 - Consolidar siguiente bloque UI/UX post Validation & Readiness Final Screen Contract IA_CORE contract-aware sin runtime/no-execution`.
 - Next pending step: `PROMPT IA_CORE 1.78.D - Checkpoint limpieza deuda tecnica global IA_CORE contract-aware sin runtime/no-execution`.
+
+## Checkpoint limpieza deuda tecnica global 1.78.D
+
+`docs/IA_CORE_GLOBAL_TECH_DEBT_CLEANUP_CHECKPOINT_1_78_D.md` cierra el sub-bloque IA_CORE 1.78.A -> 1.78.D: auditoria global, clasificacion, primera limpieza segura, residuos post-suite y checkpoint final. La suite queda verde despues de la limpieza con `5465 passed`, `2 skipped` y `5 warnings`; los 22 fallos historicos fueron eliminados y los residuos post-suite quedaron resueltos fuera del repo.
+
+El checkpoint no modifica UI activa, codigo productivo, backend operativo, `core/`, `api.py`, `domains/`, `tools`, runtime, endpoints, CI ni dependencias. Los 65 diagnosticos pyflakes globales restantes y la deuda `ACTIONABLE_LATER` / `HUMAN_REVIEW_REQUIRED` quedan fuera de alcance. El commit y el push de este checkpoint crean el nuevo restore point remoto; `1.79` sigue diferido.
+
+Proximo prompt exacto sugerido: `PROMPT IA_CORE 1.78.E - Planificar segunda tanda de limpieza deuda tecnica global IA_CORE contract-aware sin runtime/no-execution`.
 - The internal backend is prepared for UI/UX exposure through stable contracts, but runtime remains non-operative.
 - IA_CORE is the active identity.
 - SAAOP/Loteria remain only as historical/internal legacy material where present; they are not active UI identity.
