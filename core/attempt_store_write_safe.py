@@ -4,7 +4,6 @@ from __future__ import annotations
 
 from copy import deepcopy
 from dataclasses import asdict, dataclass, field
-from datetime import datetime
 from typing import Any
 
 from core.execution_attempt import serialize_execution_attempt_schema, validate_execution_attempt_schema

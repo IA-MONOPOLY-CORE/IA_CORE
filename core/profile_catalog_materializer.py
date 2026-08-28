@@ -16,7 +16,7 @@ from core.artifact_manifest_schema import (
     validate_artifact_manifest_file,
 )
 from core.artifact_state import ArtifactState
-from core.domain_materializer import MATERIALIZATION_MANIFEST, validate_materialized_sandbox_domain
+from core.domain_materializer import validate_materialized_sandbox_domain
 from core.professional_profile_catalog_generator import generate_profile_catalog_for_domain
 
 

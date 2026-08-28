@@ -1039,3 +1039,9 @@ Este checkpoint no modifica UI activa, no toca backend operativo, no crea endpoi
 IA_CORE planifica la tercera tanda en `docs/IA_CORE_GLOBAL_TECH_DEBT_THIRD_CLEANUP_PLAN_1_78_H.md` desde el restore point `c79ba6a`. El plan parte del checkpoint `IA_CORE_GLOBAL_TECH_DEBT_SECOND_CLEANUP_CHECKPOINT_1_78_G`, conserva la reduccion pyflakes `65 -> 26`, clasifica los `26` diagnosticos restantes y define como alcance recomendado de 1.78.I solo `8` `SAFE_STATIC_CANDIDATES_FOR_1_78_I`.
 
 Esta fase no limpia, no corrige pyflakes, no modifica UI activa, no toca backend/runtime/endpoints/CI/dependencias, no hace push por defecto y no avanza a 1.79. `1.79` sigue diferido salvo decision humana explicita. Proximo prompt exacto: `PROMPT IA_CORE 1.78.I - Limpiar tercera tanda de deuda tecnica global segura IA_CORE contract-aware sin runtime/no-execution`.
+
+## Limpieza tercera tanda deuda tecnica global 1.78.I
+
+IA_CORE ejecuta en `docs/IA_CORE_GLOBAL_TECH_DEBT_THIRD_CLEANUP_1_78_I.md` la limpieza segura planificada en 1.78.H. Se corrigen solo `8` candidatos autorizados y pyflakes global baja de `26 -> 18`; los `18` diagnosticos restantes quedan diferidos/protegidos para revision humana o arquitectonica.
+
+No se modifica UI activa, no se toca backend/runtime/endpoints/CI/dependencias fuera del alcance autorizado, no hay push por defecto y no se avanza a 1.79. `1.79` sigue diferido salvo decision humana explicita. Proximo prompt exacto: `PROMPT IA_CORE 1.78.J - Checkpoint tercera limpieza deuda tecnica global IA_CORE contract-aware sin runtime/no-execution`.

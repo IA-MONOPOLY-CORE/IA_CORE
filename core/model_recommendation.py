@@ -441,7 +441,7 @@ def _select_provider_model(
             provider = cloud_providers[0]
             models = providers_dict[provider]
             model = _select_best_model_for_workload(models, workload)
-            reason = f"Workload medio; cloud disponible para mejor calidad."
+            reason = "Workload medio; cloud disponible para mejor calidad."
             return provider, model, reason
         
         local_providers = [p for p in providers_dict.keys() if _is_local_provider(p)]
@@ -449,7 +449,7 @@ def _select_provider_model(
             provider = local_providers[0]
             models = providers_dict[provider]
             model = _select_best_model_for_workload(models, workload)
-            reason = f"Workload medio; local como única opción disponible."
+            reason = "Workload medio; local como única opción disponible."
             return provider, model, reason
         
         return None, None, "No hay providers disponibles para workload medio."
@@ -461,7 +461,7 @@ def _select_provider_model(
             provider = local_providers[0]
             models = providers_dict[provider]
             model = _select_best_model_for_workload(models, workload)
-            reason = f"Workload liviano; local es suficiente y económico."
+            reason = "Workload liviano; local es suficiente y económico."
             return provider, model, reason
         
         # Fallback a cloud económico
@@ -470,7 +470,7 @@ def _select_provider_model(
             provider = cloud_providers[0]
             models = providers_dict[provider]
             model = _select_best_model_for_workload(models, workload)
-            reason = f"Workload liviano; cloud como local no disponible."
+            reason = "Workload liviano; cloud como local no disponible."
             return provider, model, reason
         
         return None, None, "No hay providers disponibles para workload liviano."
