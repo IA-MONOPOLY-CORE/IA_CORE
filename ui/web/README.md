@@ -1015,3 +1015,9 @@ IA_CORE cierra el sub-bloque documental 1.78.A -> 1.78.D con auditoria global, c
 Este checkpoint no modifica UI activa, backend operativo, runtime, endpoints, rutas, fetches, CI ni dependencias. Los 65 diagnosticos pyflakes globales restantes siguen fuera de alcance; `ACTIONABLE_LATER`, `HUMAN_REVIEW_REQUIRED` y `DO_NOT_TOUCH_CONFIRMED` permanecen documentados. `1.79` sigue diferido y no se avanza sin decision humana explicita.
 
 Proximo prompt exacto sugerido: `PROMPT IA_CORE 1.78.E - Planificar segunda tanda de limpieza deuda tecnica global IA_CORE contract-aware sin runtime/no-execution`.
+
+## Plan segunda tanda deuda tecnica global 1.78.E
+
+IA_CORE planifica la segunda tanda sin limpiar todavia en `docs/IA_CORE_GLOBAL_TECH_DEBT_SECOND_CLEANUP_PLAN_1_78_E.md`. Se revisan los 65 diagnosticos pyflakes, con 38 candidatos estaticos solo en tests y 27 diagnosticos diferidos o riesgosos; los residuos post-suite quedan como politica candidata separada. Restore point vigente: `cfb74e6`. `1.79` sigue diferido y no hay push por defecto.
+
+No se limpio, no se corrigieron pyflakes, no se modifico UI activa, no se toco backend operativo, runtime, endpoints, CI ni dependencias. Proximo prompt exacto: `PROMPT IA_CORE 1.78.F - Limpiar segunda tanda de deuda tecnica global segura IA_CORE contract-aware sin runtime/no-execution`.

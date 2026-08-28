@@ -78,6 +78,12 @@ Current GitHub backup target: `https://github.com/IA-MONOPOLY-CORE/IA_CORE`
 El checkpoint no modifica UI activa, codigo productivo, backend operativo, `core/`, `api.py`, `domains/`, `tools`, runtime, endpoints, CI ni dependencias. Los 65 diagnosticos pyflakes globales restantes y la deuda `ACTIONABLE_LATER` / `HUMAN_REVIEW_REQUIRED` quedan fuera de alcance. El commit y el push de este checkpoint crean el nuevo restore point remoto; `1.79` sigue diferido.
 
 Proximo prompt exacto sugerido: `PROMPT IA_CORE 1.78.E - Planificar segunda tanda de limpieza deuda tecnica global IA_CORE contract-aware sin runtime/no-execution`.
+
+## Plan segunda tanda deuda tecnica global 1.78.E
+
+`docs/IA_CORE_GLOBAL_TECH_DEBT_SECOND_CLEANUP_PLAN_1_78_E.md` planifica la segunda tanda sin limpiar todavia. Revisa los 65 diagnosticos pyflakes, separa 38 candidatos estaticos test-only de 27 diagnosticos diferidos o riesgosos y deja definida la politica candidata para residuos post-suite recurrentes. El restore point vigente es `cfb74e6`; `1.79` sigue diferido y no hay push por defecto.
+
+No se limpio, no se corrigieron pyflakes, no se modifico UI activa, no se toco backend operativo, runtime, endpoints, CI ni dependencias. Proximo prompt exacto: `PROMPT IA_CORE 1.78.F - Limpiar segunda tanda de deuda tecnica global segura IA_CORE contract-aware sin runtime/no-execution`.
 - The internal backend is prepared for UI/UX exposure through stable contracts, but runtime remains non-operative.
 - IA_CORE is the active identity.
 - SAAOP/Loteria remain only as historical/internal legacy material where present; they are not active UI identity.
