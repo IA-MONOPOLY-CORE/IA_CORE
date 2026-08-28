@@ -987,3 +987,13 @@ IA_CORE queda pausado antes de 1.79 para auditoria global profunda del repositor
 Cursor UI/UX diferido desde el checkpoint 1.78, no actual hasta cerrar deuda tecnica: `PROMPT UI/UX 1.79 - Consolidar siguiente bloque UI/UX post Validation & Readiness Final Screen Contract IA_CORE contract-aware sin runtime/no-execution`.
 
 Proximo prompt exacto: `PROMPT IA_CORE 1.78.B - Clasificar y priorizar deuda tecnica global IA_CORE contract-aware sin runtime/no-execution`.
+
+## Clasificacion global de deuda tecnica 1.78.B
+
+IA_CORE sigue pausado antes de 1.79 para clasificar y priorizar la deuda tecnica global. `docs/IA_CORE_GLOBAL_TECH_DEBT_CLASSIFICATION_1_78_B.md` valida los 30 items de 1.78.A y fija categoria final, severidad final, riesgo final, tanda, accion exacta, validacion posterior, entrada a 1.78.C y revision humana.
+
+1.78.B define `ACTIONABLE_IN_1_78_C`, `ACTIONABLE_LATER`, `HUMAN_REVIEW_REQUIRED` y `DO_NOT_TOUCH_CONFIRMED`. No limpia deuda todavia, no borra archivos, no modifica UI activa, no toca backend/runtime/endpoints/CI, no instala dependencias, no hace push por defecto y no avanza a 1.79.
+
+Cursor UI/UX diferido desde el checkpoint 1.78, no actual hasta cerrar deuda tecnica: `PROMPT UI/UX 1.79 - Consolidar siguiente bloque UI/UX post Validation & Readiness Final Screen Contract IA_CORE contract-aware sin runtime/no-execution`.
+
+Proximo prompt exacto: `PROMPT IA_CORE 1.78.C - Limpiar primera tanda de deuda tecnica segura IA_CORE contract-aware sin runtime/no-execution`.
