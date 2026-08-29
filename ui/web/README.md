@@ -1276,3 +1276,13 @@ Próximo prompt exacto: `PROMPT UI/UX 1.105 - Hardening visual y contractual Req
 El hardening refuerza `draft / not final`, `DEFER_FINALIZATION`, sin contrato final, sin implementación operativa, request no submit, preview no dispatch, payload summary no payload crudo, allowed actions no CTA y labels/pills no interactivas. No se tocó JavaScript, `styles.css`, backend, runtime, endpoints, fetches, User Panel ni rutas/hash. Revisión visual humana y checkpoint/push 1.106 quedan pendientes; push pospuesto.
 
 Próximo prompt exacto: `PROMPT UI/UX 1.106 - Checkpoint Request Contract Preview implementada y hardenizada IA_CORE contract-aware sin runtime/no-execution`.
+
+## Request Contract Preview Screen Checkpoint 1.106
+
+Checkpoint UI/UX 1.106 cerrado para `Request Contract Preview / CFD-04`: la sección queda implementada, hardenizada, aprobada visualmente y auditada contra affordances ambiguas. Resultado final: `REQUEST_CONTRACT_PREVIEW_FINAL_AFFORDANCE_AUDIT_PASSED_WITH_NOTES`; revisión visual humana: `HUMAN_VISUAL_REVIEW_APPROVED`.
+
+Baseline visual/contractual de cuatro secciones preservada en Panel Maestro: Contract Overview, Blocked & Forbidden, Validation & Readiness y Request Contract Preview. `FSC-RCP-04` permanece como id UI propuesto, `draft / not final`, `DEFER_FINALIZATION`, sin contrato final y sin implementación operativa. Este checkpoint no modifica UI activa, no modifica Request Contract Preview, no agrega pantalla, no crea User Panel/rutas/hash, no activa runtime/execution/dispatch y no toca backend/endpoints/CI/dependencias/deuda residual/pyflakes.
+
+Nuevo restore point remoto: commit checkpoint 1.106 publicado en `origin/main` después del push si las validaciones pasan. No implementación adicional en este prompt.
+
+Próximo prompt exacto: `PROMPT UI/UX 1.107 - Planificar siguiente paso tras Request Contract Preview IA_CORE contract-aware sin runtime/no-execution`.
