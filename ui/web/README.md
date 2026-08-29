@@ -1260,3 +1260,11 @@ Contract Overview `FSC-CO-01`, Blocked & Forbidden `FSC-BF-02` y Validation & Re
 La cuarta seccion solo podria evaluarse en 1.104 despues de la triple baseline Contract Overview `FSC-CO-01`, Blocked & Forbidden `FSC-BF-02` y Validation & Readiness `FSC-VR-03`, como superficie documental, read-only y sin runtime/no-execution. No se implemento pantalla, no se modifico UI activa, no se creo contrato final, no se contradijo `DEFER_FINALIZATION` y el push queda pospuesto.
 
 Proximo prompt exacto: `PROMPT UI/UX 1.104 - Implementar Request Contract Preview IA_CORE contract-aware sin runtime/no-execution`.
+
+## Request Contract Preview Screen Implementation 1.104
+
+1.104 implementa `Request Contract Preview / CFD-04` como cuarta sección hermana documental, read-only y contract-aware del Panel Maestro. `FSC-RCP-04` se usa únicamente como id UI propuesto; se preservan `draft / not final` y `DEFER_FINALIZATION`, sin contrato final ni operación activa. La decisión es `REQUEST_CONTRACT_PREVIEW_SCREEN_IMPLEMENTED_NEEDS_HARDENING`.
+
+La sección queda después de Contract Overview `FSC-CO-01`, Blocked & Forbidden `FSC-BF-02` y Validation & Readiness `FSC-VR-03`. No se modificaron las tres pantallas, no se tocó JavaScript, backend, navegación ni dependencias. Hardening 1.105, revisión visual humana y checkpoint/push 1.106 quedan pendientes; push pospuesto.
+
+Próximo prompt exacto: `PROMPT UI/UX 1.105 - Hardening visual y contractual Request Contract Preview IA_CORE contract-aware sin runtime/no-execution`.
