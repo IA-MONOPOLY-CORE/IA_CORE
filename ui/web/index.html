@@ -552,6 +552,63 @@
             font-size: 0.7rem;
             line-height: 1.5;
         }
+        .four-screen-baseline-summary {
+            display: grid;
+            grid-template-columns: minmax(0, 0.88fr) minmax(360px, 1.12fr);
+            gap: 14px;
+            align-items: start;
+            margin-bottom: 12px;
+            padding: 14px 16px;
+            border: 1px solid rgba(148,163,184,0.22);
+            background: rgba(15,23,42,0.46);
+            box-shadow: inset 3px 0 0 rgba(148,163,184,0.42);
+        }
+        .four-screen-baseline-summary strong {
+            display: block;
+            color: var(--text-primary);
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 1.02rem;
+        }
+        .four-screen-baseline-summary p {
+            margin-top: 7px;
+            color: rgba(226,232,240,0.76);
+            font-size: 0.72rem;
+            line-height: 1.55;
+        }
+        .four-screen-baseline-list {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 8px;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+        .four-screen-baseline-list li {
+            min-width: 0;
+            padding: 8px;
+            border-top: 1px solid rgba(148,163,184,0.2);
+            background: rgba(2,6,23,0.2);
+        }
+        .four-screen-baseline-list span,
+        .four-screen-baseline-list code {
+            display: block;
+            font-family: 'Share Tech Mono', monospace;
+            overflow-wrap: anywhere;
+        }
+        .four-screen-baseline-list span {
+            color: var(--text-muted);
+            font-size: 0.58rem;
+        }
+        .four-screen-baseline-list strong {
+            margin-top: 4px;
+            font-size: 0.82rem;
+            line-height: 1.2;
+        }
+        .four-screen-baseline-list code {
+            margin-top: 5px;
+            color: var(--cyan);
+            font-size: 0.62rem;
+        }
         @media (max-width: 760px) {
             .contract-overview-heading,
             .contract-overview-grid {
@@ -1016,6 +1073,33 @@
             border-color: rgba(245,158,11,0.56);
             background: rgba(120,53,15,0.16);
         }
+        .contract-overview-status,
+        .blocked-forbidden-status,
+        .validation-readiness-status,
+        .request-contract-preview-status {
+            min-height: 0;
+            gap: 5px;
+            padding: 9px;
+            background: rgba(2,6,23,0.36);
+        }
+        .contract-overview-status-label,
+        .blocked-forbidden-status-label,
+        .validation-readiness-status-label,
+        .request-contract-preview-status-label {
+            letter-spacing: 0.06em;
+        }
+        .contract-overview-status .visual-state,
+        .blocked-forbidden-status .visual-state,
+        .validation-readiness-status .visual-state,
+        .request-contract-preview-status .visual-state {
+            min-height: 22px;
+            padding: 2px 6px;
+            border-style: dashed;
+            font-size: 0.6rem;
+            line-height: 1.25;
+            text-transform: none;
+            background: rgba(15,23,42,0.26);
+        }
         .request-contract-preview-grid {
             display: grid;
             grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -1127,6 +1211,9 @@
             line-height: 1.5;
         }
         @media (max-width: 1080px) {
+            .four-screen-baseline-list {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
             .request-contract-preview-grid {
                 grid-template-columns: repeat(2, minmax(0, 1fr));
             }
@@ -1135,12 +1222,21 @@
             }
         }
         @media (max-width: 760px) {
+            .four-screen-baseline-summary {
+                grid-template-columns: 1fr;
+            }
             .request-contract-preview-heading,
             .request-contract-preview-grid {
                 grid-template-columns: 1fr;
             }
         }
         @media (max-width: 480px) {
+            .four-screen-baseline-summary {
+                padding: 12px;
+            }
+            .four-screen-baseline-list {
+                grid-template-columns: 1fr;
+            }
             .request-contract-preview-screen {
                 padding: 14px;
             }
@@ -2208,6 +2304,20 @@
         </div>
     </header>
 
+    <div class="four-screen-baseline-summary" data-four-screen-baseline-summary="1.109" data-interaction-mode="read-only" data-interaction-state="static_documentation" aria-label="Resumen documental de baseline de cuatro secciones">
+        <div>
+            <div class="layout-label">Panel Maestro / baseline de cuatro secciones / no operativo</div>
+            <strong>Lectura integrada contract-aware de IA_CORE</strong>
+            <p>Las cuatro superficies siguientes son documentales, read-only y contract-aware. Mantienen orden fijo y limites comunes: no runtime, no execution, no dispatch, no endpoint, no fetch, no User Panel, no rutas/hash, no submit, no send, no run y no execute.</p>
+        </div>
+        <ol class="four-screen-baseline-list" aria-label="Orden documental de la baseline">
+            <li><span>01</span><strong>Contract Overview</strong><code>FSC-CO-01</code></li>
+            <li><span>02</span><strong>Blocked &amp; Forbidden</strong><code>FSC-BF-02</code></li>
+            <li><span>03</span><strong>Validation &amp; Readiness</strong><code>FSC-VR-03</code></li>
+            <li><span>04</span><strong>Request Contract Preview</strong><code>FSC-RCP-04</code></li>
+        </ol>
+    </div>
+
     <section class="contract-overview-screen layout-section" id="contract-overview-screen" data-main-console-zone="contract-overview" data-contract-screen="FSC-CO-01" data-contract-overview-state="documented ready-no-permission no-runtime no-execution" data-interaction-mode="read-only" data-interaction-state="read_only inspectable" aria-labelledby="contract-overview-title">
         <div class="contract-overview-heading">
             <div>
@@ -2490,7 +2600,7 @@
             </article>
         </div>
         <p class="validation-readiness-note">Semantic boundary: readiness no permission · validation no execution · passed no operational success · warning/error no live runtime · review required no workflow active.</p>
-        <p class="validation-readiness-note" id="validation-readiness-note">Validation &amp; Readiness Screen es documental, final y contract-aware: readiness informa, validation documenta y los límites permanecen visibles. Esta implementación necesita hardening y revisión visual humana antes del siguiente checkpoint.</p>
+        <p class="validation-readiness-note" id="validation-readiness-note">Validation &amp; Readiness Screen es documental, final y contract-aware: readiness informa, validation documenta y los límites permanecen visibles. Checkpoint 1.100 publicado; sigue sin runtime, sin endpoint, sin fetch y sin User Panel.</p>
     </section>
 
     <section class="request-contract-preview-screen layout-section" id="request-contract-preview-screen" data-main-console-zone="request-contract-preview" data-screen-role="contract-preview" data-visibility="always-visible" data-contract-screen="FSC-RCP-04" data-contract-document="CFD-04" data-contract-authority="backend_internal_ui_payload.v1" data-rendering-policy="documentary-only" data-request-contract-preview-state="draft-not-final deferred no-submit no-send no-dispatch no-runtime no-execution no-delivery no-endpoint no-fetch no-user-panel no-state-mutation" data-interaction-mode="read-only" data-interaction-state="read_only static_documentation" data-affordance-policy="labels-only not-controls" aria-labelledby="request-contract-preview-title" aria-describedby="request-contract-preview-note">
@@ -2549,7 +2659,7 @@
                 <div class="layout-label">Draft / Deferred</div>
                 <h3>Estado de gobernanza</h3>
                 <span class="request-contract-preview-value">draft / not final · DEFER_FINALIZATION</span>
-                <p><strong>deferred no implementado</strong>. <strong>draft no ready</strong>: sin contrato final y sin implementación operativa. El checkpoint 1.106 queda pendiente antes de cualquier push.</p>
+                <p><strong>deferred no implementado</strong>. <strong>draft no ready</strong>: sin contrato final y sin implementación operativa. Checkpoint 1.106 publicado; cualquier consolidación futura requiere revisión y mantiene el push de este bloque pospuesto.</p>
             </article>
             <article class="request-contract-preview-block request-contract-preview-block--critical" data-request-contract-preview-block="payload-summary-safe">
                 <div class="layout-label">Payload Summary Safe</div>
