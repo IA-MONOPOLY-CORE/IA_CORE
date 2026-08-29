@@ -949,6 +949,9 @@
             background: rgba(15,23,42,0.76);
             box-shadow: inset 3px 0 0 var(--amber), var(--panel-glow);
         }
+        .request-contract-preview-screen * {
+            cursor: default;
+        }
         .request-contract-preview-heading {
             display: grid;
             grid-template-columns: minmax(0, 1.16fr) minmax(300px, 0.84fr);
@@ -999,6 +1002,8 @@
         }
         .request-contract-preview-status .visual-state {
             margin: 0;
+            pointer-events: none;
+            user-select: text;
         }
         .request-contract-preview-status .visual-state.documented {
             color: var(--cyan);
@@ -1075,6 +1080,15 @@
             color: var(--text-primary);
             font-family: 'Share Tech Mono', monospace;
             font-size: 0.72rem;
+            overflow-wrap: anywhere;
+        }
+        .request-contract-preview-readonly-marker {
+            display: block;
+            margin-top: 8px;
+            color: var(--amber);
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 0.66rem;
+            line-height: 1.45;
             overflow-wrap: anywhere;
         }
         .request-contract-preview-state-list {
@@ -2479,33 +2493,34 @@
         <p class="validation-readiness-note" id="validation-readiness-note">Validation &amp; Readiness Screen es documental, final y contract-aware: readiness informa, validation documenta y los límites permanecen visibles. Esta implementación necesita hardening y revisión visual humana antes del siguiente checkpoint.</p>
     </section>
 
-    <section class="request-contract-preview-screen layout-section" id="request-contract-preview-screen" data-main-console-zone="request-contract-preview" data-screen-role="contract-preview" data-visibility="always-visible" data-contract-screen="FSC-RCP-04" data-contract-document="CFD-04" data-contract-authority="backend_internal_ui_payload.v1" data-rendering-policy="documentary-only" data-request-contract-preview-state="draft-not-final deferred no-submit no-send no-dispatch no-runtime no-execution no-delivery no-endpoint no-fetch no-user-panel no-state-mutation" data-interaction-mode="read-only" data-interaction-state="read_only inspectable" aria-labelledby="request-contract-preview-title" aria-describedby="request-contract-preview-note">
+    <section class="request-contract-preview-screen layout-section" id="request-contract-preview-screen" data-main-console-zone="request-contract-preview" data-screen-role="contract-preview" data-visibility="always-visible" data-contract-screen="FSC-RCP-04" data-contract-document="CFD-04" data-contract-authority="backend_internal_ui_payload.v1" data-rendering-policy="documentary-only" data-request-contract-preview-state="draft-not-final deferred no-submit no-send no-dispatch no-runtime no-execution no-delivery no-endpoint no-fetch no-user-panel no-state-mutation" data-interaction-mode="read-only" data-interaction-state="read_only static_documentation" data-affordance-policy="labels-only not-controls" aria-labelledby="request-contract-preview-title" aria-describedby="request-contract-preview-note">
         <div class="request-contract-preview-heading">
             <div>
-                <div class="layout-label">Panel Maestro / Contract-aware screen / Read-only</div>
+                <div class="layout-label">draft / not final / DEFER_FINALIZATION / read-only</div>
                 <div class="request-contract-preview-title">
                     <h2 id="request-contract-preview-title">Request Contract Preview</h2>
                     <span class="request-contract-preview-id">FSC-RCP-04</span>
                 </div>
-                <p class="request-contract-preview-lede">Vista documental y de solo lectura para un contrato diferido. `CFD-04` sigue draft / not final: no hay contrato final ni implementación operativa. Este preview hace legible el límite contractual; no representa una acción.</p>
+                <p class="request-contract-preview-lede">Vista documental y de solo lectura para un contrato diferido. <code>CFD-04</code> sigue draft / not final con <code>DEFER_FINALIZATION</code>: sin contrato final y sin implementación operativa. Este preview es una lectura, no una acción.</p>
                 <p class="request-contract-preview-lede">FSC-RCP-04: id UI propuesto / UI proposed id. Fuente declarada: <code>backend_internal_ui_payload.v1</code>. Superficie: Panel Maestro. Modo: read-only / contract-aware.</p>
+                <span class="request-contract-preview-readonly-marker">label-only · not rendered as action · no success operativo · no ready operativo</span>
             </div>
-            <div class="request-contract-preview-status" role="status" aria-label="Estado documental Request Contract Preview">
-                <span class="request-contract-preview-status-label">Estado documental</span>
-                <span class="visual-state documented">request-documented</span>
-                <span class="visual-state documented">preview-documented</span>
-                <span class="visual-state deferred">draft-not-final</span>
-                <span class="visual-state deferred">deferred</span>
-                <span class="visual-state boundary">no-submit</span>
-                <span class="visual-state boundary">no-send</span>
-                <span class="visual-state boundary">no-dispatch</span>
-                <span class="visual-state boundary">no-runtime</span>
-                <span class="visual-state boundary">no-execution</span>
-                <span class="visual-state boundary">no-delivery</span>
-                <span class="visual-state boundary">no-endpoint</span>
-                <span class="visual-state boundary">no-fetch</span>
-                <span class="visual-state boundary">no-user-panel</span>
-                <span class="visual-state boundary">no-state-mutation</span>
+            <div class="request-contract-preview-status" aria-label="Etiquetas documentales Request Contract Preview">
+                <span class="request-contract-preview-status-label">Etiquetas documentales no interactivas</span>
+                <span class="visual-state deferred" data-affordance="read-only-label">draft-not-final</span>
+                <span class="visual-state deferred" data-affordance="read-only-label">DEFER_FINALIZATION</span>
+                <span class="visual-state documented" data-affordance="read-only-label">request-documented</span>
+                <span class="visual-state documented" data-affordance="read-only-label">preview-documented</span>
+                <span class="visual-state boundary" data-affordance="read-only-label">no-submit</span>
+                <span class="visual-state boundary" data-affordance="read-only-label">no-send</span>
+                <span class="visual-state boundary" data-affordance="read-only-label">no-dispatch</span>
+                <span class="visual-state boundary" data-affordance="read-only-label">no-runtime</span>
+                <span class="visual-state boundary" data-affordance="read-only-label">no-execution</span>
+                <span class="visual-state boundary" data-affordance="read-only-label">no-delivery</span>
+                <span class="visual-state boundary" data-affordance="read-only-label">no-endpoint</span>
+                <span class="visual-state boundary" data-affordance="read-only-label">no-fetch</span>
+                <span class="visual-state boundary" data-affordance="read-only-label">no-user-panel</span>
+                <span class="visual-state boundary" data-affordance="read-only-label">no-state-mutation</span>
             </div>
         </div>
         <div class="request-contract-preview-grid" data-request-contract-preview-visibility="always-visible">
@@ -2517,14 +2532,15 @@
                     <div class="request-contract-preview-state-row"><strong>request shape</strong><span>documental / read-only</span></div>
                     <div class="request-contract-preview-state-row"><strong>request no submit</strong><span>no send / no dispatch</span></div>
                     <div class="request-contract-preview-state-row"><strong>request shape no state mutation</strong><span>confirmation gate documented no active gate</span></div>
+                    <div class="request-contract-preview-state-row"><strong>human review</strong><span>no approval to run</span></div>
                 </div>
             </article>
             <article class="request-contract-preview-block request-contract-preview-block--primary" data-request-contract-preview-block="preview-dispatch">
                 <div class="layout-label">Preview vs Dispatch</div>
                 <h3>Preview como lectura contractual</h3>
-                <p>El preview permite leer un resumen seguro. <strong>preview no dispatch</strong>: no inicia runtime, no ejecuta nada y no produce delivery.</p>
+                <p>El preview es una lectura estatica de resumen seguro. <strong>preview no dispatch</strong>: no inicia runtime, no ejecuta nada y no produce delivery.</p>
                 <div class="request-contract-preview-state-list">
-                    <div class="request-contract-preview-state-row"><strong>preview</strong><span>documented / static snapshot</span></div>
+                    <div class="request-contract-preview-state-row"><strong>preview label</strong><span>documented / static snapshot</span></div>
                     <div class="request-contract-preview-state-row"><strong>preview no dispatch</strong><span>no runtime / no execution</span></div>
                     <div class="request-contract-preview-state-row"><strong>preview state no delivery</strong><span>no live request</span></div>
                 </div>
@@ -2533,7 +2549,7 @@
                 <div class="layout-label">Draft / Deferred</div>
                 <h3>Estado de gobernanza</h3>
                 <span class="request-contract-preview-value">draft / not final · DEFER_FINALIZATION</span>
-                <p><strong>deferred no implementado</strong>. <strong>draft no ready</strong>: sin contrato final y sin implementación operativa. La implementación futura requiere prompts 1.105/1.106 antes de checkpoint/push.</p>
+                <p><strong>deferred no implementado</strong>. <strong>draft no ready</strong>: sin contrato final y sin implementación operativa. El checkpoint 1.106 queda pendiente antes de cualquier push.</p>
             </article>
             <article class="request-contract-preview-block request-contract-preview-block--critical" data-request-contract-preview-block="payload-summary-safe">
                 <div class="layout-label">Payload Summary Safe</div>
@@ -2549,7 +2565,7 @@
                 <div class="layout-label">Allowed Actions Declared</div>
                 <h3>Declaraciones, no affordances</h3>
                 <span class="request-contract-preview-value">allowed_actions</span>
-                <p><strong>allowed actions no CTA</strong>. Declaradas por contrato / no renderizadas como acción. No buttons, no success operativo, no mark ready y no approve.</p>
+                <p><strong>allowed actions no CTA</strong>. Declared by contract / not rendered as action. Declaradas por contrato, no renderizadas como accion. Sin controles, sin success operativo, sin mark ready y sin approve.</p>
             </article>
             <article class="request-contract-preview-block request-contract-preview-block--critical" data-request-contract-preview-block="forbidden-boundaries">
                 <div class="layout-label">Forbidden Actions / Boundaries</div>
@@ -2582,11 +2598,11 @@
             <article class="request-contract-preview-block request-contract-preview-block--deferred" data-request-contract-preview-block="anti-affordance">
                 <div class="layout-label">Anti-affordance Notice</div>
                 <h3>Ningún preview es una acción</h3>
-                <p><strong>human review no approval to run</strong>. Nada puede enviarse o ejecutarse desde esta pantalla. <strong>allowed actions no CTA</strong>.</p>
-                <span class="request-contract-preview-value">no submit · no dispatch · no success operativo · no fake success · no ghost actions</span>
+                <p><strong>human review no approval to run</strong>. Nada puede enviarse o ejecutarse desde esta pantalla. <strong>allowed actions no CTA</strong>. Ningún preview es una acción.</p>
+                <span class="request-contract-preview-value">no submit · no send · no dispatch · no run · no execute · no endpoint · no fetch · no User Panel · no success operativo · no fake success · no ghost actions</span>
             </article>
         </div>
-        <p class="request-contract-preview-note" id="request-contract-preview-note">Semantic boundary: draft / not final · DEFER_FINALIZATION · sin contrato final · sin implementación operativa · request no submit · preview no dispatch · no runtime · no execution · no delivery · read-only.</p>
+        <p class="request-contract-preview-note" id="request-contract-preview-note">Semantic boundary: draft / not final · DEFER_FINALIZATION · sin contrato final · sin implementación operativa · request no submit · preview no dispatch · no runtime · no execution · no delivery · read-only · readable contract no executable payload.</p>
     </section>
 
     <section class="console-flow-map secondary-readable-map" data-density-tier="secondary" aria-label="Ruta narrativa de lectura contract-aware">

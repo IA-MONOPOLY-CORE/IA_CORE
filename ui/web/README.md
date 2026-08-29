@@ -1268,3 +1268,11 @@ Proximo prompt exacto: `PROMPT UI/UX 1.104 - Implementar Request Contract Previe
 La sección queda después de Contract Overview `FSC-CO-01`, Blocked & Forbidden `FSC-BF-02` y Validation & Readiness `FSC-VR-03`. No se modificaron las tres pantallas, no se tocó JavaScript, backend, navegación ni dependencias. Hardening 1.105, revisión visual humana y checkpoint/push 1.106 quedan pendientes; push pospuesto.
 
 Próximo prompt exacto: `PROMPT UI/UX 1.105 - Hardening visual y contractual Request Contract Preview IA_CORE contract-aware sin runtime/no-execution`.
+
+## Request Contract Preview Screen Hardening 1.105
+
+1.105 hardeniza visual y contractualmente `Request Contract Preview / CFD-04` como cuarta sección hermana del Panel Maestro. La decisión final es `REQUEST_CONTRACT_PREVIEW_SCREEN_HARDENED_READY_FOR_HUMAN_VISUAL_REVIEW` y el resultado de auditoría es `REQUEST_CONTRACT_PREVIEW_AFFORDANCE_AUDIT_PASSED_WITH_NOTES`.
+
+El hardening refuerza `draft / not final`, `DEFER_FINALIZATION`, sin contrato final, sin implementación operativa, request no submit, preview no dispatch, payload summary no payload crudo, allowed actions no CTA y labels/pills no interactivas. No se tocó JavaScript, `styles.css`, backend, runtime, endpoints, fetches, User Panel ni rutas/hash. Revisión visual humana y checkpoint/push 1.106 quedan pendientes; push pospuesto.
+
+Próximo prompt exacto: `PROMPT UI/UX 1.106 - Checkpoint Request Contract Preview implementada y hardenizada IA_CORE contract-aware sin runtime/no-execution`.
