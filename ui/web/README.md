@@ -1204,3 +1204,13 @@ UI/UX preparado hasta 1.96; `docs/UI_UX_VALIDATION_READINESS_PRE_IMPLEMENTATION_
 El bloque reutiliza Contract Overview y Blocked & Forbidden como baseline visual/contractual doble, pero solo prepara límites: readiness no permission, validation no execution, passed no operational success y auditoría anti-CTA futura. No implementa pantalla ni modifica UI activa; Request Contract Preview sigue diferido y push pospuesto.
 
 Próximo prompt exacto: `PROMPT UI/UX 1.97 - Preparar plan de implementacion controlada Validation & Readiness Screen IA_CORE contract-aware sin runtime/no-execution`.
+
+## Plan de implementación controlada Validation & Readiness 1.97
+
+UI/UX planificado hasta 1.97; `docs/UI_UX_VALIDATION_READINESS_CONTROLLED_IMPLEMENTATION_PLAN_1_97.md` define el alcance controlado para la futura `Validation & Readiness Screen`. La decisión es `VALIDATION_READINESS_CONTROLLED_IMPLEMENTATION_PLAN_READY`.
+
+El plan conserva Contract Overview `FSC-CO-01` y Blocked & Forbidden `FSC-BF-02` como baseline doble, mantiene Request Contract Preview diferido y exige readiness no permission, validation no execution, passed no operational success, warning/error no live runtime y review required no workflow active.
+
+1.97 no implementa pantalla, no modifica UI activa, no toca las pantallas cerradas ni crea User Panel, rutas/hash, endpoints, fetches o runtime. Push pospuesto; 1.98 requiere aprobación humana explícita.
+
+Próximo prompt exacto: `PROMPT UI/UX 1.98 - Implementar Validation & Readiness Screen IA_CORE contract-aware sin runtime/no-execution`.

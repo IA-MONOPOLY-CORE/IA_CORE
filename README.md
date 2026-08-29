@@ -490,3 +490,13 @@ UI/UX preparado hasta 1.96; `docs/UI_UX_VALIDATION_READINESS_PRE_IMPLEMENTATION_
 Contract Overview `FSC-CO-01` y Blocked & Forbidden `FSC-BF-02` quedan como baseline visual/contractual doble. 1.96 no implementa pantalla, no modifica UI activa, no toca las pantallas cerradas, no crea User Panel/rutas/hash/endpoints/fetches, no activa runtime, no toca backend/CI/dependencias, no limpia deuda residual, no corrige pyflakes y deja push pospuesto.
 
 Próximo prompt exacto: `PROMPT UI/UX 1.97 - Preparar plan de implementacion controlada Validation & Readiness Screen IA_CORE contract-aware sin runtime/no-execution`.
+
+## Plan de implementación controlada Validation & Readiness 1.97
+
+UI/UX planificado hasta 1.97; `docs/UI_UX_VALIDATION_READINESS_CONTROLLED_IMPLEMENTATION_PLAN_1_97.md` baja los guardrails 1.96 a un plan controlado para la futura pantalla `Validation & Readiness Screen`. La decisión es `VALIDATION_READINESS_CONTROLLED_IMPLEMENTATION_PLAN_READY`.
+
+El plan define alcance implementable/prohibido, archivos candidatos y prohibidos, ubicación como tercera sección hermana del Panel Maestro, estructura visual, políticas de datos/estados/copy/affordance, estrategia, tests, entry/exit criteria, rollback y risk register. Contract Overview `FSC-CO-01` y Blocked & Forbidden `FSC-BF-02` permanecen como baselines; Request Contract Preview sigue diferido.
+
+1.97 no implementa pantalla, no modifica UI activa, no toca Contract Overview ni Blocked & Forbidden, no crea User Panel/rutas/hash/endpoints/fetches, no activa runtime, no toca backend/CI/dependencias, no limpia deuda residual, no corrige pyflakes y deja push pospuesto. La implementación solo podría comenzar con aprobación humana explícita del próximo prompt.
+
+Próximo prompt exacto: `PROMPT UI/UX 1.98 - Implementar Validation & Readiness Screen IA_CORE contract-aware sin runtime/no-execution`.
