@@ -438,3 +438,13 @@ La futura pantalla queda acotada como Panel Maestro only, read-only, contract-aw
 1.90 no implementa pantalla, no modifica UI activa, no toca Contract Overview, no crea componente nuevo, no crea User Panel, rutas/hash, endpoints ni fetches, sin backend/runtime/endpoints/CI/dependencias, sin limpiar deuda residual, sin corregir pyflakes y no push por defecto.
 
 Proximo prompt exacto: `PROMPT UI/UX 1.91 - Preparar plan de implementacion controlada Blocked & Forbidden Capabilities Screen IA_CORE contract-aware sin runtime/no-execution`.
+
+## Plan implementacion controlada Blocked & Forbidden 1.91
+
+UI/UX planificado hasta 1.91; `docs/UI_UX_BLOCKED_FORBIDDEN_CONTROLLED_IMPLEMENTATION_PLAN_1_91.md` baja los guardrails 1.90 a un plan de implementacion controlada para `Blocked & Forbidden Capabilities Screen`. La decision final es `BLOCKED_FORBIDDEN_CONTROLLED_IMPLEMENTATION_PLAN_READY`.
+
+El plan define alcance implementable futuro, alcance prohibido, candidate/prohibited files, placement strategy, estructura visual, data/state/copy policy, estrategia controlada, tests futuros, entry/exit criteria, rollback y risk register. La pantalla futura queda limitada al Panel Maestro, read-only, contract-aware, con `blocked_capabilities` y `forbidden_actions` visibles, sin unlock/override/bypass, sin User Panel/rutas/hash y sin backend/runtime/endpoints/CI/dependencias.
+
+1.91 no implementa pantalla, no modifica UI activa, no toca Contract Overview, no crea componente nuevo, no limpia deuda residual, no corrige pyflakes, no hace push y no avanza a 1.92; push pospuesto.
+
+Proximo prompt exacto: `PROMPT UI/UX 1.92 - Implementar Blocked & Forbidden Capabilities Screen IA_CORE contract-aware sin runtime/no-execution`.
