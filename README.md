@@ -448,3 +448,13 @@ El plan define alcance implementable futuro, alcance prohibido, candidate/prohib
 1.91 no implementa pantalla, no modifica UI activa, no toca Contract Overview, no crea componente nuevo, no limpia deuda residual, no corrige pyflakes, no hace push y no avanza a 1.92; push pospuesto.
 
 Proximo prompt exacto: `PROMPT UI/UX 1.92 - Implementar Blocked & Forbidden Capabilities Screen IA_CORE contract-aware sin runtime/no-execution`.
+
+## Implementacion Blocked & Forbidden Capabilities Screen 1.92
+
+UI/UX implementado hasta 1.92; `docs/UI_UX_BLOCKED_FORBIDDEN_SCREEN_IMPLEMENTATION_1_92.md` registra la primera implementacion controlada de `Blocked & Forbidden Capabilities Screen` (`FSC-BF-02`) dentro del Panel Maestro. La decision es `BLOCKED_FORBIDDEN_SCREEN_IMPLEMENTED_NEEDS_HARDENING` y requiere hardening/revision visual antes del checkpoint final.
+
+Se modifico solo `ui/web/index.html` para agregar la pantalla documental/read-only despues de Contract Overview. La seccion mantiene `blocked_capabilities` y `forbidden_actions` visibles como datos contractuales, no como controles; declara `backend_internal_ui_payload.v1`, `no-runtime/no-execution`, no endpoint, no fetch, no rutas/hash, no User Panel y no unlock/override/bypass.
+
+1.92 no toca Contract Overview fuera de preservarlo como baseline, no toca backend operativo, `api.py`, `core/`, `domains/`, `providers/`, `tools/`, `scripts`, CI, dependencias, deuda residual ni pyflakes. Push pospuesto.
+
+Proximo prompt exacto: `PROMPT UI/UX 1.93 - Hardening visual y contractual Blocked & Forbidden Capabilities Screen IA_CORE contract-aware sin runtime/no-execution`.

@@ -572,6 +572,162 @@
                 min-height: 0;
             }
         }
+        .blocked-forbidden-screen {
+            padding: 18px;
+            border: 1px solid rgba(239,68,68,0.46);
+            background:
+                linear-gradient(135deg, rgba(127,29,29,0.22), rgba(15,23,42,0.74) 46%),
+                rgba(15,23,42,0.7);
+            box-shadow: inset 3px 0 0 var(--red), var(--panel-glow);
+        }
+        .blocked-forbidden-heading {
+            display: grid;
+            grid-template-columns: minmax(0, 1.28fr) minmax(280px, 0.92fr);
+            gap: 18px;
+            align-items: start;
+        }
+        .blocked-forbidden-title {
+            display: flex;
+            align-items: baseline;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        .blocked-forbidden-title h2 {
+            margin-top: 7px;
+            color: var(--text-primary);
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 1.48rem;
+            letter-spacing: 0.03em;
+        }
+        .blocked-forbidden-id {
+            color: var(--red);
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 0.72rem;
+        }
+        .blocked-forbidden-lede {
+            max-width: 760px;
+            margin-top: 8px;
+            color: rgba(226,232,240,0.78);
+            font-size: 0.78rem;
+            line-height: 1.55;
+        }
+        .blocked-forbidden-status {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: flex-end;
+            align-content: flex-start;
+            gap: 7px;
+            min-height: 84px;
+            padding: 10px;
+            border: 1px solid rgba(248,113,113,0.25);
+            background: rgba(2,6,23,0.4);
+        }
+        .blocked-forbidden-status-label {
+            width: 100%;
+            color: var(--text-muted);
+            font-size: 0.62rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+        }
+        .blocked-forbidden-status .visual-state {
+            margin: 0;
+        }
+        .blocked-forbidden-status .visual-state.documented {
+            color: var(--green);
+            border-color: rgba(34,197,94,0.58);
+        }
+        .blocked-forbidden-grid {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 10px;
+            margin-top: 14px;
+        }
+        .blocked-forbidden-block {
+            min-width: 0;
+            min-height: 150px;
+            padding: 14px;
+            border: 1px solid rgba(148,163,184,0.2);
+            background: rgba(2,6,23,0.32);
+        }
+        .blocked-forbidden-block--critical {
+            border-color: rgba(239,68,68,0.5);
+            box-shadow: inset 3px 0 0 var(--red);
+        }
+        .blocked-forbidden-block--boundary {
+            border-color: rgba(245,158,11,0.5);
+            box-shadow: inset 3px 0 0 var(--amber);
+        }
+        .blocked-forbidden-block--evidence {
+            border-color: rgba(34,197,94,0.38);
+            box-shadow: inset 3px 0 0 var(--green);
+        }
+        .blocked-forbidden-block h3 {
+            margin-top: 7px;
+            color: var(--text-primary);
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 0.98rem;
+        }
+        .blocked-forbidden-block p,
+        .blocked-forbidden-block li {
+            color: rgba(226,232,240,0.74);
+            font-size: 0.72rem;
+            line-height: 1.5;
+        }
+        .blocked-forbidden-block p {
+            margin-top: 7px;
+        }
+        .blocked-forbidden-block ul {
+            display: grid;
+            gap: 4px;
+            margin-top: 9px;
+            padding-left: 16px;
+        }
+        .blocked-forbidden-block code {
+            color: var(--cyan);
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 0.68rem;
+        }
+        .blocked-forbidden-value {
+            display: block;
+            margin-top: 9px;
+            color: var(--text-primary);
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 0.74rem;
+            overflow-wrap: anywhere;
+        }
+        .blocked-forbidden-note {
+            margin-top: 12px;
+            padding-top: 11px;
+            border-top: 1px solid rgba(248,113,113,0.18);
+            color: var(--text-muted);
+            font-size: 0.7rem;
+            line-height: 1.5;
+        }
+        @media (max-width: 1080px) {
+            .blocked-forbidden-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+        }
+        @media (max-width: 760px) {
+            .blocked-forbidden-heading,
+            .blocked-forbidden-grid {
+                grid-template-columns: 1fr;
+            }
+            .blocked-forbidden-status {
+                justify-content: flex-start;
+            }
+        }
+        @media (max-width: 480px) {
+            .blocked-forbidden-screen {
+                padding: 14px;
+            }
+            .blocked-forbidden-title h2 {
+                font-size: 1.24rem;
+            }
+            .blocked-forbidden-block {
+                min-height: 0;
+            }
+        }
         .layout-section-title {
             display: flex;
             align-items: center;
@@ -1707,6 +1863,87 @@
         <p class="contract-overview-note">No ejecuta, no envia, no conecta endpoints, no activa runtime y no crea User Panel. Esta implementacion es documental/read-only; una validacion correcta no es permiso operativo.</p>
     </section>
 
+    <section class="blocked-forbidden-screen layout-section" id="blocked-forbidden-screen" data-main-console-zone="blocked-forbidden" data-contract-screen="FSC-BF-02" data-blocked-forbidden-state="documented read-only no-runtime no-execution no-endpoint no-user-panel contract-bound policy-bound" data-interaction-mode="read-only" data-interaction-state="read_only inspectable" aria-labelledby="blocked-forbidden-title">
+        <div class="blocked-forbidden-heading">
+            <div>
+                <div class="layout-label">Panel Maestro / Final Screen Contract</div>
+                <div class="blocked-forbidden-title">
+                    <h2 id="blocked-forbidden-title">Blocked &amp; Forbidden Capabilities Screen</h2>
+                    <span class="blocked-forbidden-id">FSC-BF-02</span>
+                </div>
+                <p class="blocked-forbidden-lede">Vista documental, final y de solo lectura para limites duros de IA_CORE. Especializa bloqueos y prohibiciones contractuales sin reabrir Contract Overview ni convertir datos en permisos.</p>
+            </div>
+            <div class="blocked-forbidden-status" role="status" aria-live="polite" aria-label="Estado contractual Blocked and Forbidden">
+                <span class="blocked-forbidden-status-label">Estado contractual</span>
+                <span class="visual-state documented evidence-state" data-component="ia-status-badge">documented</span>
+                <span class="visual-state blocked" data-component="ia-status-badge ia-blocker">blocked</span>
+                <span class="visual-state failed" data-component="ia-status-badge ia-blocker">forbidden</span>
+                <span class="visual-state blocked" data-component="ia-status-badge ia-blocker">no-runtime</span>
+                <span class="visual-state blocked" data-component="ia-status-badge ia-blocker">no-execution</span>
+                <span class="visual-state blocked" data-component="ia-status-badge ia-blocker">no-endpoint</span>
+                <span class="visual-state blocked" data-component="ia-status-badge ia-blocker">no-user-panel</span>
+            </div>
+        </div>
+        <div class="blocked-forbidden-grid">
+            <article class="blocked-forbidden-block blocked-forbidden-block--critical" data-blocked-forbidden-block="blocked-capabilities">
+                <div class="layout-label">Blocked capabilities</div>
+                <h3>Capacidades bloqueadas</h3>
+                <span class="blocked-forbidden-value" data-contract-source="blocked_capabilities">blocked_capabilities</span>
+                <ul>
+                    <li>Limite duro del contrato, no error operativo.</li>
+                    <li>Deny-by-default ante datos ausentes, diferidos o incompletos.</li>
+                    <li>No se infiere permiso por readiness, validacion o evidencia.</li>
+                </ul>
+            </article>
+            <article class="blocked-forbidden-block blocked-forbidden-block--critical" data-blocked-forbidden-block="forbidden-actions">
+                <div class="layout-label">Forbidden actions</div>
+                <h3>Acciones prohibidas</h3>
+                <span class="blocked-forbidden-value" data-contract-source="forbidden_actions">forbidden_actions</span>
+                <ul>
+                    <li>Datos contractuales visibles, nunca controles.</li>
+                    <li>Sin CTA operativo, permiso inferido ni cambio de estado.</li>
+                    <li>La UI informa el limite; el backend conserva autoridad.</li>
+                </ul>
+            </article>
+            <article class="blocked-forbidden-block blocked-forbidden-block--boundary" data-blocked-forbidden-block="no-unlock-boundary">
+                <div class="layout-label">No-unlock boundary</div>
+                <h3>Frontera no escalable</h3>
+                <span class="blocked-forbidden-value">no-unlock/no-bypass/no-override</span>
+                <p>La pantalla no sugiere atajos, elevacion de permiso ni alternativa visual para superar una prohibicion declarada.</p>
+            </article>
+            <article class="blocked-forbidden-block" data-blocked-forbidden-block="source">
+                <div class="layout-label">Source contract</div>
+                <h3>Fuente declarada</h3>
+                <span class="blocked-forbidden-value">backend_internal_ui_payload.v1</span>
+                <p>Solo interpreta campos ya definidos por contrato. Si no hay payload seguro, conserva estado honesto.</p>
+            </article>
+            <article class="blocked-forbidden-block" data-blocked-forbidden-block="state-policy">
+                <div class="layout-label">State policy</div>
+                <h3>Estados permitidos</h3>
+                <span class="blocked-forbidden-value">documented / blocked / forbidden / deferred</span>
+                <p>Tambien admite not_available, empty o review required. No muestra exito falso ni disponibilidad inventada.</p>
+            </article>
+            <article class="blocked-forbidden-block blocked-forbidden-block--evidence" data-blocked-forbidden-block="evidence">
+                <div class="layout-label">Evidence snapshot</div>
+                <h3>Evidencia documental</h3>
+                <span class="blocked-forbidden-value">1.68 / 1.69 / 1.70 / 1.90 / 1.91 / 1.92</span>
+                <p>Referencia contratos y checkpoints locales. No es log vivo, telemetria ni resultado operacional.</p>
+            </article>
+            <article class="blocked-forbidden-block" data-blocked-forbidden-block="scope-boundary">
+                <div class="layout-label">Surface boundary</div>
+                <h3>Panel Maestro only</h3>
+                <span class="blocked-forbidden-value">internal-only / read-only</span>
+                <p>No User Panel, no rutas/hash, no endpoint, no fetch, no runtime y no execution.</p>
+            </article>
+            <article class="blocked-forbidden-block blocked-forbidden-block--boundary" data-blocked-forbidden-block="overview-preserved">
+                <div class="layout-label">Baseline preserved</div>
+                <h3>Contract Overview intacto</h3>
+                <span class="blocked-forbidden-value">FSC-CO-01 baseline</span>
+                <p>Este bloque no reemplaza la vista general: solo concentra limites duros y mantiene la jerarquia previa.</p>
+            </article>
+        </div>
+        <p class="blocked-forbidden-note">Blocked &amp; Forbidden Capabilities Screen es documental/read-only: no envia datos, no conecta endpoints, no activa runtime, no despacha jobs, no crea User Panel y no entrega salida final a usuario.</p>
+    </section>
     <section class="density-priority-strip" data-density-hardening="1.29" data-storytelling-hardening="1.33" aria-label="Prioridad de informacion contract-aware">
         <div class="density-priority-item density-critical" data-density-tier="critical"><strong>P0 visible</strong><span>IA_CORE, no-runtime/no-execution, no_payload, forbidden_actions, blocked_capabilities y request draft blocked/read-only forman la historia principal.</span></div>
         <div class="density-priority-item density-primary" data-density-tier="primary"><strong>P1 lectura</strong><span>Recorrido de lectura: informacion recibida -> contrato -> summary antes de detail/raw-safe.</span></div>
