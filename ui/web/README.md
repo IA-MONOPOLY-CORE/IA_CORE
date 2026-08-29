@@ -1196,3 +1196,11 @@ UI/UX planificado hasta 1.95; `docs/UI_UX_NEXT_FINAL_SCREEN_AFTER_BLOCKED_FORBID
 Este prompt solo planifica: no implementa pantalla, no modifica UI activa ni las pantallas cerradas, no toca backend/runtime/endpoints/CI/dependencias, no limpia deuda residual, no corrige pyflakes y deja push pospuesto.
 
 Proximo prompt exacto: `PROMPT UI/UX 1.96 - Preparar guardrails pre-implementacion Validation & Readiness Screen IA_CORE contract-aware sin runtime/no-execution`.
+
+## Guardrails pre-implementación Validation & Readiness 1.96
+
+UI/UX preparado hasta 1.96; `docs/UI_UX_VALIDATION_READINESS_PRE_IMPLEMENTATION_GUARDRAILS_1_96.md` registra los guardrails contract-aware para `Validation & Readiness Screen`. La decisión es `VALIDATION_READINESS_PRE_IMPLEMENTATION_GUARDRAILS_READY`.
+
+El bloque reutiliza Contract Overview y Blocked & Forbidden como baseline visual/contractual doble, pero solo prepara límites: readiness no permission, validation no execution, passed no operational success y auditoría anti-CTA futura. No implementa pantalla ni modifica UI activa; Request Contract Preview sigue diferido y push pospuesto.
+
+Próximo prompt exacto: `PROMPT UI/UX 1.97 - Preparar plan de implementacion controlada Validation & Readiness Screen IA_CORE contract-aware sin runtime/no-execution`.
