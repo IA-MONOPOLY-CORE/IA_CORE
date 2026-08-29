@@ -1246,3 +1246,9 @@ Próximo prompt exacto: `PROMPT UI/UX 1.101 - Planificar siguiente paso tras Val
 La triple baseline visual/contractual queda consolidada en Contract Overview `FSC-CO-01`, Blocked & Forbidden `FSC-BF-02` y Validation & Readiness `FSC-VR-03`. La decisión documental es `NEXT_STEP_REQUEST_CONTRACT_PREVIEW_GUARDRAILS_SELECTED`; Request Contract Preview permanece diferido.
 
 No se implementó pantalla ni se modificó UI activa. El siguiente prompt exacto es `PROMPT UI/UX 1.102 - Preparar guardrails pre-implementacion Request Contract Preview IA_CORE contract-aware sin runtime/no-execution`. Push pospuesto.
+
+## Request Contract Preview Pre-Implementation Guardrails 1.102
+
+`Request Contract Preview / CFD-04` queda documentado como `draft / not final` con `DEFER_FINALIZATION`. 1.102 define guardrails pre-implementación sin crear pantalla ni contrato final. La decisión es `REQUEST_CONTRACT_PREVIEW_PRE_IMPLEMENTATION_GUARDRAILS_READY`.
+
+Contract Overview `FSC-CO-01`, Blocked & Forbidden `FSC-BF-02` y Validation & Readiness `FSC-VR-03` siguen como triple baseline. No se implementó pantalla ni se modificó UI activa. Próximo prompt: `PROMPT UI/UX 1.103 - Preparar plan de implementacion controlada Request Contract Preview IA_CORE contract-aware sin runtime/no-execution`. Push pospuesto.
