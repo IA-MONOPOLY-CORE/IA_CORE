@@ -1252,3 +1252,11 @@ No se implementó pantalla ni se modificó UI activa. El siguiente prompt exacto
 `Request Contract Preview / CFD-04` queda documentado como `draft / not final` con `DEFER_FINALIZATION`. 1.102 define guardrails pre-implementación sin crear pantalla ni contrato final. La decisión es `REQUEST_CONTRACT_PREVIEW_PRE_IMPLEMENTATION_GUARDRAILS_READY`.
 
 Contract Overview `FSC-CO-01`, Blocked & Forbidden `FSC-BF-02` y Validation & Readiness `FSC-VR-03` siguen como triple baseline. No se implementó pantalla ni se modificó UI activa. Próximo prompt: `PROMPT UI/UX 1.103 - Preparar plan de implementacion controlada Request Contract Preview IA_CORE contract-aware sin runtime/no-execution`. Push pospuesto.
+
+## Request Contract Preview Controlled Implementation Plan 1.103
+
+1.103 convierte los guardrails 1.102 en plan controlado futuro para `Request Contract Preview / CFD-04`. `FSC-RCP-04` es solo un UI proposed id; el estado sigue `draft / not final` y `DEFER_FINALIZATION`. No existe contrato final ni pantalla implementada. La decision es `REQUEST_CONTRACT_PREVIEW_CONTROLLED_IMPLEMENTATION_PLAN_READY`.
+
+La cuarta seccion solo podria evaluarse en 1.104 despues de la triple baseline Contract Overview `FSC-CO-01`, Blocked & Forbidden `FSC-BF-02` y Validation & Readiness `FSC-VR-03`, como superficie documental, read-only y sin runtime/no-execution. No se implemento pantalla, no se modifico UI activa, no se creo contrato final, no se contradijo `DEFER_FINALIZATION` y el push queda pospuesto.
+
+Proximo prompt exacto: `PROMPT UI/UX 1.104 - Implementar Request Contract Preview IA_CORE contract-aware sin runtime/no-execution`.
