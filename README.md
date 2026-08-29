@@ -510,3 +510,13 @@ La pantalla es documental, final, contract-aware y read-only. Expone readiness n
 1.98 preserva las dos pantallas previas, no implementa pantalla adicional, no declara checkpoint ni visual approval y requiere hardening y revisión visual humana. No se limpió deuda residual ni se corrigió pyflakes. Push pospuesto.
 
 Próximo prompt exacto: `PROMPT UI/UX 1.99 - Hardening visual y contractual Validation & Readiness Screen IA_CORE contract-aware sin runtime/no-execution`.
+
+## Hardening Validation & Readiness Screen 1.99
+
+UI/UX hardenizado hasta 1.99; `docs/UI_UX_VALIDATION_READINESS_SCREEN_HARDENING_1_99.md` registra el hardening visual y contractual de `Validation & Readiness Screen` como tercera sección hermana del Panel Maestro. La decisión es `VALIDATION_READINESS_SCREEN_HARDENED_READY_FOR_HUMAN_VISUAL_REVIEW` y la auditoría es `VALIDATION_READINESS_AFFORDANCE_AUDIT_PASSED_WITH_NOTES`.
+
+Se reforzaron jerarquía, densidad, legibilidad y severidad: estados documentales informativos, límites contractuales, copy readiness/validation y ausencia de affordances operativas. Contract Overview `FSC-CO-01`, Blocked & Forbidden `FSC-BF-02` y Validation & Readiness `FSC-VR-03` permanecen en orden; no se modificó backend, runtime, endpoints, fetches, User Panel ni rutas/hash.
+
+1.99 deja la pantalla lista para revisión visual humana, pero no declara visual approval; no checkpoint publicado. Push pospuesto; no se limpió deuda residual ni se corrigió pyflakes.
+
+Próximo prompt exacto: `PROMPT UI/UX 1.100 - Checkpoint Validation & Readiness Screen implementada y hardenizada IA_CORE contract-aware sin runtime/no-execution`.

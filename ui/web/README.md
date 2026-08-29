@@ -1224,3 +1224,11 @@ La sección mantiene lectura documental/read-only, status strip contractual, rea
 1.98 no implementa pantalla adicional, no declara checkpoint ni visual approval; requiere hardening y revisión visual humana. Push pospuesto.
 
 Próximo prompt exacto: `PROMPT UI/UX 1.99 - Hardening visual y contractual Validation & Readiness Screen IA_CORE contract-aware sin runtime/no-execution`.
+
+## Hardening Validation & Readiness Screen 1.99
+
+UI/UX hardenizado hasta 1.99; `docs/UI_UX_VALIDATION_READINESS_SCREEN_HARDENING_1_99.md` registra la revisión visual/contractual de `FSC-VR-03`. La decisión es `VALIDATION_READINESS_SCREEN_HARDENED_READY_FOR_HUMAN_VISUAL_REVIEW` y la auditoría affordance es `VALIDATION_READINESS_AFFORDANCE_AUDIT_PASSED_WITH_NOTES`.
+
+Se ajustó la señal visual para que estados documentales y límites no parezcan success ni runtime vivo; se conservaron copy, findings, blockers/warnings/missing requirements, evidence snapshot y límites read-only. No hay CTA operativo, endpoint, fetch, User Panel ni rutas/hash. La revisión visual humana queda pendiente; no checkpoint publicado y push pospuesto.
+
+Próximo prompt exacto: `PROMPT UI/UX 1.100 - Checkpoint Validation & Readiness Screen implementada y hardenizada IA_CORE contract-aware sin runtime/no-execution`.
