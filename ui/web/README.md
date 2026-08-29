@@ -1363,4 +1363,14 @@ Decisión final: `LOWER_CONSOLE_EXISTING_ELEMENTS_AUDIT_BLOCKED_CRITICAL`. Se re
 
 Próximo prompt exacto: `PROMPT UI/UX 1.114.A - Fix auditoria elementos inferiores existentes Panel Maestro IA_CORE contract-aware sin runtime/no-execution`.
 
+## Lower Console Existing Elements Fix 1.114.A
+
+1.114.A deja bloqueada la superficie administrativa inferior existente con `LOWER_CONSOLE_READ_ONLY`: `CFG`, `+`, `DOMAIN`, tarjetas y formularios no pueden abrir, enviar, crear, editar, borrar, hacer fetch ni activar runtime desde la UI. Los disclosures `VER DETALLE` y `VER EVIDENCIA`, junto con `RELEER PAYLOAD LOCAL`, siguen siendo locales/read-only.
+
+Resultado: `LOWER_CONSOLE_EXISTING_ELEMENTS_FIX_PASSED_WITH_NOTES_READY_FOR_HUMAN_VISUAL_REVIEW`. La baseline de Final Screen Contracts no se modificó; tampoco backend, runtime, endpoints nuevos, CI, dependencias, rutas/hash o navegación. Push pospuesto.
+
+Documento: `docs/UI_UX_LOWER_CONSOLE_EXISTING_ELEMENTS_FIX_1_114_A.md`. Prueba: `tests/test_ui_ux_lower_console_existing_elements_fix_1_114_a.py`.
+
+Próximo prompt exacto: `PROMPT UI/UX 1.115 - Checkpoint fix elementos inferiores existentes Panel Maestro IA_CORE contract-aware sin runtime/no-execution`.
+
 No implementación, no UI activa modificada, no Final Screen Contracts tocado, no elementos inferiores modificados, no quinta sección, no contrato final, `DEFER_FINALIZATION` preservado, no User Panel/rutas/hash nuevos, no backend/runtime/endpoints/fetches nuevos, no deuda residual, no pyflakes y no push. Restore point remoto: `ccdef7a`; commits locales previos: `0403422`, `9a6e8c1` y `1e080ab`.

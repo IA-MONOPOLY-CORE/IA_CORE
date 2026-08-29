@@ -3,6 +3,7 @@
     'use strict';
 
     const API = window.location.origin;
+    const LOWER_CONSOLE_READ_ONLY = true;
 
     const byId = (id) => document.getElementById(id);
     const pretty = (value) => JSON.stringify(value ?? null, null, 2);
@@ -14,6 +15,9 @@
         .replaceAll("'", '&#039;');
 
     async function fetchJson(path, options = {}) {
+        if (LOWER_CONSOLE_READ_ONLY) {
+            throw new Error('Superficie administrativa inferior bloqueada por contrato; no se despacha request.');
+        }
         const response = await fetch(`${API}${path}`, options);
         const data = await response.json().catch(() => ({}));
         if (!response.ok) {
@@ -196,6 +200,19 @@
     };
 
     function initialize() {
+        if (LOWER_CONSOLE_READ_ONLY) {
+            document.querySelectorAll('#config-modal input, #config-modal select, #config-modal textarea, #config-modal button').forEach((element) => {
+                if (element.id !== 'close-config-modal') {
+                    element.disabled = true;
+                    element.setAttribute('aria-disabled', 'true');
+                    element.dataset.contractBlocked = 'true';
+                    element.dataset.noMutation = 'true';
+                    element.dataset.noRuntime = 'true';
+                    element.dataset.noExecution = 'true';
+                }
+            });
+            return;
+        }
         byId('memory-refresh-btn')?.addEventListener('click', () => loadMemory(byId('memory-key-select').value));
         byId('memory-key-select')?.addEventListener('change', (event) => loadMemory(event.target.value));
         byId('logs-refresh-btn')?.addEventListener('click', loadLogs);

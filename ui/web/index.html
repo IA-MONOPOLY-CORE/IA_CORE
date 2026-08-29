@@ -2943,7 +2943,7 @@
             </div>
         </details>
         <div class="admin-toolbar">
-            <button class="btn-primary" id="widgets-refresh-btn" type="button" data-component="ia-readonly-control" data-interaction-control="inspect" data-interaction-mode="read-only">RELEER PAYLOAD LOCAL</button>
+            <button class="btn-primary" id="widgets-refresh-btn" type="button" data-component="ia-readonly-control" data-interaction-control="inspect" data-interaction-mode="read-only" data-local-only="true" data-no-fetch="true" data-no-runtime="true" data-no-execution="true">RELEER PAYLOAD LOCAL</button>
             <span class="admin-status" id="widgets-last-refresh">Sin actualizar.</span>
             <span class="read-only-guidance">Releer actualiza la vista local; no ejecuta ni cambia permisos.</span>
         </div>
@@ -3094,9 +3094,10 @@
     <div class="agents-grid" id="agents-grid"></div>
 
     <nav class="console-utilities" data-interaction-scope="existing-management" aria-label="Utilidades de consola" aria-description="Gestión existente fuera del modelo contract-aware 1.3">
-        <button class="floating-settings" id="settings-fab" type="button" aria-label="Abrir configuración" title="Abrir configuración">CFG</button>
-        <button class="floating-add" id="add-fab" type="button" aria-label="Crear agente" title="Crear agente">+</button>
-        <button class="floating-domain" id="domain-fab" type="button" aria-label="Gestionar dominio" title="Gestionar dominio">DOMAIN</button>
+        <button class="floating-settings" id="settings-fab" type="button" disabled aria-disabled="true" data-contract-blocked="true" data-no-runtime="true" data-no-execution="true" data-no-mutation="true" aria-label="Configuración bloqueada por contrato" title="Configuración bloqueada por contrato">CFG</button>
+        <button class="floating-add" id="add-fab" type="button" disabled aria-disabled="true" data-contract-blocked="true" data-no-runtime="true" data-no-execution="true" data-no-mutation="true" aria-label="Crear agente bloqueado por contrato" title="Crear agente bloqueado por contrato">+</button>
+        <button class="floating-domain" id="domain-fab" type="button" disabled aria-disabled="true" data-contract-blocked="true" data-no-runtime="true" data-no-execution="true" data-no-mutation="true" aria-label="Dominio bloqueado por contrato" title="Dominio bloqueado por contrato">DOMAIN</button>
+        <span class="admin-status" data-contract-blocked="true">Gestión administrativa inferior bloqueada por contrato · read-only</span>
     </nav>
 
     <footer>IA_CORE // Contract-Aware HUD</footer>
@@ -3352,7 +3353,7 @@
             <div style="margin-bottom:12px;"><label style="font-size:0.8rem;">SYSTEM PROMPT <span style="color:var(--red);">*</span></label><textarea id="agent-prompt" rows="3" style="width:100%; background:rgba(0,0,0,0.5); border:1px solid var(--border-color); color:#fff; padding:8px; resize:none; border-radius:var(--border-radius);"></textarea></div>
             <div style="margin-bottom:12px;"><label style="font-size:0.8rem;">MEMORIA <span style="color:var(--text-muted);">(OPCIONAL)</span></label><input type="file" id="agent-memory" accept=".md,.txt" style="font-size:0.75rem;"></div>
             <div style="display:flex; gap:12px; justify-content:flex-end; margin-top:15px;">
-                <button id="save-agent-btn" class="btn-primary">ACEPTAR</button>
+                <button id="save-agent-btn" class="btn-primary" type="button" disabled aria-disabled="true" data-contract-blocked="true" data-no-runtime="true" data-no-execution="true" data-no-dispatch="true" data-no-mutation="true">ACEPTAR</button>
                 <button id="cancel-agent-btn" class="btn-primary">CANCELAR</button>
             </div>
         </div>
@@ -3398,7 +3399,7 @@
                 <div id="domain-form-status" class="domain-form-status" role="status"></div>
                 <div class="domain-modal-actions">
                     <button id="cancel-domain-btn" type="button" class="btn-primary" data-i18n="common.cancel">CANCELAR</button>
-                    <button id="save-domain-btn" type="submit" class="btn-primary" data-i18n="domains.create_action">CREAR DOMINIO</button>
+                    <button id="save-domain-btn" type="submit" class="btn-primary" disabled aria-disabled="true" data-contract-blocked="true" data-no-runtime="true" data-no-execution="true" data-no-dispatch="true" data-no-mutation="true" data-i18n="domains.create_action">CREAR DOMINIO</button>
                 </div>
             </form>
         </div>
@@ -3413,6 +3414,49 @@
         let requestDraftInspectionOpen = false;
         let currentEditId = null;
         let providersLoadPromise = null;
+        const LOWER_CONSOLE_READ_ONLY = true;
+
+        function markLowerConsoleControlBlocked(element, label) {
+            if (!element) return;
+            element.disabled = true;
+            element.setAttribute('aria-disabled', 'true');
+            element.dataset.contractBlocked = 'true';
+            element.dataset.noRuntime = 'true';
+            element.dataset.noExecution = 'true';
+            element.dataset.noDispatch = 'true';
+            element.dataset.noMutation = 'true';
+            if (label) {
+                element.setAttribute('aria-label', `${label} bloqueado por contrato`);
+                element.title = `${label} bloqueado por contrato`;
+            }
+        }
+
+        function applyLowerConsoleBlockers() {
+            ['settings-fab', 'add-fab', 'domain-fab', 'save-agent-btn', 'save-domain-btn', 'apply-config-btn', 'accept-config-btn'].forEach((id) => {
+                markLowerConsoleControlBlocked(document.getElementById(id), id === 'settings-fab' ? 'Configuración' : id === 'add-fab' ? 'Crear agente' : id === 'domain-fab' ? 'Dominio' : 'Control administrativo');
+            });
+            document.querySelectorAll('#config-modal input, #config-modal select, #config-modal textarea').forEach((element) => markLowerConsoleControlBlocked(element));
+            document.querySelectorAll('#config-modal button').forEach((element) => {
+                if (element.id !== 'close-config-modal') markLowerConsoleControlBlocked(element);
+            });
+            const domainForm = document.getElementById('domain-form');
+            if (domainForm) {
+                domainForm.dataset.contractBlocked = 'true';
+                domainForm.dataset.noMutation = 'true';
+                domainForm.addEventListener('submit', (event) => {
+                    event.preventDefault();
+                    const status = document.getElementById('domain-form-status');
+                    if (status) status.textContent = 'Formulario bloqueado por contrato: no submit, no fetch y no mutación.';
+                });
+            }
+            document.querySelectorAll('#agent-modal input, #agent-modal select, #agent-modal textarea').forEach((element) => {
+                if (element.id !== 'agent-id') element.disabled = true;
+            });
+            const grid = document.getElementById('agents-grid');
+            if (grid && LOWER_CONSOLE_READ_ONLY) {
+                grid.innerHTML = '<div class="hud-panel" data-contract-blocked="true" data-no-runtime="true" data-no-execution="true" style="padding:30px; text-align:center; grid-column:1/-1; font-size:0.9rem;">Tarjetas de agentes bloqueadas por contrato<br><span style="font-size:0.75rem; color:var(--text-muted);">Gestión administrativa no disponible en esta etapa.</span></div>';
+            }
+        }
 
         // Agentes del sistema que NO deben aparecer
         const SYSTEM_AGENTS = ["echo"]; // solo echo se oculta completamente (AGENT_INTERNAL_ONLY)
@@ -4067,6 +4111,10 @@
 
         // ========== AGENTES ==========
         async function cargarAgentes() {
+            if (LOWER_CONSOLE_READ_ONLY) {
+                renderAgentesBlockedState();
+                return;
+            }
             try {
                 const res = await fetch(`${API_BASE}/api/agents/list`);
                 const data = await res.json();
@@ -4101,7 +4149,17 @@
             } catch(e) { console.error('Error cargando agentes:', e); }
         }
 
+        function renderAgentesBlockedState() {
+            const grid = document.getElementById('agents-grid');
+            if (!grid) return;
+            grid.innerHTML = '<div class="hud-panel" data-contract-blocked="true" data-no-runtime="true" data-no-execution="true" style="padding:30px; text-align:center; grid-column:1/-1; font-size:0.9rem;">Tarjetas de agentes bloqueadas por contrato<br><span style="font-size:0.75rem; color:var(--text-muted);">Gestión administrativa no disponible en esta etapa.</span></div>';
+        }
+
         function renderAgentes() {
+            if (LOWER_CONSOLE_READ_ONLY) {
+                renderAgentesBlockedState();
+                return;
+            }
             const grid = document.getElementById('agents-grid');
             const mostrar = agentes.filter(a => selectedAgents.includes(a.id));
             if (mostrar.length === 0) {
@@ -4113,7 +4171,7 @@
                 const panel = document.createElement('div');
                 panel.className = 'hud-panel agent-panel';
                 panel.innerHTML = `
-                    <button class="agent-menu-btn" onclick="abrirMenuAgente('${ag.id}')">⋮</button>
+                    <button class="agent-menu-btn" type="button" disabled aria-disabled="true" data-contract-blocked="true" data-no-mutation="true" title="Gestión bloqueada por contrato">⋮</button>
                     <div class="agent-header">
                         <div class="agent-avatar" style="border-color:${ag.color};">${ag.avatar}</div>
                         <div class="agent-meta">
@@ -4122,7 +4180,7 @@
                             <div class="agent-status-tag"><span class="pulse-dot" id="dot-${ag.id}"></span><span id="status-${ag.id}">STDBY</span></div>
                         </div>
                     </div>
-                    <div class="agent-output" id="output-${ag.id}" onclick="verRespuesta('${ag.id}')">// ESPERANDO INSTRUCCIÓN...</div>
+                    <div class="agent-output" id="output-${ag.id}" data-contract-blocked="true" data-no-execution="true">// GESTIÓN BLOQUEADA POR CONTRATO...</div>
                     <div class="agent-footer-metrics"><span>PUNTAJE: <strong id="score-${ag.id}">-</strong></span><span>DUR: <strong id="time-${ag.id}">-</strong></span></div>
                 `;
                 grid.appendChild(panel);
@@ -4151,7 +4209,7 @@
                     item.innerHTML = `
                         <input type="checkbox" value="${ag.id}" id="chk_${ag.id}" ${selectedAgents.includes(ag.id) ? 'checked' : ''}>
                         <label for="chk_${ag.id}" style="flex:1;">${ag.name} <span style="font-size:0.7rem; color:var(--text-muted);">[${ag.role}]</span> <span class="demo-badge">DEMO</span></label>
-                        <button class="delete-agent-btn" onclick="eliminarAgente('${ag.id}')">🗑️</button>
+                        <button class="delete-agent-btn" type="button" disabled aria-disabled="true" data-contract-blocked="true" data-no-mutation="true" title="Eliminar bloqueado por contrato">🗑️</button>
                     `;
                     container.appendChild(item);
                 });
@@ -4170,7 +4228,7 @@
                     item.innerHTML = `
                         <input type="checkbox" value="${ag.id}" id="chk_${ag.id}" ${selectedAgents.includes(ag.id) ? 'checked' : ''}>
                         <label for="chk_${ag.id}" style="flex:1;">${ag.name} <span style="font-size:0.7rem; color:var(--text-muted);">[${ag.role}]</span></label>
-                        <button class="delete-agent-btn" onclick="eliminarAgente('${ag.id}')">🗑️</button>
+                        <button class="delete-agent-btn" type="button" disabled aria-disabled="true" data-contract-blocked="true" data-no-mutation="true" title="Eliminar bloqueado por contrato">🗑️</button>
                     `;
                     container.appendChild(item);
                 });
@@ -4268,6 +4326,7 @@
         }
 
         async function eliminarAgente(id) {
+            if (LOWER_CONSOLE_READ_ONLY) return;
             if (confirm(`¿Eliminar agente ${id} permanentemente?`)) {
                 try {
                     const res = await fetch(`${API_BASE}/api/agents/${id}`, { method: 'DELETE' });
@@ -4337,6 +4396,11 @@
         }
 
         async function guardarAgente() {
+            if (LOWER_CONSOLE_READ_ONLY) {
+                const status = document.getElementById('agent-modal-status');
+                if (status) status.textContent = 'Formulario bloqueado por contrato: no submit, no fetch y no mutación.';
+                return;
+            }
             const id = document.getElementById('agent-id').value.trim();
             const role = document.getElementById('agent-role').value;
             const specialization = document.getElementById('agent-specialization').value;
@@ -4483,6 +4547,7 @@
 
         // ========== CONFIGURACIÓN UI ==========
         function aplicarConfiguracion(cerrar = false) {
+            if (LOWER_CONSOLE_READ_ONLY) return;
             const checks = document.querySelectorAll('#agents-checklist input');
             selectedAgents = [];
             checks.forEach(c => { if (c.checked) selectedAgents.push(c.value); });
@@ -4524,6 +4589,12 @@
 
         // ========== CONEXIÓN ==========
         async function checkConnection() {
+            if (LOWER_CONSOLE_READ_ONLY) {
+                document.getElementById('conn-dot')?.classList.add('disconnected');
+                const connectionText = document.getElementById('conn-text');
+                if (connectionText) connectionText.innerText = 'blocked_by_contract';
+                return;
+            }
             try {
                 const res = await fetch(`${API_BASE}/api/status`);
                 if (res.ok) {
@@ -4538,6 +4609,7 @@
 
         // ========== INICIALIZACIÓN ==========
         window.onload = async () => {
+            applyLowerConsoleBlockers();
             await cargarAgentes();
             await window.domainUI?.initialize();
             initFunctionalWidgets();
@@ -4572,12 +4644,7 @@
             if (localStorage.getItem('brand_input')) document.getElementById('brand-input').value = localStorage.getItem('brand_input');
             
             document.getElementById('request-draft-blocked-control').onclick = inspectRequestDraftBoundary;
-            document.getElementById('settings-fab').onclick = () => { cargarChecklist(); document.getElementById('config-modal').style.display = 'flex'; };
-            document.getElementById('add-fab').onclick = () => window.domainUI.requireDomain(abrirCrearAgente);
-            document.getElementById('save-agent-btn').onclick = guardarAgente;
             document.getElementById('cancel-agent-btn').onclick = () => { document.getElementById('agent-modal').style.display = 'none'; document.getElementById('agent-id').disabled = false; document.getElementById('agent-domain').disabled = false; currentEditId = null; clearAgentPreset(); resetAgentFieldTouched(false); };
-            document.getElementById('apply-config-btn').onclick = () => aplicarConfiguracion(false);
-            document.getElementById('accept-config-btn').onclick = () => aplicarConfiguracion(true);
             document.getElementById('close-config-modal').onclick = () => document.getElementById('config-modal').style.display = 'none';
             document.getElementById('close-response').onclick = () => document.getElementById('response-modal').style.display = 'none';
             const requestDraftPanel = document.getElementById('request-draft-panel');
@@ -4650,9 +4717,13 @@
             document.getElementById('agent-model').addEventListener('change', () => {
                 consultarModelCompatibility();
             });
-            cargarProfileCatalogAgente(document.getElementById('agent-domain').value);
-            checkConnection();
-            setInterval(checkConnection, 5000);
+            if (!LOWER_CONSOLE_READ_ONLY) {
+                cargarProfileCatalogAgente(document.getElementById('agent-domain').value);
+                checkConnection();
+                setInterval(checkConnection, 5000);
+            } else {
+                checkConnection();
+            }
         };
     </script>
     <script src="/backend-contract-widgets.js"></script>

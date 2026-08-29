@@ -2,6 +2,7 @@
     'use strict';
 
     const API = window.location.origin;
+    const LOWER_CONSOLE_READ_ONLY = true;
     const state = {
         catalog: {},
         domains: [],
@@ -19,6 +20,9 @@
     const byId = (id) => document.getElementById(id);
 
     async function fetchJson(path, options = {}) {
+        if (LOWER_CONSOLE_READ_ONLY) {
+            throw new Error('Dominio bloqueado por contrato; no se despacha request.');
+        }
         const response = await fetch(`${API}${path}`, options);
         const data = await response.json().catch(() => ({}));
         if (!response.ok || data.success === false) {
@@ -230,6 +234,7 @@
     }
 
     async function refreshDomains() {
+        if (LOWER_CONSOLE_READ_ONLY) return [];
         const data = await fetchJson('/api/domains/list');
         state.domains = data.domains || [];
         state.themes = data.themes || [];
@@ -255,6 +260,11 @@
     }
 
     function openCreateModal({ forAgent = false } = {}) {
+        if (LOWER_CONSOLE_READ_ONLY) {
+            const status = byId('domain-form-status');
+            if (status) status.textContent = 'Dominio bloqueado por contrato: no fetch y no mutación.';
+            return;
+        }
         if (!forAgent) state.pendingAgentCallback = null;
         resetForm();
         loadDomainCreationCatalogIntoForm();
@@ -275,6 +285,10 @@
 
     async function submitDomain(event) {
         event.preventDefault();
+        if (LOWER_CONSOLE_READ_ONLY) {
+            byId('domain-form-status').textContent = 'Formulario bloqueado por contrato: no submit, no fetch y no mutación.';
+            return;
+        }
         const selectedTheme = document.querySelector('input[name="domain-theme"]:checked');
         const status = byId('domain-form-status');
         const saveButton = byId('save-domain-btn');
@@ -311,6 +325,7 @@
     }
 
     function requireDomain(openAgentCallback) {
+        if (LOWER_CONSOLE_READ_ONLY) return;
         if (state.domains.length > 0) {
             populateAgentDomainSelect();
             openAgentCallback();
@@ -323,6 +338,17 @@
     async function initialize() {
         if (state.initialized) return;
         state.initialized = true;
+        const domainFab = byId('domain-fab');
+        if (domainFab) {
+            domainFab.disabled = true;
+            domainFab.setAttribute('aria-disabled', 'true');
+            domainFab.dataset.contractBlocked = 'true';
+            domainFab.dataset.noMutation = 'true';
+        }
+        byId('save-domain-btn')?.setAttribute('disabled', 'disabled');
+        byId('save-domain-btn')?.setAttribute('aria-disabled', 'true');
+        byId('domain-form')?.addEventListener('submit', submitDomain);
+        if (LOWER_CONSOLE_READ_ONLY) return;
         await loadCatalog();
         byId('domain-fab').addEventListener('click', () => openCreateModal());
         byId('close-domain-modal').addEventListener('click', closeCreateModal);
