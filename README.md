@@ -474,3 +474,11 @@ UI/UX cerrado hasta 1.94; `docs/UI_UX_BLOCKED_FORBIDDEN_SCREEN_CHECKPOINT_1_94.m
 La auditoria confirma Panel Maestro, `FSC-BF-02`, `backend_internal_ui_payload.v1`, `blocked_capabilities` y `forbidden_actions` visibles, documental/read-only, sin unlock/override/bypass, CTA operativo, endpoint, fetch, runtime, User Panel ni rutas/hash. Contract Overview `FSC-CO-01` permanece como baseline. No se implemento pantalla adicional ni se toco backend, CI, dependencias, deuda residual o pyflakes.
 
 Proximo prompt exacto: `PROMPT UI/UX 1.95 - Planificar siguiente pantalla Final Screen Contract tras Blocked & Forbidden IA_CORE contract-aware sin runtime/no-execution`.
+
+## Plan siguiente Final Screen tras Blocked & Forbidden 1.95
+
+UI/UX planificado hasta 1.95; `docs/UI_UX_NEXT_FINAL_SCREEN_AFTER_BLOCKED_FORBIDDEN_PLAN_1_95.md` define la siguiente pantalla candidata tras los dos baselines publicados: Contract Overview `FSC-CO-01` y Blocked & Forbidden `FSC-BF-02`. La decision es `NEXT_SCREEN_VALIDATION_READINESS_SELECTED`.
+
+Validation & Readiness queda seleccionada solo para planificación futura por su valor contractual; primero requiere guardrails anti-permiso, anti-ejecución y anti-affordance. Request Contract Preview permanece diferido. 1.95 no implementa pantalla, no modifica UI activa, no toca las pantallas cerradas, no toca backend/runtime/endpoints/CI/dependencias, no limpia deuda residual, no corrige pyflakes y deja push pospuesto.
+
+Proximo prompt exacto: `PROMPT UI/UX 1.96 - Preparar guardrails pre-implementacion Validation & Readiness Screen IA_CORE contract-aware sin runtime/no-execution`.
