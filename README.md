@@ -701,4 +701,12 @@ Documento: `docs/UI_UX_NEXT_STEP_AFTER_LOWER_CONSOLE_RESTORE_POINT_PLAN_1_118.md
 
 Próximo prompt exacto: `PROMPT UI/UX 1.119 - Planificar rediseño estructural Panel Maestro IA_CORE contract-aware sin runtime/no-execution`.
 
+## Panel Maestro Structural Redesign Plan 1.119
+
+1.119 define el alcance, principios, zonas, pantallas candidatas, fases y riesgos del rediseño/restyling estructural futuro del Panel Maestro. No implementa ni modifica UI activa. La decisión final es `PANEL_MAESTRO_STRUCTURAL_REDESIGN_PLAN_READY_FOR_ARCHITECTURE_AUDIT`; la deuda UX `+`/`DOMAIN` queda registrada como futura no bloqueante.
+
+Documento: `docs/UI_UX_PANEL_MAESTRO_STRUCTURAL_REDESIGN_PLAN_1_119.md`. Test: `tests/test_ui_ux_panel_maestro_structural_redesign_plan_1_119.py`.
+
+Próximo prompt exacto: `PROMPT UI/UX 1.120 - Auditar arquitectura actual de pantallas y zonas Panel Maestro IA_CORE contract-aware sin runtime/no-execution`.
+
 No implementación, no UI activa modificada, no Final Screen Contracts tocado, no elementos inferiores modificados, no quinta sección, no contrato final, `DEFER_FINALIZATION` preservado, no User Panel/rutas/hash nuevos, no backend/runtime/endpoints/fetches nuevos, no deuda residual, no pyflakes y no push. Restore point remoto vigente: `ccdef7a`; commits locales previos: `0403422`, `9a6e8c1` y `1e080ab`; push pospuesto.
