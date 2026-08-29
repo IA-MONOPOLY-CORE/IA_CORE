@@ -418,3 +418,13 @@ Contract Overview queda como primera pantalla contract-aware implementada y como
 Este checkpoint no implementa pantalla adicional, no modifica UI activa, no toca backend/runtime/endpoints/CI/dependencias, no limpia deuda residual, no corrige pyflakes y no avanza a 1.89. El push normal de este checkpoint publica el nuevo restore point remoto en el commit `docs(ui): cerrar checkpoint contract overview screen`.
 
 Proximo prompt exacto: `PROMPT UI/UX 1.89 - Planificar siguiente pantalla Final Screen Contract tras Contract Overview IA_CORE contract-aware sin runtime/no-execution`.
+
+## Plan siguiente Final Screen tras Contract Overview 1.89
+
+UI/UX planificado hasta 1.89; `docs/UI_UX_NEXT_FINAL_SCREEN_AFTER_CONTRACT_OVERVIEW_PLAN_1_89.md` toma como base el restore point remoto `23f9185` y confirma que `Contract Overview Screen` queda como baseline visual/contractual implementado, hardenizado, aprobado visualmente y publicado.
+
+La matriz de decision compara `Blocked & Forbidden`, `Validation & Readiness` y `Request Contract Preview`. La decision final es `NEXT_SCREEN_BLOCKED_FORBIDDEN_SELECTED`: la siguiente pantalla a preparar es `Blocked & Forbidden Capabilities Screen`, porque refuerza limites, `blocked_capabilities`, `forbidden_actions`, deny-by-default, no-unlock/no-override/no-bypass y reduce riesgo antes de implementar Validation & Readiness.
+
+1.89 no implementa pantalla, no modifica UI activa, no toca Contract Overview, no crea User Panel, rutas/hash, endpoints ni fetches, no toca backend/runtime/CI/dependencias, no limpia deuda residual, no corrige pyflakes y no hace push por defecto; push pospuesto.
+
+Proximo prompt exacto: `PROMPT UI/UX 1.90 - Preparar guardrails pre-implementacion Blocked & Forbidden Capabilities Screen IA_CORE contract-aware sin runtime/no-execution`.
