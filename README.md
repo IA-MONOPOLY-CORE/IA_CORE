@@ -528,3 +528,9 @@ El checkpoint 1.100 cierra `Validation & Readiness Screen / FSC-VR-03` como terc
 La triple baseline queda preservada: Contract Overview `FSC-CO-01`, Blocked & Forbidden `FSC-BF-02` y Validation & Readiness `FSC-VR-03`. Request Contract Preview permanece diferido. El nuevo restore point remoto corresponde al commit de checkpoint publicado en `origin/main`; no se implementó pantalla adicional en este prompt.
 
 Próximo prompt exacto: `PROMPT UI/UX 1.101 - Planificar siguiente paso tras Validation & Readiness Screen IA_CORE contract-aware sin runtime/no-execution`.
+
+## Next Step After Validation & Readiness Plan 1.101
+
+1.101 planifica el paso posterior al cierre de la triple baseline Contract Overview `FSC-CO-01`, Blocked & Forbidden `FSC-BF-02` y Validation & Readiness `FSC-VR-03`. La decisión es `NEXT_STEP_REQUEST_CONTRACT_PREVIEW_GUARDRAILS_SELECTED`: Request Contract Preview sigue diferido y el siguiente bloque solo debe preparar guardrails pre-implementación.
+
+No se implementó pantalla, no se modificó UI activa, no se tocó backend y no se hizo push. El próximo prompt exacto es `PROMPT UI/UX 1.102 - Preparar guardrails pre-implementacion Request Contract Preview IA_CORE contract-aware sin runtime/no-execution`.
