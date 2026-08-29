@@ -428,3 +428,13 @@ La matriz de decision compara `Blocked & Forbidden`, `Validation & Readiness` y 
 1.89 no implementa pantalla, no modifica UI activa, no toca Contract Overview, no crea User Panel, rutas/hash, endpoints ni fetches, no toca backend/runtime/CI/dependencias, no limpia deuda residual, no corrige pyflakes y no hace push por defecto; push pospuesto.
 
 Proximo prompt exacto: `PROMPT UI/UX 1.90 - Preparar guardrails pre-implementacion Blocked & Forbidden Capabilities Screen IA_CORE contract-aware sin runtime/no-execution`.
+
+## Guardrails pre-implementacion Blocked & Forbidden 1.90
+
+UI/UX preparado hasta 1.90; `docs/UI_UX_BLOCKED_FORBIDDEN_PRE_IMPLEMENTATION_GUARDRAILS_1_90.md` define guardrails pre-implementacion para `Blocked & Forbidden Capabilities Screen` tras la seleccion 1.89. La decision final es `BLOCKED_FORBIDDEN_PRE_IMPLEMENTATION_GUARDRAILS_READY`.
+
+La futura pantalla queda acotada como Panel Maestro only, read-only, contract-aware, centrada en `blocked_capabilities`, `forbidden_actions`, deny-by-default y no-unlock/no-override/no-bypass. Se diferencia de Contract Overview porque no reabre el mapa general: especializa limites duros y conserva Contract Overview como baseline intocable.
+
+1.90 no implementa pantalla, no modifica UI activa, no toca Contract Overview, no crea componente nuevo, no crea User Panel, rutas/hash, endpoints ni fetches, sin backend/runtime/endpoints/CI/dependencias, sin limpiar deuda residual, sin corregir pyflakes y no push por defecto.
+
+Proximo prompt exacto: `PROMPT UI/UX 1.91 - Preparar plan de implementacion controlada Blocked & Forbidden Capabilities Screen IA_CORE contract-aware sin runtime/no-execution`.
