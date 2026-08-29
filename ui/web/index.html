@@ -739,6 +739,204 @@
                 min-height: 0;
             }
         }
+        .validation-readiness-screen {
+            padding: 20px;
+            border: 1px solid rgba(0,212,255,0.3);
+            background: rgba(15,23,42,0.7);
+            box-shadow: inset 3px 0 0 rgba(0,212,255,0.82), var(--panel-glow);
+        }
+        .validation-readiness-heading {
+            display: grid;
+            grid-template-columns: minmax(0, 1.18fr) minmax(300px, 0.82fr);
+            gap: 20px;
+            align-items: start;
+        }
+        .validation-readiness-title {
+            display: flex;
+            align-items: baseline;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        .validation-readiness-title h2 {
+            margin-top: 7px;
+            color: var(--text-primary);
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 1.48rem;
+            letter-spacing: 0.03em;
+        }
+        .validation-readiness-id {
+            color: var(--cyan);
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 0.72rem;
+        }
+        .validation-readiness-lede {
+            max-width: 800px;
+            margin-top: 8px;
+            color: rgba(226,232,240,0.78);
+            font-size: 0.78rem;
+            line-height: 1.55;
+        }
+        .validation-readiness-status {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: flex-end;
+            align-content: flex-start;
+            gap: 7px;
+            min-height: 88px;
+            padding: 12px;
+            border: 1px solid rgba(0,212,255,0.28);
+            background: rgba(2,6,23,0.5);
+        }
+        .validation-readiness-status-label {
+            width: 100%;
+            color: var(--text-muted);
+            font-size: 0.62rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+        }
+        .validation-readiness-status .visual-state {
+            margin: 0;
+        }
+        .validation-readiness-status .visual-state.documented,
+        .validation-readiness-status .visual-state.validation-documented,
+        .validation-readiness-status .visual-state.readiness-documented {
+            color: var(--green);
+            border-color: rgba(34,197,94,0.55);
+        }
+        .validation-readiness-status .visual-state.ready-no-permission {
+            color: var(--amber);
+            border-color: rgba(245,158,11,0.6);
+            background: rgba(120,53,15,0.16);
+        }
+        .validation-readiness-grid {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 10px;
+            margin-top: 14px;
+        }
+        .validation-readiness-block {
+            min-width: 0;
+            min-height: 154px;
+            padding: 14px;
+            border: 1px solid rgba(148,163,184,0.2);
+            background: rgba(2,6,23,0.32);
+        }
+        .validation-readiness-block--primary {
+            grid-column: span 2;
+            min-height: 174px;
+            border-color: rgba(0,212,255,0.32);
+            box-shadow: inset 3px 0 0 rgba(0,212,255,0.72);
+            background: rgba(30,41,59,0.5);
+        }
+        .validation-readiness-block--warning {
+            border-color: rgba(245,158,11,0.38);
+            box-shadow: inset 3px 0 0 rgba(245,158,11,0.82);
+        }
+        .validation-readiness-block--critical {
+            border-color: rgba(248,113,113,0.36);
+            box-shadow: inset 3px 0 0 rgba(239,68,68,0.78);
+        }
+        .validation-readiness-block--evidence {
+            border-color: rgba(34,197,94,0.3);
+            box-shadow: inset 3px 0 0 rgba(34,197,94,0.72);
+        }
+        .validation-readiness-block h3 {
+            margin-top: 7px;
+            color: var(--text-primary);
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 0.98rem;
+        }
+        .validation-readiness-block p,
+        .validation-readiness-block li {
+            color: rgba(226,232,240,0.74);
+            font-size: 0.72rem;
+            line-height: 1.5;
+        }
+        .validation-readiness-block p {
+            margin-top: 7px;
+        }
+        .validation-readiness-block ul {
+            display: grid;
+            gap: 5px;
+            margin-top: 9px;
+            padding-left: 16px;
+        }
+        .validation-readiness-block code {
+            color: var(--cyan);
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 0.68rem;
+        }
+        .validation-readiness-state-list {
+            display: grid;
+            gap: 6px;
+            margin-top: 10px;
+        }
+        .validation-readiness-state-row {
+            display: flex;
+            align-items: baseline;
+            justify-content: space-between;
+            gap: 10px;
+            padding-bottom: 5px;
+            border-bottom: 1px solid rgba(148,163,184,0.13);
+        }
+        .validation-readiness-state-row:last-child {
+            border-bottom: 0;
+            padding-bottom: 0;
+        }
+        .validation-readiness-state-row strong {
+            color: var(--text-primary);
+            font-size: 0.7rem;
+        }
+        .validation-readiness-state-row span {
+            color: var(--text-muted);
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 0.66rem;
+            text-align: right;
+        }
+        .validation-readiness-note {
+            margin-top: 12px;
+            padding-top: 11px;
+            border-top: 1px solid rgba(0,212,255,0.2);
+            color: var(--text-muted);
+            font-size: 0.7rem;
+            line-height: 1.5;
+        }
+        @media (max-width: 1080px) {
+            .validation-readiness-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+            .validation-readiness-block--primary {
+                grid-column: span 1;
+            }
+        }
+        @media (max-width: 760px) {
+            .validation-readiness-heading,
+            .validation-readiness-grid {
+                grid-template-columns: 1fr;
+            }
+            .validation-readiness-status {
+                justify-content: flex-start;
+            }
+        }
+        @media (max-width: 480px) {
+            .validation-readiness-screen {
+                padding: 14px;
+            }
+            .validation-readiness-title h2 {
+                font-size: 1.24rem;
+            }
+            .validation-readiness-block {
+                min-height: 0;
+            }
+            .validation-readiness-state-row {
+                align-items: flex-start;
+                flex-direction: column;
+                gap: 3px;
+            }
+            .validation-readiness-state-row span {
+                text-align: left;
+            }
+        }
         .layout-section-title {
             display: flex;
             align-items: center;
@@ -1959,6 +2157,118 @@
         <div class="density-priority-item density-critical" data-density-tier="critical"><strong>P0 visible</strong><span>IA_CORE, no-runtime/no-execution, no_payload, forbidden_actions, blocked_capabilities y request draft blocked/read-only forman la historia principal.</span></div>
         <div class="density-priority-item density-primary" data-density-tier="primary"><strong>P1 lectura</strong><span>Recorrido de lectura: informacion recibida -> contrato -> summary antes de detail/raw-safe.</span></div>
         <div class="density-priority-item density-secondary" data-density-tier="secondary"><strong>P2 detalle</strong><span>Service signals, logs-sanitized, prompts/checkpoints, evidence extendida y raw-safe largo son trazabilidad secundaria.</span></div>
+    </section>
+    <section class="validation-readiness-screen layout-section" id="validation-readiness-screen" data-main-console-zone="validation-readiness" data-screen-role="contract-validation" data-visibility="always-visible" data-contract-screen="FSC-VR-03" data-contract-authority="backend_internal_ui_payload.v1" data-rendering-policy="documentary-only" data-validation-readiness-state="documented read-only validation-documented readiness-documented ready-no-permission no-runtime no-execution no-dispatch no-endpoint no-user-panel contract-bound policy-bound" data-interaction-mode="read-only" data-interaction-state="read_only" aria-labelledby="validation-readiness-title" aria-describedby="validation-readiness-note">
+        <div class="validation-readiness-heading">
+            <div>
+                <div class="layout-label">Panel Maestro / Contract-aware screen / Read-only</div>
+                <div class="validation-readiness-title">
+                    <h2 id="validation-readiness-title">Validation &amp; Readiness Screen</h2>
+                    <span class="validation-readiness-id">FSC-VR-03</span>
+                </div>
+                <p class="validation-readiness-lede">Vista documental, final y de solo lectura para explicar validación y readiness declarados por contrato. No concede permiso, no inicia procesos y no representa actividad operativa.</p>
+            </div>
+            <div class="validation-readiness-status" role="status" aria-label="Estado documental Validation and Readiness">
+                <span class="validation-readiness-status-label">Estado documental</span>
+                <span class="visual-state documented evidence-state" data-component="ia-status-badge">validation-documented</span>
+                <span class="visual-state documented evidence-state" data-component="ia-status-badge">readiness-documented</span>
+                <span class="visual-state ready-no-permission" data-component="ia-status-badge ia-blocker">ready-no-permission</span>
+                <span class="visual-state blocked" data-component="ia-status-badge ia-blocker">no-runtime</span>
+                <span class="visual-state blocked" data-component="ia-status-badge ia-blocker">no-execution</span>
+                <span class="visual-state blocked" data-component="ia-status-badge ia-blocker">no-dispatch</span>
+                <span class="visual-state blocked" data-component="ia-status-badge ia-blocker">no-endpoint</span>
+                <span class="visual-state blocked" data-component="ia-status-badge ia-blocker">no-user-panel</span>
+            </div>
+        </div>
+        <div class="validation-readiness-grid" data-validation-readiness-visibility="always-visible">
+            <article class="validation-readiness-block validation-readiness-block--primary" data-validation-readiness-block="readiness-permission" data-contract-field="readiness_status">
+                <div class="layout-label">Readiness vs Permission</div>
+                <h3>Readiness informa, no habilita.</h3>
+                <p>Readiness es una señal documental: no equivale a permiso de ejecución ni a aprobación operativa. La pantalla no ofrece acción para correr ni activar.</p>
+                <div class="validation-readiness-state-list">
+                    <div class="validation-readiness-state-row"><strong>readiness</strong><span>información contractual</span></div>
+                    <div class="validation-readiness-state-row"><strong>permission</strong><span>no concedido por la UI</span></div>
+                    <div class="validation-readiness-state-row"><strong>ready-no-permission</strong><span>no ready-to-run</span></div>
+                </div>
+            </article>
+            <article class="validation-readiness-block validation-readiness-block--primary" data-validation-readiness-block="validation-execution" data-contract-field="validation_status">
+                <div class="layout-label">Validation vs Execution</div>
+                <h3>Validation documenta, no ejecuta.</h3>
+                <p>Validation es lectura contractual sobre datos declarados: no corre checks vivos, no ejecuta procesos y no dispara backend. Sin submit, dispatch ni ejecución.</p>
+                <div class="validation-readiness-state-list">
+                    <div class="validation-readiness-state-row"><strong>validation</strong><span>lectura contract-bound</span></div>
+                    <div class="validation-readiness-state-row"><strong>execution</strong><span>no-runtime</span></div>
+                    <div class="validation-readiness-state-row"><strong>delivery</strong><span>fuera de esta superficie</span></div>
+                </div>
+            </article>
+            <article class="validation-readiness-block" data-validation-readiness-block="source">
+                <div class="layout-label">Contract source</div>
+                <h3>Fuente declarada</h3>
+                <span class="validation-readiness-state-row"><strong>schema</strong><span>backend_internal_ui_payload.v1</span></span>
+                <p>Solo se representa información ya declarada. Si falta un payload seguro, se conserva un estado honesto.</p>
+            </article>
+            <article class="validation-readiness-block validation-readiness-block--warning" data-validation-readiness-block="summary">
+                <div class="layout-label">Readiness summary</div>
+                <h3>Resumen documental</h3>
+                <p>Readiness informa, no habilita. Passed no equivale a éxito operativo. La ausencia de dato no crea permiso.</p>
+                <span class="validation-readiness-state-row"><strong>scope</strong><span>contract-bound / read-only</span></span>
+            </article>
+            <article class="validation-readiness-block validation-readiness-block--primary" data-validation-readiness-block="findings">
+                <div class="layout-label">Validation Findings</div>
+                <h3>Categorías documentales</h3>
+                <div class="validation-readiness-state-list">
+                    <div class="validation-readiness-state-row"><strong>passed / documented</strong><span>no operational success</span></div>
+                    <div class="validation-readiness-state-row"><strong>warning-documented</strong><span>no live runtime</span></div>
+                    <div class="validation-readiness-state-row"><strong>review-required</strong><span>no workflow active</span></div>
+                    <div class="validation-readiness-state-row"><strong>missing-requirement</strong><span>dato contractual faltante</span></div>
+                    <div class="validation-readiness-state-row"><strong>blocked</strong><span>límite visible, no acción</span></div>
+                </div>
+                <p>Passed, warning, error y review required son categorías documentales, no resultados de runtime. Warning/Error no representa runtime vivo. Review required no abre workflow activo.</p>
+            </article>
+            <article class="validation-readiness-block validation-readiness-block--critical" data-validation-readiness-block="blockers-warnings-missing" data-contract-field="blockers warnings missing_requirements">
+                <div class="layout-label">Blockers / Warnings / Missing Requirements</div>
+                <h3>Hallazgos visibles</h3>
+                <ul>
+                    <li><strong>blockers:</strong> Los blockers permanecen visibles.</li>
+                    <li><strong>warnings:</strong> orientan lectura, no representan runtime.</li>
+                    <li><strong>missing requirements:</strong> explican ausencia documental.</li>
+                </ul>
+                <p>No son tareas clickeables ni una lista de acciones.</p>
+            </article>
+            <article class="validation-readiness-block validation-readiness-block--evidence" data-validation-readiness-block="evidence">
+                <div class="layout-label">Evidence Snapshot</div>
+                <h3>Snapshot documental</h3>
+                <span class="validation-readiness-state-row"><strong>source</strong><span>documentos y payload seguro</span></span>
+                <p>snapshot: Snapshot documental, no log vivo. Sin timestamp vivo inventado, sin raw Package y sin payload crudo.</p>
+            </article>
+            <article class="validation-readiness-block validation-readiness-block--critical" data-validation-readiness-block="no-runtime-boundary">
+                <div class="layout-label">No Runtime Boundary</div>
+                <h3>Límite no operativo</h3>
+                <ul>
+                    <li><code>no-runtime</code> / <code>no-execution</code> / <code>no-dispatch</code></li>
+                    <li><code>no-endpoint</code> / no fetch / no User Panel</li>
+                    <li>no route/hash y sin cambio de autoridad</li>
+                </ul>
+                <p>Sin endpoint, fetch ni User Panel.</p>
+            </article>
+            <article class="validation-readiness-block" data-validation-readiness-block="baseline-references">
+                <div class="layout-label">Baseline References</div>
+                <h3>Continuidad contractual</h3>
+                <ul>
+                    <li>Contract Overview / <code>FSC-CO-01</code> / baseline 1</li>
+                    <li>Blocked &amp; Forbidden / <code>FSC-BF-02</code> / baseline 2</li>
+                    <li>Request Contract Preview permanece diferido.</li>
+                </ul>
+            </article>
+            <article class="validation-readiness-block validation-readiness-block--warning" data-validation-readiness-block="anti-affordance">
+                <div class="layout-label">Anti-affordance Notice</div>
+                <h3>Ningún estado es una acción</h3>
+                <p>Ninguna etiqueta de readiness/validation es una acción. No hay botones operativos, unlock, override, bypass, submit, dispatch ni run.</p>
+                <span class="validation-readiness-state-row"><strong>interaction</strong><span>read-only / inspectable</span></span>
+            </article>
+        </div>
+        <p class="validation-readiness-note">Semantic boundary: readiness no permission · validation no execution · passed no operational success · warning/error no live runtime · review required no workflow active.</p>
+        <p class="validation-readiness-note" id="validation-readiness-note">Validation &amp; Readiness Screen es documental, final y contract-aware: readiness informa, validation documenta y los límites permanecen visibles. Esta implementación necesita hardening y revisión visual humana antes del siguiente checkpoint.</p>
     </section>
 
     <section class="console-flow-map secondary-readable-map" data-density-tier="secondary" aria-label="Ruta narrativa de lectura contract-aware">
