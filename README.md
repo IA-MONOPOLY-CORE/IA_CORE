@@ -576,3 +576,11 @@ La baseline visual/contractual de cuatro secciones queda preservada: Contract Ov
 Nuevo restore point remoto: commit checkpoint 1.106 publicado en `origin/main` después del push si las validaciones pasan. No implementación adicional en este prompt.
 
 Próximo prompt exacto: `PROMPT UI/UX 1.107 - Planificar siguiente paso tras Request Contract Preview IA_CORE contract-aware sin runtime/no-execution`.
+
+## Next Step After Request Contract Preview Plan 1.107
+
+1.107 planifica el siguiente paso tras cerrar `Request Contract Preview` y la baseline de cuatro secciones. No implementación, no UI activa modificada, no backend/runtime/endpoints/fetches/User Panel/rutas/hash, no deuda residual, no pyflakes y push pospuesto.
+
+La baseline de cuatro secciones queda consolidada: Contract Overview `FSC-CO-01`, Blocked & Forbidden `FSC-BF-02`, Validation & Readiness `FSC-VR-03` y Request Contract Preview `FSC-RCP-04`. La decisión final es `NEXT_STEP_FOUR_SCREEN_BASELINE_INTEGRATION_AUDIT_SELECTED`.
+
+Próximo prompt exacto: `PROMPT UI/UX 1.108 - Auditar integracion baseline de cuatro secciones Panel Maestro IA_CORE contract-aware sin runtime/no-execution`.

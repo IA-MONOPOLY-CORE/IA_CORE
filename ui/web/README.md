@@ -1286,3 +1286,11 @@ Baseline visual/contractual de cuatro secciones preservada en Panel Maestro: Con
 Nuevo restore point remoto: commit checkpoint 1.106 publicado en `origin/main` después del push si las validaciones pasan. No implementación adicional en este prompt.
 
 Próximo prompt exacto: `PROMPT UI/UX 1.107 - Planificar siguiente paso tras Request Contract Preview IA_CORE contract-aware sin runtime/no-execution`.
+
+## Next Step After Request Contract Preview Plan 1.107
+
+1.107 planifica continuidad tras `Request Contract Preview / FSC-RCP-04` y confirma la baseline de cuatro secciones del Panel Maestro. No implementación, no modificación de UI activa, no User Panel/rutas/hash, no backend/runtime/endpoints/CI/dependencias, no deuda residual, no pyflakes y push pospuesto.
+
+Decisión final: `NEXT_STEP_FOUR_SCREEN_BASELINE_INTEGRATION_AUDIT_SELECTED`. El siguiente paso debe auditar integración, densidad, jerarquía, redundancias y affordances de Contract Overview, Blocked & Forbidden, Validation & Readiness y Request Contract Preview como conjunto, sin implementar otra pantalla.
+
+Próximo prompt exacto: `PROMPT UI/UX 1.108 - Auditar integracion baseline de cuatro secciones Panel Maestro IA_CORE contract-aware sin runtime/no-execution`.
