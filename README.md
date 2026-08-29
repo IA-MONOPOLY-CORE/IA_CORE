@@ -736,4 +736,14 @@ Documento: `docs/UI_UX_PANEL_MAESTRO_STRUCTURAL_REDESIGN_PRE_IMPLEMENTATION_GUAR
 
 Base local: `5a78211`; restore point remoto vigente: `01d09ce`; commits previos: `8843b60`, `03975b9`, `f3a2670`, `5a78211`. No implementación, no UI activa, no Final Screen Contracts, no elementos inferiores, no contrato funcional, no User Panel/rutas/hash, no endpoints/fetches nuevos, no runtime/execution/dispatch, no CI/dependencias, no deuda residual, no pyflakes, no push y no avance a 1.123.
 
+## Plan primer bloque visual Panel Maestro 1.123
+
+1.123 planifica el primer bloque visual del rediseño estructural: `Master Shell + Overview Layer`. El alcance futuro queda limitado a la jerarquía superior, identidad IA_CORE, estado global documental, overview, copy y estructura visual; no se implementa todavía y no se tocan Final Screen Contracts ni elementos inferiores.
+
+Archivos candidatos para una futura implementación 1.124: `ui/web/index.html`, `ui/web/styles.css`, `ui/web/i18n_es.json` si hace falta copy, más documentación/tests y READMEs. JS queda solo lectura y no recomendado salvo prompt dedicado. Decisión: `PANEL_MAESTRO_FIRST_VISUAL_BLOCK_PLAN_READY_FOR_GUARDED_IMPLEMENTATION_PROMPT`.
+
+Próximo prompt exacto: `PROMPT UI/UX 1.124 - Implementar primer bloque visual Master Shell Overview Panel Maestro IA_CORE contract-aware sin runtime/no-execution`.
+
+Documento: `docs/UI_UX_PANEL_MAESTRO_FIRST_VISUAL_BLOCK_PLAN_1_123.md`. Test: `tests/test_ui_ux_panel_maestro_first_visual_block_plan_1_123.py`. Base `886efe6`; restore point remoto `01d09ce`; commits previos `8843b60`, `03975b9`, `f3a2670`, `5a78211`, `886efe6`. No implementación, no UI activa, no push y no avance a 1.124.
+
 No implementación, no UI activa, no Final Screen Contracts modificados, no elementos inferiores modificados, no User Panel, no rutas/hash, no endpoints/fetches nuevos, no runtime/execution/dispatch, no backend/runtime/endpoints/CI/dependencias, no deuda residual, no pyflakes y no push.

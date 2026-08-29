@@ -1441,3 +1441,13 @@ Primer bloque visual candidato: `Master Shell + Overview Layer`. Decisión: `PAN
 Documento: `docs/UI_UX_PANEL_MAESTRO_STRUCTURAL_REDESIGN_PRE_IMPLEMENTATION_GUARDRAILS_1_122.md`. Test: `tests/test_ui_ux_panel_maestro_structural_redesign_pre_implementation_guardrails_1_122.py`. Base `5a78211`, restore point remoto `01d09ce`, commits previos `8843b60`, `03975b9`, `f3a2670` y `5a78211`. No implementación, no UI activa, no rutas/hash, no endpoints/fetches nuevos, no runtime, no backend, no CI, no dependencias, no push y no avance a 1.123.
 
 Documento: `docs/UI_UX_PANEL_MAESTRO_CURRENT_ARCHITECTURE_AUDIT_1_120.md`. Test: `tests/test_ui_ux_panel_maestro_current_architecture_audit_1_120.py`. No implementación, no UI activa, no Final Screen Contracts, no elementos inferiores, no User Panel/rutas/hash, no endpoints/fetches nuevos, no runtime/execution/dispatch, no backend/CI/dependencias, no deuda residual, no pyflakes y no push.
+
+## Cursor 1.123: Plan primer bloque visual
+
+1.123 planifica el primer bloque visual del rediseño estructural: `Master Shell + Overview Layer`. El alcance futuro se limita a shell superior, identidad IA_CORE, estado global documental, overview, jerarquía, densidad y copy; no implementa el bloque ni modifica Final Screen Contracts o elementos inferiores.
+
+Archivos candidatos para 1.124: `ui/web/index.html`, `ui/web/styles.css` y `ui/web/i18n_es.json` si hace falta copy, además de documentación/tests y READMEs. JS queda solo lectura y no recomendado salvo prompt dedicado. Decisión: `PANEL_MAESTRO_FIRST_VISUAL_BLOCK_PLAN_READY_FOR_GUARDED_IMPLEMENTATION_PROMPT`.
+
+Próximo prompt exacto: `PROMPT UI/UX 1.124 - Implementar primer bloque visual Master Shell Overview Panel Maestro IA_CORE contract-aware sin runtime/no-execution`.
+
+Base `886efe6`; restore point remoto `01d09ce`; commits previos `8843b60`, `03975b9`, `f3a2670`, `5a78211`, `886efe6`. No implementación, no UI activa, no rutas/hash, no endpoints/fetches nuevos, no runtime, no backend, no CI, no dependencias, no push y no avance a 1.124.
