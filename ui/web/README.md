@@ -1426,4 +1426,10 @@ No implementación, no UI activa modificada, no Final Screen Contracts tocado, n
 
 Restore point remoto vigente: `01d09ce`. Commits locales previos: `8843b60` y `03975b9`. Decisión: `PANEL_MAESTRO_CURRENT_ARCHITECTURE_AUDIT_READY_FOR_VISUAL_ARCHITECTURE_DOC`. Próximo prompt: `PROMPT UI/UX 1.121 - Documentar arquitectura visual futura Panel Maestro IA_CORE contract-aware sin runtime/no-execution`.
 
+## Cursor 1.121: Future Visual Architecture
+
+La arquitectura visual futura del Panel Maestro IA_CORE está documentada en `docs/UI_UX_PANEL_MAESTRO_FUTURE_VISUAL_ARCHITECTURE_1_121.md` y validada por `tests/test_ui_ux_panel_maestro_future_visual_architecture_1_121.py`. El documento parte de 1.120 y fija siete capas: Master Shell, Overview, Contracts, Context, Evidence, Configuration Read-only y Future Work/Roadmap. También fija once pantallas futuras y las responsabilidades `no ejecuta`, `no crea`, `no invoca`, `no activa`, `no aprueba`, `no oculta`, `no envía`, `no muestra payload crudo`, `no muta` y `no presenta futuro como activo`.
+
+La decisión es `PANEL_MAESTRO_FUTURE_VISUAL_ARCHITECTURE_READY_FOR_PRE_IMPLEMENTATION_GUARDRAILS`. La siguiente tarea documental es 1.122, antes de cualquier implementación. Se preservan los cuatro FSC, `DEFER_FINALIZATION`, `LOWER_CONSOLE_READ_ONLY`, la lectura raw-safe local y `no-runtime/no-execution`. No se modifican los archivos UI activos, no se agregan rutas/hash, endpoints, fetches, runtime ni acciones operativas.
+
 Documento: `docs/UI_UX_PANEL_MAESTRO_CURRENT_ARCHITECTURE_AUDIT_1_120.md`. Test: `tests/test_ui_ux_panel_maestro_current_architecture_audit_1_120.py`. No implementación, no UI activa, no Final Screen Contracts, no elementos inferiores, no User Panel/rutas/hash, no endpoints/fetches nuevos, no runtime/execution/dispatch, no backend/CI/dependencias, no deuda residual, no pyflakes y no push.
