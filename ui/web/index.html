@@ -573,17 +573,15 @@
             }
         }
         .blocked-forbidden-screen {
-            padding: 18px;
-            border: 1px solid rgba(239,68,68,0.46);
-            background:
-                linear-gradient(135deg, rgba(127,29,29,0.22), rgba(15,23,42,0.74) 46%),
-                rgba(15,23,42,0.7);
-            box-shadow: inset 3px 0 0 var(--red), var(--panel-glow);
+            padding: 20px;
+            border: 1px solid rgba(245,158,11,0.34);
+            background: rgba(15,23,42,0.72);
+            box-shadow: inset 3px 0 0 rgba(239,68,68,0.82), var(--panel-glow);
         }
         .blocked-forbidden-heading {
             display: grid;
-            grid-template-columns: minmax(0, 1.28fr) minmax(280px, 0.92fr);
-            gap: 18px;
+            grid-template-columns: minmax(0, 1.18fr) minmax(280px, 0.82fr);
+            gap: 20px;
             align-items: start;
         }
         .blocked-forbidden-title {
@@ -600,12 +598,12 @@
             letter-spacing: 0.03em;
         }
         .blocked-forbidden-id {
-            color: var(--red);
+            color: var(--amber);
             font-family: 'Share Tech Mono', monospace;
             font-size: 0.72rem;
         }
         .blocked-forbidden-lede {
-            max-width: 760px;
+            max-width: 780px;
             margin-top: 8px;
             color: rgba(226,232,240,0.78);
             font-size: 0.78rem;
@@ -617,10 +615,10 @@
             justify-content: flex-end;
             align-content: flex-start;
             gap: 7px;
-            min-height: 84px;
-            padding: 10px;
-            border: 1px solid rgba(248,113,113,0.25);
-            background: rgba(2,6,23,0.4);
+            min-height: 88px;
+            padding: 12px;
+            border: 1px solid rgba(245,158,11,0.34);
+            background: rgba(2,6,23,0.5);
         }
         .blocked-forbidden-status-label {
             width: 100%;
@@ -636,6 +634,11 @@
             color: var(--green);
             border-color: rgba(34,197,94,0.58);
         }
+        .blocked-forbidden-status .visual-state.contract-limit {
+            color: var(--amber);
+            border-color: rgba(245,158,11,0.58);
+            background: rgba(120,53,15,0.16);
+        }
         .blocked-forbidden-grid {
             display: grid;
             grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -644,22 +647,27 @@
         }
         .blocked-forbidden-block {
             min-width: 0;
-            min-height: 150px;
+            min-height: 142px;
             padding: 14px;
             border: 1px solid rgba(148,163,184,0.2);
             background: rgba(2,6,23,0.32);
         }
+        .blocked-forbidden-block--primary {
+            grid-column: span 2;
+            min-height: 170px;
+            background: rgba(30,41,59,0.5);
+        }
         .blocked-forbidden-block--critical {
-            border-color: rgba(239,68,68,0.5);
-            box-shadow: inset 3px 0 0 var(--red);
+            border-color: rgba(248,113,113,0.36);
+            box-shadow: inset 3px 0 0 rgba(239,68,68,0.82);
         }
         .blocked-forbidden-block--boundary {
-            border-color: rgba(245,158,11,0.5);
-            box-shadow: inset 3px 0 0 var(--amber);
+            border-color: rgba(245,158,11,0.38);
+            box-shadow: inset 3px 0 0 rgba(245,158,11,0.86);
         }
         .blocked-forbidden-block--evidence {
-            border-color: rgba(34,197,94,0.38);
-            box-shadow: inset 3px 0 0 var(--green);
+            border-color: rgba(34,197,94,0.28);
+            box-shadow: inset 3px 0 0 rgba(34,197,94,0.78);
         }
         .blocked-forbidden-block h3 {
             margin-top: 7px;
@@ -698,7 +706,7 @@
         .blocked-forbidden-note {
             margin-top: 12px;
             padding-top: 11px;
-            border-top: 1px solid rgba(248,113,113,0.18);
+            border-top: 1px solid rgba(245,158,11,0.2);
             color: var(--text-muted);
             font-size: 0.7rem;
             line-height: 1.5;
@@ -706,6 +714,9 @@
         @media (max-width: 1080px) {
             .blocked-forbidden-grid {
                 grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+            .blocked-forbidden-block--primary {
+                grid-column: span 1;
             }
         }
         @media (max-width: 760px) {
@@ -1863,10 +1874,10 @@
         <p class="contract-overview-note">No ejecuta, no envia, no conecta endpoints, no activa runtime y no crea User Panel. Esta implementacion es documental/read-only; una validacion correcta no es permiso operativo.</p>
     </section>
 
-    <section class="blocked-forbidden-screen layout-section" id="blocked-forbidden-screen" data-main-console-zone="blocked-forbidden" data-contract-screen="FSC-BF-02" data-blocked-forbidden-state="documented read-only no-runtime no-execution no-endpoint no-user-panel contract-bound policy-bound" data-interaction-mode="read-only" data-interaction-state="read_only inspectable" aria-labelledby="blocked-forbidden-title">
+    <section class="blocked-forbidden-screen layout-section" id="blocked-forbidden-screen" data-main-console-zone="blocked-forbidden" data-screen-role="contract-limits" data-visibility="always-visible" data-contract-screen="FSC-BF-02" data-contract-authority="backend_internal_ui_payload.v1" data-rendering-policy="documentary-only" data-blocked-forbidden-state="documented read-only no-runtime no-execution no-endpoint no-user-panel contract-bound policy-bound" data-interaction-mode="read-only" data-interaction-state="read_only inspectable" aria-labelledby="blocked-forbidden-title" aria-describedby="blocked-forbidden-note">
         <div class="blocked-forbidden-heading">
             <div>
-                <div class="layout-label">Panel Maestro / Final Screen Contract</div>
+                <div class="layout-label">Panel Maestro / Contract limits / Read-only</div>
                 <div class="blocked-forbidden-title">
                     <h2 id="blocked-forbidden-title">Blocked &amp; Forbidden Capabilities Screen</h2>
                     <span class="blocked-forbidden-id">FSC-BF-02</span>
@@ -1877,15 +1888,15 @@
                 <span class="blocked-forbidden-status-label">Estado contractual</span>
                 <span class="visual-state documented evidence-state" data-component="ia-status-badge">documented</span>
                 <span class="visual-state blocked" data-component="ia-status-badge ia-blocker">blocked</span>
-                <span class="visual-state failed" data-component="ia-status-badge ia-blocker">forbidden</span>
+                <span class="visual-state contract-limit" data-component="ia-status-badge ia-blocker" data-state-severity="contractual">forbidden</span>
                 <span class="visual-state blocked" data-component="ia-status-badge ia-blocker">no-runtime</span>
                 <span class="visual-state blocked" data-component="ia-status-badge ia-blocker">no-execution</span>
                 <span class="visual-state blocked" data-component="ia-status-badge ia-blocker">no-endpoint</span>
                 <span class="visual-state blocked" data-component="ia-status-badge ia-blocker">no-user-panel</span>
             </div>
         </div>
-        <div class="blocked-forbidden-grid">
-            <article class="blocked-forbidden-block blocked-forbidden-block--critical" data-blocked-forbidden-block="blocked-capabilities">
+        <div class="blocked-forbidden-grid" data-blocked-forbidden-visibility="always-visible">
+            <article class="blocked-forbidden-block blocked-forbidden-block--primary blocked-forbidden-block--critical" data-blocked-forbidden-block="blocked-capabilities" data-contract-field="blocked_capabilities" data-visibility="always-visible">
                 <div class="layout-label">Blocked capabilities</div>
                 <h3>Capacidades bloqueadas</h3>
                 <span class="blocked-forbidden-value" data-contract-source="blocked_capabilities">blocked_capabilities</span>
@@ -1895,7 +1906,7 @@
                     <li>No se infiere permiso por readiness, validacion o evidencia.</li>
                 </ul>
             </article>
-            <article class="blocked-forbidden-block blocked-forbidden-block--critical" data-blocked-forbidden-block="forbidden-actions">
+            <article class="blocked-forbidden-block blocked-forbidden-block--primary blocked-forbidden-block--critical" data-blocked-forbidden-block="forbidden-actions" data-contract-field="forbidden_actions" data-visibility="always-visible">
                 <div class="layout-label">Forbidden actions</div>
                 <h3>Acciones prohibidas</h3>
                 <span class="blocked-forbidden-value" data-contract-source="forbidden_actions">forbidden_actions</span>
@@ -1942,7 +1953,7 @@
                 <p>Este bloque no reemplaza la vista general: solo concentra limites duros y mantiene la jerarquia previa.</p>
             </article>
         </div>
-        <p class="blocked-forbidden-note">Blocked &amp; Forbidden Capabilities Screen es documental/read-only: no envia datos, no conecta endpoints, no activa runtime, no despacha jobs, no crea User Panel y no entrega salida final a usuario.</p>
+        <p class="blocked-forbidden-note" id="blocked-forbidden-note">Blocked &amp; Forbidden Capabilities Screen es documental/read-only: no envia datos, no conecta endpoints, no activa runtime, no despacha jobs, no crea User Panel y no entrega salida final a usuario.</p>
     </section>
     <section class="density-priority-strip" data-density-hardening="1.29" data-storytelling-hardening="1.33" aria-label="Prioridad de informacion contract-aware">
         <div class="density-priority-item density-critical" data-density-tier="critical"><strong>P0 visible</strong><span>IA_CORE, no-runtime/no-execution, no_payload, forbidden_actions, blocked_capabilities y request draft blocked/read-only forman la historia principal.</span></div>

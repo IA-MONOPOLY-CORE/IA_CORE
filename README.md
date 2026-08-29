@@ -458,3 +458,11 @@ Se modifico solo `ui/web/index.html` para agregar la pantalla documental/read-on
 1.92 no toca Contract Overview fuera de preservarlo como baseline, no toca backend operativo, `api.py`, `core/`, `domains/`, `providers/`, `tools/`, `scripts`, CI, dependencias, deuda residual ni pyflakes. Push pospuesto.
 
 Proximo prompt exacto: `PROMPT UI/UX 1.93 - Hardening visual y contractual Blocked & Forbidden Capabilities Screen IA_CORE contract-aware sin runtime/no-execution`.
+
+## Hardening Blocked & Forbidden Capabilities Screen 1.93
+
+UI/UX hardenizado hasta 1.93; `docs/UI_UX_BLOCKED_FORBIDDEN_SCREEN_HARDENING_1_93.md` registra el hardening visual y contractual de `FSC-BF-02`. La decision es `BLOCKED_FORBIDDEN_SCREEN_HARDENED_READY_FOR_HUMAN_VISUAL_REVIEW`.
+
+Se reforzaron solo los limites visuales y contractuales de la pantalla Blocked & Forbidden: `blocked_capabilities` y `forbidden_actions` quedan siempre visibles como datos, con severidad contractual, sin controles ni superficie operativa. Contract Overview `FSC-CO-01` permanece intacto como baseline. No se toco backend/runtime, endpoint, fetch, User Panel, rutas/hash, CI, dependencias, deuda residual ni pyflakes. Push pospuesto.
+
+Proximo prompt exacto: `PROMPT UI/UX 1.94 - Checkpoint Blocked & Forbidden Capabilities Screen implementada y hardenizada IA_CORE contract-aware sin runtime/no-execution`.
