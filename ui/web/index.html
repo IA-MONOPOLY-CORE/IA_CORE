@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>IA_CORE // Contract-Aware HUD</title>
+    <title>IA_CORE // Panel Maestro / Documentary Shell</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
@@ -574,6 +574,152 @@
             color: rgba(226,232,240,0.76);
             font-size: 0.72rem;
             line-height: 1.55;
+        }
+        /* MASTER SHELL + OVERVIEW: visual-only hierarchy for the documentary surface. */
+        .master-shell-header {
+            position: relative;
+            overflow: hidden;
+            padding: 18px 20px 17px;
+            border-top-width: 4px;
+            background: rgba(18, 21, 27, 0.98);
+            box-shadow: inset 0 1px 0 rgba(255,255,255,0.04), 0 12px 30px rgba(0,0,0,0.2);
+        }
+        .master-shell-header::before {
+            content: '';
+            position: absolute;
+            inset: 0 auto 0 0;
+            width: 4px;
+            background: var(--amber);
+            opacity: 0.82;
+        }
+        .master-shell-header .logo-area {
+            min-width: 190px;
+        }
+        .master-shell-kicker {
+            display: block;
+            margin-bottom: 7px;
+            color: var(--amber);
+            font-size: 0.58rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+        }
+        .master-shell-header #brand-title {
+            font-size: 2.1rem;
+            letter-spacing: 0.08em;
+        }
+        .master-shell-header #brand-subtitle {
+            display: block;
+            max-width: 28ch;
+            margin-top: 5px;
+            line-height: 1.35;
+            letter-spacing: 0.12em;
+        }
+        .master-shell-header .console-mode {
+            align-self: stretch;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            min-width: 240px;
+        }
+        .master-shell-header .console-mode strong {
+            font-size: 0.88rem;
+        }
+        .master-shell-header .console-orientation-copy {
+            max-width: 36ch;
+        }
+        .master-shell-state-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-top: 10px;
+        }
+        .master-shell-state {
+            display: inline-flex;
+            align-items: center;
+            min-height: 24px;
+            padding: 4px 7px;
+            border: 1px solid rgba(148,163,184,0.26);
+            color: var(--text-muted);
+            font-size: 0.56rem;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+        .master-shell-state--read {
+            border-color: rgba(34,197,94,0.38);
+            color: var(--green);
+        }
+        .master-shell-state--blocked {
+            border-color: rgba(239,68,68,0.42);
+            color: #fca5a5;
+        }
+        .four-screen-baseline-summary[data-visual-layer="overview"] {
+            grid-template-columns: minmax(0, 1.05fr) minmax(420px, 1.35fr);
+            gap: 18px;
+            margin-bottom: 18px;
+            padding: 17px 18px;
+            border-color: rgba(56,189,248,0.34);
+            background: rgba(15,23,42,0.62);
+            box-shadow: inset 4px 0 0 var(--cyan), 0 10px 24px rgba(0,0,0,0.16);
+        }
+        .master-overview-copy {
+            min-width: 0;
+        }
+        .master-overview-copy .layout-label {
+            color: var(--cyan);
+            letter-spacing: 0.1em;
+        }
+        .master-overview-copy > strong {
+            font-size: 1.2rem;
+            letter-spacing: 0.03em;
+        }
+        .master-overview-copy > p {
+            max-width: 66ch;
+            margin-top: 8px;
+            font-size: 0.74rem;
+        }
+        .master-overview-state-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 7px;
+            margin-top: 14px;
+        }
+        .master-overview-state {
+            min-width: 0;
+            min-height: 62px;
+            padding: 9px 10px;
+            border: 1px solid rgba(148,163,184,0.2);
+            border-left: 2px solid var(--cyan);
+            background: rgba(2,6,23,0.34);
+        }
+        .master-overview-state strong,
+        .master-overview-state span {
+            display: block;
+            overflow-wrap: anywhere;
+        }
+        .master-overview-state strong {
+            color: var(--text-primary);
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 0.76rem;
+            line-height: 1.2;
+            text-transform: uppercase;
+        }
+        .master-overview-state span {
+            margin-top: 5px;
+            color: var(--text-muted);
+            font-size: 0.61rem;
+            line-height: 1.35;
+        }
+        .master-overview-state--blocked {
+            border-left-color: var(--red);
+        }
+        .master-overview-state--planned {
+            border-left-color: var(--amber);
+        }
+        .master-overview-state--review {
+            border-left-color: var(--green);
+        }
+        .four-screen-baseline-summary[data-visual-layer="overview"] .four-screen-baseline-list {
+            align-self: stretch;
         }
         .four-screen-baseline-list {
             display: grid;
@@ -1845,6 +1991,8 @@
                 grid-template-columns: 1fr;
                 width: 100%;
             }
+            .master-shell-header #brand-title { font-size: 1.75rem; }
+            .master-overview-state-grid { grid-template-columns: 1fr; }
             .badge { width: 100%; overflow-wrap: anywhere; }
             .console-flow-steps { grid-template-columns: 1fr; }
             .internal-nav-header { align-items: flex-start; flex-direction: column; gap: 4px; }
@@ -2280,22 +2428,28 @@
 </head>
 <body data-skin="contract">
 
-    <main class="ia-core-shell" data-layout-contract-aware="superior-0.8" data-main-console="contract-aware-1.0" data-console-refinement="1.1" data-console-flow="contract-aware-1.2" data-console-interaction="contract-aware-1.3" data-payload-reading-model="contract-aware-1.6" data-contract-detail-panels="contract-aware-1.7" data-internal-navigation="contract-aware-1.8" data-component-system="ia-core-contract-aware-1.9" data-responsive-hardening="contract-aware-1.13" data-operator-guidance="contract-aware-1.25" data-density-information-architecture="contract-aware-1.29" data-contract-storytelling="contract-aware-1.33" data-interaction-mode="read-only">
+    <main class="ia-core-shell master-shell-overview-surface" data-visual-architecture="master-shell-overview-1.124" data-layout-contract-aware="superior-0.8" data-main-console="contract-aware-1.0" data-console-refinement="1.1" data-console-flow="contract-aware-1.2" data-console-interaction="contract-aware-1.3" data-payload-reading-model="contract-aware-1.6" data-contract-detail-panels="contract-aware-1.7" data-internal-navigation="contract-aware-1.8" data-component-system="ia-core-contract-aware-1.9" data-responsive-hardening="contract-aware-1.13" data-operator-guidance="contract-aware-1.25" data-density-information-architecture="contract-aware-1.29" data-contract-storytelling="contract-aware-1.33" data-interaction-mode="read-only">
     <!-- BANNER PARA LOGOS -->
     <div class="logo-banner" id="logo-banner">
         <div class="logo-banner-inner" id="logo-banner-inner"></div>
     </div>
 
-    <header class="hud-panel main-console-header" data-main-console-zone="identity" data-flow-step="orientation" data-interaction-mode="read-only" data-interaction-state="inspectable">
+    <header class="hud-panel main-console-header master-shell-header" data-visual-layer="master-shell" data-visual-state="READ_ONLY DOCUMENTED NO_RUNTIME NO_EXECUTION" data-main-console-zone="identity" data-flow-step="orientation" data-interaction-mode="read-only" data-interaction-state="inspectable">
         <div class="logo-area">
+            <span class="master-shell-kicker">MASTER SHELL / PANEL MAESTRO</span>
             <h1 id="brand-title">IA_CORE</h1>
-            <span id="brand-subtitle">CONTRACT-AWARE FRAMEWORK CONSOLE</span>
+            <span id="brand-subtitle">PANEL MAESTRO / DOCUMENTARY CONSOLE</span>
             <div class="brand-badge-rect"></div>
         </div>
         <div class="console-mode">
-            <span>Límite operativo</span>
-            <strong>PRE-RUNTIME / NO-EXECUTION</strong>
-            <span class="console-orientation-copy">Panel Maestro / operador interno: lee contrato, limites y evidencia. Esta consola no ejecuta operaciones; guidance no cambia autoridad backend.</span>
+            <span>Estado documental</span>
+            <strong>NO RUNTIME / NO EXECUTION</strong>
+            <span class="console-orientation-copy">Panel Maestro / lectura interna: contrato, estado y evidencia. Esta superficie no ejecuta operaciones ni cambia autoridad backend.</span>
+            <div class="master-shell-state-row" aria-label="Estados documentales del shell">
+                <span class="master-shell-state master-shell-state--read">READ_ONLY</span>
+                <span class="master-shell-state">DOCUMENTED</span>
+                <span class="master-shell-state master-shell-state--blocked">BLOCKED_BY_CONTRACT</span>
+            </div>
         </div>
         <div class="badges-container">
             <div class="badge" id="ventaja-badge" data-component="ia-status-badge ia-empty-state">READINESS: no_payload</div>
@@ -2304,11 +2458,29 @@
         </div>
     </header>
 
-    <div class="four-screen-baseline-summary" data-four-screen-baseline-summary="1.109" data-interaction-mode="read-only" data-interaction-state="static_documentation" aria-label="Resumen documental de baseline de cuatro secciones">
-        <div>
-            <div class="layout-label">Panel Maestro / baseline de cuatro secciones / no operativo</div>
+    <div class="four-screen-baseline-summary" data-visual-layer="overview" data-visual-state="READ_ONLY DOCUMENTED BLOCKED_BY_CONTRACT NO_RUNTIME NO_EXECUTION" data-four-screen-baseline-summary="1.109" data-interaction-mode="read-only" data-interaction-state="static_documentation" aria-label="Overview documental del Panel Maestro y baseline de cuatro secciones">
+        <div class="master-overview-copy">
+            <div class="layout-label">OVERVIEW LAYER / PANEL MAESTRO / VISTA DOCUMENTAL</div>
             <strong>Lectura integrada contract-aware de IA_CORE</strong>
-            <p>Las cuatro superficies siguientes son documentales, read-only y contract-aware. Mantienen orden fijo y limites comunes: no runtime, no execution, no dispatch, no endpoint, no fetch, no User Panel, no rutas/hash, no submit, no send, no run y no execute.</p>
+            <p>El shell superior ordena identidad, estado y orientación. Las cuatro superficies siguientes permanecen documentales, read-only y contract-aware, con no-runtime/no-execution visible y sin autoridad operativa.</p>
+            <div class="master-overview-state-grid" aria-label="Estado documental del overview">
+                <div class="master-overview-state">
+                    <strong>FSC preservados</strong>
+                    <span>Cuatro contratos reconocibles, sin quinta sección.</span>
+                </div>
+                <div class="master-overview-state master-overview-state--blocked">
+                    <strong>Elementos inferiores bloqueados</strong>
+                    <span>CFG, + y DOMAIN siguen read-only y fuera del bloque.</span>
+                </div>
+                <div class="master-overview-state master-overview-state--planned">
+                    <strong>Rediseño estructural</strong>
+                    <span>Primer bloque visual implementado; deuda +/DOMAIN futura no bloqueante.</span>
+                </div>
+                <div class="master-overview-state master-overview-state--review">
+                    <strong>Próxima revisión</strong>
+                    <span>Revisión visual humana pendiente antes del checkpoint.</span>
+                </div>
+            </div>
         </div>
         <ol class="four-screen-baseline-list" aria-label="Orden documental de la baseline">
             <li><span>01</span><strong>Contract Overview</strong><code>FSC-CO-01</code></li>

@@ -746,4 +746,14 @@ Próximo prompt exacto: `PROMPT UI/UX 1.124 - Implementar primer bloque visual M
 
 Documento: `docs/UI_UX_PANEL_MAESTRO_FIRST_VISUAL_BLOCK_PLAN_1_123.md`. Test: `tests/test_ui_ux_panel_maestro_first_visual_block_plan_1_123.py`. Base `886efe6`; restore point remoto `01d09ce`; commits previos `8843b60`, `03975b9`, `f3a2670`, `5a78211`, `886efe6`. No implementación, no UI activa, no push y no avance a 1.124.
 
+## Implementación Master Shell Overview Panel Maestro 1.124
+
+1.124 implementa el primer bloque visual `Master Shell + Overview Layer` en `ui/web/index.html`: identidad IA_CORE, estado documental/no-runtime/no-execution, overview jerárquico, estados read-only/bloqueado y señales de revisión humana. El cambio es visual y acotado; no modifica internamente los cuatro Final Screen Contracts ni los elementos inferiores.
+
+Archivos modificados: `ui/web/index.html`, documentación, test y READMEs. `ui/web/styles.css` externo, `ui/web/i18n_es.json` y los cuatro JS quedan sin cambios porque el estilo activo es inline y el bloque no requiere copy de catálogo ni lógica nueva.
+
+Decisión final: `PANEL_MAESTRO_MASTER_SHELL_OVERVIEW_IMPLEMENTED_WITH_NOTES_READY_FOR_HUMAN_VISUAL_REVIEW`. Próximo prompt exacto, sujeto a revisión visual humana: `PROMPT UI/UX 1.125 - Hardening checkpoint primer bloque visual Master Shell Overview Panel Maestro IA_CORE contract-aware sin runtime/no-execution`.
+
+Documento: `docs/UI_UX_PANEL_MAESTRO_MASTER_SHELL_OVERVIEW_IMPLEMENTATION_1_124.md`. Test: `tests/test_ui_ux_panel_maestro_master_shell_overview_implementation_1_124.py`. Restore point remoto vigente `01d09ce`; base local `744d841`; no push.
+
 No implementación, no UI activa, no Final Screen Contracts modificados, no elementos inferiores modificados, no User Panel, no rutas/hash, no endpoints/fetches nuevos, no runtime/execution/dispatch, no backend/runtime/endpoints/CI/dependencias, no deuda residual, no pyflakes y no push.

@@ -1451,3 +1451,11 @@ Archivos candidatos para 1.124: `ui/web/index.html`, `ui/web/styles.css` y `ui/w
 Próximo prompt exacto: `PROMPT UI/UX 1.124 - Implementar primer bloque visual Master Shell Overview Panel Maestro IA_CORE contract-aware sin runtime/no-execution`.
 
 Base `886efe6`; restore point remoto `01d09ce`; commits previos `8843b60`, `03975b9`, `f3a2670`, `5a78211`, `886efe6`. No implementación, no UI activa, no rutas/hash, no endpoints/fetches nuevos, no runtime, no backend, no CI, no dependencias, no push y no avance a 1.124.
+
+## Implementación 1.124: Master Shell + Overview Layer
+
+1.124 implementa visualmente el primer bloque `Master Shell + Overview Layer` en la superficie superior de `ui/web/index.html`. Se reforzaron identidad IA_CORE, estado documental, no-runtime/no-execution, overview, jerarquía, contraste y responsive. La implementación queda lista para revisión visual humana, con notas por la deuda UX futura `+`/`DOMAIN` y las zonas no tocadas.
+
+No se modificaron `ui/web/styles.css`, `ui/web/i18n_es.json` ni `backend-contract-widgets.js`, `admin-panels.js`, `console-interactions.js` o `domains.js`; el CSS de este bloque es scoped inline y no se necesitó lógica, fetch, listener, ruta ni copy de catálogo. Final Screen Contracts y elementos inferiores permanecen preservados/bloqueados.
+
+Decisión: `PANEL_MAESTRO_MASTER_SHELL_OVERVIEW_IMPLEMENTED_WITH_NOTES_READY_FOR_HUMAN_VISUAL_REVIEW`. Próximo prompt, después de la revisión visual humana: `PROMPT UI/UX 1.125 - Hardening checkpoint primer bloque visual Master Shell Overview Panel Maestro IA_CORE contract-aware sin runtime/no-execution`. Documento: `docs/UI_UX_PANEL_MAESTRO_MASTER_SHELL_OVERVIEW_IMPLEMENTATION_1_124.md`; test: `tests/test_ui_ux_panel_maestro_master_shell_overview_implementation_1_124.py`; restore point remoto `01d09ce`; no push.
