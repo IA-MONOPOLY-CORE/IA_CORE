@@ -1180,3 +1180,11 @@ UI/UX hardenizado hasta 1.93; `docs/UI_UX_BLOCKED_FORBIDDEN_SCREEN_HARDENING_1_9
 `blocked_capabilities` y `forbidden_actions` quedan always-visible y no accionables; el bloque conserva Panel Maestro, documental/read-only, `backend_internal_ui_payload.v1`, no-runtime/no-execution, no endpoint, no fetch, no User Panel y no unlock/override/bypass. Contract Overview `FSC-CO-01` permanece intacto. Push pospuesto.
 
 Proximo prompt exacto: `PROMPT UI/UX 1.94 - Checkpoint Blocked & Forbidden Capabilities Screen implementada y hardenizada IA_CORE contract-aware sin runtime/no-execution`.
+
+## Checkpoint Blocked & Forbidden Capabilities Screen 1.94
+
+UI/UX cerrado hasta 1.94; `docs/UI_UX_BLOCKED_FORBIDDEN_SCREEN_CHECKPOINT_1_94.md` registra `FSC-BF-02` implementada, hardenizada, aprobada visualmente y auditada contra affordances ambiguas. La decision es `READ_ONLY_AFFORDANCE_AUDIT_PASSED_WITH_NOTES`.
+
+La pantalla queda como segunda superficie contract-aware del Panel Maestro: documental/read-only, `backend_internal_ui_payload.v1`, `blocked_capabilities` y `forbidden_actions` visibles, sin unlock/override/bypass, CTAs operativos, endpoint, fetch, runtime, User Panel ni rutas/hash. Contract Overview `FSC-CO-01` queda preservado como baseline. Push del checkpoint habilitado despues de validar.
+
+Proximo prompt exacto: `PROMPT UI/UX 1.95 - Planificar siguiente pantalla Final Screen Contract tras Blocked & Forbidden IA_CORE contract-aware sin runtime/no-execution`.

@@ -466,3 +466,11 @@ UI/UX hardenizado hasta 1.93; `docs/UI_UX_BLOCKED_FORBIDDEN_SCREEN_HARDENING_1_9
 Se reforzaron solo los limites visuales y contractuales de la pantalla Blocked & Forbidden: `blocked_capabilities` y `forbidden_actions` quedan siempre visibles como datos, con severidad contractual, sin controles ni superficie operativa. Contract Overview `FSC-CO-01` permanece intacto como baseline. No se toco backend/runtime, endpoint, fetch, User Panel, rutas/hash, CI, dependencias, deuda residual ni pyflakes. Push pospuesto.
 
 Proximo prompt exacto: `PROMPT UI/UX 1.94 - Checkpoint Blocked & Forbidden Capabilities Screen implementada y hardenizada IA_CORE contract-aware sin runtime/no-execution`.
+
+## Checkpoint Blocked & Forbidden Capabilities Screen 1.94
+
+UI/UX cerrado hasta 1.94; `docs/UI_UX_BLOCKED_FORBIDDEN_SCREEN_CHECKPOINT_1_94.md` registra `Blocked & Forbidden Capabilities Screen` implementada, hardenizada, aprobada visualmente y auditada contra CTAs/affordances ambiguas. La decision es `READ_ONLY_AFFORDANCE_AUDIT_PASSED_WITH_NOTES` y el checkpoint queda listo para publicar el nuevo restore point remoto.
+
+La auditoria confirma Panel Maestro, `FSC-BF-02`, `backend_internal_ui_payload.v1`, `blocked_capabilities` y `forbidden_actions` visibles, documental/read-only, sin unlock/override/bypass, CTA operativo, endpoint, fetch, runtime, User Panel ni rutas/hash. Contract Overview `FSC-CO-01` permanece como baseline. No se implemento pantalla adicional ni se toco backend, CI, dependencias, deuda residual o pyflakes.
+
+Proximo prompt exacto: `PROMPT UI/UX 1.95 - Planificar siguiente pantalla Final Screen Contract tras Blocked & Forbidden IA_CORE contract-aware sin runtime/no-execution`.
