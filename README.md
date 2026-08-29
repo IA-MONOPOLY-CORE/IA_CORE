@@ -683,4 +683,14 @@ Documento: `docs/UI_UX_RESTORE_POINT_PUBLICATION_PLAN_AFTER_LOWER_CONSOLE_FIX_1_
 
 Próximo prompt exacto: `PROMPT UI/UX 1.117 - Publicar restore point fix elementos inferiores Panel Maestro IA_CORE contract-aware sin runtime/no-execution`.
 
+## Restore Point Publication After Lower Console Fix 1.117
+
+1.117 publica el restore point acumulado del fix/checkpoint de elementos inferiores. La unidad de siete commits fue validada, `origin/main` previo permanece en `ccdef7a`, y la nota UX futura `+`/`DOMAIN` no bloquea la publicación.
+
+Decisión final: `RESTORE_POINT_PUBLICATION_PUSH_READY`. Este prompt autoriza el push después de crear el commit de publicación; no se implementa pantalla ni se modifica UI activa.
+
+Documento: `docs/UI_UX_RESTORE_POINT_PUBLICATION_AFTER_LOWER_CONSOLE_FIX_1_117.md`. Test: `tests/test_ui_ux_restore_point_publication_after_lower_console_fix_1_117.py`.
+
+Próximo prompt exacto: `PROMPT UI/UX 1.118 - Planificar siguiente paso tras restore point elementos inferiores Panel Maestro IA_CORE contract-aware sin runtime/no-execution`.
+
 No implementación, no UI activa modificada, no Final Screen Contracts tocado, no elementos inferiores modificados, no quinta sección, no contrato final, `DEFER_FINALIZATION` preservado, no User Panel/rutas/hash nuevos, no backend/runtime/endpoints/fetches nuevos, no deuda residual, no pyflakes y no push. Restore point remoto vigente: `ccdef7a`; commits locales previos: `0403422`, `9a6e8c1` y `1e080ab`; push pospuesto.
