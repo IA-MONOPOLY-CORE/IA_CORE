@@ -148,7 +148,7 @@
         });
 
         const observer = new MutationObserver(syncInspector);
-        ['contract-core-rail', 'functional-widgets'].forEach((id) => {
+        ['readiness-band', 'contract-core-rail', 'functional-widgets'].forEach((id) => {
             const source = document.querySelector(`.${id}`) || document.getElementById(id);
             if (source) observer.observe(source, { childList: true, characterData: true, subtree: true });
         });

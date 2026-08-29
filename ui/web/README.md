@@ -1115,3 +1115,10 @@ UI/UX implementado hasta 1.86; `docs/UI_UX_CONTRACT_OVERVIEW_SCREEN_IMPLEMENTATI
 Se modifico solo `ui/web/index.html` para la seccion Contract Overview y se agregaron tests/documentacion 1.86. No se creo User Panel, ruta/hash, endpoint, fetch, runtime ni CTA operativo; no se toco backend, CI, dependencias, deuda residual ni pyflakes. Push pospuesto.
 
 Proximo prompt exacto: `PROMPT UI/UX 1.87 - Hardening visual y contractual Contract Overview Screen IA_CORE contract-aware sin runtime/no-execution`.
+## Hardening Contract Overview Screen 1.87
+
+UI/UX hardenizado hasta 1.87; `docs/UI_UX_CONTRACT_OVERVIEW_SCREEN_HARDENING_1_87.md` registra el hardening visual y contractual de `Contract Overview Screen` dentro del Panel Maestro. La decision es `CONTRACT_OVERVIEW_SCREEN_HARDENED_READY_FOR_HUMAN_VISUAL_REVIEW`.
+
+Se ajustaron solo la seccion Contract Overview en `ui/web/index.html` y la sincronizacion local de lectura en `ui/web/console-interactions.js`; se agregaron test/documentacion 1.87. No se creo otra pantalla, User Panel, ruta/hash, endpoint, fetch, runtime ni CTA operativo. Push pospuesto hasta checkpoint.
+
+Proximo prompt exacto: `PROMPT UI/UX 1.88 - Checkpoint Contract Overview Screen implementada y hardenizada IA_CORE contract-aware sin runtime/no-execution`.

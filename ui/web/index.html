@@ -461,10 +461,19 @@
             display: flex;
             flex-wrap: wrap;
             justify-content: flex-end;
+            align-content: flex-start;
             gap: 7px;
+            min-height: 76px;
             padding: 10px;
             border: 1px solid rgba(148,163,184,0.2);
             background: rgba(2,6,23,0.38);
+        }
+        .contract-overview-status-label {
+            width: 100%;
+            color: var(--text-muted);
+            font-size: 0.62rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
         }
         .contract-overview-status .visual-state {
             margin: 0;
@@ -485,6 +494,18 @@
             padding: 14px;
             border: 1px solid rgba(148,163,184,0.2);
             background: rgba(2,6,23,0.32);
+        }
+        .contract-overview-card--critical {
+            border-color: rgba(239,68,68,0.46);
+            box-shadow: inset 3px 0 0 var(--red);
+        }
+        .contract-overview-card--readiness {
+            border-color: rgba(245,158,11,0.46);
+            box-shadow: inset 3px 0 0 var(--amber);
+        }
+        .contract-overview-card--evidence {
+            border-color: rgba(34,197,94,0.38);
+            box-shadow: inset 3px 0 0 var(--green);
         }
         .contract-overview-card h3 {
             margin-top: 7px;
@@ -538,6 +559,17 @@
             }
             .contract-overview-status {
                 justify-content: flex-start;
+            }
+        }
+        @media (max-width: 480px) {
+            .contract-overview-screen {
+                padding: 14px;
+            }
+            .contract-overview-title h2 {
+                font-size: 1.3rem;
+            }
+            .contract-overview-card {
+                min-height: 0;
             }
         }
         .layout-section-title {
@@ -1589,7 +1621,7 @@
         </div>
     </header>
 
-    <section class="contract-overview-screen layout-section" id="contract-overview-screen" data-main-console-zone="contract-overview" data-contract-screen="FSC-CO-01" data-interaction-mode="read-only" data-interaction-state="read_only inspectable" aria-labelledby="contract-overview-title">
+    <section class="contract-overview-screen layout-section" id="contract-overview-screen" data-main-console-zone="contract-overview" data-contract-screen="FSC-CO-01" data-contract-overview-state="documented ready-no-permission no-runtime no-execution" data-interaction-mode="read-only" data-interaction-state="read_only inspectable" aria-labelledby="contract-overview-title">
         <div class="contract-overview-heading">
             <div>
                 <div class="layout-label">Panel Maestro / Contract-aware screen</div>
@@ -1599,7 +1631,8 @@
                 </div>
                 <p class="contract-overview-lede">Vista documental, final y de solo lectura para operador interno de IA_CORE. Resume contrato, readiness, limites y evidencia sin conceder permisos ni ejecutar operaciones.</p>
             </div>
-            <div class="contract-overview-status" aria-label="Estado contractual Contract Overview">
+            <div class="contract-overview-status" role="status" aria-live="polite" aria-label="Estado contractual Contract Overview">
+                <span class="contract-overview-status-label">Estado contractual</span>
                 <span class="visual-state passed evidence-state" data-component="ia-status-badge">documented</span>
                 <span class="visual-state ready-no-permission" data-component="ia-status-badge ia-blocker">ready-no-permission</span>
                 <span class="visual-state blocked" data-component="ia-status-badge ia-blocker">no-runtime</span>
@@ -1613,7 +1646,7 @@
                 <span class="contract-overview-value">FSC-CO-01 / IA_CORE</span>
                 <p>Fuente: <code>backend_internal_ui_payload.v1</code>. Superficie: Panel Maestro. No User Panel y no pantalla publica.</p>
             </article>
-            <article class="contract-overview-card" data-contract-overview-block="readiness">
+            <article class="contract-overview-card contract-overview-card--readiness" data-contract-overview-block="readiness">
                 <div class="layout-label">Readiness vs permission</div>
                 <h3>Lectura contractual</h3>
                 <span class="contract-overview-value" data-detail-source="console-readiness-value">no_payload</span>
@@ -1631,16 +1664,16 @@
                 <span class="contract-overview-value" data-detail-source="contract-allowed-actions">not_available</span>
                 <p><code>allowed_actions</code> son datos contractuales y no son botones. Esta pantalla no agrega CTA operativo.</p>
             </article>
-            <article class="contract-overview-card" data-contract-overview-block="forbidden-actions">
+            <article class="contract-overview-card contract-overview-card--critical" data-contract-overview-block="forbidden-actions">
                 <div class="layout-label">Forbidden actions</div>
                 <h3>Acciones no ejecutables</h3>
                 <ul>
                     <li><code>run</code>, <code>execute</code>, <code>dispatch</code> y <code>submit</code></li>
                     <li><code>fetch</code>, endpoint y envio a User Panel</li>
                 </ul>
-                <p><code>forbidden_actions</code> permanece visible y no se convierte en control.</p>
+                <p>Blockers visibles: <code>forbidden_actions</code> permanece visible y no se convierte en control.</p>
             </article>
-            <article class="contract-overview-card" data-contract-overview-block="blocked-capabilities">
+            <article class="contract-overview-card contract-overview-card--critical" data-contract-overview-block="blocked-capabilities">
                 <div class="layout-label">Blocked capabilities</div>
                 <h3>Limites visibles</h3>
                 <ul>
@@ -1649,7 +1682,7 @@
                 </ul>
                 <p><code>blocked_capabilities</code> usa deny-by-default; un dato ausente no desbloquea.</p>
             </article>
-            <article class="contract-overview-card" data-contract-overview-block="evidence">
+            <article class="contract-overview-card contract-overview-card--evidence" data-contract-overview-block="evidence">
                 <div class="layout-label">Evidence snapshot</div>
                 <h3>Evidencia documental</h3>
                 <span class="contract-overview-value">snapshot documental</span>
