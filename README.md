@@ -520,3 +520,11 @@ Se reforzaron jerarquía, densidad, legibilidad y severidad: estados documentale
 1.99 deja la pantalla lista para revisión visual humana, pero no declara visual approval; no checkpoint publicado. Push pospuesto; no se limpió deuda residual ni se corrigió pyflakes.
 
 Próximo prompt exacto: `PROMPT UI/UX 1.100 - Checkpoint Validation & Readiness Screen implementada y hardenizada IA_CORE contract-aware sin runtime/no-execution`.
+
+## Checkpoint Validation & Readiness Screen 1.100
+
+El checkpoint 1.100 cierra `Validation & Readiness Screen / FSC-VR-03` como tercera superficie del Panel Maestro: implementada, hardenizada, aprobada visualmente por el operador y auditada contra affordances ambiguas. La auditoría final es `VALIDATION_READINESS_FINAL_AFFORDANCE_AUDIT_PASSED_WITH_NOTES` y la decisión es `VALIDATION_READINESS_SCREEN_CHECKPOINT_CLOSED_AND_PUBLISHED`.
+
+La triple baseline queda preservada: Contract Overview `FSC-CO-01`, Blocked & Forbidden `FSC-BF-02` y Validation & Readiness `FSC-VR-03`. Request Contract Preview permanece diferido. El nuevo restore point remoto corresponde al commit de checkpoint publicado en `origin/main`; no se implementó pantalla adicional en este prompt.
+
+Próximo prompt exacto: `PROMPT UI/UX 1.101 - Planificar siguiente paso tras Validation & Readiness Screen IA_CORE contract-aware sin runtime/no-execution`.
