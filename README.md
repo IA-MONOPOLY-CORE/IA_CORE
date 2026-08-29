@@ -726,4 +726,14 @@ Documento: `docs/UI_UX_PANEL_MAESTRO_FUTURE_VISUAL_ARCHITECTURE_1_121.md`. Test:
 
 No implementación, no UI activa modificada, no quinta sección, no Final Screen Contracts modificados, no elementos inferiores modificados, no contrato funcional/final, no User Panel/rutas/hash, no endpoints/fetches/backend/runtime/CI/dependencias, no cleanup de deuda, no pyflakes y no push. Restore point remoto vigente: `01d09ce`; base local: `f3a2670`; commits previos: `8843b60`, `03975b9` y `f3a2670`.
 
+## Guardrails pre-implementación rediseño estructural Panel Maestro 1.122
+
+1.122 define guardrails pre-implementación para el rediseño estructural del Panel Maestro IA_CORE, basados en la arquitectura visual futura 1.121 y la auditoría real 1.120. Fija límites de archivos, HTML, CSS, JS, navegación, estados, copy/idioma, Final Screen Contracts, elementos inferiores, validación, aprobación humana y rollback.
+
+Primer bloque visual candidato: `Master Shell + Overview Layer`. La decisión final es `PANEL_MAESTRO_PRE_IMPLEMENTATION_GUARDRAILS_READY_FOR_FIRST_BLOCK_PLANNING`; todavía no se autoriza implementación directa. Próximo prompt exacto: `PROMPT UI/UX 1.123 - Planificar primer bloque visual rediseño estructural Panel Maestro IA_CORE contract-aware sin runtime/no-execution`.
+
+Documento: `docs/UI_UX_PANEL_MAESTRO_STRUCTURAL_REDESIGN_PRE_IMPLEMENTATION_GUARDRAILS_1_122.md`. Test: `tests/test_ui_ux_panel_maestro_structural_redesign_pre_implementation_guardrails_1_122.py`.
+
+Base local: `5a78211`; restore point remoto vigente: `01d09ce`; commits previos: `8843b60`, `03975b9`, `f3a2670`, `5a78211`. No implementación, no UI activa, no Final Screen Contracts, no elementos inferiores, no contrato funcional, no User Panel/rutas/hash, no endpoints/fetches nuevos, no runtime/execution/dispatch, no CI/dependencias, no deuda residual, no pyflakes, no push y no avance a 1.123.
+
 No implementación, no UI activa, no Final Screen Contracts modificados, no elementos inferiores modificados, no User Panel, no rutas/hash, no endpoints/fetches nuevos, no runtime/execution/dispatch, no backend/runtime/endpoints/CI/dependencias, no deuda residual, no pyflakes y no push.

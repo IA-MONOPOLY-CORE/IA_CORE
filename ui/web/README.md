@@ -1432,4 +1432,12 @@ La arquitectura visual futura del Panel Maestro IA_CORE está documentada en `do
 
 La decisión es `PANEL_MAESTRO_FUTURE_VISUAL_ARCHITECTURE_READY_FOR_PRE_IMPLEMENTATION_GUARDRAILS`. La siguiente tarea documental es 1.122, antes de cualquier implementación. Se preservan los cuatro FSC, `DEFER_FINALIZATION`, `LOWER_CONSOLE_READ_ONLY`, la lectura raw-safe local y `no-runtime/no-execution`. No se modifican los archivos UI activos, no se agregan rutas/hash, endpoints, fetches, runtime ni acciones operativas.
 
+## Cursor 1.122: Guardrails pre-implementación rediseño estructural
+
+1.122 documenta y testea los guardrails pre-implementación del rediseño estructural del Panel Maestro IA_CORE. Se preservan la arquitectura 1.121, la auditoría 1.120, los cuatro Final Screen Contracts, `DEFER_FINALIZATION`, `LOWER_CONSOLE_READ_ONLY` y la separación entre lectura documental y cualquier capacidad operativa.
+
+Primer bloque visual candidato: `Master Shell + Overview Layer`. Decisión: `PANEL_MAESTRO_PRE_IMPLEMENTATION_GUARDRAILS_READY_FOR_FIRST_BLOCK_PLANNING`. Próximo prompt exacto: `PROMPT UI/UX 1.123 - Planificar primer bloque visual rediseño estructural Panel Maestro IA_CORE contract-aware sin runtime/no-execution`.
+
+Documento: `docs/UI_UX_PANEL_MAESTRO_STRUCTURAL_REDESIGN_PRE_IMPLEMENTATION_GUARDRAILS_1_122.md`. Test: `tests/test_ui_ux_panel_maestro_structural_redesign_pre_implementation_guardrails_1_122.py`. Base `5a78211`, restore point remoto `01d09ce`, commits previos `8843b60`, `03975b9`, `f3a2670` y `5a78211`. No implementación, no UI activa, no rutas/hash, no endpoints/fetches nuevos, no runtime, no backend, no CI, no dependencias, no push y no avance a 1.123.
+
 Documento: `docs/UI_UX_PANEL_MAESTRO_CURRENT_ARCHITECTURE_AUDIT_1_120.md`. Test: `tests/test_ui_ux_panel_maestro_current_architecture_audit_1_120.py`. No implementación, no UI activa, no Final Screen Contracts, no elementos inferiores, no User Panel/rutas/hash, no endpoints/fetches nuevos, no runtime/execution/dispatch, no backend/CI/dependencias, no deuda residual, no pyflakes y no push.
