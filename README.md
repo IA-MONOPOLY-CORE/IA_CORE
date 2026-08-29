@@ -693,4 +693,12 @@ Documento: `docs/UI_UX_RESTORE_POINT_PUBLICATION_AFTER_LOWER_CONSOLE_FIX_1_117.m
 
 Próximo prompt exacto: `PROMPT UI/UX 1.118 - Planificar siguiente paso tras restore point elementos inferiores Panel Maestro IA_CORE contract-aware sin runtime/no-execution`.
 
+## Next Step After Lower Console Restore Point Plan 1.118
+
+1.118 confirma que el restore point `01d09ce` está publicado y selecciona `NEXT_STEP_PANEL_MAESTRO_STRUCTURAL_REDESIGN_PLANNING_SELECTED`. La superficie inferior sigue bloqueada/read-only; la duplicidad UX futura `+`/`DOMAIN` no habilita creación ni bloquea el avance.
+
+Documento: `docs/UI_UX_NEXT_STEP_AFTER_LOWER_CONSOLE_RESTORE_POINT_PLAN_1_118.md`. Test: `tests/test_ui_ux_next_step_after_lower_console_restore_point_plan_1_118.py`.
+
+Próximo prompt exacto: `PROMPT UI/UX 1.119 - Planificar rediseño estructural Panel Maestro IA_CORE contract-aware sin runtime/no-execution`.
+
 No implementación, no UI activa modificada, no Final Screen Contracts tocado, no elementos inferiores modificados, no quinta sección, no contrato final, `DEFER_FINALIZATION` preservado, no User Panel/rutas/hash nuevos, no backend/runtime/endpoints/fetches nuevos, no deuda residual, no pyflakes y no push. Restore point remoto vigente: `ccdef7a`; commits locales previos: `0403422`, `9a6e8c1` y `1e080ab`; push pospuesto.
