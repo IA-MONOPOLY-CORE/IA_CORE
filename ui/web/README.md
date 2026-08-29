@@ -1373,4 +1373,14 @@ Documento: `docs/UI_UX_LOWER_CONSOLE_EXISTING_ELEMENTS_FIX_1_114_A.md`. Prueba: 
 
 Próximo prompt exacto: `PROMPT UI/UX 1.115 - Checkpoint fix elementos inferiores existentes Panel Maestro IA_CORE contract-aware sin runtime/no-execution`.
 
+## Lower Console Existing Elements Fix Checkpoint 1.115
+
+1.115 confirma documentalmente el fix 1.114.A y la revisión visual humana: `CFG`, `+`, `DOMAIN`, formularios y tarjetas permanecen bloqueados o aislados; `RELEER PAYLOAD LOCAL`, `VER DETALLE` y `VER EVIDENCIA` siguen siendo locales/read-only. La única nota pendiente es la duplicidad UX de `+` y `DOMAIN`, que no bloquea el checkpoint.
+
+Decisión final: `LOWER_CONSOLE_EXISTING_ELEMENTS_FIX_CHECKPOINT_PASSED_WITH_NOTES_READY_FOR_PUSH_DECISION`. Restore point remoto: `ccdef7a`; tras el commit 1.115 habrá 6 commits locales por delante de `origin/main`. Push pospuesto.
+
+Documento: `docs/UI_UX_LOWER_CONSOLE_EXISTING_ELEMENTS_FIX_CHECKPOINT_1_115.md`. Test: `tests/test_ui_ux_lower_console_existing_elements_fix_checkpoint_1_115.py`.
+
+Próximo prompt exacto: `PROMPT UI/UX 1.116 - Planificar publicacion restore point tras fix elementos inferiores Panel Maestro IA_CORE contract-aware sin runtime/no-execution`.
+
 No implementación, no UI activa modificada, no Final Screen Contracts tocado, no elementos inferiores modificados, no quinta sección, no contrato final, `DEFER_FINALIZATION` preservado, no User Panel/rutas/hash nuevos, no backend/runtime/endpoints/fetches nuevos, no deuda residual, no pyflakes y no push. Restore point remoto: `ccdef7a`; commits locales previos: `0403422`, `9a6e8c1` y `1e080ab`.
