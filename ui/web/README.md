@@ -1122,3 +1122,13 @@ UI/UX hardenizado hasta 1.87; `docs/UI_UX_CONTRACT_OVERVIEW_SCREEN_HARDENING_1_8
 Se ajustaron solo la seccion Contract Overview en `ui/web/index.html` y la sincronizacion local de lectura en `ui/web/console-interactions.js`; se agregaron test/documentacion 1.87. No se creo otra pantalla, User Panel, ruta/hash, endpoint, fetch, runtime ni CTA operativo. Push pospuesto hasta checkpoint.
 
 Proximo prompt exacto: `PROMPT UI/UX 1.88 - Checkpoint Contract Overview Screen implementada y hardenizada IA_CORE contract-aware sin runtime/no-execution`.
+
+## Checkpoint Contract Overview Screen 1.88
+
+UI/UX cerrado hasta 1.88; `docs/UI_UX_CONTRACT_OVERVIEW_SCREEN_CHECKPOINT_1_88.md` cierra la `Contract Overview Screen` implementada en 1.86, hardenizada en 1.87 y aprobada visualmente por el operador con `HUMAN_VISUAL_REVIEW_APPROVED`.
+
+La consola conserva Contract Overview como primera pantalla contract-aware implementada y como baseline visual/contractual para futuras pantallas: `FSC-CO-01`, `backend_internal_ui_payload.v1`, Panel Maestro, documental/read-only, `ready-no-permission`, `allowed_actions` como datos, `forbidden_actions` y `blocked_capabilities` visibles, evidence snapshot/no log vivo, sin CTAs operativos, User Panel, rutas/hash, endpoint, fetch, runtime, execution ni dispatch.
+
+Este checkpoint no implementa pantalla adicional, no modifica UI activa, no crea componente nuevo, no toca backend/runtime/endpoints/CI/dependencias, no limpia deuda residual, no corrige pyflakes y no avanza a 1.89. El push normal de este checkpoint publica el nuevo restore point remoto en el commit `docs(ui): cerrar checkpoint contract overview screen`.
+
+Proximo prompt exacto: `PROMPT UI/UX 1.89 - Planificar siguiente pantalla Final Screen Contract tras Contract Overview IA_CORE contract-aware sin runtime/no-execution`.
