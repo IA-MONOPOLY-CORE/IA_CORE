@@ -783,3 +783,17 @@ Documento: `docs/UI_UX_PANEL_MAESTRO_NEXT_VISUAL_BLOCK_PLAN_1_126.md`. Test: `te
 Proximo prompt exacto: `PROMPT UI/UX 1.127 - Publicar restore point primer bloque visual Master Shell Overview Panel Maestro IA_CORE contract-aware sin runtime/no-execution`.
 
 No implementacion, no UI activa modificada, no JS, no Final Screen Contracts internos modificados, no elementos inferiores modificados, no contrato funcional/final, no User Panel/rutas/hash, no endpoints/fetches nuevos, no runtime/execution/dispatch, no backend/runtime/endpoints/CI/dependencias, no deuda residual, no pyflakes y no push.
+
+## Publicación restore point Master Shell Overview 1.127
+
+1.127 prepara la publicacion del restore point remoto del primer bloque visual `Master Shell + Overview Layer` antes de tocar otro bloque visual activo. Restore point remoto previo: `01d09ce`; HEAD base: `f9c5b84`; rango local a publicar: `8843b60`, `03975b9`, `f3a2670`, `5a78211`, `886efe6`, `744d841`, `fee4fd7`, `9ad7ddb` y `f9c5b84`.
+
+El alcance publicado incluye planificacion post lower console, rediseño estructural, auditoria de arquitectura actual, arquitectura visual futura, guardrails pre-implementacion, planificacion del primer bloque visual, implementacion `Master Shell + Overview Layer`, checkpoint del bloque y planificacion del siguiente bloque visual. El nuevo restore point remoto esperado despues del push es el hash del commit 1.127, confirmado en el reporte final post-push.
+
+Primer bloque visual: cerrado, testeado, aprobado visualmente y listo para publicarse. Siguiente bloque recomendado posterior: `Final Screen Contracts Visual Rehousing`.
+
+Documento: `docs/UI_UX_PANEL_MAESTRO_MASTER_SHELL_OVERVIEW_RESTORE_POINT_PUBLICATION_1_127.md`. Test: `tests/test_ui_ux_panel_maestro_master_shell_overview_restore_point_publication_1_127.py`.
+
+Proximo prompt exacto despues del push: `PROMPT UI/UX 1.128 - Planificar rehousing visual Final Screen Contracts Panel Maestro IA_CORE contract-aware sin runtime/no-execution`.
+
+No implementacion de bloque nuevo, no UI activa modificada, no JS, no Final Screen Contracts modificados, no elementos inferiores, no contrato funcional/final, no User Panel/rutas/hash, no endpoints/fetches nuevos, no runtime/execution/dispatch, no backend/runtime/endpoints/CI/dependencias, no deuda residual y no pyflakes.

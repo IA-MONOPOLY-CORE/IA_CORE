@@ -1485,3 +1485,15 @@ Documento: `docs/UI_UX_PANEL_MAESTRO_NEXT_VISUAL_BLOCK_PLAN_1_126.md`. Test: `te
 Proximo prompt exacto: `PROMPT UI/UX 1.127 - Publicar restore point primer bloque visual Master Shell Overview Panel Maestro IA_CORE contract-aware sin runtime/no-execution`.
 
 No implementacion, no UI activa, no JS, no listeners/fetches/localStorage/hash/history nuevos, no Final Screen Contracts internos, no elementos inferiores, no contrato funcional/final, no User Panel/rutas/hash, no endpoints/fetches, no runtime/execution/dispatch, no backend/CI/dependencias, no deuda residual, no pyflakes y no push.
+
+## Restore point 1.127: Master Shell Overview
+
+1.127 publica el restore point remoto del primer bloque visual `Master Shell + Overview Layer` y de la planificacion del siguiente bloque. Restore point remoto previo: `01d09ce`; base local esperada: `f9c5b84`; commits publicados por el push: `8843b60`, `03975b9`, `f3a2670`, `5a78211`, `886efe6`, `744d841`, `fee4fd7`, `9ad7ddb` y `f9c5b84`, mas el commit documental 1.127.
+
+El nuevo restore point remoto esperado despues del push es el hash de 1.127, confirmado en el reporte final. El primer bloque visual queda cerrado/publicado; el siguiente bloque recomendado sigue siendo `Final Screen Contracts Visual Rehousing`, todavia sin implementacion.
+
+Documento: `docs/UI_UX_PANEL_MAESTRO_MASTER_SHELL_OVERVIEW_RESTORE_POINT_PUBLICATION_1_127.md`. Test: `tests/test_ui_ux_panel_maestro_master_shell_overview_restore_point_publication_1_127.py`.
+
+Proximo prompt exacto despues del push: `PROMPT UI/UX 1.128 - Planificar rehousing visual Final Screen Contracts Panel Maestro IA_CORE contract-aware sin runtime/no-execution`.
+
+No se implementa bloque nuevo, no se modifica UI activa, no se modifica JS, no se tocan Final Screen Contracts ni elementos inferiores, no se crea User Panel/rutas/hash, no se crean endpoints/fetches y no se toca backend/runtime/CI/dependencias.
