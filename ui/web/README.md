@@ -1459,3 +1459,15 @@ Base `886efe6`; restore point remoto `01d09ce`; commits previos `8843b60`, `0397
 No se modificaron `ui/web/styles.css`, `ui/web/i18n_es.json` ni `backend-contract-widgets.js`, `admin-panels.js`, `console-interactions.js` o `domains.js`; el CSS de este bloque es scoped inline y no se necesitó lógica, fetch, listener, ruta ni copy de catálogo. Final Screen Contracts y elementos inferiores permanecen preservados/bloqueados.
 
 Decisión: `PANEL_MAESTRO_MASTER_SHELL_OVERVIEW_IMPLEMENTED_WITH_NOTES_READY_FOR_HUMAN_VISUAL_REVIEW`. Próximo prompt, después de la revisión visual humana: `PROMPT UI/UX 1.125 - Hardening checkpoint primer bloque visual Master Shell Overview Panel Maestro IA_CORE contract-aware sin runtime/no-execution`. Documento: `docs/UI_UX_PANEL_MAESTRO_MASTER_SHELL_OVERVIEW_IMPLEMENTATION_1_124.md`; test: `tests/test_ui_ux_panel_maestro_master_shell_overview_implementation_1_124.py`; restore point remoto `01d09ce`; no push.
+
+## Checkpoint 1.125: Master Shell + Overview Layer
+
+1.125 cierra el checkpoint del primer bloque visual `Master Shell + Overview Layer` sin modificar la UI activa. La revision visual humana quedo aprobada: la UI se percibe mas bloqueada, en lectura/bloqueado, sin botones operativos y con un cambio estetico sutil que refuerza contract-aware / no-runtime / no-execution.
+
+Restore point remoto vigente: `01d09ce`. Commits locales previos: `8843b60`, `03975b9`, `f3a2670`, `5a78211`, `886efe6`, `744d841` y `fee4fd7`. Decision: `PANEL_MAESTRO_MASTER_SHELL_OVERVIEW_CHECKPOINT_PASSED_READY_FOR_NEXT_BLOCK_PLANNING`.
+
+Documento: `docs/UI_UX_PANEL_MAESTRO_MASTER_SHELL_OVERVIEW_CHECKPOINT_1_125.md`. Test: `tests/test_ui_ux_panel_maestro_master_shell_overview_checkpoint_1_125.py`.
+
+Proximo prompt exacto: `PROMPT UI/UX 1.126 - Planificar siguiente bloque visual rediseño estructural Panel Maestro IA_CORE contract-aware sin runtime/no-execution`.
+
+No push. No bloque nuevo implementado, no UI activa modificada, no JS, no listeners/fetches/localStorage/hash/history nuevos, no Final Screen Contracts internos modificados, no elementos inferiores modificados, no contrato funcional/final, no User Panel/rutas/hash, no backend/runtime/endpoints/CI/dependencias, no deuda residual y no pyflakes.

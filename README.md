@@ -757,3 +757,15 @@ Decisión final: `PANEL_MAESTRO_MASTER_SHELL_OVERVIEW_IMPLEMENTED_WITH_NOTES_REA
 Documento: `docs/UI_UX_PANEL_MAESTRO_MASTER_SHELL_OVERVIEW_IMPLEMENTATION_1_124.md`. Test: `tests/test_ui_ux_panel_maestro_master_shell_overview_implementation_1_124.py`. Restore point remoto vigente `01d09ce`; base local `744d841`; no push.
 
 No implementación, no UI activa, no Final Screen Contracts modificados, no elementos inferiores modificados, no User Panel, no rutas/hash, no endpoints/fetches nuevos, no runtime/execution/dispatch, no backend/runtime/endpoints/CI/dependencias, no deuda residual, no pyflakes y no push.
+
+## Checkpoint 1.125: Master Shell + Overview Layer
+
+1.125 cierra el hardening/checkpoint del primer bloque visual `Master Shell + Overview Layer` del Panel Maestro IA_CORE. Incorpora la revision visual humana aprobada: el operador confirmo que la UI quedo mas bloqueada que antes, que eso era lo esperado para esta etapa, que no funciona ningun boton como accion operativa y que todo queda en lectura/bloqueado.
+
+Restore point remoto vigente: `01d09ce`. Commits locales previos: `8843b60`, `03975b9`, `f3a2670`, `5a78211`, `886efe6`, `744d841` y `fee4fd7`. Decision final: `PANEL_MAESTRO_MASTER_SHELL_OVERVIEW_CHECKPOINT_PASSED_READY_FOR_NEXT_BLOCK_PLANNING`.
+
+Documento: `docs/UI_UX_PANEL_MAESTRO_MASTER_SHELL_OVERVIEW_CHECKPOINT_1_125.md`. Test: `tests/test_ui_ux_panel_maestro_master_shell_overview_checkpoint_1_125.py`.
+
+Proximo prompt exacto: `PROMPT UI/UX 1.126 - Planificar siguiente bloque visual rediseño estructural Panel Maestro IA_CORE contract-aware sin runtime/no-execution`.
+
+No push en 1.125. No implementacion de bloque nuevo, no UI activa modificada, no JS, no Final Screen Contracts internos modificados, no elementos inferiores modificados, no rutas/hash, no User Panel, no endpoints/fetches nuevos, no runtime/execution/dispatch, no backend/runtime/endpoints/CI/dependencias, no deuda residual y no pyflakes.
