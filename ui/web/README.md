@@ -1497,3 +1497,17 @@ Documento: `docs/UI_UX_PANEL_MAESTRO_MASTER_SHELL_OVERVIEW_RESTORE_POINT_PUBLICA
 Proximo prompt exacto despues del push: `PROMPT UI/UX 1.128 - Planificar rehousing visual Final Screen Contracts Panel Maestro IA_CORE contract-aware sin runtime/no-execution`.
 
 No se implementa bloque nuevo, no se modifica UI activa, no se modifica JS, no se tocan Final Screen Contracts ni elementos inferiores, no se crea User Panel/rutas/hash, no se crean endpoints/fetches y no se toca backend/runtime/CI/dependencias.
+
+## Plan 1.128: Rehousing visual Final Screen Contracts
+
+1.128 planifica el futuro rehousing visual externo de las cuatro Final Screen Contracts dentro del `Master Shell + Overview Layer`. Restore point remoto vigente: `570b18f`; `main` estaba up to date con `origin/main` al inicio; el primer bloque visual ya fue publicado.
+
+El plan preserva `FSC-CO-01`, `FSC-BF-02`, `FSC-VR-03`, `FSC-RCP-04`, `DEFER_FINALIZATION`, no-runtime/no-execution, IA_CORE como identidad activa y la zona inferior bloqueada. El futuro bloque podra reorganizar wrappers externos, jerarquia, separacion, labels, densidad y responsive, pero no podra crear quinta FSC, renombrar IDs, cambiar significado contractual, activar capacidades, tocar JS, crear rutas/hash/User Panel/endpoints/fetches ni reactivar `CFG`, `+` o `DOMAIN`.
+
+Decision final: `FINAL_SCREEN_CONTRACTS_VISUAL_REHOUSING_PLAN_READY_FOR_GUARDED_IMPLEMENTATION_PROMPT`.
+
+Documento: `docs/UI_UX_PANEL_MAESTRO_FINAL_SCREEN_CONTRACTS_VISUAL_REHOUSING_PLAN_1_128.md`. Test: `tests/test_ui_ux_panel_maestro_final_screen_contracts_visual_rehousing_plan_1_128.py`.
+
+Proximo prompt exacto: `PROMPT UI/UX 1.129 - Implementar rehousing visual Final Screen Contracts Panel Maestro IA_CORE contract-aware sin runtime/no-execution`.
+
+No se implemento rehousing, no se modifico UI activa, no se modifico JS, no se tocaron Final Screen Contracts ni elementos inferiores, no se creo contrato final, no se hizo push y no se avanzo a 1.129.

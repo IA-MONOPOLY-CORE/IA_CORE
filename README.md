@@ -797,3 +797,17 @@ Documento: `docs/UI_UX_PANEL_MAESTRO_MASTER_SHELL_OVERVIEW_RESTORE_POINT_PUBLICA
 Proximo prompt exacto despues del push: `PROMPT UI/UX 1.128 - Planificar rehousing visual Final Screen Contracts Panel Maestro IA_CORE contract-aware sin runtime/no-execution`.
 
 No implementacion de bloque nuevo, no UI activa modificada, no JS, no Final Screen Contracts modificados, no elementos inferiores, no contrato funcional/final, no User Panel/rutas/hash, no endpoints/fetches nuevos, no runtime/execution/dispatch, no backend/runtime/endpoints/CI/dependencias, no deuda residual y no pyflakes.
+
+## Plan rehousing visual Final Screen Contracts 1.128
+
+1.128 planifica el rehousing visual externo de las cuatro Final Screen Contracts dentro del `Master Shell + Overview Layer`, sin implementarlo. Restore point remoto vigente: `570b18f`; al inicio `main` estaba up to date con `origin/main`, con working tree limpio y primer bloque visual publicado.
+
+El plan conserva `FSC-CO-01`, `FSC-BF-02`, `FSC-VR-03`, `FSC-RCP-04`, `DEFER_FINALIZATION`, no-runtime/no-execution, IA_CORE como identidad activa y los elementos inferiores `CFG`, `+` y `DOMAIN` bloqueados. Define alcance futuro permitido/prohibido, archivos futuros permitidos/prohibidos, limites HTML/CSS/i18n, JS futuro como no recomendado salvo prompt dedicado, criterios de revision visual humana, validaciones futuras y risk register.
+
+Decision final: `FINAL_SCREEN_CONTRACTS_VISUAL_REHOUSING_PLAN_READY_FOR_GUARDED_IMPLEMENTATION_PROMPT`.
+
+Documento: `docs/UI_UX_PANEL_MAESTRO_FINAL_SCREEN_CONTRACTS_VISUAL_REHOUSING_PLAN_1_128.md`. Test: `tests/test_ui_ux_panel_maestro_final_screen_contracts_visual_rehousing_plan_1_128.py`.
+
+Proximo prompt exacto: `PROMPT UI/UX 1.129 - Implementar rehousing visual Final Screen Contracts Panel Maestro IA_CORE contract-aware sin runtime/no-execution`.
+
+No implementacion, no rehousing activo, no UI activa modificada, no JS, no Final Screen Contracts internos, no elementos inferiores, no contrato funcional/final, no User Panel/rutas/hash, no endpoints/fetches nuevos, no runtime/execution/dispatch, no backend/runtime/endpoints/CI/dependencias, no deuda residual, no pyflakes y no push.
