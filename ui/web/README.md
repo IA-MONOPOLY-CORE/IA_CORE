@@ -1511,3 +1511,17 @@ Documento: `docs/UI_UX_PANEL_MAESTRO_FINAL_SCREEN_CONTRACTS_VISUAL_REHOUSING_PLA
 Proximo prompt exacto: `PROMPT UI/UX 1.129 - Implementar rehousing visual Final Screen Contracts Panel Maestro IA_CORE contract-aware sin runtime/no-execution`.
 
 No se implemento rehousing, no se modifico UI activa, no se modifico JS, no se tocaron Final Screen Contracts ni elementos inferiores, no se creo contrato final, no se hizo push y no se avanzo a 1.129.
+
+## Implementación 1.129: Rehousing visual Final Screen Contracts
+
+1.129 implementa una envoltura visual externa para las cuatro Final Screen Contracts en `ui/web/index.html`. La banda `final-screen-contracts-rehousing` agrupa el bloque bajo el `Master Shell + Overview Layer`, agrega encabezado documental, microcopy read-only, etiquetas `NO_RUNTIME`/`NO_EXECUTION` y grilla externa con `data-contract-screen-count="4"`.
+
+Las cuatro FSC quedan internamente preservadas: `FSC-CO-01`, `FSC-BF-02`, `FSC-VR-03` y `FSC-RCP-04`. `DEFER_FINALIZATION` sigue visible; no se modifican JS, `ui/web/styles.css`, `ui/web/i18n_es.json`, lower console, `CFG`, `+`, `DOMAIN`, endpoints ni backend.
+
+Decisión final: `FINAL_SCREEN_CONTRACTS_VISUAL_REHOUSING_IMPLEMENTED_WITH_NOTES_READY_FOR_HUMAN_VISUAL_REVIEW`. Revisión visual humana pendiente antes del checkpoint.
+
+Documento: `docs/UI_UX_PANEL_MAESTRO_FINAL_SCREEN_CONTRACTS_VISUAL_REHOUSING_IMPLEMENTATION_1_129.md`. Test: `tests/test_ui_ux_panel_maestro_final_screen_contracts_visual_rehousing_implementation_1_129.py`.
+
+Próximo prompt exacto, después de revisión visual humana: `PROMPT UI/UX 1.130 - Hardening checkpoint rehousing visual Final Screen Contracts Panel Maestro IA_CORE contract-aware sin runtime/no-execution`.
+
+No quinta FSC, no renombre de IDs, no contrato funcional/final, no User Panel/rutas/hash, no endpoints/fetches, no JS, no runtime/execution/dispatch, no backend, no push y no avance a 1.130.

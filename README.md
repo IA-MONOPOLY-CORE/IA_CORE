@@ -811,3 +811,17 @@ Documento: `docs/UI_UX_PANEL_MAESTRO_FINAL_SCREEN_CONTRACTS_VISUAL_REHOUSING_PLA
 Proximo prompt exacto: `PROMPT UI/UX 1.129 - Implementar rehousing visual Final Screen Contracts Panel Maestro IA_CORE contract-aware sin runtime/no-execution`.
 
 No implementacion, no rehousing activo, no UI activa modificada, no JS, no Final Screen Contracts internos, no elementos inferiores, no contrato funcional/final, no User Panel/rutas/hash, no endpoints/fetches nuevos, no runtime/execution/dispatch, no backend/runtime/endpoints/CI/dependencias, no deuda residual, no pyflakes y no push.
+
+## Implementación rehousing visual Final Screen Contracts 1.129
+
+1.129 implementa el rehousing visual externo del bloque Final Screen Contracts dentro del `Master Shell + Overview Layer`. Restore point remoto vigente: `570b18f`; commit local previo: `469d963`; al inicio `main` estaba ahead de `origin/main` por 1 commit.
+
+El cambio agrega en `ui/web/index.html` una banda documental `final-screen-contracts-rehousing`, un encabezado de grupo `Final Screen Contracts / contratos finales de pantalla`, etiquetas read-only/no-runtime/no-execution y una grilla externa para alojar las cuatro FSC. Se preservan internamente `FSC-CO-01`, `FSC-BF-02`, `FSC-VR-03`, `FSC-RCP-04`, `DEFER_FINALIZATION`, elementos inferiores, `CFG`, `+`, `DOMAIN`, JS y backend.
+
+Decisión final: `FINAL_SCREEN_CONTRACTS_VISUAL_REHOUSING_IMPLEMENTED_WITH_NOTES_READY_FOR_HUMAN_VISUAL_REVIEW`. Queda pendiente revisión visual humana antes del hardening/checkpoint.
+
+Documento: `docs/UI_UX_PANEL_MAESTRO_FINAL_SCREEN_CONTRACTS_VISUAL_REHOUSING_IMPLEMENTATION_1_129.md`. Test: `tests/test_ui_ux_panel_maestro_final_screen_contracts_visual_rehousing_implementation_1_129.py`.
+
+Próximo prompt exacto, después de revisión visual humana: `PROMPT UI/UX 1.130 - Hardening checkpoint rehousing visual Final Screen Contracts Panel Maestro IA_CORE contract-aware sin runtime/no-execution`.
+
+No quinta FSC, no renombre de IDs, no contrato funcional cambiado, no contrato final, no User Panel/rutas/hash, no endpoints/fetches nuevos, no JS, no elementos inferiores modificados, no runtime/execution/dispatch, no backend/runtime/endpoints/CI/dependencias, no deuda residual, no pyflakes y no push.

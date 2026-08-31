@@ -755,6 +755,89 @@
             color: var(--cyan);
             font-size: 0.62rem;
         }
+        /* FSC REHOUSING 1.129: external visual grouping only; no controls or routing. */
+        .final-screen-contracts-rehousing {
+            margin: 18px 0 22px;
+            padding: 18px 0 6px;
+            border-top: 1px solid rgba(56,189,248,0.24);
+            border-bottom: 1px solid rgba(148,163,184,0.14);
+            background: linear-gradient(180deg, rgba(15,23,42,0.22), rgba(2,6,23,0));
+        }
+        .final-screen-contracts-rehousing-header {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) auto;
+            gap: 14px;
+            align-items: start;
+            margin-bottom: 14px;
+            padding: 0 4px 13px;
+            border-bottom: 1px solid rgba(148,163,184,0.14);
+        }
+        .final-screen-contracts-rehousing-title {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px 10px;
+            align-items: baseline;
+            margin-top: 5px;
+        }
+        .final-screen-contracts-rehousing-title h2 {
+            margin: 0;
+            color: var(--text-primary);
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 1.34rem;
+            line-height: 1.15;
+            text-transform: uppercase;
+        }
+        .final-screen-contracts-rehousing-title span {
+            color: var(--cyan);
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 0.64rem;
+            text-transform: uppercase;
+        }
+        .final-screen-contracts-rehousing-copy {
+            max-width: 78ch;
+            margin: 8px 0 0;
+            color: rgba(226,232,240,0.76);
+            font-size: 0.73rem;
+            line-height: 1.55;
+        }
+        .final-screen-contracts-rehousing-states {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: flex-end;
+            gap: 6px;
+            max-width: 320px;
+        }
+        .final-screen-contracts-rehousing-state {
+            display: inline-flex;
+            align-items: center;
+            min-height: 24px;
+            padding: 4px 7px;
+            border: 1px solid rgba(148,163,184,0.26);
+            color: var(--text-muted);
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 0.56rem;
+            text-transform: uppercase;
+        }
+        .final-screen-contracts-rehousing-state[data-state="blocked"] {
+            border-color: rgba(239,68,68,0.42);
+            color: #fca5a5;
+        }
+        .final-screen-contracts-rehousing-state[data-state="deferred"] {
+            border-color: rgba(245,158,11,0.42);
+            color: var(--amber);
+        }
+        .final-screen-contracts-rehousing-grid {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr);
+            gap: 16px;
+        }
+        .final-screen-contracts-rehousing-grid > .layout-section {
+            margin: 0;
+            scroll-margin-top: 16px;
+        }
+        .final-screen-contracts-rehousing-grid > .layout-section[data-contract-screen] {
+            box-shadow: inset 3px 0 0 rgba(56,189,248,0.26), 0 12px 28px rgba(0,0,0,0.14);
+        }
         @media (max-width: 760px) {
             .contract-overview-heading,
             .contract-overview-grid {
@@ -1993,6 +2076,15 @@
             }
             .master-shell-header #brand-title { font-size: 1.75rem; }
             .master-overview-state-grid { grid-template-columns: 1fr; }
+            .final-screen-contracts-rehousing-header {
+                grid-template-columns: 1fr;
+                padding-inline: 0;
+            }
+            .final-screen-contracts-rehousing-states {
+                justify-content: flex-start;
+                max-width: none;
+            }
+            .final-screen-contracts-rehousing-title h2 { font-size: 1.12rem; }
             .badge { width: 100%; overflow-wrap: anywhere; }
             .console-flow-steps { grid-template-columns: 1fr; }
             .internal-nav-header { align-items: flex-start; flex-direction: column; gap: 4px; }
@@ -2490,6 +2582,25 @@
         </ol>
     </div>
 
+    <div class="final-screen-contracts-rehousing" role="region" aria-labelledby="final-screen-contracts-rehousing-title" data-visual-layer="final-screen-contracts-rehousing" data-visual-rehousing="final-screen-contracts-1.129" data-visual-state="READ_ONLY DOCUMENTED BLOCKED_BY_CONTRACT NO_RUNTIME NO_EXECUTION" data-interaction-mode="read-only" data-no-runtime="true" data-no-execution="true" data-no-dispatch="true" data-no-fetch="true">
+        <header class="final-screen-contracts-rehousing-header">
+            <div>
+                <div class="layout-label">CONTRACTS LAYER / FINAL SCREEN CONTRACTS / REHOUSING VISUAL</div>
+                <div class="final-screen-contracts-rehousing-title">
+                    <h2 id="final-screen-contracts-rehousing-title">Final Screen Contracts</h2>
+                    <span>contratos finales de pantalla</span>
+                </div>
+                <p class="final-screen-contracts-rehousing-copy">Grupo documental read-only de las cuatro FSC. Este rehousing visual externo mejora jerarquia, separacion y relacion con el Master Shell + Overview Layer sin cambiar IDs, estados, contenido contractual, DEFER_FINALIZATION, elementos inferiores ni autoridad backend.</p>
+            </div>
+            <div class="final-screen-contracts-rehousing-states" aria-label="Estados documentales del grupo Final Screen Contracts">
+                <span class="final-screen-contracts-rehousing-state">READ_ONLY</span>
+                <span class="final-screen-contracts-rehousing-state">NO_RUNTIME</span>
+                <span class="final-screen-contracts-rehousing-state">NO_EXECUTION</span>
+                <span class="final-screen-contracts-rehousing-state" data-state="blocked">BLOCKED_BY_CONTRACT</span>
+                <span class="final-screen-contracts-rehousing-state" data-state="deferred">DEFER_FINALIZATION</span>
+            </div>
+        </header>
+        <div class="final-screen-contracts-rehousing-grid" data-fsc-rehousing-grid="external-only" data-contract-screen-count="4">
     <section class="contract-overview-screen layout-section" id="contract-overview-screen" data-main-console-zone="contract-overview" data-contract-screen="FSC-CO-01" data-contract-overview-state="documented ready-no-permission no-runtime no-execution" data-interaction-mode="read-only" data-interaction-state="read_only inspectable" aria-labelledby="contract-overview-title">
         <div class="contract-overview-heading">
             <div>
@@ -2886,6 +2997,8 @@
         </div>
         <p class="request-contract-preview-note" id="request-contract-preview-note">Semantic boundary: draft / not final · DEFER_FINALIZATION · sin contrato final · sin implementación operativa · request no submit · preview no dispatch · no runtime · no execution · no delivery · read-only · readable contract no executable payload.</p>
     </section>
+        </div>
+    </div>
 
     <section class="console-flow-map secondary-readable-map" data-density-tier="secondary" aria-label="Ruta narrativa de lectura contract-aware">
         <div class="console-flow-intro">
