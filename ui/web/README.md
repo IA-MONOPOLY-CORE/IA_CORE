@@ -1471,3 +1471,17 @@ Documento: `docs/UI_UX_PANEL_MAESTRO_MASTER_SHELL_OVERVIEW_CHECKPOINT_1_125.md`.
 Proximo prompt exacto: `PROMPT UI/UX 1.126 - Planificar siguiente bloque visual rediseño estructural Panel Maestro IA_CORE contract-aware sin runtime/no-execution`.
 
 No push. No bloque nuevo implementado, no UI activa modificada, no JS, no listeners/fetches/localStorage/hash/history nuevos, no Final Screen Contracts internos modificados, no elementos inferiores modificados, no contrato funcional/final, no User Panel/rutas/hash, no backend/runtime/endpoints/CI/dependencias, no deuda residual y no pyflakes.
+
+## Plan 1.126: siguiente bloque visual Panel Maestro
+
+1.126 no modifica la consola web; solo planifica la continuidad despues del checkpoint `Master Shell + Overview Layer`. El primer bloque visual queda cerrado y aprobado por revision humana, con UI mas bloqueada, lectura/bloqueado y sin botones operativos.
+
+Bloque visual recomendado: `Final Screen Contracts Visual Rehousing`. El futuro alcance debera limitarse a reorganizacion visual externa de `FSC-CO-01`, `FSC-BF-02`, `FSC-VR-03` y `FSC-RCP-04`, sin quinta seccion, sin cambio de IDs, sin alterar `DEFER_FINALIZATION`, sin acciones, sin JS, sin rutas/hash, sin User Panel, sin elementos inferiores y sin backend.
+
+Evaluacion de restore point: `origin/main` sigue en `01d09ce`; al inicio de 1.126 `main` estaba ahead por 8 commits. Decision: `NEXT_STEP_RESTORE_POINT_PUBLICATION_SELECTED_BEFORE_NEXT_VISUAL_BLOCK`.
+
+Documento: `docs/UI_UX_PANEL_MAESTRO_NEXT_VISUAL_BLOCK_PLAN_1_126.md`. Test: `tests/test_ui_ux_panel_maestro_next_visual_block_plan_1_126.py`.
+
+Proximo prompt exacto: `PROMPT UI/UX 1.127 - Publicar restore point primer bloque visual Master Shell Overview Panel Maestro IA_CORE contract-aware sin runtime/no-execution`.
+
+No implementacion, no UI activa, no JS, no listeners/fetches/localStorage/hash/history nuevos, no Final Screen Contracts internos, no elementos inferiores, no contrato funcional/final, no User Panel/rutas/hash, no endpoints/fetches, no runtime/execution/dispatch, no backend/CI/dependencias, no deuda residual, no pyflakes y no push.

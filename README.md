@@ -769,3 +769,17 @@ Documento: `docs/UI_UX_PANEL_MAESTRO_MASTER_SHELL_OVERVIEW_CHECKPOINT_1_125.md`.
 Proximo prompt exacto: `PROMPT UI/UX 1.126 - Planificar siguiente bloque visual rediseño estructural Panel Maestro IA_CORE contract-aware sin runtime/no-execution`.
 
 No push en 1.125. No implementacion de bloque nuevo, no UI activa modificada, no JS, no Final Screen Contracts internos modificados, no elementos inferiores modificados, no rutas/hash, no User Panel, no endpoints/fetches nuevos, no runtime/execution/dispatch, no backend/runtime/endpoints/CI/dependencias, no deuda residual y no pyflakes.
+
+## Plan siguiente bloque visual Panel Maestro 1.126
+
+1.126 planifica el siguiente bloque visual posterior al checkpoint aprobado `Master Shell + Overview Layer`. El primer bloque visual quedo cerrado, implementado y aprobado por revision humana; la UI quedo mas bloqueada, sin botones operativos y en lectura/bloqueado.
+
+Siguiente bloque recomendado: `Final Screen Contracts Visual Rehousing`, para reorganizar externamente las cuatro FSC dentro del nuevo shell sin cambiar IDs, contenido contractual, `DEFER_FINALIZATION`, acciones, JS, rutas/hash, User Panel, elementos inferiores ni backend.
+
+Evaluacion de restore point: restore point remoto vigente `01d09ce`; local ahead por 8 commits al inicio de 1.126. Como el proximo bloque podria modificar UI activa otra vez, la decision final es `NEXT_STEP_RESTORE_POINT_PUBLICATION_SELECTED_BEFORE_NEXT_VISUAL_BLOCK`.
+
+Documento: `docs/UI_UX_PANEL_MAESTRO_NEXT_VISUAL_BLOCK_PLAN_1_126.md`. Test: `tests/test_ui_ux_panel_maestro_next_visual_block_plan_1_126.py`.
+
+Proximo prompt exacto: `PROMPT UI/UX 1.127 - Publicar restore point primer bloque visual Master Shell Overview Panel Maestro IA_CORE contract-aware sin runtime/no-execution`.
+
+No implementacion, no UI activa modificada, no JS, no Final Screen Contracts internos modificados, no elementos inferiores modificados, no contrato funcional/final, no User Panel/rutas/hash, no endpoints/fetches nuevos, no runtime/execution/dispatch, no backend/runtime/endpoints/CI/dependencias, no deuda residual, no pyflakes y no push.
