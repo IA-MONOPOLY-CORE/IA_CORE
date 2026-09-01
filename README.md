@@ -867,3 +867,15 @@ Documento: `docs/UI_UX_PANEL_MAESTRO_DESIGN_SYSTEM_DENSITY_REFINEMENT_PLAN_1_132
 Proximo prompt exacto: `PROMPT UI/UX 1.133 - Decidir publicación restore point antes de implementar Design System Density Refinement Panel Maestro IA_CORE contract-aware sin runtime/no-execution`.
 
 No implementacion, no polish visual, no UI activa, no JS, no Final Screen Contracts modificados, no elementos inferiores modificados, no contrato funcional/final, no User Panel/rutas/hash, no endpoints/fetches nuevos, no runtime/execution/dispatch, no backend/runtime/endpoints/CI/dependencias, no deuda residual, no pyflakes, no push y no avance a 1.133.
+
+## Decisión restore point antes de Density Refinement 1.133
+
+1.133 decide formalmente publicar un restore point antes de implementar `Design System / Density Refinement`, sin hacer push en este prompt. Restore point remoto vigente `570b18f`; commits locales previos `469d963`, `a47a4f8`, `fd15a84`, `9e8ea7c` y `c645993`; local ahead por 5 commits al inicio y working tree limpio.
+
+La decision final es `RESTORE_POINT_PUBLICATION_SELECTED_BEFORE_DENSITY_REFINEMENT_IMPLEMENTATION`. El motivo: el siguiente bloque probablemente toque UI activa, `ui/web/styles.css`, posiblemente `ui/web/index.html` y copy visible; conviene publicar el rehousing FSC aprobado y la planificacion density antes de abrir otra implementacion visual activa.
+
+Documento: `docs/UI_UX_PANEL_MAESTRO_RESTORE_POINT_DECISION_BEFORE_DENSITY_REFINEMENT_1_133.md`. Test: `tests/test_ui_ux_panel_maestro_restore_point_decision_before_density_refinement_1_133.py`.
+
+Proximo prompt exacto: `PROMPT UI/UX 1.134 - Publicar restore point rehousing FSC y plan Design System Density Refinement Panel Maestro IA_CORE contract-aware sin runtime/no-execution`.
+
+No implementacion, no density/tokens, no polish visual, no UI activa, no JS, no Final Screen Contracts modificados, no elementos inferiores modificados, no contrato funcional/final, no User Panel/rutas/hash, no endpoints/fetches nuevos, no runtime/execution/dispatch, no backend/runtime/endpoints/CI/dependencias, no deuda residual, no pyflakes, no push y no avance a 1.134.
