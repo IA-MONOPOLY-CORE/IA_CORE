@@ -853,3 +853,17 @@ Documento: `docs/UI_UX_PANEL_MAESTRO_NEXT_VISUAL_BLOCK_AFTER_FSC_REHOUSING_PLAN_
 Proximo prompt exacto: `PROMPT UI/UX 1.132 - Planificar Design System y Density Refinement Panel Maestro IA_CORE contract-aware sin runtime/no-execution`.
 
 No implementacion, no UI activa, no JS, no Final Screen Contracts modificados, no elementos inferiores modificados, no contrato funcional/final, no User Panel/rutas/hash, no endpoints/fetches nuevos, no runtime/execution/dispatch, no backend/runtime/endpoints/CI/dependencias, no deuda residual, no pyflakes, no push y no avance a 1.132.
+
+## Plan 1.132: Design System y Density Refinement
+
+1.132 planifica `Design System / Density Refinement` para el Panel Maestro IA_CORE sin implementar ni modificar UI activa. Restore point remoto vigente `570b18f`; commits locales previos `469d963`, `a47a4f8`, `fd15a84` y `9e8ea7c`; local ahead por 4 commits al inicio.
+
+El plan define proposito, reglas de densidad visual, tokens visuales conceptuales, jerarquia tipografica, spacing/layout, badges y estados, patrones read-only/blocked/no-runtime/no-execution, reglas anti-CTA operativo, patrones evidence/documentation, criterios responsive y aplicacion futura por fases. La densidad visual sigue como deuda menor no bloqueante.
+
+Decision final: `DESIGN_SYSTEM_DENSITY_REFINEMENT_PLAN_READY_FOR_RESTORE_POINT_DECISION`. No se publica restore point en este prompt; despues de este commit habra cinco commits locales y conviene decidir/publicar restore point antes de implementar cambios visuales activos de density/tokens.
+
+Documento: `docs/UI_UX_PANEL_MAESTRO_DESIGN_SYSTEM_DENSITY_REFINEMENT_PLAN_1_132.md`. Test: `tests/test_ui_ux_panel_maestro_design_system_density_refinement_plan_1_132.py`.
+
+Proximo prompt exacto: `PROMPT UI/UX 1.133 - Decidir publicación restore point antes de implementar Design System Density Refinement Panel Maestro IA_CORE contract-aware sin runtime/no-execution`.
+
+No implementacion, no polish visual, no UI activa, no JS, no Final Screen Contracts modificados, no elementos inferiores modificados, no contrato funcional/final, no User Panel/rutas/hash, no endpoints/fetches nuevos, no runtime/execution/dispatch, no backend/runtime/endpoints/CI/dependencias, no deuda residual, no pyflakes, no push y no avance a 1.133.
