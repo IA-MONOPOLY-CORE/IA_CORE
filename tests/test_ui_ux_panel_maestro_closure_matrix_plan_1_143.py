@@ -199,7 +199,7 @@ def test_document_records_preserved_limits():
 
 def test_plan_prompt_does_not_touch_active_ui_js_or_backend_after_142():
     result = subprocess.run(
-        ["git", "diff", "--name-only", "5c40fbc", "--", *PROHIBITED_AFTER_142],
+        ["git", "diff", "--name-only", "5c40fbc", "ff731d6", "--", *PROHIBITED_AFTER_142],
         cwd=ROOT,
         check=True,
         text=True,

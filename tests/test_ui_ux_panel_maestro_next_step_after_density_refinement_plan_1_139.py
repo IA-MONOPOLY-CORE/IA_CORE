@@ -141,7 +141,7 @@ def test_document_records_single_decision_next_prompt_and_limits():
 
 def test_plan_prompt_does_not_touch_active_ui_js_or_backend_after_138():
     result = subprocess.run(
-        ["git", "diff", "--name-only", "862e915", "--", *PROHIBITED_AFTER_138],
+        ["git", "diff", "--name-only", "862e915", "784bc56", "--", *PROHIBITED_AFTER_138],
         cwd=ROOT,
         check=True,
         text=True,

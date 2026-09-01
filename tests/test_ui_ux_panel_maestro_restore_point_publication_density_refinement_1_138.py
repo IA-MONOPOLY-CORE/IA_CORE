@@ -128,7 +128,7 @@ def test_document_records_limits_publication_result_decision_and_next_prompt():
 
 def test_publication_prompt_does_not_touch_active_ui_js_or_backend_after_137():
     result = subprocess.run(
-        ["git", "diff", "--name-only", "1d14e35", "--", *PROHIBITED_AFTER_137],
+        ["git", "diff", "--name-only", "1d14e35", "862e915", "--", *PROHIBITED_AFTER_137],
         cwd=ROOT,
         check=True,
         text=True,

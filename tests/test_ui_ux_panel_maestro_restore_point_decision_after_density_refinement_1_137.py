@@ -116,7 +116,7 @@ def test_document_records_limits_decision_and_next_prompt():
 
 def test_decision_prompt_does_not_touch_active_ui_js_or_backend_after_136():
     result = subprocess.run(
-        ["git", "diff", "--name-only", "dc0c100", "--", *PROHIBITED_AFTER_136],
+        ["git", "diff", "--name-only", "dc0c100", "1d14e35", "--", *PROHIBITED_AFTER_136],
         cwd=ROOT,
         check=True,
         text=True,

@@ -7,6 +7,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/styles.css">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         
@@ -3228,6 +3229,152 @@
     </section>
         </div>
     </div>
+
+    <section class="closure-matrix-section layout-section" id="closure-matrix-ui-ux-1x" data-closure-matrix="ui-ux-1.145" data-component="ia-panel ia-evidence" data-density-tier="secondary" data-interaction-mode="read-only" data-interaction-state="static_documentation" data-no-runtime="true" data-no-execution="true" data-no-dispatch="true" data-no-fetch="true" aria-labelledby="closure-matrix-title">
+        <header class="closure-matrix-header">
+            <div>
+                <div class="layout-label">CLOSURE LAYER / PANEL MAESTRO / READ-ONLY</div>
+                <h2 id="closure-matrix-title">Matriz de cierre UI/UX 1.x</h2>
+                <p>Bloque documental/read-only para leer cierre, contrato, evidencia, deuda, publicacion y futuro sin cambiar estado ni exponer payload crudo.</p>
+            </div>
+            <div class="closure-matrix-state-row" aria-label="Estados permitidos de matriz">
+                <span class="closure-matrix-badge closure-matrix-badge--passed">PASSED</span>
+                <span class="closure-matrix-badge closure-matrix-badge--minor">PASSED_WITH_MINOR_DEBT</span>
+                <span class="closure-matrix-badge closure-matrix-badge--deferred">DEFERRED_WITH_GUARDRAILS</span>
+                <span class="closure-matrix-badge closure-matrix-badge--blocked">BLOCKED_NEEDS_FIX</span>
+                <span class="closure-matrix-badge closure-matrix-badge--critical">BLOCKED_CRITICAL</span>
+                <span class="closure-matrix-badge closure-matrix-badge--neutral">NOT_APPLICABLE</span>
+            </div>
+        </header>
+        <div class="closure-matrix-summary" aria-label="Resumen documental de matriz">
+            <div><strong>Ubicacion</strong><span>Despues de Final Screen Contracts Rehousing; antes de elementos inferiores.</span></div>
+            <div><strong>Contrato</strong><span>FSC-CO-01, FSC-BF-02, FSC-VR-03 y FSC-RCP-04 preservados.</span></div>
+            <div><strong>Guardrail</strong><span>DEFER_FINALIZATION preservado; sin raw Package y sin payload crudo.</span></div>
+        </div>
+        <div class="closure-matrix-grid" role="list" aria-label="Dimensiones de cierre UI UX 1.x">
+            <article class="closure-matrix-row" role="listitem" data-closure-category="identidad">
+                <span class="closure-matrix-index">01</span>
+                <div class="closure-matrix-main"><h3>Identidad visible</h3><p>Evidencia: IA_CORE visible; identidad heredada fuera de identidad visible.</p></div>
+                <span class="closure-matrix-badge closure-matrix-badge--passed">PASSED</span>
+                <p>Criterio: identidad estable. Riesgo: confusion de producto. Guardrail: legado solo historico.</p>
+            </article>
+            <article class="closure-matrix-row" role="listitem" data-closure-category="UI">
+                <span class="closure-matrix-index">02</span>
+                <div class="closure-matrix-main"><h3>Master Shell / Overview Layer</h3><p>Evidencia: shell y overview documentales publicados.</p></div>
+                <span class="closure-matrix-badge closure-matrix-badge--passed">PASSED</span>
+                <p>Criterio: orientacion inicial clara. Riesgo: perdida de contexto. Dependencia: estructura 1.124/1.125.</p>
+            </article>
+            <article class="closure-matrix-row" role="listitem" data-closure-category="contrato">
+                <span class="closure-matrix-index">03</span>
+                <div class="closure-matrix-main"><h3>Final Screen Contracts Rehousing</h3><p>Evidencia: grupo documental de cuatro FSC.</p></div>
+                <span class="closure-matrix-badge closure-matrix-badge--passed">PASSED</span>
+                <p>Criterio: no reemplaza FSC. Riesgo: alterar significado. Guardrail: sin quinta FSC.</p>
+            </article>
+            <article class="closure-matrix-row" role="listitem" data-closure-category="UI">
+                <span class="closure-matrix-index">04</span>
+                <div class="closure-matrix-main"><h3>Design System / Density Refinement</h3><p>Evidencia: tokens --ds-* y densidad 1.135/1.136.</p></div>
+                <span class="closure-matrix-badge closure-matrix-badge--minor">PASSED_WITH_MINOR_DEBT</span>
+                <p>Criterio: lectura compacta. Riesgo: tecnicismo alto. Dependencia: revision visual humana.</p>
+            </article>
+            <article class="closure-matrix-row" role="listitem" data-closure-category="estado">
+                <span class="closure-matrix-index">05</span>
+                <div class="closure-matrix-main"><h3>No-runtime / no-execution</h3><p>Evidencia: superficie documental sin autoridad de proceso.</p></div>
+                <span class="closure-matrix-badge closure-matrix-badge--passed">PASSED</span>
+                <p>Criterio: no agrega endpoint ni mutacion. Riesgo: permiso implicito. Guardrail: lectura estatica.</p>
+            </article>
+            <article class="closure-matrix-row" role="listitem" data-closure-category="estado">
+                <span class="closure-matrix-index">06</span>
+                <div class="closure-matrix-main"><h3>Read-only / blocked states</h3><p>Evidencia: controles inferiores bloqueados y lectura deny-by-default.</p></div>
+                <span class="closure-matrix-badge closure-matrix-badge--minor">PASSED_WITH_MINOR_DEBT</span>
+                <p>Criterio: bloqueo visible. Riesgo: affordance ambigua. Dependencia: vocabulario futuro.</p>
+            </article>
+            <article class="closure-matrix-row" role="listitem" data-closure-category="contrato">
+                <span class="closure-matrix-index">07</span>
+                <div class="closure-matrix-main"><h3>FSC preservation</h3><p>Evidencia: FSC-CO-01, FSC-BF-02, FSC-VR-03, FSC-RCP-04.</p></div>
+                <span class="closure-matrix-badge closure-matrix-badge--passed">PASSED</span>
+                <p>Criterio: data-contract-screen-count 4. Riesgo: baseline rota. Guardrail: no quinta FSC.</p>
+            </article>
+            <article class="closure-matrix-row" role="listitem" data-closure-category="contrato">
+                <span class="closure-matrix-index">08</span>
+                <div class="closure-matrix-main"><h3>DEFER_FINALIZATION</h3><p>Evidencia: Request Contract Preview sigue draft/not final.</p></div>
+                <span class="closure-matrix-badge closure-matrix-badge--passed">PASSED</span>
+                <p>Criterio: preview no es contrato final. Riesgo: cierre prematuro. Guardrail: boundary visible.</p>
+            </article>
+            <article class="closure-matrix-row" role="listitem" data-closure-category="deuda">
+                <span class="closure-matrix-index">09</span>
+                <div class="closure-matrix-main"><h3>Elementos inferiores</h3><p>Evidencia: consola inferior heredada permanece bloqueada/read-only.</p></div>
+                <span class="closure-matrix-badge closure-matrix-badge--deferred">DEFERRED_WITH_GUARDRAILS</span>
+                <p>Criterio: no ocultar deuda. Riesgo: lectura de capacidad. Dependencia: ledger futuro.</p>
+            </article>
+            <article class="closure-matrix-row" role="listitem" data-closure-category="deuda">
+                <span class="closure-matrix-index">10</span>
+                <div class="closure-matrix-main"><h3>CFG, +, DOMAIN</h3><p>Evidencia: affordances inferiores siguen disabled/read-only.</p></div>
+                <span class="closure-matrix-badge closure-matrix-badge--deferred">DEFERRED_WITH_GUARDRAILS</span>
+                <p>Criterio: bloqueo claro. Riesgo: configuracion aparente. Guardrail: sin desbloqueo visual.</p>
+            </article>
+            <article class="closure-matrix-row" role="listitem" data-closure-category="futuro">
+                <span class="closure-matrix-index">11</span>
+                <div class="closure-matrix-main"><h3>Vocabulario / affordances</h3><p>Evidencia: terminos sensibles identificados para contrato posterior.</p></div>
+                <span class="closure-matrix-badge closure-matrix-badge--deferred">DEFERRED_WITH_GUARDRAILS</span>
+                <p>Criterio: semantica gobernada. Riesgo: falso permiso. Dependencia: bloque vocabulario.</p>
+            </article>
+            <article class="closure-matrix-row" role="listitem" data-closure-category="futuro">
+                <span class="closure-matrix-index">12</span>
+                <div class="closure-matrix-main"><h3>Capacidades presentes / bloqueadas / futuras</h3><p>Evidencia: separacion pendiente por capability ledger.</p></div>
+                <span class="closure-matrix-badge closure-matrix-badge--deferred">DEFERRED_WITH_GUARDRAILS</span>
+                <p>Criterio: estado por capacidad. Riesgo: capability drift. Dependencia: ledger futuro.</p>
+            </article>
+            <article class="closure-matrix-row" role="listitem" data-closure-category="evidencia">
+                <span class="closure-matrix-index">13</span>
+                <div class="closure-matrix-main"><h3>Evidencia / trazabilidad</h3><p>Evidencia: docs, tests, hashes y checkpoints locales.</p></div>
+                <span class="closure-matrix-badge closure-matrix-badge--passed">PASSED</span>
+                <p>Criterio: evidencia resumida. Riesgo: memoria conversacional. Guardrail: sin raw Package.</p>
+            </article>
+            <article class="closure-matrix-row" role="listitem" data-closure-category="evidencia">
+                <span class="closure-matrix-index">14</span>
+                <div class="closure-matrix-main"><h3>Documentacion / tests</h3><p>Evidencia: cadena 1.110 y 1.120 a 1.145.</p></div>
+                <span class="closure-matrix-badge closure-matrix-badge--passed">PASSED</span>
+                <p>Criterio: testable y trazable. Riesgo: cierre no reproducible. Dependencia: README/cursor.</p>
+            </article>
+            <article class="closure-matrix-row" role="listitem" data-closure-category="deuda">
+                <span class="closure-matrix-index">15</span>
+                <div class="closure-matrix-main"><h3>Deuda visual / semantica</h3><p>Evidencia: deudas menores ya clasificadas por auditorias.</p></div>
+                <span class="closure-matrix-badge closure-matrix-badge--minor">PASSED_WITH_MINOR_DEBT</span>
+                <p>Criterio: deuda honesta. Riesgo: deuda bloqueante invisible. Guardrail: no limpiar aqui.</p>
+            </article>
+            <article class="closure-matrix-row" role="listitem" data-closure-category="estado">
+                <span class="closure-matrix-index">16</span>
+                <div class="closure-matrix-main"><h3>Readiness de cierre</h3><p>Evidencia: matriz visible y criterios vinculados.</p></div>
+                <span class="closure-matrix-badge closure-matrix-badge--minor">PASSED_WITH_MINOR_DEBT</span>
+                <p>Criterio: sin blockers criticos. Riesgo: cierre prematuro. Dependencia: revision humana.</p>
+            </article>
+            <article class="closure-matrix-row" role="listitem" data-closure-category="UI">
+                <span class="closure-matrix-index">17</span>
+                <div class="closure-matrix-main"><h3>Riesgo de sobreconstruccion</h3><p>Evidencia: matriz acotada, sin nuevo flujo ni controles.</p></div>
+                <span class="closure-matrix-badge closure-matrix-badge--passed">PASSED</span>
+                <p>Criterio: superficie minima. Riesgo: exceso visual. Guardrail: no otro bloque nuevo.</p>
+            </article>
+            <article class="closure-matrix-row" role="listitem" data-closure-category="contrato">
+                <span class="closure-matrix-index">18</span>
+                <div class="closure-matrix-main"><h3>Limites de no implementacion</h3><p>Evidencia: sin JS nuevo, sin backend y sin contrato funcional nuevo.</p></div>
+                <span class="closure-matrix-badge closure-matrix-badge--passed">PASSED</span>
+                <p>Criterio: solo matriz documental. Riesgo: alcance expandido. Guardrail: diff acotado.</p>
+            </article>
+            <article class="closure-matrix-row" role="listitem" data-closure-category="publicacion">
+                <span class="closure-matrix-index">19</span>
+                <div class="closure-matrix-main"><h3>Restore points / publicacion</h3><p>Evidencia: restore remoto 862e915 y commits locales pendientes.</p></div>
+                <span class="closure-matrix-badge closure-matrix-badge--deferred">DEFERRED_WITH_GUARDRAILS</span>
+                <p>Criterio: publicar antes de cierre final. Riesgo: distancia local. Dependencia: decision de push futura.</p>
+            </article>
+            <article class="closure-matrix-row" role="listitem" data-closure-category="futuro">
+                <span class="closure-matrix-index">20</span>
+                <div class="closure-matrix-main"><h3>Proximo paso seguro</h3><p>Evidencia: checkpoint visual humano antes del cierre final.</p></div>
+                <span class="closure-matrix-badge closure-matrix-badge--passed">PASSED</span>
+                <p>Criterio: avanzar a revision, no a cierre directo. Riesgo: saltar secuencia. Guardrail: prompt 1.146.</p>
+            </article>
+        </div>
+        <p class="closure-matrix-note">Matriz documental: estados permitidos, evidencia resumida y guardrails de cierre. No expone raw Package, no muestra payload crudo, no agrega botones, no agrega formularios, no crea enlaces activos nuevos, no modifica contrato funcional y deja pendiente revision visual humana.</p>
+    </section>
 
     <section class="console-flow-map secondary-readable-map" data-density-tier="secondary" aria-label="Ruta narrativa de lectura contract-aware">
         <div class="console-flow-intro">

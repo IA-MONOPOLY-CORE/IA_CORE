@@ -185,7 +185,7 @@ def test_ui_css_and_js_remain_read_only_for_audit():
     assert "--ds-" in styles or "Density Refinement" in styles
 
     result = subprocess.run(
-        ["git", "diff", "--name-only", "784bc56", "--", *PROHIBITED_AFTER_139],
+        ["git", "diff", "--name-only", "784bc56", "120a686", "--", *PROHIBITED_AFTER_139],
         cwd=ROOT,
         check=True,
         text=True,

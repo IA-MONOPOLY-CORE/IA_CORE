@@ -186,7 +186,7 @@ def test_ui_and_css_remain_read_only_sources_with_density_refinement_visible():
 
 def test_checkpoint_does_not_touch_active_ui_js_or_backend_after_135():
     result = subprocess.run(
-        ["git", "diff", "--name-only", "67bd324", "--", *PROHIBITED_AFTER_135],
+        ["git", "diff", "--name-only", "67bd324", "dc0c100", "--", *PROHIBITED_AFTER_135],
         cwd=ROOT,
         check=True,
         text=True,

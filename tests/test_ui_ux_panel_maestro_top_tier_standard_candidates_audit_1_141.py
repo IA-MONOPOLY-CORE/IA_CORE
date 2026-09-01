@@ -174,7 +174,7 @@ def test_audit_only_surface_files_remain_untouched_after_1_140():
     assert "--ds-" in styles
 
     result = subprocess.run(
-        ["git", "diff", "--name-only", "120a686", "--", *PROHIBITED_AFTER_140],
+        ["git", "diff", "--name-only", "120a686", "f69713a", "--", *PROHIBITED_AFTER_140],
         cwd=ROOT,
         check=True,
         text=True,
