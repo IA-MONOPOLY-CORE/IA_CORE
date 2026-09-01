@@ -1749,3 +1749,17 @@ Documento: `docs/UI_UX_PANEL_MAESTRO_CLOSURE_MATRIX_IMPLEMENTATION_1_145.md`. Te
 Proximo prompt exacto: `PROMPT UI/UX 1.146 - Checkpoint matriz de cierre UI UX 1.x Panel Maestro IA_CORE post revision visual humana contract-aware sin runtime/no-execution`.
 
 Se implemento solo matriz visual/documental, no otro bloque nuevo, no correccion de deuda fuera de la matriz, no cambio de contrato documental previo, no `ui/web/i18n_es.json`, no JS, no listeners/fetches/localStorage/hash/history, no User Panel/rutas/hash, no endpoints/fetches nuevos, no backend/runtime/endpoints/CI/dependencias, no contrato funcional/final, no contrato final operativo, no deuda residual general, no pyflakes, no push y no avance a 1.146.
+
+## Fix 1.145.A: accesibilidad visual/scroll matriz de cierre UI/UX 1.x
+
+1.145.A corrige de forma acotada el corte visual/scroll reportado durante la revisión humana de la matriz en la consola web. Base local `e0d087e`; restore point remoto vigente `862e915`; `main` ahead por 7 commits al inicio; push no ejecutado.
+
+Diagnostico: `styles.css` mantenia `body` con `height: 100vh` y `overflow: hidden`, y el CSS inline del HTML no neutralizaba esa altura/overflow. El fix permite scroll vertical global, mantiene la matriz visible y agrega scroll vertical propio al panel derecho de draft sin modificar JS ni backend.
+
+Decision final: `CLOSURE_MATRIX_VISUAL_ACCESSIBILITY_FIX_WITH_NOTES_READY_FOR_HUMAN_VISUAL_REVIEW`.
+
+Documento: `docs/UI_UX_PANEL_MAESTRO_CLOSURE_MATRIX_VISUAL_ACCESSIBILITY_FIX_1_145_A.md`. Test: `tests/test_ui_ux_panel_maestro_closure_matrix_visual_accessibility_fix_1_145_A.py`.
+
+Proximo prompt exacto: `PROMPT UI/UX 1.146 - Checkpoint matriz de cierre UI UX 1.x Panel Maestro IA_CORE post revision visual humana contract-aware sin runtime/no-execution`.
+
+Pendiente nueva revision visual humana. Se corrigio solo accesibilidad visual/scroll de la matriz, no rediseño del Panel Maestro, no reimplementacion de matriz desde cero, no otro bloque nuevo, no correccion de deuda fuera del corte visual/scroll, no `ui/web/i18n_es.json`, no JS, no listeners/fetches/localStorage/hash/history, no User Panel/rutas/hash, no endpoints/fetches nuevos, no backend/runtime/endpoints/CI/dependencias, no contrato funcional/final, no contrato final operativo, no deuda residual general, no pyflakes, no push y no avance a 1.146.

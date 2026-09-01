@@ -89,7 +89,10 @@
             font-size: 14px;
             background-image: none;
             padding: 20px;
+            height: auto;
             min-height: 100vh;
+            overflow-x: hidden;
+            overflow-y: auto;
             position: relative;
         }
 
@@ -2557,7 +2560,7 @@
         /* REQUEST DRAFT PANEL */
         .request-draft-panel {
             position: fixed;
-            right: 0; top: 0; width: 340px; height: 100vh;
+            right: 0; top: 0; width: 340px; height: 100vh; max-height: 100vh;
             background: var(--bg-panel);
             border-left: 1px solid var(--border-color);
             backdrop-filter: blur(8px);
@@ -2566,6 +2569,7 @@
             z-index: 100;
             display: flex; flex-direction: column; padding: 20px; gap: 15px;
             overflow-x: hidden;
+            overflow-y: auto;
         }
         .request-draft-panel.collapsed { transform: translateX(calc(100% - 35px)); }
         .request-draft-panel.collapsed > *:not(.request-draft-toggle) {
