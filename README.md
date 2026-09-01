@@ -879,3 +879,17 @@ Documento: `docs/UI_UX_PANEL_MAESTRO_RESTORE_POINT_DECISION_BEFORE_DENSITY_REFIN
 Proximo prompt exacto: `PROMPT UI/UX 1.134 - Publicar restore point rehousing FSC y plan Design System Density Refinement Panel Maestro IA_CORE contract-aware sin runtime/no-execution`.
 
 No implementacion, no density/tokens, no polish visual, no UI activa, no JS, no Final Screen Contracts modificados, no elementos inferiores modificados, no contrato funcional/final, no User Panel/rutas/hash, no endpoints/fetches nuevos, no runtime/execution/dispatch, no backend/runtime/endpoints/CI/dependencias, no deuda residual, no pyflakes, no push y no avance a 1.134.
+
+## Restore point 1.134: FSC Rehousing y Density Plan
+
+1.134 publica el restore point remoto del rehousing visual FSC y del plan Design System/Density antes de implementar density/tokens. Restore point remoto previo: `570b18f`; commits publicados por el push: `469d963`, `a47a4f8`, `fd15a84`, `9e8ea7c`, `c645993` y `4c26a51`, mas el commit documental 1.134.
+
+El alcance publicado incluye planificacion, implementacion aprobada y checkpoint cerrado de `Final Screen Contracts Visual Rehousing`, planificacion del siguiente bloque visual post FSC, planificacion `Design System/Density` y decision restore point antes de density. `Design System/Density` queda planificado, no implementado.
+
+Decision final esperada tras push: `FSC_REHOUSING_AND_DENSITY_PLAN_RESTORE_POINT_PUBLICATION_PUSH_COMPLETED`. El nuevo restore point remoto esperado despues del push es el hash del commit 1.134, confirmado por `origin/main` en el reporte final.
+
+Documento: `docs/UI_UX_PANEL_MAESTRO_RESTORE_POINT_PUBLICATION_FSC_REHOUSING_AND_DENSITY_PLAN_1_134.md`. Test: `tests/test_ui_ux_panel_maestro_restore_point_publication_fsc_rehousing_and_density_plan_1_134.py`.
+
+Proximo prompt exacto: `PROMPT UI/UX 1.135 - Implementar Design System y Density Refinement Panel Maestro IA_CORE contract-aware sin runtime/no-execution`.
+
+No implementacion, no bloque nuevo, no density/tokens, no polish visual, no UI activa, no JS, no Final Screen Contracts modificados, no elementos inferiores modificados, no contrato funcional/final, no User Panel/rutas/hash, no endpoints/fetches nuevos, no runtime/execution/dispatch, no backend/runtime/endpoints/CI/dependencias, no deuda residual, no pyflakes y no avance a 1.135.
