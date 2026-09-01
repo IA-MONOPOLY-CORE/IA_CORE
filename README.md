@@ -921,3 +921,17 @@ Documento: `docs/UI_UX_PANEL_MAESTRO_DESIGN_SYSTEM_DENSITY_REFINEMENT_CHECKPOINT
 Proximo prompt exacto: `PROMPT UI/UX 1.137 - Decidir publicación restore point Design System Density Refinement Panel Maestro IA_CORE contract-aware sin runtime/no-execution`.
 
 No bloque nuevo, no UI activa, no `index.html`, no `styles.css`, no `i18n_es.json`, no JS, no listeners/fetches/localStorage/hash/history, no User Panel/rutas/hash, no endpoints/fetches nuevos, no backend/runtime/endpoints/CI/dependencias, no deuda residual, no pyflakes, no push y no avance a 1.137.
+
+## Decisión restore point después de Density Refinement 1.137
+
+1.137 decide formalmente publicar en el siguiente prompt el restore point que incluye `Design System / Density Refinement`. Parte de los commits locales `67bd324` y `dc0c100`, con restore point remoto vigente `2d178d8`, `main` ahead por 2 commits y push no ejecutado.
+
+La decision toma como base que 1.135 implemento el refinamiento visual, la revision humana fue `DESIGN_SYSTEM_DENSITY_REFINEMENT_HUMAN_VISUAL_REVIEW_PASSED`, 1.136 cerro checkpoint y no hay fix visual inmediato pendiente.
+
+Decision final: `RESTORE_POINT_PUBLICATION_SELECTED_AFTER_DENSITY_REFINEMENT_CHECKPOINT`.
+
+Documento: `docs/UI_UX_PANEL_MAESTRO_RESTORE_POINT_DECISION_AFTER_DENSITY_REFINEMENT_1_137.md`. Test: `tests/test_ui_ux_panel_maestro_restore_point_decision_after_density_refinement_1_137.py`.
+
+Proximo prompt exacto: `PROMPT UI/UX 1.138 - Publicar restore point Design System Density Refinement Panel Maestro IA_CORE contract-aware sin runtime/no-execution`.
+
+No bloque nuevo, no UI activa, no `index.html`, no `styles.css`, no `i18n_es.json`, no JS, no listeners/fetches/localStorage/hash/history, no User Panel/rutas/hash, no endpoints/fetches nuevos, no backend/runtime/endpoints/CI/dependencias, no contrato funcional/final, no deuda residual, no pyflakes, no push y no avance a 1.138.
