@@ -1721,3 +1721,17 @@ Documento: `docs/UI_UX_PANEL_MAESTRO_CLOSURE_MATRIX_PLAN_1_143.md`. Test: `tests
 Proximo prompt exacto: `PROMPT UI/UX 1.144 - Planificar implementación matriz de cierre UI UX 1.x Panel Maestro IA_CORE contract-aware sin runtime/no-execution`.
 
 No implementacion de matriz visual, no implementacion, no correccion de deuda, no UI activa, no `ui/web/index.html`, no `ui/web/styles.css`, no `ui/web/i18n_es.json`, no JS, no listeners/fetches/localStorage/hash/history, no User Panel/rutas/hash, no endpoints/fetches nuevos, no backend/runtime/endpoints/CI/dependencias, no contrato funcional/final, no deuda residual general, no pyflakes, no push y no avance a 1.144.
+
+## Planificación 1.144: implementación futura de matriz de cierre UI/UX 1.x
+
+1.144 planifica la implementación futura de la matriz de cierre UI/UX 1.x del Panel Maestro IA_CORE sin implementar matriz visual ni corregir deuda. Base local `ff731d6`; restore point remoto vigente `862e915`; `main` ahead por 5 commits al inicio; push no ejecutado.
+
+La planificación define ubicación recomendada como bloque documental dentro de la consola existente, posterior a Master Shell / Overview Layer y Final Screen Contracts Rehousing, cercano al área de contratos/cierre y antes o por encima de elementos inferiores. También define estructura mínima por dimensión, estados permitidos, estados/copy prohibidos, affordances permitidas/prohibidas, relación con próximos bloques y criterios de implementación futura.
+
+Decision final: `CLOSURE_MATRIX_IMPLEMENTATION_PLAN_READY_FOR_GUARDED_IMPLEMENTATION`.
+
+Documento: `docs/UI_UX_PANEL_MAESTRO_CLOSURE_MATRIX_IMPLEMENTATION_PLAN_1_144.md`. Test: `tests/test_ui_ux_panel_maestro_closure_matrix_implementation_plan_1_144.py`.
+
+Proximo prompt exacto: `PROMPT UI/UX 1.145 - Implementar matriz de cierre UI UX 1.x Panel Maestro IA_CORE contract-aware sin runtime/no-execution`.
+
+No implementacion de matriz visual, no implementacion, no correccion de deuda, no UI activa, no `ui/web/index.html`, no `ui/web/styles.css`, no `ui/web/i18n_es.json`, no JS, no listeners/fetches/localStorage/hash/history, no User Panel/rutas/hash, no endpoints/fetches nuevos, no backend/runtime/endpoints/CI/dependencias, no contrato funcional/final, no contrato final operativo, no deuda residual general, no pyflakes, no push y no avance a 1.145.
