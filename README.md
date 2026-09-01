@@ -949,3 +949,17 @@ Documento: `docs/UI_UX_PANEL_MAESTRO_RESTORE_POINT_PUBLICATION_DENSITY_REFINEMEN
 Proximo prompt exacto: `PROMPT UI/UX 1.139 - Planificar siguiente paso post Density Refinement Panel Maestro IA_CORE contract-aware sin runtime/no-execution`.
 
 No bloque nuevo, no UI activa, no `index.html`, no `styles.css`, no `i18n_es.json`, no JS, no listeners/fetches/localStorage/hash/history, no User Panel/rutas/hash, no endpoints/fetches nuevos, no backend/runtime/endpoints/CI/dependencias, no contrato funcional/final, no deuda residual, no pyflakes y no avance a 1.139.
+
+## Plan 1.139: siguiente paso post Density Refinement
+
+1.139 planifica el siguiente paso real despues de publicar `Design System / Density Refinement`. Restore point remoto vigente: `862e915`; `main` up to date con `origin/main`; working tree limpio al inicio.
+
+Se evaluan diez candidatos: auditoria global post-Density, planificacion de cierre UI/UX 1.x, otro bloque visual acotado, Evidence / Details Layer, Configuration Read-only Layer, Domains / Agents Context Layer, Roadmap / Future Work Layer, duplicidad `+` / `DOMAIN`, pantallas futuras contract-first y cierre por etapas hacia checkpoint final 1.x.
+
+Decision final: `NEXT_STEP_POST_DENSITY_GLOBAL_PANEL_AUDIT_SELECTED`. La razon: despues de implementar, revisar, checkpointar y publicar Density Refinement, corresponde auditar el estado global real antes de abrir otro bloque visual o cerrar 1.x.
+
+Documento: `docs/UI_UX_PANEL_MAESTRO_NEXT_STEP_AFTER_DENSITY_REFINEMENT_PLAN_1_139.md`. Test: `tests/test_ui_ux_panel_maestro_next_step_after_density_refinement_plan_1_139.py`.
+
+Proximo prompt exacto: `PROMPT UI/UX 1.140 - Auditar estado global post Density Refinement Panel Maestro IA_CORE contract-aware sin runtime/no-execution`.
+
+No bloque nuevo, no UI activa, no `index.html`, no `styles.css`, no `i18n_es.json`, no JS, no listeners/fetches/localStorage/hash/history, no User Panel/rutas/hash, no endpoints/fetches nuevos, no backend/runtime/endpoints/CI/dependencias, no contrato funcional/final, no deuda residual, no pyflakes, no push y no avance a 1.140.
