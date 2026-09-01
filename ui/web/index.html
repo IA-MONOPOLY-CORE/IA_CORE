@@ -22,6 +22,26 @@
             --text-primary: #f1f5f9;
             --border-radius: 4px;
             --panel-glow: 0 8px 24px rgba(0,0,0,0.2);
+            --ds-surface-primary: rgba(15, 23, 42, 0.78);
+            --ds-surface-secondary: rgba(15, 23, 42, 0.52);
+            --ds-surface-documental: rgba(2, 6, 23, 0.38);
+            --ds-border-subtle: rgba(148, 163, 184, 0.16);
+            --ds-border-contract: rgba(56, 189, 248, 0.34);
+            --ds-border-blocked: rgba(239, 68, 68, 0.48);
+            --ds-text-primary: var(--text-primary);
+            --ds-text-secondary: rgba(226, 232, 240, 0.72);
+            --ds-text-technical: #93c5fd;
+            --ds-state-read-only: rgba(34, 197, 94, 0.16);
+            --ds-state-blocked: rgba(239, 68, 68, 0.12);
+            --ds-state-no-runtime: rgba(245, 158, 11, 0.12);
+            --ds-state-no-execution: rgba(245, 158, 11, 0.16);
+            --ds-warning-documental: rgba(245, 158, 11, 0.18);
+            --ds-evidence-documentation: rgba(34, 197, 94, 0.12);
+            --ds-future-not-available: rgba(148, 163, 184, 0.12);
+            --ds-anti-cta-operative: rgba(15, 23, 42, 0.66);
+            --ds-density-gap: 14px;
+            --ds-density-card-padding: 14px;
+            --ds-density-section-gap: 22px;
         }
 
         /* SKINS COMPLETAS */
@@ -2220,6 +2240,215 @@
         .visual-state.no_payload,
         .visual-state.contract_fixture,
         .visual-state.not_available { color: var(--amber); border-color: rgba(245,158,11,0.65); }
+
+        /* DESIGN SYSTEM / DENSITY REFINEMENT 1.135: visual-only, contract-aware. */
+        [data-design-system-density-refinement="1.135"] {
+            color: var(--ds-text-primary);
+        }
+        [data-design-system-density-refinement="1.135"] .master-shell-header,
+        [data-design-system-density-refinement="1.135"] .four-screen-baseline-summary[data-visual-layer="overview"],
+        [data-design-system-density-refinement="1.135"] .final-screen-contracts-rehousing,
+        [data-design-system-density-refinement="1.135"] .layout-section {
+            border-color: var(--ds-border-contract);
+        }
+        [data-design-system-density-refinement="1.135"] .master-shell-header {
+            padding: 20px;
+            gap: 20px;
+            background: linear-gradient(180deg, var(--ds-surface-primary), rgba(18,21,27,0.94));
+        }
+        [data-design-system-density-refinement="1.135"] .four-screen-baseline-summary[data-visual-layer="overview"] {
+            gap: var(--ds-density-gap);
+            margin-bottom: var(--ds-density-section-gap);
+            background: var(--ds-surface-secondary);
+        }
+        [data-design-system-density-refinement="1.135"] .final-screen-contracts-rehousing {
+            margin: var(--ds-density-section-gap) 0 26px;
+            padding: 20px 0 8px;
+            background: linear-gradient(180deg, var(--ds-surface-documental), rgba(2,6,23,0));
+        }
+        [data-design-system-density-refinement="1.135"] .final-screen-contracts-rehousing-header {
+            gap: 18px;
+            padding-bottom: 15px;
+        }
+        [data-design-system-density-refinement="1.135"] .final-screen-contracts-rehousing-grid {
+            gap: 18px;
+        }
+        [data-design-system-density-refinement="1.135"] .contract-overview-screen,
+        [data-design-system-density-refinement="1.135"] .blocked-forbidden-screen,
+        [data-design-system-density-refinement="1.135"] .validation-readiness-screen,
+        [data-design-system-density-refinement="1.135"] .request-contract-preview-screen {
+            padding: 18px;
+            background: var(--ds-surface-primary);
+        }
+        [data-design-system-density-refinement="1.135"] .contract-overview-grid,
+        [data-design-system-density-refinement="1.135"] .blocked-forbidden-grid,
+        [data-design-system-density-refinement="1.135"] .validation-readiness-grid,
+        [data-design-system-density-refinement="1.135"] .request-contract-preview-grid {
+            gap: var(--ds-density-gap);
+        }
+        [data-design-system-density-refinement="1.135"] .contract-overview-card,
+        [data-design-system-density-refinement="1.135"] .blocked-forbidden-block,
+        [data-design-system-density-refinement="1.135"] .validation-readiness-block,
+        [data-design-system-density-refinement="1.135"] .request-contract-preview-block,
+        [data-design-system-density-refinement="1.135"] .reading-layer,
+        [data-design-system-density-refinement="1.135"] .contract-detail-panel,
+        [data-design-system-density-refinement="1.135"] .data-widget,
+        [data-design-system-density-refinement="1.135"] .evidence-card {
+            padding: var(--ds-density-card-padding);
+            background: var(--ds-surface-documental);
+            border-color: var(--ds-border-subtle);
+        }
+        [data-design-system-density-refinement="1.135"] .contract-overview-title h2,
+        [data-design-system-density-refinement="1.135"] .blocked-forbidden-title h2,
+        [data-design-system-density-refinement="1.135"] .validation-readiness-title h2,
+        [data-design-system-density-refinement="1.135"] .request-contract-preview-title h2,
+        [data-design-system-density-refinement="1.135"] .final-screen-contracts-rehousing-title h2 {
+            color: var(--ds-text-primary);
+            line-height: 1.08;
+            letter-spacing: 0.04em;
+        }
+        [data-design-system-density-refinement="1.135"] .layout-label,
+        [data-design-system-density-refinement="1.135"] .contract-overview-id,
+        [data-design-system-density-refinement="1.135"] .blocked-forbidden-id,
+        [data-design-system-density-refinement="1.135"] .validation-readiness-id,
+        [data-design-system-density-refinement="1.135"] .request-contract-preview-id,
+        [data-design-system-density-refinement="1.135"] code {
+            color: var(--ds-text-technical);
+        }
+        [data-design-system-density-refinement="1.135"] .contract-overview-lede,
+        [data-design-system-density-refinement="1.135"] .blocked-forbidden-lede,
+        [data-design-system-density-refinement="1.135"] .validation-readiness-lede,
+        [data-design-system-density-refinement="1.135"] .request-contract-preview-lede,
+        [data-design-system-density-refinement="1.135"] .layout-copy,
+        [data-design-system-density-refinement="1.135"] .final-screen-contracts-rehousing-copy {
+            color: var(--ds-text-secondary);
+            line-height: 1.62;
+        }
+        [data-design-system-density-refinement="1.135"] .contract-overview-status,
+        [data-design-system-density-refinement="1.135"] .blocked-forbidden-status,
+        [data-design-system-density-refinement="1.135"] .validation-readiness-status,
+        [data-design-system-density-refinement="1.135"] .request-contract-preview-status,
+        [data-design-system-density-refinement="1.135"] .final-screen-contracts-rehousing-states,
+        [data-design-system-density-refinement="1.135"] .master-shell-state-row {
+            gap: 6px;
+        }
+        [data-design-system-density-refinement="1.135"] .badge,
+        [data-design-system-density-refinement="1.135"] .visual-state,
+        [data-design-system-density-refinement="1.135"] .contract-chip,
+        [data-design-system-density-refinement="1.135"] .master-shell-state,
+        [data-design-system-density-refinement="1.135"] .final-screen-contracts-rehousing-state,
+        [data-design-system-density-refinement="1.135"] .boundary-state,
+        [data-design-system-density-refinement="1.135"] .signal-kind {
+            background: var(--ds-anti-cta-operative);
+            border-color: var(--ds-border-subtle);
+            border-radius: var(--border-radius);
+            box-shadow: none;
+            cursor: default;
+            letter-spacing: 0.06em;
+        }
+        [data-design-system-density-refinement="1.135"] .master-shell-state--read,
+        [data-design-system-density-refinement="1.135"] .visual-state.documented,
+        [data-design-system-density-refinement="1.135"] .visual-state.passed,
+        [data-design-system-density-refinement="1.135"] .contract-chip.allowed {
+            background: var(--ds-evidence-documentation);
+            border-color: rgba(34,197,94,0.38);
+        }
+        [data-design-system-density-refinement="1.135"] .visual-state.blocked,
+        [data-design-system-density-refinement="1.135"] .master-shell-state--blocked,
+        [data-design-system-density-refinement="1.135"] .final-screen-contracts-rehousing-state[data-state="blocked"],
+        [data-design-system-density-refinement="1.135"] .contract-chip.forbidden,
+        [data-design-system-density-refinement="1.135"] .contract-chip.blocked,
+        [data-design-system-density-refinement="1.135"] .boundary-state.blocked,
+        [data-design-system-density-refinement="1.135"] .signal-kind.blocked {
+            background: var(--ds-state-blocked);
+            border-color: var(--ds-border-blocked);
+        }
+        [data-design-system-density-refinement="1.135"] .visual-state.deferred,
+        [data-design-system-density-refinement="1.135"] .visual-state.boundary,
+        [data-design-system-density-refinement="1.135"] .final-screen-contracts-rehousing-state[data-state="deferred"],
+        [data-design-system-density-refinement="1.135"] .contract-chip.warning {
+            background: var(--ds-warning-documental);
+            border-color: rgba(245,158,11,0.46);
+        }
+        [data-design-system-density-refinement="1.135"] .visual-state.planned,
+        [data-design-system-density-refinement="1.135"] .visual-state.pending,
+        [data-design-system-density-refinement="1.135"] .visual-state.no_payload,
+        [data-design-system-density-refinement="1.135"] .visual-state.not_available,
+        [data-design-system-density-refinement="1.135"] [data-component~="ia-empty-state"] {
+            background: var(--ds-future-not-available);
+        }
+        [data-design-system-density-refinement="1.135"] button:disabled,
+        [data-design-system-density-refinement="1.135"] button[aria-disabled="true"],
+        [data-design-system-density-refinement="1.135"] .request-draft-control:disabled {
+            background: var(--ds-state-blocked);
+            border-color: var(--ds-border-blocked);
+            color: #fca5a5;
+            cursor: not-allowed;
+            opacity: 0.72;
+            box-shadow: none;
+        }
+        [data-design-system-density-refinement="1.135"] button:disabled:hover,
+        [data-design-system-density-refinement="1.135"] button[aria-disabled="true"]:hover {
+            background: var(--ds-state-blocked);
+            color: #fca5a5;
+            border-color: var(--ds-border-blocked);
+            box-shadow: none;
+        }
+        [data-design-system-density-refinement="1.135"] .safe-disclosure,
+        [data-design-system-density-refinement="1.135"] .contract-inspector,
+        [data-design-system-density-refinement="1.135"] .raw-safe-output,
+        [data-design-system-density-refinement="1.135"] .admin-pre {
+            background: var(--ds-surface-documental);
+            border-color: var(--ds-border-subtle);
+        }
+        [data-design-system-density-refinement="1.135"] .contract-overview-note,
+        [data-design-system-density-refinement="1.135"] .blocked-forbidden-note,
+        [data-design-system-density-refinement="1.135"] .validation-readiness-note,
+        [data-design-system-density-refinement="1.135"] .request-contract-preview-note,
+        [data-design-system-density-refinement="1.135"] .read-only-guidance,
+        [data-design-system-density-refinement="1.135"] .request-draft-guidance,
+        [data-design-system-density-refinement="1.135"] .admin-status {
+            color: var(--ds-text-secondary);
+        }
+        [data-design-system-density-refinement="1.135"] .console-utilities {
+            background: rgba(2,6,23,0.16);
+            border-top-color: var(--ds-border-subtle);
+        }
+        [data-design-system-density-refinement="1.135"] .request-draft-panel {
+            background: rgba(15,23,42,0.96);
+        }
+        @media (max-width: 1180px) {
+            [data-design-system-density-refinement="1.135"] .contract-overview-grid,
+            [data-design-system-density-refinement="1.135"] .blocked-forbidden-grid,
+            [data-design-system-density-refinement="1.135"] .validation-readiness-grid,
+            [data-design-system-density-refinement="1.135"] .request-contract-preview-grid,
+            [data-design-system-density-refinement="1.135"] .four-screen-baseline-list {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+        }
+        @media (max-width: 760px) {
+            [data-design-system-density-refinement="1.135"] .master-shell-header,
+            [data-design-system-density-refinement="1.135"] .contract-overview-screen,
+            [data-design-system-density-refinement="1.135"] .blocked-forbidden-screen,
+            [data-design-system-density-refinement="1.135"] .validation-readiness-screen,
+            [data-design-system-density-refinement="1.135"] .request-contract-preview-screen {
+                padding: 14px;
+            }
+            [data-design-system-density-refinement="1.135"] .contract-overview-grid,
+            [data-design-system-density-refinement="1.135"] .blocked-forbidden-grid,
+            [data-design-system-density-refinement="1.135"] .validation-readiness-grid,
+            [data-design-system-density-refinement="1.135"] .request-contract-preview-grid,
+            [data-design-system-density-refinement="1.135"] .four-screen-baseline-list {
+                grid-template-columns: 1fr;
+            }
+            [data-design-system-density-refinement="1.135"] .visual-state,
+            [data-design-system-density-refinement="1.135"] .badge,
+            [data-design-system-density-refinement="1.135"] .final-screen-contracts-rehousing-state,
+            [data-design-system-density-refinement="1.135"] .master-shell-state {
+                min-width: 0;
+                max-width: 100%;
+            }
+        }
         .widget-refresh-btn {
             border: 1px solid var(--border-color);
             background: rgba(0,0,0,0.3);
@@ -2520,7 +2749,7 @@
 </head>
 <body data-skin="contract">
 
-    <main class="ia-core-shell master-shell-overview-surface" data-visual-architecture="master-shell-overview-1.124" data-layout-contract-aware="superior-0.8" data-main-console="contract-aware-1.0" data-console-refinement="1.1" data-console-flow="contract-aware-1.2" data-console-interaction="contract-aware-1.3" data-payload-reading-model="contract-aware-1.6" data-contract-detail-panels="contract-aware-1.7" data-internal-navigation="contract-aware-1.8" data-component-system="ia-core-contract-aware-1.9" data-responsive-hardening="contract-aware-1.13" data-operator-guidance="contract-aware-1.25" data-density-information-architecture="contract-aware-1.29" data-contract-storytelling="contract-aware-1.33" data-interaction-mode="read-only">
+    <main class="ia-core-shell master-shell-overview-surface" data-visual-architecture="master-shell-overview-1.124" data-layout-contract-aware="superior-0.8" data-main-console="contract-aware-1.0" data-console-refinement="1.1" data-console-flow="contract-aware-1.2" data-console-interaction="contract-aware-1.3" data-payload-reading-model="contract-aware-1.6" data-contract-detail-panels="contract-aware-1.7" data-internal-navigation="contract-aware-1.8" data-component-system="ia-core-contract-aware-1.9" data-responsive-hardening="contract-aware-1.13" data-operator-guidance="contract-aware-1.25" data-density-information-architecture="contract-aware-1.29" data-contract-storytelling="contract-aware-1.33" data-design-system-density-refinement="1.135" data-interaction-mode="read-only">
     <!-- BANNER PARA LOGOS -->
     <div class="logo-banner" id="logo-banner">
         <div class="logo-banner-inner" id="logo-banner-inner"></div>

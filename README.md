@@ -893,3 +893,17 @@ Documento: `docs/UI_UX_PANEL_MAESTRO_RESTORE_POINT_PUBLICATION_FSC_REHOUSING_AND
 Proximo prompt exacto: `PROMPT UI/UX 1.135 - Implementar Design System y Density Refinement Panel Maestro IA_CORE contract-aware sin runtime/no-execution`.
 
 No implementacion, no bloque nuevo, no density/tokens, no polish visual, no UI activa, no JS, no Final Screen Contracts modificados, no elementos inferiores modificados, no contrato funcional/final, no User Panel/rutas/hash, no endpoints/fetches nuevos, no runtime/execution/dispatch, no backend/runtime/endpoints/CI/dependencias, no deuda residual, no pyflakes y no avance a 1.135.
+
+## Implementación 1.135: Design System y Density Refinement
+
+1.135 implementa una primera capa visual de baja invasion para `Design System / Density Refinement` sobre el Panel Maestro IA_CORE. Restore point remoto vigente: `2d178d8`; `main` estaba up to date con `origin/main` al inicio.
+
+El cambio formaliza tokens `--ds-*` en `ui/web/styles.css`, aplica overrides scoped con `data-design-system-density-refinement="1.135"` en `ui/web/index.html`, mejora densidad, jerarquia, spacing, badges, estados read-only/blocked/no-runtime/no-execution, anti-CTA operativo, evidence/documentation y responsive sin tocar JS ni backend.
+
+Decision final: `DESIGN_SYSTEM_DENSITY_REFINEMENT_IMPLEMENTED_WITH_NOTES_READY_FOR_HUMAN_VISUAL_REVIEW`. Revisión visual humana pendiente antes del checkpoint 1.136.
+
+Documento: `docs/UI_UX_PANEL_MAESTRO_DESIGN_SYSTEM_DENSITY_REFINEMENT_IMPLEMENTATION_1_135.md`. Test: `tests/test_ui_ux_panel_maestro_design_system_density_refinement_implementation_1_135.py`.
+
+Proximo prompt exacto, despues de revision visual humana: `PROMPT UI/UX 1.136 - Hardening checkpoint Design System Density Refinement Panel Maestro IA_CORE contract-aware sin runtime/no-execution`.
+
+No bloque operativo nuevo, no pantalla nueva, no JS, no backend, no contrato funcional/final, `DEFER_FINALIZATION` preservado, no User Panel/rutas/hash, no endpoints/fetches nuevos, no runtime/execution/dispatch, no CI/dependencias, no deuda residual, no pyflakes, no push y no avance a 1.136.

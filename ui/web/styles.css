@@ -21,6 +21,73 @@
     --green: #22c55e;
     --red: #ef4444;
     --custom-bg: none;
+    --ds-surface-primary: rgba(15, 23, 42, 0.78);
+    --ds-surface-secondary: rgba(15, 23, 42, 0.52);
+    --ds-surface-documental: rgba(2, 6, 23, 0.38);
+    --ds-border-subtle: rgba(148, 163, 184, 0.16);
+    --ds-border-contract: rgba(56, 189, 248, 0.34);
+    --ds-border-blocked: rgba(239, 68, 68, 0.48);
+    --ds-text-primary: var(--text-primary);
+    --ds-text-secondary: rgba(226, 232, 240, 0.72);
+    --ds-text-technical: #93c5fd;
+    --ds-state-read-only: rgba(34, 197, 94, 0.16);
+    --ds-state-blocked: rgba(239, 68, 68, 0.12);
+    --ds-state-no-runtime: rgba(245, 158, 11, 0.12);
+    --ds-state-no-execution: rgba(245, 158, 11, 0.16);
+    --ds-warning-documental: rgba(245, 158, 11, 0.18);
+    --ds-evidence-documentation: rgba(34, 197, 94, 0.12);
+    --ds-future-not-available: rgba(148, 163, 184, 0.12);
+    --ds-anti-cta-operative: rgba(15, 23, 42, 0.66);
+    --ds-density-gap: 14px;
+    --ds-density-card-padding: 14px;
+    --ds-density-section-gap: 22px;
+}
+
+/* Design System / Density Refinement 1.135: visual-only token foundation. */
+.ds-surface-primary { background: var(--ds-surface-primary); }
+.ds-surface-secondary { background: var(--ds-surface-secondary); }
+.ds-surface-documental { background: var(--ds-surface-documental); }
+.ds-border-subtle { border-color: var(--ds-border-subtle); }
+.ds-border-contract { border-color: var(--ds-border-contract); }
+.ds-border-blocked { border-color: var(--ds-border-blocked); }
+.ds-text-primary { color: var(--ds-text-primary); }
+.ds-text-secondary { color: var(--ds-text-secondary); }
+.ds-text-technical { color: var(--ds-text-technical); }
+.ds-state-read-only { background: var(--ds-state-read-only); }
+.ds-state-blocked { background: var(--ds-state-blocked); }
+.ds-state-no-runtime { background: var(--ds-state-no-runtime); }
+.ds-state-no-execution { background: var(--ds-state-no-execution); }
+.ds-warning-documental { background: var(--ds-warning-documental); }
+.ds-evidence-documentation { background: var(--ds-evidence-documentation); }
+.ds-future-not-available { background: var(--ds-future-not-available); }
+.ds-anti-cta-operative {
+    background: var(--ds-anti-cta-operative);
+    box-shadow: none;
+    cursor: default;
+}
+
+[data-design-system-density-refinement="1.135"] {
+    color: var(--ds-text-primary);
+}
+
+[data-design-system-density-refinement="1.135"] [data-component~="ia-status-badge"],
+[data-design-system-density-refinement="1.135"] [data-component~="ia-chip"],
+[data-design-system-density-refinement="1.135"] .visual-state,
+[data-design-system-density-refinement="1.135"] .contract-chip {
+    background: var(--ds-anti-cta-operative);
+    border-color: var(--ds-border-subtle);
+    box-shadow: none;
+    cursor: default;
+    max-width: 100%;
+    overflow-wrap: anywhere;
+}
+
+[data-design-system-density-refinement="1.135"] button:disabled,
+[data-design-system-density-refinement="1.135"] button[aria-disabled="true"] {
+    background: var(--ds-state-blocked);
+    border-color: var(--ds-border-blocked);
+    box-shadow: none;
+    cursor: not-allowed;
 }
 
 body {
