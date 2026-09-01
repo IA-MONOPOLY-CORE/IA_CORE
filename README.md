@@ -1131,3 +1131,17 @@ Documento: `docs/UI_UX_PANEL_MAESTRO_VOCABULARY_AFFORDANCES_IMPLEMENTATION_PLAN_
 Proximo prompt exacto: `PROMPT UI/UX 1.151 - Implementar contrato de vocabulario affordances UI UX 1.x Panel Maestro IA_CORE contract-aware sin runtime/no-execution`.
 
 No implementacion, no contrato consumido por UI, no JSON contractual, no helper operativo, no enforcement activo, no UI activa, no `ui/web/index.html`, no `ui/web/styles.css`, no `ui/web/i18n_es.json`, no JS, no listeners/fetches/localStorage/hash/history, no User Panel/rutas/hash, no endpoints/fetches nuevos, no backend, no runtime, no renombrar `+`, no renombrar `DOMAIN`, no scripts inferiores, no deuda residual general, no pyflakes, no push, no avance al ledger de capacidades y no avance al cierre global UI/UX 1.x.
+
+## Contrato 1.151: vocabulario/affordances UI/UX 1.x
+
+1.151 implementa el contrato de vocabulario/affordances UI/UX 1.x del Panel Maestro como artefacto documental + test-only. HEAD base `c9867c4`; restore point remoto vigente `f455ca1`; main ahead por 2 commits al inicio.
+
+El contrato fija vocabulario permitido/prohibido, terminos contextuales, affordances permitidas/prohibidas, preservacion FSC, preservacion `DEFER_FINALIZATION`, preservacion de la matriz de cierre, deudas semanticas conocidas y modelo de enforcement test-only. No crea JSON contractual y no crea contrato consumido por UI.
+
+Decision final: `VOCABULARY_AFFORDANCES_CONTRACT_IMPLEMENTED_TEST_ONLY`.
+
+Documento: `docs/UI_UX_PANEL_MAESTRO_VOCABULARY_AFFORDANCES_CONTRACT_1_151.md`. Test: `tests/test_ui_ux_panel_maestro_vocabulary_affordances_contract_1_151.py`.
+
+Proximo prompt exacto: `PROMPT UI/UX 1.152 - Checkpoint contrato de vocabulario affordances UI UX 1.x Panel Maestro IA_CORE contract-aware sin runtime/no-execution`.
+
+No UI activa, no `ui/web/index.html`, no `ui/web/styles.css`, no `ui/web/i18n_es.json`, no JS, no backend, no runtime, no helper operativo, no enforcement activo, no listeners/fetches/localStorage/hash/history, no User Panel/rutas/hash, no endpoints/fetches nuevos, no renombrar `+`, no renombrar `DOMAIN`, no scripts inferiores, no deuda residual general, no pyflakes, no push, no avance al ledger de capacidades y no avance al cierre global UI/UX 1.x.
