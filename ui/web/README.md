@@ -1803,3 +1803,17 @@ Documento: `docs/UI_UX_PANEL_MAESTRO_CLOSURE_MATRIX_RESTORE_POINT_PUBLICATION_1_
 Proximo prompt exacto: `PROMPT UI/UX 1.149 - Planificar contrato de vocabulario affordances UI UX 1.x Panel Maestro IA_CORE contract-aware sin runtime/no-execution`.
 
 No UI activa, no `ui/web/index.html`, no `ui/web/styles.css`, no `ui/web/i18n_es.json`, no JS, no listeners/fetches/localStorage/hash/history, no User Panel/rutas/hash, no endpoints/fetches nuevos, no backend, no runtime, no deuda residual general, no pyflakes, no avance al contrato de vocabulario/affordances, no avance al ledger de capacidades y no avance al cierre global UI/UX 1.x.
+
+## Planificacion 1.149: contrato de vocabulario/affordances UI/UX 1.x
+
+1.149 planifica el contrato de vocabulario/affordances UI/UX 1.x sin implementarlo en la consola web. HEAD base `f455ca1`; restore point remoto vigente f455ca1; matriz de cierre UI/UX 1.x publicada y `main` sincronizado con `origin/main`.
+
+Este es el segundo bloque de la secuencia 1.142. El plan define problema, alcance, fuera de alcance, vocabulario permitido/prohibido, affordances permitidas/prohibidas, deudas actuales, relacion con FSC/matriz, estrategia futura de implementacion y validaciones futuras sugeridas.
+
+Decision final: `VOCABULARY_AFFORDANCES_CONTRACT_PLAN_READY_FOR_IMPLEMENTATION_PLANNING`.
+
+Documento: `docs/UI_UX_PANEL_MAESTRO_VOCABULARY_AFFORDANCES_CONTRACT_PLAN_1_149.md`. Test: `tests/test_ui_ux_panel_maestro_vocabulary_affordances_contract_plan_1_149.py`.
+
+Proximo prompt exacto: `PROMPT UI/UX 1.150 - Planificar implementacion contrato de vocabulario affordances UI UX 1.x Panel Maestro IA_CORE contract-aware sin runtime/no-execution`.
+
+No implementacion, no contrato consumido por UI, no UI activa, no `ui/web/index.html`, no `ui/web/styles.css`, no `ui/web/i18n_es.json`, no JS, no listeners/fetches/localStorage/hash/history, no User Panel/rutas/hash, no endpoints/fetches nuevos, no backend, no runtime, no renombrar `+`, no renombrar `DOMAIN`, no scripts inferiores, no deuda residual general, no pyflakes, no push, no avance a implementacion, no avance al ledger de capacidades y no avance al cierre global UI/UX 1.x.
