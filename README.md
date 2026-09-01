@@ -1077,3 +1077,17 @@ Documento: `docs/UI_UX_PANEL_MAESTRO_CLOSURE_MATRIX_CHECKPOINT_1_146.md`. Test: 
 Proximo prompt exacto: `PROMPT UI/UX 1.147 - Decidir publicacion restore point matriz de cierre UI UX 1.x Panel Maestro IA_CORE contract-aware sin runtime/no-execution`.
 
 No se implemento cambio visual nuevo, no UI activa, no `ui/web/index.html`, no `ui/web/styles.css`, no `ui/web/i18n_es.json`, no JS, no listeners/fetches/localStorage/hash/history, no User Panel/rutas/hash, no endpoints/fetches nuevos, no backend/runtime/endpoints/CI/dependencias, no deuda residual general, no pyflakes, no push, no avance al proximo bloque y no avance a publicacion remota.
+
+## Decision 1.147: publicacion restore point matriz de cierre UI/UX 1.x
+
+1.147 decide seleccionar la publicacion futura del restore point de la matriz de cierre UI/UX 1.x. Base local `167d521`; restore point remoto vigente `862e915`; `main` ahead por 9 commits al inicio; push no ejecutado.
+
+La decision se apoya en revision visual humana aprobada, matriz visible, 20 items con etiquetas visibles, scroll/accesibilidad resuelta, validaciones documentales/backend pasando, working tree limpio y ausencia operativa preservada. No hay deuda critica bloqueante para publicar el restore point antes del contrato de vocabulario/affordances.
+
+Decision final: `CLOSURE_MATRIX_RESTORE_POINT_PUBLICATION_SELECTED`.
+
+Documento: `docs/UI_UX_PANEL_MAESTRO_CLOSURE_MATRIX_RESTORE_POINT_DECISION_1_147.md`. Test: `tests/test_ui_ux_panel_maestro_closure_matrix_restore_point_decision_1_147.py`.
+
+Proximo prompt exacto: `PROMPT UI/UX 1.148 - Publicar restore point matriz de cierre UI UX 1.x Panel Maestro IA_CORE contract-aware sin runtime/no-execution`.
+
+No push, no publicacion ejecutada, no UI activa, no `ui/web/index.html`, no `ui/web/styles.css`, no `ui/web/i18n_es.json`, no JS, no listeners/fetches/localStorage/hash/history, no User Panel/rutas/hash, no endpoints/fetches nuevos, no backend/runtime/endpoints/CI/dependencias, no deuda residual general, no pyflakes, no avance al contrato de vocabulario/affordances, no avance al ledger de capacidades y no avance al cierre global UI/UX 1.x.
