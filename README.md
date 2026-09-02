@@ -1145,3 +1145,17 @@ Documento: `docs/UI_UX_PANEL_MAESTRO_VOCABULARY_AFFORDANCES_CONTRACT_1_151.md`. 
 Proximo prompt exacto: `PROMPT UI/UX 1.152 - Checkpoint contrato de vocabulario affordances UI UX 1.x Panel Maestro IA_CORE contract-aware sin runtime/no-execution`.
 
 No UI activa, no `ui/web/index.html`, no `ui/web/styles.css`, no `ui/web/i18n_es.json`, no JS, no backend, no runtime, no helper operativo, no enforcement activo, no listeners/fetches/localStorage/hash/history, no User Panel/rutas/hash, no endpoints/fetches nuevos, no renombrar `+`, no renombrar `DOMAIN`, no scripts inferiores, no deuda residual general, no pyflakes, no push, no avance al ledger de capacidades y no avance al cierre global UI/UX 1.x.
+
+## Checkpoint 1.152: contrato de vocabulario/affordances
+
+1.152 checkpointa el contrato de vocabulario/affordances sin implementar nada nuevo. HEAD base `08da357`; restore point remoto vigente `f455ca1`; main ahead por 3 commits al inicio; contrato 1.151 implementado como documental + test-only.
+
+Se confirma no JSON contractual, no contrato consumido por UI, no helper operativo, no enforcement activo, no UI activa, no JS, no backend y no runtime. La secuencia 1.142 queda: matriz: cerrada y publicada; vocabulario/affordances: checkpointed; ledger de capacidades: proximo bloque pendiente.
+
+Decision final: `VOCABULARY_AFFORDANCES_CHECKPOINT_PASSED_READY_FOR_LEDGER_PLANNING`.
+
+Documento: `docs/UI_UX_PANEL_MAESTRO_VOCABULARY_AFFORDANCES_CHECKPOINT_1_152.md`. Test: `tests/test_ui_ux_panel_maestro_vocabulary_affordances_checkpoint_1_152.py`.
+
+Proximo prompt exacto: `PROMPT UI/UX 1.153 - Planificar ledger de capacidades presentes bloqueadas futuras UI UX 1.x Panel Maestro IA_CORE contract-aware sin runtime/no-execution`.
+
+No ledger implementado, no ledger planificado con detalle, no documento/test ledger, no contrato adicional, no ampliacion de contrato 1.151, no JSON contractual, no fixture contractual JSON, no contrato consumido por UI, no helper operativo, no enforcement activo, no UI activa, no JS, no backend, no runtime, no push, no publicacion de restore point y no cierre global UI/UX 1.x.
