@@ -1859,3 +1859,17 @@ Documento: `docs/UI_UX_PANEL_MAESTRO_VOCABULARY_AFFORDANCES_CHECKPOINT_1_152.md`
 Proximo prompt exacto: `PROMPT UI/UX 1.153 - Planificar ledger de capacidades presentes bloqueadas futuras UI UX 1.x Panel Maestro IA_CORE contract-aware sin runtime/no-execution`.
 
 No ledger implementado, no ledger planificado con detalle, no documento/test ledger, no contrato adicional, no ampliacion de contrato 1.151, no JSON contractual, no fixture contractual JSON, no contrato consumido por UI, no helper operativo, no enforcement activo, no UI activa, no JS, no backend, no runtime, no push, no publicacion de restore point y no cierre global UI/UX 1.x.
+
+## Planificacion 1.153: ledger de capacidades presentes/bloqueadas/futuras
+
+1.153 planifica el ledger de capacidades presentes/bloqueadas/futuras del Panel Maestro UI/UX 1.x sin implementarlo. HEAD base `5eb2ed0`; restore point remoto vigente `f455ca1`; main ahead por 4 commits al inicio.
+
+La planificacion confirma matriz de cierre publicada, contrato de vocabulario/affordances checkpointed e inicio del bloque 3 de secuencia 1.142. Define problema, proposito, alcance, fuera de alcance, categorias, estados, campos minimos por capacidad, criterios de clasificacion, relacion con `allowed_actions`/`forbidden_actions`/`blocked_capabilities`, matriz/FSC/DEFER, contrato 1.151, deudas actuales, estrategia futura, archivos candidatos/prohibidos, validaciones, criterios de aceptacion, riesgos, mitigaciones y conexion futura con TOP 15.
+
+Decision final: `CAPABILITIES_LEDGER_PLAN_READY_FOR_IMPLEMENTATION_PLANNING`.
+
+Documento: `docs/UI_UX_PANEL_MAESTRO_CAPABILITIES_LEDGER_PLAN_1_153.md`. Test: `tests/test_ui_ux_panel_maestro_capabilities_ledger_plan_1_153.py`.
+
+Proximo prompt exacto: `PROMPT UI/UX 1.154 - Planificar implementacion ledger de capacidades presentes bloqueadas futuras UI UX 1.x Panel Maestro IA_CORE contract-aware sin runtime/no-execution`.
+
+TOP 15 recomendaciones elite diferido hasta despues de cerrar ledger. no implementacion ledger, no documento/test ledger 1.154, no JSON ledger, no ledger consumido por UI, no helper operativo, no enforcement activo, no UI activa, no JS, no backend, no runtime, no push, no restore point publicado y no cierre global UI/UX 1.x.
