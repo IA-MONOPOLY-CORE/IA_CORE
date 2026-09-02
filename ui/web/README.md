@@ -1929,3 +1929,17 @@ Documento: `docs/UI_UX_PANEL_MAESTRO_CAPABILITIES_LEDGER_RESTORE_POINT_DECISION_
 Proximo prompt exacto: `PROMPT UI/UX 1.158 - Publicar restore point ledger capacidades UI UX 1.x Panel Maestro IA_CORE contract-aware sin runtime/no-execution`.
 
 TOP 15 diferido. UI/UX 1.x no cerrado globalmente. no push, no restore point publicado en este prompt, no JSON ledger, no fixture ledger, no ledger consumido por UI, no helper operativo, no enforcement activo, no UI activa, no JS, no backend, no runtime.
+
+## Publicacion 1.158 del restore point ledger
+
+1.158 publica de forma controlada el restore point ledger despues de validar el bloque acumulado. HEAD base `fba87de`; restore point remoto previo `f455ca1`; main ahead por 9 commits al inicio. El commit final 1.158 queda definido por el commit de este prompt y debe ser confirmado como nuevo restore point remoto despues del push.
+
+La publicacion incluye matriz cerrada/publicada, vocabulario/affordances publicado en nuevo restore point, ledger publicado en nuevo restore point y tres bloques recomendados publicados. No ejecuta TOP 15 y no cierra UI/UX 1.x globalmente.
+
+Decision final: `CAPABILITIES_LEDGER_RESTORE_POINT_PUBLISHED`.
+
+Documento: `docs/UI_UX_PANEL_MAESTRO_CAPABILITIES_LEDGER_RESTORE_POINT_PUBLICATION_1_158.md`. Test: `tests/test_ui_ux_panel_maestro_capabilities_ledger_restore_point_publication_1_158.py`.
+
+Proximo prompt exacto: `PROMPT UI/UX 1.159 - Planificar auditoria TOP 15 recomendaciones elite cierre coronado UI UX 1.x Panel Maestro IA_CORE contract-aware sin runtime/no-execution`.
+
+TOP 15 no ejecutado. TOP 15 proximo bloque. UI/UX 1.x no cerrado globalmente. no JSON ledger, no fixture ledger, no ledger consumido por UI, no helper operativo, no enforcement activo, no UI activa, no JS, no backend, no runtime.
