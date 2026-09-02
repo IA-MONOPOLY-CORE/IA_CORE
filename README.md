@@ -1187,3 +1187,17 @@ Documento: `docs/UI_UX_PANEL_MAESTRO_CAPABILITIES_LEDGER_IMPLEMENTATION_PLAN_1_1
 Proximo prompt exacto: `PROMPT UI/UX 1.155 - Implementar ledger de capacidades presentes bloqueadas futuras UI UX 1.x Panel Maestro IA_CORE contract-aware sin runtime/no-execution`.
 
 TOP 15 recomendaciones elite diferido hasta despues de cerrar ledger. no implementacion ledger, no documento/test ledger 1.155, no JSON ledger, no fixture ledger, no ledger consumido por UI, no helper operativo, no enforcement activo, no UI activa, no JS, no backend, no runtime, no push, no restore point publicado y no cierre global UI/UX 1.x.
+
+## Implementacion 1.155 del ledger
+
+1.155 implementa el ledger de capacidades presentes/bloqueadas/futuras como artefacto documental + test-only. HEAD base `845896c`; restore point remoto vigente `f455ca1`; main ahead por 6 commits al inicio.
+
+La implementacion confirma matriz de cierre publicada, contrato de vocabulario/affordances checkpointed, ledger planificado en 1.153 e implementacion ledger planificada en 1.154. ledger implementado como documental + test-only en 1.155, sin consumo UI/backend y sin JSON.
+
+Decision final: `CAPABILITIES_LEDGER_IMPLEMENTED_TEST_ONLY`.
+
+Documento: `docs/UI_UX_PANEL_MAESTRO_CAPABILITIES_LEDGER_1_155.md`. Test: `tests/test_ui_ux_panel_maestro_capabilities_ledger_1_155.py`.
+
+Proximo prompt exacto: `PROMPT UI/UX 1.156 - Checkpoint ledger de capacidades presentes bloqueadas futuras UI UX 1.x Panel Maestro IA_CORE contract-aware sin runtime/no-execution`.
+
+TOP 15 recomendaciones elite diferido hasta despues de checkpoint del ledger. no JSON ledger, no fixture ledger, no ledger consumido por UI, no helper operativo, no enforcement activo, no UI activa, no JS, no backend, no runtime, no push, no restore point publicado y no cierre global UI/UX 1.x.

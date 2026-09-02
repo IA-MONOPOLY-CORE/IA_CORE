@@ -437,11 +437,28 @@ def test_current_ui_readonly_surface_preserves_expected_markers():
         assert forbidden not in text
 
 
-def test_future_ledger_artifacts_were_not_created():
-    assert not FUTURE_LEDGER_DOC.exists()
-    assert not FUTURE_LEDGER_TEST.exists()
+def test_future_ledger_artifacts_are_transition_aware():
     assert not FUTURE_LEDGER_JSON.exists()
     assert not FUTURE_LEDGER_FIXTURE.exists()
+
+    if not FUTURE_LEDGER_DOC.exists() and not FUTURE_LEDGER_TEST.exists():
+        return
+
+    assert FUTURE_LEDGER_DOC.exists()
+    assert FUTURE_LEDGER_TEST.exists()
+
+    ledger = read(FUTURE_LEDGER_DOC)
+    for marker in [
+        "mode: DOCUMENTATION_ONLY",
+        "status: TEST_ONLY_LEDGER",
+        "runtime: NO_RUNTIME",
+        "execution: NO_EXECUTION",
+        "ui_consumption: NOT_CONSUMED_BY_UI",
+        "backend_consumption: NOT_CONSUMED_BY_BACKEND",
+        "json_ledger: NOT_CREATED",
+        "enforcement: TEST_ONLY",
+    ]:
+        assert marker in ledger
 
 
 def test_readme_cursors_record_implementation_plan_1_154():
