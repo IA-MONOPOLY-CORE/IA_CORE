@@ -1215,3 +1215,17 @@ Documento: `docs/UI_UX_PANEL_MAESTRO_CAPABILITIES_LEDGER_CHECKPOINT_1_156.md`. T
 Proximo prompt exacto: `PROMPT UI/UX 1.157 - Decidir publicación restore point ledger capacidades UI UX 1.x Panel Maestro IA_CORE contract-aware sin runtime/no-execution`.
 
 TOP 15 recomendaciones elite diferido. no JSON ledger, no fixture ledger, no ledger consumido por UI, no helper operativo, no enforcement activo, no UI activa, no JS, no backend, no runtime, no push, no restore point publicado y no cierre global UI/UX 1.x.
+
+## Decision 1.157 de restore point ledger
+
+1.157 decide documentalmente la publicacion futura del restore point del ledger de capacidades, sin ejecutar push ni publicar restore point en este prompt. HEAD base `1478a66`; restore point remoto vigente `f455ca1`; main ahead por 8 commits al inicio; working tree limpio.
+
+La decision confirma matriz cerrada/publicada, vocabulario/affordances cerrado localmente, ledger cerrado localmente y tres bloques recomendados cerrados localmente. Solo la matriz esta publicada en remoto; vocabulario/affordances y ledger quedan todavia locales hasta el proximo prompt de publicacion.
+
+Decision final: `CAPABILITIES_LEDGER_RESTORE_POINT_PUBLICATION_SELECTED`; publicacion seleccionada para el proximo paso.
+
+Documento: `docs/UI_UX_PANEL_MAESTRO_CAPABILITIES_LEDGER_RESTORE_POINT_DECISION_1_157.md`. Test: `tests/test_ui_ux_panel_maestro_capabilities_ledger_restore_point_decision_1_157.py`.
+
+Proximo prompt exacto: `PROMPT UI/UX 1.158 - Publicar restore point ledger capacidades UI UX 1.x Panel Maestro IA_CORE contract-aware sin runtime/no-execution`.
+
+TOP 15 diferido. UI/UX 1.x no cerrado globalmente. no push, no restore point publicado en este prompt, no JSON ledger, no fixture ledger, no ledger consumido por UI, no helper operativo, no enforcement activo, no UI activa, no JS, no backend, no runtime.
