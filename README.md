@@ -1173,3 +1173,17 @@ Documento: `docs/UI_UX_PANEL_MAESTRO_CAPABILITIES_LEDGER_PLAN_1_153.md`. Test: `
 Proximo prompt exacto: `PROMPT UI/UX 1.154 - Planificar implementacion ledger de capacidades presentes bloqueadas futuras UI UX 1.x Panel Maestro IA_CORE contract-aware sin runtime/no-execution`.
 
 TOP 15 recomendaciones elite diferido hasta despues de cerrar ledger. no implementacion ledger, no documento/test ledger 1.154, no JSON ledger, no ledger consumido por UI, no helper operativo, no enforcement activo, no UI activa, no JS, no backend, no runtime, no push, no restore point publicado y no cierre global UI/UX 1.x.
+
+## Planificacion de implementacion 1.154 del ledger
+
+1.154 planifica la implementacion futura del ledger de capacidades presentes/bloqueadas/futuras sin implementarlo. HEAD base `f524194`; restore point remoto vigente `f455ca1`; main ahead por 5 commits al inicio.
+
+La planificacion confirma matriz de cierre publicada, contrato de vocabulario/affordances checkpointed, ledger planificado en 1.153 e implementacion del ledger planificada en 1.154. Estrategia elegida: `documental + test-only`; decision sobre JSON: no JSON ledger por defecto.
+
+Decision final: `CAPABILITIES_LEDGER_IMPLEMENTATION_PLAN_READY_FOR_GUARDED_IMPLEMENTATION`.
+
+Documento: `docs/UI_UX_PANEL_MAESTRO_CAPABILITIES_LEDGER_IMPLEMENTATION_PLAN_1_154.md`. Test: `tests/test_ui_ux_panel_maestro_capabilities_ledger_implementation_plan_1_154.py`.
+
+Proximo prompt exacto: `PROMPT UI/UX 1.155 - Implementar ledger de capacidades presentes bloqueadas futuras UI UX 1.x Panel Maestro IA_CORE contract-aware sin runtime/no-execution`.
+
+TOP 15 recomendaciones elite diferido hasta despues de cerrar ledger. no implementacion ledger, no documento/test ledger 1.155, no JSON ledger, no fixture ledger, no ledger consumido por UI, no helper operativo, no enforcement activo, no UI activa, no JS, no backend, no runtime, no push, no restore point publicado y no cierre global UI/UX 1.x.
