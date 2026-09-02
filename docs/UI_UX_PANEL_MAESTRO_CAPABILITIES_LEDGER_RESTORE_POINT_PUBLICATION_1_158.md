@@ -94,6 +94,14 @@ Publicar restore point remoto del bloque ledger con validaciones repetidas y pus
 - Confirmar nuevo restore point remoto como commit de 1.158.
 - Confirmar que remoto ya no queda en `f455ca1`, sino en el hash final de 1.158.
 
+## Confirmacion post-push registrada por 1.159
+
+- Commit final 1.158 confirmado: `07a15d8`.
+- Restore point remoto ledger publicado: `07a15d8`.
+- `HEAD == origin/main == 07a15d8`.
+- `main` up to date with `origin/main`.
+- Working tree limpio.
+
 ## Estado posterior esperado
 
 - `origin/main` debe ser igual al commit final 1.158.
@@ -181,4 +189,3 @@ Decision final: `CAPABILITIES_LEDGER_RESTORE_POINT_PUBLISHED`.
 - no se corrigieron pyflakes.
 - no se uso force push.
 - no se uso rebase/reset/merge/branch nuevo.
-
