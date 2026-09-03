@@ -1258,6 +1258,17 @@ Proximo prompt exacto: `PROMPT UI/UX 1.160 - Auditar TOP 15 recomendaciones elit
 
 No UI activa, no JS, no backend, no runtime, no execution, no JSON TOP 15, no fixture TOP 15, no push, no restore point publicado en este prompt.
 
+## Planificacion 1.167 de siguiente recomendacion TOP 15
+
+- HEAD base `65b44b4`; restore point remoto vigente `65b44b4`; branch up to date con origin/main al inicio.
+- bloque TOP 15 + readiness publicado.
+- siguiente recomendacion seleccionada: `readme_docs_ui_consistency_audit`.
+- modalidad: `DOCUMENTATION_TEST_AND_UI_READ_ONLY_AUDIT`.
+- Documento plan creado en `docs/UI_UX_PANEL_MAESTRO_NEXT_TOP_15_RECOMMENDATION_PLAN_1_167.md`; test documental creado en `tests/test_ui_ux_panel_maestro_next_top_15_recommendation_plan_1_167.py`.
+- no implementacion, no auditoria ejecutada todavia, no correcciones, no UI activa, no JS, no backend, no runtime, no execution, no JSON readiness, no fixture readiness, no push, no restore point nuevo; UI/UX 1.x no cerrado globalmente.
+- Decision final: `NEXT_TOP_15_RECOMMENDATION_PLAN_READY_FOR_README_DOCS_UI_CONSISTENCY_AUDIT`.
+- Proximo prompt exacto: `PROMPT UI/UX 1.168 - Auditar consistencia README docs UI Panel Maestro IA_CORE post readiness contract-aware sin runtime/no-execution`.
+
 ## Publicacion 1.166 de restore point bloque TOP 15 readiness
 
 - HEAD base `a5102e5`; restore point remoto previo `07a15d8`; `main ahead por 7 commits al inicio`.
