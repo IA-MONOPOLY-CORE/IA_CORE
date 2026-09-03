@@ -1258,6 +1258,15 @@ Proximo prompt exacto: `PROMPT UI/UX 1.160 - Auditar TOP 15 recomendaciones elit
 
 No UI activa, no JS, no backend, no runtime, no execution, no JSON TOP 15, no fixture TOP 15, no push, no restore point publicado en este prompt.
 
+## Decision 1.165 de publicacion restore point
+
+- HEAD base `53374ab`; restore point remoto vigente `07a15d8`; `main ahead por 6 commits al inicio`.
+- bloque 1.159-1.164 coherente y checkpointed; restore point publication selected.
+- Decision final: `TOP_15_READINESS_RESTORE_POINT_PUBLICATION_SELECTED`.
+- Documento decision creado en `docs/UI_UX_PANEL_MAESTRO_TOP_15_READINESS_RESTORE_POINT_DECISION_1_165.md`; test documental creado en `tests/test_ui_ux_panel_maestro_top_15_readiness_restore_point_decision_1_165.py`.
+- Proximo prompt exacto: `PROMPT UI/UX 1.166 - Publicar restore point bloque TOP 15 readiness cierre UI UX 1.x Panel Maestro IA_CORE documentation-test-only sin runtime/no-execution`.
+- Limites mantenidos: no push en 1.165, restore point nuevo no publicado todavia, no UI activa, no JS, no backend, no runtime, no execution, no JSON readiness, no fixture readiness, no UI/UX 1.x cerrado globalmente.
+
 ## Checkpoint 1.164 de readiness matrix
 
 - HEAD base `c247d11`; restore point remoto vigente `07a15d8`; `main ahead por 5 commits al inicio`.
