@@ -4,6 +4,18 @@ IA_CORE is a local, contract-aware multi-agent framework in construction. Its cu
 
 Current GitHub backup target: `https://github.com/IA-MONOPOLY-CORE/IA_CORE`
 
+## Auditoria 1.168 de consistencia README/docs/UI
+
+- HEAD base `cdb4075`; restore point remoto vigente `65b44b4`; main ahead por 1 commit al inicio.
+- Recomendacion TOP 15 auditada: `readme_docs_ui_consistency_audit`.
+- Modalidad: `DOCUMENTATION_TEST_AND_UI_READ_ONLY_AUDIT`.
+- Resultado: `README_DOCS_UI_CONSISTENCY_AUDIT_NEEDS_FIX`.
+- Hallazgos registrados: cursor README/docs adelantado a tramos posteriores al estado esperado 1.168, restore point 1.166 no siempre nombrado con hash explicito, mojibake en `ui/web/README.md` y mecanismos UI/JS legados que requieren encuadre documental.
+- Documento auditoria: `docs/UI_UX_PANEL_MAESTRO_README_DOCS_UI_CONSISTENCY_AUDIT_1_168.md`.
+- Test documental: `tests/test_ui_ux_panel_maestro_readme_docs_ui_consistency_audit_1_168.py`.
+- Proximo prompt exacto: `PROMPT UI/UX 1.168.A - Fix inconsistencias README docs UI Panel Maestro IA_CORE post readiness contract-aware sin runtime/no-execution`.
+- no se corrigieron inconsistencias; UI/JS solo lectura; no UI activa modificada; no JS modificado; no backend; no runtime; no execution; no JSON readiness; no fixture readiness; no push; no restore point nuevo; UI/UX 1.x no cerrado globalmente.
+
 ## Current State
 
 - Last reference commit before this backup: `8d889369`.
