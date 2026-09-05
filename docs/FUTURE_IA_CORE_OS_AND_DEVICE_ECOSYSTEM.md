@@ -236,6 +236,14 @@ La composición conceptual futura podría distribuir responsabilidades así:
 La tabla no define topología, protocolo, control plane, sincronización ni
 autoridad real. Es una asignación conceptual pendiente de contratos propios.
 
+### Continuidad y autoridad del ecosistema
+
+El complemento `FUTURE_ROOT_CONTROL_PLANE_OWNER_NODES_AND_CONTINUITY_MODEL.md`
+describe la visión futura de Owner Nodes, Root Control Plane, continuidad
+operativa, línea de mando y recovery. Este documento conserva el foco en el
+entorno OS, mobile y dispositivos; la referencia no implementa conexión,
+coordinación, failover ni autoridad entre nodos.
+
 ## Especialización empresarial
 
 IA_CORE OS no sería para uso general como entretenimiento, gaming, redes sociales

@@ -89,8 +89,15 @@ La visión `FUTURE_IA_CORE_OS_AND_DEVICE_ECOSYSTEM.md` contempla que el owner
 legítimo podría acceder al ecosistema desde dispositivos autorizados, sujetos a
 identidad, permisos, estado de seguridad, revocación, privacidad y auditoría.
 Esta conexión no define Root Control Plane, Owner Nodes ni continuidad distribuida;
-esa topología queda fuera de este documento y requiere un bloque estratégico 1.3
-separado.
+esa topología corresponde al bloque estratégico 1.3 separado.
+
+## Continuidad y red owner futuras
+
+Ese bloque estratégico 1.3 separado se registra en
+`FUTURE_ROOT_CONTROL_PLANE_OWNER_NODES_AND_CONTINUITY_MODEL.md`. Conecta Owner
+Console, Owner Nodes, Root Control Plane, recovery, dispositivos autorizados,
+revocación de dispositivos y continuidad ante pérdida, robo, traslado o rotura.
+La referencia no convierte Owner Console en servidor ni amplía acceso a clientes.
 
 Referencias: [seguridad](FUTURE_SECURITY_AND_IT_OPERATIONS_MODEL.md),
 [manuales](FUTURE_ONBOARDING_MANUALS_AND_GOVERNANCE_MODEL.md) y

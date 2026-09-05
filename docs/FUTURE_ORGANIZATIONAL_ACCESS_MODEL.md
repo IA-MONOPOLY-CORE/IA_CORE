@@ -71,6 +71,15 @@ Una subárea podría tener panel propio solo si el contrato, la escala, el permi
 y la necesidad lo justifican. Crear o mostrar un panel no debería ampliar por sí
 mismo acceso, autoridad ni visibilidad sobre otra empresa, área o equipo.
 
+## Continuidad owner y permisos cliente
+
+El modelo `FUTURE_ROOT_CONTROL_PLANE_OWNER_NODES_AND_CONTINUITY_MODEL.md` separa
+continuidad owner de permisos internos del cliente. Los clientes deberían seguir
+operando bajo sus propios permisos aunque el owner no estuviera disponible; el
+owner no debería ser punto único de falla. El soporte owner debe estar gobernado
+y el acceso cross-tenant debe estar restringido por defecto, con contrato,
+autorización, alcance y trazabilidad explícitos.
+
 ## Unidades y ejemplos conceptuales
 
 La estructura futura contemplaría sucursales, oficinas, sedes, zonas, franquicias,

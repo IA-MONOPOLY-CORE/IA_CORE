@@ -70,6 +70,16 @@ no implementa sistema operativo, distribución, terminal ni conexión de disposi
 Decisión documental:
 `STRATEGIC_IA_CORE_OS_AND_DEVICE_ECOSYSTEM_DOCUMENTED`.
 
+## Extensión documental STRATEGIC DOCS 1.3
+
+La visión futura de Root Control Plane, Owner Nodes, continuidad operativa,
+línea de mando y recovery owner se registra en
+`FUTURE_ROOT_CONTROL_PLANE_OWNER_NODES_AND_CONTINUITY_MODEL.md`. Este documento
+no crea nodos, servidores, failover, cloud, backups ni recovery.
+
+Decisión documental:
+`STRATEGIC_ROOT_CONTROL_PLANE_OWNER_NODES_AND_CONTINUITY_DOCUMENTED`.
+
 ## Límites y dependencias
 
 - Documentar no equivale a implementar.

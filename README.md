@@ -28,6 +28,8 @@ STRATEGIC DOCS 1.1 incorpora la taxonomía futura de áreas/subáreas corporativ
 
 STRATEGIC DOCS 1.2 registra la visión futura IA_CORE OS, Mobile OS, terminal nativa, ecosistema Linux/Unix/AOSP y ecosistema de dispositivos; no implementa ni activa esas capacidades.
 
+STRATEGIC DOCS 1.3 registra Root Control Plane futuro, Owner Nodes, continuidad operativa, línea de mando, recovery owner y no dependencia de una sola PC owner; todo permanece documental y no implementado.
+
 ## Cursor vigente 1.171 restore point README/docs/UI publicado
 
 - Restore point remoto publicado por 1.171: `README_DOCS_UI_CONSISTENCY_RESTORE_POINT_PUBLISHED`.

@@ -68,6 +68,14 @@ restricciones para comandos sensibles. Un dispositivo confiable o una terminal
 disponible no deberían ampliar autoridad por sí mismos. Esta referencia no crea
 agentes de seguridad, políticas del host, enrolamiento ni ejecución de comandos.
 
+## Seguridad futura de continuidad owner
+
+El modelo `FUTURE_ROOT_CONTROL_PLANE_OWNER_NODES_AND_CONTINUITY_MODEL.md`
+requeriría hardening, detección de nodo comprometido, revocación, auditoría,
+control de permisos, protección contra doble autoridad, recovery seguro, backups
+y aislamiento. Ninguna transición de mando debería omitir verificación de
+identidad o contaminar instancias cliente. Esta referencia no implementa controles.
+
 Dependencias documentales: [acceso](FUTURE_ORGANIZATIONAL_ACCESS_MODEL.md),
 [recuperación](FUTURE_OWNER_SOVEREIGNTY_AND_RECOVERY_MODEL.md) y
 [Legal/Compliance](FUTURE_LEGAL_COMPLIANCE_AND_JURISDICTIONS_MODEL.md).
