@@ -4,6 +4,10 @@ IA_CORE is a local, contract-aware multi-agent framework in construction. Its cu
 
 Current GitHub backup target: `https://github.com/IA-MONOPOLY-CORE/IA_CORE`
 
+## Cursor vigente UI/UX 1.175
+
+UI/UX 1.175 registra el checkpoint widgets: verificacion visual y contractual de los cuatro indicadores reconstruidos del Panel Maestro, con backend_internal_ui_payload.v1 preservado y no-runtime/no-execution. La UI activa permanece sin cambios; las deudas legacy de tests y responsive quedan documentadas, sin declarar cierre visual global. STRATEGIC DOCS 1.0 continua como documentacion futura. El proximo paso sugerido es seleccionar el siguiente bloque visual.
+
 ## Cursor vigente UI/UX 1.174
 
 UI/UX 1.174 reconstruye los widgets del Panel Maestro como indicadores contract-aware con fuente, estado y fallback visibles. Preserva `backend_internal_ui_payload.v1`, no inventa metricas y mantiene no-runtime/no-execution, sin backend ni integraciones reales; STRATEGIC DOCS 1.0 continua como documentacion futura.
