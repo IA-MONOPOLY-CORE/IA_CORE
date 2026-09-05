@@ -1,5 +1,7 @@
 # Consola web principal
 
+Nota posterior al restore point 1.171: [STRATEGIC DOCS 1.0](../../docs/FUTURE_PLATFORM_EXTENSION_INDEX.md) es un bloque documental estrategico; no modifica UI activa, no habilita runtime, no cambia contracts actuales y no implementa paneles ni modulos. El cursor y las recomendaciones de 1.171 abajo conservan el contexto de esa publicacion; UI/UX 1.172 queda sugerido, pendiente de ejecutar.
+
 ## Cursor vigente 1.171 restore point README/docs/UI publicado
 
  - Restore point remoto publicado por 1.171: `README_DOCS_UI_CONSISTENCY_RESTORE_POINT_PUBLISHED`.
