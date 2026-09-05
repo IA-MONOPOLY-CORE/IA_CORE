@@ -4,6 +4,10 @@ IA_CORE is a local, contract-aware multi-agent framework in construction. Its cu
 
 Current GitHub backup target: `https://github.com/IA-MONOPOLY-CORE/IA_CORE`
 
+## Cursor vigente UI/UX 1.173
+
+UI/UX 1.173 audita el cursor real del roadmap del Panel Maestro y confirma que STRATEGIC DOCS 1.0 sigue como documentacion futura. El carril permanece contract-aware y no-runtime/no-execution; el proximo bloque seleccionado es UI/UX 1.174 para auditar y reconstruir widgets contract-aware con fuentes documentales o contractuales existentes, sin inventar datos ni abrir backend.
+
 ## Cursor vigente UI/UX 1.172 post STRATEGIC DOCS
 
 UI/UX 1.172 retoma el roadmap del Panel Maestro post restore point 1.171 y post STRATEGIC DOCS 1.0. La documentacion estrategica futura queda registrada pero no implementada; el carril actual sigue contract-aware, no-runtime/no-execution y sin activacion de integraciones, paneles o modulos operativos. Proximo paso sugerido: auditar el cursor real del roadmap UI/UX antes de seleccionar el siguiente bloque visual.

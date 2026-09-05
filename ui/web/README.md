@@ -1,5 +1,7 @@
 # Consola web principal
 
+Nota UI/UX 1.173: se audita el cursor del roadmap UI/UX sin modificar UI activa y se mantiene la consola contract-aware y no-runtime/no-execution. El proximo bloque visual seguro es la auditoria y reconstruccion acotada de widgets contract-aware; STRATEGIC DOCS 1.0 no habilita paneles, integraciones ni modulos reales en la UI actual.
+
 Nota UI/UX 1.172: el roadmap del Panel Maestro se retoma sin UI activa modificada; la consola mantiene su lectura contract-aware y no-runtime/no-execution. [STRATEGIC DOCS 1.0](../../docs/FUTURE_PLATFORM_EXTENSION_INDEX.md) no habilita paneles, integraciones ni modulos reales en la UI actual.
 
 Nota posterior al restore point 1.171: [STRATEGIC DOCS 1.0](../../docs/FUTURE_PLATFORM_EXTENSION_INDEX.md) es un bloque documental estrategico; no modifica UI activa, no habilita runtime, no cambia contracts actuales y no implementa paneles ni modulos. El cursor UI/UX 1.172 retoma el roadmap sin convertir esa vision futura en capacidad actual.
