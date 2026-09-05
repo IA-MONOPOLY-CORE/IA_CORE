@@ -4,20 +4,23 @@ IA_CORE is a local, contract-aware multi-agent framework in construction. Its cu
 
 Current GitHub backup target: `https://github.com/IA-MONOPOLY-CORE/IA_CORE`
 
-## Cursor vigente 1.168.A fix consistencia README/docs/UI
+## Cursor vigente 1.169 checkpoint fix consistencia README/docs/UI
 
 - Ultimo restore point remoto publicado: `65b44b4 docs(ui): publicar restore point top 15 readiness`.
-- Commits locales posteriores: `cdb4075 docs(ui): planificar siguiente recomendacion top 15`; `f15dc23 docs(ui): auditar consistencia readme docs ui`.
-- Estado remoto/local al inicio de 1.168.A: `origin/main = 65b44b4`; `main` ahead de `origin/main` por 2 commits; working tree limpio.
-- Prompt actual: `PROMPT UI/UX 1.168.A - Fix inconsistencias README docs UI Panel Maestro IA_CORE post readiness contract-aware sin runtime/no-execution`.
+- Commits locales posteriores: `cdb4075 docs(ui): planificar siguiente recomendacion top 15`; `f15dc23 docs(ui): auditar consistencia readme docs ui`; `1abb06e docs(ui): corregir consistencia readme docs ui`.
+- Estado remoto/local al inicio de 1.169: `origin/main = 65b44b4`; `main ahead de origin/main por 3 commits`; working tree limpio.
+- Prompt actual: `PROMPT UI/UX 1.169 - Checkpoint fix consistencia README docs UI Panel Maestro IA_CORE post readiness contract-aware sin runtime/no-execution`.
 - Decision 1.168: `README_DOCS_UI_CONSISTENCY_AUDIT_NEEDS_FIX`.
-- Proposito 1.168.A: corregir solo inconsistencias documentales detectadas por 1.168.
+- Decision 1.168.A: `README_DOCS_UI_CONSISTENCY_FIX_1_168_A_PASSED_WITH_RESIDUAL_DOC_DEBT`.
+- Proposito 1.169: checkpoint documental/test-only del fix 1.168.A.
 - Findings 1.168: `README_CURSOR_ADVANCED_BEYOND_1_168_EXPECTED_STATE`, `RESTORE_POINT_1_166_HASH_PLACEHOLDER_DRIFT`, `WEB_README_ENCODING_MOJIBAKE_DRIFT`, `LEGACY_JS_LOCAL_MECHANISMS_REQUIRE_CONTEXT`.
-- Tratamiento 1.168.A: cursor vigente corregido, restore point 1.166 explicitado como `65b44b4`, mojibake de `ui/web/README.md` corregido y JS legacy encuadrado como deuda/contexto sin tocar JS.
+- Fix 1.168.A confirmado: cursor documental corregido, 1.78+ reencuadrado como historico/no vigente/no estado actual, restore point `65b44b4` explicitado, mojibake evidente corregido y mecanismos JS legacy encuadrados como deuda/contexto.
+- Resultado checkpoint 1.169: fix confirmado con deuda residual documental no blocker.
 - Encadre JS legacy: `localStorage`, `window.location`, listeners/fetches existentes son deuda/contexto historico; no equivalen a runtime activo, no habilitan execution, dispatch, User Panel, endpoints ni consumo readiness/ledger/TOP15; no autorizan mecanismos nuevos.
-- Siguiente prompt exacto: `PROMPT UI/UX 1.169 - Checkpoint fix consistencia README docs UI Panel Maestro IA_CORE post readiness contract-aware sin runtime/no-execution`.
+- Siguiente prompt exacto: `PROMPT UI/UX 1.170 - Decidir restore point post fix consistencia README docs UI Panel Maestro IA_CORE contract-aware sin runtime/no-execution`.
+- Registro historico 1.168.A: `Cursor vigente 1.168.A fix consistencia README/docs/UI`; `PROMPT UI/UX 1.168.A - Fix inconsistencias README docs UI Panel Maestro IA_CORE post readiness contract-aware sin runtime/no-execution`; `main` ahead de `origin/main` por 2 commits; no es cursor vigente actual.
 - Registro historico 1.168: Auditoria 1.168 de consistencia README/docs/UI; HEAD base `cdb4075`; recomendacion `readme_docs_ui_consistency_audit`; modalidad `DOCUMENTATION_TEST_AND_UI_READ_ONLY_AUDIT`; resultado `README_DOCS_UI_CONSISTENCY_AUDIT_NEEDS_FIX`; no se corrigieron inconsistencias en 1.168; UI/JS solo lectura; no UI activa modificada; no JS modificado.
-- Limites 1.168.A: fix documental; no UI activa; no JS funcional; no backend; no runtime; no execution; no User Panel; no endpoints; no JSON/fixtures; no push; no restore point nuevo; UI/UX 1.x no cerrado globalmente.
+- Limites 1.169: checkpoint documental; no UI activa; no JS modificado; no JS funcional; no backend; no runtime; no execution; no User Panel; no endpoints; no JSON/fixtures; no push; no restore point nuevo; UI/UX 1.x no cerrado globalmente.
 
 ## Current State
 
