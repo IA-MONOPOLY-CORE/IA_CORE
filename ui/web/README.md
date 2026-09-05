@@ -1,6 +1,8 @@
 # Consola web principal
 
-Nota posterior al restore point 1.171: [STRATEGIC DOCS 1.0](../../docs/FUTURE_PLATFORM_EXTENSION_INDEX.md) es un bloque documental estrategico; no modifica UI activa, no habilita runtime, no cambia contracts actuales y no implementa paneles ni modulos. El cursor y las recomendaciones de 1.171 abajo conservan el contexto de esa publicacion; UI/UX 1.172 queda sugerido, pendiente de ejecutar.
+Nota UI/UX 1.172: el roadmap del Panel Maestro se retoma sin UI activa modificada; la consola mantiene su lectura contract-aware y no-runtime/no-execution. [STRATEGIC DOCS 1.0](../../docs/FUTURE_PLATFORM_EXTENSION_INDEX.md) no habilita paneles, integraciones ni modulos reales en la UI actual.
+
+Nota posterior al restore point 1.171: [STRATEGIC DOCS 1.0](../../docs/FUTURE_PLATFORM_EXTENSION_INDEX.md) es un bloque documental estrategico; no modifica UI activa, no habilita runtime, no cambia contracts actuales y no implementa paneles ni modulos. El cursor UI/UX 1.172 retoma el roadmap sin convertir esa vision futura en capacidad actual.
 
 ## Cursor vigente 1.171 restore point README/docs/UI publicado
 
