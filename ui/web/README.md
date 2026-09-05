@@ -1,24 +1,31 @@
 # Consola web principal
 
-## Auditoria 1.168 de consistencia README/docs/UI
+## Cursor vigente 1.168.A fix consistencia README/docs/UI
 
-- HEAD base `cdb4075`; restore point remoto vigente `65b44b4`; main ahead por 1 commit al inicio.
-- Recomendacion TOP 15 auditada: `readme_docs_ui_consistency_audit`.
-- Modalidad: `DOCUMENTATION_TEST_AND_UI_READ_ONLY_AUDIT`.
-- Resultado: `README_DOCS_UI_CONSISTENCY_AUDIT_NEEDS_FIX`.
-- Hallazgos registrados: cursor README/docs adelantado a tramos posteriores al estado esperado 1.168, restore point 1.166 no siempre nombrado con hash explicito, mojibake en este README y mecanismos UI/JS legados que requieren encuadre documental.
-- Documento auditoria: `../../docs/UI_UX_PANEL_MAESTRO_README_DOCS_UI_CONSISTENCY_AUDIT_1_168.md`.
-- Test documental: `../../tests/test_ui_ux_panel_maestro_readme_docs_ui_consistency_audit_1_168.py`.
-- Proximo prompt exacto: `PROMPT UI/UX 1.168.A - Fix inconsistencias README docs UI Panel Maestro IA_CORE post readiness contract-aware sin runtime/no-execution`.
-- no se corrigieron inconsistencias; UI/JS solo lectura; no UI activa modificada; no JS modificado; no backend; no runtime; no execution; no JSON readiness; no fixture readiness; no push; no restore point nuevo; UI/UX 1.x no cerrado globalmente.
+ - Ultimo restore point remoto publicado: `65b44b4 docs(ui): publicar restore point top 15 readiness`.
+ - Commits locales posteriores: `cdb4075 docs(ui): planificar siguiente recomendacion top 15`; `f15dc23 docs(ui): auditar consistencia readme docs ui`.
+ - Estado remoto/local al inicio de 1.168.A: `origin/main = 65b44b4`; `main` ahead de `origin/main` por 2 commits; working tree limpio.
+ - Prompt actual: `PROMPT UI/UX 1.168.A - Fix inconsistencias README docs UI Panel Maestro IA_CORE post readiness contract-aware sin runtime/no-execution`.
+ - Decision 1.168: `README_DOCS_UI_CONSISTENCY_AUDIT_NEEDS_FIX`.
+ - Proposito 1.168.A: corregir solo inconsistencias documentales detectadas por 1.168.
+ - Findings 1.168: `README_CURSOR_ADVANCED_BEYOND_1_168_EXPECTED_STATE`, `RESTORE_POINT_1_166_HASH_PLACEHOLDER_DRIFT`, `WEB_README_ENCODING_MOJIBAKE_DRIFT`, `LEGACY_JS_LOCAL_MECHANISMS_REQUIRE_CONTEXT`.
+ - Tratamiento 1.168.A: cursor vigente corregido, restore point 1.166 explicitado como `65b44b4`, mojibake evidente corregido y mecanismos JS legacy encuadrados como deuda/contexto sin tocar JS.
+ - UI actual: superficie contract-aware/no-runtime/no-execution; `FSC` preservadas; `data-contract-screen-count="4"` preservado; `DEFER_FINALIZATION` vigente.
+ - Encadre JS legacy: `localStorage`, `window.location`, listeners/fetches existentes son deuda/contexto historico; no equivale a runtime activo, no habilita execution, dispatch, User Panel, endpoints ni consumo readiness/ledger/TOP15; no autoriza mecanismos nuevos.
+ - No existen JSON/fixtures readiness/ledger/TOP15 y no hay consumo UI/backend de esas matrices documentales.
+ - Siguiente prompt exacto: `PROMPT UI/UX 1.169 - Checkpoint fix consistencia README docs UI Panel Maestro IA_CORE post readiness contract-aware sin runtime/no-execution`.
+ - Registro historico 1.168: Auditoria 1.168 de consistencia README/docs/UI; HEAD base `cdb4075`; recomendacion `readme_docs_ui_consistency_audit`; modalidad `DOCUMENTATION_TEST_AND_UI_READ_ONLY_AUDIT`; resultado `README_DOCS_UI_CONSISTENCY_AUDIT_NEEDS_FIX`; no se corrigieron inconsistencias en 1.168; UI/JS solo lectura; no UI activa modificada; no JS modificado.
+- Limites 1.168.A: fix documental; no UI activa; no se modifico JS; no JS funcional; no backend; no runtime; no execution; no User Panel; no endpoints; no JSON/fixtures; no push; no restore point nuevo; UI/UX 1.x no cerrado globalmente.
+
+Nota 1.168.A: las secciones historicas extensas de este README conservan referencias 1.78.*, 1.79, 1.80, 1.81, 1.83 o posteriores como registro historico/no vigente y no cursor vigente/no estado actual para esta linea de trabajo. El cursor vigente corregido queda limitado al bloque 1.168.A de arriba.
 
 `ui/web/` es la consola principal de IA_CORE. FastAPI la sirve como contenido
-estÃƒÂ¡tico; la superficie 1.0 mantiene sus lecturas preexistentes separadas de
+estático; la superficie 1.0 mantiene sus lecturas preexistentes separadas de
 la autoridad contractual que decide acciones y bloqueos.
 
 ## Paneles internos migrados
 
-| SecciÃƒÂ³n | API utilizada |
+| Sección | API utilizada |
 |---|---|
 | Memory | `GET /api/memory` |
 | Logs | `GET /api/logs` |
@@ -27,7 +34,7 @@ la autoridad contractual que decide acciones y bloqueos.
 | Overview | `GET /api/status` |
 | Backend contract widgets | payload inyectado `backend_internal_ui_payload.v1` |
 
-`admin-panels.js` implementa estas secciones del modal de configuraciÃƒÂ³n. Los
+`admin-panels.js` implementa estas secciones del modal de configuración. Los
 controles de dispatch visibles quedan bloqueados si no hay contrato backend
 que los declare en `allowed_actions`.
 
@@ -36,7 +43,7 @@ que los declare en `allowed_actions`.
 La superficie activa incorpora una shell `data-layout-contract-aware="superior-0.8"`
 para ordenar la UI alrededor de identidad IA_CORE, readiness global,
 contrato/payload, servicios internos, acciones permitidas/prohibidas,
-blocked capabilities, evidencia y prÃƒÂ³ximos pasos.
+blocked capabilities, evidencia y próximos pasos.
 
 Esta capa no agrega endpoints, no ejecuta requests operativos y no cambia el
 contrato backend. Solo organiza visualmente el estado pre-runtime/no-execution
@@ -47,13 +54,13 @@ ya confirmado en `docs/UI_UX_CONTRACT_AWARE_CHECKPOINT_0_6.md` y
 
 La shell conserva `data-layout-contract-aware="superior-0.8"` y agrega
 `data-main-console="contract-aware-1.0"`. La pantalla principal se organiza en
-identidad IA_CORE, readiness global, Contract Core / Payload, seÃƒÂ±ales de
+identidad IA_CORE, readiness global, Contract Core / Payload, señales de
 servicios internos, Actions & Boundaries y Evidence / Checkpoint.
 
 Los widgets de `backend_internal_ui_payload.v1` viven ahora en Contract Core /
 Payload de la consola principal. El cambio reutiliza los mismos IDs y el mismo
-renderer, sin agregar fetches ni fuentes de permiso. La secciÃƒÂ³n de configuraciÃƒÂ³n
-solo conserva una referencia de navegaciÃƒÂ³n a su ubicaciÃƒÂ³n principal.
+renderer, sin agregar fetches ni fuentes de permiso. La sección de configuración
+solo conserva una referencia de navegación a su ubicación principal.
 
 La consola declara `pre-runtime / no-execution`, mantiene deny-by-default ante
 `no_payload`, muestra `forbidden_actions` y `blocked_capabilities`, y no habilita
@@ -80,7 +87,7 @@ estado.
 ## Flujo principal de consola 1.2
 
 La marca `data-console-flow="contract-aware-1.2"` identifica el recorrido de
-lectura de la consola: orientaciÃƒÂ³n IA_CORE y lÃƒÂ­mite pre-runtime, readiness,
+lectura de la consola: orientación IA_CORE y límite pre-runtime, readiness,
 Contract Core / Payload, Internal Services / Signals, Actions & Boundaries,
 Evidence / Checkpoint y siguiente paso documentado.
 
@@ -91,23 +98,23 @@ siendo backend only y `forbidden_actions`/`blocked_capabilities` permanecen
 visibles. El siguiente bloque se presenta como continuidad `planned`, no como
 CTA operativo.
 
-## Modelo de interacciÃƒÂ³n 1.3
+## Modelo de interacción 1.3
 
 La shell agrega `data-console-interaction="contract-aware-1.3"` y declara
 `data-interaction-mode="read-only"`. La ruta 1.2 permite enfocar cada zona de
-forma local, sin inferir permisos ni persistir selecciÃƒÂ³n.
+forma local, sin inferir permisos ni persistir selección.
 
 Contract Core incorpora un `<details>` read-only que replica valores ya
-renderizados de schema, servicio, source, validation, flags, diagnÃƒÂ³sticos,
+renderizados de schema, servicio, source, validation, flags, diagnósticos,
 acciones y bloqueos. `console-interactions.js` sincroniza ese inspector desde
 el DOM mediante `MutationObserver`; no usa fetch, no muta payloads y no activa
 runtime/execution.
 
-Los controles de relectura se marcan como inspecciÃƒÂ³n local, los botones de
-request/dispatch conservan `disabled_by_contract` y las utilidades de gestiÃƒÂ³n
-preexistentes quedan fuera del modelo contract-aware 1.3. Los bloques crÃƒÂ­ticos
+Los controles de relectura se marcan como inspección local, los botones de
+request/dispatch conservan `disabled_by_contract` y las utilidades de gestión
+preexistentes quedan fuera del modelo contract-aware 1.3. Los bloques críticos
 de `forbidden_actions` y `blocked_capabilities` siguen visibles aunque el
-inspector estÃƒÂ© colapsado.
+inspector esté colapsado.
 
 ## Checkpoint de interaccion 1.4
 
@@ -363,14 +370,14 @@ Proximo prompt exacto sugerido: `PROMPT UI/UX 1.24 - Auditar Operator Guidance /
 
 `docs/UI_UX_OPERATOR_GUIDANCE_EMPTY_STATE_AUDIT_1_24.md` audita guidance global, estados, empty states, request draft, actions/boundaries, internal exposure, evidence/next step, raw-safe/detail panels, navegacion/foco/responsive, microcopy, saturacion y cobertura de tests. La auditoria no implementa cambios activos y deja listo el hardening 1.25.
 
-El bloque conserva no-runtime/no-execution, sin endpoints, sin dependencias, sin rutas nuevas y sin cambios de contrato backend. SUBPROMPT UI/UX 1.24.1 agrega el criterio de lenguaje dual: Panel Maestro usa texto claro con tÃƒÂ©rmino tÃƒÂ©cnico entre parÃƒÂ©ntesis cuando aporta trazabilidad; Panel Usuario traduce jerga tÃƒÂ©cnica a lenguaje simple sin ocultar bloqueos ni inventar permisos. No se implementa UI activa. La continuidad recomendada sigue siendo local hasta el checkpoint 1.26 salvo decision explicita del operador.
+El bloque conserva no-runtime/no-execution, sin endpoints, sin dependencias, sin rutas nuevas y sin cambios de contrato backend. SUBPROMPT UI/UX 1.24.1 agrega el criterio de lenguaje dual: Panel Maestro usa texto claro con término técnico entre paréntesis cuando aporta trazabilidad; Panel Usuario traduce jerga técnica a lenguaje simple sin ocultar bloqueos ni inventar permisos. No se implementa UI activa. La continuidad recomendada sigue siendo local hasta el checkpoint 1.26 salvo decision explicita del operador.
 
 Bloque siguiente ejecutado en 1.25 desde `PROMPT UI/UX 1.25 - Endurecer guidance y empty states de operador IA_CORE contract-aware sin runtime/no-execution`; ver hardening operator guidance / empty states abajo.
 ## Hardening operator guidance / empty states 1.25
 
 `docs/UI_UX_OPERATOR_GUIDANCE_EMPTY_STATE_HARDENING_1_25.md` registra el hardening acotado de guidance y empty states. La UI activa agrega microcopy breve para no_payload, not_available, pending, planned, blocked, read-only, allowed_actions, forbidden_actions, blocked_capabilities, raw-safe, request draft, internal exposure y Next Step.
 
-El Panel Maestro aplica lenguaje claro + tÃƒÂ©rmino tÃƒÂ©cnico entre parÃƒÂ©ntesis; Panel Usuario queda documentado como futuro, sin implementaciÃƒÂ³n. El cambio no rediseÃƒÂ±a, no crea pantallas, no crea endpoints, no instala dependencias, no activa runtime, execution, dispatch ni controlled execution. La continuidad recomendada sigue local hasta el checkpoint 1.26 salvo decisiÃƒÂ³n explÃƒÂ­cita del operador.
+El Panel Maestro aplica lenguaje claro + término técnico entre paréntesis; Panel Usuario queda documentado como futuro, sin implementación. El cambio no rediseña, no crea pantallas, no crea endpoints, no instala dependencias, no activa runtime, execution, dispatch ni controlled execution. La continuidad recomendada sigue local hasta el checkpoint 1.26 salvo decisión explícita del operador.
 
 Proximo prompt exacto sugerido: `PROMPT UI/UX 1.26 - Checkpoint Operator Guidance / Empty-State Intelligence IA_CORE contract-aware sin runtime/no-execution`.
 
@@ -965,12 +972,12 @@ no-operativas. Si no hay payload estable, quedan en deny-by-default. Si el
 payload viola `true = blocked`, flags false o status no operativo, se muestra
 error contractual y no se renderizan acciones activas.
 
-## CatÃƒÂ¡logo de textos
+## Catálogo de textos
 
-`i18n_es.json` es la fuente de referencia en espaÃƒÂ±ol para toda pantalla o flujo
+`i18n_es.json` es la fuente de referencia en español para toda pantalla o flujo
 nuevo de la consola. Las incorporaciones deben reutilizar sus claves o ampliarlo antes
-de agregar nuevos textos visibles; la migraciÃƒÂ³n de la superficie existente puede hacerse
-de forma incremental sin duplicar un segundo catÃƒÂ¡logo.
+de agregar nuevos textos visibles; la migración de la superficie existente puede hacerse
+de forma incremental sin duplicar un segundo catálogo.
 ## Checkpoint Validation & Readiness Minor Gaps Closure 1.74
 
 UI/UX avanzado hasta 1.74; `docs/UI_UX_VALIDATION_READINESS_MINOR_GAPS_CHECKPOINT_1_74.md` cierra el bloque `Validation & Readiness Minor Gaps Closure` 1.71 -> 1.74. Confirma el plan 1.71, la auditoria 1.72, el cierre 1.73, los 12 gaps `CLOSED`, `P0_BLOCKER: 0`, `P1_MINOR_GAP: 0 pendientes` y el estado `Validation & Readiness Screen Draft` como `READY_FOR_FINAL_CONTRACT_AUDIT_NEXT`.
@@ -1020,7 +1027,7 @@ Cursor UI/UX diferido desde el checkpoint 1.78, no actual hasta cerrar deuda tec
 
 Proximo prompt exacto: `PROMPT IA_CORE 1.78.D - Checkpoint limpieza deuda tecnica global IA_CORE contract-aware sin runtime/no-execution`.
 
-## Checkpoint limpieza deuda tecnica global 1.78.D
+## Registro historico no vigente/no estado actual: Checkpoint limpieza deuda tecnica global 1.78.D
 
 IA_CORE cierra el sub-bloque documental 1.78.A -> 1.78.D con auditoria global, clasificacion, primera limpieza segura, resolucion de residuos post-suite y checkpoint GitHub. La suite queda verde con `5465 passed`, `2 skipped` y `5 warnings`; los 22 fallos historicos fueron eliminados y el working tree queda limpio antes del commit/push.
 
@@ -1028,48 +1035,48 @@ Este checkpoint no modifica UI activa, backend operativo, runtime, endpoints, ru
 
 Proximo prompt exacto sugerido: `PROMPT IA_CORE 1.78.E - Planificar segunda tanda de limpieza deuda tecnica global IA_CORE contract-aware sin runtime/no-execution`.
 
-## Plan segunda tanda deuda tecnica global 1.78.E
+## Registro historico no vigente/no estado actual: Plan segunda tanda deuda tecnica global 1.78.E
 
 IA_CORE planifica la segunda tanda sin limpiar todavia en `docs/IA_CORE_GLOBAL_TECH_DEBT_SECOND_CLEANUP_PLAN_1_78_E.md`. Se revisan los 65 diagnosticos pyflakes, con 38 candidatos estaticos solo en tests y 27 diagnosticos diferidos o riesgosos; los residuos post-suite quedan como politica candidata separada. Restore point vigente: `cfb74e6`. `1.79` sigue diferido y no hay push por defecto.
 
 No se limpio, no se corrigieron pyflakes, no se modifico UI activa, no se toco backend operativo, runtime, endpoints, CI ni dependencias. Proximo prompt exacto: `PROMPT IA_CORE 1.78.F - Limpiar segunda tanda de deuda tecnica global segura IA_CORE contract-aware sin runtime/no-execution`.
 
-## Limpieza segunda tanda deuda tecnica global 1.78.F
+## Registro historico no vigente/no estado actual: Limpieza segunda tanda deuda tecnica global 1.78.F
 
 IA_CORE ejecuta la limpieza segura test-only documentada en `docs/IA_CORE_GLOBAL_TECH_DEBT_SECOND_CLEANUP_1_78_F.md`. Se corrigieron los 38 pyflakes seguros definidos por 1.78.E, con 33 imports no usados y 5 variables locales no usadas en tests. Pyflakes global baja de 65 a 26 y los diagnosticos restantes quedan diferidos en archivos fuera de la consola web activa.
 
 1.78.F no modifica UI activa, no toca backend operativo, no crea endpoints/rutas/fetches, no activa runtime/execution, no cambia CI ni dependencias. `1.79` sigue diferido, no hay push por defecto y el proximo prompt exacto es `PROMPT IA_CORE 1.78.G - Checkpoint segunda limpieza deuda tecnica global IA_CORE contract-aware sin runtime/no-execution`.
 
-## Checkpoint segunda limpieza deuda tecnica global 1.78.G
+## Registro historico no vigente/no estado actual: Checkpoint segunda limpieza deuda tecnica global 1.78.G
 
 IA_CORE cierra el checkpoint 1.78.G en `docs/IA_CORE_GLOBAL_TECH_DEBT_SECOND_CLEANUP_CHECKPOINT_1_78_G.md`. La segunda limpieza test-only queda cerrada, pyflakes global queda reducido de `65 -> 26`, los 26 diagnosticos restantes quedan diferidos/protegidos fuera de tests y el push del checkpoint deja un nuevo restore point remoto.
 
 Este checkpoint no modifica UI activa, no toca backend operativo, no crea endpoints/rutas/fetches, no activa runtime/execution/dispatch, no cambia CI ni dependencias y no avanza a 1.79. `1.79` sigue diferido salvo decision humana explicita. Proximo prompt sugerido: `PROMPT IA_CORE 1.78.H - Planificar tercera tanda de limpieza deuda tecnica global IA_CORE contract-aware sin runtime/no-execution`.
 
-## Plan tercera tanda deuda tecnica global 1.78.H
+## Registro historico no vigente/no estado actual: Plan tercera tanda deuda tecnica global 1.78.H
 
 IA_CORE planifica la tercera tanda en `docs/IA_CORE_GLOBAL_TECH_DEBT_THIRD_CLEANUP_PLAN_1_78_H.md` desde el restore point `c79ba6a`. El plan parte del checkpoint `IA_CORE_GLOBAL_TECH_DEBT_SECOND_CLEANUP_CHECKPOINT_1_78_G`, conserva la reduccion pyflakes `65 -> 26`, clasifica los `26` diagnosticos restantes y define como alcance recomendado de 1.78.I solo `8` `SAFE_STATIC_CANDIDATES_FOR_1_78_I`.
 
 Esta fase no limpia, no corrige pyflakes, no modifica UI activa, no toca backend/runtime/endpoints/CI/dependencias, no hace push por defecto y no avanza a 1.79. `1.79` sigue diferido salvo decision humana explicita. Proximo prompt exacto: `PROMPT IA_CORE 1.78.I - Limpiar tercera tanda de deuda tecnica global segura IA_CORE contract-aware sin runtime/no-execution`.
 
-## Limpieza tercera tanda deuda tecnica global 1.78.I
+## Registro historico no vigente/no estado actual: Limpieza tercera tanda deuda tecnica global 1.78.I
 
 IA_CORE ejecuta en `docs/IA_CORE_GLOBAL_TECH_DEBT_THIRD_CLEANUP_1_78_I.md` la limpieza segura planificada en 1.78.H. Se corrigen solo `8` candidatos autorizados y pyflakes global baja de `26 -> 18`; los `18` diagnosticos restantes quedan diferidos/protegidos para revision humana o arquitectonica.
 
 No se modifica UI activa, no se toca backend/runtime/endpoints/CI/dependencias fuera del alcance autorizado, no hay push por defecto y no se avanza a 1.79. `1.79` sigue diferido salvo decision humana explicita. Proximo prompt exacto: `PROMPT IA_CORE 1.78.J - Checkpoint tercera limpieza deuda tecnica global IA_CORE contract-aware sin runtime/no-execution`.
 
-## Checkpoint tercera limpieza deuda tecnica global 1.78.J
+## Registro historico no vigente/no estado actual: Checkpoint tercera limpieza deuda tecnica global 1.78.J
 
 IA_CORE cierra el checkpoint 1.78.J en `docs/IA_CORE_GLOBAL_TECH_DEBT_THIRD_CLEANUP_CHECKPOINT_1_78_J.md`. La tercera limpieza segura queda cerrada, pyflakes global queda reducido de `26 -> 18`, los `18` diagnosticos restantes quedan diferidos/protegidos y el push del checkpoint deja un nuevo restore point remoto.
 
 Este checkpoint no modifica UI activa, no toca backend operativo fuera del alcance, no crea endpoints/rutas/fetches, no activa runtime/execution/dispatch, no cambia CI ni dependencias y no avanza a 1.79. `1.79` sigue diferido salvo decision humana explicita. Proximo prompt sugerido: `PROMPT IA_CORE 1.78.K - Auditar deuda tecnica restante y readiness para retomar UI/UX 1.79 IA_CORE contract-aware sin runtime/no-execution`.
 
-## Auditoria residual/readiness deuda tecnica 1.78.K
+## Registro historico no vigente/no estado actual: Auditoria residual/readiness deuda tecnica 1.78.K
 
 IA_CORE audita en `docs/IA_CORE_TECH_DEBT_RESIDUAL_READINESS_AUDIT_1_78_K.md` los `18` pyflakes restantes desde el restore point vigente `bb4852e`. No se limpia ni se corrigen pyflakes; la decision final es `READY_TO_RESUME_UI_UX_1_79_WITH_DOCUMENTED_RESIDUAL_DEBT`.
 
 La deuda residual queda documentada y no bloquea retomar UI/UX 1.79 bajo contrato sin runtime/no-execution. 1.78.K no modifica UI activa, no toca backend/runtime/endpoints/CI/dependencias, no hace push por defecto y no avanza a 1.79 dentro de este prompt. Proximo prompt exacto: `PROMPT UI/UX 1.79 - Consolidar siguiente bloque UI/UX post limpieza deuda tecnica global IA_CORE contract-aware sin runtime/no-execution`.
-## Plan siguiente bloque UI/UX 1.79
+## Registro historico no vigente/no estado actual: Plan siguiente bloque UI/UX 1.79
 
 UI/UX planificado hasta 1.79; IA_CORE retoma la planificacion UI/UX en `docs/UI_UX_NEXT_BLOCK_PLAN_1_79.md` despues de la limpieza tecnica global. La base es `605bad2`, el restore point remoto vigente es `bb4852e` y 1.78.K queda confirmado con `READY_TO_RESUME_UI_UX_1_79_WITH_DOCUMENTED_RESIDUAL_DEBT`.
 
@@ -1078,49 +1085,49 @@ La deuda residual no bloqueante queda documentada para este alcance: `18` pyflak
 Cursor historico 1.78 conservado: `PROMPT UI/UX 1.79 - Consolidar siguiente bloque UI/UX post Validation & Readiness Final Screen Contract IA_CORE contract-aware sin runtime/no-execution`.
 
 1.79 no crea pantalla, sin UI activa modificada, User Panel no implementado, sin runtime/no-execution, sin endpoints/rutas/fetches/backend operativo/CI/dependencias, sin limpiar deuda residual y no push por defecto. Proximo prompt exacto: `PROMPT UI/UX 1.80 - Auditar readiness de implementacion de Final Screen Contracts existentes IA_CORE contract-aware sin runtime/no-execution`.
-## Auditoria readiness implementacion Final Screen Contracts 1.80
+## Registro historico no vigente/no estado actual: Auditoria readiness implementacion Final Screen Contracts 1.80
 
 UI/UX auditado hasta 1.80; `docs/UI_UX_EXISTING_FINAL_SCREEN_CONTRACTS_IMPLEMENTATION_READINESS_AUDIT_1_80.md` audita readiness de implementacion futura para Contract Overview, Blocked & Forbidden, Validation & Readiness. La auditoria confirma que los tres contratos estan `READY_FOR_IMPLEMENTATION_PLANNING` y decide `EXISTING_FINAL_SCREEN_CONTRACTS_READY_FOR_IMPLEMENTATION_PLAN`.
 
 El orden futuro recomendado es Contract Overview -> Blocked & Forbidden -> Validation & Readiness. Request Contract Preview sigue diferido. 1.80 no crea pantalla, sin UI activa modificada, User Panel no implementado, sin backend/runtime/endpoints/CI/dependencias, sin limpiar deuda residual, sin corregir pyflakes y no push por defecto.
 
 Proximo prompt exacto: `PROMPT UI/UX 1.81 - Documentar plan de implementacion de Final Screen Contracts existentes IA_CORE contract-aware sin runtime/no-execution`.
-## Plan implementacion futura Final Screen Contracts 1.81
+## Registro historico no vigente/no estado actual: Plan implementacion futura Final Screen Contracts 1.81
 
 UI/UX planificado hasta 1.81; `docs/UI_UX_FINAL_SCREEN_CONTRACTS_IMPLEMENTATION_PLAN_1_81.md` convierte la auditoria 1.80 en plan operativo futuro para los tres Final Screen Contracts existentes. La decision final es `FINAL_SCREEN_CONTRACTS_IMPLEMENTATION_PLAN_DOCUMENTED`.
 
 El orden recomendado se mantiene como Contract Overview -> Blocked & Forbidden -> Validation & Readiness. La secuencia futura queda: 1.82 checkpoint, 1.83 guardrails pre-implementacion si corresponde, 1.84 Contract Overview, 1.85 hardening y 1.86 checkpoint/push si el prompt lo autoriza.
 
 1.81 no implementa pantalla, sin UI activa modificada, User Panel no implementado, sin rutas/hash, sin backend/runtime/endpoints/CI/dependencias, sin limpiar deuda residual, sin corregir pyflakes y no push por defecto. Proximo prompt exacto: `PROMPT UI/UX 1.82 - Checkpoint plan de implementacion de Final Screen Contracts existentes IA_CORE contract-aware sin runtime/no-execution`.
-## Checkpoint plan implementacion futura Final Screen Contracts 1.82
+## Registro historico no vigente/no estado actual: Checkpoint plan implementacion futura Final Screen Contracts 1.82
 
 UI/UX cerrado hasta 1.82; sub-bloque 1.79-1.82 cerrado en `docs/UI_UX_FINAL_SCREEN_CONTRACTS_IMPLEMENTATION_PLAN_CHECKPOINT_1_82.md`. El checkpoint confirma 1.79 planificacion, 1.80 readiness de implementacion, 1.81 plan de implementacion futura y la decision `FINAL_SCREEN_CONTRACTS_IMPLEMENTATION_PLAN_DOCUMENTED`.
 
 El orden futuro aprobado se mantiene como Contract Overview -> Blocked & Forbidden -> Validation & Readiness. Request Contract Preview sigue diferido. 1.82 no implementa pantalla, sin UI activa modificada, User Panel no implementado, sin rutas/hash, sin backend/runtime/endpoints/CI/dependencias, sin limpiar deuda residual y sin corregir pyflakes.
 
 Checkpoint GitHub: despues del commit y push normal de 1.82, el nuevo restore point remoto queda en el commit `docs(ui): cerrar checkpoint plan implementacion final screen contracts`. Proximo prompt exacto: `PROMPT UI/UX 1.83 - Preparar guardrails pre-implementacion de Contract Overview Screen IA_CORE contract-aware sin runtime/no-execution`.
-## Guardrails pre-implementacion Contract Overview 1.83
+## Registro historico no vigente/no estado actual: Guardrails pre-implementacion Contract Overview 1.83
 
 UI/UX preparado hasta 1.83; `docs/UI_UX_CONTRACT_OVERVIEW_PRE_IMPLEMENTATION_GUARDRAILS_1_83.md` define guardrails pre-implementacion Contract Overview para convertir el plan 1.81/checkpoint 1.82 en criterios previos verificables. La decision final es `CONTRACT_OVERVIEW_PRE_IMPLEMENTATION_GUARDRAILS_READY`.
 
 1.83 no implementa pantalla, sin UI activa modificada, sin componente nuevo, User Panel no implementado, sin rutas/hash, sin backend/runtime/endpoints/CI/dependencias, sin limpiar deuda residual, sin corregir pyflakes y no push por defecto.
 
 Proximo prompt exacto: `PROMPT UI/UX 1.84 - Checkpoint guardrails pre-implementacion Contract Overview Screen IA_CORE contract-aware sin runtime/no-execution`.
-## Checkpoint guardrails Contract Overview 1.84
+## Registro historico no vigente/no estado actual: Checkpoint guardrails Contract Overview 1.84
 
 UI/UX cerrado hasta 1.84; `docs/UI_UX_CONTRACT_OVERVIEW_PRE_IMPLEMENTATION_GUARDRAILS_CHECKPOINT_1_84.md` cierra los guardrails pre-implementacion Contract Overview 1.83 y deja `FSC-CO-01` listo para planificacion de implementacion controlada. La decision confirmada es `CONTRACT_OVERVIEW_PRE_IMPLEMENTATION_GUARDRAILS_READY`.
 
 El checkpoint 1.84 no implementa pantalla, no modifica UI activa, no crea componente nuevo ni User Panel, no crea rutas/hash, endpoints o fetches, no toca backend/runtime/CI/dependencias, no limpia deuda residual y no corrige pyflakes. El push publica el nuevo restore point remoto despues de validar el commit `docs(ui): cerrar checkpoint guardrails contract overview`.
 
 Proximo prompt exacto: `PROMPT UI/UX 1.85 - Preparar plan de implementacion controlada de Contract Overview Screen IA_CORE contract-aware sin runtime/no-execution`.
-## Plan de implementacion controlada Contract Overview 1.85
+## Registro historico no vigente/no estado actual: Plan de implementacion controlada Contract Overview 1.85
 
 UI/UX planificado hasta 1.85; `docs/UI_UX_CONTRACT_OVERVIEW_CONTROLLED_IMPLEMENTATION_PLAN_1_85.md` baja los guardrails 1.83 y el checkpoint 1.84 a un plan controlado para `FSC-CO-01` dentro del Panel Maestro. La decision es `CONTRACT_OVERVIEW_CONTROLLED_IMPLEMENTATION_PLAN_READY`.
 
 1.85 no implementa pantalla, no modifica UI activa, no crea componente nuevo ni User Panel, no crea rutas/hash, endpoints o fetches, no toca backend/runtime/CI/dependencias, no limpia deuda residual, no corrige pyflakes y no hace push por defecto.
 
 Proximo prompt exacto: `PROMPT UI/UX 1.86 - Implementar Contract Overview Screen IA_CORE contract-aware sin runtime/no-execution`, solo con aprobacion humana explicita.
-## Implementacion Contract Overview Screen 1.86
+## Registro historico no vigente/no estado actual: Implementacion Contract Overview Screen 1.86
 
 UI/UX implementado hasta 1.86; `docs/UI_UX_CONTRACT_OVERVIEW_SCREEN_IMPLEMENTATION_1_86.md` registra la primera implementacion controlada de `FSC-CO-01` dentro del Panel Maestro. La decision es `CONTRACT_OVERVIEW_SCREEN_IMPLEMENTED_NEEDS_HARDENING` y requiere revision visual humana antes del cierre final.
 
@@ -1986,7 +1993,7 @@ No UI activa, no JS, no backend, no runtime, no execution, no JSON TOP 15, no fi
 - HEAD base `a5102e5`; restore point remoto previo `07a15d8`; `main ahead por 7 commits al inicio`.
 - bloque 1.159-1.166 coherente y publicado; restore point published.
 - Decision final: `TOP_15_READINESS_RESTORE_POINT_PUBLISHED`.
-- nuevo restore point remoto: hash final 1.166.
+- nuevo restore point remoto: 65b44b4; referencia obsoleta/no vigente preservada solo para compatibilidad historica: "nuevo restore point remoto: hash final 1.166".
 - Estado post-push esperado y verificado: `HEAD == origin/main post-push`, branch up to date post-push y working tree limpio post-push.
 - Documento publicacion creado en `../../docs/UI_UX_PANEL_MAESTRO_TOP_15_READINESS_RESTORE_POINT_PUBLICATION_1_166.md`; test documental creado en `../../tests/test_ui_ux_panel_maestro_top_15_readiness_restore_point_publication_1_166.py`.
 - Proximo prompt exacto: `PROMPT UI/UX 1.167 - Planificar siguiente recomendacion TOP 15 post restore point readiness cierre UI UX 1.x Panel Maestro IA_CORE contract-aware sin runtime/no-execution`.
