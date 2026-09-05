@@ -49,6 +49,16 @@ revisión humana según riesgo y propuesta versionada, con posibilidad de descar
 o revertir una conclusión. Aprender no debería cambiar permisos, contratos,
 precios o políticas de forma automática ni habilitar execution.
 
+## Adaptación contextual e inteligencia institucional
+
+La capa complementaria se registra en
+`FUTURE_INSTITUTIONAL_INTELLIGENCE_LAYER.md`. Adaptive Business Intelligence
+proyecta adaptación contextual por negocio: análisis, reportes y recomendaciones
+ajustados a una empresa específica. La inteligencia institucional proyecta un
+aprendizaje institucional futuro gobernado y anonimizado sobre patrones
+organizacionales, sujeto a privacidad, permisos, contratos y aislamiento tenant.
+Esta distinción no implementa memoria global ni habilita intercambio entre clientes.
+
 ## Privacidad y límites entre clientes
 
 No se implementa memoria global real ni aprendizaje cross-client ahora; solo

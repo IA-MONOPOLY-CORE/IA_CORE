@@ -59,6 +59,18 @@ evidencia, incluida la delegación a agentes.
 Cada sector podría disponer de responsables, colaboradores, agentes especializados,
 herramientas y paneles según necesidad. La lista no habilita ninguno de ellos.
 
+## Taxonomía organizacional futura
+
+El modelo detallado se registra en
+`FUTURE_CORPORATE_AREAS_AND_SUBAREAS_MODEL.md`. Su cadena conceptual conecta
+empresa, área, subárea, sector/equipo, responsable, colaborador, agente,
+permisos, panel y evidencia. Los permisos efectivos deberían combinar esa
+posición organizacional con rol, contrato, unidad, finalidad y restricciones.
+
+Una subárea podría tener panel propio solo si el contrato, la escala, el permiso
+y la necesidad lo justifican. Crear o mostrar un panel no debería ampliar por sí
+mismo acceso, autoridad ni visibilidad sobre otra empresa, área o equipo.
+
 ## Unidades y ejemplos conceptuales
 
 La estructura futura contemplaría sucursales, oficinas, sedes, zonas, franquicias,

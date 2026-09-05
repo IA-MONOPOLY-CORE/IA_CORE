@@ -30,6 +30,15 @@ revisión. Su habilitación comercial no debería suplir contratos o autorizacio
 Activar compras, por ejemplo, no debería conceder automáticamente autoridad para
 pagar a un proveedor.
 
+## Relación con áreas y subáreas
+
+La taxonomía organizacional ampliada se registra en
+`FUTURE_CORPORATE_AREAS_AND_SUBAREAS_MODEL.md`. Los módulos empresariales, los
+riesgos, los mirrors y las integraciones no reemplazan la estructura
+organizacional: se conectan con áreas, subáreas, equipos, responsables, permisos,
+reportes y evidencia. Un módulo o mirror puede asistir a más de un área sin
+convertirse por eso en el área ni heredar su autoridad.
+
 ## Riesgos empresariales futuros
 
 El registro futuro debería cubrir riesgo financiero, operativo, legal,

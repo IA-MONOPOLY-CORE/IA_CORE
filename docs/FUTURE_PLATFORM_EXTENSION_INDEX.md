@@ -49,6 +49,17 @@ regionalmente contextualizada y orientada a resultados reales.
 | [Enterprise y riesgo](FUTURE_ENTERPRISE_MODULES_AND_RISK_MODEL.md) | Módulos selectivos, riesgo, calidad y continuidad empresarial. |
 | [Inteligencia adaptativa](FUTURE_ADAPTIVE_BUSINESS_INTELLIGENCE_MODEL.md) | Aprendizaje con evidencia por empresa, mercado, región y cliente final. |
 
+## Extensión documental STRATEGIC DOCS 1.1
+
+La taxonomía futura de áreas, subáreas y paneles corporativos se registra en
+`FUTURE_CORPORATE_AREAS_AND_SUBAREAS_MODEL.md`. La capa futura de inteligencia
+institucional se registra en `FUTURE_INSTITUTIONAL_INTELLIGENCE_LAYER.md`.
+Ambos son documentos estratégicos futuros y no constituyen implementación,
+activación de paneles, aprendizaje real ni capacidad operativa.
+
+Decisión documental:
+`STRATEGIC_CORPORATE_AREAS_AND_INSTITUTIONAL_INTELLIGENCE_DOCUMENTED`.
+
 ## Límites y dependencias
 
 - Documentar no equivale a implementar.

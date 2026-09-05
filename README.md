@@ -24,6 +24,8 @@ UI/UX 1.172 retoma el roadmap del Panel Maestro post restore point 1.171 y post 
 
 Arquitectura futura empresarial: [indice estrategico](docs/FUTURE_PLATFORM_EXTENSION_INDEX.md), posterior al restore point UI/UX 1.171 publicado en `5fc5d35`. Bloque documental no implementado, sin runtime (no-runtime), sin execution (no-execution) y sin integraciones reales. El cursor UI/UX 1.172 retoma el roadmap sin convertir esa vision futura en capacidad actual.
 
+STRATEGIC DOCS 1.1 incorpora la taxonomía futura de áreas/subáreas corporativas, paneles activables por necesidad real y la capa futura de inteligencia institucional; todo permanece documental y no implementado.
+
 ## Cursor vigente 1.171 restore point README/docs/UI publicado
 
 - Restore point remoto publicado por 1.171: `README_DOCS_UI_CONSISTENCY_RESTORE_POINT_PUBLISHED`.
