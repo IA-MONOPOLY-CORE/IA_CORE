@@ -1,5 +1,7 @@
 # Consola web principal
 
+Nota UI/UX 1.174: los widgets del Panel Maestro se reconstruyen como indicadores contract-aware con fuente, estado y fallback explicitos. Se neutralizan copy ambiguo y fallbacks numericos sin fuente; no se inventan metricas, no se modifica backend, no se habilitan runtime/execution ni integraciones y se respeta `backend_internal_ui_payload.v1`.
+
 Nota UI/UX 1.173: se audita el cursor del roadmap UI/UX sin modificar UI activa y se mantiene la consola contract-aware y no-runtime/no-execution. El proximo bloque visual seguro es la auditoria y reconstruccion acotada de widgets contract-aware; STRATEGIC DOCS 1.0 no habilita paneles, integraciones ni modulos reales en la UI actual.
 
 Nota UI/UX 1.172: el roadmap del Panel Maestro se retoma sin UI activa modificada; la consola mantiene su lectura contract-aware y no-runtime/no-execution. [STRATEGIC DOCS 1.0](../../docs/FUTURE_PLATFORM_EXTENSION_INDEX.md) no habilita paneles, integraciones ni modulos reales en la UI actual.

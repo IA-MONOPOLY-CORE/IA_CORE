@@ -248,7 +248,8 @@ def test_backend_contract_widgets_are_contract_first_without_new_endpoints():
     assert '<script src="/backend-contract-widgets.js"></script>' in html
     assert "backend_internal_ui_payload.v1" in html
     assert "allowed_actions + forbidden_actions" in html
-    assert "blocked_capabilities · true = blocked" in html
+    assert 'data-contract-source="backend_internal_ui_payload.v1:blocked_capabilities"' in html
+    assert "Sin lista valida, permanece blocked; ausencia no desbloquea." in html
     assert "widget-last-debate" not in html
     assert "widget-primary-action" not in html
     assert "widget-provider-health" not in html

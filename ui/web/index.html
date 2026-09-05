@@ -2130,6 +2130,33 @@
         }
 
         /* WIDGETS FUNCIONALES */
+        .contract-indicators-intro {
+            display: grid;
+            grid-template-columns: minmax(220px, 0.8fr) minmax(280px, 1.4fr);
+            gap: 12px 24px;
+            align-items: end;
+            margin-top: 14px;
+            padding: 14px 0;
+            border-top: 1px solid var(--border-color);
+            border-bottom: 1px solid var(--border-color);
+        }
+        .contract-indicators-intro h2 {
+            margin: 3px 0 0;
+            font-size: 1rem;
+            letter-spacing: 0;
+        }
+        .contract-indicators-copy {
+            margin: 0;
+            color: var(--text-muted);
+            font-size: 0.72rem;
+            line-height: 1.55;
+        }
+        .contract-indicators-policy {
+            grid-column: 1 / -1;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
         .widgets-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
@@ -2141,8 +2168,27 @@
             background: rgba(0,0,0,0.36);
             border-radius: var(--border-radius);
             padding: 14px;
-            min-height: 140px;
+            min-height: 230px;
+            display: flex;
+            flex-direction: column;
             transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+        }
+        .data-widget[data-contract-state='blocked'],
+        .data-widget[data-contract-state='forbidden'],
+        .data-widget[data-contract-state='failed'],
+        .data-widget[data-contract-state='invalid'] {
+            border-left: 3px solid var(--red);
+        }
+        .data-widget[data-contract-state='pending'],
+        .data-widget[data-contract-state='not_available'],
+        .data-widget[data-contract-state='no_payload'],
+        .data-widget[data-contract-state='requires_review'] {
+            border-left: 3px solid var(--amber);
+        }
+        .data-widget[data-contract-state='verified'],
+        .data-widget[data-contract-state='documented'],
+        .data-widget[data-contract-state='available_in_contract'] {
+            border-left: 3px solid var(--green);
         }
         .data-widget.is-updating {
             border-color: var(--cyan);
@@ -2163,13 +2209,24 @@
             font-size: 0.78rem;
             color: var(--cyan);
             text-transform: uppercase;
-            letter-spacing: 0.08em;
+            letter-spacing: 0;
             font-weight: 700;
+            margin: 2px 0 0;
+        }
+        .data-widget-kicker,
+        .data-widget-state-label,
+        .data-widget-fallback strong {
+            color: var(--text-muted);
+            font-size: 0.62rem;
+            font-weight: 700;
+            letter-spacing: 0;
+            text-transform: uppercase;
         }
         .data-widget-source {
             color: var(--text-muted);
             font-size: 0.65rem;
             margin-top: 3px;
+            overflow-wrap: anywhere;
         }
         .data-widget-value {
             font-size: 1rem;
@@ -2186,6 +2243,22 @@
         .data-widget-detail {
             margin-top: 8px;
             color: rgba(255,255,255,0.76);
+        }
+        .data-widget-state-label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        .data-widget-fallback {
+            margin: auto 0 0;
+            padding-top: 10px;
+            border-top: 1px solid var(--border-color);
+            color: var(--text-muted);
+            font-size: 0.67rem;
+            line-height: 1.4;
+        }
+        .data-widget-fallback strong {
+            display: block;
+            margin-bottom: 2px;
         }
         .data-widget-list {
             display: flex;
@@ -2235,15 +2308,34 @@
             overflow-wrap: anywhere;
         }
         .visual-state.ready,
-        .visual-state.passed { color: var(--green); border-color: rgba(34,197,94,0.55); }
+        .visual-state.passed,
+        .visual-state.verified,
+        .visual-state.documented,
+        .visual-state.available_in_contract { color: var(--green); border-color: rgba(34,197,94,0.55); }
         .visual-state.blocked,
+        .visual-state.forbidden,
         .visual-state.invalid,
         .visual-state.failed { color: var(--red); border-color: rgba(239,68,68,0.55); }
         .visual-state.planned,
         .visual-state.pending,
         .visual-state.no_payload,
         .visual-state.contract_fixture,
-        .visual-state.not_available { color: var(--amber); border-color: rgba(245,158,11,0.65); }
+        .visual-state.not_available,
+        .visual-state.requires_review,
+        .visual-state.future_only,
+        .visual-state.residual_debt,
+        .visual-state.no_runtime,
+        .visual-state.no_execution { color: var(--amber); border-color: rgba(245,158,11,0.65); }
+
+        @media (max-width: 760px) {
+            .contract-indicators-intro {
+                grid-template-columns: 1fr;
+                align-items: start;
+            }
+            .contract-indicators-policy {
+                grid-column: auto;
+            }
+        }
 
         /* DESIGN SYSTEM / DENSITY REFINEMENT 1.135: visual-only, contract-aware. */
         [data-design-system-density-refinement="1.135"] {
@@ -3607,62 +3699,87 @@
                 </dl>
             </div>
         </details>
+        <div class="contract-indicators-intro" data-widget-reconstruction="1.174">
+            <div>
+                <div class="layout-label">Indicadores contract-aware</div>
+                <h2>Estado trazable, sin metricas inventadas</h2>
+            </div>
+            <p class="contract-indicators-copy">Cada indicador declara fuente, estado y fallback. La lectura proviene de <code>backend_internal_ui_payload.v1</code>; si el dato falta, permanece como <code>not_available</code> o <code>no_payload</code> y no se infieren permisos.</p>
+            <div class="contract-indicators-policy" aria-label="Politica de indicadores">
+                <span class="contract-chip">fuente explicita</span>
+                <span class="contract-chip">fallback visible</span>
+                <span class="contract-chip blocked">no-runtime</span>
+                <span class="contract-chip blocked">no-execution</span>
+            </div>
+        </div>
         <div class="admin-toolbar">
             <button class="btn-primary" id="widgets-refresh-btn" type="button" data-component="ia-readonly-control" data-interaction-control="inspect" data-interaction-mode="read-only" data-local-only="true" data-no-fetch="true" data-no-runtime="true" data-no-execution="true">RELEER PAYLOAD LOCAL</button>
-            <span class="admin-status" id="widgets-last-refresh">Sin actualizar.</span>
+            <span class="admin-status" id="widgets-last-refresh">Lectura local pendiente.</span>
             <span class="read-only-guidance">Releer actualiza la vista local; no ejecuta ni cambia permisos.</span>
         </div>
-        <div class="widgets-grid" id="functional-widgets">
-            <section class="data-widget" id="widget-contract-status" data-component="ia-panel" data-density-tier="primary">
+        <div class="widgets-grid" id="functional-widgets" data-contract-indicators="1.174" data-source-policy="explicit-or-fallback" aria-label="Indicadores contractuales del Panel Maestro">
+            <section class="data-widget" id="widget-contract-status" data-component="ia-panel" data-density-tier="primary" data-contract-indicator="contract-status" data-contract-source="backend_internal_ui_payload.v1:status,readiness" data-contract-state="no_payload" data-fallback-state="not_available" aria-labelledby="widget-contract-status-title">
                 <div class="data-widget-header">
                     <div>
-                        <div class="data-widget-title">Estado backend estable</div>
-                        <div class="data-widget-source">Fuente: backend_internal_ui_payload.v1</div>
+                        <div class="data-widget-kicker">Indicador contractual</div>
+                        <h3 class="data-widget-title" id="widget-contract-status-title">Estado del contrato UI</h3>
+                        <div class="data-widget-source">Fuente · backend_internal_ui_payload.v1 / status + readiness</div>
                     </div>
                     <button class="widget-refresh-btn" type="button" data-widget-refresh data-interaction-control="inspect" data-interaction-mode="read-only" title="Releer payload local" aria-label="Releer payload local">↻</button>
                 </div>
-                <div class="data-widget-value" id="contract-status-value">Sin payload</div>
-                <div class="data-widget-meta" id="contract-status-meta">Esperando envelope estable inyectado.</div>
-                <div class="data-widget-detail" id="contract-status-detail">La UI no infiere readiness ni estado operativo.</div>
+                <span class="data-widget-state-label">Estado declarado</span>
+                <div class="data-widget-value" id="contract-status-value" aria-live="polite">no_payload</div>
+                <div class="data-widget-meta" id="contract-status-meta">Dato no disponible: esperando envelope estable inyectado.</div>
+                <div class="data-widget-detail" id="contract-status-detail">Alcance · lectura contractual; no prueba estado operativo.</div>
+                <p class="data-widget-fallback" data-widget-fallback><strong>Fallback</strong>Dato no disponible / no_payload; revisar evidencia contractual.</p>
             </section>
-            <section class="data-widget" id="widget-contract-actions" data-component="ia-panel ia-blocker" data-density-tier="critical">
+            <section class="data-widget" id="widget-contract-actions" data-component="ia-panel ia-blocker" data-density-tier="critical" data-contract-indicator="contract-actions" data-contract-source="backend_internal_ui_payload.v1:allowed_actions,forbidden_actions" data-contract-state="not_available" data-fallback-state="deny-by-default" aria-labelledby="widget-contract-actions-title">
                 <div class="data-widget-header">
                     <div>
-                        <div class="data-widget-title">Acciones declaradas</div>
-                        <div class="data-widget-source">allowed_actions + forbidden_actions</div>
+                        <div class="data-widget-kicker">Indicador contractual</div>
+                        <h3 class="data-widget-title" id="widget-contract-actions-title">Acciones declaradas</h3>
+                        <div class="data-widget-source">Fuente · backend_internal_ui_payload.v1 / allowed_actions + forbidden_actions</div>
                     </div>
                     <button class="widget-refresh-btn" type="button" data-widget-refresh data-interaction-control="inspect" data-interaction-mode="read-only" title="Releer payload local" aria-label="Releer payload local">↻</button>
                 </div>
-                <div class="data-widget-value" id="contract-actions-value">Sin acciones activas</div>
-                <div class="data-widget-meta" id="contract-actions-meta">Lectura backend-declared; la UI no concede permisos.</div>
+                <span class="data-widget-state-label">Disponibilidad declarada</span>
+                <div class="data-widget-value" id="contract-actions-value" aria-live="polite">not_available</div>
+                <div class="data-widget-meta" id="contract-actions-meta">Dato no disponible. Lectura backend-declared; la UI no concede permisos.</div>
                 <div class="data-widget-list" id="contract-allowed-actions"></div>
                 <div class="data-widget-detail" id="contract-forbidden-actions">forbidden_actions pendiente de payload.</div>
+                <p class="data-widget-fallback" data-widget-fallback><strong>Fallback</strong>Dato no disponible; deny-by-default y ninguna accion inferida.</p>
             </section>
-            <section class="data-widget" id="widget-contract-blocked" data-component="ia-panel ia-blocker" data-density-tier="critical">
+            <section class="data-widget" id="widget-contract-blocked" data-component="ia-panel ia-blocker" data-density-tier="critical" data-contract-indicator="blocked-capabilities" data-contract-source="backend_internal_ui_payload.v1:blocked_capabilities" data-contract-state="blocked" data-fallback-state="blocked" aria-labelledby="widget-contract-blocked-title">
                 <div class="data-widget-header">
                     <div>
-                        <div class="data-widget-title">Capabilities bloqueadas</div>
-                        <div class="data-widget-source">blocked_capabilities · true = blocked</div>
+                        <div class="data-widget-kicker">Indicador de limite</div>
+                        <h3 class="data-widget-title" id="widget-contract-blocked-title">Capabilities bloqueadas</h3>
+                        <div class="data-widget-source">Fuente · backend_internal_ui_payload.v1 / blocked_capabilities</div>
                     </div>
                     <button class="widget-refresh-btn" type="button" data-widget-refresh data-interaction-control="inspect" data-interaction-mode="read-only" title="Releer payload local" aria-label="Releer payload local">↻</button>
                 </div>
-                <div class="data-widget-value" id="contract-blocked-value">Sin payload</div>
+                <span class="data-widget-state-label">Restriccion declarada</span>
+                <div class="data-widget-value" id="contract-blocked-value" aria-live="polite">blocked</div>
                 <div class="data-widget-meta" id="contract-blocked-meta">Los bloqueos no se ocultan ni se invierten.</div>
                 <div class="data-widget-list" id="contract-blocked-list"></div>
                 <div class="data-widget-detail" id="contract-blocked-detail">runtime/execution/tools/models/integrations permanecen bloqueados.</div>
+                <p class="data-widget-fallback" data-widget-fallback><strong>Fallback</strong>Sin lista valida, permanece blocked; ausencia no desbloquea.</p>
             </section>
-            <section class="data-widget" id="widget-contract-diagnostics" data-component="ia-panel" data-density-tier="primary">
+            <section class="data-widget" id="widget-contract-diagnostics" data-component="ia-panel" data-density-tier="primary" data-contract-indicator="contract-diagnostics" data-contract-source="backend_internal_ui_payload.v1:validation,warnings,errors,flags" data-contract-state="pending" data-fallback-state="not_available" aria-labelledby="widget-contract-diagnostics-title">
                 <div class="data-widget-header">
                     <div>
-                        <div class="data-widget-title">Warnings y errores</div>
-                        <div class="data-widget-source">errors + warnings + flags + validation</div>
+                        <div class="data-widget-kicker">Indicador de evidencia</div>
+                        <h3 class="data-widget-title" id="widget-contract-diagnostics-title">Warnings y errores</h3>
+                        <div class="data-widget-source">Fuente · backend_internal_ui_payload.v1 / validation + warnings + errors + flags</div>
                     </div>
                     <button class="widget-refresh-btn" type="button" data-widget-refresh data-interaction-control="inspect" data-interaction-mode="read-only" title="Releer payload local" aria-label="Releer payload local">↻</button>
                 </div>
-                <div class="data-widget-value" id="contract-diagnostics-value">Sin payload</div>
+                <span class="data-widget-state-label">Resultado de validacion</span>
+                <div class="data-widget-value" id="contract-diagnostics-value" aria-live="polite">pending</div>
                 <div class="data-widget-meta" id="contract-diagnostics-meta">Flags no-operativas requeridas en false.</div>
                 <div class="data-widget-list" id="contract-diagnostics-list"></div>
                 <div class="data-widget-detail" id="contract-diagnostics-detail">No se muestran tracebacks, env, secrets ni endpoints nuevos.</div>
+                <p class="data-widget-fallback" data-widget-fallback><strong>Fallback</strong>Dato no disponible / pending; no equivale a ejecucion en curso.</p>
             </section>
         </div>
     </section>

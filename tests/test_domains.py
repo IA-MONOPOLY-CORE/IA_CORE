@@ -392,12 +392,12 @@ def test_widgets_are_functional_and_not_decorative():
     catalog = json.loads(Path("ui/web/i18n_es.json").read_text(encoding="utf-8"))
 
     assert "WIDGETS FUNCIONALES" in html
-    assert "Estado backend estable" in html
+    assert "Estado del contrato UI" in html
     assert "Acciones declaradas" in html
     assert "Warnings y errores" in html
     assert "Capabilities bloqueadas" in html
     assert "window.domainUI?.initialize" in html
-    assert "window.domainUI.requireDomain" in html
+    assert "requireDomain," in script
     assert "window.domainUI" in script
     assert "getActiveDomain" in script
     assert "backend_internal_ui_payload.v1" in html
@@ -406,7 +406,7 @@ def test_widgets_are_functional_and_not_decorative():
     assert "blocked_capabilities" in html
     assert "/api/status" in html
     assert "if (provider.is_placeholder)" in html
-    assert catalog["appearance"]["status_widget"] == "Estado backend estable"
+    assert catalog["appearance"]["status_widget"] == "Estado del contrato UI"
     assert catalog["appearance"]["actions_widget"] == "Acciones declaradas"
     assert catalog["appearance"]["blocked_capabilities_widget"] == "Capabilities bloqueadas"
 

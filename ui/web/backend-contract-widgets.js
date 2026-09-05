@@ -1,4 +1,4 @@
-// Widgets UI/UX 0.5.3: renderizan solo backend_internal_ui_payload.v1.
+// Widgets UI/UX 1.174: indicadores con fuente, estado y fallback contract-aware.
 // Compatibilidad 1.18: No hay allowed_actions backend-declared; deny-by-default.
 (() => {
     'use strict';
@@ -43,6 +43,15 @@
         'not_available',
         'no_payload',
         'contract_fixture',
+        'verified',
+        'documented',
+        'available_in_contract',
+        'forbidden',
+        'requires_review',
+        'future_only',
+        'residual_debt',
+        'no_runtime',
+        'no_execution',
     ]);
     const EMPTY_STATES = new Set([
         'not_available',
@@ -70,6 +79,8 @@
         const element = byId(id);
         if (!element) return;
         const normalized = normalizeVisualState(state);
+        const widget = element.closest('[data-contract-indicator]');
+        if (widget) widget.dataset.contractState = normalized;
         const priorityClass = ['blocked', 'invalid', 'failed'].includes(normalized)
             ? 'density-critical'
             : ['no_payload', 'pending', 'not_available'].includes(normalized)
@@ -303,7 +314,7 @@
         setVisualState('contract-status-value', 'no_payload');
         setText('contract-status-meta', 'Todavía no hay información cargada (no_payload): no hay backend_internal_ui_payload.v1 inyectado.');
         setText('contract-status-detail', 'Causa: falta envelope estable. Consecuencia: estado y readiness incompletos. Próximo paso no-operativo: revisar contrato/backend.');
-        setText('contract-actions-value', '0 acciones declaradas backend-only');
+        setVisualState('contract-actions-value', 'not_available');
         setText('contract-actions-meta', 'Acciones disponibles declaradas por el sistema (allowed_actions): dato no informado; deny-by-default.');
         renderChips('contract-allowed-actions', ['Sin allowed_actions informado; ausencia no significa permiso'], 'warning');
         setText('contract-forbidden-actions', 'Acciones no permitidas (forbidden_actions): dato no informado; la UI mantiene deny-by-default.');
@@ -348,7 +359,7 @@
         setVisualState('contract-status-value', 'invalid');
         setText('contract-status-meta', 'El payload recibido no puede renderizarse como operativo.');
         setText('contract-status-detail', errors.join(' | '));
-        setText('contract-actions-value', '0 acciones declaradas backend-only');
+        setVisualState('contract-actions-value', 'not_available');
         setText('contract-actions-meta', 'Acciones disponibles declaradas por el sistema (allowed_actions) conservadas como lectura backend-declared; sin permisos UI.');
         renderChips('contract-allowed-actions', []);
         setText('contract-forbidden-actions', 'Acciones no permitidas (forbidden_actions) conservadas; acciones activas no renderizadas.');
@@ -407,9 +418,13 @@
             validation: validationState,
         });
         setVisualState('contract-status-value', visualStatus);
-        setText('contract-status-meta', `readiness: ${payload.readiness || 'sin readiness'} · service: ${payload.service || '-'}`);
-        setText('contract-status-detail', `request_id: ${payload.request_id || '-'} · operation_id: ${payload.operation_id || '-'}`);
-        setText('contract-actions-value', `${allowed.length} acciones declaradas backend-only`);
+        setText('contract-status-meta', `readiness: ${payload.readiness || 'not_available'} · service: ${payload.service || 'not_available'}`);
+        setText('contract-status-detail', `request_id: ${payload.request_id || 'not_available'} · operation_id: ${payload.operation_id || 'not_available'}`);
+        const actionsVisualState = allowed.length ? 'available_in_contract' : (allowedState === 'declared' ? 'documented' : 'not_available');
+        setVisualState('contract-actions-value', actionsVisualState);
+        setText('contract-actions-value', actionsVisualState === 'not_available'
+            ? 'not_available'
+            : `${actionsVisualState} · ${allowed.length} acciones declaradas backend-only`);
         setText('contract-actions-meta', allowed.length ? 'Acciones disponibles declaradas por el sistema (allowed_actions): lectura backend-declared; la UI no concede permisos.' : (allowedState === 'declared' ? 'allowed_actions declarado vacío: no hay acciones disponibles para la UI.' : 'allowed_actions no informado: ausencia no significa permiso; deny-by-default.'));
         renderChips('contract-allowed-actions', allowed.length ? allowed : [allowedState === 'declared' ? 'Lista vacía declarada; no hay acción UI' : 'Dato no informado; no se infiere permiso'], allowed.length ? 'allowed' : 'warning');
         setText('contract-forbidden-actions', forbidden.length
@@ -425,7 +440,7 @@
             : (blockedState === 'declared'
                 ? 'Lista sin bloqueos true declarados; la UI sigue sin crear capabilities.'
                 : 'blocked sin lista disponible: revisar contrato/backend; ausencia de lista no desbloquea.'));
-        setVisualState('contract-diagnostics-value', errors.length ? 'failed' : warnings.length ? 'pending' : 'ready');
+        setVisualState('contract-diagnostics-value', errors.length ? 'failed' : warnings.length ? 'requires_review' : 'verified');
         setText('contract-diagnostics-meta', flagsOk ? 'Flags no-operativas confirmadas; warnings vacíos no habilitan acción.' : 'Flags no-operativas incompletas; pending no es proceso corriendo.');
         renderChips('contract-diagnostics-list', errors.concat(warnings).slice(0, 8), errors.length ? 'forbidden' : 'warning');
         setText('contract-diagnostics-detail', `schema: ${payload.schema_version} · kind: ${payload.service_kind || '-'}`);
@@ -443,7 +458,7 @@
             } else {
                 renderPayload(payload);
             }
-            setText('widgets-last-refresh', `Ultima lectura: ${new Date().toLocaleTimeString('es-AR')}`);
+            setText('widgets-last-refresh', `Ultima lectura local: ${new Date().toLocaleTimeString('es-AR')} · sin fetch`);
         } finally {
             setWidgetsUpdating(false);
         }
