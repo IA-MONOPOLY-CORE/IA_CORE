@@ -64,6 +64,15 @@ complementarios, redundantes o excluyentes. La evaluación futura debería compa
 licencias, aislamiento, autoridad, persistencia, privacidad y evidencia, sin
 presuponer integración real.
 
+## Extensiones futuras del ecosistema OS
+
+La visión `FUTURE_IA_CORE_OS_AND_DEVICE_ECOSYSTEM.md` contempla que herramientas
+del ecosistema Linux/Unix, repositorios y paquetes compatibles podrían funcionar
+como integraciones o extensiones gobernadas. Conocer una herramienta o poder
+instalarla técnicamente no equivale a que esté activa, permitida, licenciada,
+configurada o autorizada para un cliente. Este registro no instala paquetes ni
+conecta repositorios.
+
 ## Voz y canales operativos futuros
 
 WhatsApp y voz podrían canalizar órdenes por texto/audio, aprobaciones rápidas,

@@ -60,6 +60,16 @@ activación de paneles, aprendizaje real ni capacidad operativa.
 Decisión documental:
 `STRATEGIC_CORPORATE_AREAS_AND_INSTITUTIONAL_INTELLIGENCE_DOCUMENTED`.
 
+## Extensión documental STRATEGIC DOCS 1.2
+
+La visión futura de IA_CORE OS, Mobile OS, terminal nativa y ecosistema de
+dispositivos se registra en `FUTURE_IA_CORE_OS_AND_DEVICE_ECOSYSTEM.md`.
+Es documentación estratégica de un posible ecosistema operativo especializado;
+no implementa sistema operativo, distribución, terminal ni conexión de dispositivos.
+
+Decisión documental:
+`STRATEGIC_IA_CORE_OS_AND_DEVICE_ECOSYSTEM_DOCUMENTED`.
+
 ## Límites y dependencias
 
 - Documentar no equivale a implementar.

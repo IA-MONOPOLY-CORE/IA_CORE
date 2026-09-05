@@ -122,6 +122,14 @@ riesgo de exposición o reidentificación. El cliente debería conservar los
 derechos y controles definidos por contrato sobre sus datos y su participación.
 Las decisiones sensibles deberían permanecer bajo autoridad humana verificable.
 
+## Señales futuras desde un ecosistema operativo
+
+La visión `FUTURE_IA_CORE_OS_AND_DEVICE_ECOSYSTEM.md` podría aportar señales,
+evidencia, logs, patrones de uso y contexto de dispositivo útiles para la
+inteligencia institucional futura, siempre bajo permisos, privacidad, contratos,
+anonimización y aislamiento tenant. La existencia técnica de una señal no
+autorizaría su aprendizaje, reutilización ni circulación entre clientes.
+
 ## Límites documentales
 
 Este documento no implementa motores de aprendizaje, entrenamiento, memoria,

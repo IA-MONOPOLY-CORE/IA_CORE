@@ -60,6 +60,14 @@ intentos de abuso, fallos de permisos, patrones sospechosos y auditorías previa
 Los cambios de postura requerirían evidencia y revisión; no se implementa monitoreo
 real, telemetry, observabilidad runtime ni aprendizaje operativo en este bloque.
 
+## Seguridad futura de OS, mobile y dispositivos
+
+La visión `FUTURE_IA_CORE_OS_AND_DEVICE_ECOSYSTEM.md` requeriría hardening,
+permisos, aislamiento, auditoría, gestión de dispositivos, control de terminal y
+restricciones para comandos sensibles. Un dispositivo confiable o una terminal
+disponible no deberían ampliar autoridad por sí mismos. Esta referencia no crea
+agentes de seguridad, políticas del host, enrolamiento ni ejecución de comandos.
+
 Dependencias documentales: [acceso](FUTURE_ORGANIZATIONAL_ACCESS_MODEL.md),
 [recuperación](FUTURE_OWNER_SOVEREIGNTY_AND_RECOVERY_MODEL.md) y
 [Legal/Compliance](FUTURE_LEGAL_COMPLIANCE_AND_JURISDICTIONS_MODEL.md).

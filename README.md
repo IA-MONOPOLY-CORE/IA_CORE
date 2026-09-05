@@ -26,6 +26,8 @@ Arquitectura futura empresarial: [indice estrategico](docs/FUTURE_PLATFORM_EXTEN
 
 STRATEGIC DOCS 1.1 incorpora la taxonomía futura de áreas/subáreas corporativas, paneles activables por necesidad real y la capa futura de inteligencia institucional; todo permanece documental y no implementado.
 
+STRATEGIC DOCS 1.2 registra la visión futura IA_CORE OS, Mobile OS, terminal nativa, ecosistema Linux/Unix/AOSP y ecosistema de dispositivos; no implementa ni activa esas capacidades.
+
 ## Cursor vigente 1.171 restore point README/docs/UI publicado
 
 - Restore point remoto publicado por 1.171: `README_DOCS_UI_CONSISTENCY_RESTORE_POINT_PUBLISHED`.

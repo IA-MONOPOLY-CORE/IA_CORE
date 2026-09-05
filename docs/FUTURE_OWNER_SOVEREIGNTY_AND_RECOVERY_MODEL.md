@@ -83,6 +83,15 @@ permisos, privacidad, trazabilidad y auditoría, con minimización de datos y ac
 de soporte autorizado. La soberanía del owner no debería operar como puerta
 universal hacia contenido privado de empresas cliente.
 
+## Acceso futuro desde dispositivos autorizados
+
+La visión `FUTURE_IA_CORE_OS_AND_DEVICE_ECOSYSTEM.md` contempla que el owner
+legítimo podría acceder al ecosistema desde dispositivos autorizados, sujetos a
+identidad, permisos, estado de seguridad, revocación, privacidad y auditoría.
+Esta conexión no define Root Control Plane, Owner Nodes ni continuidad distribuida;
+esa topología queda fuera de este documento y requiere un bloque estratégico 1.3
+separado.
+
 Referencias: [seguridad](FUTURE_SECURITY_AND_IT_OPERATIONS_MODEL.md),
 [manuales](FUTURE_ONBOARDING_MANUALS_AND_GOVERNANCE_MODEL.md) y
 [jurisdicciones](FUTURE_LEGAL_COMPLIANCE_AND_JURISDICTIONS_MODEL.md).
