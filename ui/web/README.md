@@ -1,5 +1,7 @@
 # Consola web principal
 
+Nota UI/UX 1.177.1: la auditoría quirúrgica de `fdc2b7d..4403489` confirma que STRATEGIC DOCS 1.1-1.3 y UI/UX 1.176-1.177 no desviaron backend, runtime, payload ni UI activa fuera del fix responsive acotado; readiness confirmado hacia UI/UX 1.178.
+
 Nota UI/UX 1.177: se corrige la deuda responsive acotada del resumen contractual y del request draft durante resize desktop-a-móvil. Se preservan los cuatro widgets contract-aware con fuente, estado y fallback, sin modificar backend ni `backend_internal_ui_payload.v1` y sin habilitar runtime/execution.
 
 Nota UI/UX 1.176: se selecciona como único próximo bloque UI/UX 1.177 para resolver la deuda responsive acotada: overflow móvil del resumen de contratos y superposición del panel lateral durante resize. No modifica UI activa ni backend, preserva `backend_internal_ui_payload.v1`, mantiene no-runtime/no-execution y no implementa STRATEGIC DOCS 1.1-1.3.
