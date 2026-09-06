@@ -21,6 +21,31 @@ ALLOWED_DIFF = {
     "tests/test_ui_ux_panel_maestro_responsive_visual_checkpoint_1_178.py",
 }
 
+CONTINUITY_1_180 = {
+    "README.md",
+    "ui/web/README.md",
+    "ui/web/index.html",
+    "ui/web/styles.css",
+    "docs/UI_UX_PANEL_MAESTRO_VISUAL_HIERARCHY_FIRST_PASS_1_180.md",
+    "tests/test_ui_ux_panel_maestro_visual_hierarchy_first_pass_1_180.py",
+    "tests/test_ui_ux_panel_maestro_visual_hierarchy_audit_1_179.py",
+    "tests/test_ui_ux_panel_maestro_responsive_visual_checkpoint_1_178.py",
+    "tests/test_ui_ux_post_1_175_commits_surgical_audit_1_177_1.py",
+    "tests/test_ui_ux_panel_maestro_responsive_debt_fix_1_177.py",
+    "tests/test_ui_ux_panel_maestro_next_visual_block_selection_1_176.py",
+    "tests/test_ui_ux_panel_maestro_widgets_contract_aware_checkpoint_1_175.py",
+}
+
+ALLOWED_DIFF |= CONTINUITY_1_180
+
+APPROVED_1_180_ACTIVE_UI = {"ui/web/index.html", "ui/web/styles.css"}
+REQUIRED_1_180 = {
+    "ui/web/index.html",
+    "ui/web/styles.css",
+    "docs/UI_UX_PANEL_MAESTRO_VISUAL_HIERARCHY_FIRST_PASS_1_180.md",
+    "tests/test_ui_ux_panel_maestro_visual_hierarchy_first_pass_1_180.py",
+}
+
 PROTECTED_PATHS = [
     "ui/web/index.html",
     "ui/web/backend-contract-widgets.js",
@@ -295,12 +320,20 @@ def test_payload_v2_is_absent_from_active_payload_surfaces():
 def test_diff_is_limited_to_1_178_documentation_test_checkpoint_scope():
     paths = changed_paths()
     assert paths <= ALLOWED_DIFF
+    approved_active_ui = (
+        APPROVED_1_180_ACTIVE_UI if REQUIRED_1_180 <= paths else set()
+    )
     for protected in PROTECTED_PATHS:
+        if protected in approved_active_ui:
+            continue
         assert git("diff", "--name-only", "HEAD", "--", protected) == ""
 
 
 def test_current_prompt_does_not_modify_backend_runtime_or_active_ui():
     paths = changed_paths()
+    approved_active_ui = (
+        APPROVED_1_180_ACTIVE_UI if REQUIRED_1_180 <= paths else set()
+    )
     forbidden_prefixes = (
         "core/",
         "domains/",
@@ -323,5 +356,5 @@ def test_current_prompt_does_not_modify_backend_runtime_or_active_ui():
         "ui/web/styles.css",
         "core/backend_internal_ui_payloads.py",
     }
-    assert not paths.intersection(forbidden_exact)
+    assert not (paths.intersection(forbidden_exact) - approved_active_ui)
     assert not any(path.startswith(forbidden_prefixes) for path in paths)

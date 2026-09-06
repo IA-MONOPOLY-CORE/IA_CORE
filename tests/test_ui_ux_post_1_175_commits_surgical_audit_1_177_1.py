@@ -22,6 +22,31 @@ ALLOWED_DIFF = {
     "tests/test_ui_ux_post_1_175_commits_surgical_audit_1_177_1.py",
 }
 
+CONTINUITY_1_180 = {
+    "README.md",
+    "ui/web/README.md",
+    "ui/web/index.html",
+    "ui/web/styles.css",
+    "docs/UI_UX_PANEL_MAESTRO_VISUAL_HIERARCHY_FIRST_PASS_1_180.md",
+    "tests/test_ui_ux_panel_maestro_visual_hierarchy_first_pass_1_180.py",
+    "tests/test_ui_ux_panel_maestro_visual_hierarchy_audit_1_179.py",
+    "tests/test_ui_ux_panel_maestro_responsive_visual_checkpoint_1_178.py",
+    "tests/test_ui_ux_post_1_175_commits_surgical_audit_1_177_1.py",
+    "tests/test_ui_ux_panel_maestro_responsive_debt_fix_1_177.py",
+    "tests/test_ui_ux_panel_maestro_next_visual_block_selection_1_176.py",
+    "tests/test_ui_ux_panel_maestro_widgets_contract_aware_checkpoint_1_175.py",
+}
+
+ALLOWED_DIFF |= CONTINUITY_1_180
+
+APPROVED_1_180_ACTIVE_UI = {"ui/web/index.html", "ui/web/styles.css"}
+REQUIRED_1_180 = {
+    "ui/web/index.html",
+    "ui/web/styles.css",
+    "docs/UI_UX_PANEL_MAESTRO_VISUAL_HIERARCHY_FIRST_PASS_1_180.md",
+    "tests/test_ui_ux_panel_maestro_visual_hierarchy_first_pass_1_180.py",
+}
+
 EXPECTED_ADDED_FILES = {
     "docs/FUTURE_CORPORATE_AREAS_AND_SUBAREAS_MODEL.md",
     "docs/FUTURE_IA_CORE_OS_AND_DEVICE_ECOSYSTEM.md",
@@ -374,6 +399,9 @@ def test_1_177_fix_document_keeps_the_expected_decision():
 def test_current_prompt_diff_is_documentation_test_only():
     paths = changed_paths()
     assert paths <= ALLOWED_DIFF
+    approved_active_ui = (
+        APPROVED_1_180_ACTIVE_UI if REQUIRED_1_180 <= paths else set()
+    )
     protected = {
         "ui/web/index.html",
         "ui/web/backend-contract-widgets.js",
@@ -385,7 +413,7 @@ def test_current_prompt_diff_is_documentation_test_only():
         "api.py",
         "core/backend_internal_ui_payloads.py",
     }
-    assert not paths.intersection(protected)
+    assert not (paths.intersection(protected) - approved_active_ui)
     assert not any(
         path.startswith(
             (

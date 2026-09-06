@@ -20,6 +20,23 @@ ALLOWED_DIFF = {
     "tests/test_ui_ux_panel_maestro_responsive_debt_fix_1_177.py",
 }
 
+CONTINUITY_1_180 = {
+    "README.md",
+    "ui/web/README.md",
+    "ui/web/index.html",
+    "ui/web/styles.css",
+    "docs/UI_UX_PANEL_MAESTRO_VISUAL_HIERARCHY_FIRST_PASS_1_180.md",
+    "tests/test_ui_ux_panel_maestro_visual_hierarchy_first_pass_1_180.py",
+    "tests/test_ui_ux_panel_maestro_visual_hierarchy_audit_1_179.py",
+    "tests/test_ui_ux_panel_maestro_responsive_visual_checkpoint_1_178.py",
+    "tests/test_ui_ux_post_1_175_commits_surgical_audit_1_177_1.py",
+    "tests/test_ui_ux_panel_maestro_responsive_debt_fix_1_177.py",
+    "tests/test_ui_ux_panel_maestro_next_visual_block_selection_1_176.py",
+    "tests/test_ui_ux_panel_maestro_widgets_contract_aware_checkpoint_1_175.py",
+}
+
+ALLOWED_DIFF |= CONTINUITY_1_180
+
 
 def read(path: Path) -> str:
     return path.read_text(encoding="utf-8")

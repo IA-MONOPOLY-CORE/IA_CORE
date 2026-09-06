@@ -7,7 +7,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/styles.css">
+    <link rel="stylesheet" href="/styles.css?v=1.180">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         
@@ -2863,7 +2863,7 @@
 </head>
 <body data-skin="contract">
 
-    <main class="ia-core-shell master-shell-overview-surface" data-visual-architecture="master-shell-overview-1.124" data-layout-contract-aware="superior-0.8" data-main-console="contract-aware-1.0" data-console-refinement="1.1" data-console-flow="contract-aware-1.2" data-console-interaction="contract-aware-1.3" data-payload-reading-model="contract-aware-1.6" data-contract-detail-panels="contract-aware-1.7" data-internal-navigation="contract-aware-1.8" data-component-system="ia-core-contract-aware-1.9" data-responsive-hardening="contract-aware-1.13" data-responsive-debt-fix="1.177" data-operator-guidance="contract-aware-1.25" data-density-information-architecture="contract-aware-1.29" data-contract-storytelling="contract-aware-1.33" data-design-system-density-refinement="1.135" data-interaction-mode="read-only">
+    <main class="ia-core-shell master-shell-overview-surface" data-visual-architecture="master-shell-overview-1.124" data-visual-hierarchy-first-pass="1.180" data-layout-contract-aware="superior-0.8" data-main-console="contract-aware-1.0" data-console-refinement="1.1" data-console-flow="contract-aware-1.2" data-console-interaction="contract-aware-1.3" data-payload-reading-model="contract-aware-1.6" data-contract-detail-panels="contract-aware-1.7" data-internal-navigation="contract-aware-1.8" data-component-system="ia-core-contract-aware-1.9" data-responsive-hardening="contract-aware-1.13" data-responsive-debt-fix="1.177" data-operator-guidance="contract-aware-1.25" data-density-information-architecture="contract-aware-1.29" data-contract-storytelling="contract-aware-1.33" data-design-system-density-refinement="1.135" data-interaction-mode="read-only">
     <!-- BANNER PARA LOGOS -->
     <div class="logo-banner" id="logo-banner">
         <div class="logo-banner-inner" id="logo-banner-inner"></div>
@@ -2893,37 +2893,69 @@
         </div>
     </header>
 
-    <div class="four-screen-baseline-summary" data-visual-layer="overview" data-visual-state="READ_ONLY DOCUMENTED BLOCKED_BY_CONTRACT NO_RUNTIME NO_EXECUTION" data-four-screen-baseline-summary="1.109" data-interaction-mode="read-only" data-interaction-state="static_documentation" aria-label="Overview documental del Panel Maestro y baseline de cuatro secciones">
-        <div class="master-overview-copy">
-            <div class="layout-label">OVERVIEW LAYER / PANEL MAESTRO / VISTA DOCUMENTAL</div>
-            <strong>Lectura integrada contract-aware de IA_CORE</strong>
-            <p>El shell superior ordena identidad, estado y orientación. Las cuatro superficies siguientes permanecen documentales, read-only y contract-aware, con no-runtime/no-execution visible y sin autoridad operativa.</p>
-            <div class="master-overview-state-grid" aria-label="Estado documental del overview">
-                <div class="master-overview-state">
-                    <strong>FSC preservados</strong>
-                    <span>Cuatro contratos reconocibles, sin quinta sección.</span>
-                </div>
-                <div class="master-overview-state master-overview-state--blocked">
-                    <strong>Elementos inferiores bloqueados</strong>
-                    <span>CFG, + y DOMAIN siguen read-only y fuera del bloque.</span>
-                </div>
-                <div class="master-overview-state master-overview-state--planned">
-                    <strong>Rediseño estructural</strong>
-                    <span>Primer bloque visual implementado; deuda +/DOMAIN futura no bloqueante.</span>
-                </div>
-                <div class="master-overview-state master-overview-state--review">
-                    <strong>Próxima revisión</strong>
-                    <span>Revisión visual humana pendiente antes del checkpoint.</span>
-                </div>
+    <section class="four-screen-baseline-summary p0-command-summary" data-visual-layer="overview" data-p0-layer="visual-hierarchy-1.180" data-visual-state="READ_ONLY DOCUMENTED BLOCKED_BY_CONTRACT NO_RUNTIME NO_EXECUTION" data-four-screen-baseline-summary="1.109" data-interaction-mode="read-only" data-interaction-state="static_documentation" data-no-runtime="true" data-no-execution="true" data-no-dispatch="true" aria-labelledby="p0-command-title">
+        <header class="p0-command-header">
+            <div class="p0-command-heading">
+                <div class="layout-label">P0 / ESTADO ACTUAL</div>
+                <h2 id="p0-command-title">Panel Maestro en modo documental</h2>
+                <p>IA_CORE expone una lectura contract-aware y read-only. No hay runtime, ejecución, endpoint operativo ni Panel Usuario en esta superficie.</p>
             </div>
-        </div>
-        <ol class="four-screen-baseline-list" aria-label="Orden documental de la baseline">
-            <li><span>01</span><strong>Contract Overview</strong><code>FSC-CO-01</code></li>
-            <li><span>02</span><strong>Blocked &amp; Forbidden</strong><code>FSC-BF-02</code></li>
-            <li><span>03</span><strong>Validation &amp; Readiness</strong><code>FSC-VR-03</code></li>
-            <li><span>04</span><strong>Request Contract Preview</strong><code>FSC-RCP-04</code></li>
+            <div class="p0-mode-lock" aria-label="Límites globales de la superficie">
+                <span data-state="read-only">READ_ONLY</span>
+                <span data-state="no-runtime">NO_RUNTIME</span>
+                <span data-state="no-execution">NO_EXECUTION</span>
+            </div>
+        </header>
+
+        <ol class="p0-reading-route" aria-label="Ruta narrativa principal">
+            <li data-route-state="current"><span>01</span><strong>Estado</strong></li>
+            <li><span>02</span><strong>Contrato</strong></li>
+            <li><span>03</span><strong>Límites</strong></li>
+            <li><span>04</span><strong>Evidencia</strong></li>
+            <li><span>05</span><strong>Próximo paso</strong></li>
         </ol>
-    </div>
+
+        <div class="p0-command-grid">
+            <article class="p0-summary-card" data-p0-zone="state">
+                <div class="layout-label">Estado</div>
+                <strong>Modo documental / read-only</strong>
+                <p>La readiness declarada se lee arriba. <code>no_payload</code>, <code>not_available</code> o pending nunca significan un proceso corriendo.</p>
+            </article>
+            <article class="p0-summary-card" data-p0-zone="contract">
+                <div class="layout-label">Contrato</div>
+                <strong><code>backend_internal_ui_payload.v1</code></strong>
+                <p>El contrato conserva <code>source</code>, <code>status</code> y <code>fallback</code>; ante ausencia de datos aplica lectura honesta y deny-by-default.</p>
+            </article>
+            <article class="p0-summary-card p0-summary-card--blocked" data-p0-zone="limits">
+                <div class="layout-label">Límites</div>
+                <strong>Bloqueado por contrato</strong>
+                <p><code>blocked_by_contract</code>: no submit, no dispatch, no execution y ningún permiso inferido desde la UI.</p>
+            </article>
+        </div>
+
+        <div class="p0-evidence-next">
+            <div class="p0-evidence-cue" data-p0-zone="evidence">
+                <div class="p0-evidence-heading">
+                    <div>
+                        <div class="layout-label">Evidencia</div>
+                        <strong>La evidencia contractual completa sigue debajo</strong>
+                    </div>
+                    <span>4 FSC preservados</span>
+                </div>
+                <ol class="four-screen-baseline-list" aria-label="Orden documental de la baseline">
+                    <li><span>01</span><strong>Contract Overview</strong><code>FSC-CO-01</code></li>
+                    <li><span>02</span><strong>Blocked &amp; Forbidden</strong><code>FSC-BF-02</code></li>
+                    <li><span>03</span><strong>Validation &amp; Readiness</strong><code>FSC-VR-03</code></li>
+                    <li><span>04</span><strong>Request Contract Preview</strong><code>FSC-RCP-04</code></li>
+                </ol>
+            </div>
+            <aside class="p0-next-step" data-p0-zone="next-step" aria-label="Próximo paso seguro">
+                <div class="layout-label">Próximo paso seguro</div>
+                <strong>Revisar contrato y evidencia</strong>
+                <p>Continuar por el detalle documental y el checkpoint visual. Esta orientación no es un CTA ni habilita acción operativa.</p>
+            </aside>
+        </div>
+    </section>
 
     <div class="final-screen-contracts-rehousing" role="region" aria-labelledby="final-screen-contracts-rehousing-title" data-visual-layer="final-screen-contracts-rehousing" data-visual-rehousing="final-screen-contracts-1.129" data-visual-state="READ_ONLY DOCUMENTED BLOCKED_BY_CONTRACT NO_RUNTIME NO_EXECUTION" data-interaction-mode="read-only" data-no-runtime="true" data-no-execution="true" data-no-dispatch="true" data-no-fetch="true">
         <header class="final-screen-contracts-rehousing-header">

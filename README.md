@@ -4,6 +4,10 @@ IA_CORE is a local, contract-aware multi-agent framework in construction. Its cu
 
 Current GitHub backup target: `https://github.com/IA-MONOPOLY-CORE/IA_CORE`
 
+## Cursor vigente UI/UX 1.180
+
+UI/UX 1.180 implementa sobre base `82705e4` la primera pasada P0 de jerarquia visual superior del Panel Maestro: Estado -> Contrato -> Limites -> Evidencia -> Proximo paso. Preserva contrato, P1/P2/P3 y panel derecho; mantiene no backend, no-runtime, no-execution, no endpoints y no payload v2. Readiness: `ready_for_ui_ux_1_181_visual_hierarchy_checkpoint_or_second_pass`.
+
 ## Cursor vigente UI/UX 1.179
 
 UI/UX 1.179 registra la auditoria de jerarquia visual y propuesta del Panel Maestro sobre base `3da91a8`: confirma superficie contract-aware solida pero visualmente densa, sin implementacion UI activa. Mantiene no backend, no-runtime, no-execution, no endpoints, no payload v2, y deja readiness `ready_for_ui_ux_1_180_visual_hierarchy_first_pass`.

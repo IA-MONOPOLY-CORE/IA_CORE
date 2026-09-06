@@ -27,6 +27,31 @@ ALLOWED_DIFF = {
     "tests/test_ui_ux_panel_maestro_next_visual_block_selection_1_176.py",
 }
 
+CONTINUITY_1_180 = {
+    "README.md",
+    "ui/web/README.md",
+    "ui/web/index.html",
+    "ui/web/styles.css",
+    "docs/UI_UX_PANEL_MAESTRO_VISUAL_HIERARCHY_FIRST_PASS_1_180.md",
+    "tests/test_ui_ux_panel_maestro_visual_hierarchy_first_pass_1_180.py",
+    "tests/test_ui_ux_panel_maestro_visual_hierarchy_audit_1_179.py",
+    "tests/test_ui_ux_panel_maestro_responsive_visual_checkpoint_1_178.py",
+    "tests/test_ui_ux_post_1_175_commits_surgical_audit_1_177_1.py",
+    "tests/test_ui_ux_panel_maestro_responsive_debt_fix_1_177.py",
+    "tests/test_ui_ux_panel_maestro_next_visual_block_selection_1_176.py",
+    "tests/test_ui_ux_panel_maestro_widgets_contract_aware_checkpoint_1_175.py",
+}
+
+ALLOWED_DIFF |= CONTINUITY_1_180
+
+APPROVED_1_180_ACTIVE_UI = {"ui/web/index.html", "ui/web/styles.css"}
+REQUIRED_1_180 = {
+    "ui/web/index.html",
+    "ui/web/styles.css",
+    "docs/UI_UX_PANEL_MAESTRO_VISUAL_HIERARCHY_FIRST_PASS_1_180.md",
+    "tests/test_ui_ux_panel_maestro_visual_hierarchy_first_pass_1_180.py",
+}
+
 
 def read(path: Path) -> str:
     return path.read_text(encoding="utf-8")
@@ -254,7 +279,11 @@ def test_readmes_record_the_1_176_selection_briefly():
 
 
 def test_diff_is_limited_to_selection_docs_and_active_surfaces_are_untouched():
-    assert changed_paths() <= ALLOWED_DIFF
+    paths = changed_paths()
+    assert paths <= ALLOWED_DIFF
+    approved_active_ui = (
+        APPROVED_1_180_ACTIVE_UI if REQUIRED_1_180 <= paths else set()
+    )
     for protected in [
         "core/api.py",
         "ui/web/index.html",
@@ -266,4 +295,6 @@ def test_diff_is_limited_to_selection_docs_and_active_surfaces_are_untouched():
         "integrations",
         ".env",
     ]:
+        if protected in approved_active_ui:
+            continue
         assert git("diff", "--name-only", "HEAD", "--", protected) == ""
