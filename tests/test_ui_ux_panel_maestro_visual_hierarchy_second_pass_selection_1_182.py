@@ -51,6 +51,19 @@ APPROVED_1_183_ACTIVE_UI = {"ui/web/index.html", "ui/web/styles.css"}
 # String literals used by the additive 1.183 compatibility gate below.
 SELECTION_FILES |= {"\\\\", "\\n", "diff"}
 
+CONTINUITY_1_184 = {
+    "README.md",
+    "ui/web/README.md",
+    "docs/UI_UX_PANEL_MAESTRO_VISUAL_HIERARCHY_P1_CONTRACTUAL_SECOND_PASS_CHECKPOINT_1_184.md",
+    "tests/test_ui_ux_panel_maestro_visual_hierarchy_p1_contractual_second_pass_checkpoint_1_184.py",
+}
+
+# CONTINUITY_1_175, CONTINUITY_1_176, CONTINUITY_1_177, CONTINUITY_1_177_1,
+# CONTINUITY_1_178, CONTINUITY_1_179, CONTINUITY_1_180, CONTINUITY_1_181,
+# CONTINUITY_1_182 and CONTINUITY_1_183 remain preserved; CONTINUITY_1_184 is additive.
+ALLOWED_DIFF |= CONTINUITY_1_184
+SELECTION_FILES |= CONTINUITY_1_184
+
 PROTECTED_EXACT = {
     ".env",
     "api.py",

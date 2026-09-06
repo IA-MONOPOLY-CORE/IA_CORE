@@ -1,5 +1,7 @@
 # Consola web principal
 
+Nota UI/UX 1.184: checkpoint P1 contractual posterior a 1.183 sobre base `b8db98f`; Contract Overview, Blocked & Forbidden y Validation & Readiness quedan preservados junto con P0, P2/P3, Request Contract Preview, Matriz de cierre y widgets contract-aware. No implementacion nueva, no UI activa ni CSS activo modificados, no backend/no runtime/no execution, no endpoints ni payload v2. Proximo paso si pasa: UI/UX 1.185.
+
 Nota UI/UX 1.183: segunda pasada P1 contractual del Panel Maestro contract-aware implementada; Contract Overview, Blocked & Forbidden y Validation & Readiness quedan ordenados debajo de P0 preservado. P2/P3 preservados, Request Contract Preview preservado y widgets contract-aware preservados; no backend/no runtime/no execution, no endpoints ni payload v2. Proximo checkpoint: UI/UX 1.184.
 
 Nota UI/UX 1.182: segunda pasada visual seleccionada para el Panel Maestro contract-aware: Candidato C, ordenar P1 debajo del P0 preservado; P1/P2/P3 observados. No UI activa ni CSS activo modificados, no backend, no runtime, no execution, no endpoints ni payload v2. Proximo paso si pasa: UI/UX 1.183.
