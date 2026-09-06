@@ -4,6 +4,10 @@ IA_CORE is a local, contract-aware multi-agent framework in construction. Its cu
 
 Current GitHub backup target: `https://github.com/IA-MONOPOLY-CORE/IA_CORE`
 
+## Cursor vigente UI/UX 1.178
+
+UI/UX 1.178 crea el checkpoint responsive visual post fix 1.177 y post auditoria 1.177.1 sobre base `d98e999`: overflow movil ausente, sidebar/drawer estable y widgets contract-aware preservados. Mantiene no backend/runtime/payload v2, sin endpoints ni integraciones, y deja readiness `ready_for_ui_ux_1_179_panel_maestro_visual_hierarchy`.
+
 ## Cursor vigente UI/UX 1.177.1
 
 UI/UX 1.177.1 audita quirúrgicamente `fdc2b7d..4403489` y confirma que STRATEGIC DOCS 1.1-1.3, UI/UX 1.176 y UI/UX 1.177 respetaron sus alcances sin desviar backend, runtime, payload ni UI activa fuera del fix responsive aprobado. El repo queda listo para el checkpoint visual UI/UX 1.178.
