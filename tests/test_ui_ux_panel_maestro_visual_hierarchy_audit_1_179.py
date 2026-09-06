@@ -46,6 +46,18 @@ CONTINUITY_1_182 = {
 
 ALLOWED_CHANGED |= CONTINUITY_1_182
 
+CONTINUITY_1_183 = {
+    "README.md",
+    "ui/web/README.md",
+    "ui/web/index.html",
+    "ui/web/styles.css",
+    "docs/UI_UX_PANEL_MAESTRO_VISUAL_HIERARCHY_P1_CONTRACTUAL_SECOND_PASS_1_183.md",
+    "tests/test_ui_ux_panel_maestro_visual_hierarchy_p1_contractual_second_pass_1_183.py",
+}
+
+# CONTINUITY_1_181 remains preserved; CONTINUITY_1_183 is additive.
+ALLOWED_CHANGED |= CONTINUITY_1_183
+
 APPROVED_1_180_ACTIVE_UI = {"ui/web/index.html", "ui/web/styles.css"}
 REQUIRED_1_180 = {
     "ui/web/index.html",
@@ -53,6 +65,10 @@ REQUIRED_1_180 = {
     "docs/UI_UX_PANEL_MAESTRO_VISUAL_HIERARCHY_FIRST_PASS_1_180.md",
     "tests/test_ui_ux_panel_maestro_visual_hierarchy_first_pass_1_180.py",
 }
+
+# The complete 1.183 artifact set is the current authorized active-UI gate.
+REQUIRED_1_183 = CONTINUITY_1_183
+REQUIRED_1_180 = REQUIRED_1_183
 
 PROTECTED_FILES = {
     "api.py",

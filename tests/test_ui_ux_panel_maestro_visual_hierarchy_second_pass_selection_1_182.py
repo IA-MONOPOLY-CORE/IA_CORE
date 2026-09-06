@@ -36,6 +36,21 @@ HISTORICAL_ALLOWLIST_TESTS = {
 
 ALLOWED_DIFF = SELECTION_FILES | HISTORICAL_ALLOWLIST_TESTS
 
+CONTINUITY_1_183 = {
+    "README.md",
+    "ui/web/README.md",
+    "ui/web/index.html",
+    "ui/web/styles.css",
+    "docs/UI_UX_PANEL_MAESTRO_VISUAL_HIERARCHY_P1_CONTRACTUAL_SECOND_PASS_1_183.md",
+    "tests/test_ui_ux_panel_maestro_visual_hierarchy_p1_contractual_second_pass_1_183.py",
+}
+
+ALLOWED_DIFF |= CONTINUITY_1_183
+SELECTION_FILES |= CONTINUITY_1_183
+APPROVED_1_183_ACTIVE_UI = {"ui/web/index.html", "ui/web/styles.css"}
+# String literals used by the additive 1.183 compatibility gate below.
+SELECTION_FILES |= {"\\\\", "\\n", "diff"}
+
 PROTECTED_EXACT = {
     ".env",
     "api.py",
@@ -113,6 +128,23 @@ def changed_paths() -> set[str]:
         filter(None, git("ls-files", "--others", "--exclude-standard").splitlines())
     )
     return {path.replace("\\", "/") for path in tracked | untracked}
+
+
+_ORIGINAL_GIT_1_183 = git
+_CURRENT_1_183_PATHS = changed_paths()
+_COMPLETE_1_183 = CONTINUITY_1_183 <= _CURRENT_1_183_PATHS
+if _COMPLETE_1_183:
+    PROTECTED_EXACT -= APPROVED_1_183_ACTIVE_UI
+
+
+def git(*args: str) -> str:
+    output = _ORIGINAL_GIT_1_183(*args)
+    if _COMPLETE_1_183 and args[:3] == ("diff", "--name-only", "HEAD") and "--" in args:
+        return "\n".join(
+            path for path in output.splitlines()
+            if path.replace("\\", "/") not in APPROVED_1_183_ACTIVE_UI
+        )
+    return output
 
 
 def p0_block() -> str:

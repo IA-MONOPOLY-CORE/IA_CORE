@@ -51,6 +51,18 @@ CONTINUITY_1_182 = {
 
 ALLOWED_DIFF |= CONTINUITY_1_182
 
+CONTINUITY_1_183 = {
+    "README.md",
+    "ui/web/README.md",
+    "ui/web/index.html",
+    "ui/web/styles.css",
+    "docs/UI_UX_PANEL_MAESTRO_VISUAL_HIERARCHY_P1_CONTRACTUAL_SECOND_PASS_1_183.md",
+    "tests/test_ui_ux_panel_maestro_visual_hierarchy_p1_contractual_second_pass_1_183.py",
+}
+
+# CONTINUITY_1_181 remains preserved; CONTINUITY_1_183 is additive.
+ALLOWED_DIFF |= CONTINUITY_1_183
+
 
 def read(path: Path) -> str:
     return path.read_text(encoding="utf-8")

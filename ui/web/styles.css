@@ -344,6 +344,225 @@ body .ia-core-shell .p0-next-step p {
     }
 }
 
+/* UI/UX 1.183: P1 contractual hierarchy; visual-only and read-only. */
+body .ia-core-shell[data-visual-hierarchy-second-pass="1.183"] [data-p1-layer="contractual-second-pass-1.183"] {
+    min-width: 0;
+    margin-top: 24px;
+    padding-top: 16px;
+    border-top-color: rgba(56, 189, 248, 0.34);
+}
+
+body .ia-core-shell[data-visual-hierarchy-second-pass="1.183"] [data-p1-layer="contractual-second-pass-1.183"] .final-screen-contracts-rehousing-header {
+    margin-bottom: 0;
+    padding: 0 4px 14px;
+}
+
+body .ia-core-shell[data-visual-hierarchy-second-pass="1.183"] [data-p1-layer="contractual-second-pass-1.183"] .final-screen-contracts-rehousing-title h2 {
+    font-size: 1.22rem;
+    letter-spacing: 0;
+    text-transform: none;
+}
+
+.p1-contractual-route {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 12px;
+    margin: 0 4px 18px;
+    padding: 12px 0;
+    border-bottom: 1px solid rgba(148, 163, 184, 0.16);
+    list-style: none;
+}
+
+.p1-contractual-route li {
+    display: grid;
+    grid-template-columns: 28px minmax(0, 1fr);
+    gap: 8px;
+    min-width: 0;
+    padding: 6px 10px;
+    border-left: 2px solid rgba(148, 163, 184, 0.34);
+}
+
+.p1-contractual-route li[data-p1-step="contract"] {
+    border-left-color: var(--cyan);
+}
+
+.p1-contractual-route li[data-p1-step="actions"] {
+    border-left-color: rgba(147, 197, 253, 0.82);
+}
+
+.p1-contractual-route li[data-p1-step="boundaries"] {
+    border-left-color: var(--red);
+}
+
+.p1-contractual-route li[data-p1-step="validation"] {
+    border-left-color: var(--amber);
+}
+
+.p1-contractual-route li > span {
+    color: var(--text-muted);
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.58rem;
+    line-height: 1.35;
+}
+
+.p1-contractual-route strong,
+.p1-contractual-route small {
+    display: block;
+    min-width: 0;
+    letter-spacing: 0;
+    overflow-wrap: anywhere;
+}
+
+body .ia-core-shell .p1-contractual-route strong {
+    color: var(--text-primary);
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 0.76rem;
+    line-height: 1.2;
+}
+
+.p1-contractual-route small {
+    margin-top: 4px;
+    color: var(--text-muted);
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.57rem;
+    line-height: 1.35;
+}
+
+.p1-contractual-stage {
+    min-width: 0;
+}
+
+body .ia-core-shell[data-visual-hierarchy-second-pass="1.183"] .p1-contractual-stage[data-p1-stage="contract"] {
+    border-color: rgba(56, 189, 248, 0.34);
+    box-shadow: inset 3px 0 0 rgba(56, 189, 248, 0.68), 0 8px 22px rgba(0, 0, 0, 0.12);
+}
+
+body .ia-core-shell[data-visual-hierarchy-second-pass="1.183"] .p1-contractual-stage[data-p1-stage="actions-boundaries"] {
+    border-color: rgba(239, 68, 68, 0.32);
+    box-shadow: inset 3px 0 0 rgba(239, 68, 68, 0.68), 0 8px 22px rgba(0, 0, 0, 0.12);
+}
+
+body .ia-core-shell[data-visual-hierarchy-second-pass="1.183"] .p1-contractual-stage[data-p1-stage="validation"] {
+    border-color: rgba(245, 158, 11, 0.32);
+    box-shadow: inset 3px 0 0 rgba(245, 158, 11, 0.64), 0 8px 22px rgba(0, 0, 0, 0.12);
+}
+
+.p1-contractual-stage-marker {
+    display: grid;
+    grid-template-columns: 42px minmax(0, 1fr) minmax(0, auto);
+    gap: 10px;
+    align-items: center;
+    min-width: 0;
+    margin-bottom: 14px;
+    padding: 0 0 11px;
+    border-bottom: 1px solid rgba(148, 163, 184, 0.16);
+}
+
+.p1-contractual-stage-marker > span {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 34px;
+    min-height: 28px;
+    border: 1px solid rgba(148, 163, 184, 0.28);
+    border-radius: 3px;
+    color: var(--text-muted);
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.58rem;
+    line-height: 1;
+}
+
+.p1-contractual-stage-marker strong,
+.p1-contractual-stage-marker small {
+    display: block;
+    letter-spacing: 0;
+}
+
+body .ia-core-shell .p1-contractual-stage-marker strong {
+    color: var(--text-primary);
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 0.82rem;
+    line-height: 1.2;
+}
+
+.p1-contractual-stage-marker small {
+    margin-top: 2px;
+    color: var(--text-muted);
+    font-size: 0.61rem;
+    line-height: 1.35;
+}
+
+.p1-contractual-stage-marker > code {
+    max-width: 100%;
+    justify-self: end;
+    color: #93c5fd;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.58rem;
+    line-height: 1.4;
+    letter-spacing: 0;
+    overflow-wrap: anywhere;
+    text-align: right;
+}
+
+.p1-contractual-stage[data-p1-stage="actions-boundaries"] .p1-contractual-stage-marker > code {
+    color: #fca5a5;
+}
+
+.p1-contractual-stage[data-p1-stage="validation"] .p1-contractual-stage-marker > code {
+    color: #fde68a;
+}
+
+body .ia-core-shell[data-visual-hierarchy-second-pass="1.183"] .p1-contractual-stage .contract-overview-title h2,
+body .ia-core-shell[data-visual-hierarchy-second-pass="1.183"] .p1-contractual-stage .blocked-forbidden-title h2,
+body .ia-core-shell[data-visual-hierarchy-second-pass="1.183"] .p1-contractual-stage .validation-readiness-title h2 {
+    font-size: 1.18rem;
+    letter-spacing: 0;
+}
+
+@media (max-width: 980px) {
+    .p1-contractual-route {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 760px) {
+    body .ia-core-shell[data-visual-hierarchy-second-pass="1.183"] [data-p1-layer="contractual-second-pass-1.183"] {
+        margin-top: 20px;
+        padding-top: 14px;
+    }
+
+    .p1-contractual-stage-marker {
+        grid-template-columns: 42px minmax(0, 1fr);
+    }
+
+    .p1-contractual-stage-marker > code {
+        grid-column: 1 / -1;
+        justify-self: start;
+        text-align: left;
+    }
+}
+
+@media (max-width: 480px) {
+    .p1-contractual-route {
+        grid-template-columns: 1fr;
+        gap: 8px;
+        margin-inline: 0;
+    }
+
+    .p1-contractual-route li {
+        padding-inline: 8px 0;
+    }
+
+    .p1-contractual-stage-marker {
+        grid-template-columns: 36px minmax(0, 1fr);
+        gap: 8px;
+    }
+
+    .p1-contractual-stage-marker > span {
+        min-width: 30px;
+    }
+}
+
 /* Design System / Density Refinement 1.135: visual-only token foundation. */
 .ds-surface-primary { background: var(--ds-surface-primary); }
 .ds-surface-secondary { background: var(--ds-surface-secondary); }

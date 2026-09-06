@@ -7,7 +7,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/styles.css?v=1.180">
+    <link rel="stylesheet" href="/styles.css?v=1.183">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         
@@ -2863,7 +2863,7 @@
 </head>
 <body data-skin="contract">
 
-    <main class="ia-core-shell master-shell-overview-surface" data-visual-architecture="master-shell-overview-1.124" data-visual-hierarchy-first-pass="1.180" data-layout-contract-aware="superior-0.8" data-main-console="contract-aware-1.0" data-console-refinement="1.1" data-console-flow="contract-aware-1.2" data-console-interaction="contract-aware-1.3" data-payload-reading-model="contract-aware-1.6" data-contract-detail-panels="contract-aware-1.7" data-internal-navigation="contract-aware-1.8" data-component-system="ia-core-contract-aware-1.9" data-responsive-hardening="contract-aware-1.13" data-responsive-debt-fix="1.177" data-operator-guidance="contract-aware-1.25" data-density-information-architecture="contract-aware-1.29" data-contract-storytelling="contract-aware-1.33" data-design-system-density-refinement="1.135" data-interaction-mode="read-only">
+    <main class="ia-core-shell master-shell-overview-surface" data-visual-architecture="master-shell-overview-1.124" data-visual-hierarchy-first-pass="1.180" data-visual-hierarchy-second-pass="1.183" data-layout-contract-aware="superior-0.8" data-main-console="contract-aware-1.0" data-console-refinement="1.1" data-console-flow="contract-aware-1.2" data-console-interaction="contract-aware-1.3" data-payload-reading-model="contract-aware-1.6" data-contract-detail-panels="contract-aware-1.7" data-internal-navigation="contract-aware-1.8" data-component-system="ia-core-contract-aware-1.9" data-responsive-hardening="contract-aware-1.13" data-responsive-debt-fix="1.177" data-operator-guidance="contract-aware-1.25" data-density-information-architecture="contract-aware-1.29" data-contract-storytelling="contract-aware-1.33" data-design-system-density-refinement="1.135" data-interaction-mode="read-only">
     <!-- BANNER PARA LOGOS -->
     <div class="logo-banner" id="logo-banner">
         <div class="logo-banner-inner" id="logo-banner-inner"></div>
@@ -2957,15 +2957,15 @@
         </div>
     </section>
 
-    <div class="final-screen-contracts-rehousing" role="region" aria-labelledby="final-screen-contracts-rehousing-title" data-visual-layer="final-screen-contracts-rehousing" data-visual-rehousing="final-screen-contracts-1.129" data-visual-state="READ_ONLY DOCUMENTED BLOCKED_BY_CONTRACT NO_RUNTIME NO_EXECUTION" data-interaction-mode="read-only" data-no-runtime="true" data-no-execution="true" data-no-dispatch="true" data-no-fetch="true">
+    <div class="final-screen-contracts-rehousing" role="region" aria-labelledby="final-screen-contracts-rehousing-title" data-visual-layer="final-screen-contracts-rehousing" data-visual-rehousing="final-screen-contracts-1.129" data-p1-layer="contractual-second-pass-1.183" data-p1-sequence="contract actions boundaries validation" data-visual-state="READ_ONLY DOCUMENTED BLOCKED_BY_CONTRACT NO_RUNTIME NO_EXECUTION" data-interaction-mode="read-only" data-no-runtime="true" data-no-execution="true" data-no-dispatch="true" data-no-fetch="true">
         <header class="final-screen-contracts-rehousing-header">
             <div>
-                <div class="layout-label">CONTRACTS LAYER / FINAL SCREEN CONTRACTS / REHOUSING VISUAL</div>
+                <div class="layout-label">P1 / LECTURA CONTRACTUAL PRINCIPAL / FINAL SCREEN CONTRACTS</div>
                 <div class="final-screen-contracts-rehousing-title">
-                    <h2 id="final-screen-contracts-rehousing-title">Final Screen Contracts</h2>
-                    <span>contratos finales de pantalla</span>
+                    <h2 id="final-screen-contracts-rehousing-title">Lectura contractual principal</h2>
+                    <span>Final Screen Contracts</span>
                 </div>
-                <p class="final-screen-contracts-rehousing-copy">Grupo documental read-only de las cuatro FSC. Este rehousing visual externo mejora jerarquia, separacion y relacion con el Master Shell + Overview Layer sin cambiar IDs, estados, contenido contractual, DEFER_FINALIZATION, elementos inferiores ni autoridad backend.</p>
+                <p class="final-screen-contracts-rehousing-copy">Detalle contract-aware y read-only de las cuatro FSC: contrato, acciones declaradas y prohibidas, capacidades bloqueadas y validación/readiness. Conserva source/status/fallback, evidencia y deny-by-default sin inferir permisos, activar runtime ni habilitar ejecución.</p>
             </div>
             <div class="final-screen-contracts-rehousing-states" aria-label="Estados documentales del grupo Final Screen Contracts">
                 <span class="final-screen-contracts-rehousing-state">READ_ONLY</span>
@@ -2975,8 +2975,31 @@
                 <span class="final-screen-contracts-rehousing-state" data-state="deferred">DEFER_FINALIZATION</span>
             </div>
         </header>
+        <ol class="p1-contractual-route" aria-label="Ruta de lectura contractual principal">
+            <li data-p1-step="contract">
+                <span>01</span>
+                <div><strong>Contrato</strong><small>schema · source · status · fallback</small></div>
+            </li>
+            <li data-p1-step="actions">
+                <span>02</span>
+                <div><strong>Acciones declaradas</strong><small>allowed_actions · forbidden_actions</small></div>
+            </li>
+            <li data-p1-step="boundaries">
+                <span>03</span>
+                <div><strong>Bloqueos</strong><small>blocked_capabilities · deny-by-default</small></div>
+            </li>
+            <li data-p1-step="validation">
+                <span>04</span>
+                <div><strong>Validación</strong><small>readiness · warnings/errors · evidencia</small></div>
+            </li>
+        </ol>
         <div class="final-screen-contracts-rehousing-grid" data-fsc-rehousing-grid="external-only" data-contract-screen-count="4">
-    <section class="contract-overview-screen layout-section" id="contract-overview-screen" data-main-console-zone="contract-overview" data-contract-screen="FSC-CO-01" data-contract-overview-state="documented ready-no-permission no-runtime no-execution" data-interaction-mode="read-only" data-interaction-state="read_only inspectable" aria-labelledby="contract-overview-title">
+    <section class="contract-overview-screen layout-section p1-contractual-stage" id="contract-overview-screen" data-main-console-zone="contract-overview" data-contract-screen="FSC-CO-01" data-p1-stage="contract" data-contract-overview-state="documented ready-no-permission no-runtime no-execution" data-interaction-mode="read-only" data-interaction-state="read_only inspectable" aria-labelledby="contract-overview-title">
+        <div class="p1-contractual-stage-marker" data-p1-marker="contract">
+            <span>01</span>
+            <div><strong>Contrato</strong><small>Identidad, estado y procedencia declarada</small></div>
+            <code>source / status / fallback</code>
+        </div>
         <div class="contract-overview-heading">
             <div>
                 <div class="layout-label">Panel Maestro / Contract-aware screen</div>
@@ -3062,7 +3085,12 @@
         <p class="contract-overview-note">No ejecuta, no envia, no conecta endpoints, no activa runtime y no crea User Panel. Esta implementacion es documental/read-only; una validacion correcta no es permiso operativo.</p>
     </section>
 
-    <section class="blocked-forbidden-screen layout-section" id="blocked-forbidden-screen" data-main-console-zone="blocked-forbidden" data-screen-role="contract-limits" data-visibility="always-visible" data-contract-screen="FSC-BF-02" data-contract-authority="backend_internal_ui_payload.v1" data-rendering-policy="documentary-only" data-blocked-forbidden-state="documented read-only no-runtime no-execution no-endpoint no-user-panel contract-bound policy-bound" data-interaction-mode="read-only" data-interaction-state="read_only inspectable" aria-labelledby="blocked-forbidden-title" aria-describedby="blocked-forbidden-note">
+    <section class="blocked-forbidden-screen layout-section p1-contractual-stage" id="blocked-forbidden-screen" data-main-console-zone="blocked-forbidden" data-screen-role="contract-limits" data-visibility="always-visible" data-contract-screen="FSC-BF-02" data-p1-stage="actions-boundaries" data-contract-authority="backend_internal_ui_payload.v1" data-rendering-policy="documentary-only" data-blocked-forbidden-state="documented read-only no-runtime no-execution no-endpoint no-user-panel contract-bound policy-bound" data-interaction-mode="read-only" data-interaction-state="read_only inspectable" aria-labelledby="blocked-forbidden-title" aria-describedby="blocked-forbidden-note">
+        <div class="p1-contractual-stage-marker" data-p1-marker="actions-boundaries">
+            <span>02–03</span>
+            <div><strong>Acciones y bloqueos</strong><small>Declaraciones visibles, permisos no inferidos</small></div>
+            <code>allowed_actions / forbidden_actions / blocked_capabilities</code>
+        </div>
         <div class="blocked-forbidden-heading">
             <div>
                 <div class="layout-label">Panel Maestro / Contract limits / Read-only</div>
@@ -3148,7 +3176,12 @@
         <div class="density-priority-item density-primary" data-density-tier="primary"><strong>P1 lectura</strong><span>Recorrido de lectura: informacion recibida -> contrato -> summary antes de detail/raw-safe.</span></div>
         <div class="density-priority-item density-secondary" data-density-tier="secondary"><strong>P2 detalle</strong><span>Service signals, logs-sanitized, prompts/checkpoints, evidence extendida y raw-safe largo son trazabilidad secundaria.</span></div>
     </section>
-    <section class="validation-readiness-screen layout-section" id="validation-readiness-screen" data-main-console-zone="validation-readiness" data-screen-role="contract-validation" data-visibility="always-visible" data-contract-screen="FSC-VR-03" data-contract-authority="backend_internal_ui_payload.v1" data-rendering-policy="documentary-only" data-validation-readiness-state="documented read-only validation-documented readiness-documented ready-no-permission no-runtime no-execution no-dispatch no-endpoint no-user-panel contract-bound policy-bound" data-interaction-mode="read-only" data-interaction-state="read_only" aria-labelledby="validation-readiness-title" aria-describedby="validation-readiness-note">
+    <section class="validation-readiness-screen layout-section p1-contractual-stage" id="validation-readiness-screen" data-main-console-zone="validation-readiness" data-screen-role="contract-validation" data-visibility="always-visible" data-contract-screen="FSC-VR-03" data-p1-stage="validation" data-contract-authority="backend_internal_ui_payload.v1" data-rendering-policy="documentary-only" data-validation-readiness-state="documented read-only validation-documented readiness-documented ready-no-permission no-runtime no-execution no-dispatch no-endpoint no-user-panel contract-bound policy-bound" data-interaction-mode="read-only" data-interaction-state="read_only" aria-labelledby="validation-readiness-title" aria-describedby="validation-readiness-note">
+        <div class="p1-contractual-stage-marker" data-p1-marker="validation">
+            <span>04</span>
+            <div><strong>Validación y readiness</strong><small>Diagnóstico documental y evidencia</small></div>
+            <code>readiness / warnings / errors</code>
+        </div>
         <div class="validation-readiness-heading">
             <div>
                 <div class="layout-label">Panel Maestro / Contract-aware screen / Read-only</div>
