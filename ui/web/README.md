@@ -1,5 +1,7 @@
 # Consola web principal
 
+Nota UI/UX 1.182: segunda pasada visual seleccionada para el Panel Maestro contract-aware: Candidato C, ordenar P1 debajo del P0 preservado; P1/P2/P3 observados. No UI activa ni CSS activo modificados, no backend, no runtime, no execution, no endpoints ni payload v2. Proximo paso si pasa: UI/UX 1.183.
+
 Nota UI/UX 1.181: checkpoint visual posterior a 1.180; P0 preservado con ruta Estado -> Contrato -> Limites -> Evidencia -> Proximo paso, P1/P2/P3 y panel derecho preservados. No backend, no runtime, no execution, no endpoints ni payload v2. Proximo paso si pasa: UI/UX 1.182.
 
 Nota UI/UX 1.180: primera pasada de capa superior/P0 implementada con ruta Estado -> Contrato -> Limites -> Evidencia -> Proximo paso. P1/P2/P3 y panel derecho preservados; no backend, no runtime, no execution, no endpoints y no payload v2. Proximo checkpoint: UI/UX 1.181.

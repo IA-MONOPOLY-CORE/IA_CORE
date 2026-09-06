@@ -1,4 +1,4 @@
-"""Contract and scope checks for the UI/UX 1.181 visual checkpoint."""
+"""Contract and scope checks for the UI/UX 1.182 second-pass selection."""
 
 from pathlib import Path
 import re
@@ -7,7 +7,7 @@ import unicodedata
 
 
 ROOT = Path(__file__).resolve().parents[1]
-DOC = ROOT / "docs" / "UI_UX_PANEL_MAESTRO_VISUAL_HIERARCHY_FIRST_PASS_CHECKPOINT_1_181.md"
+DOC = ROOT / "docs" / "UI_UX_PANEL_MAESTRO_VISUAL_HIERARCHY_SECOND_PASS_SELECTION_1_182.md"
 README = ROOT / "README.md"
 WEB_README = ROOT / "ui" / "web" / "README.md"
 INDEX = ROOT / "ui" / "web" / "index.html"
@@ -16,14 +16,15 @@ WIDGETS = ROOT / "ui" / "web" / "backend-contract-widgets.js"
 BACKEND_PAYLOAD = ROOT / "core" / "backend_internal_ui_payloads.py"
 API = ROOT / "api.py"
 
-CHECKPOINT_FILES = {
+SELECTION_FILES = {
     "README.md",
     "ui/web/README.md",
-    "docs/UI_UX_PANEL_MAESTRO_VISUAL_HIERARCHY_FIRST_PASS_CHECKPOINT_1_181.md",
-    "tests/test_ui_ux_panel_maestro_visual_hierarchy_first_pass_checkpoint_1_181.py",
+    "docs/UI_UX_PANEL_MAESTRO_VISUAL_HIERARCHY_SECOND_PASS_SELECTION_1_182.md",
+    "tests/test_ui_ux_panel_maestro_visual_hierarchy_second_pass_selection_1_182.py",
 }
 
 HISTORICAL_ALLOWLIST_TESTS = {
+    "tests/test_ui_ux_panel_maestro_visual_hierarchy_first_pass_checkpoint_1_181.py",
     "tests/test_ui_ux_panel_maestro_visual_hierarchy_first_pass_1_180.py",
     "tests/test_ui_ux_panel_maestro_visual_hierarchy_audit_1_179.py",
     "tests/test_ui_ux_panel_maestro_responsive_visual_checkpoint_1_178.py",
@@ -33,15 +34,7 @@ HISTORICAL_ALLOWLIST_TESTS = {
     "tests/test_ui_ux_panel_maestro_widgets_contract_aware_checkpoint_1_175.py",
 }
 
-ALLOWED_DIFF = CHECKPOINT_FILES | HISTORICAL_ALLOWLIST_TESTS
-
-CONTINUITY_1_182 = {
-    "docs/UI_UX_PANEL_MAESTRO_VISUAL_HIERARCHY_SECOND_PASS_SELECTION_1_182.md",
-    "tests/test_ui_ux_panel_maestro_visual_hierarchy_second_pass_selection_1_182.py",
-}
-
-ALLOWED_DIFF |= CONTINUITY_1_182
-CHECKPOINT_FILES |= CONTINUITY_1_182
+ALLOWED_DIFF = SELECTION_FILES | HISTORICAL_ALLOWLIST_TESTS
 
 PROTECTED_EXACT = {
     ".env",
@@ -72,15 +65,20 @@ PROTECTED_DIRS = {
 }
 
 VALID_DECISIONS = {
-    "UI_UX_VISUAL_HIERARCHY_FIRST_PASS_CHECKPOINT_PASSED",
-    "UI_UX_VISUAL_HIERARCHY_FIRST_PASS_CHECKPOINT_PENDING_MINOR_FIX",
-    "UI_UX_VISUAL_HIERARCHY_FIRST_PASS_CHECKPOINT_BLOCKED",
+    "UI_UX_VISUAL_HIERARCHY_SECOND_PASS_SELECTED",
+    "UI_UX_VISUAL_HIERARCHY_SECOND_PASS_SELECTION_PENDING_MORE_EVIDENCE",
+    "UI_UX_VISUAL_HIERARCHY_SECOND_PASS_SELECTION_BLOCKED",
 }
 
-NEXT_PROMPT = (
-    "PROMPT UI/UX 1.182 — Seleccionar segunda pasada de jerarquía visual "
-    "del Panel Maestro IA_CORE contract-aware"
-)
+PROMPTS = {
+    "A": "PROMPT UI/UX 1.183 — Compactar convivencia visual del Request Contract Preview del Panel Maestro IA_CORE contract-aware sin backend/no-runtime/no-execution",
+    "B": "PROMPT UI/UX 1.183 — Bajar jerarquía visual de la Matriz de cierre UI/UX 1.x del Panel Maestro IA_CORE contract-aware sin backend/no-runtime/no-execution",
+    "C": "PROMPT UI/UX 1.183 — Implementar segunda pasada P1 de jerarquía visual contractual del Panel Maestro IA_CORE contract-aware sin backend/no-runtime/no-execution",
+    "D": "PROMPT UI/UX 1.183 — Reducir repetición semántica visual del Panel Maestro IA_CORE contract-aware sin backend/no-runtime/no-execution",
+    "E": "PROMPT UI/UX 1.183 — Clarificar affordances bloqueadas del Panel Maestro IA_CORE contract-aware sin backend/no-runtime/no-execution",
+    "F": "PROMPT UI/UX 1.183 — Pulido responsive fino de jerarquía visual del Panel Maestro IA_CORE contract-aware sin backend/no-runtime/no-execution",
+    "G": "PROMPT UI/UX 1.182.A — Ampliar evidencia para selección de segunda pasada visual del Panel Maestro IA_CORE contract-aware",
+}
 
 
 def read(path: Path) -> str:
@@ -124,28 +122,38 @@ def p0_block() -> str:
     return html[start:end]
 
 
-def test_document_exists_and_records_checkpoint_evidence():
+def test_document_exists_and_records_all_candidates_and_contract_markers():
     assert DOC.is_file()
     text = read(DOC)
     assert_markers(
         text,
         [
-            "UI/UX Panel Maestro Visual Hierarchy First Pass Checkpoint 1.181",
-            "d960aeb",
-            "UI_UX_VISUAL_HIERARCHY_FIRST_PASS_PASSED",
-            "ready_for_ui_ux_1_181_visual_hierarchy_checkpoint_or_second_pass",
+            "UI/UX Panel Maestro Visual Hierarchy Second Pass Selection 1.182",
+            "d1c2486",
+            "UI_UX_VISUAL_HIERARCHY_FIRST_PASS_CHECKPOINT_PASSED",
+            "ready_for_ui_ux_1_182_visual_hierarchy_second_pass_selection",
+            "P0",
+            "P1",
+            "P2",
+            "P3",
             "Estado",
             "Contrato",
             "Limites",
             "Evidencia",
             "Proximo paso",
-            "P0",
-            "P1",
-            "P2",
-            "P3",
+            "Selected Second Pass Candidate",
+            "Candidato A",
+            "Candidato B",
+            "Candidato C",
+            "Candidato D",
+            "Candidato E",
+            "Candidato F",
+            "Candidato G",
+            "no UI activa",
+            "no CSS activo",
+            "no backend",
             "no-runtime",
             "no-execution",
-            "no backend",
             "no endpoints",
             "no payload v2",
             "allowed_actions",
@@ -158,56 +166,56 @@ def test_document_exists_and_records_checkpoint_evidence():
             "no_payload",
             "not_available",
             "backend_internal_ui_payload.v1",
-            "Request Contract Preview",
         ],
     )
     assert any(decision in text for decision in VALID_DECISIONS)
 
 
-def test_passed_checkpoint_has_readiness_and_exact_next_prompt():
+def test_exactly_one_candidate_is_selected_with_matching_readiness_and_prompt():
     text = read(DOC)
-    if "UI_UX_VISUAL_HIERARCHY_FIRST_PASS_CHECKPOINT_PASSED" in text:
-        assert "ready_for_ui_ux_1_182_visual_hierarchy_second_pass_selection" in text
-        assert NEXT_PROMPT in text
+    selected = re.findall(r"Selected Second Pass Candidate:\s*([A-G])", text)
+    assert selected == ["C"]
+    if "UI_UX_VISUAL_HIERARCHY_SECOND_PASS_SELECTED" in text:
+        assert "ready_for_ui_ux_1_183_visual_hierarchy_second_pass_implementation" in text
+        assert PROMPTS[selected[0]] in text
 
 
-def test_readmes_record_the_scoped_1_181_checkpoint():
+def test_readmes_record_selection_without_implementation():
     assert_markers(
         read(README),
         [
-            "UI/UX 1.181",
-            "checkpoint de primera pasada de jerarquia visual",
-            "d960aeb",
-            "no hay implementacion nueva",
+            "UI/UX 1.182",
+            "seleccion de segunda pasada de jerarquia visual",
+            "d1c2486",
+            "sin implementacion",
+            "no UI activa",
+            "no CSS activo",
             "no backend",
             "no-runtime",
             "no-execution",
-            "ready_for_ui_ux_1_182_visual_hierarchy_second_pass_selection",
+            "ready_for_ui_ux_1_183_visual_hierarchy_second_pass_implementation",
         ],
     )
     assert_markers(
         read(WEB_README),
         [
-            "UI/UX 1.181",
-            "checkpoint visual",
-            "P0 preservado",
-            "Estado",
-            "Contrato",
-            "Limites",
-            "Evidencia",
-            "Proximo paso",
+            "UI/UX 1.182",
+            "segunda pasada visual seleccionada",
+            "Panel Maestro",
+            "contract-aware",
+            "no UI activa",
             "no backend",
             "no runtime",
             "no execution",
-            "UI/UX 1.182",
+            "UI/UX 1.183",
         ],
     )
 
 
-def test_active_html_keeps_the_read_only_p0_contract():
-    block = p0_block()
+def test_active_html_keeps_p0_and_all_preserved_levels():
+    html = read(INDEX)
     assert_markers(
-        block,
+        p0_block(),
         [
             "Estado actual",
             "Modo documental",
@@ -222,52 +230,33 @@ def test_active_html_keeps_the_read_only_p0_contract():
             "evidencia contractual completa sigue debajo",
         ],
     )
-    assert 'data-visual-hierarchy-first-pass="1.180"' in read(INDEX)
-    assert 'data-p0-layer="visual-hierarchy-1.180"' in block
-
-
-def test_active_css_keeps_p0_and_responsive_layout_signals():
-    assert_markers(
-        read(STYLES),
-        [
-            "first-pass P0 hierarchy",
-            ".p0-command-summary",
-            ".p0-reading-route",
-            ".p0-command-grid",
-            ".p0-summary-card",
-            ".p0-evidence-next",
-            "display: grid",
-            "flex-wrap: wrap",
-            "@media (max-width: 760px)",
-            "@media (max-width: 480px)",
-        ],
-    )
-
-
-def test_p1_p2_p3_right_panel_and_preview_remain_present():
-    html = read(INDEX)
     for marker in [
         'id="contract-overview-screen"',
         'id="blocked-forbidden-screen"',
         'id="validation-readiness-screen"',
         'id="request-contract-preview-screen"',
         'id="closure-matrix-ui-ux-1x"',
-        'id="contract-read-only-inspector"',
-        'id="functional-widgets"',
         'id="request-draft-panel"',
+        'id="functional-widgets"',
         'id="settings-fab"',
         'id="add-fab"',
         'id="domain-fab"',
     ]:
         assert marker in html
     assert html.count("data-contract-screen=") == 4
+
+
+def test_active_css_and_renderer_keep_existing_contract_signals():
     assert_markers(
-        html[html.index('id="request-contract-preview-screen"') :],
-        ["read-only", "no-submit", "no-dispatch", "no-execution"],
+        read(STYLES),
+        [
+            ".p0-command-summary",
+            ".p0-reading-route",
+            ".p0-command-grid",
+            "@media (max-width: 760px)",
+            "@media (max-width: 480px)",
+        ],
     )
-
-
-def test_contract_renderer_keeps_required_fields_and_honest_fallbacks():
     script = read(WIDGETS)
     for marker in [
         "allowed_actions",
@@ -278,7 +267,6 @@ def test_contract_renderer_keeps_required_fields_and_honest_fallbacks():
         "fallback",
         "no_payload",
         "not_available",
-        "deny-by-default",
     ]:
         assert marker in script
 
@@ -314,7 +302,7 @@ def test_no_payload_v2_or_active_operational_state_is_introduced():
         assert literal not in outside_guard.casefold()
 
 
-def test_current_diff_is_limited_to_checkpoint_and_strict_continuity():
+def test_current_diff_is_limited_to_selection_and_strict_continuity():
     paths = changed_paths()
     assert paths <= ALLOWED_DIFF
     assert not paths.intersection(PROTECTED_EXACT)
@@ -329,7 +317,7 @@ def test_current_diff_is_limited_to_checkpoint_and_strict_continuity():
         assert "/routers/" not in f"/{lowered}/"
 
 
-def test_historical_tests_can_only_add_1_181_allowlist_continuity():
+def test_historical_tests_can_only_add_1_182_allowlist_continuity():
     for path in changed_paths().intersection(HISTORICAL_ALLOWLIST_TESTS):
         diff = git("diff", "--unified=0", "HEAD", "--", path)
         removed = [
@@ -346,13 +334,13 @@ def test_historical_tests_can_only_add_1_181_allowlist_continuity():
             for match in [re.search(r'[\"\']([^\"\']+)[\"\']', line)]
             if match
         }
-        assert added_paths <= CHECKPOINT_FILES, (
-            f"Historical test change exceeds 1.181 continuity: {path}"
+        assert added_paths <= SELECTION_FILES, (
+            f"Historical test change exceeds 1.182 continuity: {path}"
         )
-        assert "CONTINUITY_1_181" in diff
+        assert "CONTINUITY_1_182" in diff
 
 
-def test_active_ui_backend_payload_and_runtime_paths_have_no_diff():
+def test_active_ui_css_backend_payload_and_runtime_paths_have_no_diff():
     protected_diff = git(
         "diff",
         "--name-only",
@@ -377,3 +365,13 @@ def test_active_ui_backend_payload_and_runtime_paths_have_no_diff():
         "execution",
     )
     assert protected_diff == ""
+
+
+def test_selection_test_requires_no_browser_network_or_dependency_installation():
+    source = read(Path(__file__))
+    assert not re.search(
+        r"^\s*(?:from|import)\s+(?:selenium|playwright|requests)\b",
+        source,
+        flags=re.MULTILINE,
+    )
+    assert "pip" + " install" not in source.casefold()

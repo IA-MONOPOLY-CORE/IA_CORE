@@ -44,6 +44,13 @@ CONTINUITY_1_181 = {
 
 ALLOWED_DIFF |= CONTINUITY_1_181
 
+CONTINUITY_1_182 = {
+    "docs/UI_UX_PANEL_MAESTRO_VISUAL_HIERARCHY_SECOND_PASS_SELECTION_1_182.md",
+    "tests/test_ui_ux_panel_maestro_visual_hierarchy_second_pass_selection_1_182.py",
+}
+
+ALLOWED_DIFF |= CONTINUITY_1_182
+
 
 def read(path: Path) -> str:
     return path.read_text(encoding="utf-8")

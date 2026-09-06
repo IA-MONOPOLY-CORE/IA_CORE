@@ -46,6 +46,13 @@ CONTINUITY_1_181 = {
 
 ALLOWED_DIFF |= CONTINUITY_1_181
 
+CONTINUITY_1_182 = {
+    "docs/UI_UX_PANEL_MAESTRO_VISUAL_HIERARCHY_SECOND_PASS_SELECTION_1_182.md",
+    "tests/test_ui_ux_panel_maestro_visual_hierarchy_second_pass_selection_1_182.py",
+}
+
+ALLOWED_DIFF |= CONTINUITY_1_182
+
 APPROVED_1_180_ACTIVE_UI = {"ui/web/index.html", "ui/web/styles.css"}
 REQUIRED_1_180 = {
     "ui/web/index.html",
