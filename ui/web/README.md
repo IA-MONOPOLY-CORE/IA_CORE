@@ -1,5 +1,7 @@
 # Consola web principal
 
+Nota UI/UX 1.181: checkpoint visual posterior a 1.180; P0 preservado con ruta Estado -> Contrato -> Limites -> Evidencia -> Proximo paso, P1/P2/P3 y panel derecho preservados. No backend, no runtime, no execution, no endpoints ni payload v2. Proximo paso si pasa: UI/UX 1.182.
+
 Nota UI/UX 1.180: primera pasada de capa superior/P0 implementada con ruta Estado -> Contrato -> Limites -> Evidencia -> Proximo paso. P1/P2/P3 y panel derecho preservados; no backend, no runtime, no execution, no endpoints y no payload v2. Proximo checkpoint: UI/UX 1.181.
 
 Nota UI/UX 1.179: Panel Maestro visualmente auditado para jerarquia visual; conclusion contract-aware solida pero densa y proxima implementacion acotada 1.180 sobre capa superior/P0. No modifica UI activa, no backend/no-runtime/no-execution/no endpoints y no payload v2.

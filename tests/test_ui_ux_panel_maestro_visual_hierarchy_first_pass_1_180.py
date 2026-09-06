@@ -32,6 +32,13 @@ ALLOWED_DIFF = {
     "tests/test_ui_ux_panel_maestro_visual_hierarchy_first_pass_1_180.py",
 } | CONTINUITY_TESTS
 
+CONTINUITY_1_181 = {
+    "docs/UI_UX_PANEL_MAESTRO_VISUAL_HIERARCHY_FIRST_PASS_CHECKPOINT_1_181.md",
+    "tests/test_ui_ux_panel_maestro_visual_hierarchy_first_pass_checkpoint_1_181.py",
+}
+
+ALLOWED_DIFF |= CONTINUITY_1_181
+
 PROTECTED_EXACT = {
     ".env",
     "api.py",

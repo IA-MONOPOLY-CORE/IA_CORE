@@ -37,6 +37,13 @@ CONTINUITY_1_180 = {
 
 ALLOWED_DIFF |= CONTINUITY_1_180
 
+CONTINUITY_1_181 = {
+    "docs/UI_UX_PANEL_MAESTRO_VISUAL_HIERARCHY_FIRST_PASS_CHECKPOINT_1_181.md",
+    "tests/test_ui_ux_panel_maestro_visual_hierarchy_first_pass_checkpoint_1_181.py",
+}
+
+ALLOWED_DIFF |= CONTINUITY_1_181
+
 
 def read(path: Path) -> str:
     return path.read_text(encoding="utf-8")
