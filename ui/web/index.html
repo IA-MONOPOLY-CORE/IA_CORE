@@ -579,6 +579,8 @@
         .four-screen-baseline-summary {
             display: grid;
             grid-template-columns: minmax(0, 0.88fr) minmax(360px, 1.12fr);
+            min-width: 0;
+            max-width: 100%;
             gap: 14px;
             align-items: start;
             margin-bottom: 12px;
@@ -748,6 +750,9 @@
         .four-screen-baseline-list {
             display: grid;
             grid-template-columns: repeat(4, minmax(0, 1fr));
+            min-width: 0;
+            width: 100%;
+            max-width: 100%;
             gap: 8px;
             list-style: none;
             margin: 0;
@@ -760,6 +765,7 @@
             background: rgba(2,6,23,0.2);
         }
         .four-screen-baseline-list span,
+        .four-screen-baseline-list strong,
         .four-screen-baseline-list code {
             display: block;
             font-family: 'Share Tech Mono', monospace;
@@ -2523,6 +2529,11 @@
             }
         }
         @media (max-width: 760px) {
+            [data-design-system-density-refinement="1.135"] .four-screen-baseline-summary[data-visual-layer="overview"] {
+                grid-template-columns: minmax(0, 1fr);
+                min-width: 0;
+                max-width: 100%;
+            }
             [data-design-system-density-refinement="1.135"] .master-shell-header,
             [data-design-system-density-refinement="1.135"] .contract-overview-screen,
             [data-design-system-density-refinement="1.135"] .blocked-forbidden-screen,
@@ -2682,6 +2693,12 @@
                 width: min(340px, calc(100vw - 44px));
             }
             .request-draft-panel.collapsed { transform: translateX(calc(100% - 44px)); }
+            .request-draft-panel .request-draft-toggle {
+                left: 0;
+                border-left: none;
+                border-right: 1px solid var(--border-color);
+                border-radius: 0;
+            }
         }
         .request-draft-toggle {
             position: absolute; left: -44px; top: 50%; transform: translateY(-50%);
@@ -2846,7 +2863,7 @@
 </head>
 <body data-skin="contract">
 
-    <main class="ia-core-shell master-shell-overview-surface" data-visual-architecture="master-shell-overview-1.124" data-layout-contract-aware="superior-0.8" data-main-console="contract-aware-1.0" data-console-refinement="1.1" data-console-flow="contract-aware-1.2" data-console-interaction="contract-aware-1.3" data-payload-reading-model="contract-aware-1.6" data-contract-detail-panels="contract-aware-1.7" data-internal-navigation="contract-aware-1.8" data-component-system="ia-core-contract-aware-1.9" data-responsive-hardening="contract-aware-1.13" data-operator-guidance="contract-aware-1.25" data-density-information-architecture="contract-aware-1.29" data-contract-storytelling="contract-aware-1.33" data-design-system-density-refinement="1.135" data-interaction-mode="read-only">
+    <main class="ia-core-shell master-shell-overview-surface" data-visual-architecture="master-shell-overview-1.124" data-layout-contract-aware="superior-0.8" data-main-console="contract-aware-1.0" data-console-refinement="1.1" data-console-flow="contract-aware-1.2" data-console-interaction="contract-aware-1.3" data-payload-reading-model="contract-aware-1.6" data-contract-detail-panels="contract-aware-1.7" data-internal-navigation="contract-aware-1.8" data-component-system="ia-core-contract-aware-1.9" data-responsive-hardening="contract-aware-1.13" data-responsive-debt-fix="1.177" data-operator-guidance="contract-aware-1.25" data-density-information-architecture="contract-aware-1.29" data-contract-storytelling="contract-aware-1.33" data-design-system-density-refinement="1.135" data-interaction-mode="read-only">
     <!-- BANNER PARA LOGOS -->
     <div class="logo-banner" id="logo-banner">
         <div class="logo-banner-inner" id="logo-banner-inner"></div>
@@ -5432,10 +5449,32 @@
             const requestDraftPanel = document.getElementById('request-draft-panel');
             const requestDraftToggle = document.getElementById('request-draft-toggle');
             const syncRequestDraftToggleState = () => {
-                requestDraftToggle.setAttribute('aria-expanded', String(!requestDraftPanel.classList.contains('collapsed')));
+                const isExpanded = !requestDraftPanel.classList.contains('collapsed');
+                const toggleLabel = isExpanded
+                    ? 'Cerrar vista previa del draft bloqueado'
+                    : 'Abrir vista previa del draft bloqueado';
+                requestDraftToggle.setAttribute('aria-expanded', String(isExpanded));
+                requestDraftToggle.setAttribute('aria-label', toggleLabel);
+                requestDraftToggle.setAttribute('title', toggleLabel);
             };
-            if (window.matchMedia('(max-width: 760px)').matches) requestDraftPanel.classList.add('collapsed');
-            syncRequestDraftToggleState();
+            const requestDraftMobileViewport = window.matchMedia('(max-width: 760px)');
+            const syncRequestDraftResponsiveState = (isMobile) => {
+                const focusWasInsidePanel = requestDraftPanel.contains(document.activeElement);
+                if (isMobile) requestDraftPanel.classList.add('collapsed');
+                syncRequestDraftToggleState();
+                if (isMobile && focusWasInsidePanel && document.activeElement !== requestDraftToggle) {
+                    requestDraftToggle.focus();
+                }
+            };
+            syncRequestDraftResponsiveState(requestDraftMobileViewport.matches);
+            const handleRequestDraftBreakpointChange = (event) => {
+                syncRequestDraftResponsiveState(event.matches);
+            };
+            if (typeof requestDraftMobileViewport.addEventListener === 'function') {
+                requestDraftMobileViewport.addEventListener('change', handleRequestDraftBreakpointChange);
+            } else {
+                requestDraftMobileViewport.addListener(handleRequestDraftBreakpointChange);
+            }
             requestDraftToggle.onclick = () => {
                 requestDraftPanel.classList.toggle('collapsed');
                 syncRequestDraftToggleState();

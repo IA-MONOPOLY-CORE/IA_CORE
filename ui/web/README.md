@@ -1,5 +1,7 @@
 # Consola web principal
 
+Nota UI/UX 1.177: se corrige la deuda responsive acotada del resumen contractual y del request draft durante resize desktop-a-móvil. Se preservan los cuatro widgets contract-aware con fuente, estado y fallback, sin modificar backend ni `backend_internal_ui_payload.v1` y sin habilitar runtime/execution.
+
 Nota UI/UX 1.176: se selecciona como único próximo bloque UI/UX 1.177 para resolver la deuda responsive acotada: overflow móvil del resumen de contratos y superposición del panel lateral durante resize. No modifica UI activa ni backend, preserva `backend_internal_ui_payload.v1`, mantiene no-runtime/no-execution y no implementa STRATEGIC DOCS 1.1-1.3.
 
 Nota UI/UX 1.175: checkpoint visual y contractual de los widgets contract-aware con evidencia desktop/mobile y smoke estatico. No modifica UI activa ni backend; mantiene no-runtime/no-execution, no activa integraciones y preserva backend_internal_ui_payload.v1. Registra la deuda legacy de tests y responsive, no bloqueante para estos cuatro widgets y pendiente de un alcance propio.
