@@ -4,7 +4,7 @@
 
 El operador autorizo adaptar los guards historicos y luego continuar con Gate 2. La reparacion conservo las aserciones y separo cada checkpoint de su commit historico; el guard actual mantiene deny-by-default y limita 1.192 a sus archivos y superficies autorizadas.
 
-Resultado final: `UI_UX_CONTROLLED_DOUBLE_SCOPE_AFFORDANCES_SEVERITY_PASSED`. Gate 1 y Gate 2 pasaron. Se crearon los commits internos `055e70e` y `6ae13f4`; queda pendiente la consolidacion documental final y el push.
+Resultado final: `UI_UX_CONTROLLED_DOUBLE_SCOPE_AFFORDANCES_SEVERITY_PASSED`. Gate 1 y Gate 2 pasaron. Se crearon los commits internos `055e70e` y `6ae13f4`, el commit documental `1c41cd8` y el push fue verificado.
 
 La continuidad historica queda resuelta como `HISTORICAL_GUARDS_1_192_RESOLVED`.
 
@@ -12,8 +12,8 @@ La continuidad historica queda resuelta como `HISTORICAL_GUARDS_1_192_RESOLVED`.
 - Gate 2: `GATE_2_SEVERITY_VISUAL_PASSED`; commit `6ae13f4 feat(ui): ordenar severidad visual de estados bloqueados`.
 - Doble pieza: `DOUBLE_SCOPE_FULLY_IMPLEMENTED`.
 - Correctivo: `NO_CORRECTIVE_NEEDED`; la severidad visual queda dentro de la familia existente.
-- Readiness final previsto: `ready_for_ui_ux_1_193_controlled_double_scope_affordances_severity_checkpoint`.
-- Proximo prompt exacto previsto: `PROMPT UI/UX 1.193 — Checkpoint de doble pieza controlada affordances/severidad del Panel Maestro IA_CORE contract-aware`.
+- Readiness final: `ready_for_ui_ux_1_193_controlled_double_scope_affordances_severity_checkpoint`.
+- Proximo prompt exacto: `PROMPT UI/UX 1.193 — Checkpoint de doble pieza controlada affordances/severidad del Panel Maestro IA_CORE contract-aware`.
 
 Gate 2 no agrega estados contractuales, acciones, CTA, submit, runtime, execution, endpoints o integrations. HTML, JS contractual, i18n, backend y payload siguen sin modificaciones. La seccion posterior conserva el bloqueo inicial como evidencia historica, no como estado actual.
 
@@ -42,8 +42,8 @@ Resultado final conjunto post Gate 2: **275 passed in 73.51s**, sin fallos ni sk
 | Sanity HTML/CSS/contract literal del prompt | Exit 0 |
 | git diff --check | Exit 0; avisos LF/CRLF, sin errores |
 | Diff prohibido HTML/JS/i18n/backend/payload y directorios protegidos | Vacio |
-| HEAD / origin/main / ahead-behind | 82dd100 / 82dd100 / 0-0 |
-| Commit Gate 1 / commit Gate 2 / push | `055e70e` / `6ae13f4` / pendiente |
+| HEAD / origin/main / ahead-behind | `1c41cd8` / `1c41cd8` / 0-0 |
+| Commit Gate 1 / commit Gate 2 / documental / push | `055e70e` / `6ae13f4` / `1c41cd8` / realizado |
 
 Las pruebas negativas rechazan archivos prohibidos incluso junto a los artefactos permitidos; CSS que quite disabled/ARIA, cursor operativo, selector global, reglas sobre P0/P1/Matriz/widgets/Request Draft Panel, payload v2 y declaraciones duplicadas; cambios al CSS previo; eliminaciones; reescritura de README historico; eliminacion de aserciones, retornos anticipados o ampliaciones de allowlist en tests historicos. Tambien comprueban que staging y working tree se inspeccionan por separado.
 
@@ -54,9 +54,9 @@ $tests192 = rg --files tests | Where-Object { $_ -match '1_(17[5-9]|18[0-9]|19[0
 python -m pytest -q --tb=short $tests192
 ```
 
-Working tree final: 25 archivos pendientes, sin staging. Son los cinco archivos de la propuesta original, los 19 tests historicos adaptados y el helper nuevo. La lista exacta de esos 19 tests y sus commits esta fijada en `CHECKPOINTS` de `tests/ui_ux_1_192_scope.py`. No se agregaron dependencias, archivos productivos ni cambios CSS durante esta reparacion.
+Working tree final publicado: limpio, sin staging y sin archivos pendientes. `HEAD == origin/main == 1c41cd8`, ahead/behind `0/0`. La lista exacta de los 19 tests historicos y sus commits queda fijada en `CHECKPOINTS` de `tests/ui_ux_1_192_scope.py`. No se agregaron dependencias ni archivos productivos fuera del alcance.
 
-Veredicto de esta autorizacion: **Gate 1 y Gate 2 aprobados sin ampliar el alcance actual**. La consolidacion documental final y el push quedan como pasos posteriores de esta misma tarea. No se ejecuta el prompt 1.193.
+Veredicto de esta autorizacion: **Gate 1 y Gate 2 aprobados sin ampliar el alcance actual**. La consolidacion documental y el push ya fueron completados y verificados. No se ejecuta el prompt 1.193.
 
 ## Evidencia final de Gate 2
 
@@ -232,4 +232,4 @@ Recomendacion para el proximo checkpoint 1.193: Luna Muy Alto con terminal local
 
 A-J: preflight y decisiones, registrados en Estado y alcance. K-P: seleccion, piezas, gates y corte confirmados. Q-Z: inspeccion previa, mapa real y estrategia, registrados arriba. AA: HTML no necesario. AB-AJ: Gate 1 verificado en navegador y tests. AK: `055e70e`. AL: `GATE_1_AFFORDANCES_BLOCKED_PASSED`. AM-AX: Gate 2 verificado en navegador y tests. AW: `6ae13f4`. AX: `GATE_2_SEVERITY_VISUAL_PASSED`. AY-AZ: `DOUBLE_SCOPE_FULLY_IMPLEMENTED` y `NO_CORRECTIVE_NEEDED`.
 
-BA-BD: documento, test y README finales. BE: 19 tests historicos adaptados de forma estructural y aditiva; helper nuevo. BF: 77 passed en focal post Gate 2; BG-BY: tabla historica inicial y evidencia de suite posterior. BZ-CC: compilacion, Node, sanity y diff con exit 0. CD-CF: diff permitido y rutas protegidas intactas. CG: `055e70e`; CH: `6ae13f4`, documental pendiente. CI: HEAD vigente `6ae13f4`; no es hash final hasta consolidacion. CJ: validacion post-commit de Gate 2 ejecutada: 275 passed. CK: working tree con documentacion/test/README finales pendientes, sin staging. CL-CM: push pendiente; comando `git push origin main` aun no ejecutado. CN-CP: pendientes de post-push. CQ: ahead 2 antes del commit documental; CR-CS: working tree no limpio hasta consolidacion. CT: commits 1.192 registrados arriba. CU-CX: aprobado, readiness `ready_for_ui_ux_1_193_controlled_double_scope_affordances_severity_checkpoint`, prompt 1.193 documentado y no ejecutado. CY-DQ: modelo, consumo, calidad y recomendacion registrados arriba. DR: UI/UX 1.192 listo para commit documental final y push.
+BA-BD: documento, test y README finales. BE: 19 tests historicos adaptados de forma estructural y aditiva; helper nuevo. BF: 77 passed en focal post Gate 2; BG-BY: tabla historica inicial y evidencia de suite posterior. BZ-CC: compilacion, Node, sanity y diff con exit 0. CD-CF: diff permitido y rutas protegidas intactas. CG: `055e70e`; CH: `6ae13f4`; CI: `1c41cd8` y publicado. CJ: validacion post-commit ejecutada: 275 passed. CK: working tree limpio antes y despues del push. CL-CM: push realizado con `git push origin main`. CN-CP: HEAD y origin/main post-push `1c41cd8`, igualdad confirmada. CQ: `0/0`; CR-CS: limpio. CT: commits 1.192 registrados arriba. CU-CX: aprobado, readiness `ready_for_ui_ux_1_193_controlled_double_scope_affordances_severity_checkpoint`, prompt 1.193 documentado y no ejecutado. CY-DQ: modelo, consumo, calidad y recomendacion registrados arriba. DR: UI/UX 1.192 cerrado, publicado y verificado.
