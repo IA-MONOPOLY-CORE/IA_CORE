@@ -47,8 +47,17 @@ CONTINUITY_1_194 = {
     "docs/UI_UX_PANEL_MAESTRO_RESPONSIVE_VISUAL_COHERENCE_ASSEMBLED_BLOCK_1_194.md",
     "tests/test_ui_ux_panel_maestro_responsive_visual_coherence_assembled_block_1_194.py",
 }
+CONTINUITY_1_195 = {
+    "docs/UI_UX_PANEL_MAESTRO_ASSEMBLED_BLOCK_1_194_POSTMORTEM_1_195.md",
+    "tests/test_ui_ux_panel_maestro_assembled_block_1_194_postmortem_1_195.py",
+    "docs/UI_UX_PANEL_MAESTRO_NEXT_LARGE_SCALE_ASSEMBLED_BLOCK_MANIFEST_1_195.md",
+    "tests/test_ui_ux_panel_maestro_next_large_scale_assembled_block_manifest_1_195.py",
+    "docs/UI_UX_PANEL_MAESTRO_POST_ASSEMBLED_BLOCK_DIRECTION_REVIEW_1_195.md",
+    "tests/test_ui_ux_panel_maestro_post_assembled_block_direction_review_1_195.py",
+}
 ALLOWED = {CSS, DOC, TEST, HELPER} | READMES | CHECKPOINTS.keys() | CONTINUITY_1_193
 ALLOWED |= CONTINUITY_1_194
+ALLOWED |= CONTINUITY_1_195
 PATH_HELPERS = {"changed_paths", "working_paths", "checkpoint_paths", "selection_paths"}
 IMPORT = "from ui_ux_1_192_scope import historical_paths, assert_current_scope"
 CURRENT_TEST = """def test_current_scope_is_strict_1_192():
