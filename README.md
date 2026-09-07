@@ -4,6 +4,12 @@ IA_CORE is a local, contract-aware multi-agent framework in construction. Its cu
 
 Current GitHub backup target: `https://github.com/IA-MONOPOLY-CORE/IA_CORE`
 
+## Cursor vigente UI/UX 1.186
+
+UI/UX 1.186 implementa sobre base `9f83c34` el bloque visual seleccionado: bajar jerarquia visual de la Matriz de cierre UI/UX 1.x como superficie P3/auditoria, preservando sus 20 filas, seis estados, 26 badges, visibilidad y contenido. El cambio activo queda acotado a CSS scoped; P0/P1, P2/P3, Request Contract Preview, widgets contract-aware y contrato `backend_internal_ui_payload.v1` quedan preservados. No hay backend/no-runtime/no-execution, no endpoints, no payload v2 ni capacidad operativa. Decision: `UI_UX_MATRIX_VISUAL_HIERARCHY_DEMOTION_PASSED`. Readiness: `ready_for_ui_ux_1_187_matrix_visual_hierarchy_checkpoint`.
+
+Documento: `docs/UI_UX_PANEL_MAESTRO_MATRIX_VISUAL_HIERARCHY_DEMOTION_1_186.md`. Test: `tests/test_ui_ux_panel_maestro_matrix_visual_hierarchy_demotion_1_186.py`. Proximo prompt exacto: `PROMPT UI/UX 1.187 — Checkpoint de jerarquía visual secundaria de la Matriz de cierre UI/UX 1.x del Panel Maestro IA_CORE contract-aware`. UI/UX 1.187 no se ejecuta en 1.186.
+
 ## Cursor vigente UI/UX 1.185
 
 UI/UX 1.185 registra sobre base `2ab27f9` la seleccion de proximo bloque visual del Panel Maestro: Candidato B, bajar la jerarquia de la Matriz de cierre como P3/auditoria preservando su informacion. Es seleccion sin implementacion, no UI activa, no CSS activo, preserva P0/P1 y contrato; no backend/no-runtime/no-execution, no endpoints y no payload v2. Readiness: `ready_for_ui_ux_1_186_next_visual_block_implementation`.

@@ -87,6 +87,17 @@ CONTINUITY_1_185 = {
 # CONTINUITY_1_185 is additive.
 ALLOWED_DIFF |= CONTINUITY_1_185
 
+CONTINUITY_1_186 = {
+    "README.md",
+    "ui/web/README.md",
+    "ui/web/styles.css",
+    "docs/UI_UX_PANEL_MAESTRO_MATRIX_VISUAL_HIERARCHY_DEMOTION_1_186.md",
+    "tests/test_ui_ux_panel_maestro_matrix_visual_hierarchy_demotion_1_186.py",
+}
+
+# CONTINUITY_1_175, CONTINUITY_1_176, CONTINUITY_1_177, CONTINUITY_1_177_1, CONTINUITY_1_178, CONTINUITY_1_179, CONTINUITY_1_180, CONTINUITY_1_181, CONTINUITY_1_182, CONTINUITY_1_183, CONTINUITY_1_184 and CONTINUITY_1_185 remain preserved; CONTINUITY_1_186 is additive and scoped to the matrix visual demotion.
+ALLOWED_DIFF |= CONTINUITY_1_186
+
 APPROVED_1_180_ACTIVE_UI = {"ui/web/index.html", "ui/web/styles.css"}
 REQUIRED_1_180 = {
     "ui/web/index.html",
