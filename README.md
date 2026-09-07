@@ -1496,3 +1496,12 @@ No UI activa, no JS, no backend, no runtime, no execution, no JSON TOP 15, no fi
 - Tamaño recomendado: 6 estaciones naturales con dependencias, gates, tests, browser y rollback por estación; tamaño potencial ampliado: 8 sin cruzar la frontera semántica.
 - Primera frontera no determinista: microcopy contractual transversal y, después, movimiento/identidad audiovisual. No se implementa UI/UX 1.194.
 - Resultado: `UI_UX_CONTROLLED_DOUBLE_SCOPE_CHECKPOINT_AND_ASSEMBLED_BLOCK_SCALE_AUDIT_PASSED`; readiness `ready_for_ui_ux_1_194_assembled_block_execution_prompt_design`.
+
+## UI/UX 1.194 - Bloque ensamblado responsive y coherencia visual
+
+- Bloque ensamblado cerrado con seis estaciones independientes: containment responsive, severidad visual existente, coherencia de widgets/badges/blockers, densidad P2/P3, accesibilidad/legibilidad y checkpoint documental.
+- Resultado: `UI_UX_RESPONSIVE_VISUAL_COHERENCE_ASSEMBLED_BLOCK_PASSED`; readiness: `ready_for_ui_ux_1_195_post_assembled_block_direction_review`.
+- Se preservan P0, P1, Matriz P3, widgets contract-aware, Request Draft Panel, `backend_internal_ui_payload.v1`, deny-by-default, no runtime, no execution, no endpoints, no integrations y payload v2 ausente.
+- Commits por estacion: `7196ad5`, `88824b8`, `6e4adaf`, `a29a26f`, `d7321d2`; checkpoint documental: `docs(ui): checkpoint bloque ensamblado responsive coherencia visual`.
+- Suite continuidad 1.174-1.194: 317 passed; 20 tests focales; navegador desktop/mobile/resize sin overflow ni errores de consola. [Reporte UI/UX 1.194](docs/UI_UX_PANEL_MAESTRO_RESPONSIVE_VISUAL_COHERENCE_ASSEMBLED_BLOCK_1_194.md).
+- No se ejecuta UI/UX 1.195 automaticamente; primera frontera diferida: microcopy contractual transversal, seguida por motion y audiovisual.

@@ -2145,3 +2145,10 @@ No UI activa, no JS, no backend, no runtime, no execution, no JSON TOP 15, no fi
 - Auditoría read-only sobre `ef5a83d`: próxima misión propuesta para contener el drawer responsive y alinear estados contract-aware, widgets, badges, blockers y densidad P2/P3.
 - Se recomiendan 6 estaciones naturales y commits independientes; la primera frontera genuina queda en microcopy contractual y movimiento/audiovisual.
 - No se implementa UI/UX 1.194 ni se toca HTML/JS/i18n/backend/payload/runtime/execution/endpoints/integrations.
+
+## UI/UX 1.194 - Bloque ensamblado responsive y coherencia visual
+
+- S1-S5 aplican solo CSS scoped para containment, severidad existente, widgets/badges/blockers, densidad P2/P3 y legibilidad; S6 es documental/test-only.
+- La Matriz conserva 20 filas y 26 badges. Los widgets conservan source, status, fallback, `allowed_actions`, `forbidden_actions` y `blocked_capabilities`.
+- Request Draft Panel permanece visible, secundario, read-only y blocked; CFG, `+` y DOMAIN permanecen disabled y no operativos.
+- Resultado: `UI_UX_RESPONSIVE_VISUAL_COHERENCE_ASSEMBLED_BLOCK_PASSED`; no submit, no runtime, no execution, no endpoint, no integration y payload v2 ausente.
