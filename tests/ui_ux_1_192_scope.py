@@ -154,6 +154,35 @@ body #functional-widgets .data-widget-fallback {
     border-radius: 4px;
 }
 """
+S4_CSS = """
+/* UI/UX 1.194 S4: tighten the existing P3 matrix without removing evidence. */
+body #closure-matrix-ui-ux-1x .closure-matrix-grid {
+    gap: 8px;
+}
+
+body #closure-matrix-ui-ux-1x .closure-matrix-row {
+    gap: 8px;
+    padding: 10px 12px;
+    align-items: start;
+}
+
+body #closure-matrix-ui-ux-1x .closure-matrix-main {
+    min-width: 0;
+}
+
+body #closure-matrix-ui-ux-1x .closure-matrix-main p {
+    margin-top: 4px;
+    line-height: 1.35;
+    overflow-wrap: anywhere;
+}
+
+body #closure-matrix-ui-ux-1x .closure-matrix-badge {
+    min-width: 0;
+    max-width: 100%;
+    white-space: normal;
+    line-height: 1.2;
+}
+"""
 AUTHORIZED_1_194_STATION_MESSAGES = {
     "feat(ui): corregir containment responsive panel maestro",
     "feat(ui): consolidar severidad visual existente",
