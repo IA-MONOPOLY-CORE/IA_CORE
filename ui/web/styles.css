@@ -1829,3 +1829,46 @@ body #closure-matrix-ui-ux-1x .closure-matrix-badge {
     white-space: normal;
     line-height: 1.2;
 }
+
+/* UI/UX 1.194 S5: improve legibility and focus visibility without changing state semantics. */
+body .final-screen-contracts-rehousing .visual-state,
+body #request-draft-panel .visual-state,
+body .console-utilities .admin-status {
+    min-width: 0;
+    max-width: 100%;
+    line-height: 1.35;
+    overflow-wrap: anywhere;
+}
+
+body .console-utilities[data-interaction-scope="existing-management"] > :is(#settings-fab, #add-fab, #domain-fab)[data-contract-blocked="true"]:disabled[aria-disabled="true"] {
+    min-height: 36px;
+    opacity: 1;
+    color: #e2e8f0;
+    text-shadow: none;
+}
+
+body #request-draft-panel #request-draft-blocked-control.request-draft-control:disabled {
+    min-height: 36px;
+    opacity: 0.86;
+    line-height: 1.35;
+    overflow-wrap: anywhere;
+}
+
+body #functional-widgets .data-widget-title,
+body #functional-widgets .data-widget-value {
+    line-height: 1.35;
+    overflow-wrap: anywhere;
+}
+
+body #closure-matrix-ui-ux-1x .closure-matrix-main h3 {
+    line-height: 1.3;
+}
+
+body #functional-widgets button:focus-visible,
+body #closure-matrix-ui-ux-1x button:focus-visible,
+body #request-draft-panel .request-draft-toggle:focus-visible,
+body .console-utilities button:focus-visible {
+    outline: 2px solid var(--cyan);
+    outline-offset: 2px;
+    box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.2);
+}
