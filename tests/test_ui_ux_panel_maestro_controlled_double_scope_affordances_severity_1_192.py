@@ -34,8 +34,8 @@ def test_gate_1_css_is_append_only_and_scoped_to_disabled_controls():
     before = git("show", f"{BASE}:ui/web/styles.css")
     after = (ROOT / "ui/web/styles.css").read_text(encoding="utf-8")
     scope.assert_css(before, after)
-    assert after.startswith(before)
-    addition = after[len(before):].strip()
+    assert after.startswith(before + scope.GATE_1_CSS)
+    addition = scope.GATE_1_CSS.strip()
     assert addition.startswith(MARKER)
     rule = addition[len(MARKER):].strip()
     assert rule.startswith(SELECTOR + " {")
@@ -84,6 +84,32 @@ def test_existing_controls_remain_disabled_and_html_is_identical():
         assert "disabled" in attrs and attrs["aria-disabled"] == "true"
         assert attrs["type"] == "button" and attrs["data-contract-blocked"] == "true"
         assert attrs["data-no-runtime"] == attrs["data-no-execution"] == attrs["data-no-mutation"] == "true"
+
+
+def test_gate_2_only_adds_the_existing_administrative_boundary_style():
+    before = git("show", "055e70e:ui/web/styles.css")
+    after = (ROOT / "ui/web/styles.css").read_text(encoding="utf-8")
+    assert after == before + scope.GATE_2_CSS
+    html = (ROOT / "ui/web/index.html").read_text(encoding="utf-8")
+    assert html == git("show", f"{BASE}:ui/web/index.html")
+    assert html.count('<span class="admin-status" data-contract-blocked="true">') == 1
+
+
+@pytest.mark.parametrize("addition", [
+    scope.GATE_2_CSS.replace('body .console-utilities[data-interaction-scope="existing-management"] > ', ''),
+    scope.GATE_2_CSS.replace('[data-contract-blocked="true"]', ''),
+    scope.GATE_2_CSS.replace('.admin-status', '#request-contract-status'),
+    scope.GATE_2_CSS.replace('cursor: default', 'cursor: pointer'),
+    scope.GATE_2_CSS.replace('color: var(--amber);', 'color: green;'),
+    scope.GATE_2_CSS.replace('line-height: 1.5;', 'display: none;'),
+    scope.GATE_2_CSS.replace('line-height: 1.5;', 'opacity: 0;'),
+    scope.GATE_2_CSS.replace('cursor: default;', 'cursor: pointer; cursor: default;'),
+    scope.GATE_2_CSS + '\nbody { color: red; }\n',
+    scope.GATE_2_CSS + '\n/* backend_internal_ui_payload.v2 */\n',
+])
+def test_gate_2_cannot_expand_severity_scope_or_hide_the_boundary(addition):
+    with pytest.raises(AssertionError, match="exact Gate 1/Gate 2"):
+        scope.assert_css("existing\n", "existing\n" + scope.GATE_1_CSS + addition)
 
 
 def test_only_proposal_and_reporting_files_change():

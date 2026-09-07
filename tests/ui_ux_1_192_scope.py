@@ -52,6 +52,21 @@ body .console-utilities[data-interaction-scope="existing-management"] > :is(#set
     letter-spacing: 0;
 }
 """
+GATE_2_CSS = """
+/* UI/UX 1.192 Gate 2: emphasize the existing contractual boundary, not an action. */
+body .console-utilities[data-interaction-scope="existing-management"] > .admin-status[data-contract-blocked="true"] {
+    color: var(--amber);
+    border-inline-start: 2px solid var(--amber);
+    padding-inline-start: 10px;
+    margin-block: 0;
+    min-width: 0;
+    max-width: 100%;
+    overflow-wrap: anywhere;
+    line-height: 1.5;
+    letter-spacing: 0;
+    cursor: default;
+}
+"""
 
 
 def git(root, *args):
@@ -131,8 +146,9 @@ def assert_historical_adaptation(original, current, checkpoint):
 
 
 def assert_css(before, after):
-    # Exact addition forbids broader selectors, duplicate declarations and Gate 2 changes.
-    assert after == before + GATE_1_CSS, "CSS exceeds the exact Gate 1 addition"
+    # Accept only the committed Gate 1 snapshot or both exact authorized additions.
+    gate_1 = before + GATE_1_CSS
+    assert after in (gate_1, gate_1 + GATE_2_CSS), "CSS exceeds the exact Gate 1/Gate 2 additions"
 
 
 def assert_snapshot(changes, baselines):
@@ -175,4 +191,3 @@ def assert_current_scope(root):
         # Content checks must not let a symlink or executable-bit change through.
         summary = text(git(root, "diff", *options, "--summary", BASE))
         assert "mode change" not in summary and "120000" not in summary, summary
-

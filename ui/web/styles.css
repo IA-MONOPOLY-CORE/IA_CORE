@@ -1720,3 +1720,17 @@ body .console-utilities[data-interaction-scope="existing-management"] > :is(#set
     animation: none;
     letter-spacing: 0;
 }
+
+/* UI/UX 1.192 Gate 2: emphasize the existing contractual boundary, not an action. */
+body .console-utilities[data-interaction-scope="existing-management"] > .admin-status[data-contract-blocked="true"] {
+    color: var(--amber);
+    border-inline-start: 2px solid var(--amber);
+    padding-inline-start: 10px;
+    margin-block: 0;
+    min-width: 0;
+    max-width: 100%;
+    overflow-wrap: anywhere;
+    line-height: 1.5;
+    letter-spacing: 0;
+    cursor: default;
+}
