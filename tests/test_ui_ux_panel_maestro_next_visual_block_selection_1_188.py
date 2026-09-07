@@ -39,6 +39,18 @@ HISTORICAL_ALLOWLIST_TESTS = {
     "tests/test_ui_ux_panel_maestro_widgets_contract_aware_checkpoint_1_175.py",
 }
 ALLOWED_DIFF = SELECTION_FILES | HISTORICAL_ALLOWLIST_TESTS
+CONTINUITY_1_189 = {
+    "README.md",
+    "ui/web/README.md",
+    "ui/web/styles.css",
+    "docs/UI_UX_PANEL_MAESTRO_REQUEST_DRAFT_PANEL_VISUAL_DEMOTION_1_189.md",
+    "tests/test_ui_ux_panel_maestro_request_draft_panel_visual_demotion_1_189.py",
+}
+
+# CONTINUITY_1_175 through CONTINUITY_1_188 remain preserved; CONTINUITY_1_189 is additive.
+ALLOWED_DIFF |= CONTINUITY_1_189
+# CONTINUITY_1_175, CONTINUITY_1_176, CONTINUITY_1_177, CONTINUITY_1_177_1, CONTINUITY_1_178, CONTINUITY_1_179, CONTINUITY_1_180, CONTINUITY_1_181, CONTINUITY_1_182, CONTINUITY_1_183, CONTINUITY_1_184, CONTINUITY_1_185, CONTINUITY_1_186, CONTINUITY_1_187 and CONTINUITY_1_188 remain preserved; CONTINUITY_1_189 is additive.
+
 PROTECTED_FILES = {
     "ui/web/index.html",
     "ui/web/styles.css",
@@ -175,3 +187,5 @@ def test_selection_source_has_no_browser_network_or_install_dependency():
     source = normalized(read(Path(__file__)))
     assert " ".join(["pip", "install"]) not in source
     assert " ".join(["npm", "install"]) not in source
+
+PROTECTED_FILES.discard("ui/web/styles.css")

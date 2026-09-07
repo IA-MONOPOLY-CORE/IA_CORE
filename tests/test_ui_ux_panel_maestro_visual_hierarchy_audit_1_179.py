@@ -114,6 +114,17 @@ CONTINUITY_1_188 = {
 
 # CONTINUITY_1_175, CONTINUITY_1_176, CONTINUITY_1_177, CONTINUITY_1_177_1, CONTINUITY_1_178, CONTINUITY_1_179, CONTINUITY_1_180, CONTINUITY_1_181, CONTINUITY_1_182, CONTINUITY_1_183, CONTINUITY_1_184, CONTINUITY_1_185, CONTINUITY_1_186 and CONTINUITY_1_187 remain preserved; CONTINUITY_1_188 is additive.
 ALLOWED_CHANGED |= CONTINUITY_1_188
+CONTINUITY_1_189 = {
+    "README.md",
+    "ui/web/README.md",
+    "ui/web/styles.css",
+    "docs/UI_UX_PANEL_MAESTRO_REQUEST_DRAFT_PANEL_VISUAL_DEMOTION_1_189.md",
+    "tests/test_ui_ux_panel_maestro_request_draft_panel_visual_demotion_1_189.py",
+}
+
+# CONTINUITY_1_175 through CONTINUITY_1_188 remain preserved; CONTINUITY_1_189 is additive.
+ALLOWED_CHANGED |= CONTINUITY_1_189
+# CONTINUITY_1_175, CONTINUITY_1_176, CONTINUITY_1_177, CONTINUITY_1_177_1, CONTINUITY_1_178, CONTINUITY_1_179, CONTINUITY_1_180, CONTINUITY_1_181, CONTINUITY_1_182, CONTINUITY_1_183, CONTINUITY_1_184, CONTINUITY_1_185, CONTINUITY_1_186, CONTINUITY_1_187 and CONTINUITY_1_188 remain preserved; CONTINUITY_1_189 is additive.
 
 APPROVED_1_180_ACTIVE_UI = {"ui/web/index.html", "ui/web/styles.css"}
 REQUIRED_1_180 = {
@@ -302,6 +313,8 @@ def test_protected_ui_backend_runtime_payload_paths_have_no_diff():
         APPROVED_1_180_ACTIVE_UI if REQUIRED_1_180 <= paths else set()
     )
     if CONTINUITY_1_186 <= paths:
+        approved_active_ui |= {"ui/web/styles.css"}
+    if CONTINUITY_1_189 <= paths:
         approved_active_ui |= {"ui/web/styles.css"}
     protected_diff = set(
         git_lines(

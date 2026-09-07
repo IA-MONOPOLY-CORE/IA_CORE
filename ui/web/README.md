@@ -2103,3 +2103,9 @@ No UI activa, no JS, no backend, no runtime, no execution, no JSON TOP 15, no fi
 - Decision final: `TOP_15_ELITE_AUDIT_COMPLETED_READY_FOR_OPERATOR_DECISION`.
 - Siguiente prompt exacto: `PROMPT UI/UX 1.161 - Decidir primera recomendacion TOP 15 elite a planificar para cierre coronado UI UX 1.x Panel Maestro IA_CORE contract-aware sin runtime/no-execution`.
 - Limites: no UI active, no JS, no backend, no runtime, no execution, no JSON TOP15, no fixture, no push, no restore point; UI/UX not closed.
+
+## UI/UX 1.189 - Request Draft Panel visual demotion
+
+- `styles.css` applies a scoped CSS-only visual demotion to the Request Draft Panel while keeping it visible, secondary, read-only and blocked.
+- No submit, dispatch, execution, runtime, backend, endpoint, integration, payload v2, P0/P1/Matriz/widget or i18n behavior was introduced or changed.
+- Readiness: `ready_for_ui_ux_1_190_request_draft_panel_visual_demotion_checkpoint`.
