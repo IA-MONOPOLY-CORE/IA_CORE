@@ -38,6 +38,16 @@ HISTORICAL_ALLOWLIST_TESTS = {
     "tests/test_ui_ux_panel_maestro_widgets_contract_aware_checkpoint_1_175.py",
 }
 ALLOWED_DIFF = CHECKPOINT_FILES | HISTORICAL_ALLOWLIST_TESTS
+
+CONTINUITY_1_188 = {
+    "README.md",
+    "ui/web/README.md",
+    "docs/UI_UX_PANEL_MAESTRO_NEXT_VISUAL_BLOCK_SELECTION_1_188.md",
+    "tests/test_ui_ux_panel_maestro_next_visual_block_selection_1_188.py",
+}
+
+# CONTINUITY_1_175, CONTINUITY_1_176, CONTINUITY_1_177, CONTINUITY_1_177_1, CONTINUITY_1_178, CONTINUITY_1_179, CONTINUITY_1_180, CONTINUITY_1_181, CONTINUITY_1_182, CONTINUITY_1_183, CONTINUITY_1_184, CONTINUITY_1_185, CONTINUITY_1_186 and CONTINUITY_1_187 remain preserved; CONTINUITY_1_188 is additive.
+ALLOWED_DIFF |= CONTINUITY_1_188
 PROTECTED_FILES = {
     "ui/web/index.html",
     "ui/web/styles.css",

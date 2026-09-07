@@ -1,5 +1,7 @@
 # Consola web principal
 
+Nota UI/UX 1.188: seleccion del proximo bloque visual read-only posterior al checkpoint de Matriz 1.187 sobre base `e2d1653`: Candidato A, Panel derecho Request Contract Preview / Request Draft Panel. No implementacion, no UI activa ni CSS activo, no backend/no runtime/no execution, no endpoints ni payload v2. Proximo paso: UI/UX 1.189 para una implementacion visual contract-aware del panel, sin activar acciones.
+
 Nota UI/UX 1.187: checkpoint de Matriz de cierre UI/UX 1.x posterior a 1.186 sobre base `8ed0c3e`. La Matriz queda visible, completa, no colapsada, no oculta y secundaria P3/auditoría; P0/P1, Request Contract Preview y widgets contract-aware preservados. No implementación nueva, no UI activa ni CSS activo modificados, no JS contractual, no i18n, no backend/no runtime/no execution, no endpoints ni payload v2. Recomendación armónica de modelo/herramienta/nivel de esfuerzo para la próxima selección: modelo avanzado estable con esfuerzo alto. Próximo paso: UI/UX 1.188.
 
 Nota UI/UX 1.186: implementada la democion de jerarquia visual secundaria de la Matriz de cierre como P3/auditoria sobre base `9f83c34`. Se preservan 20 filas, seis estados, 26 badges, visibilidad, P0/P1, P2/P3, Request Contract Preview y widgets contract-aware. No UI activa fuera del CSS scoped, no backend/no runtime/no execution, no endpoints ni payload v2. Proximo checkpoint: UI/UX 1.187.

@@ -4,6 +4,12 @@ IA_CORE is a local, contract-aware multi-agent framework in construction. Its cu
 
 Current GitHub backup target: `https://github.com/IA-MONOPOLY-CORE/IA_CORE`
 
+## Cursor vigente UI/UX 1.188
+
+UI/UX 1.188 registra la seleccion del proximo bloque visual sobre base `e2d1653`, posterior al checkpoint de Matriz 1.187: Candidato A, Panel derecho Request Contract Preview / Request Draft Panel. Es seleccion read-only, sin implementacion, sin UI activa ni CSS activo, no backend/no-runtime/no-execution, no endpoints ni payload v2. Motivo: el panel lateral fijo sigue concentrando peso visual desktop; el siguiente paso debe rebajarlo sin alterar contrato, drawer ni control blocked. Recomendacion armonica de modelo/herramienta/nivel de esfuerzo: modelo avanzado estable con inspeccion visual y esfuerzo alto. Readiness: `ready_for_ui_ux_1_189_selected_visual_block_implementation`.
+
+Documento: `docs/UI_UX_PANEL_MAESTRO_NEXT_VISUAL_BLOCK_SELECTION_1_188.md`. Test: `tests/test_ui_ux_panel_maestro_next_visual_block_selection_1_188.py`. Proximo prompt: `PROMPT UI/UX 1.189 — Implementar próximo bloque visual seleccionado del Panel Maestro IA_CORE contract-aware`. UI/UX 1.189 no se ejecuta en 1.188.
+
 ## Cursor vigente UI/UX 1.187
 
 UI/UX 1.187 checkpointa sobre base `8ed0c3e` la jerarquia visual secundaria de la Matriz de cierre UI/UX 1.x implementada en 1.186. Es un checkpoint de verificacion, sin implementacion nueva, sin UI activa ni CSS activo modificados: matriz completa, visible, no colapsada y no oculta, con P0/P1/P2/P3 y panel preservados. No implementacion nueva, no UI activa, no CSS activo. Mantiene no JS contractual, no i18n, no backend/no-runtime/no-execution, no endpoints y no payload v2. Decision: `UI_UX_MATRIX_VISUAL_HIERARCHY_DEMOTION_CHECKPOINT_PASSED`. Recomendacion armonica de modelo/herramienta/nivel de esfuerzo para la proxima seleccion read-only: modelo avanzado estable, esfuerzo alto. Readiness: `ready_for_ui_ux_1_188_next_visual_block_selection`.
