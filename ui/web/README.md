@@ -2109,3 +2109,9 @@ No UI activa, no JS, no backend, no runtime, no execution, no JSON TOP 15, no fi
 - `styles.css` applies a scoped CSS-only visual demotion to the Request Draft Panel while keeping it visible, secondary, read-only and blocked.
 - No submit, dispatch, execution, runtime, backend, endpoint, integration, payload v2, P0/P1/Matriz/widget or i18n behavior was introduced or changed.
 - Readiness: `ready_for_ui_ux_1_190_request_draft_panel_visual_demotion_checkpoint`.
+
+## UI/UX 1.189.A - Visual checkpoint real
+
+- Request Draft Panel / Request Contract Preview verificado en desktop, mobile y resize: secundario, read-only, blocked y no CTA.
+- Sin correccion CSS; P0/P1, Matriz P3 y widgets preservados; sin JS contractual, i18n, backend, payload v2, runtime, execution o endpoints.
+- Siguiente: UI/UX 1.190 con readiness `ready_for_ui_ux_1_190_request_draft_panel_visual_demotion_checkpoint`.

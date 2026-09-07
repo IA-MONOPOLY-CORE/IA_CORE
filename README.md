@@ -1457,3 +1457,9 @@ No UI activa, no JS, no backend, no runtime, no execution, no JSON TOP 15, no fi
 - Implemented Candidate A from UI/UX 1.188 as a CSS-only, scoped visual demotion of the Request Contract Preview / Request Draft Panel.
 - The visible secondary read-only, blocked panel preserves no submit, no dispatch, no execution, no runtime, no backend, no payload v2, P0/P1/Matriz/widgets/i18n changes.
 - Result: `UI_UX_REQUEST_DRAFT_PANEL_VISUAL_DEMOTION_PASSED`; readiness: `ready_for_ui_ux_1_190_request_draft_panel_visual_demotion_checkpoint`.
+
+## UI/UX 1.189.A - Visual checkpoint real del Request Draft Panel
+
+- Verificacion real post 1.189 sobre `07367d5`: desktop/mobile/resize sin overflow; panel derecho visible, secundario, no CTA, no submit, read-only y blocked.
+- P0, P1, Matriz P3 y widgets preservados; no CSS adicional, no JS contractual, no i18n, no backend, no endpoints y no payload v2.
+- Resultado: `SIN_CORRECCION_NECESARIA`; recomendacion armonica para 1.190: modelo avanzado estable, navegador real y esfuerzo alto; readiness `ready_for_ui_ux_1_190_request_draft_panel_visual_demotion_checkpoint`.
