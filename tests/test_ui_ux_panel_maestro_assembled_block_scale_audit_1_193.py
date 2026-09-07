@@ -34,6 +34,7 @@ ALLOWED_FILES = {
     "tests/test_ui_ux_panel_maestro_assembled_block_scale_audit_1_193.py",
 }
 ALLOWED_FILES |= scope.CONTINUITY_1_194
+ALLOWED_FILES |= scope.CONTINUITY_1_195
 
 
 def read(path: Path) -> str:
@@ -100,7 +101,7 @@ def test_product_and_protected_paths_remain_unchanged():
         assert subprocess.run(["git", "diff", "--quiet", BASE, "HEAD", "--", path], cwd=ROOT, check=False).returncode == 0, path
     current_css = (ROOT / "ui/web/styles.css").read_text(encoding="utf-8")
     scope.assert_css(scope.text(scope.git(ROOT, "show", f"{scope.BASE}:{scope.CSS}")), current_css, ROOT)
-    unexpected_1_194 = {path for path in all_changed_paths() if "1_194" in path} - scope.CONTINUITY_1_194
+    unexpected_1_194 = {path for path in all_changed_paths() if "1_194" in path} - scope.CONTINUITY_1_194 - scope.CONTINUITY_1_195
     assert not unexpected_1_194
 
 

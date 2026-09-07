@@ -36,6 +36,7 @@ ALLOWED_1_193 = {
     "tests/test_ui_ux_panel_maestro_assembled_block_scale_audit_1_193.py",
 }
 ALLOWED_1_193 |= scope.CONTINUITY_1_194
+ALLOWED_1_193 |= scope.CONTINUITY_1_195
 
 
 def read(path: Path) -> str:

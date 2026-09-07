@@ -41,7 +41,7 @@ ALLOWED_FILES = {
     "ui/web/README.md",
     DOC.relative_to(ROOT).as_posix(),
     TEST.relative_to(ROOT).as_posix(),
-} | scope.CONTINUITY_1_194
+} | scope.CONTINUITY_1_194 | scope.CONTINUITY_1_195
 
 
 def read(path: Path) -> str:

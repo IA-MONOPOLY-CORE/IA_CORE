@@ -2152,3 +2152,10 @@ No UI activa, no JS, no backend, no runtime, no execution, no JSON TOP 15, no fi
 - La Matriz conserva 20 filas y 26 badges. Los widgets conservan source, status, fallback, `allowed_actions`, `forbidden_actions` y `blocked_capabilities`.
 - Request Draft Panel permanece visible, secundario, read-only y blocked; CFG, `+` y DOMAIN permanecen disabled y no operativos.
 - Resultado: `UI_UX_RESPONSIVE_VISUAL_COHERENCE_ASSEMBLED_BLOCK_PASSED`; no submit, no runtime, no execution, no endpoint, no integration y payload v2 ausente.
+
+## UI/UX 1.195 - Revision y siguiente escala
+
+- Auditoria post 1.194 completada como documentation-test-only; no se modifica CSS activo ni producto.
+- Siguiente bloque recomendado: cascada CSS, accesibilidad y regresion responsive contract-aware, con infraestructura de continuidad al inicio.
+- Escala: 8 estaciones deterministas actuales, 9 preautorizables, 10 self-bootstrapped; frontera N11 en microcopy contractual.
+- Readiness: `ready_for_ui_ux_1_196_large_scale_assembled_block_prompt_compilation`; UI/UX 1.196 no ejecutado.

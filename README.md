@@ -1505,3 +1505,14 @@ No UI activa, no JS, no backend, no runtime, no execution, no JSON TOP 15, no fi
 - Commits por estacion: `7196ad5`, `88824b8`, `6e4adaf`, `a29a26f`, `d7321d2`; checkpoint documental: `docs(ui): checkpoint bloque ensamblado responsive coherencia visual`.
 - Suite continuidad 1.174-1.194: 317 passed; 20 tests focales; navegador desktop/mobile/resize sin overflow ni errores de consola. [Reporte UI/UX 1.194](docs/UI_UX_PANEL_MAESTRO_RESPONSIVE_VISUAL_COHERENCE_ASSEMBLED_BLOCK_1_194.md).
 - No se ejecuta UI/UX 1.195 automaticamente; primera frontera diferida: microcopy contractual transversal, seguida por motion y audiovisual.
+
+## UI/UX 1.195 - Revision y siguiente escala
+
+- Revision post-mortem y auditoria de escala completadas sin tocar producto.
+- Resultado: `UI_UX_POST_ASSEMBLED_BLOCK_DIRECTION_REVIEW_1_195_PASSED`.
+- Proximo bloque seleccionado: CSS Cascade, Accessibility and Responsive Regression Contract-Aware Panel Maestro.
+- Escala calculada: `CURRENT_DETERMINISTIC_STATION_COUNT=8`, `PREAUTHORIZED_STATION_COUNT=9`, `SELF_BOOTSTRAPPED_STATION_COUNT=10`, `HARD_FRONTIER_STATION_INDEX=11`, recomendacion `10` estaciones.
+- Primera frontera real: microcopy contractual transversal; motion/audiovisual quedan fuera.
+- Readiness: `ready_for_ui_ux_1_196_large_scale_assembled_block_prompt_compilation`.
+- [Revision completa 1.195](docs/UI_UX_PANEL_MAESTRO_POST_ASSEMBLED_BLOCK_DIRECTION_REVIEW_1_195.md) y [manifiesto proximo bloque](docs/UI_UX_PANEL_MAESTRO_NEXT_LARGE_SCALE_ASSEMBLED_BLOCK_MANIFEST_1_195.md).
+- No se ejecuta UI/UX 1.196 automaticamente.

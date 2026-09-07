@@ -73,6 +73,12 @@ def test_manifest_commit_is_documentation_only_and_product_is_unchanged():
         "docs/UI_UX_PANEL_MAESTRO_ASSEMBLED_BLOCK_1_194_POSTMORTEM_1_195.md",
         "tests/test_ui_ux_panel_maestro_assembled_block_1_194_postmortem_1_195.py",
         DOC.relative_to(ROOT).as_posix(), TEST.relative_to(ROOT).as_posix(),
+        "docs/UI_UX_PANEL_MAESTRO_POST_ASSEMBLED_BLOCK_DIRECTION_REVIEW_1_195.md",
+        "tests/test_ui_ux_panel_maestro_post_assembled_block_direction_review_1_195.py",
+        "tests/test_ui_ux_panel_maestro_controlled_double_scope_checkpoint_1_193.py",
+        "tests/test_ui_ux_panel_maestro_assembled_block_scale_audit_1_193.py",
+        "tests/test_ui_ux_panel_maestro_responsive_visual_coherence_assembled_block_1_194.py",
+        "README.md", "ui/web/README.md",
     }
     for path in PRODUCT_FILES:
         assert subprocess.run(["git", "diff", "--quiet", BASE, "HEAD", "--", path], cwd=ROOT, check=False).returncode == 0, path
