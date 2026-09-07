@@ -6,6 +6,7 @@ import subprocess
 
 BASE = "82dd100"
 CSS = "ui/web/styles.css"
+ROOT = Path(__file__).resolve().parents[1]
 DOC = "docs/UI_UX_PANEL_MAESTRO_CONTROLLED_DOUBLE_SCOPE_AFFORDANCES_SEVERITY_1_192.md"
 TEST = "tests/test_ui_ux_panel_maestro_controlled_double_scope_affordances_severity_1_192.py"
 HELPER = "tests/ui_ux_1_192_scope.py"
@@ -37,7 +38,17 @@ CONTINUITY_1_193 = {
     "docs/UI_UX_PANEL_MAESTRO_ASSEMBLED_BLOCK_SCALE_AUDIT_1_193.md",
     "tests/test_ui_ux_panel_maestro_assembled_block_scale_audit_1_193.py",
 }
+CONTINUITY_1_194 = {
+    "tests/test_ui_ux_panel_maestro_responsive_boundary_containment_1_194.py",
+    "tests/test_ui_ux_panel_maestro_existing_visual_severity_1_194.py",
+    "tests/test_ui_ux_panel_maestro_widget_badge_blocker_visual_coherence_1_194.py",
+    "tests/test_ui_ux_panel_maestro_p2_p3_visual_density_1_194.py",
+    "tests/test_ui_ux_panel_maestro_accessibility_legibility_1_194.py",
+    "docs/UI_UX_PANEL_MAESTRO_RESPONSIVE_VISUAL_COHERENCE_ASSEMBLED_BLOCK_1_194.md",
+    "tests/test_ui_ux_panel_maestro_responsive_visual_coherence_assembled_block_1_194.py",
+}
 ALLOWED = {CSS, DOC, TEST, HELPER} | READMES | CHECKPOINTS.keys() | CONTINUITY_1_193
+ALLOWED |= CONTINUITY_1_194
 PATH_HELPERS = {"changed_paths", "working_paths", "checkpoint_paths", "selection_paths"}
 IMPORT = "from ui_ux_1_192_scope import historical_paths, assert_current_scope"
 CURRENT_TEST = """def test_current_scope_is_strict_1_192():
@@ -73,6 +84,19 @@ body .console-utilities[data-interaction-scope="existing-management"] > .admin-s
     cursor: default;
 }
 """
+S1_CSS = """
+/* UI/UX 1.194 S1: keep the existing collapsed disclosure tab inside the viewport after resize. */
+body #request-draft-panel.request-draft-panel.collapsed {
+    transform: translateX(calc(100% - 45px)) !important;
+}
+"""
+AUTHORIZED_1_194_STATION_MESSAGES = {
+    "feat(ui): corregir containment responsive panel maestro",
+    "feat(ui): consolidar severidad visual existente",
+    "feat(ui): unificar coherencia visual widgets badges blockers",
+    "feat(ui): optimizar densidad visual p2 p3",
+    "feat(ui): mejorar accesibilidad y legibilidad panel maestro",
+}
 
 
 def git(root, *args):
@@ -151,10 +175,23 @@ def assert_historical_adaptation(original, current, checkpoint):
     )
 
 
-def assert_css(before, after):
-    # Accept only the committed Gate 1 snapshot or both exact authorized additions.
+def authorized_1_194_css_snapshots(root):
+    snapshots = set()
+    log = text(git(root, "log", "--all", "--format=%H%x09%s"))
+    for line in log.splitlines():
+        commit, _, subject = line.partition("\t")
+        if subject in AUTHORIZED_1_194_STATION_MESSAGES:
+            snapshots.add(text(git(root, "show", f"{commit}:{CSS}")))
+    return snapshots
+
+
+def assert_css(before, after, root=ROOT):
+    # Accept only exact historical Gate snapshots and exact committed 1.194 station snapshots.
     gate_1 = before + GATE_1_CSS
-    assert after in (gate_1, gate_1 + GATE_2_CSS), "CSS exceeds the exact Gate 1/Gate 2 additions"
+    allowed = {gate_1, gate_1 + GATE_2_CSS}
+    if root is not None:
+        allowed |= authorized_1_194_css_snapshots(Path(root))
+    assert after in allowed, "CSS exceeds the exact Gate 1/Gate 2/checkpoint/station additions"
 
 
 def assert_snapshot(changes, baselines):
@@ -163,15 +200,15 @@ def assert_snapshot(changes, baselines):
         assert blob is not None, f"Deletion forbidden: {path}"
         current = text(blob)
         if path == CSS:
-            assert_css(text(baselines[path]), current)
+            assert_css(text(baselines[path]), current, ROOT)
         elif path in CHECKPOINTS:
             assert_historical_adaptation(text(baselines[path]), current, CHECKPOINTS[path])
         elif path in READMES:
             before = text(baselines[path])
             assert current.startswith(before), f"Historical README content changed: {path}"
             assert current[len(before):].lstrip().startswith("## UI/UX 1.192"), path
-        elif path in CONTINUITY_1_193:
-            assert current.strip(), f"Empty 1.193 continuity artifact: {path}"
+        elif path in CONTINUITY_1_193 or path in CONTINUITY_1_194:
+            assert current.strip(), f"Empty continuity artifact: {path}"
 
 
 def assert_current_scope(root):

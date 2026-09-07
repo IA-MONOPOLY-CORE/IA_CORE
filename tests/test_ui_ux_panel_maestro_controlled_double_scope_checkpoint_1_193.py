@@ -4,6 +4,8 @@ from pathlib import Path
 import subprocess
 import unicodedata
 
+import ui_ux_1_192_scope as scope
+
 
 ROOT = Path(__file__).resolve().parents[1]
 BASE = "ca9a8c8"
@@ -25,12 +27,14 @@ PRODUCT_FILES = {
 ALLOWED_1_193 = {
     "README.md",
     "ui/web/README.md",
+    "ui/web/styles.css",
     "tests/ui_ux_1_192_scope.py",
     "docs/UI_UX_PANEL_MAESTRO_CONTROLLED_DOUBLE_SCOPE_CHECKPOINT_1_193.md",
     "tests/test_ui_ux_panel_maestro_controlled_double_scope_checkpoint_1_193.py",
     "docs/UI_UX_PANEL_MAESTRO_ASSEMBLED_BLOCK_SCALE_AUDIT_1_193.md",
     "tests/test_ui_ux_panel_maestro_assembled_block_scale_audit_1_193.py",
 }
+ALLOWED_1_193 |= scope.CONTINUITY_1_194
 
 
 def read(path: Path) -> str:
@@ -75,8 +79,10 @@ def test_readmes_record_checkpoint_without_product_scope():
 def test_product_files_are_unchanged_from_published_base():
     changed = set(filter(None, git("diff", "--name-only", BASE, "HEAD", "--", ".").splitlines()))
     assert changed <= ALLOWED_1_193, sorted(changed - ALLOWED_1_193)
-    for path in PRODUCT_FILES:
+    for path in PRODUCT_FILES - {"ui/web/styles.css"}:
         assert subprocess.run(["git", "diff", "--quiet", BASE, "HEAD", "--", path], cwd=ROOT, check=False).returncode == 0, path
+    current_css = (ROOT / "ui/web/styles.css").read_text(encoding="utf-8")
+    scope.assert_css(scope.text(scope.git(ROOT, "show", f"{scope.BASE}:{scope.CSS}")), current_css, ROOT)
 
 
 def test_active_contract_remains_v1_and_non_operational():

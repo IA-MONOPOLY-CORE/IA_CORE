@@ -1734,3 +1734,8 @@ body .console-utilities[data-interaction-scope="existing-management"] > .admin-s
     letter-spacing: 0;
     cursor: default;
 }
+
+/* UI/UX 1.194 S1: keep the existing collapsed disclosure tab inside the viewport after resize. */
+body #request-draft-panel.request-draft-panel.collapsed {
+    transform: translateX(calc(100% - 45px)) !important;
+}

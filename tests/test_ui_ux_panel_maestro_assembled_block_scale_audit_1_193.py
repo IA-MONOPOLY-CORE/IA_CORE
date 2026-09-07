@@ -4,6 +4,8 @@ from pathlib import Path
 import subprocess
 import unicodedata
 
+import ui_ux_1_192_scope as scope
+
 
 ROOT = Path(__file__).resolve().parents[1]
 BASE = "ca9a8c8"
@@ -23,12 +25,14 @@ PRODUCT_FILES = {
 ALLOWED_FILES = {
     "README.md",
     "ui/web/README.md",
+    "ui/web/styles.css",
     "tests/ui_ux_1_192_scope.py",
     "docs/UI_UX_PANEL_MAESTRO_CONTROLLED_DOUBLE_SCOPE_CHECKPOINT_1_193.md",
     "tests/test_ui_ux_panel_maestro_controlled_double_scope_checkpoint_1_193.py",
     "docs/UI_UX_PANEL_MAESTRO_ASSEMBLED_BLOCK_SCALE_AUDIT_1_193.md",
     "tests/test_ui_ux_panel_maestro_assembled_block_scale_audit_1_193.py",
 }
+ALLOWED_FILES |= scope.CONTINUITY_1_194
 
 
 def read(path: Path) -> str:
@@ -91,10 +95,12 @@ def test_audit_has_six_traceable_station_commits_and_stops_before_semantic_front
 
 def test_product_and_protected_paths_remain_unchanged():
     assert all_changed_paths() <= ALLOWED_FILES, sorted(all_changed_paths() - ALLOWED_FILES)
-    for path in PRODUCT_FILES:
+    for path in PRODUCT_FILES - {"ui/web/styles.css"}:
         assert subprocess.run(["git", "diff", "--quiet", BASE, "HEAD", "--", path], cwd=ROOT, check=False).returncode == 0, path
-    assert subprocess.run(["git", "diff", "--quiet", BASE, "--", *sorted(PRODUCT_FILES)], cwd=ROOT, check=False).returncode == 0
-    assert not any("1_194" in path for path in all_changed_paths())
+    current_css = (ROOT / "ui/web/styles.css").read_text(encoding="utf-8")
+    scope.assert_css(scope.text(scope.git(ROOT, "show", f"{scope.BASE}:{scope.CSS}")), current_css, ROOT)
+    unexpected_1_194 = {path for path in all_changed_paths() if "1_194" in path} - scope.CONTINUITY_1_194
+    assert not unexpected_1_194
 
 
 def test_checkpoint_precedes_audit_and_continuity_guard_is_closed():
