@@ -31,7 +31,13 @@ CHECKPOINTS = {
     "tests/test_ui_ux_post_1_175_commits_surgical_audit_1_177_1.py": "d98e999",
 }
 READMES = {"README.md", "ui/web/README.md"}
-ALLOWED = {CSS, DOC, TEST, HELPER} | READMES | CHECKPOINTS.keys()
+CONTINUITY_1_193 = {
+    "docs/UI_UX_PANEL_MAESTRO_CONTROLLED_DOUBLE_SCOPE_CHECKPOINT_1_193.md",
+    "tests/test_ui_ux_panel_maestro_controlled_double_scope_checkpoint_1_193.py",
+    "docs/UI_UX_PANEL_MAESTRO_ASSEMBLED_BLOCK_SCALE_AUDIT_1_193.md",
+    "tests/test_ui_ux_panel_maestro_assembled_block_scale_audit_1_193.py",
+}
+ALLOWED = {CSS, DOC, TEST, HELPER} | READMES | CHECKPOINTS.keys() | CONTINUITY_1_193
 PATH_HELPERS = {"changed_paths", "working_paths", "checkpoint_paths", "selection_paths"}
 IMPORT = "from ui_ux_1_192_scope import historical_paths, assert_current_scope"
 CURRENT_TEST = """def test_current_scope_is_strict_1_192():
@@ -164,6 +170,8 @@ def assert_snapshot(changes, baselines):
             before = text(baselines[path])
             assert current.startswith(before), f"Historical README content changed: {path}"
             assert current[len(before):].lstrip().startswith("## UI/UX 1.192"), path
+        elif path in CONTINUITY_1_193:
+            assert current.strip(), f"Empty 1.193 continuity artifact: {path}"
 
 
 def assert_current_scope(root):

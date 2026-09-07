@@ -1482,3 +1482,10 @@ No UI activa, no JS, no backend, no runtime, no execution, no JSON TOP 15, no fi
 - Gate 1 y Gate 2 verificados en desktop/mobile/resize, sin overflow ni errores de consola; P0/P1/Matriz/widgets/Request Draft Panel preservados. Sin cambios HTML, JS, i18n o backend.
 - Commits internos: `055e70e` y `6ae13f4`. Resultado: `UI_UX_CONTROLLED_DOUBLE_SCOPE_AFFORDANCES_SEVERITY_PASSED`; readiness: `ready_for_ui_ux_1_193_controlled_double_scope_affordances_severity_checkpoint`.
 - Reporte: [UI/UX 1.192](docs/UI_UX_PANEL_MAESTRO_CONTROLLED_DOUBLE_SCOPE_AFFORDANCES_SEVERITY_1_192.md). El prompt 1.193 queda documentado, no ejecutado.
+
+## UI/UX 1.193 - Checkpoint formal de 1.192
+
+- Checkpoint documental/test-only de la doble pieza 1.192 sobre `ca9a8c8`, con Gate 1, Gate 2, 275 tests y contrato productivo preservado.
+- La auditoría usa GPT-5.6 Luna Muy Alto como ejecutor objetivo y deja pendiente la auditoría read-only del próximo bloque ensamblado de escala real.
+- No se modifica UI activa, HTML, JS contractual, i18n, backend, payload, runtime, execution, endpoints ni integrations.
+- Resultado: `UI_UX_CONTROLLED_DOUBLE_SCOPE_AFFORDANCES_SEVERITY_CHECKPOINT_PASSED`; readiness `ready_for_ui_ux_1_194_assembled_block_execution_prompt_design` queda condicionada a completar la Estación B.

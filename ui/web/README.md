@@ -2133,3 +2133,9 @@ No UI activa, no JS, no backend, no runtime, no execution, no JSON TOP 15, no fi
 - CSS scoped para CFG, +, DOMAIN disabled y el mensaje administrativo bloqueado; desktop/mobile/resize verificados sin overflow ni errores de consola.
 - Tests historicos comparan commits explicitos y el guard actual limita la regla Gate 1/Gate 2. HTML/JS/i18n/backend y superficies contractuales preservados. [Reporte 1.192](../../docs/UI_UX_PANEL_MAESTRO_CONTROLLED_DOUBLE_SCOPE_AFFORDANCES_SEVERITY_1_192.md).
 - Resultado: `UI_UX_CONTROLLED_DOUBLE_SCOPE_AFFORDANCES_SEVERITY_PASSED`; commits internos `055e70e` y `6ae13f4`; readiness 1.193 documentada, sin ejecutar.
+
+## UI/UX 1.193 - Checkpoint formal de 1.192
+
+- Checkpoint read-only sobre `ca9a8c8`: affordances CFG/+ /DOMAIN y severidad visual de estados bloqueados preservados, con 275 tests reportados.
+- No se modifica la UI activa ni el contrato HTML/JS/i18n/backend/payload; no runtime, execution, endpoints ni integrations.
+- Estación B queda reservada para auditar el próximo bloque ensamblado y sus estaciones naturales.
