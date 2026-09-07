@@ -4,6 +4,12 @@ IA_CORE is a local, contract-aware multi-agent framework in construction. Its cu
 
 Current GitHub backup target: `https://github.com/IA-MONOPOLY-CORE/IA_CORE`
 
+## Cursor vigente UI/UX 1.187
+
+UI/UX 1.187 checkpointa sobre base `8ed0c3e` la jerarquia visual secundaria de la Matriz de cierre UI/UX 1.x implementada en 1.186. Es un checkpoint de verificacion, sin implementacion nueva, sin UI activa ni CSS activo modificados: matriz completa, visible, no colapsada y no oculta, con P0/P1/P2/P3 y panel preservados. No implementacion nueva, no UI activa, no CSS activo. Mantiene no JS contractual, no i18n, no backend/no-runtime/no-execution, no endpoints y no payload v2. Decision: `UI_UX_MATRIX_VISUAL_HIERARCHY_DEMOTION_CHECKPOINT_PASSED`. Recomendacion armonica de modelo/herramienta/nivel de esfuerzo para la proxima seleccion read-only: modelo avanzado estable, esfuerzo alto. Readiness: `ready_for_ui_ux_1_188_next_visual_block_selection`.
+
+Documento: `docs/UI_UX_PANEL_MAESTRO_MATRIX_VISUAL_HIERARCHY_DEMOTION_CHECKPOINT_1_187.md`. Test: `tests/test_ui_ux_panel_maestro_matrix_visual_hierarchy_demotion_checkpoint_1_187.py`. Proximo prompt exacto: `PROMPT UI/UX 1.188 — Seleccionar próximo bloque visual del Panel Maestro IA_CORE contract-aware posterior al checkpoint de Matriz`. UI/UX 1.188 no se ejecuta en 1.187.
+
 ## Cursor vigente UI/UX 1.186
 
 UI/UX 1.186 implementa sobre base `9f83c34` el bloque visual seleccionado: bajar jerarquia visual de la Matriz de cierre UI/UX 1.x como superficie P3/auditoria, preservando sus 20 filas, seis estados, 26 badges, visibilidad y contenido. El cambio activo queda acotado a CSS scoped; P0/P1, P2/P3, Request Contract Preview, widgets contract-aware y contrato `backend_internal_ui_payload.v1` quedan preservados. No hay backend/no-runtime/no-execution, no endpoints, no payload v2 ni capacidad operativa. Decision: `UI_UX_MATRIX_VISUAL_HIERARCHY_DEMOTION_PASSED`. Readiness: `ready_for_ui_ux_1_187_matrix_visual_hierarchy_checkpoint`.

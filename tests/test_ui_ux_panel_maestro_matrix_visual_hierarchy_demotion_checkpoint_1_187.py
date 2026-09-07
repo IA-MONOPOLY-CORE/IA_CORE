@@ -1,4 +1,4 @@
-"""Contract and diff guards for UI/UX 1.186 matrix visual demotion."""
+"""Read-only checkpoint guards for UI/UX 1.187 matrix demotion."""
 
 import ast
 from pathlib import Path
@@ -8,23 +8,22 @@ import unicodedata
 
 
 ROOT = Path(__file__).resolve().parents[1]
-BASE = "9f83c34"
-DOC = ROOT / "docs" / "UI_UX_PANEL_MAESTRO_MATRIX_VISUAL_HIERARCHY_DEMOTION_1_186.md"
+BASE = "8ed0c3e"
+DOC = ROOT / "docs" / "UI_UX_PANEL_MAESTRO_MATRIX_VISUAL_HIERARCHY_DEMOTION_CHECKPOINT_1_187.md"
 README = ROOT / "README.md"
 WEB_README = ROOT / "ui" / "web" / "README.md"
 INDEX = ROOT / "ui" / "web" / "index.html"
 STYLES = ROOT / "ui" / "web" / "styles.css"
 WIDGETS = ROOT / "ui" / "web" / "backend-contract-widgets.js"
 
-FOCAL_FILES = {
+CHECKPOINT_FILES = {
     "README.md",
     "ui/web/README.md",
-    "ui/web/styles.css",
-    "docs/UI_UX_PANEL_MAESTRO_MATRIX_VISUAL_HIERARCHY_DEMOTION_1_186.md",
-    "tests/test_ui_ux_panel_maestro_matrix_visual_hierarchy_demotion_1_186.py",
+    "docs/UI_UX_PANEL_MAESTRO_MATRIX_VISUAL_HIERARCHY_DEMOTION_CHECKPOINT_1_187.md",
+    "tests/test_ui_ux_panel_maestro_matrix_visual_hierarchy_demotion_checkpoint_1_187.py",
 }
-
 HISTORICAL_ALLOWLIST_TESTS = {
+    "tests/test_ui_ux_panel_maestro_matrix_visual_hierarchy_demotion_1_186.py",
     "tests/test_ui_ux_panel_maestro_next_visual_block_selection_1_185.py",
     "tests/test_ui_ux_panel_maestro_visual_hierarchy_p1_contractual_second_pass_checkpoint_1_184.py",
     "tests/test_ui_ux_panel_maestro_visual_hierarchy_p1_contractual_second_pass_1_183.py",
@@ -38,21 +37,10 @@ HISTORICAL_ALLOWLIST_TESTS = {
     "tests/test_ui_ux_panel_maestro_next_visual_block_selection_1_176.py",
     "tests/test_ui_ux_panel_maestro_widgets_contract_aware_checkpoint_1_175.py",
 }
-
-ALLOWED_DIFF = FOCAL_FILES | HISTORICAL_ALLOWLIST_TESTS
-
-CONTINUITY_1_187 = {
-    "README.md",
-    "ui/web/README.md",
-    "docs/UI_UX_PANEL_MAESTRO_MATRIX_VISUAL_HIERARCHY_DEMOTION_CHECKPOINT_1_187.md",
-    "tests/test_ui_ux_panel_maestro_matrix_visual_hierarchy_demotion_checkpoint_1_187.py",
-}
-
-# CONTINUITY_1_175 through CONTINUITY_1_186 remain preserved; CONTINUITY_1_187 is additive.
-# CONTINUITY_1_175, CONTINUITY_1_176, CONTINUITY_1_177, CONTINUITY_1_177_1, CONTINUITY_1_178, CONTINUITY_1_179, CONTINUITY_1_180, CONTINUITY_1_181, CONTINUITY_1_182, CONTINUITY_1_183, CONTINUITY_1_184, CONTINUITY_1_185 and CONTINUITY_1_186 remain preserved.
-ALLOWED_DIFF |= CONTINUITY_1_187
+ALLOWED_DIFF = CHECKPOINT_FILES | HISTORICAL_ALLOWLIST_TESTS
 PROTECTED_FILES = {
     "ui/web/index.html",
+    "ui/web/styles.css",
     "ui/web/backend-contract-widgets.js",
     "ui/web/i18n_es.json",
     "ui/web/admin-panels.js",
@@ -63,7 +51,7 @@ PROTECTED_FILES = {
 }
 PROTECTED_DIRS = {"core", "domains", "providers", "tools", "scripts", "integrations", "runtime", "execution"}
 PACKAGE_FILES = {"package.json", "package-lock.json", "pnpm-lock.yaml", "yarn.lock"}
-NEXT_PROMPT = "PROMPT UI/UX 1.187 — Checkpoint de jerarquía visual secundaria de la Matriz de cierre UI/UX 1.x del Panel Maestro IA_CORE contract-aware"
+NEXT_PROMPT = "PROMPT UI/UX 1.188 — Seleccionar próximo bloque visual del Panel Maestro IA_CORE contract-aware posterior al checkpoint de Matriz"
 
 
 def read(path: Path) -> str:
@@ -91,95 +79,105 @@ def working_paths() -> set[str]:
     return {path.replace("\\", "/") for path in tracked | untracked}
 
 
-def changed_paths() -> set[str]:
+def checkpoint_paths() -> set[str]:
     committed = set(filter(None, git("diff", "--name-only", f"{BASE}..HEAD").splitlines()))
     return {path.replace("\\", "/") for path in committed} | working_paths()
 
 
-def test_document_records_scoped_1_186_contract():
+def test_document_contains_checkpoint_contract():
     assert DOC.is_file()
     assert_markers(read(DOC), [
-        "UI/UX Panel Maestro Matrix Visual Hierarchy Demotion 1.186",
-        "9f83c34",
+        "UI/UX Panel Maestro Matrix Visual Hierarchy Demotion Checkpoint 1.187",
+        "8ed0c3e",
         "UI_UX_MATRIX_VISUAL_HIERARCHY_DEMOTION_PASSED",
         "ready_for_ui_ux_1_187_matrix_visual_hierarchy_checkpoint",
-        "P0", "P1", "P2", "P3", "Matriz", "20 filas", "seis estados", "26 badges",
-        "Request Contract Preview", "Contract Overview", "Blocked & Forbidden", "Validation & Readiness",
-        "allowed_actions", "forbidden_actions", "blocked_capabilities", "source", "status", "fallback",
-        "deny-by-default", "no_payload", "not_available", "backend_internal_ui_payload.v1",
-        "no backend", "no-runtime", "no-execution", "no endpoints", "no payload v2",
-        "no UI activa", "GPT-5.6 Terra", "high", NEXT_PROMPT,
+        "Candidate B", "Matriz", "P3", "auditoria", "20 filas", "seis estados", "26 badges",
+        "visible", "completa", "no colapsada", "no oculta", "no accordion", "no aria-hidden",
+        "P0", "P1", "P2", "Estado", "Contrato", "Limites", "Evidencia", "Proximo paso",
+        "Acciones", "Bloqueos", "Validacion", "Readiness", "Request Contract Preview",
+        "widgets contract-aware", "backend-contract-widgets.js", "no UI activa", "no CSS activo",
+        "no JS contractual", "no i18n", "no backend", "no-runtime", "no-execution", "no endpoints",
+        "no payload v2", "allowed_actions", "forbidden_actions", "blocked_capabilities", "source",
+        "status", "fallback", "deny-by-default", "no_payload", "not_available", "backend_internal_ui_payload.v1",
+        "Recomendacion armonica", "modelo", "herramienta", "nivel de esfuerzo", "balance",
+        "no debe buscar el minimo", "no debe buscar el maximo", NEXT_PROMPT,
+    ])
+    assert "UI_UX_MATRIX_VISUAL_HIERARCHY_DEMOTION_CHECKPOINT_PASSED" in read(DOC)
+    assert "ready_for_ui_ux_1_188_next_visual_block_selection" in read(DOC)
+
+
+def test_readmes_record_the_checkpoint():
+    assert_markers(read(README), [
+        "UI/UX 1.187", "checkpoint de jerarquia visual secundaria de la Matriz", "8ed0c3e",
+        "no implementacion nueva", "no UI activa", "no CSS activo", "matriz completa", "preservada",
+        "P0", "P1", "no backend", "no-runtime", "no-execution", "recomendacion armonica",
+        "modelo", "herramienta", "ready_for_ui_ux_1_188_next_visual_block_selection",
+    ])
+    assert_markers(read(WEB_README), [
+        "UI/UX 1.187", "checkpoint de Matriz", "P3", "auditoria", "visible", "completa",
+        "no colapsada", "no oculta", "no UI activa", "no CSS activo", "P0/P1", "no backend",
+        "no runtime", "no execution", "recomendacion armonica", "modelo", "herramienta", "UI/UX 1.188",
     ])
 
 
-def test_active_matrix_is_complete_and_not_hidden_or_collapsed():
+def test_matrix_is_active_complete_visible_and_secondary():
     html = read(INDEX)
     start = html.index('<section class="closure-matrix-section')
     end = html.index("</section>", start) + len("</section>")
     block = html[start:end]
     assert html.count('id="closure-matrix-ui-ux-1x"') == 1
     assert block.count('class="closure-matrix-row"') == 20
+    assert block.count('class="closure-matrix-badge') == 26
     for state in ["PASSED", "PASSED_WITH_MINOR_DEBT", "DEFERRED_WITH_GUARDRAILS", "BLOCKED_NEEDS_FIX", "BLOCKED_CRITICAL", "NOT_APPLICABLE"]:
         assert state in block
-    assert block.count('class="closure-matrix-badge') == 26
-    assert not re.search(r"<details\b|accordion|\bhidden\b|aria-hidden\s*=\s*[\"']true", block, re.IGNORECASE)
+    assert not re.search(r"<details\b|<summary\b|accordion|\bhidden\b|aria-hidden\s*=\s*[\"']true", block, re.IGNORECASE)
+    assert 'data-density-tier="secondary"' in block
+    assert 'data-interaction-mode="read-only"' in block
 
 
-def test_css_demotion_is_scoped_and_preserves_visibility():
-    css = read(STYLES)
-    assert "UI/UX 1.186" in css
-    selector = 'body .ia-core-shell[data-visual-hierarchy-first-pass="1.180"][data-visual-hierarchy-second-pass="1.183"] #closure-matrix-ui-ux-1x'
-    assert css.count(selector) >= 10
-    assert "box-shadow: 0 8px 20px" in css
-    assert "opacity: 0.94" in css
-    assert "font-size: 0.62rem" in css
-    assert "padding: 12px" in css
-    scoped = css[css.index("/* UI/UX 1.186"):]
-    for forbidden in ["display: none", "visibility: hidden", "height: 0", "max-height: 0", "overflow: hidden"]:
-        assert forbidden not in scoped
-
-
-def test_readmes_record_1_186_and_next_readiness():
-    assert_markers(read(README), ["UI/UX 1.186", "bajar jerarquia visual", "9f83c34", "Matriz", "20 filas", "P0/P1", "P2/P3", "no backend", "no-runtime", "no-execution", "no endpoints", "no payload v2", "ready_for_ui_ux_1_187_matrix_visual_hierarchy_checkpoint"])
-    assert_markers(read(WEB_README), ["UI/UX 1.186", "jerarquia visual secundaria", "Matriz", "P3/auditoria", "P0/P1", "20 filas", "26 badges", "no UI activa", "no backend", "no runtime", "no execution", "no endpoints", "no payload v2", "UI/UX 1.187"])
-
-
-def test_p0_p1_panel_widgets_and_contract_markers_remain_present():
+def test_p0_p1_p2_p3_panel_and_widgets_remain_contract_aware():
     html = read(INDEX)
     assert html.count('data-p0-layer="visual-hierarchy-1.180"') == 1
     assert html.count('data-p1-layer="contractual-second-pass-1.183"') == 1
-    assert 'id="request-contract-preview-screen"' in html
+    assert html.index('data-p0-layer="visual-hierarchy-1.180"') < html.index('data-p1-layer="contractual-second-pass-1.183"') < html.index('id="closure-matrix-ui-ux-1x"')
+    assert_markers(html, ["Estado", "Contrato", "Limites", "Evidencia", "Proximo paso", "Acciones", "Bloqueos", "Validacion", "Readiness", "Request Contract Preview", "Matriz", "Ruta de lectura", "Indice interno", "Raw-safe", "Internal Services", "Evidence", "Tarjetas de agentes bloqueadas", "read-only", "no-runtime", "no-execution", "backend_internal_ui_payload.v1", "no_payload", "not_available", "allowed_actions", "forbidden_actions", "blocked_capabilities"])
     assert 'id="request-draft-panel"' in html
-    assert_markers(html, ["Contract Overview", "Blocked", "Forbidden", "Validation", "Readiness", "backend_internal_ui_payload.v1", "no_payload", "not_available", "blocked_by_contract", "no-runtime", "no-execution"])
     assert_markers(read(WIDGETS), ["allowed_actions", "forbidden_actions", "blocked_capabilities", "source", "status", "fallback", "no_payload", "not_available"])
 
 
-def test_no_operational_v2_or_positive_state_is_introduced():
-    active = normalized("\n".join([read(INDEX), read(STYLES), read(WIDGETS)]))
-    for token in ["backend_internal_ui_payload.v2", "payload.v2", "ready to run", "processing request", "capability active"]:
-        assert token not in active
-    assert not re.search(r'data-(?:state|status)=["\'](?:running|executing|dispatching|submitted)["\']', active, re.IGNORECASE)
+def test_css_and_active_contract_show_demotion_without_new_capability():
+    css = read(STYLES)
+    assert "UI/UX 1.186" in css
+    assert "#closure-matrix-ui-ux-1x" in css
+    assert re.search(r"box-shadow|border|opacity|background|padding|gap|font-size", css, re.IGNORECASE)
+    assert re.search(r"@media\s*\(", css, re.IGNORECASE)
+    active = "\n".join([read(INDEX), css, read(WIDGETS)])
+    for token in ["backend_internal_ui_payload.v2", "payload.v2", 'schema_version": "v2"']:
+        assert token.casefold() not in active.casefold()
+    assert not re.search(r">\s*(?:ready to run|processing request|capability active)\s*<", active, re.IGNORECASE)
+    assert not re.search(r'data-(?:state|status)=["\'](?:running|executing|dispatching|submitted)["\']', read(INDEX), re.IGNORECASE)
 
 
-def test_diff_is_deny_by_default_and_protected_paths_are_unchanged():
-    paths = changed_paths()
+def test_diff_is_strictly_limited_and_protected_paths_are_unchanged():
+    paths = checkpoint_paths()
     assert paths <= ALLOWED_DIFF, sorted(paths - ALLOWED_DIFF)
     assert not paths.intersection(PROTECTED_FILES | PACKAGE_FILES)
     assert not any(path.split("/", 1)[0] in PROTECTED_DIRS for path in paths)
+    assert not any(path.startswith(".env") or "/.env" in path for path in paths)
     for path in PROTECTED_FILES:
         result = subprocess.run(["git", "diff", "--quiet", BASE, "--", path], cwd=ROOT, check=False)
         assert result.returncode == 0, f"Protected path changed: {path}"
 
 
-def test_historical_changes_are_additive_1_186_continuity_only():
+def test_historical_allowlist_changes_are_additive_1_187_only():
     for path in working_paths().intersection(HISTORICAL_ALLOWLIST_TESTS):
         diff = git("diff", "--unified=0", "HEAD", "--", path)
         removed = [line for line in diff.splitlines() if line.startswith("-") and not line.startswith("---")]
         assert not removed, f"Historical guard lines removed from {path}: {removed}"
-        assert "CONTINUITY_1_186" in diff
+        assert "CONTINUITY_1_187" in diff
 
 
-def test_test_source_has_no_browser_network_or_install_dependency():
+def test_checkpoint_source_has_no_browser_network_or_install_dependency():
     tree = ast.parse(read(Path(__file__)))
     imported = {alias.name.split(".", 1)[0] for node in ast.walk(tree) if isinstance(node, ast.Import) for alias in node.names}
     imported.update(node.module.split(".", 1)[0] for node in ast.walk(tree) if isinstance(node, ast.ImportFrom) and node.module)
