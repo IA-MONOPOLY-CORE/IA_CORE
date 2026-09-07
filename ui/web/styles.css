@@ -1764,3 +1764,40 @@ body .visual-state.boundary {
     box-shadow: none;
     cursor: default;
 }
+
+/* UI/UX 1.194 S3: align existing contract-aware widgets, badges and blockers visually. */
+body #functional-widgets .data-widget {
+    border-radius: 8px;
+    border-color: var(--ds-border-subtle);
+    background: var(--ds-surface-documental);
+    box-shadow: inset 3px 0 0 transparent;
+}
+
+body #functional-widgets .data-widget[data-contract-state="blocked"],
+body #functional-widgets .data-widget[data-contract-state="forbidden"],
+body #functional-widgets .data-widget[data-contract-state="failed"],
+body #functional-widgets .data-widget[data-contract-state="invalid"] {
+    border-color: var(--ds-border-blocked);
+    background: rgba(127, 29, 29, 0.12);
+    box-shadow: inset 3px 0 0 var(--ds-border-blocked);
+}
+
+body #functional-widgets .data-widget[data-contract-state="pending"],
+body #functional-widgets .data-widget[data-contract-state="not_available"],
+body #functional-widgets .data-widget[data-contract-state="no_payload"],
+body #functional-widgets .data-widget[data-contract-state="requires_review"] {
+    box-shadow: inset 3px 0 0 var(--ds-warning-documental);
+}
+
+body #functional-widgets .data-widget-value,
+body #functional-widgets .data-widget-meta,
+body #functional-widgets .data-widget-detail,
+body #functional-widgets .data-widget-fallback {
+    overflow-wrap: anywhere;
+}
+
+body #functional-widgets .data-widget-fallback {
+    background: rgba(15, 23, 42, 0.32);
+    border-top-color: var(--ds-border-subtle);
+    border-radius: 4px;
+}
