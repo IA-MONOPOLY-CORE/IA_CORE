@@ -2128,8 +2128,8 @@ No UI activa, no JS, no backend, no runtime, no execution, no JSON TOP 15, no fi
 - No se implementa UI ni CSS activo; P0/P1/Matriz/widgets/Request Draft Panel, backend, payload v1 y límites no-runtime/no-execution permanecen intactos.
 - Resultado: `UI_UX_NEXT_VISUAL_BLOCK_OR_CONTROLLED_SCOPE_SELECTION_PASSED`; siguiente prompt UI/UX 1.192.
 
-## UI/UX 1.192 - Guards historicos reparados
+## UI/UX 1.192 - Doble pieza controlada completada
 
-- CSS propuesto solo para CFG, + y DOMAIN disabled; desktop/mobile/resize verificados. Tests historicos ahora comparan commits explicitos; el guard actual permite solo la regla CSS exacta y adaptaciones de tests autorizadas.
-- Gate 2 no ejecutado; sin commit ni push. HTML/JS/i18n/backend y superficies contractuales preservados. [Reporte 1.192](../../docs/UI_UX_PANEL_MAESTRO_CONTROLLED_DOUBLE_SCOPE_AFFORDANCES_SEVERITY_1_192.md).
-- Resultado de la reparacion: `HISTORICAL_GUARDS_1_192_RESOLVED`; Gate 2 y cierre integral 1.192 pendientes, sin habilitar 1.193.
+- CSS scoped para CFG, +, DOMAIN disabled y el mensaje administrativo bloqueado; desktop/mobile/resize verificados sin overflow ni errores de consola.
+- Tests historicos comparan commits explicitos y el guard actual limita la regla Gate 1/Gate 2. HTML/JS/i18n/backend y superficies contractuales preservados. [Reporte 1.192](../../docs/UI_UX_PANEL_MAESTRO_CONTROLLED_DOUBLE_SCOPE_AFFORDANCES_SEVERITY_1_192.md).
+- Resultado: `UI_UX_CONTROLLED_DOUBLE_SCOPE_AFFORDANCES_SEVERITY_PASSED`; commits internos `055e70e` y `6ae13f4`; readiness 1.193 documentada, sin ejecutar.

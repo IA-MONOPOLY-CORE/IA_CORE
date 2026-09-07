@@ -120,22 +120,23 @@ def test_only_proposal_and_reporting_files_change():
     assert git("diff", "--name-only", BASE, "--", "ui/web/index.html", "ui/web/*.js", "ui/web/i18n_es.json", "core", "api.py", "domains", "providers", "tools", "scripts", "integrations", "runtime", "execution", ".github").strip() == ""
 
 
-def test_report_records_resolution_without_claiming_double_scope_completion():
+def test_report_records_final_double_scope_completion_without_claiming_193_execution():
     doc = normalized((ROOT / DOC).read_text(encoding="utf-8"))
     for token in (
         "UI/UX Panel Maestro Controlled Double Scope Affordances Severity 1.192",
         BASE, "Candidato I", "gates internos", "commits internos", "no triple",
-        "GATE_1_AFFORDANCES_BLOCKED_FAILED", "GATE_2_SEVERITY_VISUAL_SKIPPED",
-        "HISTORICAL_GUARDS_1_192_RESOLVED",
-        "Gate 2 no ejecutado",
-        "PROMPT UI/UX 1.192.A", "sin commit", "sin push",
+        "GATE_1_AFFORDANCES_BLOCKED_PASSED", "GATE_2_SEVERITY_VISUAL_PASSED",
+        "HISTORICAL_GUARDS_1_192_RESOLVED", "DOUBLE_SCOPE_FULLY_IMPLEMENTED",
+        "NO_CORRECTIVE_NEEDED", "UI_UX_CONTROLLED_DOUBLE_SCOPE_AFFORDANCES_SEVERITY_PASSED",
+        "ready_for_ui_ux_1_193_controlled_double_scope_affordances_severity_checkpoint",
+        "PROMPT UI/UX 1.193", "055e70e", "6ae13f4",
         "clientWidth", "scrollWidth", "modelo usado", "nivel de esfuerzo",
         "consumo", "calidad percibida", "recomendacion armonica",
     ):
         assert normalized(token) in doc, token
-    assert "gate_1_affordances_blocked_passed" not in doc
-    assert "gate_2_severity_visual_passed" not in doc
-    assert "double_scope_fully_implemented" not in doc
+    assert "prompt ui/ux 1.193" in doc
+    assert "gate 2 no ejecutado" in doc
+    assert "ui/ux 1.192 bloqueado" in doc
 
 
 @pytest.mark.parametrize("path", [

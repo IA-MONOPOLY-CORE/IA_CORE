@@ -1476,8 +1476,9 @@ No UI activa, no JS, no backend, no runtime, no execution, no JSON TOP 15, no fi
 - La pieza secundaria depende de la principal, tiene gates internos y condicion de corte; no se escala a triple ni se abre benchmark artificial. Sin implementacion, CSS activo, HTML, JS contractual, i18n, backend, runtime, execution, endpoints, integraciones o payload v2.
 - Resultado: `UI_UX_NEXT_VISUAL_BLOCK_OR_CONTROLLED_SCOPE_SELECTION_PASSED`; readiness `ready_for_ui_ux_1_192_selected_visual_block_or_controlled_double_scope_implementation`; proximo prompt UI/UX 1.192.
 
-## UI/UX 1.192 - Continuidad historica reparada
+## UI/UX 1.192 - Doble pieza controlada completada
 
-- Guards historicos adaptados con autorizacion: cada checkpoint valida su commit; un guard independiente limita el CSS actual a CFG, + y DOMAIN disabled y mantiene prohibidas las demas superficies.
-- Gate 2 no ejecutado; sin commit ni push; sin cambios HTML, JS, i18n o backend. Reporte: [UI/UX 1.192](docs/UI_UX_PANEL_MAESTRO_CONTROLLED_DOUBLE_SCOPE_AFFORDANCES_SEVERITY_1_192.md).
-- Resultado de la reparacion: `HISTORICAL_GUARDS_1_192_RESOLVED`; UI/UX 1.192 no cerrado integralmente. No habilita 1.193.
+- Guards historicos adaptados con autorizacion: cada checkpoint valida su commit y el guard independiente limita el CSS actual a CFG, +, DOMAIN y el mensaje administrativo bloqueado.
+- Gate 1 y Gate 2 verificados en desktop/mobile/resize, sin overflow ni errores de consola; P0/P1/Matriz/widgets/Request Draft Panel preservados. Sin cambios HTML, JS, i18n o backend.
+- Commits internos: `055e70e` y `6ae13f4`. Resultado: `UI_UX_CONTROLLED_DOUBLE_SCOPE_AFFORDANCES_SEVERITY_PASSED`; readiness: `ready_for_ui_ux_1_193_controlled_double_scope_affordances_severity_checkpoint`.
+- Reporte: [UI/UX 1.192](docs/UI_UX_PANEL_MAESTRO_CONTROLLED_DOUBLE_SCOPE_AFFORDANCES_SEVERITY_1_192.md). El prompt 1.193 queda documentado, no ejecutado.

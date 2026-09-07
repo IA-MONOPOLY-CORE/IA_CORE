@@ -1,10 +1,21 @@
 # UI/UX Panel Maestro Controlled Double Scope Affordances Severity 1.192
 
-## Estado actual: adaptacion autorizada de guards
+## Estado final: Gate 1 y Gate 2 aprobados
 
-El operador autorizo expresamente resolver la incompatibilidad de comprobaciones historicas, sin ampliar UI productiva. Resultado de los 19 modulos historicos tras la adaptacion: **198 passed** (179 pruebas existentes y 19 guards nuevos del alcance actual). `HISTORICAL_GUARDS_1_192_RESOLVED` identifica esta reparacion, no un cierre integral de UI/UX 1.192.
+El operador autorizo adaptar los guards historicos y luego continuar con Gate 2. La reparacion conservo las aserciones y separo cada checkpoint de su commit historico; el guard actual mantiene deny-by-default y limita 1.192 a sus archivos y superficies autorizadas.
 
-Gate 2 no ejecutado. Sin commit y sin push. El CSS no recibio cambios adicionales durante esta reparacion; HTML, JS contractual, i18n, backend y payload siguen sin modificaciones. Las secciones siguientes conservan el reporte del intento inicialmente bloqueado como evidencia historica; no describen el estado actual de los tests.
+Resultado final: `UI_UX_CONTROLLED_DOUBLE_SCOPE_AFFORDANCES_SEVERITY_PASSED`. Gate 1 y Gate 2 pasaron. Se crearon los commits internos `055e70e` y `6ae13f4`; queda pendiente la consolidacion documental final y el push.
+
+La continuidad historica queda resuelta como `HISTORICAL_GUARDS_1_192_RESOLVED`.
+
+- Gate 1: `GATE_1_AFFORDANCES_BLOCKED_PASSED`; commit `055e70e feat(ui): clarificar affordances bloqueadas panel maestro`.
+- Gate 2: `GATE_2_SEVERITY_VISUAL_PASSED`; commit `6ae13f4 feat(ui): ordenar severidad visual de estados bloqueados`.
+- Doble pieza: `DOUBLE_SCOPE_FULLY_IMPLEMENTED`.
+- Correctivo: `NO_CORRECTIVE_NEEDED`; la severidad visual queda dentro de la familia existente.
+- Readiness final previsto: `ready_for_ui_ux_1_193_controlled_double_scope_affordances_severity_checkpoint`.
+- Proximo prompt exacto previsto: `PROMPT UI/UX 1.193 — Checkpoint de doble pieza controlada affordances/severidad del Panel Maestro IA_CORE contract-aware`.
+
+Gate 2 no agrega estados contractuales, acciones, CTA, submit, runtime, execution, endpoints o integrations. HTML, JS contractual, i18n, backend y payload siguen sin modificaciones. La seccion posterior conserva el bloqueo inicial como evidencia historica, no como estado actual.
 
 ### Metodo y limites
 
@@ -12,27 +23,27 @@ Gate 2 no ejecutado. Sin commit y sin push. El CSS no recibio cambios adicionale
 - Se mantienen todas las aserciones historicas, sus listas de archivos y sus comprobaciones de contrato. No se modifica la salida de Git ni se omiten tests. Los checks existentes de contenido activo siguen ejecutandose.
 - `tests/ui_ux_1_192_scope.py` centraliza un guard actual deny-by-default, independiente de las allowlists historicas. Cada modulo historico lo ejecuta incluso cuando se prueba por separado.
 - El guard actual compara contra `82dd100`, incluyendo cambios commiteados, staging y working tree. Comprueba staging por separado para no ocultar un cambio preparado con una copia de trabajo distinta; incluye archivos nuevos no ignorados.
-- CSS permitido: exactamente el prefijo original mas la unica regla Gate 1 para CFG, + y DOMAIN disabled. No se habilita aun ninguna regla Gate 2. Rechaza selectores amplios, propiedades extra, declaraciones duplicadas y modificaciones a P0/P1/Matriz/widgets/Request Draft Panel.
+- CSS permitido: exactamente el prefijo original mas la regla Gate 1 para CFG, + y DOMAIN disabled y la regla Gate 2 para el mensaje administrativo existente. Gate 2 usa la paleta amber existente, borde de lectura, wrapping y cursor default; no crea severidad contractual nueva. Rechaza selectores amplios, propiedades extra, declaraciones duplicadas y modificaciones a P0/P1/Matriz/widgets/Request Draft Panel.
 - Documentacion/tests: solo documento 1.192, test 1.192, helper y 19 tests historicos enumerados; README solo admite agregar una nota 1.192 sin reescribir contenido previo.
 - La adaptacion de cada test historico se valida estructuralmente por AST contra su version en `82dd100`: solo import de continuidad, commit historico, consultas explicitas, helpers de paths historicos y guard actual adicional. Alterar/eliminar aserciones, agregar permisos o introducir retornos que omitan tests falla.
 - HTML/JS/i18n/backend/payload/runtime/execution/endpoints/integrations y cualquier otra ruta no enumerada siguen prohibidos. Payload v2 sigue prohibido. No hay una excepcion CSS global ni una lista abierta de archivos.
 
 ### Validacion de la reparacion
 
-Resultado final conjunto: **264 passed in 44.78s**, sin fallos ni skips. Corresponde a los 19 modulos historicos requeridos y el modulo 1.192, no a toda la suite del repositorio.
+Resultado final conjunto post Gate 2: **275 passed in 73.51s**, sin fallos ni skips. Corresponde a los 19 modulos historicos requeridos y el modulo 1.192, no a toda la suite del repositorio.
 
 | Comprobacion | Resultado |
 | --- | --- |
 | 19 modulos historicos, ejecutados tambien por separado del focal | 198 passed |
-| Modulo 1.192: alcance, contrato, AST y pruebas negativas | 66 passed |
-| Suite conjunta 1.175-1.192 requerida | 264 passed |
+| Modulo 1.192: Gate 1, Gate 2, alcance, contrato, AST y pruebas negativas | 77 passed |
+| Suite conjunta 1.175-1.192 requerida post Gate 2 | 275 passed |
 | py_compile: 20 modulos de tests y helper | Exit 0 |
 | node --check backend-contract-widgets.js | Exit 0 |
 | Sanity HTML/CSS/contract literal del prompt | Exit 0 |
 | git diff --check | Exit 0; avisos LF/CRLF, sin errores |
 | Diff prohibido HTML/JS/i18n/backend/payload y directorios protegidos | Vacio |
 | HEAD / origin/main / ahead-behind | 82dd100 / 82dd100 / 0-0 |
-| Commit / push / Gate 2 | No / no / no ejecutado |
+| Commit Gate 1 / commit Gate 2 / push | `055e70e` / `6ae13f4` / pendiente |
 
 Las pruebas negativas rechazan archivos prohibidos incluso junto a los artefactos permitidos; CSS que quite disabled/ARIA, cursor operativo, selector global, reglas sobre P0/P1/Matriz/widgets/Request Draft Panel, payload v2 y declaraciones duplicadas; cambios al CSS previo; eliminaciones; reescritura de README historico; eliminacion de aserciones, retornos anticipados o ampliaciones de allowlist en tests historicos. Tambien comprueban que staging y working tree se inspeccionan por separado.
 
@@ -45,7 +56,21 @@ python -m pytest -q --tb=short $tests192
 
 Working tree final: 25 archivos pendientes, sin staging. Son los cinco archivos de la propuesta original, los 19 tests historicos adaptados y el helper nuevo. La lista exacta de esos 19 tests y sus commits esta fijada en `CHECKPOINTS` de `tests/ui_ux_1_192_scope.py`. No se agregaron dependencias, archivos productivos ni cambios CSS durante esta reparacion.
 
-Veredicto de esta autorizacion: **bloqueo de guards resuelto sin relajar el alcance actual**. Se cumplieron las comprobaciones previas requeridas para retomar el flujo de 1.192. No se implementa Gate 2 en esta reparacion acotada ni se declara cierre integral, hash de cierre o publicacion de 1.192. La evidencia visual previa sigue correspondiendo al mismo CSS, que no fue alterado aqui; no se presenta como una nueva corrida de navegador.
+Veredicto de esta autorizacion: **Gate 1 y Gate 2 aprobados sin ampliar el alcance actual**. La consolidacion documental final y el push quedan como pasos posteriores de esta misma tarea. No se ejecuta el prompt 1.193.
+
+## Evidencia final de Gate 2
+
+El cambio de severidad se limita al selector `body .console-utilities[data-interaction-scope="existing-management"] > .admin-status[data-contract-blocked="true"]`. Sus propiedades son color `var(--amber)`, borde inline de 2 px, padding, margin, dimensiones responsivas, `overflow-wrap`, line-height, letter-spacing 0 y `cursor: default`. El mensaje existente sigue siendo `Gestión administrativa inferior bloqueada por contrato · read-only`.
+
+| Caso | Viewport | clientWidth | scrollWidth | Overflow | Consola |
+| --- | --- | --- | --- | --- | --- |
+| Gate 2 desktop | 1440x1000 | 1425 | 1425 | No | Sin warnings/errors |
+| Gate 2 mobile | 390x844 | 375 | 375 | No | Sin warnings/errors |
+| Resize mobile -> desktop | 1440x1000 | 1425 | 1425 | No | Sin warnings/errors |
+
+En desktop el mensaje queda en una sola línea legible con severidad ámbar documental. En mobile ocupa dos líneas sin solaparse con CFG, +, DOMAIN ni el footer. Los tres controles siguen `disabled`, `aria-disabled="true"`, `data-contract-blocked="true"`, `data-no-runtime="true"`, `data-no-execution="true"` y `data-no-mutation="true"`, con cursor `not-allowed`.
+
+La comparación de estilos y presencia preservó `.p0-command-summary` (74 nodos), `.final-screen-contracts-rehousing` (469), `#closure-matrix-ui-ux-1x` (165), `#functional-widgets` (67) y `#request-draft-panel` (22), además de 20 filas y 26 badges de Matriz. El HTML completo permanecio identico a la base; no se requirio estructura nueva.
 
 ## Reporte historico del bloqueo inicial
 
@@ -101,7 +126,7 @@ P0, P1, Matriz P3 (20 filas, 26 badges), Request Draft Panel y widgets contract-
 
 Calidad percibida: el ajuste reduce la apariencia de accion importante y diferencia visualmente disabled de error. La verificacion visual es favorable, pero no basta para aprobar el gate formal.
 
-## Bloqueo reproducido
+## Bloqueo inicial reproducido (evidencia historica)
 
 Comando obligatorio de Gate 1:
 
@@ -158,7 +183,7 @@ python -m pytest -q --tb=no $tests192
 
 Test focal nuevo 1.192: comprueba CSS append-only limitado al selector exacto, declaraciones permitidas, HTML identico, disabled/ARIA y controles originales, diff acotado y reporte de gate fallido. No requiere navegador, internet ni instalacion. Su aprobacion valida la propuesta y el reporte de bloqueo, no el cierre del gate.
 
-Resultados focales y comprobaciones finales:
+Resultados del intento inicial (evidencia historica):
 
 - Test 1.192: `4 passed`. La primera corrida detecto la frase documental faltante `gates internos`; se completo el registro y se repitio satisfactoriamente, sin debilitar el test.
 - `python -m py_compile tests/test_ui_ux_panel_maestro_controlled_double_scope_affordances_severity_1_192.py`: exit 0.
@@ -168,7 +193,7 @@ Resultados focales y comprobaciones finales:
 - Diff de rutas prohibidas: salida vacia. HEAD y origin/main: `82dd100`; ahead/behind: `0/0`.
 - Servidores temporales 8769/8770 detenidos al finalizar la validacion; viewport del navegador restablecido. Las capturas fueron inspeccionadas en la sesion, no guardadas como archivos.
 
-Estado final pendiente, sin staging, commit ni push:
+Estado del intento inicial, antes de autorizar la continuidad:
 
 ```text
  M README.md
@@ -178,32 +203,33 @@ Estado final pendiente, sin staging, commit ni push:
 ?? tests/test_ui_ux_panel_maestro_controlled_double_scope_affordances_severity_1_192.py
 ```
 
-Ultimos commits: `82dd100` seleccion 1.191, `66d73e3` checkpoint 1.190, `cef7b11` fix 1.189.A, `07367d5` implementacion 1.189 y `72b6f71` seleccion 1.188. No hay hash de cierre 1.192 ni validaciones post-commit/post-push porque esos pasos no se ejecutaron.
+Ultimos commits del intento inicial: `82dd100` seleccion 1.191, `66d73e3` checkpoint 1.190, `cef7b11` fix 1.189.A, `07367d5` implementacion 1.189 y `72b6f71` seleccion 1.188. Esos datos pertenecen al estado previo a la autorizacion; los commits vigentes de 1.192 estan registrados arriba.
 
 ## Preservacion y archivos
 
 No backend; no JS contractual; no i18n; no endpoints; no integrations; no runtime; no execution. `backend_internal_ui_payload.v1` preservado, payload v2 ausente. `allowed_actions`, `forbidden_actions`, `blocked_capabilities`, source/status/fallback y no_payload/not_available intactos. Deny-by-default preservado; no acciones falsas, permisos inferidos, blockers ocultos ni warnings/errors retirados.
 
-Archivos preparados: styles.css (Gate 1), este documento, test 1.192, README.md y ui/web/README.md. Tests historicos modificados: no. Sin cambios en index.html, JavaScript, i18n, backend, payload, paquetes o CI.
+Archivos finales de 1.192: styles.css, este documento, test 1.192, helper de guard, README.md, ui/web/README.md y los 19 tests historicos adaptados. Sin cambios en index.html, JavaScript contractual, i18n, backend, payload, paquetes o CI.
 
-## Continuidad solicitada
+## Continuidad autorizada y ejecutada
 
-Para continuar hace falta autorizar la adaptacion acotada de los guards historicos que confunden su checkpoint con la UI actual: conservar la comprobacion del cierre historico sobre su commit y validar separadamente el CSS posterior mediante un guard de alcance estricto de 1.192. No eliminar tests ni ignorar fallos. Tras esa adaptacion: repetir Gate 1, crear su commit si pasa, evaluar Gate 2 y ejecutar la consolidacion completa prevista.
+El operador autorizo la adaptacion acotada de los guards historicos: cada checkpoint conserva su contrato contra su propio commit y un guard actual valida por separado el CSS 1.192. No se eliminaron tests ni se ignoraron fallos. Luego se repitio Gate 1, se creo el commit `055e70e`, se ejecuto Gate 2 y se creo el commit `6ae13f4`.
 
-Resultado: `DOUBLE_SCOPE_BLOCKED`.
-Correctivo: `CORRECTIVE_REQUIRED`, del metodo de validacion; no se detecto necesidad de correctivo visual en la propuesta Gate 1.
-Veredicto: `UI_UX_CONTROLLED_DOUBLE_SCOPE_AFFORDANCES_SEVERITY_BLOCKED`.
-Readiness: `requires_1_192_A_controlled_double_scope_blocker_fix`.
-Proximo prompt exacto: `PROMPT UI/UX 1.192.A — Corregir bloqueo en implementación doble affordances/severidad del Panel Maestro IA_CORE contract-aware`.
+Resultado historico previo: `DOUBLE_SCOPE_BLOCKED`.
+Correctivo historico previo: `CORRECTIVE_REQUIRED`, resuelto al adaptar el metodo de validacion; no se detecto correctivo visual.
+Veredicto historico previo: `UI_UX_CONTROLLED_DOUBLE_SCOPE_AFFORDANCES_SEVERITY_BLOCKED`.
+Readiness historica previa: `requires_1_192_A_controlled_double_scope_blocker_fix`.
+El estado anterior fue: `UI/UX 1.192 bloqueado`; su prompt correctivo historico fue `PROMPT UI/UX 1.192.A — Corregir bloqueo en implementación doble affordances/severidad del Panel Maestro IA_CORE contract-aware`.
+Estado actual: `DOUBLE_SCOPE_FULLY_IMPLEMENTED`, `NO_CORRECTIVE_NEEDED`, `UI_UX_CONTROLLED_DOUBLE_SCOPE_AFFORDANCES_SEVERITY_PASSED`.
 
 ## Modelo y recomendacion armonica
 
 Modelo usado: Codex; alias comercial y nivel de esfuerzo seleccionado no verificables. No se afirma que se haya usado Astra Alto. Consumo 5h inicial/final, diferencia y consumo semanal: no informados por operador; no medidos. No se atribuye consumo compartido de cuenta a esta tarea.
 
-Recomendacion para resolver el bloqueo: Luna Muy Alto con terminal local y navegador para repetir Gate 1. Tipo de tarea: continuidad historica de tests y posterior checkpoint visual. Balance: cambio acotado con comparaciones entre commits; una opcion menor podria confundir limites historicos con limites actuales. Una opcion mayor no tiene justificacion demostrada para esta reparacion. Subir si aparece conflicto real entre invariantes; bajar a Luna Alto cuando queden solo registros documentales. Riesgo de retrabajo: adaptar mal la base temporal o permitir CSS fuera de la familia. Eficiencia: conservador. Astra Alto justificado: no medible; comparar Terra: mas adelante, en tarea equivalente con datos del operador.
+Recomendacion para el proximo checkpoint 1.193: Luna Muy Alto con terminal local y navegador. Tipo de tarea: checkpoint visual/contractual y documentacion de continuidad. Balance: una opcion menor podria quedar justa si aparecen regresiones entre commits y navegador; una opcion mayor seria derroche mientras el alcance siga read-only y CSS scoped. Subir si aparece conflicto real entre invariantes o superficies protegidas; bajar a Luna Alto cuando queden solo registros documentales. Riesgo de retrabajo: confundir una evidencia historica con estado operativo o ampliar severidad. Eficiencia: conservador. Astra Alto justificado: no medible; comparar Terra mas adelante en tarea equivalente.
 
 ## Indice del reporte solicitado
 
-A-J: preflight y decisiones, registrados en Estado y alcance. K-P: seleccion, piezas, gates y corte confirmados. Q-Z: inspeccion previa, mapa real y estrategia, registrados arriba. AA: HTML no necesario. AB-AJ: Gate 1 preparado y verificado visualmente; test obligatorio fallido. AK: sin hash Gate 1. AL: gate fallido. AM-AX: Gate 2 no ejecutado por condicion de corte, sin cambios, mediciones ni hash propios. AY-AZ: bloqueo y correctivo requerido.
+A-J: preflight y decisiones, registrados en Estado y alcance. K-P: seleccion, piezas, gates y corte confirmados. Q-Z: inspeccion previa, mapa real y estrategia, registrados arriba. AA: HTML no necesario. AB-AJ: Gate 1 verificado en navegador y tests. AK: `055e70e`. AL: `GATE_1_AFFORDANCES_BLOCKED_PASSED`. AM-AX: Gate 2 verificado en navegador y tests. AW: `6ae13f4`. AX: `GATE_2_SEVERITY_VISUAL_PASSED`. AY-AZ: `DOUBLE_SCOPE_FULLY_IMPLEMENTED` y `NO_CORRECTIVE_NEEDED`.
 
-BA-BD: documento, test y notas README de intento bloqueado. BE: ningun test historico modificado. BF: 4 passed; BG-BY: tabla historica con ambas corridas. BZ-CC: compilacion, Node, sanity y diff con exit 0. CD-CF: diff confirmado limitado a cinco archivos, rutas protegidas intactas; el CSS sigue pendiente porque no hubo commit Gate 1. CG-CH: sin commits internos ni documental. CI: HEAD permanece 82dd100; no es un hash de cierre 1.192. CJ: no aplica validacion post-commit. CK: working tree no limpio, contiene propuesta y reporte. CL-CM: sin push; comando previsto git push origin main no ejecutado. CN-CP: no hubo post-push; HEAD y origin/main permanecen 82dd100, igualdad de refs conservada. CQ: 0/0; CR-CS: working tree con cinco archivos pendientes, no limpio. CT: cinco ultimos commits registrados arriba. CU-CX: bloqueo, readiness correctiva, prompt 1.192.A y proximo prompt no ejecutado. CY-DQ: modelo, consumo, calidad y recomendacion registrados arriba. DR: UI/UX 1.192 bloqueado por incompatibilidad de guards historicos, con Gate 1 revisable sin commit.
+BA-BD: documento, test y README finales. BE: 19 tests historicos adaptados de forma estructural y aditiva; helper nuevo. BF: 77 passed en focal post Gate 2; BG-BY: tabla historica inicial y evidencia de suite posterior. BZ-CC: compilacion, Node, sanity y diff con exit 0. CD-CF: diff permitido y rutas protegidas intactas. CG: `055e70e`; CH: `6ae13f4`, documental pendiente. CI: HEAD vigente `6ae13f4`; no es hash final hasta consolidacion. CJ: validacion post-commit de Gate 2 ejecutada: 275 passed. CK: working tree con documentacion/test/README finales pendientes, sin staging. CL-CM: push pendiente; comando `git push origin main` aun no ejecutado. CN-CP: pendientes de post-push. CQ: ahead 2 antes del commit documental; CR-CS: working tree no limpio hasta consolidacion. CT: commits 1.192 registrados arriba. CU-CX: aprobado, readiness `ready_for_ui_ux_1_193_controlled_double_scope_affordances_severity_checkpoint`, prompt 1.193 documentado y no ejecutado. CY-DQ: modelo, consumo, calidad y recomendacion registrados arriba. DR: UI/UX 1.192 listo para commit documental final y push.
