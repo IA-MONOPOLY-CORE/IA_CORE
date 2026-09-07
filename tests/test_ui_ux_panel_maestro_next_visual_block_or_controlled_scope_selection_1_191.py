@@ -1,4 +1,4 @@
-"""Formal checkpoint and deny-by-default guards for UI/UX 1.190."""
+"""Read-only selection and deny-by-default guards for UI/UX 1.191."""
 
 import ast
 from pathlib import Path
@@ -8,22 +8,26 @@ import unicodedata
 
 
 ROOT = Path(__file__).resolve().parents[1]
-BASE = "cef7b11"
-DOC = ROOT / "docs" / "UI_UX_PANEL_MAESTRO_REQUEST_DRAFT_PANEL_VISUAL_DEMOTION_CHECKPOINT_1_190.md"
+BASE = "66d73e3"
+DOC = ROOT / "docs" / "UI_UX_PANEL_MAESTRO_NEXT_VISUAL_BLOCK_OR_CONTROLLED_SCOPE_SELECTION_1_191.md"
 README = ROOT / "README.md"
 WEB_README = ROOT / "ui" / "web" / "README.md"
 INDEX = ROOT / "ui" / "web" / "index.html"
 STYLES = ROOT / "ui" / "web" / "styles.css"
 WIDGETS = ROOT / "ui" / "web" / "backend-contract-widgets.js"
-BACKEND = ROOT / "core" / "backend_internal_ui_payloads.py"
+DECISION = "CONTROLLED_DOUBLE_SCOPE_EXPERIMENT_SELECTED"
+VERDICT = "UI_UX_NEXT_VISUAL_BLOCK_OR_CONTROLLED_SCOPE_SELECTION_PASSED"
+READINESS = "ready_for_ui_ux_1_192_selected_visual_block_or_controlled_double_scope_implementation"
+NEXT_PROMPT = "PROMPT UI/UX 1.192 — Implementar bloque visual seleccionado o doble pieza controlada del Panel Maestro IA_CORE contract-aware"
 
 ALLOWED_FILES = {
     "README.md",
     "ui/web/README.md",
-    "docs/UI_UX_PANEL_MAESTRO_REQUEST_DRAFT_PANEL_VISUAL_DEMOTION_CHECKPOINT_1_190.md",
-    "tests/test_ui_ux_panel_maestro_request_draft_panel_visual_demotion_checkpoint_1_190.py",
+    "docs/UI_UX_PANEL_MAESTRO_NEXT_VISUAL_BLOCK_OR_CONTROLLED_SCOPE_SELECTION_1_191.md",
+    "tests/test_ui_ux_panel_maestro_next_visual_block_or_controlled_scope_selection_1_191.py",
 }
 HISTORICAL_TESTS = {
+    "tests/test_ui_ux_panel_maestro_request_draft_panel_visual_demotion_checkpoint_1_190.py",
     "tests/test_ui_ux_panel_maestro_request_draft_panel_visual_demotion_fix_1_189_A.py",
     "tests/test_ui_ux_panel_maestro_request_draft_panel_visual_demotion_1_189.py",
     "tests/test_ui_ux_panel_maestro_next_visual_block_selection_1_188.py",
@@ -43,9 +47,6 @@ HISTORICAL_TESTS = {
     "tests/test_ui_ux_panel_maestro_widgets_contract_aware_checkpoint_1_175.py",
 }
 ALLOWED_DIFF = ALLOWED_FILES | HISTORICAL_TESTS
-CONTINUITY_1_191 = {"README.md", "ui/web/README.md", "docs/UI_UX_PANEL_MAESTRO_NEXT_VISUAL_BLOCK_OR_CONTROLLED_SCOPE_SELECTION_1_191.md", "tests/test_ui_ux_panel_maestro_next_visual_block_or_controlled_scope_selection_1_191.py"}
-ALLOWED_DIFF |= CONTINUITY_1_191
-# CONTINUITY_1_175, CONTINUITY_1_176, CONTINUITY_1_177, CONTINUITY_1_177_1, CONTINUITY_1_178, CONTINUITY_1_179, CONTINUITY_1_180, CONTINUITY_1_181, CONTINUITY_1_182, CONTINUITY_1_183, CONTINUITY_1_184, CONTINUITY_1_185, CONTINUITY_1_186, CONTINUITY_1_187, CONTINUITY_1_188, CONTINUITY_1_189, CONTINUITY_1_189_A and CONTINUITY_1_190 remain preserved; CONTINUITY_1_191 is additive.
 PROTECTED_FILES = {
     "ui/web/index.html",
     "ui/web/styles.css",
@@ -62,9 +63,6 @@ PROTECTED_FILES = {
     "yarn.lock",
 }
 PROTECTED_DIRS = {"core", "domains", "providers", "tools", "scripts", "integrations", "runtime", "execution"}
-VERDICT = "UI_UX_REQUEST_DRAFT_PANEL_VISUAL_DEMOTION_CHECKPOINT_PASSED"
-READINESS = "ready_for_ui_ux_1_191_next_visual_block_or_controlled_scope_experiment_selection"
-NEXT_PROMPT = "PROMPT UI/UX 1.191 — Seleccionar próximo bloque visual o experimento controlado de alcance del Panel Maestro IA_CORE contract-aware"
 
 
 def read(path: Path) -> str:
@@ -97,57 +95,53 @@ def changed_paths() -> set[str]:
     return {path.replace("\\", "/") for path in committed} | working_paths()
 
 
-def test_checkpoint_document_records_state_and_visual_evidence():
+def test_selection_document_records_candidates_and_decision():
     assert DOC.is_file()
     assert_markers(read(DOC), [
-        "UI/UX Panel Maestro - Request Draft Panel Visual Demotion Checkpoint 1.190",
-        BASE, "UI/UX 1.189", "UI/UX 1.189.A", "CSS-only", "scoped", "helper_unknown_error",
-        "desktop", "mobile", "resize", "1425/1425", "375/375", "340 px", "no CTA",
-        "no submit", "no runtime", "no execution", "read-only", "blocked", "P0", "P1",
-        "Matriz P3", "20 filas", "26 badges", "widgets contract-aware", "SIN_CORRECCION_NECESARIA",
-        "backend_internal_ui_payload.v1", "payload v2", "no endpoints", "no integraciones",
-        VERDICT, READINESS, NEXT_PROMPT, "Recomendacion armonica", "Camino A", "Camino B",
+        "UI/UX Panel Maestro Next Visual Block Or Controlled Scope Selection 1.191",
+        BASE, "UI/UX 1.190", "seleccion read-only", "no implementacion", "no ui activa",
+        "no css activo", "no html", "no js contractual", "no i18n", "no backend", "no runtime",
+        "no execution", "no endpoints", "no payload v2", "affordances bloqueadas", "severidad visual",
+        "readiness global", "proximo paso", "estado de cierre", "microcopy contractual", "compactacion",
+        "coherencia visual", "movimiento", "identidad audiovisual", "candidato a", "candidato b",
+        "candidato c", "candidato d", "candidato e", "candidato f", "candidato g", "candidato h",
+        "candidato i", "candidato j", "recomendacion armonica", "luna", "astra", "terra", "consumo",
+        "calidad", "riesgo de retrabajo", DECISION, VERDICT, READINESS, NEXT_PROMPT,
     ])
+    doc = normalized(read(DOC))
+    assert "pieza principal" in doc and "pieza secundaria" in doc
+    assert "gates internos" in doc and "condicion de corte" in doc
+    assert "no se escala a triple" in doc
+    assert "no es un benchmark artificial" in doc
 
 
-def test_readmes_record_checkpoint_without_new_capability():
+def test_readmes_record_selection_without_implementation():
     for path in (README, WEB_README):
         assert_markers(read(path), [
-            "UI/UX 1.190", "Request Draft Panel", "checkpoint", "desktop", "mobile", "resize",
-            "no CTA", "no submit", "no runtime", "no execution", "read-only", "blocked",
-            "P0", "P1", "Matriz", "widgets", "no JS contractual", "no backend", "payload v2",
-            "1.191",
+            "UI/UX 1.191", "seleccion", "read-only", "candidato i", "affordances bloqueadas",
+            "severidad", "no implementacion", "no CSS activo", "no backend", "no runtime", "no execution",
+            "1.192",
         ])
 
 
-def test_active_contract_and_visual_surface_are_preserved():
+def test_active_contract_is_untouched_and_v1_only():
     html = read(INDEX)
     css = read(STYLES)
     widgets = read(WIDGETS)
-    backend = read(BACKEND)
-    assert html.count('id="request-draft-panel"') == 1
-    assert html.count('id="request-draft-toggle"') == 1
-    assert html.count('id="request-draft-blocked-control"') == 1
+    assert subprocess.run(["git", "diff", "--quiet", BASE, "--", "ui/web/index.html", "ui/web/styles.css", "ui/web/backend-contract-widgets.js"], cwd=ROOT, check=False).returncode == 0
+    assert 'id="request-draft-panel"' in html
+    assert 'id="request-draft-blocked-control"' in html
     assert 'readonly aria-readonly="true"' in html
     assert 'disabled data-interaction-mode="read-only"' in html
     assert 'data-contract-blocked="true"' in html
-    assert 'data-no-runtime="true"' in html
-    assert 'data-no-execution="true"' in html
     assert "backend_internal_ui_payload.v1" in html
-    assert len(re.findall(r'class="closure-matrix-row\b', html)) == 20
-    assert len(re.findall(r'class="closure-matrix-badge\b', html)) == 26
-    assert 'id="functional-widgets"' in html
-    assert 'data-widget-reconstruction="1.174"' in html
-    assert subprocess.run(["git", "diff", "--quiet", BASE, "--", "ui/web/styles.css"], cwd=ROOT, check=False).returncode == 0
     assert "body #request-draft-panel.request-draft-panel" in css
-    assert "#request-draft-blocked-control.request-draft-control:disabled" in css
-    for token in ("allowed_actions", "forbidden_actions", "blocked_capabilities", "source", "status"):
+    assert "functional-widgets" in html
+    assert "closure-matrix-row" in html and "closure-matrix-badge" in html
+    for token in ["allowed_actions", "forbidden_actions", "blocked_capabilities", "source", "status", "fallback", "no_payload", "not_available"]:
         assert token in widgets
-        assert token in backend
-    for token in ("fallback", "no_payload", "not_available"):
-        assert token in widgets
-    active = "\n".join([html, css, widgets, backend]).casefold()
-    for token in ("backend_internal_ui_payload.v2", "payload.v2", 'schema_version": "v2"'):
+    active = "\n".join([html, css, widgets]).casefold()
+    for token in ["backend_internal_ui_payload.v2", "payload.v2", 'schema_version": "v2"']:
         assert token not in active
     assert not re.search(r'>\s*(?:ready to run|processing request|capability active)\s*<', html, re.IGNORECASE)
     assert not re.search(r'data-(?:state|status)=["\'](?:running|executing|dispatching|submitted)["\']', html, re.IGNORECASE)
@@ -165,7 +159,7 @@ def test_diff_is_deny_by_default_and_historical_continuity_is_additive():
         diff = git("diff", "--unified=0", "HEAD", "--", path)
         removed = [line for line in diff.splitlines() if line.startswith("-") and not line.startswith("---")]
         assert not removed, f"Historical guard removal: {path}"
-        assert "CONTINUITY_1_190" in diff
+        assert "CONTINUITY_1_191" in diff
 
 
 def test_guard_has_no_browser_network_or_install_dependency():

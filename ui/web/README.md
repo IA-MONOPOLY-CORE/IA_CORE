@@ -2121,3 +2121,9 @@ No UI activa, no JS, no backend, no runtime, no execution, no JSON TOP 15, no fi
 - Checkpoint read-only sobre `cef7b11`: desktop/mobile/resize sin overflow; panel visible, secundario, no CTA, no submit, read-only y blocked.
 - P0/P1, Matriz P3, 20 filas/26 badges y widgets preservados; sin cambios en CSS activo, HTML, JS contractual, i18n, backend, runtime, execution, endpoints, integraciones o payload v2.
 - Resultado: `UI_UX_REQUEST_DRAFT_PANEL_VISUAL_DEMOTION_CHECKPOINT_PASSED`; siguiente paso UI/UX 1.191.
+
+## UI/UX 1.191 - Seleccion read-only
+
+- Se selecciona Candidato I: affordances bloqueadas como pieza principal y severidad visual acotada como pieza secundaria dependiente, con gates y corte.
+- No se implementa UI ni CSS activo; P0/P1/Matriz/widgets/Request Draft Panel, backend, payload v1 y límites no-runtime/no-execution permanecen intactos.
+- Resultado: `UI_UX_NEXT_VISUAL_BLOCK_OR_CONTROLLED_SCOPE_SELECTION_PASSED`; siguiente prompt UI/UX 1.192.

@@ -1469,3 +1469,9 @@ No UI activa, no JS, no backend, no runtime, no execution, no JSON TOP 15, no fi
 - Checkpoint formal sobre `cef7b11`: desktop/mobile/resize verificados read-only, sin overflow; panel derecho visible, secundario, no CTA, no submit, read-only y blocked.
 - P0, P1, Matriz P3 con 20 filas/26 badges y widgets contract-aware preservados; sin CSS nuevo, sin HTML/JS contractual, i18n, backend, endpoints, runtime, execution, integraciones ni payload v2.
 - Resultado: `UI_UX_REQUEST_DRAFT_PANEL_VISUAL_DEMOTION_CHECKPOINT_PASSED`; readiness `ready_for_ui_ux_1_191_next_visual_block_or_controlled_scope_experiment_selection`; proximo paso UI/UX 1.191.
+
+## UI/UX 1.191 - Seleccion del proximo bloque visual o doble pieza controlada
+
+- Seleccion read-only posterior al checkpoint 1.190: Candidato I, doble pieza controlada de affordances bloqueadas + severidad visual acotada a blockers/warnings/actions relacionados.
+- La pieza secundaria depende de la principal, tiene gates internos y condicion de corte; no se escala a triple ni se abre benchmark artificial. Sin implementacion, CSS activo, HTML, JS contractual, i18n, backend, runtime, execution, endpoints, integraciones o payload v2.
+- Resultado: `UI_UX_NEXT_VISUAL_BLOCK_OR_CONTROLLED_SCOPE_SELECTION_PASSED`; readiness `ready_for_ui_ux_1_192_selected_visual_block_or_controlled_double_scope_implementation`; proximo prompt UI/UX 1.192.
