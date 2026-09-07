@@ -90,6 +90,32 @@ body #request-draft-panel.request-draft-panel.collapsed {
     transform: translateX(calc(100% - 45px)) !important;
 }
 """
+S2_CSS = """
+/* UI/UX 1.194 S2: consolidate existing blocked and deferred severity without enabling action. */
+body [data-component~="ia-status-badge"].visual-state.blocked,
+body [data-component~="ia-status-badge"].visual-state.forbidden,
+body [data-component~="ia-status-badge"].visual-state.contract-limit,
+body .boundary-state.blocked,
+body .contract-chip.blocked,
+body .contract-chip.forbidden {
+    background: var(--ds-state-blocked);
+    border-color: var(--ds-border-blocked);
+    color: #fecaca;
+    font-weight: 700;
+    box-shadow: inset 3px 0 0 var(--ds-border-blocked);
+    cursor: default;
+}
+
+body .visual-state.deferred,
+body .visual-state.boundary {
+    background: var(--ds-warning-documental);
+    border-color: rgba(245, 158, 11, 0.46);
+    color: #fde68a;
+    font-weight: 600;
+    box-shadow: none;
+    cursor: default;
+}
+"""
 AUTHORIZED_1_194_STATION_MESSAGES = {
     "feat(ui): corregir containment responsive panel maestro",
     "feat(ui): consolidar severidad visual existente",

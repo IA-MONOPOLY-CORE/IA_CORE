@@ -27,6 +27,7 @@ ALLOWED_FILES = {
     "ui/web/README.md",
     "ui/web/styles.css",
     "tests/ui_ux_1_192_scope.py",
+    "tests/test_ui_ux_panel_maestro_controlled_double_scope_affordances_severity_1_192.py",
     "docs/UI_UX_PANEL_MAESTRO_CONTROLLED_DOUBLE_SCOPE_CHECKPOINT_1_193.md",
     "tests/test_ui_ux_panel_maestro_controlled_double_scope_checkpoint_1_193.py",
     "docs/UI_UX_PANEL_MAESTRO_ASSEMBLED_BLOCK_SCALE_AUDIT_1_193.md",
