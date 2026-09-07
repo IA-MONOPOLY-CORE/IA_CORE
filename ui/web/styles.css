@@ -1706,3 +1706,17 @@ body .ia-core-shell[data-visual-hierarchy-first-pass="1.180"][data-visual-hierar
         padding: 12px;
     }
 }
+
+/* UI/UX 1.192 Gate 1: existing administrative controls remain non-executable. */
+body .console-utilities[data-interaction-scope="existing-management"] > :is(#settings-fab, #add-fab, #domain-fab)[data-contract-blocked="true"]:disabled[aria-disabled="true"] {
+    background: rgba(148, 163, 184, 0.05);
+    border: 1px dashed rgba(148, 163, 184, 0.4);
+    color: #b4bdc9;
+    opacity: 1;
+    cursor: not-allowed;
+    box-shadow: none;
+    transform: none;
+    transition: none;
+    animation: none;
+    letter-spacing: 0;
+}

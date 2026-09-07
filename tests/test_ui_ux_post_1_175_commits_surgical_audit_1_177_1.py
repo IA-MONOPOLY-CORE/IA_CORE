@@ -1,5 +1,8 @@
 """Surgical continuity audit checks for commits after UI/UX 1.175."""
 
+from ui_ux_1_192_scope import historical_paths, assert_current_scope
+HISTORICAL_COMMIT = 'd98e999'
+
 from pathlib import Path
 import subprocess
 import unicodedata
@@ -195,9 +198,8 @@ def lines(value: str) -> set[str]:
 
 
 def changed_paths() -> set[str]:
-    tracked = lines(git("diff", "--name-only", "HEAD"))
-    untracked = lines(git("ls-files", "--others", "--exclude-standard"))
-    return tracked | untracked
+    """Paths in this closed checkpoint, never the current worktree."""
+    return historical_paths(ROOT, HISTORICAL_COMMIT)
 
 
 def commit_paths(commit: str) -> set[str]:
@@ -541,3 +543,7 @@ def test_current_prompt_diff_is_documentation_test_only():
         )
         for path in paths
     )
+
+
+def test_current_scope_is_strict_1_192():
+    assert_current_scope(ROOT)

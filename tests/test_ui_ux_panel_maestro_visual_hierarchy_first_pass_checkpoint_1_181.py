@@ -1,5 +1,8 @@
 """Contract and scope checks for the UI/UX 1.181 visual checkpoint."""
 
+from ui_ux_1_192_scope import historical_paths, assert_current_scope
+HISTORICAL_COMMIT = 'd1c2486'
+
 from pathlib import Path
 import re
 import subprocess
@@ -207,11 +210,8 @@ def git(*args: str) -> str:
 
 
 def changed_paths() -> set[str]:
-    tracked = set(filter(None, git("diff", "--name-only", "HEAD").splitlines()))
-    untracked = set(
-        filter(None, git("ls-files", "--others", "--exclude-standard").splitlines())
-    )
-    return {path.replace("\\", "/") for path in tracked | untracked}
+    """Paths in this closed checkpoint, never the current worktree."""
+    return historical_paths(ROOT, HISTORICAL_COMMIT)
 
 
 _ORIGINAL_GIT_1_183 = git
@@ -465,7 +465,7 @@ def test_current_diff_is_limited_to_checkpoint_and_strict_continuity():
 
 def test_historical_tests_can_only_add_1_181_allowlist_continuity():
     for path in changed_paths().intersection(HISTORICAL_ALLOWLIST_TESTS):
-        diff = git("diff", "--unified=0", "HEAD", "--", path)
+        diff = git('diff', '--unified=0', HISTORICAL_COMMIT + '^', HISTORICAL_COMMIT, '--', path)
         removed = [
             line
             for line in diff.splitlines()
@@ -487,29 +487,11 @@ def test_historical_tests_can_only_add_1_181_allowlist_continuity():
 
 
 def test_active_ui_backend_payload_and_runtime_paths_have_no_diff():
-    protected_diff = git(
-        "diff",
-        "--name-only",
-        "HEAD",
-        "--",
-        "ui/web/index.html",
-        "ui/web/styles.css",
-        "ui/web/backend-contract-widgets.js",
-        "ui/web/i18n_es.json",
-        "ui/web/admin-panels.js",
-        "ui/web/console-interactions.js",
-        "ui/web/domains.js",
-        "core/backend_internal_ui_payloads.py",
-        "api.py",
-        "core",
-        "domains",
-        "providers",
-        "tools",
-        "scripts",
-        "integrations",
-        "runtime",
-        "execution",
-    )
+    protected_diff = git('diff', '--name-only', HISTORICAL_COMMIT + '^', HISTORICAL_COMMIT, '--', 'ui/web/index.html', 'ui/web/styles.css', 'ui/web/backend-contract-widgets.js', 'ui/web/i18n_es.json', 'ui/web/admin-panels.js', 'ui/web/console-interactions.js', 'ui/web/domains.js', 'core/backend_internal_ui_payloads.py', 'api.py', 'core', 'domains', 'providers', 'tools', 'scripts', 'integrations', 'runtime', 'execution')
     if CONTINUITY_1_189 <= changed_paths():
         protected_diff = "\n".join(path for path in protected_diff.splitlines() if path != "ui/web/styles.css")
     assert protected_diff == ""
+
+
+def test_current_scope_is_strict_1_192():
+    assert_current_scope(ROOT)

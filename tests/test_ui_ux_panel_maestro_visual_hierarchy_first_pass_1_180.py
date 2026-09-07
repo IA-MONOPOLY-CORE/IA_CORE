@@ -1,5 +1,8 @@
 """Focused contract checks for UI/UX 1.180 P0 visual hierarchy."""
 
+from ui_ux_1_192_scope import historical_paths, assert_current_scope
+HISTORICAL_COMMIT = 'd960aeb'
+
 from pathlib import Path
 import re
 import subprocess
@@ -195,11 +198,8 @@ def git(*args: str) -> str:
 
 
 def changed_paths() -> set[str]:
-    tracked = set(filter(None, git("diff", "--name-only", "HEAD").splitlines()))
-    untracked = set(
-        filter(None, git("ls-files", "--others", "--exclude-standard").splitlines())
-    )
-    return {path.replace("\\", "/") for path in tracked | untracked}
+    """Paths in this closed checkpoint, never the current worktree."""
+    return historical_paths(ROOT, HISTORICAL_COMMIT)
 
 
 def p0_block() -> str:
@@ -409,20 +409,9 @@ def test_current_diff_is_limited_to_approved_1_180_scope():
 
 
 def test_backend_payload_and_runtime_paths_have_no_diff():
-    protected_diff = git(
-        "diff",
-        "--name-only",
-        "HEAD",
-        "--",
-        "core/backend_internal_ui_payloads.py",
-        "api.py",
-        "core",
-        "domains",
-        "providers",
-        "tools",
-        "scripts",
-        "integrations",
-        "runtime",
-        "execution",
-    )
+    protected_diff = git('diff', '--name-only', HISTORICAL_COMMIT + '^', HISTORICAL_COMMIT, '--', 'core/backend_internal_ui_payloads.py', 'api.py', 'core', 'domains', 'providers', 'tools', 'scripts', 'integrations', 'runtime', 'execution')
     assert protected_diff == ""
+
+
+def test_current_scope_is_strict_1_192():
+    assert_current_scope(ROOT)

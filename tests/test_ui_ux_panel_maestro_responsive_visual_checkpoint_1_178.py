@@ -1,5 +1,8 @@
 """Checkpoint checks for UI/UX 1.178 responsive visual stability."""
 
+from ui_ux_1_192_scope import historical_paths, assert_current_scope
+HISTORICAL_COMMIT = '3da91a8'
+
 from pathlib import Path
 import re
 import subprocess
@@ -193,11 +196,8 @@ def git(*args: str) -> str:
 
 
 def changed_paths() -> set[str]:
-    tracked = set(filter(None, git("diff", "--name-only", "HEAD").splitlines()))
-    untracked = set(
-        filter(None, git("ls-files", "--others", "--exclude-standard").splitlines())
-    )
-    return tracked | untracked
+    """Paths in this closed checkpoint, never the current worktree."""
+    return historical_paths(ROOT, HISTORICAL_COMMIT)
 
 
 def test_document_exists_and_records_checkpoint_chain():
@@ -438,7 +438,7 @@ def test_diff_is_limited_to_1_178_documentation_test_checkpoint_scope():
     for protected in PROTECTED_PATHS:
         if protected in approved_active_ui:
             continue
-        assert git("diff", "--name-only", "HEAD", "--", protected) == ""
+        assert git('diff', '--name-only', HISTORICAL_COMMIT + '^', HISTORICAL_COMMIT, '--', protected) == ""
 
 
 def test_current_prompt_does_not_modify_backend_runtime_or_active_ui():
@@ -474,3 +474,7 @@ def test_current_prompt_does_not_modify_backend_runtime_or_active_ui():
     }
     assert not (paths.intersection(forbidden_exact) - approved_active_ui)
     assert not any(path.startswith(forbidden_prefixes) for path in paths)
+
+
+def test_current_scope_is_strict_1_192():
+    assert_current_scope(ROOT)

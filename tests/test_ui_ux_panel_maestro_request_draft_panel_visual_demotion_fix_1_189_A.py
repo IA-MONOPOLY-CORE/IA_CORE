@@ -1,5 +1,8 @@
 """Visual checkpoint and diff guards for UI/UX 1.189.A."""
 
+from ui_ux_1_192_scope import historical_paths, assert_current_scope
+HISTORICAL_COMMIT = 'cef7b11'
+
 import ast
 from pathlib import Path
 import re
@@ -78,9 +81,8 @@ def git(*args: str) -> str:
 
 
 def working_paths() -> set[str]:
-    tracked = set(filter(None, git("diff", "--name-only", "HEAD").splitlines()))
-    untracked = set(filter(None, git("ls-files", "--others", "--exclude-standard").splitlines()))
-    return {path.replace("\\", "/") for path in tracked | untracked}
+    """Paths in this closed checkpoint, never the current worktree."""
+    return historical_paths(ROOT, HISTORICAL_COMMIT)
 
 
 def test_checkpoint_document_records_real_visual_evidence():
@@ -111,7 +113,7 @@ def test_contract_surface_is_preserved_and_css_was_not_changed():
     html = read(INDEX)
     css = read(STYLES)
     widgets = read(WIDGETS)
-    assert subprocess.run(["git", "diff", "--quiet", BASE, "--", "ui/web/styles.css"], cwd=ROOT, check=False).returncode == 0
+    assert subprocess.run(['git', 'diff', '--quiet', BASE, HISTORICAL_COMMIT, '--', 'ui/web/styles.css'], cwd=ROOT, check=False).returncode == 0
     assert html.count('id="request-draft-panel"') == 1
     assert 'readonly aria-readonly="true"' in html
     assert 'disabled data-interaction-mode="read-only"' in html
@@ -130,7 +132,7 @@ def test_diff_is_deny_by_default_and_historical_continuity_is_additive():
     assert not paths.intersection(PROTECTED)
     assert not any(path.split("/", 1)[0] in PROTECTED_DIRS for path in paths)
     for path in paths.intersection(HISTORICAL_TESTS):
-        diff = git("diff", "--unified=0", "HEAD", "--", path)
+        diff = git('diff', '--unified=0', HISTORICAL_COMMIT + '^', HISTORICAL_COMMIT, '--', path)
         removed = [line for line in diff.splitlines() if line.startswith("-") and not line.startswith("---")]
         assert not removed, f"Historical guard removal: {path}"
         assert "CONTINUITY_1_189_A" in diff
@@ -144,3 +146,7 @@ def test_guard_has_no_browser_network_or_install_dependency():
     source = normalized(read(Path(__file__)))
     assert " ".join(["pip", "install"]) not in source
     assert " ".join(["npm", "install"]) not in source
+
+
+def test_current_scope_is_strict_1_192():
+    assert_current_scope(ROOT)

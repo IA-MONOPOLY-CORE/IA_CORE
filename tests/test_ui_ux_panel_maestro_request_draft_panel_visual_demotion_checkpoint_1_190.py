@@ -1,5 +1,8 @@
 """Formal checkpoint and deny-by-default guards for UI/UX 1.190."""
 
+from ui_ux_1_192_scope import historical_paths, assert_current_scope
+HISTORICAL_COMMIT = '66d73e3'
+
 import ast
 from pathlib import Path
 import re
@@ -87,14 +90,13 @@ def git(*args: str) -> str:
 
 
 def working_paths() -> set[str]:
-    tracked = set(filter(None, git("diff", "--name-only").splitlines()))
-    untracked = set(filter(None, git("ls-files", "--others", "--exclude-standard").splitlines()))
-    return {path.replace("\\", "/") for path in tracked | untracked}
+    """Paths in this closed checkpoint, never the current worktree."""
+    return historical_paths(ROOT, HISTORICAL_COMMIT)
 
 
 def changed_paths() -> set[str]:
-    committed = set(filter(None, git("diff", "--name-only", f"{BASE}..HEAD").splitlines()))
-    return {path.replace("\\", "/") for path in committed} | working_paths()
+    """Paths in this closed checkpoint, never the current worktree."""
+    return historical_paths(ROOT, HISTORICAL_COMMIT)
 
 
 def test_checkpoint_document_records_state_and_visual_evidence():
@@ -138,7 +140,7 @@ def test_active_contract_and_visual_surface_are_preserved():
     assert len(re.findall(r'class="closure-matrix-badge\b', html)) == 26
     assert 'id="functional-widgets"' in html
     assert 'data-widget-reconstruction="1.174"' in html
-    assert subprocess.run(["git", "diff", "--quiet", BASE, "--", "ui/web/styles.css"], cwd=ROOT, check=False).returncode == 0
+    assert subprocess.run(['git', 'diff', '--quiet', BASE, HISTORICAL_COMMIT, '--', 'ui/web/styles.css'], cwd=ROOT, check=False).returncode == 0
     assert "body #request-draft-panel.request-draft-panel" in css
     assert "#request-draft-blocked-control.request-draft-control:disabled" in css
     for token in ("allowed_actions", "forbidden_actions", "blocked_capabilities", "source", "status"):
@@ -160,9 +162,9 @@ def test_diff_is_deny_by_default_and_historical_continuity_is_additive():
     assert not any(path.split("/", 1)[0] in PROTECTED_DIRS for path in paths)
     assert not any(path.startswith(".env") or "/.env" in path for path in paths)
     for path in PROTECTED_FILES:
-        assert subprocess.run(["git", "diff", "--quiet", BASE, "--", path], cwd=ROOT, check=False).returncode == 0, path
+        assert subprocess.run(['git', 'diff', '--quiet', BASE, HISTORICAL_COMMIT, '--', path], cwd=ROOT, check=False).returncode == 0, path
     for path in working_paths().intersection(HISTORICAL_TESTS):
-        diff = git("diff", "--unified=0", "HEAD", "--", path)
+        diff = git('diff', '--unified=0', HISTORICAL_COMMIT + '^', HISTORICAL_COMMIT, '--', path)
         removed = [line for line in diff.splitlines() if line.startswith("-") and not line.startswith("---")]
         assert not removed, f"Historical guard removal: {path}"
         assert "CONTINUITY_1_190" in diff
@@ -176,3 +178,7 @@ def test_guard_has_no_browser_network_or_install_dependency():
     source = normalized(read(Path(__file__)))
     assert " ".join(["pip", "install"]) not in source
     assert " ".join(["npm", "install"]) not in source
+
+
+def test_current_scope_is_strict_1_192():
+    assert_current_scope(ROOT)

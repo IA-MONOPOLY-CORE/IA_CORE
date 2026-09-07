@@ -1475,3 +1475,9 @@ No UI activa, no JS, no backend, no runtime, no execution, no JSON TOP 15, no fi
 - Seleccion read-only posterior al checkpoint 1.190: Candidato I, doble pieza controlada de affordances bloqueadas + severidad visual acotada a blockers/warnings/actions relacionados.
 - La pieza secundaria depende de la principal, tiene gates internos y condicion de corte; no se escala a triple ni se abre benchmark artificial. Sin implementacion, CSS activo, HTML, JS contractual, i18n, backend, runtime, execution, endpoints, integraciones o payload v2.
 - Resultado: `UI_UX_NEXT_VISUAL_BLOCK_OR_CONTROLLED_SCOPE_SELECTION_PASSED`; readiness `ready_for_ui_ux_1_192_selected_visual_block_or_controlled_double_scope_implementation`; proximo prompt UI/UX 1.192.
+
+## UI/UX 1.192 - Continuidad historica reparada
+
+- Guards historicos adaptados con autorizacion: cada checkpoint valida su commit; un guard independiente limita el CSS actual a CFG, + y DOMAIN disabled y mantiene prohibidas las demas superficies.
+- Gate 2 no ejecutado; sin commit ni push; sin cambios HTML, JS, i18n o backend. Reporte: [UI/UX 1.192](docs/UI_UX_PANEL_MAESTRO_CONTROLLED_DOUBLE_SCOPE_AFFORDANCES_SEVERITY_1_192.md).
+- Resultado de la reparacion: `HISTORICAL_GUARDS_1_192_RESOLVED`; UI/UX 1.192 no cerrado integralmente. No habilita 1.193.

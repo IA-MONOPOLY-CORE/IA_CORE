@@ -1,5 +1,8 @@
 """Focused contract checks for UI/UX 1.183 P1 contractual hierarchy."""
 
+from ui_ux_1_192_scope import historical_paths, assert_current_scope
+HISTORICAL_COMMIT = 'b8db98f'
+
 from pathlib import Path
 import re
 import subprocess
@@ -187,11 +190,8 @@ def git(*args: str) -> str:
 
 
 def changed_paths() -> set[str]:
-    tracked = set(filter(None, git("diff", "--name-only", "HEAD").splitlines()))
-    untracked = set(
-        filter(None, git("ls-files", "--others", "--exclude-standard").splitlines())
-    )
-    return {path.replace("\\", "/") for path in tracked | untracked}
+    """Paths in this closed checkpoint, never the current worktree."""
+    return historical_paths(ROOT, HISTORICAL_COMMIT)
 
 
 def p0_block(text: str) -> str:
@@ -454,7 +454,7 @@ def test_current_diff_is_limited_to_implementation_and_strict_continuity():
 
 def test_historical_tests_only_add_1_183_allowlist_continuity():
     for path in changed_paths().intersection(HISTORICAL_ALLOWLIST_TESTS):
-        diff = git("diff", "--unified=0", "HEAD", "--", path)
+        diff = git('diff', '--unified=0', HISTORICAL_COMMIT + '^', HISTORICAL_COMMIT, '--', path)
         removed = [
             line for line in diff.splitlines()
             if line.startswith("-") and not line.startswith("---")
@@ -477,27 +477,7 @@ def test_protected_ui_backend_payload_and_runtime_paths_have_no_diff():
     protected_diff = set(
         filter(
             None,
-            git(
-                "diff",
-                "--name-only",
-                "HEAD",
-                "--",
-                "ui/web/backend-contract-widgets.js",
-                "ui/web/i18n_es.json",
-                "ui/web/admin-panels.js",
-                "ui/web/console-interactions.js",
-                "ui/web/domains.js",
-                "core/backend_internal_ui_payloads.py",
-                "api.py",
-                "core",
-                "domains",
-                "providers",
-                "tools",
-                "scripts",
-                "integrations",
-                "runtime",
-                "execution",
-            ).splitlines(),
+            git('diff', '--name-only', HISTORICAL_COMMIT + '^', HISTORICAL_COMMIT, '--', 'ui/web/backend-contract-widgets.js', 'ui/web/i18n_es.json', 'ui/web/admin-panels.js', 'ui/web/console-interactions.js', 'ui/web/domains.js', 'core/backend_internal_ui_payloads.py', 'api.py', 'core', 'domains', 'providers', 'tools', 'scripts', 'integrations', 'runtime', 'execution').splitlines(),
         )
     )
     assert not protected_diff
@@ -513,3 +493,7 @@ def test_implementation_test_requires_no_browser_network_or_dependency_install()
     assert "pip" + " install" not in source.casefold()
 
 PROTECTED_EXACT.discard("ui/web/styles.css")
+
+
+def test_current_scope_is_strict_1_192():
+    assert_current_scope(ROOT)

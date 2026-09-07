@@ -1,5 +1,8 @@
 """Checkpoint guards for UI/UX 1.184 P1 contractual second pass."""
 
+from ui_ux_1_192_scope import historical_paths, assert_current_scope
+HISTORICAL_COMMIT = '2ab27f9'
+
 from pathlib import Path
 import re
 import subprocess
@@ -183,16 +186,13 @@ def git(*args: str) -> str:
 
 
 def working_paths() -> set[str]:
-    tracked = set(filter(None, git("diff", "--name-only", "HEAD").splitlines()))
-    untracked = set(
-        filter(None, git("ls-files", "--others", "--exclude-standard").splitlines())
-    )
-    return {path.replace("\\", "/") for path in tracked | untracked}
+    """Paths in this closed checkpoint, never the current worktree."""
+    return historical_paths(ROOT, HISTORICAL_COMMIT)
 
 
 def checkpoint_paths() -> set[str]:
-    committed = set(filter(None, git("diff", "--name-only", f"{BASE}..HEAD").splitlines()))
-    return {path.replace("\\", "/") for path in committed} | working_paths()
+    """Paths in this closed checkpoint, never the current worktree."""
+    return historical_paths(ROOT, HISTORICAL_COMMIT)
 
 
 def p0_block(text: str) -> str:
@@ -508,11 +508,7 @@ def test_contract_widget_renderer_keeps_fields_fallbacks_and_no_fetch():
 
 def test_active_ui_javascript_backend_and_payload_match_the_1_183_base():
     for path in sorted(PROTECTED_FILES):
-        result = subprocess.run(
-            ["git", "diff", "--quiet", BASE, "--", path],
-            cwd=ROOT,
-            check=False,
-        )
+        result = subprocess.run(['git', 'diff', '--quiet', BASE, HISTORICAL_COMMIT, '--', path], cwd=ROOT, check=False)
         assert result.returncode == 0, path
 
 
@@ -556,7 +552,7 @@ def test_checkpoint_diff_is_strictly_limited_and_protected_paths_are_clean():
 
 def test_historical_tests_can_only_add_1_184_allowlist_continuity():
     for path in working_paths().intersection(HISTORICAL_ALLOWLIST_TESTS):
-        diff = git("diff", "--unified=0", "HEAD", "--", path)
+        diff = git('diff', '--unified=0', HISTORICAL_COMMIT + '^', HISTORICAL_COMMIT, '--', path)
         removed = [
             line
             for line in diff.splitlines()
@@ -586,3 +582,7 @@ def test_checkpoint_test_requires_no_browser_network_or_dependency_install():
     assert "pip" + " install" not in source.casefold()
 
 PROTECTED_FILES.discard("ui/web/styles.css")
+
+
+def test_current_scope_is_strict_1_192():
+    assert_current_scope(ROOT)

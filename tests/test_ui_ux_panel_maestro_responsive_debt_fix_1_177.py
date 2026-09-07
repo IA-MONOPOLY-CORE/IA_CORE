@@ -1,5 +1,8 @@
 """Regression checks for the scoped Panel Maestro responsive fix 1.177."""
 
+from ui_ux_1_192_scope import historical_paths, assert_current_scope
+HISTORICAL_COMMIT = '4403489'
+
 from pathlib import Path
 import subprocess
 import unicodedata
@@ -163,11 +166,8 @@ def git(*args: str) -> str:
 
 
 def changed_paths() -> set[str]:
-    tracked = set(filter(None, git("diff", "--name-only", "HEAD").splitlines()))
-    untracked = set(
-        filter(None, git("ls-files", "--others", "--exclude-standard").splitlines())
-    )
-    return tracked | untracked
+    """Paths in this closed checkpoint, never the current worktree."""
+    return historical_paths(ROOT, HISTORICAL_COMMIT)
 
 
 def widget_block() -> str:
@@ -358,3 +358,7 @@ def test_decision_and_real_visual_evidence_are_recorded():
             "UI_UX_RESPONSIVE_DEBT_PANEL_MAESTRO_RESOLVED",
         ],
     )
+
+
+def test_current_scope_is_strict_1_192():
+    assert_current_scope(ROOT)

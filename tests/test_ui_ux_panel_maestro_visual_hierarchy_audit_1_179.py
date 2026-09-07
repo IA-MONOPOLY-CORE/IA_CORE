@@ -1,4 +1,7 @@
 from pathlib import Path
+
+from ui_ux_1_192_scope import historical_paths, assert_current_scope
+HISTORICAL_COMMIT = '82705e4'
 import subprocess
 import unicodedata
 
@@ -216,9 +219,8 @@ def git_lines(*args: str) -> list[str]:
 
 
 def changed_paths() -> set[str]:
-    changed = set(git_lines("diff", "--name-only", "HEAD"))
-    untracked = set(git_lines("ls-files", "--others", "--exclude-standard"))
-    return changed | untracked
+    """Paths in this closed checkpoint, never the current worktree."""
+    return historical_paths(ROOT, HISTORICAL_COMMIT)
 
 
 def touches_protected(path: str) -> bool:
@@ -327,29 +329,7 @@ def test_protected_ui_backend_runtime_payload_paths_have_no_diff():
     if CONTINUITY_1_189 <= paths:
         approved_active_ui |= {"ui/web/styles.css"}
     protected_diff = set(
-        git_lines(
-            "diff",
-            "--name-only",
-            "HEAD",
-            "--",
-            "ui/web/index.html",
-            "ui/web/backend-contract-widgets.js",
-            "ui/web/styles.css",
-            "ui/web/admin-panels.js",
-            "ui/web/console-interactions.js",
-            "ui/web/domains.js",
-            "ui/web/i18n_es.json",
-            "core/backend_internal_ui_payloads.py",
-            "api.py",
-            "core",
-            "domains",
-            "providers",
-            "tools",
-            "scripts",
-            "integrations",
-            "runtime",
-            "execution",
-        )
+        git_lines('diff', '--name-only', HISTORICAL_COMMIT + '^', HISTORICAL_COMMIT, '--', 'ui/web/index.html', 'ui/web/backend-contract-widgets.js', 'ui/web/styles.css', 'ui/web/admin-panels.js', 'ui/web/console-interactions.js', 'ui/web/domains.js', 'ui/web/i18n_es.json', 'core/backend_internal_ui_payloads.py', 'api.py', 'core', 'domains', 'providers', 'tools', 'scripts', 'integrations', 'runtime', 'execution')
     )
     assert not protected_diff - approved_active_ui
     assert not {
@@ -357,3 +337,7 @@ def test_protected_ui_backend_runtime_payload_paths_have_no_diff():
         for path in paths
         if touches_protected(path) and path not in approved_active_ui
     }
+
+
+def test_current_scope_is_strict_1_192():
+    assert_current_scope(ROOT)

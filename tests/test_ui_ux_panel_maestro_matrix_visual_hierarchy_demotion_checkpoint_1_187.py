@@ -1,5 +1,8 @@
 """Read-only checkpoint guards for UI/UX 1.187 matrix demotion."""
 
+from ui_ux_1_192_scope import historical_paths, assert_current_scope
+HISTORICAL_COMMIT = 'e2d1653'
+
 import ast
 from pathlib import Path
 import re
@@ -107,14 +110,13 @@ def git(*args: str) -> str:
 
 
 def working_paths() -> set[str]:
-    tracked = set(filter(None, git("diff", "--name-only", "HEAD").splitlines()))
-    untracked = set(filter(None, git("ls-files", "--others", "--exclude-standard").splitlines()))
-    return {path.replace("\\", "/") for path in tracked | untracked}
+    """Paths in this closed checkpoint, never the current worktree."""
+    return historical_paths(ROOT, HISTORICAL_COMMIT)
 
 
 def checkpoint_paths() -> set[str]:
-    committed = set(filter(None, git("diff", "--name-only", f"{BASE}..HEAD").splitlines()))
-    return {path.replace("\\", "/") for path in committed} | working_paths()
+    """Paths in this closed checkpoint, never the current worktree."""
+    return historical_paths(ROOT, HISTORICAL_COMMIT)
 
 
 def test_document_contains_checkpoint_contract():
@@ -198,13 +200,13 @@ def test_diff_is_strictly_limited_and_protected_paths_are_unchanged():
     assert not any(path.split("/", 1)[0] in PROTECTED_DIRS for path in paths)
     assert not any(path.startswith(".env") or "/.env" in path for path in paths)
     for path in PROTECTED_FILES:
-        result = subprocess.run(["git", "diff", "--quiet", BASE, "--", path], cwd=ROOT, check=False)
+        result = subprocess.run(['git', 'diff', '--quiet', BASE, HISTORICAL_COMMIT, '--', path], cwd=ROOT, check=False)
         assert result.returncode == 0, f"Protected path changed: {path}"
 
 
 def test_historical_allowlist_changes_are_additive_1_187_only():
     for path in working_paths().intersection(HISTORICAL_ALLOWLIST_TESTS):
-        diff = git("diff", "--unified=0", "HEAD", "--", path)
+        diff = git('diff', '--unified=0', HISTORICAL_COMMIT + '^', HISTORICAL_COMMIT, '--', path)
         removed = [line for line in diff.splitlines() if line.startswith("-") and not line.startswith("---")]
         assert not removed, f"Historical guard lines removed from {path}: {removed}"
         assert "CONTINUITY_1_187" in diff
@@ -220,3 +222,7 @@ def test_checkpoint_source_has_no_browser_network_or_install_dependency():
     assert " ".join(["npm", "install"]) not in source
 
 PROTECTED_FILES.discard("ui/web/styles.css")
+
+
+def test_current_scope_is_strict_1_192():
+    assert_current_scope(ROOT)

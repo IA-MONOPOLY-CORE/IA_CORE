@@ -1,5 +1,8 @@
 """Selection guards for UI/UX 1.185 next Panel Maestro visual block."""
 
+from ui_ux_1_192_scope import historical_paths, assert_current_scope
+HISTORICAL_COMMIT = '9f83c34'
+
 import ast
 from pathlib import Path
 import re
@@ -165,16 +168,13 @@ def git(*args: str) -> str:
 
 
 def working_paths() -> set[str]:
-    tracked = set(filter(None, git("diff", "--name-only", "HEAD").splitlines()))
-    untracked = set(
-        filter(None, git("ls-files", "--others", "--exclude-standard").splitlines())
-    )
-    return {path.replace("\\", "/") for path in tracked | untracked}
+    """Paths in this closed checkpoint, never the current worktree."""
+    return historical_paths(ROOT, HISTORICAL_COMMIT)
 
 
 def selection_paths() -> set[str]:
-    committed = set(filter(None, git("diff", "--name-only", f"{BASE}..HEAD").splitlines()))
-    return {path.replace("\\", "/") for path in committed} | working_paths()
+    """Paths in this closed checkpoint, never the current worktree."""
+    return historical_paths(ROOT, HISTORICAL_COMMIT)
 
 
 def test_document_exists_and_records_selection_contract():
@@ -356,16 +356,14 @@ def test_diff_is_strictly_limited_and_protected_paths_are_unchanged():
     assert not any(path.split("/", 1)[0] in PROTECTED_DIRS for path in paths)
 
     for path in PROTECTED_FILES:
-        result = subprocess.run(
-            ["git", "diff", "--quiet", BASE, "--", path], cwd=ROOT, check=False
-        )
+        result = subprocess.run(['git', 'diff', '--quiet', BASE, HISTORICAL_COMMIT, '--', path], cwd=ROOT, check=False)
         assert result.returncode == 0, f"Protected path changed: {path}"
 
 
 def test_historical_test_changes_are_additive_allowlist_continuity_only():
     changed = selection_paths() & HISTORICAL_ALLOWLIST_TESTS
     for path in changed:
-        diff = git("diff", BASE, "--unified=0", "--", path)
+        diff = git('diff', BASE, HISTORICAL_COMMIT, '--unified=0', '--', path)
         removed = [
             line
             for line in diff.splitlines()
@@ -395,3 +393,7 @@ def test_selection_test_requires_no_browser_network_or_dependency_install():
     npm_command = " ".join(["npm", "install"])
     assert install_command not in source
     assert npm_command not in source
+
+
+def test_current_scope_is_strict_1_192():
+    assert_current_scope(ROOT)
