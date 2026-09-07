@@ -1463,3 +1463,9 @@ No UI activa, no JS, no backend, no runtime, no execution, no JSON TOP 15, no fi
 - Verificacion real post 1.189 sobre `07367d5`: desktop/mobile/resize sin overflow; panel derecho visible, secundario, no CTA, no submit, read-only y blocked.
 - P0, P1, Matriz P3 y widgets preservados; no CSS adicional, no JS contractual, no i18n, no backend, no endpoints y no payload v2.
 - Resultado: `SIN_CORRECCION_NECESARIA`; recomendacion armonica para 1.190: modelo avanzado estable, navegador real y esfuerzo alto; readiness `ready_for_ui_ux_1_190_request_draft_panel_visual_demotion_checkpoint`.
+
+## UI/UX 1.190 - Checkpoint de democion visual del Request Draft Panel
+
+- Checkpoint formal sobre `cef7b11`: desktop/mobile/resize verificados read-only, sin overflow; panel derecho visible, secundario, no CTA, no submit, read-only y blocked.
+- P0, P1, Matriz P3 con 20 filas/26 badges y widgets contract-aware preservados; sin CSS nuevo, sin HTML/JS contractual, i18n, backend, endpoints, runtime, execution, integraciones ni payload v2.
+- Resultado: `UI_UX_REQUEST_DRAFT_PANEL_VISUAL_DEMOTION_CHECKPOINT_PASSED`; readiness `ready_for_ui_ux_1_191_next_visual_block_or_controlled_scope_experiment_selection`; proximo paso UI/UX 1.191.

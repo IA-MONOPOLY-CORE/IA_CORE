@@ -2115,3 +2115,9 @@ No UI activa, no JS, no backend, no runtime, no execution, no JSON TOP 15, no fi
 - Request Draft Panel / Request Contract Preview verificado en desktop, mobile y resize: secundario, read-only, blocked y no CTA.
 - Sin correccion CSS; P0/P1, Matriz P3 y widgets preservados; sin JS contractual, i18n, backend, payload v2, runtime, execution o endpoints.
 - Siguiente: UI/UX 1.190 con readiness `ready_for_ui_ux_1_190_request_draft_panel_visual_demotion_checkpoint`.
+
+## UI/UX 1.190 - Checkpoint Request Draft Panel
+
+- Checkpoint read-only sobre `cef7b11`: desktop/mobile/resize sin overflow; panel visible, secundario, no CTA, no submit, read-only y blocked.
+- P0/P1, Matriz P3, 20 filas/26 badges y widgets preservados; sin cambios en CSS activo, HTML, JS contractual, i18n, backend, runtime, execution, endpoints, integraciones o payload v2.
+- Resultado: `UI_UX_REQUEST_DRAFT_PANEL_VISUAL_DEMOTION_CHECKPOINT_PASSED`; siguiente paso UI/UX 1.191.
