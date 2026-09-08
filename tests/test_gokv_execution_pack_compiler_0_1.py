@@ -32,12 +32,18 @@ def test_compiler_is_deterministic_and_validated_mode_selects_only_compatible_it
     validate_execution_pack(first)
 
 
-def test_promoted_only_does_not_treat_validated_generation_zero_as_promoted():
+def test_promoted_only_selects_only_currently_promoted_records():
     pack = compile_execution_pack(_fixture("fixture_b_default_promoted_only.json"), default_paths(Path.cwd()))
 
     assert pack["allowed_statuses"] == ["PROMOTED"]
-    assert pack["applicable_knowledge_ids"] == []
-    assert pack["evidence_summary"]["item_count"] == 0
+    assert pack["applicable_knowledge_ids"] == [
+        "evidence_before_closure",
+        "focal_group_canonical_deep_test_policy",
+        "real_diff_over_planned_commit_name",
+        "station_local_commits",
+        "true_hard_frontier",
+    ]
+    assert pack["evidence_summary"]["item_count"] == 5
 
 
 def test_tag_filter_is_explicit_and_stable():
