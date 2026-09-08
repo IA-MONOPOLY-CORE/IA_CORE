@@ -1,0 +1,33 @@
+{
+  "mission_id": "ui_ux_1_203_deterministic_visual_terrain_hardening_post_microcopy",
+  "baseline": "3cd657e5",
+  "viewports": [
+    {"width": 1440, "height": 1000},
+    {"width": 1280, "height": 800},
+    {"width": 768, "height": 1024},
+    {"width": 390, "height": 844},
+    {"width": 375, "height": 812}
+  ],
+  "defect_a": {
+    "surface": "Validation & Readiness",
+    "viewport": [1280, 800],
+    "selector": "[data-validation-readiness-block=source] .validation-readiness-state-row",
+    "before": {"block_client_width": 195, "block_scroll_width": 231, "row_client_width": 167, "row_scroll_width": 217},
+    "after": {"block_client_width": 195, "block_scroll_width": 195, "row_client_width": 167, "row_scroll_width": 167},
+    "declarations": ["min-width: 0", "overflow-wrap: anywhere"]
+  },
+  "defect_b": {
+    "surface": "#agents-grid",
+    "viewport": [375, 812],
+    "before": {"client_width": 292, "scroll_width": 300, "grid_template_columns": "300px"},
+    "after": {"client_width": 292, "scroll_width": 292, "grid_template_columns": "292px"},
+    "declarations": ["grid-template-columns: minmax(0, 1fr)"]
+  },
+  "allowed_product_path": "ui/web/styles.css",
+  "protected_product_paths": [
+    "ui/web/index.html",
+    "ui/web/i18n_es.json",
+    "api.py",
+    "core/backend_internal_ui_payloads.py"
+  ]
+}
