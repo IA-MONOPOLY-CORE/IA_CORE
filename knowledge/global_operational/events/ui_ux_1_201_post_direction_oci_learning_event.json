@@ -1,0 +1,51 @@
+{
+  "autonomous_blockers_resolved": [],
+  "candidate_knowledge_ids": [],
+  "commits": [
+    "c59c4be",
+    "8a56cdd",
+    "a586ad4",
+    "0a50dd6",
+    "dcc4ba1",
+    "eb075b9",
+    "75efa1d"
+  ],
+  "completed_stations": 9,
+  "created_at": "2026-09-08T17:06:02.300189+00:00",
+  "duration": null,
+  "effort": "Very High",
+  "end_commit": "75efa1d",
+  "event_id": "ui_ux_1_201_post_direction_oci_learning_event",
+  "metrics_refs": [
+    "ui_ux_1_201_post_direction_oci_execution_metric"
+  ],
+  "mission_type": "ui_ux_1_201_post_direction_microcopy_review_and_oci_feedback",
+  "model": "GPT-5.6 Luna",
+  "observations": [
+    "N0-N8 completed with localized evidence and no product diff.",
+    "Eight existing validated capabilities gained independent development-origin evidence.",
+    "Promotion was reassessed without lifecycle mutation.",
+    "OCI selection audit found no true pack miss.",
+    "Compiler calibration concluded NO_COMPILER_CHANGE_REQUIRED.",
+    "The next mission manifest was compiled but not executed."
+  ],
+  "operator_interventions": [],
+  "planned_stations": 9,
+  "result": "UI_UX_POST_DIRECTION_MICROCOPY_REVIEW_AND_OCI_FEEDBACK_1_201_PASSED",
+  "retries": 0,
+  "rollbacks": 0,
+  "schema_version": "gokv.learning_event.v1",
+  "source_checkpoint": "UI_UX_1_201",
+  "source_phase": "POST_DIRECTION_OCI_FEEDBACK",
+  "source_prompt": "PROMPT UI/UX 1.201",
+  "start_commit": "a2afc307d7278657a324efba345c04e28c39525a",
+  "tests": [
+    "tests/test_ui_ux_1_201_premission_oci.py",
+    "tests/test_ui_ux_panel_maestro_post_direction_product_review_1_201.py",
+    "tests/test_ui_ux_panel_maestro_microcopy_direction_closure_audit_1_201.py",
+    "tests/test_gokv_ui_ux_1_200_evidence_accumulation_0_3.py",
+    "tests/test_gokv_promotion_reassessment_after_ui_ux_1_200.py",
+    "tests/test_gokv_oci_selection_quality_audit_ui_ux_1_200.py",
+    "tests/test_ui_ux_panel_maestro_next_block_scale_audit_1_201.py"
+  ]
+}

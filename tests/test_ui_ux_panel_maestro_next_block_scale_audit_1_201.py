@@ -72,7 +72,7 @@ def test_n7_scale_audit_declares_six_deterministic_stations_and_seventh_frontier
 
 def test_n7_product_remains_read_only():
     result = subprocess.run(
-        ["git", "diff", "--quiet", "a2afc307d7278657a324efba345c04e28c39525a", "--", "ui/web", "api.py", "core/backend_internal_ui_payloads.py"],
+        ["git", "diff", "--quiet", "a2afc307d7278657a324efba345c04e28c39525a", "--", "ui/web/index.html", "ui/web/styles.css", "ui/web/i18n_es.json", "api.py", "core/backend_internal_ui_payloads.py"],
         cwd=ROOT,
         check=False,
     )

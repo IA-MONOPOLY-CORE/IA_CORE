@@ -1,0 +1,45 @@
+{
+  "commits": [
+    "c59c4be",
+    "8a56cdd",
+    "a586ad4",
+    "0a50dd6",
+    "dcc4ba1",
+    "eb075b9",
+    "75efa1d"
+  ],
+  "created_at": "2026-09-08T17:06:02.300189+00:00",
+  "duration": null,
+  "effort": "Very High",
+  "measurement_quality": "NOT_AVAILABLE",
+  "metric_id": "ui_ux_1_201_post_direction_oci_execution_metric",
+  "model": "GPT-5.6 Luna",
+  "notes": [
+    "Duration and quota values were not captured; no values are inferred.",
+    "Product was read-only; product commit count is zero.",
+    "Eight evidence overlays were added; no conceptual candidate was created."
+  ],
+  "operator_estimate": null,
+  "operator_interventions": 0,
+  "quota_5h_delta": null,
+  "quota_5h_end": null,
+  "quota_5h_start": null,
+  "quota_weekly_delta": null,
+  "quota_weekly_end": null,
+  "quota_weekly_start": null,
+  "result": "UI_UX_POST_DIRECTION_MICROCOPY_REVIEW_AND_OCI_FEEDBACK_1_201_PASSED",
+  "retries": 0,
+  "rollbacks": 0,
+  "schema_version": "gokv.execution_metric.v1",
+  "station_count": 9,
+  "task_type": "post_direction_oci_feedback",
+  "tests": [
+    "tests/test_ui_ux_1_201_premission_oci.py",
+    "tests/test_ui_ux_panel_maestro_post_direction_product_review_1_201.py",
+    "tests/test_ui_ux_panel_maestro_microcopy_direction_closure_audit_1_201.py",
+    "tests/test_gokv_ui_ux_1_200_evidence_accumulation_0_3.py",
+    "tests/test_gokv_promotion_reassessment_after_ui_ux_1_200.py",
+    "tests/test_gokv_oci_selection_quality_audit_ui_ux_1_200.py",
+    "tests/test_ui_ux_panel_maestro_next_block_scale_audit_1_201.py"
+  ]
+}

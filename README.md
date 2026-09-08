@@ -1588,3 +1588,12 @@ No UI activa, no JS, no backend, no runtime, no execution, no JSON TOP 15, no fi
 - Browser en cinco viewports sin overflow ni consola; suites contractual, historica, protegida y GOKV verdes.
 - [Checkpoint UI/UX 1.200](docs/UI_UX_PANEL_MAESTRO_MICROCOPY_DIRECTION_EXECUTION_CHECKPOINT_1_200.md), [allowlist](tests/fixtures/ui_ux_1_200_microcopy_direction_allowlist.json) y [reporte OCI/DOOL](docs/GOKV_UI_UX_1_200_FIRST_NORMAL_OCI_CONSUMPTION_REPORT.md).
 - Readiness: `ready_for_ui_ux_1_201_post_direction_microcopy_review_and_oci_feedback`; UI/UX 1.201 no se ejecuta automaticamente.
+
+## UI/UX 1.201 - Revision post-Direccion y feedback OCI
+
+- Resultado: `UI_UX_POST_DIRECTION_MICROCOPY_REVIEW_AND_OCI_FEEDBACK_1_201_PASSED`.
+- Producto read-only: 1.200 preservado; 1.201 no agrega diff productivo, wording, contrato, runtime ni execution.
+- La evidencia independiente de 1.200 se acumulo para 8 knowledge items; 16 `VALIDATED` fueron reevaluados sin promocion automatica.
+- OCI 1.201: 9 seleccionados, 8 aplicados/helpful, 1 unused (`local_rollback`), 0 conflictos; loop: `NO_LEARNING_FOUND`.
+- [Checkpoint 1.201](docs/UI_UX_PANEL_MAESTRO_POST_DIRECTION_OCI_FEEDBACK_CHECKPOINT_1_201.md), [review de producto](docs/UI_UX_PANEL_MAESTRO_POST_DIRECTION_PRODUCT_REVIEW_1_201.md) y [auditoria de seleccion OCI](docs/GOKV_OCI_SELECTION_QUALITY_AUDIT_UI_UX_1_200.md).
+- Readiness: `ready_for_ui_ux_1_202_next_visual_block_selection_post_microcopy_closure`; UI/UX 1.202 no fue ejecutado.

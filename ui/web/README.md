@@ -2203,3 +2203,12 @@ No UI activa, no JS, no backend, no runtime, no execution, no JSON TOP 15, no fi
 - P0, P1, Matriz P3, widgets contract-aware, Request Draft Panel y 692 ocurrencias Level D quedaron preservados.
 - [Checkpoint](../docs/UI_UX_PANEL_MAESTRO_MICROCOPY_DIRECTION_EXECUTION_CHECKPOINT_1_200.md) y [allowlist](../tests/fixtures/ui_ux_1_200_microcopy_direction_allowlist.json).
 - Readiness: `ready_for_ui_ux_1_201_post_direction_microcopy_review_and_oci_feedback`; UI/UX 1.201 no se ejecuta automaticamente.
+
+## UI/UX 1.201 - Revision post-Direccion y feedback OCI
+
+- Checkpoint: `UI_UX_POST_DIRECTION_MICROCOPY_REVIEW_AND_OCI_FEEDBACK_1_201_PASSED`.
+- Auditoria read-only del producto 1.200: el CSS autorizado queda intacto; no se agregan cambios HTML, JS, i18n, backend, payload, runtime o execution.
+- Microcopy direction queda `CLOSED`: 295 `ALREADY_COMPLIANT`, 15 geometria scoped y 692 Level D preservadas.
+- DOOL incorpora 8 refs independientes; Promotion Governance no promueve automaticamente y la primera promocion queda para Direccion.
+- [Checkpoint 1.201](../docs/UI_UX_PANEL_MAESTRO_POST_DIRECTION_OCI_FEEDBACK_CHECKPOINT_1_201.md) y [audit de escala siguiente](../docs/UI_UX_PANEL_MAESTRO_POST_1_200_NEXT_BLOCK_SCALE_AUDIT_1_201.md).
+- Readiness: `ready_for_ui_ux_1_202_next_visual_block_selection_post_microcopy_closure`; UI/UX 1.202 no fue ejecutado.
