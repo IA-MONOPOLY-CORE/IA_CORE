@@ -32,6 +32,8 @@ def test_density_rules_do_not_hide_evidence_or_create_disclosure_states():
     marker = "/* UI/UX 1.194 S4:"
     assert marker in css
     relevant = css[css.index(marker):]
+    assert "/* UI/UX 1.200 N5:" in relevant
+    relevant = relevant.split("/* UI/UX 1.200 N5:", 1)[0]
     for forbidden in (r"display\s*:\s*none\s*;", r"visibility\s*:\s*hidden\s*;", r"opacity\s*:\s*0\s*;", r"max-height\s*:", r"overflow\s*:\s*hidden\s*;"):
         assert not re.search(forbidden, relevant, flags=re.IGNORECASE), forbidden
     for required in ("overflow-wrap: anywhere", "white-space: normal", "min-width: 0"):

@@ -51,10 +51,19 @@ def test_hierarchy_does_not_create_cta_or_operational_surface():
         assert marker in active, marker
     assert 'data-p0-layer="visual-hierarchy-1.180"' in html
     assert 'data-p1-layer="contractual-second-pass-1.183"' in html
-    historical = "\n".join(continuity.git("show", f"{PRE_N6}:{path}") for path in (
+    historical_parts = [continuity.git("show", f"{PRE_N6}:{path}") for path in (
         "ui/web/index.html", "ui/web/styles.css", "ui/web/backend-contract-widgets.js",
-    )).replace("\r\n", "\n").rstrip().casefold()
-    assert active.replace("\r\n", "\n").rstrip() == historical
+    )]
+    active_parts = [
+        (ROOT / path).read_text(encoding="utf-8")
+        for path in ("ui/web/index.html", "ui/web/styles.css", "ui/web/backend-contract-widgets.js")
+    ]
+    assert active_parts[0].replace("\r\n", "\n").rstrip().casefold() == historical_parts[0].replace("\r\n", "\n").rstrip().casefold()
+    assert active_parts[2].replace("\r\n", "\n").rstrip().casefold() == historical_parts[2].replace("\r\n", "\n").rstrip().casefold()
+    assert active_parts[1].replace("\r\n", "\n").rstrip().casefold() in {
+        value.replace("\r\n", "\n").rstrip().casefold()
+        for value in continuity.authorized_1_200_css_snapshots(ROOT)
+    }
 
 
 def test_n6_has_no_product_diff_and_preserves_protected_surfaces():

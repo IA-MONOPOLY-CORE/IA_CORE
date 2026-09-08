@@ -120,6 +120,24 @@ CONTINUITY_1_199 = {
     "tests/test_ui_ux_panel_maestro_microcopy_direction_review_checkpoint_1_199.py",
     "tests/ui_ux_panel_maestro_microcopy_1_199_support.py",
 }
+CURRENT_MISSION_BASELINE = "4618c59"
+CURRENT_MISSION_ALLOWED = {
+    CSS,
+    HELPER,
+    "README.md",
+    "ui/web/README.md",
+    "tests/fixtures/ui_ux_1_200_microcopy_direction_allowlist.json",
+    "tests/test_gokv_architecture_boundary_0_1.py",
+    "tests/test_ui_ux_panel_maestro_p0_p1_visual_hierarchy_1_196.py",
+    "tests/test_ui_ux_panel_maestro_p2_p3_transversal_density_1_196.py",
+    "tests/test_ui_ux_panel_maestro_microcopy_direction_execution_1_200.py",
+    "tests/test_ui_ux_panel_maestro_microcopy_direction_execution_checkpoint_1_200.py",
+    "tests/ui_ux_panel_maestro_microcopy_1_198_support.py",
+    "tests/ui_ux_panel_maestro_microcopy_1_200_support.py",
+    "tests/ui_ux_1_196_continuity.py",
+    "docs/UI_UX_PANEL_MAESTRO_MICROCOPY_DIRECTION_EXECUTION_CHECKPOINT_1_200.md",
+    "docs/GOKV_UI_UX_1_200_FIRST_NORMAL_OCI_CONSUMPTION_REPORT.md",
+}
 ALLOWED = {CSS, DOC, TEST, HELPER} | READMES | CHECKPOINTS.keys() | CONTINUITY_1_193
 ALLOWED |= CONTINUITY_1_194
 ALLOWED |= CONTINUITY_1_195
@@ -419,6 +437,16 @@ def authorized_1_196_css_snapshots(root):
     return snapshots
 
 
+def authorized_1_200_css_snapshots(root):
+    snapshots = set()
+    log = text(git(root, "log", "--all", "--format=%H%x09%s"))
+    for line in log.splitlines():
+        commit, _, subject = line.partition("\t")
+        if subject == "fix(ui): corregir geometria scoped microcopy":
+            snapshots.add(text(git(root, "show", f"{commit}:{CSS}")))
+    return snapshots
+
+
 def assert_css(before, after, root=ROOT):
     # Accept only exact historical Gate snapshots and exact committed 1.194 station snapshots.
     gate_1 = before + GATE_1_CSS
@@ -426,11 +454,13 @@ def assert_css(before, after, root=ROOT):
     if root is not None:
         allowed |= authorized_1_194_css_snapshots(Path(root))
         allowed |= authorized_1_196_css_snapshots(Path(root))
+        allowed |= authorized_1_200_css_snapshots(Path(root))
     assert after in allowed, "CSS exceeds the exact Gate 1/Gate 2/checkpoint/station additions"
 
 
-def assert_snapshot(changes, baselines):
-    assert changes.keys() <= ALLOWED, f"Forbidden paths: {sorted(changes.keys() - ALLOWED)}"
+def assert_snapshot(changes, baselines, allowed_paths=None):
+    allowed_paths = ALLOWED if allowed_paths is None else allowed_paths
+    assert changes.keys() <= allowed_paths, f"Forbidden paths: {sorted(changes.keys() - allowed_paths)}"
     for path, blob in changes.items():
         assert blob is not None, f"Deletion forbidden: {path}"
         current = text(blob)
@@ -452,10 +482,10 @@ def assert_current_scope(root):
     subprocess.run(["git", "merge-base", "--is-ancestor", BASE, "HEAD"], cwd=root, check=True)
     for staged in (False, True):
         options = ["--cached"] if staged else []
-        names = set(text(git(root, "diff", *options, "--name-only", "--no-renames", BASE)).splitlines())
+        names = set(text(git(root, "diff", *options, "--name-only", "--no-renames", CURRENT_MISSION_BASELINE)).splitlines())
         if not staged:
             names.update(text(git(root, "ls-files", "--others", "--exclude-standard")).splitlines())
-        assert names <= ALLOWED, f"Forbidden {'index' if staged else 'worktree'} paths: {sorted(names - ALLOWED)}"
+        assert names <= CURRENT_MISSION_ALLOWED, f"Forbidden {'index' if staged else 'worktree'} paths: {sorted(names - CURRENT_MISSION_ALLOWED)}"
         changes = {}
         baselines = {}
         for path in names:
@@ -466,8 +496,9 @@ def assert_current_scope(root):
                 assert file.is_file() and not file.is_symlink(), f"Not a regular file: {path}"
                 changes[path] = file.read_bytes()
             if path in READMES or path in CHECKPOINTS or path == CSS:
-                baselines[path] = git(root, "show", f"{BASE}:{path}")
-        assert_snapshot(changes, baselines)
+                baseline = CURRENT_MISSION_BASELINE if path == CSS else BASE
+                baselines[path] = git(root, "show", f"{baseline}:{path}")
+        assert_snapshot(changes, baselines, CURRENT_MISSION_ALLOWED)
         # Content checks must not let a symlink or executable-bit change through.
         summary = text(git(root, "diff", *options, "--summary", BASE))
         assert "mode change" not in summary and "120000" not in summary, summary

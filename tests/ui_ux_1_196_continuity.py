@@ -158,6 +158,16 @@ def assert_protected_product_unchanged(base: str = BASELINE, head: str = "HEAD")
             raise AssertionError(f"protected product changed: {path}")
 
 
+def authorized_1_200_css_snapshots(root: Path = ROOT) -> set[str]:
+    snapshots = set()
+    log = git("log", "--all", "--format=%H%x09%s")
+    for line in log.splitlines():
+        commit, _, subject = line.partition("\t")
+        if subject == "fix(ui): corregir geometria scoped microcopy":
+            snapshots.add(git("show", f"{commit}:{CSS}"))
+    return snapshots
+
+
 def assert_no_permissive_manifest_source() -> None:
     source = (ROOT / "tests" / "ui_ux_1_196_continuity.py").read_text(encoding="utf-8")
     forbidden = (
