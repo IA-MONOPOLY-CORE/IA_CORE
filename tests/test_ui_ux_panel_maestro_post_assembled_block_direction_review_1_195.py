@@ -28,6 +28,7 @@ ALLOWED = {
     "tests/test_ui_ux_panel_maestro_responsive_visual_coherence_assembled_block_1_194.py",
     DOC.relative_to(ROOT).as_posix(), TEST.relative_to(ROOT).as_posix(),
 }
+ALLOWED |= scope.CONTINUITY_1_196
 
 
 def read(path: Path) -> str:

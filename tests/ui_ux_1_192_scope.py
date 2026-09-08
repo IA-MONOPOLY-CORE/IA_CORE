@@ -55,9 +55,27 @@ CONTINUITY_1_195 = {
     "docs/UI_UX_PANEL_MAESTRO_POST_ASSEMBLED_BLOCK_DIRECTION_REVIEW_1_195.md",
     "tests/test_ui_ux_panel_maestro_post_assembled_block_direction_review_1_195.py",
 }
+CONTINUITY_1_196 = {
+    "docs/UI_UX_PANEL_MAESTRO_CONTINUITY_MANIFEST_1_196.md",
+    "tests/ui_ux_1_196_continuity.py",
+    "tests/test_ui_ux_panel_maestro_continuity_manifest_1_196.py",
+    "tests/ui_ux_1_196_snapshot_groups.py",
+    "tests/test_ui_ux_panel_maestro_snapshot_groups_1_196.py",
+    "docs/UI_UX_PANEL_MAESTRO_CSS_CASCADE_INVENTORY_1_196.md",
+    "tests/test_ui_ux_panel_maestro_css_cascade_inventory_1_196.py",
+    "tests/test_ui_ux_panel_maestro_css_cascade_consolidation_1_196.py",
+    "tests/test_ui_ux_panel_maestro_responsive_regression_matrix_1_196.py",
+    "tests/test_ui_ux_panel_maestro_p0_p1_visual_hierarchy_1_196.py",
+    "tests/test_ui_ux_panel_maestro_contract_aware_widgets_visual_coherence_1_196.py",
+    "tests/test_ui_ux_panel_maestro_p2_p3_transversal_density_1_196.py",
+    "tests/test_ui_ux_panel_maestro_transversal_accessibility_legibility_1_196.py",
+    "docs/UI_UX_PANEL_MAESTRO_CSS_ACCESSIBILITY_RESPONSIVE_LARGE_SCALE_BLOCK_1_196.md",
+    "tests/test_ui_ux_panel_maestro_css_accessibility_responsive_large_scale_block_1_196.py",
+}
 ALLOWED = {CSS, DOC, TEST, HELPER} | READMES | CHECKPOINTS.keys() | CONTINUITY_1_193
 ALLOWED |= CONTINUITY_1_194
 ALLOWED |= CONTINUITY_1_195
+ALLOWED |= CONTINUITY_1_196
 PATH_HELPERS = {"changed_paths", "working_paths", "checkpoint_paths", "selection_paths"}
 IMPORT = "from ui_ux_1_192_scope import historical_paths, assert_current_scope"
 CURRENT_TEST = """def test_current_scope_is_strict_1_192():
@@ -243,6 +261,15 @@ AUTHORIZED_1_194_STATION_MESSAGES = {
     "feat(ui): optimizar densidad visual p2 p3",
     "feat(ui): mejorar accesibilidad y legibilidad panel maestro",
 }
+AUTHORIZED_1_196_STATION_MESSAGES = {
+    "refactor(ui): consolidar cascada css contract-aware",
+    "fix(ui): cerrar regresiones responsive ampliadas",
+    "test(ui): ampliar matriz de regresion responsive",
+    "feat(ui): consolidar jerarquia visual p0 p1",
+    "feat(ui): consolidar coherencia visual widgets contract-aware",
+    "feat(ui): consolidar densidad transversal p2 p3",
+    "feat(ui): consolidar accesibilidad y legibilidad transversal",
+}
 
 
 def git(root, *args):
@@ -331,12 +358,23 @@ def authorized_1_194_css_snapshots(root):
     return snapshots
 
 
+def authorized_1_196_css_snapshots(root):
+    snapshots = set()
+    log = text(git(root, "log", "--all", "--format=%H%x09%s"))
+    for line in log.splitlines():
+        commit, _, subject = line.partition("\t")
+        if subject in AUTHORIZED_1_196_STATION_MESSAGES:
+            snapshots.add(text(git(root, "show", f"{commit}:{CSS}")))
+    return snapshots
+
+
 def assert_css(before, after, root=ROOT):
     # Accept only exact historical Gate snapshots and exact committed 1.194 station snapshots.
     gate_1 = before + GATE_1_CSS
     allowed = {gate_1, gate_1 + GATE_2_CSS}
     if root is not None:
         allowed |= authorized_1_194_css_snapshots(Path(root))
+        allowed |= authorized_1_196_css_snapshots(Path(root))
     assert after in allowed, "CSS exceeds the exact Gate 1/Gate 2/checkpoint/station additions"
 
 
@@ -353,7 +391,7 @@ def assert_snapshot(changes, baselines):
             before = text(baselines[path])
             assert current.startswith(before), f"Historical README content changed: {path}"
             assert current[len(before):].lstrip().startswith("## UI/UX 1.192"), path
-        elif path in CONTINUITY_1_193 or path in CONTINUITY_1_194:
+        elif path in CONTINUITY_1_193 or path in CONTINUITY_1_194 or path in CONTINUITY_1_196:
             assert current.strip(), f"Empty continuity artifact: {path}"
 
 
