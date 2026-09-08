@@ -40,7 +40,7 @@ def test_n9_checkpoint_validates_capture_loop_manifest_and_real_pack():
     assert event["candidate_knowledge_ids"] == []
     assert metric["measurement_quality"] == "NOT_AVAILABLE"
     assert metric["duration"] is None
-    assert consumption["pack_id"] == "gokv.pack.112d1122146ee5c3"
+    assert consumption["pack_id"] == "gokv.pack.419ba7a247ea447f"
     assert consumption["pack_item_count"] == 7
     assert consumption["knowledge_items_selected"] == consumption["knowledge_items_applied"]
     assert consumption["new_candidates"] == []
@@ -65,4 +65,3 @@ def test_n9_does_not_execute_3_1_or_change_protected_product_surfaces():
     protected_prefixes = ("ui/", "providers/", "domains/", "agents/", "core/")
     protected_names = {"api.py", "config.py"}
     assert not [path for path in changed if path.startswith(protected_prefixes) or path in protected_names]
-
