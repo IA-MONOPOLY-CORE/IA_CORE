@@ -1,10 +1,308 @@
 {
   "counts": {
-    "by_kind": {},
-    "by_status": {},
-    "total": 0
+    "by_kind": {
+      "ARCHITECTURAL_LEARNING": 1,
+      "AUTONOMY_RULE": 2,
+      "COMMIT_STRATEGY": 3,
+      "CONTEXT_MANAGEMENT_PATTERN": 1,
+      "COST_RESULT_EVIDENCE": 1,
+      "MODEL_SELECTION_HEURISTIC": 1,
+      "OPERATOR_INTERVENTION_PATTERN": 1,
+      "PATTERN": 1,
+      "PRINCIPLE": 3,
+      "RECOVERY_PATTERN": 1,
+      "STOP_CONDITION": 2,
+      "TASK_DECOMPOSITION_PATTERN": 4,
+      "TEST_STRATEGY": 1,
+      "VALIDATION_RULE": 1
+    },
+    "by_status": {
+      "CANDIDATE": 7,
+      "VALIDATED": 16
+    },
+    "total": 23
   },
-  "items": {},
+  "items": {
+    "already_compliant_do_not_invent_change": {
+      "kind": "PRINCIPLE",
+      "knowledge_version": "0.1.0",
+      "path": "items/already_compliant_do_not_invent_change.json",
+      "privacy_class": "ia_core_internal",
+      "scope": "IA_CORE_BUILD",
+      "status": "VALIDATED",
+      "tags": [
+        "audit",
+        "scope"
+      ]
+    },
+    "apparent_frontier_can_be_designed_away": {
+      "kind": "TASK_DECOMPOSITION_PATTERN",
+      "knowledge_version": "0.1.0",
+      "path": "items/apparent_frontier_can_be_designed_away.json",
+      "privacy_class": "ia_core_internal",
+      "scope": "IA_CORE_BUILD",
+      "status": "CANDIDATE",
+      "tags": [
+        "planning",
+        "compression"
+      ]
+    },
+    "compile_human_decisions_into_packages": {
+      "kind": "TASK_DECOMPOSITION_PATTERN",
+      "knowledge_version": "0.1.0",
+      "path": "items/compile_human_decisions_into_packages.json",
+      "privacy_class": "ia_core_internal",
+      "scope": "IA_CORE_BUILD",
+      "status": "VALIDATED",
+      "tags": [
+        "decisions",
+        "packages"
+      ]
+    },
+    "compress_occurrences_into_decisions": {
+      "kind": "TASK_DECOMPOSITION_PATTERN",
+      "knowledge_version": "0.1.0",
+      "path": "items/compress_occurrences_into_decisions.json",
+      "privacy_class": "ia_core_internal",
+      "scope": "IA_CORE_BUILD",
+      "status": "VALIDATED",
+      "tags": [
+        "decision_units",
+        "compression"
+      ]
+    },
+    "conditioned_autonomy": {
+      "kind": "AUTONOMY_RULE",
+      "knowledge_version": "0.1.0",
+      "path": "items/conditioned_autonomy.json",
+      "privacy_class": "ia_core_internal",
+      "scope": "IA_CORE_BUILD",
+      "status": "VALIDATED",
+      "tags": [
+        "autonomy",
+        "stop"
+      ]
+    },
+    "context_continuity_reduces_rework": {
+      "kind": "CONTEXT_MANAGEMENT_PATTERN",
+      "knowledge_version": "0.1.0",
+      "path": "items/context_continuity_reduces_rework.json",
+      "privacy_class": "ia_core_internal",
+      "scope": "IA_CORE_BUILD",
+      "status": "CANDIDATE",
+      "tags": [
+        "context",
+        "continuity"
+      ]
+    },
+    "contract_over_ui_inference": {
+      "kind": "PRINCIPLE",
+      "knowledge_version": "0.1.0",
+      "path": "items/contract_over_ui_inference.json",
+      "privacy_class": "ia_core_internal",
+      "scope": "IA_CORE_BUILD",
+      "status": "VALIDATED",
+      "tags": [
+        "contract",
+        "security",
+        "ui_boundary"
+      ]
+    },
+    "controlled_assembled_block_execution": {
+      "kind": "PATTERN",
+      "knowledge_version": "0.1.0",
+      "path": "items/controlled_assembled_block_execution.json",
+      "privacy_class": "ia_core_internal",
+      "scope": "IA_CORE_BUILD",
+      "status": "VALIDATED",
+      "tags": [
+        "execution",
+        "stations",
+        "gates"
+      ]
+    },
+    "cost_per_correctly_closed_surface": {
+      "kind": "COST_RESULT_EVIDENCE",
+      "knowledge_version": "0.1.0",
+      "path": "items/cost_per_correctly_closed_surface.json",
+      "privacy_class": "ia_core_internal",
+      "scope": "IA_CORE_BUILD",
+      "status": "CANDIDATE",
+      "tags": [
+        "metrics",
+        "cost"
+      ]
+    },
+    "deterministic_distance_defines_block_size": {
+      "kind": "TASK_DECOMPOSITION_PATTERN",
+      "knowledge_version": "0.1.0",
+      "path": "items/deterministic_distance_defines_block_size.json",
+      "privacy_class": "ia_core_internal",
+      "scope": "IA_CORE_BUILD",
+      "status": "CANDIDATE",
+      "tags": [
+        "planning",
+        "block_size"
+      ]
+    },
+    "evidence_before_closure": {
+      "kind": "VALIDATION_RULE",
+      "knowledge_version": "0.1.0",
+      "path": "items/evidence_before_closure.json",
+      "privacy_class": "ia_core_internal",
+      "scope": "IA_CORE_BUILD",
+      "status": "VALIDATED",
+      "tags": [
+        "evidence",
+        "closure"
+      ]
+    },
+    "focal_group_canonical_deep_test_policy": {
+      "kind": "TEST_STRATEGY",
+      "knowledge_version": "0.1.0",
+      "path": "items/focal_group_canonical_deep_test_policy.json",
+      "privacy_class": "ia_core_internal",
+      "scope": "IA_CORE_BUILD",
+      "status": "VALIDATED",
+      "tags": [
+        "tests",
+        "quality"
+      ]
+    },
+    "human_intervention_is_high_value_resource": {
+      "kind": "OPERATOR_INTERVENTION_PATTERN",
+      "knowledge_version": "0.1.0",
+      "path": "items/human_intervention_is_high_value_resource.json",
+      "privacy_class": "ia_core_internal",
+      "scope": "IA_CORE_BUILD",
+      "status": "CANDIDATE",
+      "tags": [
+        "operator",
+        "compression"
+      ]
+    },
+    "internal_gates": {
+      "kind": "AUTONOMY_RULE",
+      "knowledge_version": "0.1.0",
+      "path": "items/internal_gates.json",
+      "privacy_class": "ia_core_internal",
+      "scope": "IA_CORE_BUILD",
+      "status": "VALIDATED",
+      "tags": [
+        "gates",
+        "continuity"
+      ]
+    },
+    "local_rollback": {
+      "kind": "RECOVERY_PATTERN",
+      "knowledge_version": "0.1.0",
+      "path": "items/local_rollback.json",
+      "privacy_class": "ia_core_internal",
+      "scope": "IA_CORE_BUILD",
+      "status": "VALIDATED",
+      "tags": [
+        "recovery",
+        "rollback"
+      ]
+    },
+    "model_sufficiency_over_maximum_model": {
+      "kind": "MODEL_SELECTION_HEURISTIC",
+      "knowledge_version": "0.1.0",
+      "path": "items/model_sufficiency_over_maximum_model.json",
+      "privacy_class": "ia_core_internal",
+      "scope": "IA_CORE_BUILD",
+      "status": "CANDIDATE",
+      "tags": [
+        "model_selection",
+        "capacity"
+      ]
+    },
+    "no_fake_operational_state": {
+      "kind": "STOP_CONDITION",
+      "knowledge_version": "0.1.0",
+      "path": "items/no_fake_operational_state.json",
+      "privacy_class": "ia_core_internal",
+      "scope": "IA_CORE_BUILD",
+      "status": "VALIDATED",
+      "tags": [
+        "safety",
+        "no_runtime"
+      ]
+    },
+    "no_giant_commit": {
+      "kind": "COMMIT_STRATEGY",
+      "knowledge_version": "0.1.0",
+      "path": "items/no_giant_commit.json",
+      "privacy_class": "ia_core_internal",
+      "scope": "IA_CORE_BUILD",
+      "status": "VALIDATED",
+      "tags": [
+        "git",
+        "rollback"
+      ]
+    },
+    "preserve_contract_until_explicit_change": {
+      "kind": "PRINCIPLE",
+      "knowledge_version": "0.1.0",
+      "path": "items/preserve_contract_until_explicit_change.json",
+      "privacy_class": "ia_core_internal",
+      "scope": "IA_CORE_BUILD",
+      "status": "VALIDATED",
+      "tags": [
+        "contract",
+        "preservation"
+      ]
+    },
+    "real_diff_over_planned_commit_name": {
+      "kind": "COMMIT_STRATEGY",
+      "knowledge_version": "0.1.0",
+      "path": "items/real_diff_over_planned_commit_name.json",
+      "privacy_class": "ia_core_internal",
+      "scope": "IA_CORE_BUILD",
+      "status": "VALIDATED",
+      "tags": [
+        "git",
+        "semantics"
+      ]
+    },
+    "self_bootstrap": {
+      "kind": "ARCHITECTURAL_LEARNING",
+      "knowledge_version": "0.1.0",
+      "path": "items/self_bootstrap.json",
+      "privacy_class": "ia_core_internal",
+      "scope": "IA_CORE_BUILD",
+      "status": "CANDIDATE",
+      "tags": [
+        "dogfooding",
+        "capture"
+      ]
+    },
+    "station_local_commits": {
+      "kind": "COMMIT_STRATEGY",
+      "knowledge_version": "0.1.0",
+      "path": "items/station_local_commits.json",
+      "privacy_class": "ia_core_internal",
+      "scope": "IA_CORE_BUILD",
+      "status": "VALIDATED",
+      "tags": [
+        "git",
+        "commits",
+        "traceability"
+      ]
+    },
+    "true_hard_frontier": {
+      "kind": "STOP_CONDITION",
+      "knowledge_version": "0.1.0",
+      "path": "items/true_hard_frontier.json",
+      "privacy_class": "ia_core_internal",
+      "scope": "IA_CORE_BUILD",
+      "status": "VALIDATED",
+      "tags": [
+        "frontier",
+        "contract"
+      ]
+    }
+  },
   "knowledge_schema_version": "gokv.knowledge_item.v1",
   "schema_version": "gokv.registry.v1"
 }
