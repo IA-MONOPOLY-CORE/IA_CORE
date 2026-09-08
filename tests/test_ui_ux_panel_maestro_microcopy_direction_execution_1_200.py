@@ -112,3 +112,30 @@ def test_n5_geometry_change_is_exactly_the_scoped_allowlist():
     current = ROOT.joinpath("ui/web/styles.css").read_text(encoding="utf-8").replace("\r\n", "\n")
     assert current == baseline + EXPECTED_GEOMETRY_CSS
     assert protected_files_match_baseline() == []
+
+
+def test_n6_contract_sensitive_action_and_ambiguous_packages_are_preserved():
+    items = allowlist_items()
+    for change_class, expected_count, package_id, category in (
+        ("KEEP_CONTRACT", 139, "PKG_C_CONTRACT_SENSITIVE", "CONTRACT_SENSITIVE_CANDIDATE"),
+        ("KEEP_ACTION_PERMISSION", 15, "PKG_C_ACTION_PERMISSION", "ACTION_PERMISSION_SENSITIVE"),
+        ("KEEP_AMBIGUOUS_ROLE", 38, "PKG_C_AMBIGUOUS_ROLE", "AMBIGUOUS_REQUIRES_DIRECTION"),
+    ):
+        selected = [item for item in items if item["change_class"] == change_class]
+        assert len(selected) == expected_count
+        assert {item["direction_package"] for item in selected} == {package_id}
+        assert {item["approved_decision"] for item in selected} == {"A"}
+        assert {item["decision_category"] for item in selected} == {category}
+        assert all(item["current_text_is_preserved"] for item in selected)
+        assert not any(item["change_class"].startswith("ALLOWED_") for item in selected)
+
+
+def test_n7_level_d_is_the_untouched_contract_vocabulary_frontier():
+    level_d = [item for item in allowlist_items() if item["change_class"] == "KEEP_LEVEL_D"]
+    assert len(level_d) == 692
+    assert {item["direction_package"] for item in level_d} == {"PKG_D_CONTRACT_VOCABULARY"}
+    assert {item["approved_decision"] for item in level_d} == {"A"}
+    assert {item["decision_category"] for item in level_d} == {"MUST_NOT_CHANGE_WITHOUT_CONTRACT_CHANGE"}
+    assert all(item["authority"] == "backend contract; UI read-only; deny-by-default" for item in level_d)
+    assert all(item["current_text_is_preserved"] for item in level_d)
+    assert protected_files_match_baseline() == []
