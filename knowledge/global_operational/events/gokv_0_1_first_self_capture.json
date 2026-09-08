@@ -1,0 +1,49 @@
+{
+  "autonomous_blockers_resolved": [
+    "n1_focal_guard_assertion_mismatch"
+  ],
+  "candidate_knowledge_ids": [],
+  "commits": [
+    "f76c3c1",
+    "bd4f35e",
+    "f680781",
+    "7656550",
+    "2a6a838",
+    "e2684ee"
+  ],
+  "completed_stations": 6,
+  "created_at": "2026-09-08T14:13:00.281001+00:00",
+  "duration": null,
+  "effort": "Muy Alto (prompt-declared target)",
+  "end_commit": "e2684ee",
+  "event_id": "gokv_0_1_first_self_capture",
+  "metrics_refs": [
+    "gokv_0_1_first_self_capture_metric"
+  ],
+  "mission_type": "development_foundation",
+  "model": "GPT-5.6 Luna (prompt-declared target)",
+  "observations": [
+    "N1 required one focal guard assertion correction before passing.",
+    "No duration or quota measurement was recorded.",
+    "No new knowledge item was created by this experiment.",
+    "The compiled pack is development-only and has no runtime consumer."
+  ],
+  "operator_interventions": [],
+  "planned_stations": 8,
+  "result": "N1_TO_N6_PASSED",
+  "retries": 1,
+  "rollbacks": 0,
+  "schema_version": "gokv.learning_event.v1",
+  "source_checkpoint": "GOKV_0_1_N6",
+  "source_phase": "GOKV_0_1_SELF_CAPTURE",
+  "source_prompt": "PROMPT IA_CORE GOKV 0.1",
+  "start_commit": "7cb7134",
+  "tests": [
+    "tests/test_gokv_architecture_boundary_0_1.py",
+    "tests/test_gokv_schema_lifecycle_0_1.py",
+    "tests/test_gokv_storage_integrity_0_1.py",
+    "tests/test_gokv_capture_pipeline_0_1.py",
+    "tests/test_gokv_generation_0_1.py",
+    "tests/test_gokv_execution_pack_compiler_0_1.py"
+  ]
+}

@@ -1,0 +1,43 @@
+{
+  "commits": [
+    "f76c3c1",
+    "bd4f35e",
+    "f680781",
+    "7656550",
+    "2a6a838",
+    "e2684ee"
+  ],
+  "created_at": "2026-09-08T14:13:00.279993+00:00",
+  "duration": null,
+  "effort": "Muy Alto (prompt-declared target)",
+  "measurement_quality": "NOT_AVAILABLE",
+  "metric_id": "gokv_0_1_first_self_capture_metric",
+  "model": "GPT-5.6 Luna (prompt-declared target)",
+  "notes": [
+    "Duration was not measured for this experiment.",
+    "Quota values were not available and remain null.",
+    "Model and effort identify the prompt-declared target, not a measured performance claim."
+  ],
+  "operator_estimate": null,
+  "operator_interventions": 0,
+  "quota_5h_delta": null,
+  "quota_5h_end": null,
+  "quota_5h_start": null,
+  "quota_weekly_delta": null,
+  "quota_weekly_end": null,
+  "quota_weekly_start": null,
+  "result": "N1_TO_N6_PASSED",
+  "retries": 1,
+  "rollbacks": 0,
+  "schema_version": "gokv.execution_metric.v1",
+  "station_count": 6,
+  "task_type": "gokv_bootstrap_n1_n6",
+  "tests": [
+    "tests/test_gokv_architecture_boundary_0_1.py",
+    "tests/test_gokv_schema_lifecycle_0_1.py",
+    "tests/test_gokv_storage_integrity_0_1.py",
+    "tests/test_gokv_capture_pipeline_0_1.py",
+    "tests/test_gokv_generation_0_1.py",
+    "tests/test_gokv_execution_pack_compiler_0_1.py"
+  ]
+}

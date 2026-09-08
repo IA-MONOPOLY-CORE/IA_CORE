@@ -173,6 +173,22 @@ def validate_execution_pack(pack: Mapping[str, Any]) -> dict[str, Any]:
     return json.loads(json.dumps(pack, ensure_ascii=False))
 
 
+def save_execution_pack(pack: Mapping[str, Any], paths: VaultPaths | None = None) -> Path:
+    """Append one compiled pack to the development-only pack directory."""
+
+    validated = validate_execution_pack(pack)
+    vault = paths or default_paths()
+    vault.ensure()
+    destination = vault.packs_dir / f"{validated['execution_pack_id']}.json"
+    try:
+        with destination.open("x", encoding="utf-8", newline="\n") as handle:
+            json.dump(validated, handle, ensure_ascii=False, indent=2, sort_keys=True)
+            handle.write("\n")
+    except FileExistsError as exc:
+        raise ValueError(f"execution_pack duplicado: {destination.stem}") from exc
+    return destination
+
+
 def _normalize_request(request: Mapping[str, Any]) -> dict[str, Any]:
     if not isinstance(request, Mapping):
         raise ValueError("compile request debe ser un objeto")

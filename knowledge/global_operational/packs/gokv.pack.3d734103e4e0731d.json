@@ -1,0 +1,146 @@
+{
+  "agent_class": "BUILD_AGENT",
+  "allowed_statuses": [
+    "PROMOTED",
+    "VALIDATED"
+  ],
+  "applicable_knowledge_ids": [
+    "controlled_assembled_block_execution",
+    "internal_gates"
+  ],
+  "compiler_version": "gokv.compiler.v1",
+  "decision_rules": [
+    {
+      "knowledge_id": "controlled_assembled_block_execution",
+      "rules": [
+        "Separar estaciones por dependencia y riesgo."
+      ]
+    },
+    {
+      "knowledge_id": "internal_gates",
+      "rules": [
+        "Una estaciÃ³n habilita la siguiente solo despuÃ©s de su gate."
+      ]
+    }
+  ],
+  "evidence_summary": {
+    "evidence_ref_count": 2,
+    "item_count": 2,
+    "measured_metrics_available": false,
+    "notes": [
+      "Selection is deterministic and development-time only.",
+      "No candidate, deprecated, or replaced item is selected implicitly."
+    ],
+    "source_checkpoint_count": 3,
+    "source_commit_count": 4
+  },
+  "execution_pack_id": "gokv.pack.3d734103e4e0731d",
+  "failure_modes": [
+    {
+      "knowledge_id": "controlled_assembled_block_execution",
+      "rules": [
+        "Mezclar piezas con dependencias distintas."
+      ]
+    },
+    {
+      "knowledge_id": "internal_gates",
+      "rules": [
+        "Continuar despuÃ©s de un gate fallido."
+      ]
+    }
+  ],
+  "mission_class": "development_foundation",
+  "mode": "DEVELOPMENT_VALIDATED",
+  "model_size_class": "SMALL",
+  "output_contract": {
+    "execution_enabled": false,
+    "format": "structured_json",
+    "payload_enabled": false,
+    "requires_explicit_human_approval": true,
+    "runtime_enabled": false
+  },
+  "principles": [],
+  "procedures": [
+    {
+      "knowledge_id": "controlled_assembled_block_execution",
+      "steps": [
+        "Definir estaciones, ejecutar focal, cerrar gate y continuar solo con evidencia."
+      ],
+      "title": "Controlled assembled block execution"
+    },
+    {
+      "knowledge_id": "internal_gates",
+      "steps": [
+        "Especificar gate, ejecutarlo, conservar evidencia y reciÃ©n entonces continuar."
+      ],
+      "title": "Internal gates"
+    }
+  ],
+  "recovery": [
+    {
+      "knowledge_id": "controlled_assembled_block_execution",
+      "rules": [
+        "Revertir Ãºnicamente la estaciÃ³n fallida y conservar las anteriores."
+      ]
+    },
+    {
+      "knowledge_id": "internal_gates",
+      "rules": [
+        "Volver al Ãºltimo gate verde."
+      ]
+    }
+  ],
+  "required_capabilities": [],
+  "risk_class": "HIGH",
+  "schema_version": "gokv.execution_pack.v1",
+  "scope": "IA_CORE_BUILD",
+  "selection_policy": {
+    "excluded_statuses": [
+      "CANDIDATE",
+      "DEPRECATED",
+      "REPLACED",
+      "OBSERVED",
+      "REVISED"
+    ],
+    "privacy_compatibility": [
+      "ia_core_internal",
+      "global_public"
+    ],
+    "scope_compatibility": [
+      "IA_CORE_BUILD",
+      "GLOBAL"
+    ]
+  },
+  "stop_conditions": [
+    {
+      "knowledge_id": "controlled_assembled_block_execution",
+      "rules": [
+        "Detenerse ante cambio de contrato o superficie protegida."
+      ]
+    },
+    {
+      "knowledge_id": "internal_gates",
+      "rules": [
+        "No declarar cierre con tests o evidencia faltante."
+      ]
+    }
+  ],
+  "tags": [
+    "gates"
+  ],
+  "task_type": "bootstrap",
+  "validation_rules": [
+    {
+      "knowledge_id": "controlled_assembled_block_execution",
+      "rules": [
+        "Focal, group, canonical y browser checks."
+      ]
+    },
+    {
+      "knowledge_id": "internal_gates",
+      "rules": [
+        "Cada gate debe tener un verdict exacto y tests asociados."
+      ]
+    }
+  ]
+}
