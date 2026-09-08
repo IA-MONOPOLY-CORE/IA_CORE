@@ -42,6 +42,7 @@ def test_integral_audits_are_present_and_green():
         normalized = text.lower()
         assert (
             "blocking_gap: 0" in normalized
+            or "blocking_gaps: 0" in normalized
             or "blocking: 0" in normalized
             or "no visual, responsive or accessibility blocker" in normalized
             or "no current contract ghost and no blocking contract gap" in normalized
