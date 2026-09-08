@@ -1,0 +1,43 @@
+{
+  "authority_precedence": [
+    "SECURITY_PRIVACY_HARD_CONTRACTS",
+    "CURRENT_MISSION_EXPLICIT_CONSTRAINTS",
+    "CURRENT_CANONICAL_ARCHITECTURE",
+    "CURRENT_REPOSITORY_STATE",
+    "GOKV_OPERATIONAL_GUIDANCE"
+  ],
+  "candidate_items_selected": [],
+  "capture_protocol": [
+    "GOKV_PRE_MISSION_INHERITANCE_V1",
+    "GOKV_POST_BLOCK_CAPTURE_V1"
+  ],
+  "conflict_policy": "CURRENT_CONTRACT_WINS",
+  "conflicts": [],
+  "execution_pack_id": "gokv.pack.c886fbab561dee9a",
+  "knowledge_ids": [
+    "evidence_before_closure",
+    "focal_group_canonical_deep_test_policy",
+    "preserve_contract_until_explicit_change",
+    "real_diff_over_planned_commit_name",
+    "station_local_commits",
+    "true_hard_frontier"
+  ],
+  "manifest_id": "ui_ux_1_202_post_promotion_inheritance_manifest",
+  "mission": "ui_ux_1_202_next_visual_block_selection_post_microcopy_closure",
+  "mission_id": "ui_ux_1_202_next_visual_block_selection_post_microcopy_closure",
+  "mode": "PROMOTED_ONLY",
+  "product_decisions_included": [],
+  "promoted_items_selected": [
+    "evidence_before_closure",
+    "focal_group_canonical_deep_test_policy",
+    "preserve_contract_until_explicit_change",
+    "real_diff_over_planned_commit_name",
+    "station_local_commits",
+    "true_hard_frontier"
+  ],
+  "recommended_oci_mode": "PROMOTED_ONLY",
+  "schema_version": "gokv.next_mission_inheritance_manifest.v1",
+  "ui_ux_1_200_executed": false,
+  "ui_ux_1_202_executed": false,
+  "validated_items_selected": []
+}

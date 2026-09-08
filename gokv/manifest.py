@@ -48,7 +48,7 @@ def validate_next_mission_inheritance_manifest(manifest: Mapping[str, Any]) -> d
     for field in ("manifest_id", "mission_id", "mission", "execution_pack_id"):
         if not isinstance(manifest[field], str) or not manifest[field].strip():
             raise ValueError(f"{field} invalido")
-    if manifest["mode"] != "DEVELOPMENT_VALIDATED":
+    if manifest["mode"] not in {"PROMOTED_ONLY", "DEVELOPMENT_VALIDATED"}:
         raise ValueError("manifest mode invalido")
     if manifest["authority_precedence"] != AUTHORITY_PRECEDENCE:
         raise ValueError("manifest authority_precedence invalida")
@@ -63,4 +63,11 @@ def validate_next_mission_inheritance_manifest(manifest: Mapping[str, Any]) -> d
         raise ValueError("manifest no puede contener decisiones de producto")
     if manifest["ui_ux_1_200_executed"] is not False:
         raise ValueError("manifest no puede ejecutar UI/UX 1.200")
+    if "ui_ux_1_202_executed" in manifest and manifest["ui_ux_1_202_executed"] is not False:
+        raise ValueError("manifest no puede ejecutar UI/UX 1.202")
+    for field in ("promoted_items_selected", "validated_items_selected", "candidate_items_selected", "conflicts"):
+        if field in manifest and (not isinstance(manifest[field], list) or not all(isinstance(value, str) for value in manifest[field])):
+            raise ValueError(f"{field} debe ser una lista de strings")
+    if "recommended_oci_mode" in manifest and manifest["recommended_oci_mode"] not in {"PROMOTED_ONLY", "DEVELOPMENT_VALIDATED"}:
+        raise ValueError("recommended_oci_mode invalido")
     return deepcopy(dict(manifest))

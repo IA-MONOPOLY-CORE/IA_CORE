@@ -54,6 +54,36 @@ def compile_development_oci_pack(
     return validate_development_oci_pack(pack)
 
 
+def compile_oci_inheritance_pack(
+    request: Mapping[str, Any], paths: VaultPaths | None = None
+) -> dict[str, Any]:
+    """Compile an OCI inheritance pack for either explicit compiler mode."""
+
+    if request.get("mode") not in {"PROMOTED_ONLY", "DEVELOPMENT_VALIDATED"}:
+        raise ValueError("OCI inheritance requiere PROMOTED_ONLY o DEVELOPMENT_VALIDATED")
+    mission_id = request.get("mission_id")
+    if not isinstance(mission_id, str) or not _ID_RE.fullmatch(mission_id):
+        raise ValueError("mission_id invalido")
+    base = compile_execution_pack(request, paths or default_paths())
+    pack = deepcopy(base)
+    pack.update(
+        {
+            "oci_schema_version": DEVELOPMENT_OCI_SCHEMA_VERSION,
+            "inheritance_mode": "DEVELOPMENT_TIME_OCI_V1",
+            "mission_id": mission_id,
+            "authority_precedence": list(AUTHORITY_PRECEDENCE),
+            "conflict_policy": {
+                "id": "CURRENT_CONTRACT_WINS",
+                "on_conflict": "EXCLUDE_KNOWLEDGE_AND_RECORD_EVENT",
+                "silent_application": False,
+                "automatic_resolution": False,
+            },
+            "operational_guidance_only": True,
+        }
+    )
+    return validate_development_oci_pack(pack)
+
+
 def validate_development_oci_pack(pack: Mapping[str, Any]) -> dict[str, Any]:
     validate_execution_pack(pack)
     required = {

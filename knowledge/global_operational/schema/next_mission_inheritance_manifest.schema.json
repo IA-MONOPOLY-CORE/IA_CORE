@@ -12,11 +12,17 @@
     "mission": {"type": "string"},
     "execution_pack_id": {"type": "string"},
     "knowledge_ids": {"type": "array", "items": {"type": "string"}},
-    "mode": {"const": "DEVELOPMENT_VALIDATED"},
+    "mode": {"enum": ["PROMOTED_ONLY", "DEVELOPMENT_VALIDATED"]},
     "authority_precedence": {"type": "array", "items": {"type": "string"}},
     "conflict_policy": {"const": "CURRENT_CONTRACT_WINS"},
     "capture_protocol": {"type": "array", "items": {"type": "string"}},
     "product_decisions_included": {"const": []},
-    "ui_ux_1_200_executed": {"const": false}
+    "ui_ux_1_200_executed": {"const": false},
+    "ui_ux_1_202_executed": {"const": false},
+    "recommended_oci_mode": {"enum": ["PROMOTED_ONLY", "DEVELOPMENT_VALIDATED"]},
+    "promoted_items_selected": {"type": "array", "items": {"type": "string"}},
+    "validated_items_selected": {"type": "array", "items": {"type": "string"}},
+    "candidate_items_selected": {"type": "array", "items": {"type": "string"}},
+    "conflicts": {"type": "array", "items": {"type": "string"}}
   }
 }
