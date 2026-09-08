@@ -99,12 +99,34 @@ CONTINUITY_1_198 = {
     "tests/test_ui_ux_panel_maestro_microcopy_contractual_decision_package_1_198.py",
     "tests/ui_ux_panel_maestro_microcopy_1_198_support.py",
 }
+CONTINUITY_1_199 = {
+    # 1.199 is documentary/test-only continuity; product paths remain absent.
+    "tests/ui_ux_1_192_scope.py",
+    "docs/UI_UX_PANEL_MAESTRO_MICROCOPY_CORPUS_RECONCILIATION_1_199.md",
+    "tests/test_ui_ux_panel_maestro_microcopy_corpus_reconciliation_1_199.py",
+    "docs/UI_UX_PANEL_MAESTRO_MICROCOPY_DECISION_UNITS_1_199.md",
+    "tests/test_ui_ux_panel_maestro_microcopy_decision_units_1_199.py",
+    "docs/UI_UX_PANEL_MAESTRO_MICROCOPY_DIRECTION_COMPRESSION_1_199.md",
+    "tests/test_ui_ux_panel_maestro_microcopy_direction_compression_1_199.py",
+    "docs/UI_UX_PANEL_MAESTRO_MICROCOPY_DETERMINISM_DIRECTION_BOUNDARY_1_199.md",
+    "tests/test_ui_ux_panel_maestro_microcopy_determinism_direction_boundary_1_199.py",
+    "docs/UI_UX_PANEL_MAESTRO_MICROCOPY_DIRECTION_PACKAGES_1_199.md",
+    "tests/test_ui_ux_panel_maestro_microcopy_direction_packages_1_199.py",
+    "docs/UI_UX_PANEL_MAESTRO_MICROCOPY_POST_DIRECTION_EXECUTION_GRAPH_1_199.md",
+    "tests/test_ui_ux_panel_maestro_microcopy_post_direction_execution_graph_1_199.py",
+    "docs/UI_UX_PANEL_MAESTRO_MICROCOPY_DIRECTOR_DECISION_SHEET_1_199.md",
+    "docs/UI_UX_PANEL_MAESTRO_MICROCOPY_DIRECTION_REVIEW_CHECKPOINT_1_199.md",
+    "tests/test_ui_ux_panel_maestro_microcopy_director_decision_sheet_1_199.py",
+    "tests/test_ui_ux_panel_maestro_microcopy_direction_review_checkpoint_1_199.py",
+    "tests/ui_ux_panel_maestro_microcopy_1_199_support.py",
+}
 ALLOWED = {CSS, DOC, TEST, HELPER} | READMES | CHECKPOINTS.keys() | CONTINUITY_1_193
 ALLOWED |= CONTINUITY_1_194
 ALLOWED |= CONTINUITY_1_195
 ALLOWED |= CONTINUITY_1_196
 ALLOWED |= CONTINUITY_1_197
 ALLOWED |= CONTINUITY_1_198
+ALLOWED |= CONTINUITY_1_199
 PATH_HELPERS = {"changed_paths", "working_paths", "checkpoint_paths", "selection_paths"}
 IMPORT = "from ui_ux_1_192_scope import historical_paths, assert_current_scope"
 CURRENT_TEST = """def test_current_scope_is_strict_1_192():

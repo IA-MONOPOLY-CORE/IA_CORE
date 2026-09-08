@@ -3,6 +3,8 @@
 from pathlib import Path
 import subprocess
 
+from ui_ux_1_192_scope import CONTINUITY_1_199
+
 ROOT = Path(__file__).resolve().parents[1]
 BASELINE = "357a08d"
 CSS = "ui/web/styles.css"
@@ -113,7 +115,7 @@ CONTINUITY_1_198 = {
     "tests/test_ui_ux_panel_maestro_microcopy_contractual_decision_package_1_198.py",
     "tests/ui_ux_panel_maestro_microcopy_1_198_support.py",
 }
-ALLOWED_TEST_ONLY = CONTINUITY_1_196 | CONTINUITY_1_197 | CONTINUITY_1_198 | {"README.md", "ui/web/README.md"}
+ALLOWED_TEST_ONLY = CONTINUITY_1_196 | CONTINUITY_1_197 | CONTINUITY_1_198 | CONTINUITY_1_199 | {"README.md", "ui/web/README.md"}
 
 
 def git(*args: str) -> str:

@@ -32,6 +32,7 @@ ALLOWED = {
 ALLOWED |= scope.CONTINUITY_1_196
 ALLOWED |= scope.CONTINUITY_1_197
 ALLOWED |= scope.CONTINUITY_1_198
+ALLOWED |= scope.CONTINUITY_1_199
 
 
 def read(path: Path) -> str:
