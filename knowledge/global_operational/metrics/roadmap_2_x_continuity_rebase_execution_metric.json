@@ -1,0 +1,46 @@
+{
+  "commits": [
+    "ca34823",
+    "d05f7fe",
+    "e31fd0e",
+    "06a4c04",
+    "e388863",
+    "e091d3b",
+    "442cb97",
+    "45f741e"
+  ],
+  "created_at": "2026-09-08T22:23:20Z",
+  "duration": null,
+  "effort": "Muy Alto",
+  "measurement_quality": "NOT_AVAILABLE",
+  "metric_id": "roadmap_2_x_continuity_rebase_execution_metric",
+  "model": "GPT-5.6 Luna",
+  "notes": [
+    "Roadmap 2.x execution duration was not captured; no duration is inferred.",
+    "The visible UI/UX 1.204 quota observation belongs to the predecessor mission and is preserved separately in roadmap_2_x_operator_measurement_supplement.json.",
+    "That supplement records 5H_MEASUREMENT_QUALITY=RESET_INTERRUPTED and 5H_DELTA=NOT_RECONSTRUCTABLE_EXACTLY; no consumption is inferred.",
+    "The metric records documentary/read-only validation, not backend, runtime, execution, provider or integration telemetry.",
+    "The product diff remained empty against c2794799 and no operational writes were performed."
+  ],
+  "operator_estimate": null,
+  "operator_interventions": 0,
+  "quota_5h_delta": null,
+  "quota_5h_end": null,
+  "quota_5h_start": null,
+  "quota_weekly_delta": null,
+  "quota_weekly_end": null,
+  "quota_weekly_start": null,
+  "result": "ROADMAP_2_X_CONTINUITY_REBASE_PASSED",
+  "retries": 0,
+  "rollbacks": 0,
+  "schema_version": "gokv.execution_metric.v1",
+  "station_count": 4,
+  "task_type": "roadmap_2_x_continuity_rebase",
+  "tests": [
+    "tests/test_roadmap_2_0_continuity_preflight.py",
+    "tests/test_roadmap_2_1_method_applied_audit.py",
+    "tests/test_roadmap_2_2_current_state_map.py",
+    "tests/test_roadmap_2_3_continuity_rebase_checkpoint.py",
+    "tests/test_roadmap_2_x_post_block_capture.py"
+  ]
+}

@@ -1,0 +1,52 @@
+{
+  "clarification_requests": [],
+  "consumption_id": "roadmap_2_x_continuity_rebase_promoted_only_consumption",
+  "created_at": "2026-09-08T22:23:20Z",
+  "knowledge_items_applied": [
+    "compress_occurrences_into_decisions",
+    "evidence_before_closure",
+    "focal_group_canonical_deep_test_policy",
+    "preserve_contract_until_explicit_change",
+    "real_diff_over_planned_commit_name",
+    "station_local_commits",
+    "true_hard_frontier"
+  ],
+  "knowledge_items_available": [
+    "compress_occurrences_into_decisions",
+    "evidence_before_closure",
+    "focal_group_canonical_deep_test_policy",
+    "preserve_contract_until_explicit_change",
+    "real_diff_over_planned_commit_name",
+    "station_local_commits",
+    "true_hard_frontier"
+  ],
+  "knowledge_items_conflicted": [],
+  "knowledge_items_helpful": [
+    "compress_occurrences_into_decisions",
+    "evidence_before_closure",
+    "focal_group_canonical_deep_test_policy",
+    "preserve_contract_until_explicit_change",
+    "real_diff_over_planned_commit_name",
+    "station_local_commits",
+    "true_hard_frontier"
+  ],
+  "knowledge_items_irrelevant": [],
+  "knowledge_items_selected": [
+    "compress_occurrences_into_decisions",
+    "evidence_before_closure",
+    "focal_group_canonical_deep_test_policy",
+    "preserve_contract_until_explicit_change",
+    "real_diff_over_planned_commit_name",
+    "station_local_commits",
+    "true_hard_frontier"
+  ],
+  "knowledge_items_unused": [],
+  "mission_id": "roadmap_2_x_continuity_rebase_after_ui_ux_current_line_closure",
+  "new_candidates": [],
+  "operator_interventions": [],
+  "pack_id": "gokv.pack.419ba7a247ea447f",
+  "pack_item_count": 7,
+  "pack_size_bytes": 7959,
+  "result": "PROMOTED_ONLY_SUFFICIENT_FOR_CONTINUITY_REBASE",
+  "schema_version": "gokv.oci_consumption_result.v1"
+}

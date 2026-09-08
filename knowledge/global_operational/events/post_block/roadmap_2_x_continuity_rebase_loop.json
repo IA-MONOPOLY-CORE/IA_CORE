@@ -1,0 +1,22 @@
+{
+  "candidate_knowledge_ids": [],
+  "conflict_event_ids": [],
+  "created_at": "2026-09-08T22:23:20Z",
+  "execution_metric_id": "roadmap_2_x_continuity_rebase_execution_metric",
+  "learning_event_id": "roadmap_2_x_continuity_rebase_learning_event",
+  "learning_status": "NO_LEARNING_FOUND",
+  "loop_id": "roadmap_2_x_continuity_rebase_loop",
+  "loop_steps": [
+    "EXECUTE",
+    "VALIDATE",
+    "CAPTURE",
+    "DISTILL",
+    "ASSESS",
+    "STORE",
+    "COMPILE_NEXT"
+  ],
+  "mission_id": "roadmap_2_x_continuity_rebase_after_ui_ux_current_line_closure",
+  "next_mission_id": "roadmap_3_0_backend_elite_read_only_inventory",
+  "next_pack_id": "gokv.pack.419ba7a247ea447f",
+  "schema_version": "gokv.post_block_learning_loop.v1"
+}

@@ -1,0 +1,34 @@
+{
+  "append_only": true,
+  "created_at": "2026-09-08T22:23:20Z",
+  "evidence_refs": [
+    {
+      "claim": "La autonomia condicionada se ejercio para rebasar la continuidad, auditar el metodo, mapear el estado actual, preparar el handoff read-only y registrar la captura; la frontera de producto, backend operativo, runtime y execution detuvo cualquier extension.",
+      "evidence_id": "conditioned_autonomy_roadmap_2_x",
+      "independence_basis": "La evidencia pertenece a una ejecucion posterior e independiente de UI/UX 1.204, con cuatro gates, commits locales, guards y checkpoint propios.",
+      "knowledge_id": "conditioned_autonomy",
+      "kind": "independent_execution",
+      "source_commits": ["ca34823", "06a4c04", "e091d3b", "45f741e"],
+      "source_refs": [
+        "docs/ROADMAP_2_0_CONTINUITY_PREFLIGHT.md",
+        "docs/ROADMAP_2_1_METHOD_APPLIED_AUDIT.md",
+        "docs/ROADMAP_2_2_CURRENT_STATE_MAP.md",
+        "docs/ROADMAP_2_X_CONTINUITY_REBASE_CHECKPOINT.md",
+        "tests/test_roadmap_2_3_continuity_rebase_checkpoint.py"
+      ]
+    }
+  ],
+  "excluded_from_overlay": [
+    "promotion",
+    "runtime_execution",
+    "backend_activation",
+    "semantic_contract_extension"
+  ],
+  "overlay_id": "roadmap_2_x_conditioned_autonomy_evidence",
+  "provenance": "DEVELOPMENT_ORIGIN",
+  "schema_version": "gokv.independent_evidence_overlay.v1",
+  "source_checkpoint": "ROADMAP_2_X",
+  "source_loop": "knowledge/global_operational/events/post_block/roadmap_2_x_continuity_rebase_loop.json",
+  "source_mission": "roadmap_2_x_continuity_rebase_after_ui_ux_current_line_closure",
+  "source_report": "docs/ROADMAP_2_X_CONTINUITY_REBASE_CHECKPOINT.md"
+}

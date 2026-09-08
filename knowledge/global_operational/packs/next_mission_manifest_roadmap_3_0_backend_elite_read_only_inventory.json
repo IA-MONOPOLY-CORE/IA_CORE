@@ -1,0 +1,45 @@
+{
+  "manifest_id": "roadmap_3_0_backend_elite_read_only_inventory_inheritance_manifest",
+  "schema_version": "gokv.next_mission_inheritance_manifest.v1",
+  "mission_id": "roadmap_3_0_backend_elite_read_only_inventory",
+  "mission": "ROADMAP 3.0 - Auditoria elite read-only del backend completo",
+  "execution_pack_id": "gokv.pack.419ba7a247ea447f",
+  "knowledge_ids": [
+    "compress_occurrences_into_decisions",
+    "evidence_before_closure",
+    "focal_group_canonical_deep_test_policy",
+    "preserve_contract_until_explicit_change",
+    "real_diff_over_planned_commit_name",
+    "station_local_commits",
+    "true_hard_frontier"
+  ],
+  "mode": "PROMOTED_ONLY",
+  "recommended_oci_mode": "PROMOTED_ONLY",
+  "promoted_items_selected": [
+    "compress_occurrences_into_decisions",
+    "evidence_before_closure",
+    "focal_group_canonical_deep_test_policy",
+    "preserve_contract_until_explicit_change",
+    "real_diff_over_planned_commit_name",
+    "station_local_commits",
+    "true_hard_frontier"
+  ],
+  "validated_items_selected": [],
+  "candidate_items_selected": [],
+  "conflicts": [],
+  "authority_precedence": [
+    "SECURITY_PRIVACY_HARD_CONTRACTS",
+    "CURRENT_MISSION_EXPLICIT_CONSTRAINTS",
+    "CURRENT_CANONICAL_ARCHITECTURE",
+    "CURRENT_REPOSITORY_STATE",
+    "GOKV_OPERATIONAL_GUIDANCE"
+  ],
+  "conflict_policy": "CURRENT_CONTRACT_WINS",
+  "capture_protocol": [
+    "GOKV_PRE_MISSION_INHERITANCE_V1",
+    "GOKV_POST_BLOCK_CAPTURE_V1"
+  ],
+  "product_decisions_included": [],
+  "ui_ux_1_200_executed": false,
+  "ui_ux_1_202_executed": false
+}
