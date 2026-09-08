@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "gokv.next_mission_inheritance_manifest.v1",
+  "title": "GOKV Next Mission Inheritance Manifest",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["manifest_id", "schema_version", "mission_id", "mission", "execution_pack_id", "knowledge_ids", "mode", "authority_precedence", "conflict_policy", "capture_protocol", "product_decisions_included", "ui_ux_1_200_executed"],
+  "properties": {
+    "manifest_id": {"type": "string"},
+    "schema_version": {"const": "gokv.next_mission_inheritance_manifest.v1"},
+    "mission_id": {"type": "string"},
+    "mission": {"type": "string"},
+    "execution_pack_id": {"type": "string"},
+    "knowledge_ids": {"type": "array", "items": {"type": "string"}},
+    "mode": {"const": "DEVELOPMENT_VALIDATED"},
+    "authority_precedence": {"type": "array", "items": {"type": "string"}},
+    "conflict_policy": {"const": "CURRENT_CONTRACT_WINS"},
+    "capture_protocol": {"type": "array", "items": {"type": "string"}},
+    "product_decisions_included": {"const": []},
+    "ui_ux_1_200_executed": {"const": false}
+  }
+}
