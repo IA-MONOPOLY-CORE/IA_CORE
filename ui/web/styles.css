@@ -1864,3 +1864,34 @@ body .console-utilities button:focus-visible {
     outline-offset: 2px;
     box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.2);
 }
+
+/* UI/UX 1.200 N5: remediate only the measured local geometry risks. */
+body .ia-core-shell[data-visual-hierarchy-first-pass="1.180"] [data-main-console-zone="readiness"] .readiness-card,
+body .ia-core-shell[data-visual-hierarchy-first-pass="1.180"] [data-main-console-zone="readiness"] .readiness-card .layout-value {
+    min-width: 0;
+}
+
+body .ia-core-shell[data-visual-hierarchy-first-pass="1.180"] [data-main-console-zone="readiness"] .readiness-card .layout-value {
+    overflow-wrap: anywhere;
+    word-break: break-word;
+}
+
+body .ia-core-shell[data-visual-hierarchy-first-pass="1.180"] .state-guidance-card strong,
+body .ia-core-shell[data-visual-hierarchy-first-pass="1.180"] .state-guidance-card span {
+    min-width: 0;
+    overflow-wrap: anywhere;
+}
+
+/* Keep the existing read-only disclosure tab fully inside the viewport. */
+body #request-draft-panel.request-draft-panel.collapsed {
+    width: 44px !important;
+    max-width: 44px !important;
+    right: 1px !important;
+    transform: none !important;
+    overflow: hidden;
+}
+
+body #request-draft-panel.request-draft-panel.collapsed .request-draft-toggle {
+    width: 43px !important;
+    min-width: 43px !important;
+}

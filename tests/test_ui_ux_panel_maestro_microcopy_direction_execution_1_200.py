@@ -6,6 +6,8 @@ from ui_ux_panel_maestro_microcopy_1_200_support import (
     ALLOWLIST_PATH,
     CHANGE_CLASSES,
     DECISIONS,
+    EXPECTED_GEOMETRY_CSS,
+    ROOT,
     allowlist_counts,
     allowlist_items,
     expected_allowlist,
@@ -97,3 +99,16 @@ def test_n4_consistency_and_contextual_variants_remain_separate():
     assert len({item["decision_unit_id"] for item in contextual}) == 116
     assert all(item["current_text_is_preserved"] for item in contextual)
     assert not any(item["change_class"] == "ALLOWED_EDITORIAL_CHANGE" for item in contextual)
+
+
+def test_n5_geometry_change_is_exactly_the_scoped_allowlist():
+    geometry = [item for item in allowlist_items() if item["change_class"] == "ALLOWED_GEOMETRY_CHANGE"]
+    assert len(geometry) == 15
+    assert {item["direction_package"] for item in geometry} == {"PKG_B_GEOMETRY_REMEDIATION"}
+    assert {item["approved_decision"] for item in geometry} == {"B"}
+    from ui_ux_panel_maestro_microcopy_1_200_support import baseline_bytes
+
+    baseline = baseline_bytes("ui/web/styles.css").replace(b"\r\n", b"\n").decode()
+    current = ROOT.joinpath("ui/web/styles.css").read_text(encoding="utf-8").replace("\r\n", "\n")
+    assert current == baseline + EXPECTED_GEOMETRY_CSS
+    assert protected_files_match_baseline() == []

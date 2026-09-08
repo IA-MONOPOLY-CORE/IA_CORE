@@ -76,6 +76,13 @@ PACKAGE_REASONS = {
     "KEEP_NO_DECISION": "N2 KEEP_NO_DECISION ledger: preserve the current record without inference.",
 }
 
+EXPECTED_GEOMETRY_CSS = """\n/* UI/UX 1.200 N5: remediate only the measured local geometry risks. */\nbody .ia-core-shell[data-visual-hierarchy-first-pass=\"1.180\"] [data-main-console-zone=\"readiness\"] .readiness-card,\nbody .ia-core-shell[data-visual-hierarchy-first-pass=\"1.180\"] [data-main-console-zone=\"readiness\"] .readiness-card .layout-value {\n    min-width: 0;\n}\n\nbody .ia-core-shell[data-visual-hierarchy-first-pass=\"1.180\"] [data-main-console-zone=\"readiness\"] .readiness-card .layout-value {\n    overflow-wrap: anywhere;\n    word-break: break-word;\n}\n\nbody .ia-core-shell[data-visual-hierarchy-first-pass=\"1.180\"] .state-guidance-card strong,\nbody .ia-core-shell[data-visual-hierarchy-first-pass=\"1.180\"] .state-guidance-card span {\n    min-width: 0;\n    overflow-wrap: anywhere;\n}\n\n/* Keep the existing read-only disclosure tab fully inside the viewport. */\nbody #request-draft-panel.request-draft-panel.collapsed {\n    width: 44px !important;\n    max-width: 44px !important;\n    transform: none !important;\n    overflow: hidden;\n}\n"""
+EXPECTED_GEOMETRY_CSS += """\nbody #request-draft-panel.request-draft-panel.collapsed .request-draft-toggle {\n    width: 43px !important;\n    min-width: 43px !important;\n}\n"""
+EXPECTED_GEOMETRY_CSS = EXPECTED_GEOMETRY_CSS.replace(
+    "    max-width: 44px !important;\n",
+    "    max-width: 44px !important;\n    right: 1px !important;\n",
+)
+
 
 def _context() -> tuple[list, dict, dict, dict, dict, dict]:
     items = corpus_items()
