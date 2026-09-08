@@ -1516,3 +1516,13 @@ No UI activa, no JS, no backend, no runtime, no execution, no JSON TOP 15, no fi
 - Readiness: `ready_for_ui_ux_1_196_large_scale_assembled_block_prompt_compilation`.
 - [Revision completa 1.195](docs/UI_UX_PANEL_MAESTRO_POST_ASSEMBLED_BLOCK_DIRECTION_REVIEW_1_195.md) y [manifiesto proximo bloque](docs/UI_UX_PANEL_MAESTRO_NEXT_LARGE_SCALE_ASSEMBLED_BLOCK_MANIFEST_1_195.md).
 - No se ejecuta UI/UX 1.196 automaticamente.
+
+## UI/UX 1.196 - Bloque gran escala CSS, accesibilidad y regresion responsive
+
+- Bloque N1-N10 cerrado secuencialmente con commits independientes, sin commit globo.
+- Resultado: `UI_UX_CSS_ACCESSIBILITY_RESPONSIVE_LARGE_SCALE_ASSEMBLED_BLOCK_PASSED`.
+- N4 retiro solo dos overrides CSS redundantes demostrados; N5-N9 consolidaron guards y validaciones sin cambiar HTML, JS, i18n, backend ni payload.
+- Browser: cinco viewports, resize bidireccional, cero overflow y consola limpia; P0/P1, 20 filas, 26 badges, 4 widgets y Request Draft preservados.
+- `backend_internal_ui_payload.v1`, deny-by-default, no runtime, no execution y payload v2 ausente.
+- Readiness: `ready_for_ui_ux_1_197_post_large_scale_block_checkpoint_and_semantic_frontier_review`.
+- No se implementa microcopy contractual transversal, motion ni audiovisual; no se ejecuta UI/UX 1.197 automaticamente.
