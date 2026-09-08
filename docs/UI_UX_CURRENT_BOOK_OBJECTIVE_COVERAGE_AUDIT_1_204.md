@@ -50,8 +50,8 @@ sigue fuera de esta capa por decisión de Dirección B.
 
 ## Totals
 
-- BOOK_OBJECTIVES_TOTAL: 22
-- SATISFIED: 20
+- BOOK_OBJECTIVES_TOTAL: 23
+- SATISFIED: 21
 - SUPERSEDED_BY_STRONGER_IMPLEMENTATION: 0
 - PARTIAL: 0
 - NOT_IMPLEMENTED_BY_DESIGN: 1
@@ -67,4 +67,3 @@ N1_UI_UX_1_204_BOOK_COVERAGE_AUDIT_PASSED
 La cobertura permite continuar a N2. Ningún objetivo satisfecho necesita una
 modificación productiva dentro de 1.204 y ninguna dependencia futura debe
 convertirse en trabajo visual implícito.
-
