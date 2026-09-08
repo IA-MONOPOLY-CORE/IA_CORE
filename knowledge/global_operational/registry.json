@@ -18,7 +18,8 @@
     },
     "by_status": {
       "CANDIDATE": 7,
-      "VALIDATED": 16
+      "PROMOTED": 7,
+      "VALIDATED": 9
     },
     "total": 23
   },
@@ -69,7 +70,7 @@
       "path": "items/compress_occurrences_into_decisions.json",
       "privacy_class": "ia_core_internal",
       "scope": "IA_CORE_BUILD",
-      "status": "VALIDATED",
+      "status": "PROMOTED",
       "tags": [
         "decision_units",
         "compression"
@@ -162,7 +163,7 @@
       "path": "items/evidence_before_closure.json",
       "privacy_class": "ia_core_internal",
       "scope": "IA_CORE_BUILD",
-      "status": "VALIDATED",
+      "status": "PROMOTED",
       "tags": [
         "evidence",
         "closure"
@@ -175,7 +176,7 @@
       "path": "items/focal_group_canonical_deep_test_policy.json",
       "privacy_class": "ia_core_internal",
       "scope": "IA_CORE_BUILD",
-      "status": "VALIDATED",
+      "status": "PROMOTED",
       "tags": [
         "tests",
         "quality"
@@ -266,7 +267,7 @@
       "path": "items/preserve_contract_until_explicit_change.json",
       "privacy_class": "ia_core_internal",
       "scope": "IA_CORE_BUILD",
-      "status": "VALIDATED",
+      "status": "PROMOTED",
       "tags": [
         "contract",
         "preservation"
@@ -279,7 +280,7 @@
       "path": "items/real_diff_over_planned_commit_name.json",
       "privacy_class": "ia_core_internal",
       "scope": "IA_CORE_BUILD",
-      "status": "VALIDATED",
+      "status": "PROMOTED",
       "tags": [
         "git",
         "semantics"
@@ -305,7 +306,7 @@
       "path": "items/station_local_commits.json",
       "privacy_class": "ia_core_internal",
       "scope": "IA_CORE_BUILD",
-      "status": "VALIDATED",
+      "status": "PROMOTED",
       "tags": [
         "git",
         "commits",
@@ -319,7 +320,7 @@
       "path": "items/true_hard_frontier.json",
       "privacy_class": "ia_core_internal",
       "scope": "IA_CORE_BUILD",
-      "status": "VALIDATED",
+      "status": "PROMOTED",
       "tags": [
         "frontier",
         "contract"

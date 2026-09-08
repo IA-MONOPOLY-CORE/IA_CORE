@@ -1,0 +1,232 @@
+{
+  "authorization_id": "first_institutional_promotion_authorization_0_3",
+  "automatic_promotion": false,
+  "created_at": "2026-09-08T18:21:03.554524+00:00",
+  "event_id": "first_institutional_promotion_0_3",
+  "event_type": "FIRST_INSTITUTIONAL_KNOWLEDGE_PROMOTION",
+  "product_changes_authorized": false,
+  "schema_version": "gokv.promotion_event.v1",
+  "source_assessment": "knowledge/global_operational/assessments/promotion_assessment_post_ui_ux_1_200.json",
+  "transitions": [
+    {
+      "authorized": true,
+      "evidence_refs": [
+        "compress_occurrences_into_decisions_ui_ux_1_200_0_3",
+        "decision_units_1199"
+      ],
+      "kind": "TASK_DECOMPOSITION_PATTERN",
+      "knowledge_id": "compress_occurrences_into_decisions",
+      "lineage_preserved": true,
+      "origin_after": "DEVELOPMENT_ORIGIN",
+      "origin_before": "DEVELOPMENT_ORIGIN",
+      "privacy_after": "ia_core_internal",
+      "privacy_before": "ia_core_internal",
+      "promotion_readiness": "PROMOTION_READY",
+      "scope_after": "IA_CORE_BUILD",
+      "scope_before": "IA_CORE_BUILD",
+      "source_checkpoints": [
+        "UI_UX_1_199",
+        "UI_UX_1_200"
+      ],
+      "source_commits": [
+        "609d19f",
+        "82e913f",
+        "b407756",
+        "dd7c154"
+      ],
+      "status_after": "PROMOTED",
+      "status_before": "VALIDATED"
+    },
+    {
+      "authorized": true,
+      "evidence_refs": [
+        "evidence_before_closure_ui_ux_1_200_0_3",
+        "evidence_closure_1199"
+      ],
+      "kind": "VALIDATION_RULE",
+      "knowledge_id": "evidence_before_closure",
+      "lineage_preserved": true,
+      "origin_after": "DEVELOPMENT_ORIGIN",
+      "origin_before": "DEVELOPMENT_ORIGIN",
+      "privacy_after": "ia_core_internal",
+      "privacy_before": "ia_core_internal",
+      "promotion_readiness": "PROMOTION_READY",
+      "scope_after": "IA_CORE_BUILD",
+      "scope_before": "IA_CORE_BUILD",
+      "source_checkpoints": [
+        "UI_UX_1_194",
+        "UI_UX_1_199",
+        "UI_UX_1_200"
+      ],
+      "source_commits": [
+        "1c9c0cd",
+        "7cb7134",
+        "b844511",
+        "c1bf467",
+        "d4e4913",
+        "d7321d2"
+      ],
+      "status_after": "PROMOTED",
+      "status_before": "VALIDATED"
+    },
+    {
+      "authorized": true,
+      "evidence_refs": [
+        "focal_group_canonical_deep_test_policy_ui_ux_1_200_0_3",
+        "test_policy_1199"
+      ],
+      "kind": "TEST_STRATEGY",
+      "knowledge_id": "focal_group_canonical_deep_test_policy",
+      "lineage_preserved": true,
+      "origin_after": "DEVELOPMENT_ORIGIN",
+      "origin_before": "DEVELOPMENT_ORIGIN",
+      "privacy_after": "ia_core_internal",
+      "privacy_before": "ia_core_internal",
+      "promotion_readiness": "PROMOTION_READY",
+      "scope_after": "IA_CORE_BUILD",
+      "scope_before": "IA_CORE_BUILD",
+      "source_checkpoints": [
+        "UI_UX_1_198",
+        "UI_UX_1_199",
+        "UI_UX_1_200"
+      ],
+      "source_commits": [
+        "0784c38",
+        "b844511",
+        "bf1f01c",
+        "d4e4913",
+        "dcb2aab"
+      ],
+      "status_after": "PROMOTED",
+      "status_before": "VALIDATED"
+    },
+    {
+      "authorized": true,
+      "evidence_refs": [
+        "preserve_contract_1199",
+        "preserve_contract_until_explicit_change_ui_ux_1_200_0_3"
+      ],
+      "kind": "PRINCIPLE",
+      "knowledge_id": "preserve_contract_until_explicit_change",
+      "lineage_preserved": true,
+      "origin_after": "DEVELOPMENT_ORIGIN",
+      "origin_before": "DEVELOPMENT_ORIGIN",
+      "privacy_after": "ia_core_internal",
+      "privacy_before": "ia_core_internal",
+      "promotion_readiness": "PROMOTION_READY",
+      "scope_after": "IA_CORE_BUILD",
+      "scope_before": "IA_CORE_BUILD",
+      "source_checkpoints": [
+        "UI_UX_1_192",
+        "UI_UX_1_199",
+        "UI_UX_1_200"
+      ],
+      "source_commits": [
+        "0d4ae4e",
+        "6ae13f4",
+        "7cb7134",
+        "bf1f01c"
+      ],
+      "status_after": "PROMOTED",
+      "status_before": "VALIDATED"
+    },
+    {
+      "authorized": true,
+      "evidence_refs": [
+        "real_diff_commit_1197",
+        "real_diff_over_planned_commit_name_ui_ux_1_200_0_3"
+      ],
+      "kind": "COMMIT_STRATEGY",
+      "knowledge_id": "real_diff_over_planned_commit_name",
+      "lineage_preserved": true,
+      "origin_after": "DEVELOPMENT_ORIGIN",
+      "origin_before": "DEVELOPMENT_ORIGIN",
+      "privacy_after": "ia_core_internal",
+      "privacy_before": "ia_core_internal",
+      "promotion_readiness": "PROMOTION_READY",
+      "scope_after": "IA_CORE_BUILD",
+      "scope_before": "IA_CORE_BUILD",
+      "source_checkpoints": [
+        "UI_UX_1_197",
+        "UI_UX_1_199",
+        "UI_UX_1_200"
+      ],
+      "source_commits": [
+        "0d4ae4e",
+        "6b9c806",
+        "7cb7134",
+        "b844511",
+        "d4e4913",
+        "dd7c154"
+      ],
+      "status_after": "PROMOTED",
+      "status_before": "VALIDATED"
+    },
+    {
+      "authorized": true,
+      "evidence_refs": [
+        "station_commits_1199",
+        "station_local_commits_ui_ux_1_200_0_3"
+      ],
+      "kind": "COMMIT_STRATEGY",
+      "knowledge_id": "station_local_commits",
+      "lineage_preserved": true,
+      "origin_after": "DEVELOPMENT_ORIGIN",
+      "origin_before": "DEVELOPMENT_ORIGIN",
+      "privacy_after": "ia_core_internal",
+      "privacy_before": "ia_core_internal",
+      "promotion_readiness": "PROMOTION_READY",
+      "scope_after": "IA_CORE_BUILD",
+      "scope_before": "IA_CORE_BUILD",
+      "source_checkpoints": [
+        "UI_UX_1_199",
+        "UI_UX_1_200"
+      ],
+      "source_commits": [
+        "0d4ae4e",
+        "1c9c0cd",
+        "2ad648a",
+        "48598d4",
+        "609d19f",
+        "6b6b8d0",
+        "82e913f",
+        "9248aae",
+        "b407756",
+        "b844511",
+        "bf1f01c",
+        "c1bf467",
+        "dd7c154"
+      ],
+      "status_after": "PROMOTED",
+      "status_before": "VALIDATED"
+    },
+    {
+      "authorized": true,
+      "evidence_refs": [
+        "hard_frontier_1199",
+        "true_hard_frontier_ui_ux_1_200_0_3"
+      ],
+      "kind": "STOP_CONDITION",
+      "knowledge_id": "true_hard_frontier",
+      "lineage_preserved": true,
+      "origin_after": "DEVELOPMENT_ORIGIN",
+      "origin_before": "DEVELOPMENT_ORIGIN",
+      "privacy_after": "ia_core_internal",
+      "privacy_before": "ia_core_internal",
+      "promotion_readiness": "PROMOTION_READY",
+      "scope_after": "IA_CORE_BUILD",
+      "scope_before": "IA_CORE_BUILD",
+      "source_checkpoints": [
+        "UI_UX_1_199",
+        "UI_UX_1_200"
+      ],
+      "source_commits": [
+        "6b6b8d0",
+        "bf1f01c",
+        "d4e4913"
+      ],
+      "status_after": "PROMOTED",
+      "status_before": "VALIDATED"
+    }
+  ]
+}

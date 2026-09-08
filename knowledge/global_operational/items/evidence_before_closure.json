@@ -1,1 +1,74 @@
-{"schema_version":"gokv.knowledge_item.v1","applicability":{"mission_types":["audit","checkpoint","all_development"],"scopes":["IA_CORE_BUILD","GLOBAL"]},"confidence":{"level":"HIGH","rationale":"Cada cierre UI/UX exigiÃ³ tests, diff protegido, estado Git y verdict antes de declarar readiness."},"decision_rules":["No cerrar por intenciÃ³n o por nombre de estaciÃ³n."],"evidence_refs":[{"evidence_id":"evidence_closure_1199","kind":"test","ref":"tests/test_ui_ux_panel_maestro_microcopy_direction_review_checkpoint_1_199.py","claim":"El checkpoint exige verdicts, readiness y preservaciÃ³n contractual."}],"failure_modes":["Declarar PASSED con evidencia parcial."],"knowledge_id":"evidence_before_closure","knowledge_version":"0.1.0","kind":"VALIDATION_RULE","metrics_refs":[],"preconditions":["Contrato de cierre definido."],"privacy_class":"ia_core_internal","procedure":["Ejecutar validaciones, conservar outputs y comparar diff antes de cerrar."],"recovery":["Reabrir el gate si falta una evidencia requerida."],"scope":"IA_CORE_BUILD","source_checkpoints":["UI_UX_1_194","UI_UX_1_199"],"source_commits":["d7321d2","7cb7134"],"status":"VALIDATED","stop_conditions":["Fallo, diff prohibido o estado Git no confirmado."],"summary":"La evidencia precede al cierre y al readiness.","superseded_by":[],"supersedes":[],"tags":["evidence","closure"],"title":"Evidence before closure","updated_at":"2026-09-08T00:00:00+00:00","validation":["Focal, group, canonical, deep, sanity y diff check."],"created_at":"2026-09-08T00:00:00+00:00"}
+{
+  "applicability": {
+    "mission_types": [
+      "audit",
+      "checkpoint",
+      "all_development"
+    ],
+    "scopes": [
+      "IA_CORE_BUILD",
+      "GLOBAL"
+    ]
+  },
+  "confidence": {
+    "level": "HIGH",
+    "rationale": "Cada cierre UI/UX exigiÃ³ tests, diff protegido, estado Git y verdict antes de declarar readiness."
+  },
+  "created_at": "2026-09-08T00:00:00+00:00",
+  "decision_rules": [
+    "No cerrar por intenciÃ³n o por nombre de estaciÃ³n."
+  ],
+  "evidence_refs": [
+    {
+      "claim": "El checkpoint exige verdicts, readiness y preservaciÃ³n contractual.",
+      "evidence_id": "evidence_closure_1199",
+      "kind": "test",
+      "ref": "tests/test_ui_ux_panel_maestro_microcopy_direction_review_checkpoint_1_199.py"
+    }
+  ],
+  "failure_modes": [
+    "Declarar PASSED con evidencia parcial."
+  ],
+  "kind": "VALIDATION_RULE",
+  "knowledge_id": "evidence_before_closure",
+  "knowledge_version": "0.1.0",
+  "learning_origin": "DEVELOPMENT_ORIGIN",
+  "lineage": [],
+  "metrics_refs": [],
+  "preconditions": [
+    "Contrato de cierre definido."
+  ],
+  "privacy_class": "ia_core_internal",
+  "procedure": [
+    "Ejecutar validaciones, conservar outputs y comparar diff antes de cerrar."
+  ],
+  "recovery": [
+    "Reabrir el gate si falta una evidencia requerida."
+  ],
+  "schema_version": "gokv.knowledge_item.v1",
+  "scope": "IA_CORE_BUILD",
+  "source_checkpoints": [
+    "UI_UX_1_194",
+    "UI_UX_1_199"
+  ],
+  "source_commits": [
+    "d7321d2",
+    "7cb7134"
+  ],
+  "status": "PROMOTED",
+  "stop_conditions": [
+    "Fallo, diff prohibido o estado Git no confirmado."
+  ],
+  "summary": "La evidencia precede al cierre y al readiness.",
+  "superseded_by": [],
+  "supersedes": [],
+  "tags": [
+    "evidence",
+    "closure"
+  ],
+  "title": "Evidence before closure",
+  "updated_at": "2026-09-08T18:21:03.544759+00:00",
+  "validation": [
+    "Focal, group, canonical, deep, sanity y diff check."
+  ]
+}
