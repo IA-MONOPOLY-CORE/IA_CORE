@@ -1,0 +1,20 @@
+{
+  "schema_version": "roadmap_3_0.security_permission_trust_boundary_graph.v1",
+  "baseline_commit": "82d309f00ab99dfa9eb100e5594bf1d8d0559f5a",
+  "http_auth_evidence": false,
+  "http_authorization_evidence": false,
+  "cors_wildcards": true,
+  "input_validation_evidence": true,
+  "agent_permission_contract_present": true,
+  "runtime_deny_by_default_present": true,
+  "internal_confirmation_gate_present": true,
+  "sandbox_path_boundary_present": true,
+  "secret_bearing_api_input_present": true,
+  "dangerous_primitive_calls": 13,
+  "dangerous_primitive_invoked": false,
+  "auth_sufficient_for_legacy_activation": false,
+  "contract_plane_remains_disabled": true,
+  "network_called": false,
+  "product_write_performed_by_audit": false,
+  "security_remediation_performed": false
+}
