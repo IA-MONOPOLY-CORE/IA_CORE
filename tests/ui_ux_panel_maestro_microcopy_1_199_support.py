@@ -114,6 +114,27 @@ class DeterminismBoundary:
     decision_owner: str
 
 
+@dataclass(frozen=True)
+class DirectionPackage:
+    direction_package_id: str
+    name: str
+    level: str
+    unit_ids: tuple[str, ...]
+    occurrence_count: int
+    surfaces: tuple[str, ...]
+    contracts: tuple[str, ...]
+    representative_texts: tuple[str, ...]
+    problem: str
+    existing_rule: str
+    why_agent_cannot_decide: str
+    options: tuple[str, ...]
+    recommendation: str
+    confidence: str
+    minimum_decision: str
+    automate_after: str
+    remains_blocked: str
+
+
 def _exact_key(item: CorpusItem) -> str:
     return item.text.casefold().strip()
 
@@ -422,3 +443,165 @@ def determinism_boundary_summary(
         "TOTAL_LEVEL_D_UNITS": sum(item.level == "LEVEL_D_CONTRACT_CHANGE" for item in entries),
         "TOTAL_LEVEL_D_OCCURRENCES": sum(item.occurrence_count for item in entries if item.level == "LEVEL_D_CONTRACT_CHANGE"),
     }
+
+
+_PACKAGE_DEFINITIONS = {
+    "PKG_B_EDITORIAL_STYLE": {
+        "name": "Regla de estilo editorial y presentacional",
+        "level": "LEVEL_B_PREAUTHORIZED_PATTERN",
+        "problem": "Hay copy editorial, labels, navegacion, formularios y placeholders que podrian ordenarse sin tocar el contrato.",
+        "existing_rule": "Preservar significado, i18n, nombres accesibles y densidad; no convertir labels en acciones.",
+        "why": "El agente puede detectar el patron, pero la preferencia de idioma, tono o casing sigue siendo de Direccion.",
+        "options": ("A - Mantener el wording actual.", "B - Aprobar una regla editorial acotada por IDs.", "C - Posponer toda normalizacion."),
+        "recommendation": "A para el estado actual; B solo con allowlist estable y revision de accesibilidad/localizacion.",
+        "confidence": "ALTA para el limite; MEDIA para elegir una preferencia editorial.",
+        "minimum": "Aprobar o rechazar una regla de estilo, no cada ocurrencia.",
+        "automate": "Aplicar solo IDs aprobados, generar diff/snapshots y validar HTML/i18n/ARIA.",
+        "blocked": "Wording contractual, permisos, acciones, readiness y estados exactos.",
+    },
+    "PKG_B_CONSISTENCY_RULE": {
+        "name": "Regla de consistencia sin perdida de contexto",
+        "level": "LEVEL_B_PREAUTHORIZED_PATTERN",
+        "problem": "Hay repeticiones equivalentes de labels, casing y tokens que no deben convertirse en una mezcla global.",
+        "existing_rule": "Compartir solo texto, autoridad y decision category equivalentes; preservar variantes contextuales.",
+        "why": "La herramienta puede demostrar equivalencia, pero Direccion debe decidir si quiere una politica de canonizacion.",
+        "options": ("A - Preservar cada contexto.", "B - Canonizar solo equivalentes con misma autoridad.", "C - Intentar una canonizacion amplia."),
+        "recommendation": "A; B es el maximo patron seguro futuro. C queda rechazada por riesgo de borrar contexto.",
+        "confidence": "ALTA sobre la separacion de autoridades; MEDIA sobre la preferencia canonica.",
+        "minimum": "Elegir una politica de consistencia para el corpus, no textos uno por uno.",
+        "automate": "Aplicar la politica a unidades equivalentes y rechazar merges contextuales.",
+        "blocked": "Fusion de superficies o autoridades contractuales diferentes.",
+    },
+    "PKG_B_GEOMETRY_REMEDIATION": {
+        "name": "Owner de riesgos geometricos locales",
+        "level": "LEVEL_B_PREAUTHORIZED_PATTERN",
+        "problem": "Hay 15 ocurrencias asociadas a wrapping o overflow local sin overflow global.",
+        "existing_rule": "Medir geometry, conservar el texto contractual y resolver primero con layout/CSS scoped si corresponde.",
+        "why": "La medicion es objetiva, pero asignar el remedio a CSS, layout o wording es una decision de ownership.",
+        "options": ("A - Mantener y observar.", "B - Autorizar una correccion CSS/layout scoped.", "C - Abrir una revision de wording contractual."),
+        "recommendation": "B para el drawer/boxes locales, manteniendo wording sin cambios.",
+        "confidence": "ALTA en la evidencia; MEDIA en el owner final del remedio.",
+        "minimum": "Elegir owner y limite de la remediation geometrica.",
+        "automate": "Repetir viewport/resize/console checks y bloquear overflow global.",
+        "blocked": "Cambios de copy, severidad o contrato por una medicion local.",
+    },
+    "PKG_C_CONTEXTUAL_VARIANTS": {
+        "name": "Variantes contextuales que no se deben mezclar",
+        "level": "LEVEL_C_DIRECTION_PACKAGE",
+        "problem": "36 ocurrencias parecen consistentes por texto, pero pertenecen a contextos que no comparten una autoridad unica.",
+        "existing_rule": "El mismo texto no implica la misma decision cuando cambia superficie, estado o contrato.",
+        "why": "Solo Direccion puede preferir uniformidad sobre contexto sin alterar la interpretacion de cada superficie.",
+        "options": ("A - Mantener las variantes por contexto.", "B - Unificar solo dentro de la misma autoridad.", "C - Unificar todas las variantes."),
+        "recommendation": "A; B requiere una regla de autoridad explícita. C no es segura.",
+        "confidence": "ALTA en que no deben fusionarse automaticamente.",
+        "minimum": "Elegir preservar contexto o autorizar una regla de autoridad.",
+        "automate": "Validar que ningun merge futuro cruce la autoridad aprobada.",
+        "blocked": "Canonizacion global o reescritura automatica entre superficies.",
+    },
+    "PKG_C_CONTRACT_SENSITIVE": {
+        "name": "Copy explicativo y diagnostico contract-sensitive",
+        "level": "LEVEL_C_DIRECTION_PACKAGE",
+        "problem": "139 ocurrencias explican limites, warnings, errors o evidencia y pueden cambiar como se interpreta el contrato.",
+        "existing_rule": "Backend contract authoritative, UI read-only, deny-by-default y sin runtime/execution.",
+        "why": "El agente puede preservar el limite, pero no elegir tono, severidad o detalle que Direccion considere correcto.",
+        "options": ("A - Mantener exactamente.", "B - Aprobar una revision acotada con Contract Owner.", "C - Proponer cambio contractual separado."),
+        "recommendation": "A hasta que exista una necesidad demostrable y un owner contractual.",
+        "confidence": "ALTA en el riesgo y en la frontera de no cambio.",
+        "minimum": "Decidir si se mantiene el texto o se abre una revision contractual.",
+        "automate": "Solo snapshots, trazabilidad y checks de vocabulario aprobado.",
+        "blocked": "Cambiar significado, severidad, source/status/fallback o limites.",
+    },
+    "PKG_C_ACTION_PERMISSION": {
+        "name": "Interpretacion de acciones y permisos",
+        "level": "LEVEL_C_DIRECTION_PACKAGE",
+        "problem": "15 ocurrencias usan vocabulario que podria leerse como accion, label o autoridad.",
+        "existing_rule": "allowed_actions es dato declarado, no CTA; no se infieren permisos.",
+        "why": "El agente no puede elegir por Direccion si la palabra debe ser boundary, etiqueta o permiso.",
+        "options": ("A - Mantener como dato/boundary read-only.", "B - Definir vocabulario contractual explicito.", "C - Autorizar una accion o permiso nuevo."),
+        "recommendation": "A; B solo mediante version contractual. C esta fuera del alcance 1.199.",
+        "confidence": "ALTA en que no puede convertirse en CTA.",
+        "minimum": "Elegir el rol semantico, sin habilitar ejecucion.",
+        "automate": "Rechazar CTA/submit/dispatch/runtime y validar el vocabulario elegido.",
+        "blocked": "Acciones operativas, permisos inferidos y payload v2.",
+    },
+    "PKG_C_AMBIGUOUS_ROLE": {
+        "name": "Rol semantico de copy ambiguo",
+        "level": "LEVEL_C_DIRECTION_PACKAGE",
+        "problem": "38 ocurrencias siguen admitiendo mas de una lectura honesta despues de contrato, precedentes y consistencia.",
+        "existing_rule": "No inventar significado; separar label, boundary, estado y permiso.",
+        "why": "Resolverlas requiere una preferencia de producto o semantica que no se deriva de evidencia unica.",
+        "options": ("A - Mantener la formulacion actual.", "B - Declararla explicitamente como boundary/dato.", "C - Redefinir su rol en un cambio contractual."),
+        "recommendation": "A mientras no exista una contradiccion demostrada; B antes que cualquier alternativa operativa.",
+        "confidence": "ALTA en la necesidad de Direccion; MEDIA en la opcion final.",
+        "minimum": "Elegir el rol conceptual del paquete, no reescribir fila por fila.",
+        "automate": "Aplicar la decision al allowlist aprobado y bloquear interpretaciones no aprobadas.",
+        "blocked": "Inferir permiso, runtime, ejecucion, dispatch o submit.",
+    },
+    "PKG_D_CONTRACT_VOCABULARY": {
+        "name": "Version futura del vocabulario contractual",
+        "level": "LEVEL_D_CONTRACT_CHANGE",
+        "problem": "692 ocurrencias son vocabulario exacto o limites que no pueden cambiar bajo el contrato actual.",
+        "existing_rule": "Preservar blockers, source/status/fallback, readiness, no_payload, not_available y deny-by-default.",
+        "why": "No es una preferencia editorial: cambiarlo desincronizaria el contrato y la lectura del operador.",
+        "options": ("A - No cambiar y mantener el contrato vigente.", "B - Planificar una nueva version contractual.", "C - Rechazar cualquier cambio de vocabulario en esta etapa."),
+        "recommendation": "A en 1.199; B solo como trabajo contractual posterior separado.",
+        "confidence": "ALTA.",
+        "minimum": "Decidir si existe necesidad de versionar el contrato; no aprobar wording aqui.",
+        "automate": "Solo despues de versionar contrato, actualizar allowlists y ejecutar regresion completa.",
+        "blocked": "Toda edicion de las 692 ocurrencias bajo el contrato actual.",
+    },
+}
+
+
+def _package_key(unit: DecisionUnit, boundary: DeterminismBoundary) -> str | None:
+    if boundary.resolution == "DERIVABLE_WITH_EXISTING_STYLE_RULE":
+        return "PKG_B_EDITORIAL_STYLE"
+    if boundary.resolution == "DERIVABLE_WITH_CONSISTENCY_RULE":
+        return "PKG_B_CONSISTENCY_RULE"
+    if boundary.resolution == "DERIVABLE_WITH_GEOMETRY_RULE":
+        return "PKG_B_GEOMETRY_REMEDIATION"
+    if boundary.resolution == "CONTRACT_CHANGE_REQUIRED":
+        return "PKG_D_CONTRACT_VOCABULARY"
+    if boundary.resolution == "DIRECTION_REQUIRED_TRUE":
+        return {
+            "CONTRACT_SENSITIVE_CANDIDATE": "PKG_C_CONTRACT_SENSITIVE",
+            "ACTION_PERMISSION_SENSITIVE": "PKG_C_ACTION_PERMISSION",
+            "AMBIGUOUS_REQUIRES_DIRECTION": "PKG_C_AMBIGUOUS_ROLE",
+            "CONSISTENCY_CANDIDATE": "PKG_C_CONTEXTUAL_VARIANTS",
+        }.get(unit.decision_categories[0], "PKG_C_AMBIGUOUS_ROLE")
+    return None
+
+
+def direction_packages(units: list[DecisionUnit] | None = None) -> list[DirectionPackage]:
+    entries = units if units is not None else decision_units()
+    boundaries = {item.decision_unit_id: item for item in determinism_boundary(entries)}
+    grouped: dict[str, list[DecisionUnit]] = defaultdict(list)
+    for unit in entries:
+        key = _package_key(unit, boundaries[unit.decision_unit_id])
+        if key is not None:
+            grouped[key].append(unit)
+    result: list[DirectionPackage] = []
+    for package_id, definition in _PACKAGE_DEFINITIONS.items():
+        members = grouped.get(package_id, [])
+        if not members:
+            continue
+        result.append(DirectionPackage(
+            direction_package_id=package_id,
+            name=definition["name"],
+            level=definition["level"],
+            unit_ids=tuple(unit.decision_unit_id for unit in members),
+            occurrence_count=sum(unit.occurrence_count for unit in members),
+            surfaces=_unique([surface for unit in members for surface in unit.surfaces]),
+            contracts=_unique([contract for unit in members for contract in unit.contracts]),
+            representative_texts=_unique([text for unit in members for text in unit.texts])[:5],
+            problem=definition["problem"],
+            existing_rule=definition["existing_rule"],
+            why_agent_cannot_decide=definition["why"],
+            options=definition["options"],
+            recommendation=definition["recommendation"],
+            confidence=definition["confidence"],
+            minimum_decision=definition["minimum"],
+            automate_after=definition["automate"],
+            remains_blocked=definition["blocked"],
+        ))
+    return result
