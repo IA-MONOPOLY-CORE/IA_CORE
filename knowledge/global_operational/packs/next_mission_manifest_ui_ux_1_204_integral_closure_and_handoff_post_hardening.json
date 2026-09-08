@@ -1,0 +1,93 @@
+{
+  "manifest_id": "ui_ux_1_204_integral_closure_and_handoff_post_hardening_manifest",
+  "schema_version": "gokv.next_mission_inheritance_manifest.v1",
+  "mission_id": "ui_ux_1_204_integral_closure_and_handoff_post_hardening",
+  "mission": "ui_ux_1_204_integral_closure_and_handoff_post_hardening",
+  "execution_pack_id": "gokv.pack.0df1216585208f07",
+  "knowledge_ids": [
+    "compress_occurrences_into_decisions",
+    "evidence_before_closure",
+    "focal_group_canonical_deep_test_policy",
+    "preserve_contract_until_explicit_change",
+    "real_diff_over_planned_commit_name",
+    "station_local_commits",
+    "true_hard_frontier"
+  ],
+  "mode": "PROMOTED_ONLY",
+  "recommended_oci_mode": "PROMOTED_ONLY",
+  "promoted_items_selected": [
+    "compress_occurrences_into_decisions",
+    "evidence_before_closure",
+    "focal_group_canonical_deep_test_policy",
+    "preserve_contract_until_explicit_change",
+    "real_diff_over_planned_commit_name",
+    "station_local_commits",
+    "true_hard_frontier"
+  ],
+  "validated_items_selected": [],
+  "candidate_items_selected": [],
+  "conflicts": [],
+  "authority_precedence": [
+    "SECURITY_PRIVACY_HARD_CONTRACTS",
+    "CURRENT_MISSION_EXPLICIT_CONSTRAINTS",
+    "CURRENT_CANONICAL_ARCHITECTURE",
+    "CURRENT_REPOSITORY_STATE",
+    "GOKV_OPERATIONAL_GUIDANCE"
+  ],
+  "conflict_policy": "CURRENT_CONTRACT_WINS",
+  "capture_protocol": [
+    "GOKV_PRE_MISSION_INHERITANCE_V1",
+    "GOKV_POST_BLOCK_CAPTURE_V1"
+  ],
+  "product_decisions_included": [],
+  "ui_ux_1_200_executed": false,
+  "ui_ux_1_202_executed": false,
+  "ui_ux_1_203_executed": true,
+  "baseline": {
+    "product_commit": "c2794799",
+    "branch": "main",
+    "product_diff": "EMPTY",
+    "contract_state": "preserved"
+  },
+  "objective": "Close the current UI/UX baseline read-only, preserve the contract-aware visual terrain, classify regressions and hand off to the next master roadmap stage.",
+  "allowed_product_surfaces": [],
+  "protected_surfaces": [
+    "ui/web/index.html",
+    "ui/web/styles.css",
+    "ui/web/i18n_es.json",
+    "ui/web/*.js",
+    "api.py",
+    "core/backend_internal_ui_payloads.py",
+    "backend",
+    "payload",
+    "runtime",
+    "execution",
+    "providers",
+    "integrations",
+    "P0",
+    "P1",
+    "P2/P3",
+    "Matriz P3",
+    "widgets contract-aware",
+    "Request Draft behavior",
+    "microcopy",
+    "Level D",
+    "actions",
+    "permissions",
+    "readiness semantics",
+    "source/status/fallback"
+  ],
+  "output_contract": {
+    "runtime_enabled": false,
+    "execution_enabled": false,
+    "payload_enabled": false,
+    "requires_explicit_human_approval": true
+  },
+  "handoff": {
+    "decision": "PRESERVE_CURRENT_UI_UX_BASELINE",
+    "semantic_contractual_extension": "NOT_AUTHORIZED_IN_UI_LAYER",
+    "next_mission_id": "roadmap_2_0_continuity_preflight_after_ui_ux_closure",
+    "next_mission_type": "READ_ONLY_CONTINUITY_REBASE",
+    "executed": false
+  }
+}
