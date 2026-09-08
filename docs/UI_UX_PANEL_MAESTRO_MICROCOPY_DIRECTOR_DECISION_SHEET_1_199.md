@@ -21,74 +21,114 @@ Direccion o Contract Owner.
 
 ## 1. PKG_B_EDITORIAL_STYLE
 
+- **DECISIÓN 1 - Tema:** patrón editorial reutilizable.
+- **Qué está pasando hoy:** existen variantes de casing, labels y forma editorial que pueden ser equivalentes dentro de una misma autoridad.
+- **Dónde se ve:** labels y estados documentales del Panel Maestro que ya comparten contrato y función.
+- **Cuántas apariciones afecta:** 295.
 - **Alcance:** 295 ocurrencias; estilo editorial repetible dentro de la autoridad existente.
 - **Problema:** casing, labels o patrones editoriales pueden normalizarse sin alterar el contrato si la autoridad y el rol son equivalentes.
 - **Opciones:** A) mantener cada formulación; B) aprobar un patrón editorial scoped; C) canonizar ampliamente.
 - **Recomendación:** B, con allowlist por unidad y sin cruzar superficies contractuales.
 - **Consecuencia:** A conserva variantes; B reduce repetición controlada; C queda rechazada por riesgo de borrar contexto.
+- **Si no cambiamos nada:** se conserva el wording actual y no se abre ningún riesgo contractual.
 - **Respuesta requerida:** elegir A, B o C para el patrón editorial, no editar 295 filas.
 
 ## 2. PKG_B_CONSISTENCY_RULE
 
+- **DECISIÓN 2 - Tema:** regla de consistencia con contexto.
+- **Qué está pasando hoy:** hay repeticiones equivalentes, pero no toda similitud textual autoriza una fusión.
+- **Dónde se ve:** labels, casing y tokens repetidos en superficies con autoridad comparable.
+- **Cuántas apariciones afecta:** 194.
 - **Alcance:** 194 ocurrencias; consistencia de labels, casing y tokens con autoridad equivalente.
 - **Problema:** equivalencia textual no alcanza para fusionar superficies o estados diferentes.
 - **Opciones:** A) preservar cada contexto; B) canonizar solo equivalentes con misma autoridad; C) intentar canonización amplia.
 - **Recomendación:** A por defecto; B es el máximo patrón seguro futuro; C queda rechazada.
 - **Consecuencia:** una regla aprobada puede aplicarse automáticamente, pero los merges contextuales seguirán bloqueados.
+- **Si no cambiamos nada:** cada contexto permanece como está y no se pierde información de autoridad.
 - **Respuesta requerida:** definir la política de consistencia, no seleccionar textos individuales.
 
 ## 3. PKG_B_GEOMETRY_REMEDIATION
 
+- **DECISIÓN 3 - Tema:** owner de correcciones geométricas locales.
+- **Qué está pasando hoy:** 15 ocurrencias tienen wrapping u overflow local medido, sin overflow global.
+- **Dónde se ve:** drawer y cajas locales del Panel Maestro durante viewport y resize.
+- **Cuántas apariciones afecta:** 15.
 - **Alcance:** 15 ocurrencias con wrapping u overflow local medido, sin overflow global.
 - **Problema:** la evidencia geométrica es objetiva, pero el owner del remedio puede ser CSS/layout o wording.
 - **Opciones:** A) mantener y observar; B) autorizar corrección CSS/layout scoped; C) abrir revisión de wording contractual.
 - **Recomendación:** B para drawer y cajas locales, manteniendo el wording.
 - **Consecuencia:** B permite remediar presentación sin crear estados, CTA ni cambio semántico.
+- **Si no cambiamos nada:** se conserva el layout actual y la evidencia queda registrada para observación.
 - **Respuesta requerida:** elegir owner y límite de la remediation geométrica.
 
 ## 4. PKG_C_CONTEXTUAL_VARIANTS
 
+- **DECISIÓN 4 - Tema:** preservar o acotar variantes contextuales.
+- **Qué está pasando hoy:** 36 ocurrencias parecen iguales por texto, pero pertenecen a contextos con autoridad distinta.
+- **Dónde se ve:** superficies y estados del Panel Maestro que comparten wording, pero no necesariamente contrato.
+- **Cuántas apariciones afecta:** 36.
 - **Alcance:** 36 ocurrencias consistentes por texto, pero pertenecientes a contextos que no comparten una autoridad única.
 - **Problema:** el mismo texto no implica la misma decisión cuando cambia superficie, estado o contrato.
 - **Opciones:** A) mantener variantes por contexto; B) unificar solo dentro de la misma autoridad; C) unificar todas.
 - **Recomendación:** A; B requiere una regla explícita de autoridad; C no es segura.
 - **Consecuencia:** preservar contexto evita que una normalización visual cambie el significado operativo.
+- **Si no cambiamos nada:** las variantes continúan separadas y el significado de cada superficie queda preservado.
 - **Respuesta requerida:** elegir preservar contexto o autorizar una regla de autoridad acotada.
 
 ## 5. PKG_C_CONTRACT_SENSITIVE
 
+- **DECISIÓN 5 - Tema:** tratamiento del copy explicativo y diagnóstico sensible al contrato.
+- **Qué está pasando hoy:** 139 ocurrencias explican límites, warnings, errors o evidencia y pueden cambiar la lectura del operador.
+- **Dónde se ve:** estados contract-aware, blockers, warnings, errores, fallbacks y superficies de evidencia.
+- **Cuántas apariciones afecta:** 139.
 - **Alcance:** 139 ocurrencias explicativas o diagnósticas relacionadas con límites, warnings, errors o evidencia.
 - **Problema:** una modificación puede cambiar cómo el operador interpreta el contrato.
 - **Opciones:** A) mantener exactamente; B) aprobar revisión acotada con Contract Owner; C) proponer cambio contractual separado.
 - **Recomendación:** A hasta que exista necesidad demostrable y owner contractual.
 - **Consecuencia:** B o C abren trabajo posterior; ninguna autoriza wording activo dentro de 1.199.
+- **Si no cambiamos nada:** el copy vigente continúa siendo la fuente de verdad y no se altera la interpretación del contrato.
 - **Respuesta requerida:** decidir si se mantiene el texto o se abre una revisión contractual.
 
 ## 6. PKG_C_ACTION_PERMISSION
 
+- **DECISIÓN 6 - Tema:** rol semántico del vocabulario de acción y permiso.
+- **Qué está pasando hoy:** 15 ocurrencias pueden leerse como acción, label o autoridad aunque no habilitan una acción.
+- **Dónde se ve:** campos y estados de `allowed_actions`, affordances bloqueadas y boundaries read-only.
+- **Cuántas apariciones afecta:** 15.
 - **Alcance:** 15 ocurrencias con vocabulario que podría leerse como acción, label o autoridad.
 - **Problema:** `allowed_actions` es dato declarado, no CTA; no se infieren permisos.
 - **Opciones:** A) mantener como dato/boundary read-only; B) definir vocabulario contractual explícito; C) autorizar acción o permiso nuevo.
 - **Recomendación:** A; B solo mediante versión contractual; C está fuera del alcance 1.199.
 - **Consecuencia:** cualquier decisión debe conservar no-CTA, no-submit, no-dispatch y no-runtime.
+- **Si no cambiamos nada:** el vocabulario permanece como dato/boundary read-only, sin inferir permisos.
 - **Respuesta requerida:** elegir el rol semántico sin habilitar ejecución.
 
 ## 7. PKG_C_AMBIGUOUS_ROLE
 
+- **DECISIÓN 7 - Tema:** rol semántico de copy ambiguo.
+- **Qué está pasando hoy:** 38 ocurrencias admiten más de una lectura honesta después de revisar contrato y precedentes.
+- **Dónde se ve:** labels y mensajes donde no es demostrable si el rol es estado, boundary, dato o permiso.
+- **Cuántas apariciones afecta:** 38.
 - **Alcance:** 38 ocurrencias que admiten más de una lectura honesta después de contrato, precedentes y consistencia.
 - **Problema:** no hay evidencia única para decidir entre label, boundary, estado o permiso.
 - **Opciones:** A) mantener formulación actual; B) declararla explícitamente boundary/dato; C) redefinir el rol mediante cambio contractual.
 - **Recomendación:** A mientras no exista contradicción; B antes que cualquier alternativa operativa.
 - **Consecuencia:** A conserva seguridad; B requiere allowlist semántica; C sale de 1.199.
+- **Si no cambiamos nada:** se mantiene la formulación actual y no se inventa significado.
 - **Respuesta requerida:** elegir el rol conceptual del paquete, no reescribir fila por fila.
 
 ## 8. PKG_D_CONTRACT_VOCABULARY
 
+- **DECISIÓN 8 - Tema:** necesidad de versionar el vocabulario contractual.
+- **Qué está pasando hoy:** 692 ocurrencias están atadas al contrato vigente y no admiten edición editorial segura.
+- **Dónde se ve:** blockers, source/status/fallback, readiness, `no_payload`, `not_available` y deny-by-default.
+- **Cuántas apariciones afecta:** 692.
 - **Alcance:** 692 ocurrencias de vocabulario exacto o límites contractuales.
 - **Problema:** cambiar estos términos puede desincronizar contrato, UI y lectura del operador.
 - **Opciones:** A) no cambiar y mantener el contrato vigente; B) planificar una nueva versión contractual; C) rechazar cualquier cambio de vocabulario en esta etapa.
 - **Recomendación:** A en 1.199; B solo como trabajo contractual posterior separado.
 - **Consecuencia:** no existe autorización para editar las 692 ocurrencias bajo el contrato actual.
+- **Si no cambiamos nada:** se conserva el contrato vigente y no se abre una migración.
 - **Respuesta requerida:** decidir si alguna necesidad justifica versionar el contrato; no aprobar wording aquí.
 - **Advertencia:** **NO ES UNA DECISION DE MICROCOPY SIMPLE.** Requiere Contract Owner, versión contractual, allowlists nuevas y regresión completa.
 
