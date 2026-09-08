@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "gokv.post_block_learning_loop.v1",
+  "title": "GOKV Post Block Learning Loop",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["loop_id", "schema_version", "mission_id", "learning_status", "learning_event_id", "execution_metric_id", "candidate_knowledge_ids", "conflict_event_ids", "next_mission_id", "next_pack_id", "loop_steps", "created_at"],
+  "properties": {
+    "loop_id": {"type": "string"},
+    "schema_version": {"const": "gokv.post_block_learning_loop.v1"},
+    "mission_id": {"type": "string"},
+    "learning_status": {"enum": ["LEARNING_FOUND", "NO_LEARNING_FOUND"]},
+    "learning_event_id": {"type": "string"},
+    "execution_metric_id": {"type": "string"},
+    "candidate_knowledge_ids": {"type": "array", "items": {"type": "string"}},
+    "conflict_event_ids": {"type": "array", "items": {"type": "string"}},
+    "next_mission_id": {"type": ["string", "null"]},
+    "next_pack_id": {"type": ["string", "null"]},
+    "loop_steps": {"const": ["EXECUTE", "VALIDATE", "CAPTURE", "DISTILL", "ASSESS", "STORE", "COMPILE_NEXT"]},
+    "created_at": {"type": "string", "format": "date-time"}
+  }
+}

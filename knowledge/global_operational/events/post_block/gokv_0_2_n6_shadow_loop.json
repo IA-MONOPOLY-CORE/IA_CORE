@@ -1,0 +1,22 @@
+{
+  "candidate_knowledge_ids": [],
+  "conflict_event_ids": [],
+  "created_at": "2026-09-08T14:57:03.594824+00:00",
+  "execution_metric_id": "gokv_0_2_n6_shadow_metric",
+  "learning_event_id": "gokv_0_2_n6_shadow_learning_event",
+  "learning_status": "NO_LEARNING_FOUND",
+  "loop_id": "gokv_0_2_n6_shadow_loop",
+  "loop_steps": [
+    "EXECUTE",
+    "VALIDATE",
+    "CAPTURE",
+    "DISTILL",
+    "ASSESS",
+    "STORE",
+    "COMPILE_NEXT"
+  ],
+  "mission_id": "ui_ux_1_200_shadow_inheritance",
+  "next_mission_id": "ui_ux_1_200",
+  "next_pack_id": "gokv.pack.422f3d1b277abcfb",
+  "schema_version": "gokv.post_block_learning_loop.v1"
+}
