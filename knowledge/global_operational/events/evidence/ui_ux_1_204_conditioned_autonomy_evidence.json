@@ -1,0 +1,27 @@
+{
+  "overlay_id": "ui_ux_1_204_conditioned_autonomy_evidence",
+  "schema_version": "gokv.independent_evidence_overlay.v1",
+  "provenance": "DEVELOPMENT_ORIGIN",
+  "append_only": true,
+  "source_mission": "ui_ux_1_204_integral_closure_and_handoff_post_hardening",
+  "source_checkpoint": "UI_UX_1_204",
+  "source_loop": "knowledge/global_operational/events/post_block/ui_ux_1_204_integral_closure_and_handoff_loop.json",
+  "source_report": "docs/UI_UX_CURRENT_LINE_FINAL_CHECKPOINT_1_204.md",
+  "evidence_refs": [
+    {
+      "knowledge_id": "conditioned_autonomy",
+      "evidence_id": "conditioned_autonomy_ui_ux_1_204",
+      "kind": "independent_execution",
+      "source_refs": [
+        "docs/UI_UX_CURRENT_LINE_CLOSURE_AND_HANDOFF_1_204.md",
+        "docs/UI_UX_INTEGRAL_REGRESSION_DEBT_CLASSIFICATION_1_204.md",
+        "tests/test_ui_ux_1_204_closure.py"
+      ],
+      "source_commits": ["f0b0261", "1dc5301", "01416d2"],
+      "claim": "La autonomia condicionada se ejercio solo para auditar, probar, clasificar, documentar y registrar el handoff; la frontera de producto, contrato, runtime y execution detuvo cualquier extension.",
+      "independence_basis": "La evidencia pertenece a una ejecucion posterior e independiente del cierre 1.204, con guards, commits y checkpoint propios."
+    }
+  ],
+  "excluded_from_overlay": ["promotion", "runtime_execution", "semantic_contract_extension"],
+  "created_at": "2026-09-08T21:09:37Z"
+}

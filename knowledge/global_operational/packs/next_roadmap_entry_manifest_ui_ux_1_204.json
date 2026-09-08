@@ -1,0 +1,59 @@
+{
+  "manifest_id": "ui_ux_1_204_next_roadmap_entry_manifest",
+  "schema_version": "gokv.next_mission_inheritance_manifest.v1",
+  "mission_id": "roadmap_2_0_continuity_preflight_after_ui_ux_closure",
+  "mission": "ROADMAP 2.x - Rebase de continuidad, verdad del repositorio y contrato de metodo",
+  "mission_type": "READ_ONLY_CONTINUITY_REBASE",
+  "executed": false,
+  "readiness": "ready_for_roadmap_2_x_continuity_rebase",
+  "final_ui_ux_head": "c2794799",
+  "repository_head_at_handoff_capture": "01416d2d88fd",
+  "origin_main_at_handoff_capture": "c2794799",
+  "working_tree_status_at_handoff_entry": "clean",
+  "ui_ux_closure_verdict": "UI_UX_CURRENT_LINE_INTEGRAL_CLOSURE_AND_HANDOFF_1_204_PASSED",
+  "direction_decision": "B_PRESERVE_BASELINE",
+  "gokv_state": {
+    "registry_valid": true,
+    "total_items": 23,
+    "promoted": 7,
+    "validated": 9,
+    "candidate": 7,
+    "conditioned_autonomy": "VALIDATED",
+    "new_candidates": [],
+    "promotion_readiness_change": "NONE"
+  },
+  "promoted_knowledge_state": {
+    "mode": "PROMOTED_ONLY",
+    "pack_id": "gokv.pack.0df1216585208f07",
+    "selected_count": 7,
+    "validated_selected": [],
+    "candidate_selected": [],
+    "helpful_count": 7
+  },
+  "known_historical_debt": [
+    "8 reproduced historical/obsolete failures classified by N4",
+    "15 inherited historical snapshot mismatches from UI/UX 1.203",
+    "3 historical snapshot classifications and 3 historical scope classifications"
+  ],
+  "known_external_dependency_debt": [
+    "tests/test_ollama_integration.py is policy-excluded and remains outside UI/UX closure"
+  ],
+  "protected_product_baseline": {
+    "commit": "c2794799",
+    "product_diff": "EMPTY",
+    "runtime_enabled": false,
+    "execution_enabled": false,
+    "payload_enabled": false,
+    "semantic_contractual_extension": "NOT_AUTHORIZED_IN_UI_LAYER"
+  },
+  "next_documents_to_read": [
+    "docs/NEXT_ARCHITECTURE_BLOCK_PLANNING_3_49.md",
+    "docs/NEXT_ARCHITECTURE_BLOCK_PLAN.md",
+    "docs/BACKEND_INTERNAL_PHASE_4_RUNTIME_EXECUTION_PREPARATION_PLAN.md",
+    "docs/BACKEND_INTERNAL_PRE_OPERATIONAL_FINAL_AUDIT.md",
+    "docs/UI_UX_CURRENT_LINE_FINAL_CHECKPOINT_1_204.md"
+  ],
+  "next_expected_objective": "Verify repository truth, continuity and method contract in read-only mode before any new master roadmap execution.",
+  "next_oci_mode": "PROMOTED_ONLY",
+  "next_pack_id": null
+}

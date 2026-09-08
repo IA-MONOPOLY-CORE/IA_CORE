@@ -1,0 +1,38 @@
+{
+  "autonomous_blockers_resolved": [],
+  "candidate_knowledge_ids": [],
+  "commits": ["2ac44a4", "ef7bcd0", "d2e0e3f", "8302c63", "d68bb39", "f0b0261", "1dc5301", "70286bb", "01416d2"],
+  "completed_stations": 7,
+  "created_at": "2026-09-08T21:09:37Z",
+  "duration": null,
+  "effort": "Muy Alto",
+  "end_commit": "01416d2",
+  "event_id": "ui_ux_1_204_integral_closure_and_handoff_learning_event",
+  "metrics_refs": ["ui_ux_1_204_integral_closure_and_handoff_execution_metric"],
+  "mission_type": "ui_ux_1_204_integral_closure_and_handoff_post_hardening",
+  "model": "GPT-5.6 Luna",
+  "observations": [
+    "N0-N6 were completed as documentation, knowledge and guard stations with no product change.",
+    "The current UI/UX baseline c2794799 was preserved and the closure decision was Direction B.",
+    "Focal, group, canonical current and deliberate historical evidence were classified without weakening historical guards.",
+    "PROMOTED_ONLY was sufficient for the integral closure and handoff; validated and candidate items were not selected.",
+    "Operational evidence supports conditioned autonomy remaining VALIDATED; it does not justify promotion or a new candidate.",
+    "The next roadmap entry is prepared but was not executed."
+  ],
+  "operator_interventions": [],
+  "planned_stations": 7,
+  "result": "UI_UX_CURRENT_LINE_INTEGRAL_CLOSURE_AND_HANDOFF_1_204_PASSED",
+  "retries": 0,
+  "rollbacks": 0,
+  "schema_version": "gokv.learning_event.v1",
+  "source_checkpoint": "UI_UX_1_204",
+  "source_phase": "INTEGRAL_UI_UX_CLOSURE_AND_HANDOFF",
+  "source_prompt": "PROMPT UI/UX 1.204",
+  "start_commit": "c2794799",
+  "tests": [
+    "tests/test_ui_ux_1_204_contract_no_ghost.py",
+    "tests/test_ui_ux_1_204_visual_checkpoint.py",
+    "tests/test_ui_ux_1_204_closure.py",
+    "tests/test_ui_ux_1_204_checkpoint.py"
+  ]
+}

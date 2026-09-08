@@ -1,0 +1,35 @@
+{
+  "commits": ["2ac44a4", "ef7bcd0", "d2e0e3f", "8302c63", "d68bb39", "f0b0261", "1dc5301", "70286bb", "01416d2"],
+  "created_at": "2026-09-08T21:09:37Z",
+  "duration": null,
+  "effort": "Muy Alto",
+  "measurement_quality": "NOT_AVAILABLE",
+  "metric_id": "ui_ux_1_204_integral_closure_and_handoff_execution_metric",
+  "model": "GPT-5.6 Luna",
+  "notes": [
+    "Duration and quota values were not captured; no values are inferred.",
+    "The product diff remained empty against c2794799.",
+    "The metric records evidence capture and validation, not runtime or execution telemetry.",
+    "Historical and external dependency debt was classified separately from current closure status."
+  ],
+  "operator_estimate": null,
+  "operator_interventions": 0,
+  "quota_5h_delta": null,
+  "quota_5h_end": null,
+  "quota_5h_start": null,
+  "quota_weekly_delta": null,
+  "quota_weekly_end": null,
+  "quota_weekly_start": null,
+  "result": "UI_UX_CURRENT_LINE_INTEGRAL_CLOSURE_AND_HANDOFF_1_204_PASSED",
+  "retries": 0,
+  "rollbacks": 0,
+  "schema_version": "gokv.execution_metric.v1",
+  "station_count": 7,
+  "task_type": "integral_ui_ux_closure_and_handoff",
+  "tests": [
+    "tests/test_ui_ux_1_204_contract_no_ghost.py",
+    "tests/test_ui_ux_1_204_visual_checkpoint.py",
+    "tests/test_ui_ux_1_204_closure.py",
+    "tests/test_ui_ux_1_204_checkpoint.py"
+  ]
+}
