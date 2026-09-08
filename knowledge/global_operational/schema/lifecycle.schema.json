@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "gokv.lifecycle.v1",
+  "title": "GOKV Lifecycle",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "statuses", "transitions", "rules"],
+  "properties": {
+    "schema_version": {"const": "gokv.lifecycle.v1"},
+    "statuses": {
+      "type": "array",
+      "items": {"enum": ["OBSERVED", "CANDIDATE", "VALIDATED", "PROMOTED", "REVISED", "DEPRECATED", "REPLACED"]}
+    },
+    "transitions": {"type": "object"},
+    "rules": {"type": "array", "items": {"type": "string"}}
+  }
+}
