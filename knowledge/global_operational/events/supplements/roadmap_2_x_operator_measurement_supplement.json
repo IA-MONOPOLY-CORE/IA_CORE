@@ -1,0 +1,27 @@
+{
+  "commit_count": 0,
+  "completed_stations": 0,
+  "effort": "Muy Alto",
+  "model": "GPT-5.6 Luna",
+  "notes": [
+    "Operator supplied for Roadmap 2.x continuity rebase.",
+    "Product change is NO at the time of the operator report.",
+    "5H_MEASUREMENT_QUALITY=RESET_INTERRUPTED.",
+    "5H_DELTA=NOT_RECONSTRUCTABLE_EXACTLY; the schema-compatible numeric sentinel is non-authoritative and must not be read as consumption.",
+    "No tokens, credits, dollars, API cost or monetary consumption are inferred."
+  ],
+  "original_event_id": "ui_ux_1_204_integral_closure_and_handoff_learning_event",
+  "planned_stations": 4,
+  "quota_5h_delta": 0,
+  "quota_5h_end_remaining": 98,
+  "quota_5h_start_remaining": 75,
+  "quota_weekly_delta": 1,
+  "quota_weekly_end_remaining": 93,
+  "quota_weekly_start_remaining": 94,
+  "reported_at": "2026-09-08T00:00:00+00:00",
+  "result": "PASS",
+  "schema_version": "gokv.operator_measurement_supplement.v1",
+  "source": "OPERATOR_REPORTED",
+  "supplement_id": "roadmap_2_x_operator_measurement_supplement",
+  "visible_duration": "30m16s"
+}
