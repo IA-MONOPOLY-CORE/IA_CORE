@@ -1,0 +1,374 @@
+{
+  "agent_class": "BUILD_AGENT",
+  "allowed_statuses": [
+    "PROMOTED"
+  ],
+  "applicable_knowledge_ids": [
+    "compress_occurrences_into_decisions",
+    "evidence_before_closure",
+    "focal_group_canonical_deep_test_policy",
+    "preserve_contract_until_explicit_change",
+    "real_diff_over_planned_commit_name",
+    "station_local_commits",
+    "true_hard_frontier"
+  ],
+  "authority_precedence": [
+    "SECURITY_PRIVACY_HARD_CONTRACTS",
+    "CURRENT_MISSION_EXPLICIT_CONSTRAINTS",
+    "CURRENT_CANONICAL_ARCHITECTURE",
+    "CURRENT_REPOSITORY_STATE",
+    "GOKV_OPERATIONAL_GUIDANCE"
+  ],
+  "compiler_version": "gokv.compiler.v1",
+  "conflict_policy": {
+    "automatic_resolution": false,
+    "id": "CURRENT_CONTRACT_WINS",
+    "on_conflict": "EXCLUDE_KNOWLEDGE_AND_RECORD_EVENT",
+    "silent_application": false
+  },
+  "decision_rules": [
+    {
+      "knowledge_id": "compress_occurrences_into_decisions",
+      "rules": [
+        "Agrupar solo si la misma elecciÃ³n aplica coherentemente a todas las ocurrencias."
+      ]
+    },
+    {
+      "knowledge_id": "evidence_before_closure",
+      "rules": [
+        "No cerrar por intenciÃ³n o por nombre de estaciÃ³n."
+      ]
+    },
+    {
+      "knowledge_id": "focal_group_canonical_deep_test_policy",
+      "rules": [
+        "Escalar la suite por riesgo y cobertura, no por cantidad artificial."
+      ]
+    },
+    {
+      "knowledge_id": "preserve_contract_until_explicit_change",
+      "rules": [
+        "La mejora visual o editorial no autoriza alterar el contrato."
+      ]
+    },
+    {
+      "knowledge_id": "real_diff_over_planned_commit_name",
+      "rules": [
+        "El diff real domina el tipo de commit."
+      ]
+    },
+    {
+      "knowledge_id": "station_local_commits",
+      "rules": [
+        "El prefijo del commit debe reflejar el diff real."
+      ]
+    },
+    {
+      "knowledge_id": "true_hard_frontier",
+      "rules": [
+        "Una frontera dura requiere evidencia de cambio contractual, no solo deseo de continuar."
+      ]
+    }
+  ],
+  "evidence_summary": {
+    "evidence_ref_count": 7,
+    "item_count": 7,
+    "measured_metrics_available": false,
+    "notes": [
+      "Selection is deterministic and development-time only.",
+      "No candidate, deprecated, or replaced item is selected implicitly."
+    ],
+    "source_checkpoint_count": 11,
+    "source_commit_count": 17
+  },
+  "execution_pack_id": "gokv.pack.112d1122146ee5c3",
+  "failure_modes": [
+    {
+      "knowledge_id": "compress_occurrences_into_decisions",
+      "rules": [
+        "Agrupar por parecido textual sin compartir contrato."
+      ]
+    },
+    {
+      "knowledge_id": "evidence_before_closure",
+      "rules": [
+        "Declarar PASSED con evidencia parcial."
+      ]
+    },
+    {
+      "knowledge_id": "focal_group_canonical_deep_test_policy",
+      "rules": [
+        "Ejecutar solo tests focales ante cambio transversal."
+      ]
+    },
+    {
+      "knowledge_id": "preserve_contract_until_explicit_change",
+      "rules": [
+        "Cambiar vocabulario contractual para resolver una preferencia visual."
+      ]
+    },
+    {
+      "knowledge_id": "real_diff_over_planned_commit_name",
+      "rules": [
+        "Usar feat/fix/refactor por comodidad narrativa."
+      ]
+    },
+    {
+      "knowledge_id": "station_local_commits",
+      "rules": [
+        "Ocultar varias estaciones en un commit globo."
+      ]
+    },
+    {
+      "knowledge_id": "true_hard_frontier",
+      "rules": [
+        "Presentar una frontera contractual como tarea editorial."
+      ]
+    }
+  ],
+  "inheritance_mode": "DEVELOPMENT_TIME_OCI_V1",
+  "knowledge_id_allowlist": [
+    "compress_occurrences_into_decisions",
+    "conditioned_autonomy",
+    "evidence_before_closure",
+    "focal_group_canonical_deep_test_policy",
+    "preserve_contract_until_explicit_change",
+    "real_diff_over_planned_commit_name",
+    "station_local_commits",
+    "true_hard_frontier"
+  ],
+  "mission_class": "backend_security_activation_boundary_read_only",
+  "mission_id": "roadmap_3_1_security_permission_activation_boundary_read_only_audit",
+  "mission_type_aliases": [
+    "all_development",
+    "architecture",
+    "audit",
+    "checkpoint",
+    "contract_audit",
+    "decision_review",
+    "planning"
+  ],
+  "mode": "PROMOTED_ONLY",
+  "model_size_class": "SMALL",
+  "oci_schema_version": "gokv.development_oci.v1",
+  "operational_guidance_only": true,
+  "output_contract": {
+    "execution_enabled": false,
+    "format": "structured_json",
+    "payload_enabled": false,
+    "requires_explicit_human_approval": true,
+    "runtime_enabled": false
+  },
+  "principles": [
+    {
+      "knowledge_id": "preserve_contract_until_explicit_change",
+      "summary": "El contrato se preserva hasta que exista una decisiÃ³n y versiÃ³n contractual explÃ­cita."
+    }
+  ],
+  "procedures": [
+    {
+      "knowledge_id": "compress_occurrences_into_decisions",
+      "steps": [
+        "Normalizar ocurrencias, separar contextos y empaquetar decisiones conceptuales."
+      ],
+      "title": "Compress occurrences into decisions"
+    },
+    {
+      "knowledge_id": "evidence_before_closure",
+      "steps": [
+        "Ejecutar validaciones, conservar outputs y comparar diff antes de cerrar."
+      ],
+      "title": "Evidence before closure"
+    },
+    {
+      "knowledge_id": "focal_group_canonical_deep_test_policy",
+      "steps": [
+        "Ejecutar focal; ampliar a group; correr canonical; agregar deep historical si se tocan guards."
+      ],
+      "title": "Focal group canonical deep test policy"
+    },
+    {
+      "knowledge_id": "preserve_contract_until_explicit_change",
+      "steps": [
+        "Mantener contrato, declarar lÃ­mite y elevar cambios a owner contractual."
+      ],
+      "title": "Preserve contract until explicit change"
+    },
+    {
+      "knowledge_id": "real_diff_over_planned_commit_name",
+      "steps": [
+        "Inspeccionar paths, naturaleza del cambio y tests; elegir prefijo congruente."
+      ],
+      "title": "Real diff over planned commit name"
+    },
+    {
+      "knowledge_id": "station_local_commits",
+      "steps": [
+        "Cerrar y validar una estaciÃ³n, crear un commit semÃ¡ntico y registrar su hash."
+      ],
+      "title": "Station-local commits"
+    },
+    {
+      "knowledge_id": "true_hard_frontier",
+      "steps": [
+        "Nombrar la frontera, owner requerido y prerequisitos antes de continuar."
+      ],
+      "title": "True hard frontier"
+    }
+  ],
+  "recovery": [
+    {
+      "knowledge_id": "compress_occurrences_into_decisions",
+      "rules": [
+        "Deshacer una agrupaciÃ³n si cruza autoridad o riesgo."
+      ]
+    },
+    {
+      "knowledge_id": "evidence_before_closure",
+      "rules": [
+        "Reabrir el gate si falta una evidencia requerida."
+      ]
+    },
+    {
+      "knowledge_id": "focal_group_canonical_deep_test_policy",
+      "rules": [
+        "No cerrar mientras una capa requerida falle."
+      ]
+    },
+    {
+      "knowledge_id": "preserve_contract_until_explicit_change",
+      "rules": [
+        "Revertir cualquier cambio que cruce el boundary."
+      ]
+    },
+    {
+      "knowledge_id": "real_diff_over_planned_commit_name",
+      "rules": [
+        "Detener commit si el mensaje no describe el diff."
+      ]
+    },
+    {
+      "knowledge_id": "station_local_commits",
+      "rules": [
+        "Revertir el commit localizado sin tocar estaciones previas."
+      ]
+    },
+    {
+      "knowledge_id": "true_hard_frontier",
+      "rules": [
+        "Cerrar el bloque sin cruzar la frontera."
+      ]
+    }
+  ],
+  "required_capabilities": [],
+  "risk_class": "HIGH",
+  "schema_version": "gokv.execution_pack.v1",
+  "scope": "IA_CORE_BUILD",
+  "selection_policy": {
+    "excluded_statuses": [
+      "CANDIDATE",
+      "DEPRECATED",
+      "REPLACED",
+      "OBSERVED",
+      "REVISED"
+    ],
+    "privacy_compatibility": [
+      "ia_core_internal",
+      "global_public"
+    ],
+    "scope_compatibility": [
+      "IA_CORE_BUILD",
+      "GLOBAL"
+    ]
+  },
+  "stop_conditions": [
+    {
+      "knowledge_id": "compress_occurrences_into_decisions",
+      "rules": [
+        "No convertir una compresiÃ³n numÃ©rica en mÃ©trica de calidad."
+      ]
+    },
+    {
+      "knowledge_id": "evidence_before_closure",
+      "rules": [
+        "Fallo, diff prohibido o estado Git no confirmado."
+      ]
+    },
+    {
+      "knowledge_id": "focal_group_canonical_deep_test_policy",
+      "rules": [
+        "No confundir cantidad de tests con cobertura."
+      ]
+    },
+    {
+      "knowledge_id": "preserve_contract_until_explicit_change",
+      "rules": [
+        "Cambio de payload, HTML, JS, i18n, backend o vocabulario contractual sin autorizaciÃ³n explÃ­cita."
+      ]
+    },
+    {
+      "knowledge_id": "real_diff_over_planned_commit_name",
+      "rules": [
+        "No usar feat(ui) sin producto ni fix(ui) sin defecto productivo."
+      ]
+    },
+    {
+      "knowledge_id": "station_local_commits",
+      "rules": [
+        "No crear commit vacÃ­o ni mezclar estaciones sin justificaciÃ³n."
+      ]
+    },
+    {
+      "knowledge_id": "true_hard_frontier",
+      "rules": [
+        "Cambio de contrato sin Contract Owner y versiÃ³n explÃ­cita."
+      ]
+    }
+  ],
+  "tags": [],
+  "task_type": "security_activation_boundary_read_only_audit",
+  "validation_rules": [
+    {
+      "knowledge_id": "compress_occurrences_into_decisions",
+      "rules": [
+        "1143 unidades, 8 paquetes y lÃ­mites de merge."
+      ]
+    },
+    {
+      "knowledge_id": "evidence_before_closure",
+      "rules": [
+        "Focal, group, canonical, deep, sanity y diff check."
+      ]
+    },
+    {
+      "knowledge_id": "focal_group_canonical_deep_test_policy",
+      "rules": [
+        "Canonical 155 passed y deep 365 passed en 1.199."
+      ]
+    },
+    {
+      "knowledge_id": "preserve_contract_until_explicit_change",
+      "rules": [
+        "Diff productivo vacÃ­o y guards histÃ³ricos."
+      ]
+    },
+    {
+      "knowledge_id": "real_diff_over_planned_commit_name",
+      "rules": [
+        "Log de commits 1.197-1.199."
+      ]
+    },
+    {
+      "knowledge_id": "station_local_commits",
+      "rules": [
+        "Log, diff real y suite de continuidad."
+      ]
+    },
+    {
+      "knowledge_id": "true_hard_frontier",
+      "rules": [
+        "Grafo post-DirecciÃ³n y Decision Sheet."
+      ]
+    }
+  ]
+}

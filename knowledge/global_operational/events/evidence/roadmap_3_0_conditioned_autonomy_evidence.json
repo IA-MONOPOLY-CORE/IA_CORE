@@ -1,0 +1,19 @@
+{
+  "overlay_id": "roadmap_3_0_conditioned_autonomy_evidence",
+  "schema_version": "gokv.independent_evidence_overlay.v1",
+  "provenance": "DEVELOPMENT_ORIGIN",
+  "source_checkpoint": "ROADMAP_3_0_N9_CHECKPOINT_HANDOFF_PASSED",
+  "source_mission": "roadmap_3_0_backend_elite_read_only_inventory",
+  "source_loop": "knowledge/global_operational/events/post_block/roadmap_3_0_backend_elite_read_only_audit_loop.json",
+  "source_report": "docs/ROADMAP_3_0_BACKEND_ELITE_READ_ONLY_AUDIT_CHECKPOINT.md",
+  "evidence_refs": [{
+    "evidence_id": "conditioned_autonomy_roadmap_3_0",
+    "knowledge_id": "conditioned_autonomy",
+    "kind": "independent_execution",
+    "claim": "La autonomía condicionada completó un inventario backend read-only con diez estaciones, preservó las fronteras de no activación y seleccionó un siguiente bloque read-only sin promover conocimiento.",
+    "independence_basis": "La ejecución tiene estaciones, guards, commits locales, checkpoint y captura GOKV propios.",
+    "source_commits": ["249bca62","f3146972","c5c36e2e","e3b31e79","879d185a"],
+    "source_refs": ["docs/ROADMAP_3_0_BACKEND_SURFACE_CENSUS.md","docs/ROADMAP_3_0_BACKEND_CROSS_LAYER_RISK_UNKNOWN_MATRIX.md","docs/ROADMAP_3_0_BACKEND_ELITE_READ_ONLY_AUDIT_CHECKPOINT.md"]
+  }],
+  "excluded_from_overlay": ["promotion","runtime_execution","backend_activation","provider_invocation","semantic_contract_extension"]
+}

@@ -1,0 +1,30 @@
+{
+  "metric_id": "roadmap_3_0_backend_elite_read_only_audit_execution_metric",
+  "schema_version": "gokv.execution_metric.v1",
+  "model": "GPT-5.6 Luna",
+  "effort": "Muy Alto",
+  "task_type": "backend_elite_read_only_audit",
+  "duration": null,
+  "station_count": 10,
+  "commits": ["249bca62","a79aeca3","620d3214","f3146972","9d7a7f54","54c2ccb9","bd06985b","c5c36e2e","e3b31e79","4ad33f32","879d185a"],
+  "tests": ["roadmap_3_0_n0_to_n8_static_guards"],
+  "operator_interventions": 0,
+  "retries": 0,
+  "rollbacks": 0,
+  "result": "ROADMAP_3_0_BACKEND_ELITE_READ_ONLY_AUDIT_PASSED",
+  "quota_5h_start": null,
+  "quota_5h_end": null,
+  "quota_5h_delta": null,
+  "quota_weekly_start": null,
+  "quota_weekly_end": null,
+  "quota_weekly_delta": null,
+  "measurement_quality": "NOT_AVAILABLE",
+  "operator_estimate": null,
+  "notes": [
+    "Exact start, end and duration were not captured; no duration is inferred.",
+    "The Roadmap 2.x operator supplement remains the historical measurement source and is not reused as 3.0 telemetry.",
+    "No product, runtime, provider, network, model, operational store or secret operation was performed.",
+    "Static census: 1598 files, 802 Python files, 217 non-test Python files and 594 test files."
+  ],
+  "created_at": "2026-09-08T23:12:47Z"
+}

@@ -13,4 +13,3 @@ def test_n8_synthesis_selects_read_only_security_activation_as_next_frontier():
     assert "No Direction decision is needed" in text
     assert "no 3.1 station was executed" in text
     assert "Protected scope" in text
-

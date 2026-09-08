@@ -1,0 +1,31 @@
+{
+  "agent_class": "BUILD_AGENT",
+  "knowledge_id_allowlist": [
+    "compress_occurrences_into_decisions",
+    "conditioned_autonomy",
+    "evidence_before_closure",
+    "focal_group_canonical_deep_test_policy",
+    "preserve_contract_until_explicit_change",
+    "real_diff_over_planned_commit_name",
+    "station_local_commits",
+    "true_hard_frontier"
+  ],
+  "mission_class": "backend_security_activation_boundary_read_only",
+  "mission_type_aliases": [
+    "all_development",
+    "architecture",
+    "audit",
+    "checkpoint",
+    "contract_audit",
+    "decision_review",
+    "planning"
+  ],
+  "mode": "PROMOTED_ONLY",
+  "model_size_class": "SMALL",
+  "privacy_class": "ia_core_internal",
+  "required_capabilities": [],
+  "risk_class": "HIGH",
+  "scope": "IA_CORE_BUILD",
+  "tags": [],
+  "task_type": "security_activation_boundary_read_only_audit"
+}
