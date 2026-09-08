@@ -1,0 +1,21 @@
+{
+  "schema_version": "roadmap_3_0.agent_preset_paper_team_activation_graph.v1",
+  "baseline_commit": "82d309f00ab99dfa9eb100e5594bf1d8d0559f5a",
+  "agent_python_files": 17,
+  "discoverable_agent_modules": 6,
+  "demo_json_agent_definitions": 4,
+  "loteria_active_json_agents": 0,
+  "loteria_preset_count": 1,
+  "loteria_active_presets": 0,
+  "paper_schema_present": true,
+  "paper_materializer_present": true,
+  "loteria_active_paper_files": 0,
+  "team_materializer_present": true,
+  "materialized_active_team_found": false,
+  "activation_chain": ["profile_catalog","agent_presets","paper_seed","sandbox_agent","sandbox_team","active_contract","approval_gate","active_executor"],
+  "activation_performed": false,
+  "runtime_started": false,
+  "provider_called": false,
+  "network_called": false,
+  "product_write_performed_by_audit": false
+}
