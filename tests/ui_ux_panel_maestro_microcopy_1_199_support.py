@@ -33,6 +33,12 @@ N3_RESOLUTIONS = (
     "CONTRACT_CHANGE_REQUIRED",
     "KEEP_NO_DECISION",
 )
+DETERMINISM_LEVELS = (
+    "LEVEL_A_FULLY_DETERMINISTIC",
+    "LEVEL_B_PREAUTHORIZED_PATTERN",
+    "LEVEL_C_DIRECTION_PACKAGE",
+    "LEVEL_D_CONTRACT_CHANGE",
+)
 
 
 GROUPING_TYPES = (
@@ -95,6 +101,17 @@ class DirectionCompression:
     occurrence_count: int
     original_direction_required: bool
     rationale: str
+
+
+@dataclass(frozen=True)
+class DeterminismBoundary:
+    decision_unit_id: str
+    level: str
+    resolution: str
+    occurrence_count: int
+    evidence: str
+    condition_to_automate: str
+    decision_owner: str
 
 
 def _exact_key(item: CorpusItem) -> str:
@@ -347,4 +364,61 @@ def direction_compression_summary(
         "TOTAL_DERIVABLE_WITH_EXISTING_CONTRACT_UNITS": sum(item.resolution == "DERIVABLE_WITH_EXISTING_CONTRACT" and item.original_direction_required for item in entries),
         "TOTAL_DERIVABLE_WITH_CONSISTENCY_RULE_ITEMS": sum(item.occurrence_count for item in entries if item.resolution == "DERIVABLE_WITH_CONSISTENCY_RULE" and item.original_direction_required),
         "TOTAL_DERIVABLE_WITH_CONSISTENCY_RULE_UNITS": sum(item.resolution == "DERIVABLE_WITH_CONSISTENCY_RULE" and item.original_direction_required for item in entries),
+    }
+
+
+def determinism_boundary(units: list[DecisionUnit] | None = None) -> list[DeterminismBoundary]:
+    compressed = {item.decision_unit_id: item for item in direction_compression(units)}
+    result: list[DeterminismBoundary] = []
+    for unit in units if units is not None else decision_units():
+        item = compressed[unit.decision_unit_id]
+        if item.resolution in {"KEEP_NO_DECISION", "DERIVABLE_WITH_EXISTING_CONTRACT"}:
+            level = "LEVEL_A_FULLY_DETERMINISTIC"
+            evidence = "Existing contract or explicit keep evidence supplies one safe outcome."
+            condition = "Run only preservation, ID, source and protected-diff checks; no wording edit is implied."
+            owner = "AGENT"
+        elif item.resolution in {
+            "DERIVABLE_WITH_EXISTING_STYLE_RULE",
+            "DERIVABLE_WITH_CONSISTENCY_RULE",
+            "DERIVABLE_WITH_GEOMETRY_RULE",
+        }:
+            level = "LEVEL_B_PREAUTHORIZED_PATTERN"
+            evidence = "A repeatable editorial, consistency or geometry pattern exists, but a one-time rule approval is still needed."
+            condition = "Direction approves the pattern and stable ID allowlist once; the agent then applies only that rule."
+            owner = "DIRECTION_PATTERN_OWNER"
+        elif item.resolution == "DIRECTION_REQUIRED_TRUE":
+            level = "LEVEL_C_DIRECTION_PACKAGE"
+            evidence = "More than one honest interpretation or contextual choice remains."
+            condition = "Direction selects an option for the coherent package; no record-by-record polling is required."
+            owner = "DIRECTION"
+        else:
+            level = "LEVEL_D_CONTRACT_CHANGE"
+            evidence = "The current exact vocabulary or boundary cannot change under the active contract."
+            condition = "Version the contract/vocabulary first; keep the current record unchanged until then."
+            owner = "CONTRACT_OWNER"
+        result.append(DeterminismBoundary(
+            decision_unit_id=unit.decision_unit_id,
+            level=level,
+            resolution=item.resolution,
+            occurrence_count=unit.occurrence_count,
+            evidence=evidence,
+            condition_to_automate=condition,
+            decision_owner=owner,
+        ))
+    return result
+
+
+def determinism_boundary_summary(
+    units: list[DecisionUnit] | None = None,
+) -> dict[str, int]:
+    entries = determinism_boundary(units)
+    return {
+        "TOTAL_LEVEL_A_UNITS": sum(item.level == "LEVEL_A_FULLY_DETERMINISTIC" for item in entries),
+        "TOTAL_LEVEL_A_OCCURRENCES": sum(item.occurrence_count for item in entries if item.level == "LEVEL_A_FULLY_DETERMINISTIC"),
+        "TOTAL_LEVEL_B_UNITS": sum(item.level == "LEVEL_B_PREAUTHORIZED_PATTERN" for item in entries),
+        "TOTAL_LEVEL_B_OCCURRENCES": sum(item.occurrence_count for item in entries if item.level == "LEVEL_B_PREAUTHORIZED_PATTERN"),
+        "TOTAL_LEVEL_C_UNITS": sum(item.level == "LEVEL_C_DIRECTION_PACKAGE" for item in entries),
+        "TOTAL_LEVEL_C_OCCURRENCES": sum(item.occurrence_count for item in entries if item.level == "LEVEL_C_DIRECTION_PACKAGE"),
+        "TOTAL_LEVEL_D_UNITS": sum(item.level == "LEVEL_D_CONTRACT_CHANGE" for item in entries),
+        "TOTAL_LEVEL_D_OCCURRENCES": sum(item.occurrence_count for item in entries if item.level == "LEVEL_D_CONTRACT_CHANGE"),
     }
