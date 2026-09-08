@@ -9,6 +9,7 @@ from typing import Any
 
 from gokv.capture import append_execution_metric, append_learning_event
 from gokv.compiler import compile_execution_pack
+from gokv.institutional_promotion import load_json, promote_authorized_items
 from gokv.schema import validate_knowledge_item
 from gokv.storage import (
     default_paths,
@@ -32,6 +33,10 @@ def build_parser() -> argparse.ArgumentParser:
     for name in ("append-event", "append-metric", "add-candidate", "compile-pack"):
         command = commands.add_parser(name)
         command.add_argument("json_path", type=Path)
+    promote = commands.add_parser("promote-authorized")
+    promote.add_argument("authorization_json", type=Path)
+    promote.add_argument("assessment_json", type=Path)
+    promote.add_argument("--event-id", default="first_institutional_promotion")
     return parser
 
 
@@ -60,6 +65,13 @@ def main(argv: list[str] | None = None) -> int:
         result = {"path": str(destination), "knowledge_id": item["knowledge_id"]}
     elif args.command == "compile-pack":
         result = compile_execution_pack(_load_json(args.json_path), paths)
+    elif args.command == "promote-authorized":
+        result = promote_authorized_items(
+            load_json(args.authorization_json),
+            load_json(args.assessment_json),
+            paths=paths,
+            event_id=args.event_id,
+        )
     else:  # pragma: no cover - argparse enforces command choices
         raise ValueError(f"comando no soportado: {args.command}")
 
