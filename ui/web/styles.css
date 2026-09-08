@@ -1906,3 +1906,10 @@ body .ia-core-shell[data-visual-hierarchy-first-pass="1.180"] #validation-readin
     min-width: 0;
     overflow-wrap: anywhere;
 }
+
+/* UI/UX 1.203 N2: remove the measured 300px legacy floor on narrow screens. */
+@media (max-width: 480px) {
+    body .ia-core-shell[data-responsive-debt-fix="1.177"] #agents-grid {
+        grid-template-columns: minmax(0, 1fr);
+    }
+}
