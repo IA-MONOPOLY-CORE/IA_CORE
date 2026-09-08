@@ -1,0 +1,50 @@
+{
+  "schema_version": "roadmap_3_0.persistence_side_effect_graph.v1",
+  "baseline_commit": "82d309f00ab99dfa9eb100e5594bf1d8d0559f5a",
+  "write_side_effect_candidates": 60,
+  "files_with_candidates": 30,
+  "primitive_counts": {
+    "json_dump": 24,
+    "open_write": 13,
+    "shutil_rmtree": 11,
+    "sqlite_connect": 4,
+    "sql_execute": 3,
+    "shutil_move": 1,
+    "open_exclusive": 1,
+    "subprocess_run": 1,
+    "os_replace": 1,
+    "subprocess_check_output": 1
+  },
+  "classification": {
+    "sandbox_controlled": [
+      "core/domain_materializer.py",
+      "core/agent_preset_materializer.py",
+      "core/paper_seed_materializer.py",
+      "core/sandbox_agent_materializer.py",
+      "core/sandbox_team_materializer.py"
+    ],
+    "legacy_operational_candidates": [
+      "api.py",
+      "core/memoria_perpetua.py",
+      "core/supervisor.py",
+      "domains/loteria/database_loteria.py"
+    ],
+    "contract_or_gated": [
+      "core/active_executor.py",
+      "core/execution_runner.py",
+      "core/attempt_factory.py",
+      "core/backend_internal_materialize_sandbox_service.py"
+    ],
+    "development_evidence": [
+      "knowledge/global_operational/",
+      "gokv/"
+    ]
+  },
+  "secret_bearing_write_candidate": "api.py:/api/settings",
+  "delete_write_candidate": "api.py:/api/agents/{agent_id}",
+  "operational_path_rejection_present": true,
+  "sqlite_opened_by_audit": false,
+  "product_write_performed_by_audit": false,
+  "network_called": false,
+  "runtime_started": false
+}
