@@ -1895,3 +1895,14 @@ body #request-draft-panel.request-draft-panel.collapsed .request-draft-toggle {
     width: 43px !important;
     min-width: 43px !important;
 }
+
+/* UI/UX 1.203 N1: contain the measured Validation & Readiness source row. */
+body .ia-core-shell[data-visual-hierarchy-first-pass="1.180"] #validation-readiness-screen [data-validation-readiness-block="source"] .validation-readiness-state-row {
+    min-width: 0;
+}
+
+body .ia-core-shell[data-visual-hierarchy-first-pass="1.180"] #validation-readiness-screen [data-validation-readiness-block="source"] .validation-readiness-state-row > strong,
+body .ia-core-shell[data-visual-hierarchy-first-pass="1.180"] #validation-readiness-screen [data-validation-readiness-block="source"] .validation-readiness-state-row > span {
+    min-width: 0;
+    overflow-wrap: anywhere;
+}
