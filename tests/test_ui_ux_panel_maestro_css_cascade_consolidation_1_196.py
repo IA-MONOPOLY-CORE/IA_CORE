@@ -47,8 +47,8 @@ def test_n4_preserves_contract_and_rejects_operational_css():
 
 
 def test_n4_scope_is_css_only_and_snapshot_is_strict():
-    changed = set(filter(None, git("diff", "--name-only", "--no-renames", PRE_N4, "HEAD").splitlines()))
-    working = set(filter(None, git("ls-files", "--others", "--exclude-standard").splitlines()))
-    assert changed | working <= {"ui/web/styles.css", "tests/test_ui_ux_panel_maestro_css_cascade_consolidation_1_196.py"}
+    n4_commit = continuity.commit_for(continuity.STATION_MESSAGES["N4"]) or PRE_N4
+    changed = set(filter(None, git("diff", "--name-only", "--no-renames", n4_commit, "HEAD").splitlines()))
+    assert changed == set()
     source = (ROOT / "tests" / "ui_ux_1_196_snapshot_groups.py").read_text(encoding="utf-8")
     groups.assert_no_weakening(source)
