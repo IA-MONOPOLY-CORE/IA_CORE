@@ -239,8 +239,9 @@ def validate_promotion_event(event: Mapping[str, Any]) -> dict[str, Any]:
             raise ValueError("promotion transition lifecycle invalido")
         if transition["promotion_readiness"] != "PROMOTION_READY" or transition["authorized"] is not True:
             raise ValueError("promotion transition governance invalida")
-        for field in ("evidence_refs", "source_checkpoints", "source_commits"):
-            _validate_id_list(transition[field], f"transition.{field}", allow_empty=False)
+        _validate_id_list(transition["evidence_refs"], "transition.evidence_refs", allow_empty=False)
+        _validate_text_list(transition["source_checkpoints"], "transition.source_checkpoints", allow_empty=False)
+        _validate_text_list(transition["source_commits"], "transition.source_commits", allow_empty=False)
         if transition["scope_before"] != transition["scope_after"] or transition["scope_after"] != "IA_CORE_BUILD":
             raise ValueError("promotion transition scope invalido")
         if transition["origin_before"] != "DEVELOPMENT_ORIGIN" or transition["origin_before"] != transition["origin_after"]:
@@ -476,6 +477,13 @@ def _validate_id_list(value: Any, field: str, *, allow_empty: bool) -> None:
         raise ValueError(f"{field} debe ser una lista no vacia")
     for entry in value:
         _validate_id(entry, field)
+
+
+def _validate_text_list(value: Any, field: str, *, allow_empty: bool) -> None:
+    if not isinstance(value, list) or (not allow_empty and not value):
+        raise ValueError(f"{field} debe ser una lista no vacia")
+    if not all(isinstance(entry, str) and entry.strip() for entry in value):
+        raise ValueError(f"{field} debe ser una lista de strings no vacios")
 
 
 def _validate_id(value: Any, field: str) -> None:
