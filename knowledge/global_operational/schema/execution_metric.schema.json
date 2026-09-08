@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "gokv.execution_metric.v1",
+  "title": "GOKV Execution Metric",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["metric_id", "schema_version", "model", "effort", "task_type", "duration", "station_count", "commits", "tests", "operator_interventions", "retries", "rollbacks", "result", "quota_5h_start", "quota_5h_end", "quota_5h_delta", "quota_weekly_start", "quota_weekly_end", "quota_weekly_delta", "measurement_quality", "operator_estimate", "notes", "created_at"],
+  "properties": {
+    "metric_id": {"type": "string"},
+    "schema_version": {"const": "gokv.execution_metric.v1"},
+    "model": {"type": ["string", "null"]},
+    "effort": {"type": ["string", "null"]},
+    "task_type": {"type": "string"},
+    "duration": {"type": ["number", "null"], "minimum": 0},
+    "station_count": {"type": ["integer", "null"], "minimum": 0},
+    "commits": {"type": "array", "items": {"type": "string"}},
+    "tests": {"type": "array", "items": {"type": "string"}},
+    "operator_interventions": {"type": ["integer", "null"], "minimum": 0},
+    "retries": {"type": ["integer", "null"], "minimum": 0},
+    "rollbacks": {"type": ["integer", "null"], "minimum": 0},
+    "result": {"type": ["string", "null"]},
+    "quota_5h_start": {"type": ["string", "null"]},
+    "quota_5h_end": {"type": ["string", "null"]},
+    "quota_5h_delta": {"type": ["string", "null"]},
+    "quota_weekly_start": {"type": ["string", "null"]},
+    "quota_weekly_end": {"type": ["string", "null"]},
+    "quota_weekly_delta": {"type": ["string", "null"]},
+    "measurement_quality": {"enum": ["MEASURED", "OPERATOR_REPORTED", "OPERATOR_ESTIMATED", "NOT_AVAILABLE", "RESET_INTERRUPTED"]},
+    "operator_estimate": {},
+    "notes": {"type": "array", "items": {"type": "string"}},
+    "created_at": {"type": "string"}
+  }
+}
