@@ -4,6 +4,23 @@ IA_CORE is a local, contract-aware multi-agent framework in construction. Its cu
 
 Current GitHub backup target: `https://github.com/IA-MONOPOLY-CORE/IA_CORE`
 
+## Cursor vigente Roadmap 2.x
+
+El cierre UI/UX 1.204 esta publicado en `eb00a478` y la linea actual queda
+`CURRENT_LINE_CLOSED`, con baseline productivo preservado en `c2794799`.
+Roadmap 2.x completo el preflight de continuidad, la auditoria del metodo y el
+mapa de estado actual sin modificar producto. El siguiente paso preparado es
+`roadmap_3_0_backend_elite_read_only_inventory`, de tipo
+`BACKEND_ELITE_READ_ONLY_AUDIT`; la Fase 3.0 aun no fue ejecutada.
+
+Documentos vigentes: `docs/ROADMAP_2_0_CONTINUITY_PREFLIGHT.md`,
+`docs/ROADMAP_2_1_METHOD_APPLIED_AUDIT.md`,
+`docs/ROADMAP_2_2_CURRENT_STATE_MAP.md` y
+`docs/ROADMAP_2_X_CONTINUITY_REBASE_CHECKPOINT.md`.
+
+Las secciones UI/UX historicas que siguen debajo conservan trazabilidad y no
+representan el cursor actual.
+
 ## Cursor vigente UI/UX 1.188
 
 UI/UX 1.188 registra la seleccion del proximo bloque visual sobre base `e2d1653`, posterior al checkpoint de Matriz 1.187: Candidato A, Panel derecho Request Contract Preview / Request Draft Panel. Es seleccion read-only, sin implementacion, sin UI activa ni CSS activo, no backend/no-runtime/no-execution, no endpoints ni payload v2. Motivo: el panel lateral fijo sigue concentrando peso visual desktop; el siguiente paso debe rebajarlo sin alterar contrato, drawer ni control blocked. Recomendacion armonica de modelo/herramienta/nivel de esfuerzo: modelo avanzado estable con inspeccion visual y esfuerzo alto. Readiness: `ready_for_ui_ux_1_189_selected_visual_block_implementation`.
