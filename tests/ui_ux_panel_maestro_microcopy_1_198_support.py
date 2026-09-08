@@ -713,6 +713,125 @@ def contract_surface_maps(items: list[CorpusItem] | None = None) -> list[Contrac
     return result
 
 
+DECISION_CATEGORIES = (
+    "SAFE_TO_KEEP",
+    "EDITORIAL_CANDIDATE",
+    "CONSISTENCY_CANDIDATE",
+    "GEOMETRY_DRIVEN_CANDIDATE",
+    "CONTRACT_SENSITIVE_CANDIDATE",
+    "ACTION_PERMISSION_SENSITIVE",
+    "READINESS_SENSITIVE",
+    "AMBIGUOUS_REQUIRES_DIRECTION",
+    "MUST_NOT_CHANGE_WITHOUT_CONTRACT_CHANGE",
+)
+DECISION_RECOMMENDATIONS = (
+    "KEEP",
+    "REVIEW",
+    "DIRECTION_REQUIRED",
+    "CONTRACT_CHANGE_REQUIRED",
+    "NO_CHANGE",
+)
+
+
+@dataclass(frozen=True)
+class DecisionPackageRow:
+    microcopy_id: str
+    text: str
+    file: str
+    location: str
+    classification: str
+    decision_category: str
+    risk: str
+    reason: str
+    possible_breakage: str
+    contract_touched: str
+    duplicate: str
+    visual_issue: str
+    inconsistency: str
+    recommendation: str
+    proposal_status: str
+
+
+def _geometry_issue(item: CorpusItem) -> str:
+    if item.text in {"backend_internal_ui_payload.v1", "backend_internal_ui_request.v1"}:
+        return "OVERFLOW_RISK at desktop local value box; no global page overflow."
+    if item.text.startswith("Si no hay lista de detalle, el bloqueo sigue vigente"):
+        return "WRAP_RISK across desktop/tablet/mobile; no clipping observed."
+    if item.text == "Contract request draft":
+        return "OVERFLOW_RISK for collapsed mobile drawer edge; no global page overflow."
+    return "NO_ISSUE"
+
+
+def decision_package_rows(items: list[CorpusItem] | None = None) -> list[DecisionPackageRow]:
+    entries = items if items is not None else corpus_items()
+    classifications = {item.microcopy_id: item for item in semantic_classifications(entries)}
+    mappings = {item.microcopy_id: item for item in contract_surface_maps(entries)}
+    rows: list[DecisionPackageRow] = []
+    for item in entries:
+        classification = classifications[item.microcopy_id]
+        mapping = mappings[item.microcopy_id]
+        visual = _geometry_issue(item)
+        if classification.classification in {"ACTION_SENSITIVE", "AMBIGUOUS_REQUIRES_DIRECTION"}:
+            category = "ACTION_PERMISSION_SENSITIVE" if classification.classification == "ACTION_SENSITIVE" else "AMBIGUOUS_REQUIRES_DIRECTION"
+            recommendation = "DIRECTION_REQUIRED"
+            reason = "Action/permission meaning cannot be selected from deterministic evidence."
+            breakage = "Could imply or remove authority, submit, dispatch, run, execute or permission."
+        elif classification.classification in {"READINESS_LABEL", "STATE_LABEL", "NO_PAYLOAD", "NOT_AVAILABLE"}:
+            category = "READINESS_SENSITIVE"
+            recommendation = "DIRECTION_REQUIRED"
+            reason = "State/readiness/fallback wording can alter the boundary between information and permission."
+            breakage = "Could turn readiness, absence or status into operational success or availability."
+        elif visual != "NO_ISSUE":
+            category = "GEOMETRY_DRIVEN_CANDIDATE"
+            recommendation = "REVIEW"
+            reason = "Browser evidence found a local wrapping or geometry risk without a product fix."
+            breakage = "A copy or CSS change could clip evidence, change density or change contract emphasis."
+        elif classification.must_remain_exact:
+            category = "MUST_NOT_CHANGE_WITHOUT_CONTRACT_CHANGE"
+            recommendation = "CONTRACT_CHANGE_REQUIRED"
+            reason = "Exact contract vocabulary is preserved by the current boundary."
+            breakage = "Could desynchronize source/status/fallback, blockers, forbidden actions or capabilities."
+        elif classification.classification in {"CONTRACTUAL_EXACT", "CONTRACTUAL_EXPLANATORY", "BLOCKER", "WARNING", "ERROR", "FALLBACK"}:
+            category = "CONTRACT_SENSITIVE_CANDIDATE"
+            recommendation = "DIRECTION_REQUIRED"
+            reason = "Contract-aware or diagnostic copy needs owner review before any wording change."
+            breakage = "Could change state interpretation, severity, source provenance or anti-affordance meaning."
+        elif classification.duplicate_classification != "NONE":
+            category = "CONSISTENCY_CANDIDATE"
+            recommendation = "REVIEW"
+            reason = "Repeated text may be equivalent or contextual; the corpus does not choose a merge."
+            breakage = "Could erase surface-specific context or create inconsistent labels."
+        elif classification.classification in {"EDITORIAL_SAFE", "NAVIGATION", "FORM_LABEL", "PLACEHOLDER"}:
+            category = "EDITORIAL_CANDIDATE"
+            recommendation = "REVIEW"
+            reason = "Editorial/presentational copy is a possible future cleanup subset."
+            breakage = "Could affect comprehension, localization or available width without changing contract."
+        else:
+            category = "SAFE_TO_KEEP"
+            recommendation = "KEEP"
+            reason = "No deterministic reason to change the current record."
+            breakage = "No demonstrated breakage."
+        inconsistency = "DUPLICATE_CONTEXTUAL" if classification.duplicate_classification == "DUPLICATE_CONTEXTUAL" else ("DUPLICATE_EQUIVALENT" if classification.duplicate_classification == "DUPLICATE_EQUIVALENT" else "NO_DEMONSTRATED_INCONSISTENCY")
+        rows.append(DecisionPackageRow(
+            microcopy_id=item.microcopy_id,
+            text=item.text,
+            file=item.file,
+            location=item.location,
+            classification=classification.classification,
+            decision_category=category,
+            risk=classification.risk,
+            reason=reason,
+            possible_breakage=breakage,
+            contract_touched=mapping.contract,
+            duplicate=classification.duplicate_classification,
+            visual_issue=visual,
+            inconsistency=inconsistency,
+            recommendation=recommendation,
+            proposal_status="NO_PROPOSAL" if recommendation != "REVIEW" else "PROPOSED_NOT_IMPLEMENTED",
+        ))
+    return rows
+
+
 def source_hashes() -> dict[str, str]:
     return {
         path: hashlib.sha256((ROOT / path).read_bytes().replace(b"\r\n", b"\n")).hexdigest()

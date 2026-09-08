@@ -30,6 +30,8 @@ ALLOWED = {
     DOC.relative_to(ROOT).as_posix(), TEST.relative_to(ROOT).as_posix(),
 }
 ALLOWED |= scope.CONTINUITY_1_196
+ALLOWED |= scope.CONTINUITY_1_197
+ALLOWED |= scope.CONTINUITY_1_198
 
 
 def read(path: Path) -> str:

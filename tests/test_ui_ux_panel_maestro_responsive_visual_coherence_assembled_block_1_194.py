@@ -43,6 +43,8 @@ ALLOWED_FILES = {
     TEST.relative_to(ROOT).as_posix(),
 } | scope.CONTINUITY_1_194 | scope.CONTINUITY_1_195
 ALLOWED_FILES |= scope.CONTINUITY_1_196
+ALLOWED_FILES |= scope.CONTINUITY_1_197
+ALLOWED_FILES |= scope.CONTINUITY_1_198
 
 
 def read(path: Path) -> str:

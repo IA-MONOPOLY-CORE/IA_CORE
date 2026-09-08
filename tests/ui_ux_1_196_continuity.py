@@ -89,7 +89,31 @@ STATION_PATHS = {
     },
 }
 CONTINUITY_1_196 = set().union(*STATION_PATHS.values())
-ALLOWED_TEST_ONLY = CONTINUITY_1_196 | {"README.md", "ui/web/README.md"}
+CONTINUITY_1_197 = {
+    "docs/UI_UX_PANEL_MAESTRO_LARGE_SCALE_BLOCK_1_196_POSTMORTEM_1_197.md",
+    "tests/test_ui_ux_panel_maestro_large_scale_block_1_196_postmortem_1_197.py",
+    "docs/UI_UX_PANEL_MAESTRO_POST_LARGE_SCALE_BLOCK_REVIEW_1_197.md",
+    "tests/test_ui_ux_panel_maestro_post_large_scale_block_review_1_197.py",
+    "docs/UI_UX_PANEL_MAESTRO_NEXT_POST_1_196_ASSEMBLED_BLOCK_MANIFEST_1_197.md",
+    "tests/test_ui_ux_panel_maestro_next_post_1_196_assembled_block_manifest_1_197.py",
+}
+CONTINUITY_1_198 = {
+    "tests/test_ui_ux_panel_maestro_widgets_contract_aware_reconstruction_1_174.py",
+    "docs/UI_UX_PANEL_MAESTRO_MICROCOPY_CONTINUITY_MANIFEST_1_198.md",
+    "tests/test_ui_ux_panel_maestro_microcopy_continuity_manifest_1_198.py",
+    "docs/UI_UX_PANEL_MAESTRO_MICROCOPY_ACTIVE_CORPUS_INVENTORY_1_198.md",
+    "tests/test_ui_ux_panel_maestro_microcopy_active_corpus_inventory_1_198.py",
+    "docs/UI_UX_PANEL_MAESTRO_MICROCOPY_SEMANTIC_CLASSIFICATION_1_198.md",
+    "tests/test_ui_ux_panel_maestro_microcopy_semantic_classification_1_198.py",
+    "docs/UI_UX_PANEL_MAESTRO_MICROCOPY_CONTRACT_SURFACE_MAP_1_198.md",
+    "tests/test_ui_ux_panel_maestro_microcopy_contract_surface_map_1_198.py",
+    "docs/UI_UX_PANEL_MAESTRO_MICROCOPY_GEOMETRY_CONSISTENCY_AUDIT_1_198.md",
+    "tests/test_ui_ux_panel_maestro_microcopy_geometry_consistency_audit_1_198.py",
+    "docs/UI_UX_PANEL_MAESTRO_MICROCOPY_CONTRACTUAL_DECISION_PACKAGE_1_198.md",
+    "tests/test_ui_ux_panel_maestro_microcopy_contractual_decision_package_1_198.py",
+    "tests/ui_ux_panel_maestro_microcopy_1_198_support.py",
+}
+ALLOWED_TEST_ONLY = CONTINUITY_1_196 | CONTINUITY_1_197 | CONTINUITY_1_198 | {"README.md", "ui/web/README.md"}
 
 
 def git(*args: str) -> str:

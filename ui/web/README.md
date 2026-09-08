@@ -2178,3 +2178,10 @@ No UI activa, no JS, no backend, no runtime, no execution, no JSON TOP 15, no fi
 - Siguiente bloque compilable: microcopy contractual, inventario y clasificacion sin cambiar textos; 6 estaciones deterministas, hard frontier en N7.
 - Readiness: `ready_for_ui_ux_1_198_next_assembled_block_prompt_compilation`.
 - No se ejecuta UI/UX 1.198 ni se cambia producto, i18n, payload, runtime o execution.
+
+## UI/UX 1.198 - Inventario y decision package de microcopy
+
+- N1-N6 cerrados en modo documental/test-only: no se cambio wording activo ni se modifico producto.
+- Corpus trazado: `1624` registros; contract-aware, fallbacks, estados, Request Draft, widgets, P0/P1/P2/P3 y Matriz quedan inventariados.
+- [Decision package](../docs/UI_UX_PANEL_MAESTRO_MICROCOPY_CONTRACTUAL_DECISION_PACKAGE_1_198.md) y [auditoria browser](../docs/UI_UX_PANEL_MAESTRO_MICROCOPY_GEOMETRY_CONSISTENCY_AUDIT_1_198.md).
+- Readiness: `ready_for_ui_ux_1_199_microcopy_direction_decision_review`; UI/UX 1.199 no ejecutado.

@@ -23,6 +23,20 @@ ALLOWED_DIFF = {
     "tests/test_ui_ux_panel_maestro_widgets_contract_aware_reconstruction_1_174.py",
     "tests/test_domains.py",
     "tests/test_api_admin_panels.py",
+    # UI/UX 1.198 test-only/documentation continuity is explicitly allowed;
+    # product files remain protected by the assertions below and by the
+    # checkpoint's protected-diff guard.
+    "tests/test_ui_ux_panel_maestro_assembled_block_scale_audit_1_193.py",
+    "tests/test_ui_ux_panel_maestro_controlled_double_scope_checkpoint_1_193.py",
+    "tests/test_ui_ux_panel_maestro_css_accessibility_responsive_large_scale_block_1_196.py",
+    "tests/test_ui_ux_panel_maestro_next_large_scale_assembled_block_manifest_1_195.py",
+    "tests/test_ui_ux_panel_maestro_post_assembled_block_direction_review_1_195.py",
+    "tests/test_ui_ux_panel_maestro_responsive_visual_coherence_assembled_block_1_194.py",
+    "tests/ui_ux_1_192_scope.py",
+    "tests/ui_ux_1_196_continuity.py",
+    "tests/ui_ux_panel_maestro_microcopy_1_198_support.py",
+    "docs/UI_UX_PANEL_MAESTRO_MICROCOPY_CONTRACTUAL_DECISION_PACKAGE_1_198.md",
+    "tests/test_ui_ux_panel_maestro_microcopy_contractual_decision_package_1_198.py",
 }
 
 FUTURE_CAPABILITIES = [

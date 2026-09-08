@@ -73,10 +73,38 @@ CONTINUITY_1_196 = {
     "docs/UI_UX_PANEL_MAESTRO_CSS_ACCESSIBILITY_RESPONSIVE_LARGE_SCALE_BLOCK_1_196.md",
     "tests/test_ui_ux_panel_maestro_css_accessibility_responsive_large_scale_block_1_196.py",
 }
+CONTINUITY_1_197 = {
+    "docs/UI_UX_PANEL_MAESTRO_LARGE_SCALE_BLOCK_1_196_POSTMORTEM_1_197.md",
+    "tests/test_ui_ux_panel_maestro_large_scale_block_1_196_postmortem_1_197.py",
+    "docs/UI_UX_PANEL_MAESTRO_POST_LARGE_SCALE_BLOCK_REVIEW_1_197.md",
+    "tests/test_ui_ux_panel_maestro_post_large_scale_block_review_1_197.py",
+    "docs/UI_UX_PANEL_MAESTRO_NEXT_POST_1_196_ASSEMBLED_BLOCK_MANIFEST_1_197.md",
+    "tests/test_ui_ux_panel_maestro_next_post_1_196_assembled_block_manifest_1_197.py",
+}
+CONTINUITY_1_198 = {
+    # This historical guard is itself adapted so 1.198 can be recognized;
+    # keep the adaptation path explicit and test-only.
+    "tests/test_ui_ux_panel_maestro_widgets_contract_aware_reconstruction_1_174.py",
+    "docs/UI_UX_PANEL_MAESTRO_MICROCOPY_CONTINUITY_MANIFEST_1_198.md",
+    "tests/test_ui_ux_panel_maestro_microcopy_continuity_manifest_1_198.py",
+    "docs/UI_UX_PANEL_MAESTRO_MICROCOPY_ACTIVE_CORPUS_INVENTORY_1_198.md",
+    "tests/test_ui_ux_panel_maestro_microcopy_active_corpus_inventory_1_198.py",
+    "docs/UI_UX_PANEL_MAESTRO_MICROCOPY_SEMANTIC_CLASSIFICATION_1_198.md",
+    "tests/test_ui_ux_panel_maestro_microcopy_semantic_classification_1_198.py",
+    "docs/UI_UX_PANEL_MAESTRO_MICROCOPY_CONTRACT_SURFACE_MAP_1_198.md",
+    "tests/test_ui_ux_panel_maestro_microcopy_contract_surface_map_1_198.py",
+    "docs/UI_UX_PANEL_MAESTRO_MICROCOPY_GEOMETRY_CONSISTENCY_AUDIT_1_198.md",
+    "tests/test_ui_ux_panel_maestro_microcopy_geometry_consistency_audit_1_198.py",
+    "docs/UI_UX_PANEL_MAESTRO_MICROCOPY_CONTRACTUAL_DECISION_PACKAGE_1_198.md",
+    "tests/test_ui_ux_panel_maestro_microcopy_contractual_decision_package_1_198.py",
+    "tests/ui_ux_panel_maestro_microcopy_1_198_support.py",
+}
 ALLOWED = {CSS, DOC, TEST, HELPER} | READMES | CHECKPOINTS.keys() | CONTINUITY_1_193
 ALLOWED |= CONTINUITY_1_194
 ALLOWED |= CONTINUITY_1_195
 ALLOWED |= CONTINUITY_1_196
+ALLOWED |= CONTINUITY_1_197
+ALLOWED |= CONTINUITY_1_198
 PATH_HELPERS = {"changed_paths", "working_paths", "checkpoint_paths", "selection_paths"}
 IMPORT = "from ui_ux_1_192_scope import historical_paths, assert_current_scope"
 CURRENT_TEST = """def test_current_scope_is_strict_1_192():
@@ -392,7 +420,7 @@ def assert_snapshot(changes, baselines):
             before = text(baselines[path])
             assert current.startswith(before), f"Historical README content changed: {path}"
             assert current[len(before):].lstrip().startswith("## UI/UX 1.192"), path
-        elif path in CONTINUITY_1_193 or path in CONTINUITY_1_194 or path in CONTINUITY_1_196:
+        elif path in CONTINUITY_1_193 or path in CONTINUITY_1_194 or path in CONTINUITY_1_196 or path in CONTINUITY_1_197 or path in CONTINUITY_1_198:
             assert current.strip(), f"Empty continuity artifact: {path}"
 
 

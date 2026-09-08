@@ -46,7 +46,7 @@ def test_n10_station_chain_is_ordered_and_hashes_are_traceable():
 
 
 def test_n10_allowed_diff_is_closed_and_protected_product_is_unchanged():
-    allowed = continuity.CONTINUITY_1_196 | {"README.md", "ui/web/README.md", "ui/web/styles.css"}
+    allowed = continuity.CONTINUITY_1_196 | continuity.CONTINUITY_1_197 | continuity.CONTINUITY_1_198 | {"README.md", "ui/web/README.md", "ui/web/styles.css"}
     changed = continuity.changed_paths()
     assert changed <= allowed, sorted(changed - allowed)
     continuity.assert_protected_product_unchanged()
