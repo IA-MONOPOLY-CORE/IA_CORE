@@ -137,6 +137,9 @@ CURRENT_MISSION_ALLOWED = {
     "tests/ui_ux_1_196_continuity.py",
     "docs/UI_UX_PANEL_MAESTRO_MICROCOPY_DIRECTION_EXECUTION_CHECKPOINT_1_200.md",
     "docs/GOKV_UI_UX_1_200_FIRST_NORMAL_OCI_CONSUMPTION_REPORT.md",
+    "knowledge/global_operational/events/post_block/ui_ux_1_200_first_normal_oci_loop.json",
+    "knowledge/global_operational/events/ui_ux_1_200_first_normal_oci_learning_event.json",
+    "knowledge/global_operational/metrics/ui_ux_1_200_first_normal_oci_execution_metric.json",
 }
 ALLOWED = {CSS, DOC, TEST, HELPER} | READMES | CHECKPOINTS.keys() | CONTINUITY_1_193
 ALLOWED |= CONTINUITY_1_194

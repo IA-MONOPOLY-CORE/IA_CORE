@@ -79,6 +79,9 @@ def test_checkpoint_diff_contains_only_explicit_1_200_surfaces():
         "tests/ui_ux_panel_maestro_microcopy_1_200_support.py",
         "docs/UI_UX_PANEL_MAESTRO_MICROCOPY_DIRECTION_EXECUTION_CHECKPOINT_1_200.md",
         "docs/GOKV_UI_UX_1_200_FIRST_NORMAL_OCI_CONSUMPTION_REPORT.md",
+        "knowledge/global_operational/events/post_block/ui_ux_1_200_first_normal_oci_loop.json",
+        "knowledge/global_operational/events/ui_ux_1_200_first_normal_oci_learning_event.json",
+        "knowledge/global_operational/metrics/ui_ux_1_200_first_normal_oci_execution_metric.json",
     }
     assert not changed & {
         "ui/web/index.html",

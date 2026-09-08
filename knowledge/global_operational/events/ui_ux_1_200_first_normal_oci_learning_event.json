@@ -1,0 +1,52 @@
+{
+  "autonomous_blockers_resolved": [
+    "historical guards comparing prior CSS baselines"
+  ],
+  "candidate_knowledge_ids": [],
+  "commits": [
+    "dd7c154",
+    "82e913f",
+    "0d4ae4e",
+    "bf1f01c",
+    "b844511",
+    "c1bf467",
+    "1c9c0cd",
+    "d4e4913"
+  ],
+  "completed_stations": 11,
+  "created_at": "2026-09-08T16:10:37.076505+00:00",
+  "duration": null,
+  "effort": "Muy Alto (prompt-declared target)",
+  "end_commit": "d4e4913",
+  "event_id": "ui_ux_1_200_first_normal_oci_learning_event",
+  "metrics_refs": [
+    "ui_ux_1_200_first_normal_oci_execution_metric"
+  ],
+  "mission_type": "ui_ux_microcopy_direction_decision_execution_with_oci",
+  "model": "GPT-5.6 Luna (prompt-declared target)",
+  "observations": [
+    "OCI was consumed and applied before the first product change.",
+    "9 items were AVAILABLE and SELECTED; 8 were APPLIED and HELPFUL with observable evidence.",
+    "local_rollback was SELECTED but UNUSED because no rollback was required.",
+    "No OCI item was IRRELEVANT or CONFLICTED; current contract won where applicable.",
+    "The mission produced independent evidence for Generation 0 but no new candidate knowledge item.",
+    "No promotion was performed."
+  ],
+  "operator_interventions": [],
+  "planned_stations": 11,
+  "result": "NO_LEARNING_FOUND",
+  "retries": 0,
+  "rollbacks": 0,
+  "schema_version": "gokv.learning_event.v1",
+  "source_checkpoint": "UI_UX_MICROCOPY_DIRECTION_DECISIONS_EXECUTION_1_200_PASSED",
+  "source_phase": "UI_UX_1_200_N10_POST_BLOCK",
+  "source_prompt": "UI/UX 1.200 normal OCI consuming mission",
+  "start_commit": "4618c59",
+  "tests": [
+    "tests/test_ui_ux_panel_maestro_microcopy_direction_execution_1_200.py",
+    "tests/test_ui_ux_panel_maestro_microcopy_direction_execution_checkpoint_1_200.py",
+    "tests/test_ui_ux_panel_maestro_microcopy_1_198_support.py",
+    "tests/test_gokv_*.py",
+    "browser responsive matrix 1440/1280/768/390/375"
+  ]
+}

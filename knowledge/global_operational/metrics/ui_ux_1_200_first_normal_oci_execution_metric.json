@@ -1,0 +1,44 @@
+{
+  "commits": [
+    "dd7c154",
+    "82e913f",
+    "0d4ae4e",
+    "bf1f01c",
+    "b844511",
+    "c1bf467",
+    "1c9c0cd",
+    "d4e4913"
+  ],
+  "created_at": "2026-09-08T16:10:37.076505+00:00",
+  "duration": null,
+  "effort": "Muy Alto (prompt-declared target)",
+  "measurement_quality": "NOT_AVAILABLE",
+  "metric_id": "ui_ux_1_200_first_normal_oci_execution_metric",
+  "model": "GPT-5.6 Luna (prompt-declared target)",
+  "notes": [
+    "No duration, quota, cost, token-saved, reasoning-saved, or intelligence-equivalent measurement was available.",
+    "Observable OCI consumption: 9 available, 9 selected, 8 applied, 8 helpful, 1 unused, 0 irrelevant, 0 conflicted.",
+    "Helpful evidence: exact allowlist, scoped CSS-only product diff, explicit hard-frontier preservation, focal/group/canonical/deep regression, and station-local commits."
+  ],
+  "operator_estimate": null,
+  "operator_interventions": 0,
+  "quota_5h_delta": null,
+  "quota_5h_end": null,
+  "quota_5h_start": null,
+  "quota_weekly_delta": null,
+  "quota_weekly_end": null,
+  "quota_weekly_start": null,
+  "result": "NO_LEARNING_FOUND",
+  "retries": 0,
+  "rollbacks": 0,
+  "schema_version": "gokv.execution_metric.v1",
+  "station_count": 11,
+  "task_type": "ui_ux_microcopy_direction_decision_execution_with_oci",
+  "tests": [
+    "tests/test_ui_ux_panel_maestro_microcopy_direction_execution_1_200.py",
+    "tests/test_ui_ux_panel_maestro_microcopy_direction_execution_checkpoint_1_200.py",
+    "tests/test_ui_ux_panel_maestro_microcopy_1_198_support.py",
+    "tests/test_gokv_*.py",
+    "browser responsive matrix 1440/1280/768/390/375"
+  ]
+}
