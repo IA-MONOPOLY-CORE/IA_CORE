@@ -383,6 +383,231 @@ def corpus_counts(items: list[CorpusItem] | None = None) -> dict[str, int]:
     }
 
 
+CLASSIFICATIONS = (
+    "CONTRACTUAL_EXACT",
+    "CONTRACTUAL_EXPLANATORY",
+    "STATE_LABEL",
+    "READINESS_LABEL",
+    "PERMISSION_SENSITIVE",
+    "ACTION_SENSITIVE",
+    "BLOCKER",
+    "WARNING",
+    "ERROR",
+    "FALLBACK",
+    "NO_PAYLOAD",
+    "NOT_AVAILABLE",
+    "EDITORIAL_SAFE",
+    "NAVIGATION",
+    "FORM_LABEL",
+    "PLACEHOLDER",
+    "ACCESSIBILITY_COPY",
+    "LEGACY_ACTIVE",
+    "LEGACY_INACTIVE",
+    "AMBIGUOUS_REQUIRES_DIRECTION",
+    "UNKNOWN_REQUIRES_DIRECTION",
+)
+RISK_LEVELS = (
+    "RISK_0_EDITORIAL",
+    "RISK_1_PRESENTATIONAL",
+    "RISK_2_CONTRACT_ADJACENT",
+    "RISK_3_CONTRACT_SENSITIVE",
+    "RISK_4_DIRECTION_REQUIRED",
+)
+
+
+@dataclass(frozen=True)
+class SemanticClassification:
+    microcopy_id: str
+    classification: str
+    duplicate_classification: str
+    reason: str
+    risk: str
+    future_change: str
+    decision_owner: str
+    contract_touched: str
+    automatable: bool
+    direction_required: bool
+    must_remain_exact: bool
+
+
+def _duplicate_classification(item: CorpusItem, entries: list[CorpusItem]) -> str:
+    matching = [other for other in entries if other.text.casefold() == item.text.casefold()]
+    if len(matching) <= 1:
+        return "NONE"
+    if len({other.surface for other in matching}) == 1 and len({other.initial_type for other in matching}) == 1:
+        return "DUPLICATE_EQUIVALENT"
+    return "DUPLICATE_CONTEXTUAL"
+
+
+def semantic_classifications(items: list[CorpusItem] | None = None) -> list[SemanticClassification]:
+    entries = items if items is not None else corpus_items()
+    result: list[SemanticClassification] = []
+    for item in entries:
+        value = item.text.casefold()
+        duplicate = _duplicate_classification(item, entries)
+        classification = "EDITORIAL_SAFE"
+        reason = "General copy with no demonstrated contract binding."
+        risk = "RISK_0_EDITORIAL"
+        future_change = "Editorial change can be automated only after a Direction-approved allowlist."
+        owner = "UI_EDITORIAL_OWNER"
+        contract = "NONE_DEMONSTRATED"
+        automatable = True
+        direction = False
+        exact = False
+        if item.legacy:
+            classification = "LEGACY_ACTIVE" if item.active else "LEGACY_INACTIVE"
+            reason = "Legacy marker is present in an active or inactive source record."
+            risk = "RISK_2_CONTRACT_ADJACENT"
+            future_change = "Requires a removal or migration decision before editing."
+            owner = "DIRECTION"
+            automatable = False
+            direction = True
+        elif item.initial_type == "NO_PAYLOAD":
+            classification = "NO_PAYLOAD"
+            reason = "Honest absence-of-payload signal; it must not become permission or availability."
+            risk = "RISK_3_CONTRACT_SENSITIVE"
+            future_change = "Only a contract-preserving source change may update it."
+            owner = "CONTRACT_OWNER"
+            contract = "backend_internal_ui_payload.v1 / deny-by-default"
+            automatable = False
+            direction = True
+            exact = True
+        elif item.initial_type == "NOT_AVAILABLE":
+            classification = "NOT_AVAILABLE"
+            reason = "Declared unavailable state; absence does not imply an error or unlock."
+            risk = "RISK_3_CONTRACT_SENSITIVE"
+            future_change = "Requires contract/source evidence."
+            owner = "CONTRACT_OWNER"
+            contract = "source/status/fallback"
+            automatable = False
+            direction = True
+            exact = True
+        elif item.initial_type == "FALLBACK":
+            classification = "FALLBACK"
+            reason = "Fallback or safe projection language preserves an honest boundary."
+            risk = "RISK_3_CONTRACT_SENSITIVE"
+            future_change = "Can be templated after contract vocabulary is approved."
+            owner = "CONTRACT_OWNER"
+            contract = "source/status/fallback"
+            automatable = False
+            direction = True
+            exact = True
+        elif item.initial_type == "ERROR":
+            classification = "ERROR"
+            reason = "Error/failed diagnostic; changing tone or cause can change operator interpretation."
+            risk = "RISK_3_CONTRACT_SENSITIVE"
+            future_change = "Requires error taxonomy and source evidence."
+            owner = "CONTRACT_OWNER"
+            contract = "warnings/errors"
+            automatable = False
+            direction = True
+        elif item.initial_type == "WARNING":
+            classification = "WARNING"
+            reason = "Warning/diagnostic copy; it orients reading without representing live runtime."
+            risk = "RISK_3_CONTRACT_SENSITIVE"
+            future_change = "Can be normalized only after warning taxonomy approval."
+            owner = "CONTRACT_OWNER"
+            contract = "warnings/errors"
+            automatable = False
+            direction = True
+        elif item.initial_type == "BLOCKER":
+            classification = "BLOCKER"
+            reason = "Visible hard boundary or blocked state; it cannot imply an alternate action."
+            risk = "RISK_3_CONTRACT_SENSITIVE"
+            future_change = "Requires contract and anti-affordance review."
+            owner = "CONTRACT_OWNER"
+            contract = "blocked_capabilities / forbidden_actions / deny-by-default"
+            automatable = False
+            direction = True
+            exact = True
+        elif item.initial_type == "READINESS_LABEL":
+            classification = "READINESS_LABEL"
+            reason = "Readiness/validation label; it must not be equated with permission or execution."
+            risk = "RISK_3_CONTRACT_SENSITIVE"
+            future_change = "Requires readiness vocabulary approval."
+            owner = "CONTRACT_OWNER"
+            contract = "readiness / validation"
+            automatable = False
+            direction = True
+            exact = True
+        elif item.initial_type == "ACCESSIBILITY_COPY":
+            classification = "ACCESSIBILITY_COPY"
+            reason = "Accessible name or assistive copy; changes can alter control meaning."
+            risk = "RISK_2_CONTRACT_ADJACENT"
+            future_change = "Can be automated only after visible and accessible names are paired."
+            owner = "ACCESSIBILITY_OWNER"
+            contract = "surface semantics"
+            automatable = False
+            direction = True
+        elif item.source == "I18N_VALUE" and any(term in value for term in ("crear", "editar", "eliminar", "guardar", "cancelar", "mostrar", "cerrar")):
+            classification = "ACTION_SENSITIVE"
+            reason = "Control-oriented i18n value; its wording may imply an action without proving authority."
+            risk = "RISK_4_DIRECTION_REQUIRED"
+            future_change = "Requires Direction to separate label from action/permission semantics."
+            owner = "DIRECTION"
+            contract = "possible UI action; no permission inferred"
+            automatable = False
+            direction = True
+        elif any(term in value for term in ("run", "execute", "dispatch", "submit", "approve", "activate", "permiso", "permitido", "allowed")):
+            classification = "AMBIGUOUS_REQUIRES_DIRECTION"
+            reason = "Action/permission-like vocabulary is present, but source evidence alone cannot select a safe meaning."
+            risk = "RISK_4_DIRECTION_REQUIRED"
+            future_change = "Direction must choose whether it is label, boundary, or action language."
+            owner = "DIRECTION"
+            contract = "possible allowed_actions / forbidden_actions / authority"
+            automatable = False
+            direction = True
+        elif item.initial_type == "CONTRACTUAL_EXACT" or item.contract_aware:
+            classification = "CONTRACTUAL_EXACT" if len(item.text) < 48 else "CONTRACTUAL_EXPLANATORY"
+            reason = "Contract term or contract-aware surface is evidenced, but no wording change is authorized."
+            risk = "RISK_3_CONTRACT_SENSITIVE"
+            future_change = "Can be updated only from a contract-approved vocabulary change."
+            owner = "CONTRACT_OWNER"
+            contract = "contract-aware surface / declared source"
+            automatable = False
+            direction = True
+            exact = classification == "CONTRACTUAL_EXACT"
+        elif item.surface == "NAVIGATION":
+            classification = "NAVIGATION"
+            reason = "Navigation label with no demonstrated state or authority semantics."
+            risk = "RISK_1_PRESENTATIONAL"
+            owner = "UI_EDITORIAL_OWNER"
+        elif any(term in value for term in ("placeholder", "draft local", "seleccion", "ingres")):
+            classification = "PLACEHOLDER"
+            reason = "Input guidance or empty-input copy; not a proof of action permission."
+            risk = "RISK_2_CONTRACT_ADJACENT"
+            owner = "UI_EDITORIAL_OWNER"
+        elif any(term in value for term in ("nombre", "modelo", "rol", "proveedor", "memoria", "tema", "descripci", "instrucci")):
+            classification = "FORM_LABEL"
+            reason = "Form or data label; meaning is presentational unless contract evidence says otherwise."
+            risk = "RISK_1_PRESENTATIONAL"
+            owner = "UI_EDITORIAL_OWNER"
+        elif value in {"ready", "passed", "pending", "planned", "invalid", "failed", "blocked", "connected", "disconnected", "online", "offline"}:
+            classification = "STATE_LABEL"
+            reason = "Short state token requires its source/status context to remain visible."
+            risk = "RISK_2_CONTRACT_ADJACENT"
+            owner = "CONTRACT_OWNER"
+            contract = "status/source"
+            automatable = False
+            direction = True
+        if classification in {"EDITORIAL_SAFE", "NAVIGATION", "FORM_LABEL", "PLACEHOLDER"} and item.semantic_risk == "RISK_1_PRESENTATIONAL":
+            risk = "RISK_1_PRESENTATIONAL"
+        result.append(SemanticClassification(
+            microcopy_id=item.microcopy_id,
+            classification=classification,
+            duplicate_classification=duplicate,
+            reason=reason,
+            risk=risk,
+            future_change=future_change,
+            decision_owner=owner,
+            contract_touched=contract,
+            automatable=automatable,
+            direction_required=direction,
+            must_remain_exact=exact,
+        ))
+    return result
+
+
 def source_hashes() -> dict[str, str]:
     return {
         path: hashlib.sha256((ROOT / path).read_bytes().replace(b"\r\n", b"\n")).hexdigest()
