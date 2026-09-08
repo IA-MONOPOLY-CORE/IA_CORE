@@ -1,0 +1,50 @@
+{
+  "clarification_requests": [],
+  "created_at": "2026-09-08T14:54:22.252541+00:00",
+  "evaluation_id": "ui_ux_1_200_shadow_evaluation",
+  "knowledge_items_applied": [],
+  "knowledge_items_available": [
+    "compress_occurrences_into_decisions",
+    "conditioned_autonomy",
+    "evidence_before_closure",
+    "focal_group_canonical_deep_test_policy",
+    "local_rollback",
+    "preserve_contract_until_explicit_change",
+    "real_diff_over_planned_commit_name",
+    "station_local_commits",
+    "true_hard_frontier"
+  ],
+  "knowledge_items_conflicted": [],
+  "knowledge_items_helpful": [],
+  "knowledge_items_irrelevant": [],
+  "knowledge_items_selected": [
+    "compress_occurrences_into_decisions",
+    "conditioned_autonomy",
+    "evidence_before_closure",
+    "focal_group_canonical_deep_test_policy",
+    "local_rollback",
+    "preserve_contract_until_explicit_change",
+    "real_diff_over_planned_commit_name",
+    "station_local_commits",
+    "true_hard_frontier"
+  ],
+  "knowledge_items_unused": [
+    "compress_occurrences_into_decisions",
+    "conditioned_autonomy",
+    "evidence_before_closure",
+    "focal_group_canonical_deep_test_policy",
+    "local_rollback",
+    "preserve_contract_until_explicit_change",
+    "real_diff_over_planned_commit_name",
+    "station_local_commits",
+    "true_hard_frontier"
+  ],
+  "mission_id": "ui_ux_1_200_shadow_inheritance",
+  "new_candidates": [],
+  "operator_interventions": [],
+  "pack_id": "gokv.pack.422f3d1b277abcfb",
+  "pack_item_count": 9,
+  "pack_size_bytes": 9713,
+  "result": "SHADOW_INSPECTION_ONLY",
+  "schema_version": "gokv.shadow_inheritance_evaluation.v1"
+}
