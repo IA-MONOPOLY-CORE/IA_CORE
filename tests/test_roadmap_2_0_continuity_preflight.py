@@ -22,19 +22,15 @@ def test_preflight_gate_and_zero_blocking_mismatch_are_recorded():
     assert "HISTORICAL_ONLY" in text
 
 
-def test_entry_git_truth_matches_the_declared_baseline():
-    head = subprocess.run(
-        ["git", "rev-parse", "HEAD"], cwd=ROOT, check=True, capture_output=True, text=True
-    ).stdout.strip()
-    origin = subprocess.run(
-        ["git", "rev-parse", "origin/main"], cwd=ROOT, check=True, capture_output=True, text=True
-    ).stdout.strip()
+def test_preflight_document_preserves_its_historical_entry_truth():
     branch = subprocess.run(
         ["git", "branch", "--show-current"], cwd=ROOT, check=True, capture_output=True, text=True
     ).stdout.strip()
-    assert head == "eb00a47871d8c1cbb0597d13379901f114ff240f"
-    assert origin == head
     assert branch == "main"
+    text = DOC.read_text(encoding="utf-8")
+    assert "| HEAD | `eb00a47871d8c1cbb0597d13379901f114ff240f`" in text
+    assert "| origin/main | `eb00a47871d8c1cbb0597d13379901f114ff240f`" in text
+    assert "| Ahead/behind | `0/0`" in text
 
 
 def test_roadmap_operator_supplement_is_valid_and_preserves_reset_ambiguity():
