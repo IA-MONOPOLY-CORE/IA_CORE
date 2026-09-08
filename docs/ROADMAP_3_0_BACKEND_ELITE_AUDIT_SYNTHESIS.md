@@ -63,9 +63,7 @@ activation, or any operational runtime decision.
 ## Station and method status
 
 - Deterministic stations completed: N0-N8, 9 stations including this synthesis.
-- Preauthorized stations: N0-N9 only within Roadmap 3.0; no 3.1 station was
-  executed.
+- Preauthorized stations: N0-N9 only within Roadmap 3.0; no 3.1 station was executed.
 - Self-bootstrapped stations: N0-N8 documentary/test/knowledge stations.
 - Hard frontier: N6/N7 security and legacy activation uncertainty.
 - Recommended next mission: 3.1, one read-only contract block.
-
