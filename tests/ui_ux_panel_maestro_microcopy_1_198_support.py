@@ -608,6 +608,111 @@ def semantic_classifications(items: list[CorpusItem] | None = None) -> list[Sema
     return result
 
 
+@dataclass(frozen=True)
+class ContractSurfaceMap:
+    microcopy_id: str
+    surface: str
+    contract_anchor: str
+    binding_type: str
+    contract: str
+    authority: str
+    payload_or_source: str
+    owner: str
+    state: str
+    risk: str
+    dependency: str
+    future_change: str
+
+
+def _contract_anchor(surface: str) -> str:
+    return {
+        "MASTER_SHELL_P0": "P0",
+        "P1_CONTRACT_OVERVIEW": "P1 / FSC-CO-01 / Contract Overview",
+        "P1_BLOCKED_FORBIDDEN": "P1 / FSC-BF-02 / Blocked & Forbidden",
+        "P1_VALIDATION_READINESS": "P1 / FSC-VR-03 / Validation & Readiness",
+        "REQUEST_DRAFT_PANEL": "Request Draft Panel / FSC-RCP-04",
+        "P2_P3_MATRIX_CLOSURE": "P2 / P3 / Matriz P3 / closure evidence",
+        "P2_P3_PANEL": "P2 / P3 detail panel",
+        "CONTRACT_AWARE_WIDGETS": "widgets contract-aware",
+        "NAVIGATION": "navigation / route reading",
+        "DOMAIN_ADMIN": "domain administration",
+        "ADMIN_PANELS": "administrative panels",
+        "I18N_CONTRACT_SURFACES": "i18n contract vocabulary",
+        "I18N_GENERAL_UI": "i18n general UI",
+    }.get(surface, "unresolved surface")
+
+
+def contract_surface_maps(items: list[CorpusItem] | None = None) -> list[ContractSurfaceMap]:
+    entries = items if items is not None else corpus_items()
+    classifications = {item.microcopy_id: item for item in semantic_classifications(entries)}
+    result: list[ContractSurfaceMap] = []
+    direct_surfaces = {
+        "MASTER_SHELL_P0", "P1_CONTRACT_OVERVIEW", "P1_BLOCKED_FORBIDDEN",
+        "P1_VALIDATION_READINESS", "REQUEST_DRAFT_PANEL", "P2_P3_MATRIX_CLOSURE",
+        "CONTRACT_AWARE_WIDGETS", "I18N_CONTRACT_SURFACES",
+    }
+    for item in entries:
+        classification = classifications[item.microcopy_id]
+        value = item.text.casefold()
+        if classification.classification in {"AMBIGUOUS_REQUIRES_DIRECTION", "UNKNOWN_REQUIRES_DIRECTION"}:
+            binding = "DIRECTION_REQUIRED_BINDING"
+        elif classification.classification in {"EDITORIAL_SAFE", "NAVIGATION", "FORM_LABEL", "PLACEHOLDER"} and item.surface not in direct_surfaces:
+            binding = "EDITORIAL_ONLY" if classification.classification == "EDITORIAL_SAFE" else "PRESENTATIONAL_ONLY"
+        elif item.surface in direct_surfaces and classification.classification not in {"EDITORIAL_SAFE", "NAVIGATION", "FORM_LABEL", "PLACEHOLDER"}:
+            binding = "DIRECT_CONTRACT_BINDING"
+        elif item.contract_aware:
+            binding = "INDIRECT_CONTRACT_CONTEXT"
+        elif item.surface == "UNKNOWN_SURFACE":
+            binding = "UNKNOWN_BINDING"
+        else:
+            binding = "PRESENTATIONAL_ONLY"
+        if "allowed_actions" in value:
+            contract = "allowed_actions (declared data, not a CTA)"
+        elif "forbidden_actions" in value or "forbidden" in value:
+            contract = "forbidden_actions (visible boundary, not a control)"
+        elif "blocked_capabilities" in value or "blocked" in value:
+            contract = "blocked_capabilities / deny-by-default"
+        elif "readiness" in value or classification.classification == "READINESS_LABEL":
+            contract = "readiness / validation (not permission)"
+        elif "no_payload" in value:
+            contract = "backend_internal_ui_payload.v1 / no_payload"
+        elif "not_available" in value:
+            contract = "source/status/fallback / not_available"
+        elif any(term in value for term in ("source", "status", "fallback")):
+            contract = "source/status/fallback"
+        elif binding in {"DIRECT_CONTRACT_BINDING", "INDIRECT_CONTRACT_CONTEXT"}:
+            contract = "backend_internal_ui_payload.v1 / declared surface"
+        else:
+            contract = "none demonstrated"
+        authority = "backend contract; UI read-only; deny-by-default" if binding in {"DIRECT_CONTRACT_BINDING", "INDIRECT_CONTRACT_CONTEXT", "DIRECTION_REQUIRED_BINDING"} else "UI presentation only"
+        payload = "backend_internal_ui_payload.v1" if binding in {"DIRECT_CONTRACT_BINDING", "INDIRECT_CONTRACT_CONTEXT"} else "source text/i18n only"
+        state = "declared state preserved" if classification.classification in {"BLOCKER", "WARNING", "ERROR", "FALLBACK", "NO_PAYLOAD", "NOT_AVAILABLE", "READINESS_LABEL", "STATE_LABEL"} else "no state inferred"
+        dependency = "N3 classification + protected product baseline"
+        if binding == "DIRECT_CONTRACT_BINDING":
+            owner = "contract surface owner"
+        elif binding == "DIRECTION_REQUIRED_BINDING":
+            owner = "Direction + contract owner"
+        elif binding == "INDIRECT_CONTRACT_CONTEXT":
+            owner = "surface owner + contract owner"
+        else:
+            owner = "UI/editorial owner"
+        result.append(ContractSurfaceMap(
+            microcopy_id=item.microcopy_id,
+            surface=item.surface,
+            contract_anchor=_contract_anchor(item.surface),
+            binding_type=binding,
+            contract=contract,
+            authority=authority,
+            payload_or_source=payload,
+            owner=owner,
+            state=state,
+            risk=classification.risk,
+            dependency=dependency,
+            future_change=classification.future_change,
+        ))
+    return result
+
+
 def source_hashes() -> dict[str, str]:
     return {
         path: hashlib.sha256((ROOT / path).read_bytes().replace(b"\r\n", b"\n")).hexdigest()
