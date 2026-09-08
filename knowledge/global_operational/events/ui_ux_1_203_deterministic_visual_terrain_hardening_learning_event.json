@@ -1,0 +1,36 @@
+{
+  "autonomous_blockers_resolved": [],
+  "candidate_knowledge_ids": [],
+  "commits": ["473e4ef9", "fb341dbc", "9b11adfa", "e18a9fad"],
+  "completed_stations": 6,
+  "created_at": "2026-09-08T20:04:24.1913927Z",
+  "duration": null,
+  "effort": "Muy Alto",
+  "end_commit": "e18a9fad",
+  "event_id": "ui_ux_1_203_deterministic_visual_terrain_hardening_learning_event",
+  "metrics_refs": ["ui_ux_1_203_deterministic_visual_terrain_hardening_execution_metric"],
+  "mission_type": "ui_ux_1_203_deterministic_visual_terrain_hardening_post_microcopy",
+  "model": "GPT-5.6 Luna",
+  "observations": [
+    "N0-N5 completed sequentially with two scoped CSS fixes and no protected product diff.",
+    "Both measured local overflow defects were reproduced and closed across five viewports.",
+    "The current canonical group passed 92 tests; 15 historical snapshot guards were classified without weakening them.",
+    "PROMOTED_ONLY was sufficient and all six selected promoted items were helpful.",
+    "The first true frontier remains station 7 and requires Direction; no next mission was executed."
+  ],
+  "operator_interventions": [],
+  "planned_stations": 6,
+  "result": "UI_UX_DETERMINISTIC_VISUAL_TERRAIN_HARDENING_1_203_PASSED",
+  "retries": 0,
+  "rollbacks": 0,
+  "schema_version": "gokv.learning_event.v1",
+  "source_checkpoint": "UI_UX_1_203",
+  "source_phase": "POST_MICROCOPY_DETERMINISTIC_VISUAL_HARDENING",
+  "source_prompt": "PROMPT UI/UX 1.203",
+  "start_commit": "3cd657e5",
+  "tests": [
+    "tests/test_ui_ux_1_203_deterministic_visual_terrain_hardening.py",
+    "tests/test_ui_ux_1_202_selection_checkpoint.py",
+    "tests/test_gokv_ui_ux_1_202_post_promotion_inheritance_0_3.py"
+  ]
+}

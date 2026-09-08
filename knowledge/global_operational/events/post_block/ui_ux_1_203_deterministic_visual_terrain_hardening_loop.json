@@ -1,0 +1,14 @@
+{
+  "candidate_knowledge_ids": [],
+  "conflict_event_ids": [],
+  "created_at": "2026-09-08T20:04:24.1913927Z",
+  "execution_metric_id": "ui_ux_1_203_deterministic_visual_terrain_hardening_execution_metric",
+  "learning_event_id": "ui_ux_1_203_deterministic_visual_terrain_hardening_learning_event",
+  "learning_status": "NO_LEARNING_FOUND",
+  "loop_id": "ui_ux_1_203_deterministic_visual_terrain_hardening_loop",
+  "loop_steps": ["EXECUTE", "VALIDATE", "CAPTURE", "DISTILL", "ASSESS", "STORE", "COMPILE_NEXT"],
+  "mission_id": "ui_ux_1_203_deterministic_visual_terrain_hardening_post_microcopy",
+  "next_mission_id": null,
+  "next_pack_id": null,
+  "schema_version": "gokv.post_block_learning_loop.v1"
+}
