@@ -299,3 +299,9 @@ Este manifiesto no implementa microcopy ni autoriza cruzar la frontera semantica
 La readiness habilita compilar el proximo prompt, no ejecutarlo. La ejecucion
 debe comenzar en `8b4ce90` y detenerse en N6 antes de cualquier modificacion
 de wording.
+
+## Commits de la revision 1.197
+
+- `6c46b95` - `docs(ui): analizar postmortem gran bloque 1.196`.
+- `99149ac` - `docs(ui): auditar semantica commits cobertura y frontera post 1.196`.
+- `d386c37` - `docs(ui): definir siguiente bloque post 1.196`.

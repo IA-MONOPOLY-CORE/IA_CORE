@@ -403,6 +403,18 @@ demostrada para todo el bloque.
 README y `ui/web/README.md` reciben solo una nota append-only de cierre y el
 proximo prompt; no se convierten en el reporte principal.
 
+## 18.1 Commits documentales 1.197
+
+| Commit | Mensaje | Contenido |
+| --- | --- | --- |
+| `6c46b95` | `docs(ui): analizar postmortem gran bloque 1.196` | Postmortem N1-N10 y guard documental. |
+| `99149ac` | `docs(ui): auditar semantica commits cobertura y frontera post 1.196` | Auditoria de prefijos, cobertura 155/322/319, terreno y microcopy. |
+| `d386c37` | `docs(ui): definir siguiente bloque post 1.196` | Manifiesto de seis estaciones, autonomia V3, tests y README append-only. |
+
+El cierre documental posterior conserva estos tres commits independientes y
+no reescribe historia. El historial se puede comprobar con `git log` desde el
+restore point `8b4ce90`.
+
 ## 19. Tests y cobertura
 
 Antes de los artefactos 1.197, la suite canonica 1.196 de 22 archivos colecto y
