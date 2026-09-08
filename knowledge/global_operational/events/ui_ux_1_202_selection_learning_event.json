@@ -1,0 +1,60 @@
+{
+  "schema_version": "gokv.learning_event.v1",
+  "event_id": "ui_ux_1_202_selection_learning_event",
+  "mission_type": "ui_ux_1_202_next_visual_block_selection_post_microcopy_closure",
+  "source_prompt": "PROMPT UI/UX 1.202",
+  "source_checkpoint": "UI_UX_1_202",
+  "source_phase": "POST_MICROCOPY_VISUAL_TERRAIN_SELECTION",
+  "model": "GPT-5.6 Luna",
+  "effort": "Very High",
+  "start_commit": "2555a7fe",
+  "end_commit": "b1c24e2",
+  "planned_stations": 6,
+  "completed_stations": 6,
+  "commits": [
+    "4f8db2d",
+    "634c7a7",
+    "2c46bfa",
+    "e9c0a47",
+    "b1c24e2"
+  ],
+  "product_commits": 0,
+  "operator_interventions": [],
+  "retries": 0,
+  "rollbacks": 0,
+  "duration": null,
+  "result": "UI_UX_NEXT_VISUAL_BLOCK_SELECTION_POST_MICROCOPY_1_202_PASSED",
+  "observations": [
+    "N0-N5 completed with read-only product inspection and empty product diff.",
+    "PROMOTED_ONLY was sufficient as minimum sufficient inheritance for this mission.",
+    "Six promoted items were selected, applied and helpful; no validated or candidate item entered silently.",
+    "Two measured local responsive defects were classified without fixing them in 1.202.",
+    "No accessibility fix, contract change, product decision or compiler calibration was required.",
+    "The next mission was compiled but not executed."
+  ],
+  "available_promoted_items": 6,
+  "selected_promoted_items": 6,
+  "applied_promoted_items": 6,
+  "helpful_promoted_items": 6,
+  "unused_promoted_items": 0,
+  "irrelevant_promoted_items": 0,
+  "conflicted_promoted_items": 0,
+  "validated_items_selected": 0,
+  "candidate_items_selected": 0,
+  "conditioned_autonomy_new_evidence": {
+    "earned": true,
+    "evidence": "N0-N5 completed with zero operator interventions, correct stop boundary and no product diff.",
+    "status_changed": false,
+    "promotion_attempted": false
+  },
+  "new_evidence_refs": [
+    "ui_ux_1_202_promoted_only_consumption",
+    "UI_UX_1_202_VISUAL_BASELINE_AUDIT",
+    "UI_UX_1_202_VISUAL_TERRAIN_INVENTORY",
+    "UI_UX_1_202_DETERMINISM_RISK_MAP",
+    "UI_UX_1_202_NEXT_VISUAL_BLOCK_SELECTION"
+  ],
+  "candidate_knowledge_ids": [],
+  "autonomous_blockers_resolved": [],
+  "metrics_refs": ["ui_ux_1_202_selection_execution_metric"]
+}

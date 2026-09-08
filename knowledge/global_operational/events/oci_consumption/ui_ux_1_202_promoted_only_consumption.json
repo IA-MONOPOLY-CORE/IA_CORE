@@ -1,0 +1,48 @@
+{
+  "clarification_requests": [],
+  "consumption_id": "ui_ux_1_202_promoted_only_consumption",
+  "created_at": "2026-09-08T19:29:36.129945+00:00",
+  "knowledge_items_applied": [
+    "evidence_before_closure",
+    "focal_group_canonical_deep_test_policy",
+    "preserve_contract_until_explicit_change",
+    "real_diff_over_planned_commit_name",
+    "station_local_commits",
+    "true_hard_frontier"
+  ],
+  "knowledge_items_available": [
+    "evidence_before_closure",
+    "focal_group_canonical_deep_test_policy",
+    "preserve_contract_until_explicit_change",
+    "real_diff_over_planned_commit_name",
+    "station_local_commits",
+    "true_hard_frontier"
+  ],
+  "knowledge_items_conflicted": [],
+  "knowledge_items_helpful": [
+    "evidence_before_closure",
+    "focal_group_canonical_deep_test_policy",
+    "preserve_contract_until_explicit_change",
+    "real_diff_over_planned_commit_name",
+    "station_local_commits",
+    "true_hard_frontier"
+  ],
+  "knowledge_items_irrelevant": [],
+  "knowledge_items_selected": [
+    "evidence_before_closure",
+    "focal_group_canonical_deep_test_policy",
+    "preserve_contract_until_explicit_change",
+    "real_diff_over_planned_commit_name",
+    "station_local_commits",
+    "true_hard_frontier"
+  ],
+  "knowledge_items_unused": [],
+  "mission_id": "ui_ux_1_202_next_visual_block_selection_post_microcopy_closure",
+  "new_candidates": [],
+  "operator_interventions": [],
+  "pack_id": "gokv.pack.78a9e7d54dc5d62b",
+  "pack_item_count": 6,
+  "pack_size_bytes": 7251,
+  "result": "PROMOTED_ONLY_SUFFICIENT_FOR_READ_ONLY_VISUAL_SELECTION",
+  "schema_version": "gokv.oci_consumption_result.v1"
+}

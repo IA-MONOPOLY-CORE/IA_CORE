@@ -1,0 +1,21 @@
+{
+  "schema_version": "gokv.post_block_learning_loop.v1",
+  "loop_id": "ui_ux_1_202_selection_loop",
+  "mission_id": "ui_ux_1_202_next_visual_block_selection_post_microcopy_closure",
+  "loop_steps": [
+    "EXECUTE",
+    "VALIDATE",
+    "CAPTURE",
+    "DISTILL",
+    "ASSESS",
+    "STORE",
+    "COMPILE_NEXT"
+  ],
+  "learning_event_id": "ui_ux_1_202_selection_learning_event",
+  "execution_metric_id": "ui_ux_1_202_selection_execution_metric",
+  "learning_status": "NO_LEARNING_FOUND",
+  "candidate_knowledge_ids": [],
+  "conflict_event_ids": [],
+  "next_mission_id": "ui_ux_1_203_deterministic_visual_terrain_hardening_post_microcopy",
+  "next_pack_id": "gokv.pack.78a9e7d54dc5d62b"
+}
