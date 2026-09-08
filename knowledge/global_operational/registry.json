@@ -1,0 +1,10 @@
+{
+  "counts": {
+    "by_kind": {},
+    "by_status": {},
+    "total": 0
+  },
+  "items": {},
+  "knowledge_schema_version": "gokv.knowledge_item.v1",
+  "schema_version": "gokv.registry.v1"
+}

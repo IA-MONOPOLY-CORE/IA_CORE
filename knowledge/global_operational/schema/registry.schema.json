@@ -1,0 +1,14 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "gokv.registry.v1",
+  "title": "GOKV Registry",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "knowledge_schema_version", "items", "counts"],
+  "properties": {
+    "schema_version": {"const": "gokv.registry.v1"},
+    "knowledge_schema_version": {"const": "gokv.knowledge_item.v1"},
+    "items": {"type": "object", "additionalProperties": {"type": "object"}},
+    "counts": {"type": "object"}
+  }
+}
