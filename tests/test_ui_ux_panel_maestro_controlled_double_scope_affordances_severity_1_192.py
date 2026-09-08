@@ -90,7 +90,7 @@ def test_gate_2_only_adds_the_existing_administrative_boundary_style():
     before = git("show", "055e70e:ui/web/styles.css")
     after = (ROOT / "ui/web/styles.css").read_text(encoding="utf-8")
     assert after.startswith(before + scope.GATE_2_CSS)
-    assert after in scope.authorized_1_194_css_snapshots(ROOT)
+    assert after in (scope.authorized_1_194_css_snapshots(ROOT) | scope.authorized_1_196_css_snapshots(ROOT))
     html = (ROOT / "ui/web/index.html").read_text(encoding="utf-8")
     assert html == git("show", f"{BASE}:ui/web/index.html")
     assert html.count('<span class="admin-status" data-contract-blocked="true">') == 1

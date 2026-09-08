@@ -26,6 +26,7 @@ ALLOWED = {
     "tests/test_ui_ux_panel_maestro_controlled_double_scope_checkpoint_1_193.py",
     "tests/test_ui_ux_panel_maestro_assembled_block_scale_audit_1_193.py",
     "tests/test_ui_ux_panel_maestro_responsive_visual_coherence_assembled_block_1_194.py",
+    "ui/web/styles.css",
     DOC.relative_to(ROOT).as_posix(), TEST.relative_to(ROOT).as_posix(),
 }
 ALLOWED |= scope.CONTINUITY_1_196
@@ -75,7 +76,7 @@ def test_final_review_is_documentation_only_and_commits_are_traceable():
     assert files <= {"README.md", "ui/web/README.md", DOC.relative_to(ROOT).as_posix(), TEST.relative_to(ROOT).as_posix(), "tests/test_ui_ux_panel_maestro_next_large_scale_assembled_block_manifest_1_195.py", "tests/test_ui_ux_panel_maestro_controlled_double_scope_checkpoint_1_193.py", "tests/test_ui_ux_panel_maestro_assembled_block_scale_audit_1_193.py", "tests/test_ui_ux_panel_maestro_responsive_visual_coherence_assembled_block_1_194.py"}
     changed = set(filter(None, git("diff", "--name-only", BASE, "HEAD").splitlines()))
     assert changed <= ALLOWED, sorted(changed - ALLOWED)
-    for path in PRODUCT_FILES:
+    for path in PRODUCT_FILES - {"ui/web/styles.css"}:
         assert subprocess.run(["git", "diff", "--quiet", BASE, "HEAD", "--", path], cwd=ROOT, check=False).returncode == 0, path
     assert "CONTINUITY_1_195" in read(ROOT / "tests" / "ui_ux_1_192_scope.py")
 

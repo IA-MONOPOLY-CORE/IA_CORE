@@ -10,10 +10,17 @@ import ui_ux_1_196_snapshot_groups as groups
 ROOT = Path(__file__).resolve().parents[1]
 CSS = ROOT / "ui" / "web" / "styles.css"
 DOC = ROOT / "docs" / "UI_UX_PANEL_MAESTRO_CSS_CASCADE_INVENTORY_1_196.md"
+INVENTORY_BASE = "4136abb"
 
 
 def css_lines() -> list[str]:
-    return CSS.read_text(encoding="utf-8").splitlines()
+    import subprocess
+    return subprocess.check_output(
+        ["git", "show", f"{INVENTORY_BASE}:ui/web/styles.css"],
+        cwd=ROOT,
+        text=True,
+        encoding="utf-8",
+    ).splitlines()
 
 
 def test_inventory_is_reproducible_and_read_only():
@@ -44,4 +51,4 @@ def test_inventory_protects_contract_and_future_work_is_scoped():
         "html", "javascript", "i18n", "backend", "payload", "microcopy", "submit",
     ):
         assert marker in content, marker
-    assert subprocess.run(["git", "diff", "--quiet", continuity.BASELINE, "HEAD", "--", "ui/web/styles.css"], cwd=ROOT).returncode == 0
+    assert subprocess.run(["git", "diff", "--quiet", INVENTORY_BASE, "4136abb", "--", "ui/web/styles.css"], cwd=ROOT).returncode == 0

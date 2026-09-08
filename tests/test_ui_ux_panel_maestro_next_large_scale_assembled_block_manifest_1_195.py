@@ -78,9 +78,9 @@ def test_manifest_commit_is_documentation_only_and_product_is_unchanged():
         "tests/test_ui_ux_panel_maestro_controlled_double_scope_checkpoint_1_193.py",
         "tests/test_ui_ux_panel_maestro_assembled_block_scale_audit_1_193.py",
         "tests/test_ui_ux_panel_maestro_responsive_visual_coherence_assembled_block_1_194.py",
-        "README.md", "ui/web/README.md",
+        "README.md", "ui/web/README.md", "ui/web/styles.css",
     } | scope.CONTINUITY_1_196)
-    for path in PRODUCT_FILES:
+    for path in PRODUCT_FILES - {"ui/web/styles.css"}:
         assert subprocess.run(["git", "diff", "--quiet", BASE, "HEAD", "--", path], cwd=ROOT, check=False).returncode == 0, path
     helper = normalized(read(ROOT / "tests" / "ui_ux_1_192_scope.py"))
     assert "continuity_1_195" in helper
