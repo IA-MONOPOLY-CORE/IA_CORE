@@ -1,0 +1,11 @@
+{
+  "mission_class": "ui_ux",
+  "task_type": "contract_audit",
+  "scope": "IA_CORE_BUILD",
+  "risk_class": "HIGH",
+  "required_capabilities": [],
+  "agent_class": "BUILD_AGENT",
+  "model_size_class": "MEDIUM",
+  "tags": ["contract"],
+  "mode": "DEVELOPMENT_VALIDATED"
+}

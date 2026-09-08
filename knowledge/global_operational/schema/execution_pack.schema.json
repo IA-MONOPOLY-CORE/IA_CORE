@@ -1,0 +1,53 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "gokv.execution_pack.v1",
+  "title": "GOKV Execution Pack",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "execution_pack_id", "schema_version", "compiler_version", "mode",
+    "mission_class", "task_type", "scope", "risk_class",
+    "required_capabilities", "agent_class", "model_size_class", "tags",
+    "allowed_statuses", "applicable_knowledge_ids", "principles",
+    "procedures", "decision_rules", "stop_conditions", "validation_rules",
+    "failure_modes", "recovery", "output_contract", "evidence_summary",
+    "selection_policy"
+  ],
+  "properties": {
+    "execution_pack_id": {"type": "string", "pattern": "^gokv\\.pack\\.[a-f0-9]{16}$"},
+    "schema_version": {"const": "gokv.execution_pack.v1"},
+    "compiler_version": {"const": "gokv.compiler.v1"},
+    "mode": {"enum": ["PROMOTED_ONLY", "DEVELOPMENT_VALIDATED"]},
+    "mission_class": {"type": "string", "minLength": 1},
+    "task_type": {"type": "string", "minLength": 1},
+    "scope": {"type": "string", "minLength": 1},
+    "risk_class": {"type": "string", "minLength": 1},
+    "required_capabilities": {"type": "array", "items": {"type": "string"}},
+    "agent_class": {"type": "string", "minLength": 1},
+    "model_size_class": {"type": "string", "minLength": 1},
+    "tags": {"type": "array", "items": {"type": "string"}},
+    "allowed_statuses": {"type": "array", "items": {"enum": ["PROMOTED", "VALIDATED"]}},
+    "applicable_knowledge_ids": {"type": "array", "items": {"type": "string"}},
+    "principles": {"type": "array", "items": {"type": "object"}},
+    "procedures": {"type": "array", "items": {"type": "object"}},
+    "decision_rules": {"type": "array", "items": {"type": "object"}},
+    "stop_conditions": {"type": "array", "items": {"type": "object"}},
+    "validation_rules": {"type": "array", "items": {"type": "object"}},
+    "failure_modes": {"type": "array", "items": {"type": "object"}},
+    "recovery": {"type": "array", "items": {"type": "object"}},
+    "output_contract": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["format", "runtime_enabled", "execution_enabled", "payload_enabled", "requires_explicit_human_approval"],
+      "properties": {
+        "format": {"const": "structured_json"},
+        "runtime_enabled": {"const": false},
+        "execution_enabled": {"const": false},
+        "payload_enabled": {"const": false},
+        "requires_explicit_human_approval": {"const": true}
+      }
+    },
+    "evidence_summary": {"type": "object"},
+    "selection_policy": {"type": "object"}
+  }
+}

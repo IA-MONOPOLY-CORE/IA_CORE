@@ -1,0 +1,11 @@
+{
+  "mission_class": "development_foundation",
+  "task_type": "bootstrap",
+  "scope": "IA_CORE_BUILD",
+  "risk_class": "MEDIUM",
+  "required_capabilities": ["unrecorded_capability"],
+  "agent_class": "BUILD_AGENT",
+  "model_size_class": "SMALL",
+  "tags": [],
+  "mode": "DEVELOPMENT_VALIDATED"
+}
