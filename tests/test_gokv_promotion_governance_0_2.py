@@ -39,20 +39,20 @@ def _strong_item(kind="PRINCIPLE", lineage=None, applicability=None):
 
 
 def test_all_sixteen_validated_items_are_assessed_without_promotion():
-    assessment = assess_current_validated(default_paths(ROOT))
+    live_assessment = assess_current_validated(default_paths(ROOT))
     validated = [item for item in iter_knowledge_items(default_paths(ROOT)) if item["status"] == "VALIDATED"]
 
-    assert assessment["total_validated_assessed"] == 16
-    assert assessment["category_counts"] == {"INSUFFICIENT_EVIDENCE": 16}
-    assert assessment["promoted_knowledge_ids"] == []
-    assert {decision["knowledge_id"] for decision in assessment["decisions"]} == {
-        item["knowledge_id"] for item in validated
-    }
-    assert all(decision["recommendation"] == "collect repeated independent evidence and reassess" for decision in assessment["decisions"])
-    assert validate_promotion_assessment(assessment)["total_validated_assessed"] == 16
     stored = json.loads(
         (ROOT / "knowledge/global_operational/assessments/promotion_assessment_v1.json").read_text(encoding="utf-8")
     )
+    assert stored["total_validated_assessed"] == 16
+    assert stored["category_counts"] == {"INSUFFICIENT_EVIDENCE": 16}
+    assert stored["promoted_knowledge_ids"] == []
+    assert live_assessment["total_validated_assessed"] == len(validated) == 9
+    assert {decision["knowledge_id"] for decision in live_assessment["decisions"]} == {
+        item["knowledge_id"] for item in validated
+    }
+    assert all(decision["recommendation"] == "collect repeated independent evidence and reassess" for decision in stored["decisions"])
     assert validate_promotion_assessment(stored)["category_counts"] == {"INSUFFICIENT_EVIDENCE": 16}
 
 

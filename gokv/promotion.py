@@ -118,12 +118,45 @@ def build_promotion_assessment(
     }
 
 
+def build_post_promotion_assessment(
+    source_assessment: Mapping[str, Any],
+    promoted_knowledge_ids: Iterable[str],
+    *,
+    assessed_at: str | None = None,
+) -> dict[str, Any]:
+    """Project an immutable governance assessment after explicit promotions."""
+
+    source = validate_promotion_assessment(source_assessment)
+    promoted = set(promoted_knowledge_ids)
+    source_ids = {decision["knowledge_id"] for decision in source["decisions"]}
+    if not promoted <= source_ids:
+        raise ValueError("post-promotion assessment contiene IDs ausentes")
+    decisions = [
+        deepcopy(decision)
+        for decision in source["decisions"]
+        if decision["knowledge_id"] not in promoted
+    ]
+    decisions.sort(key=lambda decision: decision["knowledge_id"])
+    timestamp = assessed_at or datetime.now(timezone.utc).isoformat()
+    projected = {
+        "assessment_id": "gokv_0_3_promotion_assessment_post_first_institutional_promotion",
+        "schema_version": source["schema_version"],
+        "assessed_at": timestamp,
+        "policy": deepcopy(source["policy"]),
+        "total_validated_assessed": len(decisions),
+        "category_counts": dict(Counter(decision["promotion_readiness"] for decision in decisions)),
+        "decisions": decisions,
+        "promoted_knowledge_ids": [],
+    }
+    return validate_promotion_assessment(projected)
+
+
 def save_promotion_assessment(
-    assessment: Mapping[str, Any], paths: VaultPaths | None = None
+    assessment: Mapping[str, Any], paths: VaultPaths | None = None, *, filename: str = "promotion_assessment_v1.json"
 ) -> Path:
     validated = validate_promotion_assessment(assessment)
     vault = paths or default_paths()
-    destination = vault.root / "assessments" / "promotion_assessment_v1.json"
+    destination = vault.root / "assessments" / filename
     destination.parent.mkdir(parents=True, exist_ok=True)
     try:
         with destination.open("x", encoding="utf-8", newline="\n") as handle:
