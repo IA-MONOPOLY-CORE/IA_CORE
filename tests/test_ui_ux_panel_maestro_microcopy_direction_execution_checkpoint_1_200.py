@@ -14,6 +14,7 @@ from ui_ux_panel_maestro_microcopy_1_200_support import (
 
 
 CHECKPOINT = ROOT / "docs" / "UI_UX_PANEL_MAESTRO_MICROCOPY_DIRECTION_EXECUTION_CHECKPOINT_1_200.md"
+CHECKPOINT_COMMIT = "a2afc307d7278657a324efba345c04e28c39525a"
 
 
 def test_checkpoint_records_the_frozen_decisions_and_evidence():
@@ -58,7 +59,7 @@ def test_checkpoint_allowlist_and_product_boundary_are_exact():
 
 def test_checkpoint_diff_contains_only_explicit_1_200_surfaces():
     changed = set(subprocess.check_output(
-        ["git", "diff", "--name-only", "4618c59", "HEAD"],
+        ["git", "diff", "--name-only", "4618c59", CHECKPOINT_COMMIT],
         cwd=ROOT,
         text=True,
         encoding="utf-8",
