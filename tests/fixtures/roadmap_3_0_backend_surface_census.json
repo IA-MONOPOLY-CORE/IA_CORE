@@ -1,0 +1,59 @@
+{
+  "schema_version": "roadmap_3_0.backend_surface_census.v1",
+  "mission_id": "roadmap_3_0_backend_elite_read_only_inventory",
+  "baseline_commit": "82d309f00ab99dfa9eb100e5594bf1d8d0559f5a",
+  "read_only": true,
+  "repository_counts": {
+    "all_files": 1598,
+    "python_files": 802,
+    "json_files": 179,
+    "markdown_files": 560,
+    "non_test_python_files": 217,
+    "test_files": 594
+  },
+  "surface_counts": {
+    "core": 132,
+    "agents": 17,
+    "providers": 12,
+    "domains": 26,
+    "catalogs": 8,
+    "memory_memoria_logs_data": 51,
+    "tests": 594,
+    "knowledge_gokv": 129,
+    "api_config_tools_scripts_ui": 53
+  },
+  "static_candidates": {
+    "write_side_effect_paths": 60,
+    "network_capable_references": 9,
+    "dangerous_primitive_calls": 13
+  },
+  "product_change": false,
+  "runtime_started": false,
+  "provider_called": false,
+  "network_called": false,
+  "model_invoked": false,
+  "representative_paths": [
+    "api.py",
+    "config.py",
+    "core/supervisor.py",
+    "core/runtime_activation_gate.py",
+    "core/attempt_factory.py",
+    "core/execution_runner.py",
+    "core/active_executor.py",
+    "core/domain_materializer.py",
+    "core/agent_preset_materializer.py",
+    "core/paper_seed_materializer.py",
+    "core/sandbox_team_materializer.py",
+    "agents/manager.py",
+    "agents/runtime_json_agent.py",
+    "providers/nvidia_provider.py",
+    "providers/ollama_provider.py",
+    "providers/registry.py",
+    "domains/loteria/agent_presets.json",
+    "domains/loteria/database_loteria.py",
+    "core/memoria_perpetua.py",
+    "core/herramientas.py",
+    "core/hybrid/connectivity.py"
+  ],
+  "forbidden_actions_performed": []
+}
