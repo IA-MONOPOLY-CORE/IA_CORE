@@ -1526,3 +1526,15 @@ No UI activa, no JS, no backend, no runtime, no execution, no JSON TOP 15, no fi
 - `backend_internal_ui_payload.v1`, deny-by-default, no runtime, no execution y payload v2 ausente.
 - Readiness: `ready_for_ui_ux_1_197_post_large_scale_block_checkpoint_and_semantic_frontier_review`.
 - No se implementa microcopy contractual transversal, motion ni audiovisual; no se ejecuta UI/UX 1.197 automaticamente.
+
+## UI/UX 1.197 - Revision post bloque gran escala
+
+- Revision read-only completada sobre `8b4ce90`: `UI_UX_POST_LARGE_SCALE_BLOCK_REVIEW_1_197_PASSED`.
+- 1.196 queda reconstruido desde Git; el unico cambio productivo fue retirar dos overrides CSS redundantes en N4.
+- La suite canonica explicita de 1.196 colecta y pasa 155 tests; 317/322 pertenecen a suites historicas mas amplias y el 319 no tiene command manifest congelado.
+- Politica futura: `REALIDAD DEL DIFF > NOMBRE PLANIFICADO`; `feat`, `fix`, `refactor`, `test`, `docs` y `chore` se eligen al cierre real de cada estacion.
+- Proximo tramo seleccionado: inventario, clasificacion y decision package de microcopy contractual, con 6 estaciones deterministas y hard frontier en N7.
+- Escala: `CURRENT_DETERMINISTIC_STATION_COUNT=4`, `PREAUTHORIZED_STATION_COUNT=5`, `SELF_BOOTSTRAPPED_STATION_COUNT=6`, `HARD_FRONTIER_STATION_INDEX=7`, `RECOMMENDED_STATION_COUNT=6`.
+- Readiness: `ready_for_ui_ux_1_198_next_assembled_block_prompt_compilation`.
+- No se ejecuta UI/UX 1.198; no se modifica HTML, CSS, JS, i18n, backend, payload, runtime, execution, endpoints ni integrations.
+- [Revision 1.197](docs/UI_UX_PANEL_MAESTRO_POST_LARGE_SCALE_BLOCK_REVIEW_1_197.md), [postmortem 1.196](docs/UI_UX_PANEL_MAESTRO_LARGE_SCALE_BLOCK_1_196_POSTMORTEM_1_197.md) y [manifiesto siguiente](docs/UI_UX_PANEL_MAESTRO_NEXT_POST_1_196_ASSEMBLED_BLOCK_MANIFEST_1_197.md).
