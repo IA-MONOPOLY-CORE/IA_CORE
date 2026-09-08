@@ -1,0 +1,52 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "gokv.promotion_authorization.v1",
+  "title": "GOKV Institutional Promotion Authorization",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "authorization_id", "schema_version", "authorized_by", "authorization_type",
+    "source_context", "source_assessment", "decision_timestamp",
+    "authorized_knowledge_ids", "explicitly_deferred_knowledge_ids",
+    "direction_approval_ids", "scope_constraints", "provenance_constraints",
+    "automatic_promotion", "product_changes_authorized",
+    "ui_ux_1_202_execution_authorized", "pre_promotion_gate", "notes"
+  ],
+  "properties": {
+    "authorization_id": {"type": "string", "pattern": "^[a-z0-9]+(?:_[a-z0-9]+)*$"},
+    "schema_version": {"const": "gokv.promotion_authorization.v1"},
+    "authorized_by": {"const": "DIRECTION"},
+    "authorization_type": {"const": "KNOWLEDGE_PROMOTION"},
+    "source_context": {"type": "string", "minLength": 1},
+    "source_assessment": {"type": "string", "minLength": 1},
+    "decision_timestamp": {"type": "string", "minLength": 1},
+    "authorized_knowledge_ids": {"type": "array", "minItems": 1, "items": {"type": "string"}},
+    "explicitly_deferred_knowledge_ids": {"type": "array", "items": {"type": "string"}},
+    "direction_approval_ids": {"type": "array", "items": {"type": "string"}},
+    "scope_constraints": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["required_scope", "preserve_scope", "allow_scope_widening"],
+      "properties": {
+        "required_scope": {"const": "IA_CORE_BUILD"},
+        "preserve_scope": {"const": true},
+        "allow_scope_widening": {"const": false}
+      }
+    },
+    "provenance_constraints": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["required_learning_origin", "preserve_learning_origin", "allow_origin_change"],
+      "properties": {
+        "required_learning_origin": {"const": "DEVELOPMENT_ORIGIN"},
+        "preserve_learning_origin": {"const": true},
+        "allow_origin_change": {"const": false}
+      }
+    },
+    "automatic_promotion": {"const": false},
+    "product_changes_authorized": {"const": false},
+    "ui_ux_1_202_execution_authorized": {"const": false},
+    "pre_promotion_gate": {"type": "object"},
+    "notes": {"type": "array", "items": {"type": "string"}}
+  }
+}

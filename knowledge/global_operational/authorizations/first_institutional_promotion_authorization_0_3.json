@@ -1,0 +1,57 @@
+{
+  "authorization_id": "first_institutional_promotion_authorization_0_3",
+  "schema_version": "gokv.promotion_authorization.v1",
+  "authorized_by": "DIRECTION",
+  "authorization_type": "KNOWLEDGE_PROMOTION",
+  "source_context": "GOKV 0.3 first institutional promotion after UI_UX_1_201",
+  "source_assessment": "knowledge/global_operational/assessments/promotion_assessment_post_ui_ux_1_200.json",
+  "decision_timestamp": "2026-09-08T18:13:34.2768786Z",
+  "authorized_knowledge_ids": [
+    "compress_occurrences_into_decisions",
+    "evidence_before_closure",
+    "focal_group_canonical_deep_test_policy",
+    "preserve_contract_until_explicit_change",
+    "real_diff_over_planned_commit_name",
+    "station_local_commits",
+    "true_hard_frontier"
+  ],
+  "explicitly_deferred_knowledge_ids": [
+    "conditioned_autonomy"
+  ],
+  "direction_approval_ids": [],
+  "scope_constraints": {
+    "required_scope": "IA_CORE_BUILD",
+    "preserve_scope": true,
+    "allow_scope_widening": false
+  },
+  "provenance_constraints": {
+    "required_learning_origin": "DEVELOPMENT_ORIGIN",
+    "preserve_learning_origin": true,
+    "allow_origin_change": false
+  },
+  "automatic_promotion": false,
+  "product_changes_authorized": false,
+  "ui_ux_1_202_execution_authorized": false,
+  "pre_promotion_gate": {
+    "gate_id": "N0_GOKV_FIRST_INSTITUTIONAL_PROMOTION_GATE_PASSED",
+    "authorized_promotion_ids": 7,
+    "promotion_ready_ids": 7,
+    "unknown_authorized_ids": 0,
+    "authorized_not_ready": 0,
+    "ready_not_authorized": 0,
+    "conflicting_evidence": 0,
+    "missing_evidence": 0,
+    "conditioned_autonomy_readiness": "DIRECTION_APPROVAL_REQUIRED",
+    "conditioned_autonomy_decision": "KEEP_VALIDATED",
+    "status": "PASSED"
+  },
+  "notes": [
+    "This authorization is limited to the seven listed IDs in this checkpoint.",
+    "It is not a wildcard and does not authorize future PROMOTION_READY items.",
+    "Automatic promotion remains disabled.",
+    "conditioned_autonomy remains VALIDATED because more evidence is required.",
+    "DEVELOPMENT_ORIGIN, scope, privacy, applicability, lineage, evidence and history must be preserved.",
+    "No product, UI, runtime, execution, backend, payload, provider or integration change is authorized.",
+    "UI/UX 1.202 is preparation-only and must not be executed by GOKV 0.3."
+  ]
+}
