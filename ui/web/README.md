@@ -2193,3 +2193,13 @@ No UI activa, no JS, no backend, no runtime, no execution, no JSON TOP 15, no fi
 - Resultado: `UI_UX_MICROCOPY_DIRECTION_DECISION_COMPRESSION_REVIEW_PASSED`.
 - Readiness: `ready_for_ui_ux_1_200_microcopy_direction_decisions`.
 - Decision Sheet: `../docs/UI_UX_PANEL_MAESTRO_MICROCOPY_DIRECTOR_DECISION_SHEET_1_199.md`.
+
+## UI/UX 1.200 - Ejecucion de decisiones de Direccion
+
+- Checkpoint: `UI_UX_MICROCOPY_DIRECTION_DECISIONS_EXECUTION_1_200_PASSED`.
+- Allowlist congelada: 1624 items, 1143 decision units, 8 direction packages y decisiones `B/A/B/A/A/A/A/A`.
+- 295 items editoriales quedaron `ALREADY_COMPLIANT`; el cambio productivo fue unicamente CSS scoped de geometria local.
+- No se modificaron HTML, JavaScript contractual, i18n, backend, payload, runtime, execution, endpoints ni integrations.
+- P0, P1, Matriz P3, widgets contract-aware, Request Draft Panel y 692 ocurrencias Level D quedaron preservados.
+- [Checkpoint](../docs/UI_UX_PANEL_MAESTRO_MICROCOPY_DIRECTION_EXECUTION_CHECKPOINT_1_200.md) y [allowlist](../tests/fixtures/ui_ux_1_200_microcopy_direction_allowlist.json).
+- Readiness: `ready_for_ui_ux_1_201_post_direction_microcopy_review_and_oci_feedback`; UI/UX 1.201 no se ejecuta automaticamente.

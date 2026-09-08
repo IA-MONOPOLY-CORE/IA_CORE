@@ -1578,3 +1578,13 @@ No UI activa, no JS, no backend, no runtime, no execution, no JSON TOP 15, no fi
 - Pack preparado para UI/UX 1.200: `gokv.pack.422f3d1b277abcfb`; UI/UX 1.200 no fue ejecutado.
 - Readiness: `ready_for_first_development_mission_with_operational_inheritance`.
 - [Checkpoint GOKV 0.2](docs/GOKV_DOOL_OCI_CHECKPOINT_0_2.md), [shadow report](docs/GOKV_UI_UX_1_200_SHADOW_INHERITANCE_REPORT.md) y [protocolo acumulativo](docs/GOKV_ACCUMULATIVE_CONSTRUCTION_PROTOCOL_V1.md).
+
+## UI/UX 1.200 - Ejecucion de decisiones de Direccion
+
+- Resultado: `UI_UX_MICROCOPY_DIRECTION_DECISIONS_EXECUTION_1_200_PASSED`.
+- Corpus preservado: 1624 ocurrencias, 1143 unidades, 8 paquetes y decisiones `B/A/B/A/A/A/A/A`.
+- Las 295 ocurrencias editoriales quedaron `ALREADY_COMPLIANT`; el unico cambio productivo fue CSS scoped de geometria en `ui/web/styles.css`.
+- Las 692 ocurrencias Level D, P0, P1, Matriz P3, widgets contract-aware y Request Draft Panel permanecen intactos.
+- Browser en cinco viewports sin overflow ni consola; suites contractual, historica, protegida y GOKV verdes.
+- [Checkpoint UI/UX 1.200](docs/UI_UX_PANEL_MAESTRO_MICROCOPY_DIRECTION_EXECUTION_CHECKPOINT_1_200.md), [allowlist](tests/fixtures/ui_ux_1_200_microcopy_direction_allowlist.json) y [reporte OCI/DOOL](docs/GOKV_UI_UX_1_200_FIRST_NORMAL_OCI_CONSUMPTION_REPORT.md).
+- Readiness: `ready_for_ui_ux_1_201_post_direction_microcopy_review_and_oci_feedback`; UI/UX 1.201 no se ejecuta automaticamente.
