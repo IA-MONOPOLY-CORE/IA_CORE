@@ -1,0 +1,110 @@
+{
+  "overlay_id": "ui_ux_1_200_independent_evidence_overlay_0_3",
+  "schema_version": "gokv.independent_evidence_overlay.v1",
+  "provenance": "DEVELOPMENT_ORIGIN",
+  "append_only": true,
+  "source_mission": "ui_ux_1_200",
+  "source_checkpoint": "UI_UX_1_200",
+  "source_loop": "knowledge/global_operational/events/post_block/ui_ux_1_200_first_normal_oci_loop.json",
+  "source_report": "docs/GOKV_UI_UX_1_200_FIRST_NORMAL_OCI_CONSUMPTION_REPORT.md",
+  "evidence_refs": [
+    {
+      "knowledge_id": "conditioned_autonomy",
+      "evidence_id": "conditioned_autonomy_ui_ux_1_200_0_3",
+      "kind": "independent_execution",
+      "source_refs": [
+        "docs/UI_UX_PANEL_MAESTRO_MICROCOPY_DIRECTION_EXECUTION_CHECKPOINT_1_200.md#preflight-y-oci",
+        "tests/test_ui_ux_panel_maestro_microcopy_direction_execution_1_200.py"
+      ],
+      "source_commits": ["dd7c154", "bf1f01c", "1c9c0cd"],
+      "claim": "La mision aplico solamente las ocho decisiones B/A/B/A/A/A/A/A y detuvo cualquier inferencia contractual, operativa o de permiso.",
+      "independence_basis": "Ejecucion normal posterior al shadow de GOKV 0.2, con commits y checkpoint propios."
+    },
+    {
+      "knowledge_id": "compress_occurrences_into_decisions",
+      "evidence_id": "compress_occurrences_into_decisions_ui_ux_1_200_0_3",
+      "kind": "independent_execution",
+      "source_refs": [
+        "tests/fixtures/ui_ux_1_200_microcopy_direction_allowlist.json",
+        "docs/UI_UX_PANEL_MAESTRO_MICROCOPY_DIRECTION_EXECUTION_CHECKPOINT_1_200.md#decisiones-y-allowlist"
+      ],
+      "source_commits": ["dd7c154", "82e913f"],
+      "claim": "El corpus de 1624 ocurrencias quedo reducido a 1143 unidades, ocho paquetes y un allowlist determinista sin merge por similitud textual.",
+      "independence_basis": "La compresion fue observada en la primera ejecucion normal y no en el shadow pack."
+    },
+    {
+      "knowledge_id": "evidence_before_closure",
+      "evidence_id": "evidence_before_closure_ui_ux_1_200_0_3",
+      "kind": "independent_execution",
+      "source_refs": [
+        "docs/GOKV_UI_UX_1_200_FIRST_NORMAL_OCI_CONSUMPTION_REPORT.md#regresion-y-gates",
+        "tests/test_ui_ux_panel_maestro_microcopy_direction_execution_checkpoint_1_200.py"
+      ],
+      "source_commits": ["b844511", "c1bf467", "1c9c0cd", "d4e4913"],
+      "claim": "El cierre se hizo despues de browser, suites focal e historica, protecciones, Node, py_compile y diff check, con evidencia persistida.",
+      "independence_basis": "Las salidas de validacion pertenecen al cierre ejecutado de 1.200 y no al plan previo."
+    },
+    {
+      "knowledge_id": "focal_group_canonical_deep_test_policy",
+      "evidence_id": "focal_group_canonical_deep_test_policy_ui_ux_1_200_0_3",
+      "kind": "independent_execution",
+      "source_refs": [
+        "docs/UI_UX_PANEL_MAESTRO_MICROCOPY_DIRECTION_EXECUTION_CHECKPOINT_1_200.md#regresion-y-gates",
+        "docs/GOKV_UI_UX_1_200_FIRST_NORMAL_OCI_CONSUMPTION_REPORT.md#pack-heredado"
+      ],
+      "source_commits": ["bf1f01c", "b844511", "d4e4913"],
+      "claim": "La profundidad de pruebas se escalo al riesgo: focal UI, corpus historico, superficies protegidas, GOKV, Node y compilacion, sin afirmar cobertura por cantidad artificial.",
+      "independence_basis": "La matriz de capas fue ejecutada como parte del bloque normal 1.200."
+    },
+    {
+      "knowledge_id": "preserve_contract_until_explicit_change",
+      "evidence_id": "preserve_contract_until_explicit_change_ui_ux_1_200_0_3",
+      "kind": "independent_execution",
+      "source_refs": [
+        "docs/UI_UX_PANEL_MAESTRO_MICROCOPY_DIRECTION_EXECUTION_CHECKPOINT_1_200.md#frontera-contractual",
+        "tests/test_ui_ux_panel_maestro_microcopy_direction_execution_1_200.py"
+      ],
+      "source_commits": ["bf1f01c", "0d4ae4e"],
+      "claim": "La mision conservo HTML, JavaScript contractual, i18n, backend, payload v1, estados, acciones, permisos, widgets, Request Draft y Level D; solo aplico geometria CSS autorizada.",
+      "independence_basis": "La preservacion se verifico contra el baseline productivo de 1.199 durante 1.200."
+    },
+    {
+      "knowledge_id": "real_diff_over_planned_commit_name",
+      "evidence_id": "real_diff_over_planned_commit_name_ui_ux_1_200_0_3",
+      "kind": "independent_execution",
+      "source_refs": [
+        "docs/UI_UX_PANEL_MAESTRO_MICROCOPY_DIRECTION_EXECUTION_CHECKPOINT_1_200.md#cambio-productivo-real",
+        "docs/GOKV_UI_UX_1_200_FIRST_NORMAL_OCI_CONSUMPTION_REPORT.md#bloqueos-resueltos"
+      ],
+      "source_commits": ["dd7c154", "0d4ae4e", "b844511", "d4e4913"],
+      "claim": "La semantica de commits siguio el diff real: fix(ui) solo para la correccion CSS productiva y test/docs/knowledge para evidencia y guards.",
+      "independence_basis": "La clasificacion se observo en commits efectivamente publicados, no en nombres planificados."
+    },
+    {
+      "knowledge_id": "station_local_commits",
+      "evidence_id": "station_local_commits_ui_ux_1_200_0_3",
+      "kind": "independent_execution",
+      "source_refs": [
+        "docs/UI_UX_PANEL_MAESTRO_MICROCOPY_DIRECTION_EXECUTION_CHECKPOINT_1_200.md#estaciones-y-commits",
+        "git:dd7c154..1c9c0cd"
+      ],
+      "source_commits": ["dd7c154", "82e913f", "0d4ae4e", "bf1f01c", "b844511", "c1bf467", "1c9c0cd"],
+      "claim": "Las estaciones materiales quedaron separadas en commits localizados y trazables, sin commit globo, squash ni ocultamiento de causalidad.",
+      "independence_basis": "La historia de Git de 1.200 contiene los commits de estaciones ejecutadas."
+    },
+    {
+      "knowledge_id": "true_hard_frontier",
+      "evidence_id": "true_hard_frontier_ui_ux_1_200_0_3",
+      "kind": "independent_execution",
+      "source_refs": [
+        "docs/UI_UX_PANEL_MAESTRO_MICROCOPY_DIRECTION_EXECUTION_CHECKPOINT_1_200.md#frontera-contractual",
+        "docs/UI_UX_PANEL_MAESTRO_MICROCOPY_DETERMINISM_DIRECTION_BOUNDARY_1_199.md"
+      ],
+      "source_commits": ["bf1f01c", "d4e4913"],
+      "claim": "La mision cerro el bloque sin cruzar vocabulario contractual, payload v2, runtime o execution y mantuvo visible la frontera que requiere owner y versionado separado.",
+      "independence_basis": "La frontera fue respetada durante una ejecucion productiva posterior al grafo determinista 1.199."
+    }
+  ],
+  "excluded_from_overlay": ["local_rollback"],
+  "created_at": "2026-09-08T00:00:00+00:00"
+}
