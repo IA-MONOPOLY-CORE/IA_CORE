@@ -24,6 +24,17 @@ from ui_ux_panel_maestro_microcopy_1_198_support import (
 )
 
 
+N3_RESOLUTIONS = (
+    "DERIVABLE_WITH_EXISTING_CONTRACT",
+    "DERIVABLE_WITH_EXISTING_STYLE_RULE",
+    "DERIVABLE_WITH_CONSISTENCY_RULE",
+    "DERIVABLE_WITH_GEOMETRY_RULE",
+    "DIRECTION_REQUIRED_TRUE",
+    "CONTRACT_CHANGE_REQUIRED",
+    "KEEP_NO_DECISION",
+)
+
+
 GROUPING_TYPES = (
     "EXACT_DUPLICATE_UNIT",
     "SEMANTIC_EQUIVALENT_UNIT",
@@ -72,6 +83,17 @@ class DecisionUnit:
     recommendations: tuple[str, ...]
     risks: tuple[str, ...]
     shared_decision: bool
+    rationale: str
+
+
+@dataclass(frozen=True)
+class DirectionCompression:
+    decision_unit_id: str
+    resolution: str
+    source_decision_category: str
+    grouping_type: str
+    occurrence_count: int
+    original_direction_required: bool
     rationale: str
 
 
@@ -223,3 +245,106 @@ def decision_unit_summary(units: list[DecisionUnit] | None = None) -> dict[str, 
 
 def protected_product_is_unchanged() -> bool:
     return protected_files_match_baseline() == []
+
+
+_ANTI_ACTION_TERMS = (
+    "no runtime",
+    "no_runtime",
+    "no-runtime",
+    "no execution",
+    "no_execution",
+    "no-execution",
+    "no dispatch",
+    "no_dispatch",
+    "no-dispatch",
+    "no submit",
+    "no_submit",
+    "no-submit",
+    "no cta",
+    "no permission",
+    "read-only",
+    "read only",
+    "no live runtime",
+    "sin permiso",
+    "no ejecuta",
+    "no envia",
+    "no envía",
+    "no activa",
+    "no corre",
+    "no dispara",
+    "no delivery",
+)
+
+
+def _contains_anti_action_boundary(unit: DecisionUnit) -> bool:
+    return any(
+        any(term in text.casefold() for term in _ANTI_ACTION_TERMS)
+        for text in unit.texts
+    ) or any("allowed_actions" in contract for contract in unit.contracts)
+
+
+def _resolve_unit(unit: DecisionUnit) -> tuple[str, str]:
+    category = unit.decision_categories[0]
+    classifications = set(unit.classifications)
+    if category == "MUST_NOT_CHANGE_WITHOUT_CONTRACT_CHANGE":
+        return "CONTRACT_CHANGE_REQUIRED", "Exact vocabulary needs a future contract version."
+    if category == "SAFE_TO_KEEP":
+        return "KEEP_NO_DECISION", "No deterministic evidence justifies a change."
+    if category == "GEOMETRY_DRIVEN_CANDIDATE":
+        return "DERIVABLE_WITH_GEOMETRY_RULE", "Existing browser evidence defines a bounded geometry review."
+    if category == "EDITORIAL_CANDIDATE":
+        if classifications <= EDITORIAL_CLASSIFICATIONS:
+            return "DERIVABLE_WITH_EXISTING_STYLE_RULE", "Existing editorial/presentational rules can preserve meaning."
+        return "DIRECTION_REQUIRED_TRUE", "The unit is not safely reducible to a presentational rule."
+    if category == "CONSISTENCY_CANDIDATE":
+        if unit.shared_decision:
+            return "DERIVABLE_WITH_CONSISTENCY_RULE", "Existing equivalent wording supplies the precedent; keep the current value."
+        return "DIRECTION_REQUIRED_TRUE", "Contextual variants cannot share a canonical choice without Direction."
+    if category == "READINESS_SENSITIVE":
+        if classifications <= {"READINESS_LABEL", "STATE_LABEL", "NO_PAYLOAD", "NOT_AVAILABLE"}:
+            return "DERIVABLE_WITH_EXISTING_CONTRACT", "Existing readiness/absence vocabulary already defines the boundary."
+        return "DIRECTION_REQUIRED_TRUE", "The readiness meaning is not isolated from another authority."
+    if category == "AMBIGUOUS_REQUIRES_DIRECTION":
+        if unit.shared_decision:
+            return "DERIVABLE_WITH_CONSISTENCY_RULE", "Equivalent anti-action wording supplies an existing precedent."
+        if _contains_anti_action_boundary(unit):
+            return "DERIVABLE_WITH_EXISTING_CONTRACT", "The current anti-action or declared-data contract resolves the role."
+        return "DIRECTION_REQUIRED_TRUE", "The source still permits more than one honest semantic reading."
+    if category == "ACTION_PERMISSION_SENSITIVE":
+        return "DIRECTION_REQUIRED_TRUE", "Action/authority meaning cannot be inferred without a product decision."
+    if category == "CONTRACT_SENSITIVE_CANDIDATE":
+        return "DIRECTION_REQUIRED_TRUE", "Contract-sensitive explanation needs owner review before wording changes."
+    return "DIRECTION_REQUIRED_TRUE", "No safe deterministic rule applies."
+
+
+def direction_compression(units: list[DecisionUnit] | None = None) -> list[DirectionCompression]:
+    entries = units if units is not None else decision_units()
+    result: list[DirectionCompression] = []
+    for unit in entries:
+        resolution, rationale = _resolve_unit(unit)
+        result.append(DirectionCompression(
+            decision_unit_id=unit.decision_unit_id,
+            resolution=resolution,
+            source_decision_category=unit.decision_categories[0],
+            grouping_type=unit.grouping_type,
+            occurrence_count=unit.occurrence_count,
+            original_direction_required=unit.recommendations[0] == "DIRECTION_REQUIRED",
+            rationale=rationale,
+        ))
+    return result
+
+
+def direction_compression_summary(
+    units: list[DecisionUnit] | None = None,
+) -> dict[str, int]:
+    entries = direction_compression(units)
+    return {
+        "ORIGINAL_DIRECTION_REQUIRED_ITEMS": sum(item.occurrence_count for item in entries if item.original_direction_required),
+        "ORIGINAL_DIRECTION_REQUIRED_UNITS": sum(item.original_direction_required for item in entries),
+        "TOTAL_DIRECTION_REQUIRED_TRUE_ITEMS": sum(item.occurrence_count for item in entries if item.resolution == "DIRECTION_REQUIRED_TRUE" and item.original_direction_required),
+        "TOTAL_DIRECTION_REQUIRED_TRUE_UNITS": sum(item.resolution == "DIRECTION_REQUIRED_TRUE" and item.original_direction_required for item in entries),
+        "TOTAL_DERIVABLE_WITH_EXISTING_CONTRACT_ITEMS": sum(item.occurrence_count for item in entries if item.resolution == "DERIVABLE_WITH_EXISTING_CONTRACT" and item.original_direction_required),
+        "TOTAL_DERIVABLE_WITH_EXISTING_CONTRACT_UNITS": sum(item.resolution == "DERIVABLE_WITH_EXISTING_CONTRACT" and item.original_direction_required for item in entries),
+        "TOTAL_DERIVABLE_WITH_CONSISTENCY_RULE_ITEMS": sum(item.occurrence_count for item in entries if item.resolution == "DERIVABLE_WITH_CONSISTENCY_RULE" and item.original_direction_required),
+        "TOTAL_DERIVABLE_WITH_CONSISTENCY_RULE_UNITS": sum(item.resolution == "DERIVABLE_WITH_CONSISTENCY_RULE" and item.original_direction_required for item in entries),
+    }
