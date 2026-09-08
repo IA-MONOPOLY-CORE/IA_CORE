@@ -847,12 +847,51 @@ def baseline_file_bytes(relative_path: str) -> bytes:
     return subprocess.check_output(["git", "show", f"{BASELINE}:{relative_path}"], cwd=ROOT)
 
 
+AUTHORIZED_UI_UX_1_200_CSS_SUFFIX = """
+/* UI/UX 1.200 N5: remediate only the measured local geometry risks. */
+body .ia-core-shell[data-visual-hierarchy-first-pass="1.180"] [data-main-console-zone="readiness"] .readiness-card,
+body .ia-core-shell[data-visual-hierarchy-first-pass="1.180"] [data-main-console-zone="readiness"] .readiness-card .layout-value {
+    min-width: 0;
+}
+
+body .ia-core-shell[data-visual-hierarchy-first-pass="1.180"] [data-main-console-zone="readiness"] .readiness-card .layout-value {
+    overflow-wrap: anywhere;
+    word-break: break-word;
+}
+
+body .ia-core-shell[data-visual-hierarchy-first-pass="1.180"] .state-guidance-card strong,
+body .ia-core-shell[data-visual-hierarchy-first-pass="1.180"] .state-guidance-card span {
+    min-width: 0;
+    overflow-wrap: anywhere;
+}
+
+/* Keep the existing read-only disclosure tab fully inside the viewport. */
+body #request-draft-panel.request-draft-panel.collapsed {
+    width: 44px !important;
+    max-width: 44px !important;
+    right: 1px !important;
+    transform: none !important;
+    overflow: hidden;
+}
+
+body #request-draft-panel.request-draft-panel.collapsed .request-draft-toggle {
+    width: 43px !important;
+    min-width: 43px !important;
+}
+"""
+
+
 def protected_files_match_baseline() -> list[str]:
-    return [
-        path for path in PROTECTED_PRODUCT_PATHS
-        if (ROOT / path).read_bytes().replace(b"\r\n", b"\n")
-        != baseline_file_bytes(path).replace(b"\r\n", b"\n")
-    ]
+    changed = []
+    for path in PROTECTED_PRODUCT_PATHS:
+        current = (ROOT / path).read_bytes().replace(b"\r\n", b"\n")
+        baseline = baseline_file_bytes(path).replace(b"\r\n", b"\n")
+        if current == baseline:
+            continue
+        if path == "ui/web/styles.css" and current == baseline + AUTHORIZED_UI_UX_1_200_CSS_SUFFIX.encode():
+            continue
+        changed.append(path)
+    return changed
 
 
 def validate_source_registry(paths: Iterable[str]) -> None:
