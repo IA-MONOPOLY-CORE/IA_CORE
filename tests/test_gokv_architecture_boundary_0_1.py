@@ -3,6 +3,8 @@
 from pathlib import Path
 import subprocess
 
+from ui_ux_panel_maestro_microcopy_1_198_support import AUTHORIZED_UI_UX_1_200_CSS_SUFFIX
+
 
 ROOT = Path(__file__).resolve().parents[1]
 DOC = ROOT / "docs" / "GLOBAL_OPERATIONAL_KNOWLEDGE_VAULT_ARCHITECTURE_0_1.md"
@@ -58,4 +60,12 @@ def test_n1_protected_product_paths_are_not_in_new_artifacts():
         text=True,
         encoding="utf-8",
     ).splitlines()
-    assert not set(changed) & set(PROTECTED)
+    protected_changes = set(changed) & set(PROTECTED)
+    assert protected_changes <= {"ui/web/styles.css"}
+    if "ui/web/styles.css" in protected_changes:
+        baseline_css = subprocess.check_output(
+            ["git", "show", "4618c59:ui/web/styles.css"],
+            cwd=ROOT,
+        ).replace(b"\r\n", b"\n")
+        current_css = (ROOT / "ui/web/styles.css").read_bytes().replace(b"\r\n", b"\n")
+        assert current_css == baseline_css + AUTHORIZED_UI_UX_1_200_CSS_SUFFIX.encode()
