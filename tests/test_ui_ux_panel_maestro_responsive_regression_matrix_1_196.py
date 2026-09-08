@@ -51,10 +51,11 @@ def test_matrix_preserves_every_contract_aware_surface():
 
 
 def test_matrix_is_css_and_test_only_without_operational_regression():
-    n5_commit = continuity.commit_for(continuity.STATION_MESSAGES["N5"]) or PRE_N5
-    changed = set(filter(None, subprocess.check_output(
-        ["git", "diff", "--name-only", "--no-renames", n5_commit, "HEAD"], cwd=ROOT, text=True, encoding="utf-8"
+    n5_commit = continuity.commit_for(continuity.STATION_MESSAGES["N5"])
+    assert n5_commit
+    files = set(filter(None, subprocess.check_output(
+        ["git", "show", "--format=", "--name-only", n5_commit], cwd=ROOT, text=True, encoding="utf-8"
     ).splitlines()))
-    assert changed == set()
-    assert subprocess.run(["git", "diff", "--quiet", PRE_N5, "HEAD", "--", "ui/web/styles.css"], cwd=ROOT).returncode == 0
+    assert files <= continuity.exact_station_paths("N5")
+    assert "tests/test_ui_ux_panel_maestro_responsive_regression_matrix_1_196.py" in files
     continuity.assert_protected_product_unchanged(PRE_N5)

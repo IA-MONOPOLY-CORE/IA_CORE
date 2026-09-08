@@ -40,5 +40,8 @@ def test_manifest_rejects_product_and_unknown_paths():
 
 
 def test_n1_current_paths_and_protected_product_are_closed():
-    continuity.assert_current_station_is_exact("N1")
-
+    commit = continuity.commit_for(continuity.STATION_MESSAGES["N1"])
+    assert commit
+    files = set(filter(None, continuity.git("show", "--format=", "--name-only", commit).splitlines()))
+    assert files <= continuity.exact_station_paths("N1")
+    continuity.assert_protected_product_unchanged()

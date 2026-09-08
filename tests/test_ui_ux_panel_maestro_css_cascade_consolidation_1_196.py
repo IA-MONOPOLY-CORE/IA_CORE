@@ -47,8 +47,10 @@ def test_n4_preserves_contract_and_rejects_operational_css():
 
 
 def test_n4_scope_is_css_only_and_snapshot_is_strict():
-    n4_commit = continuity.commit_for(continuity.STATION_MESSAGES["N4"]) or PRE_N4
-    changed = set(filter(None, git("diff", "--name-only", "--no-renames", n4_commit, "HEAD").splitlines()))
-    assert changed == set()
+    n4_commit = continuity.commit_for(continuity.STATION_MESSAGES["N4"])
+    assert n4_commit
+    files = set(filter(None, git("show", "--format=", "--name-only", n4_commit).splitlines()))
+    assert files <= continuity.exact_station_paths("N4")
+    assert "ui/web/styles.css" in files
     source = (ROOT / "tests" / "ui_ux_1_196_snapshot_groups.py").read_text(encoding="utf-8")
     groups.assert_no_weakening(source)

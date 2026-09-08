@@ -64,6 +64,7 @@ CONTINUITY_1_196 = {
     "docs/UI_UX_PANEL_MAESTRO_CSS_CASCADE_INVENTORY_1_196.md",
     "tests/test_ui_ux_panel_maestro_css_cascade_inventory_1_196.py",
     "tests/test_ui_ux_panel_maestro_css_cascade_consolidation_1_196.py",
+    "tests/test_ui_ux_panel_maestro_controlled_double_scope_affordances_severity_1_192.py",
     "tests/test_ui_ux_panel_maestro_responsive_regression_matrix_1_196.py",
     "tests/test_ui_ux_panel_maestro_p0_p1_visual_hierarchy_1_196.py",
     "tests/test_ui_ux_panel_maestro_contract_aware_widgets_visual_coherence_1_196.py",

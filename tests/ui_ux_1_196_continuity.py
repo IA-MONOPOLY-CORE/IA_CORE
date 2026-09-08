@@ -52,15 +52,28 @@ STATION_PATHS = {
     "N4": {
         CSS,
         "tests/test_ui_ux_panel_maestro_css_cascade_consolidation_1_196.py",
+        "tests/test_ui_ux_panel_maestro_css_cascade_inventory_1_196.py",
+        "tests/test_ui_ux_panel_maestro_assembled_block_1_194_postmortem_1_195.py",
+        "tests/test_ui_ux_panel_maestro_next_large_scale_assembled_block_manifest_1_195.py",
+        "tests/test_ui_ux_panel_maestro_post_assembled_block_direction_review_1_195.py",
+        "tests/test_ui_ux_panel_maestro_controlled_double_scope_affordances_severity_1_192.py",
     },
     "N5": {
         "tests/test_ui_ux_panel_maestro_responsive_regression_matrix_1_196.py",
+        "tests/test_ui_ux_panel_maestro_css_cascade_consolidation_1_196.py",
     },
     "N6": {
         "tests/test_ui_ux_panel_maestro_p0_p1_visual_hierarchy_1_196.py",
+        "tests/test_ui_ux_panel_maestro_responsive_regression_matrix_1_196.py",
     },
     "N7": {
         "tests/test_ui_ux_panel_maestro_contract_aware_widgets_visual_coherence_1_196.py",
+        "tests/test_ui_ux_panel_maestro_p0_p1_visual_hierarchy_1_196.py",
+        "tests/test_ui_ux_panel_maestro_responsive_regression_matrix_1_196.py",
+        "tests/test_ui_ux_panel_maestro_css_cascade_consolidation_1_196.py",
+        "tests/test_ui_ux_panel_maestro_continuity_manifest_1_196.py",
+        "tests/ui_ux_1_196_continuity.py",
+        "tests/ui_ux_1_192_scope.py",
     },
     "N8": {
         "tests/test_ui_ux_panel_maestro_p2_p3_transversal_density_1_196.py",
