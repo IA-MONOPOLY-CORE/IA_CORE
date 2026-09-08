@@ -52,7 +52,7 @@ declared handler contract, not an observed HTTP response.
 | POST | `/api/agents/{agent_id}/regenerate-paper` | `regenerate_agent_paper` | id + request | dict | none found | paper JSON | regeneration path | legacy |
 | GET | `/` | root | none | HTML/response | none found | read | none | legacy |
 
-Total: 37 routes, including 25 GET/read-oriented routes and 12 POST/PUT/DELETE
+Total: 36 routes, including 22 GET/read-oriented routes and 14 POST/PUT/DELETE
 mutation-capable routes. The read-oriented count does not imply authentication.
 
 ## Contract and boundary findings
@@ -75,4 +75,3 @@ The API surface is a live-looking legacy boundary with no demonstrated
 authentication or authorization barrier. The next work must audit activation,
 permission and trust boundaries around these routes before any operational
 backend phase is considered.
-

@@ -1,9 +1,9 @@
 {
   "schema_version": "roadmap_3_0.api_routing_contract_graph.v1",
   "baseline_commit": "82d309f00ab99dfa9eb100e5594bf1d8d0559f5a",
-  "route_count": 37,
-  "get_count": 25,
-  "mutation_route_count": 12,
+  "route_count": 36,
+  "get_count": 22,
+  "mutation_route_count": 14,
   "routes": [
     {"method":"GET","path":"/api/status","handler":"get_status","classification":"LEGACY_READ"},
     {"method":"GET","path":"/api/memory","handler":"get_memory_snapshot","classification":"LEGACY_READ"},
