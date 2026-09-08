@@ -1557,3 +1557,14 @@ No UI activa, no JS, no backend, no runtime, no execution, no JSON TOP 15, no fi
 - Readiness: `ready_for_ui_ux_1_200_microcopy_direction_decisions`.
 - [Decision Sheet](docs/UI_UX_PANEL_MAESTRO_MICROCOPY_DIRECTOR_DECISION_SHEET_1_199.md) y [checkpoint](docs/UI_UX_PANEL_MAESTRO_MICROCOPY_DIRECTION_REVIEW_CHECKPOINT_1_199.md).
 - El siguiente prompt es UI/UX 1.200; no se ejecuta automáticamente.
+
+## GOKV 0.1 - Cofre Global de Capacidad Operacional
+
+- Base de captura de conocimiento operacional global, exclusivamente de desarrollo, en `knowledge/global_operational/`, con helpers en `gokv/`.
+- Resultado integral: `IA_CORE_GLOBAL_OPERATIONAL_KNOWLEDGE_VAULT_BOOTSTRAP_0_1_PASSED`.
+- Readiness: `ready_for_continuous_development_knowledge_capture_v1`.
+- Generation 0: 23 items, 16 `VALIDATED`, 7 `CANDIDATE`, 0 `PROMOTED`; no hay promoción automática.
+- Incluye schema/lifecycle, registry Git-backed, eventos/métricas, compilador determinista y CLI `python -m gokv`.
+- No hay integración runtime, consumo de agentes, embeddings, RAG, entrenamiento, red, endpoints públicos ni cambios de producto.
+- UI/UX 1.199 permanece preservado y UI/UX 1.200 no fue ejecutado.
+- [Checkpoint GOKV 0.1](docs/GOKV_BOOTSTRAP_CHECKPOINT_0_1.md) y [protocolo de captura continua](docs/GOKV_CONTINUOUS_DEVELOPMENT_CAPTURE_PROTOCOL_V1.md).
