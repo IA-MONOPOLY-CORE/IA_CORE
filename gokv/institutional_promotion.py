@@ -399,7 +399,8 @@ def _overlay_for_decision(decision: Mapping[str, Any], vault: VaultPaths) -> lis
     matches = []
     for path in (vault.events_dir / "evidence").glob("*.json"):
         value = load_json(path)
-        if value.get("overlay_id") == overlay_id:
+        evidence_ids = {entry.get("evidence_id") for entry in value.get("evidence_refs", [])}
+        if value.get("overlay_id") == overlay_id or overlay_id in evidence_ids:
             matches.append(value)
     if len(matches) != 1:
         raise ValueError(f"evidence overlay no resuelto: {overlay_id}")
