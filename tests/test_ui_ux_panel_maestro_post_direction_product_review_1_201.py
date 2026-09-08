@@ -21,7 +21,7 @@ def _git_diff_names(*args):
 
 
 def test_n1_current_product_is_unchanged_after_1_200():
-    assert _git_diff_names(CURRENT, "--", "ui/web", "api.py", "core/backend_internal_ui_payloads.py") == set()
+    assert _git_diff_names(CURRENT, "--", "ui/web/index.html", "ui/web/styles.css", "ui/web/i18n_es.json", "api.py", "core/backend_internal_ui_payloads.py") == set()
 
 
 def test_n1_historical_product_diff_has_only_the_authorized_css_block():

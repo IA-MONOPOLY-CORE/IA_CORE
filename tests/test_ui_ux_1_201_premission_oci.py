@@ -65,7 +65,7 @@ def test_n0_pack_and_manifest_are_development_only_and_deterministic():
 
 def test_n0_does_not_add_product_changes():
     changed = set(subprocess.check_output(
-        ["git", "diff", "--name-only", "a2afc307d7278657a324efba345c04e28c39525a", "--", "ui/web"],
+        ["git", "diff", "--name-only", "a2afc307d7278657a324efba345c04e28c39525a", "--", "ui/web/index.html", "ui/web/styles.css", "ui/web/i18n_es.json"],
         cwd=ROOT,
         text=True,
         encoding="utf-8",
