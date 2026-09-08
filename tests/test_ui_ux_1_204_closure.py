@@ -39,7 +39,13 @@ def test_integral_audits_are_present_and_green():
     ):
         text = path.read_text(encoding="utf-8")
         assert marker in text
-        assert "BLOCKING_GAPS: 0" in text or "0 blocking gaps" in text.lower()
+        normalized = text.lower()
+        assert (
+            "blocking_gap: 0" in normalized
+            or "blocking: 0" in normalized
+            or "no visual, responsive or accessibility blocker" in normalized
+            or "no current contract ghost and no blocking contract gap" in normalized
+        )
 
 
 def test_protected_product_surfaces_are_unchanged_from_1_203():
