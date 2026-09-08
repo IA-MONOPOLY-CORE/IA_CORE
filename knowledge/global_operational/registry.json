@@ -26,6 +26,7 @@
     "already_compliant_do_not_invent_change": {
       "kind": "PRINCIPLE",
       "knowledge_version": "0.1.0",
+      "learning_origin": "DEVELOPMENT_ORIGIN",
       "path": "items/already_compliant_do_not_invent_change.json",
       "privacy_class": "ia_core_internal",
       "scope": "IA_CORE_BUILD",
@@ -38,6 +39,7 @@
     "apparent_frontier_can_be_designed_away": {
       "kind": "TASK_DECOMPOSITION_PATTERN",
       "knowledge_version": "0.1.0",
+      "learning_origin": "DEVELOPMENT_ORIGIN",
       "path": "items/apparent_frontier_can_be_designed_away.json",
       "privacy_class": "ia_core_internal",
       "scope": "IA_CORE_BUILD",
@@ -50,6 +52,7 @@
     "compile_human_decisions_into_packages": {
       "kind": "TASK_DECOMPOSITION_PATTERN",
       "knowledge_version": "0.1.0",
+      "learning_origin": "DEVELOPMENT_ORIGIN",
       "path": "items/compile_human_decisions_into_packages.json",
       "privacy_class": "ia_core_internal",
       "scope": "IA_CORE_BUILD",
@@ -62,6 +65,7 @@
     "compress_occurrences_into_decisions": {
       "kind": "TASK_DECOMPOSITION_PATTERN",
       "knowledge_version": "0.1.0",
+      "learning_origin": "DEVELOPMENT_ORIGIN",
       "path": "items/compress_occurrences_into_decisions.json",
       "privacy_class": "ia_core_internal",
       "scope": "IA_CORE_BUILD",
@@ -74,6 +78,7 @@
     "conditioned_autonomy": {
       "kind": "AUTONOMY_RULE",
       "knowledge_version": "0.1.0",
+      "learning_origin": "DEVELOPMENT_ORIGIN",
       "path": "items/conditioned_autonomy.json",
       "privacy_class": "ia_core_internal",
       "scope": "IA_CORE_BUILD",
@@ -86,6 +91,7 @@
     "context_continuity_reduces_rework": {
       "kind": "CONTEXT_MANAGEMENT_PATTERN",
       "knowledge_version": "0.1.0",
+      "learning_origin": "DEVELOPMENT_ORIGIN",
       "path": "items/context_continuity_reduces_rework.json",
       "privacy_class": "ia_core_internal",
       "scope": "IA_CORE_BUILD",
@@ -98,6 +104,7 @@
     "contract_over_ui_inference": {
       "kind": "PRINCIPLE",
       "knowledge_version": "0.1.0",
+      "learning_origin": "DEVELOPMENT_ORIGIN",
       "path": "items/contract_over_ui_inference.json",
       "privacy_class": "ia_core_internal",
       "scope": "IA_CORE_BUILD",
@@ -111,6 +118,7 @@
     "controlled_assembled_block_execution": {
       "kind": "PATTERN",
       "knowledge_version": "0.1.0",
+      "learning_origin": "DEVELOPMENT_ORIGIN",
       "path": "items/controlled_assembled_block_execution.json",
       "privacy_class": "ia_core_internal",
       "scope": "IA_CORE_BUILD",
@@ -124,6 +132,7 @@
     "cost_per_correctly_closed_surface": {
       "kind": "COST_RESULT_EVIDENCE",
       "knowledge_version": "0.1.0",
+      "learning_origin": "DEVELOPMENT_ORIGIN",
       "path": "items/cost_per_correctly_closed_surface.json",
       "privacy_class": "ia_core_internal",
       "scope": "IA_CORE_BUILD",
@@ -136,6 +145,7 @@
     "deterministic_distance_defines_block_size": {
       "kind": "TASK_DECOMPOSITION_PATTERN",
       "knowledge_version": "0.1.0",
+      "learning_origin": "DEVELOPMENT_ORIGIN",
       "path": "items/deterministic_distance_defines_block_size.json",
       "privacy_class": "ia_core_internal",
       "scope": "IA_CORE_BUILD",
@@ -148,6 +158,7 @@
     "evidence_before_closure": {
       "kind": "VALIDATION_RULE",
       "knowledge_version": "0.1.0",
+      "learning_origin": "DEVELOPMENT_ORIGIN",
       "path": "items/evidence_before_closure.json",
       "privacy_class": "ia_core_internal",
       "scope": "IA_CORE_BUILD",
@@ -160,6 +171,7 @@
     "focal_group_canonical_deep_test_policy": {
       "kind": "TEST_STRATEGY",
       "knowledge_version": "0.1.0",
+      "learning_origin": "DEVELOPMENT_ORIGIN",
       "path": "items/focal_group_canonical_deep_test_policy.json",
       "privacy_class": "ia_core_internal",
       "scope": "IA_CORE_BUILD",
@@ -172,6 +184,7 @@
     "human_intervention_is_high_value_resource": {
       "kind": "OPERATOR_INTERVENTION_PATTERN",
       "knowledge_version": "0.1.0",
+      "learning_origin": "DEVELOPMENT_ORIGIN",
       "path": "items/human_intervention_is_high_value_resource.json",
       "privacy_class": "ia_core_internal",
       "scope": "IA_CORE_BUILD",
@@ -184,6 +197,7 @@
     "internal_gates": {
       "kind": "AUTONOMY_RULE",
       "knowledge_version": "0.1.0",
+      "learning_origin": "DEVELOPMENT_ORIGIN",
       "path": "items/internal_gates.json",
       "privacy_class": "ia_core_internal",
       "scope": "IA_CORE_BUILD",
@@ -196,6 +210,7 @@
     "local_rollback": {
       "kind": "RECOVERY_PATTERN",
       "knowledge_version": "0.1.0",
+      "learning_origin": "DEVELOPMENT_ORIGIN",
       "path": "items/local_rollback.json",
       "privacy_class": "ia_core_internal",
       "scope": "IA_CORE_BUILD",
@@ -208,6 +223,7 @@
     "model_sufficiency_over_maximum_model": {
       "kind": "MODEL_SELECTION_HEURISTIC",
       "knowledge_version": "0.1.0",
+      "learning_origin": "DEVELOPMENT_ORIGIN",
       "path": "items/model_sufficiency_over_maximum_model.json",
       "privacy_class": "ia_core_internal",
       "scope": "IA_CORE_BUILD",
@@ -220,6 +236,7 @@
     "no_fake_operational_state": {
       "kind": "STOP_CONDITION",
       "knowledge_version": "0.1.0",
+      "learning_origin": "DEVELOPMENT_ORIGIN",
       "path": "items/no_fake_operational_state.json",
       "privacy_class": "ia_core_internal",
       "scope": "IA_CORE_BUILD",
@@ -232,6 +249,7 @@
     "no_giant_commit": {
       "kind": "COMMIT_STRATEGY",
       "knowledge_version": "0.1.0",
+      "learning_origin": "DEVELOPMENT_ORIGIN",
       "path": "items/no_giant_commit.json",
       "privacy_class": "ia_core_internal",
       "scope": "IA_CORE_BUILD",
@@ -244,6 +262,7 @@
     "preserve_contract_until_explicit_change": {
       "kind": "PRINCIPLE",
       "knowledge_version": "0.1.0",
+      "learning_origin": "DEVELOPMENT_ORIGIN",
       "path": "items/preserve_contract_until_explicit_change.json",
       "privacy_class": "ia_core_internal",
       "scope": "IA_CORE_BUILD",
@@ -256,6 +275,7 @@
     "real_diff_over_planned_commit_name": {
       "kind": "COMMIT_STRATEGY",
       "knowledge_version": "0.1.0",
+      "learning_origin": "DEVELOPMENT_ORIGIN",
       "path": "items/real_diff_over_planned_commit_name.json",
       "privacy_class": "ia_core_internal",
       "scope": "IA_CORE_BUILD",
@@ -268,6 +288,7 @@
     "self_bootstrap": {
       "kind": "ARCHITECTURAL_LEARNING",
       "knowledge_version": "0.1.0",
+      "learning_origin": "DEVELOPMENT_ORIGIN",
       "path": "items/self_bootstrap.json",
       "privacy_class": "ia_core_internal",
       "scope": "IA_CORE_BUILD",
@@ -280,6 +301,7 @@
     "station_local_commits": {
       "kind": "COMMIT_STRATEGY",
       "knowledge_version": "0.1.0",
+      "learning_origin": "DEVELOPMENT_ORIGIN",
       "path": "items/station_local_commits.json",
       "privacy_class": "ia_core_internal",
       "scope": "IA_CORE_BUILD",
@@ -293,6 +315,7 @@
     "true_hard_frontier": {
       "kind": "STOP_CONDITION",
       "knowledge_version": "0.1.0",
+      "learning_origin": "DEVELOPMENT_ORIGIN",
       "path": "items/true_hard_frontier.json",
       "privacy_class": "ia_core_internal",
       "scope": "IA_CORE_BUILD",

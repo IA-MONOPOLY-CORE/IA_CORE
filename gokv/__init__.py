@@ -2,6 +2,8 @@
 
 from gokv.schema import (
     KNOWLEDGE_KINDS,
+    LEARNING_ORIGINS,
+    LINEAGE_RELATIONS,
     LIFECYCLE_STATUSES,
     SCHEMA_VERSION,
     build_knowledge_item,
@@ -12,6 +14,8 @@ from gokv.schema import (
 
 __all__ = [
     "KNOWLEDGE_KINDS",
+    "LEARNING_ORIGINS",
+    "LINEAGE_RELATIONS",
     "LIFECYCLE_STATUSES",
     "SCHEMA_VERSION",
     "build_knowledge_item",

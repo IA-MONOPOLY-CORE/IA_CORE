@@ -146,6 +146,7 @@ def _build_registry(items: list[dict[str, Any]]) -> dict[str, Any]:
                 "status": item["status"],
                 "scope": item["scope"],
                 "privacy_class": item["privacy_class"],
+                "learning_origin": item["learning_origin"],
                 "tags": item["tags"],
             }
             for item in items

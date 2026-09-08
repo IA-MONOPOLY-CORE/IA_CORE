@@ -39,6 +39,22 @@
     "created_at": {"type": "string", "format": "date-time"},
     "updated_at": {"type": "string", "format": "date-time"},
     "supersedes": {"type": "array", "items": {"type": "string"}},
-    "superseded_by": {"type": "array", "items": {"type": "string"}}
+    "superseded_by": {"type": "array", "items": {"type": "string"}},
+    "learning_origin": {"enum": ["DEVELOPMENT_ORIGIN", "FIELD_OPERATION", "MIXED_ORIGIN", "EXTERNAL_REFERENCE", "UNKNOWN"]},
+    "lineage": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["relation", "related_knowledge_id", "related_origin", "evidence_refs", "notes"],
+        "properties": {
+          "relation": {"enum": ["CONFIRM", "REFINE", "LIMIT", "CONTRADICT", "SUPERSEDE"]},
+          "related_knowledge_id": {"type": "string"},
+          "related_origin": {"enum": ["DEVELOPMENT_ORIGIN", "FIELD_OPERATION", "MIXED_ORIGIN", "EXTERNAL_REFERENCE", "UNKNOWN"]},
+          "evidence_refs": {"type": "array", "items": {"type": "string"}},
+          "notes": {"type": "array", "items": {"type": "string"}}
+        }
+      }
+    }
   }
 }

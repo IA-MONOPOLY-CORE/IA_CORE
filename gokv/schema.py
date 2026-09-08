@@ -55,6 +55,10 @@ PRIVACY_CLASSES = frozenset(
     }
 )
 CONFIDENCE_LEVELS = frozenset({"LOW", "MEDIUM", "HIGH"})
+LEARNING_ORIGINS = frozenset(
+    {"DEVELOPMENT_ORIGIN", "FIELD_OPERATION", "MIXED_ORIGIN", "EXTERNAL_REFERENCE", "UNKNOWN"}
+)
+LINEAGE_RELATIONS = frozenset({"CONFIRM", "REFINE", "LIMIT", "CONTRADICT", "SUPERSEDE"})
 EVIDENCE_KINDS = frozenset({"commit", "checkpoint", "test", "document", "metric"})
 VALID_TRANSITIONS = {
     "OBSERVED": {"CANDIDATE"},
@@ -126,6 +130,8 @@ def build_knowledge_item(
     updated_at: str | None = None,
     supersedes: list[str] | None = None,
     superseded_by: list[str] | None = None,
+    learning_origin: str = "DEVELOPMENT_ORIGIN",
+    lineage: list[dict[str, Any]] | None = None,
 ) -> dict[str, Any]:
     now = created_at or _now()
     item = {
@@ -156,6 +162,8 @@ def build_knowledge_item(
         "updated_at": updated_at or now,
         "supersedes": list(supersedes or []),
         "superseded_by": list(superseded_by or []),
+        "learning_origin": learning_origin,
+        "lineage": deepcopy(lineage or []),
     }
     return validate_knowledge_item(item)
 
@@ -163,6 +171,9 @@ def build_knowledge_item(
 def validate_knowledge_item(item: dict[str, Any]) -> dict[str, Any]:
     if not isinstance(item, dict):
         raise ValueError("knowledge_item debe ser un objeto")
+    item = deepcopy(item)
+    item.setdefault("learning_origin", "DEVELOPMENT_ORIGIN")
+    item.setdefault("lineage", [])
     missing = REQUIRED_FIELDS - set(item)
     if missing:
         raise ValueError(f"knowledge_item incompleto: {', '.join(sorted(missing))}")
@@ -178,6 +189,8 @@ def validate_knowledge_item(item: dict[str, Any]) -> dict[str, Any]:
         raise ValueError(f"scope invalido: {item['scope']}")
     if item["privacy_class"] not in PRIVACY_CLASSES:
         raise ValueError(f"privacy_class invalida: {item['privacy_class']}")
+    if item["learning_origin"] not in LEARNING_ORIGINS:
+        raise ValueError("learning_origin invalido")
     _validate_text(item["title"], "title")
     _validate_text(item["summary"], "summary")
     if not isinstance(item["applicability"], dict):
@@ -204,6 +217,7 @@ def validate_knowledge_item(item: dict[str, Any]) -> dict[str, Any]:
         _validate_evidence_ref(reference)
     if not isinstance(item["evidence_refs"], list):
         raise ValueError("evidence_refs debe ser una lista")
+    _validate_lineage(item["lineage"])
     _validate_confidence(item["confidence"])
     _validate_timestamp(item["created_at"], "created_at")
     _validate_timestamp(item["updated_at"], "updated_at")
@@ -274,6 +288,23 @@ def _validate_confidence(confidence: Any) -> None:
     if confidence.get("level") not in CONFIDENCE_LEVELS:
         raise ValueError("confidence.level invalido")
     _validate_text(confidence.get("rationale"), "confidence.rationale")
+
+
+def _validate_lineage(lineage: Any) -> None:
+    if not isinstance(lineage, list):
+        raise ValueError("lineage debe ser una lista")
+    required = {"relation", "related_knowledge_id", "related_origin", "evidence_refs", "notes"}
+    for entry in lineage:
+        if not isinstance(entry, dict) or not required <= set(entry):
+            raise ValueError("lineage entry incompleta")
+        if entry["relation"] not in LINEAGE_RELATIONS:
+            raise ValueError("lineage relation invalida")
+        _validate_id(entry["related_knowledge_id"], "lineage.related_knowledge_id")
+        if entry["related_origin"] not in LEARNING_ORIGINS:
+            raise ValueError("lineage related_origin invalido")
+        _validate_string_list(entry["evidence_refs"], "lineage.evidence_refs")
+        _validate_string_list(entry["notes"], "lineage.notes")
+        _ensure_serializable(entry)
 
 
 def _validate_scope_privacy(scope: str, privacy_class: str) -> None:
