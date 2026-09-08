@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "gokv.operator_measurement_supplement.v1",
+  "title": "GOKV Operator Measurement Supplement",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "supplement_id", "schema_version", "original_event_id", "source", "reported_at",
+    "model", "effort", "visible_duration", "quota_5h_start_remaining",
+    "quota_5h_end_remaining", "quota_5h_delta", "quota_weekly_start_remaining",
+    "quota_weekly_end_remaining", "quota_weekly_delta", "planned_stations",
+    "completed_stations", "commit_count", "result", "notes"
+  ],
+  "properties": {
+    "supplement_id": {"type": "string"},
+    "schema_version": {"const": "gokv.operator_measurement_supplement.v1"},
+    "original_event_id": {"type": "string"},
+    "source": {"const": "OPERATOR_REPORTED"},
+    "reported_at": {"type": "string", "format": "date-time"},
+    "model": {"type": "string"},
+    "effort": {"type": "string"},
+    "visible_duration": {"type": "string"},
+    "quota_5h_start_remaining": {"type": "integer", "minimum": 0},
+    "quota_5h_end_remaining": {"type": "integer", "minimum": 0},
+    "quota_5h_delta": {"type": "integer", "minimum": 0},
+    "quota_weekly_start_remaining": {"type": "integer", "minimum": 0},
+    "quota_weekly_end_remaining": {"type": "integer", "minimum": 0},
+    "quota_weekly_delta": {"type": "integer", "minimum": 0},
+    "planned_stations": {"type": "integer", "minimum": 0},
+    "completed_stations": {"type": "integer", "minimum": 0},
+    "commit_count": {"type": "integer", "minimum": 0},
+    "result": {"type": "string"},
+    "notes": {"type": "array", "items": {"type": "string"}}
+  }
+}

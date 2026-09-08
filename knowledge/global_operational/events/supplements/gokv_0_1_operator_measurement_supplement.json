@@ -1,0 +1,23 @@
+{
+  "commit_count": 8,
+  "completed_stations": 8,
+  "effort": "Muy Alto",
+  "model": "GPT-5.6 Luna",
+  "notes": [
+    "Operator supplied after the original capture."
+  ],
+  "original_event_id": "gokv_0_1_first_self_capture",
+  "planned_stations": 8,
+  "quota_5h_delta": 5,
+  "quota_5h_end_remaining": 95,
+  "quota_5h_start_remaining": 100,
+  "quota_weekly_delta": 1,
+  "quota_weekly_end_remaining": 99,
+  "quota_weekly_start_remaining": 100,
+  "reported_at": "2026-09-08T14:46:08.802181+00:00",
+  "result": "PASS",
+  "schema_version": "gokv.operator_measurement_supplement.v1",
+  "source": "OPERATOR_REPORTED",
+  "supplement_id": "gokv_0_1_operator_measurement_supplement",
+  "visible_duration": "31m39s"
+}
