@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "gokv.development_oci.v1",
+  "title": "GOKV Development-Time OCI Pack",
+  "type": "object",
+  "required": ["execution_pack_id", "oci_schema_version", "inheritance_mode", "mission_id", "authority_precedence", "conflict_policy", "operational_guidance_only"],
+  "properties": {
+    "execution_pack_id": {"type": "string"},
+    "oci_schema_version": {"const": "gokv.development_oci.v1"},
+    "inheritance_mode": {"const": "DEVELOPMENT_TIME_OCI_V1"},
+    "mission_id": {"type": "string"},
+    "authority_precedence": {"type": "array", "items": {"type": "string"}},
+    "conflict_policy": {"type": "object"},
+    "operational_guidance_only": {"const": true}
+  }
+}

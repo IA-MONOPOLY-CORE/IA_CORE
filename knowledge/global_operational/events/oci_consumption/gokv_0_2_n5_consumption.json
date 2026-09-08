@@ -1,0 +1,29 @@
+{
+  "clarification_requests": [],
+  "consumption_id": "gokv_0_2_n5_consumption",
+  "created_at": "2026-09-08T14:52:05.474329+00:00",
+  "knowledge_items_applied": [],
+  "knowledge_items_available": [
+    "controlled_assembled_block_execution",
+    "internal_gates"
+  ],
+  "knowledge_items_conflicted": [],
+  "knowledge_items_helpful": [],
+  "knowledge_items_irrelevant": [],
+  "knowledge_items_selected": [
+    "controlled_assembled_block_execution",
+    "internal_gates"
+  ],
+  "knowledge_items_unused": [
+    "controlled_assembled_block_execution",
+    "internal_gates"
+  ],
+  "mission_id": "gokv_0_2_n5_self_inspection",
+  "new_candidates": [],
+  "operator_interventions": [],
+  "pack_id": "gokv.pack.3d734103e4e0731d",
+  "pack_item_count": 2,
+  "pack_size_bytes": 3360,
+  "result": "INSPECTION_ONLY",
+  "schema_version": "gokv.oci_consumption_result.v1"
+}

@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "gokv.knowledge_conflict_event.v1",
+  "title": "GOKV Knowledge Conflict Event",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["event_id", "schema_version", "mission_id", "knowledge_id", "conflict_field", "current_contract_reference", "resolution", "knowledge_applied", "created_at"],
+  "properties": {
+    "event_id": {"type": "string"},
+    "schema_version": {"const": "gokv.knowledge_conflict_event.v1"},
+    "mission_id": {"type": "string"},
+    "knowledge_id": {"type": "string"},
+    "conflict_field": {"type": "string"},
+    "current_contract_reference": {"type": "string"},
+    "resolution": {"const": "CURRENT_CONTRACT_WINS"},
+    "knowledge_applied": {"const": false},
+    "created_at": {"type": "string", "format": "date-time"}
+  }
+}

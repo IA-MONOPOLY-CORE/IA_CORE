@@ -89,6 +89,10 @@ def compile_execution_pack(
             "excluded_statuses": ["CANDIDATE", "DEPRECATED", "REPLACED", "OBSERVED", "REVISED"],
         },
     }
+    if "mission_type_aliases" in normalized:
+        pack["mission_type_aliases"] = normalized["mission_type_aliases"]
+    if "knowledge_id_allowlist" in normalized:
+        pack["knowledge_id_allowlist"] = normalized["knowledge_id_allowlist"]
     return validate_execution_pack(pack)
 
 
@@ -208,7 +212,7 @@ def _normalize_request(request: Mapping[str, Any]) -> dict[str, Any]:
     mode = text("mode", "PROMOTED_ONLY")
     if mode not in PACK_MODES:
         raise ValueError(f"mode invalido: {mode}")
-    return {
+    normalized = {
         "mission_class": text("mission_class"),
         "task_type": text("task_type", "general"),
         "scope": text("scope", "IA_CORE_BUILD"),
@@ -220,6 +224,12 @@ def _normalize_request(request: Mapping[str, Any]) -> dict[str, Any]:
         "tags": strings("tags"),
         "mode": mode,
     }
+    for optional_name in ("mission_type_aliases", "knowledge_id_allowlist"):
+        if optional_name in request:
+            values = strings(optional_name)
+            if values:
+                normalized[optional_name] = values
+    return normalized
 
 
 def _matches(item: Mapping[str, Any], request: Mapping[str, Any]) -> bool:
@@ -229,7 +239,8 @@ def _matches(item: Mapping[str, Any], request: Mapping[str, Any]) -> bool:
         return False
     applicability = item.get("applicability", {})
     mission_types = set(applicability.get("mission_types", []))
-    if mission_types and request["mission_class"] not in mission_types and "all_development" not in mission_types:
+    requested_missions = {request["mission_class"], *request.get("mission_type_aliases", [])}
+    if mission_types and not requested_missions.intersection(mission_types) and "all_development" not in mission_types:
         return False
     scoped = set(applicability.get("scopes", []))
     if scoped and request["scope"] not in scoped and "GLOBAL" not in scoped:
@@ -241,6 +252,8 @@ def _matches(item: Mapping[str, Any], request: Mapping[str, Any]) -> bool:
     if request["required_capabilities"] and not set(request["required_capabilities"]).issubset(capabilities):
         return False
     if request["tags"] and not set(request["tags"]).intersection(item["tags"]):
+        return False
+    if request.get("knowledge_id_allowlist") and item["knowledge_id"] not in request["knowledge_id_allowlist"]:
         return False
     return True
 

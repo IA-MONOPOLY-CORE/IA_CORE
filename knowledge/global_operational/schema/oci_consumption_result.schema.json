@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "gokv.oci_consumption_result.v1",
+  "title": "GOKV OCI Consumption Result",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["consumption_id", "schema_version", "pack_id", "mission_id", "knowledge_items_available", "knowledge_items_selected", "knowledge_items_applied", "knowledge_items_unused", "knowledge_items_irrelevant", "knowledge_items_conflicted", "knowledge_items_helpful", "new_candidates", "operator_interventions", "clarification_requests", "result", "pack_size_bytes", "pack_item_count", "created_at"],
+  "properties": {
+    "consumption_id": {"type": "string"},
+    "schema_version": {"const": "gokv.oci_consumption_result.v1"},
+    "pack_id": {"type": "string"},
+    "mission_id": {"type": "string"},
+    "knowledge_items_available": {"type": "array", "items": {"type": "string"}},
+    "knowledge_items_selected": {"type": "array", "items": {"type": "string"}},
+    "knowledge_items_applied": {"type": "array", "items": {"type": "string"}},
+    "knowledge_items_unused": {"type": "array", "items": {"type": "string"}},
+    "knowledge_items_irrelevant": {"type": "array", "items": {"type": "string"}},
+    "knowledge_items_conflicted": {"type": "array", "items": {"type": "string"}},
+    "knowledge_items_helpful": {"type": "array", "items": {"type": "string"}},
+    "new_candidates": {"type": "array", "items": {"type": "string"}},
+    "operator_interventions": {"type": "array", "items": {"type": "string"}},
+    "clarification_requests": {"type": "array", "items": {"type": "string"}},
+    "result": {"type": "string"},
+    "pack_size_bytes": {"type": "integer", "minimum": 0},
+    "pack_item_count": {"type": "integer", "minimum": 0},
+    "created_at": {"type": "string", "format": "date-time"}
+  }
+}
