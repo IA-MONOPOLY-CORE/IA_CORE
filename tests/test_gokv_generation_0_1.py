@@ -14,17 +14,26 @@ EXPECTED_CANDIDATE_IDS = {
     "cost_per_correctly_closed_surface",
     "context_continuity_reduces_rework",
 }
+EXPECTED_PROMOTED_IDS = {
+    "compress_occurrences_into_decisions",
+    "evidence_before_closure",
+    "focal_group_canonical_deep_test_policy",
+    "preserve_contract_until_explicit_change",
+    "real_diff_over_planned_commit_name",
+    "station_local_commits",
+    "true_hard_frontier",
+}
 
 
-def test_generation_zero_inventory_is_complete_and_conservative():
+def test_generation_zero_inventory_remains_complete_after_gokv_03_promotion():
     paths = default_paths(Path.cwd())
     items = list(iter_knowledge_items(paths))
     by_id = {item["knowledge_id"]: item for item in items}
     status_counts = Counter(item["status"] for item in items)
 
     assert len(items) == 23
-    assert status_counts == {"VALIDATED": 16, "CANDIDATE": 7}
-    assert not any(item["status"] == "PROMOTED" for item in items)
+    assert status_counts == {"VALIDATED": 9, "PROMOTED": 7, "CANDIDATE": 7}
+    assert {item_id for item_id, item in by_id.items() if item["status"] == "PROMOTED"} == EXPECTED_PROMOTED_IDS
     assert EXPECTED_CANDIDATE_IDS <= set(by_id)
     assert "ui_ux_1_200" not in " ".join(by_id)
 
@@ -44,6 +53,6 @@ def test_generation_zero_registry_and_vault_are_consistent():
     validation = validate_vault(paths)
 
     assert registry["counts"]["total"] == 23
-    assert registry["counts"]["by_status"] == {"VALIDATED": 16, "CANDIDATE": 7}
+    assert registry["counts"]["by_status"] == {"VALIDATED": 9, "PROMOTED": 7, "CANDIDATE": 7}
     assert validation["valid"] is True
     assert validation["item_count"] == 23

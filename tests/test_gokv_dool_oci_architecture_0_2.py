@@ -22,4 +22,4 @@ def test_dool_oci_audit_preserves_gokv_01_inventory():
 
     assert validation["valid"] is True
     assert validation["item_count"] == 23
-    assert validation["status_counts"] == {"VALIDATED": 16, "CANDIDATE": 7}
+    assert validation["status_counts"] == {"CANDIDATE": 7, "PROMOTED": 7, "VALIDATED": 9}

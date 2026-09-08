@@ -19,6 +19,7 @@ EXPECTED = {
     "station_local_commits",
     "true_hard_frontier",
 }
+PROMOTED_BY_GOKV_03 = EXPECTED - {"conditioned_autonomy"}
 
 
 def _load():
@@ -45,12 +46,14 @@ def test_n3_refs_are_new_and_do_not_duplicate_historical_item_evidence():
         item = json.loads((ROOT / "knowledge" / "global_operational" / "items" / f"{ref['knowledge_id']}.json").read_text(encoding="utf-8"))
         historical_ids = {entry["evidence_id"] for entry in item["evidence_refs"]}
         assert ref["evidence_id"] not in historical_ids
-        assert item["status"] == "VALIDATED"
-    assert not subprocess.run(
-        ["git", "diff", "--quiet", "a2afc307d7278657a324efba345c04e28c39525a", "--", "knowledge/global_operational/items"],
+        expected_status = "VALIDATED" if ref["knowledge_id"] == "conditioned_autonomy" else "PROMOTED"
+        assert item["status"] == expected_status
+    changed_items = subprocess.check_output(
+        ["git", "diff", "--name-only", "a2afc307d7278657a324efba345c04e28c39525a", "HEAD", "--", "knowledge/global_operational/items"],
         cwd=ROOT,
-        check=False,
-    ).returncode
+        text=True,
+    ).splitlines()
+    assert set(changed_items) == {f"knowledge/global_operational/items/{knowledge_id}.json" for knowledge_id in PROMOTED_BY_GOKV_03}
 
 
 def test_n3_historical_loop_and_learning_event_are_preserved():

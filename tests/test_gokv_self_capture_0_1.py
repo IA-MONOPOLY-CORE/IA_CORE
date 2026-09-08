@@ -49,9 +49,9 @@ def test_first_self_capture_event_metric_and_pack_round_trip():
     assert stored_pack["output_contract"]["payload_enabled"] is False
 
 
-def test_self_capture_did_not_promote_or_create_knowledge():
+def test_self_capture_did_not_create_knowledge_after_gokv_03_promotion():
     items = list(iter_knowledge_items(default_paths(Path.cwd())))
 
     assert len(items) == 23
-    assert not any(item["status"] == "PROMOTED" for item in items)
+    assert sum(item["status"] == "PROMOTED" for item in items) == 7
     assert not any(item["knowledge_id"] == "gokv_0_1_first_self_capture" for item in items)
