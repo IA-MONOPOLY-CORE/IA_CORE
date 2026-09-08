@@ -1,0 +1,74 @@
+"""N1/N2 allowlist and contract-preservation guards for UI/UX 1.200."""
+
+from collections import Counter
+
+from ui_ux_panel_maestro_microcopy_1_200_support import (
+    ALLOWLIST_PATH,
+    CHANGE_CLASSES,
+    DECISIONS,
+    allowlist_counts,
+    allowlist_items,
+    expected_allowlist,
+    load_allowlist,
+    protected_files_match_baseline,
+)
+from ui_ux_panel_maestro_microcopy_1_198_support import corpus_items
+from ui_ux_panel_maestro_microcopy_1_199_support import decision_units
+
+
+EXPECTED_CHANGE_COUNTS = {
+    "ALLOWED_EDITORIAL_CHANGE": 295,
+    "ALLOWED_GEOMETRY_CHANGE": 15,
+    "KEEP_EXACT": 170,
+    "KEEP_CONTEXTUAL": 230,
+    "KEEP_CONTRACT": 139,
+    "KEEP_ACTION_PERMISSION": 15,
+    "KEEP_AMBIGUOUS_ROLE": 38,
+    "KEEP_LEVEL_D": 692,
+    "KEEP_NO_DECISION": 30,
+}
+
+
+def test_n1_decisions_and_allowlist_cover_the_frozen_corpus_exactly():
+    artifact = load_allowlist()
+    assert artifact["mission_id"] == "ui_ux_1_200"
+    assert artifact["source_baseline"] == "4618c59"
+    assert artifact["decisions"] == DECISIONS
+    assert artifact["total_direction_packages"] == 8
+    assert artifact["total_decisions_resolved"] == 8
+    assert artifact["unresolved_direction_decisions"] == 0
+    assert artifact["unknown_decision_units"] == 0
+    assert artifact["allowlist_unmapped_items"] == 0
+    assert ALLOWLIST_PATH.is_file()
+    assert allowlist_items() == expected_allowlist()
+    assert len(allowlist_items()) == len(corpus_items()) == 1624
+    assert len({item["microcopy_id"] for item in allowlist_items()}) == 1624
+    assert len(decision_units()) == 1143
+
+
+def test_n1_change_classes_and_decision_unit_counts_are_frozen():
+    items = allowlist_items()
+    assert set(allowlist_counts(items)) == set(CHANGE_CLASSES)
+    assert allowlist_counts(items) == Counter(EXPECTED_CHANGE_COUNTS)
+    assert len({item["decision_unit_id"] for item in items}) == 1143
+    for change_class in CHANGE_CLASSES:
+        assert all(item["change_class"] == change_class for item in items if item["change_class"] == change_class)
+
+
+def test_n2_keep_ledger_keeps_the_contract_frontier_explicit():
+    items = allowlist_items()
+    keep_classes = {
+        "KEEP_EXACT",
+        "KEEP_CONTEXTUAL",
+        "KEEP_CONTRACT",
+        "KEEP_ACTION_PERMISSION",
+        "KEEP_AMBIGUOUS_ROLE",
+        "KEEP_LEVEL_D",
+        "KEEP_NO_DECISION",
+    }
+    keep_items = [item for item in items if item["change_class"] in keep_classes]
+    assert len(keep_items) == 1314
+    assert sum(item["change_class"] == "KEEP_LEVEL_D" for item in items) == 692
+    assert sum(item["change_class"] == "KEEP_NO_DECISION" for item in items) == 30
+    assert all(item["current_text_is_preserved"] for item in keep_items)
+    assert protected_files_match_baseline() == []
