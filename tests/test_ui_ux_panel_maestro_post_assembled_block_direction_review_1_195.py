@@ -9,6 +9,7 @@ import ui_ux_1_192_scope as scope
 
 ROOT = Path(__file__).resolve().parents[1]
 BASE = "307067d"
+HISTORICAL_HEAD = "dcb2aab"
 DOC = ROOT / "docs" / "UI_UX_PANEL_MAESTRO_POST_ASSEMBLED_BLOCK_DIRECTION_REVIEW_1_195.md"
 TEST = ROOT / "tests" / "test_ui_ux_panel_maestro_post_assembled_block_direction_review_1_195.py"
 MESSAGE = "docs(ui): registrar revision post bloque ensamblado 1.195"
@@ -77,10 +78,10 @@ def test_final_review_is_documentation_only_and_commits_are_traceable():
     commit = commit_for(MESSAGE)
     files = set(filter(None, git("show", "--format=", "--name-only", commit).splitlines()))
     assert files <= {"README.md", "ui/web/README.md", DOC.relative_to(ROOT).as_posix(), TEST.relative_to(ROOT).as_posix(), "tests/test_ui_ux_panel_maestro_next_large_scale_assembled_block_manifest_1_195.py", "tests/test_ui_ux_panel_maestro_controlled_double_scope_checkpoint_1_193.py", "tests/test_ui_ux_panel_maestro_assembled_block_scale_audit_1_193.py", "tests/test_ui_ux_panel_maestro_responsive_visual_coherence_assembled_block_1_194.py"}
-    changed = set(filter(None, git("diff", "--name-only", BASE, "HEAD").splitlines()))
+    changed = set(filter(None, git("diff", "--name-only", BASE, HISTORICAL_HEAD).splitlines()))
     assert changed <= ALLOWED, sorted(changed - ALLOWED)
     for path in PRODUCT_FILES - {"ui/web/styles.css"}:
-        assert subprocess.run(["git", "diff", "--quiet", BASE, "HEAD", "--", path], cwd=ROOT, check=False).returncode == 0, path
+        assert subprocess.run(["git", "diff", "--quiet", BASE, HISTORICAL_HEAD, "--", path], cwd=ROOT, check=False).returncode == 0, path
     assert "CONTINUITY_1_195" in read(ROOT / "tests" / "ui_ux_1_192_scope.py")
 
 

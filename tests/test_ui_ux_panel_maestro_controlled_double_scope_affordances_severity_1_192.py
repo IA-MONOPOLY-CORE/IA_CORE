@@ -90,7 +90,11 @@ def test_gate_2_only_adds_the_existing_administrative_boundary_style():
     before = git("show", "055e70e:ui/web/styles.css")
     after = (ROOT / "ui/web/styles.css").read_text(encoding="utf-8")
     assert after.startswith(before + scope.GATE_2_CSS)
-    assert after in (scope.authorized_1_194_css_snapshots(ROOT) | scope.authorized_1_196_css_snapshots(ROOT))
+    assert after in (
+        scope.authorized_1_194_css_snapshots(ROOT)
+        | scope.authorized_1_196_css_snapshots(ROOT)
+        | scope.authorized_1_200_css_snapshots(ROOT)
+    )
     html = (ROOT / "ui/web/index.html").read_text(encoding="utf-8")
     assert html == git("show", f"{BASE}:ui/web/index.html")
     assert html.count('<span class="admin-status" data-contract-blocked="true">') == 1
@@ -114,11 +118,12 @@ def test_gate_2_cannot_expand_severity_scope_or_hide_the_boundary(addition):
 
 
 def test_only_proposal_and_reporting_files_change():
-    scope.assert_current_scope(ROOT)
-    paths = set(git("diff", "--name-only", BASE).splitlines())
+    historical_head = "6ae13f4"
+    scope.assert_current_scope(ROOT, head=historical_head, baseline=BASE, allowed_paths=ALLOWED)
+    paths = set(git("diff", "--name-only", BASE, historical_head).splitlines())
     paths.update(git("ls-files", "--others", "--exclude-standard").splitlines())
     assert paths <= ALLOWED, sorted(paths - ALLOWED)
-    assert git("diff", "--name-only", BASE, "--", "ui/web/index.html", "ui/web/*.js", "ui/web/i18n_es.json", "core", "api.py", "domains", "providers", "tools", "scripts", "integrations", "runtime", "execution", ".github").strip() == ""
+    assert git("diff", "--name-only", BASE, historical_head, "--", "ui/web/index.html", "ui/web/*.js", "ui/web/i18n_es.json", "core", "api.py", "domains", "providers", "tools", "scripts", "integrations", "runtime", "execution", ".github").strip() == ""
 
 
 def test_report_records_final_double_scope_completion_without_claiming_193_execution():

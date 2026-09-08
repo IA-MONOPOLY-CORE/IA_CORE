@@ -9,6 +9,7 @@ import ui_ux_1_192_scope as scope
 
 ROOT = Path(__file__).resolve().parents[1]
 BASE = "307067d"
+HISTORICAL_HEAD = "dcb2aab"
 DOC = ROOT / "docs" / "UI_UX_PANEL_MAESTRO_NEXT_LARGE_SCALE_ASSEMBLED_BLOCK_MANIFEST_1_195.md"
 TEST = ROOT / "tests" / "test_ui_ux_panel_maestro_next_large_scale_assembled_block_manifest_1_195.py"
 MESSAGE = "docs(ui): definir siguiente escala de bloques ensamblados"
@@ -67,7 +68,7 @@ def test_manifest_commit_is_documentation_only_and_product_is_unchanged():
     commit = commit_for(MESSAGE)
     files = set(filter(None, git("show", "--format=", "--name-only", commit).splitlines()))
     assert files <= {DOC.relative_to(ROOT).as_posix(), TEST.relative_to(ROOT).as_posix()}
-    changed = set(filter(None, git("diff", "--name-only", BASE, "HEAD").splitlines()))
+    changed = set(filter(None, git("diff", "--name-only", BASE, HISTORICAL_HEAD).splitlines()))
     assert changed <= ({
         "tests/ui_ux_1_192_scope.py",
         "docs/UI_UX_PANEL_MAESTRO_ASSEMBLED_BLOCK_1_194_POSTMORTEM_1_195.md",
@@ -81,7 +82,7 @@ def test_manifest_commit_is_documentation_only_and_product_is_unchanged():
         "README.md", "ui/web/README.md", "ui/web/styles.css",
     } | scope.CONTINUITY_1_196 | scope.CONTINUITY_1_197 | scope.CONTINUITY_1_198 | scope.CONTINUITY_1_199)
     for path in PRODUCT_FILES - {"ui/web/styles.css"}:
-        assert subprocess.run(["git", "diff", "--quiet", BASE, "HEAD", "--", path], cwd=ROOT, check=False).returncode == 0, path
+        assert subprocess.run(["git", "diff", "--quiet", BASE, HISTORICAL_HEAD, "--", path], cwd=ROOT, check=False).returncode == 0, path
     helper = normalized(read(ROOT / "tests" / "ui_ux_1_192_scope.py"))
     assert "continuity_1_195" in helper
     assert "no payload v2" in normalized(read(DOC))

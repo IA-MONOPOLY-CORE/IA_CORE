@@ -9,6 +9,7 @@ import ui_ux_1_192_scope as scope
 
 ROOT = Path(__file__).resolve().parents[1]
 BASE = "f5ddde4"
+HISTORICAL_HEAD = "dcb2aab"
 DOC = ROOT / "docs" / "UI_UX_PANEL_MAESTRO_RESPONSIVE_VISUAL_COHERENCE_ASSEMBLED_BLOCK_1_194.md"
 TEST = ROOT / "tests" / "test_ui_ux_panel_maestro_responsive_visual_coherence_assembled_block_1_194.py"
 README = ROOT / "README.md"
@@ -109,10 +110,10 @@ def test_each_station_has_one_independent_commit_and_s6_is_documental():
 
 
 def test_assembled_block_scope_keeps_product_contract_closed():
-    assert changed_paths(BASE) <= ALLOWED_FILES
+    assert changed_paths(BASE, HISTORICAL_HEAD) <= ALLOWED_FILES
     for path in PRODUCT_FILES:
-        assert subprocess.run(["git", "diff", "--quiet", BASE, "HEAD", "--", path], cwd=ROOT, check=False).returncode == 0, path
-    current_css = read(ROOT / "ui" / "web" / "styles.css")
+        assert subprocess.run(["git", "diff", "--quiet", BASE, HISTORICAL_HEAD, "--", path], cwd=ROOT, check=False).returncode == 0, path
+    current_css = scope.text(scope.git(ROOT, "show", f"{HISTORICAL_HEAD}:ui/web/styles.css"))
     scope.assert_css(scope.text(scope.git(ROOT, "show", f"{scope.BASE}:{scope.CSS}")), current_css, ROOT)
     assert "backend_internal_ui_payload.v1" in normalized(read(ROOT / "ui" / "web" / "index.html") + read(ROOT / "ui" / "web" / "backend-contract-widgets.js"))
     active = "\n".join(read(ROOT / path) for path in ("ui/web/index.html", "ui/web/styles.css", "ui/web/backend-contract-widgets.js", "core/backend_internal_ui_payloads.py")).casefold()

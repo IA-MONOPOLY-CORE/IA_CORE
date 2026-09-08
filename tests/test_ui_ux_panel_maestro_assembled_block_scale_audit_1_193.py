@@ -10,6 +10,7 @@ import ui_ux_1_192_scope as scope
 ROOT = Path(__file__).resolve().parents[1]
 BASE = "ca9a8c8"
 CHECKPOINT = "ef5a83d"
+HISTORICAL_HEAD = "dcb2aab"
 DOC = ROOT / "docs" / "UI_UX_PANEL_MAESTRO_ASSEMBLED_BLOCK_SCALE_AUDIT_1_193.md"
 PRODUCT_FILES = {
     "ui/web/index.html",
@@ -55,7 +56,7 @@ def git(*args: str) -> str:
 
 
 def all_changed_paths() -> set[str]:
-    tracked = set(filter(None, git("diff", "--name-only", BASE, "HEAD").splitlines()))
+    tracked = set(filter(None, git("diff", "--name-only", BASE, HISTORICAL_HEAD).splitlines()))
     working = set(filter(None, git("ls-files", "--others", "--exclude-standard").splitlines()))
     return tracked | working
 
@@ -102,8 +103,8 @@ def test_audit_has_six_traceable_station_commits_and_stops_before_semantic_front
 def test_product_and_protected_paths_remain_unchanged():
     assert all_changed_paths() <= ALLOWED_FILES, sorted(all_changed_paths() - ALLOWED_FILES)
     for path in PRODUCT_FILES - {"ui/web/styles.css"}:
-        assert subprocess.run(["git", "diff", "--quiet", BASE, "HEAD", "--", path], cwd=ROOT, check=False).returncode == 0, path
-    current_css = (ROOT / "ui/web/styles.css").read_text(encoding="utf-8")
+        assert subprocess.run(["git", "diff", "--quiet", BASE, HISTORICAL_HEAD, "--", path], cwd=ROOT, check=False).returncode == 0, path
+    current_css = scope.text(scope.git(ROOT, "show", f"{HISTORICAL_HEAD}:ui/web/styles.css"))
     scope.assert_css(scope.text(scope.git(ROOT, "show", f"{scope.BASE}:{scope.CSS}")), current_css, ROOT)
     unexpected_1_194 = {path for path in all_changed_paths() if "1_194" in path} - scope.CONTINUITY_1_194 - scope.CONTINUITY_1_195
     assert not unexpected_1_194

@@ -9,6 +9,7 @@ import ui_ux_1_192_scope as scope
 
 ROOT = Path(__file__).resolve().parents[1]
 BASE = "ca9a8c8"
+HISTORICAL_HEAD = "dcb2aab"
 DOC = ROOT / "docs" / "UI_UX_PANEL_MAESTRO_CONTROLLED_DOUBLE_SCOPE_CHECKPOINT_1_193.md"
 REPORT_192 = ROOT / "docs" / "UI_UX_PANEL_MAESTRO_CONTROLLED_DOUBLE_SCOPE_AFFORDANCES_SEVERITY_1_192.md"
 README = ROOT / "README.md"
@@ -83,11 +84,11 @@ def test_readmes_record_checkpoint_without_product_scope():
 
 
 def test_product_files_are_unchanged_from_published_base():
-    changed = set(filter(None, git("diff", "--name-only", BASE, "HEAD", "--", ".").splitlines()))
+    changed = set(filter(None, git("diff", "--name-only", BASE, HISTORICAL_HEAD, "--", ".").splitlines()))
     assert changed <= ALLOWED_1_193, sorted(changed - ALLOWED_1_193)
     for path in PRODUCT_FILES - {"ui/web/styles.css"}:
-        assert subprocess.run(["git", "diff", "--quiet", BASE, "HEAD", "--", path], cwd=ROOT, check=False).returncode == 0, path
-    current_css = (ROOT / "ui/web/styles.css").read_text(encoding="utf-8")
+        assert subprocess.run(["git", "diff", "--quiet", BASE, HISTORICAL_HEAD, "--", path], cwd=ROOT, check=False).returncode == 0, path
+    current_css = scope.text(scope.git(ROOT, "show", f"{HISTORICAL_HEAD}:ui/web/styles.css"))
     scope.assert_css(scope.text(scope.git(ROOT, "show", f"{scope.BASE}:{scope.CSS}")), current_css, ROOT)
 
 

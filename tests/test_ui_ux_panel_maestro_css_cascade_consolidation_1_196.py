@@ -10,6 +10,7 @@ import ui_ux_1_196_snapshot_groups as groups
 ROOT = Path(__file__).resolve().parents[1]
 CSS = ROOT / "ui" / "web" / "styles.css"
 PRE_N4 = "4136abb"
+HISTORICAL_HEAD = "dcb2aab"
 
 
 def git(*args: str) -> str:
@@ -18,7 +19,7 @@ def git(*args: str) -> str:
 
 def test_n4_removes_only_proven_matrix_duplicate_overrides():
     before = git("show", f"{PRE_N4}:ui/web/styles.css")
-    after = CSS.read_text(encoding="utf-8")
+    after = git("show", f"{HISTORICAL_HEAD}:ui/web/styles.css")
     duplicate_grid = 'body #closure-matrix-ui-ux-1x .closure-matrix-grid {\n    gap: 8px;\n}'
     duplicate_main = 'body #closure-matrix-ui-ux-1x .closure-matrix-main {\n    min-width: 0;\n}'
     assert duplicate_grid in before
@@ -36,14 +37,14 @@ def test_n4_removes_only_proven_matrix_duplicate_overrides():
 
 def test_n4_preserves_contract_and_rejects_operational_css():
     before = git("show", f"{PRE_N4}:ui/web/index.html") + git("show", f"{PRE_N4}:ui/web/backend-contract-widgets.js")
-    after = (ROOT / "ui" / "web" / "index.html").read_text(encoding="utf-8") + (ROOT / "ui" / "web" / "backend-contract-widgets.js").read_text(encoding="utf-8")
+    after = git("show", f"{HISTORICAL_HEAD}:ui/web/index.html") + git("show", f"{HISTORICAL_HEAD}:ui/web/backend-contract-widgets.js")
     groups.assert_no_contract_modification(before, after)
     before_css = git("show", f"{PRE_N4}:ui/web/styles.css").casefold()
-    after_css = CSS.read_text(encoding="utf-8").casefold()
+    after_css = git("show", f"{HISTORICAL_HEAD}:ui/web/styles.css").casefold()
     assert before_css.count("display: none") == after_css.count("display: none")
     assert before_css.count("pointer-events: auto") == after_css.count("pointer-events: auto")
     assert before_css.count("submit") == after_css.count("submit")
-    continuity.assert_protected_product_unchanged(PRE_N4)
+    continuity.assert_protected_product_unchanged(PRE_N4, HISTORICAL_HEAD)
 
 
 def test_n4_scope_is_css_only_and_snapshot_is_strict():

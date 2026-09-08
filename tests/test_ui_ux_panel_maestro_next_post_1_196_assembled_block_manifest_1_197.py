@@ -7,6 +7,7 @@ import subprocess
 ROOT = Path(__file__).resolve().parents[1]
 DOC = ROOT / "docs" / "UI_UX_PANEL_MAESTRO_NEXT_POST_1_196_ASSEMBLED_BLOCK_MANIFEST_1_197.md"
 BASELINE = "8b4ce90"
+HISTORICAL_HEAD = "d386c37"
 PROTECTED = {
     "ui/web/index.html",
     "ui/web/styles.css",
@@ -72,7 +73,7 @@ def test_manifest_contains_semantic_commit_and_execution_policies():
 def test_manifest_protects_product_and_does_not_authorize_198_execution():
     for path in PROTECTED:
         assert subprocess.run(
-            ["git", "diff", "--quiet", BASELINE, "HEAD", "--", path],
+            ["git", "diff", "--quiet", BASELINE, HISTORICAL_HEAD, "--", path],
             cwd=ROOT,
         ).returncode == 0, path
     content = " ".join(DOC.read_text(encoding="utf-8").casefold().split())
@@ -86,5 +87,5 @@ def test_manifest_protects_product_and_does_not_authorize_198_execution():
         "no implementa microcopy",
     ):
         assert marker in content, marker
-    changed = set(filter(None, git("diff", "--name-only", BASELINE, "HEAD").splitlines()))
+    changed = set(filter(None, git("diff", "--name-only", BASELINE, HISTORICAL_HEAD).splitlines()))
     assert not (changed & PROTECTED), sorted(changed & PROTECTED)

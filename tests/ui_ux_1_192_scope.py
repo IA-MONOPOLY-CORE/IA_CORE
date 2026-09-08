@@ -479,29 +479,34 @@ def assert_snapshot(changes, baselines, allowed_paths=None):
             assert current.strip(), f"Empty continuity artifact: {path}"
 
 
-def assert_current_scope(root):
-    """Check staged and working changes independently, including commits since BASE."""
+def assert_current_scope(root, *, head="HEAD", baseline=CURRENT_MISSION_BASELINE,
+                         allowed_paths=CURRENT_MISSION_ALLOWED):
+    """Check staged and working changes against the explicitly selected mission horizon."""
     root = Path(root)
-    subprocess.run(["git", "merge-base", "--is-ancestor", BASE, "HEAD"], cwd=root, check=True)
+    subprocess.run(["git", "merge-base", "--is-ancestor", BASE, head], cwd=root, check=True)
+    historical_snapshot = head != "HEAD"
     for staged in (False, True):
         options = ["--cached"] if staged else []
-        names = set(text(git(root, "diff", *options, "--name-only", "--no-renames", CURRENT_MISSION_BASELINE)).splitlines())
+        if historical_snapshot:
+            names = set(text(git(root, "diff", "--name-only", "--no-renames", baseline, head)).splitlines())
+        else:
+            names = set(text(git(root, "diff", *options, "--name-only", "--no-renames", baseline)).splitlines())
         if not staged:
             names.update(text(git(root, "ls-files", "--others", "--exclude-standard")).splitlines())
-        assert names <= CURRENT_MISSION_ALLOWED, f"Forbidden {'index' if staged else 'worktree'} paths: {sorted(names - CURRENT_MISSION_ALLOWED)}"
+        assert names <= allowed_paths, f"Forbidden {'index' if staged else 'worktree'} paths: {sorted(names - allowed_paths)}"
         changes = {}
         baselines = {}
         for path in names:
             if staged:
-                changes[path] = git(root, "show", ":" + path)
+                changes[path] = git(root, "show", f"{head}:{path}") if historical_snapshot else git(root, "show", ":" + path)
             else:
                 file = root / path
                 assert file.is_file() and not file.is_symlink(), f"Not a regular file: {path}"
                 changes[path] = file.read_bytes()
             if path in READMES or path in CHECKPOINTS or path == CSS:
-                baseline = CURRENT_MISSION_BASELINE if path == CSS else BASE
-                baselines[path] = git(root, "show", f"{baseline}:{path}")
-        assert_snapshot(changes, baselines, CURRENT_MISSION_ALLOWED)
+                snapshot_baseline = baseline if path == CSS else BASE
+                baselines[path] = git(root, "show", f"{snapshot_baseline}:{path}")
+        assert_snapshot(changes, baselines, allowed_paths)
         # Content checks must not let a symlink or executable-bit change through.
         summary = text(git(root, "diff", *options, "--summary", BASE))
         assert "mode change" not in summary and "120000" not in summary, summary

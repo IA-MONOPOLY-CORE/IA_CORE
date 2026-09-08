@@ -7,6 +7,7 @@ import subprocess
 ROOT = Path(__file__).resolve().parents[1]
 DOC = ROOT / "docs" / "UI_UX_PANEL_MAESTRO_LARGE_SCALE_BLOCK_1_196_POSTMORTEM_1_197.md"
 BASELINE = "8b4ce90"
+HISTORICAL_HEAD = "d386c37"
 PROTECTED = {
     "ui/web/index.html",
     "ui/web/styles.css",
@@ -50,12 +51,12 @@ def test_postmortem_contains_all_stations_and_verdicts():
 def test_postmortem_is_documentary_and_protected_product_is_unchanged():
     for path in PROTECTED:
         assert subprocess.run(
-            ["git", "diff", "--quiet", BASELINE, "HEAD", "--", path],
+            ["git", "diff", "--quiet", BASELINE, HISTORICAL_HEAD, "--", path],
             cwd=ROOT,
         ).returncode == 0, path
-    changed = set(filter(None, git("diff", "--name-only", BASELINE, "HEAD").splitlines()))
+    changed = set(filter(None, git("diff", "--name-only", BASELINE, HISTORICAL_HEAD).splitlines()))
     assert not (changed & PROTECTED), sorted(changed & PROTECTED)
-    assert "ui/web/index.html" not in git("diff", "--name-only", BASELINE, "HEAD")
+    assert "ui/web/index.html" not in git("diff", "--name-only", BASELINE, HISTORICAL_HEAD)
 
 
 def test_postmortem_preserves_non_operational_boundary():

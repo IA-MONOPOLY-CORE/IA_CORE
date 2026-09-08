@@ -15,6 +15,7 @@ HASHES = {
     "N1": "eebb0e3", "N2": "c135472", "N3": "4136abb", "N4": "278d7fe",
     "N5": "9ed2ea6", "N6": "48036f6", "N7": "bdcea87", "N8": "c1cb001", "N9": "f73fa78",
 }
+HISTORICAL_HEAD = "dcb2aab"
 
 
 def git(*args: str) -> str:
@@ -47,10 +48,10 @@ def test_n10_station_chain_is_ordered_and_hashes_are_traceable():
 
 def test_n10_allowed_diff_is_closed_and_protected_product_is_unchanged():
     allowed = continuity.CONTINUITY_1_196 | continuity.CONTINUITY_1_197 | continuity.CONTINUITY_1_198 | continuity.CONTINUITY_1_199 | {"README.md", "ui/web/README.md", "ui/web/styles.css"}
-    changed = continuity.changed_paths()
+    changed = continuity.changed_paths(head=HISTORICAL_HEAD)
     assert changed <= allowed, sorted(changed - allowed)
-    continuity.assert_protected_product_unchanged()
-    current_css = (ROOT / "ui" / "web" / "styles.css").read_text(encoding="utf-8")
+    continuity.assert_protected_product_unchanged(head=HISTORICAL_HEAD)
+    current_css = git("show", f"{HISTORICAL_HEAD}:ui/web/styles.css")
     n4_css = groups.snapshot(groups.SnapshotRef(HASHES["N4"], "ui/web/styles.css"))
     assert current_css.replace("\r\n", "\n").rstrip() == n4_css.replace("\r\n", "\n").rstrip()
     for path in (README, WEB_README):

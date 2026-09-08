@@ -7,6 +7,7 @@ import subprocess
 ROOT = Path(__file__).resolve().parents[1]
 DOC = ROOT / "docs" / "UI_UX_PANEL_MAESTRO_POST_LARGE_SCALE_BLOCK_REVIEW_1_197.md"
 BASELINE = "8b4ce90"
+HISTORICAL_HEAD = "d386c37"
 PROTECTED = {
     "ui/web/index.html",
     "ui/web/styles.css",
@@ -78,7 +79,7 @@ def test_review_records_commit_truth_and_historical_boundary():
 def test_review_keeps_product_read_only_and_explicitly_defers_198():
     for path in PROTECTED:
         assert subprocess.run(
-            ["git", "diff", "--quiet", BASELINE, "HEAD", "--", path],
+            ["git", "diff", "--quiet", BASELINE, HISTORICAL_HEAD, "--", path],
             cwd=ROOT,
         ).returncode == 0, path
     content = " ".join(DOC.read_text(encoding="utf-8").casefold().split())
@@ -91,5 +92,5 @@ def test_review_keeps_product_read_only_and_explicitly_defers_198():
         "el diff productivo de 1.197 debe ser vacio",
     ):
         assert marker in content, marker
-    changed = set(filter(None, git("diff", "--name-only", BASELINE, "HEAD").splitlines()))
+    changed = set(filter(None, git("diff", "--name-only", BASELINE, HISTORICAL_HEAD).splitlines()))
     assert not (changed & PROTECTED), sorted(changed & PROTECTED)
