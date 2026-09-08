@@ -135,6 +135,22 @@ class DirectionPackage:
     remains_blocked: str
 
 
+@dataclass(frozen=True)
+class ExecutionStation:
+    graph: str
+    station_index: int
+    station_id: str
+    name: str
+    scope: str
+    occurrence_count: int
+    files: tuple[str, ...]
+    tests: tuple[str, ...]
+    gate: str
+    commit_prefix: str
+    rollback: str
+    frontier: str
+
+
 def _exact_key(item: CorpusItem) -> str:
     return item.text.casefold().strip()
 
@@ -605,3 +621,118 @@ def direction_packages(units: list[DecisionUnit] | None = None) -> list[Directio
             remains_blocked=definition["blocked"],
         ))
     return result
+
+
+def post_direction_execution_graph() -> tuple[ExecutionStation, ...]:
+    return (
+        ExecutionStation(
+            "GRAPH_A_NO_DIRECTION", 1, "A1", "Preservar contrato existente",
+            "170 ocurrencias derivables por contrato y checks de preservacion", 170,
+            ("tests/ui_ux_panel_maestro_microcopy_1_199_support.py", "docs/UI_UX_PANEL_MAESTRO_MICROCOPY_DETERMINISM_DIRECTION_BOUNDARY_1_199.md"),
+            ("tests/test_ui_ux_panel_maestro_microcopy_determinism_direction_boundary_1_199.py",),
+            "POST_DIRECTION_LEVEL_A_CONTRACT_PRESERVATION_PASSED", "test(ui)",
+            "Eliminar solo el artefacto futuro y conservar el contrato actual.",
+            "No abre una frontera nueva.",
+        ),
+        ExecutionStation(
+            "GRAPH_A_NO_DIRECTION", 2, "A2", "Mantener ledger sin decision",
+            "30 ocurrencias KEEP_NO_DECISION", 30,
+            ("tests/ui_ux_panel_maestro_microcopy_1_199_support.py", "docs/UI_UX_PANEL_MAESTRO_MICROCOPY_DIRECTION_COMPRESSION_1_199.md"),
+            ("tests/test_ui_ux_panel_maestro_microcopy_direction_compression_1_199.py",),
+            "POST_DIRECTION_LEVEL_A_KEEP_LEDGER_PASSED", "docs(ui)",
+            "Revertir solo el ledger futuro; no tocar producto.",
+            "La siguiente frontera sigue siendo la aprobacion de patrones.",
+        ),
+        ExecutionStation(
+            "GRAPH_B_AFTER_DIRECTION", 1, "B1", "Compilar respuestas de Direccion",
+            "Decision Sheet, IDs aprobados, opciones y restricciones", 1424,
+            ("docs/UI_UX_PANEL_MAESTRO_MICROCOPY_DIRECTOR_DECISION_SHEET_1_199.md", "tests/ui_ux_panel_maestro_microcopy_1_199_support.py"),
+            ("tests/test_ui_ux_panel_maestro_microcopy_director_decision_sheet_1_199.py",),
+            "POST_DIRECTION_DECISION_ALLOWLIST_COMPILED", "docs(ui)",
+            "Eliminar el manifest de aprobacion sin cambiar fuentes activas.",
+            "Abre la aplicacion controlada de patrones.",
+        ),
+        ExecutionStation(
+            "GRAPH_B_AFTER_DIRECTION", 2, "B2", "Aplicar regla editorial aprobada",
+            "PKG_B_EDITORIAL_STYLE / 295 ocurrencias", 295,
+            ("docs/UI_UX_PANEL_MAESTRO_MICROCOPY_DIRECTION_PACKAGES_1_199.md", "ui/web/i18n_es.json"),
+            ("tests/test_ui_ux_panel_maestro_microcopy_direction_packages_1_199.py",),
+            "POST_DIRECTION_EDITORIAL_ALLOWLIST_PASSED", "docs(ui) o test(ui)",
+            "Revertir solo el diff futuro de IDs aprobados.",
+            "La siguiente frontera es consistencia/contexto.",
+        ),
+        ExecutionStation(
+            "GRAPH_B_AFTER_DIRECTION", 3, "B3", "Aplicar regla de consistencia",
+            "PKG_B_CONSISTENCY_RULE / 194 ocurrencias", 194,
+            ("docs/UI_UX_PANEL_MAESTRO_MICROCOPY_DIRECTION_PACKAGES_1_199.md",),
+            ("tests/test_ui_ux_panel_maestro_microcopy_direction_packages_1_199.py",),
+            "POST_DIRECTION_CONSISTENCY_RULE_PASSED", "docs(ui) o test(ui)",
+            "Revertir solo canonizaciones aprobadas y preservar contexto.",
+            "La siguiente frontera es geometria local.",
+        ),
+        ExecutionStation(
+            "GRAPH_B_AFTER_DIRECTION", 4, "B4", "Resolver owner geometrico",
+            "PKG_B_GEOMETRY_REMEDIATION / 15 ocurrencias", 15,
+            ("docs/UI_UX_PANEL_MAESTRO_MICROCOPY_DIRECTION_PACKAGES_1_199.md",),
+            ("tests/test_ui_ux_panel_maestro_microcopy_direction_packages_1_199.py",),
+            "POST_DIRECTION_GEOMETRY_OWNER_PASSED", "docs(ui) o test(ui)",
+            "Revertir solo el remedio scoped aprobado.",
+            "La siguiente frontera son decisiones semanticas Level C.",
+        ),
+        ExecutionStation(
+            "GRAPH_B_AFTER_DIRECTION", 5, "B5", "Resolver variantes contextuales",
+            "PKG_C_CONTEXTUAL_VARIANTS / 36 ocurrencias", 36,
+            ("docs/UI_UX_PANEL_MAESTRO_MICROCOPY_DIRECTION_PACKAGES_1_199.md",),
+            ("tests/test_ui_ux_panel_maestro_microcopy_direction_packages_1_199.py",),
+            "POST_DIRECTION_CONTEXT_POLICY_PASSED", "docs(ui) o test(ui)",
+            "Revertir solo la politica aplicada; no cruzar autoridades.",
+            "La siguiente frontera es copy contract-sensitive.",
+        ),
+        ExecutionStation(
+            "GRAPH_B_AFTER_DIRECTION", 6, "B6", "Resolver copy contract-sensitive",
+            "PKG_C_CONTRACT_SENSITIVE / 139 ocurrencias", 139,
+            ("docs/UI_UX_PANEL_MAESTRO_MICROCOPY_DIRECTION_PACKAGES_1_199.md",),
+            ("tests/test_ui_ux_panel_maestro_microcopy_direction_packages_1_199.py",),
+            "POST_DIRECTION_CONTRACT_SENSITIVE_REVIEW_PASSED", "docs(ui)",
+            "Revertir solo un cambio expresamente aprobado por Contract Owner.",
+            "La siguiente frontera es accion/permiso.",
+        ),
+        ExecutionStation(
+            "GRAPH_B_AFTER_DIRECTION", 7, "B7", "Resolver action y permission vocabulary",
+            "PKG_C_ACTION_PERMISSION / 15 ocurrencias", 15,
+            ("docs/UI_UX_PANEL_MAESTRO_MICROCOPY_DIRECTION_PACKAGES_1_199.md",),
+            ("tests/test_ui_ux_panel_maestro_microcopy_direction_packages_1_199.py",),
+            "POST_DIRECTION_ACTION_PERMISSION_BOUNDARY_PASSED", "docs(ui)",
+            "Revertir vocabulario aprobado y mantener no-CTA/no-submit.",
+            "La siguiente frontera es el rol semantico ambiguo.",
+        ),
+        ExecutionStation(
+            "GRAPH_B_AFTER_DIRECTION", 8, "B8", "Resolver roles ambiguos",
+            "PKG_C_AMBIGUOUS_ROLE / 38 ocurrencias", 38,
+            ("docs/UI_UX_PANEL_MAESTRO_MICROCOPY_DIRECTION_PACKAGES_1_199.md",),
+            ("tests/test_ui_ux_panel_maestro_microcopy_direction_packages_1_199.py",),
+            "POST_DIRECTION_AMBIGUOUS_ROLE_PASSED", "docs(ui)",
+            "Revertir solo la decision de role aprobada.",
+            "La estacion 9 es la frontera contractual dura.",
+        ),
+        ExecutionStation(
+            "GRAPH_B_AFTER_DIRECTION", 9, "B9", "Versionar vocabulario contractual",
+            "PKG_D_CONTRACT_VOCABULARY / 692 ocurrencias", 692,
+            ("docs/UI_UX_PANEL_MAESTRO_MICROCOPY_DIRECTION_PACKAGES_1_199.md",),
+            ("tests/test_ui_ux_panel_maestro_microcopy_direction_packages_1_199.py",),
+            "CONTRACT_VERSION_REQUIRED_BEFORE_IMPLEMENTATION", "docs(ui)",
+            "No hay rollback de contrato en este bloque; mantener la version vigente.",
+            "HARD_FRONTIER: requiere cambio contractual y owner separado.",
+        ),
+    )
+
+
+def execution_graph_summary() -> dict[str, int]:
+    graph = post_direction_execution_graph()
+    return {
+        "CURRENT_AUTOMATABLE_STATION_COUNT": sum(item.graph == "GRAPH_A_NO_DIRECTION" for item in graph),
+        "POST_DIRECTION_DETERMINISTIC_STATION_COUNT": sum(item.graph == "GRAPH_B_AFTER_DIRECTION" and item.station_index < 9 for item in graph),
+        "PREAUTHORIZED_POST_DIRECTION_STATION_COUNT": 3,
+        "SELF_BOOTSTRAPPED_POST_DIRECTION_STATION_COUNT": 1,
+        "NEXT_HARD_FRONTIER_INDEX": 9,
+    }
