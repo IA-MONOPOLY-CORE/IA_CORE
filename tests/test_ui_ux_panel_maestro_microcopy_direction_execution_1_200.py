@@ -72,3 +72,28 @@ def test_n2_keep_ledger_keeps_the_contract_frontier_explicit():
     assert sum(item["change_class"] == "KEEP_NO_DECISION" for item in items) == 30
     assert all(item["current_text_is_preserved"] for item in keep_items)
     assert protected_files_match_baseline() == []
+
+
+def test_n3_editorial_pattern_is_scoped_and_current_copy_is_already_compliant():
+    editorial = [item for item in allowlist_items() if item["change_class"] == "ALLOWED_EDITORIAL_CHANGE"]
+    assert len(editorial) == 295
+    assert {item["direction_package"] for item in editorial} == {"PKG_B_EDITORIAL_STYLE"}
+    assert {item["approved_decision"] for item in editorial} == {"B"}
+    assert all(item["current_text_is_preserved"] is False for item in editorial)
+    assert all(item["microcopy_id"] for item in editorial)
+    assert all(item["decision_unit_id"] for item in editorial)
+    assert all(item["surface"] and item["authority"] for item in editorial)
+    assert protected_files_match_baseline() == []
+
+
+def test_n4_consistency_and_contextual_variants_remain_separate():
+    contextual = [item for item in allowlist_items() if item["change_class"] == "KEEP_CONTEXTUAL"]
+    assert len(contextual) == 230
+    assert {item["approved_decision"] for item in contextual} == {"A"}
+    assert {item["direction_package"] for item in contextual} == {
+        "PKG_B_CONSISTENCY_RULE",
+        "PKG_C_CONTEXTUAL_VARIANTS",
+    }
+    assert len({item["decision_unit_id"] for item in contextual}) == 116
+    assert all(item["current_text_is_preserved"] for item in contextual)
+    assert not any(item["change_class"] == "ALLOWED_EDITORIAL_CHANGE" for item in contextual)
