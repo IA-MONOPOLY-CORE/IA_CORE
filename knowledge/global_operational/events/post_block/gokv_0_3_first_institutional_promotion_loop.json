@@ -1,0 +1,22 @@
+{
+  "candidate_knowledge_ids": [],
+  "conflict_event_ids": [],
+  "created_at": "2026-09-08T18:32:42.7800383+00:00",
+  "execution_metric_id": "gokv_0_3_first_institutional_promotion_metric",
+  "learning_event_id": "gokv_0_3_first_institutional_promotion_learning_event",
+  "learning_status": "NO_LEARNING_FOUND",
+  "loop_id": "gokv_0_3_first_institutional_promotion_loop",
+  "loop_steps": [
+    "EXECUTE",
+    "VALIDATE",
+    "CAPTURE",
+    "DISTILL",
+    "ASSESS",
+    "STORE",
+    "COMPILE_NEXT"
+  ],
+  "mission_id": "gokv_0_3_first_institutional_promotion",
+  "next_mission_id": "ui_ux_1_202_next_visual_block_selection_post_microcopy_closure",
+  "next_pack_id": "gokv.pack.c886fbab561dee9a",
+  "schema_version": "gokv.post_block_learning_loop.v1"
+}

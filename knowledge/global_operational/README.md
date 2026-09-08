@@ -20,3 +20,10 @@ embeddings, vector databases, RAG or integrations.
 - `DEVELOPMENT_TIME_OCI_V1` and shadow evaluation are development-only.
 - Reusable loop blocks: `GOKV_POST_BLOCK_CAPTURE_V1` and `GOKV_PRE_MISSION_INHERITANCE_V1`.
 - UI/UX 1.200 has a shadow pack only and remains unexecuted.
+
+## GOKV 0.3
+
+- The first institutional promotion is complete: exactly seven explicitly authorized `VALIDATED` items are `PROMOTED`.
+- `conditioned_autonomy` remains `VALIDATED`; automatic promotion remains disabled and `DEVELOPMENT_ORIGIN` is preserved.
+- `PROMOTED_ONLY` is active for development compilation and the UI/UX 1.202 inheritance manifest recommends it for the known read-only scope.
+- UI/UX 1.202 remains prepared-only and unexecuted.

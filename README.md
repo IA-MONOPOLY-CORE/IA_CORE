@@ -1597,3 +1597,11 @@ No UI activa, no JS, no backend, no runtime, no execution, no JSON TOP 15, no fi
 - OCI 1.201: 9 seleccionados, 8 aplicados/helpful, 1 unused (`local_rollback`), 0 conflictos; loop: `NO_LEARNING_FOUND`.
 - [Checkpoint 1.201](docs/UI_UX_PANEL_MAESTRO_POST_DIRECTION_OCI_FEEDBACK_CHECKPOINT_1_201.md), [review de producto](docs/UI_UX_PANEL_MAESTRO_POST_DIRECTION_PRODUCT_REVIEW_1_201.md) y [auditoria de seleccion OCI](docs/GOKV_OCI_SELECTION_QUALITY_AUDIT_UI_UX_1_200.md).
 - Readiness: `ready_for_ui_ux_1_202_next_visual_block_selection_post_microcopy_closure`; UI/UX 1.202 no fue ejecutado.
+
+## GOKV 0.3 - Primera promocion institucional
+
+- Resultado: `IA_CORE_GOKV_FIRST_INSTITUTIONAL_PROMOTION_0_3_PASSED`.
+- Siete knowledge items autorizados por Direccion pasaron de `VALIDATED` a `PROMOTED`; `conditioned_autonomy` permanece `VALIDATED` y la promocion automatica sigue deshabilitada.
+- `PROMOTED_ONLY` ya compila conocimiento promovido real: 7 items en la comparacion general y 6 items para el alcance conocido de UI/UX 1.202.
+- UI/UX 1.202 fue preparada, no ejecutada; modo recomendado: `PROMOTED_ONLY` con el hard frontier de la estacion 7 preservado.
+- [Checkpoint GOKV 0.3](docs/GOKV_FIRST_INSTITUTIONAL_PROMOTION_CHECKPOINT_0_3.md), [reporte de promocion](docs/GOKV_FIRST_INSTITUTIONAL_PROMOTION_REPORT_0_3.md), [evaluacion PROMOTED_ONLY](docs/GOKV_PROMOTED_ONLY_EVALUATION_0_3.md) y [herencia UI/UX 1.202](docs/GOKV_UI_UX_1_202_POST_PROMOTION_INHERITANCE_REPORT.md).

@@ -1,0 +1,24 @@
+{
+  "authorization_id": "first_institutional_promotion_authorization_0_3",
+  "authorized_by": "DIRECTION",
+  "authorized_knowledge_ids": [
+    "compress_occurrences_into_decisions",
+    "evidence_before_closure",
+    "focal_group_canonical_deep_test_policy",
+    "preserve_contract_until_explicit_change",
+    "real_diff_over_planned_commit_name",
+    "station_local_commits",
+    "true_hard_frontier"
+  ],
+  "authorization_type": "KNOWLEDGE_PROMOTION",
+  "automatic_promotion": false,
+  "created_at": "2026-09-08T18:32:42.7800383Z",
+  "deferred_knowledge_ids": [
+    "conditioned_autonomy"
+  ],
+  "event_id": "first_institutional_promotion_authorization_event_0_3",
+  "event_type": "DIRECTION_PROMOTION_AUTHORIZATION",
+  "outcome": "EXECUTED_EXACTLY",
+  "schema_version": "gokv.authorization_event.v1",
+  "source_assessment": "knowledge/global_operational/assessments/promotion_assessment_post_ui_ux_1_200.json"
+}

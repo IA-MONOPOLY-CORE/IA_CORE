@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "gokv.authorization_event.v1",
+  "title": "GOKV Authorization Event",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "event_id", "schema_version", "event_type", "authorization_id",
+    "authorized_by", "authorization_type", "source_assessment",
+    "authorized_knowledge_ids", "deferred_knowledge_ids",
+    "automatic_promotion", "outcome", "created_at"
+  ],
+  "properties": {
+    "event_id": {"type": "string"},
+    "schema_version": {"const": "gokv.authorization_event.v1"},
+    "event_type": {"const": "DIRECTION_PROMOTION_AUTHORIZATION"},
+    "authorization_id": {"type": "string"},
+    "authorized_by": {"const": "DIRECTION"},
+    "authorization_type": {"const": "KNOWLEDGE_PROMOTION"},
+    "source_assessment": {"type": "string"},
+    "authorized_knowledge_ids": {"type": "array", "items": {"type": "string"}},
+    "deferred_knowledge_ids": {"type": "array", "items": {"type": "string"}},
+    "automatic_promotion": {"const": false},
+    "outcome": {"const": "EXECUTED_EXACTLY"},
+    "created_at": {"type": "string", "format": "date-time"}
+  }
+}

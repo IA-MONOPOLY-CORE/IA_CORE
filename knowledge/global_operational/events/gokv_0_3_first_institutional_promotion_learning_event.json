@@ -1,0 +1,49 @@
+{
+  "autonomous_blockers_resolved": [],
+  "candidate_knowledge_ids": [],
+  "commits": [
+    "021a17a",
+    "8d89760",
+    "279aa02",
+    "accf5bd",
+    "3c31bf90",
+    "d0766d0",
+    "ec0bd72",
+    "747bf13"
+  ],
+  "completed_stations": 8,
+  "created_at": "2026-09-08T18:32:42.7800383+00:00",
+  "duration": null,
+  "effort": "Very High (prompt-declared target)",
+  "end_commit": "747bf13",
+  "event_id": "gokv_0_3_first_institutional_promotion_learning_event",
+  "metrics_refs": [
+    "gokv_0_3_first_institutional_promotion_metric"
+  ],
+  "mission_type": "gokv_0_3_first_institutional_promotion",
+  "model": "GPT-5 Codex runtime (prompt target GPT-5.6 Luna)",
+  "observations": [
+    "Seven explicitly authorized items transitioned from VALIDATED to PROMOTED.",
+    "PROMOTED_ONLY compiled real promoted knowledge and remained separated from DEVELOPMENT_VALIDATED.",
+    "UI/UX 1.202 was prepared only and not executed.",
+    "No new generalizable knowledge was found; promotion governance is an authorization boundary, not a new operational rule."
+  ],
+  "operator_interventions": [],
+  "planned_stations": 8,
+  "result": "IA_CORE_GOKV_FIRST_INSTITUTIONAL_PROMOTION_0_3_PASSED",
+  "retries": 0,
+  "rollbacks": 0,
+  "schema_version": "gokv.learning_event.v1",
+  "source_checkpoint": "N7_GOKV_FIRST_INSTITUTIONAL_PROMOTION_CHECKPOINT_PASSED",
+  "source_phase": "FIRST_INSTITUTIONAL_PROMOTION_AND_OCI_ACTIVATION",
+  "source_prompt": "PROMPT IA_CORE GOKV 0.3",
+  "start_commit": "834dc46",
+  "tests": [
+    "tests/test_gokv_promotion_authorization_0_3.py",
+    "tests/test_gokv_institutional_promotion_0_3.py",
+    "tests/test_gokv_first_institutional_promotion_0_3.py",
+    "tests/test_gokv_post_promotion_integrity_0_3.py",
+    "tests/test_gokv_promoted_only_evaluation_0_3.py",
+    "tests/test_gokv_ui_ux_1_202_post_promotion_inheritance_0_3.py"
+  ]
+}
