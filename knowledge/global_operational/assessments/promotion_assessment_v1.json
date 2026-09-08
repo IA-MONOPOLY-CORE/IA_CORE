@@ -1,0 +1,558 @@
+{
+  "assessed_at": "2026-09-08T14:48:37.710720+00:00",
+  "assessment_id": "gokv_0_2_promotion_assessment",
+  "category_counts": {
+    "INSUFFICIENT_EVIDENCE": 16
+  },
+  "decisions": [
+    {
+      "assessed_at": "2026-09-08T14:48:37.710720+00:00",
+      "blockers": [
+        "requires_independent_source_commits",
+        "requires_multiple_evidence_refs",
+        "requires_repeated_source_checkpoints"
+      ],
+      "criteria": {
+        "absence_of_known_contradiction": true,
+        "applicability_declared": true,
+        "confidence_high": true,
+        "contract_compatible": true,
+        "exceptions_reviewed": true,
+        "freshness_current": true,
+        "independent_source_commits": false,
+        "multiple_evidence": false,
+        "repeated_execution": false,
+        "reversible": true,
+        "scope_declared": true,
+        "source_quality_declared": true
+      },
+      "evidence_count": 1,
+      "evidence_kinds": [
+        "checkpoint"
+      ],
+      "knowledge_id": "already_compliant_do_not_invent_change",
+      "learning_origin": "DEVELOPMENT_ORIGIN",
+      "promotion_readiness": "INSUFFICIENT_EVIDENCE",
+      "reasoning_summary": "The item is validated for its current checkpoint but lacks the independent repeated evidence required for promotion.",
+      "recommendation": "collect repeated independent evidence and reassess",
+      "risk": "HIGH",
+      "source_checkpoint_count": 1,
+      "source_commit_count": 1,
+      "status": "VALIDATED"
+    },
+    {
+      "assessed_at": "2026-09-08T14:48:37.710720+00:00",
+      "blockers": [
+        "requires_multiple_evidence_refs",
+        "requires_repeated_source_checkpoints"
+      ],
+      "criteria": {
+        "absence_of_known_contradiction": true,
+        "applicability_declared": true,
+        "confidence_high": true,
+        "contract_compatible": true,
+        "exceptions_reviewed": true,
+        "freshness_current": true,
+        "independent_source_commits": true,
+        "multiple_evidence": false,
+        "repeated_execution": false,
+        "reversible": true,
+        "scope_declared": true,
+        "source_quality_declared": true
+      },
+      "evidence_count": 1,
+      "evidence_kinds": [
+        "document"
+      ],
+      "knowledge_id": "compile_human_decisions_into_packages",
+      "learning_origin": "DEVELOPMENT_ORIGIN",
+      "promotion_readiness": "INSUFFICIENT_EVIDENCE",
+      "reasoning_summary": "The item is validated for its current checkpoint but lacks the independent repeated evidence required for promotion.",
+      "recommendation": "collect repeated independent evidence and reassess",
+      "risk": "MEDIUM",
+      "source_checkpoint_count": 1,
+      "source_commit_count": 2,
+      "status": "VALIDATED"
+    },
+    {
+      "assessed_at": "2026-09-08T14:48:37.710720+00:00",
+      "blockers": [
+        "requires_multiple_evidence_refs",
+        "requires_repeated_source_checkpoints"
+      ],
+      "criteria": {
+        "absence_of_known_contradiction": true,
+        "applicability_declared": true,
+        "confidence_high": true,
+        "contract_compatible": true,
+        "exceptions_reviewed": true,
+        "freshness_current": true,
+        "independent_source_commits": true,
+        "multiple_evidence": false,
+        "repeated_execution": false,
+        "reversible": true,
+        "scope_declared": true,
+        "source_quality_declared": true
+      },
+      "evidence_count": 1,
+      "evidence_kinds": [
+        "test"
+      ],
+      "knowledge_id": "compress_occurrences_into_decisions",
+      "learning_origin": "DEVELOPMENT_ORIGIN",
+      "promotion_readiness": "INSUFFICIENT_EVIDENCE",
+      "reasoning_summary": "The item is validated for its current checkpoint but lacks the independent repeated evidence required for promotion.",
+      "recommendation": "collect repeated independent evidence and reassess",
+      "risk": "MEDIUM",
+      "source_checkpoint_count": 1,
+      "source_commit_count": 2,
+      "status": "VALIDATED"
+    },
+    {
+      "assessed_at": "2026-09-08T14:48:37.710720+00:00",
+      "blockers": [
+        "requires_multiple_evidence_refs",
+        "requires_repeated_source_checkpoints"
+      ],
+      "criteria": {
+        "absence_of_known_contradiction": true,
+        "applicability_declared": true,
+        "confidence_high": true,
+        "contract_compatible": true,
+        "exceptions_reviewed": true,
+        "freshness_current": true,
+        "independent_source_commits": true,
+        "multiple_evidence": false,
+        "repeated_execution": false,
+        "reversible": true,
+        "scope_declared": true,
+        "source_quality_declared": true
+      },
+      "evidence_count": 1,
+      "evidence_kinds": [
+        "document"
+      ],
+      "knowledge_id": "conditioned_autonomy",
+      "learning_origin": "DEVELOPMENT_ORIGIN",
+      "promotion_readiness": "INSUFFICIENT_EVIDENCE",
+      "reasoning_summary": "The item is validated for its current checkpoint but lacks the independent repeated evidence required for promotion.",
+      "recommendation": "collect repeated independent evidence and reassess",
+      "risk": "HIGH",
+      "source_checkpoint_count": 1,
+      "source_commit_count": 2,
+      "status": "VALIDATED"
+    },
+    {
+      "assessed_at": "2026-09-08T14:48:37.710720+00:00",
+      "blockers": [
+        "requires_multiple_evidence_refs"
+      ],
+      "criteria": {
+        "absence_of_known_contradiction": true,
+        "applicability_declared": true,
+        "confidence_high": true,
+        "contract_compatible": true,
+        "exceptions_reviewed": true,
+        "freshness_current": true,
+        "independent_source_commits": true,
+        "multiple_evidence": false,
+        "repeated_execution": true,
+        "reversible": true,
+        "scope_declared": true,
+        "source_quality_declared": true
+      },
+      "evidence_count": 1,
+      "evidence_kinds": [
+        "document"
+      ],
+      "knowledge_id": "contract_over_ui_inference",
+      "learning_origin": "DEVELOPMENT_ORIGIN",
+      "promotion_readiness": "INSUFFICIENT_EVIDENCE",
+      "reasoning_summary": "The item is validated for its current checkpoint but lacks the independent repeated evidence required for promotion.",
+      "recommendation": "collect repeated independent evidence and reassess",
+      "risk": "HIGH",
+      "source_checkpoint_count": 2,
+      "source_commit_count": 2,
+      "status": "VALIDATED"
+    },
+    {
+      "assessed_at": "2026-09-08T14:48:37.710720+00:00",
+      "blockers": [
+        "requires_multiple_evidence_refs",
+        "requires_repeated_source_checkpoints"
+      ],
+      "criteria": {
+        "absence_of_known_contradiction": true,
+        "applicability_declared": true,
+        "confidence_high": true,
+        "contract_compatible": true,
+        "exceptions_reviewed": true,
+        "freshness_current": true,
+        "independent_source_commits": true,
+        "multiple_evidence": false,
+        "repeated_execution": false,
+        "reversible": true,
+        "scope_declared": true,
+        "source_quality_declared": true
+      },
+      "evidence_count": 1,
+      "evidence_kinds": [
+        "checkpoint"
+      ],
+      "knowledge_id": "controlled_assembled_block_execution",
+      "learning_origin": "DEVELOPMENT_ORIGIN",
+      "promotion_readiness": "INSUFFICIENT_EVIDENCE",
+      "reasoning_summary": "The item is validated for its current checkpoint but lacks the independent repeated evidence required for promotion.",
+      "recommendation": "collect repeated independent evidence and reassess",
+      "risk": "MEDIUM",
+      "source_checkpoint_count": 1,
+      "source_commit_count": 2,
+      "status": "VALIDATED"
+    },
+    {
+      "assessed_at": "2026-09-08T14:48:37.710720+00:00",
+      "blockers": [
+        "requires_multiple_evidence_refs"
+      ],
+      "criteria": {
+        "absence_of_known_contradiction": true,
+        "applicability_declared": true,
+        "confidence_high": true,
+        "contract_compatible": true,
+        "exceptions_reviewed": true,
+        "freshness_current": true,
+        "independent_source_commits": true,
+        "multiple_evidence": false,
+        "repeated_execution": true,
+        "reversible": true,
+        "scope_declared": true,
+        "source_quality_declared": true
+      },
+      "evidence_count": 1,
+      "evidence_kinds": [
+        "test"
+      ],
+      "knowledge_id": "evidence_before_closure",
+      "learning_origin": "DEVELOPMENT_ORIGIN",
+      "promotion_readiness": "INSUFFICIENT_EVIDENCE",
+      "reasoning_summary": "The item is validated for its current checkpoint but lacks the independent repeated evidence required for promotion.",
+      "recommendation": "collect repeated independent evidence and reassess",
+      "risk": "MEDIUM",
+      "source_checkpoint_count": 2,
+      "source_commit_count": 2,
+      "status": "VALIDATED"
+    },
+    {
+      "assessed_at": "2026-09-08T14:48:37.710720+00:00",
+      "blockers": [
+        "requires_multiple_evidence_refs"
+      ],
+      "criteria": {
+        "absence_of_known_contradiction": true,
+        "applicability_declared": true,
+        "confidence_high": true,
+        "contract_compatible": true,
+        "exceptions_reviewed": true,
+        "freshness_current": true,
+        "independent_source_commits": true,
+        "multiple_evidence": false,
+        "repeated_execution": true,
+        "reversible": true,
+        "scope_declared": true,
+        "source_quality_declared": true
+      },
+      "evidence_count": 1,
+      "evidence_kinds": [
+        "test"
+      ],
+      "knowledge_id": "focal_group_canonical_deep_test_policy",
+      "learning_origin": "DEVELOPMENT_ORIGIN",
+      "promotion_readiness": "INSUFFICIENT_EVIDENCE",
+      "reasoning_summary": "The item is validated for its current checkpoint but lacks the independent repeated evidence required for promotion.",
+      "recommendation": "collect repeated independent evidence and reassess",
+      "risk": "MEDIUM",
+      "source_checkpoint_count": 2,
+      "source_commit_count": 2,
+      "status": "VALIDATED"
+    },
+    {
+      "assessed_at": "2026-09-08T14:48:37.710720+00:00",
+      "blockers": [
+        "requires_multiple_evidence_refs"
+      ],
+      "criteria": {
+        "absence_of_known_contradiction": true,
+        "applicability_declared": true,
+        "confidence_high": true,
+        "contract_compatible": true,
+        "exceptions_reviewed": true,
+        "freshness_current": true,
+        "independent_source_commits": true,
+        "multiple_evidence": false,
+        "repeated_execution": true,
+        "reversible": true,
+        "scope_declared": true,
+        "source_quality_declared": true
+      },
+      "evidence_count": 1,
+      "evidence_kinds": [
+        "test"
+      ],
+      "knowledge_id": "internal_gates",
+      "learning_origin": "DEVELOPMENT_ORIGIN",
+      "promotion_readiness": "INSUFFICIENT_EVIDENCE",
+      "reasoning_summary": "The item is validated for its current checkpoint but lacks the independent repeated evidence required for promotion.",
+      "recommendation": "collect repeated independent evidence and reassess",
+      "risk": "HIGH",
+      "source_checkpoint_count": 2,
+      "source_commit_count": 2,
+      "status": "VALIDATED"
+    },
+    {
+      "assessed_at": "2026-09-08T14:48:37.710720+00:00",
+      "blockers": [
+        "requires_multiple_evidence_refs"
+      ],
+      "criteria": {
+        "absence_of_known_contradiction": true,
+        "applicability_declared": true,
+        "confidence_high": true,
+        "contract_compatible": true,
+        "exceptions_reviewed": true,
+        "freshness_current": true,
+        "independent_source_commits": true,
+        "multiple_evidence": false,
+        "repeated_execution": true,
+        "reversible": true,
+        "scope_declared": true,
+        "source_quality_declared": true
+      },
+      "evidence_count": 1,
+      "evidence_kinds": [
+        "document"
+      ],
+      "knowledge_id": "local_rollback",
+      "learning_origin": "DEVELOPMENT_ORIGIN",
+      "promotion_readiness": "INSUFFICIENT_EVIDENCE",
+      "reasoning_summary": "The item is validated for its current checkpoint but lacks the independent repeated evidence required for promotion.",
+      "recommendation": "collect repeated independent evidence and reassess",
+      "risk": "MEDIUM",
+      "source_checkpoint_count": 2,
+      "source_commit_count": 2,
+      "status": "VALIDATED"
+    },
+    {
+      "assessed_at": "2026-09-08T14:48:37.710720+00:00",
+      "blockers": [
+        "requires_multiple_evidence_refs"
+      ],
+      "criteria": {
+        "absence_of_known_contradiction": true,
+        "applicability_declared": true,
+        "confidence_high": true,
+        "contract_compatible": true,
+        "exceptions_reviewed": true,
+        "freshness_current": true,
+        "independent_source_commits": true,
+        "multiple_evidence": false,
+        "repeated_execution": true,
+        "reversible": true,
+        "scope_declared": true,
+        "source_quality_declared": true
+      },
+      "evidence_count": 1,
+      "evidence_kinds": [
+        "test"
+      ],
+      "knowledge_id": "no_fake_operational_state",
+      "learning_origin": "DEVELOPMENT_ORIGIN",
+      "promotion_readiness": "INSUFFICIENT_EVIDENCE",
+      "reasoning_summary": "The item is validated for its current checkpoint but lacks the independent repeated evidence required for promotion.",
+      "recommendation": "collect repeated independent evidence and reassess",
+      "risk": "HIGH",
+      "source_checkpoint_count": 2,
+      "source_commit_count": 2,
+      "status": "VALIDATED"
+    },
+    {
+      "assessed_at": "2026-09-08T14:48:37.710720+00:00",
+      "blockers": [
+        "requires_multiple_evidence_refs",
+        "requires_repeated_source_checkpoints"
+      ],
+      "criteria": {
+        "absence_of_known_contradiction": true,
+        "applicability_declared": true,
+        "confidence_high": true,
+        "contract_compatible": true,
+        "exceptions_reviewed": true,
+        "freshness_current": true,
+        "independent_source_commits": true,
+        "multiple_evidence": false,
+        "repeated_execution": false,
+        "reversible": true,
+        "scope_declared": true,
+        "source_quality_declared": true
+      },
+      "evidence_count": 1,
+      "evidence_kinds": [
+        "document"
+      ],
+      "knowledge_id": "no_giant_commit",
+      "learning_origin": "DEVELOPMENT_ORIGIN",
+      "promotion_readiness": "INSUFFICIENT_EVIDENCE",
+      "reasoning_summary": "The item is validated for its current checkpoint but lacks the independent repeated evidence required for promotion.",
+      "recommendation": "collect repeated independent evidence and reassess",
+      "risk": "MEDIUM",
+      "source_checkpoint_count": 1,
+      "source_commit_count": 2,
+      "status": "VALIDATED"
+    },
+    {
+      "assessed_at": "2026-09-08T14:48:37.710720+00:00",
+      "blockers": [
+        "requires_multiple_evidence_refs"
+      ],
+      "criteria": {
+        "absence_of_known_contradiction": true,
+        "applicability_declared": true,
+        "confidence_high": true,
+        "contract_compatible": true,
+        "exceptions_reviewed": true,
+        "freshness_current": true,
+        "independent_source_commits": true,
+        "multiple_evidence": false,
+        "repeated_execution": true,
+        "reversible": true,
+        "scope_declared": true,
+        "source_quality_declared": true
+      },
+      "evidence_count": 1,
+      "evidence_kinds": [
+        "checkpoint"
+      ],
+      "knowledge_id": "preserve_contract_until_explicit_change",
+      "learning_origin": "DEVELOPMENT_ORIGIN",
+      "promotion_readiness": "INSUFFICIENT_EVIDENCE",
+      "reasoning_summary": "The item is validated for its current checkpoint but lacks the independent repeated evidence required for promotion.",
+      "recommendation": "collect repeated independent evidence and reassess",
+      "risk": "HIGH",
+      "source_checkpoint_count": 2,
+      "source_commit_count": 2,
+      "status": "VALIDATED"
+    },
+    {
+      "assessed_at": "2026-09-08T14:48:37.710720+00:00",
+      "blockers": [
+        "requires_multiple_evidence_refs"
+      ],
+      "criteria": {
+        "absence_of_known_contradiction": true,
+        "applicability_declared": true,
+        "confidence_high": true,
+        "contract_compatible": true,
+        "exceptions_reviewed": true,
+        "freshness_current": true,
+        "independent_source_commits": true,
+        "multiple_evidence": false,
+        "repeated_execution": true,
+        "reversible": true,
+        "scope_declared": true,
+        "source_quality_declared": true
+      },
+      "evidence_count": 1,
+      "evidence_kinds": [
+        "document"
+      ],
+      "knowledge_id": "real_diff_over_planned_commit_name",
+      "learning_origin": "DEVELOPMENT_ORIGIN",
+      "promotion_readiness": "INSUFFICIENT_EVIDENCE",
+      "reasoning_summary": "The item is validated for its current checkpoint but lacks the independent repeated evidence required for promotion.",
+      "recommendation": "collect repeated independent evidence and reassess",
+      "risk": "MEDIUM",
+      "source_checkpoint_count": 2,
+      "source_commit_count": 2,
+      "status": "VALIDATED"
+    },
+    {
+      "assessed_at": "2026-09-08T14:48:37.710720+00:00",
+      "blockers": [
+        "requires_multiple_evidence_refs",
+        "requires_repeated_source_checkpoints"
+      ],
+      "criteria": {
+        "absence_of_known_contradiction": true,
+        "applicability_declared": true,
+        "confidence_high": true,
+        "contract_compatible": true,
+        "exceptions_reviewed": true,
+        "freshness_current": true,
+        "independent_source_commits": true,
+        "multiple_evidence": false,
+        "repeated_execution": false,
+        "reversible": true,
+        "scope_declared": true,
+        "source_quality_declared": true
+      },
+      "evidence_count": 1,
+      "evidence_kinds": [
+        "commit"
+      ],
+      "knowledge_id": "station_local_commits",
+      "learning_origin": "DEVELOPMENT_ORIGIN",
+      "promotion_readiness": "INSUFFICIENT_EVIDENCE",
+      "reasoning_summary": "The item is validated for its current checkpoint but lacks the independent repeated evidence required for promotion.",
+      "recommendation": "collect repeated independent evidence and reassess",
+      "risk": "MEDIUM",
+      "source_checkpoint_count": 1,
+      "source_commit_count": 6,
+      "status": "VALIDATED"
+    },
+    {
+      "assessed_at": "2026-09-08T14:48:37.710720+00:00",
+      "blockers": [
+        "requires_independent_source_commits",
+        "requires_multiple_evidence_refs",
+        "requires_repeated_source_checkpoints"
+      ],
+      "criteria": {
+        "absence_of_known_contradiction": true,
+        "applicability_declared": true,
+        "confidence_high": true,
+        "contract_compatible": true,
+        "exceptions_reviewed": true,
+        "freshness_current": true,
+        "independent_source_commits": false,
+        "multiple_evidence": false,
+        "repeated_execution": false,
+        "reversible": true,
+        "scope_declared": true,
+        "source_quality_declared": true
+      },
+      "evidence_count": 1,
+      "evidence_kinds": [
+        "checkpoint"
+      ],
+      "knowledge_id": "true_hard_frontier",
+      "learning_origin": "DEVELOPMENT_ORIGIN",
+      "promotion_readiness": "INSUFFICIENT_EVIDENCE",
+      "reasoning_summary": "The item is validated for its current checkpoint but lacks the independent repeated evidence required for promotion.",
+      "recommendation": "collect repeated independent evidence and reassess",
+      "risk": "HIGH",
+      "source_checkpoint_count": 1,
+      "source_commit_count": 1,
+      "status": "VALIDATED"
+    }
+  ],
+  "policy": {
+    "automatic_promotion": false,
+    "minimum_evidence_refs": 2,
+    "minimum_independent_source_commits": 2,
+    "minimum_source_checkpoints": 2,
+    "requires_absence_of_known_contradiction": true,
+    "requires_high_confidence": true
+  },
+  "promoted_knowledge_ids": [],
+  "schema_version": "gokv.promotion_policy.v1",
+  "total_validated_assessed": 16
+}

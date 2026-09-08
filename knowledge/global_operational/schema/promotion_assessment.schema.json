@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "gokv.promotion_policy.v1",
+  "title": "GOKV Promotion Assessment",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["assessment_id", "schema_version", "assessed_at", "policy", "total_validated_assessed", "category_counts", "decisions", "promoted_knowledge_ids"],
+  "properties": {
+    "assessment_id": {"type": "string"},
+    "schema_version": {"const": "gokv.promotion_policy.v1"},
+    "assessed_at": {"type": "string", "format": "date-time"},
+    "policy": {"type": "object"},
+    "total_validated_assessed": {"type": "integer", "minimum": 0},
+    "category_counts": {"type": "object"},
+    "decisions": {"type": "array", "items": {"type": "object"}},
+    "promoted_knowledge_ids": {"const": []}
+  }
+}
