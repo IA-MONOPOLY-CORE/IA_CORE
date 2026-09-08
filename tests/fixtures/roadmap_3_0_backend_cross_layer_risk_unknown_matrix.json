@@ -1,0 +1,33 @@
+{
+  "schema_version": "roadmap_3_0.backend_cross_layer_risk_unknown_matrix.v1",
+  "baseline_commit": "82d309f00ab99dfa9eb100e5594bf1d8d0559f5a",
+  "classifications": {
+    "REAL_ACTIVE": [],
+    "REAL_CONTROLLED": ["sandbox_materializers","artifact_manifests","contract_gates","internal_read_validation_services"],
+    "REAL_SANDBOX": ["domain_materializer","agent_preset_materializer","paper_seed_materializer","sandbox_agent_materializer","sandbox_team_materializer"],
+    "REAL_READ_ONLY": ["static_inventory","read_models","catalog_reads","docs","gokv_validators"],
+    "CODE_PRESENT_INACTIVE": ["runtime_activation_flags","queue_worker_scheduler_contracts","openai_placeholder"],
+    "CALLABLE_BUT_GATED": ["active_executor","dry_run_runner","backend_internal_dispatcher"],
+    "TEST_ONLY": ["tests"],
+    "FIXTURE_ONLY": ["tests/fixtures"],
+    "DOCUMENTED_ONLY": ["roadmap_handoffs","future_architecture_notes","unexecuted_manifests"],
+    "LEGACY": ["api.py","supervisor","legacy_agents","legacy_providers","legacy_memory","loteria_database"],
+    "FUTURE": ["next_mission_declarations","disabled_runtime_expansion"],
+    "UNKNOWN_REQUIRES_AUDIT": ["deployment_exposure","hosting_auth_edge","secret_storage_posture","legacy_traffic","integration_configuration","actual_server_startup_policy"]
+  },
+  "risk_ids": ["R1","R2","R3","R4","R5","R6","R7","R8","R9"],
+  "write_path_total": 60,
+  "execution_path_total": 1,
+  "network_path_total": 9,
+  "provider_total": 3,
+  "security_boundary_total": 10,
+  "unguarded_boundary_total": 4,
+  "unknown_boundary_total": 6,
+  "p0_count": 0,
+  "p1_count": 3,
+  "p2_count": 5,
+  "p3_count": 0,
+  "informational_count": 1,
+  "side_effect_performed": false,
+  "product_change": false
+}
