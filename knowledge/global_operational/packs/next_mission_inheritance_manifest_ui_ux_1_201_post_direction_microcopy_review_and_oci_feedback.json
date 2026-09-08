@@ -1,0 +1,33 @@
+{
+  "authority_precedence": [
+    "SECURITY_PRIVACY_HARD_CONTRACTS",
+    "CURRENT_MISSION_EXPLICIT_CONSTRAINTS",
+    "CURRENT_CANONICAL_ARCHITECTURE",
+    "CURRENT_REPOSITORY_STATE",
+    "GOKV_OPERATIONAL_GUIDANCE"
+  ],
+  "capture_protocol": [
+    "GOKV_PRE_MISSION_INHERITANCE_V1",
+    "GOKV_POST_BLOCK_CAPTURE_V1"
+  ],
+  "conflict_policy": "CURRENT_CONTRACT_WINS",
+  "execution_pack_id": "gokv.pack.3ec8e3b20cc39e56",
+  "knowledge_ids": [
+    "compress_occurrences_into_decisions",
+    "conditioned_autonomy",
+    "evidence_before_closure",
+    "focal_group_canonical_deep_test_policy",
+    "local_rollback",
+    "preserve_contract_until_explicit_change",
+    "real_diff_over_planned_commit_name",
+    "station_local_commits",
+    "true_hard_frontier"
+  ],
+  "manifest_id": "ui_ux_1_201_post_direction_microcopy_review_and_oci_feedback_inheritance_manifest",
+  "mission": "ui_ux_1_201_post_direction_microcopy_review_and_oci_feedback",
+  "mission_id": "ui_ux_1_201_post_direction_microcopy_review_and_oci_feedback",
+  "mode": "DEVELOPMENT_VALIDATED",
+  "product_decisions_included": [],
+  "schema_version": "gokv.next_mission_inheritance_manifest.v1",
+  "ui_ux_1_200_executed": false
+}
