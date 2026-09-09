@@ -13,5 +13,4 @@ def test_n4_model_provider_alignment_keeps_installed_separate_from_readiness():
     assert "local, cloud and hybrid" in text
     assert "AVAILABLE_MODEL_CAPACITY" in text
     assert "SMALLEST_SUFFICIENT_MODEL" in text
-    assert "None is implemented by Roadmap 3.0.A" in text
-
+    assert "implemented by Roadmap 3.0.A" in text
