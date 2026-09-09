@@ -540,7 +540,14 @@
     "focal": ["python -m json.tool docs/ROADMAP_3_2_LEGACY_API_CANONICAL_CONTROL_PLANE_EVIDENCE.json", "python -m pytest -q tests/test_roadmap_3_2_legacy_api_canonical_control_plane_audit.py", "python -m pytest -q tests/test_roadmap_3_1_security_permission_activation_boundary_audit.py", "git diff --check"],
     "group": "safe static canonical permission/runtime/confirmation/request/payload/materialization/lifecycle/audit tests inspected before selection",
     "canonical": "only safe versioned static contract/checkpoint tests; no runtime/provider/network/productive-write suites",
-    "deep_historical": "3.1 historical guard retained; no unsafe suite selected"
+    "deep_historical": {
+      "command": "python -m pytest -q tests/test_roadmap_3_1_security_permission_activation_boundary_audit.py",
+      "context": "detached worktree at the published Roadmap 3.1 checkpoint 2255295f5ffe4f7348476acfca606a84aa12af35",
+      "result": "PASS",
+      "summary": "10 passed",
+      "current_tree_note": "The same 3.1 guard intentionally rejects a current-tree diff containing legitimate Roadmap 3.2 artifacts because its closed-world scope is fixed to the 3.1 four-file set; the historical guard was not modified or relaxed.",
+      "unsafe_suites_selected": false
+    }
   },
   "internal_gates": ["AUTHORITY_GATE","SCOPE_GATE","EVIDENCE_GATE","COVERAGE_GATE","CONTRACT_PROVENANCE_GATE","NEGATIVE_EVIDENCE_GATE","SECRET_SAFETY_GATE","NO_SIDE_EFFECT_GATE","TEST_GATE","DIFF_GATE","FRONTIER_GATE"],
   "publication": {

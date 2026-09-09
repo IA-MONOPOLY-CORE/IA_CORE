@@ -287,6 +287,12 @@ git diff --check
 Safe related contract tests were inspected by name before selection. No network,
 provider, runtime, productive-write or secret-access suite was executed.
 
+The Roadmap 3.1 historical guard was executed unchanged in a detached worktree
+at its published checkpoint (`2255295f5ffe4f7348476acfca606a84aa12af35`) and
+passed (`10 passed`). Running that closed-world 3.1 guard against the current
+3.2 tree rejects the four legitimate 3.2 artifacts by design; that historical
+test was not modified or relaxed.
+
 ## Scope and Side-Effect Closure
 
 Modified artifacts are limited to the four Roadmap 3.2 files authorized by the

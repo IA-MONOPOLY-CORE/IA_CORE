@@ -137,7 +137,11 @@ analysis, canonical provenance, all seven 3.1 findings, no secret values, no
 remediation code and authorized diff scope.
 
 Group/canonical/deep historical selection remained static and safe. No network,
-provider, runtime, productive-write or secret-access tests were run.
+provider, runtime, productive-write or secret-access tests were run. The
+unchanged Roadmap 3.1 guard passed in a detached worktree at its published
+checkpoint (`10 passed`). Its current-tree closed-world scope check rejects
+legitimate Roadmap 3.2 artifacts by design; the historical guard was not
+modified or relaxed.
 
 ## Publication State
 
