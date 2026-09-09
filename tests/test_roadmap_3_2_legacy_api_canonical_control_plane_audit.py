@@ -18,6 +18,7 @@ API_PATH = ROOT / "api.py"
 ROADMAP_3_1_MANIFEST_PATH = ROOT / "docs" / "ROADMAP_3_1_SECURITY_PERMISSION_ACTIVATION_BOUNDARY_EVIDENCE.json"
 ROADMAP_3_1_GUARD_PATH = ROOT / "tests" / "test_roadmap_3_1_security_permission_activation_boundary_audit.py"
 BASELINE = "2255295f5ffe4f7348476acfca606a84aa12af35"
+FINAL_CHECKPOINT = "fd9cc6fcf2040d630a2dba2dee635d63e7c07ccb"
 ROADMAP_3_1_FINAL_CHECKPOINT = "2255295f5ffe4f7348476acfca606a84aa12af35"
 MISSION_ID = "roadmap_3_2_legacy_api_canonical_control_plane_coverage_read_only_audit"
 
@@ -334,6 +335,16 @@ def test_checkpoint_exists_and_declares_final_boundary():
     assert "POST-MISSION ARCHITECTURAL RECALCULATION" in text
 
 
+def test_historical_scope_is_bound_to_the_published_checkpoint():
+    assert _git_lines("rev-parse", FINAL_CHECKPOINT) == [FINAL_CHECKPOINT]
+    result = subprocess.run(
+        ["git", "merge-base", "--is-ancestor", BASELINE, FINAL_CHECKPOINT],
+        cwd=ROOT,
+        check=False,
+    )
+    assert result.returncode == 0
+
+
 def test_historical_guard_uses_its_published_checkpoint_boundary():
     source = ROADMAP_3_1_GUARD_PATH.read_text(encoding="utf-8")
     assert f'FINAL_CHECKPOINT = "{ROADMAP_3_1_FINAL_CHECKPOINT}"' in source
@@ -342,7 +353,7 @@ def test_historical_guard_uses_its_published_checkpoint_boundary():
 
 
 def test_product_and_governance_diff_are_outside_mission_scope():
-    tracked = set(_git_lines("diff", "--name-only", f"{BASELINE}..HEAD"))
+    tracked = set(_git_lines("diff", "--name-only", f"{BASELINE}..{FINAL_CHECKPOINT}"))
     status = _git_lines("status", "--porcelain=v1", "-uall")
     working = {
         line[3:]

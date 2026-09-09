@@ -29,6 +29,7 @@ ALLOWED_FILES = {
     "docs/PROJECT_GENESIS_PACK_CONCEPT.md",
     "tests/test_post_roadmap_3_2_full_3x_phase_graph_and_method_consolidation.py",
     "docs/POST_ROADMAP_3_2_FULL_3X_GRAPH_METHOD_CONSOLIDATION_CHECKPOINT.md",
+    "tests/test_roadmap_3_2_legacy_api_canonical_control_plane_audit.py",
 }
 
 REQUIRED_SURFACE_KEYS = {
