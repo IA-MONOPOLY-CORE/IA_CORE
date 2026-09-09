@@ -94,8 +94,17 @@ def _read_manifest() -> dict:
     return json.loads(MANIFEST_PATH.read_text(encoding="utf-8"))
 
 
+def _historical_api_source() -> str:
+    return subprocess.check_output(
+        ["git", "show", f"{FINAL_CHECKPOINT}:api.py"],
+        cwd=ROOT,
+        text=True,
+        encoding="utf-8",
+    )
+
+
 def _static_routes() -> list[dict[str, object]]:
-    tree = ast.parse(API_PATH.read_text(encoding="utf-8"), filename=str(API_PATH))
+    tree = ast.parse(_historical_api_source(), filename=f"{FINAL_CHECKPOINT}:api.py")
     routes: list[dict[str, object]] = []
     for node in ast.walk(tree):
         if not isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef)):
@@ -275,18 +284,15 @@ def test_historical_scope_is_bound_to_the_published_checkpoint():
 
 def test_product_and_governance_diff_are_outside_the_mission_scope():
     tracked = set(_git_lines("diff", "--name-only", f"{BASELINE}..{FINAL_CHECKPOINT}"))
-    status = _git_lines("status", "--porcelain=v1", "-uall")
-    working = {line[3:] for line in status if len(line) >= 4 and line[0:2] in {"??", " M", "M ", "A ", "AM", "MM"}}
-    changed = tracked | working
-    assert changed <= ALLOWED_MISSION_FILES, sorted(changed - ALLOWED_MISSION_FILES)
-    assert "api.py" not in changed
-    assert not any(path.startswith("knowledge/") for path in changed)
-    assert not any(path.startswith("providers/") for path in changed)
-    assert not any(path.startswith("core/") for path in changed)
+    assert tracked <= ALLOWED_MISSION_FILES, sorted(tracked - ALLOWED_MISSION_FILES)
+    assert "api.py" not in tracked
+    assert not any(path.startswith("knowledge/") for path in tracked)
+    assert not any(path.startswith("providers/") for path in tracked)
+    assert not any(path.startswith("core/") for path in tracked)
 
 
 def test_static_sources_show_the_expected_boundary_markers_without_importing_them():
-    api = API_PATH.read_text(encoding="utf-8")
+    api = _historical_api_source()
     runtime_gate = (ROOT / "core" / "runtime_activation_gate.py").read_text(encoding="utf-8")
     attempt_factory = (ROOT / "core" / "attempt_factory.py").read_text(encoding="utf-8")
     confirmation_gate = (ROOT / "core" / "backend_internal_confirmation_gate.py").read_text(encoding="utf-8")

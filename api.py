@@ -10,6 +10,7 @@ from __future__ import annotations
 import asyncio
 import json
 import logging
+import os
 import re
 import shutil
 import sys
@@ -165,13 +166,28 @@ def _delete_agent_directory(path: Path, agent_id: str, label: str) -> None:
 # ========================================================================
 # App setup
 # ========================================================================
+def _cors_allow_origins() -> list[str]:
+    """Return an explicit origin allowlist and fail closed on bad config."""
+    configured = os.environ.get("IA_CORE_CORS_ALLOW_ORIGINS", "")
+    if not configured.strip():
+        return ["http://localhost:8000"]
+
+    origins = [origin.strip() for origin in configured.split(",") if origin.strip()]
+    if "*" in origins:
+        return []
+    if any(not re.fullmatch(r"https?://[^/\s]+", origin) for origin in origins):
+        return []
+    return origins
+
+
 app = FastAPI(title="IA_CORE API", version="2.3.0")
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
-    allow_methods=["*"],
-    allow_headers=["*"],
+    allow_origins=_cors_allow_origins(),
+    allow_methods=["GET", "POST", "PUT", "DELETE"],
+    allow_headers=["Accept", "Content-Type"],
+    allow_credentials=False,
 )
 
 
@@ -1453,6 +1469,12 @@ async def save_settings(
     model: str = Form("meta/llama-3.1-8b-instruct"),
     selected_agents: str = Form(""),
 ):
+    if api_key:
+        raise HTTPException(
+            status_code=403,
+            detail="api_key persistence is blocked by the current secrets policy",
+        )
+
     loteria = _get_loteria()
 
     try:
@@ -1467,7 +1489,6 @@ async def save_settings(
         settings_path = ROOT / "memory" / "user_settings.json"
         settings = {
             "provider": provider,
-            "api_key": api_key if api_key else "",
             "model": model,
             "selected_agents": selected_list,
             "updated_at": datetime.now().isoformat(),
@@ -1477,24 +1498,12 @@ async def save_settings(
         with open(settings_path, "w", encoding="utf-8") as f:
             json.dump(settings, f, indent=2, ensure_ascii=False)
 
-        if api_key:
-            config_path = ROOT / "config.py"
-            if config_path.exists():
-                with open(config_path, "r", encoding="utf-8") as f:
-                    content = f.read()
-                new_content = re.sub(
-                    r'NVIDIA_API_KEY = "[^"]*"', f'NVIDIA_API_KEY = "{api_key}"', content
-                )
-                with open(config_path, "w", encoding="utf-8") as f:
-                    f.write(new_content)
-                logger.info("API Key actualizada en config.py")
-
         logger.info(f"Configuración guardada: provider={provider}, agentes={len(selected_list)}")
 
         return {
             "success": True,
             "message": "Configuración guardada exitosamente",
-            "settings": settings,
+            "settings": {**settings, "api_key_configured": bool(config.NVIDIA_API_KEY)},
         }
 
     except Exception as e:
@@ -1518,6 +1527,7 @@ async def get_settings():
     try:
         with open(settings_path, "r", encoding="utf-8") as f:
             settings = json.load(f)
+        settings.pop("api_key", None)
         return {"success": True, **settings, "api_key_configured": bool(config.NVIDIA_API_KEY)}
     except Exception as e:
         return {"success": False, "error": str(e)}
