@@ -16,7 +16,9 @@ AUDIT_PATH = ROOT / "docs" / "ROADMAP_3_2_LEGACY_API_CANONICAL_CONTROL_PLANE_AUD
 CHECKPOINT_PATH = ROOT / "docs" / "ROADMAP_3_2_LEGACY_API_CANONICAL_CONTROL_PLANE_CHECKPOINT.md"
 API_PATH = ROOT / "api.py"
 ROADMAP_3_1_MANIFEST_PATH = ROOT / "docs" / "ROADMAP_3_1_SECURITY_PERMISSION_ACTIVATION_BOUNDARY_EVIDENCE.json"
+ROADMAP_3_1_GUARD_PATH = ROOT / "tests" / "test_roadmap_3_1_security_permission_activation_boundary_audit.py"
 BASELINE = "2255295f5ffe4f7348476acfca606a84aa12af35"
+ROADMAP_3_1_FINAL_CHECKPOINT = "2255295f5ffe4f7348476acfca606a84aa12af35"
 MISSION_ID = "roadmap_3_2_legacy_api_canonical_control_plane_coverage_read_only_audit"
 
 ALLOWED_MISSION_FILES = {
@@ -24,6 +26,10 @@ ALLOWED_MISSION_FILES = {
     "docs/ROADMAP_3_2_LEGACY_API_CANONICAL_CONTROL_PLANE_EVIDENCE.json",
     "tests/test_roadmap_3_2_legacy_api_canonical_control_plane_audit.py",
     "docs/ROADMAP_3_2_LEGACY_API_CANONICAL_CONTROL_PLANE_CHECKPOINT.md",
+}
+
+ALLOWED_CONTINUATION_FILES = {
+    "tests/test_roadmap_3_1_security_permission_activation_boundary_audit.py",
 }
 
 COVERAGE_VALUES = {
@@ -328,6 +334,13 @@ def test_checkpoint_exists_and_declares_final_boundary():
     assert "POST-MISSION ARCHITECTURAL RECALCULATION" in text
 
 
+def test_historical_guard_uses_its_published_checkpoint_boundary():
+    source = ROADMAP_3_1_GUARD_PATH.read_text(encoding="utf-8")
+    assert f'FINAL_CHECKPOINT = "{ROADMAP_3_1_FINAL_CHECKPOINT}"' in source
+    assert 'f"{BASELINE}..{FINAL_CHECKPOINT}"' in source
+    assert 'f"{BASELINE}..HEAD"' not in source
+
+
 def test_product_and_governance_diff_are_outside_mission_scope():
     tracked = set(_git_lines("diff", "--name-only", f"{BASELINE}..HEAD"))
     status = _git_lines("status", "--porcelain=v1", "-uall")
@@ -337,7 +350,8 @@ def test_product_and_governance_diff_are_outside_mission_scope():
         if len(line) >= 4 and line[0:2] in {"??", " M", "M ", "A ", "AM", "MM"}
     }
     changed = tracked | working
-    assert changed <= ALLOWED_MISSION_FILES, sorted(changed - ALLOWED_MISSION_FILES)
+    allowed = ALLOWED_MISSION_FILES | ALLOWED_CONTINUATION_FILES
+    assert changed <= allowed, sorted(changed - allowed)
     assert "api.py" not in changed
     assert not any(path.startswith("knowledge/") for path in changed)
     assert not any(path.startswith("providers/") for path in changed)
