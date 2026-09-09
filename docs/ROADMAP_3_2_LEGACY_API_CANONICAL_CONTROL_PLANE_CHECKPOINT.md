@@ -8,6 +8,21 @@
 - Mode: `READ_ONLY_PRODUCT_AUDIT`
 - Result: `ROADMAP_3_2_LEGACY_API_CANONICAL_CONTROL_PLANE_COVERAGE_READ_ONLY_AUDIT_PASSED`
 
+## Route Recalculation Event
+
+- Event: `ROUTE_RECALCULATION_EVENT`
+- Initial frontier: `historical guard temporal mismatch`
+- Classification: `APPARENT_FRONTIER`
+- Prior semantics: Roadmap 3.1 compared `BASELINE_3_1..HEAD`, so later
+  legitimate missions appeared as retroactive violations.
+- Corrected semantics: Roadmap 3.1 now compares
+  `BASELINE_3_1..FINAL_CHECKPOINT_3_1`, with final checkpoint
+  `2255295f5ffe4f7348476acfca606a84aa12af35`.
+- Preservation: the original four-file allowlist, negative product guards and
+  historical unauthorized-file detection were preserved; no Roadmap 3.2
+  exception was added.
+- Adaptation commit: `79d2125`.
+
 ## Scope Closure
 
 The mission reconciled the 36 legacy API routes against the current canonical
@@ -34,7 +49,7 @@ performed.
 | N4 High-risk route reconciliation | PASS; chat/settings/mutative routes covered |
 | N5 Remediation readiness | PASS; 7 findings classified |
 | N6 Cross-layer synthesis | PASS; apparent/true frontiers separated |
-| N7 Tests/checkpoint/publication | PASS after final validation |
+| N7 Tests/checkpoint/publication | PASS after historical guard recalculation and final validation |
 
 ## Route and Coverage Summary
 
@@ -138,15 +153,17 @@ remediation code and authorized diff scope.
 
 Group/canonical/deep historical selection remained static and safe. No network,
 provider, runtime, productive-write or secret-access tests were run. The
-unchanged Roadmap 3.1 guard passed in a detached worktree at its published
-checkpoint (`10 passed`). Its current-tree closed-world scope check rejects
-legitimate Roadmap 3.2 artifacts by design; the historical guard was not
-modified or relaxed.
+recalculated Roadmap 3.1 guard passes on the current tree (`11 passed`), while
+its historical comparison remains fixed to the published 3.1 checkpoint. The
+safe group passes `36 passed`; the Roadmap 3.2 guard passes `13 passed`.
 
 ## Publication State
 
-- Authorized artifacts: the Roadmap 3.2 audit, evidence JSON, test and this
-  checkpoint only.
+- Initial authorized artifacts: the Roadmap 3.2 audit, evidence JSON, test and
+  this checkpoint.
+- Continuation artifact: the minimum historical-test infrastructure adaptation
+  required for temporal scope reconciliation, plus the corresponding 3.2
+  guard allowance for that explicitly authorized continuation file.
 - Local station commits: required and recorded in Git history.
 - Remote publication: only after final fetch/divergence verification.
 - Final HEAD: recorded by the post-publication Git verification in the mission

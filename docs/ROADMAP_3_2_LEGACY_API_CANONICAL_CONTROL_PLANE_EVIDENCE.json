@@ -51,6 +51,18 @@
     {"station": "N6", "name": "CROSS-LAYER SYNTHESIS", "result": "PASS"},
     {"station": "N7", "name": "TEST / CHECKPOINT / PUBLICATION", "result": "IN_PROGRESS"}
   ],
+  "route_recalculation": {
+    "event": "ROUTE_RECALCULATION_EVENT",
+    "initial_frontier": "historical guard temporal mismatch",
+    "classification": "APPARENT_FRONTIER",
+    "current_guard_semantics": "Roadmap 3.1 compared BASELINE_3_1 to arbitrary current HEAD and treated later missions as historical scope violations.",
+    "intended_historical_semantics": "Roadmap 3.1 compares BASELINE_3_1 to FINAL_CHECKPOINT_3_1 and enforces its original four-file allowlist within that interval.",
+    "final_checkpoint_3_1": "2255295f5ffe4f7348476acfca606a84aa12af35",
+    "adaptation": "Historical test infrastructure now scopes the diff to the published checkpoint; the allowlist and negative product guards remain unchanged.",
+    "adaptation_commit": "79d2125",
+    "product_mutation": false,
+    "future_mission_exception": false
+  },
   "canonical_control_plane_census": [
     {
       "control_id": "C-001",
@@ -545,7 +557,7 @@
       "context": "detached worktree at the published Roadmap 3.1 checkpoint 2255295f5ffe4f7348476acfca606a84aa12af35",
       "result": "PASS",
       "summary": "10 passed",
-      "current_tree_note": "The same 3.1 guard intentionally rejects a current-tree diff containing legitimate Roadmap 3.2 artifacts because its closed-world scope is fixed to the 3.1 four-file set; the historical guard was not modified or relaxed.",
+      "current_tree_note": "The temporal mismatch was reconciled by binding the 3.1 guard to its published checkpoint; its closed-world four-file allowlist and product guards remain unchanged.",
       "unsafe_suites_selected": false
     }
   },

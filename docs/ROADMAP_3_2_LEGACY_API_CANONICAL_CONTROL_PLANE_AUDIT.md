@@ -287,11 +287,13 @@ git diff --check
 Safe related contract tests were inspected by name before selection. No network,
 provider, runtime, productive-write or secret-access suite was executed.
 
-The Roadmap 3.1 historical guard was executed unchanged in a detached worktree
-at its published checkpoint (`2255295f5ffe4f7348476acfca606a84aa12af35`) and
-passed (`10 passed`). Running that closed-world 3.1 guard against the current
-3.2 tree rejects the four legitimate 3.2 artifacts by design; that historical
-test was not modified or relaxed.
+The continuation route recalculated the historical guard boundary. Its prior
+semantics compared `BASELINE_3_1..HEAD`, which treated later missions as
+retroactive scope violations. The guard now compares
+`BASELINE_3_1..FINAL_CHECKPOINT_3_1`, where the published 3.1 checkpoint is
+`2255295f5ffe4f7348476acfca606a84aa12af35`. The original four-file allowlist,
+negative product guards and historical unauthorized-file detection remain
+unchanged; the guard passes on the current tree with `11 passed`.
 
 ## Scope and Side-Effect Closure
 
