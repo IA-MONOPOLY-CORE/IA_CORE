@@ -49,7 +49,7 @@
     {"station": "N4", "name": "HIGH-RISK ROUTE RECONCILIATION", "result": "PASS"},
     {"station": "N5", "name": "REMEDIATION READINESS CLASSIFICATION", "result": "PASS"},
     {"station": "N6", "name": "CROSS-LAYER SYNTHESIS", "result": "PASS"},
-    {"station": "N7", "name": "TEST / CHECKPOINT / PUBLICATION", "result": "IN_PROGRESS"}
+    {"station": "N7", "name": "TEST / CHECKPOINT / PUBLICATION", "result": "PASS_LOCAL_PUBLICATION_PENDING"}
   ],
   "route_recalculation": {
     "event": "ROUTE_RECALCULATION_EVENT",
@@ -567,6 +567,6 @@
     "product_changes": false,
     "knowledge_changes": false,
     "push_allowed_only_after_all_gates": true,
-    "final_state": "PENDING_VALIDATION"
+    "final_state": "READY_FOR_REMOTE_PUBLICATION"
   }
 }
