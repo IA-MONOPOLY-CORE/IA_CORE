@@ -120,3 +120,30 @@ legal, fiscal o de seguridad. Cada propuesta requiere su evaluación futura.
 
 Próximo prompt sugerido, sin ejecutarlo:
 `PROMPT UI/UX 1.172 - Retomar roadmap UI/UX Panel Maestro IA_CORE post restore point y post documentación estratégica futura sin runtime/no-execution`.
+
+## Extensión documental ROADMAP 3.0.A
+
+La captura estratégica de Business Creation Coverage, Agent Workforce
+Readiness, Hardware-Aware Organizational Scaling y Universal Model/Provider
+Workforce Alignment se registra en:
+
+- `IA_CORE_OPEN_ENDED_BUSINESS_CREATION_AND_COVERAGE_REQUIREMENTS.md`;
+- `IA_CORE_AGENT_WORKFORCE_READINESS_ARCHITECTURE.md`;
+- `IA_CORE_HARDWARE_AWARE_ORGANIZATIONAL_SCALING_REQUIREMENTS.md`;
+- `IA_CORE_UNIVERSAL_MODEL_PROVIDER_WORKFORCE_ALIGNMENT.md`;
+- `ROADMAP_6X_AGENT_MODEL_WORKFORCE_READINESS_GATE.md`;
+- `IA_CORE_BUSINESS_COVERAGE_AUDIT_CONTRACT.md`.
+
+El bloque conserva 30 áreas, 200 nichos y 106 perfiles como masa crítica
+inicial, no como techo arquitectónico. Formaliza la futura auditoría extrema de
+cobertura, `AGENT_BLUEPRINT_LIBRARY`, `AGENT_READY_V1`, memoria lógicamente
+aislada, organizaciones ideal/mínima/hardware-fitted, alineación model/provider
+y el gate de workforce previo a operación empresarial controlada.
+
+Decisión documental:
+`ROADMAP_3_0_A_STRATEGIC_BUSINESS_WORKFORCE_MODEL_REQUIREMENTS_CAPTURED`.
+
+No implementa composición empresarial, expansión taxonómica, vector DB,
+runtime, execution, scheduler, providers, instalación de modelos, auth,
+hardware engine, recommendation engine nuevo ni UI. Roadmap 3.1 de seguridad,
+permisos y activación read-only continúa siendo el siguiente bloque técnico.

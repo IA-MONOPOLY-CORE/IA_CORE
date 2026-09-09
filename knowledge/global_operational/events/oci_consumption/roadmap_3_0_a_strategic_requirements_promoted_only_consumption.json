@@ -1,0 +1,20 @@
+{
+  "consumption_id": "roadmap_3_0_a_strategic_requirements_promoted_only_consumption",
+  "schema_version": "gokv.oci_consumption_result.v1",
+  "pack_id": "gokv.pack.419ba7a247ea447f",
+  "mission_id": "roadmap_3_0_a_strategic_business_workforce_model_platform_requirements_capture",
+  "knowledge_items_available": ["compress_occurrences_into_decisions","evidence_before_closure","focal_group_canonical_deep_test_policy","preserve_contract_until_explicit_change","real_diff_over_planned_commit_name","station_local_commits","true_hard_frontier"],
+  "knowledge_items_selected": ["compress_occurrences_into_decisions","evidence_before_closure","focal_group_canonical_deep_test_policy","preserve_contract_until_explicit_change","real_diff_over_planned_commit_name","station_local_commits","true_hard_frontier"],
+  "knowledge_items_applied": ["compress_occurrences_into_decisions","evidence_before_closure","focal_group_canonical_deep_test_policy","preserve_contract_until_explicit_change","real_diff_over_planned_commit_name","station_local_commits","true_hard_frontier"],
+  "knowledge_items_unused": [],
+  "knowledge_items_irrelevant": [],
+  "knowledge_items_conflicted": [],
+  "knowledge_items_helpful": ["compress_occurrences_into_decisions","evidence_before_closure","focal_group_canonical_deep_test_policy","preserve_contract_until_explicit_change","real_diff_over_planned_commit_name","station_local_commits","true_hard_frontier"],
+  "new_candidates": [],
+  "operator_interventions": [],
+  "clarification_requests": [],
+  "result": "PROMOTED_ONLY_SUFFICIENT_FOR_STRATEGIC_REQUIREMENTS_CAPTURE",
+  "pack_size_bytes": 7959,
+  "pack_item_count": 7,
+  "created_at": "2026-09-08T23:59:00Z"
+}
