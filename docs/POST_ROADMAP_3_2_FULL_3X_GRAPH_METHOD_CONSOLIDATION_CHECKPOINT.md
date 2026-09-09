@@ -88,6 +88,11 @@ classification, conditional edges, Roadmap 3.2 route-recalculation evidence,
 18 enterprise reservations, Method Santi preservation/status, eight creative
 classes, Project Genesis fields, GOKV non-promotion and authorized diff scope.
 
+Historical guard inheritance is checkpoint-bounded: Roadmap 3.1 validates its
+published 3.1 interval and Roadmap 3.2 validates its published 3.2 interval.
+Later documentary missions cannot invalidate either historical allowlist
+retroactively.
+
 Required final commands:
 
 ```text
