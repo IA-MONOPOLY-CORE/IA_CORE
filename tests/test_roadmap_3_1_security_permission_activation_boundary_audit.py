@@ -13,6 +13,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 MANIFEST_PATH = ROOT / "docs" / "ROADMAP_3_1_SECURITY_PERMISSION_ACTIVATION_BOUNDARY_EVIDENCE.json"
 AUDIT_PATH = ROOT / "docs" / "ROADMAP_3_1_SECURITY_PERMISSION_ACTIVATION_BOUNDARY_AUDIT.md"
+CHECKPOINT_PATH = ROOT / "docs" / "ROADMAP_3_1_SECURITY_PERMISSION_ACTIVATION_BOUNDARY_CHECKPOINT.md"
 API_PATH = ROOT / "api.py"
 BASELINE = "4c898eae74c0a6c59cda4e659ec6a1e2d2d3641a"
 MISSION_ID = "roadmap_3_1_security_permission_activation_boundary_read_only_audit"
@@ -250,6 +251,15 @@ def test_manifest_does_not_contain_secret_values_or_unsupported_reachability_cla
         assert "DEPLOYMENT_REACHABLE" not in route["exposure"]
         assert route["deployment"] == "HOSTING_EDGE_UNKNOWN"
     assert all(path["network_invoked"] is False for path in manifest["provider_paths"])
+
+
+def test_final_checkpoint_declares_the_read_only_closure_and_exact_next_action():
+    text = CHECKPOINT_PATH.read_text(encoding="utf-8")
+    assert "ROADMAP_3_1_SECURITY_PERMISSION_ACTIVATION_BOUNDARY_READ_ONLY_AUDIT_PASSED" in text
+    assert "ready_for_architect_audit_of_roadmap_3_1_results" in text
+    assert "No `git push` was executed" in text
+    assert "REMEDIATION_NOT_DESIGNED_OUT_OF_SCOPE" in text
+    assert "Entregar este reporte al CHAT / ARQUITECTO para auditoría. No compilar ni ejecutar la siguiente misión." in text
 
 
 def test_product_and_governance_diff_are_outside_the_mission_scope():
