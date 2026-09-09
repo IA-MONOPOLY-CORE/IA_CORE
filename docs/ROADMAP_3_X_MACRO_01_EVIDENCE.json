@@ -1,0 +1,172 @@
+{
+  "schema_version": "roadmap_3_x_macro_01_security_legacy_canonical_alignment.v1",
+  "mission_id": "roadmap_3x_macro_01_security_legacy_canonical_alignment",
+  "mission_type": "ADAPTIVE_MULTI_BLOCK_SECURITY_AND_ARCHITECTURAL_ALIGNMENT",
+  "mode": "B1_B2_B3_WITH_TRUE_HARD_FRONTIER_STOP",
+  "baseline_head": "f87dbb963dacaa9a4a358da816ad78d55d37cdd8",
+  "source_constraints": {
+    "historical_zip": "IA_CORE_clean(1).zip = NON_AUTHORITATIVE_AND_NOT_OPENED",
+    "secret_values_read": false,
+    "runtime_started": false,
+    "providers_invoked": false,
+    "network_invoked": false,
+    "stores_mutated_by_audit": false,
+    "external_services_called": false
+  },
+  "authority": {
+    "trust_model": "TRUST_MODEL_V1",
+    "legacy_destinations": [
+      "KEEP_CANONICAL",
+      "MIGRATE_TO_CANONICAL",
+      "REPLACE_WITH_SUCCESSOR",
+      "INTERNAL_ONLY",
+      "REMOVE",
+      "UNKNOWN"
+    ],
+    "identity_system_invented": false,
+    "api_v2_invented": false,
+    "b4_b5_b6_b7_entered": false
+  },
+  "git_initial": {
+    "root": "C:/IA_CORE",
+    "branch": "main",
+    "head": "f87dbb963dacaa9a4a358da816ad78d55d37cdd8",
+    "origin_main": "f87dbb963dacaa9a4a358da816ad78d55d37cdd8",
+    "ahead_behind": "0/0",
+    "working_tree": "clean",
+    "diff_check": "PASS"
+  },
+  "security_boundary": {
+    "f001_local_startup": "LOCAL_ONLY_DEMONSTRATED",
+    "f001_external_exposure": "UNKNOWN_EXTERNAL_EXPOSURE",
+    "f002": {
+      "status": "DISSOLVED",
+      "allowlist_default": ["http://localhost:8000"],
+      "environment_variable_name": "IA_CORE_CORS_ALLOW_ORIGINS",
+      "wildcard": false,
+      "invalid_configuration": "DENY",
+      "methods": ["GET", "POST", "PUT", "DELETE"],
+      "headers": ["Accept", "Content-Type"],
+      "credentials": false
+    },
+    "identity_auth_authz": "NOT_DEMONSTRATED_ROUTE_LOCAL",
+    "ownership_tenant": "NOT_DEMONSTRATED",
+    "f003_secret_boundary": {
+      "status": "DISSOLVED_FOR_RAW_SECRET_PATH",
+      "api_key_persistence": "BLOCKED",
+      "api_key_response_exposure": "BLOCKED",
+      "config_py_write_from_settings": "REMOVED",
+      "non_secret_settings_owner": "UNKNOWN"
+    }
+  },
+  "route_census": {
+    "total": 36,
+    "method_counts": {"GET": 22, "POST": 12, "PUT": 1, "DELETE": 1},
+    "mutative_total": 14,
+    "disposition_counts": {
+      "KEEP_CANONICAL": 0,
+      "MIGRATE_TO_CANONICAL": 0,
+      "REPLACE_WITH_SUCCESSOR": 0,
+      "INTERNAL_ONLY": 0,
+      "REMOVE": 0,
+      "UNKNOWN": 36
+    }
+  },
+  "routes": [
+    {"route_id":"api_status_get","method":"GET","path":"/api/status","handler":"get_status","current_purpose":"status and readiness read","consumers":["ui:web","unknown_external"],"write_capability":"NO_WRITE_PATH_DEMONSTRATED","secret_capability":"route connection not demonstrated","provider_capability":"supervisor/provider metadata path","runtime_capability":"NOT_CONNECTED_TO_LEGACY_ROUTE","risk":"status and provider metadata exposure","destination":"UNKNOWN","successor":"NONE_DEMONSTRATED","migration_path":"PENDING_OWNER_AND_DIRECTION","retirement_preconditions":["consumer proof","owner","successor or compatibility decision"],"evidence":["api.py::get_status","ROADMAP_3_2 route record"],"confidence":"HIGH_ROUTE_LOW_DISPOSITION"},
+    {"route_id":"api_memory_get","method":"GET","path":"/api/memory","handler":"get_memory_snapshot","current_purpose":"memory and history read","consumers":["ui:web admin","unknown_external"],"write_capability":"NO_WRITE_PATH_DEMONSTRATED","secret_capability":"memory sensitivity not reconciled","provider_capability":"NOT_APPLICABLE","runtime_capability":"NOT_CONNECTED_TO_LEGACY_ROUTE","risk":"sensitive memory exposure","destination":"UNKNOWN","successor":"NONE_DEMONSTRATED","migration_path":"PENDING_OWNER_AND_DIRECTION","retirement_preconditions":["consumer proof","ownership and scope policy"],"evidence":["api.py::get_memory_snapshot","ROADMAP_3_2 route record"],"confidence":"HIGH_ROUTE_LOW_DISPOSITION"},
+    {"route_id":"api_logs_get","method":"GET","path":"/api/logs","handler":"get_logs","current_purpose":"log tail read","consumers":["ui:web admin","unknown_external"],"write_capability":"NO_WRITE_PATH_DEMONSTRATED","secret_capability":"raw log exposure not reconciled","provider_capability":"NOT_APPLICABLE","runtime_capability":"NOT_CONNECTED_TO_LEGACY_ROUTE","risk":"log disclosure","destination":"UNKNOWN","successor":"NONE_DEMONSTRATED","migration_path":"PENDING_SANITIZED_READ_CONTRACT","retirement_preconditions":["consumer proof","sanitized owner"],"evidence":["api.py::get_logs","ROADMAP_3_2 route record"],"confidence":"HIGH_ROUTE_LOW_DISPOSITION"},
+    {"route_id":"api_metrics_dynamic_get","method":"GET","path":"/api/metrics/dynamic","handler":"get_dynamic_metrics","current_purpose":"domain metrics read","consumers":["unknown_internal","unknown_external"],"write_capability":"NO_WRITE_PATH_DEMONSTRATED","secret_capability":"route connection not demonstrated","provider_capability":"NOT_APPLICABLE","runtime_capability":"NOT_CONNECTED_TO_LEGACY_ROUTE","risk":"domain state exposure","destination":"UNKNOWN","successor":"NONE_DEMONSTRATED","migration_path":"PENDING_OWNER_AND_DIRECTION","retirement_preconditions":["consumer proof","domain owner"],"evidence":["api.py::get_dynamic_metrics","ROADMAP_3_2 route record"],"confidence":"HIGH_ROUTE_LOW_DISPOSITION"},
+    {"route_id":"api_debate_start_post","method":"POST","path":"/api/debate/start","handler":"start_debate","current_purpose":"legacy debate background start","consumers":["unknown_internal","unknown_external"],"write_capability":"legacy debate_store and orchestration candidate","secret_capability":"prompt handling not reconciled","provider_capability":"legacy background orchestration","runtime_capability":"NOT_CONNECTED_TO_LEGACY_ROUTE","risk":"unauthorized orchestration","destination":"UNKNOWN","successor":"NONE_DEMONSTRATED","migration_path":"PENDING_AUTH_AND_ACTIVATION_POLICY","retirement_preconditions":["consumer proof","owner","activation contract"],"evidence":["api.py::start_debate","ROADMAP_3_2 route record"],"confidence":"HIGH_ROUTE_LOW_DISPOSITION"},
+    {"route_id":"api_validation_start_post","method":"POST","path":"/api/validation/start","handler":"start_validation","current_purpose":"legacy validation background start","consumers":["unknown_internal","unknown_external"],"write_capability":"validation store and persistence candidate","secret_capability":"prompt handling not reconciled","provider_capability":"legacy validation flow","runtime_capability":"NOT_CONNECTED_TO_LEGACY_ROUTE","risk":"domain lifecycle mutation","destination":"UNKNOWN","successor":"NONE_DEMONSTRATED","migration_path":"PENDING_OWNER_AND_DIRECTION","retirement_preconditions":["consumer proof","domain owner","confirmation policy"],"evidence":["api.py::start_validation","ROADMAP_3_2 route record"],"confidence":"HIGH_ROUTE_LOW_DISPOSITION"},
+    {"route_id":"api_validation_next_get","method":"GET","path":"/api/validation/next","handler":"get_next_validation_info","current_purpose":"validation progress read","consumers":["unknown_internal","unknown_external"],"write_capability":"NO_WRITE_PATH_DEMONSTRATED","secret_capability":"route connection not demonstrated","provider_capability":"NOT_APPLICABLE","runtime_capability":"NOT_CONNECTED_TO_LEGACY_ROUTE","risk":"domain progress exposure","destination":"UNKNOWN","successor":"NONE_DEMONSTRATED","migration_path":"PENDING_OWNER_AND_DIRECTION","retirement_preconditions":["consumer proof","domain owner"],"evidence":["api.py::get_next_validation_info","ROADMAP_3_2 route record"],"confidence":"HIGH_ROUTE_LOW_DISPOSITION"},
+    {"route_id":"api_validation_by_id_get","method":"GET","path":"/api/validation/{validation_id}","handler":"get_validation","current_purpose":"validation record read","consumers":["unknown_internal","unknown_external"],"write_capability":"NO_WRITE_PATH_DEMONSTRATED","secret_capability":"route connection not demonstrated","provider_capability":"NOT_APPLICABLE","runtime_capability":"NOT_CONNECTED_TO_LEGACY_ROUTE","risk":"identifier ownership exposure","destination":"UNKNOWN","successor":"NONE_DEMONSTRATED","migration_path":"PENDING_OWNER_AND_DIRECTION","retirement_preconditions":["consumer proof","owner"],"evidence":["api.py::get_validation","ROADMAP_3_2 route record"],"confidence":"HIGH_ROUTE_LOW_DISPOSITION"},
+    {"route_id":"api_validation_reveal_post","method":"POST","path":"/api/validation/{validation_id}/reveal","handler":"reveal_validation","current_purpose":"validation reveal mutation","consumers":["unknown_internal","unknown_external"],"write_capability":"validation store persistence candidate","secret_capability":"route connection not demonstrated","provider_capability":"legacy validation flow","runtime_capability":"NOT_CONNECTED_TO_LEGACY_ROUTE","risk":"unauthorized reveal/state mutation","destination":"UNKNOWN","successor":"NONE_DEMONSTRATED","migration_path":"PENDING_CONFIRMATION_AND_OWNER","retirement_preconditions":["consumer proof","owner","confirmation policy"],"evidence":["api.py::reveal_validation","ROADMAP_3_2 route record"],"confidence":"HIGH_ROUTE_LOW_DISPOSITION"},
+    {"route_id":"api_ranking_get","method":"GET","path":"/api/ranking","handler":"get_ranking","current_purpose":"ranking read","consumers":["unknown_internal","unknown_external"],"write_capability":"NO_WRITE_PATH_DEMONSTRATED","secret_capability":"route connection not demonstrated","provider_capability":"NOT_APPLICABLE","runtime_capability":"NOT_CONNECTED_TO_LEGACY_ROUTE","risk":"domain data exposure","destination":"UNKNOWN","successor":"NONE_DEMONSTRATED","migration_path":"PENDING_OWNER_AND_DIRECTION","retirement_preconditions":["consumer proof","owner"],"evidence":["api.py::get_ranking","ROADMAP_3_2 route record"],"confidence":"HIGH_ROUTE_LOW_DISPOSITION"},
+    {"route_id":"api_evolution_stats_get","method":"GET","path":"/api/evolucion/stats","handler":"get_evolucion_stats","current_purpose":"evolution statistics read","consumers":["unknown_internal","unknown_external"],"write_capability":"NO_WRITE_PATH_DEMONSTRATED","secret_capability":"route connection not demonstrated","provider_capability":"NOT_APPLICABLE","runtime_capability":"NOT_CONNECTED_TO_LEGACY_ROUTE","risk":"domain state exposure","destination":"UNKNOWN","successor":"NONE_DEMONSTRATED","migration_path":"PENDING_OWNER_AND_DIRECTION","retirement_preconditions":["consumer proof","owner"],"evidence":["api.py::get_evolucion_stats","ROADMAP_3_2 route record"],"confidence":"HIGH_ROUTE_LOW_DISPOSITION"},
+    {"route_id":"api_evolution_reset_post","method":"POST","path":"/api/evolucion/reset","handler":"reset_ciclo","current_purpose":"evolution cycle reset","consumers":["unknown_internal","unknown_external"],"write_capability":"evolution persistence candidate","secret_capability":"route connection not demonstrated","provider_capability":"legacy evolution reset","runtime_capability":"NOT_CONNECTED_TO_LEGACY_ROUTE","risk":"direct lifecycle mutation","destination":"UNKNOWN","successor":"NONE_DEMONSTRATED","migration_path":"PENDING_OWNER_AND_CONFIRMATION","retirement_preconditions":["consumer proof","owner","confirmation policy"],"evidence":["api.py::reset_ciclo","ROADMAP_3_2 route record"],"confidence":"HIGH_ROUTE_LOW_DISPOSITION"},
+    {"route_id":"api_debate_by_id_get","method":"GET","path":"/api/debate/{debate_id}","handler":"get_debate","current_purpose":"debate record read","consumers":["unknown_internal","unknown_external"],"write_capability":"NO_WRITE_PATH_DEMONSTRATED","secret_capability":"conversation sensitivity unknown","provider_capability":"NOT_APPLICABLE","runtime_capability":"NOT_CONNECTED_TO_LEGACY_ROUTE","risk":"conversation ownership exposure","destination":"UNKNOWN","successor":"NONE_DEMONSTRATED","migration_path":"PENDING_OWNER_AND_DIRECTION","retirement_preconditions":["consumer proof","owner"],"evidence":["api.py::get_debate","ROADMAP_3_2 route record"],"confidence":"HIGH_ROUTE_LOW_DISPOSITION"},
+    {"route_id":"api_debates_get","method":"GET","path":"/api/debates","handler":"list_debates","current_purpose":"debate list read","consumers":["unknown_internal","unknown_external"],"write_capability":"NO_WRITE_PATH_DEMONSTRATED","secret_capability":"route connection not demonstrated","provider_capability":"NOT_APPLICABLE","runtime_capability":"NOT_CONNECTED_TO_LEGACY_ROUTE","risk":"cross-owner listing","destination":"UNKNOWN","successor":"NONE_DEMONSTRATED","migration_path":"PENDING_OWNER_AND_DIRECTION","retirement_preconditions":["consumer proof","owner"],"evidence":["api.py::list_debates","ROADMAP_3_2 route record"],"confidence":"HIGH_ROUTE_LOW_DISPOSITION"},
+    {"route_id":"api_chat_post","method":"POST","path":"/api/chat","handler":"chat_endpoint","current_purpose":"legacy free chat orchestration","consumers":["unknown_internal","unknown_external"],"write_capability":"conversation, memory and session event candidates","secret_capability":"prompt/provider path not reconciled","provider_capability":"Supervisor -> AgentManager -> ProviderRegistry/adapters","runtime_capability":"SOURCE_CALLABLE_NOT_EXECUTED","risk":"provider-capable legacy bypass","destination":"UNKNOWN","successor":"NONE_DEMONSTRATED","migration_path":"PENDING_DIRECTION_AND_PROVIDER_BOUNDARY","retirement_preconditions":["consumer proof","owner","provider boundary","compatibility decision"],"evidence":["api.py::chat_endpoint","F-3.1-004","ROADMAP_3_2 route record"],"confidence":"HIGH_ROUTE_LOW_DISPOSITION"},
+    {"route_id":"api_learn_post","method":"POST","path":"/api/learn","handler":"learn_endpoint","current_purpose":"legacy memory learning write","consumers":["unknown_internal","unknown_external"],"write_capability":"memory and vector persistence candidate","secret_capability":"content not reconciled","provider_capability":"legacy memory/evolution flow","runtime_capability":"NOT_CONNECTED_TO_LEGACY_ROUTE","risk":"unowned memory mutation","destination":"UNKNOWN","successor":"NONE_DEMONSTRATED","migration_path":"PENDING_STORE_OWNER_AND_DIRECTION","retirement_preconditions":["consumer proof","store owner","retention policy"],"evidence":["api.py::learn_endpoint","ROADMAP_3_2 route record"],"confidence":"HIGH_ROUTE_LOW_DISPOSITION"},
+    {"route_id":"api_conversation_get","method":"GET","path":"/api/conversation/{conversation_id}","handler":"get_conversation","current_purpose":"conversation read","consumers":["unknown_internal","unknown_external"],"write_capability":"NO_WRITE_PATH_DEMONSTRATED","secret_capability":"conversation sensitivity unknown","provider_capability":"NOT_APPLICABLE","runtime_capability":"NOT_CONNECTED_TO_LEGACY_ROUTE","risk":"conversation ownership exposure","destination":"UNKNOWN","successor":"NONE_DEMONSTRATED","migration_path":"PENDING_OWNER_AND_DIRECTION","retirement_preconditions":["consumer proof","owner","data scope"],"evidence":["api.py::get_conversation","ROADMAP_3_2 route record"],"confidence":"HIGH_ROUTE_LOW_DISPOSITION"},
+    {"route_id":"api_catalog_domain_creation_get","method":"GET","path":"/api/catalogs/domain-creation","handler":"get_domain_creation_catalog_endpoint","current_purpose":"domain creation catalog","consumers":["ui:web","unknown_external"],"write_capability":"NO_WRITE_PATH_DEMONSTRATED","secret_capability":"route connection not demonstrated","provider_capability":"NOT_APPLICABLE","runtime_capability":"NOT_CONNECTED_TO_LEGACY_ROUTE","risk":"catalog exposure","destination":"UNKNOWN","successor":"NONE_DEMONSTRATED","migration_path":"PENDING_OWNER_AND_DIRECTION","retirement_preconditions":["consumer proof","catalog owner"],"evidence":["api.py::get_domain_creation_catalog_endpoint","ui/web"],"confidence":"HIGH_ROUTE_LOW_DISPOSITION"},
+    {"route_id":"api_catalog_roles_get","method":"GET","path":"/api/catalogs/roles","handler":"get_roles_catalog_endpoint","current_purpose":"roles catalog","consumers":["ui:web","unknown_external"],"write_capability":"NO_WRITE_PATH_DEMONSTRATED","secret_capability":"route connection not demonstrated","provider_capability":"NOT_APPLICABLE","runtime_capability":"NOT_CONNECTED_TO_LEGACY_ROUTE","risk":"catalog exposure","destination":"UNKNOWN","successor":"NONE_DEMONSTRATED","migration_path":"PENDING_OWNER_AND_DIRECTION","retirement_preconditions":["consumer proof","catalog owner"],"evidence":["api.py::get_roles_catalog_endpoint","ui/web"],"confidence":"HIGH_ROUTE_LOW_DISPOSITION"},
+    {"route_id":"api_catalog_specializations_get","method":"GET","path":"/api/catalogs/specializations","handler":"get_specializations_catalog_endpoint","current_purpose":"specializations catalog","consumers":["ui:web","unknown_external"],"write_capability":"NO_WRITE_PATH_DEMONSTRATED","secret_capability":"route connection not demonstrated","provider_capability":"NOT_APPLICABLE","runtime_capability":"NOT_CONNECTED_TO_LEGACY_ROUTE","risk":"catalog exposure","destination":"UNKNOWN","successor":"NONE_DEMONSTRATED","migration_path":"PENDING_OWNER_AND_DIRECTION","retirement_preconditions":["consumer proof","catalog owner"],"evidence":["api.py::get_specializations_catalog_endpoint","ui/web"],"confidence":"HIGH_ROUTE_LOW_DISPOSITION"},
+    {"route_id":"api_domains_list_get","method":"GET","path":"/api/domains/list","handler":"get_domains","current_purpose":"domain listing","consumers":["ui:web","unknown_external"],"write_capability":"NO_WRITE_PATH_DEMONSTRATED","secret_capability":"route connection not demonstrated","provider_capability":"NOT_APPLICABLE","runtime_capability":"NOT_CONNECTED_TO_LEGACY_ROUTE","risk":"domain ownership exposure","destination":"UNKNOWN","successor":"NONE_DEMONSTRATED","migration_path":"PENDING_OWNER_AND_DIRECTION","retirement_preconditions":["consumer proof","domain owner"],"evidence":["api.py::get_domains","ui/web"],"confidence":"HIGH_ROUTE_LOW_DISPOSITION"},
+    {"route_id":"api_domain_profile_catalog_get","method":"GET","path":"/api/domains/{domain_id}/profile-catalog","handler":"get_domain_profile_catalog_endpoint","current_purpose":"domain profile catalog","consumers":["ui:web","unknown_external"],"write_capability":"NO_WRITE_PATH_DEMONSTRATED","secret_capability":"route connection not demonstrated","provider_capability":"NOT_APPLICABLE","runtime_capability":"NOT_CONNECTED_TO_LEGACY_ROUTE","risk":"domain/profile exposure","destination":"UNKNOWN","successor":"NONE_DEMONSTRATED","migration_path":"PENDING_OWNER_AND_DIRECTION","retirement_preconditions":["consumer proof","domain owner"],"evidence":["api.py::get_domain_profile_catalog_endpoint","ui/web"],"confidence":"HIGH_ROUTE_LOW_DISPOSITION"},
+    {"route_id":"api_domain_agent_presets_get","method":"GET","path":"/api/domains/{domain_id}/agent-presets","handler":"get_domain_agent_presets_endpoint","current_purpose":"agent preset listing","consumers":["ui:web","unknown_external"],"write_capability":"NO_WRITE_PATH_DEMONSTRATED","secret_capability":"provider/model metadata not reconciled","provider_capability":"preset metadata only","runtime_capability":"NOT_CONNECTED_TO_LEGACY_ROUTE","risk":"agent/provider metadata exposure","destination":"UNKNOWN","successor":"NONE_DEMONSTRATED","migration_path":"PENDING_WORKFORCE_OWNER","retirement_preconditions":["consumer proof","workforce owner"],"evidence":["api.py::get_domain_agent_presets_endpoint","ui/web"],"confidence":"HIGH_ROUTE_LOW_DISPOSITION"},
+    {"route_id":"api_domain_agent_preset_match_get","method":"GET","path":"/api/domains/{domain_id}/agent-presets/match","handler":"get_domain_agent_preset_match_endpoint","current_purpose":"agent preset matching","consumers":["ui:web","unknown_external"],"write_capability":"NO_WRITE_PATH_DEMONSTRATED","secret_capability":"provider/model metadata not reconciled","provider_capability":"preset metadata only","runtime_capability":"NOT_CONNECTED_TO_LEGACY_ROUTE","risk":"agent/provider metadata exposure","destination":"UNKNOWN","successor":"NONE_DEMONSTRATED","migration_path":"PENDING_WORKFORCE_OWNER","retirement_preconditions":["consumer proof","workforce owner"],"evidence":["api.py::get_domain_agent_preset_match_endpoint","ui/web"],"confidence":"HIGH_ROUTE_LOW_DISPOSITION"},
+    {"route_id":"api_domains_create_post","method":"POST","path":"/api/domains/create","handler":"create_domain_endpoint","current_purpose":"domain creation write","consumers":["ui:web","tests","unknown_external"],"write_capability":"direct domain directory and manifest writes","secret_capability":"route connection not demonstrated","provider_capability":"NOT_APPLICABLE","runtime_capability":"NOT_CONNECTED_TO_LEGACY_ROUTE","risk":"domain mutation outside demonstrated canonical boundary","destination":"UNKNOWN","successor":"NONE_DEMONSTRATED","migration_path":"PENDING_CANONICAL_MATERIALIZER_DECISION","retirement_preconditions":["consumer proof","domain owner","sandbox/product boundary"],"evidence":["api.py::create_domain_endpoint","partial coverage record","ui/web"],"confidence":"HIGH_ROUTE_LOW_DISPOSITION"},
+    {"route_id":"api_agents_create_post","method":"POST","path":"/api/agents/create","handler":"create_agent_endpoint","current_purpose":"agent materialization write","consumers":["ui:web","tests","unknown_external"],"write_capability":"agent JSON, paper and memory/vector candidates","secret_capability":"system_prompt/provider/model not reconciled","provider_capability":"agent configuration path","runtime_capability":"NOT_CONNECTED_TO_LEGACY_ROUTE","risk":"agent/workforce mutation","destination":"UNKNOWN","successor":"NONE_DEMONSTRATED","migration_path":"PENDING_WORKFORCE_AND_SANDBOX_DECISION","retirement_preconditions":["consumer proof","owner","sandbox/product boundary"],"evidence":["api.py::create_agent_endpoint","ROADMAP_3_2 route record"],"confidence":"HIGH_ROUTE_LOW_DISPOSITION"},
+    {"route_id":"api_settings_post","method":"POST","path":"/api/settings","handler":"save_settings","current_purpose":"provider/model/agent settings write","consumers":["unknown_internal","unknown_external"],"write_capability":"non-secret settings file write; api_key blocked","secret_capability":"raw api_key persistence and config.py write blocked","provider_capability":"provider configuration candidate","runtime_capability":"NOT_CONNECTED_TO_LEGACY_ROUTE","risk":"unowned settings mutation and absent route authz","destination":"UNKNOWN","successor":"NONE_DEMONSTRATED","migration_path":"PENDING_SETTINGS_OWNER_AND_AUTH_POLICY","retirement_preconditions":["consumer proof","settings owner","secret storage decision"],"evidence":["api.py::save_settings","be5986e security piece","F-003"],"confidence":"HIGH_ROUTE_LOW_DISPOSITION"},
+    {"route_id":"api_settings_get","method":"GET","path":"/api/settings","handler":"get_settings","current_purpose":"settings read","consumers":["unknown_internal","unknown_external"],"write_capability":"settings file read","secret_capability":"api_key removed from response; persisted legacy shape unknown","provider_capability":"provider configuration metadata","runtime_capability":"NOT_CONNECTED_TO_LEGACY_ROUTE","risk":"settings ownership/exposure","destination":"UNKNOWN","successor":"NONE_DEMONSTRATED","migration_path":"PENDING_SETTINGS_OWNER_AND_AUTH_POLICY","retirement_preconditions":["consumer proof","settings owner","response contract"],"evidence":["api.py::get_settings","be5986e security piece","F-003"],"confidence":"HIGH_ROUTE_LOW_DISPOSITION"},
+    {"route_id":"api_agent_model_recommendation_post","method":"POST","path":"/api/agents/model-recommendation","handler":"get_model_recommendation","current_purpose":"provider/model recommendation","consumers":["ui:web","unknown_external"],"write_capability":"NO_WRITE_PATH_DEMONSTRATED","secret_capability":"provider metadata path not reconciled","provider_capability":"provider metadata and health path","runtime_capability":"SOURCE_CALLABLE_NOT_EXECUTED","risk":"provider metadata/reachability ambiguity","destination":"UNKNOWN","successor":"NONE_DEMONSTRATED","migration_path":"PENDING_PROVIDER_BOUNDARY","retirement_preconditions":["consumer proof","provider owner","runtime policy"],"evidence":["api.py::get_model_recommendation","ui/web"],"confidence":"HIGH_ROUTE_LOW_DISPOSITION"},
+    {"route_id":"api_hardware_profile_get","method":"GET","path":"/api/system/hardware-profile","handler":"get_hardware_profile","current_purpose":"hardware profile read","consumers":["unknown_internal","unknown_external"],"write_capability":"NO_WRITE_PATH_DEMONSTRATED","secret_capability":"route connection not demonstrated","provider_capability":"hardware helper source callable","runtime_capability":"SOURCE_CALLABLE_NOT_EXECUTED","risk":"local probe exposure","destination":"UNKNOWN","successor":"NONE_DEMONSTRATED","migration_path":"PENDING_OWNER_AND_PROBE_POLICY","retirement_preconditions":["consumer proof","owner","probe policy"],"evidence":["api.py::get_hardware_profile","ROADMAP_3_2 route record"],"confidence":"HIGH_ROUTE_LOW_DISPOSITION"},
+    {"route_id":"api_model_compatibility_post","method":"POST","path":"/api/system/model-compatibility","handler":"get_model_compatibility","current_purpose":"model compatibility evaluation","consumers":["ui:web","unknown_external"],"write_capability":"NO_WRITE_PATH_DEMONSTRATED","secret_capability":"provider metadata path not reconciled","provider_capability":"model compatibility helper","runtime_capability":"SOURCE_CALLABLE_NOT_EXECUTED","risk":"provider/model boundary ambiguity","destination":"UNKNOWN","successor":"NONE_DEMONSTRATED","migration_path":"PENDING_PROVIDER_BOUNDARY","retirement_preconditions":["consumer proof","provider owner","runtime policy"],"evidence":["api.py::get_model_compatibility","ui/web"],"confidence":"HIGH_ROUTE_LOW_DISPOSITION"},
+    {"route_id":"api_agents_list_get","method":"GET","path":"/api/agents/list","handler":"list_agents","current_purpose":"agent listing","consumers":["ui:web","tests","unknown_external"],"write_capability":"NO_WRITE_PATH_DEMONSTRATED","secret_capability":"provider/model fields may be sensitive","provider_capability":"legacy agent registry reads","runtime_capability":"NOT_CONNECTED_TO_LEGACY_ROUTE","risk":"agent ownership and metadata exposure","destination":"UNKNOWN","successor":"NONE_DEMONSTRATED","migration_path":"PENDING_WORKFORCE_OWNER","retirement_preconditions":["consumer proof","workforce owner","response contract"],"evidence":["api.py::list_agents","ui/web"],"confidence":"HIGH_ROUTE_LOW_DISPOSITION"},
+    {"route_id":"api_agent_update_put","method":"PUT","path":"/api/agents/{agent_id}","handler":"update_agent","current_purpose":"agent JSON update","consumers":["ui:web","tests","unknown_external"],"write_capability":"direct agent JSON write; memory/vector candidates","secret_capability":"system_prompt/provider/model not reconciled","provider_capability":"agent configuration path","runtime_capability":"NOT_CONNECTED_TO_LEGACY_ROUTE","risk":"unowned agent/workforce mutation","destination":"UNKNOWN","successor":"NONE_DEMONSTRATED","migration_path":"PENDING_WORKFORCE_AND_CONFIRMATION","retirement_preconditions":["consumer proof","owner","confirmation and lifecycle policy"],"evidence":["api.py::update_agent","ROADMAP_3_2 route record"],"confidence":"HIGH_ROUTE_LOW_DISPOSITION"},
+    {"route_id":"api_agent_delete_delete","method":"DELETE","path":"/api/agents/{agent_id}","handler":"delete_agent","current_purpose":"agent/paper/vector deletion","consumers":["ui:web","tests","unknown_external"],"write_capability":"unlink/rmtree and memory deletion candidates","secret_capability":"route connection not demonstrated","provider_capability":"NOT_APPLICABLE","runtime_capability":"NOT_CONNECTED_TO_LEGACY_ROUTE","risk":"irreversible deletion without canonical confirmation","destination":"UNKNOWN","successor":"NONE_DEMONSTRATED","migration_path":"PENDING_LIFECYCLE_AND_OWNER","retirement_preconditions":["consumer proof","owner","confirmation","rollback"],"evidence":["api.py::delete_agent","ROADMAP_3_2 route record"],"confidence":"HIGH_ROUTE_LOW_DISPOSITION"},
+    {"route_id":"api_agent_regenerate_paper_post","method":"POST","path":"/api/agents/{agent_id}/regenerate-paper","handler":"regenerate_agent_paper","current_purpose":"paper regeneration","consumers":["tests","unknown_external"],"write_capability":"paper/config JSON write candidate","secret_capability":"usar_llm/provider path not reconciled","provider_capability":"optional provider path","runtime_capability":"SOURCE_CALLABLE_NOT_EXECUTED","risk":"paper/workforce mutation","destination":"UNKNOWN","successor":"NONE_DEMONSTRATED","migration_path":"PENDING_WORKFORCE_AND_PROVIDER_POLICY","retirement_preconditions":["consumer proof","owner","rollback","provider boundary"],"evidence":["api.py::regenerate_agent_paper","ROADMAP_3_2 route record"],"confidence":"HIGH_ROUTE_LOW_DISPOSITION"},
+    {"route_id":"root_get","method":"GET","path":"/","handler":"root","current_purpose":"static UI root","consumers":["ui:web","unknown_external"],"write_capability":"NO_WRITE_PATH_DEMONSTRATED","secret_capability":"route connection not demonstrated","provider_capability":"NOT_APPLICABLE","runtime_capability":"NOT_CONNECTED_TO_LEGACY_ROUTE","risk":"hosting edge/static exposure unknown","destination":"UNKNOWN","successor":"NONE_DEMONSTRATED","migration_path":"PENDING_HOSTING_AND_OWNER_EVIDENCE","retirement_preconditions":["deployment evidence","owner","consumer proof"],"evidence":["api.py::root","start_api.bat","ROADMAP_3_2 route record"],"confidence":"HIGH_ROUTE_LOW_DISPOSITION"}
+  ],
+  "coverage_before": {"CANONICAL_CONTROL_PLANE_COVERED": 0,"PARTIALLY_COVERED": 1,"LEGACY_BYPASS_DEMONSTRATED": 2,"COVERAGE_NOT_DEMONSTRATED": 33,"NOT_APPLICABLE": 0},
+  "coverage_after": {"CANONICAL_CONTROL_PLANE_COVERED": 0,"PARTIALLY_COVERED": 1,"LEGACY_BYPASS_DEMONSTRATED": 2,"COVERAGE_NOT_DEMONSTRATED": 33,"NOT_APPLICABLE": 0},
+  "high_risk_routes": {
+    "POST /api/chat": "LEGACY_BYPASS_DEMONSTRATED; unchanged and not invoked",
+    "POST /api/settings": "LEGACY_BYPASS_DEMONSTRATED; secret raw persistence/response path blocked, route owner/auth remains unknown",
+    "14_mutative_routes": "No canonical route-level authz/confirmation coverage demonstrated"
+  },
+  "piece_list": [
+    {"piece_id":"PIECE_CORS_AND_SETTINGS_SECRET_BOUNDARY","routes_included":["CORS middleware","POST /api/settings","GET /api/settings"],"why_grouped":"shared security and secret-boundary contract","commit":"be5986e0f8fd49a61694d2d8752bae20f0f52c52","tests":"29 combined focal and historical tests; py_compile PASS","rollback":"none","learning_state":"OBSERVED"},
+    {"piece_id":"PIECE_LEGACY_ROUTE_DISPOSITION","routes_included":["all 36 routes"],"why_grouped":"shared B-2 disposition and consumer-proof surface","commit":"documentary checkpoint commit","tests":"pending final manifest guard","rollback":"none","learning_state":"OBSERVED"}
+  ],
+  "frontier_events": [
+    {"frontier_id":"F-001","classification":"EXTERNAL_EVIDENCE_FRONTIER","status":"PRESERVED_UNKNOWN","next_path":"external/deployment mission only with new authorization"},
+    {"frontier_id":"F-002","classification":"TRUE_HARD_FRONTIER","status":"DISSOLVED_BY_DIRECTION_AND_DETERMINISTIC_FIX","next_path":"B-1 complete"},
+    {"frontier_id":"F-003A","classification":"CONDITIONAL_FRONTIER","status":"DISSOLVED_FOR_RAW_SECRET_PERSISTENCE_AND_RESPONSE","next_path":"settings owner remains separate"},
+    {"frontier_id":"F-003B","classification":"CONDITIONAL_FRONTIER","status":"PENDING","next_path":"owner/auth/storage decision"},
+    {"frontier_id":"F-004","classification":"TRUE_HARD_FRONTIER","status":"REACHED","next_path":"Direction/Architect bridge and retirement decision"}
+  ],
+  "learning_records": [
+    {"piece_id":"PIECE_CORS_AND_SETTINGS_SECRET_BOUNDARY","observation":"Historical security guards must read their published checkpoint source.","evidence":["tests/test_roadmap_3_1_security_permission_activation_boundary_audit.py","tests/test_roadmap_3_2_legacy_api_canonical_control_plane_audit.py"],"pattern_id":"CHECKPOINT_BOUNDED_HISTORICAL_GUARD","reusability":"reusable","scope":"historical audit guards","failure_mode":"approved current security change breaks a historical assertion","successful_response":"git show FINAL_CHECKPOINT:api.py and exclude mutable working-tree status","preconditions":["published checkpoint hash"],"stop_conditions":["do not weaken original checkpoint assertions"],"provenance":"Roadmap 3.1/3.2 guard repair","learning_state":"OBSERVED"}
+  ],
+  "tests": {
+    "focal": "29 passed combined for macro guard and checkpoint-bounded Roadmap 3.1/3.2 guards",
+    "py_compile": "PASS",
+    "provider_runtime_network": "NOT RUN",
+    "historical_policy": "checkpoint-bounded"
+  },
+  "blocks": {
+    "B-1": "PASS",
+    "B-2": "BLOCKED_TRUE_HARD_F-004",
+    "B-3": "NOT_ENTERED",
+    "B-4": "NOT_ENTERED",
+    "B-5": "NOT_ENTERED",
+    "B-6": "NOT_ENTERED",
+    "B-7": "NOT_ENTERED"
+  },
+  "metrics": {
+    "blocks_planned": 3,
+    "blocks_completed": 1,
+    "pieces_actual": 2,
+    "known_frontiers_at_start": 3,
+    "frontiers_dissolved_during_execution": 2,
+    "emergent_true_hard_frontiers_discovered": 1,
+    "route_recalculations": 0,
+    "safe_pauses": 0,
+    "operator_interventions": 0,
+    "retries": 0,
+    "local_rollbacks": 0,
+    "global_rollbacks": 0,
+    "commits": 2,
+    "surface_closed": ["B-1 security boundary"],
+    "result": "BLOCKED_AT_B2_TRUE_HARD_FRONTIER"
+  },
+  "publication": {
+    "status": "NOT_PUBLISHED_BLOCKED_BY_F004",
+    "push": false,
+    "fetch": false,
+    "next_action": "DELIVER_REPORT_TO_CHAT_ARCHITECT_FOR_DIRECTION_AND_ROUTE_RECALCULATION"
+  }
+}

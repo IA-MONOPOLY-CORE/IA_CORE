@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import ast
+import json
 import os
 import re
 from collections import Counter
@@ -11,6 +12,9 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 API_PATH = ROOT / "api.py"
+EVIDENCE_PATH = ROOT / "docs" / "ROADMAP_3_X_MACRO_01_EVIDENCE.json"
+DISPOSITION_PATH = ROOT / "docs" / "ROADMAP_3_X_LEGACY_ROUTE_DISPOSITION.md"
+CHECKPOINT_PATH = ROOT / "docs" / "ROADMAP_3_X_MACRO_01_CHECKPOINT.md"
 
 
 def _api_tree() -> ast.Module:
@@ -97,3 +101,35 @@ def test_settings_secret_boundary_blocks_persistence_and_response_exposure():
     assert "config_path" not in save_source
     assert 'settings.pop("api_key", None)' in get_source
     assert "api_key_configured" in get_source
+
+
+def test_evidence_manifest_contains_complete_b2_disposition_and_hard_stop():
+    manifest = json.loads(EVIDENCE_PATH.read_text(encoding="utf-8"))
+    routes = manifest["routes"]
+    assert manifest["mission_id"] == "roadmap_3x_macro_01_security_legacy_canonical_alignment"
+    assert len(routes) == 36
+    assert len({route["route_id"] for route in routes}) == 36
+    assert Counter(route["method"] for route in routes) == {
+        "GET": 22,
+        "POST": 12,
+        "PUT": 1,
+        "DELETE": 1,
+    }
+    assert {route["destination"] for route in routes} == {"UNKNOWN"}
+    assert manifest["route_census"]["disposition_counts"]["UNKNOWN"] == 36
+    assert manifest["coverage_before"] == manifest["coverage_after"]
+    assert manifest["blocks"]["B-1"] == "PASS"
+    assert manifest["blocks"]["B-2"] == "BLOCKED_TRUE_HARD_F-004"
+    assert manifest["blocks"]["B-3"] == "NOT_ENTERED"
+
+
+def test_disposition_and_checkpoint_preserve_the_true_hard_frontier():
+    disposition = DISPOSITION_PATH.read_text(encoding="utf-8")
+    checkpoint = CHECKPOINT_PATH.read_text(encoding="utf-8")
+    rows = re.findall(r"^\| `[^`]+` \| (GET|POST|PUT|DELETE) \|", disposition, re.MULTILINE)
+    assert len(rows) == 36
+    assert "F-004" in disposition
+    assert "No route is marked `REMOVE`" in disposition
+    assert "ROADMAP_3X_MACRO_01_BLOCKED" in checkpoint
+    assert "B-3: NOT ENTERED" in checkpoint
+    assert "ROADMAP_3X_MACRO_01_SECURITY_LEGACY_CANONICAL_ALIGNMENT_PUBLISHED" not in checkpoint
