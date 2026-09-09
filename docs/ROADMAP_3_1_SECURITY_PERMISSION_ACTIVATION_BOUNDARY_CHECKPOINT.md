@@ -21,8 +21,7 @@ execution, or Roadmap 3.2.
   - `docs/ROADMAP_3_1_SECURITY_PERMISSION_ACTIVATION_BOUNDARY_EVIDENCE.json`
 - Station 2 commit: `7c39dc8` - `test(audit): guard roadmap 3.1 boundary evidence`
   - `tests/test_roadmap_3_1_security_permission_activation_boundary_audit.py`
-- Final checkpoint commit: produced by the closing station and recorded by Git
-  in the final report; no artificial hash is written here.
+- Final checkpoint commit: `47d9ce0ed1ce1951b90bd4282a92764ce2164e01`
 - Product commits: `0`
 - Rollbacks: `0`
 
@@ -150,7 +149,7 @@ artifact group plus the new AST/manifest guards.
 - Findings: P0 0, P1 5, P2 2, P3 0.
 - Unknowns preserved: 9 external/runtime unknowns plus 1 provenance-preserved count difference.
 - Tests: focal 10; safe group 54.
-- Station commits: 3 including this checkpoint; rollbacks 0; push 0.
+- Station commits: 4 including this checkpoint and the final validation record; rollbacks 0; push 0.
 - Duration, tokens, cost and operator timing: `NOT_AVAILABLE_FROM_EXECUTOR`.
 - Friction: historical count scope required explicit reconciliation; no product blocker.
 

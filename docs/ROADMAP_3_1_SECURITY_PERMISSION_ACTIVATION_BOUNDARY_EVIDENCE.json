@@ -259,7 +259,7 @@
     "static_route_census": "AST-only api.py scan produced 36 routes, 22 GET, 12 POST, 1 PUT, 1 DELETE.",
     "commands": [
       {"command":"python -m json.tool docs/ROADMAP_3_1_SECURITY_PERMISSION_ACTIVATION_BOUNDARY_EVIDENCE.json","result":"PASS"},
-      {"command":"python -m pytest -q tests/test_roadmap_3_1_security_permission_activation_boundary_audit.py","result":"9 passed"},
+      {"command":"python -m pytest -q tests/test_roadmap_3_1_security_permission_activation_boundary_audit.py","result":"10 passed"},
       {"command":"git diff --check","result":"PASS"},
       {"command":"safe group pytest selection for Roadmap 3.0/3.0.A, permissions, secrets and runtime activation contracts","result":"54 passed"}
     ],
