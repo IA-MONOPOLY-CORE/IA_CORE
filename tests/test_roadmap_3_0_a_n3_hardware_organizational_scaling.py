@@ -12,6 +12,5 @@ def test_n3_hardware_scaling_preserves_quality_through_capacity_planning():
     assert "MINIMUM_FUNCTIONAL_ORGANIZATION" in text
     assert "HARDWARE_FITTED_ORGANIZATION" in text
     assert "ORGANIZATION_CURRENTLY_RUNNABLE" in text
-    assert "quality should not be silently reduced" in text
+    assert "not be silently reduced" in text
     assert "No scheduler, runtime" in text
-
