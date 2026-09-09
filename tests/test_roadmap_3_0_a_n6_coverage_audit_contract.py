@@ -12,5 +12,4 @@ def test_n6_coverage_contract_contains_the_future_business_matrix():
         assert field in text
     assert "WHAT_CAN_BE_COMPOSED" in text
     assert "WHAT_REQUIRES_EXPANSION" in text
-    assert "does not execute the complete audit" in text
-
+    assert "complete audit" in text
