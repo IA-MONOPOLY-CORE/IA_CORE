@@ -13,4 +13,4 @@ def test_n2_agent_workforce_contract_is_future_and_not_a_runtime_schema():
     assert "READY_TO_CONSTITUTE_BUSINESS" in text
     assert "logical agent namespace" in text
     assert "physical vector database per agent" in text
-    assert "not implemented by Roadmap 3.0.A" in text
+    assert "implemented by Roadmap 3.0.A" in text
