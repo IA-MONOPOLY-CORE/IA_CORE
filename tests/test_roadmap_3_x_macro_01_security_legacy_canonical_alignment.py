@@ -16,6 +16,7 @@ EVIDENCE_PATH = ROOT / "docs" / "ROADMAP_3_X_MACRO_01_EVIDENCE.json"
 DISPOSITION_PATH = ROOT / "docs" / "ROADMAP_3_X_LEGACY_ROUTE_DISPOSITION.md"
 CHECKPOINT_PATH = ROOT / "docs" / "ROADMAP_3_X_MACRO_01_CHECKPOINT.md"
 RECONNAISSANCE_PATH = ROOT / "docs" / "ROADMAP_3_X_MACRO_01_ROUTE_RECONNAISSANCE.md"
+B3_PATH = ROOT / "docs" / "ROADMAP_3_X_MACRO_01_B3_COVERAGE.md"
 
 
 def _api_tree() -> ast.Module:
@@ -121,9 +122,11 @@ def test_evidence_manifest_contains_complete_b2_disposition_and_hard_stop():
     assert manifest["coverage_before"] == manifest["coverage_after"]
     assert manifest["blocks"]["B-1"] == "PASS"
     assert manifest["blocks"]["B-2"] == "PASS_UNKNOWN_QUALITY_GATE"
-    assert manifest["blocks"]["B-3"] == "AUTHORIZED_CONTINUATION_PENDING_VALIDATION"
+    assert manifest["blocks"]["B-3"] == "PASS_EXPLICIT_CONTRACT_ONLY_UNALIGNED_LEGACY_SURFACE"
     assert manifest["route_recalculation"]["new_classification"] == "RECONNAISSANCE_REQUIRED_CONDITIONAL_FRONTIER"
     assert manifest["route_reconnaissance"]["routes_with_unknown_quality_records"] == 36
+    assert manifest["b3_coverage"]["canonical_contracts_are_route_authority"] is False
+    assert manifest["b3_coverage"]["coverage_changed"] is False
 
 
 def test_route_reconnaissance_records_unknown_quality_gate_for_all_routes():
@@ -148,13 +151,34 @@ def test_route_reconnaissance_records_unknown_quality_gate_for_all_routes():
     assert "CONTRACT_EXISTS_IS_NOT_ROUTE_ADAPTER" in reconnaissance
 
 
-def test_disposition_and_checkpoint_preserve_the_true_hard_frontier():
+def test_b3_coverage_contract_keeps_canonical_contracts_distinct_from_routes():
+    b3 = B3_PATH.read_text(encoding="utf-8")
+    api_source = API_PATH.read_text(encoding="utf-8")
+    assert "CONTROL_PLANE_COVERAGE_CONTRACT = PASS_EXPLICIT_CONTRACT_ONLY_UNALIGNED_LEGACY_SURFACE" in b3
+    assert "Canonical internal modules contain no FastAPI route registration." in b3
+    assert "NO_SAFE_ALIGNMENT; coverage remains unchanged" in b3
+    assert "B-4, B-5, B-6 or B-7" in b3
+    for forbidden_import in (
+        "backend_internal_request_envelope",
+        "backend_internal_dispatcher",
+        "backend_internal_confirmation_gate",
+        "backend_internal_response_adapter",
+        "agent_permission_contract",
+        "runtime_activation_gate",
+    ):
+        assert f"from core.{forbidden_import}" not in api_source
+    assert "orchestrate_async" in _function_source("chat_endpoint")
+    assert "dispatch_internal_request" not in _function_source("chat_endpoint")
+    assert 'settings.pop("api_key", None)' in _function_source("get_settings")
+
+
+def test_disposition_and_checkpoint_preserve_recalculated_frontier():
     disposition = DISPOSITION_PATH.read_text(encoding="utf-8")
     checkpoint = CHECKPOINT_PATH.read_text(encoding="utf-8")
     rows = re.findall(r"^\| `[^`]+` \| (GET|POST|PUT|DELETE) \|", disposition, re.MULTILINE)
     assert len(rows) == 36
     assert "F-004" in disposition
     assert "No route is marked `REMOVE`" in disposition
-    assert "ROADMAP_3X_MACRO_01_BLOCKED" in checkpoint
-    assert "B-3: NOT ENTERED" in checkpoint
+    assert "ROADMAP_3X_MACRO_01_SECURITY_LEGACY_CANONICAL_ALIGNMENT_PASSED" in checkpoint
+    assert "B-3: PASS_EXPLICIT_CONTRACT_ONLY_UNALIGNED_LEGACY_SURFACE" in checkpoint
     assert "ROADMAP_3X_MACRO_01_SECURITY_LEGACY_CANONICAL_ALIGNMENT_PUBLISHED" not in checkpoint

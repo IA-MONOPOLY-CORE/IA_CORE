@@ -2,7 +2,7 @@
   "schema_version": "roadmap_3_x_macro_01_security_legacy_canonical_alignment.v1",
   "mission_id": "roadmap_3x_macro_01_security_legacy_canonical_alignment",
   "mission_type": "ADAPTIVE_MULTI_BLOCK_SECURITY_AND_ARCHITECTURAL_ALIGNMENT",
-  "mode": "B1_B2_B3_WITH_TRUE_HARD_FRONTIER_STOP",
+  "mode": "B1_B2_B3_DOCUMENTARY_CONTROL_PLANE_ALIGNMENT",
   "baseline_head": "f87dbb963dacaa9a4a358da816ad78d55d37cdd8",
   "source_constraints": {
     "historical_zip": "IA_CORE_clean(1).zip = NON_AUTHORITATIVE_AND_NOT_OPENED",
@@ -96,6 +96,16 @@
     "routes_internalized": 0,
     "routes_removed": 0
   },
+  "b3_coverage": {
+    "status": "PASS_EXPLICIT_CONTRACT_ONLY_UNALIGNED_LEGACY_SURFACE",
+    "evidence_document": "docs/ROADMAP_3_X_MACRO_01_B3_COVERAGE.md",
+    "canonical_contracts_are_route_authority": false,
+    "canonical_http_adapters_demonstrated": false,
+    "payload_migration_performed": false,
+    "coverage_changed": false,
+    "high_risk_bypasses_preserved": ["POST /api/chat", "POST /api/settings", "POST /api/domains/create", "agent mutation routes"],
+    "next_blocks": ["B-4", "B-5", "B-6", "B-7"]
+  },
   "routes": [
     {"route_id":"api_status_get","method":"GET","path":"/api/status","handler":"get_status","current_purpose":"status and readiness read","consumers":["ui:web","unknown_external"],"write_capability":"NO_WRITE_PATH_DEMONSTRATED","secret_capability":"route connection not demonstrated","provider_capability":"supervisor/provider metadata path","runtime_capability":"NOT_CONNECTED_TO_LEGACY_ROUTE","risk":"status and provider metadata exposure","destination":"UNKNOWN","successor":"NONE_DEMONSTRATED","migration_path":"PENDING_OWNER_AND_DIRECTION","retirement_preconditions":["consumer proof","owner","successor or compatibility decision"],"evidence":["api.py::get_status","ROADMAP_3_2 route record"],"confidence":"HIGH_ROUTE_LOW_DISPOSITION"},
     {"route_id":"api_memory_get","method":"GET","path":"/api/memory","handler":"get_memory_snapshot","current_purpose":"memory and history read","consumers":["ui:web admin","unknown_external"],"write_capability":"NO_WRITE_PATH_DEMONSTRATED","secret_capability":"memory sensitivity not reconciled","provider_capability":"NOT_APPLICABLE","runtime_capability":"NOT_CONNECTED_TO_LEGACY_ROUTE","risk":"sensitive memory exposure","destination":"UNKNOWN","successor":"NONE_DEMONSTRATED","migration_path":"PENDING_OWNER_AND_DIRECTION","retirement_preconditions":["consumer proof","ownership and scope policy"],"evidence":["api.py::get_memory_snapshot","ROADMAP_3_2 route record"],"confidence":"HIGH_ROUTE_LOW_DISPOSITION"},
@@ -143,7 +153,8 @@
   },
   "piece_list": [
     {"piece_id":"PIECE_CORS_AND_SETTINGS_SECRET_BOUNDARY","routes_included":["CORS middleware","POST /api/settings","GET /api/settings"],"why_grouped":"shared security and secret-boundary contract","commit":"be5986e0f8fd49a61694d2d8752bae20f0f52c52","tests":"29 combined focal and historical tests; py_compile PASS","rollback":"none","learning_state":"OBSERVED"},
-    {"piece_id":"PIECE_LEGACY_ROUTE_RECONNAISSANCE","routes_included":["all 36 routes grouped into 9 coherent pieces"],"why_grouped":"route-specific caller, owner, successor and UNKNOWN quality evidence","commit":"pending localized evidence commit","tests":"pending final manifest guard","rollback":"none","learning_state":"OBSERVED"}
+    {"piece_id":"PIECE_LEGACY_ROUTE_RECONNAISSANCE","routes_included":["all 36 routes grouped into 9 coherent pieces"],"why_grouped":"route-specific caller, owner, successor and UNKNOWN quality evidence","commit":"5fb04693","tests":"32 macro focal tests; JSON PASS; diff check PASS","rollback":"none","learning_state":"OBSERVED"},
+    {"piece_id":"PIECE_B3_CONTROL_PLANE_COVERAGE","routes_included":["canonical contract provenance and high-risk bypass checks"],"why_grouped":"reconcile contracts without treating them as route authority","commit":"pending closure commit","tests":"149 canonical contract tests plus B-3 guards","rollback":"none","learning_state":"OBSERVED"}
   ],
   "frontier_events": [
     {"frontier_id":"F-001","classification":"EXTERNAL_EVIDENCE_FRONTIER","status":"PRESERVED_UNKNOWN","next_path":"external/deployment mission only with new authorization"},
@@ -157,7 +168,8 @@
     {"piece_id":"PIECE_LEGACY_ROUTE_RECONNAISSANCE","observation":"Direction policy resolves the destination vocabulary; route-specific evidence must be completed before a route remains UNKNOWN.","evidence":["docs/ROADMAP_3_X_MACRO_01_ROUTE_RECONNAISSANCE.md","api.py","ui/web/index.html","ui/web/admin-panels.js","ui/web/domains.js","published Roadmap 3.2 evidence"],"pattern_id":"DERIVE_SERVICE_OWNER_BEFORE_DESTINATION","reusability":"reusable","scope":"legacy route disposition","failure_mode":"treating one undifferentiated UNKNOWN count as a human frontier","successful_response":"group routes by capability, inspect callers/contracts/owners/successors, then apply the true-hard test","preconditions":["destination policy","route census","repository source"],"stop_conditions":["do not mutate when semantic equivalence or external consumer risk remains unresolved"],"provenance":"F-004 route recalculation","learning_state":"OBSERVED"}
   ],
   "tests": {
-    "focal": "29 passed combined for macro guard and checkpoint-bounded Roadmap 3.1/3.2 guards",
+    "focal": "33 passed for macro guard, route recalculation, B-3 coverage and checkpoint-bounded Roadmap 3.1/3.2 guards",
+    "canonical_contracts": "149 passed for permission, capability, secret, activation, readiness and internal backend contract suites",
     "py_compile": "PASS",
     "provider_runtime_network": "NOT RUN",
     "historical_policy": "checkpoint-bounded"
@@ -165,7 +177,7 @@
   "blocks": {
     "B-1": "PASS",
     "B-2": "PASS_UNKNOWN_QUALITY_GATE",
-    "B-3": "AUTHORIZED_CONTINUATION_PENDING_VALIDATION",
+    "B-3": "PASS_EXPLICIT_CONTRACT_ONLY_UNALIGNED_LEGACY_SURFACE",
     "B-4": "NOT_ENTERED",
     "B-5": "NOT_ENTERED",
     "B-6": "NOT_ENTERED",
@@ -173,8 +185,8 @@
   },
   "metrics": {
     "blocks_planned": 3,
-    "blocks_completed": 2,
-    "pieces_actual": 3,
+    "blocks_completed": 3,
+    "pieces_actual": 4,
     "known_frontiers_at_start": 3,
     "frontiers_dissolved_during_execution": 2,
     "emergent_true_hard_frontiers_discovered": 0,
@@ -184,14 +196,14 @@
     "retries": 0,
     "local_rollbacks": 0,
     "global_rollbacks": 0,
-    "commits": 2,
-    "surface_closed": ["B-1 security boundary", "B-2 route-specific reconnaissance"],
-    "result": "B2_RECALCULATED_B3_PENDING"
+    "commits": 4,
+    "surface_closed": ["B-1 security boundary", "B-2 route-specific reconnaissance", "B-3 control-plane coverage contract"],
+    "result": "READY_FOR_PUBLICATION"
   },
   "publication": {
-    "status": "NOT_PUBLISHED_B3_PENDING",
+    "status": "READY_TO_PUBLISH_AFTER_FINAL_REMOTE_VERIFICATION",
     "push": false,
     "fetch": false,
-    "next_action": "EXECUTE_B3_CANONICAL_CONTROL_PLANE_COVERAGE_ALIGNMENT"
+    "next_action": "FETCH_VERIFY_PUSH_FETCH_AND_CONFIRM_HEAD_EQUALS_ORIGIN"
   }
 }

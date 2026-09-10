@@ -103,7 +103,7 @@ coverage alignment under the original macro-mission authority.
 
 ## B-3 coverage snapshot
 
-| Classification | Before B-3 | Post-B-2 reconnaissance |
+| Classification | Before B-3 | After B-3 |
 | --- | ---: | ---: |
 | `CANONICAL_CONTROL_PLANE_COVERED` | 0 | 0 |
 | `PARTIALLY_COVERED` | 1 | 1 |
@@ -115,8 +115,10 @@ The CORS and settings boundary fixes do not constitute canonical control-plane
 coverage. `/api/chat` remains a legacy provider-capable bypass. `/api/settings`
 remains a legacy settings route, now with raw `api_key` persistence and
 response exposure blocked, but without route identity/authorization or a final
-settings owner contract. B-3 must validate that this unchanged coverage is
-truthful; it must not invent a migration merely to improve the count.
+settings owner contract. B-3 validated that this unchanged coverage is
+truthful; it did not invent a migration merely to improve the count. The
+contract-only reconciliation is recorded in
+`ROADMAP_3_X_MACRO_01_B3_COVERAGE.md`.
 
 ## Frontier record
 
@@ -128,8 +130,8 @@ truthful; it must not invent a migration merely to improve the count.
   `RECONNAISSANCE_REQUIRED / CONDITIONAL_FRONTIER`; Direction resolved the
   policy-level destination vocabulary, while route-level evidence remains
   insufficient for non-UNKNOWN destinations.
-- `F-005`: pending B-3 coverage validation; no canonical adapter alignment is
-  claimed by this B-2 recalculation.
+- `F-005`: resolved as a static provenance finding; canonical contracts exist,
+  but no route adapter is present. No canonical adapter alignment is claimed.
 
 ## Non-remediation declarations
 

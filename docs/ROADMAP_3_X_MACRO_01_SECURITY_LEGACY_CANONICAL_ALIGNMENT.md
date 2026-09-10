@@ -8,7 +8,7 @@ Baseline: `f87dbb963dacaa9a4a358da816ad78d55d37cdd8`
 
 Authorized path: `B-1 -> B-2 -> B-3`, maximum three contiguous blocks.
 
-Actual path: `B-1 PASS -> B-2 BLOCKED at F-004 -> B-3 NOT ENTERED`.
+Actual path: `B-1 PASS -> B-2 PASS_UNKNOWN_QUALITY_GATE -> B-3 PASS`.
 
 ## Authority reconstruction
 
@@ -42,32 +42,35 @@ in that order.
 
 ## B-2 result
 
-`LEGACY_CANONICAL_DESTINATION_CONTRACT = BLOCKED`
+`LEGACY_CANONICAL_DESTINATION_CONTRACT = PASS_UNKNOWN_QUALITY_GATE`
 
-All 36 routes have an explicit disposition record, but all remain `UNKNOWN`.
-That is a complete and honest classification, not a missing row. The current
-evidence does not prove the owner, external consumer boundary, canonical
-successor, semantic equivalence or retirement preconditions needed for a
-non-UNKNOWN destination. See the complete table in
-`ROADMAP_3_X_LEGACY_ROUTE_DISPOSITION.md`.
+All 36 routes have an explicit disposition record, and all remain `UNKNOWN`
+after route-specific reconnaissance because the evidence is insufficient for a
+non-UNKNOWN destination. This is a quality-gated classification, not a missing
+row. See the complete route table and the per-route evidence in
+`ROADMAP_3_X_LEGACY_ROUTE_DISPOSITION.md` and
+`ROADMAP_3_X_MACRO_01_ROUTE_RECONNAISSANCE.md`.
 
-The true hard frontier is `F-004`: selecting a bridge, containment, successor
-or retirement authority for the live legacy surface requires Direction/Architect
-input. No route was removed, migrated, wrapped or exposed as internal-only.
+F-004 was recalculated from an undifferentiated true-hard stop to a
+route-specific conditional frontier. No route was removed, migrated, wrapped
+or exposed as internal-only.
 
 ## B-3 result
 
-`NOT_ENTERED_DUE_TO_B_2_TRUE_HARD_FRONTIER`
+`CONTROL_PLANE_COVERAGE_CONTRACT = PASS_EXPLICIT_CONTRACT_ONLY_UNALIGNED_LEGACY_SURFACE`
 
 Coverage remains `0 covered / 1 partial / 2 legacy bypass / 33 not demonstrated
-/ 0 not applicable`. The security piece does not create canonical coverage.
+/ 0 not applicable`. B-3 explicitly proves that canonical contracts are not
+route authority and that no safe semantic-equivalent adapter was demonstrated.
+See `ROADMAP_3_X_MACRO_01_B3_COVERAGE.md`.
 
 ## Piece records
 
 | Piece | Routes | Commit | Tests | Rollback |
 | --- | --- | --- | --- | --- |
 | `PIECE_CORS_AND_SETTINGS_SECRET_BOUNDARY` | CORS middleware; POST/GET `/api/settings` | `be5986e0` | Macro focal + historical 3.1/3.2: `29 passed`; `py_compile` pass | None |
-| `PIECE_LEGACY_ROUTE_DISPOSITION` | All 36 routes | Pending checkpoint commit | Evidence/manifest guards pending final run | None |
+| `PIECE_LEGACY_ROUTE_RECONNAISSANCE` | All 36 routes grouped into 9 coherent pieces | `5fb0469` | Macro focal + historical 3.1/3.2: `32 passed` | None |
+| `PIECE_B3_CONTROL_PLANE_COVERAGE` | Canonical contract provenance and negative bypass checks | Pending closure commit | Canonical contract focal suite plus macro guards | None |
 
 ## Learning gate
 
