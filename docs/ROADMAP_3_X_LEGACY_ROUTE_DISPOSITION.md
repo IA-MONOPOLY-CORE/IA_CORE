@@ -2,15 +2,21 @@
 
 ## Scope
 
-This document records the B-2 disposition attempt for
+This document records the B-2 disposition for
 `roadmap_3x_macro_01_security_legacy_canonical_alignment` after the published
-security-boundary piece `be5986e`. It is a static disposition record. It does
-not claim deployment exposure, external consumers, runtime reachability or
-canonical route coverage.
+security-boundary piece `be5986e` and the F-004 route recalculation. It is a
+static disposition record. It does not claim deployment exposure, external
+consumers, runtime reachability or canonical route coverage.
 
 The source-of-truth route census remains the published Roadmap 3.2 evidence:
 36 registered routes, 22 GET, 12 POST, 1 PUT and 1 DELETE. The current source
 still has the same census. The root route is included in the 36-route count.
+
+The route-specific evidence and UNKNOWN quality gate are recorded in
+[`ROADMAP_3_X_MACRO_01_ROUTE_RECONNAISSANCE.md`](ROADMAP_3_X_MACRO_01_ROUTE_RECONNAISSANCE.md).
+Every route was checked against source, callers, tests, canonical contracts,
+owner candidates, successor candidates and external-consumer risk before being
+left `UNKNOWN`.
 
 ## Disposition vocabulary
 
@@ -89,14 +95,15 @@ retirement was performed. No compatibility wrapper or internal-only boundary
 was created. No successor map is asserted because semantic equivalence and
 ownership are not demonstrated.
 
-The explicit `UNKNOWN` classification is the B-2 stop condition. The route
-disposition contract is complete as an inventory, but B-2 cannot close until
-Direction/Architect resolves the bridge, owner, successor and retirement
-policy for the live legacy surface. No B-3 execution follows this stop.
+The explicit `UNKNOWN` classification is no longer a missing investigation.
+The route-specific quality gate is satisfied for all 36 rows, so B-2 closes
+with `UNKNOWN` permitted by policy. No mutation is implied. No route was
+removed, migrated, wrapped or exposed as internal-only. The next step is B-3
+coverage alignment under the original macro-mission authority.
 
 ## B-3 coverage snapshot
 
-| Classification | Before | After this mission |
+| Classification | Before B-3 | Post-B-2 reconnaissance |
 | --- | ---: | ---: |
 | `CANONICAL_CONTROL_PLANE_COVERED` | 0 | 0 |
 | `PARTIALLY_COVERED` | 1 | 1 |
@@ -108,7 +115,8 @@ The CORS and settings boundary fixes do not constitute canonical control-plane
 coverage. `/api/chat` remains a legacy provider-capable bypass. `/api/settings`
 remains a legacy settings route, now with raw `api_key` persistence and
 response exposure blocked, but without route identity/authorization or a final
-settings owner contract.
+settings owner contract. B-3 must validate that this unchanged coverage is
+truthful; it must not invent a migration merely to improve the count.
 
 ## Frontier record
 
@@ -116,8 +124,12 @@ settings owner contract.
 - `F-002`: dissolved for the authorized source boundary; CORS now uses an explicit allowlist, default local origin, deny on wildcard/invalid configured origins, minimum methods/headers and credentials disabled.
 - `F-003A`: dissolved for raw API-key persistence and response exposure; secret values were not read or printed by the audit.
 - `F-003B`: remains conditional for ownership, non-secret settings persistence, deployment storage and route authorization.
-- `F-004`: reached as a true hard frontier; no route-level bridge/retirement/successor authority is available for the complete live legacy surface.
-- `F-005`: not executed because B-2 stopped before canonical adapter alignment.
+- `F-004`: recalculated from an undifferentiated true-hard stop to
+  `RECONNAISSANCE_REQUIRED / CONDITIONAL_FRONTIER`; Direction resolved the
+  policy-level destination vocabulary, while route-level evidence remains
+  insufficient for non-UNKNOWN destinations.
+- `F-005`: pending B-3 coverage validation; no canonical adapter alignment is
+  claimed by this B-2 recalculation.
 
 ## Non-remediation declarations
 

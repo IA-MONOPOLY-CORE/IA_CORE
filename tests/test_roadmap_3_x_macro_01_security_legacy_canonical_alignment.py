@@ -15,6 +15,7 @@ API_PATH = ROOT / "api.py"
 EVIDENCE_PATH = ROOT / "docs" / "ROADMAP_3_X_MACRO_01_EVIDENCE.json"
 DISPOSITION_PATH = ROOT / "docs" / "ROADMAP_3_X_LEGACY_ROUTE_DISPOSITION.md"
 CHECKPOINT_PATH = ROOT / "docs" / "ROADMAP_3_X_MACRO_01_CHECKPOINT.md"
+RECONNAISSANCE_PATH = ROOT / "docs" / "ROADMAP_3_X_MACRO_01_ROUTE_RECONNAISSANCE.md"
 
 
 def _api_tree() -> ast.Module:
@@ -119,8 +120,32 @@ def test_evidence_manifest_contains_complete_b2_disposition_and_hard_stop():
     assert manifest["route_census"]["disposition_counts"]["UNKNOWN"] == 36
     assert manifest["coverage_before"] == manifest["coverage_after"]
     assert manifest["blocks"]["B-1"] == "PASS"
-    assert manifest["blocks"]["B-2"] == "BLOCKED_TRUE_HARD_F-004"
-    assert manifest["blocks"]["B-3"] == "NOT_ENTERED"
+    assert manifest["blocks"]["B-2"] == "PASS_UNKNOWN_QUALITY_GATE"
+    assert manifest["blocks"]["B-3"] == "AUTHORIZED_CONTINUATION_PENDING_VALIDATION"
+    assert manifest["route_recalculation"]["new_classification"] == "RECONNAISSANCE_REQUIRED_CONDITIONAL_FRONTIER"
+    assert manifest["route_reconnaissance"]["routes_with_unknown_quality_records"] == 36
+
+
+def test_route_reconnaissance_records_unknown_quality_gate_for_all_routes():
+    reconnaissance = RECONNAISSANCE_PATH.read_text(encoding="utf-8")
+    assert "B-2 result | `PASS_UNKNOWN_QUALITY_GATE`" in reconnaissance
+    assert "UNKNOWN != NOT_INVESTIGATED" in reconnaissance
+    assert reconnaissance.count("| `") >= 36
+    for marker in (
+        "Unknown reason",
+        "Search surfaces checked",
+        "Caller evidence checked",
+        "Contract evidence checked",
+        "Canonical owner checked",
+        "Successor checked",
+        "External consumer risk",
+        "Evidence that would resolve it",
+    ):
+        assert marker in reconnaissance
+    assert "POST /api/chat" in reconnaissance
+    assert "GET /api/settings" in reconnaissance
+    assert "POST /api/settings" in reconnaissance
+    assert "CONTRACT_EXISTS_IS_NOT_ROUTE_ADAPTER" in reconnaissance
 
 
 def test_disposition_and_checkpoint_preserve_the_true_hard_frontier():
