@@ -1,0 +1,14 @@
+{
+  "candidate_knowledge_ids": [],
+  "conflict_event_ids": [],
+  "created_at": "2026-09-11T00:00:00+00:00",
+  "execution_metric_id": "roadmap_3_x_macro_02_learning_loop_metric",
+  "learning_event_id": "roadmap_3_x_macro_02_learning_loop",
+  "learning_status": "NO_LEARNING_FOUND",
+  "loop_id": "roadmap_3_x_macro_02_learning_loop",
+  "loop_steps": ["EXECUTE", "VALIDATE", "CAPTURE", "DISTILL", "ASSESS", "STORE", "COMPILE_NEXT"],
+  "mission_id": "roadmap_3_x_macro_02",
+  "next_mission_id": "roadmap_3_x_macro_03",
+  "next_pack_id": null,
+  "schema_version": "gokv.post_block_learning_loop.v1"
+}
