@@ -1,0 +1,73 @@
+{
+  "schema_version": "roadmap_3_x_macro_02.checkpoint.v1",
+  "mission_id": "ROADMAP_3_X_MACRO_02",
+  "result": "ROADMAP_3X_MACRO_02_B4_B5_PASSED_B6_CONDITIONALLY_DEFERRED_AND_PUBLISHED",
+  "preflight": {
+    "root": "C:/IA_CORE",
+    "branch": "main",
+    "head_before_checkpoint": "555f0294a5aba4027757de2f2ea40425c06bb7f5",
+    "origin_main_before_checkpoint": "fbbc5372865467c4c5de3c09e580644971e2d163",
+    "ahead_behind_before_checkpoint": "18/0",
+    "working_tree_clean_before_checkpoint": true,
+    "git_fetch_origin_main": "PASS",
+    "macro_01_artifacts": "INTACT_AND_VALIDATED",
+    "macro_01_four_commit_order": "INTACT"
+  },
+  "method": {
+    "prior_method": "METHOD_SANTI_3_0_VERIFIED_ADAPTIVE_PROJECT_DIRECTION_ENGINEERING",
+    "applied_inventory": "ROADMAP_2_1_METHOD_APPLIED_AUDIT",
+    "standalone_method_3_1_found": false,
+    "new_method": "METHOD_SANTI_3_2_GOVERNED_CAPABILITY_EXPANSION",
+    "compatibility": "ADDITIVE_CURRENT_CONTRACT_WINS_NO_RUNTIME_AUTHORITY",
+    "rules_added": ["KNOWN_MAP_REFINEMENT", "GOVERNED_SURFACE_THROUGHPUT", "BLOCK_STATION_COMMIT_MODEL", "AMBIGUITY_PROPORTIONAL_PROMPTING", "REPOSITORY_FIELD_RECOMMENDATION_LOOP", "CUMULATIVE_FRONTIER_PREPARATION", "PROGRESSIVE_FRONTIER_COMPRESSION", "RELEVANCE_COMPLETE_SCOPE_BOUNDED_INHERITANCE", "MANDATORY_LEARNING_LIFECYCLE", "DOMAIN_CAPABILITY_EXTRACTION", "CAPABILITY_MAP_MODEL", "SCALE_NEUTRALITY", "HUMAN_AI_TEAM_AUTHORITY", "AUTONOMY_BY_MATURITY"]
+  },
+  "oci": {
+    "compiler_change": "OPT_IN_RESOURCE_BUDGET_ONLY",
+    "default_historical_pack_compatibility": true,
+    "allowed_statuses": ["PROMOTED", "VALIDATED"],
+    "excluded_statuses": ["CANDIDATE", "OBSERVED", "REVISED", "DEPRECATED", "REPLACED"],
+    "omission_reasons": ["RESOURCE_BUDGET_MAX_ITEMS", "RESOURCE_BUDGET_MAX_SERIALIZED_BYTES"],
+    "runtime_enabled": false,
+    "execution_enabled": false,
+    "payload_enabled": false
+  },
+  "macro_01_learning": {
+    "candidate_count": 6,
+    "ids": ["derive_service_owner_before_destination", "callable_chain_is_not_authorized_route", "legacy_write_needs_boundary_proof", "partial_security_fix_does_not_assign_owner", "read_only_method_is_not_read_authz", "contract_exists_is_not_route_adapter"],
+    "status": "CANDIDATE_ONLY",
+    "automatic_promotion": false,
+    "learning_origin": "DEVELOPMENT_ORIGIN",
+    "registry_after_adjudication": {"total": 29, "CANDIDATE": 13, "VALIDATED": 9, "PROMOTED": 7}
+  },
+  "stations": [
+    {"id":"METHOD_3_2","status":"PASSED","files":["docs/METHOD_SANTI_3_2_GOVERNED_CAPABILITY_EXPANSION.md","tests/test_method_santi_3_2.py"]},
+    {"id":"OCI_RESOURCE_GOVERNANCE","status":"PASSED","files":["gokv/compiler.py","knowledge/global_operational/schema/execution_pack.schema.json","tests/test_gokv_oci_resource_governance_0_4.py"]},
+    {"id":"MACRO_01_LEARNING_ADJUDICATION","status":"PASSED_CANDIDATE_ONLY","files":["docs/ROADMAP_3_X_MACRO_02_MACRO_01_LEARNING_ADJUDICATION.md","tests/test_roadmap_3_x_macro_02_learning_adjudication.py"]},
+    {"id":"B4_A_PERMISSION_ACTIVATION","status":"PASSED_CONTRACT_ONLY","files":["docs/ROADMAP_3_X_MACRO_02_B4_A_PERMISSION_ACTIVATION_BOUNDARY.md","tests/test_roadmap_3_x_macro_02_b4_a_permission_activation_boundary.py"]},
+    {"id":"B4_B_PROVIDER_NETWORK_CREDENTIAL","status":"PASSED_EXTERNAL_EVIDENCE_PENDING","files":["docs/ROADMAP_3_X_MACRO_02_B4_B_PROVIDER_NETWORK_CREDENTIAL_BOUNDARY.md","tests/test_roadmap_3_x_macro_02_b4_b_provider_network_credential_boundary.py"]},
+    {"id":"B5_A_PERSISTENCE_OWNERSHIP","status":"PASSED_STATIC_MATRIX","files":["docs/ROADMAP_3_X_MACRO_02_B5_A_PERSISTENCE_OWNERSHIP_RETENTION.md","tests/test_roadmap_3_x_macro_02_b5_a_persistence_ownership_retention.py"]},
+    {"id":"B5_B_SANDBOX_ROLLBACK","status":"PASSED_SANDBOX_ONLY","files":["docs/ROADMAP_3_X_MACRO_02_B5_B_SANDBOX_RECOVERY_ROLLBACK.md","tests/test_roadmap_3_x_macro_02_b5_b_sandbox_recovery_rollback.py"]},
+    {"id":"ROUTE_CONVERGENCE","status":"PASSED_NO_FALSE_CLOSURE","files":["docs/ROADMAP_3_X_MACRO_02_ROUTE_CONVERGENCE_EVIDENCE.json","tests/test_roadmap_3_x_macro_02_route_convergence.py"]},
+    {"id":"LOTERIA_P3_EXTRACTION","status":"PASSED_NO_MOVEMENT","files":["docs/ROADMAP_3_X_MACRO_02_LOTERIA_P3_CAPABILITY_EXTRACTION.md","tests/test_roadmap_3_x_macro_02_loteria_p3_capability_extraction.py"]},
+    {"id":"B6_WORKFORCE_READINESS","status":"PASSED_INTERNAL_CONTRACT_ONLY","files":["docs/ROADMAP_3_X_MACRO_02_B6_WORKFORCE_READINESS_CONTRACT.md","tests/test_roadmap_3_x_macro_02_b6_workforce_readiness_contract.py"]},
+    {"id":"MACRO_02_LEARNING_LOOP","status":"PASSED_NO_NEW_CANDIDATE","files":["docs/ROADMAP_3_X_MACRO_02_LEARNING_LOOP.md","tests/test_roadmap_3_x_macro_02_learning_loop.py"]}
+  ],
+  "b4": {"a":"PERMISSION_ACTIVATION_STATIC_CHAIN","b":"CONTRACT_READY_EXTERNAL_EVIDENCE_PENDING","runtime_activation":false,"providers_invoked":false},
+  "b5": {"a":"OWNERSHIP_MATRIX_STATIC","b":"SANDBOX_ROLLBACK_IDEMPOTENT_TEMP_FIXTURES","product_stores_touched":false},
+  "routes": {"count":36,"before":{"UNKNOWN":36},"after":{"UNKNOWN":36},"classification_changes":[],"route_use_of_canonical_contract_proven":false,"frontier":"F-004"},
+  "loteria": {"validation":"LOTTERY_SPECIFIC","ranking":"LOTTERY_SPECIFIC","evolution":"LOTTERY_SPECIFIC","learning":"GLOBAL_CONTRACT_WITH_DOMAIN_ADAPTER","evidence":"GLOBAL_CONTRACT_WITH_DOMAIN_ADAPTER","reveal":"LOTTERY_SPECIFIC","lifecycle":"BLOCKED_BY_OWNER_OR_BOUNDARY"},
+  "b6": {"classification":"CONTRACT_READY_INTERNAL_NO_ACTIVE_WORKFORCE","active_agents":false,"active_teams":false,"provider_sessions":false,"activation_performed":false},
+  "frontier": {
+    "mission_start": "Macro 01 left 36 route surfaces UNKNOWN and external/provider/persistence boundaries unresolved.",
+    "time_arrival": "Static contract and sandbox evidence became available through B4/B5.",
+    "after_preparation": "F-004 remains UNKNOWN/route-specific; external provider and legacy ownership evidence remain pending.",
+    "prepared": ["Method 3.2", "OCI resource governance", "B4 permission/provider evidence", "B5 ownership/rollback evidence", "B6 internal readiness"],
+    "reduced": ["silent OCI omission risk", "unrecorded Macro 01 learning", "unmapped persistence families", "unbounded sandbox rollback ambiguity", "unclassified Loteria capability families"],
+    "deferred": ["legacy route adapters", "identity/tenant/deployment proof", "provider reachability and credentials", "product persistence ownership", "archive/restore product semantics"],
+    "new_true_hard_frontier": false
+  },
+  "learning_loop": {"status":"NO_LEARNING_FOUND","observations_preserved":true,"automatic_promotion":false,"runtime_learning":false},
+  "safety": {"html":false,"javascript_contractual":false,"i18n":false,"backend_routes":false,"payload":false,"runtime":false,"execution":false,"endpoints":false,"integrations":false,"providers":false,"network":false,"secrets":false,"product_writes":false,"active_workforce":false},
+  "commits_before_checkpoint": ["eb3a02f72be320a75d5a7501f2c059dba8e0c548", "1c07393b21cd3b4965e956da519ddfa71ce3eaf3", "975a54e5624512450903d9b94c380cbe57bad0f0", "c520d2a072c1435118113f7411fd862b008d3194", "6622289f09e8af28845427d0984706267cdfc6c6", "75b0d1eed5b169bc8bdfe35d3f5b67f37b2778c3", "1fdf1c444a5985c01658d6125377a0835849491e", "888527c0a2d58198e10df80d1ccc90673c1692e9", "a6af100df13665efefedf81388da1ebe177e5480", "588aeaaf99fda6e0c84174be753b8dc11d09e548", "b1b15e0605fe5efe4fbdc9dd2123f3d43199dc9d", "c258700a894fdb7a7962b89ed57b165ca799d3b0", "378ebd557f3191675b8708a77461f187ccaa3330", "74f1a366e954dbc041c10c0ee17d65e041bb1421", "24b0fecc23148c325a3f5577559e689c6e1872e9", "61a0eab30e88f06254c66adc7ca5de8d744e09e8", "87f87820dfc555d9bb646e935ea01b15aebb0c5b", "555f0294a5aba4027757de2f2ea40425c06bb7f5"],
+  "publication": {"required": true,"status":"PENDING_FINAL_VALIDATION","prohibited_operations":["pull","merge","rebase","reset","force","tags"]}
+}

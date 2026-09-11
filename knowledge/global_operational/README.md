@@ -27,3 +27,14 @@ embeddings, vector databases, RAG or integrations.
 - `conditioned_autonomy` remains `VALIDATED`; automatic promotion remains disabled and `DEVELOPMENT_ORIGIN` is preserved.
 - `PROMOTED_ONLY` is active for development compilation and the UI/UX 1.202 inheritance manifest recommends it for the known read-only scope.
 - UI/UX 1.202 remains prepared-only and unexecuted.
+
+## Roadmap 3.x Macro-Mission 02
+
+- Method Santi 3.2 is materialized as an additive, adaptive, contract-only method layer.
+- OCI resource budgets are opt-in, deterministic, and record every relevant omission with a reason; historical unbounded packs remain compatible.
+- Six Macro 01 observations are stored as `CANDIDATE`; no automatic promotion occurred.
+- B4-A/B and B5-A/B record permission, provider, persistence, sandbox, and rollback readiness without runtime or product activation.
+- All 36 legacy routes remain `UNKNOWN` after evidence convergence; canonical contract presence is not route coverage.
+- Loteria P3 extraction keeps domain-specific capabilities local and marks learning/evidence as adapter-bound.
+- B6 is `CONTRACT_READY_INTERNAL_NO_ACTIVE_WORKFORCE`; providers and external evidence remain pending.
+- Macro 02 learning is persisted as a refinement loop with `NO_LEARNING_FOUND` and no silent observation loss.
