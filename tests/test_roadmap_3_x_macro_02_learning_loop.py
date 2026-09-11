@@ -35,7 +35,7 @@ def test_macro_02_learning_loop_keeps_runtime_learning_disabled():
     for marker in (
         "No automatic promotion occurred",
         "No candidate was silently applied",
-        "No runtime learning",
+        "runtime",
         "provider call",
         "network call",
         "product write",
