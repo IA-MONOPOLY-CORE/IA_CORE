@@ -26,6 +26,17 @@
     "agent_class": {"type": "string", "minLength": 1},
     "model_size_class": {"type": "string", "minLength": 1},
     "tags": {"type": "array", "items": {"type": "string"}},
+    "resource_budget": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["explicit", "max_items", "max_serialized_bytes", "priority_knowledge_ids"],
+      "properties": {
+        "explicit": {"type": "boolean"},
+        "max_items": {"type": ["integer", "null"], "minimum": 0},
+        "max_serialized_bytes": {"type": ["integer", "null"], "minimum": 0},
+        "priority_knowledge_ids": {"type": "array", "items": {"type": "string"}}
+      }
+    },
     "allowed_statuses": {"type": "array", "items": {"enum": ["PROMOTED", "VALIDATED"]}},
     "applicable_knowledge_ids": {"type": "array", "items": {"type": "string"}},
     "principles": {"type": "array", "items": {"type": "object"}},

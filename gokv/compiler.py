@@ -32,15 +32,21 @@ def compile_execution_pack(
     if normalized["mode"] == "DEVELOPMENT_VALIDATED":
         allowed_statuses.add("VALIDATED")
 
-    selected = [
+    relevant = [
         item
         for item in iter_knowledge_items(paths or default_paths())
         if item["status"] in allowed_statuses and _matches(item, normalized)
     ]
+    relevant.sort(key=lambda item: _selection_key(item, normalized))
+    selected, omitted = _apply_resource_budget(relevant, normalized["resource_budget"])
     selected.sort(key=lambda item: item["knowledge_id"])
+    omitted.sort(key=lambda entry: entry["knowledge_id"])
     ids = [item["knowledge_id"] for item in selected]
+    request_for_hash = dict(normalized)
+    if not normalized["resource_budget"]["explicit"]:
+        request_for_hash.pop("resource_budget")
     pack_id = "gokv.pack." + sha256(
-        json.dumps({"request": normalized, "knowledge_ids": ids}, sort_keys=True).encode("utf-8")
+        json.dumps({"request": request_for_hash, "knowledge_ids": ids}, sort_keys=True).encode("utf-8")
     ).hexdigest()[:16]
 
     pack = {
@@ -89,6 +95,12 @@ def compile_execution_pack(
             "excluded_statuses": ["CANDIDATE", "DEPRECATED", "REPLACED", "OBSERVED", "REVISED"],
         },
     }
+    if normalized["resource_budget"]["explicit"]:
+        pack["resource_budget"] = normalized["resource_budget"]
+        pack["evidence_summary"]["relevant_item_count"] = len(relevant)
+        pack["evidence_summary"]["omitted_relevant_items"] = omitted
+        pack["selection_policy"]["resource_budget_is_explicit"] = True
+        pack["selection_policy"]["relevance_omission_requires_reason"] = True
     if "mission_type_aliases" in normalized:
         pack["mission_type_aliases"] = normalized["mission_type_aliases"]
     if "knowledge_id_allowlist" in normalized:
@@ -223,6 +235,7 @@ def _normalize_request(request: Mapping[str, Any]) -> dict[str, Any]:
         "model_size_class": text("model_size_class", "SMALL"),
         "tags": strings("tags"),
         "mode": mode,
+        "resource_budget": _normalize_resource_budget(request.get("resource_budget")),
     }
     for optional_name in ("mission_type_aliases", "knowledge_id_allowlist"):
         if optional_name in request:
@@ -230,6 +243,82 @@ def _normalize_request(request: Mapping[str, Any]) -> dict[str, Any]:
             if values:
                 normalized[optional_name] = values
     return normalized
+
+
+def _normalize_resource_budget(value: Any) -> dict[str, Any]:
+    """Normalize an optional, development-only selection budget."""
+
+    if value is None:
+        return {
+            "explicit": False,
+            "max_items": None,
+            "max_serialized_bytes": None,
+            "priority_knowledge_ids": [],
+        }
+    if not isinstance(value, Mapping):
+        raise ValueError("resource_budget debe ser un objeto")
+
+    def non_negative_int(name: str) -> int | None:
+        raw = value.get(name)
+        if raw is None:
+            return None
+        if isinstance(raw, bool) or not isinstance(raw, int) or raw < 0:
+            raise ValueError(f"resource_budget.{name} debe ser entero no negativo")
+        return raw
+
+    priorities = value.get("priority_knowledge_ids", [])
+    if (
+        not isinstance(priorities, list)
+        or not all(isinstance(item, str) and item.strip() for item in priorities)
+    ):
+        raise ValueError("resource_budget.priority_knowledge_ids debe ser una lista de strings")
+    return {
+        "explicit": True,
+        "max_items": non_negative_int("max_items"),
+        "max_serialized_bytes": non_negative_int("max_serialized_bytes"),
+        "priority_knowledge_ids": sorted(set(item.strip() for item in priorities)),
+    }
+
+
+def _selection_key(item: Mapping[str, Any], request: Mapping[str, Any]) -> tuple[int, str]:
+    priorities = request["resource_budget"]["priority_knowledge_ids"]
+    try:
+        return (priorities.index(item["knowledge_id"]), item["knowledge_id"])
+    except ValueError:
+        return (len(priorities), item["knowledge_id"])
+
+
+def _apply_resource_budget(
+    relevant: list[Mapping[str, Any]], budget: Mapping[str, Any]
+) -> tuple[list[Mapping[str, Any]], list[dict[str, Any]]]:
+    selected: list[Mapping[str, Any]] = []
+    omitted: list[dict[str, Any]] = []
+    used_bytes = 0
+    for item in relevant:
+        if budget["max_items"] is not None and len(selected) >= budget["max_items"]:
+            omitted.append(
+                {"knowledge_id": item["knowledge_id"], "reason": "RESOURCE_BUDGET_MAX_ITEMS"}
+            )
+            continue
+        item_bytes = _serialized_item_size(item)
+        if (
+            budget["max_serialized_bytes"] is not None
+            and used_bytes + item_bytes > budget["max_serialized_bytes"]
+        ):
+            omitted.append(
+                {
+                    "knowledge_id": item["knowledge_id"],
+                    "reason": "RESOURCE_BUDGET_MAX_SERIALIZED_BYTES",
+                }
+            )
+            continue
+        selected.append(item)
+        used_bytes += item_bytes
+    return selected, omitted
+
+
+def _serialized_item_size(item: Mapping[str, Any]) -> int:
+    return len(json.dumps(item, ensure_ascii=False, sort_keys=True).encode("utf-8"))
 
 
 def _matches(item: Mapping[str, Any], request: Mapping[str, Any]) -> bool:
