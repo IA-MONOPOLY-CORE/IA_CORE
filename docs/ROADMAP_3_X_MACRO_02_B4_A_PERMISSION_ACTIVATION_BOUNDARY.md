@@ -27,6 +27,9 @@ permission, an internal dispatcher is not an HTTP adapter, readiness is not
 activation, and a lifecycle schema is not execution. A missing link remains an
 explicit frontier rather than being inferred from neighboring contracts.
 
+In short: **a callable symbol is not permission**, and **readiness is not
+activation**.
+
 ## Safety contract
 
 - `runtime_enabled`, `execution_enabled`, tool execution, and product mutation remain disabled.
