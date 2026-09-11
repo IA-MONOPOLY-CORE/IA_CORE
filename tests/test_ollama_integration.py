@@ -1,8 +1,19 @@
-"""Pruebas de integración real con Ollama (requiere runtime local)."""
+"""Pruebas de integración real con Ollama (requiere opt-in explícito)."""
+
+import os
 
 import pytest
 
 from providers.ollama_provider import OllamaError, OllamaProvider
+
+
+pytestmark = [
+    pytest.mark.external,
+    pytest.mark.skipif(
+        os.environ.get("IA_CORE_ALLOW_EXTERNAL_TESTS") != "1",
+        reason="Ollama integration requires IA_CORE_ALLOW_EXTERNAL_TESTS=1",
+    ),
+]
 
 
 @pytest.fixture

@@ -5,3 +5,8 @@ target-version = "py311"
 [tool.ruff.lint]
 select = ["E", "F", "W", "I"]
 ignore = ["E501", "F401"]
+
+[tool.pytest.ini_options]
+markers = [
+    "external: integration test requiring explicit external-test authorization",
+]

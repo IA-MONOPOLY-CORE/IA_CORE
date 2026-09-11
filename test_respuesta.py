@@ -1,11 +1,11 @@
-"""Prueba de generación de respuestas largas."""
+"""Explicit NVIDIA integration probe; never executes during import or default pytest."""
 
-from providers.nvidia_provider import NvidiaProvider
-from config import NVIDIA_API_KEY
+import os
 
-p = NvidiaProvider(api_key=NVIDIA_API_KEY)
+import pytest
 
-prompt = """Eres el Estadístico Integral. Analizá el sorteo 3790 usando los datos históricos.
+
+PROMPT = """Eres el Estadístico Integral. Analizá el sorteo 3790 usando los datos históricos.
 
 Respondé con un análisis detallado incluyendo:
 - Patrones detectados
@@ -15,16 +15,37 @@ Respondé con un análisis detallado incluyendo:
 
 Sé extenso y detallado. Escribí al menos 500 palabras."""
 
-print("Generando respuesta...")
-response = p.generate(prompt=prompt, model="meta/llama-3.1-8b-instruct", temperature=0.3)
 
-print("\n" + "=" * 60)
-print("RESPUESTA COMPLETA:")
-print("=" * 60)
-print(response.text)
-print("\n" + "=" * 60)
-print(f"LONGITUD: {len(response.text)} caracteres")
-print(f"TOKENS DE SALIDA: {response.metadata.get('completion_tokens')}")
-print(f"TOKENS DE ENTRADA: {response.metadata.get('prompt_tokens')}")
-print(f"LATENCIA: {response.metadata.get('latency_ms')} ms")
-print("=" * 60)
+def _external_tests_enabled() -> bool:
+    return os.environ.get("IA_CORE_ALLOW_EXTERNAL_TESTS") == "1"
+
+
+@pytest.mark.external
+def test_nvidia_response_integration():
+    """Run only with explicit external-test authorization and a configured key."""
+    if not _external_tests_enabled():
+        pytest.skip(
+            "NVIDIA integration is opt-in; set IA_CORE_ALLOW_EXTERNAL_TESTS=1 explicitly"
+        )
+
+    from config import NVIDIA_API_KEY
+    from providers.nvidia_provider import NvidiaProvider
+
+    if not NVIDIA_API_KEY:
+        pytest.skip("NVIDIA_API_KEY is not configured for the explicit integration run")
+
+    response = NvidiaProvider(api_key=NVIDIA_API_KEY).generate(
+        prompt=PROMPT,
+        model="meta/llama-3.1-8b-instruct",
+        temperature=0.3,
+    )
+    assert response.text
+
+
+if __name__ == "__main__":
+    if not _external_tests_enabled():
+        raise SystemExit(
+            "test_respuesta.py is an external integration probe; "
+            "set IA_CORE_ALLOW_EXTERNAL_TESTS=1 explicitly"
+        )
+    raise SystemExit(pytest.main([__file__, "-v", "-m", "external"]))

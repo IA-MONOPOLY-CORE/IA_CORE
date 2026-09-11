@@ -3,14 +3,15 @@
 
 import asyncio
 import logging
+import os
 import sys
 from pathlib import Path
 
 # Agregar el directorio actual al path
 sys.path.insert(0, str(Path(__file__).parent))
 
-from core.orchestration import ExecutionMode
-from supervisor import Supervisor
+# This root-level file is a historical manual probe. The maintained unit tests
+# live under tests/ and the legacy probe is opt-in below.
 
 # Configurar logging para ver todo en consola
 logging.basicConfig(
@@ -26,6 +27,15 @@ logging.getLogger("urllib3").setLevel(logging.WARNING)
 
 async def main():
     """Punto de entrada asíncrono."""
+
+    if os.environ.get("IA_CORE_ALLOW_EXTERNAL_TESTS") != "1":
+        raise RuntimeError(
+            "test_debate.py is a legacy runtime probe; "
+            "set IA_CORE_ALLOW_EXTERNAL_TESTS=1 explicitly"
+        )
+
+    from core.orchestration import ExecutionMode
+    from supervisor import Supervisor
 
     # Tarea de prueba (cambiala por lo que quieras analizar)
     task = """
