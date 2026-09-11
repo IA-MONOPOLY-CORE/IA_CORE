@@ -35,7 +35,7 @@ async def main():
         )
 
     from core.orchestration import ExecutionMode
-    from supervisor import Supervisor
+    from core.supervisor import Supervisor
 
     # Tarea de prueba (cambiala por lo que quieras analizar)
     task = """

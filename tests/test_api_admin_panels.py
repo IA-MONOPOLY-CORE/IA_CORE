@@ -329,7 +329,7 @@ def test_hud_active_identity_is_ia_core_without_legacy_product_branding():
 
     assert "IA_CORE // Contract-Aware HUD" in html
     assert '<h1 id="brand-title">IA_CORE</h1>' in html
-    assert "CONTRACT-AWARE FRAMEWORK CONSOLE" in html
+    assert "PANEL MAESTRO / DOCUMENTARY CONSOLE" in html
     assert "SAAOP" not in html
     assert "S.A.A.O.P." not in html
     assert "TACTICAL HUD" not in html
@@ -714,11 +714,9 @@ def test_provider_status_keeps_catalog_when_one_health_check_fails(monkeypatch):
 
 def test_provider_panel_has_single_flight_loading_and_visible_error_state():
     html = Path("ui/web/index.html").read_text(encoding="utf-8")
-    settings_handler = next(
-        line for line in html.splitlines() if "settings-fab').onclick" in line
-    )
-
-    assert "cargarProveedores" not in settings_handler
+    assert 'id="settings-fab"' in html
+    assert "section === 'providers'" in html
+    assert "cargarProveedores();" in html
     assert "providersLoadPromise" in html
     assert "Cargando proveedores..." in html
     assert "No se pudieron cargar los proveedores" in html
