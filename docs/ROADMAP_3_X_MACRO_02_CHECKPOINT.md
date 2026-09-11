@@ -60,4 +60,8 @@ inspection and temporary sandbox fixtures only.
 The integral checkpoint is a documentation/test/evidence station. Its commit
 hash is recorded by Git after creation. Final remote publication is allowed only
 after the full validation, diff, secret, side-effect, and remote-divergence
-checks required by Macro-Mission 02 pass.
+checks required by Macro-Mission 02 pass. The in-scope new tests and safe
+contract suites pass. The repository-wide baseline still has three explicitly
+out-of-scope conditions: two root legacy collection errors (`test_debate.py` and
+the network-calling `test_respuesta.py`) and two historical HTML assertions in
+`tests/test_api_admin_panels.py`; Macro 02 did not touch any of those surfaces.
