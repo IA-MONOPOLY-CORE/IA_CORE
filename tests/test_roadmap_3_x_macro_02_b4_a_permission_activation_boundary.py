@@ -30,7 +30,7 @@ def test_b4_a_static_chain_is_present_and_route_coverage_stays_unproven():
         "runtime disabled",
         "no execution",
         "No endpoint, integration, provider, network, secret, payload, UI",
-        "A callable symbol is not permission",
+        "a callable symbol is not permission",
         "readiness is not activation",
     ):
         assert marker in doc
