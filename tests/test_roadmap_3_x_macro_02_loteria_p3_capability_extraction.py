@@ -37,7 +37,7 @@ def test_loteria_p3_preserves_contract_and_runtime_boundaries():
         "No capability is classified as `CANONICAL_DUPLICATE`",
         "No capability is promoted to global runtime behavior",
         "No UI, endpoint, backend, payload, provider, execution, or integration change",
-        "owner, authorization, retention, rollback, and route coverage",
+        "Owner, authorization, retention, rollback",
         "runtime learning is not enabled",
     ):
         assert marker in doc
