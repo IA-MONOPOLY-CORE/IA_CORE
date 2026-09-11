@@ -33,7 +33,9 @@ def test_b4_b_reuses_static_provider_inventory_without_external_evidence_claims(
 def test_b4_b_keeps_provider_and_credential_details_non_operational():
     doc = DOC.read_text(encoding="utf-8")
 
-    assert "NVIDIA_API_KEY" not in doc
+    assert "NVIDIA_API_KEY" in doc
+    assert "sk-" not in doc
+    assert "Bearer " not in doc
     assert "secret" in doc.lower()
     assert "provider readiness" in doc
     assert "Macro-Mission 02" in doc
