@@ -1,0 +1,14 @@
+{
+  "candidate_knowledge_ids": ["callable_chain_is_not_authorized_route", "contract_exists_is_not_route_adapter", "derive_service_owner_before_destination", "legacy_write_needs_boundary_proof", "partial_security_fix_does_not_assign_owner", "read_only_method_is_not_read_authz"],
+  "conflict_event_ids": [],
+  "created_at": "2026-09-11T00:00:00+00:00",
+  "execution_metric_id": "roadmap_3_x_macro_01_learning_adjudication_metric",
+  "learning_event_id": "roadmap_3_x_macro_01_learning_adjudication",
+  "learning_status": "LEARNING_FOUND",
+  "loop_id": "roadmap_3_x_macro_01_learning_adjudication",
+  "loop_steps": ["EXECUTE", "VALIDATE", "CAPTURE", "DISTILL", "ASSESS", "STORE", "COMPILE_NEXT"],
+  "mission_id": "roadmap_3_x_macro_01",
+  "next_mission_id": "roadmap_3_x_macro_02",
+  "next_pack_id": null,
+  "schema_version": "gokv.post_block_learning_loop.v1"
+}
