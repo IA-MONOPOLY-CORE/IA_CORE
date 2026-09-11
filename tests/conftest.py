@@ -6,6 +6,32 @@ import pytest
 
 
 @pytest.fixture(autouse=True)
+def isolate_persistent_writes(tmp_path, monkeypatch):
+    """Route legacy persistence helpers and relative stores into tmp_path."""
+    import config
+    import core.herramientas as herramientas
+    import core.memoria_perpetua as memoria_perpetua
+
+    memory_root = tmp_path / "memory"
+    memory_root.mkdir()
+    monkeypatch.chdir(tmp_path)
+    monkeypatch.setattr(config, "MEMORY_STATE_FILE", memory_root / "state.json")
+    monkeypatch.setattr(config, "OLLAMA_PRELOAD_MODEL", False)
+    monkeypatch.setattr(
+        config,
+        "MEMORY_HERRAMIENTAS_COMPARTIDAS",
+        memory_root / "herramientas_compartidas.json",
+    )
+    monkeypatch.setattr(memoria_perpetua, "MEMORIA_BASE", tmp_path / "memoria_agentes")
+    monkeypatch.setattr(memoria_perpetua, "MEMORIA_VECTORIAL_BASE", tmp_path / "memoria_vectorial")
+    monkeypatch.setattr(
+        herramientas,
+        "HERRAMIENTAS_PATH",
+        memory_root / "herramientas_compartidas.json",
+    )
+
+
+@pytest.fixture(autouse=True)
 def mock_llm_for_integration_tests(request, monkeypatch):
     """
     Sustituye invoke_llm por respuesta rápida.
