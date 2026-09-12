@@ -7,6 +7,7 @@ import os
 import socket
 import subprocess
 import sys
+import tempfile
 import urllib.request
 from pathlib import Path
 
@@ -77,6 +78,14 @@ if not EXTERNAL_TESTS_ENABLED:
 
 
 _REPOSITORY_ROOT = Path(__file__).resolve().parent
+_TEST_LOG_ROOT = Path(tempfile.mkdtemp(prefix="ia-core-pytest-"))
+try:
+    import config as _test_config
+
+    _test_config.LOG_DIR = _TEST_LOG_ROOT
+except ImportError:
+    pass
+
 _PROTECTED_ROOTS = {
     (_REPOSITORY_ROOT / "memory").resolve(),
     (_REPOSITORY_ROOT / "memoria_agentes").resolve(),

@@ -11,10 +11,10 @@ def isolate_persistent_writes(tmp_path, monkeypatch):
     import config
     import core.herramientas as herramientas
     import core.memoria_perpetua as memoria_perpetua
+    import core.supervisor as supervisor_module
 
     memory_root = tmp_path / "memory"
     memory_root.mkdir()
-    monkeypatch.chdir(tmp_path)
     monkeypatch.setattr(config, "MEMORY_STATE_FILE", memory_root / "state.json")
     monkeypatch.setattr(config, "OLLAMA_PRELOAD_MODEL", False)
     monkeypatch.setattr(
@@ -29,6 +29,14 @@ def isolate_persistent_writes(tmp_path, monkeypatch):
         "HERRAMIENTAS_PATH",
         memory_root / "herramientas_compartidas.json",
     )
+    original_path = supervisor_module.Path
+
+    def _path_for_test(value, *parts):
+        if value == "memory/herramientas_compartidas.json" and not parts:
+            return memory_root / "herramientas_compartidas.json"
+        return original_path(value, *parts)
+
+    monkeypatch.setattr(supervisor_module, "Path", _path_for_test)
 
 
 @pytest.fixture(autouse=True)
