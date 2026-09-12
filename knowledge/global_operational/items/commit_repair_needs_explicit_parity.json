@@ -1,0 +1,37 @@
+{
+  "schema_version": "gokv.knowledge_item.v1",
+  "applicability": {"mission_types": ["all_development", "test_hardening"], "scopes": ["IA_CORE_BUILD", "GLOBAL"]},
+  "confidence": {"level": "LOW", "rationale": "Macro-Mission 02 required reconstruction of a 20-commit history containing bounded repair commits that were previously grouped in reporting."},
+  "created_at": "2026-09-11T00:00:00+00:00",
+  "decision_rules": ["Evaluate every historical commit by real diff and record repair commits as explicit station-parity deviations when they lack a complete station."],
+  "evidence_refs": [
+    {"evidence_id": "macro_02_commit_accountability", "kind": "document", "ref": "docs/ROADMAP_3_X_MACRO_02_COMMIT_ACCOUNTABILITY_LEDGER.md", "claim": "All 20 commits are enumerated with parents, files, tests, side effects, rollback, and verdict."},
+    {"evidence_id": "macro_02_1_checkpoint", "kind": "document", "ref": "docs/ROADMAP_3_X_MACRO_02_1_CHECKPOINT.md", "claim": "Macro 02.1 records station-to-commit parity and historical deviations without rewriting history."}
+  ],
+  "failure_modes": ["Group repair commits into a narrative station and lose individual accountability, or rewrite history to manufacture parity."],
+  "knowledge_id": "commit_repair_needs_explicit_parity",
+  "knowledge_version": "0.1.0",
+  "kind": "COMMIT_STRATEGY",
+  "learning_origin": "DEVELOPMENT_ORIGIN",
+  "lineage": [
+    {"relation": "REFINE", "related_knowledge_id": "station_local_commits", "related_origin": "DEVELOPMENT_ORIGIN", "evidence_refs": ["macro_02_commit_accountability"], "notes": ["One station per new commit is extended with explicit evaluation of historical repairs."]},
+    {"relation": "REFINE", "related_knowledge_id": "real_diff_over_planned_commit_name", "related_origin": "DEVELOPMENT_ORIGIN", "evidence_refs": ["macro_02_commit_accountability"], "notes": ["The real diff, not the subject alone, determines the accountability verdict."]}
+  ],
+  "metrics_refs": ["roadmap_3_x_macro_02_1_learning_reconciliation_metric"],
+  "preconditions": ["A mission inherits an existing commit range or contains repair commits."],
+  "privacy_class": "ia_core_internal",
+  "procedure": ["Resolve exact range and parent chain.", "Inspect each real diff.", "Map each commit to station, tests, evidence, dependencies, and rollback.", "Record parity deviations without rewriting history.", "Require one coherent station per new commit going forward."],
+  "recovery": ["Keep the historical verdict, create a localized forward station, and never amend or squash the inherited history."],
+  "scope": "IA_CORE_BUILD",
+  "source_checkpoints": ["ROADMAP_3_X_MACRO_02", "ROADMAP_3_X_MACRO_02_1"],
+  "source_commits": ["ad7a3dcac1959aba086c1098b126e8c97b9e32b8", "9747ebb", "d95ffba"],
+  "status": "CANDIDATE",
+  "stop_conditions": ["Stop on material authorization mismatch or out-of-scope historical diff.", "Do not relabel a repair as a full station merely to improve the report."],
+  "summary": "Commit accountability requires a complete real-diff ledger and explicit parity treatment for repairs.",
+  "superseded_by": [],
+  "supersedes": [],
+  "tags": ["git", "commits", "accountability", "repair", "parity"],
+  "title": "Commit repairs need explicit parity",
+  "updated_at": "2026-09-11T00:00:00+00:00",
+  "validation": ["The Macro 02 range resolves to exactly 20 commits and each repair is individually recorded."]
+}

@@ -1,0 +1,14 @@
+{
+  "loop_id": "roadmap_3_x_macro_02_1_learning_reconciliation",
+  "schema_version": "gokv.post_block_learning_loop.v1",
+  "mission_id": "roadmap_3_x_macro_02_1",
+  "learning_status": "LEARNING_FOUND",
+  "learning_event_id": "roadmap_3_x_macro_02_1_learning_reconciliation",
+  "execution_metric_id": "roadmap_3_x_macro_02_1_learning_reconciliation_metric",
+  "candidate_knowledge_ids": ["test_collection_must_be_side_effect_free", "test_writes_require_temporary_boundary", "commit_repair_needs_explicit_parity"],
+  "conflict_event_ids": [],
+  "next_mission_id": "roadmap_3_x_macro_03",
+  "next_pack_id": null,
+  "loop_steps": ["EXECUTE", "VALIDATE", "CAPTURE", "DISTILL", "ASSESS", "STORE", "COMPILE_NEXT"],
+  "created_at": "2026-09-11T00:00:00+00:00"
+}

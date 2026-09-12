@@ -38,3 +38,10 @@ embeddings, vector databases, RAG or integrations.
 - Loteria P3 extraction keeps domain-specific capabilities local and marks learning/evidence as adapter-bound.
 - B6 is `CONTRACT_READY_INTERNAL_NO_ACTIVE_WORKFORCE`; providers and external evidence remain pending.
 - Macro 02 learning is persisted as a refinement loop with `NO_LEARNING_FOUND` and no silent observation loss.
+
+## Roadmap 3.x Macro-Mission 02.1
+
+- Macro 02.1 reconciles the previous learning conclusion through a new event and post-block loop.
+- Existing focal, rollback, and commit-accountability knowledge was reused without duplication.
+- Three development-origin candidates capture hermetic collection, temporary test writes, and explicit repair parity.
+- Candidates remain `CANDIDATE`; automatic promotion is disabled.
