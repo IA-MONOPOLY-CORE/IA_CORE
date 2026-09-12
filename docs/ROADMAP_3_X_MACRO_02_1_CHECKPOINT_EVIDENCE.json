@@ -8,6 +8,14 @@
   "entry_origin_main": "ad7a3dcac1959aba086c1098b126e8c97b9e32b8",
   "macro_02_commit_count": 20,
   "macro_02_1_commits_before_checkpoint": 10,
+  "post_checkpoint_repairs": [
+    {
+      "commit": "4cc7fa30f02d0819579b65b970baf1bc9ab0bb3e",
+      "subject": "test: tighten checkpoint secret scan",
+      "status": "PASS",
+      "reason": "The initial secret detector matched its own literal nvapi- marker; the repair requires a token-like alphanumeric suffix."
+    }
+  ],
   "history_rewrite": false,
   "network_policy": {
     "external_network_during_validation": false,

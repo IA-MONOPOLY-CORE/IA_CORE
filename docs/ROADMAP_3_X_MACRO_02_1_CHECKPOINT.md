@@ -37,6 +37,7 @@ must record that hash after the commit is created.
 | Repair 02: deterministic collection | `9637c1365787dd9bc5c146871c93143f143d24b7` | PASS, explicit repair |
 | Repair: evidence wording | `d4a74f7f09173fe9d86b992e41aa4a334ccae304` | PASS, explicit repair |
 | 07 integral checkpoint | self-recording commit | PENDING AT DOCUMENT CREATION |
+| Repair: checkpoint secret scan | `4cc7fa30f02d0819579b65b970baf1bc9ab0bb3e` | PASS, explicit repair |
 
 The repair commits are intentionally visible. They are not relabeled as
 historical stations and do not rewrite the published Macro 02 chain.
