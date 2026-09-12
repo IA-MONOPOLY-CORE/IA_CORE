@@ -1,0 +1,92 @@
+{
+  "schema_version": "gokv.knowledge_item.v1",
+  "applicability": {
+    "mission_types": ["all_development", "strategic_documentation", "platform_architecture"],
+    "scopes": ["IA_CORE_BUILD", "GLOBAL"]
+  },
+  "confidence": {
+    "level": "LOW",
+    "rationale": "The doctrine is now explicit and contract-tested as a strategic reservation; future product work must independently validate the architecture."
+  },
+  "created_at": "2026-09-12T00:00:00+00:00",
+  "decision_rules": [
+    "Keep one canonical intelligence and control core for the four product surfaces.",
+    "Allow environment-specific UI, adapters, drivers, packaging, runtime, and capabilities only without forking central truth.",
+    "Require a separate approved scope, contract, permission, isolation, recovery, and human review before any future surface becomes operational."
+  ],
+  "evidence_refs": [
+    {
+      "evidence_id": "one_core_four_surfaces_doctrine",
+      "kind": "document",
+      "ref": "docs/IA_CORE_ONE_CORE_FOUR_SURFACES_DOCTRINE.md",
+      "claim": "One canonical core and four named product surfaces are defined without implementation claims."
+    },
+    {
+      "evidence_id": "one_core_four_surfaces_test",
+      "kind": "test",
+      "ref": "tests/test_method_santi_3_2_2_and_one_core_four_surfaces.py",
+      "claim": "The doctrine, non-capability boundary, and canonical index link are contract-tested."
+    }
+  ],
+  "failure_modes": [
+    "Treat four surfaces as independent products and fork identity, knowledge, permissions, evidence, or lifecycle.",
+    "Treat a strategic surface name as proof of a current OS, mobile, runtime, or integration capability.",
+    "Use lock-in or data seizure as a substitute for earned utility and trust."
+  ],
+  "knowledge_id": "one_core_four_surfaces_preserves_canonical_authority",
+  "knowledge_version": "0.1.0",
+  "kind": "ARCHITECTURAL_LEARNING",
+  "learning_origin": "DEVELOPMENT_ORIGIN",
+  "lineage": [
+    {
+      "relation": "REFINE",
+      "related_knowledge_id": "contract_over_ui_inference",
+      "related_origin": "DEVELOPMENT_ORIGIN",
+      "evidence_refs": ["one_core_four_surfaces_doctrine"],
+      "notes": ["A surface cannot infer authority, permission, or capability from presentation alone."]
+    },
+    {
+      "relation": "REFINE",
+      "related_knowledge_id": "context_continuity_reduces_rework",
+      "related_origin": "DEVELOPMENT_ORIGIN",
+      "evidence_refs": ["one_core_four_surfaces_doctrine"],
+      "notes": ["A canonical core gives future surfaces a shared continuity and provenance boundary."]
+    }
+  ],
+  "metrics_refs": ["roadmap_3_x_macro_02_2_execution_metric"],
+  "preconditions": [
+    "The shared core and each surface are named as architectural responsibilities, not assumed implementations.",
+    "Current contracts remain the authority for present capabilities."
+  ],
+  "privacy_class": "ia_core_internal",
+  "procedure": [
+    "Record the canonical core responsibilities once.",
+    "Name each surface and its environment-specific concerns without duplicating the core doctrine.",
+    "Mark future-only capabilities and define the maturity order before implementation planning.",
+    "Link future documents to the single doctrine and require independent contracts for activation."
+  ],
+  "recovery": [
+    "If a future document duplicates or contradicts the doctrine, preserve the canonical document and reconcile the reference.",
+    "If a surface proposal expands product authority, pause it at a new contract frontier.",
+    "Do not delete historical strategic documents to make the current doctrine appear older."
+  ],
+  "scope": "IA_CORE_BUILD",
+  "source_checkpoints": ["ROADMAP_3_X_MACRO_02_2", "STRATEGIC_DOCS_1_2", "STRATEGIC_DOCS_1_3"],
+  "source_commits": ["84bfd59"],
+  "status": "CANDIDATE",
+  "stop_conditions": [
+    "Stop if documentation is used to claim a current OS, mobile app, runtime, execution, endpoint, or integration.",
+    "Stop if a surface requires independent authority or a fork of canonical knowledge and contracts.",
+    "Stop for unresolved ownership, security, privacy, or human-authority decisions."
+  ],
+  "summary": "A single canonical core preserves shared authority and continuity while four future surfaces adapt execution to different environments.",
+  "superseded_by": [],
+  "supersedes": [],
+  "tags": ["architecture", "one_core", "four_surfaces", "continuity", "future"],
+  "title": "One core, four surfaces preserve canonical authority",
+  "updated_at": "2026-09-12T00:00:00+00:00",
+  "validation": [
+    "The canonical doctrine names all four surfaces, shared core responsibilities, principles, and non-capability boundary.",
+    "The index links one doctrine and does not create a parallel future-surface definition."
+  ]
+}

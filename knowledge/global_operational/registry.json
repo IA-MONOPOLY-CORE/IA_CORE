@@ -1,7 +1,7 @@
 {
   "counts": {
     "by_kind": {
-      "ARCHITECTURAL_LEARNING": 7,
+      "ARCHITECTURAL_LEARNING": 8,
       "AUTONOMY_RULE": 2,
       "COMMIT_STRATEGY": 4,
       "CONTEXT_MANAGEMENT_PATTERN": 1,
@@ -13,15 +13,15 @@
       "RECOVERY_PATTERN": 1,
       "STOP_CONDITION": 2,
       "TASK_DECOMPOSITION_PATTERN": 4,
-      "TEST_STRATEGY": 3,
+      "TEST_STRATEGY": 4,
       "VALIDATION_RULE": 1
     },
     "by_status": {
-      "CANDIDATE": 16,
+      "CANDIDATE": 18,
       "PROMOTED": 7,
       "VALIDATED": 9
     },
-    "total": 32
+    "total": 34
   },
   "items": {
     "already_compliant_do_not_invent_change": {
@@ -240,6 +240,22 @@
         "quality"
       ]
     },
+    "historical_checkpoint_requires_evidence_endpoint": {
+      "kind": "TEST_STRATEGY",
+      "knowledge_version": "0.1.0",
+      "learning_origin": "DEVELOPMENT_ORIGIN",
+      "path": "items/historical_checkpoint_requires_evidence_endpoint.json",
+      "privacy_class": "ia_core_internal",
+      "scope": "IA_CORE_BUILD",
+      "status": "CANDIDATE",
+      "tags": [
+        "tests",
+        "historical",
+        "checkpoints",
+        "evidence",
+        "contract"
+      ]
+    },
     "human_intervention_is_high_value_resource": {
       "kind": "OPERATOR_INTERVENTION_PATTERN",
       "knowledge_version": "0.1.0",
@@ -330,6 +346,22 @@
       "tags": [
         "git",
         "rollback"
+      ]
+    },
+    "one_core_four_surfaces_preserves_canonical_authority": {
+      "kind": "ARCHITECTURAL_LEARNING",
+      "knowledge_version": "0.1.0",
+      "learning_origin": "DEVELOPMENT_ORIGIN",
+      "path": "items/one_core_four_surfaces_preserves_canonical_authority.json",
+      "privacy_class": "ia_core_internal",
+      "scope": "IA_CORE_BUILD",
+      "status": "CANDIDATE",
+      "tags": [
+        "architecture",
+        "one_core",
+        "four_surfaces",
+        "continuity",
+        "future"
       ]
     },
     "partial_security_fix_does_not_assign_owner": {

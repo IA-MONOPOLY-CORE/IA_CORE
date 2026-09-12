@@ -1,0 +1,93 @@
+{
+  "schema_version": "gokv.knowledge_item.v1",
+  "applicability": {
+    "mission_types": ["all_development", "historical_contract_convergence"],
+    "scopes": ["IA_CORE_BUILD", "GLOBAL"]
+  },
+  "confidence": {
+    "level": "MEDIUM",
+    "rationale": "Macro 02.2 converged 125 historical nodes by binding each probe to its own checkpoint while preserving its assertions; independent validation beyond this mission is still required."
+  },
+  "created_at": "2026-09-12T00:00:00+00:00",
+  "decision_rules": [
+    "A historical probe must read the source, fixtures, repository state, and Git diff endpoint of its own checkpoint.",
+    "A current-contract test must continue to read the current worktree and index rather than inherit a historical snapshot.",
+    "An adapter may change the evidence endpoint but may not remove assertions, broaden permissions, or make a protected path allowable."
+  ],
+  "evidence_refs": [
+    {
+      "evidence_id": "macro_02_2_failure_ledger",
+      "kind": "document",
+      "ref": "docs/ROADMAP_3_X_MACRO_02_2_FAILURE_ACCOUNTABILITY_LEDGER.md",
+      "claim": "The baseline contains 125 individually ledgered historical failures across explicit cause clusters."
+    },
+    {
+      "evidence_id": "macro_02_2_historical_suite",
+      "kind": "test",
+      "ref": "tests/test_roadmap_3_x_macro_02_2_failure_ledger.py",
+      "claim": "The ledgered historical node set passes without skips, xfails, assertion deletion, or product changes."
+    }
+  ],
+  "failure_modes": [
+    "Compare an old assertion against the current worktree and misclassify later legitimate work as a historical defect.",
+    "Use a broad current snapshot to make an old test green while hiding a real contract change.",
+    "Let an historical adapter alter protected product paths or test authority."
+  ],
+  "knowledge_id": "historical_checkpoint_requires_evidence_endpoint",
+  "knowledge_version": "0.1.0",
+  "kind": "TEST_STRATEGY",
+  "learning_origin": "DEVELOPMENT_ORIGIN",
+  "lineage": [
+    {
+      "relation": "REFINE",
+      "related_knowledge_id": "focal_group_canonical_deep_test_policy",
+      "related_origin": "DEVELOPMENT_ORIGIN",
+      "evidence_refs": ["macro_02_2_historical_suite"],
+      "notes": ["Deep historical validation is made reproducible by selecting an explicit checkpoint evidence endpoint."]
+    },
+    {
+      "relation": "REFINE",
+      "related_knowledge_id": "commit_repair_needs_explicit_parity",
+      "related_origin": "DEVELOPMENT_ORIGIN",
+      "evidence_refs": ["macro_02_2_failure_ledger"],
+      "notes": ["Historical test convergence preserves checkpoint identity rather than rewriting inherited history."]
+    }
+  ],
+  "metrics_refs": ["roadmap_3_x_macro_02_2_execution_metric"],
+  "preconditions": [
+    "The historical test node and its checkpoint are identified by full or resolvable Git revision.",
+    "The current contract and protected path policy are known."
+  ],
+  "privacy_class": "ia_core_internal",
+  "procedure": [
+    "Record the historical node and exact checkpoint in the failure ledger.",
+    "Resolve source files, fixtures, repository reads, and Git diff commands against that checkpoint.",
+    "Execute the original assertions without skip, xfail, deletion, or mass snapshot regeneration.",
+    "Run current-contract tests separately against the current worktree and inspect the protected diff.",
+    "Record the classification, evidence endpoint, and final node result."
+  ],
+  "recovery": [
+    "If the endpoint adapter needs product logic, stop and classify the case as a contract frontier.",
+    "If a historical result remains ambiguous, preserve the failure and evidence rather than forcing green.",
+    "Rollback only the uncommitted adapter station; preserve prior ledger commits."
+  ],
+  "scope": "IA_CORE_BUILD",
+  "source_checkpoints": ["ROADMAP_3_X_MACRO_02_2", "UI_UX_1_192", "MACRO_02_1"],
+  "source_commits": ["987e4085", "fbf6d601", "84bfd59"],
+  "status": "CANDIDATE",
+  "stop_conditions": [
+    "Stop on a product, backend, payload, runtime, endpoint, integration, or authority change request.",
+    "Stop on an unresolved distinction between obsolete expectation and current-contract regression.",
+    "Never make a global guard permissive to satisfy one historical node."
+  ],
+  "summary": "Historical tests become trustworthy when each probe is evaluated against its own checkpoint evidence endpoint while current tests remain current.",
+  "superseded_by": [],
+  "supersedes": [],
+  "tags": ["tests", "historical", "checkpoints", "evidence", "contract"],
+  "title": "Historical checkpoints require an explicit evidence endpoint",
+  "updated_at": "2026-09-12T00:00:00+00:00",
+  "validation": [
+    "The Macro 02.2 ledgered set passes 125 of 125 nodes after bounded endpoint adaptation.",
+    "The current 1.192 guard remains deny-by-default and protected product diff checks remain empty."
+  ]
+}

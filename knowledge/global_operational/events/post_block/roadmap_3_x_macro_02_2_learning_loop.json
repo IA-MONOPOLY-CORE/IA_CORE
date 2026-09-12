@@ -1,0 +1,17 @@
+{
+  "candidate_knowledge_ids": [
+    "historical_checkpoint_requires_evidence_endpoint",
+    "one_core_four_surfaces_preserves_canonical_authority"
+  ],
+  "conflict_event_ids": [],
+  "created_at": "2026-09-12T00:00:00+00:00",
+  "execution_metric_id": "roadmap_3_x_macro_02_2_execution_metric",
+  "learning_event_id": "roadmap_3_x_macro_02_2_learning_event",
+  "learning_status": "LEARNING_FOUND",
+  "loop_id": "roadmap_3_x_macro_02_2_learning_loop",
+  "loop_steps": ["EXECUTE", "VALIDATE", "CAPTURE", "DISTILL", "ASSESS", "STORE", "COMPILE_NEXT"],
+  "mission_id": "roadmap_3_x_macro_02_2",
+  "next_mission_id": "roadmap_3_x_macro_02_2_final_validation",
+  "next_pack_id": null,
+  "schema_version": "gokv.post_block_learning_loop.v1"
+}

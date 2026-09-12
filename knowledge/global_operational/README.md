@@ -45,3 +45,18 @@ embeddings, vector databases, RAG or integrations.
 - Existing focal, rollback, and commit-accountability knowledge was reused without duplication.
 - Three development-origin candidates capture hermetic collection, temporary test writes, and explicit repair parity.
 - Candidates remain `CANDIDATE`; automatic promotion is disabled.
+
+## Roadmap 3.x Macro-Mission 02.2
+
+- Historical contract convergence is recorded in
+  `docs/ROADMAP_3_X_MACRO_02_2_FAILURE_ACCOUNTABILITY_LEDGER.md` and its
+  historical endpoint adapter; current tests remain separate from checkpoint
+  snapshots.
+- Two distinct development-origin candidates were stored:
+  `historical_checkpoint_requires_evidence_endpoint` and
+  `one_core_four_surfaces_preserves_canonical_authority`.
+- The learning event, execution metric, and post-block loop are append-only;
+  both candidates remain `CANDIDATE` and no automatic promotion occurred.
+- OCI remains development-only, pertinent, scope-bounded, and non-operational;
+  model weights, runtime, execution, providers, endpoints, integrations, and
+  product payloads are unchanged.

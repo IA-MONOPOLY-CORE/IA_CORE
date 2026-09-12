@@ -1,0 +1,42 @@
+{
+  "autonomous_blockers_resolved": [
+    "historical_checkpoint_contract_mismatch",
+    "method_and_product_doctrine_duplication_risk"
+  ],
+  "candidate_knowledge_ids": [
+    "historical_checkpoint_requires_evidence_endpoint",
+    "one_core_four_surfaces_preserves_canonical_authority"
+  ],
+  "commits": ["987e4085", "fbf6d601", "84bfd59"],
+  "completed_stations": 3,
+  "created_at": "2026-09-12T00:00:00+00:00",
+  "duration": null,
+  "effort": "High (mission-declared target)",
+  "end_commit": "84bfd59",
+  "event_id": "roadmap_3_x_macro_02_2_learning_event",
+  "metrics_refs": ["roadmap_3_x_macro_02_2_execution_metric"],
+  "mission_type": "roadmap_3_x_macro_02_2",
+  "model": "GPT-5.6 Luna (mission-declared target)",
+  "observations": [
+    "The 125 ledgered historical nodes pass when each historical probe reads its own checkpoint evidence endpoint.",
+    "The current 1.192 guard remains a separate deny-by-default path and does not inherit historical snapshots.",
+    "Method Santi 3.2.2 and the One Core, Four Surfaces doctrine are additive documentation, not product activation.",
+    "No model weights, runtime, execution, provider, endpoint, integration, or product payload was changed.",
+    "The two observations are stored as CANDIDATE; no automatic promotion occurred."
+  ],
+  "operator_interventions": [],
+  "planned_stations": 3,
+  "result": "LEARNING_FOUND_CANDIDATES_STORED_NO_PROMOTION",
+  "retries": 0,
+  "rollbacks": 0,
+  "schema_version": "gokv.learning_event.v1",
+  "source_checkpoint": "ROADMAP_3_X_MACRO_02_2_BLOCK_B",
+  "source_phase": "ROADMAP_3_X_MACRO_02_2_METHOD_AND_DOCTRINE_CONSOLIDATION",
+  "source_prompt": "PROMPT IA_CORE - ROADMAP 3.x MACRO-MISSION 02.2",
+  "start_commit": "598b96f1dcba1cdae478cde05d40df3870534448",
+  "tests": [
+    "tests/test_roadmap_3_x_macro_02_2_failure_ledger.py",
+    "tests/test_method_santi_3_2_2_and_one_core_four_surfaces.py",
+    "python -m gokv.cli --repo-root . validate"
+  ]
+}

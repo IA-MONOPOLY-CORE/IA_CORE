@@ -1,0 +1,32 @@
+{
+  "commits": ["987e4085", "fbf6d601", "84bfd59"],
+  "created_at": "2026-09-12T00:00:00+00:00",
+  "duration": null,
+  "effort": "High (mission-declared target)",
+  "measurement_quality": "NOT_AVAILABLE",
+  "metric_id": "roadmap_3_x_macro_02_2_execution_metric",
+  "model": "GPT-5.6 Luna (mission-declared target)",
+  "notes": [
+    "Wall-clock and quota data were not captured as a reliable operational metric.",
+    "The full historical retest measured 125 passed nodes; this metric does not claim model or provider performance.",
+    "No external network, provider, runtime, execution, or product persistence was used."
+  ],
+  "operator_estimate": null,
+  "operator_interventions": 0,
+  "quota_5h_delta": null,
+  "quota_5h_end": null,
+  "quota_5h_start": null,
+  "quota_weekly_delta": null,
+  "quota_weekly_end": null,
+  "quota_weekly_start": null,
+  "result": "HISTORICAL_SUITE_CONVERGED_DOCUMENTATION_DOCTRINE_STORED",
+  "retries": 0,
+  "rollbacks": 0,
+  "schema_version": "gokv.execution_metric.v1",
+  "station_count": 3,
+  "task_type": "historical_contract_convergence_method_doctrine",
+  "tests": [
+    "tests/test_roadmap_3_x_macro_02_2_failure_ledger.py",
+    "tests/test_method_santi_3_2_2_and_one_core_four_surfaces.py"
+  ]
+}
