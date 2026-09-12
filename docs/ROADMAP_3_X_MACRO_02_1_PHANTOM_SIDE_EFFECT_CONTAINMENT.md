@@ -26,10 +26,12 @@ files or protected product persistence roots. A rejected operation raises
 `IA_CORE_TEST_WRITE_BLOCKED` immediately.
 
 The test `tests/conftest.py` injects a per-test temporary root for legacy
-persistence helpers, changes the test working directory to that root, redirects
-the shared memory state and tool store, and redirects JSON and vector memory
-roots. Consequently, permitted test writes occur below `tmp_path` and cannot
-reach the repository stores.
+persistence helpers, redirects the shared memory state and tool store, patches
+the supervisor's relative shared-learning path, and redirects JSON and vector
+memory roots. The root guard also redirects API test logging to a temporary
+directory. Consequently, permitted test writes occur below `tmp_path` and
+cannot reach the repository stores; the fixture does not change the working
+directory, preserving relative UI/document test paths.
 
 The root session hooks capture Git tracked-state status at session start and
 compare it at session finish. A changed tracked state forces a failing test
