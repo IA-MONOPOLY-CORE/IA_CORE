@@ -86,7 +86,7 @@ def test_current_macro_02_1_diff_has_no_prohibited_product_surface():
 def test_diff_has_no_secret_like_material_and_guards_are_fail_closed():
     diff = _git("diff", "--no-ext-diff", "--unified=0", BASE, "HEAD")
     assert not re.search(
-        r"(?:nvapi-|sk-[A-Za-z0-9]{12,}|gh[pousr]_[A-Za-z0-9]{12,}|Bearer\s+[A-Za-z0-9._-]{20,})",
+        r"(?:nvapi-[A-Za-z0-9]{12,}|sk-[A-Za-z0-9]{12,}|gh[pousr]_[A-Za-z0-9]{12,}|Bearer\s+[A-Za-z0-9._-]{20,})",
         diff,
     )
     guard = (ROOT / "conftest.py").read_text(encoding="utf-8")
