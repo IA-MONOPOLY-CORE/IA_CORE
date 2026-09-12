@@ -80,6 +80,30 @@ no crea nodos, servidores, failover, cloud, backups ni recovery.
 Decisión documental:
 `STRATEGIC_ROOT_CONTROL_PLANE_OWNER_NODES_AND_CONTINUITY_DOCUMENTED`.
 
+## Gobernanza transversal posterior a Roadmap 3.x Macro 02.2
+
+La evolución aditiva del método queda registrada en el documento canónico
+[Method Santi 3.2.2](METHOD_SANTI_3_2_2_GOVERNED_CONTINUITY_LEARNING_AND_PUBLICATION.md).
+Define continuidad gobernada, aprendizaje sin reentrenamiento de pesos,
+reportes completos por defecto, estaciones y publicación Git verificable.
+
+La relación de producto de un núcleo con cuatro superficies queda registrada una
+sola vez en la doctrina canónica; este es el single canonical doctrine para esa
+relación:
+[ONE CORE, FOUR SURFACES](IA_CORE_ONE_CORE_FOUR_SURFACES_DOCTRINE.md). Este
+índice no duplica esa doctrina; únicamente la enlaza para orientar la lectura.
+El artefacto exportable y reutilizable es el fallback
+[print-ready HTML](generated/METHOD_SANTI_3_2_2_ONE_CORE_FOUR_SURFACES_PRINT_READY.html),
+cuya fuente de verdad continúa siendo el Markdown.
+
+`README_UPDATE_DECISION = NOT_REQUIRED`: el README raíz y el README de `ui/web`
+ya enlazan este índice estratégico; actualizar el índice mantiene un único
+punto de orientación sin copiar los documentos canónicos.
+
+Estos documentos son estratégicos y metodológicos. No crean capacidades
+actuales, runtime, execution, endpoints, providers, integraciones, OS, Mobile
+OS, workforce ni permisos operativos.
+
 ## Límites y dependencias
 
 - Documentar no equivale a implementar.
