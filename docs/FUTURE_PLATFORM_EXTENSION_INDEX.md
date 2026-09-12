@@ -104,6 +104,21 @@ Estos documentos son estratégicos y metodológicos. No crean capacidades
 actuales, runtime, execution, endpoints, providers, integraciones, OS, Mobile
 OS, workforce ni permisos operativos.
 
+## Roadmap 3.x Macro-Mission 03
+
+La reconstrucción vigente del grafo 3.x y la ingeniería de fronteras queda
+registrada en [Full Phase Execution Graph](ROADMAP_3_X_FULL_PHASE_EXECUTION_GRAPH.md)
+y [Frontier Engineering Map](ROADMAP_3_X_FRONTIER_ENGINEERING_MAP.json). La
+familia F-004 y sus 36 rutas se encuentran en
+[F-004 Family Decision Sufficiency](ROADMAP_3_X_MACRO_03_F004_FAMILY_DECISION_SUFFICIENCY.md).
+
+B-7 queda preparado para aceptación de Dirección mediante la
+[B-7 Closure Readiness Matrix](ROADMAP_3_X_MACRO_03_B7_CLOSURE_READINESS_MATRIX.md).
+La entrada a Roadmap 4.x está definida de forma parcial y no ejecutada en
+[Roadmap 4.x Entry Contract](ROADMAP_4_X_ENTRY_CONTRACT.md). Ningún enlace de
+esta sección constituye autorización de runtime, adapters, providers o
+remediación productiva.
+
 ## Límites y dependencias
 
 - Documentar no equivale a implementar.

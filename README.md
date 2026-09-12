@@ -1622,3 +1622,11 @@ No UI activa, no JS, no backend, no runtime, no execution, no JSON TOP 15, no fi
 - `PROMOTED_ONLY` ya compila conocimiento promovido real: 7 items en la comparacion general y 6 items para el alcance conocido de UI/UX 1.202.
 - UI/UX 1.202 fue preparada, no ejecutada; modo recomendado: `PROMOTED_ONLY` con el hard frontier de la estacion 7 preservado.
 - [Checkpoint GOKV 0.3](docs/GOKV_FIRST_INSTITUTIONAL_PROMOTION_CHECKPOINT_0_3.md), [reporte de promocion](docs/GOKV_FIRST_INSTITUTIONAL_PROMOTION_REPORT_0_3.md), [evaluacion PROMOTED_ONLY](docs/GOKV_PROMOTED_ONLY_EVALUATION_0_3.md) y [herencia UI/UX 1.202](docs/GOKV_UI_UX_1_202_POST_PROMOTION_INHERITANCE_REPORT.md).
+
+## Roadmap 3.x Macro-Mission 03
+
+- El grafo 3.x y el mapa de fronteras fueron reconstruidos desde checkpoints publicados y la verdad actual del repositorio.
+- F-004 fue comprimida en nueve familias coherentes que contabilizan las 36 rutas legacy; las 36 permanecen `UNKNOWN` hasta demostrar autoridad, compatibilidad y evidencia suficiente.
+- B-7 queda en `B7_READY_FOR_DIRECTION_ACCEPTANCE`: la responsabilidad documental esta lista para aceptacion, sin declarar `ROADMAP_3_X_CLOSED` ni production readiness.
+- [Grafo completo](docs/ROADMAP_3_X_FULL_PHASE_EXECUTION_GRAPH.md), [mapa de fronteras](docs/ROADMAP_3_X_FRONTIER_ENGINEERING_MAP.json), [familias F-004](docs/ROADMAP_3_X_MACRO_03_F004_FAMILY_DECISION_SUFFICIENCY.md) y [matriz B-7](docs/ROADMAP_3_X_MACRO_03_B7_CLOSURE_READINESS_MATRIX.md).
+- Roadmap 4.x queda preparado solamente como contrato de entrada parcial y candidato; no fue ejecutado, no se crearon adapters y no se modifico producto.

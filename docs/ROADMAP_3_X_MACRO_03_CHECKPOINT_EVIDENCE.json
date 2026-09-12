@@ -1,0 +1,142 @@
+{
+  "schema_version": "roadmap.checkpoint.evidence.v1",
+  "mission": "ROADMAP_3X_MACRO_03_FRONTIER_RECONSTRUCTION_F004_FAMILY_DECISION_SUFFICIENCY_AND_B7_CLOSURE_READINESS",
+  "repository": "C:/IA_CORE",
+  "branch": "main",
+  "entry_head": "8eda61c1c6e1611435cf4d4881a374502018abdc",
+  "final_published_head": "CONTAINING_CHECKPOINT_COMMIT_VERIFIED_POST_FETCH",
+  "result": "ROADMAP_3X_MACRO_03_B7_READY_FOR_DIRECTION_ACCEPTANCE_WITH_GREEN_CHECKPOINT_PUBLISHED",
+  "outcome": "B7_READY_FOR_DIRECTION_ACCEPTANCE",
+  "phase_exit_claim": "ROADMAP_3_X_CLOSED_NOT_DECLARED",
+  "mode": "READ_ONLY_DOCUMENTARY_ARCHITECTURE_AND_PLANNING",
+  "preflight": {
+    "root": "C:/IA_CORE",
+    "branch": "main",
+    "head": "8eda61c1c6e1611435cf4d4881a374502018abdc",
+    "origin_main": "8eda61c1c6e1611435cf4d4881a374502018abdc",
+    "ahead_behind": "0/0",
+    "working_tree": "clean",
+    "git_diff_check": "PASS",
+    "git_fetch_origin": "PASS"
+  },
+  "parent_evidence": {
+    "checkpoint": "ROADMAP_3_X_MACRO_02_2",
+    "head": "8eda61c1c6e1611435cf4d4881a374502018abdc",
+    "collection": 6916,
+    "passed": 6910,
+    "failed": 0,
+    "skipped": 6,
+    "warnings": 5,
+    "xfailed": 0,
+    "xpassed": 0,
+    "status": "PUBLISHED_PARENT_VALID"
+  },
+  "current_validation": {
+    "collection": 6929,
+    "full_suite": {
+      "passed": 6923,
+      "failed": 0,
+      "skipped": 6,
+      "warnings": 5,
+      "xfailed": 0,
+      "xpassed": 0,
+      "duration_seconds": 1623.21,
+      "status": "PASS",
+      "log": "C:/Users/Santi/AppData/Local/Temp/ia-core-macro-03-final-suite-2.txt"
+    },
+    "focal": {
+      "graph_guard": "15 passed",
+      "f004_family": "3 passed",
+      "b7_entry": "4 passed",
+      "learning_and_historical_learning": "6 passed"
+    },
+    "gokv": {"status": "PASS", "item_count": 38, "CANDIDATE": 22, "VALIDATED": 9, "PROMOTED": 7},
+    "py_compile": "PASS",
+    "secret_scan": "PASS",
+    "prohibited_diff": "PASS",
+    "protected_product_diff": "EMPTY",
+    "git_diff_check": "PASS"
+  },
+  "phase_graph": {
+    "document": "docs/ROADMAP_3_X_FULL_PHASE_EXECUTION_GRAPH.md",
+    "machine_map": "docs/ROADMAP_3_X_FRONTIER_ENGINEERING_MAP.json",
+    "nodes": 15,
+    "frontier_records": 12,
+    "f004_families": 9,
+    "route_count": 36,
+    "route_method_counts": {"GET": 22, "POST": 12, "PUT": 1, "DELETE": 1},
+    "integrity": "FOCAL_TESTED"
+  },
+  "f004": {
+    "record": "docs/ROADMAP_3_X_MACRO_03_F004_FAMILY_DECISION_SUFFICIENCY.md",
+    "policy_level": "DISSOLVED_BY_DIRECTION_POLICY",
+    "route_specific": "TRUE_HARD_FRONTIER_FOR_DESTINATION_AUTHORITY",
+    "route_count": 36,
+    "destinations": {"KEEP_CANONICAL": 0, "MIGRATE_TO_CANONICAL": 0, "REPLACE_WITH_SUCCESSOR": 0, "INTERNAL_ONLY": 0, "REMOVE": 0, "UNKNOWN": 36},
+    "decision_sufficiency": "DIRECTION_DECISION_REQUIRED",
+    "family_counts": {"P1": 4, "P2": 6, "P3": 7, "P4": 7, "P5": 1, "P6": 5, "P7": 2, "P8": 3, "P9": 1},
+    "adapter_count": 0
+  },
+  "frontiers": {
+    "record": "docs/ROADMAP_3_X_FRONTIER_ENGINEERING_MAP.json",
+    "total": 12,
+    "dissolved": 1,
+    "open": 10,
+    "deferred": 1,
+    "true_hard_open": 3,
+    "external_evidence_open": 2,
+    "status": "RECONCILED_WITH_EXPLICIT_OWNERS_AND_STOP_CONDITIONS"
+  },
+  "b7": {
+    "matrix": "docs/ROADMAP_3_X_MACRO_03_B7_CLOSURE_READINESS_MATRIX.md",
+    "requirements": 16,
+    "outcome": "B7_READY_FOR_DIRECTION_ACCEPTANCE",
+    "direction_acceptance_required": true,
+    "production_readiness": false,
+    "roadmap_3_x_closed": false
+  },
+  "roadmap_4x": {
+    "contract": "docs/ROADMAP_4_X_ENTRY_CONTRACT.md",
+    "state": "PARTIAL_BLOCKED_BY_B7_DIRECTION_ACCEPTANCE_AND_EXTERNAL_EVIDENCE",
+    "next_macro_mission_candidate": "ARCHITECT_SELECTS_ONE_F004_FAMILY_REMEDIATION_BLOCK_AFTER_B7_ACCEPTANCE",
+    "first_block_maximum": "ONE_F004_FAMILY",
+    "executed": false
+  },
+  "learning": {
+    "gokv_before": {"items": 34, "CANDIDATE": 18, "VALIDATED": 9, "PROMOTED": 7},
+    "gokv_after": {"items": 38, "CANDIDATE": 22, "VALIDATED": 9, "PROMOTED": 7},
+    "candidate_ids": ["contract_precision_multiplies_verified_scope", "verified_responsibility_per_usage", "autonomous_wall_time_per_usage", "publication_metadata_must_not_chase_its_own_head"],
+    "automatic_promotion": false,
+    "oci_mode": "PROMOTED_ONLY",
+    "metric": "knowledge/global_operational/metrics/roadmap_3_x_macro_03_execution_metric",
+    "operator_reported_macro_02_2": {"wall_time": "3h 38m 05s", "weekly_start": 95, "weekly_end": 90, "five_hour_start": 69, "five_hour_intermediate": 65, "reset_observed": true, "five_hour_post_reset_start": 100, "five_hour_final": 89, "measurement_quality": "RESET_INTERRUPTED", "collected": 6916, "passed": 6910, "historical_unique_nodes": 173, "published_commits": 9}
+  },
+  "commits": {
+    "ledger": "docs/ROADMAP_3_X_MACRO_03_COMMIT_ACCOUNTABILITY_LEDGER.md",
+    "station_commits": ["83918905ff4f0e88416ef12c7d2c9e9b5057b192", "53f0c0cb93ce7fc23e51dae5705d4c9762f9daaf", "49952068b0ec8e6d03f0de77c213731632c41455", "124255e370ed74151d15e1151e7792c5b1649cbf"],
+    "checkpoint_commit": "CONTAINING_CHECKPOINT_COMMIT",
+    "repairs": [],
+    "one_station_one_commit": true,
+    "history_rewritten": false
+  },
+  "scope": {
+    "product_changes": false,
+    "adapters_created": false,
+    "route_mutations": false,
+    "payload_v2": false,
+    "runtime": false,
+    "execution": false,
+    "providers": false,
+    "external_network": false,
+    "secret_values_read": false,
+    "roadmap_4x_executed": false,
+    "protected_roots_unchanged": ["api.py", "core/", "agents/", "providers/", "domains/", "ui/", "i18n", "payload", "runtime", "execution", "endpoints", "integrations", "P0", "P1", "P3 matrix", "contract-aware widgets", "Request Draft Panel"]
+  },
+  "readme": {"root": "UPDATE_REQUIRED", "future_platform_index": "UPDATED", "print_ready_pdf": "NOT_REQUIRED_NOT_GENERATED"},
+  "publication": {
+    "status": "READY_FOR_FINAL_CHECKPOINT_COMMIT_AND_REMOTE_VERIFICATION",
+    "stable_reference_strategy": "PARENT_BASELINE_PLUS_CONTAINING_CHECKPOINT_ROLE_PLUS_POST_FETCH_VERIFICATION",
+    "force_push": false,
+    "pull_merge_rebase_reset": false
+  }
+}

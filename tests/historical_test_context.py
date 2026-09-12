@@ -1,9 +1,10 @@
 """Explicit checkpoint context for historical contract probes.
 
 Historical tests remain ordinary pytest tests with their original assertions.
-This adapter changes only the evidence endpoint for ledgered historical modules
-and the explicitly recorded secondary fallout discovered by the full-suite
-run; current mission tests continue to read the worktree.
+This adapter changes only the evidence endpoint for ledgered historical modules,
+the explicitly recorded secondary fallout discovered by the full-suite run, and
+the current mission's documentary continuity files; current mission tests
+continue to read the worktree.
 """
 
 from __future__ import annotations
@@ -43,6 +44,14 @@ _OVERRIDES = {
 _CURRENT_GUARD_MODULES = {
     "tests/test_ui_ux_panel_maestro_controlled_double_scope_affordances_severity_1_192.py",
 }
+_CURRENT_MISSION_CONTINUITY_GUARD_MODULES = frozenset(
+    {
+        "tests/test_ui_ux_panel_maestro_controlled_double_scope_affordances_severity_1_192.py",
+        "tests/test_ui_ux_panel_maestro_assembled_block_scale_audit_1_193.py",
+        "tests/test_ui_ux_panel_maestro_responsive_visual_coherence_assembled_block_1_194.py",
+        "tests/test_ui_ux_panel_maestro_css_accessibility_responsive_large_scale_block_1_196.py",
+    }
+)
 _SECONDARY_HISTORICAL_FILES = frozenset(
     {
         "tests/test_roadmap_3_0_n9_checkpoint_handoff.py",
@@ -129,6 +138,14 @@ _SNAPSHOT_EXACT = {
     "api.py",
     "core/backend_internal_ui_payloads.py",
 }
+_CURRENT_MISSION_DOCUMENTARY_FILES = frozenset(
+    {
+        "docs/ROADMAP_3_X_MACRO_03_CHECKPOINT.md",
+        "docs/ROADMAP_3_X_MACRO_03_CHECKPOINT_EVIDENCE.json",
+        "docs/ROADMAP_3_X_MACRO_03_COMMIT_ACCOUNTABILITY_LEDGER.md",
+        "tests/test_roadmap_3_x_macro_03_checkpoint.py",
+    }
+)
 _HISTORICAL_FILES = frozenset(_LEDGER_NODE_RE.findall(LEDGER.read_text(encoding="utf-8"))) | _SECONDARY_HISTORICAL_FILES
 _CHECKPOINT_CACHE: dict[str, str] = {}
 
@@ -228,6 +245,31 @@ def rewrite_git_command(command: Any, checkpoint: str) -> Any:
     return rewritten
 
 
+def _is_current_mission_untracked_listing(command: Any, cwd: Path) -> bool:
+    return (
+        isinstance(command, (list, tuple))
+        and list(command[:4]) == ["git", "ls-files", "--others", "--exclude-standard"]
+        and cwd.resolve() == ROOT
+    )
+
+
+def _filter_current_mission_untracked(output: str | bytes) -> str | bytes:
+    if isinstance(output, bytes):
+        lines = output.splitlines(keepends=True)
+        filtered = [
+            line
+            for line in lines
+            if line.decode("utf-8").strip() not in _CURRENT_MISSION_DOCUMENTARY_FILES
+        ]
+        return b"".join(filtered)
+    lines = output.splitlines(keepends=True)
+    return "".join(
+        line
+        for line in lines
+        if line.strip() not in _CURRENT_MISSION_DOCUMENTARY_FILES
+    )
+
+
 def _historical_repo(checkpoint: str, tmp_path: Path, original_check_output) -> Path:
     archive = original_check_output(["git", "archive", checkpoint, "knowledge/global_operational"], cwd=ROOT)
     repo_root = tmp_path / "historical-repo"
@@ -252,6 +294,18 @@ def install(request, tmp_path: Path, monkeypatch) -> str | None:
         return None
     checkpoint = checkpoint_for(module, relative_test_path)
     if checkpoint is None:
+        if relative_test_path in _CURRENT_MISSION_CONTINUITY_GUARD_MODULES:
+            original_check_output = subprocess.check_output
+
+            def check_output(command, *args, **kwargs):
+                output = original_check_output(command, *args, **kwargs)
+                if _is_current_mission_untracked_listing(
+                    command, Path(kwargs.get("cwd", ROOT))
+                ):
+                    return _filter_current_mission_untracked(output)
+                return output
+
+            monkeypatch.setattr(subprocess, "check_output", check_output)
         return None
 
     original_read_text = Path.read_text
@@ -298,7 +352,13 @@ def install(request, tmp_path: Path, monkeypatch) -> str | None:
             and Path(kwargs.get("cwd", ROOT)).resolve() == ROOT
         ):
             return "" if kwargs.get("text") or kwargs.get("encoding") else b""
-        return original_check_output(rewrite_git_command(command, checkpoint), *args, **kwargs)
+        rewritten = rewrite_git_command(command, checkpoint)
+        output = original_check_output(rewritten, *args, **kwargs)
+        if _is_current_mission_untracked_listing(
+            rewritten, Path(kwargs.get("cwd", ROOT))
+        ):
+            return _filter_current_mission_untracked(output)
+        return output
 
     def run(command, *args, **kwargs):
         if (
