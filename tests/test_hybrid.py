@@ -60,6 +60,7 @@ def test_metrics_record():
 def test_connectivity_snapshot():
     reg = _registry_with_ollama()
     cm = ConnectivityManager(reg)
-    snap = cm.snapshot()
+    with patch.object(cm, "is_online", return_value=False):
+        snap = cm.snapshot()
     assert "internet" in snap
     assert "ollama" in snap
