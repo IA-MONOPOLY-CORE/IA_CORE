@@ -7,6 +7,7 @@ select = ["E", "F", "W", "I"]
 ignore = ["E501", "F401"]
 
 [tool.pytest.ini_options]
+testpaths = ["tests"]
 markers = [
     "external: integration test requiring explicit external-test authorization",
 ]
