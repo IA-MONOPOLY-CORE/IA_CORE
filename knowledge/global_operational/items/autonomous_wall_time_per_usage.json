@@ -1,0 +1,33 @@
+{
+  "schema_version": "gokv.knowledge_item.v1",
+  "knowledge_id": "autonomous_wall_time_per_usage",
+  "knowledge_version": "0.1.0",
+  "kind": "PATTERN",
+  "title": "Autonomous wall time per usage",
+  "summary": "A descriptive measure of autonomous wall time relative to a usage observation, with explicit provenance and no claim about model quality, cost or future throughput.",
+  "status": "CANDIDATE",
+  "scope": "IA_CORE_BUILD",
+  "applicability": {"mission_types": ["roadmap", "all_development"], "scopes": ["IA_CORE_BUILD", "GLOBAL"]},
+  "preconditions": ["Wall time is captured by an operator or trusted execution record.", "Usage windows are identified and not silently combined."],
+  "procedure": ["Record wall time and usage provenance separately.", "Keep unavailable values null.", "Mark interruptions and resets explicitly.", "Use the measure only to compare governed development work."],
+  "decision_rules": ["Do not infer wall time from prompt count.", "Do not convert the measure into a token or money claim."],
+  "stop_conditions": ["Stop if the interval is reconstructed, interrupted without a quality label or mixed with a reset window."],
+  "validation": ["Macro 03 execution metric records the Macro 02.2 wall time as operator-reported context without fabricating current-mission duration."],
+  "failure_modes": ["Inventing unavailable duration.", "Treating a reset-separated quota window as a continuous measurement."],
+  "recovery": ["Preserve the original quality label and set derived comparisons to unavailable."],
+  "evidence_refs": [
+    {"evidence_id": "macro_03_metric", "kind": "metric", "ref": "knowledge/global_operational/metrics/roadmap_3_x_macro_03_execution_metric.json", "claim": "Wall time and quota quality are preserved literally."}
+  ],
+  "source_commits": ["49952068b0ec8e6d03f0de77c213731632c41455"],
+  "source_checkpoints": ["ROADMAP_3_X_MACRO_02_2", "ROADMAP_3_X_MACRO_03"],
+  "metrics_refs": ["roadmap_3_x_macro_03_execution_metric"],
+  "confidence": {"level": "LOW", "rationale": "Candidate descriptive measure based on one operator-reported mission record."},
+  "privacy_class": "ia_core_internal",
+  "tags": ["metrics", "wall_time", "usage", "measurement_quality"],
+  "created_at": "2026-09-12T00:00:00+00:00",
+  "updated_at": "2026-09-12T00:00:00+00:00",
+  "supersedes": [],
+  "superseded_by": [],
+  "learning_origin": "DEVELOPMENT_ORIGIN",
+  "lineage": []
+}

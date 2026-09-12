@@ -60,3 +60,11 @@ embeddings, vector databases, RAG or integrations.
 - OCI remains development-only, pertinent, scope-bounded, and non-operational;
   model weights, runtime, execution, providers, endpoints, integrations, and
   product payloads are unchanged.
+
+## Roadmap 3.x Macro-Mission 03
+
+- The 3.x phase graph and frontier map were reconstructed from published evidence.
+- F-004 was compressed into nine coherent families covering all 36 legacy routes; every destination remains `UNKNOWN` until authority and evidence exist.
+- B-7 is `B7_READY_FOR_DIRECTION_ACCEPTANCE`; this is not production readiness and does not execute Roadmap 4.x.
+- Four development-origin candidates, one learning event, one operator-reported metric and one post-block loop were stored; automatic promotion remains disabled.
+- The Roadmap 4.x entry contract is partial and candidate-only; no adapter, runtime, provider, endpoint, payload or product behavior was created.

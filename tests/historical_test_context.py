@@ -48,6 +48,7 @@ _SECONDARY_HISTORICAL_FILES = frozenset(
         "tests/test_roadmap_3_0_n9_checkpoint_handoff.py",
         "tests/test_roadmap_3_x_macro_02_1_checkpoint.py",
         "tests/test_roadmap_3_x_macro_02_1_learning_reconciliation.py",
+        "tests/test_roadmap_3_x_macro_02_2_learning_reconciliation.py",
         "tests/test_strategic_docs_corporate_areas_and_institutional_intelligence_1_1.py",
         "tests/test_strategic_docs_future_enterprise_architecture_1_0.py",
         "tests/test_strategic_docs_ia_core_os_and_device_ecosystem_1_2.py",
@@ -237,8 +238,10 @@ def _historical_repo(checkpoint: str, tmp_path: Path, original_check_output) -> 
 
 
 def _needs_historical_vault(relative_test_path: str) -> bool:
-    return relative_test_path.startswith("tests/test_gokv_") or relative_test_path.endswith(
-        "test_roadmap_3_x_macro_02_learning_adjudication.py"
+    return (
+        relative_test_path.startswith("tests/test_gokv_")
+        or relative_test_path.endswith("test_roadmap_3_x_macro_02_learning_adjudication.py")
+        or relative_test_path.endswith("test_roadmap_3_x_macro_02_2_learning_reconciliation.py")
     )
 
 

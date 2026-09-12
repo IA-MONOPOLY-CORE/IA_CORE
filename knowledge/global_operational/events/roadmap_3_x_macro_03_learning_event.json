@@ -1,0 +1,32 @@
+{
+  "event_id": "roadmap_3_x_macro_03_learning_event",
+  "schema_version": "gokv.learning_event.v1",
+  "source_prompt": "PROMPT IA_CORE - ROADMAP 3.x MACRO-MISSION 03",
+  "source_phase": "ROADMAP_3_X_MACRO_03_STATION_04_LEARNING_CAPTURE",
+  "source_checkpoint": "ROADMAP_3_X_MACRO_02_2",
+  "start_commit": "8eda61c1c6e1611435cf4d4881a374502018abdc",
+  "end_commit": "CONTAINING_STATION_COMMIT",
+  "model": "GPT-5.6 Luna - Muy Alto",
+  "effort": "Muy Alto",
+  "mission_type": "roadmap_3_x_macro_03",
+  "planned_stations": 7,
+  "completed_stations": 1,
+  "commits": ["83918905ff4f0e88416ef12c7d2c9e9b5057b192", "53f0c0cb93ce7fc23e51dae5705d4c9762f9daaf", "49952068b0ec8e6d03f0de77c213731632c41455"],
+  "tests": ["tests/test_roadmap_3_x_macro_03_f004_family_decision_sufficiency.py", "tests/test_roadmap_3_x_macro_03_b7_and_roadmap_4x_entry.py", "tests/test_roadmap_3_x_macro_03_learning_reconciliation.py", "python -m gokv.cli --repo-root . validate"],
+  "duration": null,
+  "operator_interventions": [],
+  "retries": 0,
+  "rollbacks": 0,
+  "autonomous_blockers_resolved": ["3x_graph_not_currently_reconciled", "f004_undifferentiated_route_decision", "b7_readiness_not_formalized"],
+  "result": "LEARNING_FOUND_CANDIDATES_STORED_NO_PROMOTION",
+  "observations": [
+    "Contract precision can enlarge governable documentary scope without granting product authority.",
+    "A 36-route UNKNOWN inventory becomes decision-sufficient when grouped by coherent family with owner, evidence, risk and stop conditions.",
+    "B-7 can be ready for Direction acceptance while production, runtime, provider and route authority remain unclaimed.",
+    "Publication evidence should separate stable content identity from the containing commit and post-fetch verification.",
+    "Macro 02.2 operator-reported measurements must retain reset quality and must not be combined into a monetary or token metric."
+  ],
+  "candidate_knowledge_ids": ["contract_precision_multiplies_verified_scope", "verified_responsibility_per_usage", "autonomous_wall_time_per_usage", "publication_metadata_must_not_chase_its_own_head"],
+  "metrics_refs": ["roadmap_3_x_macro_03_execution_metric"],
+  "created_at": "2026-09-12T00:00:00+00:00"
+}

@@ -1,14 +1,14 @@
 {
   "counts": {
     "by_kind": {
-      "ARCHITECTURAL_LEARNING": 8,
+      "ARCHITECTURAL_LEARNING": 9,
       "AUTONOMY_RULE": 2,
-      "COMMIT_STRATEGY": 4,
+      "COMMIT_STRATEGY": 5,
       "CONTEXT_MANAGEMENT_PATTERN": 1,
       "COST_RESULT_EVIDENCE": 1,
       "MODEL_SELECTION_HEURISTIC": 1,
       "OPERATOR_INTERVENTION_PATTERN": 1,
-      "PATTERN": 1,
+      "PATTERN": 3,
       "PRINCIPLE": 3,
       "RECOVERY_PATTERN": 1,
       "STOP_CONDITION": 2,
@@ -17,11 +17,11 @@
       "VALIDATION_RULE": 1
     },
     "by_status": {
-      "CANDIDATE": 18,
+      "CANDIDATE": 22,
       "PROMOTED": 7,
       "VALIDATED": 9
     },
-    "total": 34
+    "total": 38
   },
   "items": {
     "already_compliant_do_not_invent_change": {
@@ -48,6 +48,21 @@
       "tags": [
         "planning",
         "compression"
+      ]
+    },
+    "autonomous_wall_time_per_usage": {
+      "kind": "PATTERN",
+      "knowledge_version": "0.1.0",
+      "learning_origin": "DEVELOPMENT_ORIGIN",
+      "path": "items/autonomous_wall_time_per_usage.json",
+      "privacy_class": "ia_core_internal",
+      "scope": "IA_CORE_BUILD",
+      "status": "CANDIDATE",
+      "tags": [
+        "metrics",
+        "wall_time",
+        "usage",
+        "measurement_quality"
       ]
     },
     "callable_chain_is_not_authorized_route": {
@@ -158,6 +173,21 @@
         "contract",
         "security",
         "ui_boundary"
+      ]
+    },
+    "contract_precision_multiplies_verified_scope": {
+      "kind": "ARCHITECTURAL_LEARNING",
+      "knowledge_version": "0.1.0",
+      "learning_origin": "DEVELOPMENT_ORIGIN",
+      "path": "items/contract_precision_multiplies_verified_scope.json",
+      "privacy_class": "ia_core_internal",
+      "scope": "IA_CORE_BUILD",
+      "status": "CANDIDATE",
+      "tags": [
+        "contracts",
+        "scope",
+        "evidence",
+        "governance"
       ]
     },
     "controlled_assembled_block_execution": {
@@ -391,6 +421,22 @@
         "preservation"
       ]
     },
+    "publication_metadata_must_not_chase_its_own_head": {
+      "kind": "COMMIT_STRATEGY",
+      "knowledge_version": "0.1.0",
+      "learning_origin": "DEVELOPMENT_ORIGIN",
+      "path": "items/publication_metadata_must_not_chase_its_own_head.json",
+      "privacy_class": "ia_core_internal",
+      "scope": "IA_CORE_BUILD",
+      "status": "CANDIDATE",
+      "tags": [
+        "git",
+        "publication",
+        "checkpoint",
+        "self_reference",
+        "evidence"
+      ]
+    },
     "read_only_method_is_not_read_authz": {
       "kind": "ARCHITECTURAL_LEARNING",
       "knowledge_version": "0.1.0",
@@ -488,6 +534,21 @@
       "tags": [
         "frontier",
         "contract"
+      ]
+    },
+    "verified_responsibility_per_usage": {
+      "kind": "PATTERN",
+      "knowledge_version": "0.1.0",
+      "learning_origin": "DEVELOPMENT_ORIGIN",
+      "path": "items/verified_responsibility_per_usage.json",
+      "privacy_class": "ia_core_internal",
+      "scope": "IA_CORE_BUILD",
+      "status": "CANDIDATE",
+      "tags": [
+        "metrics",
+        "verified_responsibility",
+        "usage",
+        "non_monetary"
       ]
     }
   },
