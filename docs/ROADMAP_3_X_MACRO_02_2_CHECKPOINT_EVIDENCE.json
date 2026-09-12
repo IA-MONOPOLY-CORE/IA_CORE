@@ -5,7 +5,7 @@
   "branch": "main",
   "checkpoint_parent": "40f3259a67d6b2f2b2f5dde649217523dc62cace",
   "expected_publish_token": "ROADMAP_3X_MACRO_02_2_HISTORICAL_SUITE_TRUTH_CONVERGED_METHOD_AND_ONE_CORE_FOUR_SURFACES_DOCTRINE_PUBLISHED",
-  "status_before_remote_publication": "PUBLISHABLE_PENDING_CONTAINING_COMMIT",
+  "status_before_remote_publication": "PUBLISHED_WITH_DOCUMENTATION_REPAIR_PENDING",
   "preflight": {
     "starting_head": "598b96f1dcba1cdae478cde05d40df3870534448",
     "starting_origin_main": "598b96f1dcba1cdae478cde05d40df3870534448",
@@ -38,8 +38,9 @@
     "secondary_nodes": 42,
     "secondary_replay": "42 passed in 27.39s",
     "tertiary_nodes": 7,
+    "tertiary_new_unique_node_ids": 6,
     "tertiary_replay": "7 passed in 12.66s",
-    "total_classified_historical_nodes": 174,
+    "total_classified_historical_nodes": 173,
     "classification": "OBSOLETE_SNAPSHOT_OR_EXPECTATION",
     "suppression": {
       "skip_added": false,
@@ -204,6 +205,8 @@
     ],
     "force_push": false,
     "pull_merge_rebase_reset": false,
-    "status": "PENDING"
+    "status": "PUBLISHED_AFTER_NORMAL_PUSH_AND_POST_FETCH_VERIFICATION",
+    "initial_checkpoint_commit": "09fcb8310ab920dda2046a847a7bc45d88cbb4cc",
+    "documentation_repair_commit": "CONTAINING_REPAIR_COMMIT"
   }
 }

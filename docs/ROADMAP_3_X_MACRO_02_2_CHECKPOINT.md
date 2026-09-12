@@ -6,7 +6,7 @@
 - Repository: `C:\IA_CORE`
 - Branch: `main`
 - Checkpoint parent: `40f3259a67d6b2f2b2f5dde649217523dc62cace`
-- Publication result: `PENDING_FINAL_CHECKPOINT_COMMIT_AND_REMOTE_VERIFICATION`
+- Publication result: `09fcb8310ab920dda2046a847a7bc45d88cbb4cc PUBLISHED_AND_VERIFIED`
 
 ## Final adjudication
 
@@ -18,8 +18,10 @@ as one canonical document, the ONE CORE / FOUR SURFACES doctrine is published
 as one canonical document, and GOKV/DOOL/OCI learning is registered without
 automatic promotion.
 
-The final publication token is emitted only after the containing checkpoint
-commit is created and `origin/main` is verified equal to `HEAD`.
+The containing checkpoint commit was created and published with a normal push;
+post-push fetch verified `HEAD == origin/main`, ahead/behind `0/0`, clean tree,
+and `git diff --check` PASS. A later documentation-only repair corrects the
+node-count wording without changing validated code or product scope.
 
 ## Baseline and convergence
 
@@ -33,9 +35,10 @@ that reduced the diagnostic failure set from 146 to 125; no failure was hidden.
 The initial 125 failed nodes were individually ledgered and replayed against
 their own historical checkpoints: `125 passed` in `160.40s`. The complete
 suite then exposed 42 additional historical node assertions and, after their
-bounded adaptation, seven more node-level historical assertions in modules
-already covered by the first wave. These were separately recorded rather than
-folded into the initial baseline.
+bounded adaptation, seven second-wave failure observations in modules already
+covered by the first wave. Six were new node IDs; one repeated a baseline node
+while requiring a more precise mixed-surface endpoint. These were separately
+recorded rather than hidden inside the initial baseline.
 
 Final counts:
 
@@ -50,8 +53,9 @@ Final counts:
 | Full-suite duration | `1600.90s` |
 | Initial baseline nodes converged | `125` |
 | Secondary historical nodes converged | `42` |
-| Tertiary historical nodes converged | `7` |
-| Historical nodes classified and passing | `174` |
+| Tertiary historical failure observations converged | `7` |
+| Tertiary new unique node IDs | `6` |
+| Historical node IDs classified and passing | `173` |
 
 No node was skipped, xfailed, deleted, assertion-stripped, or silenced to
 produce the green result. The six skips are pre-existing explicit tests and
@@ -86,7 +90,8 @@ The adapter in `tests/historical_test_context.py` is fail-closed and explicit:
 - protected paths are never made permissive by the adapter.
 
 The final ledger is the complete accountability record, including all 125
-initial nodes, the exact 42 secondary node IDs, and the seven tertiary nodes:
+initial nodes, the exact 42 secondary node IDs, and the seven tertiary failure
+observations (six unique plus one endpoint refinement):
 
 `docs/ROADMAP_3_X_MACRO_02_2_FAILURE_ACCOUNTABILITY_LEDGER.md`
 

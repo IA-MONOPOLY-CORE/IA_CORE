@@ -233,10 +233,12 @@ tests/test_ui_ux_visual_base_checkpoint_0_9.py::test_widgets_actions_and_blocks_
 
 ## Tertiary historical fallout discovered by the second complete suite
 
-Seven additional node-level assertions in modules already listed above failed
-only because the first bounded repair did not yet adapt their README or mixed
-surface endpoint. They are a distinct historical wave, not new product
-regressions, and are now covered by the same explicit module allowlist.
+Seven node-level assertions in modules already listed above failed in the
+second complete-suite observation because the first bounded repair did not yet
+adapt their README or mixed-surface endpoint. Six are new unique node IDs and
+one repeats a baseline node while refining its per-file endpoint. They are a
+distinct historical wave, not product regressions, and are now covered by the
+same explicit module allowlist.
 
 | Node | Classification | Resolution | Status |
 |---|---|---|---|
@@ -249,8 +251,10 @@ regressions, and are now covered by the same explicit module allowlist.
 | `tests/test_ui_ux_visual_base_checkpoint_0_9.py::test_active_ui_keeps_superior_layout_and_ia_core_identity` | `OBSOLETE_SNAPSHOT_OR_EXPECTATION` | Mixed historical surface endpoint: layout HTML plus widget/product snapshot | `RESOLVED_TERTIARY_HISTORICAL_CHECKPOINT` |
 
 The complete historical convergence therefore covers 125 baseline nodes plus
-42 first-wave nodes plus 7 second-wave nodes: 174 node-level historical
-assertions, all individually classified and passing in the final suite.
+42 first-wave nodes plus 6 new unique second-wave nodes: 173 unique node IDs.
+There were 174 historical failure observations including the one repeated
+baseline node endpoint refinement; all observations are individually
+classified and passing in the final suite.
 
 ## Secondary historical fallout discovered by the complete suite
 
