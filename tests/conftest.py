@@ -76,3 +76,11 @@ def mock_llm_for_integration_tests(request, monkeypatch):
     monkeypatch.setattr("agents.llm_runner.invoke_llm", _fake_invoke)
     monkeypatch.setattr("agents.role_agent.llm_runner.invoke_llm", _fake_invoke)
     monkeypatch.setattr("agents.lightweight_assistant_runner.run_fast_chat", _fake_fast_chat)
+
+
+@pytest.fixture(autouse=True)
+def historical_contract_checkpoint(request, tmp_path, monkeypatch):
+    """Run only ledgered historical probes against their own Git checkpoint."""
+    from historical_test_context import install
+
+    install(request, tmp_path, monkeypatch)

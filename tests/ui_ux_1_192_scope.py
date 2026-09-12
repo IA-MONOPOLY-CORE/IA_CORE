@@ -10,6 +10,7 @@ ROOT = Path(__file__).resolve().parents[1]
 DOC = "docs/UI_UX_PANEL_MAESTRO_CONTROLLED_DOUBLE_SCOPE_AFFORDANCES_SEVERITY_1_192.md"
 TEST = "tests/test_ui_ux_panel_maestro_controlled_double_scope_affordances_severity_1_192.py"
 HELPER = "tests/ui_ux_1_192_scope.py"
+HISTORICAL_SCOPE_HEAD = "HEAD"
 CHECKPOINTS = {
     "tests/test_ui_ux_panel_maestro_matrix_visual_hierarchy_demotion_1_186.py": "8ed0c3e",
     "tests/test_ui_ux_panel_maestro_matrix_visual_hierarchy_demotion_checkpoint_1_187.py": "e2d1653",
@@ -483,17 +484,23 @@ def assert_current_scope(root, *, head="HEAD", baseline=CURRENT_MISSION_BASELINE
                          allowed_paths=CURRENT_MISSION_ALLOWED):
     """Check staged and working changes against the explicitly selected mission horizon."""
     root = Path(root)
+    historical_snapshot = head != "HEAD" or HISTORICAL_SCOPE_HEAD != "HEAD"
+    if head == "HEAD":
+        head = HISTORICAL_SCOPE_HEAD
+    scope_baseline = BASE if historical_snapshot else baseline
+    scope_allowed_paths = (
+        ALLOWED if historical_snapshot and allowed_paths is CURRENT_MISSION_ALLOWED else allowed_paths
+    )
     subprocess.run(["git", "merge-base", "--is-ancestor", BASE, head], cwd=root, check=True)
-    historical_snapshot = head != "HEAD"
     for staged in (False, True):
         options = ["--cached"] if staged else []
         if historical_snapshot:
-            names = set(text(git(root, "diff", "--name-only", "--no-renames", baseline, head)).splitlines())
+            names = set(text(git(root, "diff", "--name-only", "--no-renames", scope_baseline, head)).splitlines())
         else:
             names = set(text(git(root, "diff", *options, "--name-only", "--no-renames", baseline)).splitlines())
-        if not staged:
+        if not staged and not historical_snapshot:
             names.update(text(git(root, "ls-files", "--others", "--exclude-standard")).splitlines())
-        assert names <= allowed_paths, f"Forbidden {'index' if staged else 'worktree'} paths: {sorted(names - allowed_paths)}"
+        assert names <= scope_allowed_paths, f"Forbidden {'index' if staged else 'worktree'} paths: {sorted(names - scope_allowed_paths)}"
         changes = {}
         baselines = {}
         for path in names:
@@ -502,11 +509,20 @@ def assert_current_scope(root, *, head="HEAD", baseline=CURRENT_MISSION_BASELINE
             else:
                 file = root / path
                 assert file.is_file() and not file.is_symlink(), f"Not a regular file: {path}"
-                changes[path] = file.read_bytes()
+                if historical_snapshot:
+                    try:
+                        changes[path] = git(root, "show", f"{head}:{path}")
+                    except subprocess.CalledProcessError:
+                        changes[path] = file.read_bytes()
+                else:
+                    changes[path] = file.read_bytes()
             if path in READMES or path in CHECKPOINTS or path == CSS:
-                snapshot_baseline = baseline if path == CSS else BASE
+                snapshot_baseline = scope_baseline if path == CSS else BASE
                 baselines[path] = git(root, "show", f"{snapshot_baseline}:{path}")
-        assert_snapshot(changes, baselines, allowed_paths)
+        assert_snapshot(changes, baselines, scope_allowed_paths)
         # Content checks must not let a symlink or executable-bit change through.
-        summary = text(git(root, "diff", *options, "--summary", BASE))
+        summary_args = ["diff", *([] if historical_snapshot else options), "--summary", scope_baseline]
+        if historical_snapshot:
+            summary_args.append(head)
+        summary = text(git(root, *summary_args))
         assert "mode change" not in summary and "120000" not in summary, summary

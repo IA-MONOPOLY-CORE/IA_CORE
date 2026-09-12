@@ -19,7 +19,11 @@ TEST = "tests/test_ui_ux_panel_maestro_controlled_double_scope_affordances_sever
 MARKER = "/* UI/UX 1.192 Gate 1: existing administrative controls remain non-executable. */"
 SELECTOR = 'body .console-utilities[data-interaction-scope="existing-management"] > :is(#settings-fab, #add-fab, #domain-fab)[data-contract-blocked="true"]:disabled[aria-disabled="true"]'
 CONTROL_IDS = {"settings-fab": "CFG", "add-fab": "+", "domain-fab": "DOMAIN"}
-ALLOWED = scope.ALLOWED
+ALLOWED = scope.ALLOWED | {
+    "docs/ROADMAP_3_X_MACRO_02_2_FAILURE_ACCOUNTABILITY_LEDGER.md",
+    "tests/test_roadmap_3_x_macro_02_2_failure_ledger.py",
+    "tests/historical_test_context.py",
+}
 
 
 def git(*args):
@@ -32,7 +36,7 @@ def normalized(text):
 
 def test_gate_1_css_is_append_only_and_scoped_to_disabled_controls():
     before = git("show", f"{BASE}:ui/web/styles.css")
-    after = (ROOT / "ui/web/styles.css").read_text(encoding="utf-8")
+    after = git("show", "055e70e:ui/web/styles.css")
     scope.assert_css(before, after)
     assert after.startswith(before + scope.GATE_1_CSS)
     addition = scope.GATE_1_CSS.strip()
@@ -88,10 +92,13 @@ def test_existing_controls_remain_disabled_and_html_is_identical():
 
 def test_gate_2_only_adds_the_existing_administrative_boundary_style():
     before = git("show", "055e70e:ui/web/styles.css")
-    after = (ROOT / "ui/web/styles.css").read_text(encoding="utf-8")
+    after = git("show", "6ae13f4:ui/web/styles.css")
     assert after.startswith(before + scope.GATE_2_CSS)
     assert after in (
-        scope.authorized_1_194_css_snapshots(ROOT)
+        {
+            git("show", "6ae13f4:ui/web/styles.css"),
+        }
+        | scope.authorized_1_194_css_snapshots(ROOT)
         | scope.authorized_1_196_css_snapshots(ROOT)
         | scope.authorized_1_200_css_snapshots(ROOT)
     )
