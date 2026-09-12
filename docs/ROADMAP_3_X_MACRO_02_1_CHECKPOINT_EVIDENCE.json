@@ -1,0 +1,91 @@
+{
+  "mission": "ROADMAP_3_X_MACRO_02_1",
+  "checkpoint_status": "CHECKPOINT_READY_FOR_CONTROLLED_PUBLICATION",
+  "base_before_macro_02": "fbbc5372865467c4c5de3c09e580644971e2d163",
+  "macro_02_published_head": "ad7a3dcac1959aba086c1098b126e8c97b9e32b8",
+  "pre_checkpoint_head": "d4a74f7f09173fe9d86b992e41aa4a334ccae304",
+  "branch": "main",
+  "entry_origin_main": "ad7a3dcac1959aba086c1098b126e8c97b9e32b8",
+  "macro_02_commit_count": 20,
+  "macro_02_1_commits_before_checkpoint": 10,
+  "history_rewrite": false,
+  "network_policy": {
+    "external_network_during_validation": false,
+    "git_fetch_push_only_at_publication": true,
+    "default_guard": "IA_CORE_EXTERNAL_NETWORK_BLOCKED",
+    "external_opt_in": "IA_CORE_ALLOW_EXTERNAL_TESTS=1"
+  },
+  "collection": {
+    "command": "python -m pytest --collect-only -q",
+    "status": "PASS",
+    "collected": 6901
+  },
+  "full_suite_diagnostic": {
+    "command": "python -m pytest -q",
+    "status": "DIAGNOSTIC_WITH_EXPLICIT_HISTORICAL_BASELINE_MISMATCHES",
+    "passed": 6749,
+    "failed": 146,
+    "skipped": 6,
+    "warnings": 5,
+    "duration_seconds": 2464.77,
+    "current_mission_gate": false,
+    "note": "The run was not hidden; failures are historical snapshot/inventory assertions or pre-existing checkpoint-relative guards."
+  },
+  "remaining_historical_diagnostic": {
+    "command": "python -m pytest -q --last-failed --maxfail=0",
+    "status": "DIAGNOSTIC_ONLY",
+    "failed": 125,
+    "passed": 19,
+    "warnings": 1,
+    "families": [
+      "historical UI/UX snapshot and product-diff probes",
+      "GOKV 0.1-0.3 and Macro 02 inventory probes",
+      "historical roadmap and strategic-document diff probes"
+    ],
+    "reason": "Each probe must validate its own checkpoint; running it at current HEAD changes the proposition being tested."
+  },
+  "current_mission_validation": {
+    "command": "python -m pytest -q tests/test_hybrid.py tests/test_roadmap_3_x_macro_02_commit_accountability_ledger.py tests/test_roadmap_3_x_macro_02_1_hermetic_validation.py tests/test_roadmap_3_x_macro_02_1_phantom_side_effects.py tests/test_roadmap_3_x_macro_02_1_legacy_alignment.py tests/test_roadmap_3_x_macro_02_1_learning_reconciliation.py tests/test_method_santi_3_2_1.py",
+    "status": "PASS",
+    "passed": 26,
+    "warnings": 1
+  },
+  "legacy_validation": {
+    "api_admin_panels": {"command": "python -m pytest -q tests/test_api_admin_panels.py", "status": "PASS", "passed": 26, "warnings": 5},
+    "debate": {"command": "python -m pytest -q tests/test_debate.py", "status": "PASS", "passed": 6},
+    "scoring": {"command": "python -m pytest -q tests/test_scoring.py", "status": "PASS", "passed": 7},
+    "supervisor_orchestration": {"command": "python -m pytest -q tests/test_supervisor.py tests/test_orchestration.py", "status": "PASS", "passed": 7},
+    "providers": {"command": "python -m pytest -q tests/test_providers.py", "status": "PASS", "passed": 5},
+    "external_default": {"command": "python -m pytest -q test_respuesta.py tests/test_ollama_integration.py", "status": "PASS_WITH_EXPLICIT_SKIPS", "skipped": 5}
+  },
+  "gokv": {
+    "command": "python -m gokv.cli --repo-root . validate",
+    "status": "PASS",
+    "item_count": 32,
+    "status_counts": {"CANDIDATE": 16, "VALIDATED": 9, "PROMOTED": 7},
+    "automatic_promotion": false
+  },
+  "compile_and_diff": {
+    "py_compile": "PASS",
+    "git_diff_check": "PASS",
+    "secret_pattern_scan": "PASS",
+    "prohibited_product_diff": "PASS",
+    "tracked_state_during_tests": "UNCHANGED"
+  },
+  "protected_surfaces": {
+    "html": "UNCHANGED",
+    "javascript": "UNCHANGED",
+    "i18n": "UNCHANGED",
+    "backend_api": "UNCHANGED",
+    "payload": "UNCHANGED",
+    "runtime_execution": "UNCHANGED",
+    "endpoints_integrations_providers": "UNCHANGED",
+    "memory_and_vector_stores": "UNCHANGED"
+  },
+  "publication": {
+    "commit_created_after_evidence": true,
+    "push_allowed_only_after_final_gate": true,
+    "final_hash_to_be_recorded_in_report": true,
+    "next_macro_started": false
+  }
+}
