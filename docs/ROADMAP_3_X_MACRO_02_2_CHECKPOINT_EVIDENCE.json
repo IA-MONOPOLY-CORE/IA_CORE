@@ -5,7 +5,7 @@
   "branch": "main",
   "checkpoint_parent": "40f3259a67d6b2f2b2f5dde649217523dc62cace",
   "expected_publish_token": "ROADMAP_3X_MACRO_02_2_HISTORICAL_SUITE_TRUTH_CONVERGED_METHOD_AND_ONE_CORE_FOUR_SURFACES_DOCTRINE_PUBLISHED",
-  "status_before_remote_publication": "PUBLISHED_WITH_DOCUMENTATION_REPAIR_PENDING",
+  "status_before_remote_publication": "PUBLISHABLE_CHECKPOINT",
   "preflight": {
     "starting_head": "598b96f1dcba1cdae478cde05d40df3870534448",
     "starting_origin_main": "598b96f1dcba1cdae478cde05d40df3870534448",
@@ -207,6 +207,7 @@
     "pull_merge_rebase_reset": false,
     "status": "PUBLISHED_AFTER_NORMAL_PUSH_AND_POST_FETCH_VERIFICATION",
     "initial_checkpoint_commit": "09fcb8310ab920dda2046a847a7bc45d88cbb4cc",
-    "documentation_repair_commit": "CONTAINING_REPAIR_COMMIT"
+    "documentation_repair_commit": "49f67ecaa7830a56fe282162cd2a43f9095d2b80",
+    "final_published_head": "49f67ecaa7830a56fe282162cd2a43f9095d2b80"
   }
 }

@@ -6,7 +6,8 @@
 - Repository: `C:\IA_CORE`
 - Branch: `main`
 - Checkpoint parent: `40f3259a67d6b2f2b2f5dde649217523dc62cace`
-- Publication result: `09fcb8310ab920dda2046a847a7bc45d88cbb4cc PUBLISHED_AND_VERIFIED`
+- Initial checkpoint publication: `09fcb8310ab920dda2046a847a7bc45d88cbb4cc PUBLISHED_AND_VERIFIED`
+- Final published head after documentation repair: `49f67ecaa7830a56fe282162cd2a43f9095d2b80`
 
 ## Final adjudication
 
