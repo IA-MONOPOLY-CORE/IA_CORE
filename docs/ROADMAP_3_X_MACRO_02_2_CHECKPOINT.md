@@ -7,7 +7,8 @@
 - Branch: `main`
 - Checkpoint parent: `40f3259a67d6b2f2b2f5dde649217523dc62cace`
 - Initial checkpoint publication: `09fcb8310ab920dda2046a847a7bc45d88cbb4cc PUBLISHED_AND_VERIFIED`
-- Final published head after documentation repairs: `ff1463dbef5810decedeea1d6d9a8d057a5ceb7c`
+- Final published head: the containing publication-evidence commit, verified by
+  post-push fetch as equal to `origin/main`.
 
 ## Final adjudication
 

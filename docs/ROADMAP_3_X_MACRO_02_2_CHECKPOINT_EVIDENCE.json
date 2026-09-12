@@ -208,7 +208,7 @@
     "status": "PUBLISHED_AFTER_NORMAL_PUSH_AND_POST_FETCH_VERIFICATION",
     "initial_checkpoint_commit": "09fcb8310ab920dda2046a847a7bc45d88cbb4cc",
     "documentation_repair_commit": "49f67ecaa7830a56fe282162cd2a43f9095d2b80",
-    "final_published_head": "ff1463dbef5810decedeea1d6d9a8d057a5ceb7c",
-    "evidence_identity_commit": "ff1463dbef5810decedeea1d6d9a8d057a5ceb7c"
+    "final_published_head": "CONTAINING_PUBLICATION_EVIDENCE_COMMIT_VERIFIED_POST_FETCH",
+    "evidence_identity_commit": "CONTAINING_PUBLICATION_EVIDENCE_COMMIT"
   }
 }
