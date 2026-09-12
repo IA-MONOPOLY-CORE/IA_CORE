@@ -22,11 +22,13 @@ def test_failure_ledger_records_the_reproducible_baseline():
 
 def test_failure_ledger_has_one_row_per_failed_node_and_no_silent_disposition():
     text = _text()
-    rows = re.findall(r"^\| (\d+) \| `tests/[^`]+::test_[^`]+` \| `[^`]+` \| `[^`]+` \| .+ \| .+ \| `PENDING_HISTORICAL_ADAPTATION` \|$", text, re.MULTILINE)
+    rows = re.findall(r"^\| (\d+) \| `tests/[^`]+::test_[^`]+` \| `[^`]+` \| `[^`]+` \| .+ \| .+ \| `RESOLVED_HISTORICAL_CHECKPOINT` \|$", text, re.MULTILINE)
     assert len(rows) == 125
     assert [int(row) for row in rows] == list(range(1, 126))
     for forbidden in ("skip", "xfail", "delete", "bulk-regenerat"):
         assert forbidden in text.lower()
+    assert "PENDING_HISTORICAL_ADAPTATION" not in text
+    assert "HISTORICAL_SUITE_TRUTH_CONVERGED" in text
     assert "UNKNOWN_TRUE_FRONTIER" not in text
 
 

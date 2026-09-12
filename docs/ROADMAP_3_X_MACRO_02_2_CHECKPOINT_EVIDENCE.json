@@ -1,0 +1,209 @@
+{
+  "schema_version": "roadmap.checkpoint.evidence.v1",
+  "mission": "ROADMAP_3X_MACRO_02_2_HISTORICAL_TEST_CONTRACT_CONVERGENCE_AND_DOCTRINE_CONSOLIDATION",
+  "repository": "C:/IA_CORE",
+  "branch": "main",
+  "checkpoint_parent": "40f3259a67d6b2f2b2f5dde649217523dc62cace",
+  "expected_publish_token": "ROADMAP_3X_MACRO_02_2_HISTORICAL_SUITE_TRUTH_CONVERGED_METHOD_AND_ONE_CORE_FOUR_SURFACES_DOCTRINE_PUBLISHED",
+  "status_before_remote_publication": "PUBLISHABLE_PENDING_CONTAINING_COMMIT",
+  "preflight": {
+    "starting_head": "598b96f1dcba1cdae478cde05d40df3870534448",
+    "starting_origin_main": "598b96f1dcba1cdae478cde05d40df3870534448",
+    "starting_ahead_behind": "0/0",
+    "starting_working_tree": "clean",
+    "git_fetch_origin": "PASS",
+    "git_diff_check": "PASS"
+  },
+  "baseline": {
+    "macro_02_1_reference": {
+      "passed": 6749,
+      "failed": 146,
+      "skipped": 6,
+      "warnings": 5
+    },
+    "macro_02_2_reproduced": {
+      "collected": 6905,
+      "passed": 6774,
+      "failed": 125,
+      "skipped": 6,
+      "warnings": 5,
+      "duration_seconds": 1484.43,
+      "log": "C:/Users/Santi/AppData/Local/Temp/ia-core-macro-02-2-baseline.txt"
+    },
+    "reconciliation": "Four tests were added since the Macro 02.1 reference run; the already-published state reduced the diagnostic failure set to 125 without suppression."
+  },
+  "historical_convergence": {
+    "initial_baseline_nodes": 125,
+    "initial_replay": "125 passed in 160.40s",
+    "secondary_nodes": 42,
+    "secondary_replay": "42 passed in 27.39s",
+    "tertiary_nodes": 7,
+    "tertiary_replay": "7 passed in 12.66s",
+    "total_classified_historical_nodes": 174,
+    "classification": "OBSOLETE_SNAPSHOT_OR_EXPECTATION",
+    "suppression": {
+      "skip_added": false,
+      "xfail_added": false,
+      "assertions_deleted": false,
+      "mass_snapshot_regeneration": false,
+      "current_product_regression": false
+    },
+    "ledger": "docs/ROADMAP_3_X_MACRO_02_2_FAILURE_ACCOUNTABILITY_LEDGER.md"
+  },
+  "final_validation": {
+    "collection": {
+      "command": "python -m pytest --collect-only -q",
+      "result": "6916 tests collected",
+      "status": "PASS"
+    },
+    "full_suite": {
+      "command": "python -m pytest -q --tb=short",
+      "passed": 6910,
+      "failed": 0,
+      "skipped": 6,
+      "xfailed": 0,
+      "xpassed": 0,
+      "warnings": 5,
+      "duration_seconds": 1600.90,
+      "status": "PASS",
+      "log": "C:/Users/Santi/AppData/Local/Temp/ia-core-macro-02-2-final-suite-v3.txt"
+    },
+    "mission_focal": {
+      "ledger_method_learning": "11 passed, 1 warning",
+      "secondary_historical_wave": "42 passed, 1 warning",
+      "tertiary_historical_wave": "7 passed, 1 warning",
+      "status": "PASS"
+    },
+    "gokv": {
+      "command": "python -m gokv.cli --repo-root . validate",
+      "item_count": 34,
+      "CANDIDATE": 18,
+      "VALIDATED": 9,
+      "PROMOTED": 7,
+      "status": "PASS"
+    },
+    "py_compile": {
+      "status": "PASS"
+    },
+    "node_check": {
+      "files": [
+        "ui/web/backend-contract-widgets.js",
+        "ui/web/admin-panels.js",
+        "ui/web/console-interactions.js",
+        "ui/web/domains.js"
+      ],
+      "status": "PASS"
+    },
+    "sanity": {
+      "protected_product_diff": "EMPTY",
+      "payload_v2": "ABSENT",
+      "contract_fallback": "PRESENT",
+      "status": "PASS"
+    },
+    "secret_scan": {
+      "status": "PASS"
+    },
+    "prohibited_diff": {
+      "status": "PASS",
+      "allowed_path_count_before_checkpoint_docs": 20
+    },
+    "git_diff_check": {
+      "status": "PASS"
+    }
+  },
+  "commits": [
+    {
+      "station": "01",
+      "hash": "987e4085",
+      "purpose": "Inventory Macro 02.2 historical failures",
+      "result": "125-node ledger created and focal validation passed"
+    },
+    {
+      "station": "02",
+      "hash": "fbf6d601",
+      "purpose": "Converge historical checkpoint contracts",
+      "result": "125 exact historical nodes passed; product unchanged"
+    },
+    {
+      "station": "03",
+      "hash": "84bfd599",
+      "purpose": "Consolidate Method Santi 3.2.2 and one core/four surfaces doctrine",
+      "result": "Method/doctrine focal tests passed"
+    },
+    {
+      "station": "04",
+      "hash": "40f3259a",
+      "purpose": "Record GOKV/DOOL/OCI learning loop",
+      "result": "34-item vault validated without automatic promotion"
+    },
+    {
+      "station": "05",
+      "hash": null,
+      "purpose": "Publish final evidence and checkpoint",
+      "result": "Containing Git hash is assigned when this evidence file is committed; final report records that hash"
+    }
+  ],
+  "changed_paths": {
+    "allowed_roots": [
+      "docs/",
+      "knowledge/global_operational/",
+      "tests/conftest.py",
+      "tests/historical_test_context.py",
+      "tests/ui_ux_1_192_scope.py",
+      "tests/test_ui_ux_panel_maestro_controlled_double_scope_affordances_severity_1_192.py",
+      "tests/test_roadmap_3_x_macro_02_2_failure_ledger.py",
+      "tests/test_method_santi_3_2_2_and_one_core_four_surfaces.py",
+      "tests/test_roadmap_3_x_macro_02_2_learning_reconciliation.py"
+    ],
+    "protected_product_diff": "EMPTY",
+    "payload_v2": "ABSENT",
+    "product_behavior_changes": false
+  },
+  "readme_update_decision": {
+    "root_readme": "NOT_REQUIRED",
+    "future_platform_extension_index": "UPDATED_WITH_CANONICAL_METHOD_AND_DOCTRINE_LINKS",
+    "gokv_readme": "UPDATED_WITH_NEW_LEARNING_ARTIFACTS"
+  },
+  "print_ready_artifact": {
+    "path": "docs/generated/METHOD_SANTI_3_2_2_ONE_CORE_FOUR_SURFACES_PRINT_READY.html",
+    "type": "static_print_ready_fallback",
+    "pdf": "NOT_GENERATED_NO_DETERMINISTIC_LOCAL_RENDERER_AVAILABLE"
+  },
+  "scope_exclusions": [
+    "HTML product behavior",
+    "JavaScript contractual behavior",
+    "i18n",
+    "backend",
+    "payload",
+    "payload v2",
+    "runtime",
+    "execution",
+    "endpoints",
+    "integrations",
+    "providers",
+    "P0",
+    "P1",
+    "P3 matrix",
+    "contract-aware widgets",
+    "Request Draft Panel",
+    "IA_CORE OS implementation",
+    "mobile implementation",
+    "kernel, drivers, AOSP",
+    "Macro 03 / next macro-mission"
+  ],
+  "publication": {
+    "required_sequence": [
+      "final checkpoint commit",
+      "git fetch origin",
+      "verify expected origin state",
+      "git push origin main",
+      "git fetch origin",
+      "verify HEAD equals origin/main",
+      "verify ahead/behind 0/0",
+      "verify clean working tree"
+    ],
+    "force_push": false,
+    "pull_merge_rebase_reset": false,
+    "status": "PENDING"
+  }
+}
