@@ -1,225 +1,136 @@
-# Post-Roadmap 3.2 - Full Roadmap 3.x Phase Execution Graph
+# Roadmap 3.x Full Phase Execution Graph
 
 ## Identity and authority
 
-- Mission ID: `post_roadmap_3_2_full_3x_phase_execution_graph_frontier_engineering_and_method_consolidation`
-- Mode: `READ_ONLY_PRODUCT_DOCUMENTATION_AND_PLANNING_ONLY`
-- Baseline: `fd9cc6fcf2040d630a2dba2dee635d63e7c07ccb`
-- Branch: `main`
-- Product code, runtime, execution, providers, stores, UI and deployment were not modified.
-- The machine-readable frontier map is [ROADMAP_3_X_FRONTIER_ENGINEERING_MAP.json](C:/IA_CORE/docs/ROADMAP_3_X_FRONTIER_ENGINEERING_MAP.json).
+- Mission: `ROADMAP_3X_MACRO_03_FRONTIER_RECONSTRUCTION_F004_FAMILY_DECISION_SUFFICIENCY_AND_B7_CLOSURE_READINESS`
+- Repository: `C:\IA_CORE`
+- Entry branch: `main`
+- Entry HEAD and parent baseline: `8eda61c1c6e1611435cf4d4881a374502018abdc`
+- Mode: `READ_ONLY_DOCUMENTARY_ARCHITECTURE_AND_PLANNING`
+- Current repository, executable tests, and published checkpoints are authoritative.
+- Historical prose is evidence only when its source commit and scope are explicit.
+- `docs/FUTURE_*.md` and strategic documents are architectural reservations, not capability proof.
+- No product source, runtime, execution, provider, deployment, integration, payload, endpoint, adapter or store authority is created here.
 
-The current repository and published Git checkpoint are authoritative. Roadmap
-3.0, 3.0.A, 3.1 and 3.2 are evidence layers with different scopes. Future
-architecture documents are reservations, not implementation authority. The
-historical `IA_CORE_clean(1).zip` snapshot was not opened or used.
+The machine-readable companion is [ROADMAP_3_X_FRONTIER_ENGINEERING_MAP.json](C:/IA_CORE/docs/ROADMAP_3_X_FRONTIER_ENGINEERING_MAP.json). The route-family and F-004 record is [ROADMAP_3_X_MACRO_03_F004_FAMILY_DECISION_SUFFICIENCY.md](C:/IA_CORE/docs/ROADMAP_3_X_MACRO_03_F004_FAMILY_DECISION_SUFFICIENCY.md).
 
-## Authority reconstruction
+## Authority layers
 
-| Layer | Classification | Use in this graph |
+| Layer | Status | Use |
 | --- | --- | --- |
-| Current Git/source/contracts/tests | CURRENT / CANONICAL | Determines present state and allowed claims |
-| Roadmap 3.2 audit/evidence/checkpoint | CURRENT / CANONICAL | Legacy-to-canonical coverage and route recalculation evidence |
-| Roadmap 3.1 audit/evidence/checkpoint | HISTORICAL CHECKPOINT, CURRENT FINDINGS | Security, permission and activation findings |
-| Roadmap 3.0 and 3.0.A artifacts | HISTORICAL EVIDENCE | Backend terrain, strategic requirements and prior dependencies |
-| Roadmap 2.1 method applied audit | CANONICAL METHOD INVENTORY | 22 applied rules, 17 canonical and 5 evolved |
-| GOKV/OCI/DOOL registry and packs | CURRENT GOVERNANCE | `PROMOTED_ONLY`, `CURRENT_CONTRACT_WINS`, no automatic promotion |
-| `docs/FUTURE_*.md` and strategic docs | FUTURE / ARCHITECTURAL RESERVATION | Context only, never proof of capability |
+| Current Git/source/contracts/tests | `CURRENT_CANONICAL` | Present behavior, protected scope and claims |
+| Macro 02.2 checkpoint/evidence | `CURRENT_PUBLISHED_PARENT` | Historical suite convergence and doctrine inheritance |
+| Roadmap 3.2 and 3.1 checkpoints | `CURRENT_FINDINGS_HISTORICAL_CHECKPOINTS` | Legacy coverage, security and activation findings |
+| Roadmap 3.0, 3.0.A, Macro 01, Macro 02 and 02.1 | `PUBLISHED_HISTORICAL_EVIDENCE` | Prior dependencies and provenance |
+| GOKV/DOOL/OCI | `CURRENT_GOVERNANCE` | Development knowledge, provenance and non-automatic promotion |
+| Future enterprise/OS/mobile documents | `FUTURE_RESERVATION` | Strategic direction only |
 
-There is no standalone Method Santi 1.0 or 2.0 book in the current tree. Their
-preserved canonical record is the applied-method inventory in
-`docs/ROADMAP_2_1_METHOD_APPLIED_AUDIT.md`, together with the continuity and
-checkpoint rules it cites. This mission adds a non-destructive Method Santi 3.0
-document rather than overwriting that history.
+## Reconstructed phase graph
 
-## ROADMAP_3_X_COMPLETION_CONTRACT
+| Node | Purpose | Current state | Source checkpoint and commit | Demonstrated postcondition | Not demonstrated | Blocks 3.x transition |
+| --- | --- | --- | --- | --- | --- | --- |
+| `ROADMAP_3.0` | Backend elite read-only terrain audit | `CLOSED_WITH_EXPLICIT_LIMITS` | `ROADMAP_3_0_BACKEND_ELITE_READ_ONLY_AUDIT_CHECKPOINT.md`; `ca60becc0931b84efc5f8ce733233f5f2f469e38` | Backend routes, persistence, runtime, provider and trust surfaces inventoried | Deployment, identity, live traffic, runtime/provider reachability | Yes, through inherited unresolved boundaries |
+| `ROADMAP_3.0.A` | Strategic business/workforce/model requirements | `CLOSED_WITH_EXPLICIT_LIMITS` | `ROADMAP_3_0_A_STRATEGIC_BUSINESS_WORKFORCE_MODEL_REQUIREMENTS_CHECKPOINT.md`; `4c898eae74c0a6c59cda4e659ec6a1e2d2d3641a` | Future requirements, workforce blueprint and phase dependencies recorded | Active workforce, product expansion and capacity execution | No, future requirements remain phase-owned |
+| `ROADMAP_3.1` | Security, permission and activation boundary audit | `CLOSED_WITH_EXPLICIT_LIMITS` | `ROADMAP_3_1_SECURITY_PERMISSION_ACTIVATION_BOUNDARY_CHECKPOINT.md`; `2255295f5ffe4f7348476acfca606a84aa12af35` | 36-route security and activation findings preserved | Route-local authz, CORS policy acceptance, deployment and runtime evidence | Yes |
+| `ROADMAP_3.2` | Legacy API versus canonical control plane | `CLOSED_WITH_EXPLICIT_LIMITS` | `ROADMAP_3_2_LEGACY_API_CANONICAL_CONTROL_PLANE_CHECKPOINT.md`; `72ed7f653f83fffb8f735184a5a836a11db0db36` | 36 routes, 20 canonical controls and no demonstrated adapter reconciled | Route coverage, bridge/retirement authority and external consumers | Yes |
+| `MACRO_01` | Security boundary, route reconnaissance and contract-only coverage | `CLOSED_WITH_EXPLICIT_LIMITS` | `ROADMAP_3_X_MACRO_01_CHECKPOINT.md`; `fbbc5372865467c4c5de3c09e580644971e2d163` | B-1 through B-3 passed with UNKNOWN quality gate | Remediation and route destination decisions | Yes |
+| `MACRO_02` | B-4, B-5, B-6 readiness boundaries and P3 extraction | `CLOSED_WITH_EXPLICIT_LIMITS` | `ROADMAP_3_X_MACRO_02_CHECKPOINT.md`; `ad7a3dcac1959aba086c1098b126e8c97b9e32b8` | Permission, provider, persistence, rollback and workforce contracts are bounded | Runtime, providers, operational stores and active workforce | Yes |
+| `MACRO_02.1` | Hermetic collection, phantom-side-effect and method integrity | `CLOSED_WITH_EXPLICIT_LIMITS` | `ROADMAP_3_X_MACRO_02_1_CHECKPOINT.md`; `598b96f1dcba1cdae478cde05d40df3870534448` | Test collection and temporary-write boundaries are governed | Product behavior and operational execution | No, historical evidence is inherited |
+| `MACRO_02.2` | Historical test convergence and doctrine consolidation | `CLOSED_WITH_EXPLICIT_LIMITS` | `ROADMAP_3_X_MACRO_02_2_CHECKPOINT.md`; `8eda61c1c6e1611435cf4d4881a374502018abdc` | 6916 collected, 6910 passed, 0 failed, 6 skipped; doctrine and learning published | Legacy route authority, external evidence and product remediation | No, it is the parent evidence gate |
+| `B-1` | Legacy exposure, identity, CORS and secret boundary | `CLOSED_WITH_EXPLICIT_LIMITS` | 3.1 checkpoint and Macro 01 security evidence | Findings and source-level limits classified | Approved identity/tenant/CORS policy and deployed edge | Yes |
+| `B-2` | Legacy route destination and canonical relation | `CLOSED_WITH_EXPLICIT_LIMITS` | Macro 01 route reconnaissance and Macro 02 route convergence | All 36 routes have explicit `UNKNOWN` disposition with evidence | Bridge, containment, retirement or successor authority | Yes |
+| `B-3` | Request, permission, confirmation, payload and lifecycle coverage | `CONTRACT_READY` | 3.2 checkpoint; Macro 02 B4-A/B3 evidence | Canonical contracts are separated from route coverage | Positive route adapters and payload ownership | Yes |
+| `B-4` | Activation, runtime, provider and network readiness | `CONTRACT_READY` | Macro 02 B4-A/B evidence | Fail-closed contracts and static provider inventory | Runtime, credentials, traffic, egress and cost evidence | Yes |
+| `B-5` | Persistence, sandbox, retention and rollback ownership | `CONTRACT_READY` | Macro 02 B5-A/B evidence | Sandbox containment and rollback are proven in temporary fixtures | Legacy product-store ownership, retention and operational recovery | Yes |
+| `B-6` | Agent, preset, paper and team readiness boundary | `CONTRACT_READY` | Macro 02 B6 checkpoint | `CONTRACT_READY_INTERNAL_NO_ACTIVE_WORKFORCE` | Active workforce, provider and deployment authority | Yes |
+| `B-7` | Assemble exit evidence and next-phase contract | `DIRECTION_DECISION_PENDING` | This Macro 03 matrix and checkpoint | Readiness package and explicit deferred-frontier list | Direction acceptance of closure with limits | Yes |
 
-Roadmap 3.x is closed only when the phase truths are demonstrated, not when a
-numeric roadmap label is reached. The required exit contract is:
+`CLOSED_WITH_EXPLICIT_LIMITS` means the assigned documentary responsibility is
+complete while its explicit non-capabilities and deferred boundaries remain.
+It does not mean production readiness or runtime activation.
 
-1. The current authority, route inventory and checkpoint lineage are coherent.
-2. All legacy routes and write-capable paths have an explicit owner, destination,
-   containment, retirement or canonical-coverage decision.
-3. Identity, authentication, authorization, ownership, tenant scope, CORS and
-   secret semantics are approved and evidenced for the relevant exposure.
-4. Request envelopes, permission/capability policy, confirmation, payload,
-   response and lifecycle contracts agree at every approved route boundary.
-5. Runtime activation, execution, provider, network and credential states are
-   separately evidenced and never inferred from source presence.
-6. Product stores, memory, evidence, sandbox artifacts and rollback paths have
-   distinct ownership and retention semantics.
-7. Agent, preset, paper and team definitions are separated from active
-   workforce authority.
-8. Historical guards validate their own checkpoint intervals and negative
-   assertions remain effective.
-9. All forbidden unknowns in the machine-readable completion contract are
-   resolved, explicitly accepted by Direction, or moved to an approved future
-   reservation without a false closure claim.
-
-Allowed unknowns at exit are future sector-specific requirements and external
-operational evidence explicitly deferred to a separately authorized phase.
-Forbidden unknowns include unclassified legacy mutation/provider routes,
-unowned secret or persistence writes, implicit authority, unsupported runtime
-claims and closure based only on documentation existence.
-
-## Full 3.x terrain census
-
-| ID | Surface | Current state | Main risk | Blocks exit |
-| --- | --- | --- | --- | --- |
-| S-001 | Authority and continuity | Current checkpoint coherent | Cursor drift | No |
-| S-002 | Legacy API route boundary | 36 routes inventoried | Uncontrolled route authority | Yes |
-| S-003 | Identity/authentication/authorization/ownership | Route-local proof not demonstrated | Unauthorized or cross-owner action | Yes |
-| S-004 | CORS and ingress trust | Wildcard source setting | Cross-origin exposure | Yes |
-| S-005 | Settings secret/config writes | Legacy write candidate | Secret exposure or mutation | Yes |
-| S-006 | Legacy-to-canonical coverage | 0 covered, 2 bypass, 1 partial, 33 not demonstrated | False assumption that gates are global | Yes |
-| S-007 | Request, permission, confirmation and payload boundary | Contracts exist; route use not demonstrated | Contract bypass | Yes |
-| S-008 | Activation/runtime/executor boundary | Contract-only or gated | Premature execution | Yes |
-| S-009 | Provider/network/credential boundary | Source-callable, runtime unknown | External access or data egress | Yes |
-| S-010 | Persistence, memory, evidence and stores | Legacy and sandbox candidates | Wrong destination or retention | Yes |
-| S-011 | Sandbox materialization and rollback | Controlled sandbox surface | Path escape or product-root confusion | Yes |
-| S-012 | Agent/preset/paper/team activation | Definitions and sandbox artifacts only | Fake active workforce state | Yes |
-| S-013 | Attempt, lifecycle, approval and recovery | Pre-operational contracts | Orphaned or irreversible operation | Yes |
-| S-014 | Historical guards and test debt | Temporal scope reconciled | False regression or false pass | No |
-| S-015 | Deployment, hosting and traffic | External evidence absent | Unseen exposure | Yes |
-| S-016 | Legacy isolation, bridge, retirement and destination | Undecided architectural boundary | Dual authority | Yes |
-| S-017 | GOKV, DOOL and OCI governance | Promoted-only, validated not promoted | Automatic promotion or runtime inference | No |
-| S-018 | Internal UI/backend exposure | Controlled internal contracts | Accidental public authority | Yes |
-
-The census deliberately excludes the entire future IA_CORE enterprise vision
-from 3.x execution scope. Those surfaces are captured as reservations below.
-
-## Natural block graph
+## Block graph and transition rules
 
 ```text
-B-0 Authority + 3.x Completion Contract
-  -> B-1 Legacy Exposure and Security Boundary
-  -> B-2 Legacy-to-Canonical Destination Decision
-  -> B-3 Request/Permission/Confirmation/Payload/Lifecycle Contracts
-       -> B-4 Activation/Runtime/Provider Readiness
-       -> B-5 Persistence/Sandbox/Rollback Ownership
-            B-4 + B-5 -> B-6 Agent/Workforce Readiness Boundary
-            B-6 -> B-7 3.x Closure Evidence and Architect Handoff
+B-0 authority and completion contract
+  -> B-1 exposure/security boundary
+  -> B-2 legacy destination and F-004 families
+  -> B-3 canonical coverage contract
+       -> B-4 activation/provider boundary
+       -> B-5 persistence/recovery boundary
+            B-4 + B-5 -> B-6 workforce boundary
+            B-6 -> B-7 closure readiness
+                 -> Direction acceptance or safe pause
+                      -> Roadmap 4.x entry review
 ```
 
-B-4 and B-5 can coexist after B-3. B-5 may move ahead of B-4 when persistence
-ownership is a demonstrated precondition. B-6 cannot begin until both runtime
-authority and storage boundaries remain explicit. B-7 is terminal and may only
-declare `ROADMAP_3_X_CLOSED` when the completion contract is true.
+- `B-0` is inherited and recalculated here; Macro 03 does not reopen its green parent evidence.
+- `B-4` and `B-5` are parallel only after B-3 remains explicit.
+- `B-6` cannot turn definitions into active workforce state.
+- `B-7` may publish readiness, but cannot self-authorize Direction acceptance.
+- A route destination remains `UNKNOWN` until ownership, authority, compatibility and evidence are demonstrated.
+- No graph edge grants a route adapter, provider call, runtime, endpoint, payload or product mutation.
 
-### Block contracts
+## Frontier reconciliation summary
 
-| Block | Objective | Expected output | Key postcondition |
+| Frontier set | Current result | Owner of resolution | Transition effect |
 | --- | --- | --- | --- |
-| B-0 | Fix authority and exit truths | `ROADMAP_3_X_COMPLETION_CONTRACT` | No ambiguous current source of truth |
-| B-1 | Resolve exposure and trust | `LEGACY_EXPOSURE_SECURITY_BOUNDARY_DECISION` | Identity, CORS, secret and deployment gaps classified |
-| B-2 | Decide legacy destination | `LEGACY_CANONICAL_DESTINATION_CONTRACT` | Every route is covered, contained, retired or deferred |
-| B-3 | Reconcile internal contracts | `CONTROL_PLANE_COVERAGE_CONTRACT` | No contract is mistaken for route authority |
-| B-4 | Resolve runtime/provider readiness | `ACTIVATION_AND_PROVIDER_READINESS_DECISION` | No activation inferred from source |
-| B-5 | Resolve persistence/recovery | `PERSISTENCE_AND_RECOVERY_BOUNDARY_CONTRACT` | Product, evidence and sandbox stores separated |
-| B-6 | Resolve workforce readiness | `AGENT_WORKFORCE_READINESS_BOUNDARY` | Definitions are not called active workforce |
-| B-7 | Assemble closure evidence | `ROADMAP_3_X_CLOSED_OR_EXPLICITLY_NOT_CLOSED` | No unsupported phase-exit claim |
+| `F-000` historical guard timing | `DISSOLVED_APPARENT_FRONTIER` | Engineering/test evidence | Does not block; Macro 02.2 published the convergence |
+| `F-001` external exposure and ingress | `EXTERNAL_EVIDENCE_PENDING` | Deployment/hosting owner | Blocks route authority claims |
+| `F-002` CORS and trust policy | `TRUE_HARD_FRONTIER` | Direction plus deployed edge owner | Blocks security-boundary closure |
+| `F-003` secret/settings ownership | `CONDITIONAL_FRONTIER` | Contract owner and deployment/storage owner | Blocks settings remediation |
+| `F-004` legacy route destination | `TRUE_HARD_FRONTIER` route-specific | Direction for policy; route owner for evidence | Blocks bridge/retirement/remediation |
+| `F-005` route-to-canonical coverage | `CONDITIONAL_FRONTIER` | Engineering evidence, then contract owner | Blocks coverage claims |
+| `F-006` activation/lifecycle coverage | `CONDITIONAL_FRONTIER` | Contract owner | Blocks activation claims |
+| `F-007` provider/network/credential reachability | `EXTERNAL_EVIDENCE_PENDING` | Provider and deployment owners | Blocks provider readiness |
+| `F-008` persistence ownership | `CONDITIONAL_FRONTIER` | Store owner and deployment owner | Blocks operational writes |
+| `F-009` sandbox/rollback boundary | `RESOLVABLE_FRONTIER` | Engineering contract owner | Static portion satisfied; product restore remains out of scope |
+| `F-010` workforce activation | `CONDITIONAL_FRONTIER` | Workforce and activation owners | Blocks active workforce claims |
+| `F-011` 3.x exit acceptance | `TRUE_HARD_FRONTIER` | Direction/Architect | Blocks phase-exit claim until accepted |
 
-Each block has station families, test policy, rollback model and detailed
-dependencies in the JSON map. Station families are dynamic: they expand when
-new evidence introduces a surface, not when a numeric station count demands it.
+The complete per-frontier record is in the machine-readable map. Macro 03
+reconciles F-004 by family without choosing a destination for any route.
 
-## Conditional execution edges
+## Current F-004 conclusion
 
-Every reorder must preserve the same destination and phase scope, introduce no
-new authority, remain reversible and testable, and leave closed work valid.
+The 36 legacy routes are fully accounted for in nine coherent families. Every
+route retains the published destination `UNKNOWN`; this is an intentional,
+evidence-backed stop, not an uninvestigated omission. The route family
+decision-sufficiency matrix records the missing evidence, owner, risk,
+rollback, specification readiness and remediation readiness.
 
-- `B-1 -> B-2`: continue after exposure and identity are classified; pause if
-  trust or tenant policy requires Direction.
-- `B-3 -> B-4`: continue only with explicit permission and activation semantics;
-  stop before runtime/provider activation.
-- `B-3 -> B-5`: may be reordered earlier when write ownership is a demonstrated
-  precondition; stop before operational mutation.
-- `B-4 -> B-6`: continue only while workforce activation remains gated;
-  stop before agent execution or provider calls.
-- `B-5 -> B-6`: continue only while sandbox and operational storage remain
-  separate; stop if recovery ownership is missing.
+`F-004_POLICY_LEVEL = DISSOLVED_BY_DIRECTION_POLICY`
 
-The graph therefore permits `A -> B -> D -> C` when D is proven necessary,
-without granting general route freedom.
+`F-004_ROUTE_SPECIFIC = TRUE_HARD_FRONTIER_FOR_DESTINATION_AUTHORITY`
 
-## Frontier Engineering
+No adapter, bridge, migration, retirement, internal-only exposure or successor
+was created.
 
-The map contains 12 frontier records. The first was the Roadmap 3.2 temporal
-guard mismatch and was dissolved through safe pause and route recalculation.
-The remaining frontiers are grouped as follows:
+## B-7 and Roadmap 4.x boundary
 
-- Apparent: historical guard scope only; resolved by checkpoint-bounded testing.
-- Resolvable: contract/path or sandbox evidence gaps that can be dissolved by
-  safe static evidence and existing boundaries.
-- Conditional: bridge, payload, activation, persistence and workforce edges
-  whose route depends on a bounded decision and evidence.
-- External evidence: deployment/hosting/traffic and provider/network facts that
-  static source cannot prove.
-- True hard: CORS policy, legacy destination/bridge authority and final exit
-  acceptance where Direction owns an irreducible decision.
+B-7 reaches `B7_READY_FOR_DIRECTION_ACCEPTANCE` as a documentary readiness
+outcome. The evidence is sufficient to present one bounded acceptance decision,
+but acceptance is not simulated. The closure matrix and entry contract are
+deliberately explicit that B-7 readiness is not `ROADMAP_3_X_CLOSED` and that
+Roadmap 4.x is not executed.
 
-The raw frontier distance is 12 documented frontier records. After Frontier
-Engineering, the effective irreducible distance is 5 records: 2 true-hard and
-3 external-evidence frontiers. This is a documentary count, not a schedule,
-runtime distance or readiness percentage.
+The next candidate is
+`ARCHITECT_SELECTS_ONE_F004_FAMILY_REMEDIATION_BLOCK_AFTER_B7_ACCEPTANCE`.
+It is a candidate only. Its first possible block is one F-004 family, with
+identity/tenant, authority, compatibility, payload, rollback and external
+evidence gates defined before any adapter work.
 
-For each frontier, the JSON map records why it is sensitive, what evidence would
-dissolve it, when it is only apparent, when it becomes true hard, safe pause
-conditions, route-recalculation triggers and the next frontier.
+## Non-capability boundary
 
-## GPS protocol and Roadmap 3.2 evidence
+This graph does not demonstrate or authorize:
 
-`STOP_EXECUTION != CLOSE_MACRO_MISSION`.
+- production readiness, deployment exposure or actual traffic;
+- authentication, authorization, tenant or ownership policy;
+- CORS policy acceptance;
+- legacy route adapters, bridge, migration, retirement or removal;
+- providers, credentials, network, egress, runtime or execution;
+- active workforce, agent execution or integrations;
+- operational persistence, restore or product rollback;
+- IA_CORE OS, mobile, kernel, drivers, AOSP or Roadmap 4.x.
 
-The operational protocol is:
-
-1. `SAFE_PAUSE`: stop product work and preserve green commits.
-2. `ROUTE_RECALCULATION_CHECKPOINT`: compare evidence with destination,
-   authority, phase scope, reversibility and closed work.
-3. `CONTINUATION_DIRECTIVE`: resume only on a bounded route.
-4. `EMERGENT_FRONTIER_DETECTION`: classify apparent, conditional, external or
-   true-hard status.
-5. `RESUME_POINT`: continue from the last green station.
-6. `GRAPH_REORDERING`: reorder only under the conditional-edge contract.
-
-Roadmap 3.2 is the verified example. It remains the `SAME MACRO-MISSION` case:
-
-```text
-APPARENT_FRONTIER
-  -> SAFE_PAUSE
-  -> ROUTE_RECALCULATION
-  -> CONTINUATION_DIRECTIVE
-  -> SAME_MACRO_MISSION
-  -> PASS
-  -> PUBLICATION
-```
-
-The mismatch was repaired without changing product code, widening the 3.1
-allowlist or inventing a Roadmap 3.2 exception. It is method evidence, not an
-automatic GOKV promotion.
-
-## Metrics contract
-
-Future macro-missions should record phase, planned/completed blocks and
-stations, known/dissolved frontiers, route recalculations, graph reorderings,
-human interventions, retries, rollbacks, time deltas, closed surfaces and
-result. This mission defines the contract and records only documentary facts;
-it does not reconstruct unavailable time or cost telemetry.
-
-## 3.x exit and next candidate
-
-The current graph does not declare `ROADMAP_3_X_CLOSED`. It defines the truths
-required to do so. The next macro-mission candidate is intentionally left as:
-
-`ARCHITECT_SELECTS_ONE_3X_BLOCK_AFTER_GRAPH_REVIEW`
-
-It may contain one to three contiguous blocks only after Direction reviews the
-graph and the active frontier. This mission does not select or execute it.
-
-## Boundary
-
-No auth/authz, CORS, secret, provider, runtime, execution, endpoint, UI,
-enterprise feature, GOKV promotion or product remediation was implemented.
-The result is a governed map for CHAT / ARCHITECT review.
-
-`ROADMAP_3_X_FULL_PHASE_EXECUTION_GRAPH_DOCUMENTED`
+`ROADMAP_3_X_MACRO_03_FRONTIER_GRAPH_RECONSTRUCTED_B7_READY_FOR_DIRECTION_ACCEPTANCE`
