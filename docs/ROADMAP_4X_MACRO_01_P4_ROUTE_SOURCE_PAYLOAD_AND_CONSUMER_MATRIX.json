@@ -1,0 +1,324 @@
+{
+  "schema_version": "roadmap.4x.macro01.p4.route_source_payload_consumer_matrix.v1",
+  "mission": "ROADMAP_4X_MACRO_MISSION_01_P4_ENTRY_AUTHORITY_COMPATIBILITY_AND_BOUNDED_REMEDIATION_REVIEW",
+  "state": "ENTRY_REVIEW_EVIDENCE_ONLY_NO_REMEDIATION",
+  "baseline_head": "9a9a1820c9b1d769b950e6de9cb458f251cd215d",
+  "policy": "DEFAULT_DENY_UNTIL_REQUIRED_EVIDENCE_EXISTS",
+  "scope": {
+    "family": "P4_CATALOG_DOMAIN_READS",
+    "route_count": 7,
+    "routes_are_exact_and_closed": true,
+    "implementation_started": false,
+    "external_exposure_started": false,
+    "production_readiness_declared": false
+  },
+  "observed_repository_facts": {
+    "catalog_counts": {
+      "areas": 30,
+      "niches": 200,
+      "roles": 20,
+      "specializations": 80,
+      "themes": 4
+    },
+    "visible_domain_count": 0,
+    "domain_manifests_observed": 2,
+    "domain_manifests_returned_by_default_list": 0,
+    "loteria_profile_active_role_count": 0,
+    "loteria_preset_active_count": 0,
+    "cors_default_origin": "http://localhost:8000",
+    "cors_credentials": false,
+    "auth_dependency_found_in_api": false,
+    "authorization_dependency_found_in_api": false,
+    "external_calls_made_for_review": false
+  },
+  "ownership": {
+    "functional_owner": "CATALOG_DOMAIN_OWNER",
+    "authority_owner": "DIRECTION_UNTIL_EXPLICIT_DELEGATION",
+    "security_owner": "SECURITY_AND_IDENTITY_OWNER",
+    "tenant_owner": "TENANT_AND_DATA_GOVERNANCE_OWNER",
+    "compatibility_owner": "ROUTE_COMPATIBILITY_OWNER",
+    "payload_owner": "CONTRACT_AND_PAYLOAD_OWNER",
+    "recovery_owner": "ROUTE_COMPATIBILITY_OWNER",
+    "storage_consulted_if_persistent_fixture_is_introduced": "STORAGE_AND_RECOVERY_OWNER"
+  },
+  "routes": [
+    {
+      "route_id": "api_catalog_domain_creation_get",
+      "method": "GET",
+      "path": "/api/catalogs/domain-creation",
+      "inherited_disposition": "KEEP_AS_COMPATIBILITY_SURFACE",
+      "implementation_state": "DEFERRED_TO_4X_BY_EXPLICIT_DIRECTION",
+      "handler": "api.get_domain_creation_catalog_endpoint",
+      "source_chain": [
+        "core.catalog_registry.get_domain_creation_catalog",
+        "core.catalog_registry.load_areas",
+        "core.catalog_registry.load_niches"
+      ],
+      "read_sources": [
+        "catalogs/areas.json",
+        "catalogs/niches.json"
+      ],
+      "response_contract_observed": {
+        "top_level_keys": ["success", "areas", "niches_by_area"],
+        "success_value": true,
+        "area_count_at_baseline": 30,
+        "niches_by_area_key_count_at_baseline": 30,
+        "inactive_metadata_exposed": false,
+        "write_payload": false
+      },
+      "request_contract_observed": {
+        "query_parameters": [],
+        "body": false
+      },
+      "error_contract_observed": [
+        {"source": "FileNotFoundError", "status": 500, "body_key": "detail"},
+        {"source": "ValueError", "status": 500, "body_key": "detail"}
+      ],
+      "side_effects": {
+        "filesystem_write": false,
+        "state_mutation": false,
+        "provider_call": false,
+        "network_call": false,
+        "execution_or_activation": false
+      },
+      "scope_and_visibility_observed": "Global catalog read; tenant and audience policy are not enforced in the handler.",
+      "sensitive_metadata_risk": "Catalog entries can contain domain naming/instruction suggestions; no secret fields observed in the response.",
+      "known_consumers": [
+        {"path": "ui/web/domains.js", "symbol": "ensureDomainCreationCatalog", "status": "static_reference_guarded_by_LOWER_CONSOLE_READ_ONLY"},
+        {"path": "tests/test_catalogs.py", "symbol": "test_domain_creation_catalog_endpoint_is_read_only_and_complete", "status": "local_contract_test"},
+        {"path": "tests/test_domains.py", "symbol": "catalog route source assertion", "status": "local_contract_test"}
+      ],
+      "external_consumer_inventory": "No external consumer inventory exists in the repository.",
+      "required_gates": ["G01_IDENTITY_SOURCE", "G02_AUTHENTICATION", "G03_AUTHORIZATION", "G04_TENANT_ISOLATION", "G05_CORS_TRUSTED_ORIGINS", "G18_EXTERNAL_CONSUMER_COMPATIBILITY", "G19_PAYLOAD_RESPONSE_CONTRACT"]
+    },
+    {
+      "route_id": "api_catalog_roles_get",
+      "method": "GET",
+      "path": "/api/catalogs/roles",
+      "inherited_disposition": "KEEP_AS_COMPATIBILITY_SURFACE",
+      "implementation_state": "DEFERRED_TO_4X_BY_EXPLICIT_DIRECTION",
+      "handler": "api.get_roles_catalog_endpoint",
+      "source_chain": ["core.catalog_registry.get_roles_catalog", "core.catalog_registry.load_roles"],
+      "read_sources": ["catalogs/roles.json"],
+      "response_contract_observed": {
+        "top_level_keys": ["success", "roles"],
+        "success_value": true,
+        "role_count_at_baseline": 20,
+        "active_field_exposed": false,
+        "domain_specific_lottery_terms_rejected_by_existing_test": true,
+        "write_payload": false
+      },
+      "request_contract_observed": {"query_parameters": [], "body": false},
+      "error_contract_observed": [
+        {"source": "FileNotFoundError", "status": 500, "body_key": "detail"},
+        {"source": "ValueError", "status": 500, "body_key": "detail"}
+      ],
+      "side_effects": {"filesystem_write": false, "state_mutation": false, "provider_call": false, "network_call": false, "execution_or_activation": false},
+      "scope_and_visibility_observed": "Global professional-role catalog read; identity, audience, tenant and authorization are not enforced in the handler.",
+      "sensitive_metadata_risk": "Role descriptions and avoidance guidance are user-visible metadata; no credentials observed.",
+      "known_consumers": [
+        {"path": "ui/web/index.html", "symbol": "buildGlobalFallbackProfileCatalog", "status": "static reference and fallback path"},
+        {"path": "tests/test_catalogs.py", "symbol": "test_roles_catalog_endpoint_is_read_only_and_complete", "status": "local_contract_test"}
+      ],
+      "external_consumer_inventory": "No external consumer inventory exists in the repository.",
+      "required_gates": ["G01_IDENTITY_SOURCE", "G02_AUTHENTICATION", "G03_AUTHORIZATION", "G04_TENANT_ISOLATION", "G05_CORS_TRUSTED_ORIGINS", "G18_EXTERNAL_CONSUMER_COMPATIBILITY", "G19_PAYLOAD_RESPONSE_CONTRACT"]
+    },
+    {
+      "route_id": "api_catalog_specializations_get",
+      "method": "GET",
+      "path": "/api/catalogs/specializations",
+      "inherited_disposition": "KEEP_AS_COMPATIBILITY_SURFACE",
+      "implementation_state": "DEFERRED_TO_4X_BY_EXPLICIT_DIRECTION",
+      "handler": "api.get_specializations_catalog_endpoint",
+      "source_chain": ["core.catalog_registry.get_specializations_catalog", "core.catalog_registry.get_specializations_by_role", "core.catalog_registry.load_roles", "core.catalog_registry.load_specializations"],
+      "read_sources": ["catalogs/roles.json", "catalogs/specializations.json"],
+      "response_contract_observed": {
+        "top_level_keys": ["success", "specializations_by_role"],
+        "success_value": true,
+        "role_key_count_at_baseline": 20,
+        "auditor_specialization_count_at_baseline": 5,
+        "active_field_exposed": false,
+        "write_payload": false
+      },
+      "request_contract_observed": {"query_parameters": [{"name": "role_id", "optional": true, "type": "string"}], "body": false},
+      "error_contract_observed": [
+        {"source": "invalid role_id or unknown role", "status": 400, "body_key": "detail"},
+        {"source": "FileNotFoundError", "status": 500, "body_key": "detail"},
+        {"source": "other ValueError", "status": 500, "body_key": "detail"}
+      ],
+      "side_effects": {"filesystem_write": false, "state_mutation": false, "provider_call": false, "network_call": false, "execution_or_activation": false},
+      "scope_and_visibility_observed": "Global role-to-specialization read; query filtering is not tenant-aware and authorization is not enforced in the handler.",
+      "sensitive_metadata_risk": "Specialization descriptions and usage guidance are user-visible metadata; no secret fields observed.",
+      "known_consumers": [
+        {"path": "ui/web/index.html", "symbol": "buildGlobalFallbackProfileCatalog", "status": "static reference and fallback path"},
+        {"path": "tests/test_catalogs.py", "symbol": "specialization endpoint and role-filter tests", "status": "local_contract_tests"}
+      ],
+      "external_consumer_inventory": "No external consumer inventory exists in the repository.",
+      "required_gates": ["G01_IDENTITY_SOURCE", "G02_AUTHENTICATION", "G03_AUTHORIZATION", "G04_TENANT_ISOLATION", "G05_CORS_TRUSTED_ORIGINS", "G18_EXTERNAL_CONSUMER_COMPATIBILITY", "G19_PAYLOAD_RESPONSE_CONTRACT"]
+    },
+    {
+      "route_id": "api_domains_list_get",
+      "method": "GET",
+      "path": "/api/domains/list",
+      "inherited_disposition": "BLOCK_UNTIL_EXTERNAL_EVIDENCE",
+      "implementation_state": "DEFERRED_TO_4X_BY_EXPLICIT_DIRECTION",
+      "handler": "api.get_domains",
+      "source_chain": ["core.domain_registry.list_domains", "core.domain_registry.get_theme_presets", "core.domain_registry._is_internal_domain", "core.domain_registry.is_domain_visible_as_active"],
+      "read_sources": ["domains/*/domain.json", "core.domain_registry.DOMAIN_THEME_PRESETS"],
+      "response_contract_observed": {
+        "top_level_keys": ["success", "domains", "themes", "total"],
+        "success_value": true,
+        "visible_domain_count_at_baseline": 0,
+        "theme_count_at_baseline": 4,
+        "default_include_internal": false,
+        "write_payload": false
+      },
+      "request_contract_observed": {"query_parameters": [], "body": false},
+      "error_contract_observed": [
+        {"source": "malformed or unreadable domain manifest", "behavior": "skip manifest and continue"},
+        {"source": "missing domains root", "behavior": "return empty list"}
+      ],
+      "side_effects": {"filesystem_write": false, "state_mutation": false, "provider_call": false, "network_call": false, "execution_or_activation": false},
+      "scope_and_visibility_observed": "Filesystem-derived domain list excludes demo, hidden, legacy and non-active domains by default; no tenant identity or deployment scope is attached.",
+      "sensitive_metadata_risk": "Domain manifests contain instructions, theme data and legacy flags; no secrets observed.",
+      "known_consumers": [
+        {"path": "ui/web/domains.js", "symbol": "refreshDomains", "status": "early-returned_by_LOWER_CONSOLE_READ_ONLY"},
+        {"path": "tests/test_domains.py", "symbol": "list endpoint test", "status": "local_contract_test"},
+        {"path": "tests/test_domain_cleanup.py", "symbol": "domain visibility assertion", "status": "local_contract_test"}
+      ],
+      "external_consumer_inventory": "No external consumer inventory exists in the repository.",
+      "required_gates": ["G01_IDENTITY_SOURCE", "G02_AUTHENTICATION", "G03_AUTHORIZATION", "G04_TENANT_ISOLATION", "G05_CORS_TRUSTED_ORIGINS", "G06_INGRESS_HOSTING", "G18_EXTERNAL_CONSUMER_COMPATIBILITY"]
+    },
+    {
+      "route_id": "api_domain_profile_catalog_get",
+      "method": "GET",
+      "path": "/api/domains/{domain_id}/profile-catalog",
+      "inherited_disposition": "KEEP_AS_COMPATIBILITY_SURFACE",
+      "implementation_state": "DEFERRED_TO_4X_BY_EXPLICIT_DIRECTION",
+      "handler": "api.get_domain_profile_catalog_endpoint",
+      "source_chain": ["core.domain_registry.get_domain_profile_catalog", "core.domain_registry.load_domain_profile_catalog", "core.domain_registry.validate_domain_profile_catalog", "core.domain_registry.load_domain", "core.catalog_registry.load_roles", "core.catalog_registry.load_specializations"],
+      "read_sources": ["domains/{domain_id}/domain.json", "domains/{domain_id}/profile_catalog.json", "catalogs/roles.json", "catalogs/specializations.json"],
+      "response_contract_observed": {
+        "top_level_keys": ["success", "schema_version", "domain_id", "nombre", "descripcion", "notas_adaptacion", "role_groups", "roles"],
+        "success_value": true,
+        "loteria_role_group_count_at_baseline": 1,
+        "loteria_active_role_count_at_baseline": 0,
+        "inactive_roles_exposed": false,
+        "write_payload": false
+      },
+      "request_contract_observed": {"path_parameters": [{"name": "domain_id", "type": "snake_case string"}], "query_parameters": [], "body": false},
+      "error_contract_observed": [
+        {"source": "missing profile catalog", "status": 404, "body_key": "detail"},
+        {"source": "invalid profile catalog or invalid domain id", "status": "400_or_500_by_message_classification", "body_key": "detail"}
+      ],
+      "side_effects": {"filesystem_write": false, "state_mutation": false, "provider_call": false, "network_call": false, "execution_or_activation": false},
+      "scope_and_visibility_observed": "Domain-scoped read validated against a filesystem manifest; domain ownership, tenant mapping and audience authorization are not enforced in the handler.",
+      "sensitive_metadata_risk": "Profile catalog contains adaptation text and role/specialization guidance; it is not a runtime or provider credential surface by itself.",
+      "known_consumers": [
+        {"path": "ui/web/index.html", "symbol": "cargarProfileCatalogAgente", "status": "generic domain-scoped lookup with global and legacy fallbacks"},
+        {"path": "tests/test_catalogs.py", "symbol": "profile catalog endpoint tests", "status": "local_contract_tests"}
+      ],
+      "external_consumer_inventory": "No external consumer inventory exists in the repository.",
+      "required_gates": ["G01_IDENTITY_SOURCE", "G02_AUTHENTICATION", "G03_AUTHORIZATION", "G04_TENANT_ISOLATION", "G18_EXTERNAL_CONSUMER_COMPATIBILITY", "G19_PAYLOAD_RESPONSE_CONTRACT"]
+    },
+    {
+      "route_id": "api_domain_agent_presets_get",
+      "method": "GET",
+      "path": "/api/domains/{domain_id}/agent-presets",
+      "inherited_disposition": "CONTAIN",
+      "implementation_state": "DEFERRED_TO_4X_BY_EXPLICIT_DIRECTION",
+      "handler": "api.get_domain_agent_presets_endpoint",
+      "source_chain": ["core.domain_registry.get_domain_agent_presets", "core.domain_registry.load_domain_agent_presets", "core.domain_registry.validate_domain_agent_presets", "core.domain_registry.load_domain_profile_catalog"],
+      "read_sources": ["domains/{domain_id}/domain.json", "domains/{domain_id}/agent_presets.json", "domains/{domain_id}/profile_catalog.json", "catalogs/roles.json", "catalogs/specializations.json"],
+      "response_contract_observed": {
+        "top_level_keys": ["success", "schema_version", "domain_id", "nombre", "descripcion", "presets"],
+        "success_value": true,
+        "loteria_active_preset_count_at_baseline": 0,
+        "inactive_preset_exposed": false,
+        "provider_fields_in_current_active_response": false,
+        "write_payload": false
+      },
+      "request_contract_observed": {"path_parameters": [{"name": "domain_id", "type": "snake_case string"}], "query_parameters": [], "body": false},
+      "error_contract_observed": [
+        {"source": "missing domain or preset catalog", "status": 404, "body_key": "detail"},
+        {"source": "invalid domain, preset or cross-reference", "status": "400_or_500_by_message_classification", "body_key": "detail"}
+      ],
+      "side_effects": {"filesystem_write": false, "state_mutation": false, "provider_call": false, "network_call": false, "execution_or_activation": false},
+      "scope_and_visibility_observed": "Domain-scoped read with active/status filtering; current artifact can declare provider/model and system-prompt metadata, so workforce/provider authority is unproven.",
+      "sensitive_metadata_risk": "High relative to other P4 reads: system_prompt, provider/model recommendations, memory policy and paper seed are present in source artifacts; active-only output currently returns none for Loteria.",
+      "known_consumers": [
+        {"path": "tests/test_catalogs.py", "symbol": "agent presets endpoint tests", "status": "local_contract_tests"},
+        {"path": "core/agent_preset_materializer.py", "symbol": "internal future/materialization path", "status": "read-only inventory; out of current route consumer proof"}
+      ],
+      "external_consumer_inventory": "No external consumer inventory exists in the repository.",
+      "required_gates": ["G01_IDENTITY_SOURCE", "G02_AUTHENTICATION", "G03_AUTHORIZATION", "G04_TENANT_ISOLATION", "G13_PROVIDER_CREDENTIALS", "G18_EXTERNAL_CONSUMER_COMPATIBILITY", "G19_PAYLOAD_RESPONSE_CONTRACT"]
+    },
+    {
+      "route_id": "api_domain_agent_preset_match_get",
+      "method": "GET",
+      "path": "/api/domains/{domain_id}/agent-presets/match",
+      "inherited_disposition": "CONTAIN",
+      "implementation_state": "DEFERRED_TO_4X_BY_EXPLICIT_DIRECTION",
+      "handler": "api.get_domain_agent_preset_match_endpoint",
+      "source_chain": ["core.domain_registry.get_domain_agent_preset", "core.domain_registry.load_domain_agent_presets", "core.domain_registry.validate_domain_agent_presets", "core.domain_registry.load_domain_profile_catalog"],
+      "read_sources": ["domains/{domain_id}/domain.json", "domains/{domain_id}/agent_presets.json", "domains/{domain_id}/profile_catalog.json", "catalogs/roles.json", "catalogs/specializations.json"],
+      "response_contract_observed": {
+        "top_level_keys_on_match": ["success", "domain_id", "preset"],
+        "top_level_keys_on_no_match": ["detail"],
+        "success_value_on_match": true,
+        "loteria_active_match_count_at_baseline": 0,
+        "match_is_exact_on": ["domain_id", "role_id", "specialization_id"],
+        "write_payload": false
+      },
+      "request_contract_observed": {"path_parameters": [{"name": "domain_id", "type": "snake_case string"}], "query_parameters": [{"name": "role_id", "required": true, "type": "snake_case string"}, {"name": "specialization_id", "required": true, "type": "snake_case string"}], "body": false},
+      "error_contract_observed": [
+        {"source": "missing domain or invalid domain", "status": "404_or_400_by_message_classification", "body_key": "detail"},
+        {"source": "invalid role_id or specialization_id", "status": 400, "body_key": "detail"},
+        {"source": "valid identifiers with no active exact preset", "status": 404, "body_key": "detail"}
+      ],
+      "side_effects": {"filesystem_write": false, "state_mutation": false, "provider_call": false, "network_call": false, "execution_or_activation": false},
+      "scope_and_visibility_observed": "Exact domain-scoped lookup; matching authority, tenant boundary and authorization are not enforced in the handler.",
+      "sensitive_metadata_risk": "High relative to other P4 reads when a preset is active: the returned preset may include system_prompt, provider/model recommendations, memory policy and paper seed.",
+      "known_consumers": [
+        {"path": "ui/web/index.html", "symbol": "consultarPresetAgente", "status": "generic domain/role/specialization lookup"},
+        {"path": "tests/test_catalogs.py", "symbol": "exact-match and no-match tests", "status": "local_contract_tests"}
+      ],
+      "external_consumer_inventory": "No external consumer inventory exists in the repository.",
+      "required_gates": ["G01_IDENTITY_SOURCE", "G02_AUTHENTICATION", "G03_AUTHORIZATION", "G04_TENANT_ISOLATION", "G13_PROVIDER_CREDENTIALS", "G18_EXTERNAL_CONSUMER_COMPATIBILITY", "G19_PAYLOAD_RESPONSE_CONTRACT"]
+    }
+  ],
+  "global_consumer_findings": {
+    "known_local_ui_consumers": ["ui/web/domains.js", "ui/web/index.html"],
+    "known_local_test_consumers": ["tests/test_catalogs.py", "tests/test_domains.py", "tests/test_domain_cleanup.py", "tests/test_api_admin_panels.py"],
+    "runtime_or_execution_consumers_observed": false,
+    "external_consumer_inventory_complete": false,
+    "compatibility_implication": "The local source and tests prove an existing legacy contract, not external compatibility or public exposure safety."
+  },
+  "boundary_findings": {
+    "all_seven_are_get": true,
+    "direct_writes": false,
+    "direct_provider_calls": false,
+    "direct_network_calls": false,
+    "direct_runtime_or_execution": false,
+    "identity_authentication_authorization_enforced_at_handler": false,
+    "tenant_isolation_enforced_at_handler": false,
+    "external_ingress_evidenced": false,
+    "payload_v2_present": false,
+    "new_endpoint_or_adapter_created": false
+  },
+  "review_conclusion": {
+    "entry_review_can_be_completed_documentally": true,
+    "implementation_authorized": false,
+    "exposure_authorized": false,
+    "default_action_for_missing_external_evidence": "REMAIN_DISABLED_OR_CONTAINED",
+    "next_station": "AUTHORITY_AND_VISIBILITY_CONTRACT",
+    "stop_if": ["protected_surface_changes", "external_evidence_is_invented", "second_route_family_enters_scope", "product_logic_change_is_required"]
+  },
+  "provenance": {
+    "route_adjudication": "docs/ROADMAP_3_X_LEGACY_ROUTE_DECISION_ADJUDICATION.json",
+    "future_gate_register": "docs/ROADMAP_3_X_EXTERNAL_FUTURE_GATE_REGISTER.json",
+    "p4_entry_contract": "docs/ROADMAP_4X_MACRO_01_P4_CATALOG_DOMAIN_READS_AUTHORITY_COMPATIBILITY_AND_BOUNDED_REMEDIATION.md",
+    "observed_at": "2026-09-13",
+    "secret_values_read": false
+  }
+}
