@@ -144,6 +144,10 @@ _CURRENT_MISSION_DOCUMENTARY_FILES = frozenset(
         "docs/ROADMAP_3_X_MACRO_03_CHECKPOINT_EVIDENCE.json",
         "docs/ROADMAP_3_X_MACRO_03_COMMIT_ACCOUNTABILITY_LEDGER.md",
         "tests/test_roadmap_3_x_macro_03_checkpoint.py",
+        "docs/ROADMAP_3_X_MACRO_04_CHECKPOINT.md",
+        "docs/ROADMAP_3_X_MACRO_04_CHECKPOINT_EVIDENCE.json",
+        "docs/ROADMAP_3_X_MACRO_04_COMMIT_ACCOUNTABILITY_LEDGER.md",
+        "tests/test_roadmap_3_x_macro_04_true_completion.py",
     }
 )
 _HISTORICAL_FILES = frozenset(_LEDGER_NODE_RE.findall(LEDGER.read_text(encoding="utf-8"))) | _SECONDARY_HISTORICAL_FILES
