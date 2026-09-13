@@ -276,3 +276,24 @@ continuan inactivos/default-deny y Macro 02 no fue iniciada. Ver
 [checkpoint](ROADMAP_4X_MACRO_01_1_P4_LIVE_CLOSURE_CHECKPOINT.md),
 [evidencia](ROADMAP_4X_MACRO_01_1_P4_LIVE_CLOSURE_EVIDENCE.json) y
 [ledger](ROADMAP_4X_MACRO_01_1_P4_LIVE_CLOSURE_COMMIT_ACCOUNTABILITY_LEDGER.md).
+## Roadmap 4.x Macro-Mission 02 - P4 Bounded Internal Remediation
+
+Resultado publicado: `ROADMAP_4X_MACRO_02_P4_BOUNDED_INTERNAL_REMEDIATION_COMPLETE_EXTERNAL_EXPOSURE_DEFAULT_DENIED`.
+La única familia ejecutada es `P4_CATALOG_DOMAIN_READS`, con siete rutas GET,
+frontera humana provider-independent, permisos necesarios y suficientes,
+aislamiento tenant mediante principals controlados y sanitización explícita de
+presets. El resolver no configurado falla cerrado; CORS permanece limitado a
+localhost y la exposición externa sigue default-denied.
+
+La dimensión interna queda validada, pero identidad productiva, membresías
+externas, origins confiables, ingress/hosting, proveedores y consumidores
+externos continúan bloqueados. No se modificaron UI, CSS, JavaScript
+contractual, i18n, payload v2, runtime, execution, integrations, stores,
+secretos, P0/P1/P3, widgets ni Request Draft Panel. GOKV/DOOL/OCI:
+`NO_NEW_CANDIDATE`; Macro 03 no fue iniciada.
+
+Ver [checkpoint](ROADMAP_4X_MACRO_02_P4_CHECKPOINT.md),
+[evidencia](ROADMAP_4X_MACRO_02_P4_CHECKPOINT_EVIDENCE.json),
+[ledger](ROADMAP_4X_MACRO_02_P4_COMMIT_ACCOUNTABILITY_LEDGER.md),
+[plan](ROADMAP_4X_MACRO_02_P4_BOUNDED_REMEDIATION_EXECUTION_PLAN.md) y
+[reconciliación GOKV/DOOL/OCI](ROADMAP_4X_MACRO_02_P4_GOKV_DOOL_OCI_RECONCILIATION.md).

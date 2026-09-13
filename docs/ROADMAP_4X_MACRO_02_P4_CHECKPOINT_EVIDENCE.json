@@ -1,0 +1,101 @@
+{
+  "schema_version": "roadmap.4x.macro02.p4.checkpoint_evidence.v1",
+  "mission": "ROADMAP_4X_MACRO_02_P4_BOUNDED_INTERNAL_REMEDIATION_COMPLETE_EXTERNAL_EXPOSURE_DEFAULT_DENIED",
+  "result": "ROADMAP_4X_MACRO_02_P4_BOUNDED_INTERNAL_REMEDIATION_COMPLETE_EXTERNAL_EXPOSURE_DEFAULT_DENIED",
+  "baseline_head": "3c90529abf5e130624653a247084d773d6620dcb",
+  "validation_basis_head": "4a8b6a381a5c57e55286e4cd784a1e7f967996bd",
+  "documentary_closeout_commit": "EXTERNAL_REPORT_REFERENCE",
+  "post_fetch_publication_verification": "EXTERNAL_REPORT_REFERENCE",
+  "publication_rule": "publication_metadata_must_not_chase_its_own_head",
+  "self_referential_hash_chase": false,
+  "operation_start_at": "2026-09-13T18:31:13.2077926-03:00",
+  "operation_end_at": "EXTERNAL_REPORT_REFERENCE",
+  "operation_duration": "EXTERNAL_REPORT_REFERENCE",
+  "scope": {
+    "family": "P4_CATALOG_DOMAIN_READS",
+    "route_count": 7,
+    "implementation_scope": "api.py P4 wiring plus one provider-independent internal module",
+    "external_exposure_authorized": false,
+    "production_readiness_declared": false,
+    "cors_changed": false,
+    "payload_v2_allowed": false,
+    "macro_03_started": false
+  },
+  "capabilities": [
+    "global_catalogs.read",
+    "tenant_domains.read",
+    "tenant_agent_presets.read_sanitized"
+  ],
+  "routes": [
+    {"method": "GET", "path": "/api/catalogs/domain-creation", "required_capability": "global_catalogs.read", "conditions": ["authenticated", "audience=ia-core-private-beta"]},
+    {"method": "GET", "path": "/api/catalogs/roles", "required_capability": "global_catalogs.read", "conditions": ["authenticated", "audience=ia-core-private-beta"]},
+    {"method": "GET", "path": "/api/catalogs/specializations", "required_capability": "global_catalogs.read", "conditions": ["authenticated", "audience=ia-core-private-beta"]},
+    {"method": "GET", "path": "/api/domains/list", "required_capability": "tenant_domains.read", "conditions": ["authenticated", "valid tenant", "explicit authorized-domain filtering"]},
+    {"method": "GET", "path": "/api/domains/{domain_id}/profile-catalog", "required_capability": "tenant_domains.read", "conditions": ["authenticated", "valid tenant", "domain authorized"]},
+    {"method": "GET", "path": "/api/domains/{domain_id}/agent-presets", "required_capability": "tenant_agent_presets.read_sanitized", "conditions": ["authenticated", "valid tenant", "domain authorized", "sanitized response"]},
+    {"method": "GET", "path": "/api/domains/{domain_id}/agent-presets/match", "required_capability": "tenant_agent_presets.read_sanitized", "conditions": ["authenticated", "valid tenant", "domain authorized", "sanitized response"]}
+  ],
+  "fail_closed": {
+    "503": "P4_ACCESS_RESOLVER_NOT_CONFIGURED",
+    "401_principal": "P4_PRINCIPAL_INVALID",
+    "401_audience": "P4_AUDIENCE_INVALID",
+    "403": "P4_CAPABILITY_REQUIRED",
+    "400": "P4_RESOURCE_IDENTIFIER_INVALID",
+    "404": "P4_DOMAIN_NOT_AUTHORIZED",
+    "empty_authorized_domain_set": "200 existing empty-list shape"
+  },
+  "preset_sanitization": {
+    "allowlist": ["id", "role_id", "specialization_id", "nombre_visible", "suggested_agent_id", "suggested_agent_name", "short_description", "decision_criteria", "avoid", "orden"],
+    "excluded_fields": ["system_prompt", "recommended_provider", "recommended_model", "recommended_temperature", "memory_policy", "paper_seed", "activo", "secret_ref", "operational_instruction", "unknown_fields"],
+    "registry_rewritten": false
+  },
+  "dual_gate_status": [
+    {"gate_id": "G01_IDENTITY_SOURCE", "internal_status": "READY_PROVIDER_INDEPENDENT_CONTRACT", "external_status": "BLOCKED_PROVIDER_EVIDENCE_REQUIRED", "active_now": false},
+    {"gate_id": "G02_AUTHENTICATION", "internal_status": "READY_FAIL_CLOSED_RESOLUTION", "external_status": "BLOCKED_PRODUCTION_AUTH_REQUIRED", "active_now": false},
+    {"gate_id": "G03_AUTHORIZATION", "internal_status": "ENFORCED_APPROVED_POLICY", "external_status": "BLOCKED_EXTERNAL_POLICY_OPERATIONS_REQUIRED", "active_now": false},
+    {"gate_id": "G04_TENANT_ISOLATION", "internal_status": "VERIFIED_CONTROLLED_PRINCIPALS", "external_status": "BLOCKED_PRODUCTION_MEMBERSHIP_MAPPING_REQUIRED", "active_now": false},
+    {"gate_id": "G05_CORS_TRUSTED_ORIGINS", "internal_status": "PRESERVED_LOCALHOST_ONLY", "external_status": "BLOCKED_TRUSTED_ORIGIN_EVIDENCE_REQUIRED", "active_now": false},
+    {"gate_id": "G06_INGRESS_HOSTING", "internal_status": "NOT_REQUIRED_FOR_CLOSED_INTERNAL_TESTS", "external_status": "BLOCKED_HOSTING_INGRESS_EVIDENCE_REQUIRED", "active_now": false},
+    {"gate_id": "G13_PROVIDER_CREDENTIALS", "internal_status": "NOT_REQUIRED_FOR_P4_BOUNDARY", "external_status": "BLOCKED_PROVIDER_INTEGRATION_NOT_AUTHORIZED", "active_now": false},
+    {"gate_id": "G18_EXTERNAL_CONSUMER_COMPATIBILITY", "internal_status": "LOCAL_CONSUMERS_PROTECTED", "external_status": "BLOCKED_EXTERNAL_INVENTORY_REQUIRED", "active_now": false},
+    {"gate_id": "G19_PAYLOAD_RESPONSE_CONTRACT", "internal_status": "PROTECTED_AND_TESTED", "external_status": "BLOCKED_EXTERNAL_COMPATIBILITY_EVIDENCE_REQUIRED", "active_now": false}
+  ],
+  "validation": {
+    "level_a_full_suite": "PASS: 6986 passed, 6 skipped, 5 warnings in 1537.34s (0:25:37)",
+    "macro_02_focal": "PASS: 20 passed",
+    "historical_relevant": "PASS: 27 passed, 5 warnings in 14.02s",
+    "catalog_domain_compatibility": "PASS: 18 passed, 5 warnings in 13.76s",
+    "route_census_replay": "PASS: 11 passed, 1 warning in 10.79s",
+    "gokv_validate": "PASS: 38 items, valid",
+    "json_parse": "PASS: 248 files",
+    "secret_policy": "PASS: 20 passed, 1 warning in 10.87s",
+    "py_compile": "PASS",
+    "node_check": "PASS",
+    "cors_comparison": "PASS_UNCHANGED_FROM_BASELINE",
+    "protected_diff": "PASS: 0 forbidden files",
+    "git_diff_check": "PASS"
+  },
+  "gokv_dool_oci": {
+    "result": "NO_NEW_CANDIDATE",
+    "vault_modified": false,
+    "promotion_performed": false,
+    "runtime_consumption": false
+  },
+  "negative_boundary": {
+    "real_provider_integrated": false,
+    "secrets_read": false,
+    "external_calls": false,
+    "productive_writes": false,
+    "anonymous_exposure": false,
+    "ui_changed": false,
+    "cors_changed": false,
+    "other_p4_family_started": false,
+    "macro_03_started": false
+  },
+  "level_b_protocol": {
+    "performed_after_documentary_closeout": true,
+    "full_suite_repeated": false,
+    "reason": "The complete suite is represented by the immutable validation basis; post-closeout checks are bounded and do not alter the tested product.",
+    "checks": ["macro02_focal", "catalog_domain", "historical_replay", "gokv", "json_parse", "secret_policy", "py_compile", "node_check", "protected_diff", "git_diff_check", "git_state"]
+  }
+}

@@ -1672,3 +1672,25 @@ No UI activa, no JS, no backend, no runtime, no execution, no JSON TOP 15, no fi
 - El item GOKV existente `publication_metadata_must_not_chase_its_own_head` recibio evidencia adicional, permanecio `CANDIDATE` y no hubo promocion automatica ni candidato duplicado.
 - P4 sigue sin implementacion ni exposicion, los nueve gates siguen inactivos/default-deny y Macro 02 no fue iniciada.
 - [Checkpoint 01.1](docs/ROADMAP_4X_MACRO_01_1_P4_LIVE_CLOSURE_CHECKPOINT.md), [evidencia 01.1](docs/ROADMAP_4X_MACRO_01_1_P4_LIVE_CLOSURE_EVIDENCE.json) y [ledger 01.1](docs/ROADMAP_4X_MACRO_01_1_P4_LIVE_CLOSURE_COMMIT_ACCOUNTABILITY_LEDGER.md).
+
+## Roadmap 4.x Macro-Mission 02 - P4 Bounded Internal Remediation
+
+Resultado: `ROADMAP_4X_MACRO_02_P4_BOUNDED_INTERNAL_REMEDIATION_COMPLETE_EXTERNAL_EXPOSURE_DEFAULT_DENIED`.
+La frontera humana provider-independent y fail-closed protege exactamente siete
+rutas P4 con `global_catalogs.read`, `tenant_domains.read` y
+`tenant_agent_presets.read_sanitized`. La lista de dominios filtra por tenant e
+IDs autorizados y los presets se serializan con allowlist; los contratos de
+respuesta exitosa permanecen preservados.
+
+La implementación es interna y cerrada: el resolver por defecto sigue sin
+configurar, CORS conserva localhost-only y la exposición productiva permanece
+`DEFAULT_DENIED`. Los nueve gates externos siguen bloqueados; no hay proveedor
+real, secretos, llamadas externas, UI, payload v2, runtime, execution,
+integrations ni Macro 03.
+
+Ver [checkpoint](docs/ROADMAP_4X_MACRO_02_P4_CHECKPOINT.md),
+[evidencia](docs/ROADMAP_4X_MACRO_02_P4_CHECKPOINT_EVIDENCE.json),
+[ledger](docs/ROADMAP_4X_MACRO_02_P4_COMMIT_ACCOUNTABILITY_LEDGER.md),
+[aceptación](docs/ROADMAP_4X_MACRO_02_P4_DIRECTION_ACCEPTANCE.md),
+[matriz dual](docs/ROADMAP_4X_MACRO_02_P4_DUAL_GATE_MATRIX.json) y
+[reconciliación GOKV/DOOL/OCI](docs/ROADMAP_4X_MACRO_02_P4_GOKV_DOOL_OCI_RECONCILIATION.md).
