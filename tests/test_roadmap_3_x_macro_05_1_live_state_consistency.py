@@ -77,6 +77,12 @@ ALLOWED_CHANGED_FILES = {
     "docs/ROADMAP_4X_MACRO_01_P4_ENTRY_REVIEW_CHECKPOINT.md",
     "docs/ROADMAP_4X_MACRO_01_P4_ENTRY_REVIEW_EVIDENCE.json",
     "docs/ROADMAP_4X_MACRO_01_P4_ENTRY_REVIEW_COMMIT_ACCOUNTABILITY_LEDGER.md",
+    "tests/test_roadmap_4x_macro_01_1_p4_live_closure.py",
+    "docs/ROADMAP_4X_MACRO_01_1_P4_LIVE_CLOSURE_CHECKPOINT.md",
+    "docs/ROADMAP_4X_MACRO_01_1_P4_LIVE_CLOSURE_EVIDENCE.json",
+    "docs/ROADMAP_4X_MACRO_01_1_P4_LIVE_CLOSURE_COMMIT_ACCOUNTABILITY_LEDGER.md",
+    "knowledge/global_operational/items/publication_metadata_must_not_chase_its_own_head.json",
+    "knowledge/global_operational/registry.json",
     "README.md",
     "docs/FUTURE_PLATFORM_EXTENSION_INDEX.md",
 }
