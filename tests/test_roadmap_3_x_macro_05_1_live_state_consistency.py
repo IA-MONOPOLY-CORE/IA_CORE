@@ -93,6 +93,7 @@ CURRENT_MACRO_02_ALLOWED_FILES = {
     "tests/test_catalogs.py",
     "tests/test_domain_cleanup.py",
     "tests/test_domains.py",
+    "tests/test_roadmap_3_x_macro_02_route_convergence.py",
     "tests/test_roadmap_4x_macro_01_p4_entry_review.py",
     "tests/test_roadmap_4x_macro_02_p4_bounded_remediation.py",
     "tests/test_roadmap_4x_macro_02_p4_request_access.py",
