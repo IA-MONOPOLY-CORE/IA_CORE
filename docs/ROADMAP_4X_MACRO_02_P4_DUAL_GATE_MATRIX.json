@@ -1,0 +1,99 @@
+{
+  "schema_version": "roadmap_4x_macro_02_p4_dual_gate_matrix.v1",
+  "mission": "ROADMAP_4X_MACRO_02_P4_BOUNDED_INTERNAL_REMEDIATION_COMPLETE_EXTERNAL_EXPOSURE_DEFAULT_DENIED",
+  "baseline": "3c90529abf5e130624653a247084d773d6620dcb",
+  "scope": {
+    "family": "P4_CATALOG_DOMAIN_READS",
+    "route_count": 7,
+    "implementation_scope": "provider_independent_internal_boundary",
+    "external_exposure_authorized": false,
+    "cors_changed": false,
+    "payload_v2_allowed": false,
+    "successor_endpoint_allowed": false
+  },
+  "capabilities": [
+    "global_catalogs.read",
+    "tenant_domains.read",
+    "tenant_agent_presets.read_sanitized"
+  ],
+  "gate_evaluation": [
+    {
+      "gate_id": "G01_IDENTITY_SOURCE",
+      "internal_status": "READY_PROVIDER_INDEPENDENT_CONTRACT",
+      "external_status": "BLOCKED_PROVIDER_EVIDENCE_REQUIRED",
+      "internal_evidence": "Controlled P4Principal contract and fail-closed resolver",
+      "external_action": "Provide a real approved identity source before exposure",
+      "active_now": false
+    },
+    {
+      "gate_id": "G02_AUTHENTICATION",
+      "internal_status": "READY_FAIL_CLOSED_RESOLUTION",
+      "external_status": "BLOCKED_PRODUCTION_AUTH_REQUIRED",
+      "internal_evidence": "Dependency override tests cover valid and invalid principals",
+      "external_action": "Integrate and verify production authentication separately",
+      "active_now": false
+    },
+    {
+      "gate_id": "G03_AUTHORIZATION",
+      "internal_status": "ENFORCED_APPROVED_POLICY",
+      "external_status": "BLOCKED_EXTERNAL_POLICY_OPERATIONS_REQUIRED",
+      "internal_evidence": "Exact capabilities, audience and domain checks",
+      "external_action": "Approve operational role-to-capability mapping",
+      "active_now": false
+    },
+    {
+      "gate_id": "G04_TENANT_ISOLATION",
+      "internal_status": "VERIFIED_CONTROLLED_PRINCIPALS",
+      "external_status": "BLOCKED_PRODUCTION_MEMBERSHIP_MAPPING_REQUIRED",
+      "internal_evidence": "Explicit authorized-domain filtering and cross-tenant negatives",
+      "external_action": "Verify a real membership source and tenant mapping",
+      "active_now": false
+    },
+    {
+      "gate_id": "G05_CORS_TRUSTED_ORIGINS",
+      "internal_status": "PRESERVED_LOCALHOST_ONLY",
+      "external_status": "BLOCKED_TRUSTED_ORIGIN_EVIDENCE_REQUIRED",
+      "internal_evidence": "No CORS code or configuration change",
+      "external_action": "Approve production origins independently",
+      "active_now": false
+    },
+    {
+      "gate_id": "G06_INGRESS_HOSTING",
+      "internal_status": "NOT_REQUIRED_FOR_CLOSED_INTERNAL_TESTS",
+      "external_status": "BLOCKED_HOSTING_INGRESS_EVIDENCE_REQUIRED",
+      "internal_evidence": "Local TestClient only; no exposure path added",
+      "external_action": "Verify domain, hosting, ingress and TLS",
+      "active_now": false
+    },
+    {
+      "gate_id": "G13_PROVIDER_CREDENTIALS",
+      "internal_status": "NOT_REQUIRED_FOR_P4_BOUNDARY",
+      "external_status": "BLOCKED_PROVIDER_INTEGRATION_NOT_AUTHORIZED",
+      "internal_evidence": "No provider call, credential or secret read",
+      "external_action": "Future provider integration requires separate approval",
+      "active_now": false
+    },
+    {
+      "gate_id": "G18_EXTERNAL_CONSUMER_COMPATIBILITY",
+      "internal_status": "LOCAL_CONSUMERS_PROTECTED",
+      "external_status": "BLOCKED_EXTERNAL_INVENTORY_REQUIRED",
+      "internal_evidence": "Existing P4 payload assertions and local consumer inventory",
+      "external_action": "Inventory and verify external consumers before exposure",
+      "active_now": false
+    },
+    {
+      "gate_id": "G19_PAYLOAD_RESPONSE_CONTRACT",
+      "internal_status": "PROTECTED_AND_TESTED",
+      "external_status": "BLOCKED_EXTERNAL_COMPATIBILITY_EVIDENCE_REQUIRED",
+      "internal_evidence": "Seven-route status, key, type and sanitized-preset tests",
+      "external_action": "Freeze external compatibility only after consumer evidence",
+      "active_now": false
+    }
+  ],
+  "global_disposition": {
+    "internal_contract_readiness": "AUTHORIZED_WITHIN_FROZEN_P4_SCOPE",
+    "external_exposure_readiness": "BLOCKED_DEFAULT_DENY",
+    "production_readiness": "NOT_AUTHORIZED",
+    "macro_03_started": false
+  }
+}
