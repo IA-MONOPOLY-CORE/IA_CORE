@@ -138,3 +138,16 @@ contract-only reconciliation is recorded in
 No provider, runtime, agent, model, integration, external service, deployment,
 business-data mutation, UI redesign, new endpoint, new identity system or API
 generation was created. B-4, B-5, B-6 and B-7 were not entered.
+
+## Macro 05 active policy layer
+
+The preceding table remains the historical route-disposition photograph. Macro
+05 records Direction's adopted policy in the separate authoritative
+`docs/ROADMAP_3_X_LEGACY_ROUTE_DECISION_ADJUDICATION.json` register. The
+historical `UNKNOWN` value is preserved for all 36 routes; it is not the active
+decision state. Each route now has one of the three adopted dispositions
+`KEEP_AS_COMPATIBILITY_SURFACE`, `CONTAIN` or
+`BLOCK_UNTIL_EXTERNAL_EVIDENCE`, with implementation explicitly deferred to
+4.x and no technical successor inferred.
+
+`ROADMAP_3_X_LEGACY_ROUTE_POLICY_ADJUDICATED_WITH_IMPLEMENTATION_DEFERRED`

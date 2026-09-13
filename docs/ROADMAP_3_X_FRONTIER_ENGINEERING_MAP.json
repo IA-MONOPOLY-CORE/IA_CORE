@@ -1,9 +1,9 @@
 {
-  "schema_version": "roadmap_3_x_macro_03_frontier_engineering_map.v1",
-  "mission_id": "ROADMAP_3X_MACRO_03_FRONTIER_RECONSTRUCTION_F004_FAMILY_DECISION_SUFFICIENCY_AND_B7_CLOSURE_READINESS",
+  "schema_version": "roadmap_3_x_frontier_engineering_map.v2",
+  "mission_id": "ROADMAP_3X_MACRO_MISSION_05_DIRECTION_ACCEPTANCE_POLICY_ADJUDICATION_AND_TRUE_FINAL_CLOSURE",
   "mode": "READ_ONLY_DOCUMENTARY_ARCHITECTURE_AND_PLANNING",
   "repository": "C:/IA_CORE",
-  "entry_head": "8eda61c1c6e1611435cf4d4881a374502018abdc",
+  "entry_head": "5f50de92330fff60d7998c4af59fef64ed4820bd",
   "branch": "main",
   "authority": {
     "current_canonical": [
@@ -104,10 +104,24 @@
     "matrix":"docs/ROADMAP_3_X_MACRO_03_B7_CLOSURE_READINESS_MATRIX.md"
   },
   "roadmap_4x_entry": {
-    "state":"PARTIAL_BLOCKED_BY_B7_DIRECTION_ACCEPTANCE_AND_EXTERNAL_EVIDENCE",
+    "state":"P4_SELECTED_FUTURE_ENTRY_BLOCKED_BY_REQUIRED_GATES",
     "contract":"docs/ROADMAP_4_X_ENTRY_CONTRACT.md",
-    "next_macro_mission_candidate":"ARCHITECT_SELECTS_ONE_F004_FAMILY_REMEDIATION_BLOCK_AFTER_B7_ACCEPTANCE",
+    "next_macro_mission_candidate":"ROADMAP_4X_MACRO_01_P4_CATALOG_DOMAIN_READS_AUTHORITY_COMPATIBILITY_AND_BOUNDED_REMEDIATION",
     "executed":false
+  },
+  "macro_05_reconciliation": {
+    "direction_acceptance":"B7_ACCEPTED_WITH_EXPLICIT_LIMITS",
+    "phase_exit":"ROADMAP_3_X_TRUE_COMPLETION_ACCEPTED_AND_CLOSED_WITH_EXPLICIT_FUTURE_GATES",
+    "f000":"DISSOLVED",
+    "f001_to_f010":"GOVERNED_FUTURE_GATE",
+    "f004":"POLICY_ADJUDICATED_IMPLEMENTATION_DEFERRED",
+    "f011":"CLOSED_FOR_3X_PHASE_EXIT",
+    "future_gate_register":"docs/ROADMAP_3_X_EXTERNAL_FUTURE_GATE_REGISTER.json",
+    "active_unknown_dispositions":0,
+    "uncontrolled_unknowns":0,
+    "unowned_gates":0,
+    "p4_selected":true,
+    "roadmap_4x_executed":false
   },
   "gokv_oci_dool": {
     "oci_mode":"PROMOTED_ONLY",

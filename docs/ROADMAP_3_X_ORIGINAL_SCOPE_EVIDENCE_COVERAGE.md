@@ -2,7 +2,7 @@
 
 ## Identity
 
-- Mission: `ROADMAP_3X_MACRO_MISSION_04_TRUE_COMPLETION_RECALIBRATION_EVIDENCE_COVERAGE_AND_CLOSURE_PATH`
+- Mission origin: `ROADMAP_3X_MACRO_MISSION_04_TRUE_COMPLETION_RECALIBRATION_EVIDENCE_COVERAGE_AND_CLOSURE_PATH`; closure: Macro 05.
 - Evidence baseline: `43530e656066a3c40d9afb8a5a4a381b38f29f38`
 - Authority: current repository plus published checkpoints; future documents
   are not capability evidence.
@@ -26,7 +26,7 @@ and quality debt; `3.8` master findings map; `3.9` executable remediation plan.
 
 Each row has one primary state from the true completion contract:
 
-`AUDITED`, `DECIDED`, `REMEDIATION_READY`, `REMEDIATED`, `ACTIVATED`,
+`AUDITED`, `DECIDED`, `REMEDIATION_READY`, `REMEDIATION_ENTRY_READY_NOT_IMPLEMENTED`, `REMEDIATED`, `ACTIVATED`,
 `PRODUCTION_READY`.
 
 ### Coverage result
@@ -54,8 +54,8 @@ into a decision.
 | `3.5` | Providers, credentials, model routing and hardware-aware selection. | `AUDITED` | `EXTERNAL_EVIDENCE_REQUIRED` | B-4/B-6; F-007/F-010 | NVIDIA and Ollama source-callable paths, routing/configuration and local hardware probes are documented; no provider call occurred. | Credential, egress, availability, cost and deployment evidence; provider/deployment owner. |
 | `3.6` | Security, secrets and external-action boundary. | `AUDITED` | `EXTERNAL_EVIDENCE_REQUIRED` | B-1/B-4/B-5; F-002/F-003/F-007/F-008 | No secret values were read; dangerous primitives, settings write path, CORS wildcard and disabled runtime/external gates are recorded. | Approved policy, edge enforcement, rotation/retention and external-action authorization; Direction/security/deployment. |
 | `3.7` | Tests, historical guards, hermeticity and quality-debt accounting. | `AUDITED` | `VERIFIED_COMPLETE` | B-0/B-7; F-000 | Macro 02.1/02.2 and Macro 03 preserve historical endpoints, negative guards, hermetic boundaries and a green published suite. | Final Macro 04 suite still must run after new documentary tests; test owner. |
-| `3.8` | Master findings map across P0/P1/P2/P3 and all 12 frontiers. | `AUDITED` | `DIRECTION_DECISION_REQUIRED` | B-1 through B-7; F-000 through F-011 | The published graph, F-004 family matrix and B-7 matrix name findings, owners, stop conditions and all 36 route rows. | Direction packet must be consumed; no route destination, trust policy or 4.x authorization is inferred. |
-| `3.9` | Executable remediation plan for 4.x, ordered by distance to the first true hard frontier. | `REMEDIATION_READY` | `DIRECTION_DECISION_REQUIRED` | B-7 / future 4.x entry; F-002/F-004/F-005/F-007/F-008/F-010/F-011 | Macro 04 produces a bounded plan with one-family maximum, owners, gates, negative tests, rollback, stop conditions and publication requirements. | Direction must accept the 3.x evidence package and later select one authorized block; no remediation is executed here. |
+| `3.8` | Master findings map across P0/P1/P2/P3 and all 12 frontiers. | `DECIDED` | `VERIFIED_COMPLETE` | B-1 through B-7; F-000 through F-011 | Direction accepted the findings and adopted the route policy; external evidence and implementation remain separately gated. | Preserve each governed gate and stop before authority-changing work. |
+| `3.9` | Executable remediation plan for 4.x, ordered by distance to the first true hard frontier. | `REMEDIATION_ENTRY_READY_NOT_IMPLEMENTED` | `VERIFIED_COMPLETE` | B-7 / future 4.x entry; F-002/F-004/F-005/F-007/F-008/F-010/F-011 | Direction accepted the one-family plan shape and selected P4 as the future entry; no remediation is executed here. | Require all P4 entry gates and negative bypass evidence before implementation. |
 
 ## Findings before and after recalibration
 
@@ -65,10 +65,10 @@ into a decision.
 | B-1 / B-2 | `CLOSED_WITH_EXPLICIT_LIMITS`; unresolved trust and route authority. | Retained as audited boundaries; external and Direction requirements are named as gaps, not silently closed. |
 | B-3 | `CONTRACT_READY`; canonical controls existed without route coverage. | Audited as a complete coverage finding; still not route remediation. |
 | B-4 / B-5 / B-6 | `CONTRACT_READY`; runtime, provider, store and workforce activation absent. | Retained as audited contract boundaries with executable future gates. |
-| B-7 | `B7_READY_FOR_DIRECTION_ACCEPTANCE`; Direction acceptance pending. | Recalibrated package is decision-ready, but `B7_ACCEPTED` remains unclaimed. |
+| B-7 | `B7_READY_FOR_DIRECTION_ACCEPTANCE`; Direction acceptance pending. | `B7_ACCEPTED_WITH_EXPLICIT_LIMITS`; no production or 4.x execution claim. |
 | F-000 | Dissolved by historical endpoint convergence. | Remains dissolved; current Macro 04 tests are scoped separately. |
 | F-001 through F-011 | Open/deferred as recorded by Macro 03. | No frontier is erased; each is assigned an owner, evidence requirement and next phase. |
-| F-004 | Policy-level ambiguity dissolved; route-specific authority hard. | All 36 routes remain `UNKNOWN`; packet adds non-authorizing recommendations only. |
+| F-004 | Policy-level ambiguity dissolved; route-specific authority hard. | Direction adopted 36 policy dispositions; historical destinations remain `UNKNOWN` and implementation is explicitly deferred. |
 
 ## B-0 through B-7 recalibration
 
@@ -81,7 +81,7 @@ into a decision.
 | B-4 | Contract ready. | Audited; provider/runtime evidence remains external or future. | Blocks activation claim. |
 | B-5 | Contract ready. | Audited; product ownership/restore remains unresolved. | Blocks operational write claim. |
 | B-6 | Contract ready, no active workforce. | Audited; activation and deployment remain prohibited. | Blocks workforce claim. |
-| B-7 | Direction decision pending. | Decision packet ready; acceptance still pending. | Blocks phase acceptance and 4.x start. |
+| B-7 | Direction decision pending. | Accepted with explicit limits. | Blocks production and implementation until future gates pass. |
 
 ## F-000 through F-011 disposition
 
@@ -98,7 +98,7 @@ into a decision.
 | F-008 | `OPEN` conditional | Store ownership, retention and recovery remain gaps. | Named store owner and tested operational boundary. |
 | F-009 | `DEFERRED` resolvable | Sandbox containment remains proven; product restore is not claimed. | Product restore evidence in a later authorized scope. |
 | F-010 | `OPEN` conditional | Workforce readiness remains internal and inactive. | Activation, provider, approval and deployment gates. |
-| F-011 | `OPEN` true hard | Direction acceptance remains pending. | Direction consumes the decision packet. |
+| F-011 | `OPEN` true hard | Closed for the 3.x phase exit by explicit Direction acceptance. | Future gates and P4 entry contract remain mandatory. |
 
 ## What is complete at this point
 
@@ -107,8 +107,8 @@ into a decision.
   boundaries are cross-referenced to published evidence.
 - The 36-route inventory is complete and independently reusable by the
   decision packet.
-- Findings are decision-ready without claiming that the decision was made.
-- The 4.x plan is executable in shape, but no 4.x implementation is started.
+- Findings have an adopted Direction decision without claiming implementation.
+- The P4 4.x entry contract is executable in shape, but no 4.x implementation is started.
 
 ## What remains explicitly open
 
@@ -117,6 +117,6 @@ into a decision.
 - provider reachability, credentials, egress, cost and external traffic;
 - route destination, compatibility and canonical adapter authority;
 - product restore/recovery and active workforce activation;
-- Direction acceptance of the recalibrated evidence package.
+- External evidence and future P4 entry gates; no 3.x Direction decision remains open.
 
 `ROADMAP_3_X_ORIGINAL_SCOPE_EVIDENCE_COVERAGE_RECONSTRUCTED`

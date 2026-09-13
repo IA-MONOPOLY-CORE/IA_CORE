@@ -106,3 +106,15 @@ service name.
 - No adapter, migration, retirement, replacement, removal or route mutation was performed.
 
 `ROADMAP_3_X_MACRO_03_F004_FAMILY_DECISION_SUFFICIENCY_RECONCILED`
+
+## Macro 05 policy transition
+
+The Macro 03 table remains the historical F-004 evidence record. Direction's
+Macro 05 acceptance supersedes its pending-decision posture for policy only:
+all 36 rows now have an adopted disposition in
+`docs/ROADMAP_3_X_LEGACY_ROUTE_DECISION_ADJUDICATION.json`, while every
+implementation destination is `DEFERRED_TO_4X_BY_EXPLICIT_DIRECTION`.
+`P4_CATALOG_DOMAIN_READS` is the single selected future family. No adapter,
+migration, retirement, successor or route mutation is implied.
+
+`ROADMAP_3_X_F004_POLICY_ADJUDICATED_IMPLEMENTATION_DEFERRED`
