@@ -10,21 +10,23 @@
 - Current source, contracts, tests and published checkpoints are authoritative.
 - Prior checkpoints remain historical evidence and are not rewritten by this
   mission.
+- Current live anchor: Macro 05 accepted closure with explicit future gates.
 
 This contract recalibrates what it means for Roadmap 3.x to be technically
 complete. It does not activate a runtime, select a route destination, approve
 an external policy or authorize Roadmap 4.x remediation.
 
-Macro 04 is the historical evidence-producing state. Macro 05 may record an
-explicit Direction decision supplied by its authorized mission; it may not
-invent or infer that decision.
+Macro 04 is the historical evidence-producing state. Macro 05 recorded the
+explicit Direction decision in its acceptance record; that decision is not
+inferred from tests or source structure.
 
 ## Recalibrated equation
 
 ```text
 3.x = COMPLETE_BACKEND_TRUTH
       + COMPLETE_AUDIT_COVERAGE
-      + DECISION_READY_FINDINGS
+      + ADOPTED_DIRECTION_DECISIONS
+      + GOVERNED_FUTURE_GATES
       + EXECUTABLE_REMEDIATION_PLAN_FOR_4X
 
 4.x = AUTHORIZED_EXECUTION_OF_REMEDIATIONS_ALREADY_DEFINED_BY_3X
@@ -67,7 +69,7 @@ checkpoint labels. They are not substitutes for the state taxonomy and do not
 mean that the original 3.x scope is `REMEDIATED`, `ACTIVATED` or
 `PRODUCTION_READY`.
 
-## True 3.x completion predicates
+## historical_pre_macro_05: True 3.x completion predicates
 
 The technical evidence package may report
 `ROADMAP_3X_TRUE_COMPLETION_TECHNICAL_EVIDENCE_COMPLETE_DIRECTION_DECISIONS_READY`
@@ -99,7 +101,7 @@ only when all predicates below are true:
 This outcome is deliberately weaker than phase acceptance. `B7_ACCEPTED` and
 `ROADMAP_3_X_CLOSED` require the separate Direction decision described below.
 
-## Non-closure predicates
+## historical_pre_macro_05: Non-closure predicates
 
 The package must not report technical closure if any of these occurs:
 
@@ -114,7 +116,7 @@ The package must not report technical closure if any of these occurs:
 - product code, endpoints, payloads, runtime, providers, stores or
   integrations are changed to make the evidence appear complete.
 
-## Authority boundaries
+## historical_pre_macro_05: Authority boundaries
 
 ### Executor may do
 
@@ -137,23 +139,26 @@ The package must not report technical closure if any of these occurs:
 - modify P0, P1, the P3 matrix, contract-aware widgets or Request Draft Panel;
 - declare `B7_ACCEPTED`, `ROADMAP_3_X_CLOSED`, `PRODUCTION_READY` or start 4.x.
 
-## Decision-ready versus decided
+## Decision-ready versus decided (historical pre-Macro05 distinction)
 
-`DECISION_READY` is an evidence property, not a maturity state. It means that
-the decision packet contains the object, options, consequences, evidence
-requirements, owner and stop condition needed for an authorized human or
-owner to decide. It does not mean that the executor selected the result.
+`DECISION_READY` is an evidence property, not a maturity state. In the
+pre-Macro05 package it meant that the decision packet contained the object,
+options, consequences, evidence requirements, owner and stop condition needed
+for an authorized human or owner to decide. Macro05 subsequently recorded the
+authorized decision; current state is governed by the active adjudication layer.
 
-For F-004, the allowed recommendation vocabulary is:
+### historical_pre_macro_05: F-004 recommendation vocabulary
+
+For the pre-decision F-004 package, the allowed recommendation vocabulary was:
 
 `KEEP_AS_CANONICAL`, `KEEP_AS_COMPATIBILITY_SURFACE`, `ADAPTER_REQUIRED`,
 `MIGRATE`, `CONTAIN`, `DEPRECATE`, `RETIRE`, `BLOCK_UNTIL_EXTERNAL_EVIDENCE`.
 
-These are recommendations only. The inherited route destination remains
-`UNKNOWN` until the relevant authority records a decision and the required
-route evidence exists.
+These were recommendations only. The inherited route destination remains
+`UNKNOWN` as historical evidence, while current active policy is recorded
+separately as 36 Direction dispositions and implementation remains deferred.
 
-## Direction gate
+## historical_pre_macro_05: Direction gate
 
 The minimum Direction decision after this recalibration is:
 
@@ -166,7 +171,7 @@ Direction may accept the evidence package without accepting any individual
 legacy route destination. A route-family decision is a separate authority
 event.
 
-## Macro 05 accepted closure state
+## Current Macro 05 accepted closure state
 
 The authorized Macro 05 Direction record accepts the Macro 04 evidence package
 with explicit limits and adopts the future-gate policy
@@ -180,6 +185,11 @@ with explicit limits and adopts the future-gate policy
 - `ROUTES_ACCOUNTED = 36`;
 - `ROUTES_WITH_ACTIVE_DIRECTION_DISPOSITION = 36`;
 - `PRODUCT_CHANGES = 0`.
+
+Current invariants are `F-011 = CLOSED_FOR_3X_PHASE_EXIT`, 36 historical
+`UNKNOWN` destinations with 0 active `UNKNOWN` dispositions, 19 inactive
+default-deny future gates and `P4_CATALOG_DOMAIN_READS` selected but not
+started. No future gate reopens the accepted 3.x exit.
 
 This is an explicit Direction acceptance, not an implementation or production
 claim. The selected future family is `P4_CATALOG_DOMAIN_READS`; its concrete
@@ -212,7 +222,7 @@ repository cannot provide it. Operation duration is measured only from
 captured timestamps; inherited operator-reported durations retain their
 original quality label and are not merged into a fabricated end-to-end value.
 
-## Stable result vocabulary
+## historical_pre_macro_05: Stable result vocabulary
 
 Allowed Macro 04 results are:
 

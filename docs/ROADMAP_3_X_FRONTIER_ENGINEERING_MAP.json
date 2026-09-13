@@ -33,6 +33,27 @@
       "IA_CORE OS and mobile implementation"
     ]
   },
+  "historical_pre_macro_05": {
+    "phase_nodes": {
+      "B-7": {"state":"DIRECTION_DECISION_PENDING","blocks_transition":true}
+    },
+    "frontiers": {
+      "F-001_to_F-010": {"blocks_current_transition":true},
+      "F-011": {"status":"OPEN","blocks_current_transition":true}
+    },
+    "f004": {"historical_destinations":{"UNKNOWN":36},"decision_sufficiency":"DIRECTION_DECISION_REQUIRED"},
+    "b7": {"outcome":"B7_READY_FOR_DIRECTION_ACCEPTANCE","phase_exit_claim":"NOT_DECLARED"},
+    "meaning":"These values are the pre-Macro05 photograph only and are not current live state."
+  },
+  "current_live_state": {
+    "anchor":"MACRO_05",
+    "phase_exit":"ROADMAP_3_X_TRUE_COMPLETION_ACCEPTED_AND_CLOSED_WITH_EXPLICIT_FUTURE_GATES",
+    "b7":"B7_ACCEPTED_WITH_EXPLICIT_LIMITS",
+    "f011":"CLOSED_FOR_3X_PHASE_EXIT",
+    "current_3x_exit_blockers":0,
+    "future_action_gates":19,
+    "p4":"P4_SELECTED_NOT_STARTED"
+  },
   "allowed_node_states": [
     "CLOSED_WITH_EXPLICIT_LIMITS",
     "CONTRACT_READY",
@@ -53,29 +74,29 @@
     {"id":"MACRO_02","state":"CLOSED_WITH_EXPLICIT_LIMITS","source":"docs/ROADMAP_3_X_MACRO_02_CHECKPOINT.md","source_commit":"ad7a3dcac1959aba086c1098b126e8c97b9e32b8","blocks_transition":true},
     {"id":"MACRO_02.1","state":"CLOSED_WITH_EXPLICIT_LIMITS","source":"docs/ROADMAP_3_X_MACRO_02_1_CHECKPOINT.md","source_commit":"598b96f1dcba1cdae478cde05d40df3870534448","blocks_transition":false},
     {"id":"MACRO_02.2","state":"CLOSED_WITH_EXPLICIT_LIMITS","source":"docs/ROADMAP_3_X_MACRO_02_2_CHECKPOINT.md","source_commit":"8eda61c1c6e1611435cf4d4881a374502018abdc","blocks_transition":false},
-    {"id":"B-1","state":"CLOSED_WITH_EXPLICIT_LIMITS","source":"docs/ROADMAP_3_1_SECURITY_PERMISSION_ACTIVATION_BOUNDARY_CHECKPOINT.md","source_commit":"2255295f5ffe4f7348476acfca606a84aa12af35","blocks_transition":true},
-    {"id":"B-2","state":"CLOSED_WITH_EXPLICIT_LIMITS","source":"docs/ROADMAP_3_X_LEGACY_ROUTE_DISPOSITION.md","source_commit":"72ed7f653f83fffb8f735184a5a836a11db0db36","blocks_transition":true},
-    {"id":"B-3","state":"CONTRACT_READY","source":"docs/ROADMAP_3_2_LEGACY_API_CANONICAL_CONTROL_PLANE_CHECKPOINT.md","source_commit":"72ed7f653f83fffb8f735184a5a836a11db0db36","blocks_transition":true},
-    {"id":"B-4","state":"CONTRACT_READY","source":"docs/ROADMAP_3_X_MACRO_02_B4_A_PERMISSION_ACTIVATION_BOUNDARY.md","source_commit":"ad7a3dcac1959aba086c1098b126e8c97b9e32b8","blocks_transition":true},
-    {"id":"B-5","state":"CONTRACT_READY","source":"docs/ROADMAP_3_X_MACRO_02_B5_A_PERSISTENCE_OWNERSHIP_RETENTION.md","source_commit":"ad7a3dcac1959aba086c1098b126e8c97b9e32b8","blocks_transition":true},
-    {"id":"B-6","state":"CONTRACT_READY","source":"docs/ROADMAP_3_X_MACRO_02_B6_WORKFORCE_READINESS_CONTRACT.md","source_commit":"ad7a3dcac1959aba086c1098b126e8c97b9e32b8","blocks_transition":true},
-    {"id":"B-7","state":"DIRECTION_DECISION_PENDING","source":"docs/ROADMAP_3_X_MACRO_03_B7_CLOSURE_READINESS_MATRIX.md","source_commit":"THIS_MISSION","blocks_transition":true}
+     {"id":"B-1","state":"CLOSED_WITH_EXPLICIT_LIMITS","source":"docs/ROADMAP_3_1_SECURITY_PERMISSION_ACTIVATION_BOUNDARY_CHECKPOINT.md","source_commit":"2255295f5ffe4f7348476acfca606a84aa12af35","blocks_transition":false,"blocks_future_action":true},
+     {"id":"B-2","state":"CLOSED_WITH_EXPLICIT_LIMITS","source":"docs/ROADMAP_3_X_LEGACY_ROUTE_DISPOSITION.md","source_commit":"72ed7f653f83fffb8f735184a5a836a11db0db36","blocks_transition":false,"blocks_future_action":true},
+     {"id":"B-3","state":"CONTRACT_READY","source":"docs/ROADMAP_3_2_LEGACY_API_CANONICAL_CONTROL_PLANE_CHECKPOINT.md","source_commit":"72ed7f653f83fffb8f735184a5a836a11db0db36","blocks_transition":false,"blocks_future_action":true},
+     {"id":"B-4","state":"CONTRACT_READY","source":"docs/ROADMAP_3_X_MACRO_02_B4_A_PERMISSION_ACTIVATION_BOUNDARY.md","source_commit":"ad7a3dcac1959aba086c1098b126e8c97b9e32b8","blocks_transition":false,"blocks_future_action":true},
+     {"id":"B-5","state":"CONTRACT_READY","source":"docs/ROADMAP_3_X_MACRO_02_B5_A_PERSISTENCE_OWNERSHIP_RETENTION.md","source_commit":"ad7a3dcac1959aba086c1098b126e8c97b9e32b8","blocks_transition":false,"blocks_future_action":true},
+     {"id":"B-6","state":"CONTRACT_READY","source":"docs/ROADMAP_3_X_MACRO_02_B6_WORKFORCE_READINESS_CONTRACT.md","source_commit":"ad7a3dcac1959aba086c1098b126e8c97b9e32b8","blocks_transition":false,"blocks_future_action":true},
+     {"id":"B-7","state":"CLOSED_WITH_EXPLICIT_LIMITS","source":"docs/ROADMAP_3_X_MACRO_05_CHECKPOINT.md","source_commit":"6347094daa234d1f2ad344f08508e24a1e9302ea","blocks_transition":false,"blocks_future_action":false}
   ],
-  "frontier_status_vocabulary": ["OPEN","DISSOLVED","DEFERRED","SUPERSEDED"],
+  "frontier_status_vocabulary": ["OPEN","DISSOLVED","DEFERRED","SUPERSEDED","CLOSED"],
   "frontier_kind_vocabulary": ["APPARENT_FRONTIER","RESOLVABLE_FRONTIER","CONDITIONAL_FRONTIER","EXTERNAL_EVIDENCE_FRONTIER","TRUE_HARD_FRONTIER"],
   "frontiers": [
     {"frontier_id":"F-000","classification_before":"APPARENT_FRONTIER","classification_current":"APPARENT_FRONTIER","status":"DISSOLVED","evidence":"Macro 02.2 historical endpoint adapter and 173-node convergence","resolution_authority":"Engineering test infrastructure","evidence_required":"Checkpoint-bounded historical source and diff endpoints","dissolution_condition":"Each historical guard validates its own published interval","stop_condition":"Historical intent cannot be reconstructed","blocks_current_transition":false,"target_phase":"CLOSED","provenance":"Roadmap 3.2 route recalculation; Macro 02.2 checkpoint"},
-    {"frontier_id":"F-001","classification_before":"EXTERNAL_EVIDENCE_FRONTIER","classification_current":"EXTERNAL_EVIDENCE_FRONTIER","status":"OPEN","evidence":"Local startup and route registration only","resolution_authority":"Deployment/hosting owner","evidence_required":"Hosting edge, identity source, ingress and traffic evidence","dissolution_condition":"Approved read-only deployment evidence is available","stop_condition":"External exposure or traffic must be observed","blocks_current_transition":true,"target_phase":"B-1/B-2","provenance":"Roadmap 3.0/3.1/3.2 evidence"},
-    {"frontier_id":"F-002","classification_before":"TRUE_HARD_FRONTIER","classification_current":"TRUE_HARD_FRONTIER","status":"OPEN","evidence":"Source-level CORS setting and absence of approved tenant policy","resolution_authority":"Direction plus deployed edge owner","evidence_required":"Trusted-origin policy, tenant/client model and edge enforcement","dissolution_condition":"Direction accepts a trust policy and evidence path","stop_condition":"Policy changes cross-origin authority","blocks_current_transition":true,"target_phase":"B-1","provenance":"Roadmap 3.1 F-3.1-002 and 3.2 checkpoint"},
-    {"frontier_id":"F-003","classification_before":"CONDITIONAL_FRONTIER","classification_current":"CONDITIONAL_FRONTIER","status":"OPEN","evidence":"Settings route is secret-bearing and writes legacy/config candidates; raw key path is blocked by prior work","resolution_authority":"Contract owner plus storage/deployment owner","evidence_required":"Storage owner, redaction/rotation, retention and route authorization","dissolution_condition":"Existing contracts cover secret and storage semantics","stop_condition":"New secret ownership policy or live store access is required","blocks_current_transition":true,"target_phase":"B-3/B-5","provenance":"Roadmap 3.1 F-3.1-003, Macro 01 and Macro 02 B5-A"},
-    {"frontier_id":"F-004","classification_before":"TRUE_HARD_FRONTIER","classification_current":"TRUE_HARD_FRONTIER","status":"OPEN","evidence":"All 36 routes are inventoried and grouped; every destination remains UNKNOWN","resolution_authority":"Direction for destination policy; route/service owner for route evidence","evidence_required":"Bridge, retirement or containment decision plus ownership, compatibility and canonical adapter proof","dissolution_condition":"Direction chooses an allowed destination policy and evidence proves the selected family","stop_condition":"A new authority, compatibility obligation or product boundary is required","blocks_current_transition":true,"target_phase":"B-2/B-3","provenance":"Roadmap 3.2, Macro 01 route reconnaissance, Macro 03 F-004 family matrix"},
-    {"frontier_id":"F-005","classification_before":"CONDITIONAL_FRONTIER","classification_current":"CONDITIONAL_FRONTIER","status":"OPEN","evidence":"Canonical contracts exist; no legacy route adapter call path is demonstrated","resolution_authority":"Engineering contract owner, then Direction for authority-changing adapter","evidence_required":"Positive route-to-canonical call path, payload ownership and negative bypass proof","dissolution_condition":"Static source evidence proves current contract coverage without semantic invention","stop_condition":"Adapter changes authority or payload semantics","blocks_current_transition":true,"target_phase":"B-3","provenance":"Roadmap 3.2 F-005 and Macro 02 coverage evidence"},
-    {"frontier_id":"F-006","classification_before":"CONDITIONAL_FRONTIER","classification_current":"CONDITIONAL_FRONTIER","status":"OPEN","evidence":"Activation, attempt, confirmation and lifecycle contracts are fail-closed but not global over legacy routes","resolution_authority":"Contract owner; Direction if runtime authority changes","evidence_required":"Activation, executor, approval and lifecycle call-chain coverage","dissolution_condition":"All transitions remain owner-defined and fail-closed","stop_condition":"Runtime or execution authority must be opened","blocks_current_transition":true,"target_phase":"B-4","provenance":"Macro 02 B4-A/B6 and Roadmap 3.2 findings"},
-    {"frontier_id":"F-007","classification_before":"EXTERNAL_EVIDENCE_FRONTIER","classification_current":"EXTERNAL_EVIDENCE_FRONTIER","status":"OPEN","evidence":"Provider adapters and configuration paths are source-callable only","resolution_authority":"Provider/deployment owner","evidence_required":"Provider availability, credentials, egress, network and cost evidence","dissolution_condition":"Separately authorized external evidence is collected","stop_condition":"Provider or network call is required","blocks_current_transition":true,"target_phase":"B-4","provenance":"Macro 02 B4-B and Roadmap 3.1 F-3.1-007"},
-    {"frontier_id":"F-008","classification_before":"CONDITIONAL_FRONTIER","classification_current":"CONDITIONAL_FRONTIER","status":"OPEN","evidence":"Sandbox and GOKV writes are bounded; legacy stores lack contractual ownership","resolution_authority":"Store owner and deployment owner","evidence_required":"Destination, owner, retention, tenant and rollback policy","dissolution_condition":"All writes map to governed destinations","stop_condition":"Operational data policy or live write observation is required","blocks_current_transition":true,"target_phase":"B-5","provenance":"Macro 02 B5-A/B and route family matrix"},
+     {"frontier_id":"F-001","classification_before":"EXTERNAL_EVIDENCE_FRONTIER","classification_current":"EXTERNAL_EVIDENCE_FRONTIER","status":"OPEN","evidence":"Local startup and route registration only","resolution_authority":"Deployment/hosting owner","evidence_required":"Hosting edge, identity source, ingress and traffic evidence","dissolution_condition":"Approved read-only deployment evidence is available","stop_condition":"External exposure or traffic must be observed","blocks_current_transition":false,"blocks_future_action":true,"target_phase":"B-1/B-2","provenance":"Roadmap 3.0/3.1/3.2 evidence"},
+     {"frontier_id":"F-002","classification_before":"TRUE_HARD_FRONTIER","classification_current":"TRUE_HARD_FRONTIER","status":"OPEN","evidence":"Source-level CORS setting and absence of approved tenant policy","resolution_authority":"Direction plus deployed edge owner","evidence_required":"Trusted-origin policy, tenant/client model and edge enforcement","dissolution_condition":"Direction accepts a trust policy and evidence path","stop_condition":"Policy changes cross-origin authority","blocks_current_transition":false,"blocks_future_action":true,"target_phase":"B-1","provenance":"Roadmap 3.1 F-3.1-002 and 3.2 checkpoint"},
+     {"frontier_id":"F-003","classification_before":"CONDITIONAL_FRONTIER","classification_current":"CONDITIONAL_FRONTIER","status":"OPEN","evidence":"Settings route is secret-bearing and writes legacy/config candidates; raw key path is blocked by prior work","resolution_authority":"Contract owner plus storage/deployment owner","evidence_required":"Storage owner, redaction/rotation, retention and route authorization","dissolution_condition":"Existing contracts cover secret and storage semantics","stop_condition":"New secret ownership policy or live store access is required","blocks_current_transition":false,"blocks_future_action":true,"target_phase":"B-3/B-5","provenance":"Roadmap 3.1 F-3.1-003, Macro 01 and Macro 02 B5-A"},
+     {"frontier_id":"F-004","classification_before":"TRUE_HARD_FRONTIER","classification_current":"TRUE_HARD_FRONTIER","status":"OPEN","evidence":"All 36 routes are inventoried and grouped; active Direction dispositions are complete while implementation remains deferred","resolution_authority":"Direction for policy; route/service owner for future implementation evidence","evidence_required":"Compatibility, authority and canonical proof for any later bounded implementation","dissolution_condition":"A separately authorized family supplies the required evidence","stop_condition":"A new authority, compatibility obligation or product boundary is required","blocks_current_transition":false,"blocks_future_action":true,"current_treatment":"POLICY_ADJUDICATED_IMPLEMENTATION_DEFERRED","target_phase":"4.x/P4","provenance":"Macro 3.x route adjudication and Macro 05 acceptance"},
+     {"frontier_id":"F-005","classification_before":"CONDITIONAL_FRONTIER","classification_current":"CONDITIONAL_FRONTIER","status":"OPEN","evidence":"Canonical contracts exist; no legacy route adapter call path is demonstrated","resolution_authority":"Engineering contract owner, then Direction for authority-changing adapter","evidence_required":"Positive route-to-canonical call path, payload ownership and negative bypass proof","dissolution_condition":"Static source evidence proves current contract coverage without semantic invention","stop_condition":"Adapter changes authority or payload semantics","blocks_current_transition":false,"blocks_future_action":true,"target_phase":"B-3/4.x","provenance":"Roadmap 3.2 F-005 and Macro 02 coverage evidence"},
+     {"frontier_id":"F-006","classification_before":"CONDITIONAL_FRONTIER","classification_current":"CONDITIONAL_FRONTIER","status":"OPEN","evidence":"Activation, attempt, confirmation and lifecycle contracts are fail-closed but not global over legacy routes","resolution_authority":"Contract owner; Direction if runtime authority changes","evidence_required":"Activation, executor, approval and lifecycle call-chain coverage","dissolution_condition":"All transitions remain owner-defined and fail-closed","stop_condition":"Runtime or execution authority must be opened","blocks_current_transition":false,"blocks_future_action":true,"target_phase":"B-4/4.x","provenance":"Macro 02 B4-A/B6 and Roadmap 3.2 findings"},
+     {"frontier_id":"F-007","classification_before":"EXTERNAL_EVIDENCE_FRONTIER","classification_current":"EXTERNAL_EVIDENCE_FRONTIER","status":"OPEN","evidence":"Provider adapters and configuration paths are source-callable only","resolution_authority":"Provider/deployment owner","evidence_required":"Provider availability, credentials, egress, network and cost evidence","dissolution_condition":"Separately authorized external evidence is collected","stop_condition":"Provider or network call is required","blocks_current_transition":false,"blocks_future_action":true,"target_phase":"B-4/4.x","provenance":"Macro 02 B4-B and Roadmap 3.1 F-3.1-007"},
+     {"frontier_id":"F-008","classification_before":"CONDITIONAL_FRONTIER","classification_current":"CONDITIONAL_FRONTIER","status":"OPEN","evidence":"Sandbox and GOKV writes are bounded; legacy stores lack contractual ownership","resolution_authority":"Store owner and deployment owner","evidence_required":"Destination, owner, retention, tenant and rollback policy","dissolution_condition":"All writes map to governed destinations","stop_condition":"Operational data policy or live write observation is required","blocks_current_transition":false,"blocks_future_action":true,"target_phase":"B-5/4.x","provenance":"Macro 02 B5-A/B and route family matrix"},
     {"frontier_id":"F-009","classification_before":"RESOLVABLE_FRONTIER","classification_current":"RESOLVABLE_FRONTIER","status":"DEFERRED","evidence":"Sandbox root, traversal, manifest and idempotent rollback contracts pass in temporary fixtures","resolution_authority":"Engineering contract owner","evidence_required":"Product-root exclusion and any future operational recovery contract","dissolution_condition":"Static path guards remain complete and a separate operational contract exists","stop_condition":"Product root or live store appears","blocks_current_transition":false,"target_phase":"B-5/future operational phase","provenance":"Macro 02 B5-B and sandbox rollback tests"},
-    {"frontier_id":"F-010","classification_before":"CONDITIONAL_FRONTIER","classification_current":"CONDITIONAL_FRONTIER","status":"OPEN","evidence":"Lineage, preset, paper and team definitions are declarative or sandbox-only","resolution_authority":"Workforce and activation owners","evidence_required":"Active contract, approval, runtime gate and provider boundary","dissolution_condition":"All artifacts remain declarative or explicitly gated","stop_condition":"Agent execution or workforce activation is proposed","blocks_current_transition":true,"target_phase":"B-6","provenance":"Macro 02 B6 checkpoint and doctrine"},
-    {"frontier_id":"F-011","classification_before":"TRUE_HARD_FRONTIER","classification_current":"TRUE_HARD_FRONTIER","status":"OPEN","evidence":"B-7 evidence package can be assembled but acceptance authority is external to the executor","resolution_authority":"Direction/Architect","evidence_required":"Completion matrix, deferred-frontier acceptance and next-phase authorization","dissolution_condition":"Direction accepts the exit contract with explicit limits","stop_condition":"Exit truth or next-phase authority is not accepted","blocks_current_transition":true,"target_phase":"B-7/ARCHITECT_DECISION","provenance":"Macro 03 B-7 matrix"}
+     {"frontier_id":"F-010","classification_before":"CONDITIONAL_FRONTIER","classification_current":"CONDITIONAL_FRONTIER","status":"OPEN","evidence":"Lineage, preset, paper and team definitions are declarative or sandbox-only","resolution_authority":"Workforce and activation owners","evidence_required":"Active contract, approval, runtime gate and provider boundary","dissolution_condition":"All artifacts remain declarative or explicitly gated","stop_condition":"Agent execution or workforce activation is proposed","blocks_current_transition":false,"blocks_future_action":true,"target_phase":"B-6/4.x","provenance":"Macro 02 B6 checkpoint and doctrine"},
+     {"frontier_id":"F-011","classification_before":"TRUE_HARD_FRONTIER","classification_current":"TRUE_HARD_FRONTIER","status":"CLOSED","evidence":"Direction accepted the exit contract with explicit limits","resolution_authority":"Direction/Architect","evidence_required":"Future 4.x entry gates remain required for later implementation","dissolution_condition":"A separately authorized future block passes its entry gates","stop_condition":"Exit truth or future authority is not accepted","blocks_current_transition":false,"blocks_future_action":true,"current_treatment":"CLOSED_FOR_3X_PHASE_EXIT","target_phase":"4.x/P4","provenance":"Macro 05 Direction acceptance"}
   ],
   "frontier_metrics": {
     "raw_frontier_records": 12,
@@ -85,23 +106,30 @@
     "true_hard_open": 3,
     "external_evidence_open": 2,
     "resolvable_or_conditional_open": 5,
+    "current_3x_exit_blockers": 0,
+    "future_gate_frontiers": 10,
     "metric_status":"MEASURED_FROM_PUBLISHED_STATIC_EVIDENCE_ONLY",
     "not_claimed":"Not a schedule, runtime distance, readiness percentage or production risk score"
   },
   "f004": {
-    "policy_level":"DISSOLVED_BY_DIRECTION_POLICY",
-    "route_specific":"TRUE_HARD_FRONTIER_FOR_DESTINATION_AUTHORITY",
+    "policy_level":"ADJUDICATED_BY_DIRECTION",
+    "route_specific":"TRUE_HARD_FRONTIER_FOR_IMPLEMENTATION",
     "route_count":36,
     "family_count":9,
-    "destinations":{"KEEP_CANONICAL":0,"MIGRATE_TO_CANONICAL":0,"REPLACE_WITH_SUCCESSOR":0,"INTERNAL_ONLY":0,"REMOVE":0,"UNKNOWN":36},
-    "decision_sufficiency":"DIRECTION_DECISION_REQUIRED",
-    "record":"docs/ROADMAP_3_X_MACRO_03_F004_FAMILY_DECISION_SUFFICIENCY.md"
+    "historical_destinations":{"UNKNOWN":36},
+    "active_direction_dispositions":{"KEEP_AS_COMPATIBILITY_SURFACE":8,"CONTAIN":16,"BLOCK_UNTIL_EXTERNAL_EVIDENCE":12,"UNKNOWN":0},
+    "decision_sufficiency":"DIRECTION_ACCEPTED",
+    "implementation_destination_state":"DEFERRED_TO_4X_BY_EXPLICIT_DIRECTION",
+    "blocks_3x_exit":false,
+    "blocks_future_action":true,
+    "record":"docs/ROADMAP_3_X_LEGACY_ROUTE_DECISION_ADJUDICATION.json"
   },
   "b7": {
-    "outcome":"B7_READY_FOR_DIRECTION_ACCEPTANCE",
-    "phase_exit_claim":"NOT_DECLARED",
-    "reason":"Static documentary responsibility is satisfied, while Direction-owned policy and external evidence remain explicit.",
-    "matrix":"docs/ROADMAP_3_X_MACRO_03_B7_CLOSURE_READINESS_MATRIX.md"
+    "outcome":"B7_ACCEPTED_WITH_EXPLICIT_LIMITS",
+    "phase_exit_claim":"DECLARED_WITH_EXPLICIT_LIMITS",
+    "blocks_3x_exit":false,
+    "reason":"Direction accepted the evidence package; future gates remain mandatory for any later action.",
+    "matrix":"docs/ROADMAP_3_X_FINAL_CLOSURE_MATRIX.md"
   },
   "roadmap_4x_entry": {
     "state":"P4_SELECTED_FUTURE_ENTRY_BLOCKED_BY_REQUIRED_GATES",
@@ -120,6 +148,7 @@
     "active_unknown_dispositions":0,
     "uncontrolled_unknowns":0,
     "unowned_gates":0,
+    "blocks_3x_exit":false,
     "p4_selected":true,
     "roadmap_4x_executed":false
   },

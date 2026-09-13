@@ -2,11 +2,13 @@
 
 ## Purpose and state
 
-- Plan state: `P4_SELECTED_ENTRY_READY_NOT_IMPLEMENTED`
+- Plan state: `ROADMAP_3_X_CLOSED_P4_SELECTED_ENTRY_READY_NOT_IMPLEMENTED`
 - Mission: `ROADMAP_3X_MACRO_MISSION_04_TRUE_COMPLETION_RECALIBRATION_EVIDENCE_COVERAGE_AND_CLOSURE_PATH`
 - Current baseline: `43530e656066a3c40d9afb8a5a4a381b38f29f38`
 - Next phase: Roadmap 4.x P4 entry review only after the governed gates are
   evidenced; implementation remains unstarted.
+- Current live anchor: Macro 05 accepted 3.x closure with explicit future
+  gates. Future gates constrain later actions and do not reopen the 3.x exit.
 
 This is an executable plan in the sense of ordered work, owners, inputs,
 gates, tests, rollback and stop conditions. It does not execute any item in
@@ -29,7 +31,7 @@ Do not start 4.x from this document.
 
 | Package | Objective | Inputs | Exit evidence | Owner | State |
 | --- | --- | --- | --- | --- | --- |
-| `3X-0` | Publish the recalibrated contract, original-scope coverage, gap register, decision packet and plan. | Macro 03 published evidence and current repository. | Macro 04 checkpoint, JSON, ledger, tests and clean published head. | Architecture/test owner | `CURRENT_MISSION` |
+| `3X-0` | Publish the recalibrated contract, original-scope coverage, gap register, decision packet and plan. | Macro 03 published evidence and current repository. | Macro 04 checkpoint, JSON, ledger, tests and clean published head. | Architecture/test owner | `COMPLETED_HISTORICAL` |
 | `3X-1` | Consume the Direction acceptance decision for the technical evidence package. | Direction acceptance record. | Recorded acceptance with explicit F-001 through F-011 limits. | Direction/Architect | `COMPLETE` |
 | `3X-2` | Close applicable external and trust evidence without changing product behavior. | Accepted package, deployment/security/provider owners. | Identity, tenant, CORS, ingress, provider and credential evidence, or an explicit deferral. | Hosting/security/provider owners | `BLOCKED_PENDING_EXTERNAL_EVIDENCE` |
 | `3X-3` | Select one F-004 family and disposition for a later bounded review. | Accepted package and route adjudication. | P4 selected with seven-route contract; implementation remains deferred. | Direction plus catalog/domain owner | `COMPLETE_POLICY_ONLY` |
@@ -38,24 +40,28 @@ Do not start 4.x from this document.
 
 ## Ordering by distance to the next true hard frontier
 
-### Immediate and autonomous
+### Completed closure evidence
 
 - validate the Macro 04 contract, crosswalk and gap register;
 - verify exact 36-route accounting and preserved `UNKNOWN` destinations;
 - run focused, historical and full tests;
 - run JSON/schema, Python compile, secret-pattern, protected-diff and
   `git diff --check` gates;
-- publish only after clean-tree and remote-equality verification.
+- publish only after clean-tree and remote-equality verification. Macro 05
+  completed these activities and accepted the resulting closure state.
 
 These activities cannot change route authority or product behavior.
 
-### Decision-gated
+### Historical pre-Macro05 decision-gated work
 
 - Direction accepts or rejects the recalibrated evidence package;
 - Direction and owners define whether external evidence is sufficient;
 - Direction selects one F-004 family and its destination policy.
 - Macro 05 has selected `P4_CATALOG_DOMAIN_READS`; selection is policy-only and
   not implementation authorization.
+
+The Direction and P4 decisions above are now recorded. They are retained here
+as a historical work sequence, not as current pending decisions.
 
 The executor must stop at each gate and may not infer approval from a green
 test suite or a source-callable implementation.

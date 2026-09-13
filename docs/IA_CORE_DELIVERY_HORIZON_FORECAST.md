@@ -11,25 +11,31 @@
 
 ## Current anchor
 
-Macro 04 is the current documentary recalibration. Its target is true 3.x
-technical evidence completion and a decision-ready package. It does not
-declare `B7_ACCEPTED`, `ROADMAP_3_X_CLOSED`, production readiness or Roadmap
-4.x execution.
+Macro 05 is the current live closure anchor. Its accepted result is
+`ROADMAP_3_X_TRUE_COMPLETION_ACCEPTED_AND_CLOSED_WITH_EXPLICIT_FUTURE_GATES`.
+Roadmap 3.x is closed within its documentary and audit responsibility, with
+`B7_ACCEPTED_WITH_EXPLICIT_LIMITS`; this does not declare production readiness
+or execute Roadmap 4.x.
 
-The nearest irreducible dependencies are:
+Macro 04 remains the historical evidence-producing package. Its former
+Direction-pending language is preserved only in the historical checkpoints and
+in explicitly labelled historical sections, not as the current live state.
 
-1. Direction acceptance of the recalibrated 3.x evidence package;
-2. applicable external trust/provider/deployment evidence;
-3. selection of one F-004 family and its authority/compatibility contract.
+The nearest future dependencies are governed actions, not reopened 3.x exit
+conditions:
+
+1. applicable external trust/provider/deployment evidence for future actions;
+2. the selected P4 authority and compatibility entry gates;
+3. a separately authorized one-family 4.x implementation or containment review.
 
 ## Horizon map
 
 | Horizon | Target | Entry dependency | Exit signal | Forecast character |
 | --- | --- | --- | --- | --- |
-| `H0` | Macro 04 publication | Current clean baseline and green validation. | Technical evidence package published and remote-verified. | Current documentary block. |
-| `H1` | 3.x Direction gate | Decision packet consumed by Direction. | Acceptance or explicit rejection with limits. | Human-decision dependent. |
-| `H2` | 3.x external evidence closure | Hosting, identity, security and provider owners supply applicable evidence. | Each applicable frontier is evidenced or formally deferred. | External-evidence dependent. |
-| `H3` | Roadmap 4.x first family review | H1 plus H2 plus one-family selection. | One bounded authority/compatibility contract is approved. | Authority-changing; not automatic. |
+| `H0` | Macro 04 publication (historical) | Macro 04 clean baseline and green validation. | Technical evidence package published and remote-verified. | `COMPLETED_HISTORICAL`. |
+| `H1` | 3.x Direction acceptance | Published Macro 04 package consumed by Direction in Macro 05. | `B7_ACCEPTED_WITH_EXPLICIT_LIMITS` and accepted closure record. | `COMPLETED_BY_MACRO_05`. |
+| `H2` | Future external evidence gates | Hosting, identity, security and provider owners supply applicable evidence. | Each future action is evidenced or remains denied/contained. | `FUTURE_GATED`; does not reopen 3.x closure. |
+| `H3` | Roadmap 4.x first family review | Macro 05 closure plus applicable gates and P4 entry contract. | One bounded authority/compatibility contract is approved. | `P4_SELECTED_NOT_STARTED`; not automatic. |
 | `H4` | Roadmap 4.x bounded remediation | H3, payload/lifecycle/store/rollback gates. | One family implementation or containment is verified. | One-family increments only. |
 | `H5` | Governed backend expansion, 5.x | Multiple bounded family outcomes and a new coherence review. | Broader backend plan accepted without silently widening authority. | Future planning horizon. |
 | `H6` | Final backend maturity, 6.8 | Security, runtime, provider, persistence, observability and recovery gates. | Final backend contract is accepted for its defined scope. | Multi-gate and externally dependent. |
@@ -56,6 +62,12 @@ The only inherited durations used here are kept in their original form:
 
 No current Macro 04 end-to-end duration is inferred from those values. The
 final report records Macro 04 timestamps separately.
+
+Macro 05 has no captured start before its first material station. The measured
+span from its first material commit at `2026-09-13T11:03:59-03:00` through
+remote publication at `2026-09-13T12:28:30.8167149-03:00` is approximately
+`1h 24m 31.8167149s`; this is a lower-bound material-operation span, not an
+invented end-to-end duration.
 
 ## Macro 05 calibrated planning bands
 

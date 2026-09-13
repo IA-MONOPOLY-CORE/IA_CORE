@@ -10,7 +10,7 @@
 - The packet is now an adopted policy record. It is not an adapter
   specification, implementation proof or production decision.
 
-## Decision 1: recalibrated 3.x evidence
+## Decision 1: recalibrated 3.x evidence (historical request, accepted in Macro05)
 
 **Object:** the true completion contract, original-scope crosswalk, gap
 register, this packet, the 4.x execution plan and the forecast.
@@ -26,8 +26,9 @@ provider, route-authority and workforce limits preserved.
 > does not authorize a route adapter, product remediation, runtime, provider,
 > external action, payload change, production claim or Roadmap 4.x execution.
 
-This is the decision that Macro 03 had prepared but could not simulate. Macro
-05 records Direction's explicit acceptance in
+This is the decision that Macro 03 had prepared but could not simulate. The
+request is preserved as historical pre-Macro05 context; Macro 05 records
+Direction's explicit acceptance in
 `docs/ROADMAP_3_X_DIRECTION_ACCEPTANCE_RECORD.md`.
 
 ## Decision 2: future F-004 family selection
@@ -72,7 +73,7 @@ disposition; `Missing evidence` is the reason implementation remains
 deferred. The authoritative post-decision fields are in the linked JSON
 adjudication register.
 
-| # | Route ID | Method | Path | Family | Current destination | Recommendation | Missing evidence |
+| # | Route ID | Method | Path | Family | Historical destination | Adopted disposition | Missing evidence |
 | ---: | --- | --- | --- | --- | --- | --- | --- |
 | 1 | `api_status_get` | GET | `/api/status` | P1 | `UNKNOWN` | `BLOCK_UNTIL_EXTERNAL_EVIDENCE` | identity, audience, deployment |
 | 2 | `api_memory_get` | GET | `/api/memory` | P1 | `UNKNOWN` | `CONTAIN` | memory owner, tenant scope, sanitized response |
@@ -123,7 +124,7 @@ adjudication register.
   connected to a canonical adapter. All implementation destinations are
   deferred by explicit Direction.
 
-## External and human decision checklist
+## Historical pre-Macro05 decision checklist
 
 | Decision surface | Required input | Owner | Stop condition |
 | --- | --- | --- | --- |
@@ -133,6 +134,14 @@ adjudication register.
 | Route family | one family, destination, compatibility and owner | Direction plus route owner | Stop before adapter, migration, retirement or removal. |
 | Provider/network | credential, egress, availability, cost and traffic evidence | provider/deployment owner | Stop before DNS, socket, HTTP or provider calls. |
 | Workforce | activation, permission, provider and deployment gates | workforce/activation owner | Stop before agent execution or active team state. |
+
+## Current post-Macro05 state
+
+The acceptance decision is recorded and adopted. There are zero open Direction
+decisions, 36 active route dispositions and zero active `UNKNOWN`
+dispositions. The 36 `UNKNOWN` values in the route table are historical
+destinations only. Future gates constrain later actions and do not reopen the
+3.x closure; P4 remains selected but not initiated.
 
 ## Packet conclusion
 

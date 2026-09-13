@@ -42,22 +42,31 @@ limits recorded. It never means production readiness. `DECISION_READY` in the
 register is a separate readiness property and does not turn a recommendation
 into a decision.
 
+## Current post-Macro05 live state
+
+Macro 05 is the current closure anchor. Direction accepted B-7 with explicit
+limits, adopted the route policy and left no 3.x Direction decision pending.
+The 36 `UNKNOWN` values are historical destinations only; the active layer has
+36 decided dispositions and 36 implementation destinations explicitly deferred
+to 4.x. F-011 is closed for the 3.x phase exit. Future gates may block future
+actions, but none reopens or blocks the accepted 3.x closure.
+
 ## Scope crosswalk
 
 | Scope | Original responsibility | Primary state | Coverage result | B block / frontiers | Evidence conclusion | Remaining gap and legitimate owner |
 | --- | --- | --- | --- | --- | --- | --- |
 | `3.0` | Backend read-only terrain: routes, persistence, runtime/execution, providers, agents and trust boundaries. | `AUDITED` | `VERIFIED_COMPLETE` | B-1/B-3/B-4/B-5/B-6; F-001/F-002/F-003/F-007/F-008 | The elite audit has static source census, call-path, side-effect, runtime, provider, workforce and security graphs. | Deployment, live traffic and external authority remain outside static audit; hosting/security owners. |
 | `3.1` | Security, permission, activation and trust-boundary audit for the legacy surface. | `AUDITED` | `EXTERNAL_EVIDENCE_REQUIRED` | B-1/B-4; F-001/F-002/F-003/F-007 | Local CORS, missing route-level auth evidence, secret-bearing settings and fail-closed activation gates are recorded. | Approved identity, tenant, CORS and deployed-edge evidence; Direction plus hosting/security. |
-| `3.2` | Contracts, payloads, legacy API versus canonical control-plane coverage and route convergence. | `AUDITED` | `TRUE_HARD_FRONTIER` | B-2/B-3; F-004/F-005 | All 36 routes and 20 canonical controls are reconciled; no positive route adapter is demonstrated and every route destination remains `UNKNOWN`. | Direction must select policy before any authority-changing route work; selected route owner supplies compatibility evidence. |
+| `3.2` | Contracts, payloads, legacy API versus canonical control-plane coverage and route convergence. | `AUDITED` | `TRUE_HARD_FRONTIER` | B-2/B-3; F-004/F-005 | All 36 routes and 20 canonical controls are reconciled; historical destinations remain `UNKNOWN`, while active Direction dispositions are decided and no positive route adapter is demonstrated. | Direction policy is adopted; a selected future route owner must still supply compatibility evidence before implementation. |
 | `3.3` | Domains, materialization and lifecycle ownership across legacy and contract surfaces. | `AUDITED` | `PARTIAL` | B-3/B-5/B-6; F-005/F-006/F-008/F-010 | Domain and sandbox materializer contracts, path containment and lifecycle gates are evidenced. | Product-store ownership, lifecycle authority and operational recovery are not demonstrated; domain/store owner. |
 | `3.4` | Memory, evidence, learning, GOKV, DOOL and OCI governance. | `AUDITED` | `PARTIAL` | B-3/B-5/B-7; F-003/F-008 | Legacy memory and learning paths plus development-only append-only GOKV and PROMOTED_ONLY OCI are inventoried and validated. | Production retention, tenant ownership, live evidence ingestion and any promotion authority remain unproven; storage/governance owner. |
 | `3.5` | Providers, credentials, model routing and hardware-aware selection. | `AUDITED` | `EXTERNAL_EVIDENCE_REQUIRED` | B-4/B-6; F-007/F-010 | NVIDIA and Ollama source-callable paths, routing/configuration and local hardware probes are documented; no provider call occurred. | Credential, egress, availability, cost and deployment evidence; provider/deployment owner. |
 | `3.6` | Security, secrets and external-action boundary. | `AUDITED` | `EXTERNAL_EVIDENCE_REQUIRED` | B-1/B-4/B-5; F-002/F-003/F-007/F-008 | No secret values were read; dangerous primitives, settings write path, CORS wildcard and disabled runtime/external gates are recorded. | Approved policy, edge enforcement, rotation/retention and external-action authorization; Direction/security/deployment. |
-| `3.7` | Tests, historical guards, hermeticity and quality-debt accounting. | `AUDITED` | `VERIFIED_COMPLETE` | B-0/B-7; F-000 | Macro 02.1/02.2 and Macro 03 preserve historical endpoints, negative guards, hermetic boundaries and a green published suite. | Final Macro 04 suite still must run after new documentary tests; test owner. |
+| `3.7` | Tests, historical guards, hermeticity and quality-debt accounting. | `AUDITED` | `VERIFIED_COMPLETE` | B-0/B-7; F-000 | Macro 02.1/02.2 and Macro 03 preserve historical endpoints, negative guards, hermetic boundaries and Macro05's green published suite. | Historical replay remains a maintenance invariant; no final suite is pending for the accepted 3.x closure. |
 | `3.8` | Master findings map across P0/P1/P2/P3 and all 12 frontiers. | `DECIDED` | `VERIFIED_COMPLETE` | B-1 through B-7; F-000 through F-011 | Direction accepted the findings and adopted the route policy; external evidence and implementation remain separately gated. | Preserve each governed gate and stop before authority-changing work. |
 | `3.9` | Executable remediation plan for 4.x, ordered by distance to the first true hard frontier. | `REMEDIATION_ENTRY_READY_NOT_IMPLEMENTED` | `VERIFIED_COMPLETE` | B-7 / future 4.x entry; F-002/F-004/F-005/F-007/F-008/F-010/F-011 | Direction accepted the one-family plan shape and selected P4 as the future entry; no remediation is executed here. | Require all P4 entry gates and negative bypass evidence before implementation. |
 
-## Findings before and after recalibration
+## Historical pre-Macro05 comparison
 
 | Area | Inherited Macro 03 position | Macro 04 recalibration |
 | --- | --- | --- |
@@ -70,7 +79,7 @@ into a decision.
 | F-001 through F-011 | Open/deferred as recorded by Macro 03. | No frontier is erased; each is assigned an owner, evidence requirement and next phase. |
 | F-004 | Policy-level ambiguity dissolved; route-specific authority hard. | Direction adopted 36 policy dispositions; historical destinations remain `UNKNOWN` and implementation is explicitly deferred. |
 
-## B-0 through B-7 recalibration
+## Historical pre-Macro05 B-0 through B-7 recalibration
 
 | Block | Before Macro 04 | After Macro 04 evidence package | Closure effect |
 | --- | --- | --- | --- |
@@ -83,7 +92,7 @@ into a decision.
 | B-6 | Contract ready, no active workforce. | Audited; activation and deployment remain prohibited. | Blocks workforce claim. |
 | B-7 | Direction decision pending. | Accepted with explicit limits. | Blocks production and implementation until future gates pass. |
 
-## F-000 through F-011 disposition
+## Historical pre-Macro05 F-000 through F-011 disposition
 
 | Frontier | Macro 03 status | Macro 04 treatment | Close condition |
 | --- | --- | --- | --- |
@@ -120,3 +129,25 @@ into a decision.
 - External evidence and future P4 entry gates; no 3.x Direction decision remains open.
 
 `ROADMAP_3_X_ORIGINAL_SCOPE_EVIDENCE_COVERAGE_RECONSTRUCTED`
+
+## Current post-Macro05 B-0 through B-7
+
+| Block | Current state | Live meaning |
+| --- | --- | --- |
+| B-0 | `CLOSED_WITH_EXPLICIT_LIMITS` | Completion doctrine is explicit and auditable. |
+| B-1 | `CLOSED_WITH_EXPLICIT_LIMITS` | Security boundary is documented; external trust evidence remains future-gated. |
+| B-2 | `CLOSED_WITH_EXPLICIT_LIMITS` | All 36 routes have active adopted policy dispositions; implementation is deferred. |
+| B-3 | `CONTRACT_READY` | Canonical contracts are mapped; no adapter is implemented. |
+| B-4 | `CONTRACT_READY` | Runtime, provider and activation boundaries remain closed. |
+| B-5 | `CONTRACT_READY` | Persistence, retention and recovery remain future-gated. |
+| B-6 | `CONTRACT_READY` | Workforce remains declarative and inactive. |
+| B-7 | `B7_ACCEPTED_WITH_EXPLICIT_LIMITS` | 3.x phase exit is accepted; production and 4.x implementation remain unauthorized. |
+
+## Current post-Macro05 F-000 through F-011
+
+The current treatment is: F-000 `DISSOLVED`; F-001 through F-003 and F-005
+through F-010 are governed future gates or deferred boundaries; F-004 is policy
+adjudicated with implementation deferred; and F-011 is
+`CLOSED_FOR_3X_PHASE_EXIT`. Every future obligation has an owner, trigger,
+evidence requirement and stop condition, and none blocks the already accepted
+3.x exit.
