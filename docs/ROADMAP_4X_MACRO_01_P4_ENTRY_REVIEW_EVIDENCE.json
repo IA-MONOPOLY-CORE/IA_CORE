@@ -1,9 +1,27 @@
 {
   "schema_version": "roadmap.4x.macro01.p4.entry_review_evidence.v1",
   "mission": "ROADMAP_4X_MACRO_MISSION_01_P4_ENTRY_AUTHORITY_COMPATIBILITY_AND_BOUNDED_REMEDIATION_REVIEW",
-  "result": "ROADMAP_4X_MACRO_01_P4_ENTRY_REVIEW_COMPLETE_EXTERNAL_GATES_DEFAULT_DENIED",
+  "result": "ROADMAP_4X_MACRO_01_ACCEPTED_LIVE_STATE_INTERNALLY_CONSISTENT_PUBLICATION_EVIDENCE_STABLE",
   "baseline_head": "9a9a1820c9b1d769b950e6de9cb458f251cd215d",
   "policy": "DEFAULT_DENY_UNTIL_REQUIRED_EVIDENCE_EXISTS",
+  "live_closure": {
+    "macro_01_state": "COMPLETE",
+    "historical_repair_state": "CLOSED",
+    "station_6r_state": "COMPLETE",
+    "p4_implementation_state": "NOT_STARTED",
+    "p4_exposure_state": "NOT_AUTHORIZED",
+    "macro_02_started": false,
+    "publication_evidence_stable": true,
+    "self_referential_head_hash": false,
+    "validation_phase": "INHERITED_MACRO_01_RECORD_RECONCILED"
+  },
+  "publication_protocol": {
+    "rule": "publication_metadata_must_not_chase_its_own_head",
+    "VALIDATION_BASIS_HEAD": "74dc98c09f0269f697a0a31423e672a54196656a",
+    "DOCUMENTARY_CLOSEOUT_COMMIT": "IDENTIFIED_EXTERNALLY_AFTER_DOCUMENTARY_COMMIT",
+    "POST_FETCH_PUBLICATION_VERIFICATION": "IDENTIFIED_EXTERNALLY_AFTER_PUSH_AND_FETCH",
+    "self_referential_hash_chase": false
+  },
   "scope": {
     "family": "P4_CATALOG_DOMAIN_READS",
     "route_count": 7,
@@ -157,14 +175,14 @@
     "initial_full_suite": "FAIL_REPAIRED: 6954 passed, 6 skipped, 5 warnings, 1 historical continuity failure",
     "initial_failure": "test_no_product_or_protected_surface_changed_from_macro_05_baseline rejected exact Macro 01 documentary/test files",
     "repair_replay": "PASS: 1 passed, 1 warning after exact allowlist/context repair commit 11fa2ee",
-    "json_parse": "REQUIRED",
-    "py_compile": "REQUIRED",
-    "node_check": "REQUIRED",
-    "sanity": "REQUIRED",
-    "full_suite": "REQUIRED_AFTER_REPAIR_RECORD",
-    "git_diff_check": "REQUIRED",
-    "protected_diff": "REQUIRED_EMPTY",
-    "publication": "REQUIRED_AFTER_ALL_CHECKS"
+    "json_parse": "PASS: 326 valid JSON files",
+    "py_compile": "PASS",
+    "node_check": "PASS",
+    "sanity": "PASS",
+    "full_suite": "PASS: 6955 passed, 6 skipped, 5 warnings",
+    "git_diff_check": "PASS",
+    "protected_diff": "PASS: empty",
+    "publication": "PASS: stable role references with external post-fetch verification"
   },
   "artifacts": {
     "route_matrix": "docs/ROADMAP_4X_MACRO_01_P4_ROUTE_SOURCE_PAYLOAD_AND_CONSUMER_MATRIX.json",
