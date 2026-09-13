@@ -29,8 +29,10 @@ adjudication register; no technical successor is inferred from policy.
 
 ## Direction limits
 
-1. No runtime, provider, workforce, network, secret, store or public exposure
+1. No runtime, provider, workforce, external network, secret, store or public exposure
    may be activated by this record.
+   No external network calls are authorized.
+   No secret values may be read or exposed.
 2. No adapter, bridge, migration, retirement, deletion, payload v2 or endpoint
    change is authorized by this record.
 3. Every missing external fact becomes a governed future gate and remains

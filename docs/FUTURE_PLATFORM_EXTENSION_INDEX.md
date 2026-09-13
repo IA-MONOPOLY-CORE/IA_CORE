@@ -204,3 +204,26 @@ para Direccion. No declara `B7_ACCEPTED`, `ROADMAP_3_X_CLOSED`, production
 readiness ni ejecucion de Roadmap 4.x. Las 36 rutas legacy conservan destino
 `UNKNOWN` y ningun adapter, runtime, provider, endpoint o remediacion
 productiva fue creado.
+
+## Roadmap 3.x Macro-Mission 05
+
+La aceptacion de Direccion y el cierre verdadero de 3.x quedan registrados con
+limites explicitos en [Direction Acceptance Record](ROADMAP_3_X_DIRECTION_ACCEPTANCE_RECORD.md)
+y [Macro 05 Checkpoint](ROADMAP_3_X_MACRO_05_CHECKPOINT.md). El resultado es
+`ROADMAP_3_X_TRUE_COMPLETION_ACCEPTED_AND_CLOSED_WITH_EXPLICIT_FUTURE_GATES`:
+`B7_ACCEPTED_WITH_EXPLICIT_LIMITS`, `DEFAULT_DENY_UNTIL_REQUIRED_EVIDENCE_EXISTS`
+y `MISSING_EVIDENCE = REMAIN_DISABLED_OR_CONTAINED`.
+
+Las 36 rutas legacy tienen adjudicacion explicita para 3.x; sus destinos
+historicos permanecen `UNKNOWN`, sin adapters ni remediacion productiva, y toda
+implementacion queda diferida a 4.x por Direccion. El [Legacy Route Decision
+Adjudication](ROADMAP_3_X_LEGACY_ROUTE_DECISION_ADJUDICATION.json), la [Final
+Closure Matrix](ROADMAP_3_X_FINAL_CLOSURE_MATRIX.md) y el [External Future Gate
+Register](ROADMAP_3_X_EXTERNAL_FUTURE_GATE_REGISTER.json) conservan la
+trazabilidad de las decisiones y de los 19 gates futuros.
+
+P4 `CATALOG_DOMAIN_READS` fue seleccionada como unica familia futura priorizada,
+con contrato de entrada en [Roadmap 4.x Macro 01](ROADMAP_4X_MACRO_01_P4_CATALOG_DOMAIN_READS_AUTHORITY_COMPATIBILITY_AND_BOUNDED_REMEDIATION.md),
+pero no fue implementada ni ejecutada. No se habilita production readiness ni se
+autoriza runtime, providers, workforce, red externa, secretos, stores vivos,
+endpoints, payload, integrations o exposicion publica.
