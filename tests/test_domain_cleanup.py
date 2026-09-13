@@ -1,16 +1,28 @@
 import json
 from pathlib import Path
 
+import pytest
 from fastapi.testclient import TestClient
 
 import api
 from core import domain_registry
+from core.p4_request_access import resolve_p4_principal
+from p4_test_support import build_test_p4_principal
 
 
 ROOT = Path(__file__).parent.parent
 LEGACY_DOMAINS = ROOT / "docs" / "legacy" / "domains"
 OLD_DOMAIN = ROOT / "domains" / "loteria"
 UI_CREATED_DOMAIN = ROOT / "domains" / "loteria_analisis_de_juegos_de_azar"
+
+
+@pytest.fixture(autouse=True)
+def _install_explicit_p4_test_principal(monkeypatch):
+    monkeypatch.setitem(
+        api.app.dependency_overrides,
+        resolve_p4_principal,
+        lambda: build_test_p4_principal(),
+    )
 
 
 def _load(path: Path):

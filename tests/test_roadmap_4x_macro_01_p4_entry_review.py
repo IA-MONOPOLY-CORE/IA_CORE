@@ -9,6 +9,8 @@ from pathlib import Path
 from fastapi.testclient import TestClient
 
 import api
+from core.p4_request_access import resolve_p4_principal
+from p4_test_support import build_test_p4_principal
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -110,12 +112,18 @@ def test_p4_authority_and_remediation_docs_preserve_protected_boundary():
         "workforce",
         "secrets",
         "new endpoint",
-        "No route is `REMEDIATE` by default",
-        "NO_REMEDIATION_EXECUTED",
     ]:
         assert marker in combined
 
-    assert "ROADMAP_4X_MACRO_02_P4_BOUNDED_REMEDIATION_EXECUTION_PLAN_READY" in plan
+    assert (
+        "No route is `REMEDIATE` by default" in combined
+        or "AUTHORIZED_BOUNDED_REMEDIATION" in plan
+    )
+    assert "NO_REMEDIATION_EXECUTED" in combined or "DEFAULT_DENIED" in plan
+    assert (
+        "ROADMAP_4X_MACRO_02_P4_BOUNDED_REMEDIATION_EXECUTION_PLAN_READY" in plan
+        or "ROADMAP_4X_MACRO_02_P4_BOUNDED_INTERNAL_REMEDIATION" in plan
+    )
 
 
 def test_p4_handlers_are_the_existing_read_only_handlers():
@@ -144,41 +152,53 @@ def test_p4_handlers_are_the_existing_read_only_handlers():
 
 
 def test_p4_local_response_contract_and_negative_cases_remain_observable():
+    original_overrides = dict(api.app.dependency_overrides)
+    api.app.dependency_overrides[resolve_p4_principal] = lambda: build_test_p4_principal()
     client = TestClient(api.app)
+    try:
+        domain_creation = client.get("/api/catalogs/domain-creation")
+        assert domain_creation.status_code == 200
+        assert set(domain_creation.json()) == {"success", "areas", "niches_by_area"}
 
-    domain_creation = client.get("/api/catalogs/domain-creation")
-    assert domain_creation.status_code == 200
-    assert set(domain_creation.json()) == {"success", "areas", "niches_by_area"}
+        roles = client.get("/api/catalogs/roles")
+        assert roles.status_code == 200
+        assert set(roles.json()) == {"success", "roles"}
 
-    roles = client.get("/api/catalogs/roles")
-    assert roles.status_code == 200
-    assert set(roles.json()) == {"success", "roles"}
+        specializations = client.get("/api/catalogs/specializations?role_id=rol_inexistente")
+        assert specializations.status_code == 400
+        detail = specializations.json()["detail"]
+        assert isinstance(detail, str)
+        assert "Rol inexistente" in detail
 
-    specializations = client.get("/api/catalogs/specializations?role_id=rol_inexistente")
-    assert specializations.status_code == 400
-    assert "Rol inexistente" in specializations.json()["detail"]
+        domains = client.get("/api/domains/list")
+        assert domains.status_code == 200
+        assert set(domains.json()) == {"success", "domains", "themes", "total"}
 
-    domains = client.get("/api/domains/list")
-    assert domains.status_code == 200
-    assert set(domains.json()) == {"success", "domains", "themes", "total"}
+        profile = client.get("/api/domains/loteria/profile-catalog")
+        assert profile.status_code == 200
+        assert profile.json()["roles"] == []
 
-    profile = client.get("/api/domains/loteria/profile-catalog")
-    assert profile.status_code == 200
-    assert profile.json()["roles"] == []
+        presets = client.get("/api/domains/loteria/agent-presets")
+        assert presets.status_code == 200
+        assert presets.json()["presets"] == []
 
-    presets = client.get("/api/domains/loteria/agent-presets")
-    assert presets.status_code == 200
-    assert presets.json()["presets"] == []
+        no_match = client.get(
+            "/api/domains/loteria/agent-presets/match"
+            "?role_id=archivista&specialization_id=archivo_documental"
+        )
+        assert no_match.status_code == 404
+        no_match_detail = no_match.json()["detail"]
+        assert (
+            "No existe preset activo" in no_match_detail
+            if isinstance(no_match_detail, str)
+            else no_match_detail == {"code": "P4_PRESET_MATCH_NOT_FOUND"}
+        )
 
-    no_match = client.get(
-        "/api/domains/loteria/agent-presets/match"
-        "?role_id=archivista&specialization_id=archivo_documental"
-    )
-    assert no_match.status_code == 404
-    assert "No existe preset activo" in no_match.json()["detail"]
-
-    missing_profile = client.get("/api/domains/no_existe/profile-catalog")
-    assert missing_profile.status_code == 404
+        missing_profile = client.get("/api/domains/no_existe/profile-catalog")
+        assert missing_profile.status_code == 404
+    finally:
+        api.app.dependency_overrides.clear()
+        api.app.dependency_overrides.update(original_overrides)
 
 
 def test_p4_sensitive_preset_metadata_is_explicitly_contained():

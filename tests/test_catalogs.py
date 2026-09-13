@@ -11,6 +11,8 @@ from fastapi.testclient import TestClient
 import api
 from core import catalog_registry
 from core import domain_registry
+from core.p4_request_access import resolve_p4_principal
+from p4_test_support import build_test_p4_principal
 
 
 ROOT = Path(__file__).parent.parent
@@ -19,6 +21,15 @@ DOMAINS_DIR = ROOT / "domains"
 LOTERIA_PROFILE_CATALOG_PATH = DOMAINS_DIR / "loteria" / "profile_catalog.json"
 LOTERIA_AGENT_PRESETS_PATH = DOMAINS_DIR / "loteria" / "agent_presets.json"
 SNAKE_CASE_RE = re.compile(r"^[a-z0-9]+(?:_[a-z0-9]+)*$")
+
+
+@pytest.fixture(autouse=True)
+def _install_explicit_p4_test_principal(monkeypatch):
+    monkeypatch.setitem(
+        api.app.dependency_overrides,
+        resolve_p4_principal,
+        lambda: build_test_p4_principal(),
+    )
 
 PRIORITY_AREAS = {
     "atencion_cliente_call_center_telemarketing",
@@ -1787,7 +1798,7 @@ def test_domain_profile_catalog_endpoint_returns_clear_404_for_missing_catalog()
     response = TestClient(api.app).get("/api/domains/no_existe/profile-catalog")
 
     assert response.status_code == 404
-    assert "Catálogo de perfiles no encontrado" in response.json()["detail"]
+    assert response.json() == {"detail": {"code": "P4_DOMAIN_NOT_AUTHORIZED"}}
 
 
 def test_domain_agent_presets_endpoint_returns_loteria_presets():
@@ -1810,7 +1821,7 @@ def test_domain_agent_presets_match_endpoint_returns_exact_preset():
     )
 
     assert response.status_code == 404
-    assert "No existe preset activo" in response.json()["detail"]
+    assert response.json() == {"detail": {"code": "P4_PRESET_MATCH_NOT_FOUND"}}
 
 
 def test_domain_agent_presets_match_endpoint_returns_clear_404_for_missing_match():
@@ -1820,13 +1831,13 @@ def test_domain_agent_presets_match_endpoint_returns_clear_404_for_missing_match
     )
 
     assert response.status_code == 404
-    assert "No existe preset activo" in response.json()["detail"]
+    assert response.json() == {"detail": {"code": "P4_PRESET_MATCH_NOT_FOUND"}}
 
 def test_domain_agent_presets_endpoint_returns_clear_404_for_missing_domain():
     response = TestClient(api.app).get("/api/domains/no_existe/agent-presets")
 
     assert response.status_code == 404
-    assert "Dominio no encontrado" in response.json()["detail"]
+    assert response.json() == {"detail": {"code": "P4_DOMAIN_NOT_AUTHORIZED"}}
 
 
 def test_catalog_prompt_does_not_add_roles_presets_or_lottery_default_to_core():

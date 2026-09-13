@@ -15,6 +15,8 @@ from core.domain_registry import (
     resolve_agent_json,
     slugify_domain_name,
 )
+from core.p4_request_access import resolve_p4_principal
+from p4_test_support import build_test_p4_principal
 
 
 def test_domain_slug_and_theme_presets_are_portable_and_paired():
@@ -128,6 +130,11 @@ def test_domain_creation_with_area_and_niche_metadata_persists_manifest(tmp_path
     assert manifest["nicho_id"] == "reclamos_postventa"
     assert manifest["nicho_sugerido"] == "Reclamos y postventa"
 
+    monkeypatch.setitem(
+        api.app.dependency_overrides,
+        resolve_p4_principal,
+        lambda: build_test_p4_principal(authorized_domain_ids=(domain_id,)),
+    )
     listed = TestClient(api.app).get("/api/domains/list").json()["domains"]
     listed_domain = next(domain for domain in listed if domain["id"] == domain_id)
     assert listed_domain["area_profesional_id"] == "atencion_cliente_call_center_telemarketing"

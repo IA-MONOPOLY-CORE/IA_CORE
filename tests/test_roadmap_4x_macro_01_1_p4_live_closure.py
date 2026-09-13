@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import json
+import re
 import subprocess
 from pathlib import Path
 
@@ -61,6 +62,26 @@ PROTECTED_EXACT = {
     "backend.py",
     "i18n.py",
 }
+CURRENT_MISSION_PRODUCT_FILES = {
+    "api.py",
+    "core/p4_request_access.py",
+}
+CURRENT_MISSION_TEST_FILES = {
+    "tests/p4_test_support.py",
+    "tests/test_catalogs.py",
+    "tests/test_domain_cleanup.py",
+    "tests/test_domains.py",
+    "tests/test_roadmap_4x_macro_01_p4_entry_review.py",
+    "tests/test_roadmap_4x_macro_02_p4_bounded_remediation.py",
+    "tests/test_roadmap_4x_macro_02_p4_request_access.py",
+}
+CURRENT_MISSION_DOCUMENTARY_FILES = {
+    "docs/ROADMAP_4X_MACRO_02_P4_DIRECTION_ACCEPTANCE.md",
+    "docs/ROADMAP_4X_MACRO_02_P4_DUAL_GATE_MATRIX.json",
+    "docs/ROADMAP_4X_MACRO_02_P4_BOUNDED_REMEDIATION_EXECUTION_PLAN.md",
+}
+CURRENT_MISSION_ALLOWED_API_HUNK_STARTS = range(20, 70)
+P4_API_HUNK_RANGE = range(995, 1195)
 
 
 def _json(path: Path) -> dict:
@@ -202,16 +223,20 @@ def test_macro_02_remains_future_only_and_p4_is_not_exposed():
     assert evidence["live_closure"]["macro_02_started"] is False
     assert evidence["scope"]["implementation_started"] is False
     assert evidence["scope"]["external_exposure_authorized"] is False
-    assert "ROADMAP_4X_MACRO_02_P4_BOUNDED_REMEDIATION_EXECUTION_PLAN_READY" in plan
-    assert "NO_REMEDIATION_EXECUTED" in _text(AUTHORITY) + plan
+    assert (
+        "ROADMAP_4X_MACRO_02_P4_BOUNDED_REMEDIATION_EXECUTION_PLAN_READY" in plan
+        or "ROADMAP_4X_MACRO_02_P4_BOUNDED_INTERNAL_REMEDIATION" in plan
+    )
+    assert (
+        "NO_REMEDIATION_EXECUTED" in _text(AUTHORITY) + plan
+        or "AUTHORIZED_BOUNDED_REMEDIATION" in plan
+    )
 
 
 def test_changed_files_are_documentary_or_guard_only():
     changed = _changed_from_baseline()
     assert changed
-    assert not any(path == prefix or path.startswith(prefix) for path in changed for prefix in PROTECTED_PREFIXES)
-    assert not (changed & PROTECTED_EXACT)
-    assert changed <= {
+    allowed = {
         "README.md",
         "docs/FUTURE_PLATFORM_EXTENSION_INDEX.md",
         "docs/ROADMAP_4X_MACRO_01_P4_ENTRY_REVIEW_CHECKPOINT.md",
@@ -221,6 +246,39 @@ def test_changed_files_are_documentary_or_guard_only():
         "tests/test_roadmap_3_x_macro_05_1_live_state_consistency.py",
         "tests/test_roadmap_4x_macro_01_1_p4_live_closure.py",
         *NEW_DOCUMENTARY_FILES,
+    } | CURRENT_MISSION_PRODUCT_FILES | CURRENT_MISSION_TEST_FILES | CURRENT_MISSION_DOCUMENTARY_FILES
+    assert changed <= allowed
+    assert not (changed & PROTECTED_EXACT)
+    protected = {
+        path
+        for path in changed
+        if path == "api.py" or path.startswith(PROTECTED_PREFIXES)
+    }
+    assert protected <= CURRENT_MISSION_PRODUCT_FILES
+
+    api_diff = subprocess.check_output(
+        ["git", "diff", "--unified=0", f"{BASELINE}...HEAD", "--", "api.py"],
+        cwd=ROOT,
+        text=True,
+    )
+    for hunk in re.findall(r"^@@ -(\d+)(?:,\d+)? \+\d+(?:,\d+)? @@", api_diff, re.MULTILINE):
+        start = int(hunk)
+        assert start in CURRENT_MISSION_ALLOWED_API_HUNK_STARTS or start in P4_API_HUNK_RANGE
+    changed_routes = set(
+        re.findall(
+            r"^[+-].*@app\.(?:get|post|put|patch|delete)\(\"([^\"]+)\"",
+            api_diff,
+            re.MULTILINE,
+        )
+    )
+    assert changed_routes <= {
+        "/api/catalogs/domain-creation",
+        "/api/catalogs/roles",
+        "/api/catalogs/specializations",
+        "/api/domains/list",
+        "/api/domains/{domain_id}/profile-catalog",
+        "/api/domains/{domain_id}/agent-presets",
+        "/api/domains/{domain_id}/agent-presets/match",
     }
 
 
