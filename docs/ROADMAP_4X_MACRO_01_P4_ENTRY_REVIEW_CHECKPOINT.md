@@ -121,4 +121,13 @@ protected-diff checks and `git diff --check`. Publication is allowed only if
 all required checks pass, the prohibited diff remains empty and the working
 tree is clean.
 
+The first post-checkpoint full-suite attempt found one historical continuity
+failure only: `test_no_product_or_protected_surface_changed_from_macro_05_baseline`
+did not yet allow the exact new Macro 01 documentary/test filenames. All
+product/protected assertions remained intact. The repair commit `11fa2ee`
+added only those exact filenames to the historical allowlist and documentary
+context; the targeted replay passed (`1 passed, 1 warning`). The final full
+suite must be rerun after that repair-record state and its result is part of
+the mission close-out.
+
 `ROADMAP_4X_MACRO_01_P4_ENTRY_REVIEW_CHECKPOINT_DOCUMENTED_EXTERNAL_GATES_DEFAULT_DENIED`

@@ -64,6 +64,14 @@
       "message": "test(roadmap): guard p4 entry review boundaries",
       "files": ["tests/test_roadmap_4x_macro_01_p4_entry_review.py"],
       "validation": "8 passed, 5 warnings"
+    },
+    {
+      "station": "4R",
+      "name": "historical_continuity_allowlist_repair",
+      "commit": "11fa2eef595ea39501ecfb2668f500627633dd5f",
+      "message": "test(roadmap): align historical context with p4 artifacts",
+      "files": ["tests/historical_test_context.py", "tests/test_roadmap_3_x_macro_05_1_live_state_consistency.py"],
+      "validation": "targeted replay: 1 passed, 1 warning"
     }
   ],
   "station_5_learning": {
@@ -146,11 +154,14 @@
   "validation_protocol_after_final_commit": {
     "focal_entry_review": "PASS: 8 passed, 5 warnings",
     "gokv_validate": "PASS: valid, 38 items",
+    "initial_full_suite": "FAIL_REPAIRED: 6954 passed, 6 skipped, 5 warnings, 1 historical continuity failure",
+    "initial_failure": "test_no_product_or_protected_surface_changed_from_macro_05_baseline rejected exact Macro 01 documentary/test files",
+    "repair_replay": "PASS: 1 passed, 1 warning after exact allowlist/context repair commit 11fa2ee",
     "json_parse": "REQUIRED",
     "py_compile": "REQUIRED",
     "node_check": "REQUIRED",
     "sanity": "REQUIRED",
-    "full_suite": "REQUIRED",
+    "full_suite": "REQUIRED_AFTER_REPAIR_RECORD",
     "git_diff_check": "REQUIRED",
     "protected_diff": "REQUIRED_EMPTY",
     "publication": "REQUIRED_AFTER_ALL_CHECKS"

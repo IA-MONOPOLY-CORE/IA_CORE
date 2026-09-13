@@ -18,7 +18,9 @@
 | 3 | `3a65a8303abcdd6c401b53b260b49770ee96927b` | `docs(roadmap): prepare executable p4 bounded remediation plan` | Macro 02 plan | Complete, not executed |
 | 4 | `122633f6cde4fcd3e8666e00273cb53841bbb8b6` | `test(roadmap): guard p4 entry review boundaries` | entry-review test | Complete, `8 passed` |
 | 5 | no commit | GOKV/DOOL/OCI consultation | no file | `NO_NEW_CANDIDATE` |
-| 6 | pending final docs commit | final checkpoint/evidence/ledger/index | documentary files only | Pending final validation |
+| 4R | `11fa2eef595ea39501ecfb2668f500627633dd5f` | `test(roadmap): align historical context with p4 artifacts` | exact historical allowlist/context repair | Replay `1 passed`, no product change |
+| 6 | `e82653022635a91c0cc22b592984b30ef3c5415d` | `docs(roadmap): publish p4 entry review checkpoint` | checkpoint/evidence/ledger/index | Initial full suite found one historical continuity failure |
+| 6R | pending | record failure, replay and repair evidence | checkpoint/evidence/ledger updates | Pending final validation |
 
 The commit hashes above must be checked against Git before publication. This
 ledger does not authorize amend, rebase, squash, reset, merge, force-push or
@@ -44,6 +46,20 @@ Not changed:
 payload, runtime, execution, providers, workforce, stores, secrets,
 integrations, endpoints, P0, P1, P3 matrix, widgets contract-aware and Request
 Draft Panel.
+
+## Failure and repair record
+
+The first post-checkpoint full suite completed with `6954 passed`, `6 skipped`,
+`5 warnings` and one failure in
+`test_no_product_or_protected_surface_changed_from_macro_05_baseline`. The
+failure was an exact historical allowlist mismatch: Macro 05.1 still rejected
+the new Macro 01 documentary/test filenames. No product or protected assertion
+failed. The repair in `11fa2ee` added only the eight exact filenames to the
+historical allowlist and documentary context, preserving all existing
+assertions. The targeted replay passed with `1 passed, 1 warning`.
+
+The final full suite remains mandatory after the repair-record documentation
+commit; publication remains denied until it passes.
 
 ## Gate accountability
 
