@@ -1,0 +1,184 @@
+{
+  "schema_version": "roadmap.4x.macro01.p4.entry_review_evidence.v1",
+  "mission": "ROADMAP_4X_MACRO_MISSION_01_P4_ENTRY_AUTHORITY_COMPATIBILITY_AND_BOUNDED_REMEDIATION_REVIEW",
+  "result": "ROADMAP_4X_MACRO_01_P4_ENTRY_REVIEW_COMPLETE_EXTERNAL_GATES_DEFAULT_DENIED",
+  "baseline_head": "9a9a1820c9b1d769b950e6de9cb458f251cd215d",
+  "policy": "DEFAULT_DENY_UNTIL_REQUIRED_EVIDENCE_EXISTS",
+  "scope": {
+    "family": "P4_CATALOG_DOMAIN_READS",
+    "route_count": 7,
+    "route_ids": [
+      "api_catalog_domain_creation_get",
+      "api_catalog_roles_get",
+      "api_catalog_specializations_get",
+      "api_domains_list_get",
+      "api_domain_profile_catalog_get",
+      "api_domain_agent_presets_get",
+      "api_domain_agent_preset_match_get"
+    ],
+    "implementation_started": false,
+    "external_exposure_authorized": false,
+    "production_readiness_declared": false,
+    "second_family_entered": false
+  },
+  "preflight": {
+    "branch": "main",
+    "head_at_start": "9a9a1820c9b1d769b950e6de9cb458f251cd215d",
+    "origin_main_at_start": "9a9a1820c9b1d769b950e6de9cb458f251cd215d",
+    "ahead_behind_at_start": "0/0",
+    "working_tree_clean_at_start": true,
+    "git_diff_check_at_start": "PASS",
+    "start_time": "2026-09-13T14:18:51.6308744-03:00",
+    "external_calls": false,
+    "secret_values_read": false
+  },
+  "material_stations": [
+    {
+      "station": 1,
+      "name": "route_source_payload_consumer_matrix",
+      "commit": "4c7a1bfdd78c1ee63bfaa273735b77d065aed9d5",
+      "message": "docs(roadmap): reconstruct p4 route and consumer truth",
+      "files": ["docs/ROADMAP_4X_MACRO_01_P4_ROUTE_SOURCE_PAYLOAD_AND_CONSUMER_MATRIX.json"],
+      "validation": "PASS"
+    },
+    {
+      "station": 2,
+      "name": "authority_visibility_compatibility_gates",
+      "commit": "64d40e6d029189d212ebfdcfa41967a6623e1a92",
+      "message": "docs(roadmap): define p4 authority and compatibility gates",
+      "files": ["docs/ROADMAP_4X_MACRO_01_P4_AUTHORITY_AND_VISIBILITY_CONTRACT.md", "docs/ROADMAP_4X_MACRO_01_P4_COMPATIBILITY_AND_GATE_MATRIX.json"],
+      "validation": "PASS"
+    },
+    {
+      "station": 3,
+      "name": "bounded_remediation_execution_plan",
+      "commit": "3a65a8303abcdd6c401b53b260b49770ee96927b",
+      "message": "docs(roadmap): prepare executable p4 bounded remediation plan",
+      "files": ["docs/ROADMAP_4X_MACRO_02_P4_BOUNDED_REMEDIATION_EXECUTION_PLAN.md"],
+      "validation": "PASS"
+    },
+    {
+      "station": 4,
+      "name": "entry_review_boundary_guards",
+      "commit": "122633f6cde4fcd3e8666e00273cb53841bbb8b6",
+      "message": "test(roadmap): guard p4 entry review boundaries",
+      "files": ["tests/test_roadmap_4x_macro_01_p4_entry_review.py"],
+      "validation": "8 passed, 5 warnings"
+    }
+  ],
+  "station_5_learning": {
+    "gokv_validation": "PASS",
+    "gokv_item_count": 38,
+    "gokv_status_counts": {"PROMOTED": 7, "VALIDATED": 9, "CANDIDATE": 22},
+    "dool_status": "DEFINED_AND_TRACKABLE",
+    "oci_status": "DEVELOPMENT_TIME_SHADOW_READY",
+    "authority_precedence_respected": true,
+    "conflict_policy": "CURRENT_CONTRACT_WINS",
+    "learning_result": "NO_NEW_CANDIDATE",
+    "new_candidates_created": 0,
+    "new_gokv_commit": false
+  },
+  "gate_summary": {
+    "required_gate_ids": [
+      "G01_IDENTITY_SOURCE",
+      "G02_AUTHENTICATION",
+      "G03_AUTHORIZATION",
+      "G04_TENANT_ISOLATION",
+      "G05_CORS_TRUSTED_ORIGINS",
+      "G06_INGRESS_HOSTING",
+      "G13_PROVIDER_CREDENTIALS",
+      "G18_EXTERNAL_CONSUMER_COMPATIBILITY",
+      "G19_PAYLOAD_RESPONSE_CONTRACT"
+    ],
+    "external_evidence_required": 9,
+    "not_applicable_with_evidence": 0,
+    "active_gates": 0,
+    "implementation_authorized": false,
+    "exposure_authorized": false,
+    "default_action": "REMAIN_DISABLED_OR_CONTAINED"
+  },
+  "route_dispositions": {
+    "KEEP_AS_COMPATIBILITY_SURFACE": [
+      "api_catalog_domain_creation_get",
+      "api_catalog_roles_get",
+      "api_catalog_specializations_get",
+      "api_domain_profile_catalog_get"
+    ],
+    "BLOCK_UNTIL_EXTERNAL_EVIDENCE": ["api_domains_list_get"],
+    "CONTAIN": ["api_domain_agent_presets_get", "api_domain_agent_preset_match_get"]
+  },
+  "repository_facts": {
+    "areas": 30,
+    "niches": 200,
+    "roles": 20,
+    "specializations": 80,
+    "themes": 4,
+    "visible_domains": 0,
+    "loteria_active_profile_roles": 0,
+    "loteria_active_presets": 0,
+    "handler_auth_dependency_observed": false,
+    "handler_authorization_dependency_observed": false,
+    "direct_writes_observed": false,
+    "provider_calls_observed": false,
+    "network_calls_observed": false,
+    "runtime_or_execution_observed": false,
+    "payload_v2_present": false,
+    "external_consumer_inventory_present": false
+  },
+  "protected_surfaces": {
+    "product_files_changed": false,
+    "api_py_changed": false,
+    "core_changed": false,
+    "domains_changed": false,
+    "html_changed": false,
+    "css_changed": false,
+    "javascript_changed": false,
+    "i18n_changed": false,
+    "backend_behavior_changed": false,
+    "payload_changed": false,
+    "runtime_changed": false,
+    "execution_changed": false,
+    "providers_changed": false,
+    "workforce_changed": false,
+    "integrations_changed": false,
+    "p0_p1_p3_widgets_request_draft_changed": false
+  },
+  "validation_protocol_after_final_commit": {
+    "focal_entry_review": "PASS: 8 passed, 5 warnings",
+    "gokv_validate": "PASS: valid, 38 items",
+    "json_parse": "REQUIRED",
+    "py_compile": "REQUIRED",
+    "node_check": "REQUIRED",
+    "sanity": "REQUIRED",
+    "full_suite": "REQUIRED",
+    "git_diff_check": "REQUIRED",
+    "protected_diff": "REQUIRED_EMPTY",
+    "publication": "REQUIRED_AFTER_ALL_CHECKS"
+  },
+  "artifacts": {
+    "route_matrix": "docs/ROADMAP_4X_MACRO_01_P4_ROUTE_SOURCE_PAYLOAD_AND_CONSUMER_MATRIX.json",
+    "authority_contract": "docs/ROADMAP_4X_MACRO_01_P4_AUTHORITY_AND_VISIBILITY_CONTRACT.md",
+    "gate_matrix": "docs/ROADMAP_4X_MACRO_01_P4_COMPATIBILITY_AND_GATE_MATRIX.json",
+    "next_plan": "docs/ROADMAP_4X_MACRO_02_P4_BOUNDED_REMEDIATION_EXECUTION_PLAN.md",
+    "guard_test": "tests/test_roadmap_4x_macro_01_p4_entry_review.py",
+    "checkpoint": "docs/ROADMAP_4X_MACRO_01_P4_ENTRY_REVIEW_CHECKPOINT.md",
+    "evidence": "docs/ROADMAP_4X_MACRO_01_P4_ENTRY_REVIEW_EVIDENCE.json",
+    "ledger": "docs/ROADMAP_4X_MACRO_01_P4_ENTRY_REVIEW_COMMIT_ACCOUNTABILITY_LEDGER.md"
+  },
+  "stop_conditions": [
+    "missing identity, authentication, authorization, tenant, ingress, compatibility, payload or provider evidence",
+    "second route family enters scope",
+    "protected product surface changes",
+    "negative bypass test cannot be expressed",
+    "rollback is hypothetical",
+    "new endpoint, adapter, bridge, payload v2, runtime, execution, provider, workforce or network path is proposed"
+  ],
+  "final_state_claim": "P4_ENTRY_REVIEW_COMPLETE_EXTERNAL_GATES_DEFAULT_DENIED; P4_REMEDIATION_NOT_EXECUTED",
+  "provenance": {
+    "route_adjudication": "docs/ROADMAP_3_X_LEGACY_ROUTE_DECISION_ADJUDICATION.json",
+    "future_gate_register": "docs/ROADMAP_3_X_EXTERNAL_FUTURE_GATE_REGISTER.json",
+    "p4_entry_contract": "docs/ROADMAP_4X_MACRO_01_P4_CATALOG_DOMAIN_READS_AUTHORITY_COMPATIBILITY_AND_BOUNDED_REMEDIATION.md",
+    "gokv_protocol": "docs/GOKV_CONTINUOUS_DEVELOPMENT_CAPTURE_PROTOCOL_V1.md",
+    "dool_oci_checkpoint": "docs/GOKV_DOOL_OCI_CHECKPOINT_0_2.md"
+  }
+}

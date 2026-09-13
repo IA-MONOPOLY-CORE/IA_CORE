@@ -238,3 +238,24 @@ historicos `UNKNOWN`, los 19 gates futuros inactivos y la seleccion P4 quedan
 preservados sin iniciar Roadmap 4.x. Ver [checkpoint](ROADMAP_3_X_MACRO_05_1_LIVE_STATE_CONSISTENCY_CHECKPOINT.md),
 [evidencia](ROADMAP_3_X_MACRO_05_1_LIVE_STATE_CONSISTENCY_EVIDENCE.json) y
 [ledger](ROADMAP_3_X_MACRO_05_1_COMMIT_ACCOUNTABILITY_LEDGER.md).
+
+## Roadmap 4.x Macro-Mission 01 - P4 Entry Review
+
+La revision de entrada de `P4_CATALOG_DOMAIN_READS` cubre exactamente siete
+rutas GET y no ejecuta remediacion. El resultado es
+`ROADMAP_4X_MACRO_01_P4_ENTRY_REVIEW_COMPLETE_EXTERNAL_GATES_DEFAULT_DENIED`:
+los nueve gates aplicables permanecen `EXTERNAL_EVIDENCE_REQUIRED`, inactivos y
+con accion `REMAIN_DISABLED_OR_CONTAINED`.
+
+Ver [checkpoint](ROADMAP_4X_MACRO_01_P4_ENTRY_REVIEW_CHECKPOINT.md),
+[evidencia](ROADMAP_4X_MACRO_01_P4_ENTRY_REVIEW_EVIDENCE.json),
+[ledger](ROADMAP_4X_MACRO_01_P4_ENTRY_REVIEW_COMMIT_ACCOUNTABILITY_LEDGER.md),
+[matriz de rutas](ROADMAP_4X_MACRO_01_P4_ROUTE_SOURCE_PAYLOAD_AND_CONSUMER_MATRIX.json),
+[contrato de autoridad](ROADMAP_4X_MACRO_01_P4_AUTHORITY_AND_VISIBILITY_CONTRACT.md),
+[gates](ROADMAP_4X_MACRO_01_P4_COMPATIBILITY_AND_GATE_MATRIX.json) y
+[plan futuro Macro 02](ROADMAP_4X_MACRO_02_P4_BOUNDED_REMEDIATION_EXECUTION_PLAN.md).
+
+GOKV/DOOL/OCI fueron consultados sin novedad material:
+`NO_NEW_CANDIDATE`. No se modificaron producto, endpoints, payload, runtime,
+execution, providers, integrations, P0/P1/P3, widgets contract-aware ni
+Request Draft Panel.

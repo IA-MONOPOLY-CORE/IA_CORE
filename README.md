@@ -1654,3 +1654,12 @@ No UI activa, no JS, no backend, no runtime, no execution, no JSON TOP 15, no fi
 - Se preservaron los checkpoints históricos de Macro 03 y Macro 04; los 36 `UNKNOWN` quedaron identificados como destinos históricos y no como disposiciones activas.
 - [Checkpoint](docs/ROADMAP_3_X_MACRO_05_1_LIVE_STATE_CONSISTENCY_CHECKPOINT.md), [evidencia](docs/ROADMAP_3_X_MACRO_05_1_LIVE_STATE_CONSISTENCY_EVIDENCE.json) y [ledger](docs/ROADMAP_3_X_MACRO_05_1_COMMIT_ACCOUNTABILITY_LEDGER.md).
 - No se modificaron producto, HTML, CSS, JavaScript, i18n, backend, payload, runtime, execution, endpoints ni integrations; P4 sigue seleccionado pero no iniciado.
+
+## Roadmap 4.x Macro-Mission 01 - P4 Entry Review
+
+- Se completo la revision de entrada de la unica familia seleccionada, `P4_CATALOG_DOMAIN_READS`, con exactamente siete rutas GET.
+- Se publicaron la matriz de fuentes/payload/consumidores, el contrato de autoridad y visibilidad, la matriz de compatibilidad/gates y el plan ejecutable de la futura Macro 02.
+- Resultado: `ROADMAP_4X_MACRO_01_P4_ENTRY_REVIEW_COMPLETE_EXTERNAL_GATES_DEFAULT_DENIED`. Los nueve gates aplicables requieren evidencia externa; no se activo ninguno y P4 permanece no implementado/no expuesto.
+- GOKV/DOOL/OCI fueron consultados y no aportaron una nueva candidata: `NO_NEW_CANDIDATE`. La suite focal del guard de entrada paso con `8 passed`.
+- No se modificaron `api.py`, `core/`, `domains/`, catalogos, HTML, CSS, JavaScript, i18n, backend, payload, runtime, execution, providers, workforce, stores, secrets, integrations, endpoints, P0/P1/P3, widgets contract-aware ni Request Draft Panel.
+- Documentos: [checkpoint](docs/ROADMAP_4X_MACRO_01_P4_ENTRY_REVIEW_CHECKPOINT.md), [evidencia](docs/ROADMAP_4X_MACRO_01_P4_ENTRY_REVIEW_EVIDENCE.json), [ledger](docs/ROADMAP_4X_MACRO_01_P4_ENTRY_REVIEW_COMMIT_ACCOUNTABILITY_LEDGER.md), [matriz de rutas](docs/ROADMAP_4X_MACRO_01_P4_ROUTE_SOURCE_PAYLOAD_AND_CONSUMER_MATRIX.json), [contrato](docs/ROADMAP_4X_MACRO_01_P4_AUTHORITY_AND_VISIBILITY_CONTRACT.md) y [plan Macro 02](docs/ROADMAP_4X_MACRO_02_P4_BOUNDED_REMEDIATION_EXECUTION_PLAN.md).
