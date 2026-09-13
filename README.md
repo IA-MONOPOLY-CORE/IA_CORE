@@ -1646,3 +1646,11 @@ No UI activa, no JS, no backend, no runtime, no execution, no JSON TOP 15, no fi
 - Se registraron 19 gates futuros con responsable, evidencia requerida, pruebas positivas y negativas, condicion de detencion y rollback owner. P4 `CATALOG_DOMAIN_READS` fue seleccionado como unica familia futura priorizada, sin implementacion ni ejecucion.
 - [Aceptacion de Direccion](docs/ROADMAP_3_X_DIRECTION_ACCEPTANCE_RECORD.md), [matriz de cierre](docs/ROADMAP_3_X_FINAL_CLOSURE_MATRIX.md), [registro de gates](docs/ROADMAP_3_X_EXTERNAL_FUTURE_GATE_REGISTER.json), [adjudicacion de rutas](docs/ROADMAP_3_X_LEGACY_ROUTE_DECISION_ADJUDICATION.json), [checkpoint](docs/ROADMAP_3_X_MACRO_05_CHECKPOINT.md), [evidencia](docs/ROADMAP_3_X_MACRO_05_CHECKPOINT_EVIDENCE.json), [ledger](docs/ROADMAP_3_X_MACRO_05_COMMIT_ACCOUNTABILITY_LEDGER.md) y [contrato P4 futuro](docs/ROADMAP_4X_MACRO_01_P4_CATALOG_DOMAIN_READS_AUTHORITY_COMPATIBILITY_AND_BOUNDED_REMEDIATION.md).
 - No se habilito production readiness ni se modificaron producto, runtime, providers, workforce, red externa, secretos, stores vivos, endpoints, payload, integrations, widgets contract-aware o Request Draft Panel. Roadmap 4.x no fue ejecutado.
+
+## Roadmap 3.x Macro-Mission 05.1
+
+- Resultado: `ROADMAP_3_X_TRUE_COMPLETION_CLOSED_AND_LIVE_STATE_INTERNALLY_CONSISTENT`.
+- Se reconciliaron las afirmaciones vivas posteriores a Macro 05: B-7 aceptado, F-011 cerrado para la salida 3.x, F-004 adjudicado en política y diferido en implementación.
+- Se preservaron los checkpoints históricos de Macro 03 y Macro 04; los 36 `UNKNOWN` quedaron identificados como destinos históricos y no como disposiciones activas.
+- [Checkpoint](docs/ROADMAP_3_X_MACRO_05_1_LIVE_STATE_CONSISTENCY_CHECKPOINT.md), [evidencia](docs/ROADMAP_3_X_MACRO_05_1_LIVE_STATE_CONSISTENCY_EVIDENCE.json) y [ledger](docs/ROADMAP_3_X_MACRO_05_1_COMMIT_ACCOUNTABILITY_LEDGER.md).
+- No se modificaron producto, HTML, CSS, JavaScript, i18n, backend, payload, runtime, execution, endpoints ni integrations; P4 sigue seleccionado pero no iniciado.

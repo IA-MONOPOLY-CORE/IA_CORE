@@ -23,6 +23,7 @@ _LEDGER_NODE_RE = re.compile(r"^\| \d+ \| `(tests/[^`]+)::test_[^`]+` \|", re.MU
 _OVERRIDES = {
     "tests/test_roadmap_3_x_macro_03_checkpoint.py": "43530e656066a3c40d9afb8a5a4a381b38f29f38",
     "tests/test_roadmap_3_x_macro_04_true_completion.py": "9ce7d87",
+    "tests/test_roadmap_3_x_macro_05_final_closure.py": "6347094daa234d1f2ad344f08508e24a1e9302ea",
     "tests/test_roadmap_3_x_macro_03_b7_and_roadmap_4x_entry.py": "49952068",
     "tests/test_gokv_architecture_boundary_0_1.py": "3c31bf9",
     "tests/test_gokv_dool_oci_architecture_0_2.py": "3c31bf9",
@@ -160,6 +161,9 @@ _CURRENT_MISSION_DOCUMENTARY_FILES = frozenset(
         "docs/ROADMAP_3_X_MACRO_05_CHECKPOINT_EVIDENCE.json",
         "docs/ROADMAP_3_X_MACRO_05_COMMIT_ACCOUNTABILITY_LEDGER.md",
         "tests/test_roadmap_3_x_macro_05_final_closure.py",
+        "docs/ROADMAP_3_X_MACRO_05_1_LIVE_STATE_CONSISTENCY_CHECKPOINT.md",
+        "docs/ROADMAP_3_X_MACRO_05_1_LIVE_STATE_CONSISTENCY_EVIDENCE.json",
+        "docs/ROADMAP_3_X_MACRO_05_1_COMMIT_ACCOUNTABILITY_LEDGER.md",
     }
 )
 _HISTORICAL_FILES = frozenset(_LEDGER_NODE_RE.findall(LEDGER.read_text(encoding="utf-8"))) | _SECONDARY_HISTORICAL_FILES

@@ -1,0 +1,176 @@
+{
+  "schema_version": "roadmap.3x.macro_05_1.live_state_consistency.v1",
+  "mission": "ROADMAP_3X_MACRO_MISSION_05_1_LIVE_STATE_RECONCILIATION_AND_IRREVERSIBLE_3X_CLOSURE",
+  "repository": "C:/IA_CORE",
+  "branch": "main",
+  "baseline_head": "6347094daa234d1f2ad344f08508e24a1e9302ea",
+  "start_timestamp": "2026-09-13T12:44:02.1041804-03:00",
+  "outcome": "ROADMAP_3_X_TRUE_COMPLETION_CLOSED_AND_LIVE_STATE_INTERNALLY_CONSISTENT",
+  "stations": {
+    "station_1": {
+      "commit": "a8972f400c8f17d3aa52f64ea28ae9af3c583421",
+      "purpose": "Reconcile live forecast, frontier map, coverage, contract, packet and execution plan.",
+      "product_changes": false
+    },
+    "station_2": {
+      "commit": "37e208b0ab3c9883d8251ef7abddd5f109dfafc6",
+      "purpose": "Add non-contradiction guard and exact historical checkpoint override.",
+      "product_changes": false
+    },
+    "station_3": {
+      "result": "NO_NEW_CANDIDATE",
+      "material_modification": false,
+      "promotion": false,
+      "runtime": false
+    },
+    "station_4": {
+      "commit": "CONTAINING_STATION_COMMIT",
+      "purpose": "Publish checkpoint, evidence, ledger and brief README/index continuity entry."
+    }
+  },
+  "contradictions_repaired": [
+    "Forecast current anchor and H0/H1 incorrectly remained at Macro04/pending.",
+    "Frontier map mixed pre-Macro05 and accepted Macro05 states in one live layer.",
+    "F-004 historical UNKNOWN destinations were not separated from active dispositions.",
+    "Coverage and related documents retained stale current Direction-pending language.",
+    "Macro03 historical checkpoint test lacked its exact published snapshot override."
+  ],
+  "current_state": {
+    "anchor": "MACRO_05",
+    "phase_exit": "ROADMAP_3_X_TRUE_COMPLETION_ACCEPTED_AND_CLOSED_WITH_EXPLICIT_FUTURE_GATES",
+    "b7": "B7_ACCEPTED_WITH_EXPLICIT_LIMITS",
+    "f011": "CLOSED_FOR_3X_PHASE_EXIT",
+    "open_direction_decisions": 0,
+    "current_3x_exit_blockers": 0,
+    "historical_unknown_destinations": 36,
+    "active_unknown_dispositions": 0,
+    "routes": 36,
+    "implementation_deferred": 36,
+    "future_gates": 19,
+    "future_gates_active": 0,
+    "p4": "P4_SELECTED_NOT_STARTED",
+    "roadmap_4x_executed": false,
+    "production_ready": false
+  },
+  "historical_preservation": {
+    "macro_03_checkpoint_immutable": true,
+    "macro_04_checkpoint_immutable": true,
+    "historical_pre_macro_05_namespace": true,
+    "historical_assertions_removed": false,
+    "global_guard_relaxation": false
+  },
+  "scope": {
+    "documentary_changes_only": true,
+    "test_changes_only": true,
+    "html": false,
+    "css": false,
+    "javascript": false,
+    "i18n": false,
+    "backend": false,
+    "payload": false,
+    "runtime": false,
+    "execution": false,
+    "endpoints": false,
+    "integrations": false,
+    "providers": false,
+    "secrets_read": false,
+    "external_calls": false,
+    "p4_executed": false
+  },
+  "validation": {
+    "attempts": [
+      {
+        "name": "frontier_current_state_validation",
+        "result": "PASS"
+      },
+      {
+        "name": "roadmap_3x_historical_initial",
+        "result": "FAIL_REPAIRED",
+        "passed": 147,
+        "failed": 1,
+        "warnings": 1,
+        "duration_seconds_pytest": 28.64,
+        "failure": "Macro03 checkpoint test expected its own historical f004.destinations.UNKNOWN field; exact checkpoint override was missing."
+      },
+      {
+        "name": "roadmap_3x_historical_after_exact_context_repair",
+        "result": "PASS",
+        "passed": 148,
+        "failed": 0,
+        "warnings": 1,
+        "duration_seconds_pytest": 29.31
+      },
+      {
+        "name": "macro_03_replay",
+        "result": "PASS",
+        "passed": 13,
+        "failed": 0,
+        "warnings": 1,
+        "duration_seconds_pytest": 15.17
+      },
+      {
+        "name": "macro_04_replay",
+        "result": "PASS",
+        "passed": 8,
+        "failed": 0,
+        "warnings": 1,
+        "duration_seconds_pytest": 14.81
+      },
+      {
+        "name": "macro_05_replay",
+        "result": "PASS",
+        "passed": 16,
+        "failed": 0,
+        "warnings": 1,
+        "duration_seconds_pytest": 14.67
+      },
+      {
+        "name": "macro_05_1_focal_attempts_before_stable_guard",
+        "result": "FAIL_REPAIRED",
+        "attempts": [
+          {"passed": 4, "failed": 4, "warnings": 1, "duration_seconds_pytest": 10.75},
+          {"passed": 5, "failed": 3, "warnings": 1, "duration_seconds_pytest": 11.42},
+          {"passed": 7, "failed": 1, "warnings": 1, "duration_seconds_pytest": 10.77}
+        ],
+        "reason": "Guard text assertions were normalized for line wrapping, Markdown table syntax and exact status parsing."
+      },
+      {
+        "name": "macro_05_1_focal_final",
+        "result": "PASS",
+        "passed": 8,
+        "failed": 0,
+        "warnings": 1,
+        "duration_seconds_pytest": 10.75
+      },
+      {
+        "name": "json_parse_and_py_compile",
+        "result": "PASS",
+        "json_files_parsed": 322,
+        "modified_python_compiled": true,
+        "git_diff_check": "PASS",
+        "secret_scan": "PASS",
+        "protected_diff": "PASS"
+      },
+      {
+        "name": "full_suite_final",
+        "result": "PASS",
+        "passed": 6947,
+        "failed": 0,
+        "skipped": 6,
+        "warnings": 5,
+        "duration_seconds_pytest": 1562.34,
+        "duration_display": "26m 02.34s",
+        "log": "C:/Users/Santi/AppData/Local/Temp/ia-core-roadmap-3x-macro-05-1-full-suite-final.txt"
+      }
+    ],
+    "final_validation": "PASS_PRE_PUBLICATION_METADATA_CLOSURE"
+  },
+  "publication": {
+    "final_commit": "PENDING_STATION_4_COMMIT",
+    "push": "PENDING",
+    "post_fetch_head_equals_origin": "PENDING",
+    "ahead_behind": "PENDING",
+    "working_tree_clean": "PENDING",
+    "git_diff_check": "PENDING"
+  }
+}

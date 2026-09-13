@@ -227,3 +227,14 @@ con contrato de entrada en [Roadmap 4.x Macro 01](ROADMAP_4X_MACRO_01_P4_CATALOG
 pero no fue implementada ni ejecutada. No se habilita production readiness ni se
 autoriza runtime, providers, workforce, red externa, secretos, stores vivos,
 endpoints, payload, integrations o exposicion publica.
+
+## Roadmap 3.x Macro-Mission 05.1
+
+Resultado: `ROADMAP_3_X_TRUE_COMPLETION_CLOSED_AND_LIVE_STATE_INTERNALLY_CONSISTENT`.
+La reconciliacion de estado vivo separa explicitamente la fotografia historica
+pre-Macro05 del cierre aceptado: B-7 aceptado, F-011 cerrado para la salida 3.x,
+F-004 adjudicado en politica y diferido en implementacion. Los 36 destinos
+historicos `UNKNOWN`, los 19 gates futuros inactivos y la seleccion P4 quedan
+preservados sin iniciar Roadmap 4.x. Ver [checkpoint](ROADMAP_3_X_MACRO_05_1_LIVE_STATE_CONSISTENCY_CHECKPOINT.md),
+[evidencia](ROADMAP_3_X_MACRO_05_1_LIVE_STATE_CONSISTENCY_EVIDENCE.json) y
+[ledger](ROADMAP_3_X_MACRO_05_1_COMMIT_ACCOUNTABILITY_LEDGER.md).
