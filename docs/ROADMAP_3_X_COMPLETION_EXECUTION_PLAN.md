@@ -2,11 +2,11 @@
 
 ## Purpose and state
 
-- Plan state: `EXECUTABLE_PLAN_READY_NOT_STARTED`
+- Plan state: `P4_SELECTED_ENTRY_READY_NOT_IMPLEMENTED`
 - Mission: `ROADMAP_3X_MACRO_MISSION_04_TRUE_COMPLETION_RECALIBRATION_EVIDENCE_COVERAGE_AND_CLOSURE_PATH`
 - Current baseline: `43530e656066a3c40d9afb8a5a4a381b38f29f38`
-- Next phase: Roadmap 4.x only after explicit 3.x acceptance and one-family
-  selection.
+- Next phase: Roadmap 4.x P4 entry review only after the governed gates are
+  evidenced; implementation remains unstarted.
 
 This is an executable plan in the sense of ordered work, owners, inputs,
 gates, tests, rollback and stop conditions. It does not execute any item in
@@ -30,10 +30,10 @@ Do not start 4.x from this document.
 | Package | Objective | Inputs | Exit evidence | Owner | State |
 | --- | --- | --- | --- | --- | --- |
 | `3X-0` | Publish the recalibrated contract, original-scope coverage, gap register, decision packet and plan. | Macro 03 published evidence and current repository. | Macro 04 checkpoint, JSON, ledger, tests and clean published head. | Architecture/test owner | `CURRENT_MISSION` |
-| `3X-1` | Consume the Direction acceptance decision for the technical evidence package. | Direction packet Decision 1. | Recorded accept/reject decision with explicit F-001 through F-011 limits. | Direction/Architect | `BLOCKED_PENDING_DECISION` |
+| `3X-1` | Consume the Direction acceptance decision for the technical evidence package. | Direction acceptance record. | Recorded acceptance with explicit F-001 through F-011 limits. | Direction/Architect | `COMPLETE` |
 | `3X-2` | Close applicable external and trust evidence without changing product behavior. | Accepted package, deployment/security/provider owners. | Identity, tenant, CORS, ingress, provider and credential evidence, or an explicit deferral. | Hosting/security/provider owners | `BLOCKED_PENDING_EXTERNAL_EVIDENCE` |
-| `3X-3` | Select one F-004 family and disposition for a later bounded review. | Accepted package plus external/owner evidence. | One family, one destination, owner, compatibility contract and stop condition. | Direction plus selected route owner | `BLOCKED_PENDING_SELECTION` |
-| `4X-1` | Implement or contain exactly one selected family under its contract. | `3X-3` output; approved identity, payload, lifecycle, store and rollback contract. | Focused implementation, negative bypass suite, rollback proof and checkpoint. | Selected family owner | `FUTURE_AUTHORIZED_ONLY` |
+| `3X-3` | Select one F-004 family and disposition for a later bounded review. | Accepted package and route adjudication. | P4 selected with seven-route contract; implementation remains deferred. | Direction plus catalog/domain owner | `COMPLETE_POLICY_ONLY` |
+| `4X-1` | Implement or contain exactly one selected family under its contract. | P4 contract; approved identity, tenant, compatibility and rollback gates. | Focused implementation or containment, negative bypass suite, rollback proof and checkpoint. | Selected family owner | `FUTURE_AUTHORIZED_ONLY` |
 | `4X-2` | Reassess the remaining families and whether another block is coherent. | Published `4X-1` evidence. | New direction packet or safe pause; no automatic second-family expansion. | Direction/Architect | `FUTURE_REVIEW_ONLY` |
 
 ## Ordering by distance to the next true hard frontier
@@ -54,6 +54,8 @@ These activities cannot change route authority or product behavior.
 - Direction accepts or rejects the recalibrated evidence package;
 - Direction and owners define whether external evidence is sufficient;
 - Direction selects one F-004 family and its destination policy.
+- Macro 05 has selected `P4_CATALOG_DOMAIN_READS`; selection is policy-only and
+  not implementation authorization.
 
 The executor must stop at each gate and may not infer approval from a green
 test suite or a source-callable implementation.
@@ -100,7 +102,8 @@ Pause at the latest green checkpoint if:
 - a product file, payload, endpoint, provider, store, runtime or integration
   would need modification outside the current contract;
 - a second F-004 family is required for coherence;
+- any P4 gate is missing or an external fact is unavailable;
 - negative tests or rollback cannot be made explicit;
 - Direction has not recorded the necessary acceptance or selection.
 
-`ROADMAP_3_X_COMPLETION_EXECUTION_PLAN_READY_WITH_4X_BLOCKED_UNTIL_AUTHORIZED`
+`ROADMAP_3_X_COMPLETION_EXECUTION_PLAN_P4_SELECTED_WITH_4X_IMPLEMENTATION_BLOCKED`

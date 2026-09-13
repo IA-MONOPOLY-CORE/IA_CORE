@@ -2,17 +2,26 @@
 
 ## Status
 
-- Prepared by Macro 03, not executed.
-- State: `PARTIAL_BLOCKED_BY_B7_DIRECTION_ACCEPTANCE_AND_EXTERNAL_EVIDENCE`.
+- Prepared by Macro 03 and selected by Macro 05; not executed.
+- Historical state: `PARTIAL_BLOCKED_BY_B7_DIRECTION_ACCEPTANCE_AND_EXTERNAL_EVIDENCE`.
+- Current state: `P4_SELECTED_FUTURE_ENTRY_BLOCKED_BY_REQUIRED_GATES`.
 - Parent baseline: `8eda61c1c6e1611435cf4d4881a374502018abdc`.
-- Precondition: B-7 must be accepted with explicit limits; acceptance is not simulated here.
+- Precondition: B-7 is accepted with explicit limits; required external and route gates remain unsatisfied until evidenced.
 - Canonical doctrine: [IA_CORE One Core, Four Surfaces](C:/IA_CORE/docs/IA_CORE_ONE_CORE_FOUR_SURFACES_DOCTRINE.md).
 - Governing method: [Method Santi 3.2.2](C:/IA_CORE/docs/METHOD_SANTI_3_2_2_GOVERNED_CONTINUITY_LEARNING_AND_PUBLICATION.md).
 
-This is an entry contract, not a roadmap execution plan. It defines what a
-future authorized mission would need before changing one F-004 family. It does
-not select a legacy destination, implement an adapter, activate runtime or
-open Roadmap 4.x.
+This is an entry contract, not a roadmap execution plan. It defines what the
+selected future P4 mission would need before changing one F-004 family. It does
+not implement an adapter, activate runtime or open a route to external use.
+
+## Macro 05 selection
+
+Direction selected `P4_CATALOG_DOMAIN_READS` as the first future family. The
+seven exact routes and their bounded authority/compatibility contract are in
+`docs/ROADMAP_4X_MACRO_01_P4_CATALOG_DOMAIN_READS_AUTHORITY_COMPATIBILITY_AND_BOUNDED_REMEDIATION.md`.
+Selection sets policy only. Every implementation destination remains
+`DEFERRED_TO_4X_BY_EXPLICIT_DIRECTION` and all other families remain outside
+the block.
 
 ## Purpose
 
@@ -68,7 +77,7 @@ not change or activate:
 
 ## `NEXT_MACRO_MISSION_CANDIDATE`
 
-`ARCHITECT_SELECTS_ONE_F004_FAMILY_REMEDIATION_BLOCK_AFTER_B7_ACCEPTANCE`
+`ROADMAP_4X_MACRO_01_P4_CATALOG_DOMAIN_READS_AUTHORITY_COMPATIBILITY_AND_BOUNDED_REMEDIATION`
 
 Candidate shape, not selection:
 
@@ -83,8 +92,8 @@ one F-004 family
   -> checkpoint and publication review
 ```
 
-The first candidate family must be chosen by the Architect/Direction after the
-F-004 record is accepted. This document does not choose P1 through P9.
+The first candidate family has been chosen by Direction. This document does
+not authorize its implementation or choose any additional family.
 
 ## Gates
 
@@ -136,8 +145,8 @@ may become the next external frontier for P1, P2, P7, P8 or P9.
 - approve any authority, compatibility, identity, tenant, persistence or
   external-evidence change required by that family.
 
-No human decision is needed to keep the current repository read-only and
-`UNKNOWN` routes unchanged.
+No additional human decision is needed to preserve the accepted policy layer;
+implementation still requires the P4 entry gates and a new authorized station.
 
 ## Residual risks
 
@@ -147,4 +156,4 @@ No human decision is needed to keep the current repository read-only and
 - sandbox rollback does not establish product recovery;
 - future OS/mobile documents remain reservations only.
 
-`ROADMAP_4_X_ENTRY_CONTRACT_PREPARED_NOT_EXECUTED`
+`ROADMAP_4_X_ENTRY_CONTRACT_P4_SELECTED_NOT_EXECUTED`

@@ -22,6 +22,7 @@ LEDGER = ROOT / "docs" / "ROADMAP_3_X_MACRO_02_2_FAILURE_ACCOUNTABILITY_LEDGER.m
 _LEDGER_NODE_RE = re.compile(r"^\| \d+ \| `(tests/[^`]+)::test_[^`]+` \|", re.MULTILINE)
 _OVERRIDES = {
     "tests/test_roadmap_3_x_macro_04_true_completion.py": "9ce7d87",
+    "tests/test_roadmap_3_x_macro_03_b7_and_roadmap_4x_entry.py": "49952068",
     "tests/test_gokv_architecture_boundary_0_1.py": "3c31bf9",
     "tests/test_gokv_dool_oci_architecture_0_2.py": "3c31bf9",
     "tests/test_gokv_generation_0_1.py": "3c31bf9",

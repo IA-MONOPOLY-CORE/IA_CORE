@@ -57,6 +57,54 @@ The only inherited durations used here are kept in their original form:
 No current Macro 04 end-to-end duration is inferred from those values. The
 final report records Macro 04 timestamps separately.
 
+## Macro 05 calibrated planning bands
+
+This section is a planning model, not a promise or a release schedule. It uses
+the measured Macro 02.2, Macro 03 and Macro 04 wall-clock spans, the observed
+26-27 minute full-suite cost, the one-family rule and Santi's actual cadence of
+continuous missions rather than a conventional one-prompt-per-day team model.
+Effective agent hours mean active design, inspection, test and publication
+work observed by the agent; they are not tokens, credits, money or human-team
+capacity.
+
+| Horizon | Estimated macro-missions | Effective agent hours | Calendar band under real cadence |
+| --- | ---: | ---: | --- |
+| 3.x acceptance and closure | 1 completed Macro 05 | 2-4 | Current cycle; published after gates. |
+| First P4 entry review and bounded block | 2-4 | 6-14 | Accelerated 2-5 days; central 1-3 weeks; conservative 3-6 weeks. |
+| Remaining 4.x family blocks | 8-18 one-family missions | 30-80 | Accelerated 1-2 months; central 2-5 months; conservative 4-9 months. |
+| Governed 5.x through 6.8 backend maturity | 6-12 | 24-60 | Accelerated 1-3 months; central 3-7 months; conservative 6-12 months. |
+| Demonstrable internal system | 2-4 | 8-18 | After accepted backend gates; not a beta. |
+| Internal alpha | 2-5 | 10-25 | Controlled internal users and support boundary. |
+| Private beta entry and evidence period | 4-8 | 20-50 | Entry plus an evidence period; not called a demo. |
+| Release candidate and strong maturity | 4-9 | 20-55 | Deployment, incident, rollback and live-observability dependent. |
+
+Scenario assumptions:
+
+- Accelerated: continuous or overnight mission runs, no new hard frontier,
+  short review latency and the full suite remaining stable.
+- Central: one or two coherent mission cycles per week, normal Direction review,
+  external evidence arriving in sequence and occasional exact guard repair.
+- Conservative: external owners or evidence are delayed, a family reveals a
+  second frontier, or rollback/compatibility requires another mission.
+
+Acceleration factors are reusable GOKV/DOOL/OCI learning, stable historical
+guards, parallel chat/Codex use with shared-window attribution and the existing
+suite discipline. These factors can reduce repetition but cannot compress
+Direction authority, external evidence, tenant/trust proof, compatibility,
+recovery or publication gates.
+
+Future beta condition, reserved but not implemented here: evidence over
+approximately 15-20 diverse businesses, multiple users and roles per company,
+company/sector/role/capability-specific manuals, and telemetry sufficient to
+measure stability, usefulness and real errors. This is a beta condition, not a
+current demo claim.
+
+Next recalibration: after the first P4 entry review or after three future macro
+missions, whichever occurs first. All bands remain directional and must be
+replaced by measured evidence when a new checkpoint is published.
+
+`FORECAST_MACRO_05_CORRECTED_WITH_MISSION_BANDS_NOT_COMMITMENTS`
+
 ## Main forecast risks
 
 - Direction may accept evidence with limits but defer route authority;
