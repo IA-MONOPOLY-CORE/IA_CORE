@@ -423,7 +423,7 @@
     },
     "publication_metadata_must_not_chase_its_own_head": {
       "kind": "COMMIT_STRATEGY",
-      "knowledge_version": "0.1.0",
+      "knowledge_version": "0.2.0",
       "learning_origin": "DEVELOPMENT_ORIGIN",
       "path": "items/publication_metadata_must_not_chase_its_own_head.json",
       "privacy_class": "ia_core_internal",
