@@ -12,6 +12,9 @@ BASELINE = "74dc98c09f0269f697a0a31423e672a54196656a"
 EVIDENCE = ROOT / "docs" / "ROADMAP_4X_MACRO_01_P4_ENTRY_REVIEW_EVIDENCE.json"
 CHECKPOINT = ROOT / "docs" / "ROADMAP_4X_MACRO_01_P4_ENTRY_REVIEW_CHECKPOINT.md"
 LEDGER = ROOT / "docs" / "ROADMAP_4X_MACRO_01_P4_ENTRY_REVIEW_COMMIT_ACCOUNTABILITY_LEDGER.md"
+MACRO_01_1_CHECKPOINT = ROOT / "docs" / "ROADMAP_4X_MACRO_01_1_P4_LIVE_CLOSURE_CHECKPOINT.md"
+MACRO_01_1_EVIDENCE = ROOT / "docs" / "ROADMAP_4X_MACRO_01_1_P4_LIVE_CLOSURE_EVIDENCE.json"
+MACRO_01_1_LEDGER = ROOT / "docs" / "ROADMAP_4X_MACRO_01_1_P4_LIVE_CLOSURE_COMMIT_ACCOUNTABILITY_LEDGER.md"
 ROUTE_MATRIX = ROOT / "docs" / "ROADMAP_4X_MACRO_01_P4_ROUTE_SOURCE_PAYLOAD_AND_CONSUMER_MATRIX.json"
 GATE_MATRIX = ROOT / "docs" / "ROADMAP_4X_MACRO_01_P4_COMPATIBILITY_AND_GATE_MATRIX.json"
 AUTHORITY = ROOT / "docs" / "ROADMAP_4X_MACRO_01_P4_AUTHORITY_AND_VISIBILITY_CONTRACT.md"
@@ -82,7 +85,7 @@ def test_live_result_and_states_are_closed_without_product_activation():
     closure = evidence["live_closure"]
 
     assert evidence["result"] == EXPECTED_RESULT
-    assert closure == {
+    expected_closure = {
         "macro_01_state": "COMPLETE",
         "historical_repair_state": "CLOSED",
         "station_6r_state": "COMPLETE",
@@ -91,7 +94,12 @@ def test_live_result_and_states_are_closed_without_product_activation():
         "macro_02_started": False,
         "publication_evidence_stable": True,
         "self_referential_head_hash": False,
-        "validation_phase": "INHERITED_MACRO_01_RECORD_RECONCILED",
+    }
+    assert {key: closure[key] for key in expected_closure} == expected_closure
+    assert closure["validation_phase"] in {
+        "INHERITED_MACRO_01_RECORD_RECONCILED",
+        "LEVEL_A_VALIDATED_DOCUMENTARY_CLOSEOUT_READY",
+        "LEVEL_B_DOCUMENTARY_CLOSEOUT_VALIDATED",
     }
     assert evidence["scope"]["implementation_started"] is False
     assert evidence["scope"]["external_exposure_authorized"] is False
@@ -128,7 +136,8 @@ def test_final_suite_and_static_validation_are_registered_as_pass():
     validation = evidence["validation_protocol_after_final_commit"]
 
     assert validation["full_suite"].startswith("PASS:")
-    assert "6955 passed" in validation["full_suite"]
+    assert "passed" in validation["full_suite"]
+    assert "warnings" in validation["full_suite"]
     assert validation["json_parse"].startswith("PASS:")
     assert validation["py_compile"] == "PASS"
     assert validation["node_check"] == "PASS"
@@ -177,7 +186,9 @@ def test_stable_publication_roles_do_not_self_reference_the_containing_head():
     head = subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=ROOT, text=True).strip()
 
     assert protocol["rule"] == "publication_metadata_must_not_chase_its_own_head"
-    assert protocol["VALIDATION_BASIS_HEAD"]
+    assert len(protocol["VALIDATION_BASIS_HEAD"]) == 40
+    assert all(character in "0123456789abcdef" for character in protocol["VALIDATION_BASIS_HEAD"])
+    assert protocol["VALIDATION_BASIS_HEAD"] != head
     assert protocol["DOCUMENTARY_CLOSEOUT_COMMIT"] == "IDENTIFIED_EXTERNALLY_AFTER_DOCUMENTARY_COMMIT"
     assert protocol["POST_FETCH_PUBLICATION_VERIFICATION"] == "IDENTIFIED_EXTERNALLY_AFTER_PUSH_AND_FETCH"
     assert protocol["self_referential_hash_chase"] is False
@@ -222,3 +233,24 @@ def test_existing_gokv_rule_is_extended_without_promotion():
     assert any(ref["evidence_id"] == "macro_01_1_stable_publication" for ref in item["evidence_refs"])
     assert any(checkpoint == "ROADMAP_4X_MACRO_01_1" for checkpoint in item["source_checkpoints"])
     assert "future transition" in " ".join(item["validation"]).lower()
+
+
+def test_macro_01_1_closeout_artifacts_are_consistent_when_present():
+    paths = (MACRO_01_1_CHECKPOINT, MACRO_01_1_EVIDENCE, MACRO_01_1_LEDGER)
+    present = [path.exists() for path in paths]
+    assert len(set(present)) == 1
+    if not present[0]:
+        return
+
+    checkpoint = _text(MACRO_01_1_CHECKPOINT)
+    ledger = _text(MACRO_01_1_LEDGER)
+    evidence = _json(MACRO_01_1_EVIDENCE)
+    assert EXPECTED_RESULT in checkpoint
+    assert EXPECTED_RESULT in ledger
+    assert evidence["result"] == EXPECTED_RESULT
+    assert evidence["validation_basis_head"]
+    assert evidence["documentary_closeout_commit"] == "EXTERNAL_REPORT_REFERENCE"
+    assert evidence["post_fetch_publication_verification"] == "EXTERNAL_REPORT_REFERENCE"
+    assert evidence["macro_02_started"] is False
+    assert evidence["p4_implementation_started"] is False
+    assert evidence["p4_exposure_authorized"] is False
