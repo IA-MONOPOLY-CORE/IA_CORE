@@ -45,6 +45,7 @@ NEW_DOCUMENTARY_FILES = {
     "docs/ROADMAP_4X_MACRO_01_1_P4_LIVE_CLOSURE_EVIDENCE.json",
     "docs/ROADMAP_4X_MACRO_01_1_P4_LIVE_CLOSURE_COMMIT_ACCOUNTABILITY_LEDGER.md",
     "knowledge/global_operational/items/publication_metadata_must_not_chase_its_own_head.json",
+    "knowledge/global_operational/registry.json",
 }
 PROTECTED_PREFIXES = (
     "api.py",
