@@ -2,12 +2,13 @@
 
 ## Status and use
 
-- Mission: `ROADMAP_3X_MACRO_MISSION_04_TRUE_COMPLETION_RECALIBRATION_EVIDENCE_COVERAGE_AND_CLOSURE_PATH`
-- Packet state: `DECISION_READY_NOT_DECIDED`
+- Mission origin: `ROADMAP_3X_MACRO_MISSION_04_TRUE_COMPLETION_RECALIBRATION_EVIDENCE_COVERAGE_AND_CLOSURE_PATH`
+- Packet state: `DIRECTION_ACCEPTED_AND_ADOPTED_BY_MACRO_05`
 - Evidence baseline: `43530e656066a3c40d9afb8a5a4a381b38f29f38`
-- Current route destination for all rows: `UNKNOWN`
-- This packet is a recommendation and acceptance instrument. It is not an
-  authorization, adapter specification or production decision.
+- Historical route destination for all rows: `UNKNOWN`
+- Active route decision layer: `docs/ROADMAP_3_X_LEGACY_ROUTE_DECISION_ADJUDICATION.json`
+- The packet is now an adopted policy record. It is not an adapter
+  specification, implementation proof or production decision.
 
 ## Decision 1: recalibrated 3.x evidence
 
@@ -25,13 +26,14 @@ provider, route-authority and workforce limits preserved.
 > does not authorize a route adapter, product remediation, runtime, provider,
 > external action, payload change, production claim or Roadmap 4.x execution.
 
-This is the decision that Macro 03 had prepared but could not simulate. The
-executor has not selected `ACCEPT` or `REJECT`.
+This is the decision that Macro 03 had prepared but could not simulate. Macro
+05 records Direction's explicit acceptance in
+`docs/ROADMAP_3_X_DIRECTION_ACCEPTANCE_RECORD.md`.
 
 ## Decision 2: future F-004 family selection
 
-Only after Decision 1 is accepted should Direction choose one family for a
-later authorized review. The decision object must include:
+Direction has accepted one future family candidate for a later authorized
+review. The decision object includes:
 
 - one family ID and complete route membership;
 - one destination policy;
@@ -41,8 +43,9 @@ later authorized review. The decision object must include:
 - payload, lifecycle, persistence and rollback requirements;
 - negative bypass tests and a stop condition.
 
-The packet intentionally does not choose the family. No family is
-`DECIDED`, `REMEDIATION_READY` for implementation or connected to a route.
+The selected family is `P4_CATALOG_DOMAIN_READS`. It is `DECIDED_FOR_3X` as a
+future policy selection, while every implementation destination is
+`DEFERRED_TO_4X_BY_EXPLICIT_DIRECTION`.
 
 ## Family-level recommendations
 
@@ -58,14 +61,16 @@ The packet intentionally does not choose the family. No family is
 | `P8_PROVIDER_HARDWARE` | 3 | `BLOCK_UNTIL_EXTERNAL_EVIDENCE` | Provider reachability, credentials, cost and hardware disclosure cannot be inferred from source. |
 | `P9_HOSTING_ROOT` | 1 | `BLOCK_UNTIL_EXTERNAL_EVIDENCE` | Root exposure, ingress, identity and actual traffic require deployment evidence. |
 
-Recommendations describe the next decision input. They do not change the
-inherited destination field in any route row.
+Recommendations describe the adopted policy for the active layer. They do not
+change the inherited historical destination field in any route row.
 
 ## Route-by-route decision register
 
 Every legacy route is listed exactly once. `Current destination` is the
-published fact; `Recommendation` is a non-authorizing proposal; `Missing
-evidence` is the reason a destination cannot yet be selected.
+historical published fact; `Recommendation` is the adopted Direction
+disposition; `Missing evidence` is the reason implementation remains
+deferred. The authoritative post-decision fields are in the linked JSON
+adjudication register.
 
 | # | Route ID | Method | Path | Family | Current destination | Recommendation | Missing evidence |
 | ---: | --- | --- | --- | --- | --- | --- | --- |
@@ -112,10 +117,11 @@ evidence` is the reason a destination cannot yet be selected.
 - Method counts: `22 GET`, `12 POST`, `1 PUT`, `1 DELETE`.
 - Family counts: P1 `4`, P2 `6`, P3 `7`, P4 `7`, P5 `1`, P6 `5`, P7 `2`,
   P8 `3`, P9 `1`.
-- Current destination counts: `UNKNOWN 36`; all other destination values are
-  `0`.
+- Historical current destination counts: `UNKNOWN 36`; all other historical
+  destination values are `0`.
 - No route was migrated, bridged, made internal-only, retired, removed or
-  connected to a canonical adapter.
+  connected to a canonical adapter. All implementation destinations are
+  deferred by explicit Direction.
 
 ## External and human decision checklist
 
@@ -130,10 +136,10 @@ evidence` is the reason a destination cannot yet be selected.
 
 ## Packet conclusion
 
-This packet is sufficient for a human decision and insufficient to make one on
-behalf of Direction. Its strongest technical recommendation is to accept the
-recalibrated evidence boundary while preserving every open frontier. Its
-strongest operational restriction is to leave all route destinations
-`UNKNOWN` until authority and compatibility evidence exist.
+This packet records the accepted evidence boundary and preserves every open
+technical frontier. Its active policy layer resolves the decision ambiguity
+without falsifying any technical destination. Its strongest operational
+restriction is to keep every implementation deferred until the required gates
+and P4 contract are satisfied.
 
-`ROADMAP_3_X_DIRECTION_DECISION_PACKET_READY_NOT_DECIDED`
+`ROADMAP_3_X_DIRECTION_DECISION_PACKET_ACCEPTED_POLICY_ADOPTED`

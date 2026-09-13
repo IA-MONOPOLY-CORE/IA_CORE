@@ -15,6 +15,10 @@ This contract recalibrates what it means for Roadmap 3.x to be technically
 complete. It does not activate a runtime, select a route destination, approve
 an external policy or authorize Roadmap 4.x remediation.
 
+Macro 04 is the historical evidence-producing state. Macro 05 may record an
+explicit Direction decision supplied by its authorized mission; it may not
+invent or infer that decision.
+
 ## Recalibrated equation
 
 ```text
@@ -162,6 +166,26 @@ Direction may accept the evidence package without accepting any individual
 legacy route destination. A route-family decision is a separate authority
 event.
 
+## Macro 05 accepted closure state
+
+The authorized Macro 05 Direction record accepts the Macro 04 evidence package
+with explicit limits and adopts the future-gate policy
+`DEFAULT_DENY_UNTIL_REQUIRED_EVIDENCE_EXISTS`. The resulting state is:
+
+- `B7_ACCEPTED_WITH_EXPLICIT_LIMITS`;
+- `ROADMAP_3_X_TRUE_COMPLETION_ACCEPTED_AND_CLOSED_WITH_EXPLICIT_FUTURE_GATES`;
+- `OPEN_DIRECTION_DECISIONS = 0`;
+- `UNCONTROLLED_UNKNOWNS = 0`;
+- `UNOWNED_GATES = 0`;
+- `ROUTES_ACCOUNTED = 36`;
+- `ROUTES_WITH_ACTIVE_DIRECTION_DISPOSITION = 36`;
+- `PRODUCT_CHANGES = 0`.
+
+This is an explicit Direction acceptance, not an implementation or production
+claim. The selected future family is `P4_CATALOG_DOMAIN_READS`; its concrete
+work remains deferred to 4.x. The implementation-ready state for scope 3.9 is
+`REMEDIATION_ENTRY_READY_NOT_IMPLEMENTED`.
+
 ## 4.x entry contract produced by 3.x
 
 Before any later 4.x implementation block, the selected family must have:
@@ -175,8 +199,9 @@ Before any later 4.x implementation block, the selected family must have:
 7. applicable provider, credential, network and deployment evidence;
 8. a new checkpoint and publication review.
 
-The maximum first block remains one F-004 family. No 4.x work is selected or
-executed by Macro 04.
+The maximum first block remains one F-004 family. Macro 04 did not select or
+execute 4.x work. Macro 05 selects `P4_CATALOG_DOMAIN_READS` as a future
+candidate and does not execute it.
 
 ## Evidence quality and measurement
 
@@ -198,4 +223,4 @@ Allowed Macro 04 results are:
 Forbidden result claims are `ROADMAP_3_X_CLOSED`, `B7_ACCEPTED`,
 `PRODUCTION_READY` and `ROADMAP_4_X_STARTED`.
 
-`ROADMAP_3X_TRUE_COMPLETION_CONTRACT_PUBLISHED_FOR_MACRO_04`
+`ROADMAP_3X_TRUE_COMPLETION_CONTRACT_ACCEPTED_FOR_MACRO_05_WITH_FUTURE_GATES`

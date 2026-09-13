@@ -21,6 +21,7 @@ ROOT = Path(__file__).resolve().parents[1]
 LEDGER = ROOT / "docs" / "ROADMAP_3_X_MACRO_02_2_FAILURE_ACCOUNTABILITY_LEDGER.md"
 _LEDGER_NODE_RE = re.compile(r"^\| \d+ \| `(tests/[^`]+)::test_[^`]+` \|", re.MULTILINE)
 _OVERRIDES = {
+    "tests/test_roadmap_3_x_macro_04_true_completion.py": "9ce7d87",
     "tests/test_gokv_architecture_boundary_0_1.py": "3c31bf9",
     "tests/test_gokv_dool_oci_architecture_0_2.py": "3c31bf9",
     "tests/test_gokv_generation_0_1.py": "3c31bf9",
@@ -148,6 +149,15 @@ _CURRENT_MISSION_DOCUMENTARY_FILES = frozenset(
         "docs/ROADMAP_3_X_MACRO_04_CHECKPOINT_EVIDENCE.json",
         "docs/ROADMAP_3_X_MACRO_04_COMMIT_ACCOUNTABILITY_LEDGER.md",
         "tests/test_roadmap_3_x_macro_04_true_completion.py",
+        "docs/ROADMAP_3_X_DIRECTION_ACCEPTANCE_RECORD.md",
+        "docs/ROADMAP_3_X_FINAL_CLOSURE_MATRIX.md",
+        "docs/ROADMAP_3_X_EXTERNAL_FUTURE_GATE_REGISTER.json",
+        "docs/ROADMAP_3_X_LEGACY_ROUTE_DECISION_ADJUDICATION.json",
+        "docs/ROADMAP_4X_MACRO_01_P4_CATALOG_DOMAIN_READS_AUTHORITY_COMPATIBILITY_AND_BOUNDED_REMEDIATION.md",
+        "docs/ROADMAP_3_X_MACRO_05_CHECKPOINT.md",
+        "docs/ROADMAP_3_X_MACRO_05_CHECKPOINT_EVIDENCE.json",
+        "docs/ROADMAP_3_X_MACRO_05_COMMIT_ACCOUNTABILITY_LEDGER.md",
+        "tests/test_roadmap_3_x_macro_05_final_closure.py",
     }
 )
 _HISTORICAL_FILES = frozenset(_LEDGER_NODE_RE.findall(LEDGER.read_text(encoding="utf-8"))) | _SECONDARY_HISTORICAL_FILES
@@ -170,7 +180,7 @@ def _git(*args: str) -> str:
 def checkpoint_for(module: Any, relative_test_path: str) -> str | None:
     if relative_test_path in _CURRENT_GUARD_MODULES:
         return None
-    if relative_test_path not in _HISTORICAL_FILES:
+    if relative_test_path not in _HISTORICAL_FILES and relative_test_path not in _OVERRIDES:
         return None
     explicit = getattr(module, "HISTORICAL_COMMIT", None)
     if explicit:
