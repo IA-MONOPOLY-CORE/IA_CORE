@@ -27,8 +27,8 @@
       "reason": "The assigned read-only inventory is complete with explicit limits; external facts are separately classified.",
       "owner": "Architecture and backend audit owner; hosting/security for external facts",
       "next_action": "Preserve the inventory and consume only the named external gates before authority-changing work.",
-      "legitimate_phase": "3.x evidence maintenance; external gates before authorized 4.x family work",
-      "blocks_close": true,
+      "legitimate_phase": "3.x closed; external gates before authorized 4.x family work",
+      "blocks_close": false,
       "confidence": "HIGH"
     },
     {
@@ -52,8 +52,8 @@
       "reason": "The local audit is complete, but the required operational trust facts cannot be proved from this repository.",
       "owner": "Direction, security and hosting/deployment owners",
       "next_action": "Record policy and evidence before changing trust, secret or activation authority.",
-      "legitimate_phase": "3.x external-evidence gate; future authorized security work",
-      "blocks_close": true,
+      "legitimate_phase": "3.x closed; future authorized security work",
+      "blocks_close": false,
       "confidence": "HIGH"
     },
     {
@@ -77,8 +77,8 @@
       "reason": "The audit and decision object are complete, but route authority is an irreducible Direction and owner frontier.",
       "owner": "Direction for policy; selected route/service owner for compatibility evidence",
       "next_action": "Consume the 36-row packet and select at most one family only after B7 acceptance.",
-      "legitimate_phase": "3.x decision gate; 4.x one-family authorized remediation",
-      "blocks_close": true,
+      "legitimate_phase": "3.x closed; 4.x one-family authorized remediation",
+      "blocks_close": false,
       "confidence": "HIGH"
     },
     {
@@ -102,8 +102,8 @@
       "reason": "Contract and sandbox evidence cover the documentary boundary; product ownership is intentionally outside it.",
       "owner": "Domain and storage owners; recovery owner for restore",
       "next_action": "Keep product stores outside scope until ownership, retention and recovery gates are accepted.",
-      "legitimate_phase": "3.x contract boundary; future authorized persistence/lifecycle block",
-      "blocks_close": true,
+      "legitimate_phase": "3.x closed; future authorized persistence/lifecycle block",
+      "blocks_close": false,
       "confidence": "HIGH"
     },
     {
@@ -127,8 +127,8 @@
       "reason": "Development governance is proven; operational ownership is not and must remain separately gated.",
       "owner": "Governance and storage owners",
       "next_action": "Preserve development-only learning and do not promote or connect it to runtime without a new contract.",
-      "legitimate_phase": "3.x governance evidence; future persistence/learning authorization",
-      "blocks_close": true,
+      "legitimate_phase": "3.x closed; future persistence/learning authorization",
+      "blocks_close": false,
       "confidence": "HIGH"
     },
     {
@@ -152,8 +152,8 @@
       "reason": "Repository evidence maps provider risk but cannot substitute for live or deployment evidence.",
       "owner": "Provider and deployment owners",
       "next_action": "Keep provider use disabled for the audit and require an external-evidence gate for any live test.",
-      "legitimate_phase": "3.x external evidence; future provider/runtime authorization",
-      "blocks_close": true,
+      "legitimate_phase": "3.x closed; future provider/runtime authorization",
+      "blocks_close": false,
       "confidence": "HIGH"
     },
     {
@@ -177,8 +177,8 @@
       "reason": "The static boundary is complete; operational trust and secret lifecycle require owners outside the audit.",
       "owner": "Direction, security, storage and deployment owners",
       "next_action": "Do not open secrets or external actions; collect approved policy and evidence in a separately authorized block.",
-      "legitimate_phase": "3.x security evidence; future security/runtime authorization",
-      "blocks_close": true,
+      "legitimate_phase": "3.x closed; future security/runtime authorization",
+      "blocks_close": false,
       "confidence": "HIGH"
     },
     {
@@ -202,8 +202,8 @@
       "reason": "The inherited quality boundary is valid; Macro 04 must rerun the suite after its own tests are added.",
       "owner": "Test infrastructure owner",
       "next_action": "Run focal, historical and full suite after the final documentary station; add only exact context repair if required.",
-      "legitimate_phase": "Macro 04 validation and publication gate",
-      "blocks_close": true,
+      "legitimate_phase": "Macro 04 validation and publication gate; 3.x closed",
+      "blocks_close": false,
       "confidence": "MEDIUM"
     },
     {
