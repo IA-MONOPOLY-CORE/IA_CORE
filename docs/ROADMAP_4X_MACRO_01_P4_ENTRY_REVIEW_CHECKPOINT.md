@@ -63,9 +63,8 @@ The GOKV rule `publication_metadata_must_not_chase_its_own_head` is applied.
 The evidence separates content validation from the commit that contains the
 documentary closeout:
 
-- `VALIDATION_BASIS_HEAD`: `74dc98c09f0269f697a0a31423e672a54196656a` for the
-  inherited published Macro 01 validation record; the candidate validation
-  head is recorded after the Macro 01.1 full suite.
+- `VALIDATION_BASIS_HEAD`: `c86f2ae7189eaeae1e021217e13af3f2dc1d5e20`, the exact
+  candidate commit on which the Macro 01.1 full suite passed.
 - `DOCUMENTARY_CLOSEOUT_COMMIT`: identified externally after the final
   documentation-only commit is created.
 - `POST_FETCH_PUBLICATION_VERIFICATION`: identified externally after normal
@@ -85,7 +84,9 @@ Inherited Macro 01 validation facts:
 - Replay focal: `1 passed, 1 warning`.
 - Final Macro 01 full suite: `6955 passed, 6 skipped, 5 warnings`.
 - Full-suite duration: `1624.76 s`.
-- JSON parse: `326` valid files.
+- Macro 01.1 Level A full suite: `6966 passed, 6 skipped, 5 warnings` in
+  `1636.65 s` (`0:27:16`).
+- Level A JSON parse: `326` valid files; Level B closeout parse: `327` valid files.
 - `py_compile`: PASS.
 - Node contractual checks: PASS.
 - Secret policy: `12 passed`.

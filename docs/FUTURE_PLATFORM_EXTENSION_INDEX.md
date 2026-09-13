@@ -259,3 +259,20 @@ GOKV/DOOL/OCI fueron consultados sin novedad material:
 `NO_NEW_CANDIDATE`. No se modificaron producto, endpoints, payload, runtime,
 execution, providers, integrations, P0/P1/P3, widgets contract-aware ni
 Request Draft Panel.
+
+## Roadmap 4.x Macro-Mission 01.1
+
+La reconciliacion de cierre vivo de Macro 01 quedo aceptada como
+`ROADMAP_4X_MACRO_01_ACCEPTED_LIVE_STATE_INTERNALLY_CONSISTENT_PUBLICATION_EVIDENCE_STABLE`.
+La suite Level A paso sobre `c86f2ae` con `6966 passed`, `6 skipped` y `5
+warnings`. La evidencia separa `VALIDATION_BASIS_HEAD`,
+`DOCUMENTARY_CLOSEOUT_COMMIT` y `POST_FETCH_PUBLICATION_VERIFICATION` para
+evitar que la metadata persiga el hash del commit que la contiene.
+
+Se agrego evidencia al item GOKV existente
+`publication_metadata_must_not_chase_its_own_head`, sin crear candidato nuevo ni
+promoverlo automaticamente. P4 no fue implementada ni expuesta, los nueve gates
+continuan inactivos/default-deny y Macro 02 no fue iniciada. Ver
+[checkpoint](ROADMAP_4X_MACRO_01_1_P4_LIVE_CLOSURE_CHECKPOINT.md),
+[evidencia](ROADMAP_4X_MACRO_01_1_P4_LIVE_CLOSURE_EVIDENCE.json) y
+[ledger](ROADMAP_4X_MACRO_01_1_P4_LIVE_CLOSURE_COMMIT_ACCOUNTABILITY_LEDGER.md).

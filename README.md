@@ -1663,3 +1663,12 @@ No UI activa, no JS, no backend, no runtime, no execution, no JSON TOP 15, no fi
 - GOKV/DOOL/OCI fueron consultados y no aportaron una nueva candidata: `NO_NEW_CANDIDATE`. La suite focal del guard de entrada paso con `8 passed`.
 - No se modificaron `api.py`, `core/`, `domains/`, catalogos, HTML, CSS, JavaScript, i18n, backend, payload, runtime, execution, providers, workforce, stores, secrets, integrations, endpoints, P0/P1/P3, widgets contract-aware ni Request Draft Panel.
 - Documentos: [checkpoint](docs/ROADMAP_4X_MACRO_01_P4_ENTRY_REVIEW_CHECKPOINT.md), [evidencia](docs/ROADMAP_4X_MACRO_01_P4_ENTRY_REVIEW_EVIDENCE.json), [ledger](docs/ROADMAP_4X_MACRO_01_P4_ENTRY_REVIEW_COMMIT_ACCOUNTABILITY_LEDGER.md), [matriz de rutas](docs/ROADMAP_4X_MACRO_01_P4_ROUTE_SOURCE_PAYLOAD_AND_CONSUMER_MATRIX.json), [contrato](docs/ROADMAP_4X_MACRO_01_P4_AUTHORITY_AND_VISIBILITY_CONTRACT.md) y [plan Macro 02](docs/ROADMAP_4X_MACRO_02_P4_BOUNDED_REMEDIATION_EXECUTION_PLAN.md).
+
+## Roadmap 4.x Macro-Mission 01.1
+
+- Se reconcilio el estado vivo publicado de Macro 01 y se cerro la evidencia historica de la reparacion 6R.
+- Resultado: `ROADMAP_4X_MACRO_01_ACCEPTED_LIVE_STATE_INTERNALLY_CONSISTENT_PUBLICATION_EVIDENCE_STABLE`.
+- La suite Level A sobre `c86f2ae` paso con `6966 passed`, `6 skipped` y `5 warnings`; el protocolo Level B separa el validation basis del commit documental y no persigue su propio hash.
+- El item GOKV existente `publication_metadata_must_not_chase_its_own_head` recibio evidencia adicional, permanecio `CANDIDATE` y no hubo promocion automatica ni candidato duplicado.
+- P4 sigue sin implementacion ni exposicion, los nueve gates siguen inactivos/default-deny y Macro 02 no fue iniciada.
+- [Checkpoint 01.1](docs/ROADMAP_4X_MACRO_01_1_P4_LIVE_CLOSURE_CHECKPOINT.md), [evidencia 01.1](docs/ROADMAP_4X_MACRO_01_1_P4_LIVE_CLOSURE_EVIDENCE.json) y [ledger 01.1](docs/ROADMAP_4X_MACRO_01_1_P4_LIVE_CLOSURE_COMMIT_ACCOUNTABILITY_LEDGER.md).

@@ -13,11 +13,11 @@
     "macro_02_started": false,
     "publication_evidence_stable": true,
     "self_referential_head_hash": false,
-    "validation_phase": "INHERITED_MACRO_01_RECORD_RECONCILED"
+    "validation_phase": "LEVEL_A_VALIDATED_DOCUMENTARY_CLOSEOUT_READY"
   },
   "publication_protocol": {
     "rule": "publication_metadata_must_not_chase_its_own_head",
-    "VALIDATION_BASIS_HEAD": "74dc98c09f0269f697a0a31423e672a54196656a",
+    "VALIDATION_BASIS_HEAD": "c86f2ae7189eaeae1e021217e13af3f2dc1d5e20",
     "DOCUMENTARY_CLOSEOUT_COMMIT": "IDENTIFIED_EXTERNALLY_AFTER_DOCUMENTARY_COMMIT",
     "POST_FETCH_PUBLICATION_VERIFICATION": "IDENTIFIED_EXTERNALLY_AFTER_PUSH_AND_FETCH",
     "self_referential_hash_chase": false
@@ -175,11 +175,11 @@
     "initial_full_suite": "FAIL_REPAIRED: 6954 passed, 6 skipped, 5 warnings, 1 historical continuity failure",
     "initial_failure": "test_no_product_or_protected_surface_changed_from_macro_05_baseline rejected exact Macro 01 documentary/test files",
     "repair_replay": "PASS: 1 passed, 1 warning after exact allowlist/context repair commit 11fa2ee",
-    "json_parse": "PASS: 326 valid JSON files",
+    "json_parse": "PASS: 327 valid JSON files (Level A had 326 before the Macro 01.1 closeout artifact)",
     "py_compile": "PASS",
     "node_check": "PASS",
     "sanity": "PASS",
-    "full_suite": "PASS: 6955 passed, 6 skipped, 5 warnings",
+    "full_suite": "PASS: 6966 passed, 6 skipped, 5 warnings in 1636.65s (0:27:16)",
     "git_diff_check": "PASS",
     "protected_diff": "PASS: empty",
     "publication": "PASS: stable role references with external post-fetch verification"

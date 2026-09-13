@@ -11,6 +11,7 @@
 - Macro 01: `COMPLETE`.
 - P4 remediation: `NOT_EXECUTED`.
 - Macro 02: `NOT_STARTED`.
+- Macro 01.1 Level A validation basis: `c86f2ae7189eaeae1e021217e13af3f2dc1d5e20`.
 - Publication evidence: `STABLE_ROLE_REFERENCES_AND_EXTERNAL_POST_FETCH_VERIFICATION`.
 
 The ledger is the live accountability record. Historical failure text below
@@ -65,7 +66,10 @@ publication state.
 - Seven P4 GET routes: exact scope preserved.
 - P4 implementation and exposure: not authorized.
 - Macro 02: prepared only, not started.
+- Macro 01.1 Level A full suite: `6966 passed, 6 skipped, 5 warnings` in
+  `1636.65 s`.
 - JSON: `326` files valid.
+- Level B closeout JSON parse: `327` files valid.
 - `py_compile`: PASS.
 - Node contractual checks: PASS.
 - Secret policy: `12 passed`.

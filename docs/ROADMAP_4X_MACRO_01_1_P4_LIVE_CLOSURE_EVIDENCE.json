@@ -1,0 +1,80 @@
+{
+  "schema_version": "roadmap.4x.macro01.1.p4.live_closure_evidence.v1",
+  "mission": "ROADMAP_4X_MACRO_MISSION_01_1_P4_LIVE_CLOSURE_RECONCILIATION",
+  "result": "ROADMAP_4X_MACRO_01_ACCEPTED_LIVE_STATE_INTERNALLY_CONSISTENT_PUBLICATION_EVIDENCE_STABLE",
+  "baseline_head": "74dc98c09f0269f697a0a31423e672a54196656a",
+  "validation_basis_head": "c86f2ae7189eaeae1e021217e13af3f2dc1d5e20",
+  "documentary_closeout_commit": "EXTERNAL_REPORT_REFERENCE",
+  "post_fetch_publication_verification": "EXTERNAL_REPORT_REFERENCE",
+  "publication_rule": "publication_metadata_must_not_chase_its_own_head",
+  "publication_evidence_stable": true,
+  "macro_01_state": "COMPLETE",
+  "historical_repair_state": "CLOSED",
+  "station_6r_state": "COMPLETE",
+  "p4_implementation_started": false,
+  "p4_exposure_authorized": false,
+  "macro_02_started": false,
+  "production_readiness_declared": false,
+  "route_count": 7,
+  "route_ids": [
+    "api_catalog_domain_creation_get",
+    "api_catalog_roles_get",
+    "api_catalog_specializations_get",
+    "api_domains_list_get",
+    "api_domain_profile_catalog_get",
+    "api_domain_agent_presets_get",
+    "api_domain_agent_preset_match_get"
+  ],
+  "gate_count": 9,
+  "gate_status": "ALL_INACTIVE_EXTERNAL_EVIDENCE_REQUIRED_DEFAULT_DENY",
+  "gate_ids": [
+    "G01_IDENTITY_SOURCE",
+    "G02_AUTHENTICATION",
+    "G03_AUTHORIZATION",
+    "G04_TENANT_ISOLATION",
+    "G05_CORS_TRUSTED_ORIGINS",
+    "G06_INGRESS_HOSTING",
+    "G13_PROVIDER_CREDENTIALS",
+    "G18_EXTERNAL_CONSUMER_COMPATIBILITY",
+    "G19_PAYLOAD_RESPONSE_CONTRACT"
+  ],
+  "route_dispositions": {
+    "KEEP_AS_COMPATIBILITY_SURFACE": [
+      "api_catalog_domain_creation_get",
+      "api_catalog_roles_get",
+      "api_catalog_specializations_get",
+      "api_domain_profile_catalog_get"
+    ],
+    "BLOCK_UNTIL_EXTERNAL_EVIDENCE": ["api_domains_list_get"],
+    "CONTAIN": ["api_domain_agent_presets_get", "api_domain_agent_preset_match_get"]
+  },
+  "level_a_validation": {
+    "full_suite": "6966 passed, 6 skipped, 5 warnings in 1636.65s (0:27:16)",
+    "p4_entry_focal": "PASS: 8 passed, 5 warnings",
+    "macro_01_1_focal": "PASS: 11 passed, 1 warning",
+    "historical_replay": "PASS: 8 passed, 1 warning",
+    "gokv": "PASS: valid, 38 items",
+    "json_parse": "PASS: 326 valid JSON files",
+    "py_compile": "PASS",
+    "node_check": "PASS",
+    "secret_policy": "PASS: 12 passed, 1 warning",
+    "protected_diff": "PASS: empty",
+    "git_diff_check": "PASS"
+  },
+  "level_b_protocol": {
+    "full_suite_repeated": false,
+    "reason": "The documentary closeout must not chase its own containing hash.",
+    "post_closeout_checks": ["guards", "json_parse", "gokv", "secret_policy", "protected_diff", "git_diff_check", "git_state"]
+  },
+  "initial_historical_failure": {
+    "suite": "6954 passed, 6 skipped, 5 warnings",
+    "failure": "one historical continuity failure",
+    "repair_commit": "11fa2eef595ea39501ecfb2668f500627633dd5f",
+    "replay": "1 passed, 1 warning",
+    "product_assertions_failed": false
+  },
+  "protected_product_changed": false,
+  "new_gokv_candidate_created": false,
+  "gokv_promotion_performed": false,
+  "macro_02_executed": false
+}
