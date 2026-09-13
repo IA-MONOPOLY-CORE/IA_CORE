@@ -11,6 +11,7 @@
 This is an executable plan in the sense of ordered work, owners, inputs,
 gates, tests, rollback and stop conditions. It does not execute any item in
 the plan and does not authorize production remediation.
+Do not start 4.x from this document.
 
 ## Operating invariants
 
