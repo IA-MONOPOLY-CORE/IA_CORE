@@ -3,7 +3,7 @@
   "mission": "ROADMAP_4X_MACRO_02_P4_BOUNDED_INTERNAL_REMEDIATION_COMPLETE_EXTERNAL_EXPOSURE_DEFAULT_DENIED",
   "result": "ROADMAP_4X_MACRO_02_P4_BOUNDED_INTERNAL_REMEDIATION_COMPLETE_EXTERNAL_EXPOSURE_DEFAULT_DENIED",
   "baseline_head": "3c90529abf5e130624653a247084d773d6620dcb",
-  "validation_basis_head": "4a8b6a381a5c57e55286e4cd784a1e7f967996bd",
+  "validation_basis_head": "274e16cd5086f57afbe9abc73c1132baa34f0223",
   "documentary_closeout_commit": "EXTERNAL_REPORT_REFERENCE",
   "post_fetch_publication_verification": "EXTERNAL_REPORT_REFERENCE",
   "publication_rule": "publication_metadata_must_not_chase_its_own_head",
@@ -61,7 +61,7 @@
     {"gate_id": "G19_PAYLOAD_RESPONSE_CONTRACT", "internal_status": "PROTECTED_AND_TESTED", "external_status": "BLOCKED_EXTERNAL_COMPATIBILITY_EVIDENCE_REQUIRED", "active_now": false}
   ],
   "validation": {
-    "level_a_full_suite": "PASS: 6986 passed, 6 skipped, 5 warnings in 1537.34s (0:25:37)",
+    "level_a_full_suite": "PASS: 6986 passed, 6 skipped, 5 warnings in 1541.24s (0:25:41)",
     "macro_02_focal": "PASS: 20 passed",
     "historical_relevant": "PASS: 27 passed, 5 warnings in 14.02s",
     "catalog_domain_compatibility": "PASS: 18 passed, 5 warnings in 13.76s",

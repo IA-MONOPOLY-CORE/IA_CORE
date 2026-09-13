@@ -10,7 +10,7 @@
 - External exposure readiness: `BLOCKED_DEFAULT_DENY`
 - Production readiness: `NOT_AUTHORIZED`
 - Macro-Mission 03: `NOT_STARTED`
-- `VALIDATION_BASIS_HEAD`: `4a8b6a381a5c57e55286e4cd784a1e7f967996bd`
+- `VALIDATION_BASIS_HEAD`: `274e16cd5086f57afbe9abc73c1132baa34f0223`
 - Documentary closeout commit: identified externally after this record is committed.
 - Post-fetch publication verification: identified externally after normal push and fetch.
 
@@ -117,9 +117,9 @@ not be interpreted as production authorization.
 
 ## Validation Basis
 
-Level A was run on `4a8b6a381a5c57e55286e4cd784a1e7f967996bd` and passed:
+Level A was run on `274e16cd5086f57afbe9abc73c1132baa34f0223` and passed:
 
-- Full repository suite: `6986 passed, 6 skipped, 5 warnings` in `1537.34 s`.
+- Full repository suite: `6986 passed, 6 skipped, 5 warnings` in `1541.24 s`.
 - Macro 02 focal suite: `20 passed` across the pure access and bounded-route tests.
 - Historical relevant replay: `27 passed, 5 warnings` in `14.02 s`.
 - Catalog/domain compatibility suite: `18 passed, 5 warnings` in `13.76 s`.
@@ -133,10 +133,10 @@ Level A was run on `4a8b6a381a5c57e55286e4cd784a1e7f967996bd` and passed:
 - Protected diff: PASS, zero forbidden files.
 - `git diff --check`: PASS.
 
-The full suite required two historical allowlist repairs after legitimate P4
-code displacement. Each repair preserved the original assertions and scoped
-the exception to its own checkpoint. The third full run is the valid green
-basis above.
+The full suite required three historical allowlist repairs after legitimate
+P4 code or documentary displacement. Each repair preserved the original
+assertions and scoped the exception to its own checkpoint. The final
+post-closeout full run is the valid green basis above.
 
 ## Protected Boundary and Publication
 
