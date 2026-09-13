@@ -186,3 +186,21 @@ No implementa composición empresarial, expansión taxonómica, vector DB,
 runtime, execution, scheduler, providers, instalación de modelos, auth,
 hardware engine, recommendation engine nuevo ni UI. Roadmap 3.1 de seguridad,
 permisos y activación read-only continúa siendo el siguiente bloque técnico.
+
+## Roadmap 3.x Macro-Mission 04
+
+La completitud verdadera de 3.x queda recalibrada en el [True Completion
+Contract](ROADMAP_3_X_TRUE_COMPLETION_CONTRACT.md), con cobertura original
+3.0-3.9 en [Original Scope Evidence Coverage](ROADMAP_3_X_ORIGINAL_SCOPE_EVIDENCE_COVERAGE.md)
+y su [Gap Register](ROADMAP_3_X_TRUE_COMPLETION_GAP_REGISTER.json). El paquete
+de decisiones, el plan ejecutable para una futura entrada 4.x y el forecast son
+[Direction Decision Packet](ROADMAP_3_X_DIRECTION_DECISION_PACKET.md),
+[Completion Execution Plan](ROADMAP_3_X_COMPLETION_EXECUTION_PLAN.md) y
+[Delivery Horizon Forecast](IA_CORE_DELIVERY_HORIZON_FORECAST.md).
+
+El [Macro 04 Checkpoint](ROADMAP_3_X_MACRO_04_CHECKPOINT.md) informa evidencia
+tecnica completa para el limite documental del repositorio y decisiones listas
+para Direccion. No declara `B7_ACCEPTED`, `ROADMAP_3_X_CLOSED`, production
+readiness ni ejecucion de Roadmap 4.x. Las 36 rutas legacy conservan destino
+`UNKNOWN` y ningun adapter, runtime, provider, endpoint o remediacion
+productiva fue creado.

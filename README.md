@@ -1630,3 +1630,10 @@ No UI activa, no JS, no backend, no runtime, no execution, no JSON TOP 15, no fi
 - B-7 queda en `B7_READY_FOR_DIRECTION_ACCEPTANCE`: la responsabilidad documental esta lista para aceptacion, sin declarar `ROADMAP_3_X_CLOSED` ni production readiness.
 - [Grafo completo](docs/ROADMAP_3_X_FULL_PHASE_EXECUTION_GRAPH.md), [mapa de fronteras](docs/ROADMAP_3_X_FRONTIER_ENGINEERING_MAP.json), [familias F-004](docs/ROADMAP_3_X_MACRO_03_F004_FAMILY_DECISION_SUFFICIENCY.md) y [matriz B-7](docs/ROADMAP_3_X_MACRO_03_B7_CLOSURE_READINESS_MATRIX.md).
 - Roadmap 4.x queda preparado solamente como contrato de entrada parcial y candidato; no fue ejecutado, no se crearon adapters y no se modifico producto.
+
+## Roadmap 3.x Macro-Mission 04
+
+- La completitud verdadera de 3.x fue recalibrada como verdad backend completa, cobertura de auditoria completa, findings listos para decision y plan ejecutable para 4.x.
+- El crosswalk 3.0-3.9, el gap register, el paquete de Direccion, el plan de cierre y el forecast quedan publicados sin declarar `B7_ACCEPTED`, `ROADMAP_3_X_CLOSED` ni production readiness.
+- [Contrato](docs/ROADMAP_3_X_TRUE_COMPLETION_CONTRACT.md), [cobertura](docs/ROADMAP_3_X_ORIGINAL_SCOPE_EVIDENCE_COVERAGE.md), [gap register](docs/ROADMAP_3_X_TRUE_COMPLETION_GAP_REGISTER.json), [decision packet](docs/ROADMAP_3_X_DIRECTION_DECISION_PACKET.md), [plan](docs/ROADMAP_3_X_COMPLETION_EXECUTION_PLAN.md), [forecast](docs/IA_CORE_DELIVERY_HORIZON_FORECAST.md) y [checkpoint](docs/ROADMAP_3_X_MACRO_04_CHECKPOINT.md).
+- Las 36 rutas legacy permanecen `UNKNOWN`; no se crearon adapters, bridges, migraciones, payload v2, runtime, execution, providers, endpoints ni cambios productivos. Roadmap 4.x permanece bloqueado hasta la decision y los gates correspondientes.

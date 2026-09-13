@@ -1,0 +1,154 @@
+{
+  "schema_version": "roadmap.checkpoint.evidence.v1",
+  "mission": "ROADMAP_3X_MACRO_MISSION_04_TRUE_COMPLETION_RECALIBRATION_EVIDENCE_COVERAGE_AND_CLOSURE_PATH",
+  "repository": "C:/IA_CORE",
+  "branch": "main",
+  "baseline_head": "43530e656066a3c40d9afb8a5a4a381b38f29f38",
+  "entry_head": "43530e656066a3c40d9afb8a5a4a381b38f29f38",
+  "final_published_head": "CONTAINING_CHECKPOINT_COMMIT_VERIFIED_POST_FETCH",
+  "result": "ROADMAP_3X_TRUE_COMPLETION_TECHNICAL_EVIDENCE_COMPLETE_DIRECTION_DECISIONS_READY",
+  "outcome": "TECHNICAL_EVIDENCE_COMPLETE_DIRECTION_DECISIONS_READY",
+  "phase_exit_claim": "ROADMAP_3_X_CLOSED_NOT_DECLARED",
+  "mode": "READ_ONLY_DOCUMENTARY_ARCHITECTURE_AND_PLANNING",
+  "preflight": {
+    "root": "C:/IA_CORE",
+    "branch": "main",
+    "head": "43530e656066a3c40d9afb8a5a4a381b38f29f38",
+    "origin_main": "43530e656066a3c40d9afb8a5a4a381b38f29f38",
+    "ahead_behind": "0/0",
+    "working_tree": "clean_at_entry",
+    "git_diff_check": "PASS_AT_ENTRY",
+    "git_fetch_origin": "PASS"
+  },
+  "true_completion_contract": {
+    "document": "docs/ROADMAP_3_X_TRUE_COMPLETION_CONTRACT.md",
+    "complete_backend_truth": "PASS_FOR_REPOSITORY_AND_CONTRACT_SURFACE",
+    "complete_audit_coverage": "PASS_FOR_ORIGINAL_3.0_TO_3.9_SCOPE",
+    "decision_ready_findings": "PASS",
+    "executable_remediation_plan_for_4x": "PASS_PLAN_SHAPE_ONLY",
+    "roadmap_4x_execution": false,
+    "b7_accepted": false,
+    "production_ready": false
+  },
+  "original_scope": {
+    "crosswalk": "docs/ROADMAP_3_X_ORIGINAL_SCOPE_EVIDENCE_COVERAGE.md",
+    "gap_register": "docs/ROADMAP_3_X_TRUE_COMPLETION_GAP_REGISTER.json",
+    "record_count": 10,
+    "requirement_ids": ["3.0", "3.1", "3.2", "3.3", "3.4", "3.5", "3.6", "3.7", "3.8", "3.9"],
+    "duplicate_requirement_ids": [],
+    "unclassified_missing_records": 0,
+    "states": {"AUDITED": 9, "REMEDIATION_READY": 1, "DECIDED": 0, "REMEDIATED": 0, "ACTIVATED": 0, "PRODUCTION_READY": 0},
+    "coverage_results": {"VERIFIED_COMPLETE": 2, "PARTIAL": 2, "EXTERNAL_EVIDENCE_REQUIRED": 3, "TRUE_HARD_FRONTIER": 1, "DIRECTION_DECISION_REQUIRED": 2}
+  },
+  "block_recalibration": {
+    "B-0": {"before": "INHERITED", "after": "TRUE_COMPLETION_CONTRACT_EXPLICIT"},
+    "B-1": {"before": "CLOSED_WITH_EXPLICIT_LIMITS", "after": "AUDITED_EXTERNAL_TRUST_PENDING"},
+    "B-2": {"before": "CLOSED_WITH_EXPLICIT_LIMITS", "after": "AUDITED_36_UNKNOWN_DESTINATIONS"},
+    "B-3": {"before": "CONTRACT_READY", "after": "AUDITED_POSITIVE_COVERAGE_UNPROVEN"},
+    "B-4": {"before": "CONTRACT_READY", "after": "AUDITED_RUNTIME_PROVIDER_CLOSED"},
+    "B-5": {"before": "CONTRACT_READY", "after": "AUDITED_PRODUCT_OWNERSHIP_OPEN"},
+    "B-6": {"before": "CONTRACT_READY_INTERNAL_NO_ACTIVE_WORKFORCE", "after": "AUDITED_WORKFORCE_INACTIVE"},
+    "B-7": {"before": "DIRECTION_DECISION_PENDING", "after": "DECISION_PACKET_READY_ACCEPTANCE_PENDING"}
+  },
+  "frontiers": {
+    "record": "docs/ROADMAP_3_X_FRONTIER_ENGINEERING_MAP.json",
+    "total": 12,
+    "F-000": "DISSOLVED",
+    "F-001": "EXTERNAL_EVIDENCE_REQUIRED",
+    "F-002": "TRUE_HARD_FRONTIER",
+    "F-003": "EXTERNAL_EVIDENCE_REQUIRED",
+    "F-004": "TRUE_HARD_FRONTIER_36_UNKNOWN",
+    "F-005": "OPEN_POSITIVE_ROUTE_COVERAGE_UNPROVEN",
+    "F-006": "OPEN_LIFECYCLE_CONDITIONAL",
+    "F-007": "EXTERNAL_EVIDENCE_REQUIRED",
+    "F-008": "OPEN_PERSISTENCE_OWNERSHIP",
+    "F-009": "DEFERRED_SANDBOX_ONLY",
+    "F-010": "OPEN_WORKFORCE_CONDITIONAL",
+    "F-011": "TRUE_HARD_FRONTIER_DIRECTION_ACCEPTANCE"
+  },
+  "route_accounting": {
+    "record": "docs/ROADMAP_3_X_DIRECTION_DECISION_PACKET.md",
+    "route_count": 36,
+    "methods": {"GET": 22, "POST": 12, "PUT": 1, "DELETE": 1},
+    "families": {"P1": 4, "P2": 6, "P3": 7, "P4": 7, "P5": 1, "P6": 5, "P7": 2, "P8": 3, "P9": 1},
+    "unknown_destinations": 36,
+    "recommendations_non_authorizing": true,
+    "adapter_count": 0,
+    "route_mutations": 0
+  },
+  "direction": {
+    "packet": "docs/ROADMAP_3_X_DIRECTION_DECISION_PACKET.md",
+    "state": "DECISION_READY_NOT_DECIDED",
+    "minimum_decision": "Accept or reject the recalibrated technical evidence package with F-001 through F-011 preserved.",
+    "route_family_selected": false,
+    "destination_selected": false,
+    "human_acceptance_required": true
+  },
+  "tests": {
+    "focal_macro_04": "8 passed, 1 warning, 11.01s",
+    "related_roadmap": "67 passed, 1 warning, 15.52s",
+    "historical_repair_focal": "173 passed, 1 warning, 63.73s",
+    "full_suite": {"collected": 6937, "passed": 6931, "failed": 0, "skipped": 6, "warnings": 5, "duration_seconds": 1561.55, "log": "C:/Users/Santi/AppData/Local/Temp/ia-core-macro-04-final-suite-final.txt"},
+    "attempts": [
+      {"label": "initial_pre_repair", "collected": 6937, "passed": 6921, "failed": 10, "skipped": 6, "warnings": 5, "duration_seconds": 1551.17, "cause": "four new untracked Macro 04 documentary/test paths were not in the historical context allowlist"},
+      {"label": "post_repair_before_macro04_allowlist_fix", "collected": 6937, "passed": 6930, "failed": 1, "skipped": 6, "warnings": 5, "duration_seconds": 1612.69, "cause": "Macro 04 own changed-path guard omitted the explicit historical repair file"},
+      {"label": "final_green", "collected": 6937, "passed": 6931, "failed": 0, "skipped": 6, "warnings": 5, "duration_seconds": 1589.81},
+      {"label": "final_validation_green", "collected": 6937, "passed": 6931, "failed": 0, "skipped": 6, "warnings": 5, "duration_seconds": 1561.55, "log": "C:/Users/Santi/AppData/Local/Temp/ia-core-macro-04-final-suite-final.txt"}
+    ],
+    "json_schema": "PASS",
+    "py_compile": "PASS",
+    "node_check": "PASS",
+    "secret_scan": "PASS",
+    "protected_diff": "EMPTY",
+    "git_diff_check": "PASS"
+  },
+  "gokv_dool_oci": {
+    "vault_items": 38,
+    "candidate": 22,
+    "validated": 9,
+    "promoted": 7,
+    "new_candidates": [],
+    "automatic_promotion": false,
+    "oci_mode": "PROMOTED_ONLY",
+    "runtime_or_operational_use": false
+  },
+  "duration": {
+    "OPERATION_STARTED_AT": "2026-09-13T07:37:13.0523111-03:00",
+    "FIRST_MATERIAL_COMMIT_AT": "2026-09-13T07:43:57-03:00",
+    "OPERATION_FINISHED_AT": "2026-09-13T09:59:10.4243915-03:00",
+    "PUBLISH_FINISHED_AT": "CONTAINING_CHECKPOINT_POST_FETCH_TIMESTAMP",
+    "CALENDAR_DURATION_AVAILABLE": "FROM_FIRST_MATERIAL_COMMIT_TO_PUBLICATION_ONLY",
+    "SUITE_DURATION": "1561.55s_FINAL_FULL_SUITE",
+    "INTERRUPTIONS_KNOWN": "ONE_CONTEXT_INTERRUPTION_BEFORE_RESUME; NO_DATA_LOSS",
+    "MEASUREMENT_QUALITY": "SUITE_AND_COMMIT_TIMESTAMPS_MEASURED; CALENDAR_SPAN_EXCLUDES_UNOBSERVED_PRECOMMIT_GAP"
+  },
+  "scope": {
+    "product_changes": false,
+    "html_css_javascript_i18n": false,
+    "backend": false,
+    "payload_v2": false,
+    "runtime": false,
+    "execution": false,
+    "endpoints": false,
+    "integrations": false,
+    "providers": false,
+    "secret_values_read": false,
+    "external_network": false,
+    "route_adapters": false,
+    "roadmap_4x_executed": false,
+    "protected_paths_unchanged": true
+  },
+  "commits": {
+    "ledger": "docs/ROADMAP_3_X_MACRO_04_COMMIT_ACCOUNTABILITY_LEDGER.md",
+    "station_commits": [
+      "1bf5e837ee3766a38fa028c21f1200178e748acf",
+      "57a2af31e852fca549f55b232393a0d8aff6780c",
+      "a5808e6078f0e5aa888ff6ebc50262a6749b9cdf"
+    ],
+    "checkpoint_commit": "CONTAINING_CHECKPOINT_COMMIT",
+    "repair_commits": ["580721d03c309b87cad4b2fdc95af6f0401ebbee"],
+    "one_station_one_commit": true,
+    "history_rewritten": false
+  },
+  "result_note": "Technical evidence is complete for the reconstructed repository boundary; Direction acceptance and future remediation remain unclaimed."
+}
