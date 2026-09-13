@@ -24,7 +24,17 @@ ROOT = Path(__file__).resolve().parent
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
-from fastapi import FastAPI, BackgroundTasks, HTTPException, UploadFile, File, Form, Request, Body
+from fastapi import (
+    FastAPI,
+    BackgroundTasks,
+    Body,
+    Depends,
+    File,
+    Form,
+    HTTPException,
+    Request,
+    UploadFile,
+)
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
@@ -47,6 +57,13 @@ from core.domain_registry import (
     list_domains,
     load_domain,
     resolve_agent_json,
+)
+from core.p4_request_access import (
+    P4Principal,
+    require_p4_access,
+    resolve_p4_principal,
+    sanitize_p4_agent_preset,
+    sanitize_p4_agent_presets,
 )
 from core.supervisor import MEMORY_HISTORY_KEY, Supervisor
 from core.orchestration import ExecutionMode
@@ -999,8 +1016,11 @@ async def get_conversation(conversation_id: str):
 # Dominios (genéricos)
 # ========================================================================
 @app.get("/api/catalogs/domain-creation")
-async def get_domain_creation_catalog_endpoint() -> dict:
+async def get_domain_creation_catalog_endpoint(
+    principal: P4Principal = Depends(resolve_p4_principal),
+) -> dict:
     """Devuelve catálogos compartidos para asistir la creación de dominios."""
+    require_p4_access(principal, required_capability="global_catalogs.read")
     try:
         return {"success": True, **get_domain_creation_catalog()}
     except (FileNotFoundError, ValueError) as exc:
@@ -1008,8 +1028,11 @@ async def get_domain_creation_catalog_endpoint() -> dict:
 
 
 @app.get("/api/catalogs/roles")
-async def get_roles_catalog_endpoint() -> dict:
+async def get_roles_catalog_endpoint(
+    principal: P4Principal = Depends(resolve_p4_principal),
+) -> dict:
     """Devuelve roles/arquetipos profesionales globales."""
+    require_p4_access(principal, required_capability="global_catalogs.read")
     try:
         return {"success": True, **get_roles_catalog()}
     except (FileNotFoundError, ValueError) as exc:
@@ -1017,8 +1040,12 @@ async def get_roles_catalog_endpoint() -> dict:
 
 
 @app.get("/api/catalogs/specializations")
-async def get_specializations_catalog_endpoint(role_id: str | None = None) -> dict:
+async def get_specializations_catalog_endpoint(
+    role_id: str | None = None,
+    principal: P4Principal = Depends(resolve_p4_principal),
+) -> dict:
     """Devuelve especializaciones profesionales globales agrupadas por rol."""
+    require_p4_access(principal, required_capability="global_catalogs.read")
     try:
         return {"success": True, **get_specializations_catalog(role_id=role_id)}
     except ValueError as exc:
@@ -1030,8 +1057,18 @@ async def get_specializations_catalog_endpoint(role_id: str | None = None) -> di
 
 
 @app.get("/api/domains/list")
-async def get_domains() -> dict:
-    domains = list_domains()
+async def get_domains(
+    principal: P4Principal = Depends(resolve_p4_principal),
+) -> dict:
+    require_p4_access(principal, required_capability="tenant_domains.read")
+    authorized_domain_ids = set(principal.authorized_domain_ids or ())
+    domains = [
+        domain
+        for domain in list_domains()
+        if isinstance(domain, dict)
+        and domain.get("id") in authorized_domain_ids
+        and domain.get("tenant_id", principal.tenant_id) == principal.tenant_id
+    ]
     return {
         "success": True,
         "domains": domains,
@@ -1041,35 +1078,70 @@ async def get_domains() -> dict:
 
 
 @app.get("/api/domains/{domain_id}/profile-catalog")
-async def get_domain_profile_catalog_endpoint(domain_id: str) -> dict:
+async def get_domain_profile_catalog_endpoint(
+    domain_id: str,
+    principal: P4Principal = Depends(resolve_p4_principal),
+) -> dict:
     """Devuelve el catálogo read-only de perfiles habilitados para un dominio."""
+    require_p4_access(
+        principal,
+        required_capability="tenant_domains.read",
+        domain_id=domain_id,
+    )
     try:
         return {"success": True, **get_domain_profile_catalog(domain_id)}
     except FileNotFoundError as exc:
-        raise HTTPException(status_code=404, detail=str(exc)) from exc
+        raise HTTPException(
+            status_code=404,
+            detail={"code": "P4_DOMAIN_RESOURCE_NOT_FOUND"},
+        ) from exc
     except ValueError as exc:
         message = str(exc)
         status_code = 400 if "inválid" in message.lower() else 500
-        raise HTTPException(status_code=status_code, detail=message) from exc
+        raise HTTPException(
+            status_code=status_code,
+            detail={
+                "code": (
+                    "P4_RESOURCE_IDENTIFIER_INVALID"
+                    if status_code == 400
+                    else "P4_DOMAIN_RESOURCE_UNAVAILABLE"
+                )
+            },
+        ) from exc
 
 
 @app.get("/api/domains/{domain_id}/agent-presets")
-async def get_domain_agent_presets_endpoint(domain_id: str) -> dict:
+async def get_domain_agent_presets_endpoint(
+    domain_id: str,
+    principal: P4Principal = Depends(resolve_p4_principal),
+) -> dict:
     """Devuelve presets read-only de agentes para un dominio."""
+    require_p4_access(
+        principal,
+        required_capability="tenant_agent_presets.read_sanitized",
+        domain_id=domain_id,
+    )
     try:
-        return {"success": True, **get_domain_agent_presets(domain_id)}
+        catalog = get_domain_agent_presets(domain_id)
+        return {"success": True, **sanitize_p4_agent_presets(catalog)}
     except FileNotFoundError as exc:
-        raise HTTPException(status_code=404, detail=str(exc)) from exc
+        raise HTTPException(
+            status_code=404,
+            detail={"code": "P4_DOMAIN_RESOURCE_NOT_FOUND"},
+        ) from exc
     except ValueError as exc:
         message = str(exc)
         lowered = message.lower()
-        if "dominio no encontrado" in lowered:
-            status_code = 404
-        elif "inv" in lowered or "inexistente" in lowered or "no existe" in lowered:
+        if "inv" in lowered or "inexistente" in lowered or "no existe" in lowered:
             status_code = 400
+            code = "P4_RESOURCE_IDENTIFIER_INVALID"
+        elif "dominio no encontrado" in lowered:
+            status_code = 404
+            code = "P4_DOMAIN_RESOURCE_NOT_FOUND"
         else:
             status_code = 500
-        raise HTTPException(status_code=status_code, detail=message) from exc
+            code = "P4_DOMAIN_RESOURCE_UNAVAILABLE"
+        raise HTTPException(status_code=status_code, detail={"code": code}) from exc
 
 
 @app.get("/api/domains/{domain_id}/agent-presets/match")
@@ -1077,8 +1149,14 @@ async def get_domain_agent_preset_match_endpoint(
     domain_id: str,
     role_id: str,
     specialization_id: str,
+    principal: P4Principal = Depends(resolve_p4_principal),
 ) -> dict:
     """Devuelve un preset exacto por role_id + specialization_id."""
+    require_p4_access(
+        principal,
+        required_capability="tenant_agent_presets.read_sanitized",
+        domain_id=domain_id,
+    )
     try:
         preset = get_domain_agent_preset(
             domain_id,
@@ -1086,27 +1164,34 @@ async def get_domain_agent_preset_match_endpoint(
             specialization_id=specialization_id,
         )
     except FileNotFoundError as exc:
-        raise HTTPException(status_code=404, detail=str(exc)) from exc
+        raise HTTPException(
+            status_code=404,
+            detail={"code": "P4_DOMAIN_RESOURCE_NOT_FOUND"},
+        ) from exc
     except ValueError as exc:
         message = str(exc)
         lowered = message.lower()
         if "dominio no encontrado" in lowered:
             status_code = 404
+            code = "P4_DOMAIN_RESOURCE_NOT_FOUND"
         elif "inv" in lowered or "inexistente" in lowered or "no existe" in lowered:
             status_code = 400
+            code = "P4_RESOURCE_IDENTIFIER_INVALID"
         else:
             status_code = 500
-        raise HTTPException(status_code=status_code, detail=message) from exc
+            code = "P4_DOMAIN_RESOURCE_UNAVAILABLE"
+        raise HTTPException(status_code=status_code, detail={"code": code}) from exc
 
     if preset is None:
         raise HTTPException(
             status_code=404,
-            detail=(
-                f"No existe preset activo para role_id={role_id} "
-                f"y specialization_id={specialization_id} en dominio {domain_id}"
-            ),
+            detail={"code": "P4_PRESET_MATCH_NOT_FOUND"},
         )
-    return {"success": True, "domain_id": domain_id, "preset": preset}
+    return {
+        "success": True,
+        "domain_id": domain_id,
+        "preset": sanitize_p4_agent_preset(preset),
+    }
 
 
 @app.post("/api/domains/create")
