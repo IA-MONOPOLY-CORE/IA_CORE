@@ -48,6 +48,7 @@ _OVERRIDES = {
 _CURRENT_GUARD_MODULES = {
     "tests/test_ui_ux_panel_maestro_controlled_double_scope_affordances_severity_1_192.py",
     "tests/test_roadmap_4x_macro_03_checkpoint.py",
+    "tests/test_roadmap_4x_macro_04_p1_entry_review.py",
 }
 _CURRENT_MISSION_CONTINUITY_GUARD_MODULES = frozenset(
     {
@@ -56,6 +57,7 @@ _CURRENT_MISSION_CONTINUITY_GUARD_MODULES = frozenset(
         "tests/test_ui_ux_panel_maestro_responsive_visual_coherence_assembled_block_1_194.py",
         "tests/test_ui_ux_panel_maestro_css_accessibility_responsive_large_scale_block_1_196.py",
         "tests/test_roadmap_4x_macro_03_checkpoint.py",
+        "tests/test_roadmap_4x_macro_04_p1_entry_review.py",
     }
 )
 _SECONDARY_HISTORICAL_FILES = frozenset(
@@ -191,6 +193,17 @@ _CURRENT_MISSION_DOCUMENTARY_FILES = frozenset(
         "docs/ROADMAP_4X_MACRO_03_CHECKPOINT_EVIDENCE.json",
         "docs/ROADMAP_4X_MACRO_03_COMMIT_ACCOUNTABILITY_LEDGER.md",
         "tests/test_roadmap_4x_macro_03_checkpoint.py",
+        "docs/FUTURE_IA_CORE_ENTERPRISE_FOUNDRY_AND_AGENT_LINEAGE.md",
+        "docs/ROADMAP_4X_MACRO_04_P1_ROUTE_SOURCE_PAYLOAD_AND_CONSUMER_MATRIX.json",
+        "docs/ROADMAP_4X_MACRO_04_P1_SENSITIVITY_AUTHORITY_AND_VISIBILITY_CONTRACT.md",
+        "docs/ROADMAP_4X_MACRO_04_P1_FAMILY_COHERENCE_ADJUDICATION.md",
+        "docs/ROADMAP_4X_MACRO_04_P1_COMPATIBILITY_AND_GATE_MATRIX.json",
+        "docs/ROADMAP_4X_MACRO_04_P1_BOUNDED_REMEDIATION_EXECUTION_PLAN.md",
+        "docs/ROADMAP_4X_MACRO_04_P1_GOKV_DOOL_OCI_RECONCILIATION.md",
+        "docs/ROADMAP_4X_MACRO_04_P1_ENTRY_REVIEW_CHECKPOINT.md",
+        "docs/ROADMAP_4X_MACRO_04_P1_ENTRY_REVIEW_EVIDENCE.json",
+        "docs/ROADMAP_4X_MACRO_04_P1_COMMIT_ACCOUNTABILITY_LEDGER.md",
+        "tests/test_roadmap_4x_macro_04_p1_entry_review.py",
     }
 )
 _HISTORICAL_FILES = frozenset(_LEDGER_NODE_RE.findall(LEDGER.read_text(encoding="utf-8"))) | _SECONDARY_HISTORICAL_FILES
