@@ -1740,3 +1740,12 @@ Ver [checkpoint](docs/ROADMAP_4X_MACRO_03_CHECKPOINT.md),
 [reconciliación JSON](docs/ROADMAP_4X_MACRO_03_JSON_CENSUS_RECONCILIATION.md),
 [ledger](docs/ROADMAP_4X_MACRO_03_COMMIT_ACCOUNTABILITY_LEDGER.md) y
 [reconciliación GOKV/DOOL/OCI](docs/ROADMAP_4X_MACRO_03_GOKV_DOOL_OCI_RECONCILIATION.md).
+
+## Future Enterprise Foundry and agent lineage
+
+The future concept `IA_CORE_ENTERPRISE_FOUNDRY` is preserved as
+`FUTURE_CONCEPT_PRESERVED_NOT_SCHEDULED_NOT_IMPLEMENTED` in [Enterprise Foundry
+and Agent Lineage](docs/FUTURE_IA_CORE_ENTERPRISE_FOUNDRY_AND_AGENT_LINEAGE.md).
+It does not activate Enterprise Foundry, alter the Roadmap 4.x order, or
+authorize product, runtime, execution, permissions, integrations, secrets,
+companies, agents, or external actions.

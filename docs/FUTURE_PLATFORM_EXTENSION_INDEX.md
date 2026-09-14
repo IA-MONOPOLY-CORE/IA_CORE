@@ -317,3 +317,14 @@ Ver [checkpoint](ROADMAP_4X_MACRO_02_1_P4_POST_BOUNDARY_E2E_CHECKPOINT.md),
 [matriz semántica](ROADMAP_4X_MACRO_02_1_P4_SEMANTIC_SANITIZATION_MATRIX.md),
 [ledger](ROADMAP_4X_MACRO_02_1_P4_COMMIT_ACCOUNTABILITY_LEDGER.md) y
 [reconciliación GOKV/DOOL/OCI](ROADMAP_4X_MACRO_02_1_P4_GOKV_DOOL_OCI_RECONCILIATION.md).
+
+## Future Enterprise Foundry and agent lineage
+
+The future concept `IA_CORE_ENTERPRISE_FOUNDRY` and umbrella protocol
+`AGENT_FOUNDER_PROMOTION_AND_FEDERATED_ENTERPRISE_LINEAGE_PROTOCOL` are
+preserved in [Enterprise Foundry and Agent Lineage](FUTURE_IA_CORE_ENTERPRISE_FOUNDRY_AND_AGENT_LINEAGE.md).
+Its state is `FUTURE_CONCEPT_PRESERVED_NOT_SCHEDULED_NOT_IMPLEMENTED`.
+The document records Owner authority, bounded promotion, enterprise-local
+reality, Draft-first creation, capability passports, Founding Lease, and
+hardware-aware growth without activating any capability or changing the
+Roadmap 4.x sequence.
