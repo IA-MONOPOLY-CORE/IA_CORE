@@ -1741,6 +1741,13 @@ Ver [checkpoint](docs/ROADMAP_4X_MACRO_03_CHECKPOINT.md),
 [ledger](docs/ROADMAP_4X_MACRO_03_COMMIT_ACCOUNTABILITY_LEDGER.md) y
 [reconciliación GOKV/DOOL/OCI](docs/ROADMAP_4X_MACRO_03_GOKV_DOOL_OCI_RECONCILIATION.md).
 
+## Roadmap 4.x Macro-Mission 04 - P1 Entry Review
+
+- Resultado en validación: `ROADMAP_4X_MACRO_04_P1_ENTRY_REVIEW_COMPLETE_SUBFAMILY_SPLIT_CONTRACTED_FUTURE_ENTERPRISE_FOUNDRY_CONCEPT_PRESERVED_INTERNAL_REMEDIATION_NOT_STARTED`.
+- P1 quedó comprendida mediante una matriz exacta de cuatro rutas. La primera subfamilia futura seleccionada es `P1-A_PLATFORM_STATUS_HEALTH_SELECTED_NOT_STARTED`; memoria, logs/eventos y métricas siguen diferidos.
+- Level A pasó `7016` tests, con `6 skipped` y `6 warnings`; P1 no fue remediada ni expuesta y Macro-Mission 05 no fue iniciada.
+- [Checkpoint](docs/ROADMAP_4X_MACRO_04_P1_ENTRY_REVIEW_CHECKPOINT.md), [evidencia](docs/ROADMAP_4X_MACRO_04_P1_ENTRY_REVIEW_EVIDENCE.json), [matriz de rutas](docs/ROADMAP_4X_MACRO_04_P1_ROUTE_SOURCE_PAYLOAD_AND_CONSUMER_MATRIX.json), [contrato de visibilidad](docs/ROADMAP_4X_MACRO_04_P1_SENSITIVITY_AUTHORITY_AND_VISIBILITY_CONTRACT.md), [gates](docs/ROADMAP_4X_MACRO_04_P1_COMPATIBILITY_AND_GATE_MATRIX.json), [plan futuro](docs/ROADMAP_4X_MACRO_04_P1_BOUNDED_REMEDIATION_EXECUTION_PLAN.md), [adjudicación](docs/ROADMAP_4X_MACRO_04_P1_FAMILY_COHERENCE_ADJUDICATION.md), [GOKV](docs/ROADMAP_4X_MACRO_04_P1_GOKV_DOOL_OCI_RECONCILIATION.md) y [ledger](docs/ROADMAP_4X_MACRO_04_P1_COMMIT_ACCOUNTABILITY_LEDGER.md).
+
 ## Future Enterprise Foundry and agent lineage
 
 The future concept `IA_CORE_ENTERPRISE_FOUNDRY` is preserved as

@@ -4,7 +4,7 @@
 
 ## Ledger state
 
-`VALIDATION_PENDING_LEVEL_A`
+`LEVEL_A_PASS_PENDING_LEVEL_B`
 
 Baseline: `eda265c15bed0aedce4a8bfb141f39905e03a61b` on `main`.
 
@@ -16,16 +16,17 @@ Baseline: `eda265c15bed0aedce4a8bfb141f39905e03a61b` on `main`.
 | Family adjudication | `3973e8f` | Evidence-backed P1 subfamily split and first selection | complete |
 | Future plan | `07e7b14` | Bounded status/health remediation plan, not executed | complete |
 | GOKV reconciliation | `91653fa` | Read-only `NO_NEW_CANDIDATE` reconciliation | complete |
-| Guard and exact reservations | pending | Macro 04 guard plus historical nominal allowlists | pending |
-| Validation basis | pending | All pre-final documents and guard required for full suite | pending |
-| Final checkpoint | pending | Final timestamps, tests, census, evidence and ledger closure | pending |
+| Guard and exact reservations | `46202db` + `02dc490` | Macro 04 guard plus historical nominal allowlists | complete |
+| Validation basis | `02dc490` | All pre-final documents and guard required for full suite | complete |
+| Level A validation | `7016 passed` | Focal, historical, P4, secret, GOKV, compile, JSON and protected diff checks | complete |
+| Final checkpoint | pending | Level B timestamps, final evidence and ledger closure | pending |
 
 ## Current boundary
 
-The current working state is intentionally not reported as fully validated.
-The checkpoint and evidence JSON use `PENDING_LEVEL_A` and contain no claimed
-suite result. The final documentation commit must replace those pending values
-only after the validation basis and full suite produce evidence.
+Level A is validated. The checkpoint and evidence JSON intentionally keep
+Level B marked pending until the documentary closeout commit is verified.
+Level B must repeat the Macro 04 guard, affected historical guards, P1/P4,
+secret policy, GOKV, JSON census, diff and status checks.
 
 No product file is permitted in any station. Prohibited surfaces include
 `api.py`, `core/`, `domains/`, `catalogs/`, stores, runtime, execution,

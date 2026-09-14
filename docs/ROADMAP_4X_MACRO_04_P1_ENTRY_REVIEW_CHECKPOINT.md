@@ -6,7 +6,7 @@
 
 `ROADMAP_4X_MACRO_04_P1_ENTRY_REVIEW_COMPLETE_SUBFAMILY_SPLIT_CONTRACTED_FUTURE_ENTERPRISE_FOUNDRY_CONCEPT_PRESERVED_INTERNAL_REMEDIATION_NOT_STARTED`
 
-`VALIDATION_STATUS = PENDING_LEVEL_A`
+`VALIDATION_STATUS = LEVEL_A_PASS_PENDING_LEVEL_B`
 
 Macro 04 reconstructed exactly the four historical P1 routes, classified
 their source/payload/consumer evidence, fixed future visibility boundaries,
@@ -47,7 +47,12 @@ P1 remains `PREPARED_NOT_STARTED` and
 
 ## Validation record
 
-The Level A suite, affected historical guards, P4 replay, secret policy,
-GOKV validation, JSON census, `py_compile`, `git diff --check`, protected diff,
-and full repository suite are pending at document creation. This checkpoint
-does not claim a test result that has not yet been executed.
+Level A passed with `7016 passed, 6 skipped, 6 warnings` in `1525.25s`.
+The focal and historical block passed with `40 passed, 5 warnings`; secret
+policy passed with `20 passed, 1 warning`; GOKV passed with `85 passed, 1
+warning`; `py_compile`, JSON parseability, `git diff --check`, and protected
+diff checks passed. The canonical census is `TRACKED_JSON_FILES_PARSEABLE`:
+252 at baseline and 255 after the three new Macro 04 JSON artifacts.
+
+Level B post-commit checks remain to be executed. This checkpoint does not
+claim that post-commit validation has already run.

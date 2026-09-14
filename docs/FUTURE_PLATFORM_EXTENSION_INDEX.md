@@ -318,6 +318,15 @@ Ver [checkpoint](ROADMAP_4X_MACRO_02_1_P4_POST_BOUNDARY_E2E_CHECKPOINT.md),
 [ledger](ROADMAP_4X_MACRO_02_1_P4_COMMIT_ACCOUNTABILITY_LEDGER.md) y
 [reconciliación GOKV/DOOL/OCI](ROADMAP_4X_MACRO_02_1_P4_GOKV_DOOL_OCI_RECONCILIATION.md).
 
+## Roadmap 4.x Macro-Mission 04 - P1 Entry Review
+
+The P1 entry review is documented in [the checkpoint](ROADMAP_4X_MACRO_04_P1_ENTRY_REVIEW_CHECKPOINT.md), [the evidence](ROADMAP_4X_MACRO_04_P1_ENTRY_REVIEW_EVIDENCE.json), [the route matrix](ROADMAP_4X_MACRO_04_P1_ROUTE_SOURCE_PAYLOAD_AND_CONSUMER_MATRIX.json), [the visibility contract](ROADMAP_4X_MACRO_04_P1_SENSITIVITY_AUTHORITY_AND_VISIBILITY_CONTRACT.md), [the gate matrix](ROADMAP_4X_MACRO_04_P1_COMPATIBILITY_AND_GATE_MATRIX.json), [the family adjudication](ROADMAP_4X_MACRO_04_P1_FAMILY_COHERENCE_ADJUDICATION.md), [the future plan](ROADMAP_4X_MACRO_04_P1_BOUNDED_REMEDIATION_EXECUTION_PLAN.md), [the GOKV reconciliation](ROADMAP_4X_MACRO_04_P1_GOKV_DOOL_OCI_RECONCILIATION.md) and [the ledger](ROADMAP_4X_MACRO_04_P1_COMMIT_ACCOUNTABILITY_LEDGER.md).
+
+The result is the contracted P1 subfamily split with
+`P1-A_PLATFORM_STATUS_HEALTH_SELECTED_NOT_STARTED`. The four legacy routes
+remain unexposed, P1 remediation remains not started, and Macro-Mission 05 is
+not started.
+
 ## Future Enterprise Foundry and agent lineage
 
 The future concept `IA_CORE_ENTERPRISE_FOUNDRY` and umbrella protocol

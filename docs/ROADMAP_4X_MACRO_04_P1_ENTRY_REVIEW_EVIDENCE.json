@@ -2,18 +2,19 @@
   "mission": "ROADMAP_4X_MACRO_04",
   "family": "P1_STATUS_OBSERVABILITY_MEMORY",
   "result": "ROADMAP_4X_MACRO_04_P1_ENTRY_REVIEW_COMPLETE_SUBFAMILY_SPLIT_CONTRACTED_FUTURE_ENTERPRISE_FOUNDRY_CONCEPT_PRESERVED_INTERNAL_REMEDIATION_NOT_STARTED",
-  "validation_status": "PENDING_LEVEL_A",
+  "validation_status": "LEVEL_A_PASS_PENDING_LEVEL_B",
   "started_at": "2026-09-14T15:38:19.6935929-03:00",
   "ended_at": null,
   "duration_seconds": null,
   "baseline": "eda265c15bed0aedce4a8bfb141f39905e03a61b",
-  "validation_basis": null,
+  "level_a_completed_at": "2026-09-14T16:23:52.5337497-03:00",
+  "validation_basis": "02dc4902b7e4585b634ed1557e66bd31ef78e85c",
   "repository": {
     "branch": "main",
-    "head_at_creation": "PENDING_FINAL_HEAD",
+    "head_at_creation": "02dc4902b7e4585b634ed1557e66bd31ef78e85c",
     "origin_main_at_creation": "eda265c15bed0aedce4a8bfb141f39905e03a61b",
     "ahead_behind_at_creation": "0/0",
-    "working_tree_at_creation": "DOCUMENTS_AND_GUARD_IN_PROGRESS",
+    "working_tree_at_creation": "CLEAN_AT_LEVEL_A_START",
     "fetch_performed_before_work": true
   },
   "commits": {
@@ -23,10 +24,13 @@
       "556882f",
       "3973e8f",
       "07e7b14",
-      "91653fa"
+      "91653fa",
+      "46202db",
+      "6ab3a51",
+      "02dc490"
     ],
     "validation_basis": null,
-    "documentary_closeout": null
+    "documentary_closeout": "PENDING_LEVEL_B"
   },
   "artifacts": {
     "strategy": "docs/FUTURE_IA_CORE_ENTERPRISE_FOUNDRY_AND_AGENT_LINEAGE.md",
@@ -87,19 +91,20 @@
     "runtime_oci": false
   },
   "validation": {
-    "level_a": "PENDING",
-    "new_guard": "PENDING",
-    "historical_guards": "PENDING",
-    "p4_replay": "PENDING",
-    "secret_policy": "PENDING",
-    "gokv_validation": "PENDING",
-    "py_compile": "PENDING",
+    "level_a": "PASS: 7016 passed, 6 skipped, 6 warnings, 1525.25 seconds",
+    "new_guard": "PASS: 8 passed, 1 warning",
+    "historical_guards": "PASS: 40 passed, 5 warnings",
+    "p4_replay": "PASS within historical block",
+    "secret_policy": "PASS: 20 passed, 1 warning",
+    "gokv_validation": "PASS: 85 passed, 1 warning",
+    "py_compile": "PASS",
     "node": "NOT_APPLICABLE_NO_JAVASCRIPT_MODIFIED",
-    "json_census": {"metric": "TRACKED_JSON_FILES_PARSEABLE", "baseline": 252, "final": null},
-    "git_diff_check": "PENDING",
-    "protected_diff": "PENDING",
-    "full_suite": "PENDING"
+    "json_census": {"metric": "TRACKED_JSON_FILES_PARSEABLE", "baseline": 252, "final": 255, "delta": 3, "new_json_artifacts": ["docs/ROADMAP_4X_MACRO_04_P1_ROUTE_SOURCE_PAYLOAD_AND_CONSUMER_MATRIX.json", "docs/ROADMAP_4X_MACRO_04_P1_COMPATIBILITY_AND_GATE_MATRIX.json", "docs/ROADMAP_4X_MACRO_04_P1_ENTRY_REVIEW_EVIDENCE.json"]},
+    "git_diff_check": "PASS",
+    "protected_diff": "EMPTY",
+    "full_suite": "PASS: 7016 passed, 6 skipped, 6 warnings"
   },
+  "level_b": "PENDING_POST_COMMIT",
   "consumption": {
     "5H_START_REMAINING": "NOT_AVAILABLE_NOT_INFERRED",
     "5H_END_REMAINING": "NOT_AVAILABLE_NOT_INFERRED",
