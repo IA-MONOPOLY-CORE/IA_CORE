@@ -130,3 +130,55 @@ The forecast must be updated whenever a frontier is dissolved, a new external
 fact is observed, a Direction decision is recorded or a future scope changes.
 
 `IA_CORE_DELIVERY_HORIZON_FORECAST_DIRECTIONAL_NOT_A_COMMITMENT`
+
+## Macro 03 recalibration - 2026-09-14
+
+Macro 03 closes P4 internally and selects P1 as the next family without
+starting it. The current Roadmap 4.x state is therefore:
+
+- P4: `INTERNAL_REMEDIATION_COMPLETE_EXTERNAL_EXPOSURE_DEFAULT_DENIED`.
+- P1: `SELECTED_NOT_STARTED`.
+- P2, P3, P5, P6, P7, P8 and P9: deferred and still contained.
+- External gates: inactive and default-deny; no production readiness.
+
+The four inherited P4 durations sum exactly to `22402.681469 s`:
+
+| Mission | Instrumented duration |
+| --- | ---: |
+| Macro 01 | `5040.037 s` |
+| Macro 01.1 | `4434.844 s` |
+| Macro 02 | `8316.560469 s` |
+| Macro 02.1 | `4611.24 s` |
+| **Total** | **`22402.681469 s` (about 6h 13m 22.681s)** |
+
+The two recorded full-suite runs for the P4 implementation/replay consumed
+`1541.24 s` and `1534.39 s` of pytest time respectively, about `51m 15.63s`
+combined. The second mission also recorded `1538.76 s` instrumented wrapper
+time. The first adversarial replay found seven failures; one bounded repair
+was made and the replay then passed with `37 passed`. This is why the forecast
+does not scale P4 linearly to write-capable or externally dependent families.
+
+### Three planning horizons
+
+| Horizon | Accelerated | Central | Conservative |
+| --- | --- | --- | --- |
+| Next family P1 | 2-3 missions; 8-14 effective Codex hours; 2-5 calendar days | 3-5 missions; 14-28 hours; 1-3 weeks | 5-8 missions; 28-50 hours; 3-8 weeks |
+| Roadmap 4.x internal closure | 5-8 remaining family missions; 35-70 hours; 1-2 months | 8-14 missions; 60-120 hours; 2-5 months | 14-24 missions; 120-220 hours; 5-12 months |
+| Technically habilitable beta path | 8-14 missions after bounded family evidence; 70-140 hours; 2-4 months | 14-26 missions; 140-280 hours; 4-9 months | 24-40 missions; 280-500 hours; 9-18 months |
+
+The P1 band assumes a bounded internal read treatment, not real identity,
+hosting, external consumers, provider calls or production retention. The
+Roadmap 4.x band assumes one family per mission and repeated adversarial
+checkpoints. The beta path additionally requires external identity and tenant
+proof, deployment and ingress, provider/secret decisions where applicable,
+support and recovery ownership, user and enterprise validation, diverse
+business evidence and a separate production-readiness decision. No beta date
+is promised.
+
+Operator-visible quota percentages remain separate from these measurements:
+Macro 02 was reported as 5-hour `80% -> 63%` and weekly `47% -> 44%`, with a
+shared-window attribution caveat. Macro 02.1 was reported as 5-hour `98% ->
+99%` and weekly `43% -> 41%`, classified `RESET_INTERRUPTED`. They are not
+tokens, money, agent-only consumption or an empirical duration substitute.
+
+`ROADMAP_4X_MACRO_03_FORECAST_RECALIBRATED_DIRECTIONAL_NOT_A_COMMITMENT`
