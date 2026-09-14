@@ -1,0 +1,323 @@
+{
+  "document": "ROADMAP_4X_MACRO_04_P1_ROUTE_SOURCE_PAYLOAD_AND_CONSUMER_MATRIX",
+  "mission": "ROADMAP_4X_MACRO_04",
+  "family": "P1_STATUS_OBSERVABILITY_MEMORY",
+  "state": "ENTRY_REVIEW_ONLY_REMEDIATION_NOT_STARTED",
+  "baseline": "eda265c15bed0aedce4a8bfb141f39905e03a61b",
+  "classification_legend": {
+    "OBSERVED": "Directly supported by the current repository source or a current repository test.",
+    "INFERRED": "A bounded interpretation derived from observed source behavior; not an asserted runtime fact.",
+    "UNKNOWN": "The repository does not establish the value or contract.",
+    "EXTERNAL_EVIDENCE_REQUIRED": "Cannot be activated without identity, deployment, consumer, legal, or other evidence outside this read-only review."
+  },
+  "route_inventory": [
+    {
+      "route_id": "api_status_get",
+      "method": "GET",
+      "path": "/api/status",
+      "handler": "get_status",
+      "registration": {"file": "api.py", "line": 538, "classification": "OBSERVED"},
+      "parameters": [
+        {"name": "full", "type": "bool", "default": false, "classification": "OBSERVED", "evidence": "Handler signature; passed to hybrid_router.get_ui_snapshot."}
+      ],
+      "source_chain": [
+        {"name": "_get_loteria", "classification": "OBSERVED", "evidence": "api.py lazy import/cache helper."},
+        {"name": "evolution.get_estadisticas_ciclo", "classification": "OBSERVED", "evidence": "Used when loteria and evolution exist."},
+        {"name": "evolution._state", "classification": "OBSERVED", "evidence": "Reads current cycle sorteo value when present."},
+        {"name": "supervisor.providers.list_providers", "classification": "OBSERVED", "evidence": "Provider registry is enumerated when supervisor exists."},
+        {"name": "_provider_status", "classification": "OBSERVED", "evidence": "Calls provider_name, health_check, and available_models."},
+        {"name": "supervisor.hybrid_router.get_ui_snapshot", "classification": "OBSERVED", "evidence": "Called in a worker thread, with full propagated."},
+        {"name": "_memory_summary", "classification": "OBSERVED", "evidence": "Nested in the overview response."},
+        {"name": "runtime_metrics", "classification": "OBSERVED", "evidence": "Reads started_at, orchestrations, agent_dispatches, and last_orchestration_ms."}
+      ],
+      "sources_and_reads": [
+        {"source": "process-global supervisor/evolution/runtime state", "classification": "OBSERVED"},
+        {"source": "loteria config and lazy-imported domain functions", "classification": "OBSERVED", "evidence": "_get_loteria imports domains.loteria.config_loteria and related callables."},
+        {"source": "provider registry and provider diagnostic callables", "classification": "OBSERVED"},
+        {"source": "filesystem path through memory summary", "classification": "OBSERVED", "evidence": "Only path and counts are assembled by _memory_summary; contents are not selected by this route."},
+        {"source": "database or external provider network", "classification": "UNKNOWN", "evidence": "No route execution was performed; provider implementation side effects are outside this entry review."}
+      ],
+      "success_payload": {
+        "fields": {
+          "running": "OBSERVED",
+          "providers_ready": "OBSERVED",
+          "providers": "OBSERVED",
+          "agents": "OBSERVED",
+          "fase_actual": "OBSERVED",
+          "sorteo_actual": "OBSERVED",
+          "limites_sistema": "OBSERVED",
+          "hybrid": "OBSERVED",
+          "overview": "OBSERVED",
+          "overview.tools": "OBSERVED",
+          "overview.orchestrations": "OBSERVED",
+          "overview.agent_dispatches": "OBSERVED",
+          "overview.memory": "OBSERVED"
+        },
+        "sensitive_categories": [
+          {"field": "providers", "classification": "INFERRED", "reason": "Provider names, health messages, and model names can disclose implementation details."},
+          {"field": "agents/tools/overview", "classification": "INFERRED", "reason": "Inventory and activity counts can disclose internal capability and activity."},
+          {"field": "hybrid", "classification": "INFERRED", "reason": "The full snapshot is delegated to a runtime router and its detailed visibility is not bounded here."},
+          {"field": "overview.memory.path", "classification": "INFERRED", "reason": "A filesystem path is internal system information."}
+        ]
+      },
+      "errors": [
+        {"claim": "No explicit route-level HTTPException is raised in get_status.", "classification": "OBSERVED"},
+        {"claim": "Underlying helper, provider, router, or state failures may affect the response.", "classification": "UNKNOWN", "evidence": "The handler has no encompassing error policy; actual exception mapping is not established by this review."}
+      ],
+      "limits_ordering_filters": [
+        {"claim": "full is the only declared query parameter.", "classification": "OBSERVED"},
+        {"claim": "No pagination or tenant filter is declared.", "classification": "OBSERVED"},
+        {"claim": "Provider order follows list_providers and gather input order.", "classification": "INFERRED"}
+      ],
+      "side_effects": [
+        {"claim": "No direct write is present in the handler body.", "classification": "OBSERVED"},
+        {"claim": "Provider health_check and available_models side effects are not proven absent.", "classification": "UNKNOWN"}
+      ],
+      "consumers": [
+        {"consumer": "ui/web/admin-panels.js loadOverview", "classification": "OBSERVED", "evidence": "fetches /api/status."},
+        {"consumer": "ui/web/admin-panels.js loadHybrid", "classification": "OBSERVED", "evidence": "fetches /api/status?full=true."},
+        {"consumer": "ui/web/index.html connection polling", "classification": "OBSERVED", "evidence": "fetches /api/status."},
+        {"consumer": "external consumers", "classification": "EXTERNAL_EVIDENCE_REQUIRED", "evidence": "No external consumer is demonstrated in the repository."}
+      ],
+      "access_current": {
+        "authentication": "UNKNOWN",
+        "authorization": "UNKNOWN",
+        "tenant_scope": "UNKNOWN_DEFAULT_DENY",
+        "audience": "UNKNOWN_DEFAULT_DENY",
+        "route_dependency": "No Depends-based identity or P1 authorization dependency is present in the signature.",
+        "cors": "OBSERVED: global middleware defaults to http://localhost:8000, rejects wildcard configuration, and disables credentials.",
+        "external_exposure": "EXTERNAL_EVIDENCE_REQUIRED"
+      },
+      "risk": [
+        "INTERNAL_RUNTIME_DISCLOSURE",
+        "PROVIDER_METADATA_DISCLOSURE",
+        "ACTIVITY_RECOGNITION",
+        "TENANT_SCOPE_UNPROVEN"
+      ]
+    },
+    {
+      "route_id": "api_memory_get",
+      "method": "GET",
+      "path": "/api/memory",
+      "handler": "get_memory_snapshot",
+      "registration": {"file": "api.py", "line": 610, "classification": "OBSERVED"},
+      "parameters": [
+        {"name": "key", "type": "str|null", "default": null, "classification": "OBSERVED"},
+        {"name": "history_limit", "type": "int", "default": 15, "range": "1..100 after clamp", "classification": "OBSERVED"}
+      ],
+      "source_chain": [
+        {"name": "supervisor.memory.list_keys", "classification": "OBSERVED"},
+        {"name": "supervisor.memory.get", "classification": "OBSERVED", "evidence": "Reads MEMORY_HISTORY_KEY and selected key."},
+        {"name": "_history_summary", "classification": "OBSERVED"},
+        {"name": "supervisor.get_orchestration", "classification": "OBSERVED", "evidence": "Loads detail for the first returned execution id."},
+        {"name": "_memory_summary", "classification": "OBSERVED"}
+      ],
+      "sources_and_reads": [
+        {"source": "supervisor memory manager", "classification": "OBSERVED"},
+        {"source": "memory state path", "classification": "OBSERVED", "evidence": "Summary returns state_path as path."},
+        {"source": "raw prompts/conversations/customer data/tenant data", "classification": "UNKNOWN", "evidence": "The route can return selected memory values, but content classification is not established without reading data."},
+        {"source": "persistence ownership and retention policy", "classification": "UNKNOWN_DEFAULT_DENY"}
+      ],
+      "success_payload": {
+        "fields": {
+          "status": "OBSERVED",
+          "keys": "OBSERVED",
+          "history": "OBSERVED",
+          "latest": "OBSERVED",
+          "selected_key": "OBSERVED when key is present",
+          "value": "OBSERVED when key is present"
+        },
+        "sensitive_categories": [
+          {"field": "keys", "classification": "INFERRED", "reason": "Key names can enumerate internal memory concepts."},
+          {"field": "history/latest", "classification": "INFERRED", "reason": "Execution metadata and details may expose operational or business activity."},
+          {"field": "value", "classification": "UNKNOWN_DEFAULT_DENY", "reason": "Selected value content is not bounded or sanitized by the route."},
+          {"field": "status.path", "classification": "INFERRED", "reason": "Filesystem path is internal system information."}
+        ]
+      },
+      "errors": [
+        {"status": 503, "condition": "supervisor is absent", "classification": "OBSERVED"},
+        {"status": 404, "condition": "requested key is not in list_keys", "classification": "OBSERVED"},
+        {"claim": "Malformed or unexpected values returned by memory are not assigned a route-level redaction policy.", "classification": "UNKNOWN_DEFAULT_DENY"}
+      ],
+      "limits_ordering_filters": [
+        {"claim": "history_limit is clamped to 1..100.", "classification": "OBSERVED"},
+        {"claim": "History is taken from the tail and reversed for output.", "classification": "OBSERVED"},
+        {"claim": "key is an exact string lookup; there is no tenant filter, cursor, or page token.", "classification": "OBSERVED"}
+      ],
+      "side_effects": [
+        {"claim": "No direct write is present in the handler body.", "classification": "OBSERVED"},
+        {"claim": "Memory manager read side effects and concurrent mutation behavior are not demonstrated.", "classification": "UNKNOWN"}
+      ],
+      "consumers": [
+        {"consumer": "ui/web/admin-panels.js loadMemory", "classification": "OBSERVED", "evidence": "fetches /api/memory with history_limit and optional key."},
+        {"consumer": "external consumers", "classification": "EXTERNAL_EVIDENCE_REQUIRED", "evidence": "No external consumer is demonstrated."}
+      ],
+      "access_current": {
+        "authentication": "UNKNOWN",
+        "authorization": "UNKNOWN",
+        "tenant_scope": "UNKNOWN_DEFAULT_DENY",
+        "audience": "OWNER_OR_OPERATOR_ONLY",
+        "audience_basis": "INFERRED from the admin panel consumer and sensitivity; not an existing authorization fact.",
+        "route_dependency": "No Depends-based identity or P1 authorization dependency is present.",
+        "external_exposure": "EXTERNAL_EVIDENCE_REQUIRED"
+      },
+      "risk": [
+        "RAW_MEMORY_DISCLOSURE",
+        "KEY_ENUMERATION",
+        "CROSS_TENANT_SCOPE_UNPROVEN",
+        "RETENTION_AND_OWNERSHIP_UNPROVEN"
+      ]
+    },
+    {
+      "route_id": "api_logs_get",
+      "method": "GET",
+      "path": "/api/logs",
+      "handler": "get_logs",
+      "registration": {"file": "api.py", "line": 644, "classification": "OBSERVED"},
+      "parameters": [
+        {"name": "lines", "type": "int", "default": 80, "range": "20..500 after clamp", "classification": "OBSERVED"}
+      ],
+      "source_chain": [
+        {"name": "config.LOG_DIR / api.log", "classification": "OBSERVED"},
+        {"name": "_tail_log", "classification": "OBSERVED", "evidence": "Reads UTF-8 with replacement and returns the tail split by lines."},
+        {"name": "session_events", "classification": "OBSERVED", "evidence": "Returns the last 50 in-memory events."}
+      ],
+      "sources_and_reads": [
+        {"source": "local filesystem log file", "classification": "OBSERVED"},
+        {"source": "in-memory session_events", "classification": "OBSERVED"},
+        {"source": "secrets, tokens, headers, PII, business payloads, stack traces", "classification": "UNKNOWN_DEFAULT_DENY", "evidence": "Possible log content categories are not bounded by this route."},
+        {"source": "log sink ownership, retention, redaction, export policy", "classification": "UNKNOWN_DEFAULT_DENY"}
+      ],
+      "success_payload": {
+        "fields": {
+          "path": "OBSERVED",
+          "requested_lines": "OBSERVED",
+          "lines": "OBSERVED",
+          "warnings": "OBSERVED",
+          "errors": "OBSERVED",
+          "events": "OBSERVED"
+        },
+        "sensitive_categories": [
+          {"field": "path", "classification": "INFERRED", "reason": "Returns an internal filesystem path."},
+          {"field": "lines/warnings/errors", "classification": "UNKNOWN_DEFAULT_DENY", "reason": "Raw log content has no route-level redaction or control-character policy."},
+          {"field": "events", "classification": "INFERRED", "reason": "Session event messages may reveal internal activity."}
+        ]
+      },
+      "errors": [
+        {"claim": "Missing log file returns an empty content list through _tail_log.", "classification": "OBSERVED"},
+        {"claim": "OSError during log read is converted to an empty list.", "classification": "OBSERVED"},
+        {"claim": "No explicit authentication, authorization, redaction, or retention error contract is present.", "classification": "OBSERVED"}
+      ],
+      "limits_ordering_filters": [
+        {"claim": "lines is clamped to 20..500.", "classification": "OBSERVED"},
+        {"claim": "The filesystem tail is ordered by file order; warnings/errors are filtered from the returned tail and capped at 50.", "classification": "OBSERVED"},
+        {"claim": "No tenant, severity, time, cursor, or export filter is declared.", "classification": "OBSERVED"}
+      ],
+      "side_effects": [
+        {"claim": "The handler reads a file and in-memory events; no direct write is present.", "classification": "OBSERVED"},
+        {"claim": "Concurrent log rotation and file-read consistency are not established.", "classification": "UNKNOWN"}
+      ],
+      "consumers": [
+        {"consumer": "ui/web/admin-panels.js loadLogs", "classification": "OBSERVED", "evidence": "fetches /api/logs with the lines parameter."},
+        {"consumer": "external consumers", "classification": "EXTERNAL_EVIDENCE_REQUIRED", "evidence": "No external consumer is demonstrated."}
+      ],
+      "access_current": {
+        "authentication": "UNKNOWN",
+        "authorization": "UNKNOWN",
+        "tenant_scope": "UNKNOWN_DEFAULT_DENY",
+        "audience": "OWNER_OR_OPERATOR_ONLY",
+        "audience_basis": "INFERRED from the admin panel consumer and high sensitivity; not an existing authorization fact.",
+        "route_dependency": "No Depends-based identity or P1 authorization dependency is present.",
+        "external_exposure": "EXTERNAL_EVIDENCE_REQUIRED"
+      },
+      "risk": [
+        "RAW_LOG_DISCLOSURE",
+        "SECRET_OR_PII_DISCLOSURE_POSSIBLE",
+        "LOG_FORGING_AND_CONTROL_CHARACTER_POLICY_UNPROVEN",
+        "RETENTION_AND_TENANT_SCOPE_UNPROVEN"
+      ]
+    },
+    {
+      "route_id": "api_metrics_dynamic_get",
+      "method": "GET",
+      "path": "/api/metrics/dynamic",
+      "handler": "get_dynamic_metrics",
+      "registration": {"file": "api.py", "line": 661, "classification": "OBSERVED"},
+      "parameters": [],
+      "source_chain": [
+        {"name": "_require_loteria", "classification": "OBSERVED", "evidence": "Raises 501 when the loteria domain is unavailable."},
+        {"name": "evolution.get_estadisticas_ciclo", "classification": "OBSERVED"},
+        {"name": "loteria get_v19_status callable", "classification": "OBSERVED", "evidence": "Read through the loteria mapping when evolution has _state."},
+        {"name": "datetime.now", "classification": "OBSERVED"}
+      ],
+      "sources_and_reads": [
+        {"source": "loteria/evolution in-memory domain state", "classification": "OBSERVED"},
+        {"source": "provider, infrastructure, or tenant registry", "classification": "UNKNOWN", "evidence": "No such source is directly read in this handler."},
+        {"source": "metric ownership and aggregation policy", "classification": "UNKNOWN_DEFAULT_DENY"}
+      ],
+      "success_payload": {
+        "fields": {
+          "success": "OBSERVED",
+          "timestamp": "OBSERVED",
+          "forward_test": "OBSERVED",
+          "forward_test.sorteos_completados": "OBSERVED",
+          "forward_test.aciertos_4": "OBSERVED",
+          "forward_test.aciertos_5": "OBSERVED",
+          "forward_test.aciertos_6": "OBSERVED",
+          "forward_test.porcentaje_4_real": "OBSERVED",
+          "forward_test.azar_estructural": "OBSERVED",
+          "forward_test.ventaja_actual": "OBSERVED",
+          "forward_test.ventaja_formateada": "OBSERVED",
+          "v19": "OBSERVED",
+          "fase_actual": "OBSERVED"
+        },
+        "sensitive_categories": [
+          {"field": "forward_test/v19/fase_actual", "classification": "INFERRED", "reason": "Domain activity and state may disclose operational history or strategy."},
+          {"field": "timestamp", "classification": "INFERRED", "reason": "Timing can support activity inference when correlated with other observations."}
+        ]
+      },
+      "errors": [
+        {"status": 501, "condition": "loteria domain is unavailable", "classification": "OBSERVED"},
+        {"status": 503, "condition": "evolution is unavailable", "classification": "OBSERVED"},
+        {"claim": "Unexpected evolution or stats failures have no explicit route-level policy.", "classification": "UNKNOWN"}
+      ],
+      "limits_ordering_filters": [
+        {"claim": "No query parameters, pagination, or filters are declared.", "classification": "OBSERVED"},
+        {"claim": "The handler computes a percentage and ratio from the returned stats.", "classification": "OBSERVED"}
+      ],
+      "side_effects": [
+        {"claim": "No direct write is present in the handler body.", "classification": "OBSERVED"},
+        {"claim": "The domain callable used for status may have behavior not exercised here.", "classification": "UNKNOWN"}
+      ],
+      "consumers": [
+        {"consumer": "current UI callers", "classification": "UNKNOWN", "evidence": "No current UI caller was found in the audited source search."},
+        {"consumer": "tests/docs route evidence", "classification": "OBSERVED", "evidence": "The route is represented in routing fixtures and historical route audits."},
+        {"consumer": "external consumers", "classification": "EXTERNAL_EVIDENCE_REQUIRED", "evidence": "No external consumer is demonstrated."}
+      ],
+      "access_current": {
+        "authentication": "UNKNOWN",
+        "authorization": "UNKNOWN",
+        "tenant_scope": "UNKNOWN_DEFAULT_DENY",
+        "audience": "UNKNOWN_DEFAULT_DENY",
+        "route_dependency": "No Depends-based identity or P1 authorization dependency is present.",
+        "external_exposure": "EXTERNAL_EVIDENCE_REQUIRED"
+      },
+      "risk": [
+        "DOMAIN_ACTIVITY_DISCLOSURE",
+        "AGGREGATION_SCOPE_UNPROVEN",
+        "TENANT_SCOPE_UNPROVEN",
+        "CONSUMER_COMPATIBILITY_UNPROVEN"
+      ]
+    }
+  ],
+  "integrity": {
+    "exact_route_count": 4,
+    "exact_routes": ["GET /api/status", "GET /api/memory", "GET /api/logs", "GET /api/metrics/dynamic"],
+    "invented_routes": [],
+    "route_execution_performed": false,
+    "secrets_read": false,
+    "providers_called": false,
+    "external_calls_made": false,
+    "product_remediation_started": false
+  }
+}
