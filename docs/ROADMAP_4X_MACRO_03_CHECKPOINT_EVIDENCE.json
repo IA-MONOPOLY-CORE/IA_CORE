@@ -1,0 +1,79 @@
+{
+  "schema_version": "roadmap_4x_macro_03_checkpoint_evidence.v1",
+  "mission": "ROADMAP_4X_MACRO_03",
+  "result": "ROADMAP_4X_MACRO_03_P4_INTERNAL_FAMILY_CLOSED_ROADMAP_RECALIBRATED_NEXT_FAMILY_SELECTED_NOT_STARTED",
+  "started_at": "2026-09-14T09:52:36.1442206-03:00",
+  "ended_at": "2026-09-14T11:00:56.9769665-03:00",
+  "duration_seconds": 4100.832746,
+  "baseline_head": "2969ed469ed482968b4db4deac7b35a855f635e2",
+  "validation_basis_head": "c26d8faa22b10a03138feade13d2f210c570f02f",
+  "branch": "main",
+  "remote": "origin/main",
+  "p4": {
+    "route_count": 7,
+    "internal_state": "INTERNAL_REMEDIATION_COMPLETE",
+    "external_state": "DEFAULT_DENIED",
+    "active_external_gates": false,
+    "action": "REMAIN_DISABLED_OR_CONTAINED"
+  },
+  "legacy_routes": {
+    "total": 36,
+    "unique_route_ids": 36,
+    "unique_method_paths": 36,
+    "p4_treated": 7,
+    "remaining_deferred": 29
+  },
+  "json_census": {
+    "metric": "TRACKED_JSON_FILES_PARSEABLE",
+    "command": "git ls-files -- '*.json'",
+    "encoding": "UTF-8",
+    "parser": "json.loads",
+    "final_count": 252,
+    "failed_paths": 0,
+    "status": "PASS"
+  },
+  "family_selection": {
+    "selected": "P1_STATUS_OBSERVABILITY_MEMORY",
+    "score": {"urgency": 5, "internal_readiness": 4, "total": 9},
+    "state": "SELECTED_NOT_STARTED",
+    "routes": [
+      "GET /api/status",
+      "GET /api/memory",
+      "GET /api/logs",
+      "GET /api/metrics/dynamic"
+    ],
+    "macro_04_started": false
+  },
+  "gokv": {
+    "result": "NO_NEW_CANDIDATE",
+    "item_count": 38,
+    "valid": true,
+    "promotion": false,
+    "vault_modified": false
+  },
+  "validation": {
+    "macro_03_focal": "PASS: 50 passed, 6 warnings in 12.35s",
+    "macro_02_and_02_1_guards": "PASS: included in the 50-test focused guard run",
+    "full_suite": "PASS: 7008 passed, 6 skipped, 6 warnings in 1501.67s; 1505.733s instrumented",
+    "route_census": "PASS",
+    "json_parse": "PASS",
+    "py_compile": "PASS",
+    "secret_policy": "PASS: 20 passed, 1 warning in 11.15s",
+    "node_check": "NOT_APPLICABLE_NO_JAVASCRIPT_MODIFIED",
+    "protected_diff": "PASS_ZERO_FORBIDDEN_PRODUCT_PATHS",
+    "git_diff_check": "PASS"
+  },
+  "consumption_operator_report": {
+    "macro_02": {"five_hour": "80% -> 63%", "weekly": "47% -> 44%", "classification": "SHARED_WINDOW_NOT_EXCLUSIVE"},
+    "macro_02_1": {"five_hour": "98% -> 99%", "weekly": "43% -> 41%", "classification": "RESET_INTERRUPTED"},
+    "token_or_money_conversion": false
+  },
+  "product_changes": false,
+  "next_family_started": false,
+  "publication": {
+    "ahead_behind": "0/0",
+    "working_tree": "CLEAN",
+    "force_push": false,
+    "self_referential_head_hash": false
+  }
+}

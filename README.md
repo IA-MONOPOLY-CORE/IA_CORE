@@ -1716,3 +1716,27 @@ Ver [checkpoint](docs/ROADMAP_4X_MACRO_02_1_P4_POST_BOUNDARY_E2E_CHECKPOINT.md),
 [matriz semántica](docs/ROADMAP_4X_MACRO_02_1_P4_SEMANTIC_SANITIZATION_MATRIX.md),
 [ledger](docs/ROADMAP_4X_MACRO_02_1_P4_COMMIT_ACCOUNTABILITY_LEDGER.md) y
 [reconciliación GOKV/DOOL/OCI](docs/ROADMAP_4X_MACRO_02_1_P4_GOKV_DOOL_OCI_RECONCILIATION.md).
+
+## Roadmap 4.x Macro-Mission 03 - P4 Closure and Next Family Selection
+
+Resultado: `ROADMAP_4X_MACRO_03_P4_INTERNAL_FAMILY_CLOSED_ROADMAP_RECALIBRATED_NEXT_FAMILY_SELECTED_NOT_STARTED`.
+P4 queda cerrada internamente con sus siete rutas protegidas y exposición
+externa `DEFAULT_DENIED`; los nueve gates permanecen inactivos y
+`REMAIN_DISABLED_OR_CONTAINED`. El censo canónico queda definido por
+`TRACKED_JSON_FILES_PARSEABLE` usando `git ls-files -- '*.json'`.
+
+La matriz reconcilia las 36 rutas legacy: 7 P4 tratadas y 29 diferidas. La
+selección reproducible prioriza P1 `STATUS_OBSERVABILITY_MEMORY` con score 9
+(urgencia 5, readiness interna 4), pero su contrato queda
+`SELECTED_NOT_STARTED`: no se implementa P1 ni se inicia Macro-Mission 04.
+GOKV/DOOL/OCI: `NO_NEW_CANDIDATE`, 38 items válidos, sin promoción ni escritura
+en el vault. No se modificó producto ni se habilitó production readiness.
+
+Ver [checkpoint](docs/ROADMAP_4X_MACRO_03_CHECKPOINT.md),
+[evidencia](docs/ROADMAP_4X_MACRO_03_CHECKPOINT_EVIDENCE.json),
+[matriz de rutas](docs/ROADMAP_4X_MACRO_03_36_ROUTE_MATRIX.md),
+[selección](docs/ROADMAP_4X_MACRO_03_FAMILY_SELECTION_MATRIX.md),
+[contrato P1](docs/ROADMAP_4X_MACRO_03_P1_ENTRY_CONTRACT.md),
+[reconciliación JSON](docs/ROADMAP_4X_MACRO_03_JSON_CENSUS_RECONCILIATION.md),
+[ledger](docs/ROADMAP_4X_MACRO_03_COMMIT_ACCOUNTABILITY_LEDGER.md) y
+[reconciliación GOKV/DOOL/OCI](docs/ROADMAP_4X_MACRO_03_GOKV_DOOL_OCI_RECONCILIATION.md).
