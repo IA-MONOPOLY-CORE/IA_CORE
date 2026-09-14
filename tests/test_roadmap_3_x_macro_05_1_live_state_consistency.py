@@ -89,6 +89,7 @@ ALLOWED_CHANGED_FILES = {
 CURRENT_MACRO_02_ALLOWED_FILES = {
     "api.py",
     "core/p4_request_access.py",
+    "tests/test_roadmap_4x_macro_02_1_p4_post_boundary_e2e.py",
     "tests/p4_test_support.py",
     "tests/test_catalogs.py",
     "tests/test_domain_cleanup.py",
