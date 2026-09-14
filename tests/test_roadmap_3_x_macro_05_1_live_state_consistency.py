@@ -89,6 +89,11 @@ ALLOWED_CHANGED_FILES = {
 CURRENT_MACRO_02_ALLOWED_FILES = {
     "api.py",
     "core/p4_request_access.py",
+    "docs/ROADMAP_4X_MACRO_02_1_P4_COMMIT_ACCOUNTABILITY_LEDGER.md",
+    "docs/ROADMAP_4X_MACRO_02_1_P4_GOKV_DOOL_OCI_RECONCILIATION.md",
+    "docs/ROADMAP_4X_MACRO_02_1_P4_POST_BOUNDARY_E2E_CHECKPOINT.md",
+    "docs/ROADMAP_4X_MACRO_02_1_P4_POST_BOUNDARY_E2E_EVIDENCE.json",
+    "docs/ROADMAP_4X_MACRO_02_1_P4_SEMANTIC_SANITIZATION_MATRIX.md",
     "tests/test_roadmap_4x_macro_02_1_p4_post_boundary_e2e.py",
     "tests/p4_test_support.py",
     "tests/test_catalogs.py",
