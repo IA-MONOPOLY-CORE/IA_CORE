@@ -1,0 +1,37 @@
+{
+  "schema_version": "roadmap_4x_macro_03_p4_internal_family_closure_evidence.v1",
+  "mission": "ROADMAP_4X_MACRO_03_P4_INTERNAL_FAMILY_CLOSURE",
+  "result": "P4_INTERNAL_REMEDIATION_COMPLETE_EXTERNAL_EXPOSURE_DEFAULT_DENIED",
+  "baseline_head": "2969ed469ed482968b4db4deac7b35a855f635e2",
+  "family": "P4_CATALOG_DOMAIN_READS",
+  "route_count": 7,
+  "routes": [
+    "GET /api/catalogs/domain-creation",
+    "GET /api/catalogs/roles",
+    "GET /api/catalogs/specializations",
+    "GET /api/domains/list",
+    "GET /api/domains/{domain_id}/profile-catalog",
+    "GET /api/domains/{domain_id}/agent-presets",
+    "GET /api/domains/{domain_id}/agent-presets/match"
+  ],
+  "capabilities": [
+    "global_catalogs.read",
+    "tenant_domains.read",
+    "tenant_agent_presets.read_sanitized"
+  ],
+  "internal_state": "INTERNAL_REMEDIATION_COMPLETE",
+  "external_exposure": "DEFAULT_DENIED",
+  "external_action": "REMAIN_DISABLED_OR_CONTAINED",
+  "active_external_gates": false,
+  "production_readiness": "NOT_AUTHORIZED",
+  "macro_04_started": false,
+  "next_family_started": false,
+  "protected_surfaces_unchanged": true,
+  "evidence_sources": [
+    "docs/ROADMAP_4X_MACRO_02_P4_CHECKPOINT.md",
+    "docs/ROADMAP_4X_MACRO_02_1_P4_POST_BOUNDARY_E2E_CHECKPOINT.md",
+    "docs/ROADMAP_4X_MACRO_02_P4_DUAL_GATE_MATRIX.json",
+    "tests/test_roadmap_4x_macro_02_p4_bounded_remediation.py",
+    "tests/test_roadmap_4x_macro_02_1_p4_post_boundary_e2e.py"
+  ]
+}
