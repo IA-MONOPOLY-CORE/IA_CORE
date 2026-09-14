@@ -1093,7 +1093,7 @@ async def get_domain_profile_catalog_endpoint(
     except FileNotFoundError as exc:
         raise HTTPException(
             status_code=404,
-            detail={"code": "P4_DOMAIN_RESOURCE_NOT_FOUND"},
+            detail={"code": "P4_DOMAIN_NOT_AUTHORIZED"},
         ) from exc
     except ValueError as exc:
         message = str(exc)
@@ -1127,7 +1127,7 @@ async def get_domain_agent_presets_endpoint(
     except FileNotFoundError as exc:
         raise HTTPException(
             status_code=404,
-            detail={"code": "P4_DOMAIN_RESOURCE_NOT_FOUND"},
+            detail={"code": "P4_DOMAIN_NOT_AUTHORIZED"},
         ) from exc
     except ValueError as exc:
         message = str(exc)
@@ -1166,7 +1166,7 @@ async def get_domain_agent_preset_match_endpoint(
     except FileNotFoundError as exc:
         raise HTTPException(
             status_code=404,
-            detail={"code": "P4_DOMAIN_RESOURCE_NOT_FOUND"},
+            detail={"code": "P4_DOMAIN_NOT_AUTHORIZED"},
         ) from exc
     except ValueError as exc:
         message = str(exc)

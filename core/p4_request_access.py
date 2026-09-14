@@ -41,6 +41,18 @@ P4_PRESET_EXCLUDED_FIELDS = (
     "paper_seed",
     "activo",
 )
+P4_PRESET_TEXT_FIELDS = frozenset(
+    {
+        "id",
+        "role_id",
+        "specialization_id",
+        "nombre_visible",
+        "suggested_agent_id",
+        "suggested_agent_name",
+        "short_description",
+    }
+)
+P4_PRESET_TEXT_LIST_FIELDS = frozenset({"decision_criteria", "avoid"})
 
 
 class P4RejectionCause(str, Enum):
@@ -119,7 +131,7 @@ def _valid_text(value: Any, *, max_length: int = 200) -> bool:
 
 
 def _valid_id_set(value: Any) -> bool:
-    if not isinstance(value, (set, frozenset, list, tuple)):
+    if not isinstance(value, frozenset):
         return False
     return all(
         isinstance(item, str) and bool(P4_DOMAIN_ID_PATTERN.fullmatch(item))
@@ -141,7 +153,7 @@ def validate_p4_principal(principal: Any) -> bool:
         principal.tenant_id
     ):
         return False
-    if not isinstance(principal.capabilities, (set, frozenset, list, tuple)):
+    if not isinstance(principal.capabilities, frozenset):
         return False
     if not all(
         isinstance(capability, str) and capability in P4_CAPABILITIES
@@ -198,6 +210,17 @@ def evaluate_p4_access(
             required_capability=required_capability,
             principal=principal,
             domain_id=domain_id,
+        )
+
+    if required_capability != "global_catalogs.read" and (
+        principal.tenant_id is None or principal.authorized_domain_ids is None
+    ):
+        return _rejected_decision(
+            P4RejectionCause.DOMAIN_NOT_AUTHORIZED,
+            status_code=404,
+            required_capability=required_capability,
+            principal=principal,
+            domain_id=None,
         )
 
     if domain_id is None:
@@ -274,11 +297,35 @@ def sanitize_p4_agent_preset(preset: Mapping[str, Any]) -> dict[str, Any]:
     """Return only the explicit consumer-safe preset fields."""
     if not isinstance(preset, Mapping):
         raise ValueError("Preset must be an object")
-    return {
-        field: preset[field]
-        for field in P4_PRESET_SAFE_FIELDS
-        if field in preset
-    }
+    sanitized: dict[str, Any] = {}
+    for field in P4_PRESET_SAFE_FIELDS:
+        if field not in preset:
+            continue
+        value = preset[field]
+        if field in P4_PRESET_TEXT_FIELDS:
+            if (
+                not isinstance(value, str)
+                or value != value.strip()
+                or "\r" in value
+                or "\n" in value
+            ):
+                continue
+        elif field in P4_PRESET_TEXT_LIST_FIELDS:
+            if not isinstance(value, list):
+                continue
+            value = [
+                item
+                for item in value
+                if isinstance(item, str)
+                and item == item.strip()
+                and "\r" not in item
+                and "\n" not in item
+            ]
+        elif field == "orden":
+            if type(value) is not int:
+                continue
+        sanitized[field] = value
+    return sanitized
 
 
 def sanitize_p4_agent_presets(catalog: Mapping[str, Any]) -> dict[str, Any]:
