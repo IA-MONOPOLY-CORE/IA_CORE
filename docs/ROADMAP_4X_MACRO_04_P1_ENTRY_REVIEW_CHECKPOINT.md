@@ -6,7 +6,7 @@
 
 `ROADMAP_4X_MACRO_04_P1_ENTRY_REVIEW_COMPLETE_SUBFAMILY_SPLIT_CONTRACTED_FUTURE_ENTERPRISE_FOUNDRY_CONCEPT_PRESERVED_INTERNAL_REMEDIATION_NOT_STARTED`
 
-`VALIDATION_STATUS = LEVEL_A_PASS_PENDING_LEVEL_B`
+`VALIDATION_STATUS = LEVEL_A_AND_LEVEL_B_PASS`
 
 Macro 04 reconstructed exactly the four historical P1 routes, classified
 their source/payload/consumer evidence, fixed future visibility boundaries,
@@ -54,5 +54,8 @@ warning`; `py_compile`, JSON parseability, `git diff --check`, and protected
 diff checks passed. The canonical census is `TRACKED_JSON_FILES_PARSEABLE`:
 252 at baseline and 255 after the three new Macro 04 JSON artifacts.
 
-Level B post-commit checks remain to be executed. This checkpoint does not
-claim that post-commit validation has already run.
+Level B post-commit checks passed: the Macro 04 guard, affected historical
+guards, P4 replay, secret policy, GOKV, JSON census, `py_compile`,
+`git diff --check`, protected diff, and clean Git state all passed. The full
+suite was not repeated because only documentary closeout metadata changed
+after Level A; the focused Level B checks covered that change.

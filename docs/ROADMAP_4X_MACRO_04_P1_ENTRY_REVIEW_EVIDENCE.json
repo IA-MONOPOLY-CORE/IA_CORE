@@ -2,10 +2,10 @@
   "mission": "ROADMAP_4X_MACRO_04",
   "family": "P1_STATUS_OBSERVABILITY_MEMORY",
   "result": "ROADMAP_4X_MACRO_04_P1_ENTRY_REVIEW_COMPLETE_SUBFAMILY_SPLIT_CONTRACTED_FUTURE_ENTERPRISE_FOUNDRY_CONCEPT_PRESERVED_INTERNAL_REMEDIATION_NOT_STARTED",
-  "validation_status": "LEVEL_A_PASS_PENDING_LEVEL_B",
+  "validation_status": "LEVEL_A_AND_LEVEL_B_PASS",
   "started_at": "2026-09-14T15:38:19.6935929-03:00",
-  "ended_at": null,
-  "duration_seconds": null,
+  "ended_at": "EXTERNAL_REPORT_REFERENCE_POST_FETCH",
+  "duration_seconds": "EXTERNAL_REPORT_REFERENCE_POST_FETCH",
   "baseline": "eda265c15bed0aedce4a8bfb141f39905e03a61b",
   "level_a_completed_at": "2026-09-14T16:23:52.5337497-03:00",
   "validation_basis": "02dc4902b7e4585b634ed1557e66bd31ef78e85c",
@@ -30,7 +30,7 @@
       "02dc490"
     ],
     "validation_basis": null,
-    "documentary_closeout": "PENDING_LEVEL_B"
+    "documentary_closeout": "EXTERNAL_REPORT_REFERENCE",
   },
   "artifacts": {
     "strategy": "docs/FUTURE_IA_CORE_ENTERPRISE_FOUNDRY_AND_AGENT_LINEAGE.md",
@@ -104,7 +104,20 @@
     "protected_diff": "EMPTY",
     "full_suite": "PASS: 7016 passed, 6 skipped, 6 warnings"
   },
-  "level_b": "PENDING_POST_COMMIT",
+  "level_b": {
+    "status": "PASS",
+    "completed_at": "2026-09-14T16:28:00.0980529-03:00",
+    "guard_historical_p4": "PASS: 40 passed, 5 warnings",
+    "secret_policy": "PASS: 20 passed, 1 warning",
+    "gokv": "PASS: 85 passed, 1 warning",
+    "py_compile": "PASS",
+    "json_census": "PASS: TRACKED_JSON_FILES_PARSEABLE=255",
+    "git_diff_check": "PASS",
+    "protected_diff": "EMPTY",
+    "working_tree": "CLEAN",
+    "full_suite_repeated": false,
+    "full_suite_reason": "Only documentary closeout metadata changed after Level A."
+  },
   "consumption": {
     "5H_START_REMAINING": "NOT_AVAILABLE_NOT_INFERRED",
     "5H_END_REMAINING": "NOT_AVAILABLE_NOT_INFERRED",

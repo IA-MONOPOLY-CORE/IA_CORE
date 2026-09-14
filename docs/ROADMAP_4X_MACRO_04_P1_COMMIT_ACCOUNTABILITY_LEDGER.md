@@ -4,7 +4,7 @@
 
 ## Ledger state
 
-`LEVEL_A_PASS_PENDING_LEVEL_B`
+`LEVEL_A_AND_LEVEL_B_PASS`
 
 Baseline: `eda265c15bed0aedce4a8bfb141f39905e03a61b` on `main`.
 
@@ -19,14 +19,15 @@ Baseline: `eda265c15bed0aedce4a8bfb141f39905e03a61b` on `main`.
 | Guard and exact reservations | `46202db` + `02dc490` | Macro 04 guard plus historical nominal allowlists | complete |
 | Validation basis | `02dc490` | All pre-final documents and guard required for full suite | complete |
 | Level A validation | `7016 passed` | Focal, historical, P4, secret, GOKV, compile, JSON and protected diff checks | complete |
-| Final checkpoint | pending | Level B timestamps, final evidence and ledger closure | pending |
+| Final checkpoint | external report reference | Level A and Level B evidence, final timestamps and ledger closure | complete |
 
 ## Current boundary
 
-Level A is validated. The checkpoint and evidence JSON intentionally keep
-Level B marked pending until the documentary closeout commit is verified.
-Level B must repeat the Macro 04 guard, affected historical guards, P1/P4,
-secret policy, GOKV, JSON census, diff and status checks.
+Level A and Level B are validated. The documentary evidence uses an external
+report reference for the containing closeout and post-fetch hashes so the
+metadata does not chase its own commit. Level B repeated the Macro 04 guard,
+affected historical guards, P1/P4, secret policy, GOKV, JSON census, diff and
+status checks.
 
 No product file is permitted in any station. Prohibited surfaces include
 `api.py`, `core/`, `domains/`, `catalogs/`, stores, runtime, execution,
