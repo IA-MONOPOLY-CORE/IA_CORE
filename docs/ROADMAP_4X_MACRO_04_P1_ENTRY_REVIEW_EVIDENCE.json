@@ -29,8 +29,8 @@
       "6ab3a51",
       "02dc490"
     ],
-    "validation_basis": null,
-    "documentary_closeout": "EXTERNAL_REPORT_REFERENCE",
+    "validation_basis": "02dc4902b7e4585b634ed1557e66bd31ef78e85c",
+    "documentary_closeout": "EXTERNAL_REPORT_REFERENCE"
   },
   "artifacts": {
     "strategy": "docs/FUTURE_IA_CORE_ENTERPRISE_FOUNDRY_AND_AGENT_LINEAGE.md",
@@ -117,6 +117,14 @@
     "working_tree": "CLEAN",
     "full_suite_repeated": false,
     "full_suite_reason": "Only documentary closeout metadata changed after Level A."
+  },
+  "publication": {
+    "final_head": "EXTERNAL_REPORT_REFERENCE_POST_FETCH",
+    "origin_main": "EXTERNAL_REPORT_REFERENCE_POST_FETCH",
+    "ahead_behind": "EXTERNAL_REPORT_REFERENCE_POST_FETCH",
+    "working_tree": "CLEAN",
+    "force_push": false,
+    "self_referential_head_hash": false
   },
   "consumption": {
     "5H_START_REMAINING": "NOT_AVAILABLE_NOT_INFERRED",
