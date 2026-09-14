@@ -297,3 +297,23 @@ Ver [checkpoint](ROADMAP_4X_MACRO_02_P4_CHECKPOINT.md),
 [ledger](ROADMAP_4X_MACRO_02_P4_COMMIT_ACCOUNTABILITY_LEDGER.md),
 [plan](ROADMAP_4X_MACRO_02_P4_BOUNDED_REMEDIATION_EXECUTION_PLAN.md) y
 [reconciliación GOKV/DOOL/OCI](ROADMAP_4X_MACRO_02_P4_GOKV_DOOL_OCI_RECONCILIATION.md).
+
+## Roadmap 4.x Macro-Mission 02.1 - P4 Post-Boundary E2E
+
+Resultado: `ROADMAP_4X_MACRO_02_1_P4_POST_BOUNDARY_E2E_ADVERSARIAL_CHECKPOINT_PASSED_AFTER_EVIDENCE_BOUND_REPAIR`.
+El checkpoint posterior a la frontera valida identidad fail-closed,
+capabilities necesarias y suficientes, aislamiento tenant, no enumeración,
+ausencia de contaminación entre requests y sanitización semántica/estructural
+en las siete rutas P4 existentes. La reparación productiva quedó limitada a
+`api.py` P4 y `core/p4_request_access.py`; no se agregaron rutas ni capacidades.
+
+La suite completa final pasó `7003`, con `6 skipped` y `6 warnings`. Los nueve
+gates conservan dimensión interna validada y dimensión externa bloqueada con
+`REMAIN_DISABLED_OR_CONTAINED`; CORS sigue localhost-only y Macro 03 no fue
+iniciada. GOKV/DOOL/OCI: `NO_NEW_CANDIDATE`, sin modificación ni promoción.
+
+Ver [checkpoint](ROADMAP_4X_MACRO_02_1_P4_POST_BOUNDARY_E2E_CHECKPOINT.md),
+[evidencia](ROADMAP_4X_MACRO_02_1_P4_POST_BOUNDARY_E2E_EVIDENCE.json),
+[matriz semántica](ROADMAP_4X_MACRO_02_1_P4_SEMANTIC_SANITIZATION_MATRIX.md),
+[ledger](ROADMAP_4X_MACRO_02_1_P4_COMMIT_ACCOUNTABILITY_LEDGER.md) y
+[reconciliación GOKV/DOOL/OCI](ROADMAP_4X_MACRO_02_1_P4_GOKV_DOOL_OCI_RECONCILIATION.md).

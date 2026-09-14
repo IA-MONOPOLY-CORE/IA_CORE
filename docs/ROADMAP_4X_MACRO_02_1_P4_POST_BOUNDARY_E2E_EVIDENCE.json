@@ -1,0 +1,128 @@
+{
+  "schema_version": "roadmap.4x.macro02_1.p4.post_boundary_e2e.evidence.v1",
+  "mission": "ROADMAP_4X_MACRO_02_1_P4_POST_BOUNDARY_E2E",
+  "result": "ROADMAP_4X_MACRO_02_1_P4_POST_BOUNDARY_E2E_ADVERSARIAL_CHECKPOINT_PASSED_AFTER_EVIDENCE_BOUND_REPAIR",
+  "baseline_head": "05674020671e98557262e26df8c380da631138b2",
+  "validation_basis_head": "d0fe3b789249101b9acf526db47b89ee4d797715",
+  "documentary_closeout_commit": "EXTERNAL_REPORT_REFERENCE",
+  "post_fetch_publication_verification": "EXTERNAL_REPORT_REFERENCE",
+  "publication_rule": "publication_metadata_must_not_chase_its_own_head",
+  "self_referential_hash_chase": false,
+  "operation_start_at": "2026-09-13T21:30:56.4026519-03:00",
+  "operation_end_at": "EXTERNAL_REPORT_REFERENCE",
+  "operation_duration": "EXTERNAL_REPORT_REFERENCE",
+  "scope": {
+    "family": "P4_CATALOG_DOMAIN_READS",
+    "route_count": 7,
+    "external_exposure_authorized": false,
+    "production_readiness_declared": false,
+    "cors_changed": false,
+    "payload_v2_allowed": false,
+    "macro_03_started": false
+  },
+  "capabilities": [
+    "global_catalogs.read",
+    "tenant_domains.read",
+    "tenant_agent_presets.read_sanitized"
+  ],
+  "routes": [
+    {"method": "GET", "path": "/api/catalogs/domain-creation", "required_capability": "global_catalogs.read", "conditions": ["authenticated", "audience=ia-core-private-beta"]},
+    {"method": "GET", "path": "/api/catalogs/roles", "required_capability": "global_catalogs.read", "conditions": ["authenticated", "audience=ia-core-private-beta"]},
+    {"method": "GET", "path": "/api/catalogs/specializations", "required_capability": "global_catalogs.read", "conditions": ["authenticated", "audience=ia-core-private-beta"]},
+    {"method": "GET", "path": "/api/domains/list", "required_capability": "tenant_domains.read", "conditions": ["authenticated", "valid tenant", "explicit authorized-domain filtering"]},
+    {"method": "GET", "path": "/api/domains/{domain_id}/profile-catalog", "required_capability": "tenant_domains.read", "conditions": ["authenticated", "valid tenant", "domain authorized"]},
+    {"method": "GET", "path": "/api/domains/{domain_id}/agent-presets", "required_capability": "tenant_agent_presets.read_sanitized", "conditions": ["authenticated", "valid tenant", "domain authorized", "sanitized response"]},
+    {"method": "GET", "path": "/api/domains/{domain_id}/agent-presets/match", "required_capability": "tenant_agent_presets.read_sanitized", "conditions": ["authenticated", "valid tenant", "domain authorized", "sanitized response"]}
+  ],
+  "fail_closed": {
+    "503": "P4_ACCESS_RESOLVER_NOT_CONFIGURED",
+    "401_principal": "P4_PRINCIPAL_INVALID",
+    "401_audience": "P4_AUDIENCE_INVALID",
+    "403": "P4_CAPABILITY_REQUIRED",
+    "400": "P4_RESOURCE_IDENTIFIER_INVALID",
+    "404": "P4_DOMAIN_NOT_AUTHORIZED",
+    "empty_authorized_domain_set": "200 existing empty-list shape"
+  },
+  "adversarial_identity": {
+    "client_headers_cookies_query_cannot_replace_resolver": true,
+    "malformed_and_noncanonical_principals_rejected": true,
+    "exact_capability_matching": true,
+    "prefix_wildcard_casing_space_and_confusable_bypass_rejected": true,
+    "agent_permission_contract_separate": true
+  },
+  "tenant_containment": {
+    "fixtures": ["tenant_a/domain_a1", "tenant_a/domain_a2", "tenant_b/domain_b1"],
+    "principal_a_only_sees_a1": true,
+    "cross_tenant_read_blocked": true,
+    "no_tenant_business_read_blocked": true,
+    "empty_membership_list_shape_preserved": true,
+    "unauthorized_registry_read_prevented": true,
+    "sequential_alternating_principals_no_contamination": true,
+    "concurrent_test": "NOT_ADDED_GLOBAL_FASTAPI_DEPENDENCY_OVERRIDE_STATE"
+  },
+  "error_equivalence": {
+    "missing_unauthorized_cross_tenant_same_status": true,
+    "missing_unauthorized_cross_tenant_same_body": true,
+    "disclosure_of_domain_tenant_subject_membership": false
+  },
+  "preset_sanitization": {
+    "allowlist": ["id", "role_id", "specialization_id", "nombre_visible", "suggested_agent_id", "suggested_agent_name", "short_description", "decision_criteria", "avoid", "orden"],
+    "excluded_fields": ["system_prompt", "recommended_provider", "recommended_model", "recommended_temperature", "memory_policy", "paper_seed", "activo", "secret_ref", "operational_instruction", "unknown_fields"],
+    "text_fields_structurally_validated": true,
+    "text_list_fields_structurally_validated": true,
+    "nested_contamination_removed": true,
+    "applies_to_collection_and_match": true,
+    "registry_rewritten": false,
+    "real_consumers": ["ui/web/index.html:decision_criteria", "ui/web/index.html:suggested_agent_id", "core/agent_paper_schema.py:decision_criteria/avoid"]
+  },
+  "product_repair": {
+    "required": true,
+    "initial_replay": "7 failed, 12 passed, 6 warnings in 13.23s",
+    "commit": "fc3e5952eab6f7ff1f4cdda89fd03990f375920b",
+    "scope": ["api.py P4 wiring", "core/p4_request_access.py"],
+    "red_to_green": "37 passed, 6 warnings in 11.80s",
+    "rollback": "revert exclusively fc3e5952eab6f7ff1f4cdda89fd03990f375920b",
+    "forbidden_surface_touched": false
+  },
+  "dual_gates": [
+    {"gate_id": "G01_IDENTITY_SOURCE", "internal_status": "READY_PROVIDER_INDEPENDENT_CONTRACT", "external_status": "BLOCKED_PROVIDER_EVIDENCE_REQUIRED", "active_now": false, "default_action": "REMAIN_DISABLED_OR_CONTAINED"},
+    {"gate_id": "G02_AUTHENTICATION", "internal_status": "READY_FAIL_CLOSED_RESOLUTION", "external_status": "BLOCKED_PRODUCTION_AUTH_REQUIRED", "active_now": false, "default_action": "REMAIN_DISABLED_OR_CONTAINED"},
+    {"gate_id": "G03_AUTHORIZATION", "internal_status": "ENFORCED_EXACT_POLICY", "external_status": "BLOCKED_EXTERNAL_POLICY_OPERATIONS_REQUIRED", "active_now": false, "default_action": "REMAIN_DISABLED_OR_CONTAINED"},
+    {"gate_id": "G04_TENANT_ISOLATION", "internal_status": "VERIFIED_CONTROLLED_PRINCIPALS", "external_status": "BLOCKED_PRODUCTION_MEMBERSHIP_MAPPING_REQUIRED", "active_now": false, "default_action": "REMAIN_DISABLED_OR_CONTAINED"},
+    {"gate_id": "G05_CORS_TRUSTED_ORIGINS", "internal_status": "PRESERVED_LOCALHOST_ONLY", "external_status": "BLOCKED_TRUSTED_ORIGIN_EVIDENCE_REQUIRED", "active_now": false, "default_action": "REMAIN_DISABLED_OR_CONTAINED"},
+    {"gate_id": "G06_INGRESS_HOSTING", "internal_status": "NOT_REQUIRED_FOR_CLOSED_TESTS", "external_status": "BLOCKED_HOSTING_INGRESS_EVIDENCE_REQUIRED", "active_now": false, "default_action": "REMAIN_DISABLED_OR_CONTAINED"},
+    {"gate_id": "G13_PROVIDER_CREDENTIALS", "internal_status": "NOT_REQUIRED_AND_NOT_ACCESSED", "external_status": "BLOCKED_PROVIDER_INTEGRATION_NOT_AUTHORIZED", "active_now": false, "default_action": "REMAIN_DISABLED_OR_CONTAINED"},
+    {"gate_id": "G18_EXTERNAL_CONSUMERS", "internal_status": "LOCAL_CONSUMERS_ONLY", "external_status": "BLOCKED_EXTERNAL_INVENTORY_REQUIRED", "active_now": false, "default_action": "REMAIN_DISABLED_OR_CONTAINED"},
+    {"gate_id": "G19_PAYLOAD_RESPONSE_CONTRACT", "internal_status": "PROTECTED_AND_TESTED", "external_status": "BLOCKED_EXTERNAL_COMPATIBILITY_EVIDENCE_REQUIRED", "active_now": false, "default_action": "REMAIN_DISABLED_OR_CONTAINED"}
+  ],
+  "validation": {
+    "level_a_focal": "PASS: 210 passed, 6 warnings in 19.71s",
+    "level_a_full_suite": "PASS: 7003 passed, 6 skipped, 6 warnings in 1534.39s",
+    "level_b_focal": "PASS: 210 passed, 6 warnings in 16.84s",
+    "gokv_validate": "PASS: 38 items, valid",
+    "json_parse": "PASS: 268 files before documentary evidence",
+    "level_b_json_parse": "PASS: 269 files including documentary evidence",
+    "py_compile": "PASS",
+    "node_check": "PASS",
+    "secret_policy": "PASS within focal and full suite",
+    "cors_comparison": "PASS_UNCHANGED_FROM_BASELINE",
+    "protected_diff": "PASS: zero forbidden paths",
+    "git_diff_check": "PASS"
+  },
+  "gokv_dool_oci": {
+    "result": "NO_NEW_CANDIDATE",
+    "vault_modified": false,
+    "promotion_performed": false,
+    "runtime_consumption": false
+  },
+  "negative_boundary": {
+    "real_provider_integrated": false,
+    "secrets_read": false,
+    "external_calls": false,
+    "productive_writes": false,
+    "anonymous_exposure": false,
+    "ui_changed": false,
+    "cors_changed": false,
+    "macro_03_started": false
+  }
+}

@@ -1694,3 +1694,25 @@ Ver [checkpoint](docs/ROADMAP_4X_MACRO_02_P4_CHECKPOINT.md),
 [aceptación](docs/ROADMAP_4X_MACRO_02_P4_DIRECTION_ACCEPTANCE.md),
 [matriz dual](docs/ROADMAP_4X_MACRO_02_P4_DUAL_GATE_MATRIX.json) y
 [reconciliación GOKV/DOOL/OCI](docs/ROADMAP_4X_MACRO_02_P4_GOKV_DOOL_OCI_RECONCILIATION.md).
+
+## Roadmap 4.x Macro-Mission 02.1 - P4 Post-Boundary E2E
+
+Resultado: `ROADMAP_4X_MACRO_02_1_P4_POST_BOUNDARY_E2E_ADVERSARIAL_CHECKPOINT_PASSED_AFTER_EVIDENCE_BOUND_REPAIR`.
+La suite adversarial verifica identidad fail-closed, capabilities exactas,
+aislamiento tenant, no enumeración, no contaminación entre requests y
+sanitización estructural de presets sobre las mismas siete rutas GET P4.
+
+Se repararon únicamente defectos demostrados en `api.py` P4 y
+`core/p4_request_access.py`: falta de tenant/membresía, tipos no canónicos,
+equivalencia de errores de dominio y contaminación anidada. La suite completa
+final pasó `7003`, con `6 skipped` y `6 warnings`; no se tocaron UI, CSS,
+JavaScript contractual, i18n, payload v2, runtime, execution, providers,
+integrations, secretos, stores, P0/P1/P3, widgets ni Request Draft Panel.
+CORS permanece localhost-only, la exposición externa sigue default-denied y
+Macro 03 no fue iniciada. GOKV/DOOL/OCI: `NO_NEW_CANDIDATE`.
+
+Ver [checkpoint](docs/ROADMAP_4X_MACRO_02_1_P4_POST_BOUNDARY_E2E_CHECKPOINT.md),
+[evidencia](docs/ROADMAP_4X_MACRO_02_1_P4_POST_BOUNDARY_E2E_EVIDENCE.json),
+[matriz semántica](docs/ROADMAP_4X_MACRO_02_1_P4_SEMANTIC_SANITIZATION_MATRIX.md),
+[ledger](docs/ROADMAP_4X_MACRO_02_1_P4_COMMIT_ACCOUNTABILITY_LEDGER.md) y
+[reconciliación GOKV/DOOL/OCI](docs/ROADMAP_4X_MACRO_02_1_P4_GOKV_DOOL_OCI_RECONCILIATION.md).
