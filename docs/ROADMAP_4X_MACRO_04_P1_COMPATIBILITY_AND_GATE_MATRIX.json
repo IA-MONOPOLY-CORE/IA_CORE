@@ -1,0 +1,179 @@
+{
+  "document": "ROADMAP_4X_MACRO_04_P1_COMPATIBILITY_AND_GATE_MATRIX",
+  "family": "P1_STATUS_OBSERVABILITY_MEMORY",
+  "state": "PREPARED_NOT_STARTED",
+  "external_exposure": "DEFAULT_DENIED",
+  "remediation": "NOT_STARTED",
+  "classification_legend": ["OBSERVED", "INFERRED", "UNKNOWN", "EXTERNAL_EVIDENCE_REQUIRED"],
+  "gate_catalog": {
+    "G01_IDENTITY_SOURCE": "Verified identity source and stable principal.",
+    "G02_AUTHENTICATION": "Authentication proof for the intended audience.",
+    "G03_AUTHORIZATION": "Exact role and capability decision with fail-closed denial.",
+    "G04_TENANT_ISOLATION": "Tenant ownership, scope, and no-enumeration proof.",
+    "G05_CORS_TRUSTED_ORIGINS": "Trusted-origin and browser exposure policy where applicable.",
+    "G06_INGRESS_HOSTING": "Ingress, deployment, and actual hosting boundary proof.",
+    "G08_SECRET_REDACTION": "Secret and sensitive-content redaction proof.",
+    "G10_PERSISTENCE_OWNERSHIP": "Store ownership and record/content ownership proof.",
+    "G11_RETENTION": "Retention, deletion, backup, and audit policy proof.",
+    "G18_EXTERNAL_CONSUMER_COMPATIBILITY": "Known external consumers and version compatibility proof.",
+    "G19_PAYLOAD_RESPONSE_CONTRACT": "Stable response contract and negative compatibility tests."
+  },
+  "routes": [
+    {
+      "route_id": "api_status_get",
+      "method": "GET",
+      "path": "/api/status",
+      "current_success_contract": {
+        "fields": ["running", "providers_ready", "providers", "agents", "fase_actual", "sorteo_actual", "limites_sistema", "hybrid", "overview"],
+        "classification": "OBSERVED"
+      },
+      "known_consumers": [
+        {"name": "ui/web/admin-panels.js loadOverview", "fields": ["running", "overview"], "classification": "OBSERVED"},
+        {"name": "ui/web/admin-panels.js loadHybrid", "fields": ["hybrid"], "classification": "OBSERVED"},
+        {"name": "ui/web/index.html connection polling", "fields": ["providers", "running"], "classification": "OBSERVED"}
+      ],
+      "fields_not_demonstrated_required": ["providers", "agents", "limites_sistema", "overview.tools", "overview.orchestrations", "overview.agent_dispatches", "overview.memory"],
+      "sensitive_fields": ["providers", "agents", "hybrid", "overview.tools", "overview.memory.path", "overview.orchestrations", "overview.agent_dispatches"],
+      "future_preservation": "Keep a versioned compatibility view for proven local consumers; split minimal health from detailed diagnostics before exposure.",
+      "future_redaction": "Omit provider/model inventory, paths, detailed hybrid data, tool lists, and activity counters from minimal health; redact any domain-specific fields to the authorized scope.",
+      "status_codes": [
+        {"value": 200, "meaning": "current successful dictionary response", "classification": "OBSERVED"},
+        {"value": "unexpected helper/provider/state failure", "meaning": "no explicit route-level contract", "classification": "UNKNOWN"}
+      ],
+      "fail_closed_expected": "Deny detailed view when identity, capability, audience, tenant interpretation, or redaction result is missing; full=true never bypasses policy.",
+      "proposed_capabilities": ["platform_status.read_minimal", "platform_status.read_detailed"],
+      "tenant_scope": "Global minimal platform scope or explicitly assigned operator scope; current tenant scope is UNKNOWN_DEFAULT_DENY.",
+      "audience": "AUTHENTICATED_GLOBAL for a future minimal view; OWNER_OR_OPERATOR_ONLY for detailed view; anonymous is not authorized.",
+      "gates": [
+        {"id": "G01_IDENTITY_SOURCE", "state": "INACTIVE_EVIDENCE_REQUIRED"},
+        {"id": "G02_AUTHENTICATION", "state": "INACTIVE_EVIDENCE_REQUIRED"},
+        {"id": "G03_AUTHORIZATION", "state": "INACTIVE_EVIDENCE_REQUIRED"},
+        {"id": "G04_TENANT_ISOLATION", "state": "INACTIVE_EVIDENCE_REQUIRED"},
+        {"id": "G05_CORS_TRUSTED_ORIGINS", "state": "INACTIVE_EVIDENCE_REQUIRED"},
+        {"id": "G06_INGRESS_HOSTING", "state": "INACTIVE_EVIDENCE_REQUIRED"},
+        {"id": "G18_EXTERNAL_CONSUMER_COMPATIBILITY", "state": "INACTIVE_EVIDENCE_REQUIRED"},
+        {"id": "G19_PAYLOAD_RESPONSE_CONTRACT", "state": "INACTIVE_EVIDENCE_REQUIRED"}
+      ],
+      "external_evidence_needed": ["identity/audience", "deployment/ingress", "browser origins", "external consumers", "minimal-versus-detailed response decision"],
+      "decision": "CONTAIN_UNTIL_EVIDENCE"
+    },
+    {
+      "route_id": "api_memory_get",
+      "method": "GET",
+      "path": "/api/memory",
+      "current_success_contract": {
+        "fields": ["status", "keys", "history", "latest", "selected_key", "value"],
+        "classification": "OBSERVED"
+      },
+      "known_consumers": [
+        {"name": "ui/web/admin-panels.js loadMemory", "fields": ["status", "keys", "history", "latest", "selected_key", "value"], "classification": "OBSERVED"}
+      ],
+      "fields_not_demonstrated_required": ["status.path", "keys_preview", "latest.detail", "value for arbitrary keys"],
+      "sensitive_fields": ["keys", "history", "latest", "value", "status.path"],
+      "future_preservation": "Preserve only fields required by an identified, versioned consumer after ownership and tenant scope are proven; raw key/value shape is not a future authorization contract.",
+      "future_redaction": "Never expose raw memory as a tenant view. Return a sanitized, purpose-bound projection with explicit content classes, ownership, retention, and no-enumeration behavior.",
+      "status_codes": [
+        {"value": 200, "meaning": "current successful dictionary response", "classification": "OBSERVED"},
+        {"value": 404, "meaning": "exact requested key is not present", "classification": "OBSERVED"},
+        {"value": 503, "meaning": "supervisor unavailable", "classification": "OBSERVED"}
+      ],
+      "fail_closed_expected": "Missing principal, capability, tenant ownership, content classification, redaction, retention, or record existence policy must deny without cross-tenant enumeration.",
+      "proposed_capabilities": ["memory.metadata.read", "memory.audit.read_sanitized", "memory.tenant.read_sanitized"],
+      "tenant_scope": "One explicitly resolved tenant/business scope for sanitized content; current scope is UNKNOWN_DEFAULT_DENY.",
+      "audience": "OWNER_OR_OPERATOR_ONLY for controlled metadata/audit; TENANT_BUSINESS only for a sanitized, owned projection.",
+      "gates": [
+        {"id": "G01_IDENTITY_SOURCE", "state": "INACTIVE_EVIDENCE_REQUIRED"},
+        {"id": "G02_AUTHENTICATION", "state": "INACTIVE_EVIDENCE_REQUIRED"},
+        {"id": "G03_AUTHORIZATION", "state": "INACTIVE_EVIDENCE_REQUIRED"},
+        {"id": "G04_TENANT_ISOLATION", "state": "INACTIVE_EVIDENCE_REQUIRED"},
+        {"id": "G08_SECRET_REDACTION", "state": "INACTIVE_EVIDENCE_REQUIRED"},
+        {"id": "G10_PERSISTENCE_OWNERSHIP", "state": "INACTIVE_EVIDENCE_REQUIRED"},
+        {"id": "G11_RETENTION", "state": "INACTIVE_EVIDENCE_REQUIRED"},
+        {"id": "G18_EXTERNAL_CONSUMER_COMPATIBILITY", "state": "INACTIVE_EVIDENCE_REQUIRED"},
+        {"id": "G19_PAYLOAD_RESPONSE_CONTRACT", "state": "INACTIVE_EVIDENCE_REQUIRED"}
+      ],
+      "external_evidence_needed": ["memory owner", "tenant/record scope", "content classification", "redaction", "retention", "external consumers"],
+      "decision": "CONTAIN_UNTIL_EVIDENCE"
+    },
+    {
+      "route_id": "api_logs_get",
+      "method": "GET",
+      "path": "/api/logs",
+      "current_success_contract": {
+        "fields": ["path", "requested_lines", "lines", "warnings", "errors", "events"],
+        "classification": "OBSERVED"
+      },
+      "known_consumers": [
+        {"name": "ui/web/admin-panels.js loadLogs", "fields": ["path", "lines", "warnings", "errors", "events"], "classification": "OBSERVED"}
+      ],
+      "fields_not_demonstrated_required": ["path", "warnings", "errors", "events"],
+      "sensitive_fields": ["path", "lines", "warnings", "errors", "events"],
+      "future_preservation": "Preserve only a sanitized, role-bound log view with a versioned contract. Do not preserve raw line access for compatibility convenience.",
+      "future_redaction": "Remove secrets, tokens, headers, credentials, PII, customer/business data, private prompts, raw payloads, stack traces, paths, and control characters before response.",
+      "status_codes": [
+        {"value": 200, "meaning": "current successful dictionary response, including empty content", "classification": "OBSERVED"},
+        {"value": "read failure", "meaning": "_tail_log returns empty content for OSError", "classification": "OBSERVED"}
+      ],
+      "fail_closed_expected": "A missing sink, retention policy, redaction result, tenant boundary, or admin identity denies sensitive content; empty content must not be interpreted as authorization.",
+      "proposed_capabilities": ["observability.logs.read_sanitized", "observability.events.read_sanitized"],
+      "tenant_scope": "Explicitly assigned operational or tenant scope after event classification; current scope is UNKNOWN_DEFAULT_DENY.",
+      "audience": "OWNER_OR_OPERATOR_ONLY; raw diagnostics are INTERNAL_SYSTEM_ONLY and NEVER_EXPOSE.",
+      "gates": [
+        {"id": "G01_IDENTITY_SOURCE", "state": "INACTIVE_EVIDENCE_REQUIRED"},
+        {"id": "G02_AUTHENTICATION", "state": "INACTIVE_EVIDENCE_REQUIRED"},
+        {"id": "G03_AUTHORIZATION", "state": "INACTIVE_EVIDENCE_REQUIRED"},
+        {"id": "G04_TENANT_ISOLATION", "state": "INACTIVE_EVIDENCE_REQUIRED"},
+        {"id": "G08_SECRET_REDACTION", "state": "INACTIVE_EVIDENCE_REQUIRED"},
+        {"id": "G11_RETENTION", "state": "INACTIVE_EVIDENCE_REQUIRED"},
+        {"id": "G18_EXTERNAL_CONSUMER_COMPATIBILITY", "state": "INACTIVE_EVIDENCE_REQUIRED"},
+        {"id": "G19_PAYLOAD_RESPONSE_CONTRACT", "state": "INACTIVE_EVIDENCE_REQUIRED"}
+      ],
+      "external_evidence_needed": ["admin identity", "log sink owner", "retention/deletion", "redaction tests", "tenant/event classification", "external consumers"],
+      "decision": "BLOCK_UNTIL_EVIDENCE"
+    },
+    {
+      "route_id": "api_metrics_dynamic_get",
+      "method": "GET",
+      "path": "/api/metrics/dynamic",
+      "current_success_contract": {
+        "fields": ["success", "timestamp", "forward_test", "v19", "fase_actual"],
+        "classification": "OBSERVED"
+      },
+      "known_consumers": [
+        {"name": "current UI caller", "fields": [], "classification": "UNKNOWN", "evidence": "No current UI caller was found in the source audit."},
+        {"name": "route fixture and historical documentation", "fields": ["route identity"], "classification": "OBSERVED"}
+      ],
+      "fields_not_demonstrated_required": ["forward_test", "v19", "fase_actual", "timestamp"],
+      "sensitive_fields": ["forward_test", "v19", "fase_actual", "timestamp"],
+      "future_preservation": "Do not freeze the current shape for an unproven consumer. First establish metric owner, aggregation scope, audience, and a versioned response contract.",
+      "future_redaction": "Aggregate only within an authorized tenant/domain scope; prevent inference of other-tenant activity, strategy, provider usage, cost, infrastructure, or timing.",
+      "status_codes": [
+        {"value": 200, "meaning": "current successful dictionary response", "classification": "OBSERVED"},
+        {"value": 501, "meaning": "loteria domain unavailable", "classification": "OBSERVED"},
+        {"value": 503, "meaning": "evolution unavailable", "classification": "OBSERVED"}
+      ],
+      "fail_closed_expected": "Unknown metric ownership, aggregation, audience, tenant, or consumer compatibility denies the response rather than returning global data.",
+      "proposed_capabilities": ["tenant_metrics.read", "observability.metrics.read_sanitized"],
+      "tenant_scope": "One authorized tenant/domain aggregation; current scope is UNKNOWN_DEFAULT_DENY.",
+      "audience": "TENANT_BUSINESS for proven aggregate metrics; OWNER_OR_OPERATOR_ONLY for controlled operational detail.",
+      "gates": [
+        {"id": "G01_IDENTITY_SOURCE", "state": "INACTIVE_EVIDENCE_REQUIRED"},
+        {"id": "G02_AUTHENTICATION", "state": "INACTIVE_EVIDENCE_REQUIRED"},
+        {"id": "G03_AUTHORIZATION", "state": "INACTIVE_EVIDENCE_REQUIRED"},
+        {"id": "G04_TENANT_ISOLATION", "state": "INACTIVE_EVIDENCE_REQUIRED"},
+        {"id": "G18_EXTERNAL_CONSUMER_COMPATIBILITY", "state": "INACTIVE_EVIDENCE_REQUIRED"},
+        {"id": "G19_PAYLOAD_RESPONSE_CONTRACT", "state": "INACTIVE_EVIDENCE_REQUIRED"}
+      ],
+      "external_evidence_needed": ["metric owner", "tenant aggregation", "audience", "correlation risk", "consumer inventory"],
+      "decision": "CONTAIN_UNTIL_EVIDENCE"
+    }
+  ],
+  "integrity": {
+    "route_count": 4,
+    "routes_exact": ["GET /api/status", "GET /api/memory", "GET /api/logs", "GET /api/metrics/dynamic"],
+    "invented_routes": [],
+    "gate_activation": false,
+    "external_exposure": "DEFAULT_DENIED",
+    "product_remediation": false
+  }
+}
