@@ -47,6 +47,7 @@ _OVERRIDES = {
 }
 _CURRENT_GUARD_MODULES = {
     "tests/test_ui_ux_panel_maestro_controlled_double_scope_affordances_severity_1_192.py",
+    "tests/test_roadmap_4x_macro_03_checkpoint.py",
 }
 _CURRENT_MISSION_CONTINUITY_GUARD_MODULES = frozenset(
     {
@@ -54,6 +55,7 @@ _CURRENT_MISSION_CONTINUITY_GUARD_MODULES = frozenset(
         "tests/test_ui_ux_panel_maestro_assembled_block_scale_audit_1_193.py",
         "tests/test_ui_ux_panel_maestro_responsive_visual_coherence_assembled_block_1_194.py",
         "tests/test_ui_ux_panel_maestro_css_accessibility_responsive_large_scale_block_1_196.py",
+        "tests/test_roadmap_4x_macro_03_checkpoint.py",
     }
 )
 _SECONDARY_HISTORICAL_FILES = frozenset(
@@ -177,6 +179,18 @@ _CURRENT_MISSION_DOCUMENTARY_FILES = frozenset(
         "docs/ROADMAP_4X_MACRO_01_1_P4_LIVE_CLOSURE_EVIDENCE.json",
         "docs/ROADMAP_4X_MACRO_01_1_P4_LIVE_CLOSURE_COMMIT_ACCOUNTABILITY_LEDGER.md",
         "knowledge/global_operational/items/publication_metadata_must_not_chase_its_own_head.json",
+        "docs/ROADMAP_4X_MACRO_03_P4_INTERNAL_FAMILY_CLOSURE_CHECKPOINT.md",
+        "docs/ROADMAP_4X_MACRO_03_P4_INTERNAL_FAMILY_CLOSURE_EVIDENCE.json",
+        "docs/ROADMAP_4X_MACRO_03_P4_INTERNAL_FAMILY_CLOSURE_COMMIT_ACCOUNTABILITY_LEDGER.md",
+        "docs/ROADMAP_4X_MACRO_03_JSON_CENSUS_RECONCILIATION.md",
+        "docs/ROADMAP_4X_MACRO_03_36_ROUTE_MATRIX.md",
+        "docs/ROADMAP_4X_MACRO_03_FAMILY_SELECTION_MATRIX.md",
+        "docs/ROADMAP_4X_MACRO_03_P1_ENTRY_CONTRACT.md",
+        "docs/ROADMAP_4X_MACRO_03_GOKV_DOOL_OCI_RECONCILIATION.md",
+        "docs/ROADMAP_4X_MACRO_03_CHECKPOINT.md",
+        "docs/ROADMAP_4X_MACRO_03_CHECKPOINT_EVIDENCE.json",
+        "docs/ROADMAP_4X_MACRO_03_COMMIT_ACCOUNTABILITY_LEDGER.md",
+        "tests/test_roadmap_4x_macro_03_checkpoint.py",
     }
 )
 _HISTORICAL_FILES = frozenset(_LEDGER_NODE_RE.findall(LEDGER.read_text(encoding="utf-8"))) | _SECONDARY_HISTORICAL_FILES
