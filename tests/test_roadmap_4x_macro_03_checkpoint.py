@@ -144,6 +144,7 @@ def test_macro_03_diff_contains_no_product_surface():
     assert not [path for path in output if path.startswith(forbidden)]
     assert set(output) <= MACRO_03_DOCS | CURRENT_MACRO_04_DOCUMENTARY_FILES | {
         "README.md",
+        "docs/FUTURE_PLATFORM_EXTENSION_INDEX.md",
         "docs/IA_CORE_DELIVERY_HORIZON_FORECAST.md",
         "tests/historical_test_context.py",
         "tests/test_roadmap_4x_macro_01_1_p4_live_closure.py",
