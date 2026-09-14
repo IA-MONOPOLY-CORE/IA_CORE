@@ -132,4 +132,6 @@ def test_macro_03_diff_contains_no_product_surface():
         "README.md",
         "docs/IA_CORE_DELIVERY_HORIZON_FORECAST.md",
         "tests/historical_test_context.py",
+        "tests/test_roadmap_4x_macro_01_1_p4_live_closure.py",
+        "tests/test_roadmap_3_x_macro_05_1_live_state_consistency.py",
     }
