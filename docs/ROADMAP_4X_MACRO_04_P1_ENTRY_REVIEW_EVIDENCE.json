@@ -1,0 +1,110 @@
+{
+  "mission": "ROADMAP_4X_MACRO_04",
+  "family": "P1_STATUS_OBSERVABILITY_MEMORY",
+  "result": "ROADMAP_4X_MACRO_04_P1_ENTRY_REVIEW_COMPLETE_SUBFAMILY_SPLIT_CONTRACTED_FUTURE_ENTERPRISE_FOUNDRY_CONCEPT_PRESERVED_INTERNAL_REMEDIATION_NOT_STARTED",
+  "validation_status": "PENDING_LEVEL_A",
+  "started_at": "2026-09-14T15:38:19.6935929-03:00",
+  "ended_at": null,
+  "duration_seconds": null,
+  "baseline": "eda265c15bed0aedce4a8bfb141f39905e03a61b",
+  "validation_basis": null,
+  "repository": {
+    "branch": "main",
+    "head_at_creation": "PENDING_FINAL_HEAD",
+    "origin_main_at_creation": "eda265c15bed0aedce4a8bfb141f39905e03a61b",
+    "ahead_behind_at_creation": "0/0",
+    "working_tree_at_creation": "DOCUMENTS_AND_GUARD_IN_PROGRESS",
+    "fetch_performed_before_work": true
+  },
+  "commits": {
+    "completed_before_finalization": [
+      "4417ad4",
+      "56c72ee",
+      "556882f",
+      "3973e8f",
+      "07e7b14",
+      "91653fa"
+    ],
+    "validation_basis": null,
+    "documentary_closeout": null
+  },
+  "artifacts": {
+    "strategy": "docs/FUTURE_IA_CORE_ENTERPRISE_FOUNDRY_AND_AGENT_LINEAGE.md",
+    "route_matrix": "docs/ROADMAP_4X_MACRO_04_P1_ROUTE_SOURCE_PAYLOAD_AND_CONSUMER_MATRIX.json",
+    "sensitivity_contract": "docs/ROADMAP_4X_MACRO_04_P1_SENSITIVITY_AUTHORITY_AND_VISIBILITY_CONTRACT.md",
+    "family_adjudication": "docs/ROADMAP_4X_MACRO_04_P1_FAMILY_COHERENCE_ADJUDICATION.md",
+    "gate_matrix": "docs/ROADMAP_4X_MACRO_04_P1_COMPATIBILITY_AND_GATE_MATRIX.json",
+    "future_plan": "docs/ROADMAP_4X_MACRO_04_P1_BOUNDED_REMEDIATION_EXECUTION_PLAN.md",
+    "gokv_reconciliation": "docs/ROADMAP_4X_MACRO_04_P1_GOKV_DOOL_OCI_RECONCILIATION.md",
+    "checkpoint": "docs/ROADMAP_4X_MACRO_04_P1_ENTRY_REVIEW_CHECKPOINT.md",
+    "ledger": "docs/ROADMAP_4X_MACRO_04_P1_COMMIT_ACCOUNTABILITY_LEDGER.md",
+    "guard": "tests/test_roadmap_4x_macro_04_p1_entry_review.py"
+  },
+  "routes": {
+    "exact_count": 4,
+    "exact_paths": ["GET /api/status", "GET /api/memory", "GET /api/logs", "GET /api/metrics/dynamic"],
+    "source": "docs/ROADMAP_4X_MACRO_04_P1_ROUTE_SOURCE_PAYLOAD_AND_CONSUMER_MATRIX.json",
+    "route_calls_performed": false,
+    "external_consumers_demonstrated": false,
+    "external_exposure": "DEFAULT_DENIED"
+  },
+  "family_adjudication": {
+    "decision": "SUBFAMILY_SPLIT_CONTRACTED",
+    "historical_family_preserved": true,
+    "selected_first": "P1-A_PLATFORM_STATUS_HEALTH_SELECTED_NOT_STARTED",
+    "memory": "DEFERRED_NOT_STARTED",
+    "logs_events": "DEFERRED_NOT_STARTED",
+    "dynamic_metrics": "DEFERRED_NOT_STARTED",
+    "true_hard_frontier": false
+  },
+  "security": {
+    "p1_remediation": "NOT_STARTED",
+    "p1_exposure": "DEFAULT_DENIED",
+    "gates": "INACTIVE_EVIDENCE_REQUIRED",
+    "owner_final_authority": true,
+    "success_grants_root": false,
+    "tenant_scope": "UNKNOWN_DEFAULT_DENY",
+    "raw_memory_or_logs_exposed_by_audit": false,
+    "secrets_read": false,
+    "provider_or_runtime_calls": false,
+    "external_calls": false
+  },
+  "enterprise_foundry": {
+    "state": "FUTURE_CONCEPT_PRESERVED_NOT_SCHEDULED_NOT_IMPLEMENTED",
+    "implemented": false,
+    "activated": false,
+    "scheduled": false,
+    "production_schema_created": false,
+    "creation_selector_operational": false,
+    "founding_lease_active": false,
+    "capability_passport_operational": false
+  },
+  "gokv_dool_oci": {
+    "result": "NO_NEW_CANDIDATE",
+    "registry_items_consulted": 38,
+    "registry_write": false,
+    "promotion": false,
+    "runtime_oci": false
+  },
+  "validation": {
+    "level_a": "PENDING",
+    "new_guard": "PENDING",
+    "historical_guards": "PENDING",
+    "p4_replay": "PENDING",
+    "secret_policy": "PENDING",
+    "gokv_validation": "PENDING",
+    "py_compile": "PENDING",
+    "node": "NOT_APPLICABLE_NO_JAVASCRIPT_MODIFIED",
+    "json_census": {"metric": "TRACKED_JSON_FILES_PARSEABLE", "baseline": 252, "final": null},
+    "git_diff_check": "PENDING",
+    "protected_diff": "PENDING",
+    "full_suite": "PENDING"
+  },
+  "consumption": {
+    "5H_START_REMAINING": "NOT_AVAILABLE_NOT_INFERRED",
+    "5H_END_REMAINING": "NOT_AVAILABLE_NOT_INFERRED",
+    "WEEKLY_START_REMAINING": "NOT_AVAILABLE_NOT_INFERRED",
+    "WEEKLY_END_REMAINING": "NOT_AVAILABLE_NOT_INFERRED",
+    "measurement_quality": "NOT_AVAILABLE_NOT_INFERRED"
+  }
+}
