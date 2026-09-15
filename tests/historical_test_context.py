@@ -50,6 +50,7 @@ _CURRENT_GUARD_MODULES = {
     "tests/test_roadmap_4x_macro_03_checkpoint.py",
     "tests/test_roadmap_4x_macro_04_p1_entry_review.py",
     "tests/test_roadmap_4x_macro_04_1_cognitive_kernel.py",
+    "tests/test_roadmap_4x_macro_04_2_cognitive_kernel.py",
 }
 _CURRENT_MISSION_CONTINUITY_GUARD_MODULES = frozenset(
     {
@@ -60,6 +61,7 @@ _CURRENT_MISSION_CONTINUITY_GUARD_MODULES = frozenset(
         "tests/test_roadmap_4x_macro_03_checkpoint.py",
         "tests/test_roadmap_4x_macro_04_p1_entry_review.py",
         "tests/test_roadmap_4x_macro_04_1_cognitive_kernel.py",
+        "tests/test_roadmap_4x_macro_04_2_cognitive_kernel.py",
     }
 )
 _SECONDARY_HISTORICAL_FILES = frozenset(
@@ -223,6 +225,20 @@ _CURRENT_MISSION_DOCUMENTARY_FILES = frozenset(
         "tests/test_gokv_cognitive_kernel_0_1.py",
         "tests/test_roadmap_4x_macro_04_1_cognitive_kernel.py",
         "docs/ROADMAP_4X_MACRO_04_P1_BOUNDED_REMEDIATION_EXECUTION_PLAN.md",
+        "docs/FUTURE_IA_CORE_OS_AND_DEVICE_ECOSYSTEM.md",
+        "docs/FUTURE_SECURITY_AND_IT_OPERATIONS_MODEL.md",
+        "docs/ROADMAP_4X_MACRO_04_2_SECURITY_NATIVE_G0_CONTRACT.md",
+        "docs/ROADMAP_4X_MACRO_04_2_SECURITY_INGESTION_CONTRACT.md",
+        "docs/ROADMAP_4X_MACRO_04_2_TRUTH_MATRIX.md",
+        "docs/ROADMAP_4X_MACRO_04_2_EXECUTION_METRICS_BASELINE.md",
+        "docs/ROADMAP_4X_MACRO_04_2_CHECKPOINT.md",
+        "docs/ROADMAP_4X_MACRO_04_2_CHECKPOINT_EVIDENCE.json",
+        "docs/ROADMAP_4X_MACRO_04_2_COMMIT_ACCOUNTABILITY_LEDGER.md",
+        "knowledge/global_operational/metrics/roadmap_4_x_macro_04_2_execution_metric.json",
+        "tests/test_gokv_cognitive_kernel_0_2.py",
+        "tests/test_roadmap_4x_macro_04_2_cognitive_kernel.py",
+        "README.md",
+        "docs/FUTURE_PLATFORM_EXTENSION_INDEX.md",
     }
 )
 _HISTORICAL_FILES = frozenset(_LEDGER_NODE_RE.findall(LEDGER.read_text(encoding="utf-8"))) | _SECONDARY_HISTORICAL_FILES

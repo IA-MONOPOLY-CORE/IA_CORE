@@ -37,6 +37,18 @@ REQUIRED_FILES = {
     "docs/FUTURE_PLATFORM_EXTENSION_INDEX.md",
     "docs/FUTURE_IA_CORE_ENTERPRISE_FOUNDRY_AND_AGENT_LINEAGE.md",
     "docs/ROADMAP_4X_MACRO_04_P1_BOUNDED_REMEDIATION_EXECUTION_PLAN.md",
+    "docs/FUTURE_IA_CORE_OS_AND_DEVICE_ECOSYSTEM.md",
+    "docs/FUTURE_SECURITY_AND_IT_OPERATIONS_MODEL.md",
+    "docs/ROADMAP_4X_MACRO_04_2_SECURITY_NATIVE_G0_CONTRACT.md",
+    "docs/ROADMAP_4X_MACRO_04_2_SECURITY_INGESTION_CONTRACT.md",
+    "docs/ROADMAP_4X_MACRO_04_2_TRUTH_MATRIX.md",
+    "docs/ROADMAP_4X_MACRO_04_2_EXECUTION_METRICS_BASELINE.md",
+    "docs/ROADMAP_4X_MACRO_04_2_CHECKPOINT.md",
+    "docs/ROADMAP_4X_MACRO_04_2_CHECKPOINT_EVIDENCE.json",
+    "docs/ROADMAP_4X_MACRO_04_2_COMMIT_ACCOUNTABILITY_LEDGER.md",
+    "knowledge/global_operational/metrics/roadmap_4_x_macro_04_2_execution_metric.json",
+    "tests/test_gokv_cognitive_kernel_0_2.py",
+    "tests/test_roadmap_4x_macro_04_2_cognitive_kernel.py",
 }
 
 PROTECTED_PREFIXES = (
@@ -84,8 +96,8 @@ def test_required_artifacts_and_graph_contract_exist():
     for relative in REQUIRED_FILES:
         assert (ROOT / relative).is_file(), relative
     graph = load_kernel_graph(GRAPH)
-    assert len(graph["nodes"]) == 10
-    assert len(graph["edges"]) == 6
+    assert len(graph["nodes"]) == 13
+    assert len(graph["edges"]) == 10
     assert graph["kernel_mode"] == "INERT_DEVELOPMENT_FOUNDATION"
     assert "KERNEL" not in {family["family_id"] for family in graph["families"]}
 
@@ -96,7 +108,7 @@ def test_active_inheritance_literal_is_migrated_without_rewriting_history():
     assert "MINIMUM_SUFFICIENT_INHERITANCE" not in active
     assert "closed" in active and "evidence" in active
     assert "P1-A_PLATFORM_STATUS_HEALTH_SELECTED_NOT_STARTED" in _text(P1_PLAN)
-    assert "TEMPORARILY_PAUSED_BEHIND_COGNITIVE_KERNEL_RECONCILIATION" in _text(P1_PLAN)
+    assert "NEXT_SELECTED_NOT_STARTED" in _text(P1_PLAN)
 
 
 def test_owner_native_domain_parity_and_no_activation_are_explicit():
@@ -131,6 +143,8 @@ def test_macro_04_1_change_set_is_scoped_and_p1_is_untouched():
         "tests/test_roadmap_4x_macro_01_1_p4_live_closure.py",
         "tests/test_roadmap_3_x_macro_05_1_live_state_consistency.py",
         "tests/test_roadmap_4x_macro_04_p1_entry_review.py",
+        "tests/test_roadmap_3_x_macro_04_true_completion.py",
+        "tests/test_roadmap_3_x_macro_05_final_closure.py",
     }
     assert not [path for path in changed if path.startswith(PROTECTED_PREFIXES)]
     assert "api.py" not in changed

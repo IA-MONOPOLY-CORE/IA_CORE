@@ -72,6 +72,18 @@ CURRENT_MACRO_04_DOCUMENTARY_FILES = {
     "docs/FUTURE_PLATFORM_EXTENSION_INDEX.md",
     "docs/FUTURE_IA_CORE_ENTERPRISE_FOUNDRY_AND_AGENT_LINEAGE.md",
     "docs/ROADMAP_4X_MACRO_04_P1_BOUNDED_REMEDIATION_EXECUTION_PLAN.md",
+    "docs/FUTURE_IA_CORE_OS_AND_DEVICE_ECOSYSTEM.md",
+    "docs/FUTURE_SECURITY_AND_IT_OPERATIONS_MODEL.md",
+    "knowledge/global_operational/metrics/roadmap_4_x_macro_04_2_execution_metric.json",
+    "docs/ROADMAP_4X_MACRO_04_2_SECURITY_NATIVE_G0_CONTRACT.md",
+    "docs/ROADMAP_4X_MACRO_04_2_SECURITY_INGESTION_CONTRACT.md",
+    "docs/ROADMAP_4X_MACRO_04_2_TRUTH_MATRIX.md",
+    "docs/ROADMAP_4X_MACRO_04_2_EXECUTION_METRICS_BASELINE.md",
+    "docs/ROADMAP_4X_MACRO_04_2_CHECKPOINT.md",
+    "docs/ROADMAP_4X_MACRO_04_2_CHECKPOINT_EVIDENCE.json",
+    "docs/ROADMAP_4X_MACRO_04_2_COMMIT_ACCOUNTABILITY_LEDGER.md",
+    "tests/test_gokv_cognitive_kernel_0_2.py",
+    "tests/test_roadmap_4x_macro_04_2_cognitive_kernel.py",
 }
 
 
