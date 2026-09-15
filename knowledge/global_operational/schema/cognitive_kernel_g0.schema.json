@@ -1,0 +1,61 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "ia_core.cognitive_kernel.g0.v1",
+  "title": "IA_CORE Cognitive Kernel Generation Zero Inert Foundation",
+  "description": "Development-only graph contract. It does not activate runtime, providers, permissions, tenants, payloads, or model training.",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "kernel_id",
+    "kernel_mode",
+    "kernel_formula",
+    "families",
+    "generations",
+    "relation_types",
+    "invariants",
+    "runtime_boundary",
+    "nodes",
+    "edges"
+  ],
+  "properties": {
+    "schema_version": {"const": "ia_core.cognitive_kernel.g0.v1"},
+    "kernel_id": {"const": "ia_core_cognitive_kernel"},
+    "kernel_mode": {"const": "INERT_DEVELOPMENT_FOUNDATION"},
+    "kernel_formula": {
+      "const": ["IDENTITY", "CONTRACTS", "TYPED_CONNECTIONS", "GOVERNANCE", "INHERITANCE", "FEEDBACK"]
+    },
+    "families": {"type": "array", "minItems": 3},
+    "generations": {"type": "array", "minItems": 4, "maxItems": 4},
+    "relation_types": {"type": "array", "minItems": 11, "uniqueItems": true},
+    "invariants": {"type": "array", "items": {"type": "string", "minLength": 1}},
+    "runtime_boundary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "runtime_enabled",
+        "provider_calls_allowed",
+        "external_calls_allowed",
+        "permission_grants",
+        "automatic_promotion",
+        "tenant_reads",
+        "raw_secret_reads",
+        "model_training",
+        "payload_enabled"
+      ],
+      "properties": {
+        "runtime_enabled": {"const": false},
+        "provider_calls_allowed": {"const": false},
+        "external_calls_allowed": {"const": false},
+        "permission_grants": {"const": false},
+        "automatic_promotion": {"const": false},
+        "tenant_reads": {"const": false},
+        "raw_secret_reads": {"const": false},
+        "model_training": {"const": false},
+        "payload_enabled": {"const": false}
+      }
+    },
+    "nodes": {"type": "array", "minItems": 1},
+    "edges": {"type": "array"}
+  },
+  "additionalProperties": false
+}

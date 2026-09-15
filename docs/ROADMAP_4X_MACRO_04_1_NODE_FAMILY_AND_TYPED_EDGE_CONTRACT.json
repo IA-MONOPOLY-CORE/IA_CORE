@@ -1,0 +1,348 @@
+{
+  "schema_version": "ia_core.cognitive_kernel.g0.v1",
+  "kernel_id": "ia_core_cognitive_kernel",
+  "kernel_mode": "INERT_DEVELOPMENT_FOUNDATION",
+  "kernel_formula": ["IDENTITY", "CONTRACTS", "TYPED_CONNECTIONS", "GOVERNANCE", "INHERITANCE", "FEEDBACK"],
+  "families": [
+    {
+      "family_id": "GOKV",
+      "orientation": "HORIZONTAL_PEER",
+      "status": "CURRENT_VALIDATED",
+      "contract_refs": ["gokv.knowledge_item.v1", "gokv.registry.v1", "knowledge/global_operational/README.md"]
+    },
+    {
+      "family_id": "DOOL",
+      "orientation": "HORIZONTAL_PEER",
+      "status": "CURRENT_CONTRACTED",
+      "contract_refs": ["docs/ROADMAP_4X_MACRO_04_1_DOOL_GENERATIONAL_LINEAGE_CONTRACT.md", "gokv.knowledge_item.v1"]
+    },
+    {
+      "family_id": "OCI",
+      "orientation": "HORIZONTAL_PEER",
+      "status": "CURRENT_CONTRACTED",
+      "contract_refs": ["gokv.development_oci.v1", "docs/ROADMAP_4X_MACRO_04_1_OCI_NECESSARY_AND_SUFFICIENT_INHERITANCE.md"]
+    }
+  ],
+  "generations": [
+    {
+      "generation_id": "G0_DEVELOPMENT_ORIGIN",
+      "evidence_state": "REAL_EVIDENCE_ONLY",
+      "materialization": "ALLOWED_INERT_NODES"
+    },
+    {
+      "generation_id": "G1_BETA_OPERATIONAL_LEARNING",
+      "evidence_state": "NO_OPERATIONAL_EVIDENCE",
+      "materialization": "CONTRACTED_NOT_MATERIALIZED"
+    },
+    {
+      "generation_id": "G2_FIELD_OPERATIONAL_LEARNING",
+      "evidence_state": "NO_OPERATIONAL_EVIDENCE",
+      "materialization": "CONTRACTED_NOT_MATERIALIZED"
+    },
+    {
+      "generation_id": "GN_CONTINUOUS_EVOLUTION",
+      "evidence_state": "NO_OPERATIONAL_EVIDENCE",
+      "materialization": "CONTRACTED_NOT_MATERIALIZED"
+    }
+  ],
+  "relation_types": [
+    "derived_from",
+    "confirms",
+    "contradicts",
+    "limits",
+    "supersedes",
+    "compatible_with",
+    "tested_by",
+    "inheritable_by",
+    "requires",
+    "improves",
+    "degrades"
+  ],
+  "invariants": [
+    "DOOL_IS_A_PERMANENT_CORE_NODE_FAMILY",
+    "GENERATION_ZERO_IS_ORIGIN_NOT_SUNSET",
+    "DEVELOPMENT_ORIGIN_IS_PROVENANCE_NOT_LIFETIME",
+    "FIELD_OPERATION_EXTENDS_DOOL_AND_DOES_NOT_REPLACE_IT",
+    "KERNEL_IS_A_GOVERNED_COMPOSITION_NOT_A_FOURTH_FAMILY",
+    "NO_NEW_ENTITY_STARTS_FROM_ZERO",
+    "SUCCESS_AND_FAILURE_ARE_BOTH_INHERITABLE_ASSETS",
+    "GLOBAL_LEARNING_NEVER_EQUALS_RAW_TENANT_DATA_SHARING",
+    "OWNER_NATIVE_STATUS_DOES_NOT_BYPASS_TENANT_ISOLATION",
+    "MAXIMUM_GOVERNANCE_AUTHORITY_WITHOUT_UNIVERSAL_CONTENT_VISIBILITY",
+    "NO_SINGLE_PARTY_CAN_RECOVER_AND_DECRYPT_ALONE",
+    "NO_DOMAIN_MODULE_HAS_INHERENT_PRIVILEGED_OR_FEATURED_STATUS"
+  ],
+  "runtime_boundary": {
+    "runtime_enabled": false,
+    "provider_calls_allowed": false,
+    "external_calls_allowed": false,
+    "permission_grants": false,
+    "automatic_promotion": false,
+    "tenant_reads": false,
+    "raw_secret_reads": false,
+    "model_training": false,
+    "payload_enabled": false
+  },
+  "nodes": [
+    {
+      "node_id": "gokv_family_contract",
+      "family": "GOKV",
+      "generation": "G0_DEVELOPMENT_ORIGIN",
+      "kind": "FAMILY_CONTRACT",
+      "status": "VALIDATED",
+      "scope": "IA_CORE_BUILD",
+      "provenance": {
+        "classification": "OBSERVED",
+        "sources": ["gokv/schema.py", "gokv/storage.py", "knowledge/global_operational/registry.json"],
+        "claim": "GOKV already provides versioned knowledge, lifecycle, evidence, privacy, storage and registry contracts."
+      },
+      "evidence_refs": [
+        {"evidence_id": "gokv_schema_contract", "kind": "document", "ref": "gokv/schema.py", "claim": "Knowledge item schema and lifecycle validators exist.", "classification": "OBSERVED"},
+        {"evidence_id": "gokv_registry_contract", "kind": "test", "ref": "tests/test_gokv_storage_integrity_0_1.py", "claim": "Vault and derived registry integrity are tested.", "classification": "OBSERVED"}
+      ],
+      "compatibility": {"status": "CURRENT_COMPATIBLE", "compatible_with": ["gokv.knowledge_item.v1", "gokv.registry.v1"], "excluded": ["runtime", "provider_calls", "tenant_reads"]},
+      "confidentiality_class": "ia_core_internal",
+      "created_at": "2026-09-14T20:51:40-03:00",
+      "supersedes": [],
+      "inheritance": {"eligible": true, "requires": ["explicit_selection", "scope_compatibility", "evidence"], "excludes": ["raw secrets", "plaintext tenant content", "private prompts", "chain-of-thought"]}
+    },
+    {
+      "node_id": "gokv_g0_development_vault",
+      "family": "GOKV",
+      "generation": "G0_DEVELOPMENT_ORIGIN",
+      "kind": "KNOWLEDGE_FOUNDATION",
+      "status": "VALIDATED",
+      "scope": "IA_CORE_BUILD",
+      "provenance": {
+        "classification": "OBSERVED",
+        "sources": ["knowledge/global_operational/registry.json", "gokv/storage.py"],
+        "claim": "The current vault contains 38 valid development-origin items and no operational tenant learning."
+      },
+      "evidence_refs": [
+        {"evidence_id": "gokv_current_registry", "kind": "document", "ref": "knowledge/global_operational/registry.json", "claim": "The current registry records 38 items, all with DEVELOPMENT_ORIGIN.", "classification": "OBSERVED"},
+        {"evidence_id": "gokv_validation_test", "kind": "test", "ref": "tests/test_gokv_storage_integrity_0_1.py", "claim": "Vault validation rejects stale or broken state.", "classification": "OBSERVED"}
+      ],
+      "compatibility": {"status": "CURRENT_COMPATIBLE", "compatible_with": ["gokv.knowledge_item.v1", "gokv.registry.v1"], "excluded": ["automatic promotion", "runtime consumption", "raw tenant data"]},
+      "confidentiality_class": "ia_core_internal",
+      "created_at": "2026-09-14T20:51:40-03:00",
+      "supersedes": [],
+      "inheritance": {"eligible": true, "requires": ["validated lifecycle status", "explicit mission selection"], "excludes": ["raw secrets", "plaintext tenant content", "private prompts", "chain-of-thought"]}
+    },
+    {
+      "node_id": "dool_family_contract",
+      "family": "DOOL",
+      "generation": "G0_DEVELOPMENT_ORIGIN",
+      "kind": "FAMILY_CONTRACT",
+      "status": "CONTRACTED",
+      "scope": "IA_CORE_BUILD",
+      "provenance": {
+        "classification": "OWNER_DIRECTED",
+        "sources": ["docs/GOKV_DOOL_OCI_ARCHITECTURE_0_2.md", "docs/ROADMAP_4X_MACRO_04_1_OWNER_DIRECTION_ACCEPTANCE.md"],
+        "claim": "DOOL is a permanent core family whose development origin is provenance, not a sunset condition."
+      },
+      "evidence_refs": [
+        {"evidence_id": "dool_prior_contract", "kind": "document", "ref": "docs/GOKV_DOOL_OCI_ARCHITECTURE_0_2.md", "claim": "The repository already defines development-origin operational learning.", "classification": "OBSERVED"},
+        {"evidence_id": "dool_owner_direction", "kind": "checkpoint", "ref": "docs/ROADMAP_4X_MACRO_04_1_OWNER_DIRECTION_ACCEPTANCE.md", "claim": "The current direction makes DOOL permanent and generational.", "classification": "OWNER_DIRECTED"}
+      ],
+      "compatibility": {"status": "CURRENT_COMPATIBLE", "compatible_with": ["gokv.knowledge_item.v1", "DEVELOPMENT_ORIGIN"], "excluded": ["model weight training", "runtime learning", "cross-tenant raw sharing"]},
+      "confidentiality_class": "ia_core_internal",
+      "created_at": "2026-09-14T20:51:40-03:00",
+      "supersedes": [],
+      "inheritance": {"eligible": true, "requires": ["distillation", "evidence", "scope_compatibility"], "excludes": ["raw secrets", "plaintext tenant content", "private prompts", "chain-of-thought"]}
+    },
+    {
+      "node_id": "dool_g0_method_learning",
+      "family": "DOOL",
+      "generation": "G0_DEVELOPMENT_ORIGIN",
+      "kind": "DEVELOPMENT_LEARNING",
+      "status": "CONTRACTED",
+      "scope": "IA_CORE_BUILD",
+      "provenance": {
+        "classification": "OBSERVED",
+        "sources": ["docs/ROADMAP_4X_MACRO_04_P1_ENTRY_REVIEW_CHECKPOINT.md", "tests/test_roadmap_4x_macro_04_p1_entry_review.py"],
+        "claim": "The repository demonstrates evidence-first bounded missions, historical guard preservation and explicit no-activation boundaries."
+      },
+      "evidence_refs": [
+        {"evidence_id": "macro04_checkpoint_learning", "kind": "checkpoint", "ref": "docs/ROADMAP_4X_MACRO_04_P1_ENTRY_REVIEW_CHECKPOINT.md", "claim": "Macro 04 records a bounded P1 review with no remediation or exposure.", "classification": "OBSERVED"},
+        {"evidence_id": "macro04_guard_learning", "kind": "test", "ref": "tests/test_roadmap_4x_macro_04_p1_entry_review.py", "claim": "The P1 boundary and protected diff are guarded deterministically.", "classification": "OBSERVED"}
+      ],
+      "compatibility": {"status": "CURRENT_COMPATIBLE", "compatible_with": ["gokv.knowledge_item.v1", "gokv.oci_consumption_result.v1"], "excluded": ["unbounded autonomy", "provider calls", "production persistence"]},
+      "confidentiality_class": "global_inheritable",
+      "created_at": "2026-09-14T20:51:40-03:00",
+      "supersedes": [],
+      "inheritance": {"eligible": true, "requires": ["mission applicability", "current contract precedence", "validation"], "excludes": ["raw secrets", "plaintext tenant content", "private prompts", "chain-of-thought"]}
+    },
+    {
+      "node_id": "oci_family_contract",
+      "family": "OCI",
+      "generation": "G0_DEVELOPMENT_ORIGIN",
+      "kind": "FAMILY_CONTRACT",
+      "status": "CONTRACTED",
+      "scope": "IA_CORE_BUILD",
+      "provenance": {
+        "classification": "OWNER_DIRECTED",
+        "sources": ["gokv/inheritance.py", "docs/ROADMAP_4X_MACRO_04_1_OCI_NECESSARY_AND_SUFFICIENT_INHERITANCE.md"],
+        "claim": "OCI remains a development-time family that compiles bounded capability inheritance and does not activate runtime."
+      },
+      "evidence_refs": [
+        {"evidence_id": "oci_current_compiler", "kind": "test", "ref": "gokv/inheritance.py", "claim": "The current OCI compiler is development-only and explicit-mode validated.", "classification": "OBSERVED"},
+        {"evidence_id": "oci_owner_contract", "kind": "document", "ref": "docs/ROADMAP_4X_MACRO_04_1_OCI_NECESSARY_AND_SUFFICIENT_INHERITANCE.md", "claim": "The active inheritance contract is necessary and sufficient, not indiscriminate.", "classification": "OWNER_DIRECTED"}
+      ],
+      "compatibility": {"status": "CURRENT_COMPATIBLE", "compatible_with": ["gokv.development_oci.v1", "DEVELOPMENT_TIME_OCI_V1"], "excluded": ["runtime injection", "automatic permission grants", "raw confidential content"]},
+      "confidentiality_class": "ia_core_internal",
+      "created_at": "2026-09-14T20:51:40-03:00",
+      "supersedes": [],
+      "inheritance": {"eligible": true, "requires": ["agent and mission fit", "explicit authorization", "fallback"], "excludes": ["raw secrets", "plaintext tenant content", "private prompts", "chain-of-thought"]}
+    },
+    {
+      "node_id": "oci_g0_development_compiler",
+      "family": "OCI",
+      "generation": "G0_DEVELOPMENT_ORIGIN",
+      "kind": "INHERITANCE_COMPILER",
+      "status": "VALIDATED",
+      "scope": "IA_CORE_BUILD",
+      "provenance": {
+        "classification": "OBSERVED",
+        "sources": ["gokv/compiler.py", "gokv/inheritance.py", "tests/test_gokv_development_oci_0_2.py"],
+        "claim": "OCI selection is deterministic, scope-aware, status-bounded and requires explicit human approval in its output contract."
+      },
+      "evidence_refs": [
+        {"evidence_id": "oci_compiler_test", "kind": "test", "ref": "tests/test_gokv_development_oci_0_2.py", "claim": "Development OCI compilation and validation are covered by tests.", "classification": "OBSERVED"},
+        {"evidence_id": "oci_output_boundary", "kind": "document", "ref": "knowledge/global_operational/schema/development_oci_pack.schema.json", "claim": "The OCI pack schema keeps operational guidance and runtime disabled.", "classification": "OBSERVED"}
+      ],
+      "compatibility": {"status": "CURRENT_COMPATIBLE", "compatible_with": ["gokv.execution_pack.v1", "gokv.development_oci.v1"], "excluded": ["provider calls", "prompt injection", "automatic promotion"]},
+      "confidentiality_class": "global_inheritable",
+      "created_at": "2026-09-14T20:51:40-03:00",
+      "supersedes": [],
+      "inheritance": {"eligible": true, "requires": ["necessary_and_sufficient_fit", "evidence", "explicit approval"], "excludes": ["raw secrets", "plaintext tenant content", "private prompts", "chain-of-thought"]}
+    },
+    {
+      "node_id": "owner_direction_g0",
+      "family": "DOOL",
+      "generation": "G0_DEVELOPMENT_ORIGIN",
+      "kind": "OWNER_DIRECTION",
+      "status": "CONTRACTED",
+      "scope": "IA_CORE_BUILD",
+      "provenance": {
+        "classification": "OWNER_DIRECTED",
+        "sources": ["docs/ROADMAP_4X_MACRO_04_1_OWNER_DIRECTION_ACCEPTANCE.md"],
+        "claim": "Explicit direction establishes horizontal families, governed composition, privacy separation, model fit and domain parity."
+      },
+      "evidence_refs": [
+        {"evidence_id": "owner_direction_acceptance", "kind": "checkpoint", "ref": "docs/ROADMAP_4X_MACRO_04_1_OWNER_DIRECTION_ACCEPTANCE.md", "claim": "Owner decisions were translated into bounded current, G0 and future contracts.", "classification": "OWNER_DIRECTED"}
+      ],
+      "compatibility": {"status": "CURRENT_COMPATIBLE", "compatible_with": ["ADAPTIVE_ROADMAP_CONSTRUCTION", "EVIDENCE_BOUND_RECALIBRATION"], "excluded": ["autonomous authority", "tenant secret visibility", "production activation"]},
+      "confidentiality_class": "global_inheritable",
+      "created_at": "2026-09-14T20:51:40-03:00",
+      "supersedes": [],
+      "inheritance": {"eligible": true, "requires": ["current contract precedence", "scope fit", "validation"], "excludes": ["raw secrets", "plaintext tenant content", "private prompts", "chain-of-thought"]}
+    },
+    {
+      "node_id": "dool_g1_beta_placeholder",
+      "family": "DOOL",
+      "generation": "G1_BETA_OPERATIONAL_LEARNING",
+      "kind": "GENERATION_PLACEHOLDER",
+      "status": "CONTRACTED_NOT_MATERIALIZED",
+      "scope": "BUSINESS",
+      "provenance": {"classification": "OWNER_DIRECTED", "sources": ["owner_direction_in_this_mission"], "claim": "Future contractual placeholder only; no beta operational evidence exists."},
+      "evidence_refs": [],
+      "compatibility": {"status": "FUTURE_CONTRACTED", "compatible_with": ["explicit_beta_contract"], "excluded": ["fictional results", "cross-tenant raw sharing", "runtime activation"]},
+      "confidentiality_class": "ia_core_internal",
+      "created_at": "2026-09-14T20:51:40-03:00",
+      "supersedes": [],
+      "inheritance": {"eligible": false, "requires": ["future beta evidence", "tenant consent", "privacy review"], "excludes": ["raw secrets", "plaintext tenant content", "private prompts", "chain-of-thought"]}
+    },
+    {
+      "node_id": "dool_g2_field_placeholder",
+      "family": "DOOL",
+      "generation": "G2_FIELD_OPERATIONAL_LEARNING",
+      "kind": "GENERATION_PLACEHOLDER",
+      "status": "CONTRACTED_NOT_MATERIALIZED",
+      "scope": "BUSINESS",
+      "provenance": {"classification": "OWNER_DIRECTED", "sources": ["owner_direction_in_this_mission"], "claim": "Future contractual placeholder only; no field operational evidence exists."},
+      "evidence_refs": [],
+      "compatibility": {"status": "FUTURE_CONTRACTED", "compatible_with": ["explicit_field_contract"], "excluded": ["fictional results", "cross-tenant raw sharing", "runtime activation"]},
+      "confidentiality_class": "ia_core_internal",
+      "created_at": "2026-09-14T20:51:40-03:00",
+      "supersedes": [],
+      "inheritance": {"eligible": false, "requires": ["field evidence", "sanitized extraction", "independent validation"], "excludes": ["raw secrets", "plaintext tenant content", "private prompts", "chain-of-thought"]}
+    },
+    {
+      "node_id": "dool_gn_continuous_placeholder",
+      "family": "DOOL",
+      "generation": "GN_CONTINUOUS_EVOLUTION",
+      "kind": "GENERATION_PLACEHOLDER",
+      "status": "CONTRACTED_NOT_MATERIALIZED",
+      "scope": "IA_CORE_BUILD",
+      "provenance": {"classification": "OWNER_DIRECTED", "sources": ["owner_direction_in_this_mission"], "claim": "Future contractual placeholder only; no continuous evolution evidence exists."},
+      "evidence_refs": [],
+      "compatibility": {"status": "FUTURE_CONTRACTED", "compatible_with": ["future_evolution_contract"], "excluded": ["fictional results", "unbounded autonomy", "runtime activation"]},
+      "confidentiality_class": "ia_core_internal",
+      "created_at": "2026-09-14T20:51:40-03:00",
+      "supersedes": [],
+      "inheritance": {"eligible": false, "requires": ["repeated evidence", "reversibility", "governance"], "excludes": ["raw secrets", "plaintext tenant content", "private prompts", "chain-of-thought"]}
+    }
+  ],
+  "edges": [
+    {
+      "edge_id": "gokv_vault_derived_from_dool_learning",
+      "from_node": "gokv_g0_development_vault",
+      "to_node": "dool_g0_method_learning",
+      "relation_type": "derived_from",
+      "status": "CONTRACTED",
+      "evidence_refs": [{"evidence_id": "edge_dool_vault", "kind": "document", "ref": "knowledge/global_operational/README.md", "claim": "Development-origin knowledge is stored and governed by the GOKV foundation.", "classification": "OBSERVED"}],
+      "constraints": {"cross_tenant": false, "requires_evidence": true, "runtime_effect": false},
+      "created_at": "2026-09-14T20:51:40-03:00"
+    },
+    {
+      "edge_id": "gokv_vault_tested_by_macro04_guard",
+      "from_node": "gokv_g0_development_vault",
+      "to_node": "dool_g0_method_learning",
+      "relation_type": "tested_by",
+      "status": "VALIDATED",
+      "evidence_refs": [{"evidence_id": "edge_macro04_test", "kind": "test", "ref": "tests/test_roadmap_4x_macro_04_p1_entry_review.py", "claim": "The current development method preserves protected boundaries through deterministic tests.", "classification": "OBSERVED"}],
+      "constraints": {"cross_tenant": false, "requires_evidence": true, "runtime_effect": false},
+      "created_at": "2026-09-14T20:51:40-03:00"
+    },
+    {
+      "edge_id": "oci_compiler_requires_gokv_vault",
+      "from_node": "oci_g0_development_compiler",
+      "to_node": "gokv_g0_development_vault",
+      "relation_type": "requires",
+      "status": "VALIDATED",
+      "evidence_refs": [{"evidence_id": "edge_oci_gokv", "kind": "document", "ref": "gokv/compiler.py", "claim": "OCI compiles only explicitly selected knowledge from the GOKV vault.", "classification": "OBSERVED"}],
+      "constraints": {"cross_tenant": false, "requires_evidence": true, "runtime_effect": false},
+      "created_at": "2026-09-14T20:51:40-03:00"
+    },
+    {
+      "edge_id": "owner_direction_improves_dool_method",
+      "from_node": "owner_direction_g0",
+      "to_node": "dool_g0_method_learning",
+      "relation_type": "improves",
+      "status": "CONTRACTED",
+      "evidence_refs": [{"evidence_id": "edge_owner_dool", "kind": "checkpoint", "ref": "docs/ROADMAP_4X_MACRO_04_1_OWNER_DIRECTION_ACCEPTANCE.md", "claim": "Explicit direction adds permanent lineage, measurement and privacy constraints to the development method.", "classification": "OWNER_DIRECTED"}],
+      "constraints": {"cross_tenant": false, "requires_evidence": true, "runtime_effect": false},
+      "created_at": "2026-09-14T20:51:40-03:00"
+    },
+    {
+      "edge_id": "dool_method_inheritable_by_oci",
+      "from_node": "dool_g0_method_learning",
+      "to_node": "oci_g0_development_compiler",
+      "relation_type": "inheritable_by",
+      "status": "CONTRACTED",
+      "evidence_refs": [{"evidence_id": "edge_dool_oci", "kind": "document", "ref": "docs/ROADMAP_4X_MACRO_04_1_DOOL_GENERATIONAL_LINEAGE_CONTRACT.md", "claim": "Only distilled, compatible and authorized development learning may be selected by OCI.", "classification": "OWNER_DIRECTED"}],
+      "constraints": {"cross_tenant": false, "requires_evidence": true, "runtime_effect": false},
+      "created_at": "2026-09-14T20:51:40-03:00"
+    },
+    {
+      "edge_id": "oci_contract_compatible_with_gokv",
+      "from_node": "oci_family_contract",
+      "to_node": "gokv_family_contract",
+      "relation_type": "compatible_with",
+      "status": "CONTRACTED",
+      "evidence_refs": [{"evidence_id": "edge_contract_compatibility", "kind": "document", "ref": "docs/ROADMAP_4X_MACRO_04_1_GOKV_DOOL_OCI_RECONCILIATION.md", "claim": "The three families remain horizontally compatible without becoming one hierarchy.", "classification": "OWNER_DIRECTED"}],
+      "constraints": {"cross_tenant": false, "requires_evidence": true, "runtime_effect": false},
+      "created_at": "2026-09-14T20:51:40-03:00"
+    }
+  ]
+}
