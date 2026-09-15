@@ -83,9 +83,13 @@ Decisión documental:
 ## Gobernanza transversal posterior a Roadmap 3.x Macro 02.2
 
 La evolución aditiva del método queda registrada en el documento canónico
+[Method Santi 3.2.3](METHOD_SANTI_3_2_3_VERIFIED_ADAPTIVE_EXECUTION_FEEDBACK_ENGINEERING.md).
+Preserva Method Santi 3.2.2 y agrega feedback de ejecución verificado,
+métricas de tres relojes, Historical Impact Gate previo a Level B,
+calibración de estimaciones, recuperación ante interrupciones, contabilidad del
+costo de validación y reporte exhaustivo en primera entrega. Method Santi 3.2.2
+permanece publicado como antecedente canónico preservado:
 [Method Santi 3.2.2](METHOD_SANTI_3_2_2_GOVERNED_CONTINUITY_LEARNING_AND_PUBLICATION.md).
-Define continuidad gobernada, aprendizaje sin reentrenamiento de pesos,
-reportes completos por defecto, estaciones y publicación Git verificable.
 
 La relación de producto de un núcleo con cuatro superficies queda registrada una
 sola vez en la doctrina canónica; este es el single canonical doctrine para esa
