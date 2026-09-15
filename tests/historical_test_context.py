@@ -49,6 +49,7 @@ _OVERRIDES = {
     "tests/test_ui_ux_1_201_premission_oci.py": "a2afc307",
     "tests/test_roadmap_4x_macro_04_2_cognitive_kernel.py": "6dd040e0985da134f18f2bc85a338aa1bf770d3f",
     "tests/test_roadmap_4x_macro_04_1_cognitive_kernel.py": "6dd040e0985da134f18f2bc85a338aa1bf770d3f",
+    "tests/test_roadmap_4x_macro_04_3_p1_a.py": "9d64eef82e8adfbd44823b84e913ade416fa956f",
     "tests/test_roadmap_4x_macro_04_p1_entry_review.py": "6dd040e0985da134f18f2bc85a338aa1bf770d3f",
     "tests/test_ui_ux_frontend_incongruence_hardening_1_21.py": "8d8893696d82e0307bc54d301222628e7b8b529d",
     "tests/test_ui_ux_panel_maestro_design_system_density_refinement_checkpoint_1_136.py": "dc0c1006818b5a95bfc59be39a0a2fb2fe795650",
@@ -243,6 +244,11 @@ _CURRENT_MISSION_DOCUMENTARY_FILES = frozenset(
         "docs/ROADMAP_4X_MACRO_04_3_P1_A_CHECKPOINT_EVIDENCE.json",
         "docs/ROADMAP_4X_MACRO_04_3_P1_A_COMMIT_ACCOUNTABILITY_LEDGER.md",
         "knowledge/global_operational/metrics/roadmap_4_x_macro_04_3_execution_metric.json",
+        "docs/ROADMAP_4X_MACRO_04_4_P1_B_CHECKPOINT.md",
+        "docs/ROADMAP_4X_MACRO_04_4_P1_B_CHECKPOINT_EVIDENCE.json",
+        "docs/ROADMAP_4X_MACRO_04_4_P1_B_COMMIT_ACCOUNTABILITY_LEDGER.md",
+        "knowledge/global_operational/metrics/roadmap_4_x_macro_04_4_execution_metric.json",
+        "tests/test_roadmap_4x_macro_04_4_p1_b.py",
         "tests/test_platform_status_p1_a.py",
         "README.md",
         "docs/FUTURE_PLATFORM_EXTENSION_INDEX.md",
@@ -350,7 +356,8 @@ def rewrite_git_command(command: Any, checkpoint: str) -> Any:
 def _is_current_mission_untracked_listing(command: Any, cwd: Path) -> bool:
     return (
         isinstance(command, (list, tuple))
-        and list(command[:4]) == ["git", "ls-files", "--others", "--exclude-standard"]
+        and list(command[:3]) == ["git", "ls-files", "--others"]
+        and "--exclude-standard" in command
         and cwd.resolve() == ROOT
     )
 
