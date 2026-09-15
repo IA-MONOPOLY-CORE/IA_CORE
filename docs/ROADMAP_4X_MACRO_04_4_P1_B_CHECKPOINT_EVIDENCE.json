@@ -1,0 +1,69 @@
+{
+  "mission": "ROADMAP_4X_MACRO_04_4",
+  "subfamily": "P1-B_PROTECTED_MEMORY",
+  "baseline": "9d64eef82e8adfbd44823b84e913ade416fa956f",
+  "status": "VALIDATED_READY_FOR_PUBLICATION",
+  "result": "ROADMAP_4X_MACRO_04_4_P1_B_PROTECTED_MEMORY_INTERNAL_REMEDIATION_COMPLETE_VERSIONED_CAPABILITY_GATED_ZERO_READ_ON_DENY_UNPROVEN_OWNERSHIP_DEFAULT_DENIED_RAW_CONTENT_NOT_EXPOSED_OWNER_NATIVE_NO_BYPASS_EXTERNAL_EXPOSURE_DEFAULT_DENIED_P1_C_SELECTED_NOT_STARTED",
+  "level_a": "PASS",
+  "level_b": "PASS",
+  "external_exposure": "DEFAULT_DENIED",
+  "real_memory_data_used": false,
+  "tenant_isolation": "UNKNOWN_DEFAULT_DENY",
+  "zero_read_on_deny": true,
+  "raw_content_exposed": false,
+  "owner_native_bypass": false,
+  "p1_c": "SELECTED_NOT_STARTED",
+  "p1_d": "DEFERRED_NOT_STARTED",
+  "macro_mission_05": "NOT_STARTED",
+  "full_suite_attempts": [
+    {
+      "attempt": 1,
+      "started_at": "2026-09-15T10:27:37.4908559-03:00",
+      "completed_at": "2026-09-15T10:54:24.5797515-03:00",
+      "wall_seconds": 1607.088896,
+      "passed": 7067,
+      "failed": 11,
+      "skipped": 6,
+      "warnings": 6,
+      "exit_code": 1,
+      "interrupted": false,
+      "classification": "HISTORICAL_GUARD_SCOPE_ADAPTER_REQUIRED"
+    },
+    {
+      "attempt": 2,
+      "started_at": "2026-09-15T10:58:27.2612113-03:00",
+      "completed_at": "2026-09-15T11:25:43.4792547-03:00",
+      "wall_seconds": 1636.218043,
+      "passed": 7077,
+      "failed": 1,
+      "skipped": 6,
+      "warnings": 6,
+      "exit_code": 1,
+      "interrupted": false,
+      "classification": "CURRENT_MISSION_ALLOWLIST_REQUIRED"
+    },
+    {
+      "attempt": 3,
+      "started_at": "2026-09-15T11:26:02.7729067-03:00",
+      "completed_at": "2026-09-15T11:52:33.8988592-03:00",
+      "wall_seconds": 1591.125953,
+      "passed": 7078,
+      "failed": 0,
+      "skipped": 6,
+      "warnings": 6,
+      "exit_code": 0,
+      "interrupted": false,
+      "classification": "LEVEL_B_PASS"
+    }
+  ],
+  "interruption_count": 0,
+  "publication": "PENDING",
+  "payload_measurements": {
+    "metadata_fixture_bytes_compact_json": 454,
+    "audit_fixture_bytes_compact_json": 2153,
+    "audit_fixture_records_bounded": 25
+  },
+  "json_baseline_count": 262,
+  "json_final_expected_count": 264,
+  "json_delta": 2
+}
