@@ -1,0 +1,99 @@
+{
+  "mission": "ROADMAP_4X_MACRO_04_1",
+  "result": "ROADMAP_4X_MACRO_04_1_COGNITIVE_KERNEL_G0_FOUNDATION_MATERIALIZED_OWNER_DIRECTION_RECONCILED_DOMAIN_MODULE_PARITY_CONTRACTED_P1_A_REMAINS_NOT_STARTED",
+  "validation_status": "LEVEL_A_PASS_VALIDATION_BASIS",
+  "started_at": "2026-09-14T20:51:40.2928287-03:00",
+  "prompt_received_at": "UNAVAILABLE",
+  "mission_preflight_started_at": "2026-09-14T20:51:24.4474899-03:00",
+  "mission_preflight_completed_at": "UNAVAILABLE_INITIAL_CAPTURE",
+  "mission_execution_started_at": "2026-09-14T20:51:40.2928287-03:00",
+  "validation_started_at": "2026-09-14T21:16:24.8860859-03:00",
+  "validation_completed_at": "2026-09-14T21:17:07.8681346-03:00",
+  "push_started_at": "PENDING",
+  "push_completed_at": "PENDING",
+  "mission_completed_at": "PENDING",
+  "durations_seconds": {
+    "preflight": "UNAVAILABLE_INITIAL_CAPTURE",
+    "execution_before_validation": "PENDING",
+    "validation": 42.982,
+    "publication_and_remote_verification": "PENDING",
+    "instrumented_total": "PENDING",
+    "ui": "UNAVAILABLE"
+  },
+  "measurement_quality": "UNAVAILABLE",
+  "quota_snapshots": {
+    "5H_START_REMAINING": "UNAVAILABLE",
+    "WEEKLY_START_REMAINING": "UNAVAILABLE",
+    "5H_END_REMAINING": "UNAVAILABLE",
+    "WEEKLY_END_REMAINING": "UNAVAILABLE",
+    "source": "No deterministic quota snapshot was available to the mission process.",
+    "reset_visible_at": "UNAVAILABLE"
+  },
+  "baseline": {
+    "expected_head": "5bde1c10acfd98d436f961e91661a104c7667593",
+    "expected_origin_main": "5bde1c10acfd98d436f961e91661a104c7667593",
+    "branch": "main",
+    "working_tree": "CLEAN_AT_PREFLIGHT",
+    "remote": "https://github.com/IA-MONOPOLY-CORE/IA_CORE"
+  },
+  "validation_basis": "THIS_COMMIT_POST_COMMIT_HASH_RECORDED_IN_FINAL_EVIDENCE",
+  "materialization": {
+    "graph": "docs/ROADMAP_4X_MACRO_04_1_NODE_FAMILY_AND_TYPED_EDGE_CONTRACT.json",
+    "schema": "knowledge/global_operational/schema/cognitive_kernel_g0.schema.json",
+    "validator": "gokv/kernel.py",
+    "node_count": 10,
+    "edge_count": 6,
+    "families": ["GOKV", "DOOL", "OCI"],
+    "g0_nodes_with_evidence": 7,
+    "future_placeholders_without_evidence": 3,
+    "kernel_is_fourth_family": false
+  },
+  "gokv_dool_oci": {
+    "current_vault_items": 38,
+    "current_status_counts": {"CANDIDATE": 22, "VALIDATED": 9, "PROMOTED": 7},
+    "all_current_learning_origin": "DEVELOPMENT_ORIGIN",
+    "new_item": false,
+    "new_event": false,
+    "new_metric": false,
+    "new_pack": false,
+    "vault_write": false,
+    "promotion": false,
+    "runtime_oci": false,
+    "providers_or_external_calls": false
+  },
+  "p1": {
+    "p1_a": "SELECTED_NOT_STARTED_TEMPORARILY_PAUSED_BEHIND_COGNITIVE_KERNEL_RECONCILIATION",
+    "p1_b": "DEFERRED_NOT_STARTED",
+    "p1_c": "DEFERRED_NOT_STARTED",
+    "p1_d": "DEFERRED_NOT_STARTED",
+    "routes_modified": false,
+    "routes_invoked": false,
+    "external_exposure": "DEFAULT_DENIED"
+  },
+  "enterprise_foundry": {
+    "state": "FUTURE_CONCEPT_PRESERVED_NOT_SCHEDULED_NOT_IMPLEMENTED",
+    "implemented": false,
+    "activated": false,
+    "production_schema_created": false
+  },
+  "protected_surfaces": {
+    "api.py": false,
+    "html_css_javascript_i18n": false,
+    "backend_payload": false,
+    "runtime_execution": false,
+    "providers_integrations_secrets": false,
+    "p0_p1_p3_p4_widgets_request_draft_panel": false,
+    "brokers_banks_trading_funds": false,
+    "tenant_reads": false,
+    "model_weights_or_training": false,
+    "macro_mission_05": false
+  },
+  "publication": {
+    "final_head": "PENDING_POST_FETCH_VERIFICATION",
+    "origin_main": "PENDING_POST_FETCH_VERIFICATION",
+    "ahead_behind": "PENDING",
+    "working_tree": "PENDING",
+    "force_push": false,
+    "self_referential_head_hash": false
+  }
+}
