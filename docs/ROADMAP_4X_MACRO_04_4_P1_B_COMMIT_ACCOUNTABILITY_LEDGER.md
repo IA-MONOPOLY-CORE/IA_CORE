@@ -10,7 +10,7 @@
 | 4 | `02981a6` | Official validation basis and metric baseline | Level A PASS |
 | 5 | `6b00b3a` | Nominal historical checkpoint adapter | 81 focused guards PASS |
 | 6 | `5d23631` | Closed P1-B scope allowlist | Full suite attempt 2 isolated one scope assertion |
-| 7 | pending | Final checkpoint, evidence, metrics, ledger closure and publication record | Level B PASS; publication pending |
+| 7 | `d31e280` | Final checkpoint, evidence, metrics, ledger closure and publication record | Level B PASS; push/fetch verified |
 
 No commit in this ledger activates P1-C, P1-D, Macro-Mission 05, external
 exposure, tenancy, cryptographic recovery, providers, integrations, runtime,

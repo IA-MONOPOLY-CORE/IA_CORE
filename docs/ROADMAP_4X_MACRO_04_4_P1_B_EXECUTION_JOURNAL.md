@@ -2,7 +2,7 @@
 
 ```text
 MISSION: ROADMAP 4.x MACRO-MISSION 04.4 P1-B
-STATUS: IN_PROGRESS
+STATUS: CLOSED
 MISSION_ACCEPTED_AT: 2026-09-15T10:14:58.6722640-03:00
 BRANCH: main
 BASELINE: 9d64eef82e8adfbd44823b84e913ade416fa956f
@@ -33,5 +33,16 @@ separate; the latter is `UNKNOWN` unless every interval is instrumented.
 ## Current checkpoint
 
 The protected route, access boundary, schema projections, UI consumer and
-adversarial tests are implemented. Focal validation passed. Full Level B,
-final checkpoint, publication and final verification remain pending.
+adversarial tests are implemented. Focal validation, Level B, final
+checkpoint, publication and final repository verification passed.
+
+## Final timing
+
+```text
+LEVEL_B_ATTEMPT_1: 1607.088896 seconds, exit 1, historical scope adapters required
+LEVEL_B_ATTEMPT_2: 1636.218043 seconds, exit 1, current mission allowlist required
+LEVEL_B_ATTEMPT_3: 1591.125953 seconds, exit 0
+MISSION_WALL_CLOCK_TOTAL_SECONDS: 6031.225761
+CLEAN_ACTIVE_DURATION_SECONDS: UNKNOWN
+INTERRUPTION_COUNT: 0
+```
