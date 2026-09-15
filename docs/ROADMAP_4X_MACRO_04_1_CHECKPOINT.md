@@ -6,7 +6,7 @@
 
 `ROADMAP_4X_MACRO_04_1_COGNITIVE_KERNEL_G0_FOUNDATION_MATERIALIZED_OWNER_DIRECTION_RECONCILED_DOMAIN_MODULE_PARITY_CONTRACTED_P1_A_REMAINS_NOT_STARTED`
 
-`VALIDATION_STATUS = LEVEL_A_PASS_VALIDATION_BASIS`
+`VALIDATION_STATUS = LEVEL_A_AND_LEVEL_B_PASS`
 
 Macro 04.1 reconciles explicit Owner direction with the active GOKV/DOOL/OCI
 boundaries and materializes a deterministic, inert Generation Zero graph. The
@@ -60,3 +60,15 @@ Macro-Mission 05 is included.
 - [GOKV reconciliation](ROADMAP_4X_MACRO_04_1_GOKV_DOOL_OCI_RECONCILIATION.md)
 - [machine-readable evidence](ROADMAP_4X_MACRO_04_1_CHECKPOINT_EVIDENCE.json)
 - [commit ledger](ROADMAP_4X_MACRO_04_1_COMMIT_ACCOUNTABILITY_LEDGER.md)
+
+## Validation closure
+
+The validation basis commit is
+`703c1721d18b2ca43019aa5f84f1abcc297fda90`. Level A passed with 82 focused
+tests, `py_compile` and `git diff --check`. Level B passed with 7032 tests,
+6 skips and 6 warnings. The warning set is limited to existing framework
+deprecations in FastAPI, OpenTelemetry and Starlette.
+
+The tracked JSON census is 258 files versus 255 at the baseline, a delta of
+exactly three files: this checkpoint evidence, the canonical node/edge graph
+and the inert cognitive-kernel schema.

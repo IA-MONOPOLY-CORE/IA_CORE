@@ -16,8 +16,13 @@ commit; no empty commit is created for a station that produced no change.
 | Kernel guards | `a0905a2` | Deterministic positive/negative tests for families, generations and edges | complete |
 | DOOL and OCI contracts | `1c337a8` | Permanent lineage and necessary/sufficient inheritance semantics | complete |
 | Historical exact reservations | `22eb52d` | Add exact paths to historical allowlists without weakening assertions | complete |
-| Validation basis | `THIS_COMMIT_POST_COMMIT_HASH_RECORDED_IN_FINAL_EVIDENCE` | Final pre-checkpoint scope/allowlist basis | in progress |
-| Checkpoint evidence | pending | Checkpoint, machine evidence and final ledger | pending |
+| Validation basis | `703c1721d18b2ca43019aa5f84f1abcc297fda90` | Final pre-checkpoint scope/allowlist basis | complete |
+| Checkpoint evidence | pending | Checkpoint, machine evidence and final ledger | in progress |
+
+Level A: 82 focused tests passed, with `py_compile` and `git diff --check`
+passing. Level B: 7032 tests passed, 6 skipped and 6 warnings. The warnings
+are existing framework deprecations only. The tracked JSON census is 258,
+versus 255 at baseline; the delta is the three canonical mission JSON files.
 
 ## Protected scope
 
