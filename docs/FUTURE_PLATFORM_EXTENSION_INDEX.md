@@ -353,3 +353,27 @@ planes, Owner-native identity without tenant bypass, future recovery without
 unilateral decryption, and parity of domain modules. It does not start P1-A,
 modify the four P1 routes, implement Enterprise Foundry, activate runtime,
 consume providers, read secrets/tenants, or start Macro-Mission 05.
+
+## Roadmap 4.x Macro-Mission 04.2 - Native security G0 and IA_CORE OS direction
+
+Macro-Mission 04.2 provides the adversarial assurance checkpoint for the
+Cognitive Kernel G0 and places defensive knowledge, defensive development
+learning and necessary-and-sufficient security composition inside the existing
+GOKV/DOOL/OCI families. Security is a native operating plane with defense in
+depth and deterministic enforcement; it is not a fourth family or a product
+claim.
+
+The future direction is
+`IA_CORE_OS_IS_A_DISTINCT_AI_NATIVE_OPERATING_SYSTEM_BUILT_ON_LINUX`, preserved
+as documentation only. Future offensive or untrusted security sources remain
+quarantined evidence, never authority, executable artifacts or auto-promoted
+knowledge. The cyber range is not scheduled or implemented.
+
+P1-A is released as `NEXT_SELECTED_NOT_STARTED`; it remains unimplemented and
+default-denied. Enterprise Foundry stays future-only and Macro-Mission 05 is
+not started. See [Macro 04.2 checkpoint](ROADMAP_4X_MACRO_04_2_CHECKPOINT.md),
+[truth matrix](ROADMAP_4X_MACRO_04_2_TRUTH_MATRIX.md),
+[security G0 contract](ROADMAP_4X_MACRO_04_2_SECURITY_NATIVE_G0_CONTRACT.md),
+[ingestion contract](ROADMAP_4X_MACRO_04_2_SECURITY_INGESTION_CONTRACT.md),
+[execution metrics](ROADMAP_4X_MACRO_04_2_EXECUTION_METRICS_BASELINE.md) and
+[evidence](ROADMAP_4X_MACRO_04_2_CHECKPOINT_EVIDENCE.json).

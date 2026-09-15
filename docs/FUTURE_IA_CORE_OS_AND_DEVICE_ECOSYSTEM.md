@@ -335,3 +335,28 @@ Este documento no implementa sistema operativo, distribución Linux, instaladore
 servicios systemd, contenedores, runtime, workers, schedulers, queues, event bus,
 dispatchers, endpoints, integraciones, comandos, dispositivos, llamadas, mensajes,
 credenciales, UI ni contratos backend. No modifica `backend_internal_ui_payload.v1`.
+
+## Reconciliación Macro 04.2: IA_CORE OS y seguridad nativa
+
+La dirección canónica queda expresada como
+`IA_CORE_OS_IS_A_DISTINCT_AI_NATIVE_OPERATING_SYSTEM_BUILT_ON_LINUX`.
+Linux es la futura base de hardware, procesos, memoria, drivers, red y controles
+de bajo nivel; IA_CORE aportaría la capa cognitiva, empresarial, de agentes,
+aprendizaje, evidencia y gobierno. Esta relación no crea una distribución, una
+imagen instalable ni un runtime actual.
+
+La seguridad futura es un plano nativo transversal:
+`SECURITY_IS_A_NATIVE_OPERATING_PLANE`. Debe combinar defensa en profundidad,
+controles deterministas, asistencia de IA, aislamiento por agente/herramienta/
+empresa, capabilities explícitas, actualizaciones firmadas y reversibles,
+cadena de suministro verificable, snapshots, rollback, recovery y telemetría
+minimizada. `SECURITY_STRENGTH_MUST_BE_MEASURED_NOT_MARKETED`.
+
+El [contrato de seguridad G0](ROADMAP_4X_MACRO_04_2_SECURITY_NATIVE_G0_CONTRACT.md)
+y el [contrato de ingestión futura](ROADMAP_4X_MACRO_04_2_SECURITY_INGESTION_CONTRACT.md)
+son la memoria documental de esta dirección. Ambos mantienen la seguridad dentro
+de GOKV, DOOL y OCI, sin cuarta familia, sin runtime, sin providers y sin lectura
+tenant. La ingestión de repositorios ofensivos o corpus no confiables queda como
+concepto futuro en cuarentena y `DEFAULT_DENY`, nunca como autoridad o dependencia.
+
+Estado obligatorio: `FUTURE_IA_CORE_OS_DIRECTION_PRESERVED_NOT_IMPLEMENTED`.

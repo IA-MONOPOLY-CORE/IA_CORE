@@ -79,3 +79,25 @@ identidad o contaminar instancias cliente. Esta referencia no implementa control
 Dependencias documentales: [acceso](FUTURE_ORGANIZATIONAL_ACCESS_MODEL.md),
 [recuperación](FUTURE_OWNER_SOVEREIGNTY_AND_RECOVERY_MODEL.md) y
 [Legal/Compliance](FUTURE_LEGAL_COMPLIANCE_AND_JURISDICTIONS_MODEL.md).
+
+## Contrato de seguridad nativa Macro 04.2
+
+La seguridad futura no es un complemento instalable ni una única herramienta:
+`SECURITY_IS_A_NATIVE_OPERATING_PLANE` y
+`SECURITY_BY_DESIGN_NOT_SECURITY_AS_AN_ADD_ON`. La IA puede asistir, pero los
+controles deterministas deben hacer cumplir la postura; la eficacia se mide,
+no se comercializa.
+
+El conocimiento defensivo G0 se distribuye contractualmente dentro de GOKV,
+DOOL y OCI. GOKV conserva procedencia, validez y mitigaciones; DOOL conserva
+éxitos, fallos, falsos positivos y resultados de guards; OCI compone protección
+necesaria y suficiente según ajuste de agente, herramienta, empresa, dominio,
+riesgo y hardware. Ninguno activa runtime, providers, permisos, tenant reads,
+payloads, promoción automática o entrenamiento.
+
+La [cadena futura de ingestión](ROADMAP_4X_MACRO_04_2_SECURITY_INGESTION_CONTRACT.md)
+trata repositorios ofensivos, malware y corpus externos como evidencia no
+confiable, nunca como autoridad. Exige procedencia, hash, licencia, cuarentena,
+aislamiento, red saliente `DEFAULT_DENY`, análisis autorizado, sanitización y
+promoción manual reversible. El cyber range queda
+`FUTURE_CONCEPT_PRESERVED_NOT_SCHEDULED_NOT_IMPLEMENTED`.

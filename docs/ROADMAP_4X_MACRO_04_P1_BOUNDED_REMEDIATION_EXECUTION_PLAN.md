@@ -196,3 +196,15 @@ Until then, the only valid state is:
 `P1-A_PLATFORM_STATUS_HEALTH_SELECTED_NOT_STARTED`
 `PREPARED_NOT_STARTED`
 `EXTERNAL_EXPOSURE_DEFAULT_DENIED`
+
+## Current roadmap cursor after Macro 04.2
+
+Macro 04.2 completed the inert Cognitive Kernel G0 adversarial assurance and
+released this selected unit as the next roadmap cursor, without implementing or
+invoking it:
+
+`NEXT_SELECTED_NOT_STARTED`
+
+The prior `TEMPORARILY_PAUSED_BEHIND_COGNITIVE_KERNEL_RECONCILIATION` state is
+historical context from Macro 04.1. P1-A remains not started, all activation
+gates remain inactive, and external exposure remains `DEFAULT_DENIED`.

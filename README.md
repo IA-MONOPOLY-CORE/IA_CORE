@@ -1781,3 +1781,26 @@ Ver [checkpoint](docs/ROADMAP_4X_MACRO_04_1_CHECKPOINT.md), [evidencia](docs/ROA
 [arquitectura](docs/ROADMAP_4X_MACRO_04_1_COGNITIVE_KERNEL_G0_ARCHITECTURE.md),
 [grafo](docs/ROADMAP_4X_MACRO_04_1_NODE_FAMILY_AND_TYPED_EDGE_CONTRACT.json) y
 [ledger](docs/ROADMAP_4X_MACRO_04_1_COMMIT_ACCOUNTABILITY_LEDGER.md).
+
+## Roadmap 4.x Macro-Mission 04.2 - G0 adversarial assurance and native security
+
+Macro-Mission 04.2 extends the same inert Cognitive Kernel G0 with a verified
+security contract inside the horizontal `GOKV`, `DOOL` and `OCI` families. It
+adds no fourth family, runtime, provider, tenant read, payload, promotion,
+model training or offensive capability. Security is contracted as a native
+operating plane, measured rather than marketed, with deterministic controls and
+defense in depth.
+
+The future IA_CORE OS direction remains
+`FUTURE_IA_CORE_OS_DIRECTION_PRESERVED_NOT_IMPLEMENTED`: a distinct AI-native
+operating system built on Linux, not a current distro or implementation.
+Untrusted security repositories remain evidence, not authority; the future
+ingestion chain is quarantined, default-denied and not scheduled. P1-A remains
+`NEXT_SELECTED_NOT_STARTED`, with no route invocation or product remediation.
+
+Ver [checkpoint](docs/ROADMAP_4X_MACRO_04_2_CHECKPOINT.md),
+[truth matrix](docs/ROADMAP_4X_MACRO_04_2_TRUTH_MATRIX.md),
+[security G0 contract](docs/ROADMAP_4X_MACRO_04_2_SECURITY_NATIVE_G0_CONTRACT.md),
+[ingestion contract](docs/ROADMAP_4X_MACRO_04_2_SECURITY_INGESTION_CONTRACT.md),
+[evidence](docs/ROADMAP_4X_MACRO_04_2_CHECKPOINT_EVIDENCE.json) y
+[ledger](docs/ROADMAP_4X_MACRO_04_2_COMMIT_ACCOUNTABILITY_LEDGER.md).
