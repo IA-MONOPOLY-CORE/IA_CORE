@@ -4,9 +4,14 @@ from pathlib import Path
 from types import SimpleNamespace
 
 from fastapi import BackgroundTasks
+from starlette.requests import Request
 from fastapi.testclient import TestClient
 
 import api
+from core.protected_memory_access import (
+    PROTECTED_MEMORY_AUDIENCE,
+    ProtectedMemoryPrincipal,
+)
 
 
 class FakeMemory:
@@ -115,20 +120,49 @@ def _patch_agent_create_paths(monkeypatch, tmp_path, *, domain_id="loteria"):
     return config_dir, papers_dir
 
 
-def test_memory_endpoint_exposes_keys_history_latest_and_value(monkeypatch):
+def _memory_request(query: str = "view=metadata") -> Request:
+    return Request(
+        {
+            "type": "http",
+            "method": "GET",
+            "path": "/api/memory",
+            "query_string": query.encode("ascii"),
+            "headers": [],
+            "client": ("test", 1),
+            "server": ("test", 80),
+        }
+    )
+
+
+def _memory_principal(*capabilities: str) -> ProtectedMemoryPrincipal:
+    return ProtectedMemoryPrincipal(
+        subject_id="test-principal",
+        authenticated=True,
+        audience=PROTECTED_MEMORY_AUDIENCE,
+        capabilities=frozenset(capabilities),
+    )
+
+
+def test_memory_endpoint_returns_bounded_metadata_without_raw_content(monkeypatch):
     memory = FakeMemory()
     fake_supervisor = SimpleNamespace(
         memory=memory,
         get_orchestration=lambda execution_id: {"execution_id": execution_id, "detail": True},
     )
     monkeypatch.setattr(api, "supervisor", fake_supervisor)
+    monkeypatch.setattr(
+        api,
+        "resolve_protected_memory_principal",
+        lambda: _memory_principal("memory.metadata.read"),
+    )
 
-    payload = asyncio.run(api.get_memory_snapshot(key="alpha", history_limit=15))
+    payload = asyncio.run(api.get_memory_snapshot(_memory_request()))
 
-    assert payload["value"] == {"value": 1}
-    assert payload["history"][0]["execution_id"] == "exec-1"
-    assert payload["latest"]["detail"]["detail"] is True
-    assert payload["status"]["key_count"] == 2
+    assert payload["view"] == "metadata"
+    assert payload["content_exposed"] is False
+    assert payload["data"]["record_count"] == 1
+    assert "alpha" not in repr(payload)
+    assert "exec-1" not in repr(payload)
 
 
 def test_logs_endpoint_separates_warning_error_and_events(monkeypatch, tmp_path):
