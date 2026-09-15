@@ -4,7 +4,7 @@
   "result": "ROADMAP_4X_MACRO_04_3_P1_A_PLATFORM_STATUS_HEALTH_INTERNAL_REMEDIATION_COMPLETE_VERSIONED_TIERED_DOMAIN_NEUTRAL_NO_PROVIDER_SIDE_EFFECTS_EXTERNAL_EXPOSURE_DEFAULT_DENIED_NEXT_SUBFAMILY_SELECTED_NOT_STARTED",
   "p1_a_state": "INTERNAL_REMEDIATION_COMPLETE_EXTERNAL_EXPOSURE_DEFAULT_DENIED",
   "level_a": "PASS",
-  "level_b": "PENDING_UNTIL_FULL_SUITE_AND_REMOTE_FETCH",
+  "level_b": "PASS",
   "status_schema_version": "platform_status.v1",
   "routes_modified": ["GET /api/status"],
   "routes_added": [],
@@ -27,7 +27,31 @@
   },
   "macro_mission_05": "NOT_STARTED",
   "visual_validation": "TOOLING_UNAVAILABLE",
-  "validation_basis": null,
-  "head_final": null,
-  "origin_main_final": null
+  "validation_basis": "551af775e056793ded0350295f0c256e62ed926d",
+  "validation_basis_note": "Stable pre-suite basis; historical guards and current P1-A scope were committed before canonical Level B.",
+  "full_suite": {
+    "command": "python -m pytest -q",
+    "environment": {
+      "python": "3.11.9",
+      "pytest": "9.0.3",
+      "workers": 1,
+      "xdist": false,
+      "cache": ".pytest_cache"
+    },
+    "tests_collected": 7069,
+    "passed": 7063,
+    "skipped": 6,
+    "warnings": 6,
+    "failed": 0,
+    "exit_code": 0,
+    "started_at": "2026-09-15T04:09:54.9435258-03:00",
+    "ended_at": "2026-09-15T04:35:29.4763730-03:00",
+    "wall_seconds": 1534.532847,
+    "process_seconds": 1534.528251,
+    "attempts": 4
+  },
+  "duration_seconds_to_level_b": 11294.979758,
+  "duration_scope": "EXECUTION_START_TO_LEVEL_B_COMPLETE",
+  "head_final": "POST_FETCH_HEAD_RECORDED_IN_FINAL_REPORT_NOT_EMBEDDED_TO_AVOID_SELF_REFERENCE",
+  "origin_main_final": "POST_FETCH_ORIGIN_MAIN_RECORDED_IN_FINAL_REPORT_NOT_EMBEDDED_TO_AVOID_SELF_REFERENCE"
 }

@@ -6,8 +6,9 @@
   "task_type": "ROADMAP_4X_MACRO_04_3_P1_A_PLATFORM_STATUS_HEALTH",
   "mission": "ROADMAP_4X_MACRO_04_3",
   "unit": "P1-A_PLATFORM_STATUS_HEALTH",
-  "status": "IN_PROGRESS",
-  "duration": null,
+  "status": "LEVEL_A_AND_LEVEL_B_PASS",
+  "duration": 11294.979758,
+  "duration_scope": "EXECUTION_START_TO_LEVEL_B_COMPLETE",
   "execution_start_at": "2026-09-15T01:27:14.4966151-03:00",
   "preflight_complete_at": "2026-09-15T01:27:16.5036704-03:00",
   "implementation_start_at": "2026-09-15T01:34:35-03:00",
@@ -19,13 +20,25 @@
     "contingency_ceiling": 15300
   },
   "station_count": 8,
-  "commits": [],
+  "commits": [
+    "786c1782aea060af705ba22dbe99f685799b1ac5",
+    "ca7d48e716388c17d90a321a5a64bfe8c46b1a0e",
+    "e1604425ccbb0e31f18b045f4a067e747502e83c",
+    "b893d5723f36421cf391fe34895ec8df2f134231",
+    "a96d8494686a1684076d0a887f03859e821da596",
+    "551af775e056793ded0350295f0c256e62ed926d"
+  ],
   "tests": [
     "focused: 104 passed, 6 warnings",
-    "controlled status cost measurement: passed"
+    "historical guard repair focal: 9 passed, 1 warning",
+    "canonical: 7063 passed, 6 skipped, 6 warnings, 0 failed",
+    "controlled status cost measurement: passed",
+    "py_compile: passed",
+    "node --check: passed",
+    "git diff --check: passed"
   ],
   "operator_interventions": 0,
-  "retries": 0,
+  "retries": 3,
   "rollbacks": 0,
   "cost_evidence": {
     "legacy_status_probe_calls": "domain_and_provider_diagnostics_plus_inventory_reads",
@@ -41,9 +54,55 @@
     "session_events_unchanged": true,
     "legacy_payload_bytes": "NOT_MEASURED_DIRECTLY_LEGACY_ROUTE_REQUIRED_PROVIDER_AND_DOMAIN_SETUP"
   },
-  "full_suite_attempts": [],
-  "validation_basis": "THIS_COMMIT",
-  "validation_basis_note": "This commit is the stable pre-suite basis; final evidence records its exact hash.",
+  "full_suite_attempts": [
+    {
+      "attempt": 1,
+      "command": "python -m pytest -q",
+      "started_at": "2026-09-15T02:01:10.6572277-03:00",
+      "ended_at": null,
+      "wall_seconds": null,
+      "process_seconds": null,
+      "result": "INTERRUPTED_STDOUT_CLOSED_AFTER_PARTIAL_PROGRESS",
+      "exit_code": null,
+      "observed_progress": "at_least_68_percent",
+      "counts": null
+    },
+    {
+      "attempt": 2,
+      "command": "python -m pytest -q",
+      "started_at": "2026-09-15T03:02:41.5430235-03:00",
+      "ended_at": "2026-09-15T03:28:18.4048622-03:00",
+      "wall_seconds": 1536.861839,
+      "process_seconds": 1536.856369,
+      "result": "FAILED_HISTORICAL_GUARDS",
+      "exit_code": 1,
+      "counts": {"passed": 7054, "failed": 9, "skipped": 6, "warnings": 6}
+    },
+    {
+      "attempt": 3,
+      "command": "python -m pytest -q",
+      "started_at": "2026-09-15T03:40:38.0035550-03:00",
+      "ended_at": "2026-09-15T04:06:03.4012800-03:00",
+      "wall_seconds": 1525.397725,
+      "process_seconds": 1525.393179,
+      "result": "FAILED_REMAINING_HISTORICAL_BOOKKEEPING",
+      "exit_code": 1,
+      "counts": {"passed": 7060, "failed": 3, "skipped": 6, "warnings": 6}
+    },
+    {
+      "attempt": 4,
+      "command": "python -m pytest -q",
+      "started_at": "2026-09-15T04:09:54.9435258-03:00",
+      "ended_at": "2026-09-15T04:35:29.4763730-03:00",
+      "wall_seconds": 1534.532847,
+      "process_seconds": 1534.528251,
+      "result": "PASS",
+      "exit_code": 0,
+      "counts": {"passed": 7063, "failed": 0, "skipped": 6, "warnings": 6}
+    }
+  ],
+  "validation_basis": "551af775e056793ded0350295f0c256e62ed926d",
+  "validation_basis_note": "Stable pre-suite basis after exact historical guard repair; final evidence does not embed its own containing hash.",
   "quota": {
     "pre_prompt_reference": {
       "five_hour_remaining_percent": 85,

@@ -43,3 +43,24 @@ attempts. UI visual validation is `TOOLING_UNAVAILABLE` in this context; Node
 syntax checking and API/static consumer tests are the fallback. Quota values
 after start are not observable from the repository and are therefore
 `END_QUOTA_EXTERNAL_OPERATOR_EVIDENCE_REQUIRED`.
+
+### Observed execution
+
+The execution started at `2026-09-15T01:27:14.4966151-03:00`. Level B became
+green at `2026-09-15T04:35:29.4763730-03:00`, for an observed
+`11294.979758 s` (`3 h 8 min 14.979758 s`) from start to Level B completion.
+The central estimate was `9600 s`; observed error was `+1694.979758 s`.
+
+The exact canonical command was `python -m pytest -q`, run single-process with
+Python `3.11.9`, pytest `9.0.3`, no xdist, and `.pytest_cache`. Four attempts
+were recorded: attempt 1 was interrupted after partial output when the host
+closed stdout; attempt 2 returned `7054 passed, 9 failed, 6 skipped, 6
+warnings` in `1536.861839 s` wall / `1536.856369 s` process; attempt 3 returned
+`7060 passed, 3 failed, 6 skipped, 6 warnings` in `1525.397725 s` wall /
+`1525.393179 s` process; attempt 4 returned `7063 passed, 6 skipped, 6
+warnings` in `1534.532847 s` wall / `1534.528251 s` process with exit `0`.
+
+The speed variation is observed rather than attributed to a single cause: the
+suite is serial and includes slow integration/guard sections, while the first
+attempt has no observable end marker. No worker parallelism or reduced command
+was used.

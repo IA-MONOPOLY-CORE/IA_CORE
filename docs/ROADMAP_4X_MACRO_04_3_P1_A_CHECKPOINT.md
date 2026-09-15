@@ -44,11 +44,30 @@ special position.
 
 ### Level and publication state
 
-`LEVEL_A = PASS` and `LEVEL_B = PENDING_UNTIL_FULL_SUITE_AND_REMOTE_FETCH`
-until the final evidence is populated. Visual browser validation is
+`LEVEL_A = PASS` and `LEVEL_B = PASS`.
+
+The canonical suite completed with `7063 passed, 6 skipped, 6 warnings` and
+exit code `0`. The stable validation basis is
+`551af775e056793ded0350295f0c256e62ed926d`. Visual browser validation is
 `TOOLING_UNAVAILABLE`; Node checks and frontend/backend integration assertions
-are the recorded fallback. The validation basis and post-publication HEAD are
-recorded in the machine evidence and commit ledger.
+are the recorded fallback. Post-publication HEAD equality is deliberately
+reported after fetch rather than copied into this containing evidence commit.
+
+Full-suite evidence:
+
+- Attempt 1: interrupted after partial progress when the execution host closed
+  stdout; final result and duration are unknown.
+- Attempt 2: `7054 passed, 9 failed, 6 skipped, 6 warnings`, exit `1`, wall
+  `1536.861839 s`, process `1536.856369 s`.
+- Attempt 3: `7060 passed, 3 failed, 6 skipped, 6 warnings`, exit `1`, wall
+  `1525.397725 s`, process `1525.393179 s`.
+- Attempt 4: `7063 passed, 6 skipped, 6 warnings`, exit `0`, wall
+  `1534.532847 s`, process `1534.528251 s`.
+
+The full execution from `2026-09-15T01:27:14.4966151-03:00` through the
+successful Level B suite ended at `2026-09-15T04:35:29.4763730-03:00`:
+`11294.979758 s` (`3 h 8 min 14.979758 s`). This is `1694.979758 s`
+(`28 min 14.979758 s`) above the central estimate.
 
 ### Next selection only
 
