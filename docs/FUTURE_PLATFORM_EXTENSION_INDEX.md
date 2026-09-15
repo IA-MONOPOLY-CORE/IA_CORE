@@ -377,3 +377,22 @@ not started. See [Macro 04.2 checkpoint](ROADMAP_4X_MACRO_04_2_CHECKPOINT.md),
 [ingestion contract](ROADMAP_4X_MACRO_04_2_SECURITY_INGESTION_CONTRACT.md),
 [execution metrics](ROADMAP_4X_MACRO_04_2_EXECUTION_METRICS_BASELINE.md) and
 [evidence](ROADMAP_4X_MACRO_04_2_CHECKPOINT_EVIDENCE.json).
+
+## Roadmap 4.x Macro-Mission 04.3 - P1-A platform status health
+
+Macro-Mission 04.3 completes the bounded internal remediation of the first P1
+subfamily. `GET /api/status` now has a versioned minimal view for polling and
+keeps `GET /api/status?full=true` only as a capability-gated detailed alias.
+The contract is domain-neutral, does not enumerate providers or internal
+inventories, performs no provider/external calls and remains
+`DEFAULT_DENIED` for external exposure.
+
+The detailed view is prepared but unavailable by default because no trusted
+identity source is configured. Overview, Hybrid and the provider panel were
+reconciled without adding routes or changing P1-B/C/D. P1-B Protected Memory
+is the next selection-only cursor; P1-C and P1-D are `DEFERRED_NOT_STARTED`.
+Macro-Mission 05, Enterprise Foundry, Cyber Range and IA_CORE OS remain
+future-only. See the [P1-A contract](ROADMAP_4X_MACRO_04_3_P1_A_STATUS_CONTRACT.md),
+[truth matrix](ROADMAP_4X_MACRO_04_3_P1_A_TRUTH_MATRIX.md),
+[checkpoint](ROADMAP_4X_MACRO_04_3_P1_A_CHECKPOINT.md) and
+[machine evidence](ROADMAP_4X_MACRO_04_3_P1_A_CHECKPOINT_EVIDENCE.json).

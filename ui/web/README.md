@@ -76,14 +76,27 @@ la autoridad contractual que decide acciones y bloqueos.
 |---|---|
 | Memory | `GET /api/memory` |
 | Logs | `GET /api/logs` |
-| Hybrid | `GET /api/status?full=true` |
+| Hybrid | `GET /api/status?full=true` (detalle capability-gated; alias compatible) |
 | Request contract | lectura de sources declaradas; dispatch bloqueado sin `allowed_actions` |
-| Overview | `GET /api/status` |
+| Overview | `GET /api/status` (vista mínima versionada) |
 | Backend contract widgets | payload inyectado `backend_internal_ui_payload.v1` |
 
 `admin-panels.js` implementa estas secciones del modal de configuración. Los
 controles de dispatch visibles quedan bloqueados si no hay contrato backend
 que los declare en `allowed_actions`.
+
+## Status contract P1-A
+
+`GET /api/status` devuelve `platform_status.v1` en vista `minimal`, con solo
+estado, liveness, readiness, alcance de plataforma y exposición externa
+`DEFAULT_DENIED`. No enumera providers, modelos, agentes, herramientas,
+dominios, memoria ni métricas.
+
+`GET /api/status?full=true` conserva la compatibilidad de ruta como alias de la
+vista `detailed`, pero la query no concede permisos. El detalle requiere un
+principal server-side con `platform_status.read_detailed`; sin resolver de
+identidad configurado, la UI muestra estado no disponible sanitizado. El panel
+de Providers no usa status como catálogo.
 
 ## Layout superior 0.8
 

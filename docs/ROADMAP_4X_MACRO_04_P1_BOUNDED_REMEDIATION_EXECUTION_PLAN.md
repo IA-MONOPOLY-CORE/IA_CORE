@@ -4,26 +4,22 @@
 
 ## State
 
-`PREPARED_NOT_STARTED`
+`P1-A_PLATFORM_STATUS_HEALTH_INTERNAL_REMEDIATION_COMPLETE_EXTERNAL_EXPOSURE_DEFAULT_DENIED`
 
-This plan is a future execution contract. It does not authorize execution in
-Macro-Mission 04, and it does not begin Macro-Mission 05. The current mission
-has modified no product surface and has not added an endpoint, capability,
-middleware, schema, adapter, runtime path, or payload.
-
-Macro-Mission 04.1 establishes an architectural precedence checkpoint before
-P1-A. Therefore P1-A remains
-`P1-A_PLATFORM_STATUS_HEALTH_SELECTED_NOT_STARTED` and is
-`TEMPORARILY_PAUSED_BEHIND_COGNITIVE_KERNEL_RECONCILIATION`. This pause does
-not start remediation or change any route.
+Macro-Mission 04.3 executed the bounded P1-A unit on the real repository. The
+only product route changed was `GET /api/status`; its minimal view is a cheap,
+provider-neutral local lifecycle projection and its `full=true` compatibility
+alias is a separately capability-gated detailed projection. No new route,
+provider, runtime, execution, tenant, payload or external exposure was added.
+Macro-Mission 05 remains not started.
 
 ## Exact first unit
 
-`P1-A_PLATFORM_STATUS_HEALTH_SELECTED_NOT_STARTED`
+`P1-A_PLATFORM_STATUS_HEALTH_INTERNAL_REMEDIATION_COMPLETE_EXTERNAL_EXPOSURE_DEFAULT_DENIED`
 
 Included route:
 
-- `GET /api/status`, only as a future bounded status/health read.
+- `GET /api/status`, as the bounded status/health read completed by P1-A.
 
 Excluded from this unit:
 
@@ -31,29 +27,29 @@ Excluded from this unit:
 - `GET /api/logs`;
 - `GET /api/metrics/dynamic`;
 - all other legacy routes;
-- P0, P4, widgets, Request Draft Panel, UI, payload v2, runtime, execution,
+- P0, P4, widgets, Request Draft Panel, payload v2, runtime, execution,
   providers, integrations, stores, secrets, and external exposure.
 
-The selected unit must first decide whether a minimal health response can be
-separated from the current detailed diagnostic response without breaking a
-proven consumer. `full=true` is not an authorization mechanism and cannot
-select a privileged view by itself.
+The selected unit separated the minimal response from the historical detailed
+diagnostic response without preserving unsafe fields. `full=true` is an alias
+only; it is not an authorization mechanism and cannot select the detailed view
+by itself.
 
-## Candidate implementation boundary for a later mission
+## Implemented boundary
 
-Only after a separately accepted execution mission may the following units be
-considered:
+The bounded implementation is present in these units:
 
 - the `api.py:get_status` handler, limited to response selection and policy
   enforcement;
-- a dedicated status access/policy helper, if the existing repository does
-  not provide a suitable boundary;
-- a dedicated status projection/sanitizer, if required to remove provider,
-  model, path, tool, and activity detail.
+- `core/platform_status_access.py`, with no identity source and fail-closed
+  server-side principal contract;
+- `core/platform_status_schema.py`, with strict two-view validation and
+  recursive sanitization;
+- direct status consumers only: Overview, Hybrid and the provider panel's
+  status-backed catalog loader.
 
-The current mission creates none of these helpers and changes no production
-logic. Provider diagnostic callables, memory stores, runtime startup, and
-hybrid-router implementation are not remediation targets in this plan.
+Provider diagnostic callables, memory stores, runtime startup and hybrid-router
+implementation remain outside the status route and were not changed.
 
 When P1-A eventually starts, its status projection must use a generic
 `domain_module_status` representation with parity across modules. The legacy
@@ -61,22 +57,22 @@ domain-specific branch currently observed in the diagnostic surface is a
 `legacy singled-out domain status` debt item, not a privileged feature. The
 migration must be versioned, consumer-tested, sanitized and reversible.
 
-## Proposed capabilities
-
-The following names are inactive proposals only:
+## Capabilities
 
 - `platform_status.read_minimal`;
 - `platform_status.read_detailed`.
 
-The minimal capability is sufficient only for the minimal platform view. The
-detailed capability is sufficient only for an Owner-authorized operator view.
+The minimal view is intentionally usable for connection polling without an
+identity source; the detailed capability is sufficient only for a server-side
+principal accepted by the Owner/operator boundary. The default resolver is
+unconfigured and therefore denies detail.
 Neither capability grants write, runtime, execution, provider, integration,
 secret, memory, log, metric, tenant, or root authority.
 
 ## Authorization order
 
-A future resolver must evaluate in this order and deny on any missing or
-ambiguous result:
+Any future resolver extension must evaluate in this order and deny on any
+missing or ambiguous result:
 
 1. verified identity source;
 2. authentication for the intended audience;
@@ -93,11 +89,12 @@ casing, query parameters, subscription tier, or inherited tenant data.
 
 ## Scope, projection and sanitization
 
-The minimal view may contain only a deliberate liveness/readiness result. It
-must not contain provider names, model names, health messages, filesystem
-paths, tool or agent inventory, hybrid details, cycle limits, activity counts,
-tenant identifiers, credentials, secrets, or timing that enables meaningful
-reconnaissance.
+The minimal view contains only version, view, platform scope, bounded
+status/liveness/readiness, running flag, explicit `DEFAULT_DENIED` and the
+capability-gated detailed-view marker. It has no collections, provider names,
+model names, health messages, filesystem paths, tool or agent inventory,
+hybrid details, cycle limits, activity counts, tenant identifiers,
+credentials, secrets or timing that enables meaningful reconnaissance.
 
 The detailed view, if separately approved, remains Owner/operator-only and
 must use an explicit allowlist. It must redact internal paths, secret-bearing
@@ -105,10 +102,10 @@ configuration, credentials, tokens, private prompts, tenant content, and
 unbounded provider diagnostics. The projection must not copy raw memory, logs,
 or metric payloads into status.
 
-Status has no current pagination contract. A future minimal view should have
-no collections. Any future detailed collection must have an explicit bound
-and ordering contract before implementation; line-count, list size, or
-`full=true` cannot replace authorization.
+Status has no pagination contract. The current minimal view has no
+collections. Any future detailed collection must have an explicit bound and
+ordering contract before implementation; line-count, list size, or `full=true`
+cannot replace authorization.
 
 There is no new retention policy in this plan. Status responses are ephemeral
 reads; any persisted audit record would require a separate ownership,
@@ -134,7 +131,8 @@ preserve unsafe fields merely because they are currently returned.
 
 ## Required gates
 
-The first unit remains inactive until all applicable gates are evidenced:
+Identity, deployment and external-exposure gates remain inactive; internal
+remediation is complete and the route remains externally default-denied:
 
 | Gate | Required evidence | Current state |
 | --- | --- | --- |
@@ -147,7 +145,9 @@ The first unit remains inactive until all applicable gates are evidenced:
 | `G18_EXTERNAL_CONSUMER_COMPATIBILITY` | Demonstrated consumers and version strategy | `INACTIVE_EVIDENCE_REQUIRED` |
 | `G19_PAYLOAD_RESPONSE_CONTRACT` | Stable bounded response and negative contract tests | `INACTIVE_EVIDENCE_REQUIRED` |
 
-External exposure remains `DEFAULT_DENIED`. No gate is activated by this plan.
+External exposure remains `DEFAULT_DENIED`. Internal remediation is complete,
+but no identity/deployment gate is activated and no productive external
+exposure is declared.
 
 ## Tests required before any future activation
 
@@ -165,7 +165,7 @@ an E2E run is mandatory. This plan itself requires no route invocation.
 
 ## Rollback and stop conditions
 
-Rollback must be a local, reviewable revert of the future status unit and must
+Rollback must be a local, reviewable revert of the status unit and must
 restore the prior route behavior without touching unrelated P1 subfamilies.
 Rollback ownership belongs to the future Owner-authorized platform/observability
 owner; naming an owner here does not assign current permission.
@@ -185,26 +185,26 @@ Stop before implementation if any of the following remains unresolved:
 
 ## Future acceptance criteria
 
-The selected unit can be considered complete only when the code diff is
-limited to the approved status boundary, all gates have an evidence-backed
-state, positive and negative tests pass, local consumers remain compatible,
-external exposure is explicitly accepted or remains denied, and rollback is
-demonstrated. A green test result alone is not permission to expose the route.
+The selected unit is complete because the code diff is limited to the approved
+status boundary, positive and negative tests pass, local consumers are
+compatible, external exposure remains denied, and the checkpoint records
+rollback and validation evidence. A green test result is not permission to
+expose the route.
 
 Until then, the only valid state is:
 
-`P1-A_PLATFORM_STATUS_HEALTH_SELECTED_NOT_STARTED`
-`PREPARED_NOT_STARTED`
+`P1-A_PLATFORM_STATUS_HEALTH_INTERNAL_REMEDIATION_COMPLETE_EXTERNAL_EXPOSURE_DEFAULT_DENIED`
+`INTERNAL_REMEDIATION_COMPLETE_EXTERNAL_EXPOSURE_DEFAULT_DENIED`
 `EXTERNAL_EXPOSURE_DEFAULT_DENIED`
 
-## Current roadmap cursor after Macro 04.2
+## Current roadmap cursor after Macro 04.3
 
-Macro 04.2 completed the inert Cognitive Kernel G0 adversarial assurance and
-released this selected unit as the next roadmap cursor, without implementing or
-invoking it:
+Macro 04.3 completed the bounded internal P1-A status remediation and left the
+next subfamily as a selection-only cursor:
 
-`NEXT_SELECTED_NOT_STARTED`
+`P1-B_PROTECTED_MEMORY_SELECTED_NOT_STARTED`
 
-The prior `TEMPORARILY_PAUSED_BEHIND_COGNITIVE_KERNEL_RECONCILIATION` state is
-historical context from Macro 04.1. P1-A remains not started, all activation
-gates remain inactive, and external exposure remains `DEFAULT_DENIED`.
+P1-C and P1-D remain `DEFERRED_NOT_STARTED`; no next subfamily was
+implemented. The prior Macro 04.1 pause and Macro 04.2 release states remain
+historical context. All activation gates remain inactive and external exposure
+remains `DEFAULT_DENIED`.

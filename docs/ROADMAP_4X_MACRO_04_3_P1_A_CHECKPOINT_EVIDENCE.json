@@ -1,0 +1,33 @@
+{
+  "mission": "ROADMAP_4X_MACRO_04_3",
+  "baseline": "6dd040e0985da134f18f2bc85a338aa1bf770d3f",
+  "result": "ROADMAP_4X_MACRO_04_3_P1_A_PLATFORM_STATUS_HEALTH_INTERNAL_REMEDIATION_COMPLETE_VERSIONED_TIERED_DOMAIN_NEUTRAL_NO_PROVIDER_SIDE_EFFECTS_EXTERNAL_EXPOSURE_DEFAULT_DENIED_NEXT_SUBFAMILY_SELECTED_NOT_STARTED",
+  "p1_a_state": "INTERNAL_REMEDIATION_COMPLETE_EXTERNAL_EXPOSURE_DEFAULT_DENIED",
+  "level_a": "PASS",
+  "level_b": "PENDING_UNTIL_FULL_SUITE_AND_REMOTE_FETCH",
+  "status_schema_version": "platform_status.v1",
+  "routes_modified": ["GET /api/status"],
+  "routes_added": [],
+  "external_exposure": "DEFAULT_DENIED",
+  "trusted_identity_source": "NOT_CONFIGURED_DEFAULT_DENY",
+  "provider_calls": 0,
+  "external_calls": 0,
+  "mutations": 0,
+  "domain_parity": "DOMAIN_MODULES_HAVE_PARITY_NO_DOMAIN_HAS_INHERENT_PLATFORM_PRIVILEGE",
+  "gokv_dool_oci": {
+    "families": ["GOKV", "DOOL", "OCI"],
+    "item_count": 38,
+    "new_candidate": "NO_NEW_CANDIDATE",
+    "promotion": false,
+    "runtime": false
+  },
+  "next_subfamily": {
+    "selected": "P1-B_PROTECTED_MEMORY_SELECTED_NOT_STARTED",
+    "deferred": ["P1-C_PROTECTED_LOGS_EVENTS_DEFERRED_NOT_STARTED", "P1-D_DOMAIN_DYNAMIC_METRICS_DEFERRED_NOT_STARTED"]
+  },
+  "macro_mission_05": "NOT_STARTED",
+  "visual_validation": "TOOLING_UNAVAILABLE",
+  "validation_basis": null,
+  "head_final": null,
+  "origin_main_final": null
+}

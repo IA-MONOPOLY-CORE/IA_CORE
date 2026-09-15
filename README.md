@@ -1804,3 +1804,27 @@ Ver [checkpoint](docs/ROADMAP_4X_MACRO_04_2_CHECKPOINT.md),
 [ingestion contract](docs/ROADMAP_4X_MACRO_04_2_SECURITY_INGESTION_CONTRACT.md),
 [evidence](docs/ROADMAP_4X_MACRO_04_2_CHECKPOINT_EVIDENCE.json) y
 [ledger](docs/ROADMAP_4X_MACRO_04_2_COMMIT_ACCOUNTABILITY_LEDGER.md).
+
+## Roadmap 4.x Macro-Mission 04.3 - P1-A platform status health
+
+Macro-Mission 04.3 completes the internal remediation of `GET /api/status`.
+The route now emits a versioned `platform_status.v1` minimal view for cheap
+connection polling and retains `full=true` only as an explicit,
+capability-gated detailed alias. Both views are provider-neutral, side-effect
+free and externally `DEFAULT_DENIED`; the detailed resolver is unconfigured
+and therefore fails closed.
+
+The minimal view contains no inventories, domain-specific Lotería state,
+memory, tools, paths, runtime metrics, provider diagnostics or raw errors. The
+detailed view contains only bounded generic component states with recursive
+sanitization. Overview, Hybrid and the provider panel were reconciled without
+adding a route. P1-B Protected Memory is the next selection-only cursor;
+P1-C/P1-D remain deferred and not started. Macro-Mission 05, Enterprise
+Foundry, Cyber Range and IA_CORE OS remain future-only.
+
+Ver [status contract](docs/ROADMAP_4X_MACRO_04_3_P1_A_STATUS_CONTRACT.md),
+[truth matrix](docs/ROADMAP_4X_MACRO_04_3_P1_A_TRUTH_MATRIX.md),
+[consumer compatibility](docs/ROADMAP_4X_MACRO_04_3_P1_A_CONSUMER_COMPATIBILITY.md),
+[checkpoint](docs/ROADMAP_4X_MACRO_04_3_P1_A_CHECKPOINT.md),
+[evidence](docs/ROADMAP_4X_MACRO_04_3_P1_A_CHECKPOINT_EVIDENCE.json) y
+[ledger](docs/ROADMAP_4X_MACRO_04_3_P1_A_COMMIT_ACCOUNTABILITY_LEDGER.md).
