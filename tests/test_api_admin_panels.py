@@ -12,6 +12,11 @@ from core.protected_memory_access import (
     PROTECTED_MEMORY_AUDIENCE,
     ProtectedMemoryPrincipal,
 )
+from core.protected_logs_access import (
+    LOG_READ_CAPABILITY,
+    PROTECTED_LOGS_AUDIENCE,
+    ProtectedLogsPrincipal,
+)
 
 
 class FakeMemory:
@@ -167,19 +172,51 @@ def test_memory_endpoint_returns_bounded_metadata_without_raw_content(monkeypatc
 
 def test_logs_endpoint_separates_warning_error_and_events(monkeypatch, tmp_path):
     log_path = tmp_path / "api.log"
-    log_path.write_text("INFO ok\nWARNING cuidado\nERROR fallo\n", encoding="utf-8")
+    log_path.write_text(
+        "2026-01-01T00:00:00 | INFO | api | ok\n"
+        "2026-01-01T00:00:01 | WARNING | security | cuidado\n"
+        "2026-01-01T00:00:02 | ERROR | api | fallo\n",
+        encoding="utf-8",
+    )
     monkeypatch.setattr(api.config, "LOG_DIR", tmp_path)
     monkeypatch.setattr(
         api,
         "session_events",
         [{"kind": "test", "message": "evento", "timestamp": "2026-01-01"}],
     )
+    monkeypatch.setattr(
+        api,
+        "resolve_protected_logs_principal",
+        lambda: ProtectedLogsPrincipal(
+            subject_id="test",
+            authenticated=True,
+            audience=PROTECTED_LOGS_AUDIENCE,
+            capabilities=frozenset({LOG_READ_CAPABILITY}),
+        ),
+    )
 
-    payload = asyncio.run(api.get_logs(lines=80))
+    payload = asyncio.run(
+        api.get_logs(
+            Request(
+                {
+                    "type": "http",
+                    "method": "GET",
+                    "path": "/api/logs",
+                    "query_string": b"view=events&limit=25",
+                    "headers": [],
+                    "client": ("test", 1),
+                    "server": ("test", 80),
+                }
+            )
+        )
+    )
 
-    assert payload["warnings"] == ["WARNING cuidado"]
-    assert payload["errors"] == ["ERROR fallo"]
-    assert payload["events"][0]["message"] == "evento"
+    events = payload["data"]["events"]
+    assert any(event["severity"] == "WARNING" for event in events)
+    assert any(event["severity"] == "ERROR" for event in events)
+    assert any(event["message"] == "evento" for event in events)
+    assert "path" not in payload
+    assert "lines" not in payload
 
 
 def test_debate_request_accepts_mode_and_agent_selection():

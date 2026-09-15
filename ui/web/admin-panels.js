@@ -89,24 +89,31 @@
         }
     }
 
-    // LOGS — GET /api/logs
+    // LOGS — protected_logs.v1; sanitized events only, never a raw log viewer.
     async function loadLogs() {
-        const lines = Math.max(20, Math.min(500, Number(byId('logs-lines').value) || 80));
+        const limit = Math.max(1, Math.min(100, Number(byId('logs-lines').value) || 25));
         ['logs-sanitized', 'logs-warnings', 'logs-errors'].forEach((id) => setLoading(id));
+        byId('logs-path').textContent = 'Fuente protegida: no se expone';
         try {
-            const data = await fetchJson(`/api/logs?lines=${lines}`);
-            byId('logs-path').textContent = data.path || '';
-            byId('logs-sanitized').textContent = (data.lines || []).join('\n') || adminEmptyState('Sin registros sanitizados declarados; trazabilidad, no live log');
-            byId('logs-warnings').textContent = (data.warnings || []).join('\n') || 'Sin warnings declarados; ausencia de warnings no habilita acción.';
-            byId('logs-errors').textContent = (data.errors || []).join('\n') || 'Sin errores declarados; ausencia de error no concede permiso.';
-            const events = data.events || [];
+            const data = await fetchJson(`/api/logs?view=events&limit=${limit}`);
+            if (data.contract_version !== 'protected_logs.v1' || data.content_exposed !== false || data.bounded !== true) {
+                throw new Error('Contrato de logs protegido no disponible.');
+            }
+            const events = Array.isArray(data.data?.events) ? data.data.events : [];
+            const safeEvents = events.filter((event) => event && typeof event.message === 'string');
+            byId('logs-sanitized').textContent = safeEvents.map((event) => event.message).join('\n') || adminEmptyState('Sin eventos sanitizados declarados; trazabilidad, no live log');
+            byId('logs-warnings').textContent = safeEvents.filter((event) => event.severity === 'WARNING').map((event) => event.message).join('\n') || 'Sin warnings declarados; ausencia de warnings no habilita acción.';
+            byId('logs-errors').textContent = safeEvents.filter((event) => event.severity === 'ERROR' || event.severity === 'CRITICAL').map((event) => event.message).join('\n') || 'Sin errores declarados; ausencia de error no concede permiso.';
             byId('logs-events').innerHTML = events.length ? `
-                <table class="admin-table"><thead><tr><th>Hora</th><th>Tipo</th><th>Evento</th></tr></thead>
+                <table class="admin-table"><thead><tr><th>Hora</th><th>Severidad</th><th>Categoría</th><th>Evento</th></tr></thead>
                 <tbody>${events.slice().reverse().map((event) => `
-                    <tr><td>${escapeHtml(event.timestamp || '-')}</td><td>${escapeHtml(event.kind || '-')}</td><td>${escapeHtml(event.message || '')}</td></tr>
+                    <tr><td>${escapeHtml(event.timestamp || '-')}</td><td>${escapeHtml(event.severity || '-')}</td><td>${escapeHtml(event.category || '-')}</td><td>${escapeHtml(event.message || '')}</td></tr>
                 `).join('')}</tbody></table>` : `<div class="admin-status">${adminEmptyState('Sin eventos declarados')}</div>`;
         } catch (error) {
             byId('logs-sanitized').textContent = adminErrorState(error);
+            byId('logs-warnings').textContent = 'Logs protegidos no disponibles; ausencia no concede permiso.';
+            byId('logs-errors').textContent = 'Logs protegidos no disponibles; no se muestran detalles técnicos.';
+            byId('logs-events').textContent = 'Acceso a eventos protegido no disponible.';
         }
     }
 
