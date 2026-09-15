@@ -74,7 +74,7 @@ la autoridad contractual que decide acciones y bloqueos.
 
 | Sección | API utilizada |
 |---|---|
-| Memory | `GET /api/memory` |
+| Memory | `GET /api/memory` (`protected_memory.v1`, metadata/audit capability-gated; raw content denied) |
 | Logs | `GET /api/logs` |
 | Hybrid | `GET /api/status?full=true` (detalle capability-gated; alias compatible) |
 | Request contract | lectura de sources declaradas; dispatch bloqueado sin `allowed_actions` |
@@ -84,6 +84,9 @@ la autoridad contractual que decide acciones y bloqueos.
 `admin-panels.js` implementa estas secciones del modal de configuración. Los
 controles de dispatch visibles quedan bloqueados si no hay contrato backend
 que los declare en `allowed_actions`.
+
+El panel Memory no enumera claves, paths ni valores. La vista tenant permanece
+denegada porque el repositorio no demuestra ownership ni aislamiento tenant.
 
 ## Status contract P1-A
 

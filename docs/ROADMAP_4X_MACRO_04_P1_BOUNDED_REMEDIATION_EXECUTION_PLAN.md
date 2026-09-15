@@ -4,26 +4,25 @@
 
 ## State
 
-`P1-A_PLATFORM_STATUS_HEALTH_INTERNAL_REMEDIATION_COMPLETE_EXTERNAL_EXPOSURE_DEFAULT_DENIED`
+`P1-B_PROTECTED_MEMORY_INTERNAL_REMEDIATION_COMPLETE_EXTERNAL_EXPOSURE_DEFAULT_DENIED`
 
 Macro-Mission 04.3 executed the bounded P1-A unit on the real repository. The
 only product route changed was `GET /api/status`; its minimal view is a cheap,
 provider-neutral local lifecycle projection and its `full=true` compatibility
 alias is a separately capability-gated detailed projection. No new route,
 provider, runtime, execution, tenant, payload or external exposure was added.
-Macro-Mission 05 remains not started.
+Macro-Mission 05 remains not started. P1-C and P1-D remain deferred.
 
 ## Exact first unit
 
-`P1-A_PLATFORM_STATUS_HEALTH_INTERNAL_REMEDIATION_COMPLETE_EXTERNAL_EXPOSURE_DEFAULT_DENIED`
+`P1-B_PROTECTED_MEMORY_INTERNAL_REMEDIATION_COMPLETE_EXTERNAL_EXPOSURE_DEFAULT_DENIED`
 
 Included route:
 
-- `GET /api/status`, as the bounded status/health read completed by P1-A.
+- `GET /api/memory`, as the bounded protected-memory read completed by P1-B.
 
 Excluded from this unit:
 
-- `GET /api/memory`;
 - `GET /api/logs`;
 - `GET /api/metrics/dynamic`;
 - all other legacy routes;
