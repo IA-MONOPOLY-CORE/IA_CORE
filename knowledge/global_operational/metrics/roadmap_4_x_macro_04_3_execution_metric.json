@@ -42,6 +42,8 @@
     "legacy_payload_bytes": "NOT_MEASURED_DIRECTLY_LEGACY_ROUTE_REQUIRED_PROVIDER_AND_DOMAIN_SETUP"
   },
   "full_suite_attempts": [],
+  "validation_basis": "THIS_COMMIT",
+  "validation_basis_note": "This commit is the stable pre-suite basis; final evidence records its exact hash.",
   "quota": {
     "pre_prompt_reference": {
       "five_hour_remaining_percent": 85,
