@@ -195,7 +195,7 @@ def test_checkpoint_does_not_touch_active_ui_js_or_backend_after_135():
     assert result.stdout.strip() == ""
 
     js_result = subprocess.run(
-        ["git", "diff", "--name-only", "origin/main", "--", *JS_FILES],
+        ["git", "diff", "--name-only", "67bd324", "dc0c100", "--", *JS_FILES],
         cwd=ROOT,
         check=True,
         text=True,

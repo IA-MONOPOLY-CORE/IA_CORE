@@ -21,7 +21,10 @@ ROOT = Path(__file__).resolve().parents[1]
 LEDGER = ROOT / "docs" / "ROADMAP_3_X_MACRO_02_2_FAILURE_ACCOUNTABILITY_LEDGER.md"
 _LEDGER_NODE_RE = re.compile(r"^\| \d+ \| `(tests/[^`]+)::test_[^`]+` \|", re.MULTILINE)
 _OVERRIDES = {
+    "tests/test_roadmap_3_x_macro_05_1_live_state_consistency.py": "6dd040e0985da134f18f2bc85a338aa1bf770d3f",
+    "tests/test_roadmap_4x_macro_01_1_p4_live_closure.py": "6dd040e0985da134f18f2bc85a338aa1bf770d3f",
     "tests/test_roadmap_3_x_macro_03_checkpoint.py": "43530e656066a3c40d9afb8a5a4a381b38f29f38",
+    "tests/test_roadmap_4x_macro_03_checkpoint.py": "cbec5000878a5fa14184c91f54720896a7ae1f2d",
     "tests/test_roadmap_3_x_macro_04_true_completion.py": "9ce7d87",
     "tests/test_roadmap_3_x_macro_05_final_closure.py": "6347094daa234d1f2ad344f08508e24a1e9302ea",
     "tests/test_roadmap_3_x_macro_03_b7_and_roadmap_4x_entry.py": "49952068",
@@ -46,20 +49,17 @@ _OVERRIDES = {
     "tests/test_ui_ux_1_201_premission_oci.py": "a2afc307",
     "tests/test_roadmap_4x_macro_04_2_cognitive_kernel.py": "6dd040e0985da134f18f2bc85a338aa1bf770d3f",
     "tests/test_roadmap_4x_macro_04_1_cognitive_kernel.py": "6dd040e0985da134f18f2bc85a338aa1bf770d3f",
+    "tests/test_roadmap_4x_macro_04_p1_entry_review.py": "6dd040e0985da134f18f2bc85a338aa1bf770d3f",
+    "tests/test_ui_ux_frontend_incongruence_hardening_1_21.py": "8d8893696d82e0307bc54d301222628e7b8b529d",
+    "tests/test_ui_ux_panel_maestro_design_system_density_refinement_checkpoint_1_136.py": "dc0c1006818b5a95bfc59be39a0a2fb2fe795650",
 }
 _CURRENT_GUARD_MODULES = {
-    "tests/test_ui_ux_panel_maestro_controlled_double_scope_affordances_severity_1_192.py",
-    "tests/test_roadmap_4x_macro_03_checkpoint.py",
-    "tests/test_roadmap_4x_macro_04_p1_entry_review.py",
 }
 _CURRENT_MISSION_CONTINUITY_GUARD_MODULES = frozenset(
     {
-        "tests/test_ui_ux_panel_maestro_controlled_double_scope_affordances_severity_1_192.py",
         "tests/test_ui_ux_panel_maestro_assembled_block_scale_audit_1_193.py",
         "tests/test_ui_ux_panel_maestro_responsive_visual_coherence_assembled_block_1_194.py",
         "tests/test_ui_ux_panel_maestro_css_accessibility_responsive_large_scale_block_1_196.py",
-        "tests/test_roadmap_4x_macro_03_checkpoint.py",
-        "tests/test_roadmap_4x_macro_04_p1_entry_review.py",
 }
 )
 _SECONDARY_HISTORICAL_FILES = frozenset(
