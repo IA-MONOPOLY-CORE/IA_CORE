@@ -8,7 +8,7 @@ SUBFAMILY: P1-C_PROTECTED_LOGS_EVENTS
 BASELINE: 0d6b234a70bd1c882872e4be02b018bd6de09a64
 BRANCH: main
 METHOD_UPDATE: METHOD_SANTI_3_2_3
-STATUS_AT_LEDGER_CREATION: CLOSED_DOCUMENTARY_PUBLICATION_PENDING
+STATUS_AT_LEDGER_CREATION: CLOSED
 ```
 
 The ledger records only commits created for this mission. Historical
@@ -27,7 +27,8 @@ reclassified as P1-C work.
 | 6 | `d1063a43da70102815c7a2b7355749de2c4b23f6` | `test(history): isolate p1-c checkpoint artifacts` | Historical checkpoint isolation and own-snapshot bookkeeping |
 | 7 | `e169f563c35925e642bfcb68236cccdc3cf2676d` | `chore(validation): establish p1-c validation basis` | Validation basis metrics artifact |
 | 8 | `8b3aa47411a5826ec4d5e2294856051366e695d8` | `docs(logs): close p1-c functional checkpoint` | Functional checkpoint and checkpoint evidence JSON |
-| 9 | `COMMIT_CONTAINING_THIS_LEDGER` | `docs(logs): publish p1-c final evidence` | Final checkpoint closure, execution metric, accountability ledger, final journal closure |
+| 9 | `172007bda22c55b22d4dffdeedce42b23eef31cc` | `docs(logs): publish p1-c final evidence` | Final checkpoint closure, execution metric, accountability ledger, final journal closure |
+| 10 | `COMMIT_CONTAINING_THIS_LEDGER` | `docs(logs): record final publication verification` | Resolved documentary publication hash, push/fetch evidence, final closed status |
 
 ## Integrity rules
 
@@ -39,7 +40,7 @@ PRODUCTIVE_FILES_OUTSIDE_SCOPE: NOT_CHANGED
 PROTECTED_DIFF: EMPTY
 ```
 
-Commit 9 is self-identifying by its subject because the hash is assigned only
+Commit 10 is self-identifying by its subject because the hash is assigned only
 after the ledger content is committed. The final report records its resolved
 hash and the post-publication `HEAD`, `origin/main`, ahead/behind, and clean
 tree evidence.

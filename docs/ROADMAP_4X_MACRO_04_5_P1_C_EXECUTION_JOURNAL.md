@@ -95,8 +95,15 @@ FUNCTIONAL_CHECKPOINT_ORIGIN_MAIN: 8b3aa47411a5826ec4d5e2294856051366e695d8
 FUNCTIONAL_CHECKPOINT_AHEAD_BEHIND: 0/0
 FUNCTIONAL_CHECKPOINT_WORKING_TREE: CLEAN
 FINAL_DOCUMENTARY_ARTIFACTS: MATERIALIZED
-FINAL_DOCUMENTARY_COMMIT: PENDING
-FINAL_DOCUMENTARY_PUSH: PENDING
+FINAL_DOCUMENTARY_COMMIT: 172007bda22c55b22d4dffdeedce42b23eef31cc
+FINAL_DOCUMENTARY_PUSH: VERIFIED
+FINAL_DOCUMENTARY_PUSH_STARTED_AT: 2026-09-15T14:03:17.0155136-03:00
+FINAL_DOCUMENTARY_PUSH_COMPLETED_AT: 2026-09-15T14:03:19.4514448-03:00
+FINAL_DOCUMENTARY_FETCH_VERIFIED_AT: 2026-09-15T14:03:20.3205758-03:00
+FINAL_DOCUMENTARY_HEAD: 172007bda22c55b22d4dffdeedce42b23eef31cc
+FINAL_DOCUMENTARY_ORIGIN_MAIN: 172007bda22c55b22d4dffdeedce42b23eef31cc
+FINAL_DOCUMENTARY_AHEAD_BEHIND: 0/0
+FINAL_DOCUMENTARY_WORKING_TREE: CLEAN
 ```
 
 Final evidence artifacts are limited to the checkpoint, checkpoint evidence
@@ -146,3 +153,8 @@ ACTIVE_TIME: UNKNOWN - not every active interval was instrumented
 The measured wall-clock interval ends at the verified functional checkpoint
 publication. The final documentary publication interval is tracked separately
 because it occurs after that functional checkpoint.
+
+The evidence-sync commit that records these resolved publication fields is
+created after the first documentary push. Its final remote hash and its own
+post-push verification are recorded by the closing Git verification and in the
+final report.

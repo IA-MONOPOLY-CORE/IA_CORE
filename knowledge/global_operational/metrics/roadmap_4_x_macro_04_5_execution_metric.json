@@ -2,7 +2,7 @@
   "metric_id": "roadmap_4_x_macro_04_5_execution_metric",
   "mission": "ROADMAP_4X_MACRO_04_5",
   "subfamily": "P1-C_PROTECTED_LOGS_EVENTS",
-  "status": "CLOSED_DOCUMENTARY_PUBLICATION_PENDING",
+  "status": "CLOSED",
   "mission_accepted_at": "2026-09-15T12:48:44.9183509-03:00",
   "first_artifact_at": "2026-09-15T12:51:19.9384291-03:00",
   "preflight_completed_at": "UNKNOWN - not instrumented by the initial terminal capture",
@@ -62,7 +62,15 @@
     "functional_checkpoint_verified_origin_main": "8b3aa47411a5826ec4d5e2294856051366e695d8",
     "functional_checkpoint_ahead_behind": "0/0",
     "functional_checkpoint_working_tree": "CLEAN",
-    "final_documentary_push": "PENDING"
+    "final_documentary_commit": "172007bda22c55b22d4dffdeedce42b23eef31cc",
+    "final_documentary_push": "VERIFIED",
+    "final_documentary_push_started_at": "2026-09-15T14:03:17.0155136-03:00",
+    "final_documentary_push_completed_at": "2026-09-15T14:03:19.4514448-03:00",
+    "final_documentary_fetch_verified_at": "2026-09-15T14:03:20.3205758-03:00",
+    "final_documentary_verified_head": "172007bda22c55b22d4dffdeedce42b23eef31cc",
+    "final_documentary_verified_origin_main": "172007bda22c55b22d4dffdeedce42b23eef31cc",
+    "final_documentary_ahead_behind": "0/0",
+    "final_documentary_working_tree": "CLEAN"
   },
   "timing": {
     "functional_publication_wall_seconds": 3677.2654243,

@@ -2,7 +2,7 @@
   "mission": "P1-C_PROTECTED_LOGS_EVENTS_METHOD_SANTI_VERIFIED_EVIDENCE_UPDATE",
   "baseline": "0d6b234a70bd1c882872e4be02b018bd6de09a64",
   "validation_basis": "d1063a43da70102815c7a2b7355749de2c4b23f6",
-  "checkpoint_status": "CLOSED_DOCUMENTARY_PUBLICATION_PENDING",
+  "checkpoint_status": "CLOSED",
   "result": "ROADMAP_4X_MACRO_04_5_P1_C_PROTECTED_LOGS_EVENTS_INTERNAL_REMEDIATION_COMPLETE_VERSIONED_CAPABILITY_GATED_ZERO_SOURCE_READ_ON_DENY_STRUCTURED_SANITIZED_BOUNDED_PATH_NEUTRAL_RAW_LOGS_NOT_EXPOSED_RETENTION_AND_TENANT_SCOPE_DEFAULT_DENIED_METHOD_SANTI_VERIFIED_EVIDENCE_UPDATE_APPLIED_EXTERNAL_EXPOSURE_DEFAULT_DENIED_P1_D_SELECTED_NOT_STARTED",
   "level_a": {
     "status": "PASS",
@@ -57,7 +57,14 @@
     "external_exposure": "DEFAULT_DENIED"
   },
   "functional_checkpoint_commit": "8b3aa47411a5826ec4d5e2294856051366e695d8",
-  "final_documentary_commit": "COMMIT_CONTAINING_THIS_EVIDENCE",
-  "final_documentary_push": "PENDING",
+  "final_documentary_commit": "172007bda22c55b22d4dffdeedce42b23eef31cc",
+  "final_documentary_push": "VERIFIED",
+  "final_documentary_push_started_at": "2026-09-15T14:03:17.0155136-03:00",
+  "final_documentary_push_completed_at": "2026-09-15T14:03:19.4514448-03:00",
+  "final_documentary_fetch_verified_at": "2026-09-15T14:03:20.3205758-03:00",
+  "head_at_final_documentary_verification": "172007bda22c55b22d4dffdeedce42b23eef31cc",
+  "origin_main_at_final_documentary_verification": "172007bda22c55b22d4dffdeedce42b23eef31cc",
+  "ahead_behind_at_final_documentary_verification": "0/0",
+  "working_tree_at_final_documentary_verification": "CLEAN",
   "interruption_count": 0
 }
