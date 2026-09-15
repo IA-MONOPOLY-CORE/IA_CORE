@@ -50,6 +50,7 @@ _OVERRIDES = {
     "tests/test_roadmap_4x_macro_04_2_cognitive_kernel.py": "6dd040e0985da134f18f2bc85a338aa1bf770d3f",
     "tests/test_roadmap_4x_macro_04_1_cognitive_kernel.py": "6dd040e0985da134f18f2bc85a338aa1bf770d3f",
     "tests/test_roadmap_4x_macro_04_3_p1_a.py": "9d64eef82e8adfbd44823b84e913ade416fa956f",
+    "tests/test_roadmap_4x_macro_04_4_p1_b.py": "d31e28063796b1bf8e93122b545f97f7d86bef30",
     "tests/test_roadmap_4x_macro_04_p1_entry_review.py": "6dd040e0985da134f18f2bc85a338aa1bf770d3f",
     "tests/test_ui_ux_frontend_incongruence_hardening_1_21.py": "8d8893696d82e0307bc54d301222628e7b8b529d",
     "tests/test_ui_ux_panel_maestro_design_system_density_refinement_checkpoint_1_136.py": "dc0c1006818b5a95bfc59be39a0a2fb2fe795650",
@@ -151,6 +152,18 @@ _SNAPSHOT_EXACT = {
 }
 _CURRENT_MISSION_DOCUMENTARY_FILES = frozenset(
     {
+        "core/protected_logs_access.py",
+        "core/protected_logs_schema.py",
+        "docs/METHOD_SANTI_3_2_3_VERIFIED_ADAPTIVE_EXECUTION_FEEDBACK_ENGINEERING.md",
+        "docs/ROADMAP_4X_MACRO_04_5_HISTORICAL_IMPACT_MANIFEST.md",
+        "docs/ROADMAP_4X_MACRO_04_5_P1_C_EXECUTION_JOURNAL.md",
+        "docs/ROADMAP_4X_MACRO_04_5_P1_C_PROTECTED_LOGS_EVENTS_CONTRACT.md",
+        "docs/ROADMAP_4X_MACRO_04_5_P1_C_RETENTION_OWNERSHIP_AND_SUPPORT_FUTURE_CONTRACT.md",
+        "docs/ROADMAP_4X_MACRO_04_5_P1_C_TRUTH_MATRIX.md",
+        "tests/test_method_santi_3_2_3.py",
+        "tests/test_protected_logs_p1_c.py",
+        "tests/test_roadmap_4x_macro_04_5_p1_c.py",
+        "knowledge/global_operational/metrics/roadmap_4_x_macro_04_5_execution_metric.json",
         "docs/ROADMAP_3_X_MACRO_03_CHECKPOINT.md",
         "docs/ROADMAP_3_X_MACRO_03_CHECKPOINT_EVIDENCE.json",
         "docs/ROADMAP_3_X_MACRO_03_COMMIT_ACCOUNTABILITY_LEDGER.md",
@@ -461,6 +474,21 @@ def install(request, tmp_path: Path, monkeypatch) -> str | None:
             and Path(kwargs.get("cwd", ROOT)).resolve() == ROOT
         ):
             return "" if kwargs.get("text") or kwargs.get("encoding") else b""
+        if (
+            isinstance(command, (list, tuple))
+            and list(command[:2]) == ["git", "ls-files"]
+            and any(str(value).endswith("*.json") for value in command)
+            and Path(kwargs.get("cwd", ROOT)).resolve() == ROOT
+        ):
+            historical_command = ["git", "ls-tree", "-r", "--name-only", checkpoint]
+            output = original_check_output(historical_command, *args, **kwargs)
+            if isinstance(output, bytes):
+                return b"".join(
+                    line for line in output.splitlines(keepends=True) if line.rstrip().endswith(b".json")
+                )
+            return "".join(
+                line for line in output.splitlines(keepends=True) if line.rstrip().endswith(".json")
+            )
         rewritten = rewrite_git_command(command, checkpoint)
         output = original_check_output(rewritten, *args, **kwargs)
         if _is_current_mission_untracked_listing(
