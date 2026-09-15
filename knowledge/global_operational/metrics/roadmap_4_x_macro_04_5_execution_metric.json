@@ -1,0 +1,102 @@
+{
+  "metric_id": "roadmap_4_x_macro_04_5_execution_metric",
+  "mission": "ROADMAP_4X_MACRO_04_5",
+  "subfamily": "P1-C_PROTECTED_LOGS_EVENTS",
+  "status": "CLOSED_DOCUMENTARY_PUBLICATION_PENDING",
+  "mission_accepted_at": "2026-09-15T12:48:44.9183509-03:00",
+  "first_artifact_at": "2026-09-15T12:51:19.9384291-03:00",
+  "preflight_completed_at": "UNKNOWN - not instrumented by the initial terminal capture",
+  "baseline": "0d6b234a70bd1c882872e4be02b018bd6de09a64",
+  "functional_checkpoint_commit": "8b3aa47411a5826ec4d5e2294856051366e695d8",
+  "method_update_commit": "0be8e8d5110939aec9322323ea707dee5c278d8d",
+  "method_update_commit_at": "2026-09-15T13:17:14-03:00",
+  "level_a": {
+    "status": "PASS",
+    "started_at": "2026-09-15T13:19:57.3856997-03:00",
+    "completed_at": "2026-09-15T13:20:42.7645924-03:00",
+    "wall_seconds": 45.3788927,
+    "passed": 134,
+    "failed": 0,
+    "warnings": 5,
+    "exit_code": 0
+  },
+  "historical_impact_gate": {
+    "status": "PASS",
+    "completed_at": "UNKNOWN - not instrumented by the terminal capture",
+    "passed": 158,
+    "failed": 0,
+    "warnings": 5,
+    "repairs": [
+      "P1-A own-snapshot JSON census",
+      "P1-B historical mission allowlist isolation"
+    ],
+    "assertions_removed": 0,
+    "global_guard_relaxation": false
+  },
+  "level_b": {
+    "status": "PASS",
+    "attempt": 1,
+    "started_at": "2026-09-15T13:21:40.1050056-03:00",
+    "completed_at": "2026-09-15T13:47:51.4934508-03:00",
+    "wall_seconds": 1571.3884452,
+    "passed": 7100,
+    "failed": 0,
+    "skipped": 6,
+    "warnings": 6,
+    "exit_code": 0,
+    "edits_during_suite": false
+  },
+  "static_validation": {
+    "py_compile": "PASS",
+    "node_check": "PASS",
+    "json_parse": "PASS",
+    "json_tracked_count_after_final_artifacts": 266,
+    "git_diff_check": "PASS",
+    "browser_visual_check": "TOOLING_UNAVAILABLE"
+  },
+  "publication": {
+    "functional_checkpoint_push_started_at": "2026-09-15T13:49:58.1025723-03:00",
+    "functional_checkpoint_push_completed_at": "2026-09-15T13:50:01.2179935-03:00",
+    "functional_checkpoint_fetch_verified_at": "2026-09-15T13:50:02.1837752-03:00",
+    "functional_checkpoint_verified_head": "8b3aa47411a5826ec4d5e2294856051366e695d8",
+    "functional_checkpoint_verified_origin_main": "8b3aa47411a5826ec4d5e2294856051366e695d8",
+    "functional_checkpoint_ahead_behind": "0/0",
+    "functional_checkpoint_working_tree": "CLEAN",
+    "final_documentary_push": "PENDING"
+  },
+  "timing": {
+    "functional_publication_wall_seconds": 3677.2654243,
+    "functional_publication_wall_human": "1 h 01 min 17.2654243 s",
+    "forecast_central_seconds": 8100,
+    "forecast_expected_range_seconds": "6300-10800",
+    "forecast_ceiling_seconds": 14400,
+    "variance_vs_central_seconds": -4422.7345757,
+    "relative_error_vs_central": -0.546016614,
+    "position": "BELOW_EXPECTED_RANGE_NO_CONTINGENCY_USED",
+    "active_time": "UNKNOWN - not all active intervals were instrumented",
+    "interruptions": 0,
+    "level_b_share_of_functional_wall": 0.427325271
+  },
+  "contract": {
+    "version": "protected_logs.v1",
+    "capability": "observability.logs.read_sanitized",
+    "views": ["summary", "events"],
+    "default_external_exposure": "DENIED",
+    "tenant_scope": "UNKNOWN_DEFAULT_DENY",
+    "zero_source_read_on_deny": true,
+    "structured": true,
+    "sanitized": true,
+    "bounded": true,
+    "path_neutral": true,
+    "raw_logs_exposed": false,
+    "real_logs_used_as_fixtures": false
+  },
+  "frontier": {
+    "p1_d": "SELECTED_NOT_STARTED",
+    "macro_mission_05": "NOT_STARTED",
+    "enterprise_foundry": "NOT_IMPLEMENTED",
+    "cyber_range": "NOT_IMPLEMENTED",
+    "ia_core_os": "NOT_IMPLEMENTED",
+    "external_exposure": "DEFAULT_DENIED"
+  }
+}

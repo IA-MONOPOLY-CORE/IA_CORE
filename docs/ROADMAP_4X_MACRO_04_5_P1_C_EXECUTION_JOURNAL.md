@@ -83,3 +83,66 @@ Known hard boundaries are the unconfigured trusted identity resolver, unproven
 tenant ownership/isolation, unknown retention governance, and unavailable
 browser visual tooling if encountered. These remain default-denied and are not
 resolved by this mission.
+
+## Final evidence closure
+
+```text
+FUNCTIONAL_CHECKPOINT_COMMIT: 8b3aa47411a5826ec4d5e2294856051366e695d8
+FUNCTIONAL_CHECKPOINT_PUSH: VERIFIED
+FUNCTIONAL_CHECKPOINT_FETCH_VERIFIED_AT: 2026-09-15T13:50:02.1837752-03:00
+FUNCTIONAL_CHECKPOINT_HEAD: 8b3aa47411a5826ec4d5e2294856051366e695d8
+FUNCTIONAL_CHECKPOINT_ORIGIN_MAIN: 8b3aa47411a5826ec4d5e2294856051366e695d8
+FUNCTIONAL_CHECKPOINT_AHEAD_BEHIND: 0/0
+FUNCTIONAL_CHECKPOINT_WORKING_TREE: CLEAN
+FINAL_DOCUMENTARY_ARTIFACTS: MATERIALIZED
+FINAL_DOCUMENTARY_COMMIT: PENDING
+FINAL_DOCUMENTARY_PUSH: PENDING
+```
+
+Final evidence artifacts are limited to the checkpoint, checkpoint evidence
+JSON, execution metric JSON, accountability ledger, and this journal closure.
+The functional implementation and its tests were not changed during this
+documentary closure step.
+
+## Validation accounting
+
+```text
+FOCAL_AND_ADMIN_PANEL: PASS - 37 passed, 0 failed, 5 warnings
+P1_C_GUARD_AND_ASSURANCE: PASS - 18 passed, 0 failed, 5 warnings
+METHOD_SUITE: PASS - 16 passed, 0 failed, 1 warning
+HUD_STATION: PASS - 37 passed, 0 failed, 5 warnings
+STATIC_ROUTE_GUARD: PASS - 7 passed, 0 failed, 1 warning
+LEVEL_A: PASS - 134 passed, 0 failed, 5 warnings
+HISTORICAL_IMPACT_GATE: PASS - 158 passed, 0 failed, 5 warnings
+LEVEL_B: PASS - 7100 passed, 0 failed, 6 skipped, 6 warnings
+LEVEL_B_ATTEMPTS: 1
+PY_COMPILE: PASS
+NODE_CHECK: PASS
+JSON_PARSE: PASS - 266 files after final evidence artifacts
+GIT_DIFF_CHECK: PASS
+BROWSER_VISUAL_CHECK: TOOLING_UNAVAILABLE
+```
+
+The historical gate required two bookkeeping-only repairs: P1-A JSON census
+was evaluated against its own checkpoint snapshot, and the P1-B historical
+allowlist was isolated from current P1-C artifacts. No historical assertion was
+removed and no global permissive guard was introduced.
+
+## Timing accounting
+
+```text
+FUNCTIONAL_MISSION_WALL_SECONDS: 3677.2654243
+FUNCTIONAL_MISSION_WALL_HUMAN: 1 h 01 min 17.2654243 s
+FORECAST_CENTRAL_SECONDS: 8100
+FORECAST_EXPECTED_RANGE_SECONDS: 6300-10800
+FORECAST_CEILING_SECONDS: 14400
+VARIANCE_VS_CENTRAL_SECONDS: -4422.7345757
+RELATIVE_ERROR_VS_CENTRAL: -0.546016614
+FORECAST_POSITION: BELOW_EXPECTED_RANGE_NO_CONTINGENCY_USED
+INTERRUPTIONS: 0
+ACTIVE_TIME: UNKNOWN - not every active interval was instrumented
+```
+
+The measured wall-clock interval ends at the verified functional checkpoint
+publication. The final documentary publication interval is tracked separately
+because it occurs after that functional checkpoint.

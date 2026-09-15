@@ -1,17 +1,17 @@
-# Roadmap 4.x Macro-Mission 04.5 - P1-C Functional Checkpoint
+# Roadmap 4.x Macro-Mission 04.5 - P1-C Final Checkpoint
 
 ## Checkpoint status
 
 ```text
-CHECKPOINT_STATUS: FUNCTIONAL_GREEN_DOCUMENTARY_CLOSURE_PENDING
+CHECKPOINT_STATUS: CLOSED_DOCUMENTARY_PUBLICATION_PENDING
 MISSION: P1-C_PROTECTED_LOGS_EVENTS_METHOD_SANTI_VERIFIED_EVIDENCE_UPDATE
 BASELINE: 0d6b234a70bd1c882872e4be02b018bd6de09a64
 VALIDATION_BASIS: d1063a43da70102815c7a2b7355749de2c4b23f6
+FUNCTIONAL_CHECKPOINT_COMMIT: 8b3aa47411a5826ec4d5e2294856051366e695d8
 ```
 
-This checkpoint records the green functional state before the final evidence,
-metric, and accountability-ledger closure. It is publishable only after the
-post-commit checks in the execution journal pass. It does not start P1-D.
+This checkpoint records the closed functional and documentary state before the
+final documentary publication push. It does not start P1-D.
 
 ## Functional result
 
@@ -34,7 +34,7 @@ LEVEL_B: PASS - 7100 passed, 0 failed, 6 skipped, 6 warnings
 LEVEL_B_ATTEMPTS: 1
 PY_COMPILE: PASS
 NODE_CHECK: PASS
-JSON_PARSE: PASS - 264 tracked JSON files at basis
+JSON_PARSE: PASS - 266 tracked JSON files after final evidence artifacts
 GIT_DIFF_CHECK: PASS
 PROTECTED_DIFF: EMPTY
 EXTERNAL_EXPOSURE: DEFAULT_DENIED
@@ -55,3 +55,23 @@ TENANT_OWNERSHIP: UNKNOWN_DEFAULT_DENY
 P1-D: SELECTED_NOT_STARTED
 MACRO_MISSION_05: NOT_STARTED
 ```
+
+## Documentary closure
+
+```text
+TRUTH_MATRIX: MATERIALIZED
+PROTECTED_LOGS_EVENTS_CONTRACT: MATERIALIZED
+RETENTION_OWNERSHIP_SUPPORT_FUTURE_CONTRACT: MATERIALIZED
+HISTORICAL_IMPACT_MANIFEST: MATERIALIZED
+EXECUTION_JOURNAL: MATERIALIZED
+EXECUTION_METRICS_BASELINE: MATERIALIZED
+EXECUTION_METRIC_JSON: MATERIALIZED
+COMMIT_ACCOUNTABILITY_LEDGER: MATERIALIZED
+CHECKPOINT_EVIDENCE_JSON: MATERIALIZED
+METHOD_SANTI_3_2_3: MATERIALIZED_AND_GUARDED
+FINAL_DOCUMENTARY_COMMIT: COMMIT_CONTAINING_THIS_CHECKPOINT
+FINAL_DOCUMENTARY_PUSH: PENDING
+```
+
+The final push must be a normal non-force push after the post-commit checks.
+No later mission is authorized by this document.

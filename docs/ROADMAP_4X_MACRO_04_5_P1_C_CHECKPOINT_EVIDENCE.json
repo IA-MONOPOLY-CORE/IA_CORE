@@ -2,8 +2,8 @@
   "mission": "P1-C_PROTECTED_LOGS_EVENTS_METHOD_SANTI_VERIFIED_EVIDENCE_UPDATE",
   "baseline": "0d6b234a70bd1c882872e4be02b018bd6de09a64",
   "validation_basis": "d1063a43da70102815c7a2b7355749de2c4b23f6",
-  "checkpoint_status": "FUNCTIONAL_GREEN_DOCUMENTARY_CLOSURE_PENDING",
-  "result": "ROADMAP_4X_MACRO_04_5_P1_C_PROTECTED_LOGS_EVENTS_FUNCTIONAL_CHECKPOINT_PASS",
+  "checkpoint_status": "CLOSED_DOCUMENTARY_PUBLICATION_PENDING",
+  "result": "ROADMAP_4X_MACRO_04_5_P1_C_PROTECTED_LOGS_EVENTS_INTERNAL_REMEDIATION_COMPLETE_VERSIONED_CAPABILITY_GATED_ZERO_SOURCE_READ_ON_DENY_STRUCTURED_SANITIZED_BOUNDED_PATH_NEUTRAL_RAW_LOGS_NOT_EXPOSED_RETENTION_AND_TENANT_SCOPE_DEFAULT_DENIED_METHOD_SANTI_VERIFIED_EVIDENCE_UPDATE_APPLIED_EXTERNAL_EXPOSURE_DEFAULT_DENIED_P1_D_SELECTED_NOT_STARTED",
   "level_a": {
     "status": "PASS",
     "passed": 134,
@@ -16,7 +16,7 @@
     "passed": 158,
     "failed": 0,
     "warnings": 5,
-    "timestamp": "UNKNOWN"
+    "timestamp": "UNKNOWN - terminal capture did not instrument the exact gate completion instant"
   },
   "level_b": {
     "status": "PASS",
@@ -44,7 +44,7 @@
   "static_validation": {
     "py_compile": "PASS",
     "node_check": "PASS",
-    "json_parse_count_at_basis": 264,
+    "json_parse_count_after_final_artifacts": 266,
     "git_diff_check": "PASS",
     "browser": "TOOLING_UNAVAILABLE"
   },
@@ -56,5 +56,8 @@
     "ia_core_os": "NOT_IMPLEMENTED",
     "external_exposure": "DEFAULT_DENIED"
   },
-  "functional_checkpoint_commit": "PENDING_COMMIT_ID"
+  "functional_checkpoint_commit": "8b3aa47411a5826ec4d5e2294856051366e695d8",
+  "final_documentary_commit": "COMMIT_CONTAINING_THIS_EVIDENCE",
+  "final_documentary_push": "PENDING",
+  "interruption_count": 0
 }
