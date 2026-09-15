@@ -49,6 +49,7 @@ _CURRENT_GUARD_MODULES = {
     "tests/test_ui_ux_panel_maestro_controlled_double_scope_affordances_severity_1_192.py",
     "tests/test_roadmap_4x_macro_03_checkpoint.py",
     "tests/test_roadmap_4x_macro_04_p1_entry_review.py",
+    "tests/test_roadmap_4x_macro_04_1_cognitive_kernel.py",
 }
 _CURRENT_MISSION_CONTINUITY_GUARD_MODULES = frozenset(
     {
@@ -58,6 +59,7 @@ _CURRENT_MISSION_CONTINUITY_GUARD_MODULES = frozenset(
         "tests/test_ui_ux_panel_maestro_css_accessibility_responsive_large_scale_block_1_196.py",
         "tests/test_roadmap_4x_macro_03_checkpoint.py",
         "tests/test_roadmap_4x_macro_04_p1_entry_review.py",
+        "tests/test_roadmap_4x_macro_04_1_cognitive_kernel.py",
     }
 )
 _SECONDARY_HISTORICAL_FILES = frozenset(
@@ -204,6 +206,23 @@ _CURRENT_MISSION_DOCUMENTARY_FILES = frozenset(
         "docs/ROADMAP_4X_MACRO_04_P1_ENTRY_REVIEW_EVIDENCE.json",
         "docs/ROADMAP_4X_MACRO_04_P1_COMMIT_ACCOUNTABILITY_LEDGER.md",
         "tests/test_roadmap_4x_macro_04_p1_entry_review.py",
+        "docs/ROADMAP_4X_MACRO_04_1_OWNER_DIRECTION_ACCEPTANCE.md",
+        "docs/ROADMAP_4X_MACRO_04_1_COGNITIVE_KERNEL_G0_ARCHITECTURE.md",
+        "docs/ROADMAP_4X_MACRO_04_1_NODE_FAMILY_AND_TYPED_EDGE_CONTRACT.json",
+        "docs/ROADMAP_4X_MACRO_04_1_DOOL_GENERATIONAL_LINEAGE_CONTRACT.md",
+        "docs/ROADMAP_4X_MACRO_04_1_OCI_NECESSARY_AND_SUFFICIENT_INHERITANCE.md",
+        "docs/ROADMAP_4X_MACRO_04_1_AGENT_MODEL_FIT_AND_FALLBACK_CONTRACT.md",
+        "docs/ROADMAP_4X_MACRO_04_1_ECOSYSTEM_INHERITANCE_PRIVACY_AND_RECOVERY.md",
+        "docs/ROADMAP_4X_MACRO_04_1_DOMAIN_MODULE_PARITY_AUDIT.md",
+        "docs/ROADMAP_4X_MACRO_04_1_GOKV_DOOL_OCI_RECONCILIATION.md",
+        "docs/ROADMAP_4X_MACRO_04_1_COMMIT_ACCOUNTABILITY_LEDGER.md",
+        "docs/ROADMAP_4X_MACRO_04_1_CHECKPOINT.md",
+        "docs/ROADMAP_4X_MACRO_04_1_CHECKPOINT_EVIDENCE.json",
+        "knowledge/global_operational/schema/cognitive_kernel_g0.schema.json",
+        "gokv/kernel.py",
+        "tests/test_gokv_cognitive_kernel_0_1.py",
+        "tests/test_roadmap_4x_macro_04_1_cognitive_kernel.py",
+        "docs/ROADMAP_4X_MACRO_04_P1_BOUNDED_REMEDIATION_EXECUTION_PLAN.md",
     }
 )
 _HISTORICAL_FILES = frozenset(_LEDGER_NODE_RE.findall(LEDGER.read_text(encoding="utf-8"))) | _SECONDARY_HISTORICAL_FILES
