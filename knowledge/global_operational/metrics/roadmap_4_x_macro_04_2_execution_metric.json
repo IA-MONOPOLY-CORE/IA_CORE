@@ -1,0 +1,35 @@
+{
+  "metric_id": "roadmap_4_x_macro_04_2_execution_metric",
+  "schema_version": "gokv.execution_metric.v1",
+  "model": null,
+  "effort": null,
+  "task_type": "ROADMAP_4X_MACRO_04_2_COGNITIVE_KERNEL_G0_E2E_ASSURANCE",
+  "duration": null,
+  "station_count": null,
+  "commits": [],
+  "tests": [],
+  "operator_interventions": null,
+  "retries": 0,
+  "rollbacks": 0,
+  "result": null,
+  "quota_5h_start": null,
+  "quota_5h_end": null,
+  "quota_5h_delta": null,
+  "quota_weekly_start": null,
+  "quota_weekly_end": null,
+  "quota_weekly_delta": null,
+  "measurement_quality": "NOT_AVAILABLE",
+  "operator_estimate": {
+    "estimated_fast_seconds": 6600,
+    "estimated_expected_min_seconds": 7500,
+    "estimated_expected_max_seconds": 9600,
+    "estimated_central_seconds": 8400,
+    "estimated_contingency_ceiling_seconds": 12000
+  },
+  "notes": [
+    "Final process timestamps are recorded in the Macro 04.2 checkpoint evidence after publication.",
+    "Missing endpoints and quota values are not inferred.",
+    "No provider, external target, exploit, malware dynamic analysis or product runtime action is represented."
+  ],
+  "created_at": "2026-09-14T23:43:18-03:00"
+}

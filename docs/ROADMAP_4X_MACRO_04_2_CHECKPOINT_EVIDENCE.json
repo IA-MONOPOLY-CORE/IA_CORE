@@ -1,0 +1,120 @@
+{
+  "mission": "ROADMAP_4X_MACRO_04_2",
+  "result": "ROADMAP_4X_MACRO_04_2_COGNITIVE_KERNEL_G0_E2E_ASSURED_NATIVE_SECURITY_G0_AND_IA_CORE_OS_DIRECTION_CONTRACTED_EXECUTION_METRICS_BASELINED_P1_A_RELEASED_AS_NEXT_SELECTED_NOT_STARTED",
+  "validation_status": "PENDING_FINAL_VALIDATION",
+  "execution_start_at": "2026-09-14T23:43:18.5921850-03:00",
+  "preflight_complete_at": "UNAVAILABLE",
+  "implementation_complete_at": "PENDING",
+  "focused_validation_start_at": "PENDING",
+  "focused_validation_end_at": "PENDING",
+  "full_suite_start_at": "PENDING",
+  "full_suite_end_at": "PENDING",
+  "publication_start_at": "PENDING",
+  "push_fetch_complete_at": "PENDING",
+  "execution_end_at": "PENDING",
+  "durations_seconds": {
+    "preflight": "UNAVAILABLE",
+    "implementation": "PENDING",
+    "focused_validation": "PENDING",
+    "full_suite_process": "PENDING",
+    "publication_and_remote_verification": "PENDING",
+    "instrumented_total": "PENDING"
+  },
+  "duration_readable": {
+    "estimated_central": "2 h 20 min",
+    "actual_total": "PENDING",
+    "difference_from_central": "PENDING",
+    "error_percent": "PENDING",
+    "expected_interval_result": "PENDING"
+  },
+  "measurement_quality": "PROCESS_MARKERS_PARTIAL_UNTIL_FINALIZATION",
+  "estimates_seconds": {
+    "fast": 6600,
+    "expected_min": 7500,
+    "expected_max": 9600,
+    "central": 8400,
+    "contingency_ceiling": 12000
+  },
+  "measurement_classifications": {
+    "process_timestamps": "OBSERVED",
+    "pytest_duration": "OBSERVED",
+    "quota": "UNKNOWN",
+    "ui_duration": "UNKNOWN",
+    "causal_explanation": "PENDING"
+  },
+  "baseline": {
+    "head": "01c45650ad8a5a3322a3326e7f6d4c5d90d796df",
+    "origin_main": "01c45650ad8a5a3322a3326e7f6d4c5d90d796df",
+    "branch": "main",
+    "ahead_behind": "0/0",
+    "working_tree": "CLEAN",
+    "remote": "https://github.com/IA-MONOPOLY-CORE/IA_CORE"
+  },
+  "validation_basis": "PENDING_BASIS_COMMIT",
+  "graph_before": {"nodes": 10, "edges": 6, "g0_nodes_with_evidence": 7, "future_placeholders": 3},
+  "graph_after": {"nodes": 13, "edges": 10, "g0_nodes_with_evidence": 10, "future_placeholders": 3, "families": ["GOKV", "DOOL", "OCI"]},
+  "security_g0": {
+    "materialized_in_graph": true,
+    "fourth_family": false,
+    "runtime": false,
+    "providers": false,
+    "external_calls": false,
+    "tenant_reads": false,
+    "payload": false,
+    "automatic_promotion": false,
+    "offensive_sources_materialized": false
+  },
+  "gokv_dool_oci": {
+    "current_vault_items": 38,
+    "status_counts": {"CANDIDATE": 22, "VALIDATED": 9, "PROMOTED": 7},
+    "all_current_learning_origin": "DEVELOPMENT_ORIGIN",
+    "new_vault_item": false,
+    "new_event": false,
+    "new_pack": false,
+    "metric_record_created": true,
+    "vault_write": false,
+    "promotion": false,
+    "runtime_oci": false,
+    "providers_or_external_calls": false
+  },
+  "p1": {
+    "p1_a": "NEXT_SELECTED_NOT_STARTED",
+    "p1_b": "DEFERRED_NOT_STARTED",
+    "p1_c": "DEFERRED_NOT_STARTED",
+    "p1_d": "DEFERRED_NOT_STARTED",
+    "routes_modified": false,
+    "routes_invoked": false,
+    "external_exposure": "DEFAULT_DENIED"
+  },
+  "future": {
+    "ia_core_os": "FUTURE_IA_CORE_OS_DIRECTION_PRESERVED_NOT_IMPLEMENTED",
+    "enterprise_foundry": "FUTURE_CONCEPT_PRESERVED_NOT_SCHEDULED_NOT_IMPLEMENTED",
+    "cyber_range": "FUTURE_CONCEPT_PRESERVED_NOT_SCHEDULED_NOT_IMPLEMENTED",
+    "macro_mission_05": "NOT_STARTED"
+  },
+  "json_census": {
+    "baseline_tracked": 258,
+    "final_tracked": "PENDING",
+    "delta": "PENDING",
+    "parse_failures": 0,
+    "new_json_files": [
+      "docs/ROADMAP_4X_MACRO_04_2_CHECKPOINT_EVIDENCE.json",
+      "knowledge/global_operational/metrics/roadmap_4_x_macro_04_2_execution_metric.json"
+    ]
+  },
+  "protected_diff": "PENDING_FINAL_VALIDATION",
+  "claims": {
+    "observed": ["published 04.1 baseline", "local graph/schema/validator/tests", "current GOKV registry state"],
+    "inferred": ["future layered IA_CORE OS evolution"],
+    "unknown": ["quota snapshots", "UI duration", "future external corpus quality"],
+    "external_evidence_required": ["future offensive source ingestion", "future OS implementation", "future production security strength"]
+  },
+  "publication": {
+    "final_head": "PENDING_POST_FETCH_VERIFICATION",
+    "origin_main": "PENDING_POST_FETCH_VERIFICATION",
+    "ahead_behind": "PENDING",
+    "working_tree": "PENDING",
+    "force_push": false,
+    "self_referential_head_hash": false
+  }
+}
