@@ -32,6 +32,12 @@ observable. Causes are classified as `OBSERVED`, `INFERRED`, `UNKNOWN` or
 
 ### Current measurement state
 
-The final values are written after the validation basis, suite, publication
-and fetch complete. Until then, missing endpoints remain `PENDING`; no manual
-approximation is used.
+The validation basis is
+`7f18aa14d2245f4d26aa86963f946e7a0e2b73b7`. Focused validation recorded
+`25.607366 s` for `251 passed, 1 warning`; the historical allowlist repair
+recorded `28 passed, 1 warning`. The final full-suite process interval was
+`1564.8418513 s` (`1560.41 s` reported by pytest) with `7048 passed, 6
+skipped, 6 warnings`. The complete wall-clock interval and publication state
+are reported after fetch because those markers are not known before the final
+push. Missing quota and UI endpoints remain `UNKNOWN`; no manual approximation
+is used.

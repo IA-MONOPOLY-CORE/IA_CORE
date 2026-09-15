@@ -1,24 +1,36 @@
 {
   "metric_id": "roadmap_4_x_macro_04_2_execution_metric",
   "schema_version": "gokv.execution_metric.v1",
-  "model": null,
-  "effort": null,
+  "model": "GPT-5.6 Luna",
+  "effort": "high",
   "task_type": "ROADMAP_4X_MACRO_04_2_COGNITIVE_KERNEL_G0_E2E_ASSURANCE",
-  "duration": null,
-  "station_count": null,
-  "commits": [],
-  "tests": [],
-  "operator_interventions": null,
-  "retries": 0,
+  "duration": 1564.8418513,
+  "station_count": 7,
+  "commits": [
+    "f3c1884d78d175252880e050aa1cec609d5c8a0a",
+    "cae6d4695c668442c8e278d1a642a4a07e7c1129",
+    "42b22f5981075a148e7c74bd41be75b0cd4a2f87",
+    "2e81ca35c0f017d8603a66e54d81dbd5cf9b96a1",
+    "dfb120a49d9ff159574c6bd11cf1198b620739b0",
+    "2fdb5b54e694ab966d39006dc79402d006be8cab",
+    "7f18aa14d2245f4d26aa86963f946e7a0e2b73b7"
+  ],
+  "tests": [
+    "focused: 251 passed, 1 warning",
+    "historical allowlist repair: 28 passed, 1 warning",
+    "full suite: 7048 passed, 6 skipped, 6 warnings"
+  ],
+  "operator_interventions": 1,
+  "retries": 1,
   "rollbacks": 0,
-  "result": null,
+  "result": "LEVEL_A_AND_LEVEL_B_PASS",
   "quota_5h_start": null,
   "quota_5h_end": null,
   "quota_5h_delta": null,
   "quota_weekly_start": null,
   "quota_weekly_end": null,
   "quota_weekly_delta": null,
-  "measurement_quality": "NOT_AVAILABLE",
+  "measurement_quality": "MEASURED",
   "operator_estimate": {
     "estimated_fast_seconds": 6600,
     "estimated_expected_min_seconds": 7500,
@@ -27,7 +39,8 @@
     "estimated_contingency_ceiling_seconds": 12000
   },
   "notes": [
-    "Final process timestamps are recorded in the Macro 04.2 checkpoint evidence after publication.",
+    "Duration is the observed final full-suite process interval; complete wall-clock duration remains in the final report because publication markers are post-fetch fields.",
+    "The first validation basis was superseded after three nominal historical allowlist failures; the second full suite passed.",
     "Missing endpoints and quota values are not inferred.",
     "No provider, external target, exploit, malware dynamic analysis or product runtime action is represented."
   ],

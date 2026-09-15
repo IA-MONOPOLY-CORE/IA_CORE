@@ -1,31 +1,31 @@
 {
   "mission": "ROADMAP_4X_MACRO_04_2",
   "result": "ROADMAP_4X_MACRO_04_2_COGNITIVE_KERNEL_G0_E2E_ASSURED_NATIVE_SECURITY_G0_AND_IA_CORE_OS_DIRECTION_CONTRACTED_EXECUTION_METRICS_BASELINED_P1_A_RELEASED_AS_NEXT_SELECTED_NOT_STARTED",
-  "validation_status": "PENDING_FINAL_VALIDATION",
+  "validation_status": "LEVEL_A_AND_LEVEL_B_PASS",
   "execution_start_at": "2026-09-14T23:43:18.5921850-03:00",
   "preflight_complete_at": "UNAVAILABLE",
   "implementation_complete_at": "2026-09-15T00:06:59.9432338-03:00",
-  "focused_validation_start_at": "PENDING",
-  "focused_validation_end_at": "PENDING",
-  "full_suite_start_at": "PENDING",
-  "full_suite_end_at": "PENDING",
+  "focused_validation_start_at": "2026-09-15T00:02:23.4952505-03:00",
+  "focused_validation_end_at": "2026-09-15T00:02:49.1026165-03:00",
+  "full_suite_start_at": "2026-09-15T00:35:29.4770848-03:00",
+  "full_suite_end_at": "2026-09-15T01:01:34.3189361-03:00",
   "publication_start_at": "PENDING",
   "push_fetch_complete_at": "PENDING",
   "execution_end_at": "PENDING",
   "durations_seconds": {
     "preflight": "UNAVAILABLE",
-    "implementation": "PENDING",
-    "focused_validation": "PENDING",
-    "full_suite_process": "PENDING",
+    "implementation": 1421.3510488,
+    "focused_validation": 25.607366,
+    "full_suite_process": 1564.8418513,
     "publication_and_remote_verification": "PENDING",
     "instrumented_total": "PENDING"
   },
   "duration_readable": {
     "estimated_central": "2 h 20 min",
-    "actual_total": "PENDING",
+    "actual_total": "PENDING_POST_PUBLICATION",
     "difference_from_central": "PENDING",
     "error_percent": "PENDING",
-    "expected_interval_result": "PENDING"
+    "expected_interval_result": "PENDING_POST_PUBLICATION"
   },
   "measurement_quality": "PROCESS_MARKERS_PARTIAL_UNTIL_FINALIZATION",
   "estimates_seconds": {
@@ -40,7 +40,7 @@
     "pytest_duration": "OBSERVED",
     "quota": "UNKNOWN",
     "ui_duration": "UNKNOWN",
-    "causal_explanation": "PENDING"
+    "causal_explanation": "OBSERVED: first full-suite failure was limited to three historical path allowlists; adding two exact continuity paths to those three guards restored the contract without changing assertions or product surfaces."
   },
   "baseline": {
     "head": "01c45650ad8a5a3322a3326e7f6d4c5d90d796df",
@@ -50,7 +50,7 @@
     "working_tree": "CLEAN",
     "remote": "https://github.com/IA-MONOPOLY-CORE/IA_CORE"
   },
-  "validation_basis": "PENDING_BASIS_COMMIT",
+  "validation_basis": "7f18aa14d2245f4d26aa86963f946e7a0e2b73b7",
   "graph_before": {"nodes": 10, "edges": 6, "g0_nodes_with_evidence": 7, "future_placeholders": 3},
   "graph_after": {"nodes": 13, "edges": 10, "g0_nodes_with_evidence": 10, "future_placeholders": 3, "families": ["GOKV", "DOOL", "OCI"]},
   "security_g0": {
@@ -94,17 +94,17 @@
   },
   "json_census": {
     "baseline_tracked": 258,
-    "final_tracked": "PENDING",
-    "delta": "PENDING",
+    "final_tracked": 260,
+    "delta": 2,
     "parse_failures": 0,
     "new_json_files": [
       "docs/ROADMAP_4X_MACRO_04_2_CHECKPOINT_EVIDENCE.json",
       "knowledge/global_operational/metrics/roadmap_4_x_macro_04_2_execution_metric.json"
     ]
   },
-  "protected_diff": "PENDING_FINAL_VALIDATION",
+  "protected_diff": "EMPTY",
   "claims": {
-    "observed": ["published 04.1 baseline", "local graph/schema/validator/tests", "current GOKV registry state"],
+    "observed": ["published 04.1 baseline", "local graph/schema/validator/tests", "current GOKV registry state", "focused validation 251 passed with 1 warning", "historical allowlist repair 28 passed with 1 warning", "full suite 7048 passed, 6 skipped, 6 warnings", "first validation basis superseded after 3 nominal historical allowlist failures"],
     "inferred": ["future layered IA_CORE OS evolution"],
     "unknown": ["quota snapshots", "UI duration", "future external corpus quality"],
     "external_evidence_required": ["future offensive source ingestion", "future OS implementation", "future production security strength"]

@@ -6,7 +6,7 @@
 
 `ROADMAP_4X_MACRO_04_2_COGNITIVE_KERNEL_G0_E2E_ASSURED_NATIVE_SECURITY_G0_AND_IA_CORE_OS_DIRECTION_CONTRACTED_EXECUTION_METRICS_BASELINED_P1_A_RELEASED_AS_NEXT_SELECTED_NOT_STARTED`
 
-`VALIDATION_STATUS = PENDING_FINAL_VALIDATION`
+`VALIDATION_STATUS = LEVEL_A_AND_LEVEL_B_PASS`
 
 Macro 04.2 extends the published Macro 04.1 graph with an inert, evidence-bound
 security plane inside the existing horizontal `GOKV`, `DOOL` and `OCI` families.
@@ -67,6 +67,17 @@ P1-A is released as `NEXT_SELECTED_NOT_STARTED`; it is not implemented or
 invoked. P1-B, P1-C and P1-D remain deferred and not started. Enterprise
 Foundry remains future-only. Macro-Mission 05 is not started. GOKV has no new
 vault item, event, pack or promotion; the existing vault remains unchanged.
+
+## Validation result
+
+The focused validation passed with `251 passed, 1 warning`; the historical
+allowlist repair passed with `28 passed, 1 warning`. The final full suite on
+validation basis `7f18aa14d2245f4d26aa86963f946e7a0e2b73b7` passed with
+`7048 passed, 6 skipped, 6 warnings` in `1560.41 s` (process interval
+`1564.8418513 s`). JSON census is `258 -> 260` tracked files with zero parse
+failures, and the protected diff is empty. The first basis
+`dfb120a49d9ff159574c6bd11cf1198b620739b0` was superseded after three
+historical allowlist omissions were identified and repaired with exact paths.
 
 ## Evidence
 
