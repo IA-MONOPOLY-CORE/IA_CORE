@@ -224,12 +224,20 @@ def test_status_reuses_existing_endpoint_for_hybrid_and_overview(monkeypatch):
     monkeypatch.setattr(api, "supervisor", fake_supervisor)
     monkeypatch.setattr(api, "evolution", None)
 
-    payload = asyncio.run(api.get_status(full=True))
+    client = TestClient(api.app)
+    response = client.get("/api/status")
+    assert response.status_code == 200
+    payload = response.json()
 
-    assert payload["hybrid"]["full"] is True
-    assert payload["overview"]["agent_count"] == 1
-    assert payload["overview"]["tool_count"] == 2
-    assert payload["overview"]["memory"]["key_count"] == 2
+    assert payload["view"] == "minimal"
+    assert payload["status"] == "available"
+    assert "providers" not in payload
+    assert "agents" not in payload
+    assert "overview" not in payload
+
+    denied = client.get("/api/status?full=true")
+    assert denied.status_code == 503
+    assert denied.json()["detail"]["code"] == "PLATFORM_STATUS_ACCESS_UNAVAILABLE"
 
 
 def test_hud_contains_all_migrated_sections_and_script():
@@ -690,13 +698,15 @@ def test_hud_create_agent_consumes_domain_profile_catalog_and_persists_specializ
     assert "[ESPECIALIZACIÓN:" not in html
 
 
-def test_provider_status_keeps_catalog_when_one_health_check_fails(monkeypatch):
+def test_status_does_not_probe_provider_catalog_or_health(monkeypatch):
+    class ExplosiveRegistry:
+        def list_providers(self):
+            raise AssertionError("status must not enumerate providers")
+
     fake_supervisor = SimpleNamespace(
         running=True,
         memory=FakeMemory(),
-        providers=FakeRegistry(
-            [FakeProvider("healthy"), FakeProvider("demo", fail_health=True)]
-        ),
+        providers=ExplosiveRegistry(),
         agents=FakeListManager([]),
         tools=FakeListManager([]),
         hybrid_router=None,
@@ -706,10 +716,10 @@ def test_provider_status_keeps_catalog_when_one_health_check_fails(monkeypatch):
 
     payload = asyncio.run(api.get_status())
 
-    assert payload["providers_ready"] is True
-    assert [provider["name"] for provider in payload["providers"]] == ["healthy", "demo"]
-    assert payload["providers"][1]["healthy"] is False
-    assert "health unavailable" in payload["providers"][1]["message"]
+    assert payload["view"] == "minimal"
+    assert "providers" not in payload
+    assert "hybrid" not in payload
+    assert "overview" not in payload
 
 
 def test_provider_panel_has_single_flight_loading_and_visible_error_state():
@@ -719,5 +729,7 @@ def test_provider_panel_has_single_flight_loading_and_visible_error_state():
     assert "cargarProveedores();" in html
     assert "providersLoadPromise" in html
     assert "Cargando proveedores..." in html
-    assert "No se pudieron cargar los proveedores" in html
-    assert "REINTENTAR" in html
+    assert "Catálogo de providers no expuesto" in html
+    assert "status no enumera providers" in html
+    assert "No se pudieron cargar los proveedores: ${error.message}" not in html
+    assert "REINTENTAR" not in html

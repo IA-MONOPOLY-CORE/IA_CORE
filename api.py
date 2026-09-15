@@ -68,6 +68,16 @@ from core.p4_request_access import (
 from core.supervisor import MEMORY_HISTORY_KEY, Supervisor
 from core.orchestration import ExecutionMode
 from core.model_recommendation import recommend_provider_model
+from core.platform_status_access import (
+    require_platform_status_detailed_access,
+    resolve_platform_status_principal,
+)
+from core.platform_status_schema import (
+    PLATFORM_STATUS_EXTERNAL_POLICY,
+    PLATFORM_STATUS_SCHEMA_VERSION,
+    sanitize_platform_status_value,
+    validate_platform_status_payload,
+)
 
 
 # ========================================================================
@@ -535,76 +545,110 @@ class CreateAgentRequest(BaseModel):
 # ========================================================================
 # Endpoints
 # ========================================================================
-@app.get("/api/status")
-async def get_status(full: bool = False) -> dict:
-    fase_actual = "desconocida"
-    sorteo_actual = 3800
-    limites_sistema = {
-        "training_end": 3799,
-        "blind_test_start": 3800,
-        "blind_test_end": 3850,
-        "live_test_start": 3851,
-        "live_test_end": 3885,
+def _platform_supervisor_state() -> tuple[str, str, str, bool]:
+    """Read only the local lifecycle flag; never probe a subsystem from status."""
+    if supervisor is None:
+        return "not_available", "not_available", "not_configured", False
+    try:
+        running = bool(supervisor.running)
+    except Exception:
+        return "degraded", "degraded", "state_unreadable", False
+    if running:
+        return "available", "available", "running", True
+    return "initializing", "initializing", "initializing", False
+
+
+def _platform_status_snapshot() -> dict[str, Any]:
+    status, readiness, reason_code, running = _platform_supervisor_state()
+    liveness = "available" if supervisor is not None else "not_available"
+    return {
+        "status": status,
+        "liveness": liveness,
+        "readiness": readiness,
+        "running": running,
+        "supervisor_reason": reason_code,
     }
 
-    loteria = _get_loteria()
-    if loteria and evolution:
-        stats = evolution.get_estadisticas_ciclo()
-        fase_actual = stats.get("fase_actual", "desconocida")
-        if hasattr(evolution, "_state"):
-            sorteo_actual = evolution._state["evolucion_lotoplus"]["ciclo_actual"]["sorteo_actual"]
-        limites_sistema = {
-            "training_end": loteria["TRAINING_END"],
-            "blind_test_start": loteria["BLIND_TEST_START"],
-            "blind_test_end": loteria["BLIND_TEST_END"],
-            "live_test_start": loteria["LIVE_TEST_START"],
-            "live_test_end": loteria["LIVE_TEST_END"],
-        }
 
-    providers_info: list[dict[str, Any]] = []
-    if supervisor:
-        providers = supervisor.providers.list_providers()
-        providers_info = list(
-            await asyncio.gather(
-                *(asyncio.to_thread(_provider_status, provider) for provider in providers)
-            )
-        )
+def _build_platform_status_minimal() -> dict[str, Any]:
+    snapshot = _platform_status_snapshot()
+    payload = {
+        "schema_version": PLATFORM_STATUS_SCHEMA_VERSION,
+        "view": "minimal",
+        "scope": "platform",
+        "status": snapshot["status"],
+        "liveness": snapshot["liveness"],
+        "readiness": snapshot["readiness"],
+        "running": snapshot["running"],
+        "external_access": {"policy": PLATFORM_STATUS_EXTERNAL_POLICY, "enabled": False},
+        "detailed_view": "capability_gated",
+    }
+    return validate_platform_status_payload(
+        sanitize_platform_status_value(payload), expected_view="minimal"
+    )
 
-    hybrid_status: dict[str, Any] | None = None
-    if supervisor and supervisor.hybrid_router:
-        hybrid_status = await asyncio.to_thread(
-            supervisor.hybrid_router.get_ui_snapshot,
-            full=full,
-        )
-    elif config.HYBRID_MODE:
-        hybrid_status = {
-            "hybrid_enabled": True,
-            "execution_mode": "pending",
-            "safe_mode": config.SAFE_MODE,
-        }
 
-    memory = _memory_summary()
-    return {
-        "running": supervisor is not None and supervisor.running,
-        "providers_ready": bool(supervisor and supervisor.running and providers_info),
-        "providers": providers_info,
-        "agents": supervisor.agents.list_ids() if supervisor else [],
-        "fase_actual": fase_actual,
-        "sorteo_actual": sorteo_actual,
-        "limites_sistema": limites_sistema,
-        "hybrid": hybrid_status,
-        "overview": {
-            "uptime_s": round(time.time() - float(runtime_metrics["started_at"]), 1),
-            "agent_count": len(supervisor.agents.list_ids()) if supervisor else 0,
-            "provider_count": len(providers_info),
-            "tool_count": len(supervisor.tools.list_names()) if supervisor else 0,
-            "tools": supervisor.tools.list_names() if supervisor else [],
-            "orchestrations": int(runtime_metrics["orchestrations"]),
-            "agent_dispatches": int(runtime_metrics["agent_dispatches"]),
-            "last_orchestration_ms": float(runtime_metrics["last_orchestration_ms"]),
-            "memory": memory,
+def _build_platform_status_detailed() -> dict[str, Any]:
+    snapshot = _platform_status_snapshot()
+    supervisor_status = snapshot["status"]
+    components = [
+        {
+            "component_id": "http_api",
+            "scope": "platform",
+            "status": "available",
+            "reason_code": "serving",
+        },
+        {
+            "component_id": "supervisor",
+            "scope": "platform",
+            "status": supervisor_status,
+            "reason_code": snapshot["supervisor_reason"],
+        },
+        {
+            "component_id": "domain_modules",
+            "scope": "platform",
+            "status": "not_available",
+            "reason_code": "not_observed",
+        },
+        {
+            "component_id": "hybrid_exposure",
+            "scope": "platform",
+            "status": "not_available",
+            "reason_code": "default_denied",
+        },
+    ]
+    failure_count = sum(
+        1 for component in components if component["status"] in {"degraded", "not_available"}
+    )
+    payload = {
+        "schema_version": PLATFORM_STATUS_SCHEMA_VERSION,
+        "view": "detailed",
+        "scope": "platform",
+        "status": snapshot["status"],
+        "liveness": snapshot["liveness"],
+        "readiness": snapshot["readiness"],
+        "running": snapshot["running"],
+        "external_access": {"policy": PLATFORM_STATUS_EXTERNAL_POLICY, "enabled": False},
+        "components": components,
+        "failure_summary": {"count": failure_count, "status": snapshot["status"]},
+        "compatibility": {
+            "minimal_view": "/api/status",
+            "detailed_view": "/api/status?full=true",
+            "full_query_alias": True,
         },
     }
+    return validate_platform_status_payload(
+        sanitize_platform_status_value(payload), expected_view="detailed"
+    )
+
+
+@app.get("/api/status")
+async def get_status(full: bool = False) -> dict:
+    if full:
+        principal = resolve_platform_status_principal()
+        require_platform_status_detailed_access(principal)
+        return _build_platform_status_detailed()
+    return _build_platform_status_minimal()
 
 
 @app.get("/api/memory")

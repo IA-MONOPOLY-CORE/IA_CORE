@@ -45,6 +45,10 @@
         return `Error sanitizado: ${error.message}. Límite: lectura interna; revisar backend/contrato sin activar flujo.`;
     }
 
+    function adminStatusErrorState() {
+        return 'Estado detallado no disponible: requiere capability explícita; exposición externa DEFAULT_DENIED.';
+    }
+
     function setLoading(elementId, message = 'Cargando lectura interna; no ejecuta ni despacha...') {
         const element = byId(elementId);
         if (element) element.textContent = message;
@@ -118,27 +122,24 @@
         }
     }
 
-    // HYBRID — GET /api/status?full=true
+    // HYBRID — GET /api/status?full=true, capability-gated and provider-neutral.
     async function loadHybrid() {
         setLoading('hybrid-reason', 'Releyendo estado declarado...');
         try {
             const data = await fetchJson('/api/status?full=true');
-            const hybrid = data.hybrid || {};
+            const components = data.components || [];
             renderCards('hybrid-status', [
-                ['Modo', hybrid.execution_mode || '-'],
-                ['Origen', hybrid.provider_origin || hybrid.source || '-'],
-                ['Provider', hybrid.active_provider || '-'],
-                ['Modelo', hybrid.active_model || '-'],
-                ['Política', hybrid.policy || '-'],
-                ['SAFE', hybrid.safe_mode ? 'SÍ' : 'NO'],
-                ['Online', hybrid.online === null || hybrid.online === undefined ? '-' : (hybrid.online ? 'SÍ' : 'NO')],
-                ['Estado', hybrid.connectivity_state || '-'],
+                ['Vista', data.view || '-'],
+                ['Estado', data.status || '-'],
+                ['Readiness', data.readiness || '-'],
+                ['Componentes declarados', components.length],
+                ['Exposición externa', data.external_access?.policy || '-'],
             ]);
-            byId('hybrid-reason').textContent = hybrid.routing_reason || hybrid.last_route?.reason || adminEmptyState('Sin decisión registrada');
-            byId('hybrid-connectivity').textContent = pretty(hybrid.connectivity || { state: hybrid.connectivity_state, online: hybrid.online });
-            byId('hybrid-metrics').textContent = Object.keys(hybrid.metrics_summary || {}).length ? pretty(hybrid.metrics_summary) : adminEmptyState('Sin métricas declaradas');
+            byId('hybrid-reason').textContent = 'Lectura detallada autorizada: solo componentes genéricos y códigos seguros.';
+            byId('hybrid-connectivity').textContent = pretty({ liveness: data.liveness, readiness: data.readiness });
+            byId('hybrid-metrics').textContent = pretty(data.failure_summary || {});
         } catch (error) {
-            byId('hybrid-reason').textContent = adminErrorState(error);
+            byId('hybrid-reason').textContent = adminStatusErrorState();
         }
     }
 
@@ -169,25 +170,28 @@
         byId('request-contract-validation').innerHTML = '<div class="admin-status">Acciones no permitidas (forbidden_actions) y funciones bloqueadas (blocked_capabilities) conservan prioridad; no se inventan permisos.</div>';
     }
 
-    // OVERVIEW — GET /api/status
+    // OVERVIEW — GET /api/status, minimal bounded projection.
     async function loadOverview() {
         try {
             const data = await fetchJson('/api/status');
-            const overview = data.overview || {};
             renderCards('overview-status', [
-                ['Supervisor', data.running ? 'ready' : 'not_available'],
-                ['Uptime', `${Number(overview.uptime_s || 0).toFixed(1)} s`],
-                ['Agentes', overview.agent_count ?? 0],
-                ['Providers', overview.provider_count ?? 0],
-                ['Herramientas', overview.tool_count ?? 0],
-                ['Registros declarados', overview.orchestrations ?? 0],
-                ['Despachos declarados', overview.agent_dispatches ?? 0],
-                ['Última latencia', `${Number(overview.last_orchestration_ms || 0).toFixed(1)} ms`],
+                ['Vista', data.view || '-'],
+                ['Alcance', data.scope || '-'],
+                ['Estado', data.status || '-'],
+                ['Liveness', data.liveness || '-'],
+                ['Readiness', data.readiness || '-'],
+                ['Exposición externa', data.external_access?.policy || '-'],
             ]);
-            byId('overview-tools').textContent = (overview.tools || []).join('\n') || adminEmptyState('Sin herramientas cargadas');
-            byId('overview-memory').textContent = Object.keys(overview.memory || {}).length ? pretty(overview.memory) : adminEmptyState('Sin resumen de memoria');
+            byId('overview-tools').textContent = adminEmptyState('Detalles operativos separados del status mínimo');
+            byId('overview-memory').textContent = adminEmptyState('Resumen de memoria protegido y separado del status');
         } catch (error) {
-            byId('overview-memory').textContent = adminErrorState(error);
+            renderCards('overview-status', [
+                ['Vista', 'minimal'],
+                ['Estado', 'not_available'],
+                ['Detalle', 'capability_gated'],
+                ['Exposición externa', 'DEFAULT_DENIED'],
+            ]);
+            byId('overview-memory').textContent = adminStatusErrorState();
         }
     }
 

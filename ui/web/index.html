@@ -5099,47 +5099,20 @@
             }
         }
 
-        function mostrarEstadoProveedores(message, isError = false) {
+        function mostrarEstadoProveedores(message) {
             const container = document.getElementById('providers-list');
             if (!container) return;
             container.replaceChildren();
             const state = document.createElement('div');
             state.className = 'provider-status';
-            state.style.color = isError ? 'var(--red)' : 'var(--text-muted)';
+            state.style.color = 'var(--text-muted)';
             state.textContent = message;
             container.appendChild(state);
-
-            if (isError) {
-                const retry = document.createElement('button');
-                retry.className = 'btn-primary';
-                retry.style.marginTop = '12px';
-                retry.textContent = 'REINTENTAR';
-                retry.addEventListener('click', () => cargarProveedores(true));
-                container.appendChild(retry);
-            }
-        }
-
-        function esperar(ms) {
-            return new Promise(resolve => setTimeout(resolve, ms));
         }
 
         async function obtenerProveedoresConReintentos(maxAttempts = 4) {
-            let lastError = null;
-            for (let attempt = 1; attempt <= maxAttempts; attempt++) {
-                try {
-                    const res = await fetch(`${API_BASE}/api/status`, { cache: 'no-store' });
-                    if (!res.ok) throw new Error(`HTTP ${res.status}`);
-                    const data = await res.json();
-                    if (!Array.isArray(data.providers) || data.providers.length === 0) {
-                        throw new Error('El backend todavía no publicó el catálogo de proveedores');
-                    }
-                    return data.providers;
-                } catch (error) {
-                    lastError = error;
-                    if (attempt < maxAttempts) await esperar(attempt * 350);
-                }
-            }
-            throw lastError || new Error('No se pudieron cargar los proveedores');
+            void maxAttempts;
+            throw new Error('Catálogo de providers no expuesto: status no enumera providers.');
         }
 
         async function cargarProveedores(force = false) {
@@ -5175,8 +5148,7 @@
                     });
                     document.getElementById('providers-list').replaceChildren(fragment);
                 } catch (error) {
-                    console.error('Error cargando proveedores:', error);
-                    mostrarEstadoProveedores(`No se pudieron cargar los proveedores: ${error.message}`, true);
+                    mostrarEstadoProveedores('Catálogo de providers no disponible en esta superficie; status no enumera providers.', false);
                 }
             })();
 
