@@ -31,6 +31,8 @@ ALLOWED_FILES = {
     "docs/ROADMAP_4X_MACRO_04_3_P1_A_COMMIT_ACCOUNTABILITY_LEDGER.md",
     "knowledge/global_operational/metrics/roadmap_4_x_macro_04_3_execution_metric.json",
     "tests/historical_test_context.py",
+    "tests/test_ui_ux_panel_maestro_controlled_double_scope_affordances_severity_1_192.py",
+    "tests/test_ui_ux_panel_maestro_design_system_density_refinement_checkpoint_1_136.py",
     "tests/test_api_admin_panels.py",
     "tests/test_platform_status_p1_a.py",
     "tests/test_roadmap_4x_macro_04_1_cognitive_kernel.py",

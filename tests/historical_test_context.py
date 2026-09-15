@@ -37,7 +37,7 @@ _OVERRIDES = {
     "tests/test_ui_ux_main_console_structure_1_0.py": "9a1ebc5",
     "tests/test_ui_ux_main_console_refinement_1_1.py": "9a1ebc5",
     "tests/test_ui_ux_main_console_flow_1_2.py": "9a1ebc5",
-    "tests/test_ui_ux_panel_maestro_controlled_double_scope_affordances_severity_1_192.py": "6ae13f4",
+    "tests/test_ui_ux_panel_maestro_controlled_double_scope_affordances_severity_1_192.py": "ca9a8c8a9a2b279b4b9b0737db880a2a52f1c69a",
     "tests/test_ui_ux_panel_maestro_p0_p1_visual_hierarchy_1_196.py": "48036f6",
     "tests/test_ui_ux_panel_maestro_microcopy_active_corpus_inventory_1_198.py": "6b9c806",
     "tests/test_ui_ux_panel_maestro_microcopy_direction_execution_1_200.py": "0d4ae4e",

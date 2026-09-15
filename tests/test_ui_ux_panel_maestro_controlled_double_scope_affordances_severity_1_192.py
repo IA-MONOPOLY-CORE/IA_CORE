@@ -250,6 +250,8 @@ def test_current_guard_inspects_worktree_and_index_independently(monkeypatch, st
 
     monkeypatch.setattr(scope, "git", fake_git)
     monkeypatch.setattr(scope.subprocess, "run", lambda *args, **kwargs: None)
+    # This test exercises the current guard itself, not the historical snapshot.
+    monkeypatch.setattr(scope, "HISTORICAL_SCOPE_HEAD", "HEAD")
     with pytest.raises(AssertionError, match="Forbidden"):
         scope.assert_current_scope(ROOT)
     assert any("--name-only" in c and ("--cached" in c) == staged for c in calls)
