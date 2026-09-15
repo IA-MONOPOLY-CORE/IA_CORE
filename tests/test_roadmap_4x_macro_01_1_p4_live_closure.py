@@ -310,6 +310,8 @@ def test_changed_files_are_documentary_or_guard_only():
         "docs/ROADMAP_4X_MACRO_01_P4_ENTRY_REVIEW_COMMIT_ACCOUNTABILITY_LEDGER.md",
         "docs/ROADMAP_4X_MACRO_01_P4_ENTRY_REVIEW_EVIDENCE.json",
         "tests/historical_test_context.py",
+        "tests/test_roadmap_3_x_macro_04_true_completion.py",
+        "tests/test_roadmap_3_x_macro_05_final_closure.py",
         "tests/test_roadmap_3_x_macro_05_1_live_state_consistency.py",
         "tests/test_roadmap_4x_macro_01_1_p4_live_closure.py",
         *NEW_DOCUMENTARY_FILES,
