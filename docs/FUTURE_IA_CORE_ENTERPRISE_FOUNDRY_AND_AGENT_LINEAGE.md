@@ -138,6 +138,27 @@ and extra approval where risk demands it. A general agent must never receive
 plaintext passwords or directly control the vault. This document does not
 connect banks, brokers, payment systems, or external execution.
 
+## Owner-native classification and confidentiality
+
+Future enterprises may carry the durable metadata:
+
+```text
+enterprise_ownership_class: OWNER_NATIVE
+enterprise_genesis: OWNER_CREATED | AGENT_FOUNDED_UNDER_OWNER_CHARTER
+```
+
+This classification records origin under the Owner charter. It does not grant
+special visibility, bypass tenant isolation, reveal enterprise secrets or
+authorize an agent to approve its own founding. Global reusable capability must
+remain separated from the `ENTERPRISE_CONFIDENTIAL_PLANE`; maturity migrates,
+raw tenant memory does not.
+
+The Owner retains maximum governance authority without universal plaintext
+visibility. Future recovery may use quorum, key fragmentation and multiple
+custody, subject to later evaluation and testing. No single party should
+recover and decrypt all enterprise content alone, and no recovery design is
+implemented by this document.
+
 ## Controlled growth
 
 Future contracts may consider maximum global nodes, nodes per enterprise,

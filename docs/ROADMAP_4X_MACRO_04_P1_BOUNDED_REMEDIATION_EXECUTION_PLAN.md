@@ -11,6 +11,12 @@ Macro-Mission 04, and it does not begin Macro-Mission 05. The current mission
 has modified no product surface and has not added an endpoint, capability,
 middleware, schema, adapter, runtime path, or payload.
 
+Macro-Mission 04.1 establishes an architectural precedence checkpoint before
+P1-A. Therefore P1-A remains
+`P1-A_PLATFORM_STATUS_HEALTH_SELECTED_NOT_STARTED` and is
+`TEMPORARILY_PAUSED_BEHIND_COGNITIVE_KERNEL_RECONCILIATION`. This pause does
+not start remediation or change any route.
+
 ## Exact first unit
 
 `P1-A_PLATFORM_STATUS_HEALTH_SELECTED_NOT_STARTED`
@@ -48,6 +54,12 @@ considered:
 The current mission creates none of these helpers and changes no production
 logic. Provider diagnostic callables, memory stores, runtime startup, and
 hybrid-router implementation are not remediation targets in this plan.
+
+When P1-A eventually starts, its status projection must use a generic
+`domain_module_status` representation with parity across modules. The legacy
+domain-specific branch currently observed in the diagnostic surface is a
+`legacy singled-out domain status` debt item, not a privileged feature. The
+migration must be versioned, consumer-tested, sanitized and reversible.
 
 ## Proposed capabilities
 

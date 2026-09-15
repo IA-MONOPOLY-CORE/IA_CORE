@@ -1756,3 +1756,28 @@ and Agent Lineage](docs/FUTURE_IA_CORE_ENTERPRISE_FOUNDRY_AND_AGENT_LINEAGE.md).
 It does not activate Enterprise Foundry, alter the Roadmap 4.x order, or
 authorize product, runtime, execution, permissions, integrations, secrets,
 companies, agents, or external actions.
+
+## Roadmap 4.x Macro-Mission 04.1 - Cognitive Kernel G0
+
+Macro-Mission 04.1 materializes an inert Generation Zero foundation for
+`IA_CORE_COGNITIVE_KERNEL` as a governed composition of the horizontal GOKV,
+DOOL and OCI families. The graph has typed edges, provenance, compatibility,
+lifecycle and fail-closed validation; it is not a fourth runtime family.
+
+DOOL is permanent and G0 is origin rather than sunset. G1 beta, G2 field and
+Gn continuous evolution remain contractual placeholders without operational
+evidence. OCI's active future inheritance contract is
+`NECESSARY_AND_SUFFICIENT_INHERITANCE`; historical wording remains in closed
+evidence. Model fit/fallback, global capability versus enterprise
+confidentiality, Owner-native identity, recovery boundaries and domain module
+parity are contracted without activating them.
+
+P1-A remains selected but not started and is paused behind this reconciliation;
+P1-B, P1-C and P1-D remain deferred. Enterprise Foundry remains future-only.
+No product endpoint, UI, backend, payload, runtime, execution, provider,
+integration, secret, tenant read, model training or Macro-Mission 05 is started.
+
+Ver [checkpoint](docs/ROADMAP_4X_MACRO_04_1_CHECKPOINT.md), [evidencia](docs/ROADMAP_4X_MACRO_04_1_CHECKPOINT_EVIDENCE.json),
+[arquitectura](docs/ROADMAP_4X_MACRO_04_1_COGNITIVE_KERNEL_G0_ARCHITECTURE.md),
+[grafo](docs/ROADMAP_4X_MACRO_04_1_NODE_FAMILY_AND_TYPED_EDGE_CONTRACT.json) y
+[ledger](docs/ROADMAP_4X_MACRO_04_1_COMMIT_ACCOUNTABILITY_LEDGER.md).

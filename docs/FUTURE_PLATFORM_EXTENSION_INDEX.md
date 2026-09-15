@@ -337,3 +337,19 @@ The document records Owner authority, bounded promotion, enterprise-local
 reality, Draft-first creation, capability passports, Founding Lease, and
 hardware-aware growth without activating any capability or changing the
 Roadmap 4.x sequence.
+
+## Roadmap 4.x Macro-Mission 04.1 - Cognitive Kernel G0
+
+Macro-Mission 04.1 adds the inert, evidence-bound [Cognitive Kernel G0
+checkpoint](ROADMAP_4X_MACRO_04_1_CHECKPOINT.md). The kernel is a governed
+composition of the horizontal `GOKV`, `DOOL` and `OCI` families with typed
+edges, stable identities and fail-closed validation. DOOL is permanent;
+`G0_DEVELOPMENT_ORIGIN` is provenance, not a sunset. G1, G2 and Gn are future
+placeholders with no operational evidence.
+
+The mission contracts `NECESSARY_AND_SUFFICIENT_INHERITANCE`, model fit and
+fallback, success/failure inheritance, global versus enterprise-confidential
+planes, Owner-native identity without tenant bypass, future recovery without
+unilateral decryption, and parity of domain modules. It does not start P1-A,
+modify the four P1 routes, implement Enterprise Foundry, activate runtime,
+consume providers, read secrets/tenants, or start Macro-Mission 05.
