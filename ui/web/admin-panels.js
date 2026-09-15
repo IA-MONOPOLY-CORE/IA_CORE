@@ -54,50 +54,38 @@
         if (element) element.textContent = message;
     }
 
-    // MEMORY — GET /api/memory
-    async function loadMemory(selectedKey = '') {
-        setLoading('memory-value');
+    // MEMORY — protected_memory.v1; no keys, values, paths, or raw history.
+    async function loadMemory() {
+        const select = byId('memory-key-select');
+        if (select) {
+            select.replaceChildren(new Option('Vista protegida: sin enumeración', ''));
+            select.disabled = true;
+            select.setAttribute('aria-disabled', 'true');
+        }
+        byId('memory-value').textContent = 'Memoria protegida: no se exponen claves ni contenido en esta superficie.';
+        byId('memory-latest').textContent = 'Contenido no expuesto; la ausencia de datos no implica memoria vacía.';
+        byId('memory-history').textContent = 'Auditoría sanitizada no disponible sin capability explícita.';
+        renderCards('memory-status', [
+            ['Contrato', 'protected_memory.v1'],
+            ['Vista', 'metadata'],
+            ['Contenido', 'no_expuesto'],
+            ['Exposición externa', 'DEFAULT_DENIED'],
+        ]);
         try {
-            const query = new URLSearchParams({ history_limit: '15' });
-            if (selectedKey) query.set('key', selectedKey);
-            const data = await fetchJson(`/api/memory?${query}`);
-            const status = data.status || {};
+            const data = await fetchJson('/api/memory?view=metadata');
+            if (data.contract_version !== 'protected_memory.v1' || data.content_exposed !== false) return;
+            const memoryState = data.data?.memory_state || 'not_available';
+            const recordCount = Number.isInteger(data.data?.record_count) ? data.data.record_count : 0;
             renderCards('memory-status', [
-                ['Estado', status.running ? 'ready' : 'not_available'],
-                ['Ruta', status.path || '-'],
-                ['Claves', status.key_count ?? 0],
-                ['Registros declarados', status.history_count ?? 0],
+                ['Contrato', data.contract_version],
+                ['Vista', data.view || 'metadata'],
+                ['Estado', memoryState],
+                ['Registros acotados', recordCount],
+                ['Contenido', 'no_expuesto'],
+                ['Exposición externa', data.external_access?.policy || 'DEFAULT_DENIED'],
             ]);
-
-            const select = byId('memory-key-select');
-            const previous = selectedKey || select.value;
-            select.innerHTML = '<option value="">-- Seleccionar clave --</option>';
-            (data.keys || []).forEach((key) => {
-                const option = document.createElement('option');
-                option.value = key;
-                option.textContent = key;
-                select.appendChild(option);
-            });
-            if ((data.keys || []).includes(previous)) select.value = previous;
-
-            byId('memory-value').textContent = selectedKey ? pretty(data.value) : 'Seleccionar clave solo enfoca lectura; no crea memoria ni ejecuta.';
-            byId('memory-latest').textContent = data.latest ? pretty(data.latest) : adminEmptyState('Sin registro declarado');
-
-            const history = data.history || [];
-            byId('memory-history').innerHTML = history.length ? `
-                <table class="admin-table">
-                    <thead><tr><th>ID</th><th>Modo</th><th>Estado</th><th>Sources</th><th>Duración</th></tr></thead>
-                    <tbody>${history.map((row) => `
-                        <tr>
-                            <td>${escapeHtml((row.execution_id || '-').slice(0, 8))}</td>
-                            <td>${escapeHtml(row.mode || '-')}</td>
-                            <td>${row.success ? 'OK' : 'ERROR'}</td>
-                            <td>${escapeHtml((row.agents || []).join(', '))}</td>
-                            <td>${escapeHtml(Number(row.duration_ms || 0).toFixed(1))} ms</td>
-                        </tr>`).join('')}</tbody>
-                </table>` : `<div class="admin-status">${adminEmptyState('Sin historial declarado')}</div>`;
         } catch (error) {
-            byId('memory-value').textContent = adminErrorState(error);
+            byId('memory-value').textContent = 'Memoria protegida no disponible: requiere autoridad explícita; no se muestran detalles técnicos.';
         }
     }
 
@@ -196,7 +184,7 @@
     }
 
     const loaders = {
-        memory: () => loadMemory(byId('memory-key-select').value),
+        memory: loadMemory,
         logs: loadLogs,
         hybrid: loadHybrid,
         "request-contract": loadRequestContractSources,
@@ -217,8 +205,7 @@
             });
             return;
         }
-        byId('memory-refresh-btn')?.addEventListener('click', () => loadMemory(byId('memory-key-select').value));
-        byId('memory-key-select')?.addEventListener('change', (event) => loadMemory(event.target.value));
+        byId('memory-refresh-btn')?.addEventListener('click', loadMemory);
         byId('logs-refresh-btn')?.addEventListener('click', loadLogs);
         byId('hybrid-refresh-btn')?.addEventListener('click', loadHybrid);
         byId('request-contract-readonly-control')?.addEventListener('click', inspectRequestContractBoundary);

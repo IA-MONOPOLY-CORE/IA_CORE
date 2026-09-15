@@ -78,6 +78,15 @@ from core.platform_status_schema import (
     sanitize_platform_status_value,
     validate_platform_status_payload,
 )
+from core.protected_memory_access import (
+    require_protected_memory_access,
+    resolve_protected_memory_principal,
+)
+from core.protected_memory_schema import (
+    MAX_AUDIT_RECORDS,
+    build_audit_payload,
+    build_metadata_payload,
+)
 
 
 # ========================================================================
@@ -372,54 +381,6 @@ def _track_orchestration(result: Any) -> None:
     )
 
 
-def _memory_summary() -> dict[str, Any]:
-    if not supervisor:
-        return {
-            "running": False,
-            "path": str(config.MEMORY_STATE_FILE),
-            "key_count": 0,
-            "history_count": 0,
-            "keys_preview": [],
-        }
-
-    memory = supervisor.memory
-    keys = memory.list_keys()
-    history = memory.get(MEMORY_HISTORY_KEY, [])
-    if not isinstance(history, list):
-        history = []
-    return {
-        "running": memory.running,
-        "path": str(memory.state_path),
-        "key_count": len(keys),
-        "history_count": len(history),
-        "keys_preview": keys[:12],
-    }
-
-
-def _history_summary(limit: int = 15) -> list[dict[str, Any]]:
-    if not supervisor:
-        return []
-    history = supervisor.memory.get(MEMORY_HISTORY_KEY, [])
-    if not isinstance(history, list):
-        return []
-
-    rows = []
-    for entry in reversed(history[-limit:]):
-        if not isinstance(entry, dict):
-            continue
-        rows.append(
-            {
-                "execution_id": entry.get("execution_id"),
-                "mode": entry.get("mode"),
-                "agents": entry.get("agents", []),
-                "success": entry.get("success", False),
-                "started_at": entry.get("started_at"),
-                "duration_ms": entry.get("duration_ms", 0),
-            }
-        )
-    return rows
-
-
 def _tail_log(path: Path, lines: int) -> list[str]:
     if not path.exists():
         return []
@@ -651,38 +612,130 @@ async def get_status(full: bool = False) -> dict:
     return _build_platform_status_minimal()
 
 
+def _parse_protected_memory_limit(raw: str) -> int:
+    try:
+        value = int(raw)
+    except (TypeError, ValueError):
+        raise HTTPException(
+            status_code=400,
+            detail={
+                "code": "MEMORY_QUERY_INVALID",
+                "status": 400,
+                "message": "El límite de memoria no es válido.",
+                "contract_version": "protected_memory.v1",
+            },
+        ) from None
+    if value < 1 or value > MAX_AUDIT_RECORDS:
+        raise HTTPException(
+            status_code=400,
+            detail={
+                "code": "MEMORY_QUERY_INVALID",
+                "status": 400,
+                "message": "El límite de memoria no es válido.",
+                "contract_version": "protected_memory.v1",
+            },
+        )
+    return value
+
+
 @app.get("/api/memory")
 async def get_memory_snapshot(
-    key: str | None = None,
-    history_limit: int = 15,
+    request: Request,
+    view: str | None = None,
+    limit: str | None = None,
+    tenant_id: str | None = None,
 ) -> dict:
-    if not supervisor:
-        raise HTTPException(status_code=503, detail="Supervisor no disponible")
+    allowed_query = {"view", "limit", "tenant_id"}
+    if any(key not in allowed_query for key in request.query_params):
+        raise HTTPException(
+            status_code=400,
+            detail={
+                "code": "MEMORY_QUERY_INVALID",
+                "status": 400,
+                "message": "Selector de memoria no reconocido.",
+                "contract_version": "protected_memory.v1",
+            },
+        )
 
-    history_limit = max(1, min(history_limit, 100))
-    keys = supervisor.memory.list_keys()
-    history = _history_summary(history_limit)
-    latest = None
-    if history:
-        execution_id = history[0].get("execution_id")
-        if execution_id:
-            latest = {
-                "summary": history[0],
-                "detail": supervisor.get_orchestration(execution_id),
-            }
+    selected_view = view or "metadata"
+    selected_limit: int | None = None
+    if limit is not None:
+        selected_limit = _parse_protected_memory_limit(limit)
+        if selected_view != "audit":
+            raise HTTPException(
+                status_code=400,
+                detail={
+                    "code": "MEMORY_QUERY_INVALID",
+                    "status": 400,
+                    "message": "El límite sólo aplica a la vista audit.",
+                    "contract_version": "protected_memory.v1",
+                },
+            )
+    principal = resolve_protected_memory_principal()
+    require_protected_memory_access(principal, view=selected_view)
 
-    payload: dict[str, Any] = {
-        "status": _memory_summary(),
-        "keys": keys,
-        "history": history,
-        "latest": latest,
-    }
-    if key is not None:
-        if key not in keys:
-            raise HTTPException(status_code=404, detail=f"Clave de memoria no encontrada: {key}")
-        payload["selected_key"] = key
-        payload["value"] = supervisor.memory.get(key)
-    return payload
+    if selected_view == "tenant":
+        # The selector is representation only; it never establishes ownership.
+        raise HTTPException(
+            status_code=404,
+            detail={
+                "code": "MEMORY_SCOPE_UNAVAILABLE",
+                "status": 404,
+                "message": "El alcance de memoria no está disponible.",
+                "contract_version": "protected_memory.v1",
+            },
+        )
+    if tenant_id is not None:
+        raise HTTPException(
+            status_code=404,
+            detail={
+                "code": "MEMORY_SCOPE_UNAVAILABLE",
+                "status": 404,
+                "message": "El alcance de memoria no está disponible.",
+                "contract_version": "protected_memory.v1",
+            },
+        )
+    if not supervisor or not getattr(supervisor, "memory", None):
+        raise HTTPException(
+            status_code=503,
+            detail={
+                "code": "MEMORY_SERVICE_UNAVAILABLE",
+                "status": 503,
+                "message": "La memoria protegida no está disponible.",
+                "contract_version": "protected_memory.v1",
+            },
+        )
+
+    if selected_view == "metadata":
+        try:
+            return build_metadata_payload(supervisor.memory)
+        except Exception:
+            raise HTTPException(
+                status_code=503,
+                detail={
+                    "code": "MEMORY_SERVICE_UNAVAILABLE",
+                    "status": 503,
+                    "message": "La memoria protegida no está disponible.",
+                    "contract_version": "protected_memory.v1",
+                },
+            ) from None
+
+    selected_limit = 15 if selected_limit is None else selected_limit
+    try:
+        return build_audit_payload(
+            supervisor.memory,
+            limit=min(selected_limit, MAX_AUDIT_RECORDS),
+        )
+    except Exception:
+        raise HTTPException(
+            status_code=503,
+            detail={
+                "code": "MEMORY_SERVICE_UNAVAILABLE",
+                "status": 503,
+                "message": "La memoria protegida no está disponible.",
+                "contract_version": "protected_memory.v1",
+            },
+        ) from None
 
 
 @app.get("/api/logs")
