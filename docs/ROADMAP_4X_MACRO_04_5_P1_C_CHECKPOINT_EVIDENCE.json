@@ -1,0 +1,60 @@
+{
+  "mission": "P1-C_PROTECTED_LOGS_EVENTS_METHOD_SANTI_VERIFIED_EVIDENCE_UPDATE",
+  "baseline": "0d6b234a70bd1c882872e4be02b018bd6de09a64",
+  "validation_basis": "d1063a43da70102815c7a2b7355749de2c4b23f6",
+  "checkpoint_status": "FUNCTIONAL_GREEN_DOCUMENTARY_CLOSURE_PENDING",
+  "result": "ROADMAP_4X_MACRO_04_5_P1_C_PROTECTED_LOGS_EVENTS_FUNCTIONAL_CHECKPOINT_PASS",
+  "level_a": {
+    "status": "PASS",
+    "passed": 134,
+    "failed": 0,
+    "warnings": 5,
+    "wall_seconds": 45.3788927
+  },
+  "historical_impact_gate": {
+    "status": "PASS",
+    "passed": 158,
+    "failed": 0,
+    "warnings": 5,
+    "timestamp": "UNKNOWN"
+  },
+  "level_b": {
+    "status": "PASS",
+    "attempts": 1,
+    "passed": 7100,
+    "failed": 0,
+    "skipped": 6,
+    "warnings": 6,
+    "exit_code": 0,
+    "started_at": "2026-09-15T13:21:40.1050056-03:00",
+    "completed_at": "2026-09-15T13:47:51.4934508-03:00",
+    "wall_seconds": 1571.3884452
+  },
+  "contract": {
+    "version": "protected_logs.v1",
+    "capability": "observability.logs.read_sanitized",
+    "zero_source_read_on_deny": true,
+    "structured": true,
+    "sanitized": true,
+    "bounded": true,
+    "path_neutral": true,
+    "raw_logs_exposed": false,
+    "retention_and_tenant_scope": "DEFAULT_DENIED"
+  },
+  "static_validation": {
+    "py_compile": "PASS",
+    "node_check": "PASS",
+    "json_parse_count_at_basis": 264,
+    "git_diff_check": "PASS",
+    "browser": "TOOLING_UNAVAILABLE"
+  },
+  "frontier": {
+    "p1_d": "SELECTED_NOT_STARTED",
+    "macro_mission_05": "NOT_STARTED",
+    "enterprise_foundry": "NOT_IMPLEMENTED",
+    "cyber_range": "NOT_IMPLEMENTED",
+    "ia_core_os": "NOT_IMPLEMENTED",
+    "external_exposure": "DEFAULT_DENIED"
+  },
+  "functional_checkpoint_commit": "PENDING_COMMIT_ID"
+}
