@@ -56,6 +56,39 @@ NODE_KINDS = frozenset(
 )
 EDGE_STATUSES = frozenset({"CONTRACTED", "VALIDATED"})
 CONFIDENTIALITY_CLASSES = frozenset({"global_inheritable", "ia_core_internal"})
+SECURITY_G0_NODE_FAMILIES = {
+    "gokv_g0_defensive_knowledge_contract": "GOKV",
+    "dool_g0_security_control_learning": "DOOL",
+    "oci_g0_necessary_sufficient_security_composition": "OCI",
+}
+REQUIRED_SECURITY_INVARIANTS = frozenset(
+    {
+        "SECURITY_IS_A_NATIVE_OPERATING_PLANE",
+        "SECURITY_BY_DESIGN_NOT_SECURITY_AS_AN_ADD_ON",
+        "DEFENSE_IN_DEPTH_OVER_SINGLE_PRODUCT_DEPENDENCE",
+        "AI_ASSISTS_SECURITY_DETERMINISTIC_CONTROLS_ENFORCE_IT",
+        "SECURITY_STRENGTH_MUST_BE_MEASURED_NOT_MARKETED",
+        "UNTRUSTED_SECURITY_REPOSITORIES_ARE_EVIDENCE_NOT_AUTHORITY",
+        "NO_OFFENSIVE_ARTIFACT_REACHES_PRODUCTION_UNSANDBOXED",
+        "NO_EXTERNAL_SECURITY_CORPUS_IS_AUTO_PROMOTED",
+        "EVERY_NEW_ENTITY_INHERITS_VALIDATED_DEFENSIVE_LEARNING",
+        "DOMAIN_MODULES_HAVE_PARITY_NO_DOMAIN_HAS_INHERENT_PLATFORM_PRIVILEGE",
+    }
+)
+EXPECTED_SECURITY_CONTRACT = {
+    "native_operating_plane": True,
+    "security_by_design": True,
+    "defense_in_depth": True,
+    "ai_assists_deterministic_controls_enforce": True,
+    "measured_not_marketed": True,
+    "untrusted_sources_are_evidence_not_authority": True,
+    "offensive_artifact_production": False,
+    "external_security_corpus_auto_promotion": False,
+    "future_cyber_range_state": "FUTURE_CONCEPT_PRESERVED_NOT_SCHEDULED_NOT_IMPLEMENTED",
+    "defensive_learning_inheritable": True,
+    "owner_native_tenant_bypass": False,
+    "domain_privilege": False,
+}
 ID_RE = re.compile(r"^[a-z0-9]+(?:_[a-z0-9]+)*$")
 
 
@@ -81,6 +114,7 @@ def validate_kernel_graph(graph: Mapping[str, Any]) -> dict[str, Any]:
         "generations",
         "relation_types",
         "invariants",
+        "security_contract",
         "runtime_boundary",
         "nodes",
         "edges",
@@ -106,10 +140,12 @@ def validate_kernel_graph(graph: Mapping[str, Any]) -> dict[str, Any]:
     _validate_families(graph["families"])
     _validate_generations(graph["generations"])
     _validate_relation_types(graph["relation_types"])
-    _validate_string_list(graph["invariants"], "invariants")
+    _validate_invariants(graph["invariants"])
+    _validate_security_contract(graph["security_contract"])
     _validate_runtime_boundary(graph["runtime_boundary"])
 
     nodes = _validate_nodes(graph["nodes"])
+    _validate_security_nodes(nodes)
     node_ids = {node["node_id"] for node in nodes}
     _validate_edges(graph["edges"], node_ids)
     return deepcopy(dict(graph))
@@ -166,6 +202,18 @@ def _validate_relation_types(value: Any) -> None:
     _validate_string_list(value, "relation_types")
     if set(value) != RELATION_TYPES or len(value) != len(RELATION_TYPES):
         raise ValueError("relation_types debe contener el catalogo tipado exacto")
+
+
+def _validate_invariants(value: Any) -> None:
+    _validate_string_list(value, "invariants")
+    missing = REQUIRED_SECURITY_INVARIANTS - set(value)
+    if missing:
+        raise ValueError(f"invariantes de seguridad ausentes: {', '.join(sorted(missing))}")
+
+
+def _validate_security_contract(value: Any) -> None:
+    if not isinstance(value, Mapping) or dict(value) != EXPECTED_SECURITY_CONTRACT:
+        raise ValueError("security_contract invalido o inseguro")
 
 
 def _validate_runtime_boundary(value: Any) -> None:
@@ -248,6 +296,22 @@ def _validate_nodes(value: Any) -> list[Mapping[str, Any]]:
         if node["node_id"] in node["supersedes"]:
             raise ValueError("un nodo no puede supersederse a si mismo")
     return nodes
+
+
+def _validate_security_nodes(nodes: list[Mapping[str, Any]]) -> None:
+    by_id = {node["node_id"]: node for node in nodes}
+    for node_id, family in SECURITY_G0_NODE_FAMILIES.items():
+        node = by_id.get(node_id)
+        if node is None:
+            raise ValueError(f"nodo G0 de seguridad ausente: {node_id}")
+        if node["family"] != family or node["generation"] != "G0_DEVELOPMENT_ORIGIN":
+            raise ValueError(f"nodo G0 de seguridad fuera de familia o generacion: {node_id}")
+        if not node["evidence_refs"]:
+            raise ValueError(f"nodo G0 de seguridad sin evidencia: {node_id}")
+    oci = by_id["oci_g0_necessary_sufficient_security_composition"]
+    required = "NECESSARY_AND_SUFFICIENT_INHERITANCE"
+    if required not in oci["inheritance"]["requires"]:
+        raise ValueError("OCI de seguridad debe conservar la herencia necesaria y suficiente")
 
 
 def _validate_edges(value: Any, node_ids: set[str]) -> None:

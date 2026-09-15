@@ -13,6 +13,7 @@
     "generations",
     "relation_types",
     "invariants",
+    "security_contract",
     "runtime_boundary",
     "nodes",
     "edges"
@@ -28,6 +29,38 @@
     "generations": {"type": "array", "minItems": 4, "maxItems": 4},
     "relation_types": {"type": "array", "minItems": 11, "uniqueItems": true},
     "invariants": {"type": "array", "items": {"type": "string", "minLength": 1}},
+    "security_contract": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "native_operating_plane",
+        "security_by_design",
+        "defense_in_depth",
+        "ai_assists_deterministic_controls_enforce",
+        "measured_not_marketed",
+        "untrusted_sources_are_evidence_not_authority",
+        "offensive_artifact_production",
+        "external_security_corpus_auto_promotion",
+        "future_cyber_range_state",
+        "defensive_learning_inheritable",
+        "owner_native_tenant_bypass",
+        "domain_privilege"
+      ],
+      "properties": {
+        "native_operating_plane": {"const": true},
+        "security_by_design": {"const": true},
+        "defense_in_depth": {"const": true},
+        "ai_assists_deterministic_controls_enforce": {"const": true},
+        "measured_not_marketed": {"const": true},
+        "untrusted_sources_are_evidence_not_authority": {"const": true},
+        "offensive_artifact_production": {"const": false},
+        "external_security_corpus_auto_promotion": {"const": false},
+        "future_cyber_range_state": {"const": "FUTURE_CONCEPT_PRESERVED_NOT_SCHEDULED_NOT_IMPLEMENTED"},
+        "defensive_learning_inheritable": {"const": true},
+        "owner_native_tenant_bypass": {"const": false},
+        "domain_privilege": {"const": false}
+      }
+    },
     "runtime_boundary": {
       "type": "object",
       "additionalProperties": false,

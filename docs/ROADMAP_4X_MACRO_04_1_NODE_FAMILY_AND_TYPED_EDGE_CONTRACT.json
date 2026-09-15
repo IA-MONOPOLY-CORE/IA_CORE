@@ -70,7 +70,17 @@
     "OWNER_NATIVE_STATUS_DOES_NOT_BYPASS_TENANT_ISOLATION",
     "MAXIMUM_GOVERNANCE_AUTHORITY_WITHOUT_UNIVERSAL_CONTENT_VISIBILITY",
     "NO_SINGLE_PARTY_CAN_RECOVER_AND_DECRYPT_ALONE",
-    "NO_DOMAIN_MODULE_HAS_INHERENT_PRIVILEGED_OR_FEATURED_STATUS"
+    "NO_DOMAIN_MODULE_HAS_INHERENT_PRIVILEGED_OR_FEATURED_STATUS",
+    "SECURITY_IS_A_NATIVE_OPERATING_PLANE",
+    "SECURITY_BY_DESIGN_NOT_SECURITY_AS_AN_ADD_ON",
+    "DEFENSE_IN_DEPTH_OVER_SINGLE_PRODUCT_DEPENDENCE",
+    "AI_ASSISTS_SECURITY_DETERMINISTIC_CONTROLS_ENFORCE_IT",
+    "SECURITY_STRENGTH_MUST_BE_MEASURED_NOT_MARKETED",
+    "UNTRUSTED_SECURITY_REPOSITORIES_ARE_EVIDENCE_NOT_AUTHORITY",
+    "NO_OFFENSIVE_ARTIFACT_REACHES_PRODUCTION_UNSANDBOXED",
+    "NO_EXTERNAL_SECURITY_CORPUS_IS_AUTO_PROMOTED",
+    "EVERY_NEW_ENTITY_INHERITS_VALIDATED_DEFENSIVE_LEARNING",
+    "DOMAIN_MODULES_HAVE_PARITY_NO_DOMAIN_HAS_INHERENT_PLATFORM_PRIVILEGE"
   ],
   "runtime_boundary": {
     "runtime_enabled": false,
@@ -82,6 +92,20 @@
     "raw_secret_reads": false,
     "model_training": false,
     "payload_enabled": false
+  },
+  "security_contract": {
+    "native_operating_plane": true,
+    "security_by_design": true,
+    "defense_in_depth": true,
+    "ai_assists_deterministic_controls_enforce": true,
+    "measured_not_marketed": true,
+    "untrusted_sources_are_evidence_not_authority": true,
+    "offensive_artifact_production": false,
+    "external_security_corpus_auto_promotion": false,
+    "future_cyber_range_state": "FUTURE_CONCEPT_PRESERVED_NOT_SCHEDULED_NOT_IMPLEMENTED",
+    "defensive_learning_inheritable": true,
+    "owner_native_tenant_bypass": false,
+    "domain_privilege": false
   },
   "nodes": [
     {
@@ -238,6 +262,72 @@
       "inheritance": {"eligible": true, "requires": ["current contract precedence", "scope fit", "validation"], "excludes": ["raw secrets", "plaintext tenant content", "private prompts", "chain-of-thought"]}
     },
     {
+      "node_id": "gokv_g0_defensive_knowledge_contract",
+      "family": "GOKV",
+      "generation": "G0_DEVELOPMENT_ORIGIN",
+      "kind": "KNOWLEDGE_FOUNDATION",
+      "status": "CONTRACTED",
+      "scope": "IA_CORE_BUILD",
+      "provenance": {
+        "classification": "OWNER_DIRECTED",
+        "sources": ["docs/FUTURE_SECURITY_AND_IT_OPERATIONS_MODEL.md", "docs/ROADMAP_4X_MACRO_04_2_SECURITY_NATIVE_G0_CONTRACT.md"],
+        "claim": "GOKV is the inert evidence-bound home for defensive knowledge, provenance, validity and threat-to-mitigation contracts."
+      },
+      "evidence_refs": [
+        {"evidence_id": "security_g0_gokv_contract", "kind": "document", "ref": "docs/ROADMAP_4X_MACRO_04_2_SECURITY_NATIVE_G0_CONTRACT.md", "claim": "Defensive knowledge remains local, evidence-bound and non-operational.", "classification": "OWNER_DIRECTED"},
+        {"evidence_id": "security_g0_adversarial_guard", "kind": "test", "ref": "tests/test_gokv_cognitive_kernel_0_2.py", "claim": "Security boundary mutations fail closed without runtime activation.", "classification": "OBSERVED"}
+      ],
+      "compatibility": {"status": "CURRENT_COMPATIBLE", "compatible_with": ["gokv.knowledge_item.v1", "DEVELOPMENT_ORIGIN", "defensive_evidence"], "excluded": ["raw secrets", "untrusted executable artifacts", "automatic promotion"]},
+      "confidentiality_class": "global_inheritable",
+      "created_at": "2026-09-14T23:43:18-03:00",
+      "supersedes": [],
+      "inheritance": {"eligible": true, "requires": ["provenance", "hash", "validation", "explicit_selection"], "excludes": ["raw secrets", "plaintext tenant content", "private prompts", "chain-of-thought", "offensive artifacts"]}
+    },
+    {
+      "node_id": "dool_g0_security_control_learning",
+      "family": "DOOL",
+      "generation": "G0_DEVELOPMENT_ORIGIN",
+      "kind": "DEVELOPMENT_LEARNING",
+      "status": "CONTRACTED",
+      "scope": "IA_CORE_BUILD",
+      "provenance": {
+        "classification": "OWNER_DIRECTED",
+        "sources": ["docs/ROADMAP_4X_MACRO_04_2_SECURITY_NATIVE_G0_CONTRACT.md", "tests/test_gokv_cognitive_kernel_0_2.py"],
+        "claim": "DOOL preserves defensive successes, failures, false positives, guard outcomes and bounded security decisions as inheritable development learning."
+      },
+      "evidence_refs": [
+        {"evidence_id": "security_g0_dool_contract", "kind": "document", "ref": "docs/ROADMAP_4X_MACRO_04_2_SECURITY_NATIVE_G0_CONTRACT.md", "claim": "Security control outcomes are retained as development-origin learning without model training.", "classification": "OWNER_DIRECTED"},
+        {"evidence_id": "security_g0_dool_guard", "kind": "test", "ref": "tests/test_gokv_cognitive_kernel_0_2.py", "claim": "Success and failure paths are explicitly guarded as non-operational learning.", "classification": "OBSERVED"}
+      ],
+      "compatibility": {"status": "CURRENT_COMPATIBLE", "compatible_with": ["gokv.knowledge_item.v1", "DEVELOPMENT_ORIGIN", "validated_defensive_learning"], "excluded": ["model weights", "runtime learning", "cross-tenant raw sharing"]},
+      "confidentiality_class": "global_inheritable",
+      "created_at": "2026-09-14T23:43:18-03:00",
+      "supersedes": [],
+      "inheritance": {"eligible": true, "requires": ["distillation", "evidence", "scope_compatibility", "validation"], "excludes": ["raw secrets", "plaintext tenant content", "private prompts", "chain-of-thought", "unvalidated offensive material"]}
+    },
+    {
+      "node_id": "oci_g0_necessary_sufficient_security_composition",
+      "family": "OCI",
+      "generation": "G0_DEVELOPMENT_ORIGIN",
+      "kind": "INHERITANCE_COMPILER",
+      "status": "CONTRACTED",
+      "scope": "IA_CORE_BUILD",
+      "provenance": {
+        "classification": "OWNER_DIRECTED",
+        "sources": ["docs/ROADMAP_4X_MACRO_04_2_SECURITY_NATIVE_G0_CONTRACT.md", "gokv/inheritance.py"],
+        "claim": "OCI composes necessary and sufficient defensive protection by agent, tool, enterprise, domain, risk and hardware fit without universal permission."
+      },
+      "evidence_refs": [
+        {"evidence_id": "security_g0_oci_contract", "kind": "document", "ref": "docs/ROADMAP_4X_MACRO_04_2_SECURITY_NATIVE_G0_CONTRACT.md", "claim": "Security inheritance remains explicit, scoped, fallback-aware and runtime-inert.", "classification": "OWNER_DIRECTED"},
+        {"evidence_id": "security_g0_oci_guard", "kind": "test", "ref": "tests/test_gokv_cognitive_kernel_0_2.py", "claim": "Obsolete inheritance, permission and activation mutations fail closed.", "classification": "OBSERVED"}
+      ],
+      "compatibility": {"status": "CURRENT_COMPATIBLE", "compatible_with": ["gokv.development_oci.v1", "NECESSARY_AND_SUFFICIENT_INHERITANCE", "explicit_security_fit"], "excluded": ["universal permission", "runtime injection", "provider calls", "automatic promotion"]},
+      "confidentiality_class": "global_inheritable",
+      "created_at": "2026-09-14T23:43:18-03:00",
+      "supersedes": [],
+      "inheritance": {"eligible": true, "requires": ["NECESSARY_AND_SUFFICIENT_INHERITANCE", "agent_fit", "tool_fit", "enterprise_fit", "domain_fit", "risk_fit", "hardware_fit", "explicit_authorization"], "excludes": ["raw secrets", "plaintext tenant content", "private prompts", "chain-of-thought", "untrusted executable artifacts"]}
+    },
+    {
       "node_id": "dool_g1_beta_placeholder",
       "family": "DOOL",
       "generation": "G1_BETA_OPERATIONAL_LEARNING",
@@ -343,6 +433,46 @@
       "evidence_refs": [{"evidence_id": "edge_contract_compatibility", "kind": "document", "ref": "docs/ROADMAP_4X_MACRO_04_1_GOKV_DOOL_OCI_RECONCILIATION.md", "claim": "The three families remain horizontally compatible without becoming one hierarchy.", "classification": "OWNER_DIRECTED"}],
       "constraints": {"cross_tenant": false, "requires_evidence": true, "runtime_effect": false},
       "created_at": "2026-09-14T20:51:40-03:00"
+    },
+    {
+      "edge_id": "gokv_security_knowledge_derived_from_gokv_family",
+      "from_node": "gokv_g0_defensive_knowledge_contract",
+      "to_node": "gokv_family_contract",
+      "relation_type": "derived_from",
+      "status": "CONTRACTED",
+      "evidence_refs": [{"evidence_id": "edge_security_gokv", "kind": "document", "ref": "docs/ROADMAP_4X_MACRO_04_2_SECURITY_NATIVE_G0_CONTRACT.md", "claim": "Security knowledge uses the existing GOKV evidence and lifecycle foundation.", "classification": "OWNER_DIRECTED"}],
+      "constraints": {"cross_tenant": false, "requires_evidence": true, "runtime_effect": false},
+      "created_at": "2026-09-14T23:43:18-03:00"
+    },
+    {
+      "edge_id": "dool_security_learning_derived_from_dool_method",
+      "from_node": "dool_g0_security_control_learning",
+      "to_node": "dool_g0_method_learning",
+      "relation_type": "derived_from",
+      "status": "CONTRACTED",
+      "evidence_refs": [{"evidence_id": "edge_security_dool", "kind": "document", "ref": "docs/ROADMAP_4X_MACRO_04_2_SECURITY_NATIVE_G0_CONTRACT.md", "claim": "Security control outcomes extend the existing development-origin learning method.", "classification": "OWNER_DIRECTED"}],
+      "constraints": {"cross_tenant": false, "requires_evidence": true, "runtime_effect": false},
+      "created_at": "2026-09-14T23:43:18-03:00"
+    },
+    {
+      "edge_id": "oci_security_composition_requires_defensive_knowledge",
+      "from_node": "oci_g0_necessary_sufficient_security_composition",
+      "to_node": "gokv_g0_defensive_knowledge_contract",
+      "relation_type": "requires",
+      "status": "CONTRACTED",
+      "evidence_refs": [{"evidence_id": "edge_security_oci", "kind": "document", "ref": "docs/ROADMAP_4X_MACRO_04_2_SECURITY_NATIVE_G0_CONTRACT.md", "claim": "OCI security composition requires validated defensive evidence and cannot invent protection.", "classification": "OWNER_DIRECTED"}],
+      "constraints": {"cross_tenant": false, "requires_evidence": true, "runtime_effect": false},
+      "created_at": "2026-09-14T23:43:18-03:00"
+    },
+    {
+      "edge_id": "security_learning_inheritable_by_oci",
+      "from_node": "dool_g0_security_control_learning",
+      "to_node": "oci_g0_necessary_sufficient_security_composition",
+      "relation_type": "inheritable_by",
+      "status": "CONTRACTED",
+      "evidence_refs": [{"evidence_id": "edge_security_learning", "kind": "test", "ref": "tests/test_gokv_cognitive_kernel_0_2.py", "claim": "Only validated, scoped defensive learning may be selected by OCI.", "classification": "OBSERVED"}],
+      "constraints": {"cross_tenant": false, "requires_evidence": true, "runtime_effect": false},
+      "created_at": "2026-09-14T23:43:18-03:00"
     }
   ]
 }
