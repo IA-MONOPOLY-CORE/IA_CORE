@@ -57,9 +57,9 @@ def text(path: Path) -> str:
 
 
 def changed_files() -> set[str]:
-    committed = set(subprocess.check_output(["git", "diff", "--name-only", f"{BASELINE}..HEAD"], cwd=ROOT, text=True).splitlines())
-    working = set(subprocess.check_output(["git", "ls-files", "--others", "--modified", "--exclude-standard"], cwd=ROOT, text=True).splitlines())
-    return {path.replace("\\", "/") for path in committed | working if path}
+    checkpoint = "6dd040e0985da134f18f2bc85a338aa1bf770d3f"
+    committed = set(subprocess.check_output(["git", "diff", "--name-only", f"{BASELINE}..{checkpoint}"], cwd=ROOT, text=True).splitlines())
+    return {path.replace("\\", "/") for path in committed if path}
 
 
 def test_checkpoint_and_security_contract_are_present():
@@ -114,7 +114,8 @@ def test_gokv_remains_valid_without_vault_writes_or_promotion():
 
 
 def test_json_census_and_protected_diff_are_deterministic():
-    tracked = [line for line in subprocess.check_output(["git", "ls-files", "--", "*.json"], cwd=ROOT, text=True).splitlines() if line]
+    checkpoint = "6dd040e0985da134f18f2bc85a338aa1bf770d3f"
+    tracked = [line for line in subprocess.check_output(["git", "ls-tree", "-r", "--name-only", checkpoint], cwd=ROOT, text=True).splitlines() if line.endswith(".json")]
     new_json = {
         "docs/ROADMAP_4X_MACRO_04_2_CHECKPOINT_EVIDENCE.json",
         "knowledge/global_operational/metrics/roadmap_4_x_macro_04_2_execution_metric.json",

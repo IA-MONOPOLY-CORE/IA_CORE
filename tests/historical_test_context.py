@@ -44,13 +44,13 @@ _OVERRIDES = {
     "tests/test_ui_ux_panel_maestro_closure_matrix_checkpoint_1_146.py": "167d521",
     "tests/test_post_roadmap_3_2_full_3x_phase_graph_and_method_consolidation.py": "f87dbb9",
     "tests/test_ui_ux_1_201_premission_oci.py": "a2afc307",
+    "tests/test_roadmap_4x_macro_04_2_cognitive_kernel.py": "6dd040e0985da134f18f2bc85a338aa1bf770d3f",
+    "tests/test_roadmap_4x_macro_04_1_cognitive_kernel.py": "6dd040e0985da134f18f2bc85a338aa1bf770d3f",
 }
 _CURRENT_GUARD_MODULES = {
     "tests/test_ui_ux_panel_maestro_controlled_double_scope_affordances_severity_1_192.py",
     "tests/test_roadmap_4x_macro_03_checkpoint.py",
     "tests/test_roadmap_4x_macro_04_p1_entry_review.py",
-    "tests/test_roadmap_4x_macro_04_1_cognitive_kernel.py",
-    "tests/test_roadmap_4x_macro_04_2_cognitive_kernel.py",
 }
 _CURRENT_MISSION_CONTINUITY_GUARD_MODULES = frozenset(
     {
@@ -60,9 +60,7 @@ _CURRENT_MISSION_CONTINUITY_GUARD_MODULES = frozenset(
         "tests/test_ui_ux_panel_maestro_css_accessibility_responsive_large_scale_block_1_196.py",
         "tests/test_roadmap_4x_macro_03_checkpoint.py",
         "tests/test_roadmap_4x_macro_04_p1_entry_review.py",
-        "tests/test_roadmap_4x_macro_04_1_cognitive_kernel.py",
-        "tests/test_roadmap_4x_macro_04_2_cognitive_kernel.py",
-    }
+}
 )
 _SECONDARY_HISTORICAL_FILES = frozenset(
     {
@@ -237,6 +235,15 @@ _CURRENT_MISSION_DOCUMENTARY_FILES = frozenset(
         "knowledge/global_operational/metrics/roadmap_4_x_macro_04_2_execution_metric.json",
         "tests/test_gokv_cognitive_kernel_0_2.py",
         "tests/test_roadmap_4x_macro_04_2_cognitive_kernel.py",
+        "docs/ROADMAP_4X_MACRO_04_3_P1_A_STATUS_CONTRACT.md",
+        "docs/ROADMAP_4X_MACRO_04_3_P1_A_TRUTH_MATRIX.md",
+        "docs/ROADMAP_4X_MACRO_04_3_P1_A_CONSUMER_COMPATIBILITY.md",
+        "docs/ROADMAP_4X_MACRO_04_3_P1_A_EXECUTION_METRICS_BASELINE.md",
+        "docs/ROADMAP_4X_MACRO_04_3_P1_A_CHECKPOINT.md",
+        "docs/ROADMAP_4X_MACRO_04_3_P1_A_CHECKPOINT_EVIDENCE.json",
+        "docs/ROADMAP_4X_MACRO_04_3_P1_A_COMMIT_ACCOUNTABILITY_LEDGER.md",
+        "knowledge/global_operational/metrics/roadmap_4_x_macro_04_3_execution_metric.json",
+        "tests/test_platform_status_p1_a.py",
         "README.md",
         "docs/FUTURE_PLATFORM_EXTENSION_INDEX.md",
     }

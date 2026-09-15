@@ -73,23 +73,15 @@ def _text(path: Path) -> str:
 
 
 def _changed_from_baseline() -> set[str]:
+    checkpoint = "6dd040e0985da134f18f2bc85a338aa1bf770d3f"
     committed = {
         path.replace("\\", "/")
         for path in subprocess.check_output(
-            ["git", "diff", "--name-only", f"{BASELINE}..HEAD"], cwd=ROOT, text=True
+            ["git", "diff", "--name-only", f"{BASELINE}..{checkpoint}"], cwd=ROOT, text=True
         ).splitlines()
         if path.strip()
     }
-    working = {
-        path.replace("\\", "/")
-        for path in subprocess.check_output(
-            ["git", "ls-files", "--others", "--modified", "--exclude-standard"],
-            cwd=ROOT,
-            text=True,
-        ).splitlines()
-        if path.strip()
-    }
-    return committed | working
+    return committed
 
 
 def test_required_artifacts_and_graph_contract_exist():

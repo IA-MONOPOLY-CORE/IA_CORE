@@ -1,0 +1,53 @@
+{
+  "metric_id": "roadmap_4_x_macro_04_3_execution_metric",
+  "schema_version": "gokv.execution_metric.v1",
+  "model": "GPT-5.6 Luna",
+  "effort": "high",
+  "task_type": "ROADMAP_4X_MACRO_04_3_P1_A_PLATFORM_STATUS_HEALTH",
+  "mission": "ROADMAP_4X_MACRO_04_3",
+  "unit": "P1-A_PLATFORM_STATUS_HEALTH",
+  "status": "IN_PROGRESS",
+  "duration": null,
+  "execution_start_at": "2026-09-15T01:27:14.4966151-03:00",
+  "preflight_complete_at": "2026-09-15T01:27:16.5036704-03:00",
+  "implementation_start_at": "2026-09-15T01:34:35-03:00",
+  "estimated_duration_seconds": {
+    "fast": 6600,
+    "expected_min": 8400,
+    "expected_max": 11700,
+    "central": 9600,
+    "contingency_ceiling": 15300
+  },
+  "station_count": 8,
+  "commits": [],
+  "tests": [
+    "focused: 104 passed, 6 warnings",
+    "controlled status cost measurement: passed"
+  ],
+  "operator_interventions": 0,
+  "retries": 0,
+  "rollbacks": 0,
+  "cost_evidence": {
+    "legacy_status_probe_calls": "domain_and_provider_diagnostics_plus_inventory_reads",
+    "minimal_status_probe_calls": 0,
+    "detailed_status_probe_calls": 0,
+    "minimal_payload_bytes": 255,
+    "detailed_payload_bytes": 801,
+    "minimal_collections": 0,
+    "detailed_components": 4,
+    "external_calls": 0,
+    "mutations": 0,
+    "runtime_metrics_unchanged": true,
+    "session_events_unchanged": true,
+    "legacy_payload_bytes": "NOT_MEASURED_DIRECTLY_LEGACY_ROUTE_REQUIRED_PROVIDER_AND_DOMAIN_SETUP"
+  },
+  "full_suite_attempts": [],
+  "quota": {
+    "pre_prompt_reference": {
+      "five_hour_remaining_percent": 85,
+      "weekly_remaining_percent": 24,
+      "source": "OWNER_UI_SCREENSHOT"
+    },
+    "final_observation": "END_QUOTA_EXTERNAL_OPERATOR_EVIDENCE_REQUIRED"
+  }
+}
