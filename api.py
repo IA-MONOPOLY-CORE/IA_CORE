@@ -87,6 +87,19 @@ from core.protected_memory_schema import (
     build_audit_payload,
     build_metadata_payload,
 )
+from core.protected_logs_access import (
+    LOG_READ_CAPABILITY,
+    PROTECTED_LOGS_CONTRACT_VERSION,
+    require_protected_logs_access,
+    resolve_protected_logs_principal,
+)
+from core.protected_logs_schema import (
+    DEFAULT_LOG_LIMIT,
+    MAX_LOG_LIMIT,
+    build_events_payload,
+    build_summary_payload,
+    read_bounded_log_events,
+)
 
 
 # ========================================================================
@@ -379,15 +392,6 @@ def _track_orchestration(result: Any) -> None:
     runtime_metrics["last_orchestration_ms"] = round(
         float(getattr(result, "duration_ms", 0) or 0), 1
     )
-
-
-def _tail_log(path: Path, lines: int) -> list[str]:
-    if not path.exists():
-        return []
-    try:
-        return path.read_text(encoding="utf-8", errors="replace").splitlines()[-lines:]
-    except OSError:
-        return []
 
 
 def _provider_status(provider: Any) -> dict[str, Any]:
@@ -738,21 +742,78 @@ async def get_memory_snapshot(
         ) from None
 
 
+def _logs_query_error(message: str) -> HTTPException:
+    return HTTPException(
+        status_code=400,
+        detail={
+            "code": "LOG_QUERY_INVALID",
+            "status": 400,
+            "message": message,
+            "contract_version": PROTECTED_LOGS_CONTRACT_VERSION,
+        },
+    )
+
+
+def _logs_service_error() -> HTTPException:
+    return HTTPException(
+        status_code=503,
+        detail={
+            "code": "LOG_SERVICE_UNAVAILABLE",
+            "status": 503,
+            "message": "Los logs protegidos no están disponibles.",
+            "contract_version": PROTECTED_LOGS_CONTRACT_VERSION,
+        },
+    )
+
+
 @app.get("/api/logs")
-async def get_logs(lines: int = 80) -> dict:
-    lines = max(20, min(lines, 500))
+async def get_logs(
+    request: Request,
+    view: str | None = None,
+    limit: str | None = None,
+) -> dict:
+    allowed_query = {"view", "limit", "tenant_id"}
+    if any(key not in allowed_query for key in request.query_params):
+        raise _logs_query_error("Selector de logs no reconocido.")
+    selected_view = view if view is not None else request.query_params.get("view") or "summary"
+    if selected_view not in {"summary", "events"}:
+        raise _logs_query_error("Vista de logs no reconocida.")
+    raw_limit = limit if limit is not None else request.query_params.get("limit")
+    if raw_limit is None:
+        selected_limit = DEFAULT_LOG_LIMIT
+    else:
+        try:
+            selected_limit = int(raw_limit)
+        except (TypeError, ValueError):
+            raise _logs_query_error("El límite de logs no es válido.") from None
+        if selected_limit < 1 or selected_limit > MAX_LOG_LIMIT:
+            raise _logs_query_error("El límite de logs no es válido.")
+    principal = resolve_protected_logs_principal()
+    require_protected_logs_access(principal, view=selected_view)
+    if "tenant_id" in request.query_params:
+        # A client selector cannot establish tenant ownership or isolation.
+        raise HTTPException(
+            status_code=404,
+            detail={
+                "code": "LOG_SCOPE_UNAVAILABLE",
+                "status": 404,
+                "message": "El alcance de logs no está disponible.",
+                "contract_version": PROTECTED_LOGS_CONTRACT_VERSION,
+            },
+        )
+
     log_path = config.LOG_DIR / "api.log"
-    content = _tail_log(log_path, lines)
-    warnings = [line for line in content if "WARNING" in line]
-    errors = [line for line in content if "ERROR" in line]
-    return {
-        "path": str(log_path),
-        "requested_lines": lines,
-        "lines": content,
-        "warnings": warnings[-50:],
-        "errors": errors[-50:],
-        "events": session_events[-50:],
-    }
+    events, available, degraded = read_bounded_log_events(
+        log_path,
+        limit=selected_limit,
+        session_entries=session_events[-MAX_LOG_LIMIT:],
+    )
+    if not available:
+        raise _logs_service_error()
+    status = "degraded" if degraded else "available"
+    if selected_view == "summary":
+        return build_summary_payload(events, status=status)
+    return build_events_payload(events, status=status)
 
 
 @app.get("/api/metrics/dynamic")
