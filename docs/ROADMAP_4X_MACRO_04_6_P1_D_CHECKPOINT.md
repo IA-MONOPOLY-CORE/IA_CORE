@@ -36,7 +36,7 @@ NODE_CHECK: PASS
 JSON_PARSE: PASS - 268 files
 GIT_DIFF_CHECK: PASS
 PROTECTED_DIFF: EMPTY
-``` 
+```
 
 The first Level A attempt had three historical bookkeeping failures when
 current P1-D modules appeared in prior allowlists. The nominal adapter repair
