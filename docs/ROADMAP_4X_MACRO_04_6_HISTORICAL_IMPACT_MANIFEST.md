@@ -75,9 +75,18 @@ secrets/
 ## Gate status
 
 ```text
-HISTORICAL_IMPACT_GATE: PENDING
+HISTORICAL_IMPACT_GATE: PASS
+HISTORICAL_GATE_STARTED_AT: 2026-09-16T21:48:19.1410853-03:00
+HISTORICAL_GATE_COMPLETED_AT: 2026-09-16T21:49:20.2817870-03:00
+HISTORICAL_GATE_RESULT: 191 passed, 0 failed, 5 warnings
 ASSERTIONS_REMOVED: NO
 BROAD_GLOBS_ADDED: NO
 WORKING_TREE_SUBSTITUTION_FOR_HISTORY: NO
-UNCLASSIFIED_HISTORICAL_FAILURES: PENDING
+UNCLASSIFIED_HISTORICAL_FAILURES: 0
 ```
+
+The initial Level A run exposed three bookkeeping-only allowlist failures in
+04.3, 04.4, and 04.5 because current P1-D modules were untracked while the
+cohort was running. The adapter added only nominal P1-D module entries to its
+documentary filter and preserved every historical assertion. The rerun was
+green; no productive regression was found.

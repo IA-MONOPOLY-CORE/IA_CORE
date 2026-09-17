@@ -56,3 +56,30 @@ reset timestamp.
 `VALIDATION_BASIS` may be created only after P1-D focal tests, affected
 historical tests, P1 family preservation tests, static checks, and the
 protected-diff check are green.
+
+## Validation basis evidence
+
+```text
+VALIDATION_BASIS_STATUS: FOCAL_GREEN_HISTORICAL_COHORT_GREEN_LEVEL_A_GREEN
+FOCAL_FINAL: 37 passed, 0 failed, 5 warnings
+LEVEL_A_STARTED_AT: 2026-09-16T21:47:04.0469924-03:00
+LEVEL_A_COMPLETED_AT: 2026-09-16T21:48:03.7965589-03:00
+LEVEL_A_WALL_SECONDS: 59.7495665
+LEVEL_A: 167 passed, 0 failed, 5 warnings
+HISTORICAL_GATE_STARTED_AT: 2026-09-16T21:48:19.1410853-03:00
+HISTORICAL_GATE_COMPLETED_AT: 2026-09-16T21:49:20.2817870-03:00
+HISTORICAL_GATE_WALL_SECONDS: 61.1407017
+HISTORICAL_GATE: 191 passed, 0 failed, 5 warnings
+PY_COMPILE: PASS
+NODE_CHECK: PASS
+JSON_PARSE: PASS - 268 files including two P1-D evidence files
+SYNTHETIC_PAYLOAD_BYTES: 413
+GIT_DIFF_CHECK: PASS
+PROTECTED_DIFF: EMPTY
+```
+
+The first Level A attempt had three historical bookkeeping failures because
+the current P1-D modules appeared in prior allowlists. The nominal adapter
+repair was applied, and the complete Level A cohort was rerun successfully.
+No production regression, assertion removal, broad glob, or protected-surface
+change was introduced.

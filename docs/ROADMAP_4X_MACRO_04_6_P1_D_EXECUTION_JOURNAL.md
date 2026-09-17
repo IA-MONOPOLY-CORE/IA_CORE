@@ -89,3 +89,62 @@ AGGREGATION_SCOPE: UNKNOWN_DEFAULT_DENY
 RETENTION: FUTURE_CONTRACT_ONLY
 EXTERNAL_CONSUMER: EXTERNAL_EVIDENCE_REQUIRED
 ```
+
+## Focal and pre-Level-B evidence
+
+```text
+FOCAL_FINAL: PASS - 37 passed, 0 failed, 5 warnings
+SYNTHETIC_PAYLOAD_BYTES: 413
+PY_COMPILE: PASS
+NODE_CHECK: PASS
+JSON_PARSE: PASS - 268 files including current P1-D evidence JSON files
+GIT_DIFF_CHECK: PASS
+PROTECTED_DIFF: EMPTY
+```
+
+The first P1-D test collection stopped on a test-file syntax error. After the
+single bracket repair, the first complete focal run exposed three documentation
+or expectation mismatches: the audience string contains `private`, both
+contract documents lacked one required literal marker, and the checkpoint guard
+was asserting final status during `IN_PROGRESS`. Those were corrected without
+changing product logic or weakening a security assertion. The subsequent focal
+run passed.
+
+## Historical Impact Gate
+
+```text
+HISTORICAL_GATE_STARTED_AT: 2026-09-16T21:48:19.1410853-03:00
+HISTORICAL_GATE_COMPLETED_AT: 2026-09-16T21:49:20.2817870-03:00
+HISTORICAL_GATE_WALL_SECONDS: 61.1407017
+HISTORICAL_GATE_RESULT: PASS - 191 passed, 0 failed, 5 warnings
+ASSERTIONS_REMOVED: NO
+BROAD_GLOBS_ADDED: NO
+UNCLASSIFIED_HISTORICAL_FAILURES: 0
+```
+
+The gate required the P1-D nominal adapter to filter the two current P1-D
+modules from earlier 04.3, 04.4, and 04.5 untracked-file allowlists. P1-C was
+also mapped to its published `e9089eb...` checkpoint. Historical snapshots
+remain checkpoint-specific and all assertions were preserved.
+
+## Level A
+
+```text
+LEVEL_A_STARTED_AT: 2026-09-16T21:47:04.0469924-03:00
+LEVEL_A_COMPLETED_AT: 2026-09-16T21:48:03.7965589-03:00
+LEVEL_A_WALL_SECONDS: 59.7495665
+LEVEL_A_RESULT: PASS - 167 passed, 0 failed, 5 warnings
+```
+
+The first Level A run had three historical bookkeeping failures. It was not
+accepted as validation evidence. After the nominal adapter repair, the entire
+cohort was rerun and the second run is the accepted Level A result.
+
+## Validation basis
+
+```text
+VALIDATION_BASIS: READY_AFTER_HISTORICAL_GATE
+P1_D_FOCAL: PASS
+P1_FAMILY_PRESERVATION: PASS
+STATIC_VALIDATION: PASS
+```
