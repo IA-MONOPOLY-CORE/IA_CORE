@@ -7,7 +7,7 @@ MISSION: ROADMAP_4X_MACRO_04_6
 SUBFAMILY: P1-D_PROTECTED_DYNAMIC_METRICS
 BASELINE: e9089eb1ad04ca0bca0d6b9806bca151c487e74e
 BRANCH: main
-STATUS: CLOSED_PUBLISHED_PENDING_EVIDENCE_SYNC
+STATUS: CLOSED_PUBLISHED
 ```
 
 ## Accountable stations
@@ -22,7 +22,7 @@ STATUS: CLOSED_PUBLISHED_PENDING_EVIDENCE_SYNC
 | 6 | `683235b8840fb87ed520d1c1f226034dff339148` | Validation basis | Focal, historical, Level A, static, and protected-diff evidence |
 | 7 | `71a9650695fbbdb71d7ef42c4c8636101a99098c` | Final closure | Checkpoint, evidence JSON, ledger, execution metric, and final closure records |
 | 8 | `25dc4e4a8218f8928f77fdbb1d3d1f4d3983a223` | Documentation normalization | Remove checkpoint trailing whitespace and preserve clean diff |
-| 9 | `PENDING_PRE_COMMIT` | Publication evidence sync | Final push/fetch timestamps and post-publication repository state |
+| 9 | `5badb804c7dba47129496278d8bdb13fe49d194a` | Publication evidence sync | Final push/fetch timestamps and post-publication repository state |
 
 Commit subjects are intentionally one station per normal commit. The final
 closure hash is recorded by the post-publication evidence-sync commit after
@@ -71,5 +71,9 @@ HEAD_EQ_ORIGIN_MAIN: PASS
 AHEAD_BEHIND: 0/0
 WORKTREE_CLEAN: PASS
 GIT_DIFF_CHECK: PASS
-EVIDENCE_SYNC: PENDING_PRE_COMMIT
+EVIDENCE_SYNC: PASS
+EVIDENCE_SYNC_PUSH_EXIT_CODE: 0
+FINAL_HEAD_BEFORE_DOCUMENTARY_LOCK: 5badb804c7dba47129496278d8bdb13fe49d194a
+FINAL_FETCH_COMPLETED_AT: 2026-09-16T22:30:30.6012756-03:00
+DOCUMENTARY_LOCK: FINAL_DOCUMENTARY_RECORDING_COMMIT
 ```

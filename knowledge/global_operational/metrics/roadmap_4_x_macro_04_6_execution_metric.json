@@ -67,11 +67,25 @@
   "publication": {
     "status": "PASS",
     "published_head_before_evidence_sync": "25dc4e4a8218f8928f77fdbb1d3d1f4d3983a223",
+    "evidence_sync_commit": "5badb804c7dba47129496278d8bdb13fe49d194a",
+    "evidence_sync_commit": "5badb804c7dba47129496278d8bdb13fe49d194a",
     "push_started_at": "2026-09-16T22:27:54.3968853-03:00",
     "push_completed_at": "2026-09-16T22:27:57.0096547-03:00",
     "push_wall_seconds": 2.6127694,
     "push_exit_code": 0,
     "fetch_completed_at": "2026-09-16T22:27:57.8638784-03:00",
+    "evidence_sync_push_started_at": "2026-09-16T22:30:27.5426560-03:00",
+    "evidence_sync_push_completed_at": "2026-09-16T22:30:29.7607524-03:00",
+    "evidence_sync_push_wall_seconds": 2.2180964,
+    "evidence_sync_push_exit_code": 0,
+    "final_fetch_completed_at": "2026-09-16T22:30:30.6012756-03:00",
+    "final_head_before_documentary_lock": "5badb804c7dba47129496278d8bdb13fe49d194a",
+    "evidence_sync_push_started_at": "2026-09-16T22:30:27.5426560-03:00",
+    "evidence_sync_push_completed_at": "2026-09-16T22:30:29.7607524-03:00",
+    "evidence_sync_push_wall_seconds": 2.2180964,
+    "evidence_sync_push_exit_code": 0,
+    "final_fetch_completed_at": "2026-09-16T22:30:30.6012756-03:00",
+    "final_head_before_documentary_lock": "5badb804c7dba47129496278d8bdb13fe49d194a",
     "head_eq_origin_main": true,
     "ahead": 0,
     "behind": 0,
@@ -114,7 +128,7 @@
     {"order": 6, "hash": "683235b8840fb87ed520d1c1f226034dff339148", "subject": "chore(validation): establish p1-d validation basis"},
     {"order": 7, "hash": "71a9650695fbbdb71d7ef42c4c8636101a99098c", "subject": "docs(metrics): close p1-d checkpoint"},
     {"order": 8, "hash": "25dc4e4a8218f8928f77fdbb1d3d1f4d3983a223", "subject": "chore(validation): normalize p1-d checkpoint"},
-    {"order": 9, "hash": "PENDING_PRE_COMMIT", "subject": "docs(metrics): record p1-d publication verification"}
+    {"order": 9, "hash": "5badb804c7dba47129496278d8bdb13fe49d194a", "subject": "docs(metrics): record p1-d publication verification"}
   ],
-  "publication_status": "PUBLISHED_PENDING_EVIDENCE_SYNC"
+  "publication_status": "PUBLISHED"
 }
