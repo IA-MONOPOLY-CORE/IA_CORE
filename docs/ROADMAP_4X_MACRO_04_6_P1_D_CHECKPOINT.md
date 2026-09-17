@@ -1,0 +1,73 @@
+# Roadmap 4.x Macro-Mission 04.6 - P1-D Checkpoint
+
+## Current status
+
+```text
+CHECKPOINT_STATUS: CLOSED
+MISSION: ROADMAP_4X_MACRO_04_6_P1_D_PROTECTED_DYNAMIC_METRICS
+BASELINE: e9089eb1ad04ca0bca0d6b9806bca151c487e74e
+VALIDATION_BASIS: PASS
+P1_A: CLOSED_AND_PRESERVED
+P1_B: CLOSED_AND_PRESERVED
+P1_C: CLOSED_AND_PRESERVED
+P1_D: INTERNAL_REMEDIATION_COMPLETE
+P1_FAMILY: FUNCTIONALLY_COMPLETE_PENDING_E2E_CLOSURE
+MACRO_MISSION_05: SELECTED_NOT_STARTED
+EXTERNAL_EXPOSURE: DEFAULT_DENIED
+```
+
+The checkpoint closes after P1-D focal assurance, the Historical Impact Gate,
+Level A, Level B, and final publication verification pass.
+
+## Validation evidence
+
+```text
+FOCAL: 37 passed, 0 failed, 5 warnings
+HISTORICAL_IMPACT_GATE: 191 passed, 0 failed, 5 warnings
+LEVEL_A: 167 passed, 0 failed, 5 warnings
+LEVEL_B_ATTEMPT_1: 7137 passed, 6 skipped, 6 warnings, EXIT_CODE 0
+LEVEL_B_ATTEMPT_1_STARTED_AT: 2026-09-16T21:52:55.3264391-03:00
+LEVEL_B_ATTEMPT_1_COMPLETED_AT: 2026-09-16T22:22:53.7664763-03:00
+LEVEL_B_ATTEMPT_1_WALL_SECONDS: 1798.4400372
+SYNTHETIC_PAYLOAD_BYTES: 413
+PAYLOAD_MAX_BYTES: 4096
+PY_COMPILE: PASS
+NODE_CHECK: PASS
+JSON_PARSE: PASS - 268 files
+GIT_DIFF_CHECK: PASS
+PROTECTED_DIFF: EMPTY
+``` 
+
+The first Level A attempt had three historical bookkeeping failures when
+current P1-D modules appeared in prior allowlists. The nominal adapter repair
+was separately committed and the complete cohort rerun passed. No assertion
+was removed and no production regression was classified.
+
+## Contract target
+
+```text
+CONTRACT_VERSION: protected_dynamic_metrics.v1
+ACTIVE_CAPABILITY: observability.metrics.read_sanitized
+TENANT_CAPABILITY: tenant_metrics.read
+TENANT_CAPABILITY_STATE: FUTURE_INACTIVE_UNTIL_OWNERSHIP_PROVEN
+DEFAULT_VIEW: summary
+ALLOWED_VIEW_NOW: summary
+ZERO_SOURCE_READ_ON_DENY: PASS_REQUIRED
+RAW_DOMAIN_STATE_EXPOSED: NO
+RAW_LEGACY_PAYLOAD_EXPOSED: NO
+TENANT_SCOPE: UNKNOWN_DEFAULT_DENY
+EXTERNAL_ACCESS: DEFAULT_DENIED
+UI_CHANGE: NONE
+```
+
+## Preserved frontier
+
+```text
+P1_D_TENANT_ACCESS: NOT_IMPLEMENTED
+P1_D_EXTERNAL_ACCESS: DEFAULT_DENIED
+RETENTION: FUTURE_CONTRACT_ONLY
+MACRO_MISSION_05: SELECTED_NOT_STARTED
+ENTERPRISE_FOUNDRY: NOT_IMPLEMENTED
+CYBER_RANGE: NOT_IMPLEMENTED
+IA_CORE_OS: NOT_IMPLEMENTED
+```

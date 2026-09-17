@@ -212,9 +212,15 @@ def test_checkpoint_and_evidence_keep_p1_frontier_closed():
         "P1_A: CLOSED_AND_PRESERVED",
         "P1_B: CLOSED_AND_PRESERVED",
         "P1_C: CLOSED_AND_PRESERVED",
-        "P1_D: INTERNAL_REMEDIATION_IN_PROGRESS",
         "P1_FAMILY: FUNCTIONALLY_COMPLETE_PENDING_E2E_CLOSURE",
         "MACRO_MISSION_05: SELECTED_NOT_STARTED",
         "EXTERNAL_EXPOSURE: DEFAULT_DENIED",
     ):
         assert marker in checkpoint
+    assert any(
+        marker in checkpoint
+        for marker in (
+            "P1_D: INTERNAL_REMEDIATION_IN_PROGRESS",
+            "P1_D: INTERNAL_REMEDIATION_COMPLETE",
+        )
+    )

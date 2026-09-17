@@ -148,3 +148,53 @@ P1_D_FOCAL: PASS
 P1_FAMILY_PRESERVATION: PASS
 STATIC_VALIDATION: PASS
 ```
+
+## Level B
+
+```text
+LEVEL_B_ATTEMPT_1_STARTED_AT: 2026-09-16T21:52:55.3264391-03:00
+LEVEL_B_ATTEMPT_1_COMPLETED_AT: 2026-09-16T22:22:53.7664763-03:00
+LEVEL_B_ATTEMPT_1_WALL_SECONDS: 1798.4400372
+LEVEL_B_ATTEMPT_1_RESULT: PASS - 7137 passed, 6 skipped, 6 warnings
+LEVEL_B_ATTEMPT_1_EXIT_CODE: 0
+LEVEL_B_ATTEMPT_1_PROCESS_SECONDS: UNKNOWN
+LEVEL_B_ATTEMPTS_TOTAL: 1
+INTERRUPTIONS: 0
+```
+
+The full suite completed without a failure or repair. The six warnings are
+known deprecations from FastAPI `on_event`, Starlette request cookies, and the
+OpenTelemetry importlib metadata interface. The six skips are pre-existing
+conditional tests and were not introduced by P1-D.
+
+## Timing reconciliation
+
+```text
+MISSION_ACCEPTED_AT: 2026-09-16T21:29:12.4365419-03:00
+PREFLIGHT_COMPLETED_AT: 2026-09-16T21:29:13.4563461-03:00
+ELAPSED_ACCEPTANCE_TO_LEVEL_B_SECONDS: 3221.3299344
+ELAPSED_ACCEPTANCE_TO_LEVEL_B_HUMAN: 53 min 41.3299344 sec
+LEVEL_B_SHARE_OF_ELAPSED_TO_LEVEL_B_PERCENT: 55.8291164
+FORECAST_CENTRAL_SECONDS: 5400
+FORECAST_CENTRAL_VARIANCE_SECONDS: -2178.6700656
+FORECAST_CENTRAL_VARIANCE_PERCENT: -40.345742
+EXPECTED_FLOOR_VARIANCE_SECONDS: -678.6700656
+CONTINGENCY_CEILING_SECONDS: 10800
+```
+
+The measured duration through Level B is below the pre-execution range. The
+main observable reason for the long wall time inside Level B is the repository
+wide historical and integration coverage, including a small number of slow
+tests. Full post-publication duration is recorded in the final evidence-sync
+station; active time beyond Level B is otherwise `UNKNOWN` until measured.
+
+## Closure readiness
+
+```text
+CHECKPOINT_STATUS: CLOSED_PENDING_PUBLICATION_VERIFICATION
+VALIDATION_BASIS: PASS
+FUNCTIONAL_PUBLICATION_TIME: PENDING_NORMAL_PUSH
+DOCUMENTARY_CLOSURE_TIME: PENDING_CLOSURE_COMMIT_TIMESTAMP
+OPERATOR_VISIBLE_COMPLETION_TIME: UNKNOWN_EXTERNAL_OPERATOR_EVIDENCE_REQUIRED
+FINAL_RESULT: READY_FOR_NORMAL_PUSH
+```

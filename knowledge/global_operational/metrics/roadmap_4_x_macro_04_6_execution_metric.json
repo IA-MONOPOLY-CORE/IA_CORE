@@ -1,0 +1,102 @@
+{
+  "metric_id": "roadmap_4_x_macro_04_6_execution_metric",
+  "mission": "ROADMAP_4X_MACRO_04_6",
+  "subfamily": "P1-D_PROTECTED_DYNAMIC_METRICS",
+  "status": "CLOSED_PENDING_PUBLICATION_VERIFICATION",
+  "mission_accepted_at": "2026-09-16T21:29:12.4365419-03:00",
+  "mission_started_at": "2026-09-16T21:29:12.4365419-03:00",
+  "preflight_completed_at": "2026-09-16T21:29:13.4563461-03:00",
+  "baseline": "e9089eb1ad04ca0bca0d6b9806bca151c487e74e",
+  "forecast": {
+    "version": "PRE_EXECUTION_V1",
+    "central_seconds": 5400,
+    "expected_range_seconds": "3900-7800",
+    "ceiling_seconds": 10800
+  },
+  "three_clocks": {
+    "functional_publication_time": "PENDING_PUBLICATION_PUSH",
+    "documentary_closure_time": "PENDING_CLOSURE_COMMIT_TIMESTAMP",
+    "operator_visible_completion_time": "UNKNOWN_EXTERNAL_OPERATOR_EVIDENCE_REQUIRED"
+  },
+  "level_a": {
+    "status": "PASS",
+    "result": "167 passed, 0 failed, 5 warnings",
+    "started_at": "2026-09-16T21:47:04.0469924-03:00",
+    "completed_at": "2026-09-16T21:48:03.7965589-03:00",
+    "wall_seconds": 59.7495665
+  },
+  "historical_impact_gate": {
+    "status": "PASS",
+    "result": "191 passed, 0 failed, 5 warnings",
+    "started_at": "2026-09-16T21:48:19.1410853-03:00",
+    "completed_at": "2026-09-16T21:49:20.2817870-03:00",
+    "wall_seconds": 61.1407017,
+    "assertions_removed": false,
+    "broad_globs_added": false,
+    "working_tree_substitution_for_history": false,
+    "unclassified_failures": 0
+  },
+  "level_b_attempts": [
+    {
+      "attempt": 1,
+      "status": "PASS",
+      "result": "7137 passed, 6 skipped, 6 warnings",
+      "started_at": "2026-09-16T21:52:55.3264391-03:00",
+      "completed_at": "2026-09-16T22:22:53.7664763-03:00",
+      "wall_seconds": 1798.4400372,
+      "process_seconds": "UNKNOWN",
+      "exit_code": 0,
+      "cause": null,
+      "repair": null
+    }
+  ],
+  "payload_bytes_synthetic_fixture": 413,
+  "payload_max_bytes": 4096,
+  "elapsed_from_acceptance_to_level_b_seconds": 3221.3299344,
+  "elapsed_from_acceptance_to_level_b_human": "53 min 41.3299344 sec",
+  "level_b_share_of_elapsed_to_level_b_percent": 55.8291164,
+  "forecast_comparison": {
+    "central_variance_seconds": -2178.6700656,
+    "central_variance_percent": -40.345742,
+    "below_expected_floor_seconds": 678.6700656,
+    "ceiling_remaining_seconds": 7578.6700656,
+    "interpretation": "BELOW_FORECAST_RANGE_AT_LEVEL_B_COMPLETION"
+  },
+  "interruption_count": 0,
+  "active_time_measurement": "WALL_CLOCK_MEASURED_TO_LEVEL_B; FULL_POST_PUBLICATION_ACTIVE_TIME_PENDING",
+  "quota": {
+    "pre_mission_weekly_reset_observed_by_operator": "NO_RESET_REPORTED_BEFORE_MISSION",
+    "start_5h_quota_remaining": "UNKNOWN",
+    "end_5h_quota_remaining": "UNKNOWN",
+    "start_weekly_quota_remaining": "UNKNOWN",
+    "end_weekly_quota_remaining": "UNKNOWN",
+    "reset_occurred_during_mission": "UNKNOWN",
+    "quota_delta_5h": "UNKNOWN",
+    "quota_delta_weekly": "UNKNOWN",
+    "measurement_source": "EXTERNAL_OPERATOR_STATEMENT_AND_LOCAL_REPOSITORY",
+    "measurement_quality": "PARTIAL"
+  },
+  "gokv_dool_oci": {
+    "total_items": 38,
+    "validated": 9,
+    "candidate": 22,
+    "promoted": 7,
+    "development_origin": "ALL",
+    "new_candidate": "NO_NEW_CANDIDATE",
+    "new_promotion": "NONE",
+    "new_write": "NONE",
+    "new_event": "NONE",
+    "new_pack": "NONE",
+    "oci_runtime_activation": "NONE"
+  },
+  "commits": [
+    {"order": 1, "hash": "8da0288214c972874e2107b8eb19c42d2bab3b20", "subject": "docs(metrics): establish p1-d truth and contract"},
+    {"order": 2, "hash": "8c6a43f226c55d51cf03de4b0ebed7171214ee6f", "subject": "feat(metrics): add protected dynamic metrics boundary"},
+    {"order": 3, "hash": "6f72c1de4bd62067fca9db507e2ce3d9878c7117", "subject": "feat(metrics): protect dynamic metrics route"},
+    {"order": 4, "hash": "e1e7f60c83bb0b7bb39df0d83c0ec9f52e698075", "subject": "test(metrics): add p1-d adversarial assurance"},
+    {"order": 5, "hash": "5a97fb3dec8abc139ac64463c0669b01ca288fd9", "subject": "test(history): isolate p1-d checkpoint artifacts"},
+    {"order": 6, "hash": "683235b8840fb87ed520d1c1f226034dff339148", "subject": "chore(validation): establish p1-d validation basis"},
+    {"order": 7, "hash": "PENDING_PRE_COMMIT", "subject": "docs(metrics): close p1-d checkpoint"}
+  ],
+  "publication": "READY_FOR_NORMAL_PUSH"
+}
