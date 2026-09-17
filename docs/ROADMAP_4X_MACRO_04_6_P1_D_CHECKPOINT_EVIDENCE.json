@@ -74,5 +74,27 @@
     "measurement_quality": "PARTIAL"
   },
   "commits": [],
-  "publication": "PENDING"
+  "three_clocks": {
+    "functional_publication_time": "2026-09-16T22:27:57.0096547-03:00",
+    "documentary_closure_time": "2026-09-16T22:26:56-03:00",
+    "operator_visible_completion_time": "UNKNOWN_EXTERNAL_OPERATOR_EVIDENCE_REQUIRED"
+  },
+  "elapsed_from_acceptance_to_level_b_seconds": 3221.3299344,
+  "elapsed_from_acceptance_to_publication_verification_seconds": 3525.4273365,
+  "elapsed_from_acceptance_to_publication_verification_human": "58 min 45.4273365 sec",
+  "interruption_count": 0,
+  "publication": {
+    "status": "PASS",
+    "published_head_before_evidence_sync": "25dc4e4a8218f8928f77fdbb1d3d1f4d3983a223",
+    "push_started_at": "2026-09-16T22:27:54.3968853-03:00",
+    "push_completed_at": "2026-09-16T22:27:57.0096547-03:00",
+    "push_wall_seconds": 2.6127694,
+    "push_exit_code": 0,
+    "fetch_completed_at": "2026-09-16T22:27:57.8638784-03:00",
+    "head_eq_origin_main": true,
+    "ahead": 0,
+    "behind": 0,
+    "working_tree_clean": true,
+    "git_diff_check": "PASS"
+  }
 }

@@ -198,3 +198,23 @@ DOCUMENTARY_CLOSURE_TIME: PENDING_CLOSURE_COMMIT_TIMESTAMP
 OPERATOR_VISIBLE_COMPLETION_TIME: UNKNOWN_EXTERNAL_OPERATOR_EVIDENCE_REQUIRED
 FINAL_RESULT: READY_FOR_NORMAL_PUSH
 ```
+
+## Publication
+
+```text
+PUSH_STARTED_AT: 2026-09-16T22:27:54.3968853-03:00
+PUSH_COMPLETED_AT: 2026-09-16T22:27:57.0096547-03:00
+PUSH_WALL_SECONDS: 2.6127694
+PUSH_EXIT_CODE: 0
+FETCH_COMPLETED_AT: 2026-09-16T22:27:57.8638784-03:00
+PUBLISHED_HEAD_BEFORE_EVIDENCE_SYNC: 25dc4e4a8218f8928f77fdbb1d3d1f4d3983a223
+HEAD_EQ_ORIGIN_MAIN: PASS
+AHEAD_BEHIND: 0/0
+WORKTREE_CLEAN: PASS
+```
+
+The normal publication succeeded without pull, merge, rebase, reset, tag,
+force push, or history rewrite. The measured elapsed time from mission
+acceptance through post-publication fetch verification is `3525.4273365`
+seconds, or `58 min 45.4273365 sec`. Operator-visible completion remains
+`UNKNOWN` because no external operator timestamp is observable.

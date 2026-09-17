@@ -7,7 +7,7 @@ MISSION: ROADMAP_4X_MACRO_04_6
 SUBFAMILY: P1-D_PROTECTED_DYNAMIC_METRICS
 BASELINE: e9089eb1ad04ca0bca0d6b9806bca151c487e74e
 BRANCH: main
-STATUS: CLOSED_PENDING_PUBLICATION_VERIFICATION
+STATUS: CLOSED_PUBLISHED_PENDING_EVIDENCE_SYNC
 ```
 
 ## Accountable stations
@@ -20,7 +20,9 @@ STATUS: CLOSED_PENDING_PUBLICATION_VERIFICATION
 | 4 | `e1e7f60c83bb0b7bb39df0d83c0ec9f52e698075` | Adversarial assurance | P1-D denial, no-read, payload, side-effect, and preservation coverage |
 | 5 | `5a97fb3dec8abc139ac64463c0669b01ca288fd9` | Historical gate repair | Nominal checkpoint adapter and historical impact isolation |
 | 6 | `683235b8840fb87ed520d1c1f226034dff339148` | Validation basis | Focal, historical, Level A, static, and protected-diff evidence |
-| 7 | `PENDING_PRE_COMMIT` | Final closure | Checkpoint, evidence JSON, ledger, execution metric, and final closure records |
+| 7 | `71a9650695fbbdb71d7ef42c4c8636101a99098c` | Final closure | Checkpoint, evidence JSON, ledger, execution metric, and final closure records |
+| 8 | `25dc4e4a8218f8928f77fdbb1d3d1f4d3983a223` | Documentation normalization | Remove checkpoint trailing whitespace and preserve clean diff |
+| 9 | `PENDING_PRE_COMMIT` | Publication evidence sync | Final push/fetch timestamps and post-publication repository state |
 
 Commit subjects are intentionally one station per normal commit. The final
 closure hash is recorded by the post-publication evidence-sync commit after
@@ -59,3 +61,15 @@ outside this ledger.
 
 No force push, pull, merge, rebase, reset, tag, history rewrite, or protected-
 surface modification was used or authorized.
+
+## Publication evidence
+
+```text
+PUBLISHED_HEAD_BEFORE_EVIDENCE_SYNC: 25dc4e4a8218f8928f77fdbb1d3d1f4d3983a223
+PUSH_EXIT_CODE: 0
+HEAD_EQ_ORIGIN_MAIN: PASS
+AHEAD_BEHIND: 0/0
+WORKTREE_CLEAN: PASS
+GIT_DIFF_CHECK: PASS
+EVIDENCE_SYNC: PENDING_PRE_COMMIT
+```

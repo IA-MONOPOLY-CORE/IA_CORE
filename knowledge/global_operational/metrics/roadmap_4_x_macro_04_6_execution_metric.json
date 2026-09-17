@@ -2,7 +2,7 @@
   "metric_id": "roadmap_4_x_macro_04_6_execution_metric",
   "mission": "ROADMAP_4X_MACRO_04_6",
   "subfamily": "P1-D_PROTECTED_DYNAMIC_METRICS",
-  "status": "CLOSED_PENDING_PUBLICATION_VERIFICATION",
+  "status": "CLOSED",
   "mission_accepted_at": "2026-09-16T21:29:12.4365419-03:00",
   "mission_started_at": "2026-09-16T21:29:12.4365419-03:00",
   "preflight_completed_at": "2026-09-16T21:29:13.4563461-03:00",
@@ -14,8 +14,8 @@
     "ceiling_seconds": 10800
   },
   "three_clocks": {
-    "functional_publication_time": "PENDING_PUBLICATION_PUSH",
-    "documentary_closure_time": "PENDING_CLOSURE_COMMIT_TIMESTAMP",
+    "functional_publication_time": "2026-09-16T22:27:57.0096547-03:00",
+    "documentary_closure_time": "2026-09-16T22:26:56-03:00",
     "operator_visible_completion_time": "UNKNOWN_EXTERNAL_OPERATOR_EVIDENCE_REQUIRED"
   },
   "level_a": {
@@ -62,8 +62,24 @@
     "ceiling_remaining_seconds": 7578.6700656,
     "interpretation": "BELOW_FORECAST_RANGE_AT_LEVEL_B_COMPLETION"
   },
+  "elapsed_from_acceptance_to_publication_verification_seconds": 3525.4273365,
+  "elapsed_from_acceptance_to_publication_verification_human": "58 min 45.4273365 sec",
+  "publication": {
+    "status": "PASS",
+    "published_head_before_evidence_sync": "25dc4e4a8218f8928f77fdbb1d3d1f4d3983a223",
+    "push_started_at": "2026-09-16T22:27:54.3968853-03:00",
+    "push_completed_at": "2026-09-16T22:27:57.0096547-03:00",
+    "push_wall_seconds": 2.6127694,
+    "push_exit_code": 0,
+    "fetch_completed_at": "2026-09-16T22:27:57.8638784-03:00",
+    "head_eq_origin_main": true,
+    "ahead": 0,
+    "behind": 0,
+    "working_tree_clean": true,
+    "git_diff_check": "PASS"
+  },
   "interruption_count": 0,
-  "active_time_measurement": "WALL_CLOCK_MEASURED_TO_LEVEL_B; FULL_POST_PUBLICATION_ACTIVE_TIME_PENDING",
+  "active_time_measurement": "WALL_CLOCK_MEASURED_FROM_ACCEPTANCE_TO_PUBLICATION_VERIFICATION; OPERATOR_VISIBLE_TIME_UNKNOWN",
   "quota": {
     "pre_mission_weekly_reset_observed_by_operator": "NO_RESET_REPORTED_BEFORE_MISSION",
     "start_5h_quota_remaining": "UNKNOWN",
@@ -96,7 +112,9 @@
     {"order": 4, "hash": "e1e7f60c83bb0b7bb39df0d83c0ec9f52e698075", "subject": "test(metrics): add p1-d adversarial assurance"},
     {"order": 5, "hash": "5a97fb3dec8abc139ac64463c0669b01ca288fd9", "subject": "test(history): isolate p1-d checkpoint artifacts"},
     {"order": 6, "hash": "683235b8840fb87ed520d1c1f226034dff339148", "subject": "chore(validation): establish p1-d validation basis"},
-    {"order": 7, "hash": "PENDING_PRE_COMMIT", "subject": "docs(metrics): close p1-d checkpoint"}
+    {"order": 7, "hash": "71a9650695fbbdb71d7ef42c4c8636101a99098c", "subject": "docs(metrics): close p1-d checkpoint"},
+    {"order": 8, "hash": "25dc4e4a8218f8928f77fdbb1d3d1f4d3983a223", "subject": "chore(validation): normalize p1-d checkpoint"},
+    {"order": 9, "hash": "PENDING_PRE_COMMIT", "subject": "docs(metrics): record p1-d publication verification"}
   ],
-  "publication": "READY_FOR_NORMAL_PUSH"
+  "publication_status": "PUBLISHED_PENDING_EVIDENCE_SYNC"
 }
