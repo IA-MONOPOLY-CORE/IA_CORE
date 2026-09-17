@@ -228,3 +228,8 @@ seconds, or `58 min 45.4273365 sec`. Operator-visible completion remains
 
 The final documentary lock does not change the P1-D route, access boundary,
 schema, tests, or any protected surface.
+
+The complete operation duration through the final documentary-lock fetch is
+`3928.7453662` seconds, or `1 h 05 min 28.7453662 sec`. This is the official
+end-to-end wall-clock duration for the mission; it includes the initial
+publication, evidence sync, final lock commit, and final fetch verification.
