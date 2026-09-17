@@ -51,11 +51,13 @@ _OVERRIDES = {
     "tests/test_roadmap_4x_macro_04_1_cognitive_kernel.py": "6dd040e0985da134f18f2bc85a338aa1bf770d3f",
     "tests/test_roadmap_4x_macro_04_3_p1_a.py": "9d64eef82e8adfbd44823b84e913ade416fa956f",
     "tests/test_roadmap_4x_macro_04_4_p1_b.py": "d31e28063796b1bf8e93122b545f97f7d86bef30",
+    "tests/test_roadmap_4x_macro_04_5_p1_c.py": "e9089eb1ad04ca0bca0d6b9806bca151c487e74e",
     "tests/test_roadmap_4x_macro_04_p1_entry_review.py": "6dd040e0985da134f18f2bc85a338aa1bf770d3f",
     "tests/test_ui_ux_frontend_incongruence_hardening_1_21.py": "8d8893696d82e0307bc54d301222628e7b8b529d",
     "tests/test_ui_ux_panel_maestro_design_system_density_refinement_checkpoint_1_136.py": "dc0c1006818b5a95bfc59be39a0a2fb2fe795650",
 }
 _CURRENT_GUARD_MODULES = {
+    "tests/test_roadmap_4x_macro_04_6_p1_d.py",
 }
 _CURRENT_MISSION_CONTINUITY_GUARD_MODULES = frozenset(
     {
@@ -163,6 +165,20 @@ _CURRENT_MISSION_DOCUMENTARY_FILES = frozenset(
         "tests/test_method_santi_3_2_3.py",
         "tests/test_protected_logs_p1_c.py",
         "tests/test_roadmap_4x_macro_04_5_p1_c.py",
+        "tests/test_protected_dynamic_metrics_p1_d.py",
+        "tests/test_roadmap_4x_macro_04_6_p1_d.py",
+        "core/protected_dynamic_metrics_access.py",
+        "core/protected_dynamic_metrics_schema.py",
+        "docs/ROADMAP_4X_MACRO_04_6_P1_D_TRUTH_MATRIX.md",
+        "docs/ROADMAP_4X_MACRO_04_6_P1_D_PROTECTED_DYNAMIC_METRICS_CONTRACT.md",
+        "docs/ROADMAP_4X_MACRO_04_6_P1_D_DOMAIN_NEUTRALITY_AND_TENANT_SCOPE_FUTURE_CONTRACT.md",
+        "docs/ROADMAP_4X_MACRO_04_6_HISTORICAL_IMPACT_MANIFEST.md",
+        "docs/ROADMAP_4X_MACRO_04_6_P1_D_EXECUTION_JOURNAL.md",
+        "docs/ROADMAP_4X_MACRO_04_6_P1_D_EXECUTION_METRICS_BASELINE.md",
+        "docs/ROADMAP_4X_MACRO_04_6_P1_D_CHECKPOINT.md",
+        "docs/ROADMAP_4X_MACRO_04_6_P1_D_CHECKPOINT_EVIDENCE.json",
+        "docs/ROADMAP_4X_MACRO_04_6_P1_D_COMMIT_ACCOUNTABILITY_LEDGER.md",
+        "knowledge/global_operational/metrics/roadmap_4_x_macro_04_6_execution_metric.json",
         "knowledge/global_operational/metrics/roadmap_4_x_macro_04_5_execution_metric.json",
         "docs/ROADMAP_3_X_MACRO_03_CHECKPOINT.md",
         "docs/ROADMAP_3_X_MACRO_03_CHECKPOINT_EVIDENCE.json",
