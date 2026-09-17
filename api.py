@@ -100,6 +100,12 @@ from core.protected_logs_schema import (
     build_summary_payload,
     read_bounded_log_events,
 )
+from core.protected_dynamic_metrics_access import (
+    PROTECTED_DYNAMIC_METRICS_CONTRACT_VERSION,
+    require_protected_dynamic_metrics_access,
+    resolve_protected_dynamic_metrics_principal,
+)
+from core.protected_dynamic_metrics_schema import project_dynamic_metrics
 
 
 # ========================================================================
@@ -816,53 +822,68 @@ async def get_logs(
     return build_events_payload(events, status=status)
 
 
-@app.get("/api/metrics/dynamic")
-async def get_dynamic_metrics() -> dict:
-    loteria = _require_loteria()
-    if not evolution:
-        raise HTTPException(status_code=503, detail="EvolutionManager no disponible")
-
-    stats = evolution.get_estadisticas_ciclo()
-    azar_estructural = 22.1
-    aciertos_4 = stats.get("aciertos_4", 0)
-    sorteos_completados = stats.get("sorteos_completados", 0)
-
-    if sorteos_completados > 0:
-        porcentaje_real = (aciertos_4 / sorteos_completados) * 100
-        ventaja_actual = round(porcentaje_real / azar_estructural, 2) if azar_estructural > 0 else 0
-    else:
-        porcentaje_real = 0
-        ventaja_actual = 0
-
-    # CORRECCIÓN: get_v19_status() puede devolver bool o dict
-    v19_status_raw = (
-        loteria["get_v19_status"]() if hasattr(evolution, "_state") else {"congelado": False, "razon": ""}
+def _dynamic_metrics_query_error(message: str) -> HTTPException:
+    return HTTPException(
+        status_code=400,
+        detail={
+            "code": "DYNAMIC_METRICS_QUERY_INVALID",
+            "status": 400,
+            "message": message,
+            "contract_version": PROTECTED_DYNAMIC_METRICS_CONTRACT_VERSION,
+        },
     )
-    if isinstance(v19_status_raw, bool):
-        v19_status = {"congelado": v19_status_raw, "razon": "V19 congelado por sistema"}
-    else:
-        v19_status = v19_status_raw
 
-    return {
-        "success": True,
-        "timestamp": datetime.now().isoformat(),
-        "forward_test": {
-            "sorteos_completados": sorteos_completados,
-            "aciertos_4": aciertos_4,
-            "aciertos_5": stats.get("aciertos_5", 0),
-            "aciertos_6": stats.get("aciertos_6", 0),
-            "porcentaje_4_real": round(porcentaje_real, 1),
-            "azar_estructural": azar_estructural,
-            "ventaja_actual": ventaja_actual,
-            "ventaja_formateada": f"×{ventaja_actual}" if ventaja_actual > 0 else "×0",
+
+def _dynamic_metrics_scope_error() -> HTTPException:
+    return HTTPException(
+        status_code=404,
+        detail={
+            "code": "DYNAMIC_METRICS_SCOPE_UNAVAILABLE",
+            "status": 404,
+            "message": "El alcance de métricas dinámicas no está disponible.",
+            "contract_version": PROTECTED_DYNAMIC_METRICS_CONTRACT_VERSION,
         },
-        "v19": {
-            "congelado": v19_status.get("congelado", False),
-            "razon": v19_status.get("razon", ""),
-            "version": "V19",
+    )
+
+
+def _dynamic_metrics_service_error() -> HTTPException:
+    return HTTPException(
+        status_code=503,
+        detail={
+            "code": "DYNAMIC_METRICS_SERVICE_UNAVAILABLE",
+            "status": 503,
+            "message": "Las métricas dinámicas protegidas no están disponibles.",
+            "contract_version": PROTECTED_DYNAMIC_METRICS_CONTRACT_VERSION,
         },
-        "fase_actual": stats.get("fase_actual", "desconocido"),
-    }
+    )
+
+
+@app.get("/api/metrics/dynamic")
+async def get_dynamic_metrics(
+    request: Request,
+    view: str | None = None,
+    tenant_id: str | None = None,
+) -> dict:
+    allowed_query = {"view", "tenant_id"}
+    if any(key not in allowed_query for key in request.query_params):
+        raise _dynamic_metrics_query_error("Selector de métricas no reconocido.")
+    selected_view = view if view is not None else request.query_params.get("view") or "summary"
+    if selected_view != "summary":
+        raise _dynamic_metrics_query_error("Vista de métricas no reconocida.")
+
+    principal = resolve_protected_dynamic_metrics_principal()
+    require_protected_dynamic_metrics_access(principal, view=selected_view)
+    if tenant_id is not None or "tenant_id" in request.query_params:
+        raise _dynamic_metrics_scope_error()
+
+    try:
+        _require_loteria()
+        if not evolution:
+            raise RuntimeError("metric source unavailable")
+        stats = evolution.get_estadisticas_ciclo()
+        return project_dynamic_metrics(stats)
+    except Exception:
+        raise _dynamic_metrics_service_error() from None
 
 
 @app.post("/api/debate/start")
