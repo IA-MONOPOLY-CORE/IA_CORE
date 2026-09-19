@@ -212,12 +212,13 @@ def check_anchors(evidence: dict[str, Any], final: bool) -> None:
     require_fields(anchors, REQUIRED_ANCHORS, "anchors")
     for key, value in anchors.items():
         parse_clock(key, value)
-    if not final:
-        return
     ordered = [anchors[key] for key in ("mission_accepted", "preflight_completed", "validation_basis_established", "documentary_content_finalized", "documentary_lock_fetch_verified")]
-    parsed = [datetime.fromisoformat(value.replace("Z", "+00:00")) for value in ordered]
+    known = [value for value in ordered if value != "UNKNOWN"]
+    parsed = [datetime.fromisoformat(value.replace("Z", "+00:00")) for value in known]
     if parsed != sorted(parsed):
         _fail("required anchor clocks are contradictory")
+    if not final:
+        return
     if anchors["functional_publication_fetch_verified"] == "UNKNOWN":
         _fail("functional publication fetch anchor is required")
     if anchors["documentary_lock_fetch_verified"] == "UNKNOWN":
@@ -337,6 +338,16 @@ def check_runs_claims_unknowns(evidence: dict[str, Any], repo: Path, final: bool
         require_fields(item, {"field", "cause", "gate_impact", "evidence_needed", "authority"}, f"unknown {index}")
 
 
+def contains_exact_value(value: Any, target: str) -> bool:
+    if value == target:
+        return True
+    if isinstance(value, dict):
+        return any(contains_exact_value(child, target) for child in value.values())
+    if isinstance(value, list):
+        return any(contains_exact_value(child, target) for child in value)
+    return False
+
+
 def check_final_git(evidence: dict[str, Any], repo: Path) -> dict[str, str]:
     branch = run_git(repo, "rev-parse", "--abbrev-ref", "HEAD")
     head = run_git(repo, "rev-parse", "HEAD")
@@ -353,6 +364,9 @@ def check_final_git(evidence: dict[str, Any], repo: Path) -> dict[str, str]:
 
 
 def validate_common(evidence: dict[str, Any], repo: Path, final: bool) -> None:
+    observable_sections = ("manifest", "validation_runs", "anchors", "unknowns", "operator_evidence")
+    if any(contains_exact_value(evidence.get(section), "PENDING") for section in observable_sections):
+        _fail("PENDING is not an observable final evidence value")
     check_identity(evidence, repo)
     check_anchors(evidence, final)
     check_manifest(evidence, repo, final)

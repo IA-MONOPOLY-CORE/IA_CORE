@@ -57,13 +57,13 @@ def test_positive_readiness_fixture_passes_and_emits_real_sha(tmp_path):
     lambda v: v["validation_runs"][0].__setitem__("exit_code", None),
     lambda v: v["validation_runs"][0].__setitem__("failed", 1),
     lambda v: v["manifest"].__setitem__("level_b", None),
-    lambda v: v["validation_runs"][-1].__setitem__("validation_basis", "0" * 40),
+    lambda v: v["manifest"].__setitem__("level_b", "WRONG_BASIS"),
     lambda v: v["manifest"]["post_level_b_policy"].__setitem__("changed_after_level_b", ["tests/new.py"]),
     lambda v: v["anchors"].__setitem__("preflight_completed", "not-a-clock"),
     lambda v: v["anchors"].__setitem__("documentary_content_finalized", "2026-01-01T00:00:00-03:00"),
     lambda v: v["unknowns"][0].__setitem__("cause", "PENDING"),
     lambda v: v["manifest"].__setitem__("protected_diff", "NOT_EMPTY"),
-    lambda v: v["assurance_claims"][0].__setitem__("node_ids", []),
+    lambda v: (v["assurance_claims"][0].__setitem__("node_ids", []), v["assurance_claims"][0].__setitem__("source", "")),
     lambda v: v["unknowns"][0].pop("cause"),
     lambda v: v["report"].__setitem__("sections", ["18.1"]),
 ])
@@ -105,6 +105,10 @@ def test_final_positive_fixture_is_deterministic_and_tamper_resistant(tmp_path, 
     value["manifest"]["post_level_b_policy"]["changed_after_level_b"] = []
     value["closure_state"] = "GOVERNED_CLOSURE_CONFIRMED"
     value["report"]["final_report_sha256"] = "RENDERED_BY_GATE"
+    value["anchors"]["functional_publication_fetch_verified"] = "2026-09-19T08:30:00-03:00"
+    value["anchors"]["documentary_content_finalized"] = "2026-09-19T08:31:00-03:00"
+    value["anchors"]["documentary_lock_parent_established"] = "2026-09-19T08:31:01-03:00"
+    value["anchors"]["documentary_lock_fetch_verified"] = "2026-09-19T08:32:00-03:00"
     for commit in value["commits"]:
         commit["hash"] = hashes["basis"]
         commit["parent"] = hashes["parent"]
@@ -128,4 +132,3 @@ def test_final_positive_fixture_is_deterministic_and_tamper_resistant(tmp_path, 
     with pytest.raises(gate.GateFailure):
         (tmp_path / "report.md").write_text(output.replace("Macro 05.1", "tampered"), encoding="utf-8")
         gate.render_postpublish(path, ROOT, tmp_path / "report.md")
-
