@@ -27,3 +27,31 @@ history is touched, and every exact guard discovered by manifest search.
 No Macro 03 historical document is rewritten. P4 remains internally closed.
 P1-A/B/C/D implementation files are read-only unless a new E2E test produces a
 reproducible product defect and the repair remains inside the authorized list.
+
+## Gate result
+
+The first attempt ran the frozen cohort and returned `115 passed, 2 failed,
+5 warnings`. Both failures were historical-context mismatches in the 04.6
+guard: its scope allowlist still observed Macro 05 commits, and its JSON census
+still expected the pre-Macro-05 count of 268. No product assertion failed.
+
+The only adapter change was the exact nominal mapping:
+
+```text
+tests/test_roadmap_4x_macro_04_6_p1_d.py
+  -> 9148f023f4df8e642f396f08a6386f8967d70efb
+```
+
+The second attempt then passed:
+
+```text
+HISTORICAL_IMPACT_GATE: PASS
+HISTORICAL_GATE_STARTED_AT: 2026-09-19T06:52:15.5039519-03:00
+HISTORICAL_GATE_COMPLETED_AT: 2026-09-19T06:53:20.7351859-03:00
+HISTORICAL_GATE_WALL_SECONDS: 65.231234
+HISTORICAL_GATE_RESULT: 117 passed, 0 failed, 5 warnings
+ASSERTIONS_REMOVED: NO
+BROAD_GLOBS_ADDED: NO
+WORKING_TREE_SUBSTITUTION_FOR_HISTORY: NO
+UNCLASSIFIED_HISTORICAL_FAILURES: 0
+```

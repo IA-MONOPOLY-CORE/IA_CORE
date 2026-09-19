@@ -19,6 +19,19 @@
     "operator_visible_completion_time": "UNKNOWN_EXTERNAL_OPERATOR_EVIDENCE_REQUIRED"
   },
   "level_b_attempts": [],
+  "historical_impact_gate": {
+    "status": "PASS",
+    "result": "117 passed, 0 failed, 5 warnings",
+    "started_at": "2026-09-19T06:52:15.5039519-03:00",
+    "completed_at": "2026-09-19T06:53:20.7351859-03:00",
+    "wall_seconds": 65.231234,
+    "attempts": 2,
+    "first_attempt_result": "115 passed, 2 failed, 5 warnings",
+    "assertions_removed": false,
+    "broad_globs_added": false,
+    "working_tree_substitution_for_history": false,
+    "unclassified_failures": 0
+  },
   "interruption_count": 0,
   "quota": {
     "5h_start": "UNKNOWN_EXTERNAL_OPERATOR_EVIDENCE_REQUIRED",

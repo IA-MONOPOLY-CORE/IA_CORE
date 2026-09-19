@@ -12,10 +12,10 @@
   "strict_duplicate_scan_before": "2_FILES_WITH_IDENTICAL_DUPLICATE_PUBLICATION_FIELDS",
   "strict_duplicate_scan_after": "PASS_ZERO_DUPLICATE_KEYS",
   "focal": "PASS_62_PASSED_0_FAILED_5_WARNINGS",
-  "historical_impact_gate": "PENDING",
+  "historical_impact_gate": "PASS_117_PASSED_0_FAILED_5_WARNINGS",
   "level_a": "PENDING",
   "level_b": "PENDING",
-  "validation_basis": "PENDING",
+  "validation_basis": "READY_AFTER_HISTORICAL_GATE",
   "product_repair": "NONE_UNTIL_RED_EVIDENCE",
   "gokv": {
     "total_items": 38,
