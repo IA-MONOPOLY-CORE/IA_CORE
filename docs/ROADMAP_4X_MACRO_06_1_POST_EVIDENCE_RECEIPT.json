@@ -1,0 +1,35 @@
+{
+  "completed_at": "2026-09-19T15:57:59.270332-03:00",
+  "computed_scope_sha256": "c18f16683e086f84e5ea74fff76332d87716e8e2ead1229999a2dbc6f583e635",
+  "created_by": "validate_mission_closure_v2_1.py",
+  "evidence_sha256": "310a1022042c080f58213cf35e3339d7259ded9183bb9dce220d150e0122c07f",
+  "exit_code": 0,
+  "gate_version": "mission_closure_gate.v2.1",
+  "kind": "POST_EVIDENCE",
+  "mission": "ROADMAP_4X_MACRO_06_1",
+  "policy_sha256": "7937b80c241af01b5643c3be93727bd916270728f837ea48ae50fcf95781d940",
+  "protected_diff": {
+    "calculation_basis": "git diff d0f400eb89bc21a867a1c124136575a3436f593b..HEAD and computed path classification",
+    "protected_diff_decision": "EMPTY",
+    "protected_paths_changed": [],
+    "protected_paths_checked": [
+      "api.py",
+      "core/",
+      "domains/",
+      "providers/",
+      "ui/",
+      "data/",
+      "memory/",
+      "logs/",
+      "gokv/",
+      "runtime/",
+      "execution/",
+      "integrations/",
+      "tenants/"
+    ]
+  },
+  "receipt_version": "mission_closure_receipt.v1",
+  "started_at": "2026-09-19T15:57:58.240178-03:00",
+  "validation_basis": "16cf06b9262bdef0b0e2a14baa7b351a33b639ba",
+  "wall_seconds": 1.030154
+}

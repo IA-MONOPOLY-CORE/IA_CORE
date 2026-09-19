@@ -1,21 +1,521 @@
 {
-  "contract_version": "mission_closure_evidence.v2.1",
-  "policy_sha256": "7937b80c241af01b5643c3be93727bd916270728f837ea48ae50fcf95781d940",
-  "mission": "ROADMAP_4X_MACRO_06_1",
+  "artifacts": {
+    "canonical_evidence_path": "docs/ROADMAP_4X_MACRO_06_1_CANONICAL_CLOSURE_EVIDENCE.json",
+    "post_evidence_receipt_path": "docs/ROADMAP_4X_MACRO_06_1_POST_EVIDENCE_RECEIPT.json",
+    "prelock_receipt_path": "docs/ROADMAP_4X_MACRO_06_1_PRELOCK_RECEIPT.json",
+    "red_reproduction_commit": "a4a9fb9fc8ee166fcac24b9c3bb3371d186da8de",
+    "validation_basis": "16cf06b9262bdef0b0e2a14baa7b351a33b639ba"
+  },
+  "assurance_claims": [
+    "V1 and V2 historical bytes preserved",
+    "V2.1 allowlist and protected diff are Git-derived",
+    "Level B matches validation basis",
+    "VERO and FIRE are documentary developmental exercises only",
+    "P3 selected but not started"
+  ],
   "baseline": "d0f400eb89bc21a867a1c124136575a3436f593b",
   "branch": "main",
-  "validation_basis": "16cf06b9262bdef0b0e2a14baa7b351a33b639ba",
-  "functional_publication_head": "16cf06b9262bdef0b0e2a14baa7b351a33b639ba",
-  "documentary_lock_parent": "DOCUMENTARY_DRAFT_COMMIT",
-  "documentary_lock_head": "POSTPUBLISH_ENVELOPE",
-  "expected_external_state": "DEFAULT_DENIED_AND_REMOTE_RULESET_NOT_PROVEN",
-  "result_variant": "ROADMAP_4X_MACRO_06_1_CLOSURE_CAUSALITY_AND_EXECUTABLE_SCOPE_ENFORCEMENT_PASSED_GATE_V2_1_HARDENED_VERO_FIRE_DEVELOPMENTAL_EXERCISE_RECORDED_P3_SELECTED_NOT_STARTED",
   "closure_state": "GOVERNED_CLOSURE_CONFIRMED",
-  "technical_state": "REPOSITORY_GROUNDED_AND_LEVEL_B_GREEN",
-  "governed_state": "VERO_FIRE_DEVELOPMENTAL_EXERCISE_RECORDED_AND_P3_SELECTED_NOT_STARTED",
+  "commits": [
+    {
+      "files": [
+        "tests/test_mission_closure_gate_v2_1_reproduction.py"
+      ],
+      "hash": "a4a9fb9fc8ee166fcac24b9c3bb3371d186da8de",
+      "parent": "d0f400eb89bc21a867a1c124136575a3436f593b",
+      "purpose": "Preserve the intentional red reproduction before repair.",
+      "rollback": "Revert reproduction only; keep historical predecessor intact.",
+      "station": "R1_RED_REPRODUCTION",
+      "subject": "test(closure): reproduce macro 06.1 gate gaps",
+      "validation": "Exit 1; 5 failed; 1 warning; exact clocks recorded."
+    },
+    {
+      "files": [
+        ".github/workflows/ci.yml",
+        "docs/MISSION_CLOSURE_POLICY_SCHEMA_V2_1.json",
+        "docs/ROADMAP_4X_MACRO_06_1_MISSION_POLICY.json",
+        "scripts/run_mission_validation_v2_1.py",
+        "scripts/validate_mission_closure_v2_1.py",
+        "tests/test_mission_closure_gate_v2_1.py",
+        "tests/test_mission_closure_gate_v2_1_chronology.py",
+        "tests/test_mission_closure_gate_v2_1_ci_contract.py",
+        "tests/test_mission_closure_gate_v2_1_git_integration.py",
+        "tests/test_mission_closure_gate_v2_1_reproduction.py",
+        "tests/test_mission_closure_historical_compatibility_v2_1.py"
+      ],
+      "hash": "3e6f970b00668610092da85d1e2fb16d98db1b0d",
+      "parent": "a4a9fb9fc8ee166fcac24b9c3bb3371d186da8de",
+      "purpose": "Install executable scope, chronology, receipt and remote-state controls.",
+      "rollback": "Revert method infrastructure and establish a new validation basis.",
+      "station": "R2_V2_1_IMPLEMENTATION",
+      "subject": "feat(closure): add v2.1 scope and causality enforcement",
+      "validation": "Focal corpus green; policy valid; py_compile and diff-check pass."
+    },
+    {
+      "files": [
+        ".github/workflows/ci.yml",
+        "docs/ROADMAP_4X_MACRO_06_1_MISSION_POLICY.json",
+        "tests/historical_test_context.py",
+        "tests/test_roadmap_4x_macro_05_p1_internal_family_closure.py"
+      ],
+      "hash": "16cf06b9262bdef0b0e2a14baa7b351a33b639ba",
+      "parent": "3e6f970b00668610092da85d1e2fb16d98db1b0d",
+      "purpose": "Exclude only exact Macro 06.1 continuity files from historical guards.",
+      "rollback": "Revert the bounded adapter and invalidate later evidence.",
+      "station": "R3_HISTORICAL_CONTINUITY",
+      "subject": "test(closure): preserve macro 06.1 historical continuity",
+      "validation": "Historical impact 104 passed; policy and py_compile pass."
+    },
+    {
+      "files": [
+        "docs/METHOD_SANTI_3_2_6_CAUSAL_EVIDENCE_AND_EXECUTABLE_SCOPE_ENFORCEMENT.md",
+        "docs/MISSION_CLOSURE_GATE_V2_1_CONTRACT.md",
+        "docs/ROADMAP_4X_MACRO_06_1_CANONICAL_CLOSURE_EVIDENCE.json",
+        "docs/ROADMAP_4X_MACRO_06_1_CLOSURE_CHECKPOINT.md",
+        "docs/ROADMAP_4X_MACRO_06_1_COMMIT_ACCOUNTABILITY_LEDGER.md",
+        "docs/ROADMAP_4X_MACRO_06_1_EXECUTION_JOURNAL.md",
+        "docs/ROADMAP_4X_MACRO_06_1_EXECUTION_METRICS.md",
+        "docs/ROADMAP_4X_MACRO_06_1_FIRE_DEVELOPMENTAL_FAILURE_INTELLIGENCE_REPORT.md",
+        "docs/ROADMAP_4X_MACRO_06_1_NEGATIVE_CONTROL_MATRIX.md",
+        "docs/ROADMAP_4X_MACRO_06_1_ROOT_CAUSE_AND_RECURRENCE_PREVENTION.md",
+        "docs/ROADMAP_4X_MACRO_06_1_VERO_DEVELOPMENTAL_REALITY_REPORT.md",
+        "docs/ROADMAP_4X_MACRO_06_1_POST_EVIDENCE_RECEIPT.json",
+        "docs/ROADMAP_4X_MACRO_06_1_PRELOCK_RECEIPT.json"
+      ],
+      "hash": "21077e0c0de348f6b622d3e94596b5283a8a002f",
+      "parent": "16cf06b9262bdef0b0e2a14baa7b351a33b639ba",
+      "purpose": "Record the bounded developmental evidence package.",
+      "rollback": "Revert documentary draft without changing the frozen executable basis.",
+      "station": "R4_DOCUMENTARY_DRAFT",
+      "subject": "docs(closure): record macro 06.1 VERO FIRE exercise",
+      "validation": "Strict JSON and policy validation pass; content remains documentary."
+    }
+  ],
+  "contract_version": "mission_closure_evidence.v2.1",
+  "documentary_lock_head": "POSTPUBLISH_ENVELOPE",
+  "documentary_lock_parent": "21077e0c0de348f6b622d3e94596b5283a8a002f",
+  "expected_external_state": "DEFAULT_DENIED_AND_REMOTE_RULESET_NOT_PROVEN",
   "external_exposure": "DEFAULT_DENIED",
+  "failures": [
+    {
+      "cause": "Macro 06 V2 gaps reproduced before repair",
+      "commit": "a4a9fb9fc8ee166fcac24b9c3bb3371d186da8de",
+      "failure_id": "RED-061-001",
+      "phase": "reproduction",
+      "repair": "V2.1 Git/causality/CI/remote hardening",
+      "result": "5 failed, 1 warning, exit 1",
+      "revalidation": "122 passed in final Level B"
+    }
+  ],
+  "files": [
+    {
+      "category": "CONFIGURATION",
+      "change": "Added independent V2.1 closure job and exact command contract.",
+      "commit": "16cf06b9262bdef0b0e2a14baa7b351a33b639ba",
+      "path": ".github/workflows/ci.yml",
+      "protected_surface_classification": "CI_METHOD_INFRASTRUCTURE_ONLY",
+      "reason": "Make the requested status identity a real CI job."
+    },
+    {
+      "category": "EXECUTABLE",
+      "change": "Added fail-closed V2.1 authority.",
+      "commit": "3e6f970b00668610092da85d1e2fb16d98db1b0d",
+      "path": "scripts/validate_mission_closure_v2_1.py",
+      "protected_surface_classification": "METHOD_EXECUTABLE_INFRASTRUCTURE",
+      "reason": "Enforce scope, causality, receipts and evolvable remote state."
+    },
+    {
+      "category": "EXECUTABLE",
+      "change": "Added actual-clock validation wrapper.",
+      "commit": "3e6f970b00668610092da85d1e2fb16d98db1b0d",
+      "path": "scripts/run_mission_validation_v2_1.py",
+      "protected_surface_classification": "METHOD_EXECUTABLE_INFRASTRUCTURE",
+      "reason": "Capture real timing, exit code, counts and output hash."
+    },
+    {
+      "category": "TEST_INFRASTRUCTURE",
+      "change": "Added exact 06.1 continuity paths.",
+      "commit": "16cf06b9262bdef0b0e2a14baa7b351a33b639ba",
+      "path": "tests/historical_test_context.py",
+      "protected_surface_classification": "HISTORICAL_GUARD_ADAPTER",
+      "reason": "Preserve historical checkpoint contracts."
+    },
+    {
+      "category": "TEST_INFRASTRUCTURE",
+      "change": "Extended exact 06.1 file census.",
+      "commit": "16cf06b9262bdef0b0e2a14baa7b351a33b639ba",
+      "path": "tests/test_roadmap_4x_macro_05_p1_internal_family_closure.py",
+      "protected_surface_classification": "HISTORICAL_GUARD_ADAPTER",
+      "reason": "Keep Macro 05 read-only and self-scoped."
+    },
+    {
+      "category": "DOCUMENTARY_ONLY",
+      "change": "Documented V2.1 contract.",
+      "commit": "21077e0c0de348f6b622d3e94596b5283a8a002f",
+      "path": "docs/MISSION_CLOSURE_GATE_V2_1_CONTRACT.md",
+      "protected_surface_classification": "NON_PRODUCT_DOCUMENTATION",
+      "reason": "Describe executable authority and boundaries."
+    },
+    {
+      "category": "DOCUMENTARY_ONLY",
+      "change": "Added V2.1 schema.",
+      "commit": "3e6f970b00668610092da85d1e2fb16d98db1b0d",
+      "path": "docs/MISSION_CLOSURE_POLICY_SCHEMA_V2_1.json",
+      "protected_surface_classification": "METHOD_CONFIGURATION",
+      "reason": "Constrain policy shape."
+    },
+    {
+      "category": "DOCUMENTARY_ONLY",
+      "change": "Added mission policy and allowlist.",
+      "commit": "16cf06b9262bdef0b0e2a14baa7b351a33b639ba",
+      "path": "docs/ROADMAP_4X_MACRO_06_1_MISSION_POLICY.json",
+      "protected_surface_classification": "MISSION_CONFIGURATION",
+      "reason": "Declare bounded mission scope and controls."
+    },
+    {
+      "category": "DOCUMENTARY_ONLY",
+      "change": "Added structured VERO reality report.",
+      "commit": "21077e0c0de348f6b622d3e94596b5283a8a002f",
+      "path": "docs/ROADMAP_4X_MACRO_06_1_VERO_DEVELOPMENTAL_REALITY_REPORT.md",
+      "protected_surface_classification": "DEVELOPMENTAL_EVIDENCE_ONLY",
+      "reason": "Preserve observed, reported and inferred facts."
+    },
+    {
+      "category": "DOCUMENTARY_ONLY",
+      "change": "Added FIRE failure intelligence report.",
+      "commit": "21077e0c0de348f6b622d3e94596b5283a8a002f",
+      "path": "docs/ROADMAP_4X_MACRO_06_1_FIRE_DEVELOPMENTAL_FAILURE_INTELLIGENCE_REPORT.md",
+      "protected_surface_classification": "DEVELOPMENTAL_EVIDENCE_ONLY",
+      "reason": "Derive controls from reproduced failure patterns."
+    },
+    {
+      "category": "DOCUMENTARY_ONLY",
+      "change": "Added adversarial control matrix.",
+      "commit": "21077e0c0de348f6b622d3e94596b5283a8a002f",
+      "path": "docs/ROADMAP_4X_MACRO_06_1_NEGATIVE_CONTROL_MATRIX.md",
+      "protected_surface_classification": "DEVELOPMENTAL_EVIDENCE_ONLY",
+      "reason": "Map threats to actual regression nodes."
+    },
+    {
+      "category": "DOCUMENTARY_ONLY",
+      "change": "Added root-cause analysis.",
+      "commit": "21077e0c0de348f6b622d3e94596b5283a8a002f",
+      "path": "docs/ROADMAP_4X_MACRO_06_1_ROOT_CAUSE_AND_RECURRENCE_PREVENTION.md",
+      "protected_surface_classification": "NON_PRODUCT_DOCUMENTATION",
+      "reason": "Prevent recurrence without product changes."
+    },
+    {
+      "category": "DOCUMENTARY_ONLY",
+      "change": "Added execution journal.",
+      "commit": "21077e0c0de348f6b622d3e94596b5283a8a002f",
+      "path": "docs/ROADMAP_4X_MACRO_06_1_EXECUTION_JOURNAL.md",
+      "protected_surface_classification": "NON_PRODUCT_DOCUMENTATION",
+      "reason": "Record stations and measured runs."
+    },
+    {
+      "category": "DOCUMENTARY_ONLY",
+      "change": "Added measured metrics.",
+      "commit": "21077e0c0de348f6b622d3e94596b5283a8a002f",
+      "path": "docs/ROADMAP_4X_MACRO_06_1_EXECUTION_METRICS.md",
+      "protected_surface_classification": "NON_PRODUCT_DOCUMENTATION",
+      "reason": "Separate forecast from measured wall time."
+    },
+    {
+      "category": "DOCUMENTARY_ONLY",
+      "change": "Added station ledger.",
+      "commit": "21077e0c0de348f6b622d3e94596b5283a8a002f",
+      "path": "docs/ROADMAP_4X_MACRO_06_1_COMMIT_ACCOUNTABILITY_LEDGER.md",
+      "protected_surface_classification": "NON_PRODUCT_DOCUMENTATION",
+      "reason": "Map purpose, validation and rollback."
+    },
+    {
+      "category": "EVIDENCE_ONLY",
+      "change": "Final evidence will be updated in documentary lock.",
+      "commit": "DOCUMENTARY_LOCK_SELF_REFERENCE",
+      "path": "docs/ROADMAP_4X_MACRO_06_1_CANONICAL_CLOSURE_EVIDENCE.json",
+      "protected_surface_classification": "EVIDENCE_ONLY",
+      "reason": "Store canonical pre-finalization facts and final lock reference."
+    },
+    {
+      "category": "DOCUMENTARY_ONLY",
+      "change": "Added checkpoint statement.",
+      "commit": "21077e0c0de348f6b622d3e94596b5283a8a002f",
+      "path": "docs/ROADMAP_4X_MACRO_06_1_CLOSURE_CHECKPOINT.md",
+      "protected_surface_classification": "NON_PRODUCT_DOCUMENTATION",
+      "reason": "Document final boundary and next cursor."
+    },
+    {
+      "category": "EVIDENCE_ONLY",
+      "change": "Generated after canonical evidence finalization.",
+      "commit": "DOCUMENTARY_LOCK_SELF_REFERENCE",
+      "path": "docs/ROADMAP_4X_MACRO_06_1_POST_EVIDENCE_RECEIPT.json",
+      "protected_surface_classification": "MACHINE_RECEIPT_ONLY",
+      "reason": "Bind post-evidence validation to exact evidence hash."
+    },
+    {
+      "category": "EVIDENCE_ONLY",
+      "change": "Generated before documentary lock.",
+      "commit": "DOCUMENTARY_LOCK_SELF_REFERENCE",
+      "path": "docs/ROADMAP_4X_MACRO_06_1_PRELOCK_RECEIPT.json",
+      "protected_surface_classification": "MACHINE_RECEIPT_ONLY",
+      "reason": "Bind prelock validation to evidence and post-evidence receipt."
+    },
+    {
+      "category": "EVIDENCE_ONLY",
+      "change": "Added additive method evolution.",
+      "commit": "21077e0c0de348f6b622d3e94596b5283a8a002f",
+      "path": "docs/METHOD_SANTI_3_2_6_CAUSAL_EVIDENCE_AND_EXECUTABLE_SCOPE_ENFORCEMENT.md",
+      "protected_surface_classification": "METHOD_DOCUMENTATION",
+      "reason": "Absorb causal scope learning without duplicating 3.2.5."
+    },
+    {
+      "category": "TEST_INFRASTRUCTURE",
+      "change": "Added V2.1 policy and remote-state tests.",
+      "commit": "3e6f970b00668610092da85d1e2fb16d98db1b0d",
+      "path": "tests/test_mission_closure_gate_v2_1.py",
+      "protected_surface_classification": "METHOD_TEST_INFRASTRUCTURE",
+      "reason": "Prevent control weakening."
+    },
+    {
+      "category": "TEST_INFRASTRUCTURE",
+      "change": "Added Git path integration tests.",
+      "commit": "3e6f970b00668610092da85d1e2fb16d98db1b0d",
+      "path": "tests/test_mission_closure_gate_v2_1_git_integration.py",
+      "protected_surface_classification": "METHOD_TEST_INFRASTRUCTURE",
+      "reason": "Exercise committed and working-tree scope."
+    },
+    {
+      "category": "TEST_INFRASTRUCTURE",
+      "change": "Added temporal adversarial tests.",
+      "commit": "3e6f970b00668610092da85d1e2fb16d98db1b0d",
+      "path": "tests/test_mission_closure_gate_v2_1_chronology.py",
+      "protected_surface_classification": "METHOD_TEST_INFRASTRUCTURE",
+      "reason": "Prevent evidence-from-the-future claims."
+    },
+    {
+      "category": "TEST_INFRASTRUCTURE",
+      "change": "Added independent job identity tests.",
+      "commit": "3e6f970b00668610092da85d1e2fb16d98db1b0d",
+      "path": "tests/test_mission_closure_gate_v2_1_ci_contract.py",
+      "protected_surface_classification": "METHOD_TEST_INFRASTRUCTURE",
+      "reason": "Prevent step/job confusion."
+    },
+    {
+      "category": "TEST_INFRASTRUCTURE",
+      "change": "Converted preserved red reproduction into green adversarial corpus.",
+      "commit": "3e6f970b00668610092da85d1e2fb16d98db1b0d",
+      "path": "tests/test_mission_closure_gate_v2_1_reproduction.py",
+      "protected_surface_classification": "METHOD_TEST_INFRASTRUCTURE",
+      "reason": "Exercise real temporary repositories and scope attacks."
+    },
+    {
+      "category": "TEST_INFRASTRUCTURE",
+      "change": "Added byte-preservation tests.",
+      "commit": "3e6f970b00668610092da85d1e2fb16d98db1b0d",
+      "path": "tests/test_mission_closure_historical_compatibility_v2_1.py",
+      "protected_surface_classification": "HISTORICAL_COMPATIBILITY_TEST",
+      "reason": "Keep V1/V2/Macro 06 reconstructible."
+    }
+  ],
+  "functional_publication_head": "16cf06b9262bdef0b0e2a14baa7b351a33b639ba",
+  "governed_state": "VERO_FIRE_DEVELOPMENTAL_EXERCISE_RECORDED_AND_P3_SELECTED_NOT_STARTED",
+  "metrics": {
+    "contingency_ceiling_seconds": 12600,
+    "forecast_central_seconds": 5400,
+    "forecast_range_seconds": "3600-9000",
+    "level_a_wall_seconds": 1772.130471,
+    "level_b_wall_seconds": 65.479582,
+    "process_seconds": "UNKNOWN"
+  },
+  "mission": "ROADMAP_4X_MACRO_06_1",
   "next_cursor": "P3_LOTERIA_VALIDATION_EVOLUTION_SELECTED_NOT_STARTED",
+  "operator_evidence": {
+    "operator_action_required": true,
+    "remote_enforcement": "NOT_PROVEN",
+    "required_action": "Verify the host-side ruleset and required check externally before treating closure as inescapable."
+  },
+  "phase": "CANONICAL_EVIDENCE_FINALIZED",
+  "policy_sha256": "7937b80c241af01b5643c3be93727bd916270728f837ea48ae50fcf95781d940",
+  "remote_enforcement": {
+    "operator_action_required": true,
+    "required_check_name": "closure-policy-and-anti-weakening",
+    "state": "NOT_PROVEN"
+  },
+  "report": {
+    "final_report_sha256": "RENDERED_BY_GATE_V2_1",
+    "fire": {
+      "failure_report": "docs/ROADMAP_4X_MACRO_06_1_FIRE_DEVELOPMENTAL_FAILURE_INTELLIGENCE_REPORT.md",
+      "runtime": "NOT_IMPLEMENTED",
+      "status": "DEVELOPMENTAL_DOCUMENTARY_ONLY"
+    },
+    "method_santi": {
+      "decision": "ADDITIVE_NON_DUPLICATIVE_EVOLUTION",
+      "document": "docs/METHOD_SANTI_3_2_6_CAUSAL_EVIDENCE_AND_EXECUTABLE_SCOPE_ENFORCEMENT.md",
+      "version": "3.2.6"
+    },
+    "next_state": {
+      "P3_EXECUTION_AUTHORIZED": false,
+      "P3_LOTERIA_VALIDATION_EVOLUTION": "SELECTED_NOT_STARTED",
+      "operator_acceptance_required": true
+    },
+    "official_result": "ROADMAP_4X_MACRO_06_1_CLOSURE_CAUSALITY_AND_EXECUTABLE_SCOPE_ENFORCEMENT_PASSED_GATE_V2_1_HARDENED_VERO_FIRE_DEVELOPMENTAL_EXERCISE_RECORDED_P3_SELECTED_NOT_STARTED",
+    "preserved_surfaces": [
+      "P0",
+      "P1",
+      "P2-P9",
+      "P3_IMPLEMENTATION",
+      "VERO_RUNTIME",
+      "FIRE_RUNTIME",
+      "PRODUCT",
+      "BACKEND",
+      "UI",
+      "HTML",
+      "CSS",
+      "JAVASCRIPT",
+      "I18N",
+      "PAYLOAD",
+      "RUNTIME",
+      "EXECUTION",
+      "ENDPOINTS",
+      "TENANCY",
+      "PROVIDERS",
+      "INTEGRATIONS",
+      "GOKV_PROMOTION",
+      "OCI_ACTIVATION",
+      "EXTERNAL_EXPOSURE"
+    ],
+    "sections": [
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8",
+      "9",
+      "10",
+      "11",
+      "12",
+      "13",
+      "14",
+      "15",
+      "16"
+    ],
+    "vero": {
+      "reality_report": "docs/ROADMAP_4X_MACRO_06_1_VERO_DEVELOPMENTAL_REALITY_REPORT.md",
+      "runtime": "NOT_IMPLEMENTED",
+      "status": "DEVELOPMENTAL_DOCUMENTARY_ONLY"
+    }
+  },
+  "result_variant": "ROADMAP_4X_MACRO_06_1_CLOSURE_CAUSALITY_AND_EXECUTABLE_SCOPE_ENFORCEMENT_PASSED_GATE_V2_1_HARDENED_VERO_FIRE_DEVELOPMENTAL_EXERCISE_RECORDED_P3_SELECTED_NOT_STARTED",
   "scope": {
+    "classifications": [
+      {
+        "category": "CONFIGURATION",
+        "path": ".github/workflows/ci.yml"
+      },
+      {
+        "category": "EXECUTABLE",
+        "path": "scripts/validate_mission_closure_v2_1.py"
+      },
+      {
+        "category": "EXECUTABLE",
+        "path": "scripts/run_mission_validation_v2_1.py"
+      },
+      {
+        "category": "TEST_INFRASTRUCTURE",
+        "path": "tests/historical_test_context.py"
+      },
+      {
+        "category": "TEST_INFRASTRUCTURE",
+        "path": "tests/test_roadmap_4x_macro_05_p1_internal_family_closure.py"
+      },
+      {
+        "category": "DOCUMENTARY_ONLY",
+        "path": "docs/MISSION_CLOSURE_GATE_V2_1_CONTRACT.md"
+      },
+      {
+        "category": "DOCUMENTARY_ONLY",
+        "path": "docs/MISSION_CLOSURE_POLICY_SCHEMA_V2_1.json"
+      },
+      {
+        "category": "DOCUMENTARY_ONLY",
+        "path": "docs/ROADMAP_4X_MACRO_06_1_MISSION_POLICY.json"
+      },
+      {
+        "category": "DOCUMENTARY_ONLY",
+        "path": "docs/ROADMAP_4X_MACRO_06_1_VERO_DEVELOPMENTAL_REALITY_REPORT.md"
+      },
+      {
+        "category": "DOCUMENTARY_ONLY",
+        "path": "docs/ROADMAP_4X_MACRO_06_1_FIRE_DEVELOPMENTAL_FAILURE_INTELLIGENCE_REPORT.md"
+      },
+      {
+        "category": "DOCUMENTARY_ONLY",
+        "path": "docs/ROADMAP_4X_MACRO_06_1_NEGATIVE_CONTROL_MATRIX.md"
+      },
+      {
+        "category": "DOCUMENTARY_ONLY",
+        "path": "docs/ROADMAP_4X_MACRO_06_1_ROOT_CAUSE_AND_RECURRENCE_PREVENTION.md"
+      },
+      {
+        "category": "DOCUMENTARY_ONLY",
+        "path": "docs/ROADMAP_4X_MACRO_06_1_EXECUTION_JOURNAL.md"
+      },
+      {
+        "category": "DOCUMENTARY_ONLY",
+        "path": "docs/ROADMAP_4X_MACRO_06_1_EXECUTION_METRICS.md"
+      },
+      {
+        "category": "DOCUMENTARY_ONLY",
+        "path": "docs/ROADMAP_4X_MACRO_06_1_COMMIT_ACCOUNTABILITY_LEDGER.md"
+      },
+      {
+        "category": "EVIDENCE_ONLY",
+        "path": "docs/ROADMAP_4X_MACRO_06_1_CANONICAL_CLOSURE_EVIDENCE.json"
+      },
+      {
+        "category": "DOCUMENTARY_ONLY",
+        "path": "docs/ROADMAP_4X_MACRO_06_1_CLOSURE_CHECKPOINT.md"
+      },
+      {
+        "category": "EVIDENCE_ONLY",
+        "path": "docs/ROADMAP_4X_MACRO_06_1_POST_EVIDENCE_RECEIPT.json"
+      },
+      {
+        "category": "EVIDENCE_ONLY",
+        "path": "docs/ROADMAP_4X_MACRO_06_1_PRELOCK_RECEIPT.json"
+      },
+      {
+        "category": "EVIDENCE_ONLY",
+        "path": "docs/METHOD_SANTI_3_2_6_CAUSAL_EVIDENCE_AND_EXECUTABLE_SCOPE_ENFORCEMENT.md"
+      },
+      {
+        "category": "TEST_INFRASTRUCTURE",
+        "path": "tests/test_mission_closure_gate_v2_1.py"
+      },
+      {
+        "category": "TEST_INFRASTRUCTURE",
+        "path": "tests/test_mission_closure_gate_v2_1_git_integration.py"
+      },
+      {
+        "category": "TEST_INFRASTRUCTURE",
+        "path": "tests/test_mission_closure_gate_v2_1_chronology.py"
+      },
+      {
+        "category": "TEST_INFRASTRUCTURE",
+        "path": "tests/test_mission_closure_gate_v2_1_ci_contract.py"
+      },
+      {
+        "category": "TEST_INFRASTRUCTURE",
+        "path": "tests/test_mission_closure_gate_v2_1_reproduction.py"
+      },
+      {
+        "category": "TEST_INFRASTRUCTURE",
+        "path": "tests/test_mission_closure_historical_compatibility_v2_1.py"
+      }
+    ],
     "final_manifest_paths": [
       ".github/workflows/ci.yml",
       "scripts/validate_mission_closure_v2_1.py",
@@ -44,116 +544,35 @@
       "tests/test_mission_closure_gate_v2_1_reproduction.py",
       "tests/test_mission_closure_historical_compatibility_v2_1.py"
     ],
-    "classifications": [],
     "protected_diff": {
-      "protected_paths_checked": ["api.py", "core/", "domains/", "providers/", "ui/", "data/", "memory/", "logs/", "gokv/", "runtime/", "execution/", "integrations/", "tenants/"],
-      "protected_paths_changed": [],
+      "calculation_basis": "git diff d0f400eb89bc21a867a1c124136575a3436f593b..HEAD and computed path classification",
       "protected_diff_decision": "EMPTY",
-      "calculation_basis": "git diff d0f400eb89bc21a867a1c124136575a3436f593b..HEAD and computed path classification"
+      "protected_paths_changed": [],
+      "protected_paths_checked": [
+        "api.py",
+        "core/",
+        "domains/",
+        "providers/",
+        "ui/",
+        "data/",
+        "memory/",
+        "logs/",
+        "gokv/",
+        "runtime/",
+        "execution/",
+        "integrations/",
+        "tenants/"
+      ]
     }
   },
-  "commits": [],
-  "files": [],
-  "validation_runs": [
-    {
-      "gate_name": "focal",
-      "command": "python -m pytest -q tests/test_mission_closure_gate_v2_1.py tests/test_mission_closure_gate_v2_1_git_integration.py tests/test_mission_closure_gate_v2_1_chronology.py tests/test_mission_closure_gate_v2_1_ci_contract.py tests/test_mission_closure_gate_v2_1_reproduction.py tests/test_mission_closure_historical_compatibility_v2_1.py",
-      "validation_basis": "16cf06b9262bdef0b0e2a14baa7b351a33b639ba",
-      "started_at": "2026-09-19T15:43:56.969912-03:00",
-      "completed_at": "2026-09-19T15:44:18.154861-03:00",
-      "wall_seconds": 21.182239,
-      "process_seconds": "UNKNOWN",
-      "passed": 27,
-      "failed": 0,
-      "skipped": 0,
-      "warnings": 1,
-      "exit_code": 0,
-      "attempt": 1,
-      "cause": "Final executable focal validation.",
-      "repair": "NONE",
-      "repair_commit": "NONE",
-      "revalidation": "VALID",
-      "log_sha256": "e69adb23de9f4b6de99b6780d772ae23bcadab299349857c94373db517cd7bc3",
-      "receipt_sha256": "25980e7bb09526785acdd110c33d66f7bea45bfe5ee19c6684e6cbaa8d70006d"
-    },
-    {
-      "gate_name": "historical-impact",
-      "command": "python -m pytest -q tests/test_roadmap_4x_macro_05_p1_internal_family_closure.py tests/test_roadmap_4x_macro_05_p1_post_boundary_e2e.py tests/test_roadmap_4x_macro_04_3_p1_a.py tests/test_roadmap_4x_macro_04_4_p1_b.py tests/test_roadmap_4x_macro_04_5_p1_c.py tests/test_roadmap_4x_macro_04_6_p1_d.py tests/test_mission_closure_gate_v2.py tests/test_method_santi_3_2.py tests/test_method_santi_3_2_4.py tests/test_method_santi_3_2_5.py",
-      "validation_basis": "16cf06b9262bdef0b0e2a14baa7b351a33b639ba",
-      "started_at": "2026-09-19T15:44:26.514299-03:00",
-      "completed_at": "2026-09-19T15:45:50.645002-03:00",
-      "wall_seconds": 84.133069,
-      "process_seconds": "UNKNOWN",
-      "passed": 104,
-      "failed": 0,
-      "skipped": 0,
-      "warnings": 5,
-      "exit_code": 0,
-      "attempt": 1,
-      "cause": "Historical and method continuity validation.",
-      "repair": "NONE",
-      "repair_commit": "16cf06b9262bdef0b0e2a14baa7b351a33b639ba",
-      "revalidation": "VALID",
-      "log_sha256": "ad9d055b3b6ab6bc31ea3086a3b808b489055da54bb660f05c639b719f55339a",
-      "receipt_sha256": "1cb9112426871b0a3da991791f6b933728e3bea8611f4823b9a5e83e5b4dd283"
-    },
-    {
-      "gate_name": "level-a",
-      "command": "python -m pytest -q",
-      "validation_basis": "16cf06b9262bdef0b0e2a14baa7b351a33b639ba",
-      "started_at": "2026-09-19T15:11:23.212400-03:00",
-      "completed_at": "2026-09-19T15:40:55.339121-03:00",
-      "wall_seconds": 1772.130471,
-      "process_seconds": "UNKNOWN",
-      "passed": 7266,
-      "failed": 0,
-      "skipped": 6,
-      "warnings": 6,
-      "exit_code": 0,
-      "attempt": 1,
-      "cause": "Full Level A suite.",
-      "repair": "NONE",
-      "repair_commit": "16cf06b9262bdef0b0e2a14baa7b351a33b639ba",
-      "revalidation": "VALID",
-      "log_sha256": "6e2dad064f0684b34642d3e146c50bff959cdf884ccf64e0e94c3da2975da233",
-      "receipt_sha256": "fc3e9056c8f9f44b2d037a9f75d030f4f7dbe144324e90447caa83965a1bf2bc"
-    },
-    {
-      "gate_name": "level-b",
-      "command": "python -m pytest -q tests/test_mission_closure_gate_v2_1.py tests/test_mission_closure_gate_v2_1_git_integration.py tests/test_mission_closure_gate_v2_1_chronology.py tests/test_mission_closure_gate_v2_1_ci_contract.py tests/test_mission_closure_gate_v2_1_reproduction.py tests/test_mission_closure_historical_compatibility_v2_1.py tests/test_roadmap_4x_macro_05_p1_internal_family_closure.py tests/test_roadmap_4x_macro_05_p1_post_boundary_e2e.py tests/test_roadmap_4x_macro_04_3_p1_a.py tests/test_roadmap_4x_macro_04_4_p1_b.py tests/test_roadmap_4x_macro_04_5_p1_c.py tests/test_roadmap_4x_macro_04_6_p1_d.py tests/test_method_santi_3_2.py tests/test_method_santi_3_2_4.py tests/test_method_santi_3_2_5.py",
-      "validation_basis": "16cf06b9262bdef0b0e2a14baa7b351a33b639ba",
-      "started_at": "2026-09-19T15:41:32.631179-03:00",
-      "completed_at": "2026-09-19T15:42:38.108106-03:00",
-      "wall_seconds": 65.479582,
-      "process_seconds": "UNKNOWN",
-      "passed": 122,
-      "failed": 0,
-      "skipped": 0,
-      "warnings": 5,
-      "exit_code": 0,
-      "attempt": 1,
-      "cause": "One final Level B on the frozen executable basis.",
-      "repair": "NONE",
-      "repair_commit": "NONE",
-      "revalidation": "VALID",
-      "log_sha256": "40060c65a2d5339426c8c2a0ed1b82226e82c76ec0aaf54221b11444180f1fc5",
-      "receipt_sha256": "7e4a05234b8dab05ccd79237e37b19b17eb37c607f7e5d18b46a14c4ce461ffd"
-    }
-  ],
-  "assurance_claims": [
-    "V1 and V2 historical bytes preserved",
-    "V2.1 allowlist and protected diff are Git-derived",
-    "Level B matches validation basis",
-    "VERO and FIRE are documentary developmental exercises only",
-    "P3 selected but not started"
-  ],
+  "technical_state": "REPOSITORY_GROUNDED_AND_LEVEL_B_GREEN",
   "timeline": {
+    "canonical_evidence_finalized": "2026-09-19T15:57:46.439320-03:00",
+    "final_level_b_completed": "2026-09-19T15:42:38.108106-03:00",
+    "final_level_b_started": "2026-09-19T15:41:32.631179-03:00",
     "mission_accepted": "2026-09-19T14:41:49.6841702-03:00",
     "preflight_completed": "2026-09-19T14:41:49.6841702-03:00",
-    "validation_basis_committed": "2026-09-19T15:11:07-03:00",
-    "final_level_b_started": "2026-09-19T15:41:32.631179-03:00",
-    "final_level_b_completed": "2026-09-19T15:42:38.108106-03:00",
-    "canonical_evidence_finalized": "2026-09-19T15:42:38.108106-03:00"
+    "validation_basis_committed": "2026-09-19T15:11:07-03:00"
   },
   "unknowns": [
     "host-side required status-check enforcement",
@@ -161,66 +580,91 @@
     "process CPU seconds on this Windows wrapper",
     "distinct preflight completion clock beyond the mission anchor"
   ],
-  "operator_evidence": {
-    "remote_enforcement": "NOT_PROVEN",
-    "operator_action_required": true,
-    "required_action": "Verify the host-side ruleset and required check externally before treating closure as inescapable."
-  },
-  "remote_enforcement": {
-    "state": "NOT_PROVEN",
-    "operator_action_required": true,
-    "required_check_name": "closure-policy-and-anti-weakening"
-  },
-  "metrics": {
-    "forecast_central_seconds": 5400,
-    "forecast_range_seconds": "3600-9000",
-    "contingency_ceiling_seconds": 12600,
-    "process_seconds": "UNKNOWN",
-    "level_a_wall_seconds": 1772.130471,
-    "level_b_wall_seconds": 65.479582
-  },
-  "artifacts": {
-    "red_reproduction_commit": "a4a9fb9fc8ee166fcac24b9c3bb3371d186da8de",
-    "validation_basis": "16cf06b9262bdef0b0e2a14baa7b351a33b639ba",
-    "canonical_evidence_path": "docs/ROADMAP_4X_MACRO_06_1_CANONICAL_CLOSURE_EVIDENCE.json",
-    "post_evidence_receipt_path": "docs/ROADMAP_4X_MACRO_06_1_POST_EVIDENCE_RECEIPT.json",
-    "prelock_receipt_path": "docs/ROADMAP_4X_MACRO_06_1_PRELOCK_RECEIPT.json"
-  },
-  "failures": [
+  "validation_basis": "16cf06b9262bdef0b0e2a14baa7b351a33b639ba",
+  "validation_runs": [
     {
-      "failure_id": "RED-061-001",
-      "phase": "reproduction",
-      "cause": "Macro 06 V2 gaps reproduced before repair",
-      "commit": "a4a9fb9fc8ee166fcac24b9c3bb3371d186da8de",
-      "result": "5 failed, 1 warning, exit 1",
-      "repair": "V2.1 Git/causality/CI/remote hardening",
-      "revalidation": "122 passed in final Level B"
+      "attempt": 1,
+      "cause": "Final executable focal validation.",
+      "command": "python -m pytest -q tests/test_mission_closure_gate_v2_1.py tests/test_mission_closure_gate_v2_1_git_integration.py tests/test_mission_closure_gate_v2_1_chronology.py tests/test_mission_closure_gate_v2_1_ci_contract.py tests/test_mission_closure_gate_v2_1_reproduction.py tests/test_mission_closure_historical_compatibility_v2_1.py",
+      "completed_at": "2026-09-19T15:44:18.154861-03:00",
+      "exit_code": 0,
+      "failed": 0,
+      "gate_name": "focal",
+      "log_sha256": "e69adb23de9f4b6de99b6780d772ae23bcadab299349857c94373db517cd7bc3",
+      "passed": 27,
+      "process_seconds": "UNKNOWN",
+      "receipt_sha256": "25980e7bb09526785acdd110c33d66f7bea45bfe5ee19c6684e6cbaa8d70006d",
+      "repair": "NONE",
+      "repair_commit": "NONE",
+      "revalidation": "VALID",
+      "skipped": 0,
+      "started_at": "2026-09-19T15:43:56.969912-03:00",
+      "validation_basis": "16cf06b9262bdef0b0e2a14baa7b351a33b639ba",
+      "wall_seconds": 21.182239,
+      "warnings": 1
+    },
+    {
+      "attempt": 1,
+      "cause": "Historical and method continuity validation.",
+      "command": "python -m pytest -q tests/test_roadmap_4x_macro_05_p1_internal_family_closure.py tests/test_roadmap_4x_macro_05_p1_post_boundary_e2e.py tests/test_roadmap_4x_macro_04_3_p1_a.py tests/test_roadmap_4x_macro_04_4_p1_b.py tests/test_roadmap_4x_macro_04_5_p1_c.py tests/test_roadmap_4x_macro_04_6_p1_d.py tests/test_mission_closure_gate_v2.py tests/test_method_santi_3_2.py tests/test_method_santi_3_2_4.py tests/test_method_santi_3_2_5.py",
+      "completed_at": "2026-09-19T15:45:50.645002-03:00",
+      "exit_code": 0,
+      "failed": 0,
+      "gate_name": "historical-impact",
+      "log_sha256": "ad9d055b3b6ab6bc31ea3086a3b808b489055da54bb660f05c639b719f55339a",
+      "passed": 104,
+      "process_seconds": "UNKNOWN",
+      "receipt_sha256": "1cb9112426871b0a3da991791f6b933728e3bea8611f4823b9a5e83e5b4dd283",
+      "repair": "NONE",
+      "repair_commit": "16cf06b9262bdef0b0e2a14baa7b351a33b639ba",
+      "revalidation": "VALID",
+      "skipped": 0,
+      "started_at": "2026-09-19T15:44:26.514299-03:00",
+      "validation_basis": "16cf06b9262bdef0b0e2a14baa7b351a33b639ba",
+      "wall_seconds": 84.133069,
+      "warnings": 5
+    },
+    {
+      "attempt": 1,
+      "cause": "Full Level A suite.",
+      "command": "python -m pytest -q",
+      "completed_at": "2026-09-19T15:40:55.339121-03:00",
+      "exit_code": 0,
+      "failed": 0,
+      "gate_name": "level-a",
+      "log_sha256": "6e2dad064f0684b34642d3e146c50bff959cdf884ccf64e0e94c3da2975da233",
+      "passed": 7266,
+      "process_seconds": "UNKNOWN",
+      "receipt_sha256": "fc3e9056c8f9f44b2d037a9f75d030f4f7dbe144324e90447caa83965a1bf2bc",
+      "repair": "NONE",
+      "repair_commit": "16cf06b9262bdef0b0e2a14baa7b351a33b639ba",
+      "revalidation": "VALID",
+      "skipped": 6,
+      "started_at": "2026-09-19T15:11:23.212400-03:00",
+      "validation_basis": "16cf06b9262bdef0b0e2a14baa7b351a33b639ba",
+      "wall_seconds": 1772.130471,
+      "warnings": 6
+    },
+    {
+      "attempt": 1,
+      "cause": "One final Level B on the frozen executable basis.",
+      "command": "python -m pytest -q tests/test_mission_closure_gate_v2_1.py tests/test_mission_closure_gate_v2_1_git_integration.py tests/test_mission_closure_gate_v2_1_chronology.py tests/test_mission_closure_gate_v2_1_ci_contract.py tests/test_mission_closure_gate_v2_1_reproduction.py tests/test_mission_closure_historical_compatibility_v2_1.py tests/test_roadmap_4x_macro_05_p1_internal_family_closure.py tests/test_roadmap_4x_macro_05_p1_post_boundary_e2e.py tests/test_roadmap_4x_macro_04_3_p1_a.py tests/test_roadmap_4x_macro_04_4_p1_b.py tests/test_roadmap_4x_macro_04_5_p1_c.py tests/test_roadmap_4x_macro_04_6_p1_d.py tests/test_method_santi_3_2.py tests/test_method_santi_3_2_4.py tests/test_method_santi_3_2_5.py",
+      "completed_at": "2026-09-19T15:42:38.108106-03:00",
+      "exit_code": 0,
+      "failed": 0,
+      "gate_name": "level-b",
+      "log_sha256": "40060c65a2d5339426c8c2a0ed1b82226e82c76ec0aaf54221b11444180f1fc5",
+      "passed": 122,
+      "process_seconds": "UNKNOWN",
+      "receipt_sha256": "7e4a05234b8dab05ccd79237e37b19b17eb37c607f7e5d18b46a14c4ce461ffd",
+      "repair": "NONE",
+      "repair_commit": "NONE",
+      "revalidation": "VALID",
+      "skipped": 0,
+      "started_at": "2026-09-19T15:41:32.631179-03:00",
+      "validation_basis": "16cf06b9262bdef0b0e2a14baa7b351a33b639ba",
+      "wall_seconds": 65.479582,
+      "warnings": 5
     }
-  ],
-  "report": {
-    "sections": ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16"],
-    "official_result": "ROADMAP_4X_MACRO_06_1_CLOSURE_CAUSALITY_AND_EXECUTABLE_SCOPE_ENFORCEMENT_PASSED_GATE_V2_1_HARDENED_VERO_FIRE_DEVELOPMENTAL_EXERCISE_RECORDED_P3_SELECTED_NOT_STARTED",
-    "final_report_sha256": "RENDERED_BY_GATE_V2_1",
-    "vero": {
-      "status": "DEVELOPMENTAL_DOCUMENTARY_ONLY",
-      "reality_report": "docs/ROADMAP_4X_MACRO_06_1_VERO_DEVELOPMENTAL_REALITY_REPORT.md",
-      "runtime": "NOT_IMPLEMENTED"
-    },
-    "fire": {
-      "status": "DEVELOPMENTAL_DOCUMENTARY_ONLY",
-      "failure_report": "docs/ROADMAP_4X_MACRO_06_1_FIRE_DEVELOPMENTAL_FAILURE_INTELLIGENCE_REPORT.md",
-      "runtime": "NOT_IMPLEMENTED"
-    },
-    "method_santi": {
-      "version": "3.2.6",
-      "document": "docs/METHOD_SANTI_3_2_6_CAUSAL_EVIDENCE_AND_EXECUTABLE_SCOPE_ENFORCEMENT.md",
-      "decision": "ADDITIVE_NON_DUPLICATIVE_EVOLUTION"
-    },
-    "preserved_surfaces": ["P0", "P1", "P2-P9", "P3_IMPLEMENTATION", "VERO_RUNTIME", "FIRE_RUNTIME", "PRODUCT", "BACKEND", "UI", "HTML", "CSS", "JAVASCRIPT", "I18N", "PAYLOAD", "RUNTIME", "EXECUTION", "ENDPOINTS", "TENANCY", "PROVIDERS", "INTEGRATIONS", "GOKV_PROMOTION", "OCI_ACTIVATION", "EXTERNAL_EXPOSURE"],
-    "next_state": {
-      "P3_LOTERIA_VALIDATION_EVOLUTION": "SELECTED_NOT_STARTED",
-      "P3_EXECUTION_AUTHORIZED": false,
-      "operator_acceptance_required": true
-    }
-  }
+  ]
 }
