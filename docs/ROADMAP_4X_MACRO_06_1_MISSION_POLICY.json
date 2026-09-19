@@ -23,6 +23,8 @@
     ".github/workflows/ci.yml",
     "scripts/validate_mission_closure_v2_1.py",
     "scripts/run_mission_validation_v2_1.py",
+    "tests/historical_test_context.py",
+    "tests/test_roadmap_4x_macro_05_p1_internal_family_closure.py",
     "docs/MISSION_CLOSURE_GATE_V2_1_CONTRACT.md",
     "docs/MISSION_CLOSURE_POLICY_SCHEMA_V2_1.json",
     "docs/ROADMAP_4X_MACRO_06_1_MISSION_POLICY.json",
@@ -66,7 +68,7 @@
     "required_check_name": "closure-policy-and-anti-weakening",
     "required_commands": [
       "python scripts/validate_mission_closure_v2_1.py validate-policy",
-      "python -m pytest -q tests/test_mission_closure_gate_v2_1.py tests/test_mission_closure_gate_v2_1_git_integration.py tests/test_mission_closure_gate_v2_1_chronology.py tests/test_mission_closure_gate_v2_1_ci_contract.py",
+      "python -m pytest -q tests/test_mission_closure_gate_v2_1.py tests/test_mission_closure_gate_v2_1_git_integration.py tests/test_mission_closure_gate_v2_1_chronology.py tests/test_mission_closure_gate_v2_1_ci_contract.py tests/test_mission_closure_gate_v2_1_reproduction.py",
       "python -m pytest -q tests/test_mission_closure_gate_v2.py tests/test_mission_closure_historical_compatibility_v2_1.py"
     ]
   },
