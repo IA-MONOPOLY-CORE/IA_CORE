@@ -6,8 +6,8 @@
   "branch": "main",
   "validation_basis": "eda33300710dc82f5610503c4cb199ef2d977de6",
   "functional_publication_head": "eda33300710dc82f5610503c4cb199ef2d977de6",
-  "documentary_lock_parent": "eda33300710dc82f5610503c4cb199ef2d977de6",
-  "documentary_lock_head": "UNKNOWN",
+  "documentary_lock_parent": "41733818c92b0dd04767dd96aa5f1ce67db6509a",
+  "documentary_lock_head": "POSTPUBLISH_ENVELOPE",
   "expected_external_state": "DEFAULT_DENIED_AND_REMOTE_RULESET_NOT_PROVEN",
   "result_variant": "ROADMAP_4X_MACRO_06_RECALIBRATION_PASSED_CANDIDATES_MERGED_INTO_EXISTING_ARCHITECTURE_NEXT_EXTENSION_FAMILY_SELECTED_NOT_STARTED_GENERIC_CLOSURE_AUTHORITY_HARDENED",
   "closure_state": "GOVERNED_CLOSURE_CONFIRMED",
@@ -17,16 +17,48 @@
   "next_cursor": "P3_LOTERIA_VALIDATION_EVOLUTION_SELECTED_NOT_STARTED",
   "manifest": {
     "validation_basis": "eda33300710dc82f5610503c4cb199ef2d977de6",
-    "level_b": "AWAITING_LEVEL_B",
+    "level_b": {
+      "exit_code": 0,
+      "failed": 0,
+      "passed": 7239,
+      "skipped": 6,
+      "warnings": 6,
+      "validation_basis": "eda33300710dc82f5610503c4cb199ef2d977de6"
+    },
     "post_level_b_policy": {
-      "changed_after_level_b": []
+      "changed_after_level_b": [
+        "docs/ROADMAP_4X_MACRO_06_CANONICAL_CLOSURE_EVIDENCE.json",
+        "docs/ROADMAP_4X_MACRO_06_CLOSURE_CHECKPOINT.md",
+        "docs/ROADMAP_4X_MACRO_06_COMMIT_ACCOUNTABILITY_LEDGER.md",
+        "docs/ROADMAP_4X_MACRO_06_DEVELOPMENTAL_SYMMETRY_ADJUDICATION.md",
+        "docs/ROADMAP_4X_MACRO_06_EXECUTION_JOURNAL.md",
+        "docs/ROADMAP_4X_MACRO_06_EXECUTION_METRICS.md",
+        "docs/ROADMAP_4X_MACRO_06_FIRE_ADJUDICATION.md",
+        "docs/ROADMAP_4X_MACRO_06_NEXT_FAMILY_SELECTION.md",
+        "docs/ROADMAP_4X_MACRO_06_OWNERSHIP_AND_BOUNDARY_MATRIX.md",
+        "docs/ROADMAP_4X_MACRO_06_REMOTE_ENFORCEMENT_OPERATOR_ACTION.md",
+        "docs/ROADMAP_4X_MACRO_06_REPOSITORY_TRUTH_MATRIX.md",
+        "docs/ROADMAP_4X_MACRO_06_VERO_ADJUDICATION.md"
+      ]
     },
     "protected_diff": "EMPTY",
     "changed_files": [
       ".github/workflows/ci.yml",
       "docs/MISSION_CLOSURE_GATE_V2_CONTRACT.md",
       "docs/MISSION_CLOSURE_POLICY_SCHEMA.json",
+      "docs/ROADMAP_4X_MACRO_06_CANONICAL_CLOSURE_EVIDENCE.json",
+      "docs/ROADMAP_4X_MACRO_06_CLOSURE_CHECKPOINT.md",
+      "docs/ROADMAP_4X_MACRO_06_COMMIT_ACCOUNTABILITY_LEDGER.md",
+      "docs/ROADMAP_4X_MACRO_06_DEVELOPMENTAL_SYMMETRY_ADJUDICATION.md",
+      "docs/ROADMAP_4X_MACRO_06_EXECUTION_JOURNAL.md",
+      "docs/ROADMAP_4X_MACRO_06_EXECUTION_METRICS.md",
+      "docs/ROADMAP_4X_MACRO_06_FIRE_ADJUDICATION.md",
       "docs/ROADMAP_4X_MACRO_06_MISSION_POLICY.json",
+      "docs/ROADMAP_4X_MACRO_06_NEXT_FAMILY_SELECTION.md",
+      "docs/ROADMAP_4X_MACRO_06_OWNERSHIP_AND_BOUNDARY_MATRIX.md",
+      "docs/ROADMAP_4X_MACRO_06_REMOTE_ENFORCEMENT_OPERATOR_ACTION.md",
+      "docs/ROADMAP_4X_MACRO_06_REPOSITORY_TRUTH_MATRIX.md",
+      "docs/ROADMAP_4X_MACRO_06_VERO_ADJUDICATION.md",
       "scripts/validate_mission_closure_v2.py",
       "tests/historical_test_context.py",
       "tests/test_mission_closure_gate_v2.py",
@@ -124,6 +156,30 @@
       "validation": "179 historical continuity tests passed; full Level B later passed on this basis.",
       "rollback": "Revert only this guard-continuity commit and invalidate all later evidence.",
       "files_changed": 14
+    },
+    {
+      "hash": "41733818c92b0dd04767dd96aa5f1ce67db6509a",
+      "parent": "eda33300710dc82f5610503c4cb199ef2d977de6",
+      "subject": "docs(roadmap): record macro 06 adjudication",
+      "station": "C5",
+      "files": [
+        "docs/ROADMAP_4X_MACRO_06_CANONICAL_CLOSURE_EVIDENCE.json",
+        "docs/ROADMAP_4X_MACRO_06_CLOSURE_CHECKPOINT.md",
+        "docs/ROADMAP_4X_MACRO_06_COMMIT_ACCOUNTABILITY_LEDGER.md",
+        "docs/ROADMAP_4X_MACRO_06_DEVELOPMENTAL_SYMMETRY_ADJUDICATION.md",
+        "docs/ROADMAP_4X_MACRO_06_EXECUTION_JOURNAL.md",
+        "docs/ROADMAP_4X_MACRO_06_EXECUTION_METRICS.md",
+        "docs/ROADMAP_4X_MACRO_06_FIRE_ADJUDICATION.md",
+        "docs/ROADMAP_4X_MACRO_06_NEXT_FAMILY_SELECTION.md",
+        "docs/ROADMAP_4X_MACRO_06_OWNERSHIP_AND_BOUNDARY_MATRIX.md",
+        "docs/ROADMAP_4X_MACRO_06_REMOTE_ENFORCEMENT_OPERATOR_ACTION.md",
+        "docs/ROADMAP_4X_MACRO_06_REPOSITORY_TRUTH_MATRIX.md",
+        "docs/ROADMAP_4X_MACRO_06_VERO_ADJUDICATION.md"
+      ],
+      "purpose": "Record repository-grounded adjudications and the draft canonical evidence envelope.",
+      "validation": "Readiness passed before the documentary lock; content is documentary/evidence only.",
+      "rollback": "Revert the documentary record without changing the frozen executable basis.",
+      "files_changed": 12
     }
   ],
   "files": [
@@ -150,7 +206,19 @@
     {"path": "tests/test_ui_ux_panel_maestro_widgets_contract_aware_reconstruction_1_174.py", "change": "Excluded exact Macro 06 continuity files.", "category": "TEST_INFRASTRUCTURE", "commit": "eda33300710dc82f5610503c4cb199ef2d977de6", "reason": "Preserve UI/UX 1.174 checkpoint scope.", "protected_surface_classification": "HISTORICAL_GUARD_ADAPTER"},
     {"path": "tests/test_ui_ux_panel_maestro_roadmap_cursor_audit_1_173.py", "change": "Historical cursor scope retained.", "category": "TEST_INFRASTRUCTURE", "commit": "eda33300710dc82f5610503c4cb199ef2d977de6", "reason": "Exact continuity adapter only.", "protected_surface_classification": "HISTORICAL_GUARD_ADAPTER"},
     {"path": "tests/ui_ux_1_192_scope.py", "change": "Historical path helper excludes exact Macro 06 continuity set.", "category": "TEST_INFRASTRUCTURE", "commit": "eda33300710dc82f5610503c4cb199ef2d977de6", "reason": "Keep UI historical helpers checkpoint-local.", "protected_surface_classification": "HISTORICAL_GUARD_ADAPTER"},
-    {"path": "tests/ui_ux_1_196_continuity.py", "change": "Continuity census excludes exact Macro 06 set.", "category": "TEST_INFRASTRUCTURE", "commit": "eda33300710dc82f5610503c4cb199ef2d977de6", "reason": "Preserve UI/UX 1.196 historical contract.", "protected_surface_classification": "HISTORICAL_GUARD_ADAPTER"}
+    {"path": "tests/ui_ux_1_196_continuity.py", "change": "Continuity census excludes exact Macro 06 set.", "category": "TEST_INFRASTRUCTURE", "commit": "eda33300710dc82f5610503c4cb199ef2d977de6", "reason": "Preserve UI/UX 1.196 historical contract.", "protected_surface_classification": "HISTORICAL_GUARD_ADAPTER"},
+    {"path": "docs/ROADMAP_4X_MACRO_06_CANONICAL_CLOSURE_EVIDENCE.json", "change": "Finalized canonical V2 evidence envelope in documentary lock.", "category": "EVIDENCE_ONLY", "commit": "DOCUMENTARY_LOCK_SELF_REFERENCE", "reason": "Record machine-verifiable mission closure evidence.", "protected_surface_classification": "EVIDENCE_ONLY"},
+    {"path": "docs/ROADMAP_4X_MACRO_06_CLOSURE_CHECKPOINT.md", "change": "Added human-readable checkpoint.", "category": "DOCUMENTARY_ONLY", "commit": "41733818c92b0dd04767dd96aa5f1ce67db6509a", "reason": "Document the governed result and non-goals.", "protected_surface_classification": "NON_PRODUCT_DOCUMENTATION"},
+    {"path": "docs/ROADMAP_4X_MACRO_06_COMMIT_ACCOUNTABILITY_LEDGER.md", "change": "Added commit accountability ledger.", "category": "DOCUMENTARY_ONLY", "commit": "41733818c92b0dd04767dd96aa5f1ce67db6509a", "reason": "Map stations, validation and rollback.", "protected_surface_classification": "NON_PRODUCT_DOCUMENTATION"},
+    {"path": "docs/ROADMAP_4X_MACRO_06_DEVELOPMENTAL_SYMMETRY_ADJUDICATION.md", "change": "Added Developmental Symmetry adjudication.", "category": "DOCUMENTARY_ONLY", "commit": "41733818c92b0dd04767dd96aa5f1ce67db6509a", "reason": "Adopt bounded symmetry as a Method principle.", "protected_surface_classification": "NON_PRODUCT_DOCUMENTATION"},
+    {"path": "docs/ROADMAP_4X_MACRO_06_EXECUTION_JOURNAL.md", "change": "Added execution journal.", "category": "DOCUMENTARY_ONLY", "commit": "41733818c92b0dd04767dd96aa5f1ce67db6509a", "reason": "Record mission stations and outcomes.", "protected_surface_classification": "NON_PRODUCT_DOCUMENTATION"},
+    {"path": "docs/ROADMAP_4X_MACRO_06_EXECUTION_METRICS.md", "change": "Added execution metrics and timing method.", "category": "DOCUMENTARY_ONLY", "commit": "41733818c92b0dd04767dd96aa5f1ce67db6509a", "reason": "Separate forecast, wall time and CPU unknowns.", "protected_surface_classification": "NON_PRODUCT_DOCUMENTATION"},
+    {"path": "docs/ROADMAP_4X_MACRO_06_FIRE_ADJUDICATION.md", "change": "Added FIRE adjudication.", "category": "DOCUMENTARY_ONLY", "commit": "41733818c92b0dd04767dd96aa5f1ce67db6509a", "reason": "Merge FIRE as bounded derived evidence vocabulary.", "protected_surface_classification": "NON_PRODUCT_DOCUMENTATION"},
+    {"path": "docs/ROADMAP_4X_MACRO_06_NEXT_FAMILY_SELECTION.md", "change": "Added next-family scoring and selection.", "category": "DOCUMENTARY_ONLY", "commit": "41733818c92b0dd04767dd96aa5f1ce67db6509a", "reason": "Select P3 without starting execution.", "protected_surface_classification": "NON_PRODUCT_DOCUMENTATION"},
+    {"path": "docs/ROADMAP_4X_MACRO_06_OWNERSHIP_AND_BOUNDARY_MATRIX.md", "change": "Added ownership and denial matrix.", "category": "DOCUMENTARY_ONLY", "commit": "41733818c92b0dd04767dd96aa5f1ce67db6509a", "reason": "Keep candidate responsibilities bounded.", "protected_surface_classification": "NON_PRODUCT_DOCUMENTATION"},
+    {"path": "docs/ROADMAP_4X_MACRO_06_REMOTE_ENFORCEMENT_OPERATOR_ACTION.md", "change": "Added remote enforcement operator action record.", "category": "DOCUMENTARY_ONLY", "commit": "41733818c92b0dd04767dd96aa5f1ce67db6509a", "reason": "Keep host ruleset proof separate from local truth.", "protected_surface_classification": "NON_PRODUCT_DOCUMENTATION"},
+    {"path": "docs/ROADMAP_4X_MACRO_06_REPOSITORY_TRUTH_MATRIX.md", "change": "Added repository-grounded capability matrix.", "category": "DOCUMENTARY_ONLY", "commit": "41733818c92b0dd04767dd96aa5f1ce67db6509a", "reason": "Adjudicate candidates against material evidence.", "protected_surface_classification": "NON_PRODUCT_DOCUMENTATION"},
+    {"path": "docs/ROADMAP_4X_MACRO_06_VERO_ADJUDICATION.md", "change": "Added VERO adjudication.", "category": "DOCUMENTARY_ONLY", "commit": "41733818c92b0dd04767dd96aa5f1ce67db6509a", "reason": "Merge VERO vocabulary without implementing a fourth pillar or runtime.", "protected_surface_classification": "NON_PRODUCT_DOCUMENTATION"}
   ],
   "validation_runs": [
     {
@@ -247,6 +315,44 @@
       "repair": "NONE",
       "repair_commit": "NONE",
       "revalidation": "VALID"
+    },
+    {
+      "gate_name": "post-evidence",
+      "command": "python scripts/validate_mission_closure_v2.py validate-policy --policy docs/ROADMAP_4X_MACRO_06_MISSION_POLICY.json --schema docs/MISSION_CLOSURE_POLICY_SCHEMA.json; python -m json.tool docs/ROADMAP_4X_MACRO_06_CANONICAL_CLOSURE_EVIDENCE.json",
+      "validation_basis": "eda33300710dc82f5610503c4cb199ef2d977de6",
+      "started_at": "2026-09-19T14:00:00-03:00",
+      "completed_at": "2026-09-19T14:00:02-03:00",
+      "wall_seconds": 2,
+      "process_seconds": "UNKNOWN",
+      "passed": 2,
+      "failed": 0,
+      "skipped": 0,
+      "warnings": 0,
+      "exit_code": 0,
+      "attempt": 1,
+      "cause": "Post-evidence policy and strict JSON validation.",
+      "repair": "NONE",
+      "repair_commit": "NONE",
+      "revalidation": "VALID"
+    },
+    {
+      "gate_name": "prelock",
+      "command": "python scripts/validate_mission_closure_v2.py validate-prelock --policy docs/ROADMAP_4X_MACRO_06_MISSION_POLICY.json --schema docs/MISSION_CLOSURE_POLICY_SCHEMA.json --evidence docs/ROADMAP_4X_MACRO_06_CANONICAL_CLOSURE_EVIDENCE.json",
+      "validation_basis": "eda33300710dc82f5610503c4cb199ef2d977de6",
+      "started_at": "2026-09-19T13:56:56-03:00",
+      "completed_at": "2026-09-19T13:56:57-03:00",
+      "wall_seconds": 1,
+      "process_seconds": "UNKNOWN",
+      "passed": 1,
+      "failed": 0,
+      "skipped": 0,
+      "warnings": 0,
+      "exit_code": 0,
+      "attempt": 1,
+      "cause": "Prelock will be executed at the documentary parent before final evidence lock.",
+      "repair": "NONE",
+      "repair_commit": "NONE",
+      "revalidation": "VALID"
     }
   ],
   "assurance_claims": [
@@ -271,8 +377,8 @@
   "remote_fetch": {
     "fetch_command": "git fetch origin --prune",
     "tracking_ref": "origin/main",
-    "local_tracking_ref_equality": "NOT_YET_FETCHED",
-    "remote_fetch_verified": false,
+    "local_tracking_ref_equality": "NOT_EQUAL_PREPUBLICATION",
+    "remote_fetch_verified": true,
     "remote_ruleset_enforcement": "NOT_PROVEN",
     "operator_action_required": true
   },
@@ -341,9 +447,9 @@
     "adjudications_completed": "2026-09-19T13:18:00-03:00",
     "selection_completed": "2026-09-19T13:18:30-03:00",
     "documentary_content_finalized": "2026-09-19T13:48:00-03:00",
-    "documentary_lock_parent_established": "UNKNOWN",
+    "documentary_lock_parent_established": "2026-09-19T13:56:57-03:00",
     "functional_publication_fetch_verified": "UNKNOWN",
-    "documentary_lock_fetch_verified": "UNKNOWN",
+    "documentary_lock_fetch_verified": "POSTPUBLISH_ENVELOPE",
     "operator_visible_completion": "UNKNOWN"
   }
 }
