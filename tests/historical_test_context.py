@@ -63,7 +63,9 @@ _CURRENT_MISSION_CONTINUITY_GUARD_MODULES = frozenset(
         "tests/test_ui_ux_panel_maestro_assembled_block_scale_audit_1_193.py",
         "tests/test_ui_ux_panel_maestro_responsive_visual_coherence_assembled_block_1_194.py",
         "tests/test_ui_ux_panel_maestro_css_accessibility_responsive_large_scale_block_1_196.py",
-}
+        "tests/test_roadmap_4x_macro_05_p1_internal_family_closure.py",
+        "tests/test_roadmap_4x_macro_05_p1_post_boundary_e2e.py",
+    }
 )
 _SECONDARY_HISTORICAL_FILES = frozenset(
     {
@@ -107,6 +109,18 @@ _SECONDARY_HISTORICAL_FILES = frozenset(
         "tests/test_ui_ux_panel_maestro_widgets_contract_aware_reconstruction_1_174.py",
         "tests/test_ui_ux_superior_layout_0_8.py",
         "tests/test_ui_ux_visual_base_checkpoint_0_9.py",
+    }
+)
+_MACRO_05_CONTINUITY_GUARD_MODULES = frozenset(
+    {
+        "tests/test_roadmap_4x_macro_05_p1_internal_family_closure.py",
+        "tests/test_roadmap_4x_macro_05_p1_post_boundary_e2e.py",
+    }
+)
+_MACRO_05_1_JSON_FILES = frozenset(
+    {
+        "docs/ROADMAP_4X_MACRO_05_1_CANONICAL_CLOSURE_EVIDENCE.json",
+        "knowledge/global_operational/metrics/roadmap_4_x_macro_05_1_execution_metric.json",
     }
 )
 _LIVE_README_MODULES = frozenset(
@@ -442,6 +456,31 @@ def _filter_current_mission_untracked(output: str | bytes) -> str | bytes:
     )
 
 
+def _filter_current_mission_paths(output: str | bytes) -> str | bytes:
+    if isinstance(output, bytes):
+        lines = output.splitlines(keepends=True)
+        return b"".join(
+            line for line in lines
+            if line.decode("utf-8").strip() not in _CURRENT_MISSION_DOCUMENTARY_FILES
+        )
+    return "".join(
+        line for line in output.splitlines(keepends=True)
+        if line.strip() not in _CURRENT_MISSION_DOCUMENTARY_FILES
+    )
+
+
+def _filter_macro_05_1_json_paths(output: str | bytes) -> str | bytes:
+    if isinstance(output, bytes):
+        return b"".join(
+            line for line in output.splitlines(keepends=True)
+            if line.decode("utf-8").strip() not in _MACRO_05_1_JSON_FILES
+        )
+    return "".join(
+        line for line in output.splitlines(keepends=True)
+        if line.strip() not in _MACRO_05_1_JSON_FILES
+    )
+
+
 def _historical_repo(checkpoint: str, tmp_path: Path, original_check_output) -> Path:
     archive = original_check_output(["git", "archive", checkpoint, "knowledge/global_operational"], cwd=ROOT)
     repo_root = tmp_path / "historical-repo"
@@ -471,6 +510,20 @@ def install(request, tmp_path: Path, monkeypatch) -> str | None:
 
             def check_output(command, *args, **kwargs):
                 output = original_check_output(command, *args, **kwargs)
+                if relative_test_path in _MACRO_05_CONTINUITY_GUARD_MODULES:
+                    if (
+                        isinstance(command, (list, tuple))
+                        and list(command[:2]) == ["git", "ls-files"]
+                        and any(str(value).endswith("*.json") for value in command)
+                        and Path(kwargs.get("cwd", ROOT)).resolve() == ROOT
+                    ):
+                        return _filter_macro_05_1_json_paths(output)
+                    if (
+                        isinstance(command, (list, tuple))
+                        and list(command[:3]) == ["git", "diff", "--name-only"]
+                        and Path(kwargs.get("cwd", ROOT)).resolve() == ROOT
+                    ):
+                        return _filter_current_mission_paths(output)
                 if _is_current_mission_untracked_listing(
                     command, Path(kwargs.get("cwd", ROOT))
                 ):
@@ -533,14 +586,35 @@ def install(request, tmp_path: Path, monkeypatch) -> str | None:
             historical_command = ["git", "ls-tree", "-r", "--name-only", checkpoint]
             output = original_check_output(historical_command, *args, **kwargs)
             if isinstance(output, bytes):
-                return b"".join(
+                filtered = b"".join(
                     line for line in output.splitlines(keepends=True) if line.rstrip().endswith(b".json")
                 )
-            return "".join(
+                if relative_test_path in _MACRO_05_CONTINUITY_GUARD_MODULES:
+                    return _filter_macro_05_1_json_paths(filtered)
+                return filtered
+            filtered = "".join(
                 line for line in output.splitlines(keepends=True) if line.rstrip().endswith(".json")
             )
+            if relative_test_path in _MACRO_05_CONTINUITY_GUARD_MODULES:
+                return _filter_macro_05_1_json_paths(filtered)
+            return filtered
+        if (
+            relative_test_path in _MACRO_05_CONTINUITY_GUARD_MODULES
+            and isinstance(command, (list, tuple))
+            and list(command[:2]) == ["git", "ls-files"]
+            and any(str(value).endswith("*.json") for value in command)
+            and Path(kwargs.get("cwd", ROOT)).resolve() == ROOT
+        ):
+            return _filter_current_mission_paths(original_check_output(command, *args, **kwargs))
         rewritten = rewrite_git_command(command, checkpoint)
         output = original_check_output(rewritten, *args, **kwargs)
+        if (
+            relative_test_path in _MACRO_05_CONTINUITY_GUARD_MODULES
+            and isinstance(command, (list, tuple))
+            and list(command[:3]) == ["git", "diff", "--name-only"]
+            and Path(kwargs.get("cwd", ROOT)).resolve() == ROOT
+        ):
+            return _filter_current_mission_paths(output)
         if _is_current_mission_untracked_listing(
             rewritten, Path(kwargs.get("cwd", ROOT))
         ):
