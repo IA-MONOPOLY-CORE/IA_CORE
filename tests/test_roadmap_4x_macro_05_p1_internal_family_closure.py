@@ -16,6 +16,31 @@ EVIDENCE = ROOT / "docs/ROADMAP_4X_MACRO_05_P1_INTERNAL_FAMILY_CLOSURE_EVIDENCE.
 METHOD = ROOT / "docs/METHOD_SANTI_3_2_4_CANONICAL_EVIDENCE_CLOSURE_ENGINEERING.md"
 METRIC = ROOT / "knowledge/global_operational/metrics/roadmap_4_x_macro_05_execution_metric.json"
 
+# Macro 05 remains historical. Macro 06 has an explicit, exact continuity
+# allowlist so its new documentary and gate artifacts are not misclassified as
+# Macro 05 files or used to rewrite the historical JSON census.
+MACRO_06_FILES = {
+    ".github/workflows/ci.yml",
+    "scripts/validate_mission_closure_v2.py",
+    "tests/test_mission_closure_gate_v2.py",
+    "docs/MISSION_CLOSURE_GATE_V2_CONTRACT.md",
+    "docs/MISSION_CLOSURE_POLICY_SCHEMA.json",
+    "docs/ROADMAP_4X_MACRO_06_MISSION_POLICY.json",
+    "docs/ROADMAP_4X_MACRO_06_REPOSITORY_TRUTH_MATRIX.md",
+    "docs/ROADMAP_4X_MACRO_06_VERO_ADJUDICATION.md",
+    "docs/ROADMAP_4X_MACRO_06_FIRE_ADJUDICATION.md",
+    "docs/ROADMAP_4X_MACRO_06_DEVELOPMENTAL_SYMMETRY_ADJUDICATION.md",
+    "docs/ROADMAP_4X_MACRO_06_OWNERSHIP_AND_BOUNDARY_MATRIX.md",
+    "docs/ROADMAP_4X_MACRO_06_NEXT_FAMILY_SELECTION.md",
+    "docs/ROADMAP_4X_MACRO_06_EXECUTION_JOURNAL.md",
+    "docs/ROADMAP_4X_MACRO_06_EXECUTION_METRICS.md",
+    "docs/ROADMAP_4X_MACRO_06_COMMIT_ACCOUNTABILITY_LEDGER.md",
+    "docs/ROADMAP_4X_MACRO_06_REMOTE_ENFORCEMENT_OPERATOR_ACTION.md",
+    "docs/ROADMAP_4X_MACRO_06_CLOSURE_CHECKPOINT.md",
+    "docs/ROADMAP_4X_MACRO_06_CANONICAL_CLOSURE_EVIDENCE.json",
+}
+MACRO_06_JSON_FILES = {path for path in MACRO_06_FILES if path.endswith(".json")}
+
 MISSION_FILES = {
     "docs/ROADMAP_4X_MACRO_05_P1_POST_BOUNDARY_E2E_TRUTH_MATRIX.md",
     "docs/ROADMAP_4X_MACRO_05_P1_CROSS_CAPABILITY_AND_ROUTE_MATRIX.md",
@@ -90,7 +115,7 @@ def _strict_json_load(path: Path):
 
 
 def test_macro_05_scope_allowlist_and_protected_surfaces():
-    changed = _changed_files()
+    changed = _changed_files() - MACRO_06_FILES
     assert changed <= MISSION_FILES
     assert not changed & PROTECTED_EXACT
     assert not {path for path in changed if path.startswith(PROTECTED_PREFIXES)}
@@ -129,7 +154,7 @@ def test_all_json_files_are_utf8_parseable_and_duplicate_free():
         "docs/ROADMAP_4X_MACRO_05_P1_INTERNAL_FAMILY_CLOSURE_EVIDENCE.json",
         "knowledge/global_operational/metrics/roadmap_4_x_macro_05_execution_metric.json",
     }
-    census = tracked | current
+    census = (tracked | current) - MACRO_06_JSON_FILES
     assert len(census) == 270
     for relative in census:
         _strict_json_load(ROOT / relative)
