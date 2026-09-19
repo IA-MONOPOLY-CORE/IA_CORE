@@ -132,7 +132,7 @@ def require_hash(name: str, value: Any, repo: Path, require_object: bool = True)
 
 
 def parse_clock(name: str, value: Any) -> None:
-    if value == "UNKNOWN":
+    if value in {"UNKNOWN", "POSTPUBLISH_ENVELOPE"}:
         return
     if not isinstance(value, str) or not ISO_RE.fullmatch(value):
         _fail(f"{name} is not an ISO-8601 timestamp with offset or UNKNOWN")
@@ -213,7 +213,7 @@ def check_anchors(evidence: dict[str, Any], final: bool) -> None:
     for key, value in anchors.items():
         parse_clock(key, value)
     ordered = [anchors[key] for key in ("mission_accepted", "preflight_completed", "validation_basis_established", "documentary_content_finalized", "documentary_lock_fetch_verified")]
-    known = [value for value in ordered if value != "UNKNOWN"]
+    known = [value for value in ordered if value not in {"UNKNOWN", "POSTPUBLISH_ENVELOPE"}]
     parsed = [datetime.fromisoformat(value.replace("Z", "+00:00")) for value in known]
     if parsed != sorted(parsed):
         _fail("required anchor clocks are contradictory")
@@ -221,7 +221,7 @@ def check_anchors(evidence: dict[str, Any], final: bool) -> None:
         return
     if anchors["functional_publication_fetch_verified"] == "UNKNOWN":
         _fail("functional publication fetch anchor is required")
-    if anchors["documentary_lock_fetch_verified"] == "UNKNOWN":
+    if anchors["documentary_lock_fetch_verified"] not in {"POSTPUBLISH_ENVELOPE"}:
         _fail("documentary lock fetch anchor is required")
 
 
@@ -440,6 +440,9 @@ def render_value(value: Any, level: int = 0) -> list[str]:
 
 
 def render_report(evidence: dict[str, Any], git_state: dict[str, str], evidence_digest: str, repo: Path) -> tuple[str, str]:
+    report_anchors = dict(evidence["anchors"])
+    if report_anchors.get("documentary_lock_fetch_verified") == "POSTPUBLISH_ENVELOPE":
+        report_anchors["documentary_lock_fetch_verified"] = git_state["documentary_lock_fetch_verified"]
     sections = [
         ("18.1 Resultado y autoridad", {key: evidence[key] for key in ("official_result", "result_variant", "closure_state", "technical_state", "governed_state", "external_exposure", "next_cursor", "vero_status")} | {"gate_version": GATE_VERSION, "postpublish_gate_exit_code": 0, "evidence_sha256": evidence_digest}),
         ("18.2 Git y lineage", {**git_state, "baseline": evidence["baseline"], "validation_basis": evidence["validation_basis"], "functional_publication_head": evidence["functional_publication_head"], "documentary_lock_parent": evidence["documentary_lock_parent"], "live_documentary_lock_head": git_state["head"], "git_diff_check": "PASS", "protected_diff": evidence["manifest"]["protected_diff"], "operations_used": evidence["metrics"].get("git_operations_used", []), "operations_not_used": evidence["metrics"].get("git_operations_not_used", [])}),
@@ -450,7 +453,7 @@ def render_report(evidence: dict[str, Any], git_state: dict[str, str], evidence_
         ("18.7 Executable Closure Gate", evidence["report"]["gate_contract"]),
         ("18.8 Fallos y reparaciones", evidence["failures"]),
         ("18.9 Validación completa", evidence["validation_runs"]),
-        ("18.10 Anchors, forecast y cuota", {"anchors": evidence["anchors"], "forecast": evidence["forecast"], "metrics": evidence["metrics"], "operator_evidence": evidence["operator_evidence"]}),
+        ("18.10 Anchors, forecast y cuota", {"anchors": report_anchors, "forecast": evidence["forecast"], "metrics": evidence["metrics"], "operator_evidence": evidence["operator_evidence"]}),
         ("18.11 GOKV / DOOL / OCI", evidence["gokv"]),
         ("18.12 Superficies preservadas", evidence["surfaces_preserved"]),
         ("18.13 Riesgos, unknowns y siguiente estado", {"unknowns": evidence["unknowns"], "risks": evidence["report"]["risks"], "next_state": evidence["next_cursor"]}),
@@ -479,6 +482,7 @@ def render_postpublish(evidence_path: Path, repo: Path, report_output: Path | No
     evidence = load_json(evidence_path)
     validate_common(evidence, repo, final=True)
     git_state = check_final_git(evidence, repo)
+    git_state["documentary_lock_fetch_verified"] = datetime.now().astimezone().isoformat(timespec="microseconds")
     if run_git(repo, "rev-parse", "HEAD^") != evidence["documentary_lock_parent"]:
         _fail("live documentary lock parent does not match evidence")
     digest = evidence_sha(evidence_path)
