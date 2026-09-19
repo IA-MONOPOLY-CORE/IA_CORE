@@ -93,7 +93,7 @@
   ],
   "contract_version": "mission_closure_evidence.v2.1",
   "documentary_lock_head": "POSTPUBLISH_ENVELOPE",
-  "documentary_lock_parent": "21077e0c0de348f6b622d3e94596b5283a8a002f",
+  "documentary_lock_parent": "05e47d4d4c37c96807fc070378e926dc032e7c5a",
   "expected_external_state": "DEFAULT_DENIED_AND_REMOTE_RULESET_NOT_PROVEN",
   "external_exposure": "DEFAULT_DENIED",
   "failures": [
@@ -567,7 +567,7 @@
   },
   "technical_state": "REPOSITORY_GROUNDED_AND_LEVEL_B_GREEN",
   "timeline": {
-    "canonical_evidence_finalized": "2026-09-19T15:57:46.439320-03:00",
+    "canonical_evidence_finalized": "2026-09-19T16:02:00.439437-03:00",
     "final_level_b_completed": "2026-09-19T15:42:38.108106-03:00",
     "final_level_b_started": "2026-09-19T15:41:32.631179-03:00",
     "mission_accepted": "2026-09-19T14:41:49.6841702-03:00",

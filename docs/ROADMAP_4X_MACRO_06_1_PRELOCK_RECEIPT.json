@@ -1,13 +1,13 @@
 {
-  "completed_at": "2026-09-19T15:59:49.927203-03:00",
+  "completed_at": "2026-09-19T16:02:02.766743-03:00",
   "created_by": "validate_mission_closure_v2_1.py",
-  "evidence_sha256": "310a1022042c080f58213cf35e3339d7259ded9183bb9dce220d150e0122c07f",
+  "evidence_sha256": "267127c954e67d93347efe00c0e2d7c86b0cc0ce8df7c3a703d948b603e45782",
   "exit_code": 0,
   "gate_version": "mission_closure_gate.v2.1",
   "kind": "PRELOCK",
   "mission": "ROADMAP_4X_MACRO_06_1",
   "policy_sha256": "7937b80c241af01b5643c3be93727bd916270728f837ea48ae50fcf95781d940",
-  "post_evidence_receipt_sha256": "8fcae0d9c980c1743f4a3a4a0d5e7fe8c47961b93933cfb2d30375f5e55403cd",
+  "post_evidence_receipt_sha256": "eff0a251c0da20e3627280d403580b236ba4d7b435acf0fb7ea033fb7fc6048a",
   "protected_diff": {
     "calculation_basis": "git diff d0f400eb89bc21a867a1c124136575a3436f593b..HEAD and computed path classification",
     "protected_diff_decision": "EMPTY",
@@ -29,7 +29,7 @@
     ]
   },
   "receipt_version": "mission_closure_receipt.v1",
-  "started_at": "2026-09-19T15:59:48.860621-03:00",
+  "started_at": "2026-09-19T16:02:01.711104-03:00",
   "validation_basis": "16cf06b9262bdef0b0e2a14baa7b351a33b639ba",
-  "wall_seconds": 1.066582
+  "wall_seconds": 1.055639
 }

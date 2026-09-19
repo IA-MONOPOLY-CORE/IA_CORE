@@ -1,8 +1,8 @@
 {
-  "completed_at": "2026-09-19T15:57:59.270332-03:00",
-  "computed_scope_sha256": "c18f16683e086f84e5ea74fff76332d87716e8e2ead1229999a2dbc6f583e635",
+  "completed_at": "2026-09-19T16:02:01.586208-03:00",
+  "computed_scope_sha256": "f00a9ed7e31ad8849f4024efbe9e2b056ea8c9debd62bdc1d128e8fc63ebf99f",
   "created_by": "validate_mission_closure_v2_1.py",
-  "evidence_sha256": "310a1022042c080f58213cf35e3339d7259ded9183bb9dce220d150e0122c07f",
+  "evidence_sha256": "267127c954e67d93347efe00c0e2d7c86b0cc0ce8df7c3a703d948b603e45782",
   "exit_code": 0,
   "gate_version": "mission_closure_gate.v2.1",
   "kind": "POST_EVIDENCE",
@@ -29,7 +29,7 @@
     ]
   },
   "receipt_version": "mission_closure_receipt.v1",
-  "started_at": "2026-09-19T15:57:58.240178-03:00",
+  "started_at": "2026-09-19T16:02:00.561162-03:00",
   "validation_basis": "16cf06b9262bdef0b0e2a14baa7b351a33b639ba",
-  "wall_seconds": 1.030154
+  "wall_seconds": 1.025046
 }
