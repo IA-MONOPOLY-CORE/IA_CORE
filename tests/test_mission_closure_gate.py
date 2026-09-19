@@ -105,9 +105,9 @@ def test_final_positive_fixture_is_deterministic_and_tamper_resistant(tmp_path, 
     value["manifest"]["post_level_b_policy"]["changed_after_level_b"] = []
     value["closure_state"] = "GOVERNED_CLOSURE_CONFIRMED"
     value["report"]["final_report_sha256"] = "RENDERED_BY_GATE"
-    value["anchors"]["functional_publication_fetch_verified"] = "2026-09-19T08:30:00-03:00"
-    value["anchors"]["documentary_content_finalized"] = "2026-09-19T08:31:00-03:00"
-    value["anchors"]["documentary_lock_parent_established"] = "2026-09-19T08:31:01-03:00"
+    value["anchors"]["functional_publication_fetch_verified"] = "2026-09-19T08:11:48.5454855-03:00"
+    value["anchors"]["documentary_content_finalized"] = "2026-09-19T09:15:00-03:00"
+    value["anchors"]["documentary_lock_parent_established"] = "2026-09-19T09:15:01-03:00"
     value["anchors"]["documentary_lock_fetch_verified"] = "POSTPUBLISH_ENVELOPE"
     for commit in value["commits"]:
         commit["hash"] = hashes["basis"]
