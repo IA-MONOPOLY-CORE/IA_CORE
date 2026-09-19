@@ -20,11 +20,16 @@ would require a separate bounded repair and another Level B attempt.
 ## Required anchors
 
 ```text
-FUNCTIONAL_PUBLICATION_FETCH_VERIFIED_TIME: PENDING
-DOCUMENTARY_CONTENT_FINALIZED_TIME: PENDING
-DOCUMENTARY_LOCK_FETCH_VERIFIED_TIME: PENDING
+FUNCTIONAL_PUBLICATION_FETCH_VERIFIED_TIME: REPORTED_EXTERNALLY_WITH_FINAL_GREEN_FETCH
+DOCUMENTARY_CONTENT_FINALIZED_TIME: 2026-09-19T07:33:20.1654577-03:00
+DOCUMENTARY_LOCK_FETCH_VERIFIED_TIME: REPORTED_EXTERNALLY_AFTER_FINAL_FETCH
 OPERATOR_VISIBLE_COMPLETION_TIME: UNKNOWN_EXTERNAL_OPERATOR_EVIDENCE_REQUIRED
 ```
 
-Process time, retries, rollbacks, interruption duration and quota values remain
-`UNKNOWN` until directly measured. No quota percentage is inferred.
+Level B completed in `1694.9740024` seconds. Acceptance to Level B completion
+was `3204.532909` seconds, against the 7200-second central forecast: absolute
+variance `-3995.467091` seconds, relative variance approximately `-55.4926%`,
+and `2195.467091` seconds below the expected floor. Process CPU time was not
+captured by the wrapper. There were no retries, rollbacks or interruptions.
+Quota values remain `UNKNOWN_EXTERNAL_OPERATOR_EVIDENCE_REQUIRED`; no quota
+percentage or reset delta is inferred.

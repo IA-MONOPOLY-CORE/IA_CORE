@@ -2,9 +2,10 @@
   "mission": "ROADMAP_4X_MACRO_05",
   "subfamily": "P1_STATUS_OBSERVABILITY_MEMORY",
   "baseline": "9148f023f4df8e642f396f08a6386f8967d70efb",
-  "status": "IN_PROGRESS",
-  "variant": "PENDING",
-  "p1_family": "FUNCTIONALLY_COMPLETE_PENDING_E2E_CLOSURE",
+  "status": "INTERNALLY_CLOSED",
+  "variant": "A_NO_PRODUCT_REPAIR",
+  "official_result": "ROADMAP_4X_MACRO_05_P1_POST_BOUNDARY_E2E_ADVERSARIAL_ASSURANCE_PASSED_NO_PRODUCT_REPAIR_CROSS_CAPABILITY_CONFUSION_BLOCKED_ZERO_SOURCE_READ_ON_DENY_PRESERVED_SANITIZED_BOUNDED_DOMAIN_NEUTRAL_CANONICAL_EVIDENCE_LOCKED_EXTERNAL_EXPOSURE_DEFAULT_DENIED_P1_INTERNAL_FAMILY_CLOSED_MACRO_06_RECALIBRATION_AND_NEXT_FAMILY_SELECTION_SELECTED_NOT_STARTED",
+  "p1_family": "INTERNALLY_CLOSED",
   "external_exposure": "DEFAULT_DENIED",
   "tenant_access": "NOT_IMPLEMENTED",
   "tracked_json_before": 268,
@@ -13,10 +14,18 @@
   "strict_duplicate_scan_after": "PASS_ZERO_DUPLICATE_KEYS",
   "focal": "PASS_62_PASSED_0_FAILED_5_WARNINGS",
   "historical_impact_gate": "PASS_117_PASSED_0_FAILED_5_WARNINGS",
-  "level_a": "PENDING",
-  "level_b": "PENDING",
-  "validation_basis": "READY_AFTER_HISTORICAL_GATE",
-  "product_repair": "NONE_UNTIL_RED_EVIDENCE",
+  "level_a": "PASS_194_PASSED_0_FAILED_5_WARNINGS",
+  "level_b": "PASS_7199_PASSED_6_SKIPPED_6_WARNINGS_EXIT_0",
+  "validation_basis": "PASS",
+  "product_repair": "NONE",
+  "anchors": {
+    "functional_publication_fetch_verified_time": "REPORTED_EXTERNALLY_WITH_FINAL_GREEN_FETCH",
+    "documentary_content_finalized_time": "DOCUMENTARY_CONTENT_FINALIZED_TIME_REPORTED_IN_FINAL_REPORT",
+    "documentary_lock_fetch_verified_time": "REPORTED_EXTERNALLY_AFTER_FINAL_FETCH",
+    "operator_visible_completion_time": "UNKNOWN_EXTERNAL_OPERATOR_EVIDENCE_REQUIRED"
+  },
+  "documentary_lock_parent": "26fef3b83529aef93cd7afdfc6cafef7b435fedb",
+  "documentary_lock_hash": "NOT_EMBEDDED_FIXED_POINT",
   "gokv": {
     "total_items": 38,
     "validated": 9,
@@ -35,5 +44,5 @@
     "reset": "UNKNOWN_EXTERNAL_OPERATOR_EVIDENCE_REQUIRED",
     "deltas": "UNKNOWN_EXTERNAL_OPERATOR_EVIDENCE_REQUIRED"
   },
-  "publication": "PENDING"
+  "publication": "ONE_FINAL_GREEN_CYCLE_PENDING_FETCH_VERIFICATION"
 }

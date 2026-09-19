@@ -1832,13 +1832,13 @@ Ver [status contract](docs/ROADMAP_4X_MACRO_04_3_P1_A_STATUS_CONTRACT.md),
 ## Roadmap 4.x Macro-Mission 05 - P1 live closure record
 
 The historical Macro 04.3 narrative above is preserved as historical
-checkpoint context. The live Macro 05 record is maintained separately while
-the post-boundary E2E closure is executed.
+checkpoint context. The live Macro 05 record below is the current closure
+state.
 
 ```text
 ROADMAP_4X_MACRO_05_P1_INTERNAL_FAMILY_CLOSURE
-P1_INTERNAL_FAMILY_CLOSURE_IN_PROGRESS
-MACRO_06_RECALIBRATION_AND_NEXT_FAMILY_SELECTION_NOT_STARTED
+P1_INTERNAL_FAMILY_CLOSED
+MACRO_06_RECALIBRATION_AND_NEXT_FAMILY_SELECTION_SELECTED_NOT_STARTED
 EXTERNAL_EXPOSURE: DEFAULT_DENIED
 ```
 

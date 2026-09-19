@@ -404,13 +404,13 @@ future-only. See the [P1-A contract](ROADMAP_4X_MACRO_04_3_P1_A_STATUS_CONTRACT.
 ## Roadmap 4.x Macro-Mission 05 - P1 live closure record
 
 The Macro 04.3 entry above remains historical checkpoint context. The current
-live state is tracked by the Macro 05 artifacts while the four P1 boundaries
-are evaluated together.
+live state is tracked by the Macro 05 artifacts after the four P1 boundaries
+were evaluated together.
 
 ```text
 ROADMAP_4X_MACRO_05_P1_INTERNAL_FAMILY_CLOSURE
-P1_INTERNAL_FAMILY_CLOSURE_IN_PROGRESS
-MACRO_06_RECALIBRATION_AND_NEXT_FAMILY_SELECTION_NOT_STARTED
+P1_INTERNAL_FAMILY_CLOSED
+MACRO_06_RECALIBRATION_AND_NEXT_FAMILY_SELECTION_SELECTED_NOT_STARTED
 EXTERNAL_EXPOSURE: DEFAULT_DENIED
 ```
 

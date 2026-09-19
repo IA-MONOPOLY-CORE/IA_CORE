@@ -55,3 +55,12 @@ BROAD_GLOBS_ADDED: NO
 WORKING_TREE_SUBSTITUTION_FOR_HISTORY: NO
 UNCLASSIFIED_HISTORICAL_FAILURES: 0
 ```
+
+The final documentary update was checked once before the adapter's working-tree
+filter was extended and returned `113 passed, 4 failed, 5 warnings`. The four
+failures were the same scope-allowlist assertion in the 04.3, 04.4, 04.5 and
+04.6 guards; all were caused by visible Macro 05 documentary files still
+being modified before the lock commit. The adapter now filters the exact
+Macro 05 documentary paths listed in its frozen set, and the accepted retry
+returned `117 passed, 0 failed, 5 warnings` with no assertion removal, no
+glob expansion and no product change.

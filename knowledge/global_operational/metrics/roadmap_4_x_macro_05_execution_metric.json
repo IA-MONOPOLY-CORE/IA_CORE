@@ -2,7 +2,7 @@
   "metric_id": "roadmap_4_x_macro_05_execution_metric",
   "mission": "ROADMAP_4X_MACRO_05",
   "subfamily": "P1_STATUS_OBSERVABILITY_MEMORY",
-  "status": "IN_PROGRESS",
+  "status": "INTERNALLY_CLOSED_PENDING_FINAL_FETCH_REPORT",
   "mission_accepted_at": "2026-09-19T06:30:55.6332332-03:00",
   "preflight_completed_at": "2026-09-19T06:30:56.9336245-03:00",
   "baseline": "9148f023f4df8e642f396f08a6386f8967d70efb",
@@ -13,20 +13,42 @@
     "ceiling_seconds": 14400
   },
   "anchors": {
-    "functional_publication_fetch_verified_time": "PENDING",
-    "documentary_content_finalized_time": "PENDING",
-    "documentary_lock_fetch_verified_time": "PENDING",
+    "functional_publication_fetch_verified_time": "REPORTED_EXTERNALLY_WITH_FINAL_GREEN_FETCH",
+    "documentary_content_finalized_time": "DOCUMENTARY_CONTENT_FINALIZED_TIME_REPORTED_IN_FINAL_REPORT",
+    "documentary_lock_fetch_verified_time": "REPORTED_EXTERNALLY_AFTER_FINAL_FETCH",
     "operator_visible_completion_time": "UNKNOWN_EXTERNAL_OPERATOR_EVIDENCE_REQUIRED"
   },
-  "level_b_attempts": [],
+  "level_b_attempts": [
+    {
+      "attempt": 1,
+      "status": "PASS",
+      "result": "7199 passed, 6 skipped, 6 warnings",
+      "started_at": "2026-09-19T06:56:05.1921403-03:00",
+      "completed_at": "2026-09-19T07:24:20.1661427-03:00",
+      "wall_seconds": 1694.9740024,
+      "process_seconds": "UNKNOWN",
+      "exit_code": 0,
+      "cause": null,
+      "repair": null
+    }
+  ],
+  "focal": {"status": "PASS", "result": "62 passed, 0 failed, 5 warnings", "wall_seconds": 15.368},
+  "level_a": {"status": "PASS", "result": "194 passed, 0 failed, 5 warnings", "wall_seconds": 66.7789434},
+  "strict_json": {"status": "PASS", "census": 270, "duplicate_keys": 0, "parse_failures": 0},
+  "product_repair": "NONE",
+  "documentary_lock_parent": "26fef3b83529aef93cd7afdfc6cafef7b435fedb",
+  "documentary_lock_hash": "NOT_EMBEDDED_FIXED_POINT",
   "historical_impact_gate": {
     "status": "PASS",
     "result": "117 passed, 0 failed, 5 warnings",
     "started_at": "2026-09-19T06:52:15.5039519-03:00",
     "completed_at": "2026-09-19T06:53:20.7351859-03:00",
     "wall_seconds": 65.231234,
-    "attempts": 2,
+    "attempts": 4,
     "first_attempt_result": "115 passed, 2 failed, 5 warnings",
+    "post_lock_attempt_result": "113 passed, 4 failed, 5 warnings",
+    "post_lock_retry_result": "117 passed, 0 failed, 5 warnings",
+    "post_lock_retry_wall_seconds": 92.8685782,
     "assertions_removed": false,
     "broad_globs_added": false,
     "working_tree_substitution_for_history": false,
@@ -53,5 +75,5 @@
     "new_pack": "NONE",
     "oci_runtime_activation": "NONE"
   },
-  "publication": "PENDING"
+  "publication": "ONE_FINAL_GREEN_CYCLE_PENDING_FETCH_VERIFICATION"
 }

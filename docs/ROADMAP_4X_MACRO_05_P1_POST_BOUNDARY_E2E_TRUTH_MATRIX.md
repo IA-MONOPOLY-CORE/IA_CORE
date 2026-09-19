@@ -15,6 +15,15 @@ P1_STARTING_STATE: FUNCTIONALLY_COMPLETE_PENDING_E2E_CLOSURE
 This is the live Macro 05 matrix. Historical Macro 03 matrices remain
 unchanged and retain their original deferred claims.
 
+```text
+P1_FAMILY_STATE: INTERNALLY_CLOSED
+P4_ROUTES_INTERNALLY_CLOSED: 7
+P1_ROUTES_TREATED_AFTER_CLOSURE: 4
+ROUTES_TREATED_TOTAL: 11
+ROUTES_REMAINING: 25
+MACRO_06_RECALIBRATION_AND_NEXT_FAMILY_SELECTION: SELECTED_NOT_STARTED
+```
+
 ## Canonical request flow
 
 ```text
@@ -47,8 +56,9 @@ Host, User-Agent, Forwarded value, loopback address or body.
 
 The historical canonical matrix contains 36 stable routes. Current inspection
 confirms the four P1 paths above and seven P4 routes already internally
-closed. Macro 05 treats exactly four P1 GET routes and adds no route, alias,
-method or view.
+closed. Macro 05 treated exactly four P1 GET routes and added no route, alias,
+method or view. Eleven routes are now treated across the closed P4 and P1
+families; 25 remain outside this mission.
 
 ## Preserved boundaries
 
