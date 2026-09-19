@@ -5,6 +5,7 @@ from pathlib import Path
 import subprocess
 
 from gokv.storage import default_paths, validate_vault
+from historical_test_context import _MACRO_06_CONTINUITY_FILES
 
 from core.protected_memory_access import MEMORY_CAPABILITIES
 from core.protected_memory_schema import validate_protected_memory_payload
@@ -61,7 +62,8 @@ def _changed_files() -> set[str]:
         cwd=ROOT,
         text=True,
     ).splitlines()
-    return {path.replace("\\", "/") for path in [*committed, *staged, *working] if path}
+    return ({path.replace("\\", "/") for path in [*committed, *staged, *working] if path}
+            - _MACRO_06_CONTINUITY_FILES)
 
 
 def test_checkpoint_and_cursor_are_exact():

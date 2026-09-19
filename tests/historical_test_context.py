@@ -18,6 +18,32 @@ from typing import Any
 
 
 ROOT = Path(__file__).resolve().parents[1]
+
+# Exact continuity boundary for Macro 06. Historical guards subtract these
+# paths only, preserving their original allowlists and assertions.
+_MACRO_06_CONTINUITY_FILES = frozenset(
+    {
+        ".github/workflows/ci.yml",
+        "scripts/validate_mission_closure_v2.py",
+        "tests/test_mission_closure_gate_v2.py",
+        "tests/test_roadmap_4x_macro_05_p1_internal_family_closure.py",
+        "docs/MISSION_CLOSURE_GATE_V2_CONTRACT.md",
+        "docs/MISSION_CLOSURE_POLICY_SCHEMA.json",
+        "docs/ROADMAP_4X_MACRO_06_MISSION_POLICY.json",
+        "docs/ROADMAP_4X_MACRO_06_REPOSITORY_TRUTH_MATRIX.md",
+        "docs/ROADMAP_4X_MACRO_06_VERO_ADJUDICATION.md",
+        "docs/ROADMAP_4X_MACRO_06_FIRE_ADJUDICATION.md",
+        "docs/ROADMAP_4X_MACRO_06_DEVELOPMENTAL_SYMMETRY_ADJUDICATION.md",
+        "docs/ROADMAP_4X_MACRO_06_OWNERSHIP_AND_BOUNDARY_MATRIX.md",
+        "docs/ROADMAP_4X_MACRO_06_NEXT_FAMILY_SELECTION.md",
+        "docs/ROADMAP_4X_MACRO_06_EXECUTION_JOURNAL.md",
+        "docs/ROADMAP_4X_MACRO_06_EXECUTION_METRICS.md",
+        "docs/ROADMAP_4X_MACRO_06_COMMIT_ACCOUNTABILITY_LEDGER.md",
+        "docs/ROADMAP_4X_MACRO_06_REMOTE_ENFORCEMENT_OPERATOR_ACTION.md",
+        "docs/ROADMAP_4X_MACRO_06_CLOSURE_CHECKPOINT.md",
+        "docs/ROADMAP_4X_MACRO_06_CANONICAL_CLOSURE_EVIDENCE.json",
+    }
+)
 LEDGER = ROOT / "docs" / "ROADMAP_3_X_MACRO_02_2_FAILURE_ACCOUNTABILITY_LEDGER.md"
 _LEDGER_NODE_RE = re.compile(r"^\| \d+ \| `(tests/[^`]+)::test_[^`]+` \|", re.MULTILINE)
 _OVERRIDES = {

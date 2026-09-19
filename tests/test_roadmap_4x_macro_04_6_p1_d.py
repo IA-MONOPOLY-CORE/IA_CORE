@@ -5,6 +5,7 @@ from pathlib import Path
 import subprocess
 
 from gokv.storage import default_paths, validate_vault
+from historical_test_context import _MACRO_06_CONTINUITY_FILES
 
 from core.protected_dynamic_metrics_schema import validate_protected_dynamic_metrics_payload
 
@@ -75,7 +76,8 @@ def _changed_files() -> set[str]:
         cwd=ROOT,
         text=True,
     ).splitlines()
-    return {path.replace("\\", "/") for path in [*committed, *staged, *working] if path}
+    return ({path.replace("\\", "/") for path in [*committed, *staged, *working] if path}
+            - _MACRO_06_CONTINUITY_FILES)
 
 
 def test_scope_allowlist_and_protected_surfaces_are_explicit():

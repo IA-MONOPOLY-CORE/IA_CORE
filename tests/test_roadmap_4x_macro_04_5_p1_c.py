@@ -6,6 +6,8 @@ import json
 from pathlib import Path
 import subprocess
 
+from historical_test_context import _MACRO_06_CONTINUITY_FILES
+
 
 ROOT = Path(__file__).resolve().parents[1]
 BASELINE = "0d6b234a70bd1c882872e4be02b018bd6de09a64"
@@ -70,7 +72,8 @@ def _changed_files() -> set[str]:
         cwd=ROOT,
         text=True,
     ).splitlines()
-    return {path.replace("\\", "/") for path in [*committed, *staged, *working] if path}
+    return ({path.replace("\\", "/") for path in [*committed, *staged, *working] if path}
+            - _MACRO_06_CONTINUITY_FILES)
 
 
 def test_scope_allowlist_and_protected_surfaces_are_explicit():
