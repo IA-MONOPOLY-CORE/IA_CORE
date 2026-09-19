@@ -1,0 +1,78 @@
+{
+  "schema_version": "mission_policy.v2.1",
+  "mission_identity": {
+    "roadmap": "4.x",
+    "macro_mission": "06.1",
+    "mission": "ROADMAP_4X_MACRO_06_1",
+    "mission_name": "CLOSURE_CAUSALITY_SCOPE_ENFORCEMENT_AND_DEVELOPMENTAL_EVIDENCE_RECONCILIATION",
+    "predecessor": "ROADMAP_4X_MACRO_06",
+    "predecessor_state": "GOVERNED_CLOSURE_CONFIRMED"
+  },
+  "branch": "main",
+  "baseline": "d0f400eb89bc21a867a1c124136575a3436f593b",
+  "expected_external_state": "DEFAULT_DENIED_AND_REMOTE_RULESET_NOT_PROVEN",
+  "allowed_result_variants": [
+    "ROADMAP_4X_MACRO_06_1_CLOSURE_CAUSALITY_AND_EXECUTABLE_SCOPE_ENFORCEMENT_PASSED_GATE_V2_1_HARDENED_VERO_FIRE_DEVELOPMENTAL_EXERCISE_RECORDED_P3_SELECTED_NOT_STARTED",
+    "BLOCKED_EXECUTABLE_CLOSURE_GATE"
+  ],
+  "required_report_sections": ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16"],
+  "required_validation_gates": ["focal", "historical-impact", "level-a", "level-b", "post-evidence", "prelock"],
+  "protected_surfaces": ["P0", "P1", "P2-P9", "P3_IMPLEMENTATION", "VERO_RUNTIME", "FIRE_RUNTIME", "PRODUCT", "BACKEND", "UI", "HTML", "CSS", "JAVASCRIPT", "I18N", "PAYLOAD", "RUNTIME", "EXECUTION", "ENDPOINTS", "TENANCY", "PROVIDERS", "INTEGRATIONS", "GOKV_PROMOTION", "OCI_ACTIVATION", "EXTERNAL_EXPOSURE"],
+  "protected_path_prefixes": ["api.py", "core/", "domains/", "providers/", "ui/", "data/", "memory/", "logs/", "gokv/", "runtime/", "execution/", "integrations/", "tenants/"],
+  "allowed_change_paths": [
+    ".github/workflows/ci.yml",
+    "scripts/validate_mission_closure_v2_1.py",
+    "scripts/run_mission_validation_v2_1.py",
+    "docs/MISSION_CLOSURE_GATE_V2_1_CONTRACT.md",
+    "docs/MISSION_CLOSURE_POLICY_SCHEMA_V2_1.json",
+    "docs/ROADMAP_4X_MACRO_06_1_MISSION_POLICY.json",
+    "docs/ROADMAP_4X_MACRO_06_1_VERO_DEVELOPMENTAL_REALITY_REPORT.md",
+    "docs/ROADMAP_4X_MACRO_06_1_FIRE_DEVELOPMENTAL_FAILURE_INTELLIGENCE_REPORT.md",
+    "docs/ROADMAP_4X_MACRO_06_1_NEGATIVE_CONTROL_MATRIX.md",
+    "docs/ROADMAP_4X_MACRO_06_1_ROOT_CAUSE_AND_RECURRENCE_PREVENTION.md",
+    "docs/ROADMAP_4X_MACRO_06_1_EXECUTION_JOURNAL.md",
+    "docs/ROADMAP_4X_MACRO_06_1_EXECUTION_METRICS.md",
+    "docs/ROADMAP_4X_MACRO_06_1_COMMIT_ACCOUNTABILITY_LEDGER.md",
+    "docs/ROADMAP_4X_MACRO_06_1_CANONICAL_CLOSURE_EVIDENCE.json",
+    "docs/ROADMAP_4X_MACRO_06_1_CLOSURE_CHECKPOINT.md",
+    "docs/ROADMAP_4X_MACRO_06_1_POST_EVIDENCE_RECEIPT.json",
+    "docs/ROADMAP_4X_MACRO_06_1_PRELOCK_RECEIPT.json",
+    "docs/METHOD_SANTI_3_2_6_CAUSAL_EVIDENCE_AND_EXECUTABLE_SCOPE_ENFORCEMENT.md",
+    "tests/test_mission_closure_gate_v2_1.py",
+    "tests/test_mission_closure_gate_v2_1_git_integration.py",
+    "tests/test_mission_closure_gate_v2_1_chronology.py",
+    "tests/test_mission_closure_gate_v2_1_ci_contract.py",
+    "tests/test_mission_closure_gate_v2_1_reproduction.py",
+    "tests/test_mission_closure_historical_compatibility_v2_1.py"
+  ],
+  "post_validation_change_policy": {
+    "allowed_categories": ["DOCUMENTARY_ONLY", "EVIDENCE_ONLY"],
+    "invalidating_categories": ["EXECUTABLE", "TEST_INFRASTRUCTURE", "CONFIGURATION", "PRODUCT"],
+    "changed_after_level_b": []
+  },
+  "next_cursor": "P3_LOTERIA_VALIDATION_EVOLUTION_SELECTED_NOT_STARTED",
+  "external_exposure": "DEFAULT_DENIED",
+  "candidate_specific_frontiers": ["VERO_RUNTIME_NOT_STARTED", "FIRE_RUNTIME_NOT_STARTED", "DEVELOPMENTAL_SYMMETRY_NOT_PRODUCTIVE_ACTIVATION"],
+  "preserved_controls": [
+    "NO_SELF_DECLARED_PASS", "NO_REPORT_ONLY_CLOSURE", "NO_EVIDENCE_BY_OMISSION", "NO_MISSING_FIELD_DEFAULTS",
+    "NO_PLACEHOLDER_AS_FINAL_EVIDENCE", "NO_PASS_STRING_AS_COMMIT_HASH", "NO_POST_BASIS_EXECUTABLE_CHANGE_WITHOUT_REVALIDATION",
+    "NO_UNRENDERED_FINAL_REPORT", "NO_GATE_BYPASS_FLAG", "NO_NARRATIVE_CLOSURE_OVERRIDE", "NO_EVIDENCE_FROM_THE_FUTURE",
+    "NO_DECLARED_CONTROL_WITHOUT_EXECUTABLE_ENFORCEMENT", "NO_SELF_DECLARED_PROTECTED_DIFF", "NO_POST_FINALIZATION_EVENT_INSIDE_PRE_FINALIZATION_EVIDENCE",
+    "CI_STEP_IS_NOT_REQUIRED_CHECK", "REMOTE_ENFORCEMENT_HAS_EVOLVABLE_STATE", "OPERATOR_ACCEPTANCE_REQUIRED_BEFORE_NEXT_FAMILY"
+  ],
+  "ci_contract": {
+    "workflow": ".github/workflows/ci.yml",
+    "required_job_name": "closure-policy-and-anti-weakening",
+    "required_check_name": "closure-policy-and-anti-weakening",
+    "required_commands": [
+      "python scripts/validate_mission_closure_v2_1.py validate-policy",
+      "python -m pytest -q tests/test_mission_closure_gate_v2_1.py tests/test_mission_closure_gate_v2_1_git_integration.py tests/test_mission_closure_gate_v2_1_chronology.py tests/test_mission_closure_gate_v2_1_ci_contract.py",
+      "python -m pytest -q tests/test_mission_closure_gate_v2.py tests/test_mission_closure_historical_compatibility_v2_1.py"
+    ]
+  },
+  "remote_enforcement": {
+    "state": "NOT_PROVEN",
+    "operator_action_required": true,
+    "required_check_name": "closure-policy-and-anti-weakening"
+  }
+}
