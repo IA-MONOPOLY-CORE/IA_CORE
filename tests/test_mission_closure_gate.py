@@ -108,7 +108,7 @@ def test_final_positive_fixture_is_deterministic_and_tamper_resistant(tmp_path, 
     value["anchors"]["functional_publication_fetch_verified"] = "2026-09-19T08:30:00-03:00"
     value["anchors"]["documentary_content_finalized"] = "2026-09-19T08:31:00-03:00"
     value["anchors"]["documentary_lock_parent_established"] = "2026-09-19T08:31:01-03:00"
-    value["anchors"]["documentary_lock_fetch_verified"] = "2026-09-19T08:32:00-03:00"
+    value["anchors"]["documentary_lock_fetch_verified"] = "POSTPUBLISH_ENVELOPE"
     for commit in value["commits"]:
         commit["hash"] = hashes["basis"]
         commit["parent"] = hashes["parent"]
