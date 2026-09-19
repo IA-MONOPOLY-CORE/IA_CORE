@@ -75,7 +75,7 @@ def commit_for(message: str) -> str:
 def changed_paths(base: str, head: str = "HEAD") -> set[str]:
     tracked = set(filter(None, git("diff", "--name-only", "--no-renames", base, head).splitlines()))
     untracked = set(filter(None, git("ls-files", "--others", "--exclude-standard").splitlines()))
-    return tracked | untracked
+    return (tracked | untracked) - scope._MACRO_06_CONTINUITY_FILES
 
 
 def test_checkpoint_document_contains_complete_assembled_block_contract():

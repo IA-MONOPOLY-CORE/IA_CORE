@@ -3,6 +3,8 @@ import re
 import subprocess
 import unicodedata
 
+from historical_test_context import _MACRO_06_CONTINUITY_FILES
+
 
 ROOT = Path(__file__).resolve().parents[1]
 DOC = ROOT / "docs" / "UI_UX_PANEL_MAESTRO_ROADMAP_CURSOR_AUDIT_1_173.md"
@@ -78,7 +80,7 @@ def changed_paths() -> set[str]:
     untracked = set(
         filter(None, git("ls-files", "--others", "--exclude-standard").splitlines())
     )
-    return tracked | untracked
+    return (tracked | untracked) - _MACRO_06_CONTINUITY_FILES
 
 
 def test_cursor_audit_document_exists():

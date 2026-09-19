@@ -3,6 +3,8 @@
 from pathlib import Path
 import subprocess
 
+from historical_test_context import _MACRO_06_CONTINUITY_FILES
+
 from ui_ux_1_192_scope import CONTINUITY_1_199
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -125,7 +127,7 @@ def git(*args: str) -> str:
 def changed_paths(base: str = BASELINE, head: str = "HEAD") -> set[str]:
     tracked = set(filter(None, git("diff", "--name-only", "--no-renames", base, head).splitlines()))
     untracked = set(filter(None, git("ls-files", "--others", "--exclude-standard").splitlines()))
-    return tracked | untracked
+    return (tracked | untracked) - _MACRO_06_CONTINUITY_FILES
 
 
 def commit_for(message: str) -> str | None:

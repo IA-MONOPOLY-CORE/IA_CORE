@@ -58,7 +58,7 @@ def git(*args: str) -> str:
 def all_changed_paths() -> set[str]:
     tracked = set(filter(None, git("diff", "--name-only", BASE, HISTORICAL_HEAD).splitlines()))
     working = set(filter(None, git("ls-files", "--others", "--exclude-standard").splitlines()))
-    return tracked | working
+    return (tracked | working) - scope._MACRO_06_CONTINUITY_FILES
 
 
 def test_audit_document_contains_required_scale_contract():

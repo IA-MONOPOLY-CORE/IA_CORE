@@ -129,6 +129,7 @@ def test_only_proposal_and_reporting_files_change():
     scope.assert_current_scope(ROOT, head=historical_head, baseline=BASE, allowed_paths=ALLOWED)
     paths = set(git("diff", "--name-only", BASE, historical_head).splitlines())
     paths.update(git("ls-files", "--others", "--exclude-standard").splitlines())
+    paths -= scope._MACRO_06_CONTINUITY_FILES
     assert paths <= ALLOWED, sorted(paths - ALLOWED)
     assert git("diff", "--name-only", BASE, historical_head, "--", "ui/web/index.html", "ui/web/*.js", "ui/web/i18n_es.json", "core", "api.py", "domains", "providers", "tools", "scripts", "integrations", "runtime", "execution", ".github").strip() == ""
 

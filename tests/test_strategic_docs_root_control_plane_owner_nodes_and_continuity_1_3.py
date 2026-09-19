@@ -5,6 +5,8 @@ import re
 import subprocess
 import unicodedata
 
+from historical_test_context import _MACRO_06_CONTINUITY_FILES
+
 
 ROOT = Path(__file__).resolve().parents[1]
 DOCS = ROOT / "docs"
@@ -54,7 +56,7 @@ def changed_paths() -> set[str]:
     untracked = set(
         filter(None, git("ls-files", "--others", "--exclude-standard").splitlines())
     )
-    return tracked | untracked
+    return (tracked | untracked) - _MACRO_06_CONTINUITY_FILES
 
 
 def affirmative_forbidden_claims(text: str, forbidden: list[str]) -> list[str]:

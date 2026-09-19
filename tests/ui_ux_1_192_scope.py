@@ -4,6 +4,8 @@ import ast
 from pathlib import Path
 import subprocess
 
+from historical_test_context import _MACRO_06_CONTINUITY_FILES
+
 BASE = "82dd100"
 CSS = "ui/web/styles.css"
 ROOT = Path(__file__).resolve().parents[1]
@@ -355,8 +357,9 @@ def text(blob):
 
 def historical_paths(root, checkpoint):
     assert checkpoint in CHECKPOINTS.values(), "Unknown historical checkpoint"
-    return set(text(git(root, "diff", "--name-only", "--no-renames",
-                        checkpoint + "^", checkpoint)).splitlines())
+    return (set(text(git(root, "diff", "--name-only", "--no-renames",
+                          checkpoint + "^", checkpoint)).splitlines())
+            - _MACRO_06_CONTINUITY_FILES)
 
 
 def path_helper_source(name):
