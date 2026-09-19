@@ -1,0 +1,151 @@
+{
+  "contract_version": "mission_closure_evidence.v1",
+  "mission": "ROADMAP_4X_MACRO_05_1",
+  "official_result": "ROADMAP_4X_MACRO_05_1_P1_CANONICAL_CLOSURE_RECONCILIATION_PASSED_NO_PRODUCT_REPAIR_EXECUTABLE_CLOSURE_AUTHORITY_INSTALLED_NEGATIVE_BYPASS_CONTROLS_PASSED_FINAL_HEAD_ASSURANCE_VERIFIED_MACHINE_RENDERED_REPORT_COMPLETE_P1_GOVERNED_CLOSURE_CONFIRMED_MACRO_06_SELECTED_NOT_STARTED",
+  "baseline": "4a9b0613538294f477dcc4631c3c5ee61a8cb34c",
+  "branch": "main",
+  "validation_basis": "e2864f029cd9ebeed9b9c3898fcbfa7e3b66bf94",
+  "functional_publication_head": "e2864f029cd9ebeed9b9c3898fcbfa7e3b66bf94",
+  "documentary_lock_parent": "e2864f029cd9ebeed9b9c3898fcbfa7e3b66bf94",
+  "documentary_lock_head": "REPORTED_POSTPUBLISH",
+  "expected_external_state": "main_clean_origin_equal_ahead_behind_0_0_default_denied",
+  "result_variant": "A_NO_PRODUCT_REPAIR",
+  "closure_state": "READINESS_PENDING",
+  "technical_state": "INTERNALLY_CLOSED",
+  "governed_state": "CLOSURE_EVIDENCE_RECONCILIATION_REQUIRED",
+  "external_exposure": "DEFAULT_DENIED",
+  "next_cursor": "MACRO_06_RECALIBRATION_AND_NEXT_FAMILY_SELECTION_SELECTED_NOT_STARTED",
+  "vero_status": "EXTERNAL_ADJUDICATION_PACKAGE_ONLY_NOT_IMPLEMENTED",
+  "manifest": {
+    "validation_basis": "e2864f029cd9ebeed9b9c3898fcbfa7e3b66bf94",
+    "level_b": "AWAITING_LEVEL_B",
+    "post_level_b_policy": {
+      "classification_rule": "manifest_executable_classification",
+      "changed_after_level_b": [],
+      "allowed_categories": ["DOCUMENTARY_ONLY", "EVIDENCE_ONLY"],
+      "invalidating_categories": ["EXECUTABLE", "TEST_INFRASTRUCTURE", "CONFIGURATION", "PRODUCT"]
+    },
+    "protected_diff": "EMPTY",
+    "changed_files": [
+      "README.md",
+      "docs/FUTURE_PLATFORM_EXTENSION_INDEX.md",
+      "docs/METHOD_SANTI_3_2_5_EXECUTABLE_CLOSURE_AUTHORITY_ENGINEERING.md",
+      "docs/MISSION_CLOSURE_GATE_V1.md",
+      "docs/ROADMAP_4X_MACRO_05_1_CLOSURE_CHECKPOINT.md",
+      "docs/ROADMAP_4X_MACRO_05_1_COMMIT_ACCOUNTABILITY_LEDGER.md",
+      "docs/ROADMAP_4X_MACRO_05_1_EXECUTION_JOURNAL.md",
+      "docs/ROADMAP_4X_MACRO_05_1_EXECUTION_METRICS_BASELINE.md",
+      "docs/ROADMAP_4X_MACRO_05_1_GAP_RECONCILIATION_MATRIX.md",
+      "docs/ROADMAP_4X_MACRO_05_1_HISTORICAL_IMPACT_MANIFEST.md",
+      "docs/ROADMAP_4X_MACRO_05_1_P1_ASSURANCE_COMPLETION.md",
+      "docs/ROADMAP_4X_MACRO_05_1_ROOT_CAUSE_AND_RECURRENCE_PREVENTION.md",
+      "knowledge/global_operational/metrics/roadmap_4_x_macro_05_1_execution_metric.json",
+      "scripts/README.md",
+      "scripts/validate_mission_closure.py",
+      "tests/historical_test_context.py",
+      "tests/test_method_santi_3_2_5.py",
+      "tests/test_mission_closure_gate.py",
+      "tests/test_roadmap_4x_macro_05_1_p1_closure_reconciliation.py"
+    ]
+  },
+  "commits": [
+    {
+      "hash": "d7045f6aa68148424593cee1efc5e807355169ed",
+      "parent": "4a9b0613538294f477dcc4631c3c5ee61a8cb34c",
+      "subject": "feat(method): install executable mission closure authority",
+      "station": "3-5-method-gate-and-documentary-basis",
+      "files": [
+        "README.md", "docs/FUTURE_PLATFORM_EXTENSION_INDEX.md", "docs/METHOD_SANTI_3_2_5_EXECUTABLE_CLOSURE_AUTHORITY_ENGINEERING.md", "docs/MISSION_CLOSURE_GATE_V1.md", "docs/ROADMAP_4X_MACRO_05_1_CLOSURE_CHECKPOINT.md", "docs/ROADMAP_4X_MACRO_05_1_COMMIT_ACCOUNTABILITY_LEDGER.md", "docs/ROADMAP_4X_MACRO_05_1_EXECUTION_JOURNAL.md", "docs/ROADMAP_4X_MACRO_05_1_EXECUTION_METRICS_BASELINE.md", "docs/ROADMAP_4X_MACRO_05_1_GAP_RECONCILIATION_MATRIX.md", "docs/ROADMAP_4X_MACRO_05_1_HISTORICAL_IMPACT_MANIFEST.md", "docs/ROADMAP_4X_MACRO_05_1_P1_ASSURANCE_COMPLETION.md", "docs/ROADMAP_4X_MACRO_05_1_ROOT_CAUSE_AND_RECURRENCE_PREVENTION.md", "knowledge/global_operational/metrics/roadmap_4_x_macro_05_1_execution_metric.json", "scripts/README.md", "scripts/validate_mission_closure.py", "tests/historical_test_context.py", "tests/test_method_santi_3_2_5.py", "tests/test_mission_closure_gate.py", "tests/test_roadmap_4x_macro_05_1_p1_closure_reconciliation.py"
+      ],
+      "purpose": "Install the reusable executable closure authority, additive method, assurance tests and exact historical allowlist.",
+      "validation": "py_compile, git diff --check, method contract review",
+      "rollback": "Revert this single engineering commit before any validation basis is published; do not rewrite Macro 05 history."
+    },
+    {
+      "hash": "e2864f029cd9ebeed9b9c3898fcbfa7e3b66bf94",
+      "parent": "d7045f6aa68148424593cee1efc5e807355169ed",
+      "subject": "test(method): prove closure gate fail closed",
+      "station": "4-negative-bypass-controls",
+      "files": ["scripts/validate_mission_closure.py", "tests/test_mission_closure_gate.py"],
+      "purpose": "Make contradictory clocks, pending observable fields and tamper controls fail closed.",
+      "validation": "focal closure-gate suite, py_compile, git diff --check",
+      "rollback": "Revert this tooling/test commit and establish a new basis; no product rollback is involved."
+    }
+  ],
+  "files": [
+    {"path": "README.md", "change": "modified", "category": "DOCUMENTARY_ONLY", "commit": "d7045f6aa68148424593cee1efc5e807355169ed", "reason": "Declare future governed closure authority.", "protected_surface_classification": "preserved"},
+    {"path": "docs/FUTURE_PLATFORM_EXTENSION_INDEX.md", "change": "modified", "category": "DOCUMENTARY_ONLY", "commit": "d7045f6aa68148424593cee1efc5e807355169ed", "reason": "Record closure frontier without selecting Macro 06 execution.", "protected_surface_classification": "preserved"},
+    {"path": "docs/METHOD_SANTI_3_2_5_EXECUTABLE_CLOSURE_AUTHORITY_ENGINEERING.md", "change": "created", "category": "DOCUMENTARY_ONLY", "commit": "d7045f6aa68148424593cee1efc5e807355169ed", "reason": "Additive method evolution.", "protected_surface_classification": "preserved"},
+    {"path": "docs/MISSION_CLOSURE_GATE_V1.md", "change": "created", "category": "DOCUMENTARY_ONLY", "commit": "d7045f6aa68148424593cee1efc5e807355169ed", "reason": "Document reusable gate contract.", "protected_surface_classification": "preserved"},
+    {"path": "docs/ROADMAP_4X_MACRO_05_1_CLOSURE_CHECKPOINT.md", "change": "created", "category": "DOCUMENTARY_ONLY", "commit": "d7045f6aa68148424593cee1efc5e807355169ed", "reason": "Record governed frontier.", "protected_surface_classification": "preserved"},
+    {"path": "docs/ROADMAP_4X_MACRO_05_1_COMMIT_ACCOUNTABILITY_LEDGER.md", "change": "created", "category": "DOCUMENTARY_ONLY", "commit": "d7045f6aa68148424593cee1efc5e807355169ed", "reason": "Define complete ledger contract.", "protected_surface_classification": "preserved"},
+    {"path": "docs/ROADMAP_4X_MACRO_05_1_EXECUTION_JOURNAL.md", "change": "created", "category": "DOCUMENTARY_ONLY", "commit": "d7045f6aa68148424593cee1efc5e807355169ed", "reason": "Record station order.", "protected_surface_classification": "preserved"},
+    {"path": "docs/ROADMAP_4X_MACRO_05_1_EXECUTION_METRICS_BASELINE.md", "change": "created", "category": "DOCUMENTARY_ONLY", "commit": "d7045f6aa68148424593cee1efc5e807355169ed", "reason": "Record forecast contract.", "protected_surface_classification": "preserved"},
+    {"path": "docs/ROADMAP_4X_MACRO_05_1_GAP_RECONCILIATION_MATRIX.md", "change": "created", "category": "DOCUMENTARY_ONLY", "commit": "d7045f6aa68148424593cee1efc5e807355169ed", "reason": "Reconcile Macro 05 gaps without rewriting history.", "protected_surface_classification": "preserved"},
+    {"path": "docs/ROADMAP_4X_MACRO_05_1_HISTORICAL_IMPACT_MANIFEST.md", "change": "created", "category": "DOCUMENTARY_ONLY", "commit": "d7045f6aa68148424593cee1efc5e807355169ed", "reason": "Freeze historical cohort contract.", "protected_surface_classification": "preserved"},
+    {"path": "docs/ROADMAP_4X_MACRO_05_1_P1_ASSURANCE_COMPLETION.md", "change": "created", "category": "DOCUMENTARY_ONLY", "commit": "d7045f6aa68148424593cee1efc5e807355169ed", "reason": "Document additive P1 assurance dimensions.", "protected_surface_classification": "preserved"},
+    {"path": "docs/ROADMAP_4X_MACRO_05_1_ROOT_CAUSE_AND_RECURRENCE_PREVENTION.md", "change": "created", "category": "DOCUMENTARY_ONLY", "commit": "d7045f6aa68148424593cee1efc5e807355169ed", "reason": "Document cause and prevention.", "protected_surface_classification": "preserved"},
+    {"path": "knowledge/global_operational/metrics/roadmap_4_x_macro_05_1_execution_metric.json", "change": "created", "category": "EVIDENCE_ONLY", "commit": "d7045f6aa68148424593cee1efc5e807355169ed", "reason": "Register mission metric without promotion or runtime writes.", "protected_surface_classification": "preserved"},
+    {"path": "scripts/README.md", "change": "modified", "category": "DOCUMENTARY_ONLY", "commit": "d7045f6aa68148424593cee1efc5e807355169ed", "reason": "Document gate operations.", "protected_surface_classification": "preserved"},
+    {"path": "scripts/validate_mission_closure.py", "change": "created_then_modified", "category": "EXECUTABLE", "commit": "e2864f029cd9ebeed9b9c3898fcbfa7e3b66bf94", "reason": "Install and harden fail-closed closure authority before Level B.", "protected_surface_classification": "method-tooling-only"},
+    {"path": "tests/historical_test_context.py", "change": "modified", "category": "TEST_INFRASTRUCTURE", "commit": "d7045f6aa68148424593cee1efc5e807355169ed", "reason": "Nominal exact allowlist for Macro 05.1 artifacts.", "protected_surface_classification": "historical-guard-preserved"},
+    {"path": "tests/test_method_santi_3_2_5.py", "change": "created", "category": "TEST_INFRASTRUCTURE", "commit": "d7045f6aa68148424593cee1efc5e807355169ed", "reason": "Prove additive method and frontier.", "protected_surface_classification": "method-test-only"},
+    {"path": "tests/test_mission_closure_gate.py", "change": "created_then_modified", "category": "TEST_INFRASTRUCTURE", "commit": "e2864f029cd9ebeed9b9c3898fcbfa7e3b66bf94", "reason": "Prove positive and negative gate controls.", "protected_surface_classification": "method-test-only"},
+    {"path": "tests/test_roadmap_4x_macro_05_1_p1_closure_reconciliation.py", "change": "created", "category": "TEST_INFRASTRUCTURE", "commit": "d7045f6aa68148424593cee1efc5e807355169ed", "reason": "Prove Macro 05 reconciliation and P1 assurance inventory.", "protected_surface_classification": "method-test-only"}
+  ],
+  "validation_runs": [
+    {"gate_name": "preflight", "command": "git fetch origin; git status --short --branch; git rev-parse HEAD; git rev-parse origin/main; git rev-list --left-right --count HEAD...origin/main", "validation_basis": "4a9b0613538294f477dcc4631c3c5ee61a8cb34c", "started_at": "2026-09-19T08:11:47.4543730-03:00", "completed_at": "2026-09-19T08:11:48.5454855-03:00", "wall_seconds": 1.0911125, "process_seconds": "UNKNOWN", "passed": 1, "failed": 0, "skipped": 0, "warnings": 0, "exit_code": 0, "attempt": 1, "cause": "PowerShell wall clock; process CPU not exposed.", "repair": "NONE", "repair_commit": "NONE", "revalidation": "identity verified"}
+  ],
+  "assurance_claims": [
+    {"id": "P1-STATUS-CANONICAL", "route": "/api/status", "scope": "headers cookies query combinations malformed principals zero source isolation side effects", "status": "PASS", "node_ids": ["tests/test_platform_status_p1_a.py::test_default_resolvers_fail_closed_for_all_protected_views", "tests/test_roadmap_4x_macro_05_p1_post_boundary_e2e.py::test_client_controlled_identity_never_replaces_default_resolver"], "source": "repository tests and Macro 05.1 reconciliation suite", "harness_limitation": "No concurrent override sequence because the harness uses process-local overrides.", "residual_risk": "External adjudication and tenant activation remain outside scope."},
+    {"id": "P1-MEMORY-CANONICAL", "route": "/api/memory", "scope": "headers cookies query combinations malformed principals zero store read isolation side effects", "status": "PASS", "node_ids": ["tests/test_protected_memory_p1_b.py::test_missing_capability_is_403_and_has_zero_store_reads", "tests/test_roadmap_4x_macro_05_p1_post_boundary_e2e.py::test_tenant_selector_denies_before_memory_logs_and_metrics_sources"], "source": "repository tests and Macro 05.1 reconciliation suite", "harness_limitation": "Tenant access remains non-enumerative and not activated.", "residual_risk": "No product tenant capability is enabled."},
+    {"id": "P1-LOGS-CANONICAL", "route": "/api/logs", "scope": "headers cookies query combinations malformed principals zero reader read isolation side effects", "status": "PASS", "node_ids": ["tests/test_protected_logs_p1_c.py::test_api_rejects_raw_legacy_queries_before_source_read", "tests/test_roadmap_4x_macro_05_p1_post_boundary_e2e.py::test_default_or_invalid_identity_denies_before_sensitive_source"], "source": "repository tests and Macro 05.1 reconciliation suite", "harness_limitation": "Bounded reader is tested locally without external log service.", "residual_risk": "External VERO adjudication is not implemented."},
+    {"id": "P1-METRICS-CANONICAL", "route": "/api/metrics/dynamic", "scope": "headers cookies query combinations malformed principals zero loteria read isolation side effects", "status": "PASS", "node_ids": ["tests/test_protected_dynamic_metrics_p1_d.py::test_unknown_query_is_rejected_before_identity_and_source", "tests/test_protected_dynamic_metrics_p1_d.py::test_authorized_read_has_no_write_provider_network_or_runtime_side_effects"], "source": "repository tests and Macro 05.1 reconciliation suite", "harness_limitation": "Dynamic metrics has no consumer UI by contract.", "residual_risk": "Future tenant metrics capability remains denied."}
+  ],
+  "anchors": {
+    "mission_accepted": "2026-09-19T08:11:47.4543730-03:00",
+    "preflight_completed": "2026-09-19T08:11:48.5454855-03:00",
+    "validation_basis_established": "2026-09-19T08:22:16-03:00",
+    "functional_publication_fetch_verified": "UNKNOWN",
+    "documentary_content_finalized": "UNKNOWN",
+    "documentary_lock_parent_established": "UNKNOWN",
+    "documentary_lock_fetch_verified": "UNKNOWN",
+    "operator_visible_completion": "UNKNOWN"
+  },
+  "unknowns": [
+    {"field": "functional_publication_fetch_verified", "cause": "The final normal push and fetch have not occurred in the readiness phase.", "gate_impact": "Does not authorize closure; required before postpublish CLOSED.", "evidence_needed": "Final git fetch and equal HEAD/origin/main receipt.", "authority": "Executable postpublish gate."},
+    {"field": "process_seconds", "cause": "The PowerShell execution wrapper exposes wall time only.", "gate_impact": "Allowed as explicit UNKNOWN on each affected run.", "evidence_needed": "A process CPU timer from the execution wrapper.", "authority": "Operator runtime wrapper."},
+    {"field": "operator_visible_completion", "cause": "No direct operator screenshot of this mission's completion is available.", "gate_impact": "Remains unknown and does not substitute for repository closure.", "evidence_needed": "Direct operator-visible completion evidence.", "authority": "Operator."}
+  ],
+  "operator_evidence": {
+    "source": "EXPLICIT_OPERATOR_EVIDENCE",
+    "precision": "UI_ROUNDED_PERCENTAGES",
+    "MACRO_05_5H_START": "100%",
+    "MACRO_05_5H_END": "70%",
+    "MACRO_05_5H_DELTA": "-30 percentage points",
+    "MACRO_05_WEEKLY_START": "100%",
+    "MACRO_05_WEEKLY_END": "95%",
+    "MACRO_05_WEEKLY_DELTA": "-5 percentage points",
+    "MACRO_05_RESET_DURING_MISSION": "NO",
+    "MACRO_05_OPERATOR_VISIBLE_COMPLETION_TIME": "UNKNOWN_SCREENSHOT_SHOWS_PRIOR_MISSION_BODY"
+  },
+  "reconciliation": {
+    "old_report_completeness_claim": "SELF_DECLARED_NOT_GATE_AUTHORITY",
+    "macro_05_commits": [
+      {"hash": "9bb55a7b321346c0600beaa4b6614f3469954299", "parent": "9148f023f4df8e642f396f08a6386f8967d70efb", "subject": "docs(p1): establish family e2e truth and closure contract"},
+      {"hash": "f2627327fbb5d8981cf87bd4b998e6a876ed2a23", "parent": "9bb55a7b321346c0600beaa4b6614f3469954299", "subject": "test(p1): add cross-boundary adversarial e2e assurance"},
+      {"hash": "5d5eb803421b47d982f97abfbe558cfc83a6580e", "parent": "f2627327fbb5d8981cf87bd4b998e6a876ed2a23", "subject": "docs(method): add canonical evidence closure engineering"},
+      {"hash": "26fef3b83529aef93cd7afdfc6cafef7b435fedb", "parent": "5d5eb803421b47d982f97abfbe558cfc83a6580e", "subject": "test(history): isolate macro 05 checkpoint artifacts"},
+      {"hash": "4a9b0613538294f477dcc4631c3c5ee61a8cb34c", "parent": "26fef3b83529aef93cd7afdfc6cafef7b435fedb", "subject": "docs(p1): publish canonical family closure evidence"}
+    ],
+    "gaps": ["validation_basis PASS", "functional head omitted", "functional fetch anchor omitted", "per-commit ledger incomplete", "run schema incomplete", "literal adversarial dimensions incomplete", "post-Level-B invalidation non-permanent", "report completeness self-declared"],
+    "resolution": "New evidence and executable gate preserve historical bytes and adjudicate every listed category."
+  },
+  "gokv": {"before": {"item_count": 38, "validated": 9, "candidate": 22, "promoted": 7}, "after": {"item_count": 38, "validated": 9, "candidate": 22, "promoted": 7}, "candidates": "NONE_NEW", "promotions": "NONE", "writes": "NONE", "events": "NONE", "packs": "NONE", "registry_diff": "NONE", "oci_activation": "NONE"},
+  "surfaces_preserved": ["P0", "P2-P9", "P4", "P1 product code", "HTML", "CSS", "i18n", "Request Draft Panel", "widgets", "providers", "integrations", "stores", "runtime", "execution", "payload v2", "CORS", "global auth", "productive tenancy", "Cognitive Kernel", "Enterprise Foundry", "Cyber Range", "IA_CORE OS", "VERO"],
+  "failures": [],
+  "forecast": {"version": "PRE_EXECUTION_V1", "central_seconds": 7200, "expected_range_seconds": "5400-10800", "contingency_ceiling_seconds": 14400},
+  "metrics": {"git_operations_used": ["status", "rev-parse", "fetch", "rev-list", "diff --check", "diff-tree", "cat-file", "merge-base", "commit"], "git_operations_not_used": ["pull", "merge", "rebase", "reset", "checkout destructive", "force push", "tags"], "retries": 0, "interruptions": 0, "rollbacks": 0, "level_b_share": "TO_BE_MEASURED", "forecast_variance": "TO_BE_MEASURED"},
+  "artifacts": ["scripts/validate_mission_closure.py", "tests/test_mission_closure_gate.py", "tests/test_roadmap_4x_macro_05_1_p1_closure_reconciliation.py", "tests/test_method_santi_3_2_5.py", "docs/MISSION_CLOSURE_GATE_V1.md", "docs/METHOD_SANTI_3_2_5_EXECUTABLE_CLOSURE_AUTHORITY_ENGINEERING.md", "docs/ROADMAP_4X_MACRO_05_1_GAP_RECONCILIATION_MATRIX.md", "docs/ROADMAP_4X_MACRO_05_1_P1_ASSURANCE_COMPLETION.md", "docs/ROADMAP_4X_MACRO_05_1_ROOT_CAUSE_AND_RECURRENCE_PREVENTION.md", "docs/ROADMAP_4X_MACRO_05_1_EXECUTION_JOURNAL.md", "docs/ROADMAP_4X_MACRO_05_1_EXECUTION_METRICS_BASELINE.md", "docs/ROADMAP_4X_MACRO_05_1_HISTORICAL_IMPACT_MANIFEST.md", "docs/ROADMAP_4X_MACRO_05_1_COMMIT_ACCOUNTABILITY_LEDGER.md", "docs/ROADMAP_4X_MACRO_05_1_CANONICAL_CLOSURE_EVIDENCE.json", "docs/ROADMAP_4X_MACRO_05_1_CLOSURE_CHECKPOINT.md", "knowledge/global_operational/metrics/roadmap_4_x_macro_05_1_execution_metric.json", "renderer_output: stdout and explicit report-output only"],
+  "report": {"sections": ["18.1", "18.2", "18.3", "18.4", "18.5", "18.6", "18.7", "18.8", "18.9", "18.10", "18.11", "18.12", "18.13", "18.14"], "final_report_sha256": "REPORTED_BY_RENDERER", "gate_contract": {"operations": ["validate-readiness", "validate-prelock", "render-postpublish"], "positive_controls": ["strict JSON", "real hashes", "complete ledger", "complete runs", "postpublish equality", "deterministic render"], "negative_controls": ["missing basis", "PASS basis", "nonexistent hash", "missing functional head", "incomplete ledger", "unlisted file", "missing command", "missing timestamps", "missing exit", "hidden failure", "missing Level B", "basis mismatch", "post-basis executable", "bad clock", "contradictory clock", "PENDING", "duplicate key", "HEAD mismatch", "ahead/behind mismatch", "dirty tree", "protected diff", "missing report section", "claim without node", "UNKNOWN without cause", "bypass flag/environment", "tampered report", "receipt mismatch", "wrong documentary parent"], "bypass_scan": "PASS", "prelock_receipt": "AWAITING_FINAL_EVIDENCE", "postpublish_receipt": "AWAITING_FINAL_FETCH", "deterministic_render": "IMPLEMENTED", "tamper_detection": "IMPLEMENTED", "limitations": ["operator-visible completion remains external unknown", "process CPU time depends on wrapper"]}, "risks": ["The final remote fetch and postpublish receipt remain outstanding until publication."]}
+}
