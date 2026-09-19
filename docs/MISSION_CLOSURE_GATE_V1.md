@@ -53,6 +53,12 @@ hash covers the exact rendered body before the receipt block; changing one byte
 causes deterministic-output verification to fail. No second commit is created to
 chase the lock hash.
 
+`documentary_lock_fetch_verified: POSTPUBLISH_ENVELOPE` is a typed boundary field,
+not a narrative pass or an omitted value. The renderer replaces it with the real
+local-offset timestamp observed after the final fetch. The documentary lock hash
+is likewise reported only from the live postpublish Git state, preserving the
+fixed point without a self-referential commit.
+
 ## Future use
 
 Every future governed mission that claims `CLOSED` must use this gate or a

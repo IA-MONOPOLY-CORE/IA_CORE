@@ -1,12 +1,12 @@
 {
   "schema_version": "gokv.execution_metric.v1",
   "mission": "ROADMAP_4X_MACRO_05_1",
-  "status": "EVIDENCE_RECONCILIATION_IN_PROGRESS",
+  "status": "LEVEL_B_GREEN_GOVERNED_CLOSURE_PENDING_POSTPUBLISH_RENDER",
   "promotion": "NONE",
   "oci_activation": "NONE",
   "runtime_execution": "NONE",
   "quota_source": "EXPLICIT_OPERATOR_EVIDENCE_UI_ROUNDED_PERCENTAGES",
-  "level_b": "AWAITING_LEVEL_B",
-  "validation_basis": "SET_BEFORE_LEVEL_B",
+  "level_b": "7230_PASSED_6_SKIPPED_6_WARNINGS_EXIT_0",
+  "validation_basis": "a17c37b1a69c67e65ca40e523aa0d1fc224b85e0",
   "final_report_authority": "MISSION_CLOSURE_GATE_V1"
 }

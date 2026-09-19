@@ -16,3 +16,12 @@ records the station order and the invariants that must be maintained.
 
 No retry, rollback, or repair is silently omitted. Every attempt is represented in
 `validation_runs`, including red attempts when they occur.
+
+The prior Level B result on `c8700fb488f8e7759233b46a2384caf6b347f58d` was
+invalidated when the final documentary anchor exposed a stale synthetic clock in
+the positive gate fixture. The definitive Level B run on executable basis
+`a17c37b1a69c67e65ca40e523aa0d1fc224b85e0` completed with `7230 passed, 6
+skipped, 6 warnings`, exit `0`, wall `1787.9722017` seconds, from
+`2026-09-19T10:35:21.9104033-03:00` to `2026-09-19T11:05:09.88826050-03:00`.
+No product repair, runtime change, VERO implementation, GOKV promotion, or
+protected-surface change was made.

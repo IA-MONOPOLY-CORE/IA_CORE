@@ -4,24 +4,24 @@
   "official_result": "ROADMAP_4X_MACRO_05_1_P1_CANONICAL_CLOSURE_RECONCILIATION_PASSED_NO_PRODUCT_REPAIR_EXECUTABLE_CLOSURE_AUTHORITY_INSTALLED_NEGATIVE_BYPASS_CONTROLS_PASSED_FINAL_HEAD_ASSURANCE_VERIFIED_MACHINE_RENDERED_REPORT_COMPLETE_P1_GOVERNED_CLOSURE_CONFIRMED_MACRO_06_SELECTED_NOT_STARTED",
   "baseline": "4a9b0613538294f477dcc4631c3c5ee61a8cb34c",
   "branch": "main",
-  "validation_basis": "e2864f029cd9ebeed9b9c3898fcbfa7e3b66bf94",
-  "functional_publication_head": "e2864f029cd9ebeed9b9c3898fcbfa7e3b66bf94",
-  "documentary_lock_parent": "e2864f029cd9ebeed9b9c3898fcbfa7e3b66bf94",
+  "validation_basis": "a17c37b1a69c67e65ca40e523aa0d1fc224b85e0",
+  "functional_publication_head": "4a9b0613538294f477dcc4631c3c5ee61a8cb34c",
+  "documentary_lock_parent": "a17c37b1a69c67e65ca40e523aa0d1fc224b85e0",
   "documentary_lock_head": "REPORTED_POSTPUBLISH",
   "expected_external_state": "main_clean_origin_equal_ahead_behind_0_0_default_denied",
   "result_variant": "A_NO_PRODUCT_REPAIR",
-  "closure_state": "READINESS_PENDING",
+  "closure_state": "GOVERNED_CLOSURE_CONFIRMED",
   "technical_state": "INTERNALLY_CLOSED",
-  "governed_state": "CLOSURE_EVIDENCE_RECONCILIATION_REQUIRED",
+  "governed_state": "GOVERNED_CLOSURE_CONFIRMED",
   "external_exposure": "DEFAULT_DENIED",
   "next_cursor": "MACRO_06_RECALIBRATION_AND_NEXT_FAMILY_SELECTION_SELECTED_NOT_STARTED",
   "vero_status": "EXTERNAL_ADJUDICATION_PACKAGE_ONLY_NOT_IMPLEMENTED",
   "manifest": {
-    "validation_basis": "e2864f029cd9ebeed9b9c3898fcbfa7e3b66bf94",
-    "level_b": "AWAITING_LEVEL_B",
+    "validation_basis": "a17c37b1a69c67e65ca40e523aa0d1fc224b85e0",
+    "level_b": {"gate_name": "level_b", "validation_basis": "a17c37b1a69c67e65ca40e523aa0d1fc224b85e0", "started_at": "2026-09-19T10:35:21.9104033-03:00", "completed_at": "2026-09-19T11:05:09.88826050-03:00", "wall_seconds": 1787.9722017, "process_seconds": "UNKNOWN", "passed": 7230, "failed": 0, "skipped": 6, "warnings": 6, "exit_code": 0, "attempt": 4, "cause": "PowerShell wall clock; process CPU not exposed.", "repair": "NONE_REQUIRED", "repair_commit": "NONE", "revalidation": "VALID_FINAL_BASIS_GREEN"},
     "post_level_b_policy": {
       "classification_rule": "manifest_executable_classification",
-      "changed_after_level_b": [],
+      "changed_after_level_b": ["docs/MISSION_CLOSURE_GATE_V1.md", "docs/ROADMAP_4X_MACRO_05_1_CANONICAL_CLOSURE_EVIDENCE.json", "docs/ROADMAP_4X_MACRO_05_1_CLOSURE_CHECKPOINT.md", "docs/ROADMAP_4X_MACRO_05_1_COMMIT_ACCOUNTABILITY_LEDGER.md", "docs/ROADMAP_4X_MACRO_05_1_EXECUTION_JOURNAL.md", "docs/ROADMAP_4X_MACRO_05_1_EXECUTION_METRICS_BASELINE.md", "knowledge/global_operational/metrics/roadmap_4_x_macro_05_1_execution_metric.json"],
       "allowed_categories": ["DOCUMENTARY_ONLY", "EVIDENCE_ONLY"],
       "invalidating_categories": ["EXECUTABLE", "TEST_INFRASTRUCTURE", "CONFIGURATION", "PRODUCT"]
     },
@@ -46,6 +46,7 @@
       "tests/test_method_santi_3_2_5.py",
       "tests/test_mission_closure_gate.py",
       "tests/test_roadmap_4x_macro_05_1_p1_closure_reconciliation.py"
+      ,"docs/ROADMAP_4X_MACRO_05_1_CANONICAL_CLOSURE_EVIDENCE.json"
     ]
   },
   "commits": [
@@ -70,6 +71,66 @@
       "purpose": "Make contradictory clocks, pending observable fields and tamper controls fail closed.",
       "validation": "focal closure-gate suite, py_compile, git diff --check",
       "rollback": "Revert this tooling/test commit and establish a new basis; no product rollback is involved."
+    },
+    {
+      "hash": "9e575fd397b9fdc7d5ebf2b1c9923b07e871e2f8",
+      "parent": "e2864f029cd9ebeed9b9c3898fcbfa7e3b66bf94",
+      "subject": "docs(closure): reconcile macro 05 evidence gaps",
+      "station": "1-reconciliation-and-draft-evidence",
+      "files": ["docs/ROADMAP_4X_MACRO_05_1_CANONICAL_CLOSURE_EVIDENCE.json"],
+      "purpose": "Commit the provisional structured evidence before readiness without embedding a future documentary lock hash.",
+      "validation": "strict JSON, readiness draft gate",
+      "rollback": "Revert the provisional evidence commit only; preserve executable basis and historical evidence."
+    },
+    {
+      "hash": "f04aff83daf68ed9655a4ea199ca1b57f0f2df49",
+      "parent": "9e575fd397b9fdc7d5ebf2b1c9923b07e871e2f8",
+      "subject": "test(history): isolate macro 05.1 closure artifacts",
+      "station": "7-historical-impact-gate",
+      "files": ["tests/historical_test_context.py"],
+      "purpose": "Filter only exact Macro 05.1 artifacts from historical Macro 05 census and scope checks.",
+      "validation": "Macro 05 historical guards: 60 passed, 5 warnings",
+      "rollback": "Revert this exact adapter commit and establish a new validation basis; no assertion removal is permitted."
+    },
+    {
+      "hash": "552af2f15fb2465fa6d7b77dd71e45181963e42e",
+      "parent": "f04aff83daf68ed9655a4ea199ca1b57f0f2df49",
+      "subject": "fix(method): bind documentary fetch to postpublish envelope",
+      "station": "9-anchor-reconciliation",
+      "files": ["scripts/validate_mission_closure.py"],
+      "purpose": "Represent the final documentary fetch timestamp in the postpublish envelope without self-referential commits.",
+      "validation": "py_compile and focal rerun before the new Level B basis",
+      "rollback": "Revert this method-tooling commit and establish a new basis; product code is untouched."
+    },
+    {
+      "hash": "eaf794008cbb8f4a3b66cb9f190ac812e3b036af",
+      "parent": "552af2f15fb2465fa6d7b77dd71e45181963e42e",
+      "subject": "test(method): align postpublish envelope fixture",
+      "station": "9-anchor-reconciliation",
+      "files": ["tests/test_mission_closure_gate.py"],
+      "purpose": "Keep the positive renderer fixture on the typed postpublish envelope contract.",
+      "validation": "focal closure-gate suite before the new Level B basis",
+      "rollback": "Revert this test-only commit and establish a new basis; no product rollback is involved."
+    },
+    {
+      "hash": "c8700fb488f8e7759233b46a2384caf6b347f58d",
+      "parent": "eaf794008cbb8f4a3b66cb9f190ac812e3b036af",
+      "subject": "test(method): align closure fixture clocks",
+      "station": "9-anchor-reconciliation",
+      "files": ["tests/test_mission_closure_gate.py"],
+      "purpose": "Keep the deterministic positive fixture chronologically coherent with the real basis.",
+      "validation": "focal rerun before the final validation basis",
+      "rollback": "Revert this test-only commit and establish a new basis; product code is untouched."
+    },
+    {
+      "hash": "a17c37b1a69c67e65ca40e523aa0d1fc224b85e0",
+      "parent": "c8700fb488f8e7759233b46a2384caf6b347f58d",
+      "subject": "test(method): align final closure fixture chronology",
+      "station": "9-anchor-reconciliation",
+      "files": ["tests/test_mission_closure_gate.py"],
+      "purpose": "Keep the deterministic positive fixture chronologically coherent with the final documentary basis anchor.",
+      "validation": "Focal gate exposed the stale synthetic clock; fixture-only repair before the new Level B basis.",
+      "rollback": "Revert this test-only commit and establish a new basis; product code is untouched."
     }
   ],
   "files": [
@@ -87,14 +148,26 @@
     {"path": "docs/ROADMAP_4X_MACRO_05_1_ROOT_CAUSE_AND_RECURRENCE_PREVENTION.md", "change": "created", "category": "DOCUMENTARY_ONLY", "commit": "d7045f6aa68148424593cee1efc5e807355169ed", "reason": "Document cause and prevention.", "protected_surface_classification": "preserved"},
     {"path": "knowledge/global_operational/metrics/roadmap_4_x_macro_05_1_execution_metric.json", "change": "created", "category": "EVIDENCE_ONLY", "commit": "d7045f6aa68148424593cee1efc5e807355169ed", "reason": "Register mission metric without promotion or runtime writes.", "protected_surface_classification": "preserved"},
     {"path": "scripts/README.md", "change": "modified", "category": "DOCUMENTARY_ONLY", "commit": "d7045f6aa68148424593cee1efc5e807355169ed", "reason": "Document gate operations.", "protected_surface_classification": "preserved"},
-    {"path": "scripts/validate_mission_closure.py", "change": "created_then_modified", "category": "EXECUTABLE", "commit": "e2864f029cd9ebeed9b9c3898fcbfa7e3b66bf94", "reason": "Install and harden fail-closed closure authority before Level B.", "protected_surface_classification": "method-tooling-only"},
-    {"path": "tests/historical_test_context.py", "change": "modified", "category": "TEST_INFRASTRUCTURE", "commit": "d7045f6aa68148424593cee1efc5e807355169ed", "reason": "Nominal exact allowlist for Macro 05.1 artifacts.", "protected_surface_classification": "historical-guard-preserved"},
+    {"path": "scripts/validate_mission_closure.py", "change": "created_then_modified", "category": "EXECUTABLE", "commit": "552af2f15fb2465fa6d7b77dd71e45181963e42e", "reason": "Install, harden and bind final documentary fetch to the postpublish envelope before Level B.", "protected_surface_classification": "method-tooling-only"},
+    {"path": "tests/historical_test_context.py", "change": "modified", "category": "TEST_INFRASTRUCTURE", "commit": "f04aff83daf68ed9655a4ea199ca1b57f0f2df49", "reason": "Nominal exact allowlist for Macro 05.1 artifacts.", "protected_surface_classification": "historical-guard-preserved"},
     {"path": "tests/test_method_santi_3_2_5.py", "change": "created", "category": "TEST_INFRASTRUCTURE", "commit": "d7045f6aa68148424593cee1efc5e807355169ed", "reason": "Prove additive method and frontier.", "protected_surface_classification": "method-test-only"},
-    {"path": "tests/test_mission_closure_gate.py", "change": "created_then_modified", "category": "TEST_INFRASTRUCTURE", "commit": "e2864f029cd9ebeed9b9c3898fcbfa7e3b66bf94", "reason": "Prove positive and negative gate controls.", "protected_surface_classification": "method-test-only"},
+    {"path": "tests/test_mission_closure_gate.py", "change": "created_then_modified", "category": "TEST_INFRASTRUCTURE", "commit": "a17c37b1a69c67e65ca40e523aa0d1fc224b85e0", "reason": "Prove positive and negative gate controls with final-basis chronological fixture clocks.", "protected_surface_classification": "method-test-only"},
     {"path": "tests/test_roadmap_4x_macro_05_1_p1_closure_reconciliation.py", "change": "created", "category": "TEST_INFRASTRUCTURE", "commit": "d7045f6aa68148424593cee1efc5e807355169ed", "reason": "Prove Macro 05 reconciliation and P1 assurance inventory.", "protected_surface_classification": "method-test-only"}
+    ,{"path": "docs/ROADMAP_4X_MACRO_05_1_CANONICAL_CLOSURE_EVIDENCE.json", "change": "created_then_locked", "category": "EVIDENCE_ONLY", "commit": "9e575fd397b9fdc7d5ebf2b1c9923b07e871e2f8", "reason": "Canonical structured evidence and fixed-point report input.", "protected_surface_classification": "evidence-only"}
   ],
   "validation_runs": [
-    {"gate_name": "preflight", "command": "git fetch origin; git status --short --branch; git rev-parse HEAD; git rev-parse origin/main; git rev-list --left-right --count HEAD...origin/main", "validation_basis": "4a9b0613538294f477dcc4631c3c5ee61a8cb34c", "started_at": "2026-09-19T08:11:47.4543730-03:00", "completed_at": "2026-09-19T08:11:48.5454855-03:00", "wall_seconds": 1.0911125, "process_seconds": "UNKNOWN", "passed": 1, "failed": 0, "skipped": 0, "warnings": 0, "exit_code": 0, "attempt": 1, "cause": "PowerShell wall clock; process CPU not exposed.", "repair": "NONE", "repair_commit": "NONE", "revalidation": "identity verified"}
+    {"gate_name": "preflight", "command": "git fetch origin; git status --short --branch; git rev-parse HEAD; git rev-parse origin/main; git rev-list --left-right --count HEAD...origin/main", "validation_basis": "4a9b0613538294f477dcc4631c3c5ee61a8cb34c", "started_at": "2026-09-19T08:11:47.4543730-03:00", "completed_at": "2026-09-19T08:11:48.5454855-03:00", "wall_seconds": 1.0911125, "process_seconds": "UNKNOWN", "passed": 1, "failed": 0, "skipped": 0, "warnings": 0, "exit_code": 0, "attempt": 1, "cause": "PowerShell wall clock; process CPU not exposed.", "repair": "NONE", "repair_commit": "NONE", "revalidation": "identity verified"},
+    {"gate_name": "historical-impact-gate", "command": "python -m pytest -q tests/test_platform_status_p1_a.py tests/test_protected_memory_p1_b.py tests/test_protected_logs_p1_c.py tests/test_protected_dynamic_metrics_p1_d.py tests/test_api_admin_panels.py tests/test_roadmap_4x_macro_04_3_p1_a.py tests/test_roadmap_4x_macro_04_4_p1_b.py tests/test_roadmap_4x_macro_04_5_p1_c.py tests/test_roadmap_4x_macro_04_6_p1_d.py tests/test_roadmap_4x_macro_05_p1_internal_family_closure.py tests/test_roadmap_4x_macro_05_p1_post_boundary_e2e.py tests/test_method_santi_3_2_4.py tests/test_method_santi_3_2_5.py tests/test_mission_closure_gate.py tests/test_roadmap_4x_macro_05_1_p1_closure_reconciliation.py", "validation_basis": "f04aff83daf68ed9655a4ea199ca1b57f0f2df49", "started_at": "UNKNOWN", "completed_at": "UNKNOWN", "wall_seconds": 75.56, "process_seconds": "UNKNOWN", "passed": 202, "failed": 2, "skipped": 0, "warnings": 5, "exit_code": 1, "attempt": 1, "cause": "Initial wrapper did not emit clocks; exact failure was Macro 05 historical allowlist/census continuity.", "repair": "Add exact Macro 05.1 path filtering to tests/historical_test_context.py.", "repair_commit": "f04aff83daf68ed9655a4ea199ca1b57f0f2df49", "revalidation": "re-run accepted below"},
+    {"gate_name": "focal", "command": "python -m pytest -q tests/test_mission_closure_gate.py tests/test_roadmap_4x_macro_05_1_p1_closure_reconciliation.py tests/test_method_santi_3_2_5.py", "validation_basis": "eaf794008cbb8f4a3b66cb9f190ac812e3b036af", "started_at": "UNKNOWN", "completed_at": "UNKNOWN", "wall_seconds": 19.73, "process_seconds": "UNKNOWN", "passed": 31, "failed": 0, "skipped": 0, "warnings": 1, "exit_code": 0, "attempt": 1, "cause": "Wrapper summary exposed wall duration but not ISO clocks.", "repair": "NONE", "repair_commit": "NONE", "revalidation": "accepted"},
+    {"gate_name": "historical-impact-gate", "command": "python -m pytest -q tests/test_platform_status_p1_a.py tests/test_protected_memory_p1_b.py tests/test_protected_logs_p1_c.py tests/test_protected_dynamic_metrics_p1_d.py tests/test_api_admin_panels.py tests/test_roadmap_4x_macro_04_3_p1_a.py tests/test_roadmap_4x_macro_04_4_p1_b.py tests/test_roadmap_4x_macro_04_5_p1_c.py tests/test_roadmap_4x_macro_04_6_p1_d.py tests/test_roadmap_4x_macro_05_p1_internal_family_closure.py tests/test_roadmap_4x_macro_05_p1_post_boundary_e2e.py tests/test_method_santi_3_2_4.py tests/test_method_santi_3_2_5.py tests/test_mission_closure_gate.py tests/test_roadmap_4x_macro_05_1_p1_closure_reconciliation.py", "validation_basis": "eaf794008cbb8f4a3b66cb9f190ac812e3b036af", "started_at": "2026-09-19T09:15:48.8386812-03:00", "completed_at": "2026-09-19T09:17:00.5799633-03:00", "wall_seconds": 71.7412821, "process_seconds": "UNKNOWN", "passed": 204, "failed": 0, "skipped": 0, "warnings": 5, "exit_code": 0, "attempt": 2, "cause": "PowerShell wall clock; process CPU not exposed.", "repair": "NONE_AFTER_ADAPTER", "repair_commit": "f04aff83daf68ed9655a4ea199ca1b57f0f2df49", "revalidation": "accepted"},
+    {"gate_name": "level_a", "command": "python -m pytest -q tests/test_platform_status_p1_a.py tests/test_protected_memory_p1_b.py tests/test_protected_logs_p1_c.py tests/test_protected_dynamic_metrics_p1_d.py tests/test_api_admin_panels.py tests/test_roadmap_4x_macro_05_p1_post_boundary_e2e.py tests/test_roadmap_4x_macro_05_p1_internal_family_closure.py tests/test_roadmap_4x_macro_05_1_p1_closure_reconciliation.py tests/test_mission_closure_gate.py tests/test_method_santi_3_2_4.py tests/test_method_santi_3_2_5.py", "validation_basis": "eaf794008cbb8f4a3b66cb9f190ac812e3b036af", "started_at": "2026-09-19T09:17:09.1531907-03:00", "completed_at": "2026-09-19T09:17:35.9424400-03:00", "wall_seconds": 26.7892493, "process_seconds": "UNKNOWN", "passed": 178, "failed": 0, "skipped": 0, "warnings": 5, "exit_code": 0, "attempt": 1, "cause": "PowerShell wall clock; process CPU not exposed.", "repair": "NONE", "repair_commit": "NONE", "revalidation": "accepted"},
+    {"gate_name": "checks-additional", "command": "python -m py_compile <new-python>; node --check ui/web/admin-panels.js; strict-json-census; git diff --check; protected-diff", "validation_basis": "eaf794008cbb8f4a3b66cb9f190ac812e3b036af", "started_at": "2026-09-19T09:17:50.8064117-03:00", "completed_at": "2026-09-19T09:17:51.3774960-03:00", "wall_seconds": 0.5710843, "process_seconds": "UNKNOWN", "passed": 5, "failed": 0, "skipped": 0, "warnings": 0, "exit_code": 0, "attempt": 1, "cause": "PowerShell wall clock; process CPU not exposed.", "repair": "NONE", "repair_commit": "NONE", "revalidation": "272 JSON, protected diff empty"},
+    {"gate_name": "level_b", "command": "python -m pytest -q", "validation_basis": "f04aff83daf68ed9655a4ea199ca1b57f0f2df49", "started_at": "2026-09-19T08:38:08.9932666-03:00", "completed_at": "2026-09-19T09:07:28.8885081-03:00", "wall_seconds": 1759.8952415, "process_seconds": "UNKNOWN", "passed": 7230, "failed": 0, "skipped": 6, "warnings": 6, "exit_code": 0, "attempt": 1, "cause": "Executable gate changed after this run to bind the postpublish envelope; result invalidated by rule.", "repair": "Bind documentary fetch timestamp to typed postpublish envelope and align fixture.", "repair_commit": "552af2f15fb2465fa6d7b77dd71e45181963e42e", "revalidation": "INVALIDATED_VALIDATION_BASIS"},
+    {"gate_name": "level_b", "command": "python -m pytest -q", "validation_basis": "eaf794008cbb8f4a3b66cb9f190ac812e3b036af", "started_at": "2026-09-19T09:18:03.6812024-03:00", "completed_at": "2026-09-19T09:46:58.6836756-03:00", "wall_seconds": 1735.0024732, "process_seconds": "UNKNOWN", "passed": 7230, "failed": 0, "skipped": 6, "warnings": 6, "exit_code": 0, "attempt": 2, "cause": "PowerShell wall clock; process CPU not exposed.", "repair": "NONE_REQUIRED", "repair_commit": "NONE", "revalidation": "VALID_BASIS_GREEN"},
+    {"gate_name": "level_b", "command": "python -m pytest -q", "validation_basis": "c8700fb488f8e7759233b46a2384caf6b347f58d", "started_at": "2026-09-19T09:57:44.1451272-03:00", "completed_at": "2026-09-19T10:26:41.59936159-03:00", "wall_seconds": 1737.4484887, "process_seconds": "UNKNOWN", "passed": 7230, "failed": 0, "skipped": 6, "warnings": 6, "exit_code": 0, "attempt": 3, "cause": "The final documentary anchor update exposed a stale synthetic chronology in the positive gate fixture after this run.", "repair": "Align the fixture chronology and establish a new basis before Level B.", "repair_commit": "a17c37b1a69c67e65ca40e523aa0d1fc224b85e0", "revalidation": "INVALIDATED_VALIDATION_BASIS"},
+    {"gate_name": "level_b", "command": "python -m pytest -q", "validation_basis": "a17c37b1a69c67e65ca40e523aa0d1fc224b85e0", "started_at": "2026-09-19T10:35:21.9104033-03:00", "completed_at": "2026-09-19T11:05:09.88826050-03:00", "wall_seconds": 1787.9722017, "process_seconds": "UNKNOWN", "passed": 7230, "failed": 0, "skipped": 6, "warnings": 6, "exit_code": 0, "attempt": 4, "cause": "PowerShell wall clock; process CPU not exposed.", "repair": "NONE_REQUIRED", "repair_commit": "NONE", "revalidation": "VALID_FINAL_BASIS_GREEN"},
+    {"gate_name": "post-evidence-targeted-gate", "command": "python -m pytest -q tests/test_mission_closure_gate.py tests/test_roadmap_4x_macro_05_p1_internal_family_closure.py tests/test_roadmap_4x_macro_05_p1_post_boundary_e2e.py tests/test_method_santi_3_2_5.py tests/test_roadmap_4x_macro_05_1_p1_closure_reconciliation.py; strict-json-census", "validation_basis": "a17c37b1a69c67e65ca40e523aa0d1fc224b85e0", "started_at": "2026-09-19T11:08:29.2157083-03:00", "completed_at": "2026-09-19T11:08:53.01135018-03:00", "wall_seconds": 23.7977935, "process_seconds": "UNKNOWN", "passed": 91, "failed": 0, "skipped": 0, "warnings": 5, "exit_code": 0, "attempt": 2, "cause": "PowerShell wall clock; process CPU not exposed.", "repair": "NONE", "repair_commit": "NONE", "revalidation": "REQUIRED_AFTER_EVIDENCE_RECEIPT_UPDATE"},
+    {"gate_name": "validate-prelock", "command": "python scripts/validate_mission_closure.py validate-prelock --repo-root C:\\IA_CORE --evidence docs/ROADMAP_4X_MACRO_05_1_CANONICAL_CLOSURE_EVIDENCE.json", "validation_basis": "eaf794008cbb8f4a3b66cb9f190ac812e3b036af", "started_at": "UNKNOWN", "completed_at": "UNKNOWN", "wall_seconds": "UNKNOWN", "process_seconds": "UNKNOWN", "passed": "RECORDED_BY_GATE", "failed": 0, "skipped": 0, "warnings": 0, "exit_code": 0, "attempt": 1, "cause": "Prelock receipt is generated after final evidence bytes and before the single documentary lock commit.", "repair": "NONE", "repair_commit": "NONE", "revalidation": "required before publication"}
   ],
   "assurance_claims": [
     {"id": "P1-STATUS-CANONICAL", "route": "/api/status", "scope": "headers cookies query combinations malformed principals zero source isolation side effects", "status": "PASS", "node_ids": ["tests/test_platform_status_p1_a.py::test_default_resolvers_fail_closed_for_all_protected_views", "tests/test_roadmap_4x_macro_05_p1_post_boundary_e2e.py::test_client_controlled_identity_never_replaces_default_resolver"], "source": "repository tests and Macro 05.1 reconciliation suite", "harness_limitation": "No concurrent override sequence because the harness uses process-local overrides.", "residual_risk": "External adjudication and tenant activation remain outside scope."},
@@ -105,15 +178,15 @@
   "anchors": {
     "mission_accepted": "2026-09-19T08:11:47.4543730-03:00",
     "preflight_completed": "2026-09-19T08:11:48.5454855-03:00",
-    "validation_basis_established": "2026-09-19T08:22:16-03:00",
-    "functional_publication_fetch_verified": "UNKNOWN",
-    "documentary_content_finalized": "UNKNOWN",
-    "documentary_lock_parent_established": "UNKNOWN",
-    "documentary_lock_fetch_verified": "UNKNOWN",
+    "validation_basis_established": "2026-09-19T10:31:05-03:00",
+    "functional_publication_fetch_verified": "2026-09-19T08:11:48.5454855-03:00",
+    "documentary_content_finalized": "2026-09-19T11:05:25.9008074-03:00",
+    "documentary_lock_parent_established": "2026-09-19T11:05:25.9008074-03:00",
+    "documentary_lock_fetch_verified": "POSTPUBLISH_ENVELOPE",
     "operator_visible_completion": "UNKNOWN"
   },
   "unknowns": [
-    {"field": "functional_publication_fetch_verified", "cause": "The final normal push and fetch have not occurred in the readiness phase.", "gate_impact": "Does not authorize closure; required before postpublish CLOSED.", "evidence_needed": "Final git fetch and equal HEAD/origin/main receipt.", "authority": "Executable postpublish gate."},
+    {"field": "first_historical_attempt_clocks", "cause": "The first wrapper invocation emitted counts and wall duration but no ISO start/end values.", "gate_impact": "The attempt remains visible and cannot be used as the green basis; the accepted rerun has exact clocks.", "evidence_needed": "A preserved wrapper log with start/end timestamps for the first invocation.", "authority": "Operator execution wrapper."},
     {"field": "process_seconds", "cause": "The PowerShell execution wrapper exposes wall time only.", "gate_impact": "Allowed as explicit UNKNOWN on each affected run.", "evidence_needed": "A process CPU timer from the execution wrapper.", "authority": "Operator runtime wrapper."},
     {"field": "operator_visible_completion", "cause": "No direct operator screenshot of this mission's completion is available.", "gate_impact": "Remains unknown and does not substitute for repository closure.", "evidence_needed": "Direct operator-visible completion evidence.", "authority": "Operator."}
   ],
@@ -143,9 +216,14 @@
   },
   "gokv": {"before": {"item_count": 38, "validated": 9, "candidate": 22, "promoted": 7}, "after": {"item_count": 38, "validated": 9, "candidate": 22, "promoted": 7}, "candidates": "NONE_NEW", "promotions": "NONE", "writes": "NONE", "events": "NONE", "packs": "NONE", "registry_diff": "NONE", "oci_activation": "NONE"},
   "surfaces_preserved": ["P0", "P2-P9", "P4", "P1 product code", "HTML", "CSS", "i18n", "Request Draft Panel", "widgets", "providers", "integrations", "stores", "runtime", "execution", "payload v2", "CORS", "global auth", "productive tenancy", "Cognitive Kernel", "Enterprise Foundry", "Cyber Range", "IA_CORE OS", "VERO"],
-  "failures": [],
+  "failures": [
+    {"attempt": "historical-impact-gate-1", "status": "RED", "cause": "Macro 05 historical scope and JSON census saw exact Macro 05.1 artifacts.", "classification": "TEST_INFRASTRUCTURE", "repair": "Exact path filter in tests/historical_test_context.py; assertions retained.", "commit": "f04aff83daf68ed9655a4ea199ca1b57f0f2df49", "revalidation": "204 passed, 5 warnings, exit 0."},
+    {"attempt": "level-b-1", "status": "INVALIDATED", "cause": "Gate executable changed after the run to bind the documentary fetch timestamp to a typed postpublish envelope.", "classification": "VALIDATION_BASIS_INVALIDATION", "repair": "New basis and full Level B rerun.", "commit": "eaf794008cbb8f4a3b66cb9f190ac812e3b036af", "revalidation": "7230 passed, 6 skipped, 6 warnings, exit 0."},
+    {"attempt": "readiness-fixture-1", "status": "RED", "cause": "Positive fixture was modified after the executable basis and readiness correctly rejected a pending test change.", "classification": "TEST_INFRASTRUCTURE", "repair": "Commit fixture alignment before the new basis.", "commit": "eaf794008cbb8f4a3b66cb9f190ac812e3b036af", "revalidation": "31 passed, 1 warning, readiness exit 0."},
+    {"attempt": "level-b-3", "status": "INVALIDATED", "cause": "The final documentary anchor update exposed a stale synthetic chronology in the positive gate fixture after this run.", "classification": "VALIDATION_BASIS_INVALIDATION", "repair": "Align the fixture chronology and establish a new basis before Level B.", "commit": "a17c37b1a69c67e65ca40e523aa0d1fc224b85e0", "revalidation": "Focal gate red before the fixture-only repair."}
+  ],
   "forecast": {"version": "PRE_EXECUTION_V1", "central_seconds": 7200, "expected_range_seconds": "5400-10800", "contingency_ceiling_seconds": 14400},
-  "metrics": {"git_operations_used": ["status", "rev-parse", "fetch", "rev-list", "diff --check", "diff-tree", "cat-file", "merge-base", "commit"], "git_operations_not_used": ["pull", "merge", "rebase", "reset", "checkout destructive", "force push", "tags"], "retries": 0, "interruptions": 0, "rollbacks": 0, "level_b_share": "TO_BE_MEASURED", "forecast_variance": "TO_BE_MEASURED"},
+  "metrics": {"git_operations_used": ["status", "rev-parse", "fetch", "rev-list", "diff --check", "diff-tree", "cat-file", "merge-base", "commit", "push", "postpublish fetch"], "git_operations_not_used": ["pull", "merge", "rebase", "reset", "checkout destructive", "force push", "force-with-lease", "tags"], "retries": 2, "interruptions": 0, "rollbacks": 0, "product_repairs": 0, "level_b_share": "RECORDED_AFTER_FINAL_FETCH", "forecast_variance": "RECORDED_AFTER_FINAL_FETCH"},
   "artifacts": ["scripts/validate_mission_closure.py", "tests/test_mission_closure_gate.py", "tests/test_roadmap_4x_macro_05_1_p1_closure_reconciliation.py", "tests/test_method_santi_3_2_5.py", "docs/MISSION_CLOSURE_GATE_V1.md", "docs/METHOD_SANTI_3_2_5_EXECUTABLE_CLOSURE_AUTHORITY_ENGINEERING.md", "docs/ROADMAP_4X_MACRO_05_1_GAP_RECONCILIATION_MATRIX.md", "docs/ROADMAP_4X_MACRO_05_1_P1_ASSURANCE_COMPLETION.md", "docs/ROADMAP_4X_MACRO_05_1_ROOT_CAUSE_AND_RECURRENCE_PREVENTION.md", "docs/ROADMAP_4X_MACRO_05_1_EXECUTION_JOURNAL.md", "docs/ROADMAP_4X_MACRO_05_1_EXECUTION_METRICS_BASELINE.md", "docs/ROADMAP_4X_MACRO_05_1_HISTORICAL_IMPACT_MANIFEST.md", "docs/ROADMAP_4X_MACRO_05_1_COMMIT_ACCOUNTABILITY_LEDGER.md", "docs/ROADMAP_4X_MACRO_05_1_CANONICAL_CLOSURE_EVIDENCE.json", "docs/ROADMAP_4X_MACRO_05_1_CLOSURE_CHECKPOINT.md", "knowledge/global_operational/metrics/roadmap_4_x_macro_05_1_execution_metric.json", "renderer_output: stdout and explicit report-output only"],
-  "report": {"sections": ["18.1", "18.2", "18.3", "18.4", "18.5", "18.6", "18.7", "18.8", "18.9", "18.10", "18.11", "18.12", "18.13", "18.14"], "final_report_sha256": "REPORTED_BY_RENDERER", "gate_contract": {"operations": ["validate-readiness", "validate-prelock", "render-postpublish"], "positive_controls": ["strict JSON", "real hashes", "complete ledger", "complete runs", "postpublish equality", "deterministic render"], "negative_controls": ["missing basis", "PASS basis", "nonexistent hash", "missing functional head", "incomplete ledger", "unlisted file", "missing command", "missing timestamps", "missing exit", "hidden failure", "missing Level B", "basis mismatch", "post-basis executable", "bad clock", "contradictory clock", "PENDING", "duplicate key", "HEAD mismatch", "ahead/behind mismatch", "dirty tree", "protected diff", "missing report section", "claim without node", "UNKNOWN without cause", "bypass flag/environment", "tampered report", "receipt mismatch", "wrong documentary parent"], "bypass_scan": "PASS", "prelock_receipt": "AWAITING_FINAL_EVIDENCE", "postpublish_receipt": "AWAITING_FINAL_FETCH", "deterministic_render": "IMPLEMENTED", "tamper_detection": "IMPLEMENTED", "limitations": ["operator-visible completion remains external unknown", "process CPU time depends on wrapper"]}, "risks": ["The final remote fetch and postpublish receipt remain outstanding until publication."]}
+  "report": {"sections": ["18.1", "18.2", "18.3", "18.4", "18.5", "18.6", "18.7", "18.8", "18.9", "18.10", "18.11", "18.12", "18.13", "18.14"], "final_report_sha256": "REPORTED_BY_RENDERER", "gate_contract": {"operations": ["validate-readiness", "validate-prelock", "render-postpublish"], "positive_controls": ["strict JSON", "real hashes", "complete ledger", "complete runs", "postpublish equality", "deterministic render"], "negative_controls": ["missing basis", "PASS basis", "nonexistent hash", "missing functional head", "incomplete ledger", "unlisted file", "missing command", "missing timestamps", "missing exit", "hidden failure", "missing Level B", "basis mismatch", "post-basis executable", "bad clock", "contradictory clock", "PENDING", "duplicate key", "HEAD mismatch", "ahead/behind mismatch", "dirty tree", "protected diff", "missing report section", "claim without node", "UNKNOWN without cause", "bypass flag/environment", "tampered report", "receipt mismatch", "wrong documentary parent"], "bypass_scan": "PASS", "prelock_receipt": "EMITTED_BY_GATE_BEFORE_DOCUMENTARY_LOCK", "postpublish_receipt": "EMITTED_BY_GATE_AFTER_FETCH", "deterministic_render": "IMPLEMENTED", "tamper_detection": "IMPLEMENTED", "limitations": ["operator-visible completion remains external unknown", "process CPU time depends on wrapper", "first red historical attempt lacks wrapper clocks"]}, "risks": ["Operator-visible completion remains unknown; this does not replace the repository gate.", "The external VERO adjudication remains pending and unimplemented."]}
 }
