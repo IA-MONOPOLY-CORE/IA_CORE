@@ -2,6 +2,15 @@
 
 Esta carpeta contiene scripts de mantenimiento y auditoría manual para IA_CORE.
 
+## validate_mission_closure.py
+
+Validador reusable y fail-closed para cierres gobernados. Sus operaciones son
+`validate-readiness`, `validate-prelock` y `render-postpublish`; usa únicamente la
+biblioteca estándar, Git local y evidencia JSON estricta. Rechaza claves duplicadas,
+hashes narrativos, campos omitidos, clocks contradictorios, cambios ejecutables
+posteriores a Level B y cualquier bypass. El reporte final solo tiene autoridad
+cuando lo emite el renderer con su receipt.
+
 ## audit_profile_preset_consistency.py
 
 Script de auditoría manual para verificar consistencia entre profiles, presets, papers y agentes del dominio Lotería.

@@ -419,3 +419,9 @@ See the [truth matrix](ROADMAP_4X_MACRO_05_P1_POST_BOUNDARY_E2E_TRUTH_MATRIX.md)
 [checkpoint](ROADMAP_4X_MACRO_05_P1_INTERNAL_FAMILY_CLOSURE_CHECKPOINT.md),
 [evidence](ROADMAP_4X_MACRO_05_P1_INTERNAL_FAMILY_CLOSURE_EVIDENCE.json) and
 [execution journal](ROADMAP_4X_MACRO_05_P1_EXECUTION_JOURNAL.md).
+## Closure authority frontier
+
+Roadmap 4.x Macro 05.1 instala `mission_closure_gate.v1` como autoridad ejecutable
+para cierres futuros. Macro 06 permanece seleccionado pero no iniciado y VERO sigue
+siendo un paquete de adjudicación externa no implementado. El gate no promueve GOKV,
+no activa OCI y no concede permisos de runtime o negocio.

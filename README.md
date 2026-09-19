@@ -1848,3 +1848,10 @@ See the [Macro 05 truth matrix](docs/ROADMAP_4X_MACRO_05_P1_POST_BOUNDARY_E2E_TR
 [checkpoint](docs/ROADMAP_4X_MACRO_05_P1_INTERNAL_FAMILY_CLOSURE_CHECKPOINT.md),
 [evidence](docs/ROADMAP_4X_MACRO_05_P1_INTERNAL_FAMILY_CLOSURE_EVIDENCE.json) and
 [execution journal](docs/ROADMAP_4X_MACRO_05_P1_EXECUTION_JOURNAL.md).
+## Executable closure authority
+
+Desde Roadmap 4.x Macro 05.1, toda misión gobernada que pretenda declarar `CLOSED`
+debe usar `scripts/validate_mission_closure.py` o una versión sucesora compatible y
+más estricta. La narrativa del agente y un reporte escrito manualmente no tienen
+autoridad de cierre. Esta regla es de ingeniería documental y validación; no agrega
+capacidades de producto, runtime, ejecución, permisos de negocio, tenancy ni VERO.

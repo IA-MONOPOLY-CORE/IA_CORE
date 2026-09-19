@@ -153,6 +153,23 @@ _SNAPSHOT_EXACT = {
 }
 _CURRENT_MISSION_DOCUMENTARY_FILES = frozenset(
     {
+        "scripts/validate_mission_closure.py",
+        "scripts/README.md",
+        "tests/test_mission_closure_gate.py",
+        "tests/test_method_santi_3_2_5.py",
+        "tests/test_roadmap_4x_macro_05_1_p1_closure_reconciliation.py",
+        "docs/MISSION_CLOSURE_GATE_V1.md",
+        "docs/METHOD_SANTI_3_2_5_EXECUTABLE_CLOSURE_AUTHORITY_ENGINEERING.md",
+        "docs/ROADMAP_4X_MACRO_05_1_GAP_RECONCILIATION_MATRIX.md",
+        "docs/ROADMAP_4X_MACRO_05_1_P1_ASSURANCE_COMPLETION.md",
+        "docs/ROADMAP_4X_MACRO_05_1_ROOT_CAUSE_AND_RECURRENCE_PREVENTION.md",
+        "docs/ROADMAP_4X_MACRO_05_1_EXECUTION_JOURNAL.md",
+        "docs/ROADMAP_4X_MACRO_05_1_EXECUTION_METRICS_BASELINE.md",
+        "docs/ROADMAP_4X_MACRO_05_1_HISTORICAL_IMPACT_MANIFEST.md",
+        "docs/ROADMAP_4X_MACRO_05_1_COMMIT_ACCOUNTABILITY_LEDGER.md",
+        "docs/ROADMAP_4X_MACRO_05_1_CANONICAL_CLOSURE_EVIDENCE.json",
+        "docs/ROADMAP_4X_MACRO_05_1_CLOSURE_CHECKPOINT.md",
+        "knowledge/global_operational/metrics/roadmap_4_x_macro_05_1_execution_metric.json",
         "README.md",
         "docs/FUTURE_PLATFORM_EXTENSION_INDEX.md",
         "docs/METHOD_SANTI_3_2_4_CANONICAL_EVIDENCE_CLOSURE_ENGINEERING.md",
