@@ -1,0 +1,127 @@
+{
+  "schema_version": "mission_policy.v2.2",
+  "mission_identity": {
+    "roadmap": "4.x",
+    "macro_mission": "06.2",
+    "mission": "ROADMAP_4X_MACRO_06_2",
+    "mission_name": "TERMINAL_VALIDATION_AND_POST_BASIS_DELTA_ASSURANCE",
+    "predecessor": "ROADMAP_4X_MACRO_06_1",
+    "predecessor_state": "GOVERNED_CLOSURE_CONFIRMED"
+  },
+  "branch": "main",
+  "baseline": "165748697185feb89bb0902be62333c28b1b0b2c",
+  "expected_external_state": "DEFAULT_DENIED_AND_REMOTE_RULESET_NOT_PROVEN",
+  "allowed_result_variants": [
+    "ROADMAP_4X_MACRO_06_2_TERMINAL_VALIDATION_AND_POST_BASIS_DELTA_ASSURANCE_PASSED_GATE_V2_2_HARDENED_ORGANIZATIONAL_RECONSTRUCTION_CANDIDATE_PRESERVED_P3_SELECTED_NOT_STARTED",
+    "BLOCKED_EXECUTABLE_CLOSURE_GATE"
+  ],
+  "required_report_sections": ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29"],
+  "required_validation_gates": ["red-reproduction", "focal", "historical-impact", "strict-json", "duplicate-key", "py-compile", "secret-scan", "ci-contract", "historical-byte-preservation", "level-a", "level-b-terminal", "post-evidence", "prelock", "postpublish"],
+  "protected_surfaces": ["P0", "P1", "P2", "P3_IMPLEMENTATION", "P4-P9", "VERO_RUNTIME", "FIRE_RUNTIME", "ORGANIZATIONAL_RECONSTRUCTION_RUNTIME", "PRODUCT", "BACKEND", "UI", "HTML", "CSS", "JAVASCRIPT", "I18N", "PAYLOAD", "RUNTIME", "EXECUTION", "ENDPOINTS", "TENANCY", "PROVIDERS", "INTEGRATIONS", "COGNITIVE_KERNEL", "ENTERPRISE_FOUNDRY", "CYBER_RANGE", "EXTERNAL_EXPOSURE"],
+  "protected_path_prefixes": ["api.py", "core/", "domains/", "providers/", "ui/", "data/", "memory/", "logs/", "gokv/", "runtime/", "execution/", "integrations/", "tenants/"],
+  "allowed_change_paths": [
+    ".github/workflows/ci.yml",
+    "scripts/run_mission_closure_v2_2.py",
+    "scripts/run_mission_validation_v2_2.py",
+    "scripts/validate_mission_closure_v2_2.py",
+    "scripts/run_mission_closure_v2_2_red_reproduction.py",
+    "tests/historical_test_context.py",
+    "tests/test_roadmap_4x_macro_05_p1_internal_family_closure.py",
+    "tests/test_mission_closure_gate_v2_2.py",
+    "tests/test_mission_closure_gate_v2_2_git.py",
+    "tests/test_mission_closure_gate_v2_2_terminal.py",
+    "tests/test_mission_closure_gate_v2_2_ci_contract.py",
+    "tests/test_mission_closure_historical_compatibility_v2_2.py",
+    "docs/MISSION_CLOSURE_GATE_V2_2_CONTRACT.md",
+    "docs/METHOD_SANTI_3_2_7_TERMINAL_VALIDATION_AUTHORITY.md",
+    "docs/MISSION_CLOSURE_POLICY_SCHEMA_V2_2.json",
+    "docs/ROADMAP_4X_MACRO_06_2_MISSION_POLICY.json",
+    "docs/ROADMAP_4X_MACRO_06_2_RED_REPRODUCTION.md",
+    "docs/ROADMAP_4X_MACRO_06_2_NEGATIVE_CONTROL_MATRIX.md",
+    "docs/ROADMAP_4X_MACRO_06_2_ROOT_CAUSE_AND_RECURRENCE_PREVENTION.md",
+    "docs/ROADMAP_4X_MACRO_06_2_EXECUTION_JOURNAL.md",
+    "docs/ROADMAP_4X_MACRO_06_2_EXECUTION_METRICS.md",
+    "docs/ROADMAP_4X_MACRO_06_2_COMMIT_ACCOUNTABILITY_LEDGER.md",
+    "docs/ROADMAP_4X_MACRO_06_2_CANONICAL_CLOSURE_EVIDENCE.json",
+    "docs/ROADMAP_4X_MACRO_06_2_CLOSURE_CHECKPOINT.md",
+    "docs/ROADMAP_4X_MACRO_06_2_POST_EVIDENCE_RECEIPT.json",
+    "docs/ROADMAP_4X_MACRO_06_2_PRELOCK_RECEIPT.json",
+    "docs/ROADMAP_4X_MACRO_06_2_VALIDATION_LOGS/focal.stdout.log",
+    "docs/ROADMAP_4X_MACRO_06_2_VALIDATION_LOGS/focal.stderr.log",
+    "docs/ROADMAP_4X_MACRO_06_2_VALIDATION_LOGS/focal.combined.log",
+    "docs/ROADMAP_4X_MACRO_06_2_VALIDATION_LOGS/focal.receipt.json",
+    "docs/ROADMAP_4X_MACRO_06_2_VALIDATION_LOGS/historical.stdout.log",
+    "docs/ROADMAP_4X_MACRO_06_2_VALIDATION_LOGS/historical.stderr.log",
+    "docs/ROADMAP_4X_MACRO_06_2_VALIDATION_LOGS/historical.combined.log",
+    "docs/ROADMAP_4X_MACRO_06_2_VALIDATION_LOGS/historical.receipt.json",
+    "docs/ROADMAP_4X_MACRO_06_2_VALIDATION_LOGS/level-a.stdout.log",
+    "docs/ROADMAP_4X_MACRO_06_2_VALIDATION_LOGS/level-a.stderr.log",
+    "docs/ROADMAP_4X_MACRO_06_2_VALIDATION_LOGS/level-a.combined.log",
+    "docs/ROADMAP_4X_MACRO_06_2_VALIDATION_LOGS/level-a.receipt.json",
+    "docs/ROADMAP_4X_MACRO_06_2_VALIDATION_LOGS/level-b.stdout.log",
+    "docs/ROADMAP_4X_MACRO_06_2_VALIDATION_LOGS/level-b.stderr.log",
+    "docs/ROADMAP_4X_MACRO_06_2_VALIDATION_LOGS/level-b.combined.log",
+    "docs/ROADMAP_4X_MACRO_06_2_VALIDATION_LOGS/level-b.receipt.json",
+    "docs/FUTURE_ORGANIZATIONAL_RECONSTRUCTION_AND_STRUCTURED_ENTERPRISE_DISCOVERY.md"
+  ],
+  "post_terminal_mutation_allowlist": [
+    "docs/ROADMAP_4X_MACRO_06_2_NEGATIVE_CONTROL_MATRIX.md",
+    "docs/ROADMAP_4X_MACRO_06_2_ROOT_CAUSE_AND_RECURRENCE_PREVENTION.md",
+    "docs/ROADMAP_4X_MACRO_06_2_EXECUTION_JOURNAL.md",
+    "docs/ROADMAP_4X_MACRO_06_2_EXECUTION_METRICS.md",
+    "docs/ROADMAP_4X_MACRO_06_2_COMMIT_ACCOUNTABILITY_LEDGER.md",
+    "docs/ROADMAP_4X_MACRO_06_2_CANONICAL_CLOSURE_EVIDENCE.json",
+    "docs/ROADMAP_4X_MACRO_06_2_CLOSURE_CHECKPOINT.md",
+    "docs/ROADMAP_4X_MACRO_06_2_POST_EVIDENCE_RECEIPT.json",
+    "docs/ROADMAP_4X_MACRO_06_2_PRELOCK_RECEIPT.json",
+    "docs/ROADMAP_4X_MACRO_06_2_VALIDATION_LOGS/level-b.stdout.log",
+    "docs/ROADMAP_4X_MACRO_06_2_VALIDATION_LOGS/level-b.stderr.log",
+    "docs/ROADMAP_4X_MACRO_06_2_VALIDATION_LOGS/level-b.combined.log",
+    "docs/ROADMAP_4X_MACRO_06_2_VALIDATION_LOGS/level-b.receipt.json"
+  ],
+  "post_validation_change_policy": {
+    "allowed_categories": ["DOCUMENTARY_ONLY", "EVIDENCE_ONLY"],
+    "invalidating_categories": ["EXECUTABLE", "TEST_INFRASTRUCTURE", "CONFIGURATION", "PRODUCT"],
+    "changed_after_level_b": []
+  },
+  "next_cursor": "P3_LOTERIA_VALIDATION_EVOLUTION_SELECTED_NOT_STARTED",
+  "external_exposure": "DEFAULT_DENIED",
+  "candidate_specific_frontiers": ["VERO_RUNTIME_NOT_STARTED", "FIRE_RUNTIME_NOT_STARTED", "ORGANIZATIONAL_RECONSTRUCTION_RUNTIME_NOT_STARTED", "STRUCTURED_ENTERPRISE_DISCOVERY_RUNTIME_NOT_STARTED"],
+  "preserved_controls": [
+    "NO_SELF_DECLARED_PASS", "NO_REPORT_ONLY_CLOSURE", "NO_EVIDENCE_BY_OMISSION", "NO_MISSING_FIELD_DEFAULTS", "NO_PLACEHOLDER_AS_FINAL_EVIDENCE", "NO_PASS_STRING_AS_COMMIT_HASH", "NO_POST_BASIS_EXECUTABLE_CHANGE_WITHOUT_REVALIDATION", "NO_UNRENDERED_FINAL_REPORT", "NO_GATE_BYPASS_FLAG", "NO_NARRATIVE_CLOSURE_OVERRIDE", "NO_EVIDENCE_FROM_THE_FUTURE", "NO_DECLARED_CONTROL_WITHOUT_EXECUTABLE_ENFORCEMENT", "NO_SELF_DECLARED_PROTECTED_DIFF", "NO_POST_FINALIZATION_EVENT_INSIDE_PRE_FINALIZATION_EVIDENCE", "CI_STEP_IS_NOT_REQUIRED_CHECK", "REMOTE_ENFORCEMENT_HAS_EVOLVABLE_STATE", "OPERATOR_ACCEPTANCE_REQUIRED_BEFORE_NEXT_FAMILY", "NO_SINGLE_GIT_DIFF_VIEW_IS_SUFFICIENT", "FOUR_SURFACES_ARE_INDEPENDENTLY_INSPECTED", "RECEIPTS_BIND_TO_DURABLE_LOG_BYTES", "RECEIPT_HASH_EXCLUDES_SELF", "EXACTLY_ONE_SUCCESSFUL_TERMINAL_LEVEL_B", "NO_ORDINARY_VALIDATION_AFTER_TERMINAL", "POST_TERMINAL_ALLOWLIST_IS_EXACT", "CANDIDATE_IS_DOCUMENTARY_ONLY", "NO_CANDIDATE_RUNTIME_LEAKAGE"
+  ],
+  "ci_contract": {
+    "workflow": ".github/workflows/ci.yml",
+    "required_job_name": "closure-policy-and-anti-weakening",
+    "required_check_name": "closure-policy-and-anti-weakening",
+    "required_commands": [
+      "python scripts/validate_mission_closure_v2_2.py validate-policy",
+      "python -m pytest -q tests/test_mission_closure_gate_v2_2.py tests/test_mission_closure_gate_v2_2_git.py tests/test_mission_closure_gate_v2_2_terminal.py tests/test_mission_closure_gate_v2_2_ci_contract.py",
+      "python -m pytest -q tests/test_mission_closure_gate_v2.py tests/test_mission_closure_historical_compatibility_v2_1.py tests/test_mission_closure_historical_compatibility_v2_2.py"
+    ]
+  },
+  "remote_enforcement": {
+    "state": "NOT_PROVEN",
+    "operator_action_required": true,
+    "required_check_name": "closure-policy-and-anti-weakening"
+  },
+  "deterministic_report_contract": {
+    "volatile_fields_excluded": ["generated_at", "wall_time", "cpu_time", "hostname", "absolute_paths", "temporary_identifiers"],
+    "canonicalization": "UTF-8 LF stable lexical key ordering compact separators ensure_ascii=false repository-relative paths",
+    "repeat_render_required": true
+  },
+  "terminality_contract": {
+    "exactly_one_successful_terminal_level_b": true,
+    "ordinary_validation_after_terminal": "INVALID",
+    "basis_mutation_invalidates": true
+  },
+  "historical_byte_preservation": [
+    {"path": "scripts/validate_mission_closure.py", "commit": "d0f400eb89bc21a867a1c124136575a3436f593b"},
+    {"path": "scripts/validate_mission_closure_v2.py", "commit": "d0f400eb89bc21a867a1c124136575a3436f593b"},
+    {"path": "docs/ROADMAP_4X_MACRO_06_MISSION_POLICY.json", "commit": "d0f400eb89bc21a867a1c124136575a3436f593b"},
+    {"path": "scripts/validate_mission_closure_v2_1.py", "commit": "165748697185feb89bb0902be62333c28b1b0b2c"},
+    {"path": "scripts/run_mission_validation_v2_1.py", "commit": "165748697185feb89bb0902be62333c28b1b0b2c"},
+    {"path": "docs/MISSION_CLOSURE_POLICY_SCHEMA_V2_1.json", "commit": "165748697185feb89bb0902be62333c28b1b0b2c"},
+    {"path": "docs/ROADMAP_4X_MACRO_06_1_MISSION_POLICY.json", "commit": "165748697185feb89bb0902be62333c28b1b0b2c"}
+  ]
+}

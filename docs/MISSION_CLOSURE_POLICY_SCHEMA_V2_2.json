@@ -1,0 +1,46 @@
+{
+  "schema_version": "mission_policy.v2.2",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "mission_identity",
+    "branch",
+    "baseline",
+    "expected_external_state",
+    "allowed_result_variants",
+    "required_report_sections",
+    "required_validation_gates",
+    "protected_surfaces",
+    "protected_path_prefixes",
+    "allowed_change_paths",
+    "post_validation_change_policy",
+    "post_terminal_mutation_allowlist",
+    "next_cursor",
+    "external_exposure",
+    "candidate_specific_frontiers",
+    "preserved_controls",
+    "ci_contract",
+    "remote_enforcement",
+    "deterministic_report_contract",
+    "terminality_contract",
+    "historical_byte_preservation"
+  ],
+  "policy_rules": {
+    "duplicate_keys": "reject",
+    "scope_authority": [
+      "POST_BASIS_COMMITTED_DELTA",
+      "INDEX_DELTA",
+      "WORKTREE_DELTA",
+      "UNTRACKED_PATHS"
+    ],
+    "no_single_git_diff_view_is_sufficient": true,
+    "post_terminal_allowlist": "exact_paths_only",
+    "receipt_hashing": "canonical_payload_excludes_receipt_sha256",
+    "receipt_artifacts": "durable_and_recomputable",
+    "deterministic_report": "volatile_fields_excluded_and_repeat_rendered",
+    "terminality": "exactly_one_successful_terminal_level_b_for_final_basis",
+    "ordinary_validation_after_terminal": "invalid",
+    "external_exposure": "DEFAULT_DENIED",
+    "remote_enforcement_states": ["NOT_PROVEN", "PROVEN", "REVOKED_OR_STALE"]
+  }
+}
