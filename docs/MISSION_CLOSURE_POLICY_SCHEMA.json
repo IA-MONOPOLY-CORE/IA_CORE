@@ -1,0 +1,31 @@
+{
+  "schema_version": "mission_policy.v1",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "mission_identity",
+    "branch",
+    "baseline",
+    "expected_external_state",
+    "allowed_result_variants",
+    "required_report_sections",
+    "required_validation_gates",
+    "protected_surfaces",
+    "protected_path_prefixes",
+    "allowed_change_paths",
+    "post_validation_change_policy",
+    "next_cursor",
+    "external_exposure",
+    "candidate_specific_frontiers",
+    "preserved_controls",
+    "ci_contract",
+    "remote_enforcement"
+  ],
+  "policy_rules": {
+    "duplicate_keys": "reject",
+    "unknown_root_fields": "allowed_for_forward_compatibility_but_must_not_replace_required_fields",
+    "external_exposure": "DEFAULT_DENIED",
+    "post_validation_allowed_categories": ["DOCUMENTARY_ONLY", "EVIDENCE_ONLY"],
+    "remote_enforcement_state": "NOT_PROVEN"
+  }
+}
