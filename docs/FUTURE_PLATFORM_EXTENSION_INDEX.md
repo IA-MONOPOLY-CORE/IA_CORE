@@ -400,3 +400,22 @@ future-only. See the [P1-A contract](ROADMAP_4X_MACRO_04_3_P1_A_STATUS_CONTRACT.
 [truth matrix](ROADMAP_4X_MACRO_04_3_P1_A_TRUTH_MATRIX.md),
 [checkpoint](ROADMAP_4X_MACRO_04_3_P1_A_CHECKPOINT.md) and
 [machine evidence](ROADMAP_4X_MACRO_04_3_P1_A_CHECKPOINT_EVIDENCE.json).
+
+## Roadmap 4.x Macro-Mission 05 - P1 live closure record
+
+The Macro 04.3 entry above remains historical checkpoint context. The current
+live state is tracked by the Macro 05 artifacts while the four P1 boundaries
+are evaluated together.
+
+```text
+ROADMAP_4X_MACRO_05_P1_INTERNAL_FAMILY_CLOSURE
+P1_INTERNAL_FAMILY_CLOSURE_IN_PROGRESS
+MACRO_06_RECALIBRATION_AND_NEXT_FAMILY_SELECTION_NOT_STARTED
+EXTERNAL_EXPOSURE: DEFAULT_DENIED
+```
+
+See the [truth matrix](ROADMAP_4X_MACRO_05_P1_POST_BOUNDARY_E2E_TRUTH_MATRIX.md),
+[cross-capability matrix](ROADMAP_4X_MACRO_05_P1_CROSS_CAPABILITY_AND_ROUTE_MATRIX.md),
+[checkpoint](ROADMAP_4X_MACRO_05_P1_INTERNAL_FAMILY_CLOSURE_CHECKPOINT.md),
+[evidence](ROADMAP_4X_MACRO_05_P1_INTERNAL_FAMILY_CLOSURE_EVIDENCE.json) and
+[execution journal](ROADMAP_4X_MACRO_05_P1_EXECUTION_JOURNAL.md).

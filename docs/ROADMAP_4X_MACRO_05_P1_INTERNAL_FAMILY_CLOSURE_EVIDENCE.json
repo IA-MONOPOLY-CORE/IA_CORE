@@ -1,0 +1,39 @@
+{
+  "mission": "ROADMAP_4X_MACRO_05",
+  "subfamily": "P1_STATUS_OBSERVABILITY_MEMORY",
+  "baseline": "9148f023f4df8e642f396f08a6386f8967d70efb",
+  "status": "IN_PROGRESS",
+  "variant": "PENDING",
+  "p1_family": "FUNCTIONALLY_COMPLETE_PENDING_E2E_CLOSURE",
+  "external_exposure": "DEFAULT_DENIED",
+  "tenant_access": "NOT_IMPLEMENTED",
+  "tracked_json_before": 268,
+  "tracked_json_expected_after": 270,
+  "strict_duplicate_scan_before": "2_FILES_WITH_IDENTICAL_DUPLICATE_PUBLICATION_FIELDS",
+  "strict_duplicate_scan_after": "PASS_ZERO_DUPLICATE_KEYS",
+  "focal": "PASS_62_PASSED_0_FAILED_5_WARNINGS",
+  "historical_impact_gate": "PENDING",
+  "level_a": "PENDING",
+  "level_b": "PENDING",
+  "validation_basis": "PENDING",
+  "product_repair": "NONE_UNTIL_RED_EVIDENCE",
+  "gokv": {
+    "total_items": 38,
+    "validated": 9,
+    "candidate": 22,
+    "promoted": 7,
+    "new_candidate": "NONE",
+    "new_promotion": "NONE",
+    "new_write": "NONE",
+    "new_event": "NONE",
+    "new_pack": "NONE",
+    "oci_runtime_activation": "NONE"
+  },
+  "quota": {
+    "5h_start": "UNKNOWN_EXTERNAL_OPERATOR_EVIDENCE_REQUIRED",
+    "weekly_start": "UNKNOWN_EXTERNAL_OPERATOR_EVIDENCE_REQUIRED",
+    "reset": "UNKNOWN_EXTERNAL_OPERATOR_EVIDENCE_REQUIRED",
+    "deltas": "UNKNOWN_EXTERNAL_OPERATOR_EVIDENCE_REQUIRED"
+  },
+  "publication": "PENDING"
+}

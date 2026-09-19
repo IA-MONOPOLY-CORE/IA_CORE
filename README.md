@@ -1828,3 +1828,23 @@ Ver [status contract](docs/ROADMAP_4X_MACRO_04_3_P1_A_STATUS_CONTRACT.md),
 [checkpoint](docs/ROADMAP_4X_MACRO_04_3_P1_A_CHECKPOINT.md),
 [evidence](docs/ROADMAP_4X_MACRO_04_3_P1_A_CHECKPOINT_EVIDENCE.json) y
 [ledger](docs/ROADMAP_4X_MACRO_04_3_P1_A_COMMIT_ACCOUNTABILITY_LEDGER.md).
+
+## Roadmap 4.x Macro-Mission 05 - P1 live closure record
+
+The historical Macro 04.3 narrative above is preserved as historical
+checkpoint context. The live Macro 05 record is maintained separately while
+the post-boundary E2E closure is executed.
+
+```text
+ROADMAP_4X_MACRO_05_P1_INTERNAL_FAMILY_CLOSURE
+P1_INTERNAL_FAMILY_CLOSURE_IN_PROGRESS
+MACRO_06_RECALIBRATION_AND_NEXT_FAMILY_SELECTION_NOT_STARTED
+EXTERNAL_EXPOSURE: DEFAULT_DENIED
+```
+
+See the [Macro 05 truth matrix](docs/ROADMAP_4X_MACRO_05_P1_POST_BOUNDARY_E2E_TRUTH_MATRIX.md),
+[cross-capability matrix](docs/ROADMAP_4X_MACRO_05_P1_CROSS_CAPABILITY_AND_ROUTE_MATRIX.md),
+[adversarial assurance contract](docs/ROADMAP_4X_MACRO_05_P1_ADVERSARIAL_ASSURANCE_CONTRACT.md),
+[checkpoint](docs/ROADMAP_4X_MACRO_05_P1_INTERNAL_FAMILY_CLOSURE_CHECKPOINT.md),
+[evidence](docs/ROADMAP_4X_MACRO_05_P1_INTERNAL_FAMILY_CLOSURE_EVIDENCE.json) and
+[execution journal](docs/ROADMAP_4X_MACRO_05_P1_EXECUTION_JOURNAL.md).
