@@ -34,4 +34,4 @@ tests/test_mission_closure_gate_v2_2.py::test_v2_2_policy_and_schema_are_valid
     return EntryPoints(ep for group_eps in eps.values() for ep in group_eps)
 
 -- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
-123 passed, 5 warnings in 82.07s (0:01:22)
+123 passed, 5 warnings in 76.56s (0:01:16)

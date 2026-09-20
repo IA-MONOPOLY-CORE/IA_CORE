@@ -1,21 +1,32 @@
 {
   "allowlist_sha256": "4984243749a14547da87605f0e6d651d7b139b2deef3d3621163d46f05e8cca9",
+  "artifact_manifest_sha256": "cc1f0a35ebeea3b2fc034590d42f1caac0faabcd21d174e73399e3dc883f3f89",
   "closure_decision": "CLOSED",
-  "completed_at": "2026-09-19T21:07:28.547850-03:00",
-  "computed_scope_sha256": "52e6760f3e78ecdd81b36ee7211c615a1500bee87c1b2a4a19fc04057e23920e",
-  "evidence_sha256": "e9dc328e5431b0716b2bb21137338ec295af254bf7cd5695534c0bb2f31ad7e0",
+  "completed_at": "2026-09-19T21:19:02.256045-03:00",
+  "computed_scope_sha256": "2e4b96e55ef4cf097619165dbc70d291cc6b51c9775d9ac6d69680e0653dc8ed",
+  "evidence_sha256": "81e225b385bf9e14d933671834c706bbbbfde8838528b960463ed6f11469d948",
   "exit_code": 0,
   "gate_version": "mission_closure_gate.v2.2",
   "kind": "PRELOCK",
   "mission": "ROADMAP_4X_MACRO_06_2",
   "policy_sha256": "e2066201c16061fd953cd5688b7c71588fd07db1fadce09ea84f6eb9e09fe294",
   "policy_version": "mission_policy.v2.2",
-  "post_evidence_receipt_sha256": "aeb165570131d901f5d4ffb02011d7417f7a97587c326e75c4d7dac2efe3ad4b",
+  "post_evidence_receipt_sha256": "90800ccf9757ec803da036a445006ed7a70b356a0e28b9692531304bd1269cad",
   "protected_diff_sha256": "789331089d1adbcfa5121f42a6dd723ea5a65ecc5dce369c7401569a9d7817fe",
-  "receipt_sha256": "3765784129956326a3ccfe0c6045f30591a9a10022bced89d768f731093dcfcc",
+  "publication_lineage": {
+    "documentary_lock_parent": "8bf79015deee831752f5553a083d44c9d07afbc4",
+    "functional_publication_head": "8bf79015deee831752f5553a083d44c9d07afbc4"
+  },
+  "receipt_sha256": "2128ae3ce850125d201f82b9e100fb014c23ab1f32a9a40eb95617079eb973aa",
   "receipt_version": "mission_closure_receipt.v2.2",
-  "repository_head": "5d69f70be0847ff4f28fa3bcc2cdcb9dc6c8372a",
-  "started_at": "2026-09-19T21:07:26.885176-03:00",
-  "validation_basis": "5d69f70be0847ff4f28fa3bcc2cdcb9dc6c8372a",
-  "wall_seconds": 1.662674
+  "remote_enforcement": {
+    "operator_action_required": true,
+    "required_check_name": "closure-policy-and-anti-weakening",
+    "state": "NOT_PROVEN"
+  },
+  "repository_head": "8bf79015deee831752f5553a083d44c9d07afbc4",
+  "started_at": "2026-09-19T21:19:00.432108-03:00",
+  "validation_basis": "8bf79015deee831752f5553a083d44c9d07afbc4",
+  "wall_seconds": 1.823937,
+  "working_tree_state": "DOCUMENTARY_PHASE"
 }

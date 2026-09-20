@@ -1,9 +1,10 @@
 {
   "allowlist_sha256": "4984243749a14547da87605f0e6d651d7b139b2deef3d3621163d46f05e8cca9",
+  "artifact_manifest_sha256": "cc1f0a35ebeea3b2fc034590d42f1caac0faabcd21d174e73399e3dc883f3f89",
   "closure_decision": "CLOSED",
-  "completed_at": "2026-09-19T21:07:20.019667-03:00",
-  "computed_scope_sha256": "c36b682b8dd936d434645a74222b5955dcb16a8b9e4ef44a4e4e4445ee025404",
-  "evidence_sha256": "e9dc328e5431b0716b2bb21137338ec295af254bf7cd5695534c0bb2f31ad7e0",
+  "completed_at": "2026-09-19T21:18:54.305205-03:00",
+  "computed_scope_sha256": "88aebeb4e9b2292bd9b38d50444641da39fe7b41588031a99e5aebc01f3cef9e",
+  "evidence_sha256": "81e225b385bf9e14d933671834c706bbbbfde8838528b960463ed6f11469d948",
   "exit_code": 0,
   "gate_version": "mission_closure_gate.v2.2",
   "kind": "POST_EVIDENCE",
@@ -11,10 +12,20 @@
   "policy_sha256": "e2066201c16061fd953cd5688b7c71588fd07db1fadce09ea84f6eb9e09fe294",
   "policy_version": "mission_policy.v2.2",
   "protected_diff_sha256": "789331089d1adbcfa5121f42a6dd723ea5a65ecc5dce369c7401569a9d7817fe",
-  "receipt_sha256": "aa2684c4630b3ff65179b27335a385d8d924a26c6f26fd9ad7adba8b6db6b254",
+  "publication_lineage": {
+    "documentary_lock_parent": "8bf79015deee831752f5553a083d44c9d07afbc4",
+    "functional_publication_head": "8bf79015deee831752f5553a083d44c9d07afbc4"
+  },
+  "receipt_sha256": "3e4f59f6e0b22e644ea07034caa638dff5d6aa98a4d4a4bdf1e4dfdf912d3503",
   "receipt_version": "mission_closure_receipt.v2.2",
-  "repository_head": "5d69f70be0847ff4f28fa3bcc2cdcb9dc6c8372a",
-  "started_at": "2026-09-19T21:07:18.342196-03:00",
-  "validation_basis": "5d69f70be0847ff4f28fa3bcc2cdcb9dc6c8372a",
-  "wall_seconds": 1.677471
+  "remote_enforcement": {
+    "operator_action_required": true,
+    "required_check_name": "closure-policy-and-anti-weakening",
+    "state": "NOT_PROVEN"
+  },
+  "repository_head": "8bf79015deee831752f5553a083d44c9d07afbc4",
+  "started_at": "2026-09-19T21:18:52.948826-03:00",
+  "validation_basis": "8bf79015deee831752f5553a083d44c9d07afbc4",
+  "wall_seconds": 1.356379,
+  "working_tree_state": "DOCUMENTARY_PHASE"
 }

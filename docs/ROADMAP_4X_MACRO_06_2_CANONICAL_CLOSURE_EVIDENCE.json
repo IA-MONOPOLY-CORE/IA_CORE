@@ -3,7 +3,7 @@
     {
       "kind": "VALIDATION_LOG",
       "path": "docs/ROADMAP_4X_MACRO_06_2_VALIDATION_LOGS/focal.stdout.log",
-      "sha256": "a45ac712b8ae33e86cd72f907bf2efa5ad2ff773bf9d903afa4e24152c66a299"
+      "sha256": "8cc57be1e9f0e556c3c6d440208d77c2947d554b6049eca1aa0c7efdd92ed7f2"
     },
     {
       "kind": "VALIDATION_LOG",
@@ -13,17 +13,17 @@
     {
       "kind": "VALIDATION_LOG",
       "path": "docs/ROADMAP_4X_MACRO_06_2_VALIDATION_LOGS/focal.combined.log",
-      "sha256": "a45ac712b8ae33e86cd72f907bf2efa5ad2ff773bf9d903afa4e24152c66a299"
+      "sha256": "8cc57be1e9f0e556c3c6d440208d77c2947d554b6049eca1aa0c7efdd92ed7f2"
     },
     {
       "kind": "VALIDATION_RECEIPT",
       "path": "docs/ROADMAP_4X_MACRO_06_2_VALIDATION_LOGS/focal.receipt.json",
-      "sha256": "ca89f1f5088cf0081ab964ced29bca0788cf9b2025b863429a38732336840c7b"
+      "sha256": "dcd5b220628e292d120d2050e09b1aa9dc7d0cae00f5d1debafeb09a82515cf3"
     },
     {
       "kind": "VALIDATION_LOG",
       "path": "docs/ROADMAP_4X_MACRO_06_2_VALIDATION_LOGS/historical.stdout.log",
-      "sha256": "0ed7563b40d203686e0fedf4e0fac3fae8cf198f31306f6941f7b20e99ba30ac"
+      "sha256": "756e48958d940bb6b8331838cae8afffcbfdcffd949a472f058d5f3af0760928"
     },
     {
       "kind": "VALIDATION_LOG",
@@ -33,12 +33,12 @@
     {
       "kind": "VALIDATION_LOG",
       "path": "docs/ROADMAP_4X_MACRO_06_2_VALIDATION_LOGS/historical.combined.log",
-      "sha256": "0ed7563b40d203686e0fedf4e0fac3fae8cf198f31306f6941f7b20e99ba30ac"
+      "sha256": "756e48958d940bb6b8331838cae8afffcbfdcffd949a472f058d5f3af0760928"
     },
     {
       "kind": "VALIDATION_RECEIPT",
       "path": "docs/ROADMAP_4X_MACRO_06_2_VALIDATION_LOGS/historical.receipt.json",
-      "sha256": "bd6b35453d65f1e71f339f9fbc5df09bd896292f9a451ac83881d3dfbfc5a5e7"
+      "sha256": "a51cd3b5df946b381277781890299a71bac0c7dee61fe99cd61b6754f8085313"
     },
     {
       "kind": "VALIDATION_LOG",
@@ -58,12 +58,12 @@
     {
       "kind": "VALIDATION_RECEIPT",
       "path": "docs/ROADMAP_4X_MACRO_06_2_VALIDATION_LOGS/level-a.receipt.json",
-      "sha256": "60f9a7d1a04be87e80e4f49fe46d19246400fe305b9bdf25e7ace13c95c8ae65"
+      "sha256": "e361247780207c4bde1002651b0ac76ed4c0678a959d2f04e06376622901600e"
     },
     {
       "kind": "VALIDATION_LOG",
       "path": "docs/ROADMAP_4X_MACRO_06_2_VALIDATION_LOGS/level-b.stdout.log",
-      "sha256": "de03a3bdc84a6b4b89ac5e3f15a21697eec1f57e096c3af3d0df4236778cc902"
+      "sha256": "7bc7796bafa343410f69ab3a9cb1f00b931d7e9cd98b608ba5d24bab96799137"
     },
     {
       "kind": "VALIDATION_LOG",
@@ -73,12 +73,12 @@
     {
       "kind": "VALIDATION_LOG",
       "path": "docs/ROADMAP_4X_MACRO_06_2_VALIDATION_LOGS/level-b.combined.log",
-      "sha256": "de03a3bdc84a6b4b89ac5e3f15a21697eec1f57e096c3af3d0df4236778cc902"
+      "sha256": "7bc7796bafa343410f69ab3a9cb1f00b931d7e9cd98b608ba5d24bab96799137"
     },
     {
       "kind": "VALIDATION_RECEIPT",
       "path": "docs/ROADMAP_4X_MACRO_06_2_VALIDATION_LOGS/level-b.receipt.json",
-      "sha256": "980e5ede574de6ac7c2654d037a74a3042734f956dcf22a615530923b416d9b5"
+      "sha256": "7ffc525e5dad5814e59762c58ca28ad3f7ebc45b9319ba5c85f4720a4d79072e"
     }
   ],
   "assurance_claims": [
@@ -161,6 +161,18 @@
     },
     {
       "files": [
+        "scripts/validate_mission_closure_v2_2.py"
+      ],
+      "hash": "8bf79015deee831752f5553a083d44c9d07afbc4",
+      "parent": "5d69f70be0847ff4f28fa3bcc2cdcb9dc6c8372a",
+      "purpose": "Bind every durable validation receipt and special closure receipt to its canonical evidence lineage.",
+      "rollback": "Revert the receipt-lineage repair and establish a new basis.",
+      "station": "R3B_RECEIPT_LINEAGE_REPAIR",
+      "subject": "fix(closure): validate durable receipt lineage at postpublish",
+      "validation": "Focal, historical, Level A and terminal Level B rerun on the new basis."
+    },
+    {
+      "files": [
         "docs/ROADMAP_4X_MACRO_06_2_EXECUTION_JOURNAL.md",
         "docs/ROADMAP_4X_MACRO_06_2_EXECUTION_METRICS.md",
         "docs/ROADMAP_4X_MACRO_06_2_COMMIT_ACCOUNTABILITY_LEDGER.md",
@@ -186,17 +198,17 @@
         "docs/ROADMAP_4X_MACRO_06_2_VALIDATION_LOGS/level-b.receipt.json"
       ],
       "hash": "DOCUMENTARY_LOCK_SELF_REFERENCE",
-      "parent": "5d69f70be0847ff4f28fa3bcc2cdcb9dc6c8372a",
+      "parent": "8bf79015deee831752f5553a083d44c9d07afbc4",
       "purpose": "Materialize allowlisted evidence, receipts and closure documents after terminal Level B.",
       "rollback": "Revert allowlisted documentation only; executable basis remains frozen.",
       "station": "R4_DOCUMENTARY_LOCK",
-      "subject": "docs(closure): finalize macro 06.2 documentary lock",
-      "validation": "Postpublish renderer validates hashes, lineage and Git state."
+      "subject": "docs(closure): finalize macro 06.2 receipt-bound documentary lock",
+      "validation": "Postpublish renderer validates all durable receipts, hashes, lineage, four Git surfaces and clean publication state."
     }
   ],
   "contract_version": "mission_closure_evidence.v2.2",
   "documentary_lock_head": "POSTPUBLISH_ENVELOPE",
-  "documentary_lock_parent": "5d69f70be0847ff4f28fa3bcc2cdcb9dc6c8372a",
+  "documentary_lock_parent": "8bf79015deee831752f5553a083d44c9d07afbc4",
   "expected_external_state": "DEFAULT_DENIED_AND_REMOTE_RULESET_NOT_PROVEN",
   "external_exposure": "DEFAULT_DENIED",
   "failures": [
@@ -217,6 +229,20 @@
       "failure_id": "RED-062-003",
       "phase": "red-reproduction",
       "result": "REPRODUCED"
+    },
+    {
+      "cause": "First terminal attempt omitted durable preterminal log paths from the exact post-terminal allowlist.",
+      "failure_id": "ATTEMPT-062-001",
+      "phase": "post-terminal-reconciliation",
+      "repair_commit": "5d69f70be0847ff4f28fa3bcc2cdcb9dc6c8372a",
+      "result": "INVALIDATED"
+    },
+    {
+      "cause": "Second terminal attempt exposed missing renderer enforcement for validation receipt lineage.",
+      "failure_id": "ATTEMPT-062-002",
+      "phase": "post-terminal-reconciliation",
+      "repair_commit": "8bf79015deee831752f5553a083d44c9d07afbc4",
+      "result": "INVALIDATED"
     }
   ],
   "files": [
@@ -503,7 +529,7 @@
     {
       "category": "EXECUTABLE",
       "change": "Macro 06.2 closure-method or documentary evidence artifact.",
-      "commit": "252ba8b915b7ff67868a50917d7858ee8ff8b9f8",
+      "commit": "8bf79015deee831752f5553a083d44c9d07afbc4",
       "path": "scripts/validate_mission_closure_v2_2.py",
       "protected_surface_classification": "METHOD_OR_DOCUMENTARY_ONLY",
       "reason": "Authorized by Macro-Mission 06.2 and bounded by the exact allowlist."
@@ -565,7 +591,7 @@
       "reason": "Authorized by Macro-Mission 06.2 and bounded by the exact allowlist."
     }
   ],
-  "functional_publication_head": "5d69f70be0847ff4f28fa3bcc2cdcb9dc6c8372a",
+  "functional_publication_head": "8bf79015deee831752f5553a083d44c9d07afbc4",
   "governed_state": {
     "external_exposure": "DEFAULT_DENIED",
     "organizational_reconstruction": "STRATEGIC_ARCHITECTURAL_CANDIDATE",
@@ -606,14 +632,14 @@
   "metrics": {
     "cpu_time": "UNKNOWN",
     "focal_passed": 16,
-    "focal_wall_seconds": 26.64488,
+    "focal_wall_seconds": 27.895778,
     "historical_passed": 109,
-    "historical_wall_seconds": 79.883272,
-    "level_a_wall_seconds": 0.714466,
+    "historical_wall_seconds": 80.947189,
+    "level_a_wall_seconds": 0.688879,
     "ordinary_validation_after_terminal": 0,
     "terminal_level_b_failed": 0,
     "terminal_level_b_passed": 123,
-    "terminal_level_b_wall_seconds": 86.74133,
+    "terminal_level_b_wall_seconds": 81.039892,
     "terminal_level_b_warnings": 5
   },
   "mission": "ROADMAP_4X_MACRO_06_2",
@@ -975,24 +1001,24 @@
     "protected_diff": "EMPTY"
   },
   "timeline": {
-    "canonical_evidence_finalized": "2026-09-19T21:07:09.762558-03:00",
-    "level_a_completed": "2026-09-19T21:03:12.519677-03:00",
+    "canonical_evidence_finalized": "2026-09-19T21:18:46.387344-03:00",
+    "level_a_completed": "2026-09-19T21:13:09.157668-03:00",
     "mission_accepted": "2026-09-19T20:55:00-03:00",
     "preflight_completed": "2026-09-19T20:58:00-03:00",
-    "terminal_level_b_completed": "2026-09-19T21:04:52.378707-03:00",
-    "terminal_level_b_started": "2026-09-19T21:03:25.690900-03:00",
-    "validation_basis_frozen": "2026-09-19T21:03:15-03:00"
+    "terminal_level_b_completed": "2026-09-19T21:15:12.337675-03:00",
+    "terminal_level_b_started": "2026-09-19T21:13:51.345839-03:00",
+    "validation_basis_frozen": "2026-09-19T21:13:10-03:00"
   },
   "unknowns": [
     "CPU_TIME_UNKNOWN",
     "REMOTE_HOST_RULESET_NOT_VERIFIED",
     "OPERATOR_REMOTE_PROOF_ABSENT"
   ],
-  "validation_basis": "5d69f70be0847ff4f28fa3bcc2cdcb9dc6c8372a",
+  "validation_basis": "8bf79015deee831752f5553a083d44c9d07afbc4",
   "validation_runs": [
     {
-      "attempt": 1,
-      "cause": "V2.2 focal corpus after allowlist repair",
+      "attempt": 2,
+      "cause": "Final repair-cycle focal corpus after receipt-lineage enforcement.",
       "command": [
         "python",
         "-m",
@@ -1004,8 +1030,8 @@
         "tests/test_mission_closure_gate_v2_2_ci_contract.py",
         "tests/test_mission_closure_historical_compatibility_v2_2.py"
       ],
-      "command_id": "M062-FOCAL-002",
-      "completed_at": "2026-09-19T21:01:30.091137-03:00",
+      "command_id": "M062-FOCAL-003",
+      "completed_at": "2026-09-19T21:09:17.425822-03:00",
       "exit_code": 0,
       "failed": 0,
       "gate_name": "focal",
@@ -1013,20 +1039,20 @@
       "passed": 16,
       "process_seconds": "UNKNOWN",
       "receipt_path": "docs/ROADMAP_4X_MACRO_06_2_VALIDATION_LOGS/focal.receipt.json",
-      "receipt_sha256": "1eb4eeff471b295a0e5e0c6c801665b4a85cb759d450d3593890d560f51a704f",
-      "repair": "NONE",
-      "repair_commit": "NONE",
+      "receipt_sha256": "46a33b650b579a839607eff67d4d78f2600049f95c1e68734506b779ab658113",
+      "repair": "Receipt lineage enforcement repair",
+      "repair_commit": "8bf79015deee831752f5553a083d44c9d07afbc4",
       "revalidation": "VALID",
       "skipped": 0,
-      "started_at": "2026-09-19T21:01:03.496881-03:00",
+      "started_at": "2026-09-19T21:08:49.587059-03:00",
       "terminal": false,
-      "validation_basis": "5d69f70be0847ff4f28fa3bcc2cdcb9dc6c8372a",
-      "wall_seconds": 26.64488,
+      "validation_basis": "8bf79015deee831752f5553a083d44c9d07afbc4",
+      "wall_seconds": 27.895778,
       "warnings": 0
     },
     {
-      "attempt": 1,
-      "cause": "Historical impact corpus after allowlist repair",
+      "attempt": 2,
+      "cause": "Final repair-cycle historical corpus after receipt-lineage enforcement.",
       "command": [
         "python",
         "-m",
@@ -1045,8 +1071,8 @@
         "tests/test_method_santi_3_2_4.py",
         "tests/test_method_santi_3_2_5.py"
       ],
-      "command_id": "M062-HISTORICAL-002",
-      "completed_at": "2026-09-19T21:03:01.772636-03:00",
+      "command_id": "M062-HISTORICAL-003",
+      "completed_at": "2026-09-19T21:12:43.177663-03:00",
       "exit_code": 0,
       "failed": 0,
       "gate_name": "historical-impact",
@@ -1054,20 +1080,20 @@
       "passed": 109,
       "process_seconds": "UNKNOWN",
       "receipt_path": "docs/ROADMAP_4X_MACRO_06_2_VALIDATION_LOGS/historical.receipt.json",
-      "receipt_sha256": "aebe5f53042711146cb8ba3fb0e0196be4951d5f691f418445e2881848ca9ef1",
-      "repair": "NONE",
-      "repair_commit": "NONE",
+      "receipt_sha256": "a4c47578cc60b1c1fc606f3cf26bf8fe8731c9c23db251ac4097195027dc98d6",
+      "repair": "Receipt lineage enforcement repair",
+      "repair_commit": "8bf79015deee831752f5553a083d44c9d07afbc4",
       "revalidation": "VALID",
       "skipped": 0,
-      "started_at": "2026-09-19T21:01:41.939952-03:00",
+      "started_at": "2026-09-19T21:11:22.295098-03:00",
       "terminal": false,
-      "validation_basis": "5d69f70be0847ff4f28fa3bcc2cdcb9dc6c8372a",
-      "wall_seconds": 79.883272,
+      "validation_basis": "8bf79015deee831752f5553a083d44c9d07afbc4",
+      "wall_seconds": 80.947189,
       "warnings": 5
     },
     {
-      "attempt": 1,
-      "cause": "Policy and Level A static readiness after allowlist repair",
+      "attempt": 2,
+      "cause": "Final repair-cycle policy and Level A readiness after receipt-lineage enforcement.",
       "command": [
         "python",
         "scripts/validate_mission_closure_v2_2.py",
@@ -1079,8 +1105,8 @@
         "--schema",
         "docs/MISSION_CLOSURE_POLICY_SCHEMA_V2_2.json"
       ],
-      "command_id": "M062-LEVEL-A-002",
-      "completed_at": "2026-09-19T21:03:12.519677-03:00",
+      "command_id": "M062-LEVEL-A-003",
+      "completed_at": "2026-09-19T21:13:09.157668-03:00",
       "exit_code": 0,
       "failed": 0,
       "gate_name": "level-a",
@@ -1088,20 +1114,20 @@
       "passed": 0,
       "process_seconds": "UNKNOWN",
       "receipt_path": "docs/ROADMAP_4X_MACRO_06_2_VALIDATION_LOGS/level-a.receipt.json",
-      "receipt_sha256": "4e13dc26cd32115a363713dcef36292b6fdb46eaddeb9a6f06512fd94ded704d",
-      "repair": "NONE",
-      "repair_commit": "NONE",
+      "receipt_sha256": "66db0d865cccf134092395176a7802ff6846f5154b4712ed43824121af4ec6e7",
+      "repair": "Receipt lineage enforcement repair",
+      "repair_commit": "8bf79015deee831752f5553a083d44c9d07afbc4",
       "revalidation": "VALID",
       "skipped": 0,
-      "started_at": "2026-09-19T21:03:11.867752-03:00",
+      "started_at": "2026-09-19T21:13:08.525385-03:00",
       "terminal": false,
-      "validation_basis": "5d69f70be0847ff4f28fa3bcc2cdcb9dc6c8372a",
-      "wall_seconds": 0.714466,
+      "validation_basis": "8bf79015deee831752f5553a083d44c9d07afbc4",
+      "wall_seconds": 0.688879,
       "warnings": 0
     },
     {
       "attempt": 1,
-      "cause": "Terminal Level B for final validation basis",
+      "cause": "Final validation basis terminal Level B.",
       "command": [
         "python",
         "-m",
@@ -1124,24 +1150,24 @@
         "tests/test_method_santi_3_2_4.py",
         "tests/test_method_santi_3_2_5.py"
       ],
-      "command_id": "M062-LEVEL-B-TERMINAL-002",
-      "completed_at": "2026-09-19T21:04:52.378707-03:00",
+      "command_id": "M062-LEVEL-B-TERMINAL-003",
+      "completed_at": "2026-09-19T21:15:12.337675-03:00",
       "exit_code": 0,
       "failed": 0,
       "gate_name": "level-b",
-      "ordinary_validation": true,
+      "ordinary_validation": false,
       "passed": 123,
       "process_seconds": "UNKNOWN",
       "receipt_path": "docs/ROADMAP_4X_MACRO_06_2_VALIDATION_LOGS/level-b.receipt.json",
-      "receipt_sha256": "5af851c8d7c5ec5d652c0bc766db1cabb2774943ad4e1c5a5ad3b1632b8cf929",
+      "receipt_sha256": "d601fcd6c8025abade5c2a8ef71eb588390199c17bd7a3b95b81133751eb02f8",
       "repair": "NONE",
       "repair_commit": "NONE",
       "revalidation": "VALID",
       "skipped": 0,
-      "started_at": "2026-09-19T21:03:25.690900-03:00",
+      "started_at": "2026-09-19T21:13:51.345839-03:00",
       "terminal": true,
-      "validation_basis": "5d69f70be0847ff4f28fa3bcc2cdcb9dc6c8372a",
-      "wall_seconds": 86.74133,
+      "validation_basis": "8bf79015deee831752f5553a083d44c9d07afbc4",
+      "wall_seconds": 81.039892,
       "warnings": 5
     }
   ]
