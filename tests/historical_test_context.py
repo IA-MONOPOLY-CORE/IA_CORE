@@ -129,6 +129,7 @@ _MACRO_06_2_1_CONTINUITY_FILES = frozenset(
         "tests/test_mission_closure_gate_v2_2_1.py",
         "tests/test_mission_closure_gate_v2_2_1_git.py",
         "tests/test_mission_closure_gate_v2_2_1_ci_contract.py",
+        "tests/test_mission_closure_gate_v2_2_1_level_a.py",
         "docs/ROADMAP_4X_MACRO_06_2_1_RED_REPRODUCTION.json",
         "docs/ROADMAP_4X_MACRO_06_2_1_MISSION_POLICY.json",
         "docs/MISSION_CLOSURE_POLICY_SCHEMA_V2_2_1.json",
