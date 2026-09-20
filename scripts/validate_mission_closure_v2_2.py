@@ -414,8 +414,17 @@ def validate_scope(policy: dict[str, Any], evidence: dict[str, Any], repo: Path,
     if final:
         if baseline_paths != set(final_manifest):
             fail(f"computed baseline-to-HEAD paths do not match final manifest: {sorted(baseline_paths ^ set(final_manifest))}")
-        if current_paths:
-            fail(f"final repository has non-clean Git surfaces: {sorted(current_paths)}")
+        # The final documentary lock is intentionally committed after the
+        # frozen executable basis. Its committed delta is permitted only when
+        # the exact post-terminal allowlist checks below accept it; index,
+        # worktree and untracked surfaces must still be empty at publication.
+        non_committed_paths = sorted(
+            set(surface_paths(surfaces["index_delta"]))
+            | set(surface_paths(surfaces["worktree_delta"]))
+            | set(surface_paths(surfaces["untracked_paths"]))
+        )
+        if non_committed_paths:
+            fail(f"final repository has non-clean mutable Git surfaces: {non_committed_paths}")
     else:
         if not baseline_paths <= set(final_manifest):
             fail("current HEAD paths exceed the declared final manifest")
