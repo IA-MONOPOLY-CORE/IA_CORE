@@ -1,0 +1,38 @@
+{
+  "lock_version": "evidence_lock.v2.2.2",
+  "mission_id": "ROADMAP_4X_MACRO_06_2_2",
+  "final_validation_basis": "1e2b4df49a6b23c9dcf473701d04a6c17e7801bb",
+  "pre_lock_observed_head": "50bb20f026a860ed6228c54ca705db8aaeab693f",
+  "trust_root_definition_sha256": "6397610d6083abc791434d643048fd1ad88e53adcab67c6edb704c87d9a3e3e7",
+  "trust_root_binding_sha256": "6b9af45f17c78ba549c9eb722052b729281d85020ea8f8a02f40edd63837f9e2",
+  "assurance_trust_root_composite_sha256": "dfd02a1f65f3218b7f9650b0dfdea51b68948fa1801c9548e654c88329036ce5",
+  "claim_profile_sha256": "b54601ae7f257f2264abedc38d692113b4dc74be3875114cec04f1b1eefe9358",
+  "level_a": {
+    "node_count": 7324,
+    "passed": 7318,
+    "skipped": 6,
+    "failed": 0,
+    "nodeids_sha256": "ebd34a3ac8b30581b854964717bb280ab9ac7fcc14a6726f7943a3ef59f769e8",
+    "collection_manifest_sha256": "345418bea254f900ee6a561fa8129169076da364b9bea39c0f91ea5a5d45f966",
+    "execution_manifest_sha256": "a71613f50529a921523866e1bd59760c6fd27de97ff2ebbdb8c86e8e47c8f063",
+    "receipt_sha256": "ad3bd98566a7fc2830e01d89134e5ae53fe9382273bddc28e59db27facbb5e52",
+    "receipt_artifact_sha256": "a71613f50529a921523866e1bd59760c6fd27de97ff2ebbdb8c86e8e47c8f063",
+    "wall_seconds": 1750.8600000000006,
+    "durable_alias": "LOCALAPPDATA/IA_CORE/closure-evidence/ROADMAP_4X_MACRO_06_2_2/final-level-a/"
+  },
+  "terminal_level_b": {
+    "execution_profile_sha256": "9effaf83de699c0e4372963e7b36db472d9d25c1a0bce09ab529e7611db6d682",
+    "receipt_sha256": "5244860c316bca74361829d244f8eb20de79b54139252aa76cf61d12b5d02c23",
+    "result": "PASS",
+    "exactly_one_successful_terminal_invocation": true
+  },
+  "adversarial_reproduction_sha256": "2009bb441a44797e89f8b9831d2ca329a50ef3d3a89454e7086a0f6cc78f4646",
+  "negative_control_mapping_sha256": "48a8397722163c48ee7eaba29edf0fea923fbb67cea9e1fefa933a1c84f7150f",
+  "negative_control_coverage": "100_PERCENT_EXECUTED",
+  "strict_json_file_count": 316,
+  "remote_enforcement": "NOT_PROVEN",
+  "operator_action_required": true,
+  "p3": "SELECTED_NOT_STARTED",
+  "vero_runtime": "NOT_IMPLEMENTED",
+  "fire_runtime": "NOT_IMPLEMENTED"
+}
