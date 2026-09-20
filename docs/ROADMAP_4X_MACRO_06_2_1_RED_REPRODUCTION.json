@@ -1,0 +1,159 @@
+{
+  "actual_exit_code": 1,
+  "artifact_sha256": "d7a5feffb3c92962b506eb87dd2ee69972a5b222127bbbc0070d78abe5da190a",
+  "cases": [
+    {
+      "causal_conclusion": "V2.2 report bytes include live diff-check timestamps.",
+      "process_a": {
+        "actual_result": "DIFFERENT_REPORT_BYTES",
+        "command": [
+          "python",
+          "scripts/validate_mission_closure_v2_2.py",
+          "render-postpublish",
+          "<isolated-output>"
+        ],
+        "exit_code": 0,
+        "expected_failure_property": "independent V2.2 renders are byte-identical",
+        "report_sha256": "ead357c43d8fa496aa26f747ecdbb74df277a9ce3db2e718558b11f98e05ad24",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout_sha256": "e34ac109c8ab2ecb93a400791674a391aed8c27477170290b7e95d5dcd6e61f8",
+        "working_directory": "."
+      },
+      "process_b": {
+        "actual_result": "DIFFERENT_REPORT_BYTES",
+        "command": [
+          "python",
+          "scripts/validate_mission_closure_v2_2.py",
+          "render-postpublish",
+          "<isolated-output>"
+        ],
+        "exit_code": 0,
+        "expected_failure_property": "independent V2.2 renders are byte-identical",
+        "report_sha256": "e9491fe896eda8f85c59e964fd242fc0c557cca99080b2d2f45f31518d049291",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout_sha256": "53b25282e95beb94d3e4b34cf99ace1dffac6b9906b70b37483d63849cab6e82",
+        "working_directory": "."
+      },
+      "reproduced": true,
+      "reproduction_id": "R-01",
+      "started_at": "2026-09-20T02:29:00.273633+00:00"
+    },
+    {
+      "actual_result": "POLICY_ONLY_ZERO_TESTS",
+      "causal_conclusion": "V2.2 labeled a policy validator as Level A.",
+      "command": [
+        "python",
+        "scripts/validate_mission_closure_v2_2.py",
+        "validate-policy",
+        "--repo-root",
+        ".",
+        "--policy",
+        "docs/ROADMAP_4X_MACRO_06_2_MISSION_POLICY.json",
+        "--schema",
+        "docs/MISSION_CLOSURE_POLICY_SCHEMA_V2_2.json"
+      ],
+      "expected_failure_property": "Level A must be the complete suite",
+      "reproduced": true,
+      "reproduction_id": "R-02",
+      "tests_executed": 0,
+      "wall_seconds": 0.433272
+    },
+    {
+      "causal_conclusion": "V2.2 accepted declarative required-validation names without execution receipts.",
+      "declared_required_validations": [
+        "ci-contract",
+        "duplicate-key",
+        "focal",
+        "historical-byte-preservation",
+        "historical-impact",
+        "level-a",
+        "level-b-terminal",
+        "post-evidence",
+        "postpublish",
+        "prelock",
+        "py-compile",
+        "red-reproduction",
+        "secret-scan",
+        "strict-json"
+      ],
+      "missing_receipt_bound_validations": [
+        "ci-contract",
+        "duplicate-key",
+        "historical-byte-preservation",
+        "level-b-terminal",
+        "post-evidence",
+        "postpublish",
+        "prelock",
+        "py-compile",
+        "red-reproduction",
+        "secret-scan",
+        "strict-json"
+      ],
+      "receipt_bound_executions": [
+        "focal",
+        "historical-impact",
+        "level-a",
+        "level-b"
+      ],
+      "reproduced": true,
+      "reproduction_id": "R-03"
+    },
+    {
+      "actual_result": "NO_TRACEABILITY_MAP",
+      "causal_conclusion": "V2.2 matrix prose and IDs were accepted without complete executable traceability.",
+      "control_count": 24,
+      "expected_failure_property": "every control must map to current execution and receipt",
+      "historical_control_ids": [
+        "N-01",
+        "N-02",
+        "N-03",
+        "N-04",
+        "N-05",
+        "N-06",
+        "N-07",
+        "N-08",
+        "N-09",
+        "N-10",
+        "N-11",
+        "N-12",
+        "N-13",
+        "N-14",
+        "N-15",
+        "N-16",
+        "N-17",
+        "N-18",
+        "N-19",
+        "N-20",
+        "N-21",
+        "N-22",
+        "N-23",
+        "N-24"
+      ],
+      "mapping_present": false,
+      "reproduced": true,
+      "reproduction_id": "R-04"
+    },
+    {
+      "actual_result": "FABRICATED_PROVEN_ACCEPTED",
+      "causal_conclusion": "V2.2 treated self-authored provider-shaped fields as PROVEN.",
+      "fake_remote_proof": {
+        "response": "invented",
+        "ruleset": "invented",
+        "source": "github://invented"
+      },
+      "reproduced": true,
+      "reproduction_id": "R-05"
+    },
+    {
+      "actual_result": "SECTION_ID_ONLY_COMPLETENESS_ACCEPTED",
+      "causal_conclusion": "V2.2 treated a matching section-ID list as report completeness.",
+      "reproduced": true,
+      "reproduction_id": "R-06"
+    }
+  ],
+  "expected_exit_code": 1,
+  "gate_under_test": "mission_closure_gate.v2.2",
+  "mission": "ROADMAP_4X_MACRO_06_2_1",
+  "reproduced_count": 6,
+  "started_at": "2026-09-20T02:29:00.428559+00:00"
+}
