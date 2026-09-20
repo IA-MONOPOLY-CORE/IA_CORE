@@ -718,6 +718,13 @@ def make_closure_receipt(kind: str, evidence: dict[str, Any], evidence_path: Pat
         "closure_decision": "CLOSED",
         "protected_diff_sha256": canonical_sha_value(evidence["scope"]["protected_diff"]),
         "allowlist_sha256": canonical_sha_value(evidence["post_terminal_mutation_allowlist"]),
+        "artifact_manifest_sha256": canonical_sha_value(evidence["artifacts"]),
+        "remote_enforcement": evidence["remote_enforcement"],
+        "working_tree_state": "DOCUMENTARY_PHASE",
+        "publication_lineage": {
+            "functional_publication_head": evidence["functional_publication_head"],
+            "documentary_lock_parent": evidence["documentary_lock_parent"],
+        },
     }
 
 
@@ -847,6 +854,13 @@ def render_postpublish(policy_path: Path, schema_path: Path, evidence_path: Path
     policy, evidence, computed = validate_common(policy_path, schema_path, evidence_path, repo, final=True)
     post = load_json(post_receipt_path)
     prelock = load_json(prelock_receipt_path)
+    for run in evidence["validation_runs"]:
+        receipt_path = repo / normalize_path(run["receipt_path"], "validation run receipt path")
+        receipt = validate_validation_receipt(receipt_path, repo, evidence)
+        if receipt["receipt_sha256"] != run["receipt_sha256"]:
+            fail(f"validation run receipt hash mismatch: {receipt_path}")
+    validate_special_receipt(post_receipt_path, "POST_EVIDENCE", evidence, expected_parent=evidence["documentary_lock_parent"])
+    validate_special_receipt(prelock_receipt_path, "PRELOCK", evidence, expected_parent=evidence["documentary_lock_parent"])
     validate_receipt_hash(post, "post-evidence receipt")
     validate_receipt_hash(prelock, "prelock receipt")
     if post.get("kind") != "POST_EVIDENCE" or prelock.get("kind") != "PRELOCK":
