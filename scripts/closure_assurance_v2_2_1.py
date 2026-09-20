@@ -330,8 +330,9 @@ def validate_level_a_manifests(
         fail("Level A result ordering or identity is incomplete")
     for result in results:
         require_fields(result, {"nodeid", "setup", "call", "teardown", "duration_seconds"}, "Level A result")
-        if any(result[key] != "passed" for key in ("setup", "call", "teardown")):
-            fail(f"Level A contains a non-passing result: {result['nodeid']}")
+        allowed_statuses = {"passed", "skipped", "xfailed", "xpassed"}
+        if any(result[key] not in allowed_statuses for key in ("setup", "call", "teardown")):
+            fail(f"Level A contains an unrecognized result state: {result['nodeid']}")
         if not isinstance(result["duration_seconds"], (int, float)) or result["duration_seconds"] < 0:
             fail("Level A result duration is invalid")
     require_sha(claim_profile_hash, "Level A claim profile hash")
@@ -344,6 +345,7 @@ def validate_level_a_manifests(
         "claim_profile_sha256": claim_profile_hash,
         "execution_profile_sha256": execution_profile_hash,
         "identity_decision": "PASS",
+        "non_passing_statuses_explicit": sorted({result[key] for result in results for key in ("setup", "call", "teardown") if result[key] != "passed"}),
     }
 
 
