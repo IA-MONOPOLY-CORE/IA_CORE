@@ -1,0 +1,60 @@
+{
+  "schema_version": "mission_policy.v2.2.1",
+  "mission_id": "ROADMAP_4X_MACRO_06_2_1",
+  "baseline": "d41abb28a0892c13eb06276128a5d5647af427bb",
+  "branch": "main",
+  "protected_surfaces": [
+    "product", "runtime", "execution", "backend", "payload", "auth", "tenancy",
+    "endpoints", "integrations", "P0", "P1", "P3", "widgets", "Request Draft Panel",
+    "historical V1/V2/V2.1/V2.2 contracts"
+  ],
+  "protected_path_prefixes": [
+    "api.py", "core/", "domains/", "providers/", "ui/", "data/", "memory/", "logs/",
+    "gokv/", "runtime/", "execution/", "integrations/", "tenants/"
+  ],
+  "allowed_change_paths": [
+    "scripts/closure_assurance_v2_2_1.py",
+    "scripts/run_mission_closure_v2_2_1.py",
+    "scripts/render_canonical_report_v2_2_1.py",
+    "scripts/validate_mission_closure_v2_2_1.py",
+    "tests/test_mission_closure_gate_v2_2_1.py",
+    "tests/test_mission_closure_gate_v2_2_1_git.py",
+    "tests/test_mission_closure_gate_v2_2_1_level_a.py",
+    "tests/test_mission_closure_gate_v2_2_1_ci_contract.py",
+    "tests/historical_test_context.py",
+    "tests/test_roadmap_4x_macro_05_p1_internal_family_closure.py",
+    ".github/workflows/ci.yml",
+    "scripts/run_mission_closure_v2_2_1_red_reproduction.py",
+    "docs/ROADMAP_4X_MACRO_06_2_1_MISSION_POLICY.json",
+    "docs/MISSION_CLOSURE_POLICY_SCHEMA_V2_2_1.json",
+    "docs/ROADMAP_4X_MACRO_06_2_1_CLAIM_REGISTRY.json",
+    "docs/ROADMAP_4X_MACRO_06_2_1_EXECUTION_REGISTRY.json",
+    "docs/ROADMAP_4X_MACRO_06_2_1_PRIMARY_EVENT_BUNDLE_SCHEMA.json",
+    "docs/ROADMAP_4X_MACRO_06_2_1_CANONICAL_REPORT_SCHEMA.json",
+    "docs/ROADMAP_4X_MACRO_06_2_1_NEGATIVE_CONTROL_COVERAGE_MATRIX_SCHEMA.json",
+    "docs/ROADMAP_4X_MACRO_06_2_1_RED_REPRODUCTION.json",
+    "docs/METHOD_SANTI_3_2_8_SEMANTIC_EVIDENCE_FIT_AND_DERIVED_ASSURANCE.md",
+    "docs/ROADMAP_4X_MACRO_06_2_1_EXECUTION_JOURNAL.md",
+    "docs/ROADMAP_4X_MACRO_06_2_1_CLOSURE_CHECKPOINT.md",
+    "docs/ROADMAP_4X_MACRO_06_2_1_CANONICAL_REPORT.json",
+    "docs/ROADMAP_4X_MACRO_06_2_1_EVIDENCE_LOCK_MANIFEST.json",
+    "docs/ROADMAP_4X_MACRO_06_2_1_ARCHIVAL_PUBLICATION_MANIFEST.json",
+    "docs/ROADMAP_4X_MACRO_06_2_1_PRIMARY_EVENT_BUNDLE_MANIFEST.json",
+    "docs/ROADMAP_4X_MACRO_06_2_1_REMEDIATION_APPENDIX.md"
+  ],
+  "post_terminal_allowlist": [
+    "docs/ROADMAP_4X_MACRO_06_2_1_CANONICAL_REPORT.json",
+    "docs/ROADMAP_4X_MACRO_06_2_1_EVIDENCE_LOCK_MANIFEST.json",
+    "docs/ROADMAP_4X_MACRO_06_2_1_ARCHIVAL_PUBLICATION_MANIFEST.json",
+    "docs/ROADMAP_4X_MACRO_06_2_1_PRIMARY_EVENT_BUNDLE_MANIFEST.json",
+    "docs/ROADMAP_4X_MACRO_06_2_1_REMEDIATION_APPENDIX.md",
+    "docs/ROADMAP_4X_MACRO_06_2_1_CLOSURE_CHECKPOINT.md"
+  ],
+  "historical_gate_versions": ["mission_closure_gate.v1", "mission_closure_gate.v2", "mission_closure_gate.v2.1", "mission_closure_gate.v2.2"],
+  "remote_enforcement": {
+    "state": "NOT_PROVEN",
+    "operator_action_required": true,
+    "provider_originated_proof_required": true
+  },
+  "next_cursor": "VERO_FIRE_DEVELOPMENTAL_BOOTSTRAP_REPOSITORY_GROUNDED_ADJUDICATION_REQUIRED_NOT_STARTED"
+}

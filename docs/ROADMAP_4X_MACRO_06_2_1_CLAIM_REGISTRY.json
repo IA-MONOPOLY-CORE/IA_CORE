@@ -1,0 +1,19 @@
+{
+  "registry_version": "claim_registry.v2.2.1",
+  "claims": [
+    {
+      "claim_id": "CLAIM_MISSION_CLOSURE_V221",
+      "claim_profile_id": "CLAIM_PROFILE_MISSION_CLOSURE_V221",
+      "claim_profile_version": "2.2.1",
+      "claim_profile_sha256": "8321513ac62ac527698a6c3c58872718ca6f63273b128109541a622db223bf10",
+      "claim_type": "closure_assurance",
+      "claim_text": "The closure result is derived from content-bound evidence, exact executions and temporally separated publication anchors.",
+      "semantic_property": "claim_to_evidence_fit_and_reproducible_closure",
+      "required_evidence_types": ["real_execution_receipt", "canonical_report", "render_comparison", "external_completeness", "archival_gate", "live_envelope"],
+      "required_receipt_fields": ["actual_command", "actual_working_directory", "configuration_hashes", "artifact_hashes", "semantic_fit_result", "derived_decision"],
+      "decision_rule": "PASS only when every required evidence node is content-bound and independently validated",
+      "failure_rule": "FAIL when evidence exists without semantic fit, execution identity, or complete temporal anchor binding",
+      "not_applicable_rule": "NOT_APPLICABLE only for a field explicitly outside the mission scope; never for required controls"
+    }
+  ]
+}

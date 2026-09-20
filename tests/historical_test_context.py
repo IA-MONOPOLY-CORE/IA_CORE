@@ -114,6 +114,33 @@ _MACRO_06_CONTINUITY_FILES = frozenset(
         "docs/FUTURE_ORGANIZATIONAL_RECONSTRUCTION_AND_STRUCTURED_ENTERPRISE_DISCOVERY.md",
     }
 )
+
+# Macro 06.2.1 is an additive assurance continuity boundary. Historical
+# contracts keep their original assertions; they only exclude these exact
+# files from older change-set censuses so new assurance infrastructure is not
+# misclassified as historical product work.
+_MACRO_06_2_1_CONTINUITY_FILES = frozenset(
+    {
+        "scripts/closure_assurance_v2_2_1.py",
+        "scripts/run_mission_closure_v2_2_1.py",
+        "scripts/render_canonical_report_v2_2_1.py",
+        "scripts/validate_mission_closure_v2_2_1.py",
+        "scripts/run_mission_closure_v2_2_1_red_reproduction.py",
+        "tests/test_mission_closure_gate_v2_2_1.py",
+        "tests/test_mission_closure_gate_v2_2_1_git.py",
+        "tests/test_mission_closure_gate_v2_2_1_ci_contract.py",
+        "docs/ROADMAP_4X_MACRO_06_2_1_RED_REPRODUCTION.json",
+        "docs/ROADMAP_4X_MACRO_06_2_1_MISSION_POLICY.json",
+        "docs/MISSION_CLOSURE_POLICY_SCHEMA_V2_2_1.json",
+        "docs/ROADMAP_4X_MACRO_06_2_1_CLAIM_REGISTRY.json",
+        "docs/ROADMAP_4X_MACRO_06_2_1_EXECUTION_REGISTRY.json",
+        "docs/ROADMAP_4X_MACRO_06_2_1_PRIMARY_EVENT_BUNDLE_SCHEMA.json",
+        "docs/ROADMAP_4X_MACRO_06_2_1_CANONICAL_REPORT_SCHEMA.json",
+        "docs/ROADMAP_4X_MACRO_06_2_1_NEGATIVE_CONTROL_COVERAGE_MATRIX_SCHEMA.json",
+        "docs/METHOD_SANTI_3_2_8_SEMANTIC_EVIDENCE_FIT_AND_DERIVED_ASSURANCE.md",
+    }
+)
+_MACRO_06_CONTINUITY_FILES = _MACRO_06_CONTINUITY_FILES | _MACRO_06_2_1_CONTINUITY_FILES
 LEDGER = ROOT / "docs" / "ROADMAP_3_X_MACRO_02_2_FAILURE_ACCOUNTABILITY_LEDGER.md"
 _LEDGER_NODE_RE = re.compile(r"^\| \d+ \| `(tests/[^`]+)::test_[^`]+` \|", re.MULTILINE)
 _OVERRIDES = {

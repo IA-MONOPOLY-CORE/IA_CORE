@@ -1,0 +1,7 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Mission Closure Policy V2.2.1",
+  "type": "object",
+  "required": ["schema_version", "mission_id", "baseline", "branch", "protected_surfaces", "protected_path_prefixes", "allowed_change_paths", "post_terminal_allowlist", "historical_gate_versions", "remote_enforcement", "next_cursor"],
+  "additionalProperties": true
+}

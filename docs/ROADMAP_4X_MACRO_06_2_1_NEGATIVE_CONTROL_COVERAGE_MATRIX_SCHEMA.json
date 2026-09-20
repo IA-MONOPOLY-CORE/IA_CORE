@@ -1,0 +1,10 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Macro 06.2.1 Negative Control Coverage",
+  "type": "object",
+  "required": ["matrix_version", "source_matrix_sha256", "controls"],
+  "properties": {
+    "matrix_version": {"const": "negative_control_coverage.v2.2.1"},
+    "controls": {"type": "array", "minItems": 24}
+  }
+}

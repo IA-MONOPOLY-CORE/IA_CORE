@@ -1,0 +1,19 @@
+{
+  "registry_version": "execution_registry.v2.2.1",
+  "executions": [
+    {
+      "execution_profile_id": "EXEC_LEVEL_A_FULL_REAL_SUITE",
+      "execution_profile_version": "2.2.1",
+      "execution_profile_sha256": "be11389632e1fb0c406f95b0593ca168ac6228bad54438c910748e4eff213eb0",
+      "exact_command": "python -m pytest tests/ -q --disable-warnings",
+      "working_directory": "repository root",
+      "configuration_inputs": ["pyproject.toml", "requirements-api.txt", "tests/"],
+      "configuration_hashes": "receipt-bound at execution time",
+      "environment_constraints": ["Python 3.11+", "repository checkout", "no external provider proof required"],
+      "expected_artifacts": ["level-a.collection.json", "level-a.execution.json", "level-a.receipt.json"],
+      "expected_exit_semantics": "zero exit and every collected nodeid has passed setup/call/teardown",
+      "timeout_policy": "bounded by invoking process",
+      "corpus_identity_requirements": ["exact nodeid equality", "no deselected nodes", "no skipped nodes", "no unknown nodes"]
+    }
+  ]
+}

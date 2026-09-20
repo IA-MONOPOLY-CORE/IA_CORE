@@ -1,0 +1,11 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Macro 06.2.1 Primary Event Bundle",
+  "type": "object",
+  "required": ["bundle_version", "event_id", "sensitivity_guard", "source_artifacts", "future_g0_replay_boundary"],
+  "properties": {
+    "bundle_version": {"const": "primary_event_bundle.v2.2.1"},
+    "sensitivity_guard": {"const": "PASS"},
+    "future_g0_replay_boundary": {"const": "preserved_without_preloaded_conclusions"}
+  }
+}

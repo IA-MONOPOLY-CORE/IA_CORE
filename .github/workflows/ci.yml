@@ -88,3 +88,27 @@ jobs:
 
       - name: Run historical V1, V2, V2.1 and V2.2 compatibility corpus
         run: python -m pytest -q tests/test_mission_closure_gate_v2.py tests/test_mission_closure_historical_compatibility_v2_1.py tests/test_mission_closure_historical_compatibility_v2_2.py
+
+      - name: Validate V2.2.1 policy and content-bound profiles
+        run: >-
+          python scripts/run_mission_closure_v2_2_1.py validate-policy
+          --policy docs/ROADMAP_4X_MACRO_06_2_1_MISSION_POLICY.json
+          --schema docs/MISSION_CLOSURE_POLICY_SCHEMA_V2_2_1.json
+          && python scripts/run_mission_closure_v2_2_1.py validate-profiles
+          --claims docs/ROADMAP_4X_MACRO_06_2_1_CLAIM_REGISTRY.json
+          --executions docs/ROADMAP_4X_MACRO_06_2_1_EXECUTION_REGISTRY.json
+
+      - name: Run V2.2.1 assurance corpus
+        run: >-
+          python -m pytest -q
+          tests/test_mission_closure_gate_v2_2_1.py
+          tests/test_mission_closure_gate_v2_2_1_git.py
+          tests/test_mission_closure_gate_v2_2_1_ci_contract.py
+
+      - name: Execute exact Level A corpus
+        run: >-
+          python scripts/run_mission_closure_v2_2_1.py level-a
+          --repo .
+          --output-dir /tmp/ia-core-v221-level-a
+          --claim-profile-sha256 8321513ac62ac527698a6c3c58872718ca6f63273b128109541a622db223bf10
+          --execution-profile-sha256 be11389632e1fb0c406f95b0593ca168ac6228bad54438c910748e4eff213eb0
