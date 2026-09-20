@@ -111,4 +111,4 @@ jobs:
           --repo .
           --output-dir /tmp/ia-core-v221-level-a
           --claim-profile-sha256 8321513ac62ac527698a6c3c58872718ca6f63273b128109541a622db223bf10
-          --execution-profile-sha256 be11389632e1fb0c406f95b0593ca168ac6228bad54438c910748e4eff213eb0
+          --execution-profile-sha256 70ed55f85d4aff2793941f9ce4e32e48f04f64ce9a023ff90beba9a6af8779d8
