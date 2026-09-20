@@ -105,6 +105,21 @@ jobs:
           tests/test_mission_closure_gate_v2_2_1_git.py
           tests/test_mission_closure_gate_v2_2_1_ci_contract.py
 
+      - name: Validate V2.2.2 raw-evidence closure policy and profiles
+        run: >-
+          python scripts/run_mission_closure_v2_2_2.py validate-policy
+          --policy docs/ROADMAP_4X_MACRO_06_2_2_MISSION_POLICY.json
+          --schema docs/MISSION_CLOSURE_POLICY_SCHEMA_V2_2_2.json
+          && python scripts/run_mission_closure_v2_2_2.py validate-profiles
+          --claims docs/ROADMAP_4X_MACRO_06_2_2_CLAIM_REGISTRY.json
+          --executions docs/ROADMAP_4X_MACRO_06_2_2_EXECUTION_REGISTRY.json
+
+      - name: Run V2.2.2 raw-evidence assurance corpus
+        run: >-
+          python -m pytest -q
+          tests/test_mission_closure_gate_v2_2_2.py
+          tests/test_mission_closure_gate_v2_2_2_ci_contract.py
+
       - name: Execute exact Level A corpus
         run: >-
           python scripts/run_mission_closure_v2_2_1.py level-a
