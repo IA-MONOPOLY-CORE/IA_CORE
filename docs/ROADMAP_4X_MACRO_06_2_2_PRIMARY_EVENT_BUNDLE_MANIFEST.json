@@ -1,0 +1,10 @@
+{
+  "event_id": "MACRO_06_2_2_RAW_EVIDENCE_ASSURANCE_EVENT",
+  "manifest_version": "primary_event_bundle_manifest.v2.2.2",
+  "event_bundle_sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+  "sensitivity_guard": "PASS",
+  "primary_event_bundle": "preserved_primary_evidence_from_06_2_06_2_1_06_2_2",
+  "remediation_appendix": "V2.2.2 remediation evidence only",
+  "vero_state": "NOT_IMPLEMENTED",
+  "fire_state": "NOT_IMPLEMENTED"
+}

@@ -1,0 +1,19 @@
+{
+  "definition_version": "assurance_trust_root_definition.v2.2.2",
+  "validator_implementation_sha256": "d209ce13100dcc5ecb269216b7d78b70cb1f6f1c86664331cbd27c45ebcb66ec",
+  "pure_derivation_engine_sha256": "d209ce13100dcc5ecb269216b7d78b70cb1f6f1c86664331cbd27c45ebcb66ec",
+  "canonical_schema_sha256": "82d6eb9569392e720de7d711f7436f6f93647645fa62c8eb0246fb0bc22f7dbf",
+  "live_envelope_schema_sha256": "1ed292e0007749b0790d5aae2cb4d46f4dde66b0ea99b2d281686d19833fe27f",
+  "completeness_receipt_schema_sha256": "bb56292e4c3b34dbd52cf1d8b1e9b7a4820efa817df324832d9bba570602461e",
+  "final_derivation_receipt_schema_sha256": "fe18bd06ac2640b0f629c3e18f2272c9a2e1aa97e01f35beb6b60a93012231c2",
+  "terminal_activation_payload_schema_sha256": "3223837d9a2f9534664dea9ae24b2ed61c4087fbded607a3b04ee28a1555215b",
+  "claim_profile_sha256": "b54601ae7f257f2264abedc38d692113b4dc74be3875114cec04f1b1eefe9358",
+  "execution_profile_sha256": "fa060d66dd1217246b3ff734e3f07820d2fd361d0a19a55d1b9837384db15d44",
+  "adversarial_control_corpus_sha256": "2009bb441a44797e89f8b9831d2ca329a50ef3d3a89454e7086a0f6cc78f4646",
+  "negative_control_registry_sha256": "980515597c58699434bd382632f581b590df597bfa5c875c3080aed180c52b09",
+  "control_to_proof_mapping_sha256": "48a8397722163c48ee7eaba29edf0fea923fbb67cea9e1fefa933a1c84f7150f",
+  "live_finalization_runner_path": "scripts/run_mission_closure_v2_2_2.py",
+  "live_finalization_runner_sha256": "be30a9f3cdd9db6a3accf88709691212d8a66b1d948ecc061b9e1ea731371138",
+  "live_observation_execution_profile_sha256": "fa060d66dd1217246b3ff734e3f07820d2fd361d0a19a55d1b9837384db15d44",
+  "canonicalization_contract_sha256": "3c55c9f3227a534e5f3295f80299cc77e7992a3df69703e25dea583867cfcfb4"
+}

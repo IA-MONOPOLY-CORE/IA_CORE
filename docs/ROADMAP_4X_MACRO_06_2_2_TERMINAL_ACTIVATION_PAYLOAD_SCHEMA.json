@@ -1,0 +1,8 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Macro 06.2.2 Terminal Authority Activation Payload",
+  "type": "object",
+  "required": ["payload_version", "derived_closure_candidate", "activation_preconditions", "final_derivation_receipt_sha256", "durable_pre_closure_evidence_manifest_sha256", "post_closure_package_manifest_sha256", "package_integrity_verification_sha256", "assurance_trust_root_composite_sha256", "governed_live_finalization_runner_sha256", "pure_derivation_engine_sha256", "canonical_authority_publication_target"],
+  "not": {"anyOf": [{"required": ["authority_activation_state"]}, {"required": ["authoritative_closure_decision"]}, {"required": ["report_completeness_gate"]}]},
+  "additionalProperties": false
+}

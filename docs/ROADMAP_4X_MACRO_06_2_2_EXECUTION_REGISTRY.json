@@ -1,0 +1,89 @@
+{
+  "registry_version": "execution_registry.v2.2.2",
+  "executions": [
+    {
+      "execution_profile_id": "EXEC_LEVEL_A_FULL_REAL_SUITE_V222",
+      "execution_profile_version": "2.2.2",
+      "execution_profile_sha256": "c153071bd92522128e6f3da2051de2928a906f6798372051d5c96d93a14270d0",
+      "exact_command": "python -m pytest tests/ -q --disable-warnings",
+      "working_directory": "repository root",
+      "configuration_inputs": ["pyproject.toml", "requirements-api.txt", "tests/"],
+      "configuration_hashes": "receipt-bound-at-execution-time",
+      "environment_constraints": ["Python 3.11+", "repository checkout", "no external provider proof required"],
+      "expected_artifacts": ["level-a.collection.json", "level-a.execution.json", "level-a.receipt.json"],
+      "expected_exit_semantics": "zero exit and exact collected/executed nodeid multiset",
+      "timeout_policy": "bounded by invoking process",
+      "corpus_identity_requirements": ["exact nodeid equality", "no collection errors", "no deselection", "explicit status per nodeid"]
+    },
+    {
+      "execution_profile_id": "EXEC_FOCAL_V222",
+      "execution_profile_version": "2.2.2",
+      "execution_profile_sha256": "82893071f618bdf917c8f223582e9d3b141fb4b98603402831d6fdc3c7af6d4a",
+      "exact_command": "python -m pytest -q tests/test_mission_closure_gate_v2_2_2.py tests/test_mission_closure_gate_v2_2_2_ci_contract.py",
+      "working_directory": "repository root",
+      "configuration_inputs": ["tests/test_mission_closure_gate_v2_2_2.py", "tests/test_mission_closure_gate_v2_2_2_ci_contract.py"],
+      "configuration_hashes": "receipt-bound-at-execution-time",
+      "environment_constraints": ["Python 3.11+", "repository checkout"],
+      "expected_artifacts": ["stdout", "stderr", "execution receipt"],
+      "expected_exit_semantics": "zero exit and all focal tests pass",
+      "timeout_policy": "bounded by invoking process",
+      "corpus_identity_requirements": ["raw-evidence bypass rejection", "trust-root binding", "atomic publication"]
+    },
+    {
+      "execution_profile_id": "EXEC_TERMINAL_LEVEL_B_V222",
+      "execution_profile_version": "2.2.2",
+      "execution_profile_sha256": "9effaf83de699c0e4372963e7b36db472d9d25c1a0bce09ab529e7611db6d682",
+      "exact_command": "python -m pytest -q tests/test_mission_closure_gate_v2_2_2.py tests/test_mission_closure_gate_v2_2_2_ci_contract.py",
+      "working_directory": "repository root",
+      "configuration_inputs": ["FINAL_VALIDATION_BASIS", "V2.2.2 focal corpus"],
+      "configuration_hashes": "receipt-bound-at-execution-time",
+      "environment_constraints": ["Python 3.11+", "exact final validation basis", "exactly one terminal invocation"],
+      "expected_artifacts": ["terminal receipt"],
+      "expected_exit_semantics": "zero exit after basis and no ordinary validation afterwards",
+      "timeout_policy": "bounded by invoking process",
+      "corpus_identity_requirements": ["terminal status", "basis identity"]
+    },
+    {
+      "execution_profile_id": "EXEC_GIT_FETCH_LIVE_FINALIZATION_V222",
+      "execution_profile_version": "2.2.2",
+      "execution_profile_sha256": "fa060d66dd1217246b3ff734e3f07820d2fd361d0a19a55d1b9837384db15d44",
+      "exact_command": "git fetch origin",
+      "working_directory": "repository root",
+      "configuration_inputs": ["origin remote", "published head"],
+      "configuration_hashes": "observed-in-memory",
+      "environment_constraints": ["Git checkout", "network available to configured origin"],
+      "expected_artifacts": ["raw fetch execution receipt", "live envelope"],
+      "expected_exit_semantics": "zero exit and fresh origin/main observation",
+      "timeout_policy": "bounded by invoking process",
+      "corpus_identity_requirements": ["runner produced receipt", "raw stdout/stderr hashes"]
+    },
+    {
+      "execution_profile_id": "EXEC_PY_COMPILE_V222",
+      "execution_profile_version": "2.2.2",
+      "execution_profile_sha256": "39b648f462af73cd704d6a46be44f52ccd31f443e434d99fbcde795df21aaecf",
+      "exact_command": "python -m py_compile scripts/closure_assurance_v2_2_2.py scripts/run_mission_closure_v2_2_2.py scripts/render_canonical_report_v2_2_2.py scripts/validate_mission_closure_v2_2_2.py",
+      "working_directory": "repository root",
+      "configuration_inputs": ["scripts/closure_assurance_v2_2_2.py", "scripts/run_mission_closure_v2_2_2.py", "scripts/render_canonical_report_v2_2_2.py", "scripts/validate_mission_closure_v2_2_2.py"],
+      "configuration_hashes": "receipt-bound-at-execution-time",
+      "environment_constraints": ["Python 3.11+", "repository checkout"],
+      "expected_artifacts": ["stdout", "stderr"],
+      "expected_exit_semantics": "zero exit",
+      "timeout_policy": "bounded by invoking process",
+      "corpus_identity_requirements": ["all V2.2.2 entrypoints compile"]
+    },
+    {
+      "execution_profile_id": "EXEC_DIFF_CHECK_V222",
+      "execution_profile_version": "2.2.2",
+      "execution_profile_sha256": "b98e5f75080895e6f34173b61f48faed4f0a77a560c0198390f1ed3d5e8fd653",
+      "exact_command": "git diff --check",
+      "working_directory": "repository root",
+      "configuration_inputs": ["index", "working tree"],
+      "configuration_hashes": "receipt-bound-at-execution-time",
+      "environment_constraints": ["Git checkout"],
+      "expected_artifacts": ["stdout", "stderr"],
+      "expected_exit_semantics": "zero exit",
+      "timeout_policy": "bounded by invoking process",
+      "corpus_identity_requirements": ["no whitespace errors"]
+    }
+  ]
+}

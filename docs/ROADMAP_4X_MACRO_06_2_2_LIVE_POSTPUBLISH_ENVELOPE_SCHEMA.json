@@ -1,0 +1,8 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Macro 06.2.2 Live Postpublish Envelope",
+  "type": "object",
+  "required": ["envelope_version", "repository_identity", "remote_identity", "branch", "archival_publication_head", "observed_local_head", "observed_origin_main", "ahead_count", "behind_count", "working_tree_porcelain", "index_delta", "worktree_delta", "untracked_paths", "fresh_fetch_receipt_sha256", "observation_timestamp", "remote_evidence_ceiling", "canonical_report_sha256", "post_archival_integrity_receipt_sha256"],
+  "not": {"anyOf": [{"required": ["completeness"]}, {"required": ["closure_decision"]}, {"required": ["report_completeness_gate"]}, {"required": ["authority_activation_state"]}]},
+  "additionalProperties": false
+}

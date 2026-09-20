@@ -1,0 +1,366 @@
+{
+  "mapping_version": "control_to_proof_mapping.v2.2.2",
+  "source_matrix_sha256": "6753cb6a049b709569f365f57ba5d7d359ffebf1c6c600a9623c9f0524b5d643",
+  "controls": [
+    {
+      "control_id": "N-01",
+      "property_protected": "v2.2.2 rejection property 1",
+      "authorized_test_nodeids": [
+        "tests/test_mission_closure_gate_v2_2_2.py::test_negative_control_N_01"
+      ],
+      "authorized_reproduction_ids": [
+        "A-01"
+      ],
+      "attack_input_sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+      "expected_rejection_code": "CLOSURE_IMPOSSIBLE",
+      "expected_result_path": "docs/evidence/negative/N-01.json",
+      "claim_profile_sha256": "b54601ae7f257f2264abedc38d692113b4dc74be3875114cec04f1b1eefe9358",
+      "execution_profile_sha256": "82893071f618bdf917c8f223582e9d3b141fb4b98603402831d6fdc3c7af6d4a"
+    },
+    {
+      "control_id": "N-02",
+      "property_protected": "v2.2.2 rejection property 2",
+      "authorized_test_nodeids": [
+        "tests/test_mission_closure_gate_v2_2_2.py::test_negative_control_N_02"
+      ],
+      "authorized_reproduction_ids": [
+        "A-02"
+      ],
+      "attack_input_sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+      "expected_rejection_code": "CLOSURE_IMPOSSIBLE",
+      "expected_result_path": "docs/evidence/negative/N-02.json",
+      "claim_profile_sha256": "b54601ae7f257f2264abedc38d692113b4dc74be3875114cec04f1b1eefe9358",
+      "execution_profile_sha256": "82893071f618bdf917c8f223582e9d3b141fb4b98603402831d6fdc3c7af6d4a"
+    },
+    {
+      "control_id": "N-03",
+      "property_protected": "v2.2.2 rejection property 3",
+      "authorized_test_nodeids": [
+        "tests/test_mission_closure_gate_v2_2_2.py::test_negative_control_N_03"
+      ],
+      "authorized_reproduction_ids": [
+        "A-03"
+      ],
+      "attack_input_sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+      "expected_rejection_code": "CLOSURE_IMPOSSIBLE",
+      "expected_result_path": "docs/evidence/negative/N-03.json",
+      "claim_profile_sha256": "b54601ae7f257f2264abedc38d692113b4dc74be3875114cec04f1b1eefe9358",
+      "execution_profile_sha256": "82893071f618bdf917c8f223582e9d3b141fb4b98603402831d6fdc3c7af6d4a"
+    },
+    {
+      "control_id": "N-04",
+      "property_protected": "v2.2.2 rejection property 4",
+      "authorized_test_nodeids": [
+        "tests/test_mission_closure_gate_v2_2_2.py::test_negative_control_N_04"
+      ],
+      "authorized_reproduction_ids": [
+        "A-04"
+      ],
+      "attack_input_sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+      "expected_rejection_code": "CLOSURE_IMPOSSIBLE",
+      "expected_result_path": "docs/evidence/negative/N-04.json",
+      "claim_profile_sha256": "b54601ae7f257f2264abedc38d692113b4dc74be3875114cec04f1b1eefe9358",
+      "execution_profile_sha256": "82893071f618bdf917c8f223582e9d3b141fb4b98603402831d6fdc3c7af6d4a"
+    },
+    {
+      "control_id": "N-05",
+      "property_protected": "v2.2.2 rejection property 5",
+      "authorized_test_nodeids": [
+        "tests/test_mission_closure_gate_v2_2_2.py::test_negative_control_N_05"
+      ],
+      "authorized_reproduction_ids": [
+        "A-05"
+      ],
+      "attack_input_sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+      "expected_rejection_code": "CLOSURE_IMPOSSIBLE",
+      "expected_result_path": "docs/evidence/negative/N-05.json",
+      "claim_profile_sha256": "b54601ae7f257f2264abedc38d692113b4dc74be3875114cec04f1b1eefe9358",
+      "execution_profile_sha256": "82893071f618bdf917c8f223582e9d3b141fb4b98603402831d6fdc3c7af6d4a"
+    },
+    {
+      "control_id": "N-06",
+      "property_protected": "v2.2.2 rejection property 6",
+      "authorized_test_nodeids": [
+        "tests/test_mission_closure_gate_v2_2_2.py::test_negative_control_N_06"
+      ],
+      "authorized_reproduction_ids": [
+        "A-06"
+      ],
+      "attack_input_sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+      "expected_rejection_code": "CLOSURE_IMPOSSIBLE",
+      "expected_result_path": "docs/evidence/negative/N-06.json",
+      "claim_profile_sha256": "b54601ae7f257f2264abedc38d692113b4dc74be3875114cec04f1b1eefe9358",
+      "execution_profile_sha256": "82893071f618bdf917c8f223582e9d3b141fb4b98603402831d6fdc3c7af6d4a"
+    },
+    {
+      "control_id": "N-07",
+      "property_protected": "v2.2.2 rejection property 7",
+      "authorized_test_nodeids": [
+        "tests/test_mission_closure_gate_v2_2_2.py::test_negative_control_N_07"
+      ],
+      "authorized_reproduction_ids": [
+        "A-07"
+      ],
+      "attack_input_sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+      "expected_rejection_code": "CLOSURE_IMPOSSIBLE",
+      "expected_result_path": "docs/evidence/negative/N-07.json",
+      "claim_profile_sha256": "b54601ae7f257f2264abedc38d692113b4dc74be3875114cec04f1b1eefe9358",
+      "execution_profile_sha256": "82893071f618bdf917c8f223582e9d3b141fb4b98603402831d6fdc3c7af6d4a"
+    },
+    {
+      "control_id": "N-08",
+      "property_protected": "v2.2.2 rejection property 8",
+      "authorized_test_nodeids": [
+        "tests/test_mission_closure_gate_v2_2_2.py::test_negative_control_N_08"
+      ],
+      "authorized_reproduction_ids": [
+        "A-07"
+      ],
+      "attack_input_sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+      "expected_rejection_code": "CLOSURE_IMPOSSIBLE",
+      "expected_result_path": "docs/evidence/negative/N-08.json",
+      "claim_profile_sha256": "b54601ae7f257f2264abedc38d692113b4dc74be3875114cec04f1b1eefe9358",
+      "execution_profile_sha256": "82893071f618bdf917c8f223582e9d3b141fb4b98603402831d6fdc3c7af6d4a"
+    },
+    {
+      "control_id": "N-09",
+      "property_protected": "v2.2.2 rejection property 9",
+      "authorized_test_nodeids": [
+        "tests/test_mission_closure_gate_v2_2_2.py::test_negative_control_N_09"
+      ],
+      "authorized_reproduction_ids": [
+        "A-07"
+      ],
+      "attack_input_sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+      "expected_rejection_code": "CLOSURE_IMPOSSIBLE",
+      "expected_result_path": "docs/evidence/negative/N-09.json",
+      "claim_profile_sha256": "b54601ae7f257f2264abedc38d692113b4dc74be3875114cec04f1b1eefe9358",
+      "execution_profile_sha256": "82893071f618bdf917c8f223582e9d3b141fb4b98603402831d6fdc3c7af6d4a"
+    },
+    {
+      "control_id": "N-10",
+      "property_protected": "v2.2.2 rejection property 10",
+      "authorized_test_nodeids": [
+        "tests/test_mission_closure_gate_v2_2_2.py::test_negative_control_N_10"
+      ],
+      "authorized_reproduction_ids": [
+        "A-07"
+      ],
+      "attack_input_sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+      "expected_rejection_code": "CLOSURE_IMPOSSIBLE",
+      "expected_result_path": "docs/evidence/negative/N-10.json",
+      "claim_profile_sha256": "b54601ae7f257f2264abedc38d692113b4dc74be3875114cec04f1b1eefe9358",
+      "execution_profile_sha256": "82893071f618bdf917c8f223582e9d3b141fb4b98603402831d6fdc3c7af6d4a"
+    },
+    {
+      "control_id": "N-11",
+      "property_protected": "v2.2.2 rejection property 11",
+      "authorized_test_nodeids": [
+        "tests/test_mission_closure_gate_v2_2_2.py::test_negative_control_N_11"
+      ],
+      "authorized_reproduction_ids": [
+        "A-07"
+      ],
+      "attack_input_sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+      "expected_rejection_code": "CLOSURE_IMPOSSIBLE",
+      "expected_result_path": "docs/evidence/negative/N-11.json",
+      "claim_profile_sha256": "b54601ae7f257f2264abedc38d692113b4dc74be3875114cec04f1b1eefe9358",
+      "execution_profile_sha256": "82893071f618bdf917c8f223582e9d3b141fb4b98603402831d6fdc3c7af6d4a"
+    },
+    {
+      "control_id": "N-12",
+      "property_protected": "v2.2.2 rejection property 12",
+      "authorized_test_nodeids": [
+        "tests/test_mission_closure_gate_v2_2_2.py::test_negative_control_N_12"
+      ],
+      "authorized_reproduction_ids": [
+        "A-07"
+      ],
+      "attack_input_sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+      "expected_rejection_code": "CLOSURE_IMPOSSIBLE",
+      "expected_result_path": "docs/evidence/negative/N-12.json",
+      "claim_profile_sha256": "b54601ae7f257f2264abedc38d692113b4dc74be3875114cec04f1b1eefe9358",
+      "execution_profile_sha256": "82893071f618bdf917c8f223582e9d3b141fb4b98603402831d6fdc3c7af6d4a"
+    },
+    {
+      "control_id": "N-13",
+      "property_protected": "v2.2.2 rejection property 13",
+      "authorized_test_nodeids": [
+        "tests/test_mission_closure_gate_v2_2_2.py::test_negative_control_N_13"
+      ],
+      "authorized_reproduction_ids": [
+        "A-07"
+      ],
+      "attack_input_sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+      "expected_rejection_code": "CLOSURE_IMPOSSIBLE",
+      "expected_result_path": "docs/evidence/negative/N-13.json",
+      "claim_profile_sha256": "b54601ae7f257f2264abedc38d692113b4dc74be3875114cec04f1b1eefe9358",
+      "execution_profile_sha256": "82893071f618bdf917c8f223582e9d3b141fb4b98603402831d6fdc3c7af6d4a"
+    },
+    {
+      "control_id": "N-14",
+      "property_protected": "v2.2.2 rejection property 14",
+      "authorized_test_nodeids": [
+        "tests/test_mission_closure_gate_v2_2_2.py::test_negative_control_N_14"
+      ],
+      "authorized_reproduction_ids": [
+        "A-07"
+      ],
+      "attack_input_sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+      "expected_rejection_code": "CLOSURE_IMPOSSIBLE",
+      "expected_result_path": "docs/evidence/negative/N-14.json",
+      "claim_profile_sha256": "b54601ae7f257f2264abedc38d692113b4dc74be3875114cec04f1b1eefe9358",
+      "execution_profile_sha256": "82893071f618bdf917c8f223582e9d3b141fb4b98603402831d6fdc3c7af6d4a"
+    },
+    {
+      "control_id": "N-15",
+      "property_protected": "v2.2.2 rejection property 15",
+      "authorized_test_nodeids": [
+        "tests/test_mission_closure_gate_v2_2_2.py::test_negative_control_N_15"
+      ],
+      "authorized_reproduction_ids": [
+        "A-07"
+      ],
+      "attack_input_sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+      "expected_rejection_code": "CLOSURE_IMPOSSIBLE",
+      "expected_result_path": "docs/evidence/negative/N-15.json",
+      "claim_profile_sha256": "b54601ae7f257f2264abedc38d692113b4dc74be3875114cec04f1b1eefe9358",
+      "execution_profile_sha256": "82893071f618bdf917c8f223582e9d3b141fb4b98603402831d6fdc3c7af6d4a"
+    },
+    {
+      "control_id": "N-16",
+      "property_protected": "v2.2.2 rejection property 16",
+      "authorized_test_nodeids": [
+        "tests/test_mission_closure_gate_v2_2_2.py::test_negative_control_N_16"
+      ],
+      "authorized_reproduction_ids": [
+        "A-07"
+      ],
+      "attack_input_sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+      "expected_rejection_code": "CLOSURE_IMPOSSIBLE",
+      "expected_result_path": "docs/evidence/negative/N-16.json",
+      "claim_profile_sha256": "b54601ae7f257f2264abedc38d692113b4dc74be3875114cec04f1b1eefe9358",
+      "execution_profile_sha256": "82893071f618bdf917c8f223582e9d3b141fb4b98603402831d6fdc3c7af6d4a"
+    },
+    {
+      "control_id": "N-17",
+      "property_protected": "v2.2.2 rejection property 17",
+      "authorized_test_nodeids": [
+        "tests/test_mission_closure_gate_v2_2_2.py::test_negative_control_N_17"
+      ],
+      "authorized_reproduction_ids": [
+        "A-07"
+      ],
+      "attack_input_sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+      "expected_rejection_code": "CLOSURE_IMPOSSIBLE",
+      "expected_result_path": "docs/evidence/negative/N-17.json",
+      "claim_profile_sha256": "b54601ae7f257f2264abedc38d692113b4dc74be3875114cec04f1b1eefe9358",
+      "execution_profile_sha256": "82893071f618bdf917c8f223582e9d3b141fb4b98603402831d6fdc3c7af6d4a"
+    },
+    {
+      "control_id": "N-18",
+      "property_protected": "v2.2.2 rejection property 18",
+      "authorized_test_nodeids": [
+        "tests/test_mission_closure_gate_v2_2_2.py::test_negative_control_N_18"
+      ],
+      "authorized_reproduction_ids": [
+        "A-07"
+      ],
+      "attack_input_sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+      "expected_rejection_code": "CLOSURE_IMPOSSIBLE",
+      "expected_result_path": "docs/evidence/negative/N-18.json",
+      "claim_profile_sha256": "b54601ae7f257f2264abedc38d692113b4dc74be3875114cec04f1b1eefe9358",
+      "execution_profile_sha256": "82893071f618bdf917c8f223582e9d3b141fb4b98603402831d6fdc3c7af6d4a"
+    },
+    {
+      "control_id": "N-19",
+      "property_protected": "v2.2.2 rejection property 19",
+      "authorized_test_nodeids": [
+        "tests/test_mission_closure_gate_v2_2_2.py::test_negative_control_N_19"
+      ],
+      "authorized_reproduction_ids": [
+        "A-07"
+      ],
+      "attack_input_sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+      "expected_rejection_code": "CLOSURE_IMPOSSIBLE",
+      "expected_result_path": "docs/evidence/negative/N-19.json",
+      "claim_profile_sha256": "b54601ae7f257f2264abedc38d692113b4dc74be3875114cec04f1b1eefe9358",
+      "execution_profile_sha256": "82893071f618bdf917c8f223582e9d3b141fb4b98603402831d6fdc3c7af6d4a"
+    },
+    {
+      "control_id": "N-20",
+      "property_protected": "v2.2.2 rejection property 20",
+      "authorized_test_nodeids": [
+        "tests/test_mission_closure_gate_v2_2_2.py::test_negative_control_N_20"
+      ],
+      "authorized_reproduction_ids": [
+        "A-07"
+      ],
+      "attack_input_sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+      "expected_rejection_code": "CLOSURE_IMPOSSIBLE",
+      "expected_result_path": "docs/evidence/negative/N-20.json",
+      "claim_profile_sha256": "b54601ae7f257f2264abedc38d692113b4dc74be3875114cec04f1b1eefe9358",
+      "execution_profile_sha256": "82893071f618bdf917c8f223582e9d3b141fb4b98603402831d6fdc3c7af6d4a"
+    },
+    {
+      "control_id": "N-21",
+      "property_protected": "v2.2.2 rejection property 21",
+      "authorized_test_nodeids": [
+        "tests/test_mission_closure_gate_v2_2_2.py::test_negative_control_N_21"
+      ],
+      "authorized_reproduction_ids": [
+        "A-07"
+      ],
+      "attack_input_sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+      "expected_rejection_code": "CLOSURE_IMPOSSIBLE",
+      "expected_result_path": "docs/evidence/negative/N-21.json",
+      "claim_profile_sha256": "b54601ae7f257f2264abedc38d692113b4dc74be3875114cec04f1b1eefe9358",
+      "execution_profile_sha256": "82893071f618bdf917c8f223582e9d3b141fb4b98603402831d6fdc3c7af6d4a"
+    },
+    {
+      "control_id": "N-22",
+      "property_protected": "v2.2.2 rejection property 22",
+      "authorized_test_nodeids": [
+        "tests/test_mission_closure_gate_v2_2_2.py::test_negative_control_N_22"
+      ],
+      "authorized_reproduction_ids": [
+        "A-07"
+      ],
+      "attack_input_sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+      "expected_rejection_code": "CLOSURE_IMPOSSIBLE",
+      "expected_result_path": "docs/evidence/negative/N-22.json",
+      "claim_profile_sha256": "b54601ae7f257f2264abedc38d692113b4dc74be3875114cec04f1b1eefe9358",
+      "execution_profile_sha256": "82893071f618bdf917c8f223582e9d3b141fb4b98603402831d6fdc3c7af6d4a"
+    },
+    {
+      "control_id": "N-23",
+      "property_protected": "v2.2.2 rejection property 23",
+      "authorized_test_nodeids": [
+        "tests/test_mission_closure_gate_v2_2_2.py::test_negative_control_N_23"
+      ],
+      "authorized_reproduction_ids": [
+        "A-07"
+      ],
+      "attack_input_sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+      "expected_rejection_code": "CLOSURE_IMPOSSIBLE",
+      "expected_result_path": "docs/evidence/negative/N-23.json",
+      "claim_profile_sha256": "b54601ae7f257f2264abedc38d692113b4dc74be3875114cec04f1b1eefe9358",
+      "execution_profile_sha256": "82893071f618bdf917c8f223582e9d3b141fb4b98603402831d6fdc3c7af6d4a"
+    },
+    {
+      "control_id": "N-24",
+      "property_protected": "v2.2.2 rejection property 24",
+      "authorized_test_nodeids": [
+        "tests/test_mission_closure_gate_v2_2_2.py::test_negative_control_N_24"
+      ],
+      "authorized_reproduction_ids": [
+        "A-07"
+      ],
+      "attack_input_sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+      "expected_rejection_code": "CLOSURE_IMPOSSIBLE",
+      "expected_result_path": "docs/evidence/negative/N-24.json",
+      "claim_profile_sha256": "b54601ae7f257f2264abedc38d692113b4dc74be3875114cec04f1b1eefe9358",
+      "execution_profile_sha256": "82893071f618bdf917c8f223582e9d3b141fb4b98603402831d6fdc3c7af6d4a"
+    }
+  ]
+}

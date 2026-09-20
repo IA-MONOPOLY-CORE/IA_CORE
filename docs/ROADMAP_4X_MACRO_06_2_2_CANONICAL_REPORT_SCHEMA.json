@@ -1,0 +1,8 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Macro 06.2.2 Canonical Report",
+  "type": "object",
+  "required": ["report_version", "gate_version", "mission_id", "final_validation_basis", "evidence_lock_head", "input_bundle_sha256", "renderer_sha256", "claim_profile_hashes", "execution_profile_hashes", "validation_results", "level_a_corpus_identity", "negative_control_coverage", "git_state_at_evidence_lock", "protected_diff", "remote_evidence_ceiling", "primary_event_bundle_sha256", "trust_root_composite_sha256"],
+  "not": {"anyOf": [{"required": ["report_sha256"]}, {"required": ["closure_decision"]}, {"required": ["published_head"]}, {"required": ["report_completeness_gate"]}]},
+  "additionalProperties": false
+}

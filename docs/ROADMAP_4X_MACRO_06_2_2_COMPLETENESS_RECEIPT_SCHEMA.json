@@ -1,0 +1,7 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Macro 06.2.2 External Completeness Receipt",
+  "type": "object",
+  "required": ["receipt_version", "artifact_logical_id", "artifact_sha256", "artifact_byte_length", "schema_id", "schema_sha256", "validator_id", "validator_sha256", "claim_profile_sha256", "execution_profile_sha256", "observed_violations", "derived_result", "receipt_sha256"],
+  "additionalProperties": false
+}

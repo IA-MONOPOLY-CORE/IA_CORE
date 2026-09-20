@@ -1,0 +1,79 @@
+{
+  "cases": [
+    {
+      "attack_id": "A-01",
+      "causal_isolation": "PASS",
+      "expected_v222_result": "REJECTED",
+      "input_sha256": "bb157861a164e35cdde9d726b0af9ce2765a8f530c35d9e45732b94ee65e9557",
+      "v221_observed": "NONEMPTY_OBJECT_ACCEPTED",
+      "v221_vulnerable": true,
+      "v222_observed": "REJECTED",
+      "v222_rejected": true
+    },
+    {
+      "attack_id": "A-02",
+      "causal_isolation": "PASS",
+      "expected_v222_result": "REJECTED",
+      "input_sha256": "5c593c4b2daa84bdc193b52824f52dcecceb7eb8fc9d6d005dc39138ba6493cc",
+      "v221_observed": "MINIMAL_DICTIONARY_CLOSED",
+      "v221_vulnerable": true,
+      "v222_observed": "REJECTED",
+      "v222_rejected": true
+    },
+    {
+      "attack_id": "A-03",
+      "causal_isolation": "PASS",
+      "expected_v222_result": "REJECTED",
+      "input_sha256": "2da3c8993ee2227f7fec9b0ce57b5009fb6b983d24ccb1f37de0c0681d9f6e95",
+      "v221_observed": "SELF_ASSERTED_ENVELOPE_COMPLETENESS_ACCEPTED",
+      "v221_vulnerable": true,
+      "v222_observed": "REJECTED",
+      "v222_rejected": true
+    },
+    {
+      "attack_id": "A-04",
+      "causal_isolation": "PASS",
+      "expected_v222_result": "REJECTED",
+      "input_sha256": "72684cbdb2a65870fc0dcc236bc06ba1dbb8ad7b0adb28577f5e027963d0871a",
+      "v221_observed": "UNEXECUTED_FETCH_PASS",
+      "v221_vulnerable": true,
+      "v222_observed": "FRESH_FETCH_REQUIRED_BY_RUNNER",
+      "v222_rejected": true
+    },
+    {
+      "attack_id": "A-05",
+      "causal_isolation": "PASS",
+      "expected_v222_result": "REJECTED",
+      "input_sha256": "13bcfeb18ebfc671802432c5eb4bd098753a333607227301aeab9d5b7aa3a04e",
+      "v221_observed": "POST_HOC_CONTROL_REASSIGNMENT",
+      "v221_vulnerable": true,
+      "v222_observed": "PREDECLARED_MAPPING_REQUIRED",
+      "v222_rejected": true
+    },
+    {
+      "attack_id": "A-06",
+      "causal_isolation": "PASS",
+      "expected_v222_result": "REJECTED",
+      "input_sha256": "2718be842d897c286910a1b9355a880389b123e7cb8b8c365113ab4dfddd7987",
+      "v221_observed": "TEMP_ONLY_EVIDENCE",
+      "v221_vulnerable": true,
+      "v222_observed": "DURABLE_PACKAGE_REQUIRED",
+      "v222_rejected": true
+    },
+    {
+      "attack_id": "A-07",
+      "causal_isolation": "PASS",
+      "expected_v222_result": "REJECTED",
+      "input_sha256": "6ac779fb09aedb3ada37685118add7f15fb0a4d9633f91b62cd4fad946ea2d01",
+      "v221_observed": "CYCLIC_PACKAGE_ACCEPTABLE",
+      "v221_vulnerable": true,
+      "v222_observed": "ACYCLIC_MANIFEST_REQUIRED",
+      "v222_rejected": true
+    }
+  ],
+  "causal_isolation": "PASS",
+  "gate_under_test": "mission_closure_gate.v2.2.2",
+  "mission": "ROADMAP_4X_MACRO_06_2_2",
+  "rejected_v222_count": 7,
+  "reproduced_v221_bypass_count": 7
+}

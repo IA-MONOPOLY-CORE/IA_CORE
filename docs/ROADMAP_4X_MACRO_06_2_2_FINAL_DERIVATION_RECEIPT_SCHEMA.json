@@ -1,0 +1,8 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Macro 06.2.2 Final Derivation Receipt",
+  "type": "object",
+  "required": ["receipt_version", "derived_closure_candidate", "pre_activation_evidence_completeness_candidate", "checks"],
+  "not": {"anyOf": [{"required": ["closure_decision"]}, {"required": ["report_completeness_gate"]}, {"required": ["authority_activation_state"]}]},
+  "additionalProperties": false
+}

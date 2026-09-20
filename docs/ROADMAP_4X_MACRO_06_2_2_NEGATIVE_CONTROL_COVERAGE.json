@@ -1,0 +1,13 @@
+{
+  "matrix_version": "negative_control_coverage.v2.2.2",
+  "mapping_sha256": "48a8397722163c48ee7eaba29edf0fea923fbb67cea9e1fefa933a1c84f7150f",
+  "coverage": "100_PERCENT_EXECUTED",
+  "controls": [
+    {"control_id": "N-01", "observed_result": "REJECTED"}, {"control_id": "N-02", "observed_result": "REJECTED"}, {"control_id": "N-03", "observed_result": "REJECTED"}, {"control_id": "N-04", "observed_result": "REJECTED"},
+    {"control_id": "N-05", "observed_result": "REJECTED"}, {"control_id": "N-06", "observed_result": "REJECTED"}, {"control_id": "N-07", "observed_result": "REJECTED"}, {"control_id": "N-08", "observed_result": "REJECTED"},
+    {"control_id": "N-09", "observed_result": "REJECTED"}, {"control_id": "N-10", "observed_result": "REJECTED"}, {"control_id": "N-11", "observed_result": "REJECTED"}, {"control_id": "N-12", "observed_result": "REJECTED"},
+    {"control_id": "N-13", "observed_result": "REJECTED"}, {"control_id": "N-14", "observed_result": "REJECTED"}, {"control_id": "N-15", "observed_result": "REJECTED"}, {"control_id": "N-16", "observed_result": "REJECTED"},
+    {"control_id": "N-17", "observed_result": "REJECTED"}, {"control_id": "N-18", "observed_result": "REJECTED"}, {"control_id": "N-19", "observed_result": "REJECTED"}, {"control_id": "N-20", "observed_result": "REJECTED"},
+    {"control_id": "N-21", "observed_result": "REJECTED"}, {"control_id": "N-22", "observed_result": "REJECTED"}, {"control_id": "N-23", "observed_result": "REJECTED"}, {"control_id": "N-24", "observed_result": "REJECTED"}
+  ]
+}

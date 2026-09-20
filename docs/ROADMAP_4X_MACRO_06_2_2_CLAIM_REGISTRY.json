@@ -1,0 +1,19 @@
+{
+  "registry_version": "claim_registry.v2.2.2",
+  "claims": [
+    {
+      "claim_id": "CLAIM_MISSION_CLOSURE_V222",
+      "claim_profile_id": "CLAIM_PROFILE_MISSION_CLOSURE_V222",
+      "claim_profile_version": "2.2.2",
+      "claim_profile_sha256": "b54601ae7f257f2264abedc38d692113b4dc74be3875114cec04f1b1eefe9358",
+      "claim_type": "closure_assurance",
+      "claim_text": "The final closure is derived by recomputation over exact bound evidence and authority activates only through successful atomic publication.",
+      "semantic_property": "raw_evidence_recomputing_closure_authority",
+      "required_evidence_types": ["raw_fetch_execution", "canonical_report", "external_completeness", "final_derivation", "package_integrity", "atomic_publication"],
+      "required_receipt_fields": ["artifact_sha256", "artifact_byte_length", "schema_sha256", "validator_sha256", "derived_result"],
+      "decision_rule": "CLOSED only after every pre-activation property is recomputed and the prevalidated terminal payload is atomically published.",
+      "failure_rule": "NOT_CLOSED when any evidence, temporal, persistence, package, staging, or publication property is absent or unverifiable.",
+      "not_applicable_rule": "NOT_APPLICABLE is forbidden for required closure controls."
+    }
+  ]
+}
