@@ -1,0 +1,65 @@
+{
+  "claim_profile_sha256": "8321513ac62ac527698a6c3c58872718ca6f63273b128109541a622db223bf10",
+  "execution_profile_hashes": [
+    "70ed55f85d4aff2793941f9ce4e32e48f04f64ce9a023ff90beba9a6af8779d8",
+    "540061d697421c611d1a5ba4fd0314cd86b356cae08cae963ce54d2743d250a1",
+    "e13032fff117dce8018df36251ba4046d7d2d4b6ff524665ff7827167037fbd1",
+    "32a1b971e3e0fd189d6433178c03b534666d317f4f8d4a6ee0e456125c3a007f",
+    "de4a5d6ef87ff68524ae8fd2cfa8f5d19c8dfcc458fb5ee45d438dd9570ef711",
+    "90e5364f131f7bb49bd28ab4c9576013b81769eab728f7dbb04865ce56125c93",
+    "117445064866ccab4df1e587c43cf31d0a3c085bdc38ac70d4875d69cedbf9c8",
+    "47f998aadd7953ead200d29cfc627faa2f6ae2f7bd96672fd0569ce17494505f",
+    "c7be5b0c22329f1258ae4c089a765a242c567b21ed3a422309ed83928ff5c84e"
+  ],
+  "final_validation_basis": "a7b852de5c811d3eaeb9fcdd1cb7680f724ca437",
+  "historical_matrix_sha256": "6753cb6a049b709569f365f57ba5d7d359ffebf1c6c600a9623c9f0524b5d643",
+  "lock_content_sha256": "cd1e2c082f6ffaebdeb8302d35a9c370aab81a03149c95f43acbc4e9c4ce8dba",
+  "lock_version": "evidence_lock.v2.2.1",
+  "mission_id": "ROADMAP_4X_MACRO_06_2_1",
+  "ordinary_validation_after_terminal": "FORBIDDEN",
+  "receipts": {
+    "diff-check": {
+      "file_sha256": "af0b19dee96bab3101601677f1efe779e47d76fab189e8a521f29aced6c48e65",
+      "path": "C:\\Users\\Santi\\AppData\\Local\\Temp\\ia-core-v221-receipts\\diff-check.receipt.json",
+      "receipt_sha256": "185b2834b06a5acd66fe2dc5c9e52d165f24cf714b8f4b60f4d9e394457daf74"
+    },
+    "focal": {
+      "file_sha256": "3600247291436f1036f6937fccc747c595fe49b26778e60858cff597ddc19802",
+      "path": "C:\\Users\\Santi\\AppData\\Local\\Temp\\ia-core-v221-receipts\\focal.receipt.json",
+      "receipt_sha256": "8429937a28c1680fe29400b8b745faf9dc60fc0b805d75c9aced5a3e46123bde"
+    },
+    "historical": {
+      "file_sha256": "21cca579eedf98e293c4073a601a2ae94a4768cc4c953aaf6277d544a3121e4d",
+      "path": "C:\\Users\\Santi\\AppData\\Local\\Temp\\ia-core-v221-receipts\\historical.receipt.json",
+      "receipt_sha256": "fa733a52d152f0ad1cc9d04dc1d25bcb96054da7b6980a4eb81f5ce81619c4ee"
+    },
+    "policy": {
+      "file_sha256": "73cf09f016176940a368b7fdc2dcd536492b3f6b17a37f261a565dd31fb3cad5",
+      "path": "C:\\Users\\Santi\\AppData\\Local\\Temp\\ia-core-v221-receipts\\policy.receipt.json",
+      "receipt_sha256": "5fdff0b00804731b00fd4afa97bc2717a26f1def855e01c7046e375606a41e2d"
+    },
+    "profiles": {
+      "file_sha256": "4846fa4fb1e2beb3dcbb48a37a0fe38d5d22b025199ce7ee354c702c7a1c5091",
+      "path": "C:\\Users\\Santi\\AppData\\Local\\Temp\\ia-core-v221-receipts\\profiles.receipt.json",
+      "receipt_sha256": "27e5d1e9edb02c912e76462e04b70b87dc0d40459dbf7296324abf726e9a5e20"
+    },
+    "pycompile": {
+      "file_sha256": "a86738662be4d40d048e54f72095addb624aeeafb3a2d3d1a062e5cc7c0fd35f",
+      "path": "C:\\Users\\Santi\\AppData\\Local\\Temp\\ia-core-v221-receipts\\pycompile.receipt.json",
+      "receipt_sha256": "6deab54a1fccfa42283e4ab8bf63083acd154b31a32b0660d37cd67e9bb52e67"
+    },
+    "secret-scan": {
+      "file_sha256": "e5ce9531b016f386a27b857315a052e6d4da654f34d3929d4418c0517547fc8f",
+      "path": "C:\\Users\\Santi\\AppData\\Local\\Temp\\ia-core-v221-receipts\\secret-scan.receipt.json",
+      "receipt_sha256": "d01f7f0497923da124561c6eca71f9932b0109b8788093da589d73f9eff8b9cf"
+    },
+    "terminal-level-b": {
+      "file_sha256": "104db14bca281ef6218ae0c9206714cc748868415120556615e56bf779422ec5",
+      "path": "C:\\Users\\Santi\\AppData\\Local\\Temp\\ia-core-v221-receipts\\terminal-level-b.receipt.json",
+      "receipt_sha256": "5dfaf8c316b5a70b2dc2684ce1eadeb946d60ffa293000a2c4efbb39c20e1f19"
+    }
+  },
+  "red_reproduction_file_sha256": "46f277b2dc91597c958eb26be9bc9d002c525adeef3c104cee56f25def203b63",
+  "terminal_level_b_receipt_sha256": "5dfaf8c316b5a70b2dc2684ce1eadeb946d60ffa293000a2c4efbb39c20e1f19",
+  "working_tree_before_lock": "CLEAN"
+}
