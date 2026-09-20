@@ -220,7 +220,7 @@ def live_finalize(published_head: str, output: Path) -> dict:
     staging.parent.mkdir(parents=True, exist_ok=True)
     authority.parent.mkdir(parents=True, exist_ok=True)
     staging.write_bytes(payload_raw)
-    with staging.open("rb") as handle:
+    with staging.open("rb+") as handle:
         os.fsync(handle.fileno())
     os.replace(staging, authority)
     read_back = authority.read_bytes()
