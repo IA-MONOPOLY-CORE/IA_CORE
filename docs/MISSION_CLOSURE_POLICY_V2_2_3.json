@@ -15,6 +15,8 @@
     "scripts/run_mission_closure_v2_2_3_red_reproduction.py",
     "tests/test_mission_closure_gate_v2_2_3.py",
     "tests/test_mission_closure_gate_v2_2_3_ci_contract.py",
+    "tests/historical_test_context.py",
+    "tests/test_roadmap_4x_macro_05_p1_internal_family_closure.py",
     ".github/workflows/ci.yml",
     "docs/MISSION_CLOSURE_POLICY_V2_2_3.json",
     "docs/MISSION_CLOSURE_GATE_V2_2_3_CONTRACT.md",

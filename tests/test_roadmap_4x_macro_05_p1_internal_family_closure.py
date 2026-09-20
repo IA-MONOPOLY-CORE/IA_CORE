@@ -5,7 +5,7 @@ from pathlib import Path
 import subprocess
 
 from gokv.storage import default_paths, validate_vault
-from historical_test_context import _MACRO_06_2_1_CONTINUITY_FILES, _MACRO_06_2_2_CONTINUITY_FILES
+from historical_test_context import _MACRO_06_2_1_CONTINUITY_FILES, _MACRO_06_2_2_CONTINUITY_FILES, _MACRO_06_2_3_CONTINUITY_FILES
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -120,6 +120,8 @@ MACRO_06_FILES |= set(_MACRO_06_2_1_CONTINUITY_FILES)
 MACRO_06_JSON_FILES |= {path for path in _MACRO_06_2_1_CONTINUITY_FILES if path.endswith(".json")}
 MACRO_06_FILES |= set(_MACRO_06_2_2_CONTINUITY_FILES)
 MACRO_06_JSON_FILES |= {path for path in _MACRO_06_2_2_CONTINUITY_FILES if path.endswith(".json")}
+MACRO_06_FILES |= set(_MACRO_06_2_3_CONTINUITY_FILES)
+MACRO_06_JSON_FILES |= {path for path in _MACRO_06_2_3_CONTINUITY_FILES if path.endswith(".json")}
 
 MISSION_FILES = {
     "docs/ROADMAP_4X_MACRO_05_P1_POST_BOUNDARY_E2E_TRUTH_MATRIX.md",

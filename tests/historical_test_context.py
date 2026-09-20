@@ -173,9 +173,46 @@ _MACRO_06_2_2_CONTINUITY_FILES = frozenset(
         "docs/ROADMAP_4X_MACRO_06_2_1_PRIMARY_EVENT_BUNDLE_MANIFEST.json",
         "docs/ROADMAP_4X_MACRO_06_2_1_CLOSURE_CHECKPOINT.md",
         "docs/ROADMAP_4X_MACRO_06_2_1_REMEDIATION_APPENDIX.md",
+        "docs/ROADMAP_4X_MACRO_06_2_2_ARCHIVAL_PUBLICATION_MANIFEST.json",
+        "docs/ROADMAP_4X_MACRO_06_2_2_CANONICAL_COMPLETENESS_RECEIPT.json",
+        "docs/ROADMAP_4X_MACRO_06_2_2_CANONICAL_REPORT.json",
+        "docs/ROADMAP_4X_MACRO_06_2_2_CLOSURE_CHECKPOINT.md",
+        "docs/ROADMAP_4X_MACRO_06_2_2_EVIDENCE_LOCK_MANIFEST.json",
+        "docs/ROADMAP_4X_MACRO_06_2_2_FROZEN_INPUT_BUNDLE_MANIFEST.json",
+        "docs/ROADMAP_4X_MACRO_06_2_2_REMEDIATION_APPENDIX.md",
+        "docs/ROADMAP_4X_MACRO_06_2_2_RENDER_COMPARISON.json",
+    }
+)
+_MACRO_06_2_3_CONTINUITY_FILES = frozenset(
+    {
+        "scripts/closure_assurance_v2_2_3.py",
+        "scripts/run_mission_closure_v2_2_3.py",
+        "scripts/render_canonical_report_v2_2_3.py",
+        "scripts/validate_mission_closure_v2_2_3.py",
+        "scripts/run_mission_closure_v2_2_3_red_reproduction.py",
+        "tests/test_mission_closure_gate_v2_2_3.py",
+        "tests/test_mission_closure_gate_v2_2_3_ci_contract.py",
+        "docs/MISSION_CLOSURE_GATE_V2_2_3_CONTRACT.md",
+        "docs/MISSION_CLOSURE_POLICY_V2_2_3.json",
+        "docs/ROADMAP_4X_MACRO_06_2_3_ARTIFACT_SCHEMA.json",
+        "docs/ROADMAP_4X_MACRO_06_2_3_AUTHORIZED_VALIDATION_INPUT_SET.json",
+        "docs/ROADMAP_4X_MACRO_06_2_3_CANONICAL_REPORT_SCHEMA.json",
+        "docs/ROADMAP_4X_MACRO_06_2_3_CONTROL_TO_PROOF_MAPPING.json",
+        "docs/ROADMAP_4X_MACRO_06_2_3_FINAL_DERIVATION_RECEIPT_SCHEMA.json",
+        "docs/ROADMAP_4X_MACRO_06_2_3_LIVE_ENVELOPE_SCHEMA.json",
+        "docs/ROADMAP_4X_MACRO_06_2_3_PACKAGE_MANIFEST_SCHEMA.json",
+        "docs/ROADMAP_4X_MACRO_06_2_3_PRIMARY_EVENT_BUNDLE_MANIFEST.json",
+        "docs/ROADMAP_4X_MACRO_06_2_3_RECEIPT_SCHEMA.json",
+        "docs/ROADMAP_4X_MACRO_06_2_3_RED_REPRODUCTION.json",
+        "docs/ROADMAP_4X_MACRO_06_2_3_TERMINAL_PAYLOAD_SCHEMA.json",
+        "docs/ROADMAP_4X_MACRO_06_2_3_TRUST_ROOT_BINDING.json",
+        "docs/ROADMAP_4X_MACRO_06_2_3_TRUST_ROOT_DEFINITION.json",
+        "docs/ROADMAP_4X_MACRO_06_2_3_VALIDATOR_IMPLEMENTATION_CLOSURE_MANIFEST.json",
+        "docs/METHOD_SANTI_3_2_10_SEMANTIC_PROOF_EXECUTION_AND_CAUSAL_CLOSURE.md",
     }
 )
 _MACRO_06_CONTINUITY_FILES = _MACRO_06_CONTINUITY_FILES | _MACRO_06_2_1_CONTINUITY_FILES | _MACRO_06_2_2_CONTINUITY_FILES
+_MACRO_06_CONTINUITY_FILES = _MACRO_06_CONTINUITY_FILES | _MACRO_06_2_3_CONTINUITY_FILES
 LEDGER = ROOT / "docs" / "ROADMAP_3_X_MACRO_02_2_FAILURE_ACCOUNTABILITY_LEDGER.md"
 _LEDGER_NODE_RE = re.compile(r"^\| \d+ \| `(tests/[^`]+)::test_[^`]+` \|", re.MULTILINE)
 _OVERRIDES = {
