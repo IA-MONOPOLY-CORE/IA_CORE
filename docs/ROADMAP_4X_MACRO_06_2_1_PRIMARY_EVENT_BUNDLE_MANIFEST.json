@@ -1,0 +1,10 @@
+{
+  "event_bundle_sha256": "320c33bca36ba17334f0757ee1a2b328e343b46c7676a5d80aeaf22b0448843e",
+  "event_id": "MACRO_06_2_1_TERMINAL_ASSURANCE_EVENT",
+  "evidence_lock_head": "fa35d807670ec883589bbdab8e6b7e14eac7ffb5",
+  "fire_state": "NOT_IMPLEMENTED",
+  "future_g0_replay_boundary": "preserved_without_preloaded_conclusions",
+  "manifest_version": "primary_event_bundle_manifest.v2.2.1",
+  "sensitivity_guard": "PASS",
+  "vero_state": "NOT_IMPLEMENTED"
+}

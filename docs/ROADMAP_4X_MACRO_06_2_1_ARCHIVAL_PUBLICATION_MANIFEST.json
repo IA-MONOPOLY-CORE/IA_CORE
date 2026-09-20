@@ -1,0 +1,16 @@
+{
+  "archival_parent": "fa35d807670ec883589bbdab8e6b7e14eac7ffb5",
+  "canonical_completeness_sha256": "48db7b0094f3a2ffc929322bb824fc9ff27307de393898cd1372b71b933f6a73",
+  "canonical_report_sha256": "2f90db78bf66920c8da12900d1fce4b5ac2ade7e32a072df2e8b6e152b8a01b8",
+  "evidence_lock_head": "fa35d807670ec883589bbdab8e6b7e14eac7ffb5",
+  "final_validation_basis": "a7b852de5c811d3eaeb9fcdd1cb7680f724ca437",
+  "manifest_version": "archival_publication_manifest.v2.2.1",
+  "mission_id": "ROADMAP_4X_MACRO_06_2_1",
+  "negative_control_coverage_sha256": "86c93aaa22e5b744049c342d1cfe625048371a436e3133f452b69c4cf0b1eb56",
+  "post_terminal_scope": "DOCUMENTARY_EVIDENCE_ONLY",
+  "primary_event_manifest_sha256": "0e67c1a4421359cb42ba0fefa549bfef5401d5e91beb302fbedec755015690e3",
+  "protected_diff": [],
+  "published_head": "RECORDED_AFTER_ARCHIVAL_COMMIT_AND_PUSH",
+  "remote_evidence_ceiling": "NOT_PROVEN",
+  "render_comparison_sha256": "70c54b87617e52d33f12e07deb9798e03bc159bec7e328f488fde2892281bc46"
+}

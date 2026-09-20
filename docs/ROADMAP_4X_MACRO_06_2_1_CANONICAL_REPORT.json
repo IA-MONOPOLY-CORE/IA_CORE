@@ -1,0 +1,73 @@
+{
+  "claim_profile_hashes": [
+    "8321513ac62ac527698a6c3c58872718ca6f63273b128109541a622db223bf10"
+  ],
+  "evidence_lock_head": "fa35d807670ec883589bbdab8e6b7e14eac7ffb5",
+  "execution_profile_hashes": [
+    "70ed55f85d4aff2793941f9ce4e32e48f04f64ce9a023ff90beba9a6af8779d8",
+    "540061d697421c611d1a5ba4fd0314cd86b356cae08cae963ce54d2743d250a1",
+    "e13032fff117dce8018df36251ba4046d7d2d4b6ff524665ff7827167037fbd1",
+    "32a1b971e3e0fd189d6433178c03b534666d317f4f8d4a6ee0e456125c3a007f",
+    "de4a5d6ef87ff68524ae8fd2cfa8f5d19c8dfcc458fb5ee45d438dd9570ef711",
+    "90e5364f131f7bb49bd28ab4c9576013b81769eab728f7dbb04865ce56125c93",
+    "117445064866ccab4df1e587c43cf31d0a3c085bdc38ac70d4875d69cedbf9c8",
+    "47f998aadd7953ead200d29cfc627faa2f6ae2f7bd96672fd0569ce17494505f",
+    "c7be5b0c22329f1258ae4c089a765a242c567b21ed3a422309ed83928ff5c84e"
+  ],
+  "final_validation_basis": "a7b852de5c811d3eaeb9fcdd1cb7680f724ca437",
+  "gate_version": "mission_closure_gate.v2.2.1",
+  "git_state_at_evidence_lock": {
+    "committed_delta_from_final_basis": [
+      "docs/ROADMAP_4X_MACRO_06_2_1_EVIDENCE_LOCK_MANIFEST.json"
+    ],
+    "head": "fa35d807670ec883589bbdab8e6b7e14eac7ffb5",
+    "index": "CLEAN",
+    "untracked_paths": [],
+    "working_tree": "CLEAN"
+  },
+  "input_bundle_sha256": "52f6246520a620aaf12b90b7f05c079b7b5a5f84a67a767b737bade75a6e94c3",
+  "level_a_corpus_identity": {
+    "claim_profile_sha256": "8321513ac62ac527698a6c3c58872718ca6f63273b128109541a622db223bf10",
+    "collection_manifest_sha256": "1e0c42ce5eaf97bca36fa6d677d050eb9c034d39c02500139b01db5cc1f00936",
+    "execution_manifest_sha256": "36bcce6f3dd571931fc175e6b5fb603f4c232c152bea8773c04aabeec9b69d35",
+    "execution_profile_sha256": "70ed55f85d4aff2793941f9ce4e32e48f04f64ce9a023ff90beba9a6af8779d8",
+    "identity_decision": "PASS",
+    "node_count": 7300,
+    "nodeids_sha256": "8ce9a763189a9732886572ac0c3c74c4fc6ba9a551fdb2da770ac419e348f6de",
+    "non_passing_statuses_explicit": [
+      "not_run",
+      "skipped"
+    ]
+  },
+  "mission_id": "ROADMAP_4X_MACRO_06_2_1",
+  "negative_control_coverage": {
+    "control_count": 24,
+    "coverage": "100_PERCENT",
+    "covered_count": 24,
+    "historical_control_set_sha256": "2fa160247c419e9555af126c1029080055a8e6cb4ffcdda9994ad1c0c94f6db4"
+  },
+  "primary_event_bundle_sha256": "320c33bca36ba17334f0757ee1a2b328e343b46c7676a5d80aeaf22b0448843e",
+  "protected_diff": [],
+  "remote_evidence_ceiling": {
+    "operator_action_required": true,
+    "state": "NOT_PROVEN"
+  },
+  "renderer_sha256": "2fa17d2b8a44b14f76d4f8aa898773b9c17f90327504f9ff5ff9ab6dfdc33cc2",
+  "report_version": "canonical_report.v2.2.1",
+  "validation_results": {
+    "ci-contract": "PASS",
+    "duplicate-key": "PASS",
+    "focal": "PASS",
+    "historical-byte-preservation": "PASS",
+    "historical-impact": "PASS",
+    "level-a": "PASS",
+    "level-b-terminal": "PASS",
+    "post-evidence": "PASS",
+    "postpublish": "PENDING_EXTERNAL_PUBLICATION",
+    "prelock": "PASS",
+    "py-compile": "PASS",
+    "red-reproduction": "PASS",
+    "secret-scan": "PASS",
+    "strict-json": "PASS"
+  }
+}
