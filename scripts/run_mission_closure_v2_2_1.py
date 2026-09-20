@@ -139,7 +139,14 @@ def run_level_a(args: argparse.Namespace) -> dict[str, Any]:
         os.chdir(old_cwd)
     completed = now_iso()
     nodeids = plugin.nodeids
-    results = [plugin.results[nodeid] for nodeid in nodeids]
+    results = []
+    for nodeid in nodeids:
+        result = plugin.results[nodeid]
+        if result.get("setup") == "skipped":
+            result.setdefault("call", "not_run")
+        for phase in ("setup", "call", "teardown"):
+            result.setdefault(phase, "not_run")
+        results.append(result)
     collection = {
         "level_a_manifest_version": "level_a_collection.v2.2.1",
         "collection_command": "python -m pytest tests/ -q --disable-warnings",
