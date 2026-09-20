@@ -1,10 +1,10 @@
 {
   "allowlist_sha256": "4984243749a14547da87605f0e6d651d7b139b2deef3d3621163d46f05e8cca9",
-  "artifact_manifest_sha256": "cc1f0a35ebeea3b2fc034590d42f1caac0faabcd21d174e73399e3dc883f3f89",
+  "artifact_manifest_sha256": "694c0dc6b7a47bc997c97645eefa50de8d035fb437534763e49bd3b70b94d7bf",
   "closure_decision": "CLOSED",
-  "completed_at": "2026-09-19T21:18:54.305205-03:00",
+  "completed_at": "2026-09-19T21:29:18.888670-03:00",
   "computed_scope_sha256": "88aebeb4e9b2292bd9b38d50444641da39fe7b41588031a99e5aebc01f3cef9e",
-  "evidence_sha256": "81e225b385bf9e14d933671834c706bbbbfde8838528b960463ed6f11469d948",
+  "evidence_sha256": "ff8a0f0ae09dffc53b4a690209b24b929f294935a89e7276d959f8e7cf5b1e23",
   "exit_code": 0,
   "gate_version": "mission_closure_gate.v2.2",
   "kind": "POST_EVIDENCE",
@@ -13,19 +13,19 @@
   "policy_version": "mission_policy.v2.2",
   "protected_diff_sha256": "789331089d1adbcfa5121f42a6dd723ea5a65ecc5dce369c7401569a9d7817fe",
   "publication_lineage": {
-    "documentary_lock_parent": "8bf79015deee831752f5553a083d44c9d07afbc4",
-    "functional_publication_head": "8bf79015deee831752f5553a083d44c9d07afbc4"
+    "documentary_lock_parent": "77ac332968ee0b908fcdc1e880b317e9505180ce",
+    "functional_publication_head": "77ac332968ee0b908fcdc1e880b317e9505180ce"
   },
-  "receipt_sha256": "3e4f59f6e0b22e644ea07034caa638dff5d6aa98a4d4a4bdf1e4dfdf912d3503",
+  "receipt_sha256": "f4054775af6e5efd231ab2f56fb9c6e913ecdc5dbe5e310064dd5f88546dfaf4",
   "receipt_version": "mission_closure_receipt.v2.2",
   "remote_enforcement": {
     "operator_action_required": true,
     "required_check_name": "closure-policy-and-anti-weakening",
     "state": "NOT_PROVEN"
   },
-  "repository_head": "8bf79015deee831752f5553a083d44c9d07afbc4",
-  "started_at": "2026-09-19T21:18:52.948826-03:00",
-  "validation_basis": "8bf79015deee831752f5553a083d44c9d07afbc4",
-  "wall_seconds": 1.356379,
+  "repository_head": "77ac332968ee0b908fcdc1e880b317e9505180ce",
+  "started_at": "2026-09-19T21:29:17.767779-03:00",
+  "validation_basis": "77ac332968ee0b908fcdc1e880b317e9505180ce",
+  "wall_seconds": 1.120891,
   "working_tree_state": "DOCUMENTARY_PHASE"
 }

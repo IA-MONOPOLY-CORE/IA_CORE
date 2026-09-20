@@ -1,32 +1,32 @@
 {
   "allowlist_sha256": "4984243749a14547da87605f0e6d651d7b139b2deef3d3621163d46f05e8cca9",
-  "artifact_manifest_sha256": "cc1f0a35ebeea3b2fc034590d42f1caac0faabcd21d174e73399e3dc883f3f89",
+  "artifact_manifest_sha256": "694c0dc6b7a47bc997c97645eefa50de8d035fb437534763e49bd3b70b94d7bf",
   "closure_decision": "CLOSED",
-  "completed_at": "2026-09-19T21:19:02.256045-03:00",
+  "completed_at": "2026-09-19T21:29:20.229141-03:00",
   "computed_scope_sha256": "2e4b96e55ef4cf097619165dbc70d291cc6b51c9775d9ac6d69680e0653dc8ed",
-  "evidence_sha256": "81e225b385bf9e14d933671834c706bbbbfde8838528b960463ed6f11469d948",
+  "evidence_sha256": "ff8a0f0ae09dffc53b4a690209b24b929f294935a89e7276d959f8e7cf5b1e23",
   "exit_code": 0,
   "gate_version": "mission_closure_gate.v2.2",
   "kind": "PRELOCK",
   "mission": "ROADMAP_4X_MACRO_06_2",
   "policy_sha256": "e2066201c16061fd953cd5688b7c71588fd07db1fadce09ea84f6eb9e09fe294",
   "policy_version": "mission_policy.v2.2",
-  "post_evidence_receipt_sha256": "90800ccf9757ec803da036a445006ed7a70b356a0e28b9692531304bd1269cad",
+  "post_evidence_receipt_sha256": "503e2e3bf3802723f4f10aed7d0354848f2505201983e0b340544aaa13418ae0",
   "protected_diff_sha256": "789331089d1adbcfa5121f42a6dd723ea5a65ecc5dce369c7401569a9d7817fe",
   "publication_lineage": {
-    "documentary_lock_parent": "8bf79015deee831752f5553a083d44c9d07afbc4",
-    "functional_publication_head": "8bf79015deee831752f5553a083d44c9d07afbc4"
+    "documentary_lock_parent": "77ac332968ee0b908fcdc1e880b317e9505180ce",
+    "functional_publication_head": "77ac332968ee0b908fcdc1e880b317e9505180ce"
   },
-  "receipt_sha256": "2128ae3ce850125d201f82b9e100fb014c23ab1f32a9a40eb95617079eb973aa",
+  "receipt_sha256": "31dacb69abf3606a7fb555137f1434e98dea41a0a7c1d479889223753fb1839c",
   "receipt_version": "mission_closure_receipt.v2.2",
   "remote_enforcement": {
     "operator_action_required": true,
     "required_check_name": "closure-policy-and-anti-weakening",
     "state": "NOT_PROVEN"
   },
-  "repository_head": "8bf79015deee831752f5553a083d44c9d07afbc4",
-  "started_at": "2026-09-19T21:19:00.432108-03:00",
-  "validation_basis": "8bf79015deee831752f5553a083d44c9d07afbc4",
-  "wall_seconds": 1.823937,
+  "repository_head": "77ac332968ee0b908fcdc1e880b317e9505180ce",
+  "started_at": "2026-09-19T21:29:19.058620-03:00",
+  "validation_basis": "77ac332968ee0b908fcdc1e880b317e9505180ce",
+  "wall_seconds": 1.170521,
   "working_tree_state": "DOCUMENTARY_PHASE"
 }
