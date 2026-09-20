@@ -1,11 +1,11 @@
 {
   "binding_version": "assurance_trust_root_binding.v2.2.2",
-  "final_validation_basis": "171f66516dd9905b17c50da55772be845abacace",
+  "final_validation_basis": "1e2b4df49a6b23c9dcf473701d04a6c17e7801bb",
   "trust_root_definition_sha256": "6397610d6083abc791434d643048fd1ad88e53adcab67c6edb704c87d9a3e3e7",
   "trust_root_definition_tree_path": "docs/ROADMAP_4X_MACRO_06_2_2_TRUST_ROOT_DEFINITION.json",
   "trust_root_definition_tree_blob_sha256": "23a13a3c1e81bd5d57aa2e41af63408f24fcac98",
   "final_validation_basis_tree_membership_proof": {
-    "commit": "171f66516dd9905b17c50da55772be845abacace",
+    "commit": "1e2b4df49a6b23c9dcf473701d04a6c17e7801bb",
     "tree_path": "docs/ROADMAP_4X_MACRO_06_2_2_TRUST_ROOT_DEFINITION.json",
     "tree_blob_sha256": "23a13a3c1e81bd5d57aa2e41af63408f24fcac98"
   },
