@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "ia-core://roadmap-4x-macro-06-2-3/receipt",
+  "title": "V2.2.3 recomputable receipt",
+  "type": "object",
+  "required": ["receipt_version", "receipt_id", "artifact_logical_id", "artifact_sha256", "artifact_byte_length", "schema_id", "schema_sha256", "validator_id", "validator_sha256", "derived_result", "causal_reason", "observed_violations", "receipt_sha256"],
+  "properties": {
+    "receipt_version": {"const": "receipt.v2.2.3"},
+    "receipt_id": {"type": "string", "minLength": 1},
+    "artifact_logical_id": {"type": "string", "minLength": 1},
+    "artifact_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "artifact_byte_length": {"type": "integer", "minimum": 0},
+    "schema_id": {"type": "string", "minLength": 1},
+    "schema_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "validator_id": {"type": "string", "minLength": 1},
+    "validator_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "derived_result": {"enum": ["PASS", "FAIL", "NOT_PROVEN"]},
+    "causal_reason": {"type": "string", "minLength": 1},
+    "observed_violations": {"type": "array"},
+    "receipt_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+  },
+  "additionalProperties": true
+}

@@ -1,0 +1,50 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "schema_version": "mission_policy.v2.2.3",
+  "mission_id": "ROADMAP_4X_MACRO_06_2_3",
+  "baseline": "d4377aff4719c7b43b2cecf952cf2ad86e93c753",
+  "branch": "main",
+  "current_method_version": "3.2.9",
+  "target_method_version": "3.2.10",
+  "predecessor_state": "V2_2_2_ACCEPTED_HISTORICAL_NOT_REPAIRED_RETROACTIVELY",
+  "allowed_change_paths": [
+    "scripts/closure_assurance_v2_2_3.py",
+    "scripts/run_mission_closure_v2_2_3.py",
+    "scripts/render_canonical_report_v2_2_3.py",
+    "scripts/validate_mission_closure_v2_2_3.py",
+    "scripts/run_mission_closure_v2_2_3_red_reproduction.py",
+    "tests/test_mission_closure_gate_v2_2_3.py",
+    "tests/test_mission_closure_gate_v2_2_3_ci_contract.py",
+    ".github/workflows/ci.yml",
+    "docs/MISSION_CLOSURE_POLICY_V2_2_3.json",
+    "docs/MISSION_CLOSURE_GATE_V2_2_3_CONTRACT.md",
+    "docs/ROADMAP_4X_MACRO_06_2_3_",
+    "docs/METHOD_SANTI_3_2_10_"
+  ],
+  "protected_surfaces": [
+    "product", "runtime", "execution", "backend", "payload", "endpoints", "integrations",
+    "auth", "tenancy", "HTML", "CSS", "JavaScript contractual", "i18n", "widgets",
+    "Request Draft Panel", "P0", "P1", "P3", "VERO runtime", "FIRE runtime"
+  ],
+  "dependency_policy": {
+    "distribution": "jsonschema",
+    "version": "4.26.0",
+    "source": "requirements.txt",
+    "scope": "DEV_TEST_ONLY",
+    "draft_dialect": "https://json-schema.org/draft/2020-12/schema"
+  },
+  "required_controls": [
+    "EXACT_VALIDATION_COMPONENT_BINDING",
+    "CANONICAL_AUTHORITY_READ_BACK",
+    "POST_BASIS_CAUSAL_ORDERING",
+    "PACKAGE_INTEGRITY_EXTERNALITY"
+  ],
+  "remote_enforcement": {
+    "state": "NOT_PROVEN",
+    "operator_action_required": true
+  },
+  "p3": "SELECTED_NOT_STARTED",
+  "vero_runtime": "NOT_IMPLEMENTED",
+  "fire_runtime": "NOT_IMPLEMENTED",
+  "next_cursor": "VERO_FIRE_DEVELOPMENTAL_BOOTSTRAP_REPOSITORY_GROUNDED_ADJUDICATION_REQUIRED_NOT_STARTED"
+}

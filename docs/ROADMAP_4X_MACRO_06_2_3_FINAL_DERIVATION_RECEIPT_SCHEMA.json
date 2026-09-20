@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "ia-core://roadmap-4x-macro-06-2-3/final-derivation-receipt",
+  "title": "V2.2.3 pure final derivation receipt",
+  "type": "object",
+  "required": ["receipt_version", "derived_closure_candidate", "pre_activation_evidence_completeness_candidate", "checks", "used_validation_component_trace_sha256"],
+  "properties": {
+    "receipt_version": {"const": "final_derivation_receipt.v2.2.3"},
+    "derived_closure_candidate": {"enum": ["CLOSED", "NOT_CLOSED"]},
+    "pre_activation_evidence_completeness_candidate": {"enum": ["PASS", "FAIL"]},
+    "checks": {"type": "object", "minProperties": 1},
+    "used_validation_component_trace_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+  },
+  "not": {"anyOf": [{"required": ["closure_decision"]}, {"required": ["authority_activation_state"]}, {"required": ["report_completeness_gate"]}]},
+  "additionalProperties": true
+}

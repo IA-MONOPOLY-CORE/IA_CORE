@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "ia-core://roadmap-4x-macro-06-2-3/live-envelope",
+  "title": "V2.2.3 governed live envelope",
+  "type": "object",
+  "required": ["artifact_type", "branch", "observed_local_head", "observed_origin_main", "ahead_count", "behind_count", "working_tree_clean", "fresh_fetch_receipt_sha256"],
+  "properties": {
+    "artifact_type": {"const": "live-envelope"},
+    "branch": {"const": "main"},
+    "observed_local_head": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+    "observed_origin_main": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+    "ahead_count": {"const": 0},
+    "behind_count": {"const": 0},
+    "working_tree_clean": {"const": true},
+    "fresh_fetch_receipt_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+  },
+  "not": {"anyOf": [{"required": ["closure_decision"]}, {"required": ["authority_activation_state"]}]},
+  "additionalProperties": true
+}

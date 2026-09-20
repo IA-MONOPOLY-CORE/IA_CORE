@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "ia-core://roadmap-4x-macro-06-2-3/canonical-report",
+  "title": "V2.2.3 canonical report",
+  "type": "object",
+  "required": ["artifact_type", "mission_id", "final_validation_basis", "evidence_lock_head", "protected_diff", "remote_evidence_ceiling"],
+  "properties": {
+    "artifact_type": {"const": "canonical-report"},
+    "mission_id": {"const": "ROADMAP_4X_MACRO_06_2_3"},
+    "final_validation_basis": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+    "evidence_lock_head": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+    "protected_diff": {"type": "array", "maxItems": 0},
+    "remote_evidence_ceiling": {"type": "object", "required": ["state"], "properties": {"state": {"const": "NOT_PROVEN"}}, "additionalProperties": true}
+  },
+  "not": {"anyOf": [{"required": ["closure_decision"]}, {"required": ["authority_activation_state"]}, {"required": ["report_completeness_gate"]}]},
+  "additionalProperties": true
+}

@@ -1,0 +1,14 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "ia-core://roadmap-4x-macro-06-2-3/terminal-payload",
+  "title": "V2.2.3 terminal activation payload",
+  "type": "object",
+  "required": ["payload_version", "package_integrity_verification", "final_derivation_receipt_sha256", "activation_nonce"],
+  "properties": {
+    "payload_version": {"const": "terminal_authority_activation_payload.v2.2.3"},
+    "package_integrity_verification": {"const": "PASS"},
+    "final_derivation_receipt_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "activation_nonce": {"type": "string", "minLength": 16}
+  },
+  "additionalProperties": true
+}

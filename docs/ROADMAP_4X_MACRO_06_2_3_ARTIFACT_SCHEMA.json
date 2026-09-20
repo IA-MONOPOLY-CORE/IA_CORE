@@ -1,0 +1,11 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "ia-core://roadmap-4x-macro-06-2-3/critical-artifact",
+  "title": "V2.2.3 critical artifact envelope",
+  "type": "object",
+  "required": ["artifact_type"],
+  "properties": {
+    "artifact_type": {"type": "string", "minLength": 1}
+  },
+  "additionalProperties": true
+}
