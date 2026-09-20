@@ -1,0 +1,20 @@
+{
+  "allowlist_sha256": "4984243749a14547da87605f0e6d651d7b139b2deef3d3621163d46f05e8cca9",
+  "closure_decision": "CLOSED",
+  "completed_at": "2026-09-19T21:07:20.019667-03:00",
+  "computed_scope_sha256": "c36b682b8dd936d434645a74222b5955dcb16a8b9e4ef44a4e4e4445ee025404",
+  "evidence_sha256": "e9dc328e5431b0716b2bb21137338ec295af254bf7cd5695534c0bb2f31ad7e0",
+  "exit_code": 0,
+  "gate_version": "mission_closure_gate.v2.2",
+  "kind": "POST_EVIDENCE",
+  "mission": "ROADMAP_4X_MACRO_06_2",
+  "policy_sha256": "e2066201c16061fd953cd5688b7c71588fd07db1fadce09ea84f6eb9e09fe294",
+  "policy_version": "mission_policy.v2.2",
+  "protected_diff_sha256": "789331089d1adbcfa5121f42a6dd723ea5a65ecc5dce369c7401569a9d7817fe",
+  "receipt_sha256": "aa2684c4630b3ff65179b27335a385d8d924a26c6f26fd9ad7adba8b6db6b254",
+  "receipt_version": "mission_closure_receipt.v2.2",
+  "repository_head": "5d69f70be0847ff4f28fa3bcc2cdcb9dc6c8372a",
+  "started_at": "2026-09-19T21:07:18.342196-03:00",
+  "validation_basis": "5d69f70be0847ff4f28fa3bcc2cdcb9dc6c8372a",
+  "wall_seconds": 1.677471
+}

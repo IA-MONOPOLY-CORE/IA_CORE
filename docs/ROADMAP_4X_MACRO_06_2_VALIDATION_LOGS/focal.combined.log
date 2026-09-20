@@ -1,0 +1,8 @@
+................                                                         [100%]
+============================== warnings summary ===============================
+tests/test_mission_closure_gate_v2_2.py::test_v2_2_policy_and_schema_are_valid
+  C:\Users\Santi\AppData\Local\Programs\Python\Python311\Lib\site-packages\opentelemetry\util\_importlib_metadata.py:32: DeprecationWarning: SelectableGroups dict interface is deprecated. Use select.
+    return EntryPoints(ep for group_eps in eps.values() for ep in group_eps)
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+16 passed, 1 warning in 22.02s

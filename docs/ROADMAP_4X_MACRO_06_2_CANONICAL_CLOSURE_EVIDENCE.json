@@ -1,0 +1,1148 @@
+{
+  "artifacts": [
+    {
+      "kind": "VALIDATION_LOG",
+      "path": "docs/ROADMAP_4X_MACRO_06_2_VALIDATION_LOGS/focal.stdout.log",
+      "sha256": "a45ac712b8ae33e86cd72f907bf2efa5ad2ff773bf9d903afa4e24152c66a299"
+    },
+    {
+      "kind": "VALIDATION_LOG",
+      "path": "docs/ROADMAP_4X_MACRO_06_2_VALIDATION_LOGS/focal.stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "kind": "VALIDATION_LOG",
+      "path": "docs/ROADMAP_4X_MACRO_06_2_VALIDATION_LOGS/focal.combined.log",
+      "sha256": "a45ac712b8ae33e86cd72f907bf2efa5ad2ff773bf9d903afa4e24152c66a299"
+    },
+    {
+      "kind": "VALIDATION_RECEIPT",
+      "path": "docs/ROADMAP_4X_MACRO_06_2_VALIDATION_LOGS/focal.receipt.json",
+      "sha256": "ca89f1f5088cf0081ab964ced29bca0788cf9b2025b863429a38732336840c7b"
+    },
+    {
+      "kind": "VALIDATION_LOG",
+      "path": "docs/ROADMAP_4X_MACRO_06_2_VALIDATION_LOGS/historical.stdout.log",
+      "sha256": "0ed7563b40d203686e0fedf4e0fac3fae8cf198f31306f6941f7b20e99ba30ac"
+    },
+    {
+      "kind": "VALIDATION_LOG",
+      "path": "docs/ROADMAP_4X_MACRO_06_2_VALIDATION_LOGS/historical.stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "kind": "VALIDATION_LOG",
+      "path": "docs/ROADMAP_4X_MACRO_06_2_VALIDATION_LOGS/historical.combined.log",
+      "sha256": "0ed7563b40d203686e0fedf4e0fac3fae8cf198f31306f6941f7b20e99ba30ac"
+    },
+    {
+      "kind": "VALIDATION_RECEIPT",
+      "path": "docs/ROADMAP_4X_MACRO_06_2_VALIDATION_LOGS/historical.receipt.json",
+      "sha256": "bd6b35453d65f1e71f339f9fbc5df09bd896292f9a451ac83881d3dfbfc5a5e7"
+    },
+    {
+      "kind": "VALIDATION_LOG",
+      "path": "docs/ROADMAP_4X_MACRO_06_2_VALIDATION_LOGS/level-a.stdout.log",
+      "sha256": "befe8980b2ce295709d008c0c31a6d54cea64bc93d027b9446502afb41546957"
+    },
+    {
+      "kind": "VALIDATION_LOG",
+      "path": "docs/ROADMAP_4X_MACRO_06_2_VALIDATION_LOGS/level-a.stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "kind": "VALIDATION_LOG",
+      "path": "docs/ROADMAP_4X_MACRO_06_2_VALIDATION_LOGS/level-a.combined.log",
+      "sha256": "befe8980b2ce295709d008c0c31a6d54cea64bc93d027b9446502afb41546957"
+    },
+    {
+      "kind": "VALIDATION_RECEIPT",
+      "path": "docs/ROADMAP_4X_MACRO_06_2_VALIDATION_LOGS/level-a.receipt.json",
+      "sha256": "60f9a7d1a04be87e80e4f49fe46d19246400fe305b9bdf25e7ace13c95c8ae65"
+    },
+    {
+      "kind": "VALIDATION_LOG",
+      "path": "docs/ROADMAP_4X_MACRO_06_2_VALIDATION_LOGS/level-b.stdout.log",
+      "sha256": "de03a3bdc84a6b4b89ac5e3f15a21697eec1f57e096c3af3d0df4236778cc902"
+    },
+    {
+      "kind": "VALIDATION_LOG",
+      "path": "docs/ROADMAP_4X_MACRO_06_2_VALIDATION_LOGS/level-b.stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "kind": "VALIDATION_LOG",
+      "path": "docs/ROADMAP_4X_MACRO_06_2_VALIDATION_LOGS/level-b.combined.log",
+      "sha256": "de03a3bdc84a6b4b89ac5e3f15a21697eec1f57e096c3af3d0df4236778cc902"
+    },
+    {
+      "kind": "VALIDATION_RECEIPT",
+      "path": "docs/ROADMAP_4X_MACRO_06_2_VALIDATION_LOGS/level-b.receipt.json",
+      "sha256": "980e5ede574de6ac7c2654d037a74a3042734f956dcf22a615530923b416d9b5"
+    }
+  ],
+  "assurance_claims": [
+    "V1, V2 and V2.1 historical bytes are preserved.",
+    "The final basis was validated by exactly one successful terminal Level B.",
+    "All four post-basis Git surfaces were inspected independently.",
+    "All receipts bind to durable log bytes and recompute correctly.",
+    "The deterministic report is repeat-renderable.",
+    "Organizational Reconstruction is preserved as a documentary candidate only.",
+    "P3 is selected but not started; VERO and FIRE runtimes are not implemented."
+  ],
+  "baseline": "165748697185feb89bb0902be62333c28b1b0b2c",
+  "branch": "main",
+  "closure_state": "GOVERNED_CLOSURE_CONFIRMED",
+  "commits": [
+    {
+      "files": [
+        "scripts/run_mission_closure_v2_2_red_reproduction.py"
+      ],
+      "hash": "66f809c115ad722546daeccc31a5af75845d662a",
+      "parent": "165748697185feb89bb0902be62333c28b1b0b2c",
+      "purpose": "Preserve red reproduction before repair.",
+      "rollback": "Revert reproduction only.",
+      "station": "R1_RED_REPRODUCTION",
+      "subject": "test(closure): reproduce macro 06.2 v2.1 gaps",
+      "validation": "Expected exit 1; three concrete gaps reproduced."
+    },
+    {
+      "files": [
+        "docs/ROADMAP_4X_MACRO_06_2_RED_REPRODUCTION.md"
+      ],
+      "hash": "b793fcf7ca565b2b0c2162a41d5ac3fed1f8e010",
+      "parent": "66f809c115ad722546daeccc31a5af75845d662a",
+      "purpose": "Preserve red execution receipt.",
+      "rollback": "Revert documentary red receipt only.",
+      "station": "R1_RED_EVIDENCE",
+      "subject": "docs(closure): preserve macro 06.2 red evidence",
+      "validation": "Receipt records expected exit 1 and log hash."
+    },
+    {
+      "files": [
+        ".github/workflows/ci.yml",
+        "docs/FUTURE_ORGANIZATIONAL_RECONSTRUCTION_AND_STRUCTURED_ENTERPRISE_DISCOVERY.md",
+        "docs/METHOD_SANTI_3_2_7_TERMINAL_VALIDATION_AUTHORITY.md",
+        "docs/MISSION_CLOSURE_GATE_V2_2_CONTRACT.md",
+        "docs/MISSION_CLOSURE_POLICY_SCHEMA_V2_2.json",
+        "docs/ROADMAP_4X_MACRO_06_2_MISSION_POLICY.json",
+        "docs/ROADMAP_4X_MACRO_06_2_NEGATIVE_CONTROL_MATRIX.md",
+        "docs/ROADMAP_4X_MACRO_06_2_ROOT_CAUSE_AND_RECURRENCE_PREVENTION.md",
+        "scripts/run_mission_closure_v2_2.py",
+        "scripts/run_mission_validation_v2_2.py",
+        "scripts/validate_mission_closure_v2_2.py",
+        "tests/historical_test_context.py",
+        "tests/test_mission_closure_gate_v2_2.py",
+        "tests/test_mission_closure_gate_v2_2_ci_contract.py",
+        "tests/test_mission_closure_gate_v2_2_git.py",
+        "tests/test_mission_closure_gate_v2_2_terminal.py",
+        "tests/test_mission_closure_historical_compatibility_v2_2.py",
+        "tests/test_roadmap_4x_macro_05_p1_internal_family_closure.py"
+      ],
+      "hash": "252ba8b915b7ff67868a50917d7858ee8ff8b9f8",
+      "parent": "b793fcf7ca565b2b0c2162a41d5ac3fed1f8e010",
+      "purpose": "Install V2.2 authority, CI, tests and exact historical continuity.",
+      "rollback": "Revert method infrastructure and establish a new basis.",
+      "station": "R2_V2_2_IMPLEMENTATION",
+      "subject": "feat(closure): install v2.2 terminal validation authority",
+      "validation": "Focal, historical, static and py_compile checks passed before basis repair."
+    },
+    {
+      "files": [
+        "docs/ROADMAP_4X_MACRO_06_2_MISSION_POLICY.json"
+      ],
+      "hash": "5d69f70be0847ff4f28fa3bcc2cdcb9dc6c8372a",
+      "parent": "252ba8b915b7ff67868a50917d7858ee8ff8b9f8",
+      "purpose": "Permit durable preterminal logs without widening product scope.",
+      "rollback": "Revert bounded documentary allowlist repair and invalidate basis.",
+      "station": "R3_BASIS_REPAIR",
+      "subject": "fix(closure): bind all preterminal logs to v2.2 allowlist",
+      "validation": "New basis revalidated before terminal Level B."
+    },
+    {
+      "files": [
+        "docs/ROADMAP_4X_MACRO_06_2_EXECUTION_JOURNAL.md",
+        "docs/ROADMAP_4X_MACRO_06_2_EXECUTION_METRICS.md",
+        "docs/ROADMAP_4X_MACRO_06_2_COMMIT_ACCOUNTABILITY_LEDGER.md",
+        "docs/ROADMAP_4X_MACRO_06_2_CANONICAL_CLOSURE_EVIDENCE.json",
+        "docs/ROADMAP_4X_MACRO_06_2_CLOSURE_CHECKPOINT.md",
+        "docs/ROADMAP_4X_MACRO_06_2_POST_EVIDENCE_RECEIPT.json",
+        "docs/ROADMAP_4X_MACRO_06_2_PRELOCK_RECEIPT.json",
+        "docs/ROADMAP_4X_MACRO_06_2_VALIDATION_LOGS/focal.stdout.log",
+        "docs/ROADMAP_4X_MACRO_06_2_VALIDATION_LOGS/focal.stderr.log",
+        "docs/ROADMAP_4X_MACRO_06_2_VALIDATION_LOGS/focal.combined.log",
+        "docs/ROADMAP_4X_MACRO_06_2_VALIDATION_LOGS/focal.receipt.json",
+        "docs/ROADMAP_4X_MACRO_06_2_VALIDATION_LOGS/historical.stdout.log",
+        "docs/ROADMAP_4X_MACRO_06_2_VALIDATION_LOGS/historical.stderr.log",
+        "docs/ROADMAP_4X_MACRO_06_2_VALIDATION_LOGS/historical.combined.log",
+        "docs/ROADMAP_4X_MACRO_06_2_VALIDATION_LOGS/historical.receipt.json",
+        "docs/ROADMAP_4X_MACRO_06_2_VALIDATION_LOGS/level-a.stdout.log",
+        "docs/ROADMAP_4X_MACRO_06_2_VALIDATION_LOGS/level-a.stderr.log",
+        "docs/ROADMAP_4X_MACRO_06_2_VALIDATION_LOGS/level-a.combined.log",
+        "docs/ROADMAP_4X_MACRO_06_2_VALIDATION_LOGS/level-a.receipt.json",
+        "docs/ROADMAP_4X_MACRO_06_2_VALIDATION_LOGS/level-b.stdout.log",
+        "docs/ROADMAP_4X_MACRO_06_2_VALIDATION_LOGS/level-b.stderr.log",
+        "docs/ROADMAP_4X_MACRO_06_2_VALIDATION_LOGS/level-b.combined.log",
+        "docs/ROADMAP_4X_MACRO_06_2_VALIDATION_LOGS/level-b.receipt.json"
+      ],
+      "hash": "DOCUMENTARY_LOCK_SELF_REFERENCE",
+      "parent": "5d69f70be0847ff4f28fa3bcc2cdcb9dc6c8372a",
+      "purpose": "Materialize allowlisted evidence, receipts and closure documents after terminal Level B.",
+      "rollback": "Revert allowlisted documentation only; executable basis remains frozen.",
+      "station": "R4_DOCUMENTARY_LOCK",
+      "subject": "docs(closure): finalize macro 06.2 documentary lock",
+      "validation": "Postpublish renderer validates hashes, lineage and Git state."
+    }
+  ],
+  "contract_version": "mission_closure_evidence.v2.2",
+  "documentary_lock_head": "POSTPUBLISH_ENVELOPE",
+  "documentary_lock_parent": "5d69f70be0847ff4f28fa3bcc2cdcb9dc6c8372a",
+  "expected_external_state": "DEFAULT_DENIED_AND_REMOTE_RULESET_NOT_PROVEN",
+  "external_exposure": "DEFAULT_DENIED",
+  "failures": [
+    {
+      "commit": "66f809c115ad722546daeccc31a5af75845d662a",
+      "failure_id": "RED-062-001",
+      "phase": "red-reproduction",
+      "result": "REPRODUCED"
+    },
+    {
+      "commit": "66f809c115ad722546daeccc31a5af75845d662a",
+      "failure_id": "RED-062-002",
+      "phase": "red-reproduction",
+      "result": "REPRODUCED"
+    },
+    {
+      "commit": "66f809c115ad722546daeccc31a5af75845d662a",
+      "failure_id": "RED-062-003",
+      "phase": "red-reproduction",
+      "result": "REPRODUCED"
+    }
+  ],
+  "files": [
+    {
+      "category": "CONFIGURATION",
+      "change": "Macro 06.2 closure-method or documentary evidence artifact.",
+      "commit": "252ba8b915b7ff67868a50917d7858ee8ff8b9f8",
+      "path": ".github/workflows/ci.yml",
+      "protected_surface_classification": "METHOD_OR_DOCUMENTARY_ONLY",
+      "reason": "Authorized by Macro-Mission 06.2 and bounded by the exact allowlist."
+    },
+    {
+      "category": "DOCUMENTARY_ONLY",
+      "change": "Macro 06.2 closure-method or documentary evidence artifact.",
+      "commit": "252ba8b915b7ff67868a50917d7858ee8ff8b9f8",
+      "path": "docs/FUTURE_ORGANIZATIONAL_RECONSTRUCTION_AND_STRUCTURED_ENTERPRISE_DISCOVERY.md",
+      "protected_surface_classification": "METHOD_OR_DOCUMENTARY_ONLY",
+      "reason": "Authorized by Macro-Mission 06.2 and bounded by the exact allowlist."
+    },
+    {
+      "category": "DOCUMENTARY_ONLY",
+      "change": "Macro 06.2 closure-method or documentary evidence artifact.",
+      "commit": "252ba8b915b7ff67868a50917d7858ee8ff8b9f8",
+      "path": "docs/METHOD_SANTI_3_2_7_TERMINAL_VALIDATION_AUTHORITY.md",
+      "protected_surface_classification": "METHOD_OR_DOCUMENTARY_ONLY",
+      "reason": "Authorized by Macro-Mission 06.2 and bounded by the exact allowlist."
+    },
+    {
+      "category": "DOCUMENTARY_ONLY",
+      "change": "Macro 06.2 closure-method or documentary evidence artifact.",
+      "commit": "252ba8b915b7ff67868a50917d7858ee8ff8b9f8",
+      "path": "docs/MISSION_CLOSURE_GATE_V2_2_CONTRACT.md",
+      "protected_surface_classification": "METHOD_OR_DOCUMENTARY_ONLY",
+      "reason": "Authorized by Macro-Mission 06.2 and bounded by the exact allowlist."
+    },
+    {
+      "category": "DOCUMENTARY_ONLY",
+      "change": "Macro 06.2 closure-method or documentary evidence artifact.",
+      "commit": "252ba8b915b7ff67868a50917d7858ee8ff8b9f8",
+      "path": "docs/MISSION_CLOSURE_POLICY_SCHEMA_V2_2.json",
+      "protected_surface_classification": "METHOD_OR_DOCUMENTARY_ONLY",
+      "reason": "Authorized by Macro-Mission 06.2 and bounded by the exact allowlist."
+    },
+    {
+      "category": "EVIDENCE_ONLY",
+      "change": "Macro 06.2 closure-method or documentary evidence artifact.",
+      "commit": "DOCUMENTARY_LOCK_SELF_REFERENCE",
+      "path": "docs/ROADMAP_4X_MACRO_06_2_CANONICAL_CLOSURE_EVIDENCE.json",
+      "protected_surface_classification": "METHOD_OR_DOCUMENTARY_ONLY",
+      "reason": "Authorized by Macro-Mission 06.2 and bounded by the exact allowlist."
+    },
+    {
+      "category": "EVIDENCE_ONLY",
+      "change": "Macro 06.2 closure-method or documentary evidence artifact.",
+      "commit": "DOCUMENTARY_LOCK_SELF_REFERENCE",
+      "path": "docs/ROADMAP_4X_MACRO_06_2_CLOSURE_CHECKPOINT.md",
+      "protected_surface_classification": "METHOD_OR_DOCUMENTARY_ONLY",
+      "reason": "Authorized by Macro-Mission 06.2 and bounded by the exact allowlist."
+    },
+    {
+      "category": "DOCUMENTARY_ONLY",
+      "change": "Macro 06.2 closure-method or documentary evidence artifact.",
+      "commit": "DOCUMENTARY_LOCK_SELF_REFERENCE",
+      "path": "docs/ROADMAP_4X_MACRO_06_2_COMMIT_ACCOUNTABILITY_LEDGER.md",
+      "protected_surface_classification": "METHOD_OR_DOCUMENTARY_ONLY",
+      "reason": "Authorized by Macro-Mission 06.2 and bounded by the exact allowlist."
+    },
+    {
+      "category": "DOCUMENTARY_ONLY",
+      "change": "Macro 06.2 closure-method or documentary evidence artifact.",
+      "commit": "DOCUMENTARY_LOCK_SELF_REFERENCE",
+      "path": "docs/ROADMAP_4X_MACRO_06_2_EXECUTION_JOURNAL.md",
+      "protected_surface_classification": "METHOD_OR_DOCUMENTARY_ONLY",
+      "reason": "Authorized by Macro-Mission 06.2 and bounded by the exact allowlist."
+    },
+    {
+      "category": "DOCUMENTARY_ONLY",
+      "change": "Macro 06.2 closure-method or documentary evidence artifact.",
+      "commit": "DOCUMENTARY_LOCK_SELF_REFERENCE",
+      "path": "docs/ROADMAP_4X_MACRO_06_2_EXECUTION_METRICS.md",
+      "protected_surface_classification": "METHOD_OR_DOCUMENTARY_ONLY",
+      "reason": "Authorized by Macro-Mission 06.2 and bounded by the exact allowlist."
+    },
+    {
+      "category": "DOCUMENTARY_ONLY",
+      "change": "Macro 06.2 closure-method or documentary evidence artifact.",
+      "commit": "5d69f70be0847ff4f28fa3bcc2cdcb9dc6c8372a",
+      "path": "docs/ROADMAP_4X_MACRO_06_2_MISSION_POLICY.json",
+      "protected_surface_classification": "METHOD_OR_DOCUMENTARY_ONLY",
+      "reason": "Authorized by Macro-Mission 06.2 and bounded by the exact allowlist."
+    },
+    {
+      "category": "DOCUMENTARY_ONLY",
+      "change": "Macro 06.2 closure-method or documentary evidence artifact.",
+      "commit": "252ba8b915b7ff67868a50917d7858ee8ff8b9f8",
+      "path": "docs/ROADMAP_4X_MACRO_06_2_NEGATIVE_CONTROL_MATRIX.md",
+      "protected_surface_classification": "METHOD_OR_DOCUMENTARY_ONLY",
+      "reason": "Authorized by Macro-Mission 06.2 and bounded by the exact allowlist."
+    },
+    {
+      "category": "EVIDENCE_ONLY",
+      "change": "Macro 06.2 closure-method or documentary evidence artifact.",
+      "commit": "DOCUMENTARY_LOCK_SELF_REFERENCE",
+      "path": "docs/ROADMAP_4X_MACRO_06_2_POST_EVIDENCE_RECEIPT.json",
+      "protected_surface_classification": "METHOD_OR_DOCUMENTARY_ONLY",
+      "reason": "Authorized by Macro-Mission 06.2 and bounded by the exact allowlist."
+    },
+    {
+      "category": "EVIDENCE_ONLY",
+      "change": "Macro 06.2 closure-method or documentary evidence artifact.",
+      "commit": "DOCUMENTARY_LOCK_SELF_REFERENCE",
+      "path": "docs/ROADMAP_4X_MACRO_06_2_PRELOCK_RECEIPT.json",
+      "protected_surface_classification": "METHOD_OR_DOCUMENTARY_ONLY",
+      "reason": "Authorized by Macro-Mission 06.2 and bounded by the exact allowlist."
+    },
+    {
+      "category": "DOCUMENTARY_ONLY",
+      "change": "Macro 06.2 closure-method or documentary evidence artifact.",
+      "commit": "b793fcf7ca565b2b0c2162a41d5ac3fed1f8e010",
+      "path": "docs/ROADMAP_4X_MACRO_06_2_RED_REPRODUCTION.md",
+      "protected_surface_classification": "METHOD_OR_DOCUMENTARY_ONLY",
+      "reason": "Authorized by Macro-Mission 06.2 and bounded by the exact allowlist."
+    },
+    {
+      "category": "DOCUMENTARY_ONLY",
+      "change": "Macro 06.2 closure-method or documentary evidence artifact.",
+      "commit": "252ba8b915b7ff67868a50917d7858ee8ff8b9f8",
+      "path": "docs/ROADMAP_4X_MACRO_06_2_ROOT_CAUSE_AND_RECURRENCE_PREVENTION.md",
+      "protected_surface_classification": "METHOD_OR_DOCUMENTARY_ONLY",
+      "reason": "Authorized by Macro-Mission 06.2 and bounded by the exact allowlist."
+    },
+    {
+      "category": "DOCUMENTARY_ONLY",
+      "change": "Macro 06.2 closure-method or documentary evidence artifact.",
+      "commit": "DOCUMENTARY_LOCK_SELF_REFERENCE",
+      "path": "docs/ROADMAP_4X_MACRO_06_2_VALIDATION_LOGS/focal.combined.log",
+      "protected_surface_classification": "METHOD_OR_DOCUMENTARY_ONLY",
+      "reason": "Authorized by Macro-Mission 06.2 and bounded by the exact allowlist."
+    },
+    {
+      "category": "EVIDENCE_ONLY",
+      "change": "Macro 06.2 closure-method or documentary evidence artifact.",
+      "commit": "DOCUMENTARY_LOCK_SELF_REFERENCE",
+      "path": "docs/ROADMAP_4X_MACRO_06_2_VALIDATION_LOGS/focal.receipt.json",
+      "protected_surface_classification": "METHOD_OR_DOCUMENTARY_ONLY",
+      "reason": "Authorized by Macro-Mission 06.2 and bounded by the exact allowlist."
+    },
+    {
+      "category": "DOCUMENTARY_ONLY",
+      "change": "Macro 06.2 closure-method or documentary evidence artifact.",
+      "commit": "DOCUMENTARY_LOCK_SELF_REFERENCE",
+      "path": "docs/ROADMAP_4X_MACRO_06_2_VALIDATION_LOGS/focal.stderr.log",
+      "protected_surface_classification": "METHOD_OR_DOCUMENTARY_ONLY",
+      "reason": "Authorized by Macro-Mission 06.2 and bounded by the exact allowlist."
+    },
+    {
+      "category": "DOCUMENTARY_ONLY",
+      "change": "Macro 06.2 closure-method or documentary evidence artifact.",
+      "commit": "DOCUMENTARY_LOCK_SELF_REFERENCE",
+      "path": "docs/ROADMAP_4X_MACRO_06_2_VALIDATION_LOGS/focal.stdout.log",
+      "protected_surface_classification": "METHOD_OR_DOCUMENTARY_ONLY",
+      "reason": "Authorized by Macro-Mission 06.2 and bounded by the exact allowlist."
+    },
+    {
+      "category": "DOCUMENTARY_ONLY",
+      "change": "Macro 06.2 closure-method or documentary evidence artifact.",
+      "commit": "DOCUMENTARY_LOCK_SELF_REFERENCE",
+      "path": "docs/ROADMAP_4X_MACRO_06_2_VALIDATION_LOGS/historical.combined.log",
+      "protected_surface_classification": "METHOD_OR_DOCUMENTARY_ONLY",
+      "reason": "Authorized by Macro-Mission 06.2 and bounded by the exact allowlist."
+    },
+    {
+      "category": "EVIDENCE_ONLY",
+      "change": "Macro 06.2 closure-method or documentary evidence artifact.",
+      "commit": "DOCUMENTARY_LOCK_SELF_REFERENCE",
+      "path": "docs/ROADMAP_4X_MACRO_06_2_VALIDATION_LOGS/historical.receipt.json",
+      "protected_surface_classification": "METHOD_OR_DOCUMENTARY_ONLY",
+      "reason": "Authorized by Macro-Mission 06.2 and bounded by the exact allowlist."
+    },
+    {
+      "category": "DOCUMENTARY_ONLY",
+      "change": "Macro 06.2 closure-method or documentary evidence artifact.",
+      "commit": "DOCUMENTARY_LOCK_SELF_REFERENCE",
+      "path": "docs/ROADMAP_4X_MACRO_06_2_VALIDATION_LOGS/historical.stderr.log",
+      "protected_surface_classification": "METHOD_OR_DOCUMENTARY_ONLY",
+      "reason": "Authorized by Macro-Mission 06.2 and bounded by the exact allowlist."
+    },
+    {
+      "category": "DOCUMENTARY_ONLY",
+      "change": "Macro 06.2 closure-method or documentary evidence artifact.",
+      "commit": "DOCUMENTARY_LOCK_SELF_REFERENCE",
+      "path": "docs/ROADMAP_4X_MACRO_06_2_VALIDATION_LOGS/historical.stdout.log",
+      "protected_surface_classification": "METHOD_OR_DOCUMENTARY_ONLY",
+      "reason": "Authorized by Macro-Mission 06.2 and bounded by the exact allowlist."
+    },
+    {
+      "category": "DOCUMENTARY_ONLY",
+      "change": "Macro 06.2 closure-method or documentary evidence artifact.",
+      "commit": "DOCUMENTARY_LOCK_SELF_REFERENCE",
+      "path": "docs/ROADMAP_4X_MACRO_06_2_VALIDATION_LOGS/level-a.combined.log",
+      "protected_surface_classification": "METHOD_OR_DOCUMENTARY_ONLY",
+      "reason": "Authorized by Macro-Mission 06.2 and bounded by the exact allowlist."
+    },
+    {
+      "category": "EVIDENCE_ONLY",
+      "change": "Macro 06.2 closure-method or documentary evidence artifact.",
+      "commit": "DOCUMENTARY_LOCK_SELF_REFERENCE",
+      "path": "docs/ROADMAP_4X_MACRO_06_2_VALIDATION_LOGS/level-a.receipt.json",
+      "protected_surface_classification": "METHOD_OR_DOCUMENTARY_ONLY",
+      "reason": "Authorized by Macro-Mission 06.2 and bounded by the exact allowlist."
+    },
+    {
+      "category": "DOCUMENTARY_ONLY",
+      "change": "Macro 06.2 closure-method or documentary evidence artifact.",
+      "commit": "DOCUMENTARY_LOCK_SELF_REFERENCE",
+      "path": "docs/ROADMAP_4X_MACRO_06_2_VALIDATION_LOGS/level-a.stderr.log",
+      "protected_surface_classification": "METHOD_OR_DOCUMENTARY_ONLY",
+      "reason": "Authorized by Macro-Mission 06.2 and bounded by the exact allowlist."
+    },
+    {
+      "category": "DOCUMENTARY_ONLY",
+      "change": "Macro 06.2 closure-method or documentary evidence artifact.",
+      "commit": "DOCUMENTARY_LOCK_SELF_REFERENCE",
+      "path": "docs/ROADMAP_4X_MACRO_06_2_VALIDATION_LOGS/level-a.stdout.log",
+      "protected_surface_classification": "METHOD_OR_DOCUMENTARY_ONLY",
+      "reason": "Authorized by Macro-Mission 06.2 and bounded by the exact allowlist."
+    },
+    {
+      "category": "DOCUMENTARY_ONLY",
+      "change": "Macro 06.2 closure-method or documentary evidence artifact.",
+      "commit": "DOCUMENTARY_LOCK_SELF_REFERENCE",
+      "path": "docs/ROADMAP_4X_MACRO_06_2_VALIDATION_LOGS/level-b.combined.log",
+      "protected_surface_classification": "METHOD_OR_DOCUMENTARY_ONLY",
+      "reason": "Authorized by Macro-Mission 06.2 and bounded by the exact allowlist."
+    },
+    {
+      "category": "EVIDENCE_ONLY",
+      "change": "Macro 06.2 closure-method or documentary evidence artifact.",
+      "commit": "DOCUMENTARY_LOCK_SELF_REFERENCE",
+      "path": "docs/ROADMAP_4X_MACRO_06_2_VALIDATION_LOGS/level-b.receipt.json",
+      "protected_surface_classification": "METHOD_OR_DOCUMENTARY_ONLY",
+      "reason": "Authorized by Macro-Mission 06.2 and bounded by the exact allowlist."
+    },
+    {
+      "category": "DOCUMENTARY_ONLY",
+      "change": "Macro 06.2 closure-method or documentary evidence artifact.",
+      "commit": "DOCUMENTARY_LOCK_SELF_REFERENCE",
+      "path": "docs/ROADMAP_4X_MACRO_06_2_VALIDATION_LOGS/level-b.stderr.log",
+      "protected_surface_classification": "METHOD_OR_DOCUMENTARY_ONLY",
+      "reason": "Authorized by Macro-Mission 06.2 and bounded by the exact allowlist."
+    },
+    {
+      "category": "DOCUMENTARY_ONLY",
+      "change": "Macro 06.2 closure-method or documentary evidence artifact.",
+      "commit": "DOCUMENTARY_LOCK_SELF_REFERENCE",
+      "path": "docs/ROADMAP_4X_MACRO_06_2_VALIDATION_LOGS/level-b.stdout.log",
+      "protected_surface_classification": "METHOD_OR_DOCUMENTARY_ONLY",
+      "reason": "Authorized by Macro-Mission 06.2 and bounded by the exact allowlist."
+    },
+    {
+      "category": "EXECUTABLE",
+      "change": "Macro 06.2 closure-method or documentary evidence artifact.",
+      "commit": "252ba8b915b7ff67868a50917d7858ee8ff8b9f8",
+      "path": "scripts/run_mission_closure_v2_2.py",
+      "protected_surface_classification": "METHOD_OR_DOCUMENTARY_ONLY",
+      "reason": "Authorized by Macro-Mission 06.2 and bounded by the exact allowlist."
+    },
+    {
+      "category": "EXECUTABLE",
+      "change": "Macro 06.2 closure-method or documentary evidence artifact.",
+      "commit": "66f809c115ad722546daeccc31a5af75845d662a",
+      "path": "scripts/run_mission_closure_v2_2_red_reproduction.py",
+      "protected_surface_classification": "METHOD_OR_DOCUMENTARY_ONLY",
+      "reason": "Authorized by Macro-Mission 06.2 and bounded by the exact allowlist."
+    },
+    {
+      "category": "EXECUTABLE",
+      "change": "Macro 06.2 closure-method or documentary evidence artifact.",
+      "commit": "252ba8b915b7ff67868a50917d7858ee8ff8b9f8",
+      "path": "scripts/run_mission_validation_v2_2.py",
+      "protected_surface_classification": "METHOD_OR_DOCUMENTARY_ONLY",
+      "reason": "Authorized by Macro-Mission 06.2 and bounded by the exact allowlist."
+    },
+    {
+      "category": "EXECUTABLE",
+      "change": "Macro 06.2 closure-method or documentary evidence artifact.",
+      "commit": "252ba8b915b7ff67868a50917d7858ee8ff8b9f8",
+      "path": "scripts/validate_mission_closure_v2_2.py",
+      "protected_surface_classification": "METHOD_OR_DOCUMENTARY_ONLY",
+      "reason": "Authorized by Macro-Mission 06.2 and bounded by the exact allowlist."
+    },
+    {
+      "category": "TEST_INFRASTRUCTURE",
+      "change": "Macro 06.2 closure-method or documentary evidence artifact.",
+      "commit": "252ba8b915b7ff67868a50917d7858ee8ff8b9f8",
+      "path": "tests/historical_test_context.py",
+      "protected_surface_classification": "METHOD_OR_DOCUMENTARY_ONLY",
+      "reason": "Authorized by Macro-Mission 06.2 and bounded by the exact allowlist."
+    },
+    {
+      "category": "TEST_INFRASTRUCTURE",
+      "change": "Macro 06.2 closure-method or documentary evidence artifact.",
+      "commit": "252ba8b915b7ff67868a50917d7858ee8ff8b9f8",
+      "path": "tests/test_mission_closure_gate_v2_2.py",
+      "protected_surface_classification": "METHOD_OR_DOCUMENTARY_ONLY",
+      "reason": "Authorized by Macro-Mission 06.2 and bounded by the exact allowlist."
+    },
+    {
+      "category": "TEST_INFRASTRUCTURE",
+      "change": "Macro 06.2 closure-method or documentary evidence artifact.",
+      "commit": "252ba8b915b7ff67868a50917d7858ee8ff8b9f8",
+      "path": "tests/test_mission_closure_gate_v2_2_ci_contract.py",
+      "protected_surface_classification": "METHOD_OR_DOCUMENTARY_ONLY",
+      "reason": "Authorized by Macro-Mission 06.2 and bounded by the exact allowlist."
+    },
+    {
+      "category": "TEST_INFRASTRUCTURE",
+      "change": "Macro 06.2 closure-method or documentary evidence artifact.",
+      "commit": "252ba8b915b7ff67868a50917d7858ee8ff8b9f8",
+      "path": "tests/test_mission_closure_gate_v2_2_git.py",
+      "protected_surface_classification": "METHOD_OR_DOCUMENTARY_ONLY",
+      "reason": "Authorized by Macro-Mission 06.2 and bounded by the exact allowlist."
+    },
+    {
+      "category": "TEST_INFRASTRUCTURE",
+      "change": "Macro 06.2 closure-method or documentary evidence artifact.",
+      "commit": "252ba8b915b7ff67868a50917d7858ee8ff8b9f8",
+      "path": "tests/test_mission_closure_gate_v2_2_terminal.py",
+      "protected_surface_classification": "METHOD_OR_DOCUMENTARY_ONLY",
+      "reason": "Authorized by Macro-Mission 06.2 and bounded by the exact allowlist."
+    },
+    {
+      "category": "TEST_INFRASTRUCTURE",
+      "change": "Macro 06.2 closure-method or documentary evidence artifact.",
+      "commit": "252ba8b915b7ff67868a50917d7858ee8ff8b9f8",
+      "path": "tests/test_mission_closure_historical_compatibility_v2_2.py",
+      "protected_surface_classification": "METHOD_OR_DOCUMENTARY_ONLY",
+      "reason": "Authorized by Macro-Mission 06.2 and bounded by the exact allowlist."
+    },
+    {
+      "category": "TEST_INFRASTRUCTURE",
+      "change": "Macro 06.2 closure-method or documentary evidence artifact.",
+      "commit": "252ba8b915b7ff67868a50917d7858ee8ff8b9f8",
+      "path": "tests/test_roadmap_4x_macro_05_p1_internal_family_closure.py",
+      "protected_surface_classification": "METHOD_OR_DOCUMENTARY_ONLY",
+      "reason": "Authorized by Macro-Mission 06.2 and bounded by the exact allowlist."
+    }
+  ],
+  "functional_publication_head": "5d69f70be0847ff4f28fa3bcc2cdcb9dc6c8372a",
+  "governed_state": {
+    "external_exposure": "DEFAULT_DENIED",
+    "organizational_reconstruction": "STRATEGIC_ARCHITECTURAL_CANDIDATE",
+    "organizational_reconstruction_implementation": "NOT_STARTED",
+    "p3": "SELECTED_NOT_STARTED",
+    "vero_fire_runtime": "NOT_IMPLEMENTED"
+  },
+  "historical_byte_preservation": [
+    {
+      "commit": "d0f400eb89bc21a867a1c124136575a3436f593b",
+      "path": "scripts/validate_mission_closure.py"
+    },
+    {
+      "commit": "d0f400eb89bc21a867a1c124136575a3436f593b",
+      "path": "scripts/validate_mission_closure_v2.py"
+    },
+    {
+      "commit": "d0f400eb89bc21a867a1c124136575a3436f593b",
+      "path": "docs/ROADMAP_4X_MACRO_06_MISSION_POLICY.json"
+    },
+    {
+      "commit": "165748697185feb89bb0902be62333c28b1b0b2c",
+      "path": "scripts/validate_mission_closure_v2_1.py"
+    },
+    {
+      "commit": "165748697185feb89bb0902be62333c28b1b0b2c",
+      "path": "scripts/run_mission_validation_v2_1.py"
+    },
+    {
+      "commit": "165748697185feb89bb0902be62333c28b1b0b2c",
+      "path": "docs/MISSION_CLOSURE_POLICY_SCHEMA_V2_1.json"
+    },
+    {
+      "commit": "165748697185feb89bb0902be62333c28b1b0b2c",
+      "path": "docs/ROADMAP_4X_MACRO_06_1_MISSION_POLICY.json"
+    }
+  ],
+  "metrics": {
+    "cpu_time": "UNKNOWN",
+    "focal_passed": 16,
+    "focal_wall_seconds": 26.64488,
+    "historical_passed": 109,
+    "historical_wall_seconds": 79.883272,
+    "level_a_wall_seconds": 0.714466,
+    "ordinary_validation_after_terminal": 0,
+    "terminal_level_b_failed": 0,
+    "terminal_level_b_passed": 123,
+    "terminal_level_b_wall_seconds": 86.74133,
+    "terminal_level_b_warnings": 5
+  },
+  "mission": "ROADMAP_4X_MACRO_06_2",
+  "next_cursor": "P3_LOTERIA_VALIDATION_EVOLUTION_SELECTED_NOT_STARTED",
+  "operator_evidence": {
+    "operator_action_required": true,
+    "remote_enforcement": "NOT_PROVEN",
+    "remote_proof_source": null,
+    "required_check_name": "closure-policy-and-anti-weakening"
+  },
+  "phase": "CANONICAL_EVIDENCE_FINALIZED",
+  "policy_sha256": "e2066201c16061fd953cd5688b7c71588fd07db1fadce09ea84f6eb9e09fe294",
+  "post_terminal_mutation_allowlist": [
+    "docs/ROADMAP_4X_MACRO_06_2_NEGATIVE_CONTROL_MATRIX.md",
+    "docs/ROADMAP_4X_MACRO_06_2_ROOT_CAUSE_AND_RECURRENCE_PREVENTION.md",
+    "docs/ROADMAP_4X_MACRO_06_2_EXECUTION_JOURNAL.md",
+    "docs/ROADMAP_4X_MACRO_06_2_EXECUTION_METRICS.md",
+    "docs/ROADMAP_4X_MACRO_06_2_COMMIT_ACCOUNTABILITY_LEDGER.md",
+    "docs/ROADMAP_4X_MACRO_06_2_CANONICAL_CLOSURE_EVIDENCE.json",
+    "docs/ROADMAP_4X_MACRO_06_2_CLOSURE_CHECKPOINT.md",
+    "docs/ROADMAP_4X_MACRO_06_2_POST_EVIDENCE_RECEIPT.json",
+    "docs/ROADMAP_4X_MACRO_06_2_PRELOCK_RECEIPT.json",
+    "docs/ROADMAP_4X_MACRO_06_2_VALIDATION_LOGS/focal.stdout.log",
+    "docs/ROADMAP_4X_MACRO_06_2_VALIDATION_LOGS/focal.stderr.log",
+    "docs/ROADMAP_4X_MACRO_06_2_VALIDATION_LOGS/focal.combined.log",
+    "docs/ROADMAP_4X_MACRO_06_2_VALIDATION_LOGS/focal.receipt.json",
+    "docs/ROADMAP_4X_MACRO_06_2_VALIDATION_LOGS/historical.stdout.log",
+    "docs/ROADMAP_4X_MACRO_06_2_VALIDATION_LOGS/historical.stderr.log",
+    "docs/ROADMAP_4X_MACRO_06_2_VALIDATION_LOGS/historical.combined.log",
+    "docs/ROADMAP_4X_MACRO_06_2_VALIDATION_LOGS/historical.receipt.json",
+    "docs/ROADMAP_4X_MACRO_06_2_VALIDATION_LOGS/level-a.stdout.log",
+    "docs/ROADMAP_4X_MACRO_06_2_VALIDATION_LOGS/level-a.stderr.log",
+    "docs/ROADMAP_4X_MACRO_06_2_VALIDATION_LOGS/level-a.combined.log",
+    "docs/ROADMAP_4X_MACRO_06_2_VALIDATION_LOGS/level-a.receipt.json",
+    "docs/ROADMAP_4X_MACRO_06_2_VALIDATION_LOGS/level-b.stdout.log",
+    "docs/ROADMAP_4X_MACRO_06_2_VALIDATION_LOGS/level-b.stderr.log",
+    "docs/ROADMAP_4X_MACRO_06_2_VALIDATION_LOGS/level-b.combined.log",
+    "docs/ROADMAP_4X_MACRO_06_2_VALIDATION_LOGS/level-b.receipt.json"
+  ],
+  "receipt_manifest": [
+    "docs/ROADMAP_4X_MACRO_06_2_VALIDATION_LOGS/focal.receipt.json",
+    "docs/ROADMAP_4X_MACRO_06_2_VALIDATION_LOGS/historical.receipt.json",
+    "docs/ROADMAP_4X_MACRO_06_2_VALIDATION_LOGS/level-a.receipt.json",
+    "docs/ROADMAP_4X_MACRO_06_2_VALIDATION_LOGS/level-b.receipt.json"
+  ],
+  "remote_enforcement": {
+    "operator_action_required": true,
+    "required_check_name": "closure-policy-and-anti-weakening",
+    "state": "NOT_PROVEN"
+  },
+  "report": {
+    "final_report_sha256": "RENDERED_BY_GATE_V2_2",
+    "official_result": "ROADMAP_4X_MACRO_06_2_TERMINAL_VALIDATION_AND_POST_BASIS_DELTA_ASSURANCE_PASSED_GATE_V2_2_HARDENED_ORGANIZATIONAL_RECONSTRUCTION_CANDIDATE_PRESERVED_P3_SELECTED_NOT_STARTED",
+    "sections": [
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8",
+      "9",
+      "10",
+      "11",
+      "12",
+      "13",
+      "14",
+      "15",
+      "16",
+      "17",
+      "18",
+      "19",
+      "20",
+      "21",
+      "22",
+      "23",
+      "24",
+      "25",
+      "26",
+      "27",
+      "28",
+      "29"
+    ]
+  },
+  "result_variant": "ROADMAP_4X_MACRO_06_2_TERMINAL_VALIDATION_AND_POST_BASIS_DELTA_ASSURANCE_PASSED_GATE_V2_2_HARDENED_ORGANIZATIONAL_RECONSTRUCTION_CANDIDATE_PRESERVED_P3_SELECTED_NOT_STARTED",
+  "scope": {
+    "classifications": [
+      {
+        "category": "CONFIGURATION",
+        "path": ".github/workflows/ci.yml"
+      },
+      {
+        "category": "DOCUMENTARY_ONLY",
+        "path": "docs/FUTURE_ORGANIZATIONAL_RECONSTRUCTION_AND_STRUCTURED_ENTERPRISE_DISCOVERY.md"
+      },
+      {
+        "category": "DOCUMENTARY_ONLY",
+        "path": "docs/METHOD_SANTI_3_2_7_TERMINAL_VALIDATION_AUTHORITY.md"
+      },
+      {
+        "category": "DOCUMENTARY_ONLY",
+        "path": "docs/MISSION_CLOSURE_GATE_V2_2_CONTRACT.md"
+      },
+      {
+        "category": "DOCUMENTARY_ONLY",
+        "path": "docs/MISSION_CLOSURE_POLICY_SCHEMA_V2_2.json"
+      },
+      {
+        "category": "EVIDENCE_ONLY",
+        "path": "docs/ROADMAP_4X_MACRO_06_2_CANONICAL_CLOSURE_EVIDENCE.json"
+      },
+      {
+        "category": "EVIDENCE_ONLY",
+        "path": "docs/ROADMAP_4X_MACRO_06_2_CLOSURE_CHECKPOINT.md"
+      },
+      {
+        "category": "DOCUMENTARY_ONLY",
+        "path": "docs/ROADMAP_4X_MACRO_06_2_COMMIT_ACCOUNTABILITY_LEDGER.md"
+      },
+      {
+        "category": "DOCUMENTARY_ONLY",
+        "path": "docs/ROADMAP_4X_MACRO_06_2_EXECUTION_JOURNAL.md"
+      },
+      {
+        "category": "DOCUMENTARY_ONLY",
+        "path": "docs/ROADMAP_4X_MACRO_06_2_EXECUTION_METRICS.md"
+      },
+      {
+        "category": "DOCUMENTARY_ONLY",
+        "path": "docs/ROADMAP_4X_MACRO_06_2_MISSION_POLICY.json"
+      },
+      {
+        "category": "DOCUMENTARY_ONLY",
+        "path": "docs/ROADMAP_4X_MACRO_06_2_NEGATIVE_CONTROL_MATRIX.md"
+      },
+      {
+        "category": "EVIDENCE_ONLY",
+        "path": "docs/ROADMAP_4X_MACRO_06_2_POST_EVIDENCE_RECEIPT.json"
+      },
+      {
+        "category": "EVIDENCE_ONLY",
+        "path": "docs/ROADMAP_4X_MACRO_06_2_PRELOCK_RECEIPT.json"
+      },
+      {
+        "category": "DOCUMENTARY_ONLY",
+        "path": "docs/ROADMAP_4X_MACRO_06_2_RED_REPRODUCTION.md"
+      },
+      {
+        "category": "DOCUMENTARY_ONLY",
+        "path": "docs/ROADMAP_4X_MACRO_06_2_ROOT_CAUSE_AND_RECURRENCE_PREVENTION.md"
+      },
+      {
+        "category": "DOCUMENTARY_ONLY",
+        "path": "docs/ROADMAP_4X_MACRO_06_2_VALIDATION_LOGS/focal.combined.log"
+      },
+      {
+        "category": "EVIDENCE_ONLY",
+        "path": "docs/ROADMAP_4X_MACRO_06_2_VALIDATION_LOGS/focal.receipt.json"
+      },
+      {
+        "category": "DOCUMENTARY_ONLY",
+        "path": "docs/ROADMAP_4X_MACRO_06_2_VALIDATION_LOGS/focal.stderr.log"
+      },
+      {
+        "category": "DOCUMENTARY_ONLY",
+        "path": "docs/ROADMAP_4X_MACRO_06_2_VALIDATION_LOGS/focal.stdout.log"
+      },
+      {
+        "category": "DOCUMENTARY_ONLY",
+        "path": "docs/ROADMAP_4X_MACRO_06_2_VALIDATION_LOGS/historical.combined.log"
+      },
+      {
+        "category": "EVIDENCE_ONLY",
+        "path": "docs/ROADMAP_4X_MACRO_06_2_VALIDATION_LOGS/historical.receipt.json"
+      },
+      {
+        "category": "DOCUMENTARY_ONLY",
+        "path": "docs/ROADMAP_4X_MACRO_06_2_VALIDATION_LOGS/historical.stderr.log"
+      },
+      {
+        "category": "DOCUMENTARY_ONLY",
+        "path": "docs/ROADMAP_4X_MACRO_06_2_VALIDATION_LOGS/historical.stdout.log"
+      },
+      {
+        "category": "DOCUMENTARY_ONLY",
+        "path": "docs/ROADMAP_4X_MACRO_06_2_VALIDATION_LOGS/level-a.combined.log"
+      },
+      {
+        "category": "EVIDENCE_ONLY",
+        "path": "docs/ROADMAP_4X_MACRO_06_2_VALIDATION_LOGS/level-a.receipt.json"
+      },
+      {
+        "category": "DOCUMENTARY_ONLY",
+        "path": "docs/ROADMAP_4X_MACRO_06_2_VALIDATION_LOGS/level-a.stderr.log"
+      },
+      {
+        "category": "DOCUMENTARY_ONLY",
+        "path": "docs/ROADMAP_4X_MACRO_06_2_VALIDATION_LOGS/level-a.stdout.log"
+      },
+      {
+        "category": "DOCUMENTARY_ONLY",
+        "path": "docs/ROADMAP_4X_MACRO_06_2_VALIDATION_LOGS/level-b.combined.log"
+      },
+      {
+        "category": "EVIDENCE_ONLY",
+        "path": "docs/ROADMAP_4X_MACRO_06_2_VALIDATION_LOGS/level-b.receipt.json"
+      },
+      {
+        "category": "DOCUMENTARY_ONLY",
+        "path": "docs/ROADMAP_4X_MACRO_06_2_VALIDATION_LOGS/level-b.stderr.log"
+      },
+      {
+        "category": "DOCUMENTARY_ONLY",
+        "path": "docs/ROADMAP_4X_MACRO_06_2_VALIDATION_LOGS/level-b.stdout.log"
+      },
+      {
+        "category": "EXECUTABLE",
+        "path": "scripts/run_mission_closure_v2_2.py"
+      },
+      {
+        "category": "EXECUTABLE",
+        "path": "scripts/run_mission_closure_v2_2_red_reproduction.py"
+      },
+      {
+        "category": "EXECUTABLE",
+        "path": "scripts/run_mission_validation_v2_2.py"
+      },
+      {
+        "category": "EXECUTABLE",
+        "path": "scripts/validate_mission_closure_v2_2.py"
+      },
+      {
+        "category": "TEST_INFRASTRUCTURE",
+        "path": "tests/historical_test_context.py"
+      },
+      {
+        "category": "TEST_INFRASTRUCTURE",
+        "path": "tests/test_mission_closure_gate_v2_2.py"
+      },
+      {
+        "category": "TEST_INFRASTRUCTURE",
+        "path": "tests/test_mission_closure_gate_v2_2_ci_contract.py"
+      },
+      {
+        "category": "TEST_INFRASTRUCTURE",
+        "path": "tests/test_mission_closure_gate_v2_2_git.py"
+      },
+      {
+        "category": "TEST_INFRASTRUCTURE",
+        "path": "tests/test_mission_closure_gate_v2_2_terminal.py"
+      },
+      {
+        "category": "TEST_INFRASTRUCTURE",
+        "path": "tests/test_mission_closure_historical_compatibility_v2_2.py"
+      },
+      {
+        "category": "TEST_INFRASTRUCTURE",
+        "path": "tests/test_roadmap_4x_macro_05_p1_internal_family_closure.py"
+      }
+    ],
+    "final_manifest_paths": [
+      ".github/workflows/ci.yml",
+      "docs/FUTURE_ORGANIZATIONAL_RECONSTRUCTION_AND_STRUCTURED_ENTERPRISE_DISCOVERY.md",
+      "docs/METHOD_SANTI_3_2_7_TERMINAL_VALIDATION_AUTHORITY.md",
+      "docs/MISSION_CLOSURE_GATE_V2_2_CONTRACT.md",
+      "docs/MISSION_CLOSURE_POLICY_SCHEMA_V2_2.json",
+      "docs/ROADMAP_4X_MACRO_06_2_CANONICAL_CLOSURE_EVIDENCE.json",
+      "docs/ROADMAP_4X_MACRO_06_2_CLOSURE_CHECKPOINT.md",
+      "docs/ROADMAP_4X_MACRO_06_2_COMMIT_ACCOUNTABILITY_LEDGER.md",
+      "docs/ROADMAP_4X_MACRO_06_2_EXECUTION_JOURNAL.md",
+      "docs/ROADMAP_4X_MACRO_06_2_EXECUTION_METRICS.md",
+      "docs/ROADMAP_4X_MACRO_06_2_MISSION_POLICY.json",
+      "docs/ROADMAP_4X_MACRO_06_2_NEGATIVE_CONTROL_MATRIX.md",
+      "docs/ROADMAP_4X_MACRO_06_2_POST_EVIDENCE_RECEIPT.json",
+      "docs/ROADMAP_4X_MACRO_06_2_PRELOCK_RECEIPT.json",
+      "docs/ROADMAP_4X_MACRO_06_2_RED_REPRODUCTION.md",
+      "docs/ROADMAP_4X_MACRO_06_2_ROOT_CAUSE_AND_RECURRENCE_PREVENTION.md",
+      "docs/ROADMAP_4X_MACRO_06_2_VALIDATION_LOGS/focal.combined.log",
+      "docs/ROADMAP_4X_MACRO_06_2_VALIDATION_LOGS/focal.receipt.json",
+      "docs/ROADMAP_4X_MACRO_06_2_VALIDATION_LOGS/focal.stderr.log",
+      "docs/ROADMAP_4X_MACRO_06_2_VALIDATION_LOGS/focal.stdout.log",
+      "docs/ROADMAP_4X_MACRO_06_2_VALIDATION_LOGS/historical.combined.log",
+      "docs/ROADMAP_4X_MACRO_06_2_VALIDATION_LOGS/historical.receipt.json",
+      "docs/ROADMAP_4X_MACRO_06_2_VALIDATION_LOGS/historical.stderr.log",
+      "docs/ROADMAP_4X_MACRO_06_2_VALIDATION_LOGS/historical.stdout.log",
+      "docs/ROADMAP_4X_MACRO_06_2_VALIDATION_LOGS/level-a.combined.log",
+      "docs/ROADMAP_4X_MACRO_06_2_VALIDATION_LOGS/level-a.receipt.json",
+      "docs/ROADMAP_4X_MACRO_06_2_VALIDATION_LOGS/level-a.stderr.log",
+      "docs/ROADMAP_4X_MACRO_06_2_VALIDATION_LOGS/level-a.stdout.log",
+      "docs/ROADMAP_4X_MACRO_06_2_VALIDATION_LOGS/level-b.combined.log",
+      "docs/ROADMAP_4X_MACRO_06_2_VALIDATION_LOGS/level-b.receipt.json",
+      "docs/ROADMAP_4X_MACRO_06_2_VALIDATION_LOGS/level-b.stderr.log",
+      "docs/ROADMAP_4X_MACRO_06_2_VALIDATION_LOGS/level-b.stdout.log",
+      "scripts/run_mission_closure_v2_2.py",
+      "scripts/run_mission_closure_v2_2_red_reproduction.py",
+      "scripts/run_mission_validation_v2_2.py",
+      "scripts/validate_mission_closure_v2_2.py",
+      "tests/historical_test_context.py",
+      "tests/test_mission_closure_gate_v2_2.py",
+      "tests/test_mission_closure_gate_v2_2_ci_contract.py",
+      "tests/test_mission_closure_gate_v2_2_git.py",
+      "tests/test_mission_closure_gate_v2_2_terminal.py",
+      "tests/test_mission_closure_historical_compatibility_v2_2.py",
+      "tests/test_roadmap_4x_macro_05_p1_internal_family_closure.py"
+    ],
+    "post_terminal_allowlist": [
+      "docs/ROADMAP_4X_MACRO_06_2_NEGATIVE_CONTROL_MATRIX.md",
+      "docs/ROADMAP_4X_MACRO_06_2_ROOT_CAUSE_AND_RECURRENCE_PREVENTION.md",
+      "docs/ROADMAP_4X_MACRO_06_2_EXECUTION_JOURNAL.md",
+      "docs/ROADMAP_4X_MACRO_06_2_EXECUTION_METRICS.md",
+      "docs/ROADMAP_4X_MACRO_06_2_COMMIT_ACCOUNTABILITY_LEDGER.md",
+      "docs/ROADMAP_4X_MACRO_06_2_CANONICAL_CLOSURE_EVIDENCE.json",
+      "docs/ROADMAP_4X_MACRO_06_2_CLOSURE_CHECKPOINT.md",
+      "docs/ROADMAP_4X_MACRO_06_2_POST_EVIDENCE_RECEIPT.json",
+      "docs/ROADMAP_4X_MACRO_06_2_PRELOCK_RECEIPT.json",
+      "docs/ROADMAP_4X_MACRO_06_2_VALIDATION_LOGS/focal.stdout.log",
+      "docs/ROADMAP_4X_MACRO_06_2_VALIDATION_LOGS/focal.stderr.log",
+      "docs/ROADMAP_4X_MACRO_06_2_VALIDATION_LOGS/focal.combined.log",
+      "docs/ROADMAP_4X_MACRO_06_2_VALIDATION_LOGS/focal.receipt.json",
+      "docs/ROADMAP_4X_MACRO_06_2_VALIDATION_LOGS/historical.stdout.log",
+      "docs/ROADMAP_4X_MACRO_06_2_VALIDATION_LOGS/historical.stderr.log",
+      "docs/ROADMAP_4X_MACRO_06_2_VALIDATION_LOGS/historical.combined.log",
+      "docs/ROADMAP_4X_MACRO_06_2_VALIDATION_LOGS/historical.receipt.json",
+      "docs/ROADMAP_4X_MACRO_06_2_VALIDATION_LOGS/level-a.stdout.log",
+      "docs/ROADMAP_4X_MACRO_06_2_VALIDATION_LOGS/level-a.stderr.log",
+      "docs/ROADMAP_4X_MACRO_06_2_VALIDATION_LOGS/level-a.combined.log",
+      "docs/ROADMAP_4X_MACRO_06_2_VALIDATION_LOGS/level-a.receipt.json",
+      "docs/ROADMAP_4X_MACRO_06_2_VALIDATION_LOGS/level-b.stdout.log",
+      "docs/ROADMAP_4X_MACRO_06_2_VALIDATION_LOGS/level-b.stderr.log",
+      "docs/ROADMAP_4X_MACRO_06_2_VALIDATION_LOGS/level-b.combined.log",
+      "docs/ROADMAP_4X_MACRO_06_2_VALIDATION_LOGS/level-b.receipt.json"
+    ],
+    "protected_diff": {
+      "calculation_basis": "direct committed baseline delta plus post-basis committed, index, worktree and untracked surfaces",
+      "protected_diff_decision": "EMPTY",
+      "protected_paths_changed": [],
+      "protected_paths_checked": [
+        "api.py",
+        "core/",
+        "domains/",
+        "providers/",
+        "ui/",
+        "data/",
+        "memory/",
+        "logs/",
+        "gokv/",
+        "runtime/",
+        "execution/",
+        "integrations/",
+        "tenants/"
+      ]
+    }
+  },
+  "technical_state": {
+    "basis": "FROZEN",
+    "gate": "V2.2_INSTALLED",
+    "post_basis_authority": "FOUR_SURFACES",
+    "protected_diff": "EMPTY"
+  },
+  "timeline": {
+    "canonical_evidence_finalized": "2026-09-19T21:07:09.762558-03:00",
+    "level_a_completed": "2026-09-19T21:03:12.519677-03:00",
+    "mission_accepted": "2026-09-19T20:55:00-03:00",
+    "preflight_completed": "2026-09-19T20:58:00-03:00",
+    "terminal_level_b_completed": "2026-09-19T21:04:52.378707-03:00",
+    "terminal_level_b_started": "2026-09-19T21:03:25.690900-03:00",
+    "validation_basis_frozen": "2026-09-19T21:03:15-03:00"
+  },
+  "unknowns": [
+    "CPU_TIME_UNKNOWN",
+    "REMOTE_HOST_RULESET_NOT_VERIFIED",
+    "OPERATOR_REMOTE_PROOF_ABSENT"
+  ],
+  "validation_basis": "5d69f70be0847ff4f28fa3bcc2cdcb9dc6c8372a",
+  "validation_runs": [
+    {
+      "attempt": 1,
+      "cause": "V2.2 focal corpus after allowlist repair",
+      "command": [
+        "python",
+        "-m",
+        "pytest",
+        "-q",
+        "tests/test_mission_closure_gate_v2_2.py",
+        "tests/test_mission_closure_gate_v2_2_git.py",
+        "tests/test_mission_closure_gate_v2_2_terminal.py",
+        "tests/test_mission_closure_gate_v2_2_ci_contract.py",
+        "tests/test_mission_closure_historical_compatibility_v2_2.py"
+      ],
+      "command_id": "M062-FOCAL-002",
+      "completed_at": "2026-09-19T21:01:30.091137-03:00",
+      "exit_code": 0,
+      "failed": 0,
+      "gate_name": "focal",
+      "ordinary_validation": true,
+      "passed": 16,
+      "process_seconds": "UNKNOWN",
+      "receipt_path": "docs/ROADMAP_4X_MACRO_06_2_VALIDATION_LOGS/focal.receipt.json",
+      "receipt_sha256": "1eb4eeff471b295a0e5e0c6c801665b4a85cb759d450d3593890d560f51a704f",
+      "repair": "NONE",
+      "repair_commit": "NONE",
+      "revalidation": "VALID",
+      "skipped": 0,
+      "started_at": "2026-09-19T21:01:03.496881-03:00",
+      "terminal": false,
+      "validation_basis": "5d69f70be0847ff4f28fa3bcc2cdcb9dc6c8372a",
+      "wall_seconds": 26.64488,
+      "warnings": 0
+    },
+    {
+      "attempt": 1,
+      "cause": "Historical impact corpus after allowlist repair",
+      "command": [
+        "python",
+        "-m",
+        "pytest",
+        "-q",
+        "tests/test_mission_closure_gate_v2.py",
+        "tests/test_mission_closure_historical_compatibility_v2_1.py",
+        "tests/test_mission_closure_historical_compatibility_v2_2.py",
+        "tests/test_roadmap_4x_macro_05_p1_internal_family_closure.py",
+        "tests/test_roadmap_4x_macro_05_p1_post_boundary_e2e.py",
+        "tests/test_roadmap_4x_macro_04_3_p1_a.py",
+        "tests/test_roadmap_4x_macro_04_4_p1_b.py",
+        "tests/test_roadmap_4x_macro_04_5_p1_c.py",
+        "tests/test_roadmap_4x_macro_04_6_p1_d.py",
+        "tests/test_method_santi_3_2.py",
+        "tests/test_method_santi_3_2_4.py",
+        "tests/test_method_santi_3_2_5.py"
+      ],
+      "command_id": "M062-HISTORICAL-002",
+      "completed_at": "2026-09-19T21:03:01.772636-03:00",
+      "exit_code": 0,
+      "failed": 0,
+      "gate_name": "historical-impact",
+      "ordinary_validation": true,
+      "passed": 109,
+      "process_seconds": "UNKNOWN",
+      "receipt_path": "docs/ROADMAP_4X_MACRO_06_2_VALIDATION_LOGS/historical.receipt.json",
+      "receipt_sha256": "aebe5f53042711146cb8ba3fb0e0196be4951d5f691f418445e2881848ca9ef1",
+      "repair": "NONE",
+      "repair_commit": "NONE",
+      "revalidation": "VALID",
+      "skipped": 0,
+      "started_at": "2026-09-19T21:01:41.939952-03:00",
+      "terminal": false,
+      "validation_basis": "5d69f70be0847ff4f28fa3bcc2cdcb9dc6c8372a",
+      "wall_seconds": 79.883272,
+      "warnings": 5
+    },
+    {
+      "attempt": 1,
+      "cause": "Policy and Level A static readiness after allowlist repair",
+      "command": [
+        "python",
+        "scripts/validate_mission_closure_v2_2.py",
+        "validate-policy",
+        "--repo-root",
+        ".",
+        "--policy",
+        "docs/ROADMAP_4X_MACRO_06_2_MISSION_POLICY.json",
+        "--schema",
+        "docs/MISSION_CLOSURE_POLICY_SCHEMA_V2_2.json"
+      ],
+      "command_id": "M062-LEVEL-A-002",
+      "completed_at": "2026-09-19T21:03:12.519677-03:00",
+      "exit_code": 0,
+      "failed": 0,
+      "gate_name": "level-a",
+      "ordinary_validation": true,
+      "passed": 0,
+      "process_seconds": "UNKNOWN",
+      "receipt_path": "docs/ROADMAP_4X_MACRO_06_2_VALIDATION_LOGS/level-a.receipt.json",
+      "receipt_sha256": "4e13dc26cd32115a363713dcef36292b6fdb46eaddeb9a6f06512fd94ded704d",
+      "repair": "NONE",
+      "repair_commit": "NONE",
+      "revalidation": "VALID",
+      "skipped": 0,
+      "started_at": "2026-09-19T21:03:11.867752-03:00",
+      "terminal": false,
+      "validation_basis": "5d69f70be0847ff4f28fa3bcc2cdcb9dc6c8372a",
+      "wall_seconds": 0.714466,
+      "warnings": 0
+    },
+    {
+      "attempt": 1,
+      "cause": "Terminal Level B for final validation basis",
+      "command": [
+        "python",
+        "-m",
+        "pytest",
+        "-q",
+        "tests/test_mission_closure_gate_v2_2.py",
+        "tests/test_mission_closure_gate_v2_2_git.py",
+        "tests/test_mission_closure_gate_v2_2_terminal.py",
+        "tests/test_mission_closure_gate_v2_2_ci_contract.py",
+        "tests/test_mission_closure_gate_v2.py",
+        "tests/test_mission_closure_historical_compatibility_v2_1.py",
+        "tests/test_mission_closure_historical_compatibility_v2_2.py",
+        "tests/test_roadmap_4x_macro_05_p1_internal_family_closure.py",
+        "tests/test_roadmap_4x_macro_05_p1_post_boundary_e2e.py",
+        "tests/test_roadmap_4x_macro_04_3_p1_a.py",
+        "tests/test_roadmap_4x_macro_04_4_p1_b.py",
+        "tests/test_roadmap_4x_macro_04_5_p1_c.py",
+        "tests/test_roadmap_4x_macro_04_6_p1_d.py",
+        "tests/test_method_santi_3_2.py",
+        "tests/test_method_santi_3_2_4.py",
+        "tests/test_method_santi_3_2_5.py"
+      ],
+      "command_id": "M062-LEVEL-B-TERMINAL-002",
+      "completed_at": "2026-09-19T21:04:52.378707-03:00",
+      "exit_code": 0,
+      "failed": 0,
+      "gate_name": "level-b",
+      "ordinary_validation": true,
+      "passed": 123,
+      "process_seconds": "UNKNOWN",
+      "receipt_path": "docs/ROADMAP_4X_MACRO_06_2_VALIDATION_LOGS/level-b.receipt.json",
+      "receipt_sha256": "5af851c8d7c5ec5d652c0bc766db1cabb2774943ad4e1c5a5ad3b1632b8cf929",
+      "repair": "NONE",
+      "repair_commit": "NONE",
+      "revalidation": "VALID",
+      "skipped": 0,
+      "started_at": "2026-09-19T21:03:25.690900-03:00",
+      "terminal": true,
+      "validation_basis": "5d69f70be0847ff4f28fa3bcc2cdcb9dc6c8372a",
+      "wall_seconds": 86.74133,
+      "warnings": 5
+    }
+  ]
+}
