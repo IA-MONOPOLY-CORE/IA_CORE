@@ -1,0 +1,19 @@
+{
+  "manifest_version": "archival_publication_manifest.v2.2.2",
+  "mission_id": "ROADMAP_4X_MACRO_06_2_2",
+  "final_validation_basis": "1e2b4df49a6b23c9dcf473701d04a6c17e7801bb",
+  "evidence_lock_head": "48dc75bd333bc7d1998be2a751d536c2aab417e4",
+  "allowlisted_paths": [
+    "docs/ROADMAP_4X_MACRO_06_2_2_ARCHIVAL_PUBLICATION_MANIFEST.json",
+    "docs/ROADMAP_4X_MACRO_06_2_2_CANONICAL_REPORT.json",
+    "docs/ROADMAP_4X_MACRO_06_2_2_CANONICAL_COMPLETENESS_RECEIPT.json",
+    "docs/ROADMAP_4X_MACRO_06_2_2_FROZEN_INPUT_BUNDLE_MANIFEST.json",
+    "docs/ROADMAP_4X_MACRO_06_2_2_RENDER_COMPARISON.json",
+    "docs/ROADMAP_4X_MACRO_06_2_2_CLOSURE_CHECKPOINT.md",
+    "docs/ROADMAP_4X_MACRO_06_2_2_REMEDIATION_APPENDIX.md"
+  ],
+  "protected_diff": [],
+  "self_referential_anchor_rule": "manifest does not assert its own future commit",
+  "canonical_report_sha256": "96af7f0a807a3a08438cade668a419f1854a5a2ad7e7f42866d8c2289c348b27",
+  "render_comparison_sha256": "7377c79f0cd09714b3e0d80544114fc5699538af9d7ca4a685a269b97344ebc3"
+}
