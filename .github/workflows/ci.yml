@@ -38,6 +38,11 @@ jobs:
 
       - name: Run tests
         run: python -m pytest tests/ -v
+      - name: Run Roadmap 4.x Macro-Mission 06.2.4-A focal contract
+        run: >-
+          python -m pytest -q
+          tests/test_mission_closure_gate_v2_2_4_a.py
+          tests/test_mission_closure_gate_v2_2_4_a_ci_contract.py
       - name: Validate generic closure policy and anti-weakening corpus
         run: >-
           python scripts/validate_mission_closure_v2.py validate-policy

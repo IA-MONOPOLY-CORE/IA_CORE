@@ -1,0 +1,32 @@
+{
+  "authority_relative_path": "docs/ROADMAP_4X_MACRO_06_2_4_A_AUTHORIZED_VALIDATION_INPUT_SET.json",
+  "entries": [
+    {
+      "byte_length": 16679,
+      "content_role": "successor implementation",
+      "logical_artifact_id": "successor-resolver",
+      "repository_relative_path": "scripts/closure_assurance_v2_2_4_a.py",
+      "semantic_role": "implementation",
+      "sha256": "00d007a703e04e69c715fc2813b536a33cd2fb099f7c3134f19a1c08d33ebfc8"
+    },
+    {
+      "byte_length": 3494,
+      "content_role": "successor entrypoint",
+      "logical_artifact_id": "successor-entrypoint",
+      "repository_relative_path": "scripts/run_mission_closure_v2_2_4_a.py",
+      "semantic_role": "entrypoint",
+      "sha256": "6421f5db9f1bdf85780e6af9c713c1b219c73e0bb023cf8793d115d9760074db"
+    },
+    {
+      "byte_length": 1363,
+      "content_role": "Micro A contract",
+      "logical_artifact_id": "micro-contract",
+      "repository_relative_path": "docs/ROADMAP_4X_MACRO_06_2_4_A_CONTRACT.md",
+      "semantic_role": "contract",
+      "sha256": "eb340a2172f198dd414410272d73b59b32a7723e7fd95a4115129e2e6e800e7f"
+    }
+  ],
+  "manifest_sha256": "acdbf54556e3f2a18b487ee08a1799bddc088813acf3b5b0b9248ff483d8dec8",
+  "mission_id": "ROADMAP_4X_MACRO_06_2_4_MICRO_A",
+  "set_version": "authorized_validation_input_set.v2.2.4-a"
+}
