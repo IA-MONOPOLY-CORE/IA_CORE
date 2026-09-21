@@ -88,7 +88,12 @@ def _candidate_clone(tmp_path: Path) -> Path:
         ],
         check=True,
     )
-    _commit(repo, "test: create isolated Micro A candidate")
+    staged_diff = subprocess.run(
+        ["git", "-C", str(repo), "diff", "--cached", "--quiet"],
+        capture_output=True,
+    )
+    if staged_diff.returncode != 0:
+        _commit(repo, "test: create isolated Micro A candidate")
     return repo
 
 
