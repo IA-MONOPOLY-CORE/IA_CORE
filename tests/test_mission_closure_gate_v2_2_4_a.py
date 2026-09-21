@@ -6,8 +6,8 @@ import inspect
 import json
 import os
 from pathlib import Path
+import re
 import shutil
-import stat
 import subprocess
 import sys
 
@@ -49,9 +49,75 @@ def _json_stderr(result: subprocess.CompletedProcess[str]) -> dict:
     return json.loads(result.stderr)
 
 
-def _cleanup_readonly(function, path, _exc):
-    os.chmod(path, stat.S_IWRITE)
-    function(path)
+_CLEANUP_CHILD = "\n".join(
+    (
+        "import os",
+        "import shutil",
+        "import stat",
+        "import sys",
+        "if len(sys.argv) != 2 or 'conftest' in sys.modules:",
+        "    raise SystemExit(2)",
+        "target = sys.argv[1]",
+        "if not os.path.isabs(target) or os.path.normcase(os.path.realpath(target)) != os.path.normcase(target):",
+        "    raise SystemExit(3)",
+        "if os.path.islink(target) or not os.path.isdir(target):",
+        "    raise SystemExit(4)",
+        "def onerror(function, path, _exc):",
+        "    os.chmod(path, stat.S_IWRITE)",
+        "    function(path)",
+        "shutil.rmtree(target, onerror=onerror)",
+        "if os.path.lexists(target):",
+        "    raise SystemExit(5)",
+    )
+)
+
+
+def _git_status_snapshot() -> str:
+    result = subprocess.run(
+        ["git", "status", "--porcelain=v1", "--untracked-files=all"],
+        cwd=ROOT,
+        check=True,
+        capture_output=True,
+        text=True,
+    )
+    return result.stdout
+
+
+def _validate_cleanup_target(tmp_path: Path, candidate: Path | str) -> Path:
+    raw = os.fspath(candidate)
+    if not isinstance(raw, str):
+        raise ValueError("cleanup target must be text")
+    if os.path.expandvars(raw) != raw or re.search(r"\$\{[^}]+\}|\$[A-Za-z_]\w*|%[^%]+%", raw):
+        raise ValueError("cleanup target contains unresolved environment variables")
+    if any(token in raw for token in "*?["):
+        raise ValueError("glob cleanup targets are forbidden")
+    target = Path(raw)
+    if not target.is_absolute():
+        raise ValueError("cleanup target must be absolute")
+    if target.is_symlink():
+        raise ValueError("cleanup target must not be a symlink")
+    if not target.exists() or not target.is_dir():
+        raise ValueError("cleanup target must be an existing directory")
+
+    tmp_root = tmp_path.resolve()
+    primary_root = ROOT.resolve()
+    resolved = target.resolve()
+    if resolved == tmp_root:
+        raise ValueError("cleanup target must not be tmp_path itself")
+    if resolved == primary_root:
+        raise ValueError("cleanup target must not be the primary repository")
+    if tmp_root not in resolved.parents:
+        raise ValueError("cleanup target must be a strict descendant of tmp_path")
+    return resolved
+
+
+def _cleanup_in_isolated_child(tmp_path: Path, target: Path) -> subprocess.CompletedProcess[str]:
+    return subprocess.run(
+        [sys.executable, "-I", "-c", _CLEANUP_CHILD, str(target)],
+        cwd=tmp_path.resolve(),
+        capture_output=True,
+        text=True,
+    )
 
 
 def _commit(repo: Path, message: str) -> None:
@@ -97,9 +163,16 @@ def _candidate_clone(tmp_path: Path) -> Path:
     return repo
 
 
-def _remove_candidate(repo: Path) -> None:
+def _remove_candidate(repo: Path, tmp_path: Path) -> None:
     if repo.exists():
-        shutil.rmtree(repo, onerror=_cleanup_readonly)
+        before = _git_status_snapshot()
+        target = _validate_cleanup_target(tmp_path, repo)
+        result = _cleanup_in_isolated_child(tmp_path, target)
+        assert result.returncode == 0, result.stderr
+        assert result.stdout == ""
+        assert result.stderr == ""
+        assert not target.exists()
+        assert _git_status_snapshot() == before
 
 
 @pytest.fixture
@@ -108,7 +181,7 @@ def candidate_clone(tmp_path: Path):
     try:
         yield repo
     finally:
-        _remove_candidate(repo)
+        _remove_candidate(repo, tmp_path)
 
 
 def _update_manifest_to_worktree(repo: Path) -> None:
@@ -239,14 +312,65 @@ def test_r1_g_caller_root_commit_and_branch(candidate_clone):
     assert _json_stderr(result)["result"] == "REJECTED_CALLER_COMMIT_SELECTION"
 
 
-def test_r1_h_cwd_independence(candidate_clone):
+def test_r1_h_cwd_independence(candidate_clone, tmp_path):
+    unrelated_cwd = tmp_path / "unrelated-cwd"
+    unrelated_cwd.mkdir()
     first = _run(candidate_clone / assurance.ENTRYPOINT_RELATIVE_PATH, "resolve", "successor-resolver", "implementation", cwd=candidate_clone)
-    second = _run(candidate_clone / assurance.ENTRYPOINT_RELATIVE_PATH, "resolve", "successor-resolver", "implementation", cwd=Path(r"C:\Windows"))
+    second = _run(candidate_clone / assurance.ENTRYPOINT_RELATIVE_PATH, "resolve", "successor-resolver", "implementation", cwd=unrelated_cwd)
     assert first.returncode == second.returncode == 0
     first_payload = json.loads(first.stdout)
     second_payload = json.loads(second.stdout)
+    assert unrelated_cwd.exists()
+    assert unrelated_cwd != candidate_clone
+    assert unrelated_cwd != ROOT
     assert first_payload["released_sha256"] == second_payload["released_sha256"]
     assert first_payload["authorization_trace"]["events"][0]["authority_set_identity"] == second_payload["authorization_trace"]["events"][0]["authority_set_identity"]
+
+
+def test_temporary_clone_cleanup_is_bounded_and_runs_in_isolated_child(tmp_path):
+    before = _git_status_snapshot()
+    repo = _candidate_clone(tmp_path)
+    try:
+        target = _validate_cleanup_target(tmp_path, repo)
+        assert target.is_absolute()
+        assert tmp_path.resolve() in target.parents
+        assert target != tmp_path.resolve()
+        assert target != ROOT.resolve()
+        assert not target.is_symlink()
+        result = _cleanup_in_isolated_child(tmp_path, target)
+        assert result.args[1:3] == ["-I", "-c"]
+        assert result.args[-1] == str(target)
+        assert result.returncode == 0
+        assert result.stdout == ""
+        assert result.stderr == ""
+        assert not target.exists()
+    finally:
+        if repo.exists():
+            _remove_candidate(repo, tmp_path)
+    assert _git_status_snapshot() == before
+
+
+def test_cleanup_boundary_rejects_unsafe_targets(tmp_path):
+    existing = tmp_path / "existing"
+    existing.mkdir()
+    invalid_targets = (
+        (tmp_path, "tmp_path"),
+        (ROOT, "primary repository"),
+        (tmp_path / "missing", "existing directory"),
+        (tmp_path / "candidate*", "glob"),
+        (tmp_path / "${UNRESOLVED_TARGET}", "environment variables"),
+    )
+    for candidate, reason in invalid_targets:
+        with pytest.raises(ValueError, match=re.escape(reason)):
+            _validate_cleanup_target(tmp_path, candidate)
+
+    symlink = tmp_path / "symlink"
+    try:
+        symlink.symlink_to(existing, target_is_directory=True)
+    except (OSError, NotImplementedError) as exc:
+        pytest.skip(f"directory symlinks unavailable in this environment: {exc}")
+    with pytest.raises(ValueError, match="symlink"):
+        _validate_cleanup_target(tmp_path, symlink)
 
 
 def test_r1_i_exact_authorized_bytes_and_trace_ceiling(candidate_clone):
