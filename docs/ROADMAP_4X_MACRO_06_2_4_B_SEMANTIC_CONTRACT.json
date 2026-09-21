@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "contract_version": "semantic_contract.v2.2.4-b",
+  "semantic_contract_id": "roadmap-4x-macro-06-2-4-b/canonical-report-contract",
+  "subject_artifact_id": "roadmap-4x-macro-06-2-3-canonical-report",
+  "evidence_path": "docs/ROADMAP_4X_MACRO_06_2_3_CANONICAL_REPORT.json",
+  "schema_path": "docs/ROADMAP_4X_MACRO_06_2_3_CANONICAL_REPORT_SCHEMA.json",
+  "fact_schema_path": "docs/ROADMAP_4X_MACRO_06_2_4_B_SEMANTIC_FACT_SCHEMA.json",
+  "validator_adapter_path": "scripts/closure_semantic_derivation_v2_2_4_b.py",
+  "dependency_spec_path": "requirements.txt",
+  "validator_id": "roadmap_4x_macro_06_2_4_b.jsonschema_draft202012_adapter",
+  "semantic_predicate": "canonical_report_contract_conditions_satisfied",
+  "expected_conditions": [
+    {"path": "artifact_type", "operator": "equals", "value": "canonical-report"},
+    {"path": "mission_id", "operator": "equals", "value": "ROADMAP_4X_MACRO_06_2_3"},
+    {"path": "protected_diff", "operator": "equals", "value": []},
+    {"path": "remote_evidence_ceiling.state", "operator": "equals", "value": "NOT_PROVEN"}
+  ],
+  "allowed_fact_results": ["SATISFIED", "UNSATISFIED"],
+  "validator_adapter_sha256": "33ca37c8a05d13263b10b085d9b1919f779cfc5a644d63ec6b32d7b997438ea2",
+  "schema_sha256": "b00a52bc3a1c484bee21f7d0a565027b92528a7bd6bf3f728d298556eed8ccd0",
+  "fact_schema_sha256": "e540512c55d80c5dff1e261fa427e6fb066f242c2dbcf6629f671cafd7c5050b",
+  "dependency_spec_sha256": "c15e6724f6246375f5bbe216fdb6f1e78da76d72af623bc7510a13917183ac5c",
+  "semantic_contract_sha256": "7c89dabaa4029633f5ad09825c064b5fb78f16b29104993aab163a6b7b06c43d"
+}

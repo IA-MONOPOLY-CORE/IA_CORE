@@ -1,0 +1,141 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "ia-core://roadmap-4x-macro-06-2-4-b/semantic-fact-bundle",
+  "title": "Roadmap 4.x Macro-Mission 06.2.4-B typed semantic derivation bundle",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "basis_commit_sha",
+    "derivation_profile_id",
+    "facts",
+    "derivation_execution_state",
+    "aggregate_semantic_result",
+    "errors",
+    "lineage"
+  ],
+  "properties": {
+    "basis_commit_sha": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+    "derivation_profile_id": {"const": "ROADMAP_4X_MACRO_06_2_4_MICRO_B"},
+    "facts": {
+      "type": "array",
+      "minItems": 1,
+      "items": {"$ref": "#/$defs/semanticFact"}
+    },
+    "derivation_execution_state": {"enum": ["COMPLETED", "FAILED", "NOT_EVALUATED"]},
+    "aggregate_semantic_result": {"enum": ["SATISFIED", "UNSATISFIED", "INDETERMINATE"]},
+    "errors": {
+      "type": "array",
+      "items": {"$ref": "#/$defs/structuredError"}
+    },
+    "lineage": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["basis_commit_sha", "repository_inputs", "external_engine"],
+      "properties": {
+        "basis_commit_sha": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+        "repository_inputs": {
+          "type": "array",
+          "minItems": 1,
+          "items": {"$ref": "#/$defs/repositoryInput"}
+        },
+        "external_engine": {"$ref": "#/$defs/externalEngine"}
+      }
+    }
+  },
+  "$defs": {
+    "semanticFact": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "fact_id",
+        "fact_type",
+        "subject_artifact_id",
+        "semantic_predicate",
+        "source_commit_sha",
+        "source_artifact_sha256",
+        "source_byte_length",
+        "validator_id",
+        "validator_adapter_path",
+        "validator_adapter_sha256",
+        "validator_engine_distribution",
+        "validator_engine_version",
+        "validator_engine_dialect",
+        "dependency_spec_path",
+        "dependency_spec_sha256",
+        "semantic_contract_id",
+        "semantic_contract_sha256",
+        "schema_sha256",
+        "observed_value",
+        "expected_condition",
+        "derived_result",
+        "validation_errors"
+      ],
+      "properties": {
+        "fact_id": {"type": "string", "pattern": "^[a-z0-9._-]+$"},
+        "fact_type": {"const": "typed_semantic_fact.v2.2.4-b"},
+        "subject_artifact_id": {"type": "string", "minLength": 1},
+        "semantic_predicate": {"type": "string", "minLength": 1},
+        "source_commit_sha": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+        "source_artifact_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "source_byte_length": {"type": "integer", "minimum": 0},
+        "validator_id": {"type": "string", "minLength": 1},
+        "validator_adapter_path": {"type": "string", "minLength": 1},
+        "validator_adapter_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "validator_engine_distribution": {"const": "jsonschema"},
+        "validator_engine_version": {"type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"},
+        "validator_engine_dialect": {"const": "https://json-schema.org/draft/2020-12/schema"},
+        "dependency_spec_path": {"type": "string", "minLength": 1},
+        "dependency_spec_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "semantic_contract_id": {"type": "string", "minLength": 1},
+        "semantic_contract_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "schema_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "observed_value": {"type": "object"},
+        "expected_condition": {"type": "array", "minItems": 1},
+        "derived_result": {"enum": ["SATISFIED", "UNSATISFIED", "NOT_EVALUATED"]},
+        "validation_errors": {"type": "array", "items": {"$ref": "#/$defs/structuredError"}}
+      }
+    },
+    "structuredError": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["code", "message"],
+      "properties": {
+        "code": {"type": "string", "pattern": "^[A-Z0-9_.-]+$"},
+        "message": {"type": "string", "minLength": 1},
+        "path": {"type": "string"},
+        "expected": {},
+        "observed": {}
+      }
+    },
+    "repositoryInput": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["role", "path", "commit_sha", "sha256", "byte_length"],
+      "properties": {
+        "role": {"type": "string", "minLength": 1},
+        "path": {"type": "string", "minLength": 1},
+        "commit_sha": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+        "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "byte_length": {"type": "integer", "minimum": 0}
+      }
+    },
+    "externalEngine": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "distribution",
+        "required_version",
+        "observed_version",
+        "dialect",
+        "implementation_class"
+      ],
+      "properties": {
+        "distribution": {"const": "jsonschema"},
+        "required_version": {"type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"},
+        "observed_version": {"type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"},
+        "dialect": {"const": "https://json-schema.org/draft/2020-12/schema"},
+        "implementation_class": {"type": "string", "minLength": 1}
+      }
+    }
+  }
+}
