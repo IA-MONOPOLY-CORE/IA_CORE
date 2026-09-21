@@ -1,28 +1,19 @@
 from __future__ import annotations
 
 import ast
-import builtins
 import hashlib
 import inspect
 import json
 import os
 from pathlib import Path
+import shutil
+import stat
 import subprocess
 import sys
 
 import pytest
 
-import scripts.closure_assurance_v2_2_4_a as successor
-from scripts.closure_assurance_v2_2_4_a import (
-    AuthorityEntry,
-    AuthorityResolutionFailure,
-    GovernedComponentResolver,
-    ValidatedAuthoritySet,
-    build_authoritative_resolver,
-    canonical_bytes,
-    derive_canonical_repository_root,
-    sha256_bytes,
-)
+import scripts.closure_assurance_v2_2_4_a as assurance
 from scripts.run_mission_closure_v2_2_4_a import authorize_component
 from scripts.closure_assurance_v2_2_3 import (
     ComponentEntry as HistoricalComponentEntry,
@@ -32,8 +23,8 @@ from scripts.closure_assurance_v2_2_3 import (
 
 ROOT = Path(__file__).resolve().parents[1]
 RUNNER = ROOT / "scripts" / "run_mission_closure_v2_2_4_a.py"
-AUTHORITY = ROOT / successor.AUTHORITY_RELATIVE_PATH
-BASELINE = "c920d3545c6862e4d6a4f8e88aed443ad6f8d071"
+AUTHORITY = ROOT / assurance.AUTHORITY_RELATIVE_PATH
+BASELINE = "41636ecd3d2806b8699a3c656afa8f947992125e"
 HISTORICAL_HASHES = {
     "scripts/closure_assurance_v2_2_3.py": "eabd1a6327d51b8032b56c57c6181bbcc62e68e6de61b0637460bd5fedbef1b6",
     "scripts/run_mission_closure_v2_2_3.py": "84075336ba472884116fe3f83fb3a6347c6171e586fe3f17910091b4988a2498",
@@ -47,233 +38,271 @@ HISTORICAL_HASHES = {
 }
 
 
-def run_runner(*args: str, cwd: Path = ROOT, env: dict[str, str] | None = None) -> subprocess.CompletedProcess[str]:
+def _run(path: Path, *args: str, cwd: Path | None = None, env: dict[str, str] | None = None) -> subprocess.CompletedProcess[str]:
     merged = os.environ.copy()
-    if env is not None:
+    if env:
         merged.update(env)
-    return subprocess.run(
-        [sys.executable, str(RUNNER), *args],
-        cwd=cwd,
-        env=merged,
-        capture_output=True,
-        text=True,
+    return subprocess.run([sys.executable, str(path), *args], cwd=cwd or path.parent.parent, env=merged, capture_output=True, text=True)
+
+
+def _json_stderr(result: subprocess.CompletedProcess[str]) -> dict:
+    return json.loads(result.stderr)
+
+
+def _cleanup_readonly(function, path, _exc):
+    os.chmod(path, stat.S_IWRITE)
+    function(path)
+
+
+def _commit(repo: Path, message: str) -> None:
+    subprocess.run(["git", "-C", str(repo), "add", "--all"], check=True, capture_output=True, text=True)
+    subprocess.run(["git", "-C", str(repo), "-c", "user.name=Micro A Test", "-c", "user.email=micro-a-test@example.invalid", "commit", "-m", message], check=True, capture_output=True, text=True)
+
+
+def _copy_candidate_surfaces(repo: Path) -> None:
+    for relative in (
+        assurance.RESOLVER_RELATIVE_PATH,
+        assurance.ENTRYPOINT_RELATIVE_PATH,
+        assurance.CONTRACT_RELATIVE_PATH,
+        assurance.AUTHORITY_RELATIVE_PATH,
+    ):
+        target = repo / relative
+        target.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copyfile(ROOT / relative, target)
+
+
+def _candidate_clone(tmp_path: Path) -> Path:
+    repo = tmp_path / "candidate"
+    subprocess.run(["git", "clone", "--no-local", "--branch", "main", str(ROOT), str(repo)], check=True, capture_output=True, text=True)
+    _copy_candidate_surfaces(repo)
+    subprocess.run(
+        [
+            "git",
+            "-C",
+            str(repo),
+            "add",
+            assurance.RESOLVER_RELATIVE_PATH,
+            assurance.ENTRYPOINT_RELATIVE_PATH,
+            assurance.CONTRACT_RELATIVE_PATH,
+            assurance.AUTHORITY_RELATIVE_PATH,
+        ],
+        check=True,
     )
+    _commit(repo, "test: create isolated Micro A candidate")
+    return repo
 
 
-def error_code(callable_object, *args, **kwargs) -> str:
-    with pytest.raises(AuthorityResolutionFailure) as caught:
-        callable_object(*args, **kwargs)
-    return caught.value.code
+def _remove_candidate(repo: Path) -> None:
+    if repo.exists():
+        shutil.rmtree(repo, onerror=_cleanup_readonly)
 
 
-def test_preflight_baseline_and_historical_bytes_are_preserved():
+@pytest.fixture
+def candidate_clone(tmp_path: Path):
+    repo = _candidate_clone(tmp_path)
+    try:
+        yield repo
+    finally:
+        _remove_candidate(repo)
+
+
+def _update_manifest_to_worktree(repo: Path) -> None:
+    manifest_path = repo / assurance.AUTHORITY_RELATIVE_PATH
+    manifest = json.loads(manifest_path.read_bytes())
+    for entry in manifest["entries"]:
+        raw = (repo / entry["repository_relative_path"]).read_bytes()
+        entry["byte_length"] = len(raw)
+        entry["sha256"] = hashlib.sha256(raw).hexdigest()
+    payload = {key: value for key, value in manifest.items() if key != "manifest_sha256"}
+    manifest["manifest_sha256"] = hashlib.sha256((json.dumps(payload, ensure_ascii=False, sort_keys=True, separators=(",", ":")) + "\n").encode()).hexdigest()
+    manifest_path.write_bytes((json.dumps(manifest, ensure_ascii=False, sort_keys=True, separators=(",", ":")) + "\n").encode())
+
+
+def test_baseline_exists_and_v2_2_3_is_byte_identical():
     assert subprocess.run(["git", "cat-file", "-e", f"{BASELINE}^{{commit}}"], cwd=ROOT, capture_output=True).returncode == 0
     for relative, expected in HISTORICAL_HASHES.items():
         assert hashlib.sha256((ROOT / relative).read_bytes()).hexdigest() == expected
 
 
-def test_historical_missing_authority_bypass_is_reproduced():
-    raw = b"historical component bytes\n"
-    resolver = HistoricalResolver([HistoricalComponentEntry("known", "implementation", raw, "implementation")])
-    assert resolver.resolve("known", "implementation") == raw
+def test_r1_j_historical_externally_constructed_state_is_reproduced():
+    raw = (ROOT / "README.md").read_bytes()
+    entry = HistoricalComponentEntry("caller-readme", "implementation", raw, "implementation")
+    resolver = HistoricalResolver([entry])
+    released = resolver.resolve("caller-readme", "implementation")
+    assert released == raw
+    assert resolver.trace_document({"caller-readme"})["result"] == "PASS"
 
 
-def test_successor_real_entrypoint_authorizes_exact_bytes():
-    result = run_runner("resolve", "successor-resolver", "implementation")
+def test_r1_j_repaired_successor_has_no_externally_constructible_authority_surface(candidate_clone):
+    assert not hasattr(assurance, "GovernedComponentResolver")
+    assert not hasattr(assurance, "ValidatedAuthoritySet")
+    assert not hasattr(assurance, "AuthorityEntry")
+    assert not hasattr(assurance, "_VALIDATION_TOKEN")
+    assert list(inspect.signature(authorize_component).parameters) == ["logical_artifact_id", "semantic_role"]
+    result = _run(candidate_clone / assurance.ENTRYPOINT_RELATIVE_PATH, "resolve", "caller-readme", "implementation")
+    assert result.returncode != 0
+    assert _json_stderr(result)["result"] == "REJECTED_UNKNOWN_COMPONENT"
+
+
+def test_r1_k_historical_self_consistent_local_state_was_reproduced_and_is_now_rejected(candidate_clone):
+    resolver_path = candidate_clone / assurance.RESOLVER_RELATIVE_PATH
+    resolver_path.write_bytes(resolver_path.read_bytes() + b"\n# uncommitted local mutation\n")
+    _update_manifest_to_worktree(candidate_clone)
+    result = _run(candidate_clone / assurance.ENTRYPOINT_RELATIVE_PATH, "resolve", "successor-resolver", "implementation")
+    assert result.returncode != 0
+    assert _json_stderr(result)["result"] == "REJECTED_RELEVANT_LOCAL_STATE_DIFFERS_FROM_COMMIT"
+
+
+def test_positive_real_entrypoint_is_commit_bound(candidate_clone):
+    result = _run(candidate_clone / assurance.ENTRYPOINT_RELATIVE_PATH, "resolve", "successor-resolver", "implementation")
     assert result.returncode == 0, result.stderr
     payload = json.loads(result.stdout)
-    assert payload["result"] == "AUTHORIZED_BYTES_RELEASED"
-    assert payload["released_sha256"] == hashlib.sha256((ROOT / successor.RESOLVER_RELATIVE_PATH).read_bytes()).hexdigest()
-    assert payload["authorization_trace"]["authority_only"] is True
+    commit = subprocess.check_output(["git", "-C", str(candidate_clone), "rev-parse", "HEAD"], text=True).strip()
+    expected = hashlib.sha256((candidate_clone / assurance.RESOLVER_RELATIVE_PATH).read_bytes()).hexdigest()
     event = payload["authorization_trace"]["events"][0]
-    assert event["recomputed_component_sha256"] == payload["released_sha256"]
-    assert event["authorized_entry_sha256"] == payload["released_sha256"]
+    assert payload["result"] == "AUTHORIZED_BYTES_RELEASED"
+    assert event["derived_commit_sha"] == commit
+    assert payload["released_sha256"] == expected
+    assert event["recomputed_component_sha256"] == event["authorized_entry_sha256"] == expected
     assert "execution_success" not in event
     assert "validation_success" not in event
     assert "component_pass" not in event
 
 
-def test_r1_a_successor_missing_authority_rejects(monkeypatch):
-    def missing(_root):
-        raise AuthorityResolutionFailure("REJECTED_MISSING_AUTHORITY", "no binding exists")
-
-    monkeypatch.setattr(successor, "_load_validated_authority_set", missing)
-    assert error_code(successor.build_authoritative_resolver) == "REJECTED_MISSING_AUTHORITY"
-
-
-def test_no_authority_or_empty_authority_cannot_construct():
-    assert error_code(GovernedComponentResolver) == "REJECTED_MISSING_AUTHORITY_SET"
-    empty = ValidatedAuthoritySet(ROOT, AUTHORITY, "a" * 64, (), successor._VALIDATION_TOKEN)
-    assert error_code(GovernedComponentResolver, empty) == "REJECTED_EMPTY_AUTHORITY_SET"
-    assert error_code(GovernedComponentResolver, {"known": b"substitute"}) == "REJECTED_INVALID_AUTHORITY_SET"
-
-
-def test_r1_b_unknown_component_rejects_from_real_entrypoint():
-    result = run_runner("resolve", "unknown-component", "implementation")
+def test_r1_a_missing_governed_input_fails_closed(candidate_clone):
+    manifest_path = candidate_clone / assurance.AUTHORITY_RELATIVE_PATH
+    manifest = json.loads(manifest_path.read_bytes())
+    manifest["entries"] = []
+    payload = {key: value for key, value in manifest.items() if key != "manifest_sha256"}
+    manifest["manifest_sha256"] = hashlib.sha256((json.dumps(payload, ensure_ascii=False, sort_keys=True, separators=(",", ":")) + "\n").encode()).hexdigest()
+    manifest_path.write_bytes((json.dumps(manifest, ensure_ascii=False, sort_keys=True, separators=(",", ":")) + "\n").encode())
+    _commit(candidate_clone, "test: commit empty authority fixture")
+    result = _run(candidate_clone / assurance.ENTRYPOINT_RELATIVE_PATH, "resolve", "successor-resolver", "implementation")
     assert result.returncode != 0
-    assert json.loads(result.stderr)["result"] == "REJECTED_UNKNOWN_COMPONENT"
+    assert _json_stderr(result)["result"] == "REJECTED_EMPTY_AUTHORITY_SET"
 
 
-def test_r1_c_wrong_hash_rejects_and_does_not_release_bytes():
-    authority = successor._load_validated_authority_set(ROOT)
-    original = authority.entries[0]
-    wrong = AuthorityEntry(original.logical_artifact_id, original.semantic_role, original.relative_path, original.byte_length, "0" * 64, original.content_role)
-    forged = ValidatedAuthoritySet(ROOT, authority.manifest_path, authority.manifest_sha256, (wrong, *authority.entries[1:]), successor._VALIDATION_TOKEN)
-    resolver = GovernedComponentResolver(forged)
-    assert error_code(resolver.resolve, original.logical_artifact_id, original.semantic_role) == "REJECTED_COMPONENT_HASH_MISMATCH"
-    assert resolver.authorization_trace()["events"] == []
-
-
-def test_r1_d_wrong_role_rejects():
-    resolver = build_authoritative_resolver()
-    assert error_code(resolver.resolve, "successor-resolver", "entrypoint") == "REJECTED_SEMANTIC_ROLE_MISMATCH"
-    assert resolver.authorization_trace()["events"] == []
-
-
-def test_r1_e_caller_component_substitute_rejects():
-    resolver = build_authoritative_resolver()
-    assert error_code(resolver.resolve, "successor-resolver", "implementation", b"substitute") == "REJECTED_CALLER_COMPONENT_SUBSTITUTE"
-    assert error_code(resolver.resolve, "successor-resolver", "implementation", raw_bytes=b"substitute") == "REJECTED_CALLER_COMPONENT_SUBSTITUTE"
-    assert error_code(GovernedComponentResolver, ["caller entry"]) == "REJECTED_INVALID_AUTHORITY_SET"
-    result = run_runner("resolve", "successor-resolver", "implementation", "--component-path", "C:\\temp")
+def test_r1_b_unknown_component(candidate_clone):
+    result = _run(candidate_clone / assurance.ENTRYPOINT_RELATIVE_PATH, "resolve", "unknown-component", "implementation")
     assert result.returncode != 0
-    assert json.loads(result.stderr)["result"] == "REJECTED_CALLER_COMPONENT_SUBSTITUTE"
+    assert _json_stderr(result)["result"] == "REJECTED_UNKNOWN_COMPONENT"
 
 
-def test_r1_f_caller_selected_authority_set_rejects(monkeypatch):
-    monkeypatch.setenv("IA_CORE_AUTHORITY_SET_PATH", str(ROOT / "docs" / "anything.json"))
-    assert error_code(build_authoritative_resolver) == "REJECTED_CALLER_AUTHORITY_SET_SELECTION"
-    result = run_runner("resolve", "successor-resolver", "implementation", env={"IA_CORE_AUTHORITY_MANIFEST": "C:\\temp\\authority.json"})
+def test_r1_c_wrong_component_hash_is_rejected_from_same_commit(candidate_clone):
+    manifest_path = candidate_clone / assurance.AUTHORITY_RELATIVE_PATH
+    manifest = json.loads(manifest_path.read_bytes())
+    for entry in manifest["entries"]:
+        if entry["logical_artifact_id"] == "successor-resolver":
+            entry["sha256"] = "0" * 64
+    payload = {key: value for key, value in manifest.items() if key != "manifest_sha256"}
+    manifest["manifest_sha256"] = hashlib.sha256((json.dumps(payload, ensure_ascii=False, sort_keys=True, separators=(",", ":")) + "\n").encode()).hexdigest()
+    manifest_path.write_bytes((json.dumps(manifest, ensure_ascii=False, sort_keys=True, separators=(",", ":")) + "\n").encode())
+    _commit(candidate_clone, "test: commit wrong component hash fixture")
+    result = _run(candidate_clone / assurance.ENTRYPOINT_RELATIVE_PATH, "resolve", "successor-resolver", "implementation")
     assert result.returncode != 0
-    assert json.loads(result.stderr)["result"] == "REJECTED_CALLER_AUTHORITY_SET_SELECTION"
+    assert _json_stderr(result)["result"] == "REJECTED_COMPONENT_HASH_MISMATCH"
 
 
-def test_r1_g_caller_selected_repository_root_rejects(monkeypatch):
-    monkeypatch.setenv("IA_CORE_REPOSITORY_ROOT", str(ROOT))
-    assert error_code(derive_canonical_repository_root) == "REJECTED_CALLER_REPOSITORY_ROOT_SELECTION"
-    result = run_runner("resolve", "successor-resolver", "implementation", "--repo-root", "C:\\temp")
+def test_r1_d_wrong_role(candidate_clone):
+    result = _run(candidate_clone / assurance.ENTRYPOINT_RELATIVE_PATH, "resolve", "successor-resolver", "entrypoint")
     assert result.returncode != 0
-    assert json.loads(result.stderr)["result"] == "REJECTED_CALLER_REPOSITORY_ROOT_SELECTION"
-    result = run_runner("resolve", "successor-resolver", "implementation", env={"GIT_DIR": "C:\\temp\\.git"})
+    assert _json_stderr(result)["result"] == "REJECTED_SEMANTIC_ROLE_MISMATCH"
+
+
+def test_r1_e_caller_component_substitute(candidate_clone):
+    result = _run(candidate_clone / assurance.ENTRYPOINT_RELATIVE_PATH, "resolve", "successor-resolver", "implementation", "--loader", "caller")
     assert result.returncode != 0
-    assert json.loads(result.stderr)["result"] == "REJECTED_CALLER_REPOSITORY_ROOT_SELECTION"
+    assert _json_stderr(result)["result"] == "REJECTED_CALLER_COMPONENT_SUBSTITUTE"
 
 
-def test_r1_h_current_working_directory_does_not_change_authority_location():
-    first = run_runner("resolve", "successor-resolver", "implementation", cwd=ROOT)
-    second = run_runner("resolve", "successor-resolver", "implementation", cwd=Path(r"C:\Windows"))
+def test_r1_f_caller_authority_set(candidate_clone):
+    result = _run(candidate_clone / assurance.ENTRYPOINT_RELATIVE_PATH, "resolve", "successor-resolver", "implementation", "--manifest", "README.md")
+    assert result.returncode != 0
+    assert _json_stderr(result)["result"] == "REJECTED_CALLER_AUTHORITY_SET_SELECTION"
+    result = _run(candidate_clone / assurance.ENTRYPOINT_RELATIVE_PATH, "resolve", "successor-resolver", "implementation", env={"IA_CORE_AUTHORITY_SET_PATH": "README.md"})
+    assert result.returncode != 0
+    assert _json_stderr(result)["result"] == "REJECTED_CALLER_AUTHORITY_SET_SELECTION"
+
+
+def test_r1_g_caller_root_commit_and_branch(candidate_clone):
+    for flag, expected in (("--repository-root", "REJECTED_CALLER_REPOSITORY_ROOT_SELECTION"), ("--commit", "REJECTED_CALLER_REPOSITORY_ROOT_SELECTION"), ("--branch", "REJECTED_CALLER_REPOSITORY_ROOT_SELECTION")):
+        result = _run(candidate_clone / assurance.ENTRYPOINT_RELATIVE_PATH, "resolve", "successor-resolver", "implementation", flag, "other")
+        assert result.returncode != 0
+        assert _json_stderr(result)["result"] == expected
+    result = _run(candidate_clone / assurance.ENTRYPOINT_RELATIVE_PATH, "resolve", "successor-resolver", "implementation", env={"IA_CORE_COMMIT": "0" * 40})
+    assert result.returncode != 0
+    assert _json_stderr(result)["result"] == "REJECTED_CALLER_COMMIT_SELECTION"
+
+
+def test_r1_h_cwd_independence(candidate_clone):
+    first = _run(candidate_clone / assurance.ENTRYPOINT_RELATIVE_PATH, "resolve", "successor-resolver", "implementation", cwd=candidate_clone)
+    second = _run(candidate_clone / assurance.ENTRYPOINT_RELATIVE_PATH, "resolve", "successor-resolver", "implementation", cwd=Path(r"C:\Windows"))
     assert first.returncode == second.returncode == 0
     first_payload = json.loads(first.stdout)
     second_payload = json.loads(second.stdout)
-    first_event = first_payload["authorization_trace"]["events"][0]
-    second_event = second_payload["authorization_trace"]["events"][0]
-    assert first_event["authority_set_identity"] == second_event["authority_set_identity"]
-    assert first_event["canonical_repository_root_identity"] == second_event["canonical_repository_root_identity"]
     assert first_payload["released_sha256"] == second_payload["released_sha256"]
+    assert first_payload["authorization_trace"]["events"][0]["authority_set_identity"] == second_payload["authorization_trace"]["events"][0]["authority_set_identity"]
 
 
-def test_r1_i_exact_authorized_bytes_are_released_and_trace_is_resolver_owned():
-    resolver = build_authoritative_resolver()
-    raw = resolver.resolve("successor-entrypoint", "entrypoint")
-    event = resolver.authorization_trace()["events"][0]
-    assert sha256_bytes(raw) == event["recomputed_component_sha256"] == event["authorized_entry_sha256"]
-    assert event["byte_length"] == len(raw)
+def test_r1_i_exact_authorized_bytes_and_trace_ceiling(candidate_clone):
+    result = _run(candidate_clone / assurance.ENTRYPOINT_RELATIVE_PATH, "resolve", "successor-entrypoint", "entrypoint")
+    assert result.returncode == 0
+    payload = json.loads(result.stdout)
+    event = payload["authorization_trace"]["events"][0]
+    assert event["resolution_state"] == "COMMIT_BOUND_AUTHORIZED"
     assert event["bytes_released"] is True
-    assert event["authorization_result"] == "AUTHORIZED_BYTES_RELEASED"
-    assert event["semantic_role"] == "entrypoint"
-    assert event["logical_artifact_id"] == "successor-entrypoint"
+    assert event["recomputed_component_sha256"] == event["authorized_entry_sha256"] == payload["released_sha256"]
+    assert event["derived_commit_sha"] == subprocess.check_output(["git", "-C", str(candidate_clone), "rev-parse", "HEAD"], text=True).strip()
 
 
-def test_same_byte_single_read_is_proven(monkeypatch):
-    resolver = build_authoritative_resolver()
-    entry = resolver._by_id["successor-resolver"]
-    target = (ROOT / entry.relative_path).resolve()
-    real_open = builtins.open
-    reads = []
-
-    def counted_open(file, mode="r", *args, **kwargs):
-        if Path(file).resolve() == target and "rb" in mode:
-            reads.append(file)
-        return real_open(file, mode, *args, **kwargs)
-
-    monkeypatch.setattr(builtins, "open", counted_open)
-    raw = resolver.resolve("successor-resolver", "implementation")
-    assert len(reads) == 1
-    event = resolver.authorization_trace()["events"][0]
-    assert raw is not None
-    assert sha256_bytes(raw) == event["recomputed_component_sha256"] == event["authorized_entry_sha256"]
+def test_detached_head_rejected(candidate_clone):
+    subprocess.run(["git", "-C", str(candidate_clone), "checkout", "--detach", "HEAD"], check=True, capture_output=True)
+    result = _run(candidate_clone / assurance.ENTRYPOINT_RELATIVE_PATH, "resolve", "successor-resolver", "implementation")
+    assert result.returncode != 0
+    assert _json_stderr(result)["result"] == "REJECTED_DETACHED_HEAD"
 
 
-def test_no_component_bytes_reach_loader_before_authorization(monkeypatch):
-    calls = []
-    original = successor._read_exact_authorized_component
-
-    def observed(*args, **kwargs):
-        calls.append(True)
-        return original(*args, **kwargs)
-
-    monkeypatch.setattr(successor, "_read_exact_authorized_component", observed)
-    resolver = build_authoritative_resolver()
-    assert error_code(resolver.resolve, "unknown-component", "implementation") == "REJECTED_UNKNOWN_COMPONENT"
-    assert error_code(resolver.resolve, "successor-resolver", "entrypoint") == "REJECTED_SEMANTIC_ROLE_MISMATCH"
-    assert calls == []
-    resolver.resolve("successor-resolver", "implementation")
-    assert calls == [True]
+def test_wrong_branch_rejected(candidate_clone):
+    subprocess.run(["git", "-C", str(candidate_clone), "checkout", "-b", "not-main"], check=True, capture_output=True)
+    result = _run(candidate_clone / assurance.ENTRYPOINT_RELATIVE_PATH, "resolve", "successor-resolver", "implementation")
+    assert result.returncode != 0
+    assert _json_stderr(result)["result"] == "REJECTED_BRANCH_NOT_MAIN"
 
 
-def test_fake_trace_cannot_create_authority():
-    fake_trace = {"authorization_result": "AUTHORIZED_BYTES_RELEASED", "bytes_released": True}
-    assert "authority_set_identity" not in fake_trace
-    resolver = build_authoritative_resolver()
-    assert resolver.authorization_trace()["events"] == []
-    assert error_code(resolver.resolve, "unknown-component", "implementation") == "REJECTED_UNKNOWN_COMPONENT"
-    assert resolver.authorization_trace()["events"] == []
+def test_staged_relevant_change_rejected(candidate_clone):
+    runner = candidate_clone / assurance.ENTRYPOINT_RELATIVE_PATH
+    runner.write_bytes(runner.read_bytes() + b"\n# staged mutation\n")
+    subprocess.run(["git", "-C", str(candidate_clone), "add", assurance.ENTRYPOINT_RELATIVE_PATH], check=True)
+    result = _run(candidate_clone / assurance.ENTRYPOINT_RELATIVE_PATH, "resolve", "successor-resolver", "implementation")
+    assert result.returncode != 0
+    assert _json_stderr(result)["result"] == "REJECTED_RELEVANT_LOCAL_STATE_DIFFERS_FROM_COMMIT"
 
 
-def test_fixed_authority_location_and_root_are_internal():
-    assert successor.AUTHORITY_RELATIVE_PATH == "docs/ROADMAP_4X_MACRO_06_2_4_A_AUTHORIZED_VALIDATION_INPUT_SET.json"
-    assert derive_canonical_repository_root() == ROOT.resolve()
-    signature = inspect.signature(authorize_component)
-    assert list(signature.parameters) == ["logical_artifact_id", "semantic_role"]
-    assert Path(__file__).resolve().parents[1] == ROOT.resolve()
+def test_public_api_has_one_supported_authority_surface(candidate_clone):
+    assert assurance.__all__ == ()
+    import scripts.run_mission_closure_v2_2_4_a as entrypoint
+
+    assert entrypoint.__all__ == ("authorize_component",)
+    assert list(inspect.signature(entrypoint.authorize_component).parameters) == ["logical_artifact_id", "semantic_role"]
+    assert "**kwargs" not in str(inspect.signature(entrypoint.authorize_component))
 
 
-def test_authority_set_is_strict_and_exact():
-    manifest = json.loads(AUTHORITY.read_bytes())
-    assert set(manifest) == {"authority_relative_path", "entries", "manifest_sha256", "mission_id", "set_version"}
-    assert len(manifest["entries"]) == 3
-    assert {entry["logical_artifact_id"] for entry in manifest["entries"]} == set(successor.EXPECTED_COMPONENTS)
-    assert successor._load_validated_authority_set(ROOT).manifest_sha256 == manifest["manifest_sha256"]
-    duplicate = b'{"entries":[],"entries":[]}'
-    assert error_code(successor._strict_json, duplicate, "duplicate") == "REJECTED_INVALID_AUTHORITY_SET"
-
-
-def test_successor_loader_bypass_guard_is_executable_ast_check():
-    source = (ROOT / successor.RESOLVER_RELATIVE_PATH).read_text(encoding="utf-8")
+def test_git_object_reads_are_binary_shell_false_and_path_is_fixed():
+    source = (ROOT / assurance.RESOLVER_RELATIVE_PATH).read_text(encoding="utf-8")
     tree = ast.parse(source)
-    direct_file_reads: list[tuple[str, int]] = []
+    assert "cat-file" in source
+    assert "ls-tree" in source
+    run_calls = [node for node in ast.walk(tree) if isinstance(node, ast.Call) and isinstance(node.func, ast.Attribute) and node.func.attr == "run"]
+    assert run_calls
+    assert any(keyword.arg == "shell" and isinstance(keyword.value, ast.Constant) and keyword.value.value is False for call in run_calls for keyword in call.keywords)
+    assert any(keyword.arg == "text" and isinstance(keyword.value, ast.Constant) and keyword.value.value is False for call in run_calls for keyword in call.keywords)
+    assert assurance.AUTHORITY_RELATIVE_PATH == "docs/ROADMAP_4X_MACRO_06_2_4_A_AUTHORIZED_VALIDATION_INPUT_SET.json"
 
-    class Visitor(ast.NodeVisitor):
-        def __init__(self):
-            self.function = "<module>"
 
-        def visit_FunctionDef(self, node):
-            previous = self.function
-            self.function = node.name
-            self.generic_visit(node)
-            self.function = previous
-
-        visit_AsyncFunctionDef = visit_FunctionDef
-
-        def visit_Call(self, node):
-            if isinstance(node.func, ast.Name) and node.func.id == "open" and self.function != "_read_exact_authorized_component":
-                direct_file_reads.append((self.function, node.lineno))
-            if isinstance(node.func, ast.Attribute) and node.func.attr in {"read_bytes", "read_text"} and self.function not in {"_load_validated_authority_set"}:
-                direct_file_reads.append((self.function, node.lineno))
-            self.generic_visit(node)
-
-    Visitor().visit(tree)
-    assert direct_file_reads == []
+def test_relevant_paths_are_exactly_equal_to_head_on_candidate(candidate_clone):
+    assert Path(subprocess.check_output(["git", "rev-parse", "--show-toplevel"], cwd=candidate_clone, text=True).strip()).resolve() == candidate_clone.resolve()
+    assert subprocess.check_output(["git", "branch", "--show-current"], cwd=candidate_clone, text=True).strip() == "main"
+    assert subprocess.run(["git", "diff", "--quiet", "HEAD", "--", assurance.RESOLVER_RELATIVE_PATH, assurance.ENTRYPOINT_RELATIVE_PATH, assurance.AUTHORITY_RELATIVE_PATH, assurance.CONTRACT_RELATIVE_PATH], cwd=candidate_clone).returncode == 0
 
 
 def test_historical_impact_and_product_boundaries_are_clean():
@@ -284,8 +313,9 @@ def test_historical_impact_and_product_boundaries_are_clean():
     assert forbidden == set()
 
 
-def test_py_compile_and_new_json_are_valid():
-    completed = subprocess.run([sys.executable, "-m", "py_compile", str(ROOT / "scripts" / "closure_assurance_v2_2_4_a.py"), str(RUNNER)], cwd=ROOT, capture_output=True, text=True)
-    assert completed.returncode == 0, completed.stderr
+def test_py_compile_and_authority_json():
+    result = subprocess.run([sys.executable, "-m", "py_compile", str(ROOT / assurance.RESOLVER_RELATIVE_PATH), str(RUNNER)], cwd=ROOT, capture_output=True, text=True)
+    assert result.returncode == 0, result.stderr
     manifest = json.loads(AUTHORITY.read_bytes())
-    assert manifest["manifest_sha256"] == sha256_bytes(canonical_bytes(manifest, exclude={"manifest_sha256"}))
+    canonical = {key: value for key, value in manifest.items() if key != "manifest_sha256"}
+    assert manifest["manifest_sha256"] == hashlib.sha256((json.dumps(canonical, ensure_ascii=False, sort_keys=True, separators=(",", ":")) + "\n").encode()).hexdigest()
